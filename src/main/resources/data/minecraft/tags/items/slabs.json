@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "cave_upgrade:cobblestone_tile_slab",
+    "cave_upgrade:mossy_cobblestone_tile_slab"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "cave_upgrade:block/mossy_cobblestone_tile_slab" },
+        "type=top": { "model": "cave_upgrade:block/mossy_cobblestone_tile_slab_top" },
+        "type=double": { "model": "cave_upgrade:block/mossy_cobblestone_tiles" }
+    }
+}

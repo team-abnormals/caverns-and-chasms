@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.minecraftabnormals.cave_upgrade.core.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "cave_upgrade.refmap.json",
+  "mixins": [],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

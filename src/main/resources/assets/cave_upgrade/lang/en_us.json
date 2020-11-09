@@ -1,0 +1,32 @@
+{
+  "block.cave_upgrade.cobblestone_tiles": "Cobblestone Tiles",
+  "block.cave_upgrade.cobblestone_tile_slab": "Cobblestone Tile Slab",
+  "block.cave_upgrade.cobblestone_tile_stairs": "Cobblestone Tile Stairs",
+  "block.cave_upgrade.cobblestone_tile_wall": "Cobblestone Tile Wall",
+  "block.cave_upgrade.cobblestone_tile_vertical_slab": "Cobblestone Tile Vertical Slab",
+  "block.cave_upgrade.mossy_cobblestone_tiles": "Mossy Cobblestone Tiles",
+  "block.cave_upgrade.mossy_cobblestone_tile_slab": "Mossy Cobblestone Tile Slab",
+  "block.cave_upgrade.mossy_cobblestone_tile_stairs": "Mossy Cobblestone Tile Stairs",
+  "block.cave_upgrade.mossy_cobblestone_tile_wall": "Mossy Cobblestone Tile Wall",
+  "block.cave_upgrade.mossy_cobblestone_tile_vertical_slab": "Mossy Cobblestone Tile Vertical Slab",
+  
+  "item.cave_upgrade.cavefish": "Cavefish",
+  "item.cave_upgrade.cooked_cavefish": "Cooked Cavefish",
+  "item.cave_upgrade.cavefish_bucket": "Bucket of Cavefish",
+  
+  "item.cave_upgrade.golden_bucket": "Golden Bucket",
+  "item.cave_upgrade.golden_water_bucket": "Golden Water Bucket",
+  "item.cave_upgrade.golden_lava_bucket": "Golden Lava Bucket",
+  "item.cave_upgrade.golden_milk_bucket": "Golden Milk Bucket",
+  
+  "item.cave_upgrade.cavefish_spawn_egg": "Cavefish Spawn Egg",
+  "item.cave_upgrade.deeper_spawn_egg": "Deeper Spawn Egg",
+  
+  "entity.cave_upgrade.cavefish": "Cavefish",
+  "entity.cave_upgrade.deeper": "Deeper",
+
+  "item.minecraft.bucket": "Iron Bucket",
+  "item.minecraft.water_bucket": "Iron Water Bucket",
+  "item.minecraft.lava_bucket": "Iron Lava Bucket",
+  "item.minecraft.milk_bucket": "Iron Milk Bucket"
+}

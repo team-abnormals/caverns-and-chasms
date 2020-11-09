@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "cave_upgrade:cobblestone_tiles"
+    },
+    {
+      "item": "minecraft:cobblestone"
+    }
+  ],
+  "result": "cave_upgrade:cobblestone_tile_stairs",
+  "count": 1
+}

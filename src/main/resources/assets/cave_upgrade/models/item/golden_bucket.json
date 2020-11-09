@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "cave_upgrade:item/golden_bucket0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "level": 1
+      },
+      "model": "cave_upgrade:item/golden_bucket1"
+    },
+    {
+      "predicate": {
+        "level": 2
+      },
+      "model": "cave_upgrade:item/golden_bucket2"
+    }
+  ]
+}

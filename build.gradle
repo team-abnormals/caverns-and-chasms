@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
+
+version = "${project.minecraft}-${project.modVersion}"
+group = "com.minecraftabnormals"
+archivesBaseName = project.modId
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+mixin {
+    add sourceSets.main, "cave_upgrade.refmap.json"
+}
+
+minecraft {
+    mappings channel: project.mappingsChannel, version: project.mappings
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run/client')
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+            property "forge.logging.console.level", "debug"
+            property "mixin.env.disableRefMap", "true"
+            arg "-mixin.config=cave_upgrade.mixins.json"
+            mods {
+                cave_upgrade {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run/server')
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+            property "forge.logging.console.level", "debug"
+            property "mixin.env.disableRefMap", "true"
+            arg "-mixin.config=cave_upgrade.mixins.json"
+            mods {
+                cave_upgrade {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run/data')
+            property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
+            property "forge.logging.console.level", "debug"
+            args '--mod', 'example', '--all', '--output', file('src/generated/resources/')
+            mods {
+                cave_upgrade {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${project.minecraft}-${project.forge}"
+    implementation fg.deobf("curse.maven:abnormals-core:${project.abnormalsCore}")
+    implementation fg.deobf("curse.maven:jei:3028697")
+}
+
+repositories {
+  maven {
+    url = "https://www.cursemaven.com"
+  }
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": project.name,
+            "Specification-Vendor": "Team Abnormals",
+            "Specification-Version": "1",
+            "Implementation-Title": project.name,
+            "Implementation-Version": project.modVersion,
+            "Implementation-Vendor": "Team Abnormals",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "cave_upgrade.mixins.json"
+        ])
+    }
+}

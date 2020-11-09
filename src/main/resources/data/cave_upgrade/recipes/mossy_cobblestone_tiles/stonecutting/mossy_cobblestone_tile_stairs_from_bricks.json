@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "quark:mossy_cobblestone_bricks"
+  },
+  "result": "cave_upgrade:mossy_cobblestone_tile_stairs",
+  "count": 1,
+  "conditions": [
+    {
+      "type": "abnormals_core:quark_flag",
+      "flag": "cobblestone_bricks"
+    }
+  ]
+}
