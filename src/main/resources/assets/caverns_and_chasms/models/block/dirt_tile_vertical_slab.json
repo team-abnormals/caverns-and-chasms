@@ -1,0 +1,8 @@
+{
+  "parent": "abnormals_core:block/vertical_slab",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/dirt_tiles",
+    "top": "caverns_and_chasms:block/dirt_tiles",
+    "side": "caverns_and_chasms:block/dirt_tiles"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": "caverns_and_chasms:dirt_bricks",
+  "count": 1
+}

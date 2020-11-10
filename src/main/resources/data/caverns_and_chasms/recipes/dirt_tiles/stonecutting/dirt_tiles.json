@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "caverns_and_chasms:dirt_bricks"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": "caverns_and_chasms:dirt_tiles",
+  "count": 1
+}

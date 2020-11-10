@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "caverns_and_chasms:dirt_brick_stairs",
+    "caverns_and_chasms:dirt_tile_stairs",
     "caverns_and_chasms:cobblestone_tile_stairs",
     "caverns_and_chasms:mossy_cobblestone_tile_stairs"
   ]

@@ -1,4 +1,16 @@
 {
+  "block.caverns_and_chasms.dirt_bricks": "Dirt Bricks",
+  "block.caverns_and_chasms.dirt_brick_slab": "Dirt Brick Slab",
+  "block.caverns_and_chasms.dirt_brick_stairs": "Dirt Brick Stairs",
+  "block.caverns_and_chasms.dirt_brick_wall": "Dirt Brick Wall",
+  "block.caverns_and_chasms.dirt_brick_vertical_slab": "Dirt Brick Vertical Slab",
+
+  "block.caverns_and_chasms.dirt_tiles": "Dirt Tiles",
+  "block.caverns_and_chasms.dirt_tile_slab": "Dirt Tile Slab",
+  "block.caverns_and_chasms.dirt_tile_stairs": "Dirt Tile Stairs",
+  "block.caverns_and_chasms.dirt_tile_wall": "Dirt Tile Wall",
+  "block.caverns_and_chasms.dirt_tile_vertical_slab": "Dirt Tile Vertical Slab",
+  
   "block.caverns_and_chasms.cobblestone_tiles": "Cobblestone Tiles",
   "block.caverns_and_chasms.cobblestone_tile_slab": "Cobblestone Tile Slab",
   "block.caverns_and_chasms.cobblestone_tile_stairs": "Cobblestone Tile Stairs",
