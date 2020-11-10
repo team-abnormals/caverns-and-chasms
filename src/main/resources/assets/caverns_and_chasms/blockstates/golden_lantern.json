@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=down": { "model": "caverns_and_chasms:block/golden_lantern" },
+        "facing=up": { "model": "caverns_and_chasms:block/golden_lantern_ceiling" },
+        "facing=north": { "model": "caverns_and_chasms:block/golden_lantern_side", "y": 180 },
+        "facing=south": { "model": "caverns_and_chasms:block/golden_lantern_side" },
+        "facing=west": { "model": "caverns_and_chasms:block/golden_lantern_side", "y": 90 },
+        "facing=east": { "model": "caverns_and_chasms:block/golden_lantern_side", "y": 270 }
+    }
+}

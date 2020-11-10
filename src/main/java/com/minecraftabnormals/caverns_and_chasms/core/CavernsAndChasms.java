@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
+import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
@@ -42,11 +43,13 @@ public class CavernsAndChasms {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		DeferredWorkQueue.runLater(() -> {
 			CCEntities.registerAttributes();
+			CCCompat.registerDispenserBehaviors();
 		});
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
 		DeferredWorkQueue.runLater(() -> {
+			CCCompat.registerRenderLayers();
 			CCItems.registerItemProperties();
 			CCEntities.registerRenderers();
 		});

@@ -10,6 +10,9 @@
   "block.caverns_and_chasms.mossy_cobblestone_tile_stairs": "Mossy Cobblestone Tile Stairs",
   "block.caverns_and_chasms.mossy_cobblestone_tile_wall": "Mossy Cobblestone Tile Wall",
   "block.caverns_and_chasms.mossy_cobblestone_tile_vertical_slab": "Mossy Cobblestone Tile Vertical Slab",
+
+  "block.caverns_and_chasms.golden_lantern": "Golden Lantern",
+  "block.caverns_and_chasms.golden_bars": "Golden Bars",
   
   "item.caverns_and_chasms.cavefish": "Cavefish",
   "item.caverns_and_chasms.cooked_cavefish": "Cooked Cavefish",

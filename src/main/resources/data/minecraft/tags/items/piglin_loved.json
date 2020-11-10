@@ -4,6 +4,8 @@
     "caverns_and_chasms:golden_bucket",
     "caverns_and_chasms:golden_water_bucket",
     "caverns_and_chasms:golden_lava_bucket",
-    "caverns_and_chasms:golden_milk_bucket"
+    "caverns_and_chasms:golden_milk_bucket",
+    "caverns_and_chasms:golden_lantern",
+    "caverns_and_chasms:golden_bars"
   ]
 }
