@@ -1,7 +1,14 @@
 package com.minecraftabnormals.caverns_and_chasms.core.other;
 
+import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
+import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -9,7 +16,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DrinkHelper;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.IWorld;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -35,6 +46,31 @@ public class CCEvents {
 				if (!player.abilities.isCreativeMode)
 					milkBucket.getOrCreateTag().putInt("FluidLevel", tag.getInt("FluidLevel") + 1);
 				player.setHeldItem(hand, milkBucket);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onExplosion(ExplosionEvent.Detonate event) {
+		if (event.getExplosion().getExplosivePlacedBy().getType() == EntityType.CREEPER) {
+			if (!CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
+				event.getAffectedBlocks().clear();
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onEvent(LivingSpawnEvent.CheckSpawn event) {
+		Entity entity = event.getEntity();
+		IWorld world = event.getWorld();
+		boolean validSpawn = event.getSpawnReason() == SpawnReason.NATURAL || event.getSpawnReason() == SpawnReason.CHUNK_GENERATION;
+		if (event.getResult() != Event.Result.DENY && validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < 60) {
+			CreeperEntity creeper = (CreeperEntity) event.getEntity();
+			if (world.getBlockState(creeper.getPosition().down()).isIn(CCTags.DEEPER_SPAWN_BLOCKS)) {
+				DeeperEntity deeper = CCEntities.DEEPER.get().create(world.getWorld());
+				deeper.setLocationAndAngles(creeper.getPosX(), creeper.getPosY(), creeper.getPosZ(), creeper.rotationYaw, creeper.rotationPitch);
+				world.addEntity(deeper);
+				entity.remove();
 			}
 		}
 	}

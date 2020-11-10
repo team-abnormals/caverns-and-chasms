@@ -2,16 +2,23 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.passive.fish.AbstractGroupFishEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class CavefishEntity extends AbstractGroupFishEntity {
 	public CavefishEntity(EntityType<? extends CavefishEntity> entity, World world) {
@@ -50,5 +57,9 @@ public class CavefishEntity extends AbstractGroupFishEntity {
 	@Override
 	protected SoundEvent getFlopSound() {
 		return SoundEvents.ENTITY_SALMON_FLOP;
+	}
+
+	public static boolean canCavefishSpawn(EntityType<? extends AbstractFishEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
+		return pos.getY() < 60 && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER);
 	}
 }

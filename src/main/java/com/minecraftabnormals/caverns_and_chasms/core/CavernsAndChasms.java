@@ -5,14 +5,15 @@ import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -32,6 +33,8 @@ public class CavernsAndChasms {
 		REGISTRY_HELPER.getDeferredEntityRegister().register(bus);
 		REGISTRY_HELPER.getDeferredSoundRegister().register(bus);
 
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
+
 		bus.addListener(this::commonSetup);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			bus.addListener(this::clientSetup);
@@ -43,6 +46,7 @@ public class CavernsAndChasms {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		DeferredWorkQueue.runLater(() -> {
 			CCEntities.registerAttributes();
+			CCEntities.registerEntitySpawns();
 			CCCompat.registerDispenserBehaviors();
 		});
 	}

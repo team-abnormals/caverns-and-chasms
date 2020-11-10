@@ -1,7 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.item.ItemStack;
