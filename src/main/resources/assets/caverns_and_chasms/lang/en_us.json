@@ -1,0 +1,33 @@
+{
+  "block.caverns_and_chasms.cobblestone_tiles": "Cobblestone Tiles",
+  "block.caverns_and_chasms.cobblestone_tile_slab": "Cobblestone Tile Slab",
+  "block.caverns_and_chasms.cobblestone_tile_stairs": "Cobblestone Tile Stairs",
+  "block.caverns_and_chasms.cobblestone_tile_wall": "Cobblestone Tile Wall",
+  "block.caverns_and_chasms.cobblestone_tile_vertical_slab": "Cobblestone Tile Vertical Slab",
+
+  "block.caverns_and_chasms.mossy_cobblestone_tiles": "Mossy Cobblestone Tiles",
+  "block.caverns_and_chasms.mossy_cobblestone_tile_slab": "Mossy Cobblestone Tile Slab",
+  "block.caverns_and_chasms.mossy_cobblestone_tile_stairs": "Mossy Cobblestone Tile Stairs",
+  "block.caverns_and_chasms.mossy_cobblestone_tile_wall": "Mossy Cobblestone Tile Wall",
+  "block.caverns_and_chasms.mossy_cobblestone_tile_vertical_slab": "Mossy Cobblestone Tile Vertical Slab",
+  
+  "item.caverns_and_chasms.cavefish": "Cavefish",
+  "item.caverns_and_chasms.cooked_cavefish": "Cooked Cavefish",
+  "item.caverns_and_chasms.cavefish_bucket": "Bucket of Cavefish",
+  
+  "item.caverns_and_chasms.golden_bucket": "Golden Bucket",
+  "item.caverns_and_chasms.golden_water_bucket": "Golden Water Bucket",
+  "item.caverns_and_chasms.golden_lava_bucket": "Golden Lava Bucket",
+  "item.caverns_and_chasms.golden_milk_bucket": "Golden Milk Bucket",
+  
+  "item.caverns_and_chasms.cavefish_spawn_egg": "Cavefish Spawn Egg",
+  "item.caverns_and_chasms.deeper_spawn_egg": "Deeper Spawn Egg",
+  
+  "entity.caverns_and_chasms.cavefish": "Cavefish",
+  "entity.caverns_and_chasms.deeper": "Deeper",
+
+  "item.minecraft.bucket": "Iron Bucket",
+  "item.minecraft.water_bucket": "Iron Water Bucket",
+  "item.minecraft.lava_bucket": "Iron Lava Bucket",
+  "item.minecraft.milk_bucket": "Iron Milk Bucket"
+}

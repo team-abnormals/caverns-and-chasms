@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "caverns_and_chasms:mossy_cobblestone_tiles"
+    },
+    {
+      "item": "minecraft:mossy_cobblestone"
+    }
+  ],
+  "result": "caverns_and_chasms:mossy_cobblestone_tile_slab",
+  "count": 2
+}

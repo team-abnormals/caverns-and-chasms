@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "caverns_and_chasms:cobblestone_tile_slab"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:cobblestone_tile_vertical_slab",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "abnormals_core:quark_flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

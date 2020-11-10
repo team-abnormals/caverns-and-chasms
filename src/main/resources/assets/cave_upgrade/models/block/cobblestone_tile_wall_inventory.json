@@ -1,6 +1,0 @@
-{
-    "parent": "block/wall_inventory",
-    "textures": {
-        "wall": "cave_upgrade:block/cobblestone_tiles"
-    }
-}

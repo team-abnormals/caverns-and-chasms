@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.minecraftabnormals.caverns_and_chasms.core.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "caverns_and_chasms.refmap.json",
+  "mixins": [],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

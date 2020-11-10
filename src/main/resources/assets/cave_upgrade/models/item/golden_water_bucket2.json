@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "cave_upgrade:item/golden_water_bucket2"
-  }
-}

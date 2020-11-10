@@ -22,7 +22,7 @@ archivesBaseName = project.modId
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 mixin {
-    add sourceSets.main, "cave_upgrade.refmap.json"
+    add sourceSets.main, "caverns_and_chasms.refmap.json"
 }
 
 minecraft {
@@ -36,9 +36,9 @@ minecraft {
             property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
             property "forge.logging.console.level", "debug"
             property "mixin.env.disableRefMap", "true"
-            arg "-mixin.config=cave_upgrade.mixins.json"
+            arg "-mixin.config=caverns_and_chasms.mixins.json"
             mods {
-                cave_upgrade {
+                caverns_and_chasms {
                     source sourceSets.main
                 }
             }
@@ -49,9 +49,9 @@ minecraft {
             property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
             property "forge.logging.console.level", "debug"
             property "mixin.env.disableRefMap", "true"
-            arg "-mixin.config=cave_upgrade.mixins.json"
+            arg "-mixin.config=caverns_and_chasms.mixins.json"
             mods {
-                cave_upgrade {
+                caverns_and_chasms {
                     source sourceSets.main
                 }
             }
@@ -63,7 +63,7 @@ minecraft {
             property "forge.logging.console.level", "debug"
             args '--mod', 'example', '--all', '--output', file('src/generated/resources/')
             mods {
-                cave_upgrade {
+                caverns_and_chasms {
                     source sourceSets.main
                 }
             }
@@ -93,7 +93,7 @@ jar {
             "Implementation-Version": project.modVersion,
             "Implementation-Vendor": "Team Abnormals",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "cave_upgrade.mixins.json"
+            "MixinConfigs": "caverns_and_chasms.mixins.json"
         ])
     }
 }

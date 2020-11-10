@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "cave_upgrade:cobblestone_tile_wall",
-    "cave_upgrade:mossy_cobblestone_tile_wall"
+    "caverns_and_chasms:cobblestone_tile_wall",
+    "caverns_and_chasms:mossy_cobblestone_tile_wall"
   ]
 }

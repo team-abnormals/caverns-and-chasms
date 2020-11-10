@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "caverns_and_chasms:cavefish"
+  },
+  "result": "caverns_and_chasms:cooked_cavefish",
+  "experience": 0.35,
+  "cookingtime": 100
+}

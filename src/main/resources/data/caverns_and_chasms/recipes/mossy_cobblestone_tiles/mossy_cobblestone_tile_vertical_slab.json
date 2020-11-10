@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:mossy_cobblestone_tile_vertical_slab"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:mossy_cobblestone_tile_slab",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "abnormals_core:quark_flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

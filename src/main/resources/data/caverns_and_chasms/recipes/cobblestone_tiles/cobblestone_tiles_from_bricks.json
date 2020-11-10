@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "quark:cobblestone_bricks"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:cobblestone_tiles",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "abnormals_core:quark_flag",
+      "flag": "cobblestone_bricks"
+    }
+  ]
+}

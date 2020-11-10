@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "cave_upgrade:block/cobblestone_tiles",
-    "top": "cave_upgrade:block/cobblestone_tiles",
-    "side": "cave_upgrade:block/cobblestone_tiles"
-  }
-}
