@@ -17,18 +17,19 @@ import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DrinkHelper;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -55,49 +56,56 @@ public class CCEvents {
 	public static void rightClickEntity(PlayerInteractEvent.EntityInteractSpecific event) {
 		PlayerEntity player = event.getPlayer();
 		ItemStack stack = player.getHeldItem(event.getHand());
-		CompoundNBT tag = stack.getOrCreateTag();
+		World world = event.getWorld();
 		Hand hand = event.getHand();
 		if (event.getTarget() instanceof CowEntity && !((CowEntity) event.getTarget()).isChild()) {
-			if (stack.getItem() == CCItems.GOLDEN_BUCKET.get()) {
-				player.swingArm(hand);
-				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-				ItemStack milkBucket = DrinkHelper.func_241445_a_(stack, player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
-				player.setHeldItem(hand, milkBucket);
-			} else if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() && tag.getInt("FluidLevel") < 2) {
-				player.swingArm(hand);
-				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-				ItemStack milkBucket = DrinkHelper.func_241445_a_(stack, player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
-				if (!player.abilities.isCreativeMode)
-					milkBucket.getOrCreateTag().putInt("FluidLevel", tag.getInt("FluidLevel") + 1);
-				player.setHeldItem(hand, milkBucket);
+			if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get()) {
+				CompoundNBT tag = stack.getOrCreateTag();
+				ItemStack milkBucket = DrinkHelper.func_241445_a_(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
+				boolean flag = false;
+				if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get()) {
+					flag = tag.getInt("FluidLevel") >= 2;
+					if (!flag) {
+						if (!player.isCreative())
+							milkBucket.getOrCreateTag().putInt("FluidLevel", tag.getInt("FluidLevel") + 1);
+					}
+				}
+				if (!flag) {
+					player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
+					player.setHeldItem(hand, milkBucket);
+					event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+					event.setCanceled(true);
+				}
 			}
 		}
 	}
 
 	@SubscribeEvent
 	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event) {
-		Item heldItem = event.getItemStack().getItem();
+		ItemStack stack = event.getItemStack();
 		Entity target = event.getTarget();
-		if (target instanceof SpiderEntity && heldItem == Items.SPIDER_SPAWN_EGG) {
-			SpiderlingEntity spiderling = CCEntities.SPIDERLING.get().create(event.getWorld());
-			spiderling.copyLocationAndAnglesFrom(target);
-			if (event.getItemStack().hasDisplayName()) {
-				spiderling.setCustomName(event.getItemStack().getDisplayName());
+		if (target instanceof SpiderEntity && stack.getItem() == Items.SPIDER_SPAWN_EGG) {
+			World world = event.getWorld();
+			SpiderlingEntity spiderling = CCEntities.SPIDERLING.get().create(world);
+			if (spiderling != null) {
+				spiderling.copyLocationAndAnglesFrom(target);
+				if (stack.hasDisplayName()) {
+					spiderling.setCustomName(stack.getDisplayName());
+				}
+				if (!event.getPlayer().isCreative()) {
+					stack.shrink(1);
+				}
+				world.addEntity(spiderling);
+				event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+				event.setCanceled(true);
 			}
-			if (!event.getPlayer().abilities.isCreativeMode) {
-				event.getItemStack().shrink(1);
-			}
-			event.getPlayer().swingArm(event.getHand());
-			event.getWorld().addEntity(spiderling);
 		}
 	}
 
 	@SubscribeEvent
-	public static void onExplosion(ExplosionEvent.Detonate event) {
-		if (event.getExplosion().getExplosivePlacedBy().getType() == EntityType.CREEPER) {
-			if (!CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
-				event.getAffectedBlocks().clear();
-			}
+	public static void onExplosion(EntityMobGriefingEvent event) {
+		if (event.getEntity().getType() == EntityType.CREEPER) {
+			event.setResult(Event.Result.DENY);
 		}
 	}
 
@@ -110,9 +118,11 @@ public class CCEvents {
 			CreeperEntity creeper = (CreeperEntity) event.getEntity();
 			if (world.getBlockState(creeper.getPosition().down()).isIn(CCTags.DEEPER_SPAWN_BLOCKS)) {
 				DeeperEntity deeper = CCEntities.DEEPER.get().create(world.getWorld());
-				deeper.setLocationAndAngles(creeper.getPosX(), creeper.getPosY(), creeper.getPosZ(), creeper.rotationYaw, creeper.rotationPitch);
-				world.addEntity(deeper);
-				entity.remove();
+				if (deeper != null) {
+					deeper.setLocationAndAngles(creeper.getPosX(), creeper.getPosY(), creeper.getPosZ(), creeper.rotationYaw, creeper.rotationPitch);
+					world.addEntity(deeper);
+					entity.remove();
+				}
 			}
 		}
 	}
