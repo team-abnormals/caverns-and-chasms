@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core.other;
 
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
@@ -10,15 +11,15 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedCrossbowAttackGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.monster.PillagerEntity;
+import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DrinkHelper;
 import net.minecraft.util.Hand;
@@ -70,6 +71,24 @@ public class CCEvents {
 					milkBucket.getOrCreateTag().putInt("FluidLevel", tag.getInt("FluidLevel") + 1);
 				player.setHeldItem(hand, milkBucket);
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event) {
+		Item heldItem = event.getItemStack().getItem();
+		Entity target = event.getTarget();
+		if (target instanceof SpiderEntity && heldItem == Items.SPIDER_SPAWN_EGG) {
+			SpiderlingEntity spiderling = CCEntities.SPIDERLING.get().create(event.getWorld());
+			spiderling.copyLocationAndAnglesFrom(target);
+			if (event.getItemStack().hasDisplayName()) {
+				spiderling.setCustomName(event.getItemStack().getDisplayName());
+			}
+			if (!event.getPlayer().abilities.isCreativeMode) {
+				event.getItemStack().shrink(1);
+			}
+			event.getPlayer().swingArm(event.getHand());
+			event.getWorld().addEntity(spiderling);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -8,15 +9,18 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BabySpiderEntity extends SpiderEntity {
-	public BabySpiderEntity(EntityType<? extends BabySpiderEntity> type, World worldIn) {
+public class SpiderlingEntity extends SpiderEntity {
+	public SpiderlingEntity(EntityType<? extends SpiderlingEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 
@@ -29,6 +33,12 @@ public class BabySpiderEntity extends SpiderEntity {
 		return spawnDataIn;
 	}
 
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target) {
+		return new ItemStack(Items.SPIDER_SPAWN_EGG);
+	}
+
+	@Override
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
 		return 0.225F;
 	}
