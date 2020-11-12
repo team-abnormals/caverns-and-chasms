@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:sugilite_brick_vertical_slab"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:sugilite_brick_slab",
+    "count": 1
+  },
+  "conditions": [
+  	{
+       "type": "forge:mod_loaded",
+       "modid": "quark"
+    }
+  ]
+}

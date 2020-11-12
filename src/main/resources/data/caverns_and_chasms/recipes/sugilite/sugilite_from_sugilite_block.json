@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "sugilite",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:sugilite_block"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:sugilite",
+    "count": 9
+  }
+}

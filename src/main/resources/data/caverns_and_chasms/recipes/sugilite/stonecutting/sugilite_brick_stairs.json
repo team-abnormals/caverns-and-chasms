@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "caverns_and_chasms:sugilite_bricks"
+  },
+  "result": "caverns_and_chasms:sugilite_brick_stairs",
+  "count": 1
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/sugilite_bricks",
+    "top": "caverns_and_chasms:block/sugilite_bricks",
+    "side": "caverns_and_chasms:block/sugilite_bricks"
+  }
+}
