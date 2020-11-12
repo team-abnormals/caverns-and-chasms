@@ -8,11 +8,15 @@ public class CCConfig {
 
 	public static class Common {
 		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
+		public final ConfigValue<Integer> deeperStartingSpawnHeight;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			creeperExplosionsDestroyBlocks = builder
 					.translation(makeTranslation("creeperExplosionsDestroyBlocks"))
 					.define("Creeper explosions destroy blocks", true);
+			deeperStartingSpawnHeight = builder
+					.translation(makeTranslation("deeperStartingSpawnHeight"))
+					.defineInRange("Deeper starting spawn height", 60, 0, 255);
 		}
 	}
 
