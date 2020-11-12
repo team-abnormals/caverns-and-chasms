@@ -62,6 +62,18 @@
   "entity.caverns_and_chasms.deeper": "Deeper",
   "entity.caverns_and_chasms.spiderling": "Spiderling",
 
+  "effect.caverns_and_chasms.rewind": "Rewind",
+
+  "item.minecraft.potion.effect.rewind": "Potion of Rewind",
+  "item.minecraft.potion.effect.rewind_long": "Potion of Rewind",
+  "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",
+  "item.minecraft.splash_potion.effect.rewind_long": "Splash Potion of Rewind",
+  "item.minecraft.lingering_potion.effect.rewind": "Lingering Potion of Rewind",
+  "item.minecraft.lingering_potion.effect.rewind_long": "Lingering Potion of Rewind",
+  "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind",
+  "item.minecraft.tipped_arrow.effect.rewind_long": "Arrow of Rewind",
+
+  "block.minecraft.lantern": "Iron Lantern",
   "item.minecraft.bucket": "Iron Bucket",
   "item.minecraft.water_bucket": "Iron Water Bucket",
   "item.minecraft.lava_bucket": "Iron Lava Bucket",

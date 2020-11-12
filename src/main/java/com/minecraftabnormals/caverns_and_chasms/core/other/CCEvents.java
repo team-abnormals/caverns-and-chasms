@@ -4,12 +4,10 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
@@ -29,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -123,6 +122,41 @@ public class CCEvents {
 					world.addEntity(deeper);
 					entity.remove();
 				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
+		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
+			LivingEntity entity = event.getEntityLiving();
+			CompoundNBT data = entity.getPersistentData();
+			data.putDouble("RewindX", entity.getPosX());
+			data.putDouble("RewindY", entity.getPosY());
+			data.putDouble("RewindZ", entity.getPosZ());
+		}
+	}
+
+	@SubscribeEvent
+	public static void potionRemoveEvent(PotionEvent.PotionRemoveEvent event) {
+		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
+			LivingEntity entity = event.getEntityLiving();
+			CompoundNBT data = entity.getPersistentData();
+			if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
+				entity.attemptTeleport(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"), true);
+				entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void potionExpireEvent(PotionEvent.PotionExpiryEvent event) {
+		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
+			LivingEntity entity = event.getEntityLiving();
+			CompoundNBT data = entity.getPersistentData();
+			if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
+				entity.attemptTeleport(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"), true);
+				entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 			}
 		}
 	}

@@ -2,6 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -34,6 +35,9 @@ public class CavernsAndChasms {
 		REGISTRY_HELPER.getDeferredEntityRegister().register(bus);
 		REGISTRY_HELPER.getDeferredSoundRegister().register(bus);
 
+		CCEffects.POTIONS.register(bus);
+		CCEffects.EFFECTS.register(bus);
+
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
 
 		bus.addListener(this::commonSetup);
@@ -49,6 +53,7 @@ public class CavernsAndChasms {
 			CCEntities.registerAttributes();
 			CCEntities.registerEntitySpawns();
 			CCFeatures.registerFeatures();
+			CCEffects.registerBrewingRecipes();
 			CCCompat.registerDispenserBehaviors();
 		});
 	}
