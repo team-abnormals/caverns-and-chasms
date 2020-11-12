@@ -103,7 +103,7 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onExplosion(EntityMobGriefingEvent event) {
-		if (event.getEntity().getType() == EntityType.CREEPER) {
+		if (event.getEntity() != null && event.getEntity().getType() == EntityType.CREEPER) {
 			event.setResult(Event.Result.DENY);
 		}
 	}
