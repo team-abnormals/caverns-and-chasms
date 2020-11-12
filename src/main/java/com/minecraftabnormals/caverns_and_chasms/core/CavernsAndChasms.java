@@ -3,6 +3,7 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -47,6 +48,7 @@ public class CavernsAndChasms {
 		DeferredWorkQueue.runLater(() -> {
 			CCEntities.registerAttributes();
 			CCEntities.registerEntitySpawns();
+			CCFeatures.registerFeatures();
 			CCCompat.registerDispenserBehaviors();
 		});
 	}
