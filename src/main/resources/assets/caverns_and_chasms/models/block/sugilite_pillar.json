@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "caverns_and_chasms:block/sugilite_pillar_top",
+        "side": "caverns_and_chasms:block/sugilite_pillar_side"
+    }
+}

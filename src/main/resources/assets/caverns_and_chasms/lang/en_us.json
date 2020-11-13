@@ -25,7 +25,27 @@
 
   "block.caverns_and_chasms.golden_lantern": "Golden Lantern",
   "block.caverns_and_chasms.golden_bars": "Golden Bars",
+
+  "block.caverns_and_chasms.lapis_bricks": "Lapis Lazuli Bricks",
+  "block.caverns_and_chasms.lapis_brick_stairs": "Lapis Lazuli Brick Stairs",
+  "block.caverns_and_chasms.lapis_brick_slab": "Lapis Lazuli Brick Slab",
+  "block.caverns_and_chasms.lapis_brick_vertical_slab": "Lapis Lazuli Brick Vertical Slab",
+  "block.caverns_and_chasms.lapis_brick_wall": "Lapis Lazuli Brick Wall",
+  "block.caverns_and_chasms.lapis_pillar": "Lapis Lazuli Pillar",
+  "block.caverns_and_chasms.lapis_lamp": "Lapis Lazuli Lamp",
   
+  "block.caverns_and_chasms.sugilite_ore": "Sugilite Ore",
+  "block.caverns_and_chasms.sugilite_block": "Sugilite Block",
+  "block.caverns_and_chasms.sugilite_bricks": "Sugilite Bricks",
+  "block.caverns_and_chasms.sugilite_brick_stairs": "Sugilite Brick Stairs",
+  "block.caverns_and_chasms.sugilite_brick_slab": "Sugilite Brick Slab",
+  "block.caverns_and_chasms.sugilite_brick_vertical_slab": "Sugilite Brick Vertical Slab",
+  "block.caverns_and_chasms.sugilite_brick_wall": "Sugilite Brick Wall",
+  "block.caverns_and_chasms.sugilite_pillar": "Sugilite Pillar",
+  "block.caverns_and_chasms.sugilite_lamp": "Sugilite Lamp",
+
+  "item.caverns_and_chasms.sugilite": "Sugilite",
+
   "item.caverns_and_chasms.cavefish": "Cavefish",
   "item.caverns_and_chasms.cooked_cavefish": "Cooked Cavefish",
   "item.caverns_and_chasms.cavefish_bucket": "Bucket of Cavefish",
@@ -40,7 +60,20 @@
   
   "entity.caverns_and_chasms.cavefish": "Cavefish",
   "entity.caverns_and_chasms.deeper": "Deeper",
+  "entity.caverns_and_chasms.spiderling": "Spiderling",
 
+  "effect.caverns_and_chasms.rewind": "Rewind",
+
+  "item.minecraft.potion.effect.rewind": "Potion of Rewind",
+  "item.minecraft.potion.effect.rewind_long": "Potion of Rewind",
+  "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",
+  "item.minecraft.splash_potion.effect.rewind_long": "Splash Potion of Rewind",
+  "item.minecraft.lingering_potion.effect.rewind": "Lingering Potion of Rewind",
+  "item.minecraft.lingering_potion.effect.rewind_long": "Lingering Potion of Rewind",
+  "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind",
+  "item.minecraft.tipped_arrow.effect.rewind_long": "Arrow of Rewind",
+
+  "block.minecraft.lantern": "Iron Lantern",
   "item.minecraft.bucket": "Iron Bucket",
   "item.minecraft.water_bucket": "Iron Water Bucket",
   "item.minecraft.lava_bucket": "Iron Lava Bucket",

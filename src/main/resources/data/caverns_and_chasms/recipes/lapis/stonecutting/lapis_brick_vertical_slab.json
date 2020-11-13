@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "caverns_and_chasms:lapis_bricks"
+  },
+  "result": "caverns_and_chasms:lapis_brick_vertical_slab",
+  "count": 2,
+  "conditions": [
+  	{
+       "type": "forge:mod_loaded",
+       "modid": "quark"
+    }
+  ]
+}

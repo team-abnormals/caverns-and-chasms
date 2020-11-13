@@ -8,11 +8,15 @@ public class CCConfig {
 
 	public static class Common {
 		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
+		public final ConfigValue<Integer> deeperMaxSpawnHeight;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			creeperExplosionsDestroyBlocks = builder
 					.translation(makeTranslation("creeperExplosionsDestroyBlocks"))
-					.define("Creeper explosions destroy blocks", true);
+					.define("Creeper explosions destroy blocks", false);
+			deeperMaxSpawnHeight = builder
+					.translation(makeTranslation("deeperMaxSpawnHeight"))
+					.defineInRange("Deeper max spawn height", 60, 0, 255);
 		}
 	}
 

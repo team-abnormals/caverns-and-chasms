@@ -60,6 +60,6 @@ public class CavefishEntity extends AbstractGroupFishEntity {
 	}
 
 	public static boolean canCavefishSpawn(EntityType<? extends AbstractFishEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-		return pos.getY() < 60 && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER);
+		return pos.getY() < 42 && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER);
 	}
 }
