@@ -83,7 +83,7 @@ public class CCEvents {
 	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event) {
 		ItemStack stack = event.getItemStack();
 		Entity target = event.getTarget();
-		if (target instanceof SpiderEntity && stack.getItem() == Items.SPIDER_SPAWN_EGG) {
+		if (target.getType() == EntityType.SPIDER && stack.getItem() == Items.SPIDER_SPAWN_EGG) {
 			World world = event.getWorld();
 			SpiderlingEntity spiderling = CCEntities.SPIDERLING.get().create(world);
 			if (spiderling != null) {
@@ -103,7 +103,7 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onExplosion(EntityMobGriefingEvent event) {
-		if (event.getEntity() != null && event.getEntity().getType() == EntityType.CREEPER) {
+		if (!CCConfig.COMMON.creeperExplosionsDestroyBlocks.get() && event.getEntity() != null && event.getEntity().getType() == EntityType.CREEPER) {
 			event.setResult(Event.Result.DENY);
 		}
 	}
