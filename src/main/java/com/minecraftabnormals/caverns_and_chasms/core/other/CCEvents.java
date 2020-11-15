@@ -143,7 +143,7 @@ public class CCEvents {
 			LivingEntity entity = event.getEntityLiving();
 			CompoundNBT data = entity.getPersistentData();
 			if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
-				entity.attemptTeleport(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"), true);
+				entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
 				entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 			}
 		}
@@ -155,7 +155,7 @@ public class CCEvents {
 			LivingEntity entity = event.getEntityLiving();
 			CompoundNBT data = entity.getPersistentData();
 			if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
-				entity.attemptTeleport(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"), true);
+				entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
 				entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 			}
 		}
