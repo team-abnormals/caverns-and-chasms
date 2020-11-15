@@ -78,14 +78,14 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		Direction direction = context.getFace();
 		FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
-		return this.getDefaultState().with(FACING, direction.getOpposite()).with(WATERLOGGED, Boolean.valueOf(fluidstate.isTagged(FluidTags.WATER) && fluidstate.getLevel() == 8));
+		return this.getDefaultState().with(FACING, direction.getOpposite()).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER) && fluidstate.getLevel() == 8);
 	}
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
 		Direction direction = state.get(FACING);
 		BlockPos blockpos = pos.offset(direction);
-		return Block.hasEnoughSolidSide(world, blockpos, direction);
+		return hasEnoughSolidSide(world, blockpos, direction.getOpposite());
 	}
 
 	@Override
