@@ -16,6 +16,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -49,8 +50,8 @@ public class CCEntities {
 	}
 
 	private static void processSpawning(Biome biome) {
-		if (biome.getCategory() != Biome.Category.OCEAN && biome.getCategory() != Biome.Category.BEACH && biome != Biomes.STONE_SHORE) {
-			biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(CAVEFISH.get(), 400, 4, 7));
+		if (BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.OVERWORLD) && biome.getCategory() != Biome.Category.OCEAN && biome.getCategory() != Biome.Category.BEACH && biome != Biomes.STONE_SHORE) {
+			biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(CAVEFISH.get(), 350, 4, 7));
 		}
 	}
 }

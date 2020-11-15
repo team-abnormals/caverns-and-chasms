@@ -1,7 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -27,6 +26,11 @@ public class CavefishEntity extends AbstractGroupFishEntity {
 
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
 		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 3.0D);
+	}
+
+	@Override
+	public boolean func_241208_cS_() {
+		return false;
 	}
 
 	@Override
