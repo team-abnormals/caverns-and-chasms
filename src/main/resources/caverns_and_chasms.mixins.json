@@ -6,7 +6,8 @@
   "refmap": "caverns_and_chasms.refmap.json",
   "mixins": [
     "IronGolemEntityMixin",
-    "ZoglinEntityMixin"
+    "ZoglinEntityMixin",
+    "DefaultBiomeFeaturesMixin"
   ],
   "client": [],
   "injectors": {
