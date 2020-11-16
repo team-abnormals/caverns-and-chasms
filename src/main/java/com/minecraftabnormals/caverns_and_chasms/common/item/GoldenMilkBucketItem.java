@@ -45,7 +45,7 @@ public class GoldenMilkBucketItem extends Item {
 				stack.shrink(1);
 		}
 
-		return stack.isEmpty() ? new ItemStack(CCItems.GOLDEN_BUCKET.get()) : stack;
+		return stack.isEmpty() ? GoldenBucketItem.getEmptyBucket() : stack;
 	}
 
 	@Override
@@ -76,6 +76,6 @@ public class GoldenMilkBucketItem extends Item {
 			newStack.getOrCreateTag().putInt("FluidLevel", level - 1);
 			return newStack;
 		}
-		return new ItemStack(CCItems.GOLDEN_BUCKET.get());
+		return GoldenBucketItem.getEmptyBucket();
 	}
 }

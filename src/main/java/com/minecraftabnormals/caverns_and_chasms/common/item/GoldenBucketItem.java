@@ -12,12 +12,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
@@ -28,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -40,9 +43,31 @@ public class GoldenBucketItem extends Item {
     }
 
     @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        if (this.isInGroup(group)) {
+            ItemStack stack = new ItemStack(this);
+            stack.getOrCreateTag().putInt("FluidLevel", 0);
+            items.add(stack);
+        }
+    }
+
+    @Override
+    public ItemStack getDefaultInstance() {
+        ItemStack stack = new ItemStack(this);
+        stack.getOrCreateTag().putInt("FluidLevel", 0);
+        return stack;
+    }
+
+    @Override
+    public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+        stack.getOrCreateTag().putInt("FluidLevel", 0);
+    }
+
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         CompoundNBT tag = stack.getOrCreateTag();
+        System.out.println(tag);
         int level = tag.getInt("FluidLevel");
 
         BlockRayTraceResult result = rayTrace(worldIn, playerIn, (this.getFluid() == Fluids.EMPTY || level < 2) && !(playerIn.isCrouching() && this.getFluid() != Fluids.EMPTY) ? RayTraceContext.FluidMode.SOURCE_ONLY : RayTraceContext.FluidMode.NONE);
@@ -114,7 +139,7 @@ public class GoldenBucketItem extends Item {
 
     protected ItemStack emptyBucket(ItemStack stack, PlayerEntity player) {
         int level = stack.getOrCreateTag().getInt("FluidLevel");
-        ItemStack returnStack = level > 0 ? stack : new ItemStack(CCItems.GOLDEN_BUCKET.get());
+        ItemStack returnStack = level > 0 ? stack : getEmptyBucket();
         if (level > 0 && !player.abilities.isCreativeMode)
             returnStack.getOrCreateTag().putInt("FluidLevel", level - 1);
         return !player.abilities.isCreativeMode ? returnStack : stack;
@@ -205,11 +230,17 @@ public class GoldenBucketItem extends Item {
             newStack.getOrCreateTag().putInt("FluidLevel", level - 1);
             return newStack;
         }
-        return new ItemStack(CCItems.GOLDEN_BUCKET.get());
+        return getEmptyBucket();
     }
 
     @Override
     public int getBurnTime(ItemStack itemStack) {
         return itemStack.getItem() == CCItems.GOLDEN_LAVA_BUCKET.get() ? 20000 : super.getBurnTime(itemStack);
+    }
+
+    public static ItemStack getEmptyBucket() {
+        ItemStack stack = new ItemStack(CCItems.GOLDEN_BUCKET.get());
+        stack.getOrCreateTag().putInt("FluidLevel", 0);
+        return stack;
     }
 }
