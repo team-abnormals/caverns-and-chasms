@@ -1,6 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
-import com.minecraftabnormals.caverns_and_chasms.common.block.GoldenLanternBlock;
+import com.minecraftabnormals.caverns_and_chasms.common.block.*;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
@@ -17,6 +17,41 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCBlocks {
 	public static final RegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER;
+
+	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(Block.Properties.from(Blocks.GOLD_BLOCK)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new Block(Block.Properties.from(Blocks.GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new Block(Block.Properties.from(Blocks.NETHER_QUARTZ_ORE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> WARPITE_BLOCK = HELPER.createBlock("warpite_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
+
+	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new FireBlock(Block.Properties.from(Blocks.FIRE)));
+	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.CAMPFIRE)), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.LANTERN)), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.TORCH)));
+	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.TORCH)), () -> CURSED_WALL_TORCH.get(), ItemGroup.DECORATIONS);
+
+	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
+
+	public static final RegistryObject<Block> GOLDEN_LANTERN = HELPER.createBlock("golden_lantern", () -> new GoldenLanternBlock(Properties.GOLDEN_LANTERN), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
+
+	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new Block(Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_BLOCK = HELPER.createBlock("sugilite_block", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_BRICKS = HELPER.createBlock("sugilite_bricks", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_BRICK_STAIRS = HELPER.createBlock("sugilite_brick_stairs", () -> new StairsBlock(() -> SUGILITE_BRICKS.get().getDefaultState(), Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_BRICK_SLAB = HELPER.createBlock("sugilite_brick_slab", () -> new SlabBlock(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "sugilite_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_BRICK_WALL = HELPER.createBlock("sugilite_brick_wall", () -> new WallBlock(Properties.SUGILITE), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> SUGILITE_PILLAR = HELPER.createBlock("sugilite_pillar", () -> new RotatedPillarBlock(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_LAMP = HELPER.createBlock("sugilite_lamp", () -> new Block(Properties.LAMP), ItemGroup.BUILDING_BLOCKS);
+
+	public static final RegistryObject<Block> LAPIS_LAZULI_BRICKS = HELPER.createBlock("lapis_bricks", () -> new Block(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_STAIRS = HELPER.createBlock("lapis_brick_stairs", () -> new StairsBlock(() -> LAPIS_LAZULI_BRICKS.get().getDefaultState(), Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_SLAB = HELPER.createBlock("lapis_brick_slab", () -> new SlabBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "lapis_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_WALL = HELPER.createBlock("lapis_brick_wall", () -> new WallBlock(Properties.LAPIS_LAZULI), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> LAPIS_LAZULI_PILLAR = HELPER.createBlock("lapis_pillar", () -> new RotatedPillarBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> LAPIS_LAZULI_LAMP = HELPER.createBlock("lapis_lamp", () -> new Block(Properties.LAMP), ItemGroup.BUILDING_BLOCKS);
+
 
 	public static final RegistryObject<Block> DIRT_BRICKS = HELPER.createBlock("dirt_bricks", () -> new Block(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DIRT_BRICK_STAIRS = HELPER.createBlock("dirt_brick_stairs", () -> new StairsBlock(() -> DIRT_BRICKS.get().getDefaultState(), Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -41,27 +76,6 @@ public class CCBlocks {
 	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_SLAB = HELPER.createBlock("mossy_cobblestone_tile_slab", () -> new SlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_WALL = HELPER.createBlock("mossy_cobblestone_tile_wall", () -> new WallBlock(Properties.COBBLESTONE_TILES), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "mossy_cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-
-	public static final RegistryObject<Block> GOLDEN_LANTERN = HELPER.createBlock("golden_lantern", () -> new GoldenLanternBlock(Properties.GOLDEN_LANTERN), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
-
-	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new Block(Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_BLOCK = HELPER.createBlock("sugilite_block", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_BRICKS = HELPER.createBlock("sugilite_bricks", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_BRICK_STAIRS = HELPER.createBlock("sugilite_brick_stairs", () -> new StairsBlock(() -> SUGILITE_BRICKS.get().getDefaultState(), Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_BRICK_SLAB = HELPER.createBlock("sugilite_brick_slab", () -> new SlabBlock(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "sugilite_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_BRICK_WALL = HELPER.createBlock("sugilite_brick_wall", () -> new WallBlock(Properties.SUGILITE), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> SUGILITE_PILLAR = HELPER.createBlock("sugilite_pillar", () -> new RotatedPillarBlock(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SUGILITE_LAMP = HELPER.createBlock("sugilite_lamp", () -> new Block(Properties.LAMP), ItemGroup.BUILDING_BLOCKS);
-
-	public static final RegistryObject<Block> LAPIS_LAZULI_BRICKS = HELPER.createBlock("lapis_bricks", () -> new Block(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_STAIRS = HELPER.createBlock("lapis_brick_stairs", () -> new StairsBlock(() -> LAPIS_LAZULI_BRICKS.get().getDefaultState(), Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_SLAB = HELPER.createBlock("lapis_brick_slab", () -> new SlabBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "lapis_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_WALL = HELPER.createBlock("lapis_brick_wall", () -> new WallBlock(Properties.LAPIS_LAZULI), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> LAPIS_LAZULI_PILLAR = HELPER.createBlock("lapis_pillar", () -> new RotatedPillarBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> LAPIS_LAZULI_LAMP = HELPER.createBlock("lapis_lamp", () -> new Block(Properties.LAMP), ItemGroup.BUILDING_BLOCKS);
 
 	static class Properties {
 		public static final AbstractBlock.Properties DIRT_BRICKS = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.5F).sound(SoundType.GROUND);

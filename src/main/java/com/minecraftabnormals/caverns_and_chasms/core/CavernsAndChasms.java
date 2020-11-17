@@ -2,11 +2,9 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCFeatures;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +17,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import java.lang.reflect.Array;
 
 @Mod(CavernsAndChasms.MODID)
 public class CavernsAndChasms {
@@ -37,6 +37,8 @@ public class CavernsAndChasms {
 
 		CCEffects.POTIONS.register(bus);
 		CCEffects.EFFECTS.register(bus);
+		CCEnchantments.ENCHANTMENTS.register(bus);
+		CCParticles.PARTICLES.register(bus);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
 
@@ -55,6 +57,7 @@ public class CavernsAndChasms {
 			CCFeatures.registerFeatures();
 			CCEffects.registerBrewingRecipes();
 			CCCompat.registerDispenserBehaviors();
+			CCEnchantments.registerEnchantmentTypes();
 		});
 	}
 
@@ -63,10 +66,12 @@ public class CavernsAndChasms {
 			CCCompat.registerRenderLayers();
 			CCItems.registerItemProperties();
 			CCEntities.registerRenderers();
+			CCTileEntities.registerRenderers();
 		});
 	}
 
 	private void registerItemColors(ColorHandlerEvent.Item event) {
 		REGISTRY_HELPER.processSpawnEggColors(event);
 	}
+
 }

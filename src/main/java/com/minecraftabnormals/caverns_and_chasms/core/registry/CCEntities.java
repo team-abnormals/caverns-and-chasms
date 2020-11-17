@@ -1,11 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
-import com.minecraftabnormals.caverns_and_chasms.client.render.SpiderlingRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.CavefishRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.DeeperRenderer;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.CavefishEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
+import com.minecraftabnormals.caverns_and_chasms.client.render.*;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.*;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 import net.minecraft.entity.EntityClassification;
@@ -29,17 +25,27 @@ public class CCEntities {
 	public static final RegistryObject<EntityType<CavefishEntity>> CAVEFISH = HELPER.createLivingEntity("cavefish", CavefishEntity::new, EntityClassification.WATER_CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<DeeperEntity>> DEEPER = HELPER.createLivingEntity("deeper", DeeperEntity::new, EntityClassification.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<SpiderlingEntity>> SPIDERLING = HELPER.createLivingEntity("spiderling", SpiderlingEntity::new, EntityClassification.MONSTER, 0.35F, 0.25F);
+	public static final RegistryObject<EntityType<RottenEggEntity>> ROTTEN_EGG = HELPER.createEntity("rotten_egg", RottenEggEntity::new, RottenEggEntity::new, EntityClassification.MISC, 0.25F, 0.25F);
+	public static final RegistryObject<EntityType<SilverArrowEntity>> SILVER_ARROW = HELPER.createEntity("silver_arrow", SilverArrowEntity::new, SilverArrowEntity::new, EntityClassification.MISC, 0.5F, 0.5F);
+	public static final RegistryObject<EntityType<ZombieChickenEntity>> ZOMBIE_CHICKEN = HELPER.createLivingEntity("zombie_chicken", ZombieChickenEntity::new, EntityClassification.MONSTER, 0.4F, 0.7F);
+	public static final RegistryObject<EntityType<FlyEntity>> FLY = HELPER.createLivingEntity("fly", FlyEntity::new, EntityClassification.CREATURE, 0.4F, 0.4F);
 
 	public static void registerAttributes() {
 		GlobalEntityTypeAttributes.put(CAVEFISH.get(), CavefishEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(DEEPER.get(), DeeperEntity.func_234278_m_().create());
 		GlobalEntityTypeAttributes.put(SPIDERLING.get(), SpiderlingEntity.registerAttributes().create());
+		GlobalEntityTypeAttributes.put(ZOMBIE_CHICKEN.get(), ZombieChickenEntity.registerAttributes().create());
+		GlobalEntityTypeAttributes.put(FLY.get(), FlyEntity.registerAttributes().create());
 	}
 
 	public static void registerRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(CAVEFISH.get(), CavefishRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(DEEPER.get(), DeeperRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(SPIDERLING.get(), SpiderlingRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ROTTEN_EGG.get(), RottenEggRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(SILVER_ARROW.get(), SilverArrowRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZOMBIE_CHICKEN.get(), ZombieChickenRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(FLY.get(), FlyRenderer::new);
 	}
 
 	public static void registerEntitySpawns() {
