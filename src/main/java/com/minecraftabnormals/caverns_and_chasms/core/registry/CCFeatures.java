@@ -21,10 +21,8 @@ public class CCFeatures {
 	}
 
 	private static void generateFeatures(Biome biome) {
-
-
 		if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.OVERWORLD)) {
-			if (((double) biome.getDefaultTemperature() <= 0.3D)) {
+			if (biome.getDefaultTemperature() <= 0.3D) {
 				removeGold(biome);
 				addSilverOre(biome);
 				if (biome == Biomes.ICE_SPIKES)
@@ -35,16 +33,17 @@ public class CCFeatures {
 				addSugiliteOre(biome);
 			}
 		}
+
 		if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)) {
-			if (biome == Biomes.WARPED_FOREST) {
+			if (biome == Biomes.SOUL_SAND_VALLEY) {
 				removeGold(biome);
 				addNetherSilverOre(biome);
 			}
 		}
 	}
 
-	private static void addSugiliteOre(Biome biomeIn) {
-		biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE
+	private static void addSugiliteOre(Biome biome) {
+		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE
 				.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, CCBlocks.SUGILITE_ORE.get().getDefaultState(), 8))
 				.withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(9, 0, 0, 42))));
 	}
@@ -64,8 +63,7 @@ public class CCFeatures {
 	public static void removeGold(Biome biome) {
 		for (GenerationStage.Decoration stage : GenerationStage.Decoration.values()) {
 			List<ConfiguredFeature<?, ?>> features = biome.getFeatures(stage);
-			for (int j = 0; j < features.size(); j++) {
-				ConfiguredFeature<?, ?> configuredFeature = features.get(j);
+			for (ConfiguredFeature<?, ?> configuredFeature : features) {
 				if (configuredFeature.config instanceof DecoratedFeatureConfig) {
 					DecoratedFeatureConfig decorated = (DecoratedFeatureConfig) configuredFeature.config;
 					if (decorated.feature.config instanceof OreFeatureConfig) {
