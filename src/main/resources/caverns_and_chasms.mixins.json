@@ -5,11 +5,11 @@
   "minVersion": "0.8",
   "refmap": "caverns_and_chasms.refmap.json",
   "mixins": [
-    "IronGolemEntityMixin",
-    "ZoglinEntityMixin",
-    "DefaultBiomeFeaturesMixin",
     "AbstractSkeletonEntityMixin",
-    "WitherSkeletonEntityMixin"
+    "DefaultBiomeFeaturesMixin",
+    "IronGolemEntityMixin",
+    "WitherSkeletonEntityMixin",
+    "ZoglinEntityMixin"
   ],
   "client": [],
   "injectors": {

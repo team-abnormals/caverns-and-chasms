@@ -1,6 +1,5 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;

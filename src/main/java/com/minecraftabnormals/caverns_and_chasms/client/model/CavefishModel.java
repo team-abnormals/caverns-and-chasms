@@ -2,7 +2,6 @@ package com.minecraftabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.CavefishEntity;
-
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;

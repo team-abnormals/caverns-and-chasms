@@ -1,9 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.client;
 
-import java.util.stream.Stream;
-
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.SpriteUploader;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -14,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+
+import java.util.stream.Stream;
 
 /**
  * @author Ocelot

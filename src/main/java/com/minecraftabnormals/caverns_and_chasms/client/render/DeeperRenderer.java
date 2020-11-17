@@ -3,7 +3,6 @@ package com.minecraftabnormals.caverns_and_chasms.client.render;
 import com.minecraftabnormals.caverns_and_chasms.client.model.DeeperModel;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.texture.MissingTextureSprite;

@@ -4,7 +4,6 @@ import com.minecraftabnormals.caverns_and_chasms.client.model.CavefishModel;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.CavefishEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;

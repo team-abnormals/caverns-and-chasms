@@ -1,18 +1,12 @@
 package com.minecraftabnormals.caverns_and_chasms.common.item;
 
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FlowingFluid;
@@ -30,9 +24,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class GoldenBucketItem extends Item {
     private final Supplier<? extends Fluid> fluidSupplier;
