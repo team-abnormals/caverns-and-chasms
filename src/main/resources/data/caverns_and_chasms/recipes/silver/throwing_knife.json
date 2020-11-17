@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "i",
+        "/"
+    ],
+    "key": {
+        "i": {
+            "item": "caverns_and_chasms:silver_ingot"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "caverns_and_chasms:throwing_knife",
+        "count": 7
+    }
+}

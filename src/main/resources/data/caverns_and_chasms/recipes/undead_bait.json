@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#B",
+        "B#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:rotten_flesh"
+        },
+        "B": {
+            "item": "minecraft:bone"
+        }
+    },
+    "result": {
+        "item": "caverns_and_chasms:undead_bait",
+        "count": 1
+    }
+}
