@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "caverns_and_chasms:item/warpite_axe"
+    }
+}

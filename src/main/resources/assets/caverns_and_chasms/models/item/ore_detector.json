@@ -1,0 +1,20 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "caverns_and_chasms:item/ore_detector_off"
+    },
+    "overrides": [
+        { 
+          "predicate": { 
+            "detect": 0
+          }, 
+          "model": "caverns_and_chasms:item/ore_detector" 
+        },
+        { 
+          "predicate": { 
+            "detect": 1
+          }, 
+          "model": "caverns_and_chasms:item/ore_detector_on" 
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "caverns_and_chasms:block/cursed_wall_torch"
+    },
+    "facing=north": {
+      "model": "caverns_and_chasms:block/cursed_wall_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "caverns_and_chasms:block/cursed_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "caverns_and_chasms:block/cursed_wall_torch",
+      "y": 180
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "activated=false,facing=north": { "model": "caverns_and_chasms:block/gravestone", "y": 0},
+ 		"activated=false,facing=south": { "model": "caverns_and_chasms:block/gravestone", "y": 180},
+  		"activated=false,facing=east": { "model": "caverns_and_chasms:block/gravestone", "y": 90},
+ 		"activated=false,facing=west": { "model": "caverns_and_chasms:block/gravestone", "y": 270},
+ 		"activated=true,facing=north": { "model": "caverns_and_chasms:block/gravestone_on", "y": 0},
+ 		"activated=true,facing=south": { "model": "caverns_and_chasms:block/gravestone_on", "y": 180},
+  		"activated=true,facing=east": { "model": "caverns_and_chasms:block/gravestone_on", "y": 90},
+ 		"activated=true,facing=west": { "model": "caverns_and_chasms:block/gravestone_on", "y": 270}
+    }
+}
