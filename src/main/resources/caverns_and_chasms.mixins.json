@@ -7,7 +7,9 @@
   "mixins": [
     "IronGolemEntityMixin",
     "ZoglinEntityMixin",
-    "DefaultBiomeFeaturesMixin"
+    "DefaultBiomeFeaturesMixin",
+    "AbstractSkeletonEntityMixin",
+    "WitherSkeletonEntityMixin"
   ],
   "client": [],
   "injectors": {
