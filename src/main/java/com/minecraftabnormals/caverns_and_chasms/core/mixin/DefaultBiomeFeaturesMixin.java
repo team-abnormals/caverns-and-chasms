@@ -30,6 +30,5 @@ public class DefaultBiomeFeaturesMixin {
 					.withConfiguration(new ReplaceBlockConfig(Blocks.STONE.getDefaultState(), Blocks.EMERALD_ORE.getDefaultState()))
 					.withPlacement(Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 		}
-
 	}
 }
