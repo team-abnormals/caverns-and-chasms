@@ -27,10 +27,10 @@ public class CCItems {
 	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCTiers.Tools.SILVER, 3.5F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
 	public static final RegistryObject<Item> SILVER_AXE = HELPER.createItem("silver_axe", () -> new SilverAxeItem(CCTiers.Tools.SILVER, 8, -3.1F, new Item.Properties().group(ItemGroup.TOOLS)));
 	public static final RegistryObject<Item> SILVER_HOE = HELPER.createItem("silver_hoe", () -> new SilverHoeItem(CCTiers.Tools.SILVER, 0, -0.5F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_HELMET = HELPER.createItem("silver_helmet", () -> new ArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_CHESTPLATE = HELPER.createItem("silver_chestplate", () -> new ArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_LEGGINGS = HELPER.createItem("silver_leggings", () -> new ArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_BOOTS = HELPER.createItem("silver_boots", () -> new ArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SILVER_HELMET = HELPER.createItem("silver_helmet", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SILVER_CHESTPLATE = HELPER.createItem("silver_chestplate", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SILVER_LEGGINGS = HELPER.createItem("silver_leggings", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SILVER_BOOTS = HELPER.createItem("silver_boots", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> SILVER_HORSE_ARMOR = HELPER.createItem("silver_horse_armor", () -> new HorseArmorItem(6, new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/horse/armor/horse_armor_silver.png"), (new Item.Properties()).maxStackSize(1).group(ItemGroup.MISC)));
 
 	public static final RegistryObject<Item> WARPITE_INGOT = HELPER.createItem("warpite_ingot", () -> new Item(new Item.Properties().isBurnable().group(ItemGroup.MATERIALS)));

@@ -32,6 +32,7 @@ public class CavernsAndChasms {
 		REGISTRY_HELPER.getDeferredEntityRegister().register(bus);
 		REGISTRY_HELPER.getDeferredSoundRegister().register(bus);
 
+		CCAttributes.ATTRIBUTES.register(bus);
 		CCEffects.POTIONS.register(bus);
 		CCEffects.EFFECTS.register(bus);
 		CCEnchantments.ENCHANTMENTS.register(bus);

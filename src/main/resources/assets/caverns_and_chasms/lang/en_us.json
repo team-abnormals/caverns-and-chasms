@@ -124,7 +124,8 @@
   "death.attack.affliction": "%1$s was afflicted",
   "death.attack.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
 
-  "attribute.name.generic.affliction_chance": "Affliction Chance",
+  "attribute.name.generic.offensive_affliction_chance": "Affliction Chance",
+  "attribute.name.generic.defensive_affliction_chance": "Affliction Chance",
   "attribute.name.generic.experience_boost": "Experience Boost",
 
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",

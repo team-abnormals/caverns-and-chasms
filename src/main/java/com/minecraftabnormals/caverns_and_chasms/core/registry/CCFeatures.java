@@ -63,7 +63,8 @@ public class CCFeatures {
 	public static void removeGold(Biome biome) {
 		for (GenerationStage.Decoration stage : GenerationStage.Decoration.values()) {
 			List<ConfiguredFeature<?, ?>> features = biome.getFeatures(stage);
-			for (ConfiguredFeature<?, ?> configuredFeature : features) {
+			for (int j = 0; j < features.size(); j++) {
+				ConfiguredFeature<?, ?> configuredFeature = features.get(j);
 				if (configuredFeature.config instanceof DecoratedFeatureConfig) {
 					DecoratedFeatureConfig decorated = (DecoratedFeatureConfig) configuredFeature.config;
 					if (decorated.feature.config instanceof OreFeatureConfig) {

@@ -6,6 +6,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.ZombieChickenEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -46,6 +47,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Collection;
 import java.util.Random;
 import java.util.UUID;
 
@@ -167,7 +169,7 @@ public class CCEvents {
 				ZombieEntity zombie = (ZombieEntity) entity;
 				if (zombie.isChild() && zombie.getRidingEntity() != null && zombie.getRidingEntity().getType() == EntityType.CHICKEN) {
 
-					ChickenEntity chicken = (ChickenEntity)zombie.getRidingEntity();
+					ChickenEntity chicken = (ChickenEntity) zombie.getRidingEntity();
 					zombie.getRidingEntity().remove();
 					zombie.stopRiding();
 					zombie.remove();
@@ -184,7 +186,7 @@ public class CCEvents {
 
 					ZombieEntity newZombie = (ZombieEntity) zombie.getType().create(world.getWorld());
 					newZombie.setChild(true);
-					for(EquipmentSlotType slot : EquipmentSlotType.values())
+					for (EquipmentSlotType slot : EquipmentSlotType.values())
 						newZombie.setItemStackToSlot(slot, zombie.getItemStackFromSlot(slot));
 					newZombie.copyLocationAndAnglesFrom(zombie);
 					newZombie.onInitialSpawn(event.getWorld(), event.getWorld().getDifficultyForLocation(zombieChicken.getPosition()), SpawnReason.JOCKEY, null, null);
@@ -197,17 +199,25 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockEvent.BreakEvent event) {
-		if (event.getPlayer().getHeldItemMainhand().getItem().isIn(CCTags.Items.XP_BOOST_TOOLS)) {
-			event.setExpToDrop(event.getExpToDrop() + (event.getExpToDrop() / 2));
-		}
+		PlayerEntity player = event.getPlayer();
+		int droppedXP = event.getExpToDrop();
+
+		ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
+		Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(EquipmentSlotType.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
+		float decrease = (float)modifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+		event.setExpToDrop(droppedXP + Math.round(droppedXP * decrease));
 	}
 
 	@SubscribeEvent
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
-		if (event.getAttackingPlayer() != null) {
-			if (event.getAttackingPlayer().getHeldItemMainhand().getItem().isIn(CCTags.Items.XP_BOOST_TOOLS)) {
-				event.setDroppedExperience(event.getDroppedExperience() + (event.getDroppedExperience() / 2));
-			}
+		PlayerEntity player = event.getAttackingPlayer();
+		int droppedXP = event.getDroppedExperience();
+
+		ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
+		Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(EquipmentSlotType.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
+		float decrease = (float)modifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+		if (player != null) {
+			event.setDroppedExperience(droppedXP + Math.round(droppedXP * decrease));
 		}
 	}
 
@@ -253,25 +263,25 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void handleAffliction(LivingDamageEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		float chance = 0.0F;
 		Random rand = new Random();
 
-		ItemStack head = entity.getItemStackFromSlot(EquipmentSlotType.HEAD);
-		ItemStack chest = entity.getItemStackFromSlot(EquipmentSlotType.CHEST);
-		ItemStack legs = entity.getItemStackFromSlot(EquipmentSlotType.LEGS);
-		ItemStack feet = entity.getItemStackFromSlot(EquipmentSlotType.FEET);
+		if (event.getSource().getTrueSource() instanceof LivingEntity) {
+			float decrease = 0;
 
-		if (event.getSource().getTrueSource() instanceof LivingEntity)
-			if (head.getItem() == CCItems.SILVER_HELMET.get()) {
-				chance += 0.25F;
-				if (chest.getItem() == CCItems.SILVER_CHESTPLATE.get()) chance += 0.25F;
-				if (legs.getItem() == CCItems.SILVER_LEGGINGS.get()) chance += 0.25F;
-				if (feet.getItem() == CCItems.SILVER_BOOTS.get()) chance += 0.25F;
-				if (rand.nextFloat() <= chance) {
-					LivingEntity livingEntity = (LivingEntity) event.getSource().getTrueSource();
-					livingEntity.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
-				}
+			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+				ItemStack stack = entity.getItemStackFromSlot(slot);
+				Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(slot).get(CCAttributes.DEFENSIVE_AFFLICTION_CHANCE.get());
+				if (modifiers.isEmpty())
+					continue;
+
+				decrease += modifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 			}
+
+			if (rand.nextFloat() < decrease) {
+				LivingEntity livingEntity = (LivingEntity) event.getSource().getTrueSource();
+				livingEntity.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+			}
+		}
 	}
 
 	@SubscribeEvent
