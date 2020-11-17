@@ -114,7 +114,7 @@ public class CCEvents {
 		boolean validSpawn = event.getSpawnReason() == SpawnReason.NATURAL || event.getSpawnReason() == SpawnReason.CHUNK_GENERATION;
 		if (event.getResult() != Event.Result.DENY && validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 			CreeperEntity creeper = (CreeperEntity) entity;
-			if (world.getBlockState(creeper.getPosition().down()).isIn(CCTags.DEEPER_SPAWN_BLOCKS)) {
+			if (world.getBlockState(creeper.getPosition().down()).isIn(CCTags.Blocks.DEEPER_SPAWN_BLOCKS)) {
 				DeeperEntity deeper = CCEntities.DEEPER.get().create(world.getWorld());
 				if (deeper != null) {
 					deeper.setLocationAndAngles(creeper.getPosX(), creeper.getPosY(), creeper.getPosZ(), creeper.rotationYaw, creeper.rotationPitch);

@@ -23,7 +23,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new Block(Block.Properties.from(Blocks.NETHER_QUARTZ_ORE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> WARPITE_BLOCK = HELPER.createBlock("warpite_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new FireBlock(Block.Properties.from(Blocks.FIRE)));
+	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.FIRE)));
 	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.CAMPFIRE)), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.LANTERN)), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.TORCH)));

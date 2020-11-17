@@ -15,49 +15,45 @@ import net.minecraftforge.common.Tags;
 
 import java.util.stream.Stream;
 
-public class OreDetectorItem extends Item {	
-	
+public class OreDetectorItem extends Item {
+
 	public OreDetectorItem(Properties properties) {
 		super(properties);
 	}
-	
+
 	public static boolean getDetectionData(ItemStack stack) {
 		return stack.getTag().getBoolean("Detecting");
 	}
-	
+
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return slotChanged;
-    }
-			
+		return slotChanged;
+	}
+
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			CompoundNBT tag = stack.getOrCreateTag();
 			AxisAlignedBB aabb = entity.getBoundingBox().grow(3, 3, 3);
 			Stream<BlockPos> blocks = BlockPos.getAllInBox(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
-				
-			if(tag != null) tag.putBoolean("Detecting", false);
-			
+
+			tag.putBoolean("Detecting", false);
+
 			blocks.forEach(blockPos -> {
-				
+
 				Block block = world.getBlockState(blockPos).getBlock();
-				
-				if(EnchantmentHelper.getEnchantmentLevel(CCEnchantments.PROSPECTING.get(), stack) > 0) {
-					if(block.isIn(CCTags.PROSPECTING_METALS)) {
-						if(tag != null) tag.putBoolean("Detecting", true);
-						return;
+
+				if (EnchantmentHelper.getEnchantmentLevel(CCEnchantments.PROSPECTING.get(), stack) > 0) {
+					if (block.isIn(CCTags.Blocks.PROSPECTING_METALS)) {
+						tag.putBoolean("Detecting", true);
 					}
-				} else if(EnchantmentHelper.getEnchantmentLevel(CCEnchantments.TREASURING.get(), stack) > 0) {
-					if(block.isIn(CCTags.TREASURING_GEMS)) {
-						if(tag != null) tag.putBoolean("Detecting", true);
-						return;
+				} else if (EnchantmentHelper.getEnchantmentLevel(CCEnchantments.TREASURING.get(), stack) > 0) {
+					if (block.isIn(CCTags.Blocks.TREASURING_GEMS)) {
+						tag.putBoolean("Detecting", true);
 					}
-				} else if(block.isIn(Tags.Blocks.ORES)) {
-					if(tag != null) tag.putBoolean("Detecting", true);
-					return;
+				} else if (block.isIn(Tags.Blocks.ORES)) {
+					tag.putBoolean("Detecting", true);
 				}
-				
 			});
 		}
 	}
