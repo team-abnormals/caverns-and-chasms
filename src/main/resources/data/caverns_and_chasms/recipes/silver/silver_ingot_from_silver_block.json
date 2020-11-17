@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "silver_ingot",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:silver_block"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:silver_ingot",
+    "count": 9
+  }
+}

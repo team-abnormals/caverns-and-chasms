@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "warpite_ingot",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:warpite_block"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:warpite_ingot",
+    "count": 9
+  }
+}

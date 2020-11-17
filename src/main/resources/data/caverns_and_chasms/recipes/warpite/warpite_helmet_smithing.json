@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_helmet"
+  },
+  "addition": {
+    "item": "caverns_and_chasms:warpite_ingot"
+  },
+  "result": {
+    "item": "caverns_and_chasms:warpite_helmet"
+  }
+}
