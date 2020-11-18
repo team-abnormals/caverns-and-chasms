@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "necromium_ingot",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:necromium_block"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:necromium_ingot",
+    "count": 9
+  }
+}

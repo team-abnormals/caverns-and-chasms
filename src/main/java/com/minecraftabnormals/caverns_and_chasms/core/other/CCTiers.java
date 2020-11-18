@@ -54,7 +54,7 @@ public class CCTiers {
 			}
 		};
 
-		public static final IArmorMaterial WARPITE = new IArmorMaterial() {
+		public static final IArmorMaterial NECROMIUM = new IArmorMaterial() {
 			@Override
 			public int getDamageReductionAmount(EquipmentSlotType slot) {
 				return new int[]{2, 5, 6, 2}[slot.getIndex()];
@@ -77,12 +77,12 @@ public class CCTiers {
 
 			@Override
 			public Ingredient getRepairMaterial() {
-				return Ingredient.fromItems(CCItems.WARPITE_INGOT.get());
+				return Ingredient.fromItems(CCItems.NECROMIUM_INGOT.get());
 			}
 
 			@Override
 			public String getName() {
-				return CavernsAndChasms.MODID + ":warpite";
+				return CavernsAndChasms.MODID + ":necromium";
 			}
 
 			@Override
@@ -130,7 +130,7 @@ public class CCTiers {
 			}
 		};
 
-		public static final IItemTier WARPITE = new IItemTier() {
+		public static final IItemTier NECROMIUM = new IItemTier() {
 			@Override
 			public float getAttackDamage() {
 				return 0.0F;
@@ -158,7 +158,7 @@ public class CCTiers {
 
 			@Override
 			public Ingredient getRepairMaterial() {
-				return Ingredient.fromItems(CCItems.WARPITE_INGOT.get());
+				return Ingredient.fromItems(CCItems.NECROMIUM_INGOT.get());
 			}
 		};
 	}

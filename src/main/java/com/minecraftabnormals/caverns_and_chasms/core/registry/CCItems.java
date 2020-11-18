@@ -33,18 +33,18 @@ public class CCItems {
 	public static final RegistryObject<Item> SILVER_BOOTS = HELPER.createItem("silver_boots", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> SILVER_HORSE_ARMOR = HELPER.createItem("silver_horse_armor", () -> new HorseArmorItem(6, new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/horse/armor/horse_armor_silver.png"), (new Item.Properties()).maxStackSize(1).group(ItemGroup.MISC)));
 
-	public static final RegistryObject<Item> WARPITE_INGOT = HELPER.createItem("warpite_ingot", () -> new Item(new Item.Properties().isBurnable().group(ItemGroup.MATERIALS)));
-	public static final RegistryObject<Item> WARPITE_NUGGET = HELPER.createCompatItem("nether_extension", "warpite_nugget", new Item.Properties().isBurnable(), ItemGroup.MATERIALS);
-	public static final RegistryObject<Item> WARPITE_SWORD = HELPER.createItem("warpite_sword", () -> new SilverSwordItem(CCTiers.Tools.WARPITE, 5, -2.4F, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> WARPITE_PICKAXE = HELPER.createItem("warpite_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.WARPITE, 3, -2.8F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> WARPITE_SHOVEL = HELPER.createItem("warpite_shovel", () -> new SilverShovelItem(CCTiers.Tools.WARPITE, 3.5F, -3.0F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> WARPITE_AXE = HELPER.createItem("warpite_axe", () -> new SilverAxeItem(CCTiers.Tools.WARPITE, 8, -3.1F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> WARPITE_HOE = HELPER.createItem("warpite_hoe", () -> new SilverHoeItem(CCTiers.Tools.WARPITE, 0, -0.5F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> WARPITE_HELMET = HELPER.createItem("warpite_helmet", () -> new ArmorItem(CCTiers.Armor.WARPITE, EquipmentSlotType.HEAD, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> WARPITE_CHESTPLATE = HELPER.createItem("warpite_chestplate", () -> new ArmorItem(CCTiers.Armor.WARPITE, EquipmentSlotType.CHEST, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> WARPITE_LEGGINGS = HELPER.createItem("warpite_leggings", () -> new ArmorItem(CCTiers.Armor.WARPITE, EquipmentSlotType.LEGS, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> WARPITE_BOOTS = HELPER.createItem("warpite_boots", () -> new ArmorItem(CCTiers.Armor.WARPITE, EquipmentSlotType.FEET, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> WARPITE_HORSE_ARMOR = HELPER.createItem("warpite_horse_armor", () -> new HorseArmorItem(9, new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/horse/armor/horse_armor_warpite.png"), (new Item.Properties()).maxStackSize(1).isBurnable().group(createCompatGroup("nether_extension", ItemGroup.MISC))));
+	public static final RegistryObject<Item> NECROMIUM_INGOT = HELPER.createItem("necromium_ingot", () -> new Item(new Item.Properties().isBurnable().group(ItemGroup.MATERIALS)));
+	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createCompatItem("nether_extension", "necromium_nugget", new Item.Properties().isBurnable(), ItemGroup.MATERIALS);
+	public static final RegistryObject<Item> NECROMIUM_SWORD = HELPER.createItem("necromium_sword", () -> new SilverSwordItem(CCTiers.Tools.NECROMIUM, 5, -2.4F, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_PICKAXE = HELPER.createItem("necromium_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.NECROMIUM, 3, -2.8F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_SHOVEL = HELPER.createItem("necromium_shovel", () -> new SilverShovelItem(CCTiers.Tools.NECROMIUM, 3.5F, -3.0F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_AXE = HELPER.createItem("necromium_axe", () -> new SilverAxeItem(CCTiers.Tools.NECROMIUM, 8, -3.1F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_HOE = HELPER.createItem("necromium_hoe", () -> new SilverHoeItem(CCTiers.Tools.NECROMIUM, 0, -0.5F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_HELMET = HELPER.createItem("necromium_helmet", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.HEAD, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_CHESTPLATE = HELPER.createItem("necromium_chestplate", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.CHEST, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_LEGGINGS = HELPER.createItem("necromium_leggings", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.LEGS, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_BOOTS = HELPER.createItem("necromium_boots", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.FEET, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_HORSE_ARMOR = HELPER.createItem("necromium_horse_armor", () -> new HorseArmorItem(9, new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/horse/armor/horse_armor_necromium.png"), (new Item.Properties()).maxStackSize(1).isBurnable().group(createCompatGroup("nether_extension", ItemGroup.MISC))));
 
 	public static final RegistryObject<Item> ROTTEN_EGG = HELPER.createItem("rotten_egg", () -> new RottenEggItem(new Item.Properties().maxStackSize(16).group(ItemGroup.MISC)));
 
