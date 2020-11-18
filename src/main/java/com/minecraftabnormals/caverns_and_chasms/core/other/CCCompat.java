@@ -40,6 +40,7 @@ public class CCCompat {
 
 	public static void registerRenderLayers() {
 		RenderTypeLookup.setRenderLayer(CCBlocks.GOLDEN_BARS.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(CCBlocks.SILVER_BARS.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_FIRE.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_TORCH.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_WALL_TORCH.get(), RenderType.getCutout());
