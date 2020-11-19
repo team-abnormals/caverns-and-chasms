@@ -11,6 +11,8 @@
     "#forge:ores/copper",
     "#forge:ores/tin",
     "#forge:ores/lead",
-    "#forge:ores/cobalt"
+    "#forge:ores/cobalt",
+    "#forge:ores/nickel",
+    "#forge:ores/platinum"
   ]
 }
