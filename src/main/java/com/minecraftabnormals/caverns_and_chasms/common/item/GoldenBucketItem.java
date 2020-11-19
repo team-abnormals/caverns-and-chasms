@@ -103,7 +103,6 @@ public class GoldenBucketItem extends Item {
                     return ActionResult.resultFail(stack);
                 } else {
                     result = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.NONE);
-                    if (ret != null) return ret;
                     if (result.getType() == RayTraceResult.Type.MISS) {
                         return ActionResult.resultPass(stack);
                     } else if (result.getType() != RayTraceResult.Type.BLOCK) {

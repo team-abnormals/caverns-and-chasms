@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
@@ -20,7 +21,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(Block.Properties.from(Blocks.GOLD_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new Block(Block.Properties.from(Blocks.GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new Block(Block.Properties.from(Blocks.NETHER_QUARTZ_ORE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new Block(Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
@@ -28,8 +29,9 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.CAMPFIRE)), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.LANTERN)), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.TORCH)));
-	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.TORCH)), () -> CURSED_WALL_TORCH.get(), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.TORCH)), CURSED_WALL_TORCH, ItemGroup.DECORATIONS);
 
+	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(Properties.ROTTEN_FLESH_BLOCK), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> GOLDEN_LANTERN = HELPER.createBlock("golden_lantern", () -> new GoldenLanternBlock(Properties.GOLDEN_LANTERN), ItemGroup.DECORATIONS);
@@ -53,6 +55,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> LAPIS_LAZULI_PILLAR = HELPER.createBlock("lapis_pillar", () -> new RotatedPillarBlock(Properties.LAPIS_LAZULI), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> LAPIS_LAZULI_LAMP = HELPER.createBlock("lapis_lamp", () -> new Block(Properties.LAMP), ItemGroup.BUILDING_BLOCKS);
 
+	public static final RegistryObject<Block> ROCKY_DIRT = HELPER.createBlock("rocky_dirt", () -> new Block(Properties.ROCKY_DIRT), ItemGroup.BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> DIRT_BRICKS = HELPER.createBlock("dirt_bricks", () -> new Block(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DIRT_BRICK_STAIRS = HELPER.createBlock("dirt_brick_stairs", () -> new StairsBlock(() -> DIRT_BRICKS.get().getDefaultState(), Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -79,6 +82,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "mossy_cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
 
 	static class Properties {
+		public static final AbstractBlock.Properties ROCKY_DIRT = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(1.5F).sound(SoundType.GROUND);
 		public static final AbstractBlock.Properties DIRT_BRICKS = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.5F).sound(SoundType.GROUND);
 		public static final AbstractBlock.Properties COBBLESTONE_TILES = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F);
 
@@ -89,6 +93,8 @@ public class CCBlocks {
 		public static final AbstractBlock.Properties SUGILITE = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.PURPLE).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
 		public static final AbstractBlock.Properties LAPIS_LAZULI = AbstractBlock.Properties.create(Material.IRON, MaterialColor.LAPIS).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
 		public static final AbstractBlock.Properties LAMP = AbstractBlock.Properties.create(Material.REDSTONE_LIGHT).setLightLevel((state) -> 15).hardnessAndResistance(0.3F).sound(SoundType.GLASS).setAllowsSpawn(Properties::alwaysAllowSpawn);
+
+		public static final AbstractBlock.Properties ROTTEN_FLESH_BLOCK = AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.ORANGE_TERRACOTTA).harvestTool(ToolType.HOE).hardnessAndResistance(0.8F).sound(SoundType.CORAL);
 
 		private static boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
 			return true;

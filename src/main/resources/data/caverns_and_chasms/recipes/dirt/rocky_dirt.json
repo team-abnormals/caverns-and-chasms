@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DG",
+    "GD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "G": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:rocky_dirt",
+    "count": 4
+  }
+}

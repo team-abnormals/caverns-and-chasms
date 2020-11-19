@@ -6,6 +6,7 @@
   "block.caverns_and_chasms.silver_lantern": "Silver Lantern",
   "block.caverns_and_chasms.silver_bars": "Silver Bars",
 
+  "block.caverns_and_chasms.rotten_flesh_block": "Rotten Flesh Block",
   "block.caverns_and_chasms.gravestone": "Gravestone",
 
   "block.caverns_and_chasms.cursed_campfire": "Cursed Campfire",
@@ -34,6 +35,8 @@
   "block.caverns_and_chasms.sugilite_brick_wall": "Sugilite Brick Wall",
   "block.caverns_and_chasms.sugilite_pillar": "Sugilite Pillar",
   "block.caverns_and_chasms.sugilite_lamp": "Sugilite Lamp",
+
+  "block.caverns_and_chasms.rocky_dirt": "Rocky Dirt",
 
   "block.caverns_and_chasms.dirt_bricks": "Dirt Bricks",
   "block.caverns_and_chasms.dirt_brick_slab": "Dirt Brick Slab",
