@@ -21,7 +21,7 @@ public class SilverArmorItem extends ArmorItem {
 		this.attributes = new LazyValue<>(() -> {
 			ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 			builder.putAll(super.getAttributeModifiers(slot));
-			builder.put(CCAttributes.DEFENSIVE_AFFLICTION_CHANCE.get(), new AttributeModifier(MODIFIER, "Affliction chance", 0.25F, AttributeModifier.Operation.ADDITION));
+			builder.put(CCAttributes.AFFLICTION_CHANCE.get(), new AttributeModifier(MODIFIER, "Affliction chance", 0.25F, AttributeModifier.Operation.ADDITION));
 			return builder.build();
 		});
 	}

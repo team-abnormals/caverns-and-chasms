@@ -27,8 +27,7 @@ import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -200,24 +199,20 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockEvent.BreakEvent event) {
 		PlayerEntity player = event.getPlayer();
-		int droppedXP = event.getExpToDrop();
-
-		ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
-		Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(EquipmentSlotType.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
-		float decrease = (float)modifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-		event.setExpToDrop(droppedXP + Math.round(droppedXP * decrease));
+		Item item = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem();
+		if (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) {
+			int droppedXP = event.getExpToDrop();
+			event.setExpToDrop(droppedXP * 2);
+		}
 	}
 
 	@SubscribeEvent
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		PlayerEntity player = event.getAttackingPlayer();
-		int droppedXP = event.getDroppedExperience();
-
-		ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
-		Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(EquipmentSlotType.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
-		float decrease = (float)modifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-		if (player != null) {
-			event.setDroppedExperience(droppedXP + Math.round(droppedXP * decrease));
+		Item item = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem();
+		if (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) {
+			int droppedXP = event.getDroppedExperience();
+			event.setDroppedExperience(droppedXP * 2);
 		}
 	}
 
@@ -270,7 +265,7 @@ public class CCEvents {
 
 			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
 				ItemStack stack = entity.getItemStackFromSlot(slot);
-				Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(slot).get(CCAttributes.DEFENSIVE_AFFLICTION_CHANCE.get());
+				Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(slot).get(CCAttributes.AFFLICTION_CHANCE.get());
 				if (modifiers.isEmpty())
 					continue;
 

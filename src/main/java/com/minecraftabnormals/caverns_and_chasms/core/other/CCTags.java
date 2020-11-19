@@ -21,10 +21,5 @@ public class CCTags {
 	}
 
 	public static class Items {
-		public static final ITag.INamedTag<Item> XP_BOOST_TOOLS = createTag("xp_boost_tools");
-
-		private static ITag.INamedTag<Item> createTag(String name) {
-			return ItemTags.makeWrapperTag(CavernsAndChasms.MODID + ":" + name);
-		}
 	}
 }

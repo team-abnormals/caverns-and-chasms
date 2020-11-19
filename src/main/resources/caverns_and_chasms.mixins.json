@@ -12,7 +12,9 @@
     "WitherSkeletonEntityMixin",
     "ZoglinEntityMixin"
   ],
-  "client": [],
+  "client": [
+    "TieredItemMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
