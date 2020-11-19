@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
@@ -229,28 +230,42 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void potionRemoveEvent(PotionEvent.PotionRemoveEvent event) {
-		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
+		EffectInstance effectInstance = event.getPotionEffect();
+		if (effectInstance != null) {
+			Effect effect = effectInstance.getPotion();
 			LivingEntity entity = event.getEntityLiving();
-			CompoundNBT data = entity.getPersistentData();
-			if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
-				entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
-				entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+
+			if (effect == CCEffects.AFFLICTION.get()) {
+				entity.attackEntityFrom(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
+			}
+
+			if (effect == CCEffects.REWIND.get()) {
+				CompoundNBT data = entity.getPersistentData();
+				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
+					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
+					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+				}
 			}
 		}
 	}
 
 	@SubscribeEvent
 	public static void potionExpireEvent(PotionEvent.PotionExpiryEvent event) {
-		if (event.getPotionEffect().getPotion() == CCEffects.AFFLICTION.get()) {
-			event.getEntityLiving().attackEntityFrom(CCDamageSources.AFFLICTION, (event.getPotionEffect().getAmplifier() + 1) * 3);
-		}
-
-		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
+		EffectInstance effectInstance = event.getPotionEffect();
+		if (effectInstance != null) {
+			Effect effect = effectInstance.getPotion();
 			LivingEntity entity = event.getEntityLiving();
-			CompoundNBT data = entity.getPersistentData();
-			if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
-				entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
-				entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+
+			if (effect == CCEffects.AFFLICTION.get()) {
+				entity.attackEntityFrom(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
+			}
+
+			if (effect == CCEffects.REWIND.get()) {
+				CompoundNBT data = entity.getPersistentData();
+				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
+					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
+					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+				}
 			}
 		}
 	}
