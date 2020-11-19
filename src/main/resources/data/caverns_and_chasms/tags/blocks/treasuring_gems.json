@@ -5,5 +5,11 @@
     "#forge:ores/emerald",
     "#forge:ores/lapis",
     "#forge:ores/sugilite"
+  ],
+  "optional": [
+    "#forge:ores/ruby",
+    "#forge:ores/amethyst",
+    "#forge:ores/sapphire",
+    "#forge:ores/topaz"
   ]
 }

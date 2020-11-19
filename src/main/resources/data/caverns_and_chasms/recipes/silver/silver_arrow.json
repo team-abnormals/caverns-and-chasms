@@ -10,7 +10,7 @@
       "item": "minecraft:stick"
     },
     "X": {
-      "item": "caverns_and_chasms:silver_nugget"
+      "tag": "forge:nuggets/silver"
     },
     "Y": {
       "item": "minecraft:feather"
