@@ -29,6 +29,7 @@ public class CCEntities {
 	public static final RegistryObject<EntityType<SilverArrowEntity>> SILVER_ARROW = HELPER.createEntity("silver_arrow", SilverArrowEntity::new, SilverArrowEntity::new, EntityClassification.MISC, 0.5F, 0.5F);
 	public static final RegistryObject<EntityType<ZombieChickenEntity>> ZOMBIE_CHICKEN = HELPER.createLivingEntity("zombie_chicken", ZombieChickenEntity::new, EntityClassification.MONSTER, 0.4F, 0.7F);
 	public static final RegistryObject<EntityType<FlyEntity>> FLY = HELPER.createLivingEntity("fly", FlyEntity::new, EntityClassification.CREATURE, 0.4F, 0.4F);
+	public static final RegistryObject<EntityType<MimeEntity>> MIME = HELPER.createLivingEntity("mime", MimeEntity::new, EntityClassification.MONSTER, 0.6F, 2.1F);
 
 	public static void registerAttributes() {
 		GlobalEntityTypeAttributes.put(CAVEFISH.get(), CavefishEntity.registerAttributes().create());
@@ -36,6 +37,7 @@ public class CCEntities {
 		GlobalEntityTypeAttributes.put(SPIDERLING.get(), SpiderlingEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(ZOMBIE_CHICKEN.get(), ZombieChickenEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(FLY.get(), FlyEntity.registerAttributes().create());
+		GlobalEntityTypeAttributes.put(MIME.get(), MimeEntity.func_234295_eP_().create());
 	}
 
 	public static void registerRenderers() {
@@ -46,6 +48,7 @@ public class CCEntities {
 		RenderingRegistry.registerEntityRenderingHandler(SILVER_ARROW.get(), SilverArrowRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZOMBIE_CHICKEN.get(), ZombieChickenRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(FLY.get(), FlyRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(MIME.get(), MimeRenderer::new);
 	}
 
 	public static void registerEntitySpawns() {
