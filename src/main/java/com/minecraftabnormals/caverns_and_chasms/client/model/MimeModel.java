@@ -60,6 +60,7 @@ public class MimeModel<T extends MimeEntity> extends PlayerModel<T> {
 
 	@Override
 	public void setLivingAnimations(T entity, float limbSwing, float limbSwingAmount, float partialTicks) {
+		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTicks);
 		double d0 = entity.prevChasingPosX + (entity.chasingPosX - entity.prevChasingPosX) * partialTicks - (entity.prevPosX + (entity.getPosX() - entity.prevPosX) * partialTicks);
 		double d1 = entity.prevChasingPosY + (entity.chasingPosY - entity.prevChasingPosY) * partialTicks - (entity.prevPosY + (entity.getPosY() - entity.prevPosY) * partialTicks);
 		double d2 = entity.prevChasingPosZ + (entity.chasingPosZ - entity.prevChasingPosZ) * partialTicks - (entity.prevPosZ + (entity.getPosZ() - entity.prevPosZ) * partialTicks);
@@ -85,6 +86,7 @@ public class MimeModel<T extends MimeEntity> extends PlayerModel<T> {
 
 	@Override
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.isSneak = entityIn.isCrouching();
 		super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		if (entityIn.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty()) {
 			if (entityIn.isCrouching()) {

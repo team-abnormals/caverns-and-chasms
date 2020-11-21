@@ -37,7 +37,7 @@ public class CCEntities {
 		GlobalEntityTypeAttributes.put(SPIDERLING.get(), SpiderlingEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(ZOMBIE_CHICKEN.get(), ZombieChickenEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(FLY.get(), FlyEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(MIME.get(), MimeEntity.func_234295_eP_().create());
+		GlobalEntityTypeAttributes.put(MIME.get(), MimeEntity.registerAttributes().create());
 	}
 
 	public static void registerRenderers() {
