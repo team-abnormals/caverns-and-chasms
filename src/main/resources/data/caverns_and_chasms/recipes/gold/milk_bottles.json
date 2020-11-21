@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:golden_bucket"
+    },
+    {
+      "tag": "forge:milk/milk_bottle"
+    },
+    {
+      "tag": "forge:milk/milk_bottle"
+    },
+    {
+      "tag": "forge:milk/milk_bottle"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:golden_milk_bucket",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "neapolitan"
+    }
+  ]
+}
