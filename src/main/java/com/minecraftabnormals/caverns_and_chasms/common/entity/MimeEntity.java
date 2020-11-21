@@ -10,7 +10,11 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolItem;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -22,7 +26,7 @@ public class MimeEntity extends MonsterEntity {
 	private static final Map<Pose, EntitySize> SIZE_BY_POSE = ImmutableMap.<Pose, EntitySize>builder()
 			.put(Pose.STANDING, STANDING_SIZE)
 			.put(Pose.SWIMMING, EntitySize.flexible(0.6F, 0.6F))
-			.put(Pose.CROUCHING, EntitySize.flexible(0.6F, 1.5F))
+			.put(Pose.CROUCHING, EntitySize.flexible(0.6F, 1.8F))
 			.build();
 	public double prevChasingPosX;
 	public double prevChasingPosY;
@@ -51,7 +55,7 @@ public class MimeEntity extends MonsterEntity {
 		return MonsterEntity.func_234295_eP_()
 				.createMutableAttribute(Attributes.MAX_HEALTH, 20.0F)
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D)
-				.createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.26F)
+				.createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.3F)
 				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
 				.createMutableAttribute(Attributes.ARMOR, 2.0D);
 	}
@@ -60,9 +64,12 @@ public class MimeEntity extends MonsterEntity {
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean result = super.attackEntityAsMob(entityIn);
 		if (entityIn instanceof LivingEntity) {
-			EquipmentSlotType itemSlot = EquipmentSlotType.MAINHAND;
 			LivingEntity entity = (LivingEntity) entityIn;
+
+			EquipmentSlotType slot1 = EquipmentSlotType.MAINHAND;
+			EquipmentSlotType slot2 = null;
 			List<EquipmentSlotType> slotsWithGear = Lists.newArrayList();
+
 			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
 				this.setItemStackToSlot(slot, ItemStack.EMPTY);
 				if (slot == EquipmentSlotType.MAINHAND || slot == EquipmentSlotType.OFFHAND) {
@@ -74,32 +81,61 @@ public class MimeEntity extends MonsterEntity {
 				if (!stack.isEmpty())
 					slotsWithGear.add(slot);
 			}
-			ItemStack weapon = entity.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
+
+			ItemStack mainhand = entity.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
 			ItemStack offhand = entity.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
-			if (!(weapon.getItem() instanceof ToolItem || weapon.getItem() instanceof SwordItem)) {
-				if (offhand.getItem() instanceof ToolItem || offhand.getItem() instanceof SwordItem)
-					itemSlot = EquipmentSlotType.OFFHAND;
-				else if (!slotsWithGear.isEmpty()) {
-					itemSlot = slotsWithGear.get(this.rand.nextInt(slotsWithGear.size()));
+			EquipmentSlotType armor1 = null;
+			EquipmentSlotType armor2 = null;
+
+			if (slotsWithGear.size() > 0) {
+				int index = this.rand.nextInt(slotsWithGear.size());
+				armor1 = slotsWithGear.get(index);
+				slotsWithGear.remove(index);
+				armor2 = slotsWithGear.isEmpty() ? null : slotsWithGear.get(this.rand.nextInt(slotsWithGear.size()));
+			}
+
+			if (isValidWeapon(mainhand)) {
+				if (armor1 != null)
+					slot2 = armor1;
+				else if (isValidWeapon(offhand))
+					slot2 = EquipmentSlotType.OFFHAND;
+			} else {
+				if (isValidWeapon(offhand)) {
+					slot1 = EquipmentSlotType.OFFHAND;
+					if (armor1 != null)
+						slot2 = armor1;
+				} else if (armor1 != null) {
+					slot1 = armor1;
+					if (armor2 != null)
+						slot2 = armor2;
+					else
+						slot2 = EquipmentSlotType.MAINHAND;
 				}
 			}
-			this.setItemStackToSlot(itemSlot == EquipmentSlotType.OFFHAND ? EquipmentSlotType.MAINHAND : itemSlot, entity.getItemStackFromSlot(itemSlot));
+
+			world.playMovingSound(null, this, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.HOSTILE, 1.0F, 1.0F);
+			this.setItemStackToSlot(slot1 == EquipmentSlotType.OFFHAND ? EquipmentSlotType.MAINHAND : slot1, entity.getItemStackFromSlot(slot1));
+			if (slot2 != null)
+				this.setItemStackToSlot(slot2, entity.getItemStackFromSlot(slot2));
 		}
 		return result;
+	}
+
+	private static boolean isValidWeapon(ItemStack stack) {
+		return stack.getItem() instanceof ToolItem || stack.getItem() instanceof SwordItem;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
 		this.updateCape();
-		System.out.println(this.getCreatureAttribute());
 	}
 
 	@Override
 	public void livingTick() {
 		super.livingTick();
-		if (this.getAttackTarget() != null) {
-			Pose pose = this.getAttackTarget().getPose();
+		if (!world.isRemote()) {
+			Pose pose = this.getAttackTarget() != null ? this.getAttackTarget().getPose() : Pose.STANDING;
 			if (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING) {
 				if (!this.isPoseClear(pose)) {
 					if (this.isPoseClear(Pose.CROUCHING))
