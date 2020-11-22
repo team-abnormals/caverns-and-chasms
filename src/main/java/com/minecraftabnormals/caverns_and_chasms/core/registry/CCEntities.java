@@ -54,13 +54,17 @@ public class CCEntities {
 	public static void registerEntitySpawns() {
 		EntitySpawnPlacementRegistry.register(CAVEFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CavefishEntity::canCavefishSpawn);
 		EntitySpawnPlacementRegistry.register(DEEPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
+		EntitySpawnPlacementRegistry.register(MIME.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MimeEntity::canMimeSpawn);
 
 		ForgeRegistries.BIOMES.getValues().forEach(CCEntities::processSpawning);
 	}
 
 	private static void processSpawning(Biome biome) {
-		if (BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.OVERWORLD) && biome.getCategory() != Biome.Category.OCEAN && biome.getCategory() != Biome.Category.BEACH && biome != Biomes.STONE_SHORE) {
-			biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(CAVEFISH.get(), 350, 4, 7));
+		if (BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.OVERWORLD)) {
+			if (biome.getCategory() != Biome.Category.OCEAN && biome.getCategory() != Biome.Category.BEACH && biome != Biomes.STONE_SHORE)
+				biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(CAVEFISH.get(), 350, 4, 7));
+			if (biome.getCategory() == Biome.Category.DESERT || biome.getCategory() == Biome.Category.JUNGLE)
+				biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(MIME.get(), 45, 1, 1));
 		}
 	}
 }
