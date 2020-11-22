@@ -210,10 +210,12 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		PlayerEntity player = event.getAttackingPlayer();
-		Item item = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem();
-		if (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) {
-			int droppedXP = event.getDroppedExperience();
-			event.setDroppedExperience(droppedXP * 2);
+		if (player != null) {
+			Item item = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem();
+			if (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) {
+				int droppedXP = event.getDroppedExperience();
+				event.setDroppedExperience(droppedXP * 2);
+			}
 		}
 	}
 
@@ -235,7 +237,7 @@ public class CCEvents {
 			Effect effect = effectInstance.getPotion();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCEffects.AFFLICTION.get()) {
+			if (effect == CCEffects.AFFLICTION.get() && entity.isEntityUndead()) {
 				entity.attackEntityFrom(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
 			}
 
@@ -256,7 +258,7 @@ public class CCEvents {
 			Effect effect = effectInstance.getPotion();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCEffects.AFFLICTION.get()) {
+			if (effect == CCEffects.AFFLICTION.get() && entity.isEntityUndead()) {
 				entity.attackEntityFrom(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
 			}
 
@@ -289,7 +291,8 @@ public class CCEvents {
 
 			if (rand.nextFloat() < decrease) {
 				LivingEntity livingEntity = (LivingEntity) event.getSource().getTrueSource();
-				livingEntity.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+				if (livingEntity.isEntityUndead())
+					livingEntity.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
 			}
 		}
 	}

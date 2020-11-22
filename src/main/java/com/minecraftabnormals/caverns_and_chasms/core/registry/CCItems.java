@@ -52,7 +52,7 @@ public class CCItems {
 
 	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.CAVEFISH)));
 	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.COOKED_CAVEFISH)));
-	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new FishBucketItem(CCEntities.CAVEFISH::get, () -> Fluids.WATER, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new FishBucketItem(CCEntities.CAVEFISH, () -> Fluids.WATER, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)));
 
 	public static final RegistryObject<Item> GOLDEN_BUCKET = HELPER.createItem("golden_bucket", () -> new GoldenBucketItem(() -> Fluids.EMPTY, new Item.Properties().group(ItemGroup.MISC).maxStackSize(16)));
 	public static final RegistryObject<Item> GOLDEN_WATER_BUCKET = HELPER.createItem("golden_water_bucket", () -> new GoldenBucketItem(() -> Fluids.WATER, new Item.Properties().containerItem(GOLDEN_BUCKET.get()).group(ItemGroup.MISC).maxStackSize(1)));
@@ -63,6 +63,7 @@ public class CCItems {
 	public static final RegistryObject<Item> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntities.DEEPER::get, 8355711, 13717260);
 	public static final RegistryObject<Item> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntities.FLY::get, 920336, 7080720);
 	public static final RegistryObject<Item> ZOMBIE_CHICKEN_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_chicken", CCEntities.ZOMBIE_CHICKEN::get, 3430940, 9349983);
+	public static final RegistryObject<Item> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntities.MIME::get, 0x5A5050, 0x969964);
 
 	static class Foods {
 		public static final Food CAVEFISH = new Food.Builder().hunger(1).saturation(0.3F).build();

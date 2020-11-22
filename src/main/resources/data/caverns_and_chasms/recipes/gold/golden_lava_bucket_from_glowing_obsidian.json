@@ -2,12 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "caverns_and_chasms:necromium_ingot"
+      "item": "caverns_and_chasms:golden_bucket"
+    },
+    {
+      "item": "nether_extension:glowing_obsidian"
     }
   ],
   "result": {
-    "item": "caverns_and_chasms:necromium_nugget",
-    "count": 9
+    "item": "caverns_and_chasms:golden_lava_bucket",
+    "count": 1
   },
   "conditions": [
     {

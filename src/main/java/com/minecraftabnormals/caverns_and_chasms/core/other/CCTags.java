@@ -21,5 +21,6 @@ public class CCTags {
 	}
 
 	public static class Items {
+
 	}
 }

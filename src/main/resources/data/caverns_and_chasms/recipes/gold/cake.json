@@ -21,5 +21,14 @@
   },
   "result": {
     "item": "minecraft:cake"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "environmental"
+      }
+    }
+  ]
 }

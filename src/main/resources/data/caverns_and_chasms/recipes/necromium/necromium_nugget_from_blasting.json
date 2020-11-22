@@ -29,10 +29,10 @@
       "item": "caverns_and_chasms:necromium_boots"
     },
     {
-      "item": "nether_extension:necromium_horse_armor"
+      "item": "caverns_and_chasms:necromium_horse_armor"
     }
   ],
-  "result": "nether_extension:necromium_nugget",
+  "result": "caverns_and_chasms:necromium_nugget",
   "experience": 0.1,
   "cookingtime": 100,
   "conditions": [
