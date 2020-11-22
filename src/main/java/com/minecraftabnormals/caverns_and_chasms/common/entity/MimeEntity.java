@@ -3,6 +3,7 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -13,8 +14,11 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolItem;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -56,8 +60,32 @@ public class MimeEntity extends MonsterEntity {
 				.createMutableAttribute(Attributes.MAX_HEALTH, 20.0F)
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D)
 				.createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.3F)
-				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
+				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
 				.createMutableAttribute(Attributes.ARMOR, 2.0D);
+	}
+
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.ENTITY_ZOMBIE_DEATH;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return SoundEvents.ENTITY_ZOMBIE_HURT;
+	}
+
+	protected SoundEvent getStepSound() {
+		return SoundEvents.ENTITY_ZOMBIE_STEP;
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState blockIn) {
+		this.playSound(this.getStepSound(), 0.15F, 1.0F);
 	}
 
 	@Override
@@ -158,28 +186,6 @@ public class MimeEntity extends MonsterEntity {
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
 		return new ItemStack(CCItems.MIME_SPAWN_EGG.get());
-	}
-
-	protected void updatePose() {
-		if (this.isPoseClear(Pose.SWIMMING)) {
-			Pose pose;
-			if (this.isSwimming())
-				pose = Pose.SWIMMING;
-			else if (this.isSneaking())
-				pose = Pose.CROUCHING;
-			else
-				pose = Pose.STANDING;
-
-			Pose pose1;
-			if (!this.isSpectator() && !this.isPassenger() && !this.isPoseClear(pose)) {
-				if (this.isPoseClear(Pose.CROUCHING))
-					pose1 = Pose.CROUCHING;
-				else
-					pose1 = Pose.SWIMMING;
-			} else
-				pose1 = pose;
-			this.setPose(pose1);
-		}
 	}
 
 	private void updateCape() {
