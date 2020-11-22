@@ -135,6 +135,10 @@
   "tooltip.caverns_and_chasms.afflicting": "Afflicting",
   "tooltip.caverns_and_chasms.boosting": "Boosting",
 
+  "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper dies",
+  "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",
+  "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper hisses",
+
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.potion.effect.rewind_long": "Potion of Rewind",
   "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",

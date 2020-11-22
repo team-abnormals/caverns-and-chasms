@@ -1,9 +1,12 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -17,6 +20,16 @@ public class DeeperEntity extends CreeperEntity {
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
 		return new ItemStack(CCItems.DEEPER_SPAWN_EGG.get());
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return CCSoundEvents.ENTITY_DEEPER_HURT.get();
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return CCSoundEvents.ENTITY_DEEPER_DEATH.get();
 	}
 
 	@Override
