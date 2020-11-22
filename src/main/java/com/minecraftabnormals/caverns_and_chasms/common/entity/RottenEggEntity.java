@@ -3,7 +3,6 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
@@ -22,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class RottenEggEntity extends ProjectileItemEntity implements IRendersAsItem {
+public class RottenEggEntity extends ProjectileItemEntity {
 
 	public RottenEggEntity(EntityType<? extends RottenEggEntity> type, World worldIn) {
 		super(type, worldIn);
