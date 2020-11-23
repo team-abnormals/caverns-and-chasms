@@ -25,11 +25,11 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.FIRE)));
-	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.CAMPFIRE)), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.LANTERN)), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.TORCH)));
-	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.TORCH)), CURSED_WALL_TORCH, ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.SOUL_FIRE)));
+	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.SOUL_CAMPFIRE)), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.SOUL_LANTERN)), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.SOUL_TORCH)));
+	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.SOUL_TORCH)), CURSED_WALL_TORCH, ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(Properties.ROTTEN_FLESH_BLOCK), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
