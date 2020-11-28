@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
 import com.minecraftabnormals.caverns_and_chasms.common.item.*;
+import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.*;
 import com.minecraftabnormals.caverns_and_chasms.common.item.silver.*;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCTiers;
@@ -22,11 +23,11 @@ public class CCItems {
 	public static final RegistryObject<Item> SILVER_NUGGET = HELPER.createItem("silver_nugget", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 	public static final RegistryObject<Item> SILVER_ARROW = HELPER.createItem("silver_arrow", () -> new SilverArrowItem(new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> ORE_DETECTOR = HELPER.createItem("ore_detector", () -> new OreDetectorItem(new Item.Properties().maxStackSize(1).group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_SWORD = HELPER.createItem("silver_sword", () -> new SilverSwordItem(CCTiers.Tools.SILVER, 5, -2.4F, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_PICKAXE = HELPER.createItem("silver_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.SILVER, 3, -2.8F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCTiers.Tools.SILVER, 3.5F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_AXE = HELPER.createItem("silver_axe", () -> new SilverAxeItem(CCTiers.Tools.SILVER, 8, -3.1F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_HOE = HELPER.createItem("silver_hoe", () -> new SilverHoeItem(CCTiers.Tools.SILVER, 0, -0.5F, new Item.Properties().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> SILVER_SWORD = HELPER.createItem("silver_sword", () -> new SilverSwordItem(CCTiers.Tools.SILVER, 3, -2.4F, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SILVER_PICKAXE = HELPER.createItem("silver_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.SILVER, 1, -2.8F, new Item.Properties().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCTiers.Tools.SILVER, 1.5F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> SILVER_AXE = HELPER.createItem("silver_axe", () -> new SilverAxeItem(CCTiers.Tools.SILVER, 6.0F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> SILVER_HOE = HELPER.createItem("silver_hoe", () -> new SilverHoeItem(CCTiers.Tools.SILVER, 0, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
 	public static final RegistryObject<Item> SILVER_HELMET = HELPER.createItem("silver_helmet", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> SILVER_CHESTPLATE = HELPER.createItem("silver_chestplate", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> SILVER_LEGGINGS = HELPER.createItem("silver_leggings", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroup.COMBAT)));
@@ -35,11 +36,11 @@ public class CCItems {
 
 	public static final RegistryObject<Item> NECROMIUM_INGOT = HELPER.createItem("necromium_ingot", () -> new Item(new Item.Properties().isBurnable().group(ItemGroup.MATERIALS)));
 	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createCompatItem("nether_extension", "necromium_nugget", new Item.Properties().isBurnable(), ItemGroup.MATERIALS);
-	public static final RegistryObject<Item> NECROMIUM_SWORD = HELPER.createItem("necromium_sword", () -> new SilverSwordItem(CCTiers.Tools.NECROMIUM, 5, -2.4F, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> NECROMIUM_PICKAXE = HELPER.createItem("necromium_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.NECROMIUM, 3, -2.8F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_SHOVEL = HELPER.createItem("necromium_shovel", () -> new SilverShovelItem(CCTiers.Tools.NECROMIUM, 3.5F, -3.0F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_AXE = HELPER.createItem("necromium_axe", () -> new SilverAxeItem(CCTiers.Tools.NECROMIUM, 8, -3.1F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_HOE = HELPER.createItem("necromium_hoe", () -> new SilverHoeItem(CCTiers.Tools.NECROMIUM, 0, -0.5F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_SWORD = HELPER.createItem("necromium_sword", () -> new NecromiumSwordItem(CCTiers.Tools.NECROMIUM, 3, -2.4F, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_PICKAXE = HELPER.createItem("necromium_pickaxe", () -> new NecromiumPickaxeItem(CCTiers.Tools.NECROMIUM, 1, -2.8F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_SHOVEL = HELPER.createItem("necromium_shovel", () -> new NecromiumShovelItem(CCTiers.Tools.NECROMIUM, 1.5F, -3.0F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_AXE = HELPER.createItem("necromium_axe", () -> new NecromiumAxeItem(CCTiers.Tools.NECROMIUM, 5.0F, -3.0F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_HOE = HELPER.createItem("necromium_hoe", () -> new NecromiumHoeItem(CCTiers.Tools.NECROMIUM, -4, -0.0F, new Item.Properties().isBurnable().group(ItemGroup.TOOLS)));
 	public static final RegistryObject<Item> NECROMIUM_HELMET = HELPER.createItem("necromium_helmet", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.HEAD, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> NECROMIUM_CHESTPLATE = HELPER.createItem("necromium_chestplate", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.CHEST, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> NECROMIUM_LEGGINGS = HELPER.createItem("necromium_leggings", () -> new ArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.LEGS, new Item.Properties().isBurnable().group(ItemGroup.COMBAT)));
