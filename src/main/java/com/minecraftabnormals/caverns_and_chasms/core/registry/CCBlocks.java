@@ -21,7 +21,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(Block.Properties.from(Blocks.GOLD_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new OreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0F, 3.0F)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new Block(Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new CCOreBlock(0, 1, Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
@@ -37,7 +37,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> GOLDEN_LANTERN = HELPER.createBlock("golden_lantern", () -> new GoldenLanternBlock(Properties.GOLDEN_LANTERN), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
 
-	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new Block(Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new CCOreBlock(2, 5, Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BLOCK = HELPER.createBlock("sugilite_block", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BRICKS = HELPER.createBlock("sugilite_bricks", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BRICK_STAIRS = HELPER.createBlock("sugilite_brick_stairs", () -> new StairsBlock(() -> SUGILITE_BRICKS.get().getDefaultState(), Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
