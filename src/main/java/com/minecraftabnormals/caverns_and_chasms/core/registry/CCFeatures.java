@@ -45,7 +45,7 @@ public class CCFeatures {
 	private static void addSugiliteOre(Biome biome) {
 		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE
 				.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, CCBlocks.SUGILITE_ORE.get().getDefaultState(), 8))
-				.withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(9, 0, 0, 42))));
+				.withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(7, 0, 0, 42))));
 	}
 
 	public static void addSilverOre(Biome biome) {
