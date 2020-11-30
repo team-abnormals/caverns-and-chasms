@@ -85,7 +85,7 @@
   "item.caverns_and_chasms.silver_axe": "Hopeakirves",
   "item.caverns_and_chasms.silver_hoe": "Hopeakuokka",
   "item.caverns_and_chasms.silver_helmet": "Hopeakypärä",
-  "item.caverns_and_chasms.silver_chestplate": "Hopeapanssari",
+  "item.caverns_and_chasms.silver_chestplate": "Hopearintapanssari",
   "item.caverns_and_chasms.silver_leggings": "Hopeahousut",
   "item.caverns_and_chasms.silver_boots": "Hopeasaappaat",
   "item.caverns_and_chasms.silver_horse_armor": "Hopeinen hevosen panssari",
@@ -101,7 +101,7 @@
   "item.caverns_and_chasms.necromium_chestplate": "Nekromiumrintapanssari",
   "item.caverns_and_chasms.necromium_leggings": "Nekromiumhousut",
   "item.caverns_and_chasms.necromium_boots": "Nekromiumsaappaat",
-  "item.caverns_and_chasms.necromium_horse_armor": "Nekromiumista tehty hevosen panssari",
+  "item.caverns_and_chasms.necromium_horse_armor": "Nekromiuminen hevosen panssari",
 
   "item.caverns_and_chasms.cavefish_spawn_egg": "Luo luolakala",
   "item.caverns_and_chasms.deeper_spawn_egg": "Luo deeper",
@@ -121,6 +121,10 @@
   "effect.caverns_and_chasms.rewind": "Takaisinkelaus",
   "effect.caverns_and_chasms.affliction": "Piina",
 
+  "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper kuolee",
+  "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper vahingoittuu",
+  "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper sihisee",
+  
   "enchantment.caverns_and_chasms.treasuring": "Aarteenmetsästys",
   "enchantment.caverns_and_chasms.treasuring.desc": "Tunnistin tunnistaa vain jalokiviä.",
   "enchantment.caverns_and_chasms.prospecting": "Malminetsintä",
