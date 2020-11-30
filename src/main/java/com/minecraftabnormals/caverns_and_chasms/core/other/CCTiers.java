@@ -19,6 +19,6 @@ public class CCTiers {
 
 	public static class Tools {
 		public static final IItemTier SILVER = new AbnormalsItemTier(0, 111, 7.0F, 0.0F, 17, () -> Ingredient.fromItems(CCItems.SILVER_INGOT.get()));
-		public static final IItemTier NECROMIUM = new AbnormalsItemTier(4, 2251, 9.0F, 4.0F, 11, () -> Ingredient.fromItems(CCItems.NECROMIUM_INGOT.get()));
+		public static final IItemTier NECROMIUM = new AbnormalsItemTier(4, 2251, 9.0F, 3.0F, 12, () -> Ingredient.fromItems(CCItems.NECROMIUM_INGOT.get()));
 	}
 }

@@ -72,18 +72,10 @@ public class CCItems {
 	}
 
 	public static void registerItemProperties() {
-		ItemModelsProperties.func_239418_a_(GOLDEN_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> {
-			return stack.getOrCreateTag().getInt("FluidLevel");
-		});
-		ItemModelsProperties.func_239418_a_(GOLDEN_WATER_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> {
-			return stack.getOrCreateTag().getInt("FluidLevel");
-		});
-		ItemModelsProperties.func_239418_a_(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> {
-			return stack.getOrCreateTag().getInt("FluidLevel");
-		});
-		ItemModelsProperties.func_239418_a_(GOLDEN_MILK_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> {
-			return stack.getOrCreateTag().getInt("FluidLevel");
-		});
+		ItemModelsProperties.func_239418_a_(GOLDEN_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.func_239418_a_(GOLDEN_WATER_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.func_239418_a_(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.func_239418_a_(GOLDEN_MILK_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemModelsProperties.func_239418_a_(ORE_DETECTOR.get(), new ResourceLocation("detect"), (stack, world, entity) -> {
 			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity) {
 				return OreDetectorItem.getDetectionData(stack) ? 1 : 0;

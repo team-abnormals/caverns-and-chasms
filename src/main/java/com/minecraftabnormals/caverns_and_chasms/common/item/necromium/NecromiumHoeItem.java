@@ -23,8 +23,7 @@ public class NecromiumHoeItem extends HoeItem {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if(target.isEntityUndead())
-			target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60));
+		target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60));
 		return super.hitEntity(stack, target, attacker);
 	}
 
