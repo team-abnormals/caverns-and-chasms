@@ -1,8 +1,8 @@
 {
-  "block.caverns_and_chasms.silver_block": "Silver Block",
+  "block.caverns_and_chasms.silver_block": "Block of Silver",
   "block.caverns_and_chasms.silver_ore": "Silver Ore",
   "block.caverns_and_chasms.nether_silver_ore": "Nether Silver Ore",
-  "block.caverns_and_chasms.necromium_block": "Necromium Block",
+  "block.caverns_and_chasms.necromium_block": "Block of Necromium",
   "block.caverns_and_chasms.silver_lantern": "Silver Lantern",
   "block.caverns_and_chasms.silver_bars": "Silver Bars",
 
@@ -27,7 +27,7 @@
   "block.caverns_and_chasms.lapis_lamp": "Lapis Lazuli Lamp",
 
   "block.caverns_and_chasms.sugilite_ore": "Sugilite Ore",
-  "block.caverns_and_chasms.sugilite_block": "Sugilite Block",
+  "block.caverns_and_chasms.sugilite_block": "Block of Sugilite",
   "block.caverns_and_chasms.sugilite_bricks": "Sugilite Bricks",
   "block.caverns_and_chasms.sugilite_brick_stairs": "Sugilite Brick Stairs",
   "block.caverns_and_chasms.sugilite_brick_slab": "Sugilite Brick Slab",
@@ -134,6 +134,11 @@
 
   "tooltip.caverns_and_chasms.afflicting": "Afflicting",
   "tooltip.caverns_and_chasms.boosting": "Boosting",
+  "tooltip.caverns_and_chasms.slowing": "Slowing",
+
+  "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper dies",
+  "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",
+  "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper hisses",
 
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.potion.effect.rewind_long": "Potion of Rewind",
@@ -144,8 +149,8 @@
   "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind",
   "item.minecraft.tipped_arrow.effect.rewind_long": "Arrow of Rewind",
 
+  "block.minecraft.lapis_block": "Block of Lapis Lazuli",
   "item.minecraft.netherite_scrap": "Ancient Scrap",
-  "block.minecraft.lantern": "Iron Lantern",
   "item.minecraft.bucket": "Iron Bucket",
   "item.minecraft.water_bucket": "Iron Water Bucket",
   "item.minecraft.lava_bucket": "Iron Lava Bucket",

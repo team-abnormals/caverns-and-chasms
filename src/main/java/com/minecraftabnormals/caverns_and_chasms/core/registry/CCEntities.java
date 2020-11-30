@@ -64,7 +64,7 @@ public class CCEntities {
 			if (biome.getCategory() != Biome.Category.OCEAN && biome.getCategory() != Biome.Category.BEACH && biome != Biomes.STONE_SHORE)
 				biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(CAVEFISH.get(), 350, 4, 7));
 			if (biome.getCategory() == Biome.Category.DESERT || biome.getCategory() == Biome.Category.JUNGLE)
-				biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(MIME.get(), 45, 1, 1));
+				biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(MIME.get(), 75, 1, 1));
 		}
 	}
 }

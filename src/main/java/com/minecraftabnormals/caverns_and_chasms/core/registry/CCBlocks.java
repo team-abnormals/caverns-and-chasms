@@ -20,16 +20,16 @@ public class CCBlocks {
 	public static final RegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER;
 
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(Block.Properties.from(Blocks.GOLD_BLOCK)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new Block(Block.Properties.from(Blocks.GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new Block(Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new OreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0F, 3.0F)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new CCOreBlock(0, 1, Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.FIRE)));
-	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.CAMPFIRE)), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.LANTERN)), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.TORCH)));
-	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.TORCH)), CURSED_WALL_TORCH, ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.SOUL_FIRE)));
+	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.SOUL_CAMPFIRE)), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.from(Blocks.SOUL_LANTERN)), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.from(Blocks.SOUL_TORCH)));
+	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createWallOrFloorBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.from(Blocks.SOUL_TORCH)), CURSED_WALL_TORCH, ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(Properties.ROTTEN_FLESH_BLOCK), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
@@ -37,7 +37,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> GOLDEN_LANTERN = HELPER.createBlock("golden_lantern", () -> new GoldenLanternBlock(Properties.GOLDEN_LANTERN), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
 
-	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new Block(Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new CCOreBlock(2, 5, Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BLOCK = HELPER.createBlock("sugilite_block", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BRICKS = HELPER.createBlock("sugilite_bricks", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BRICK_STAIRS = HELPER.createBlock("sugilite_brick_stairs", () -> new StairsBlock(() -> SUGILITE_BRICKS.get().getDefaultState(), Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
@@ -64,7 +64,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DIRT_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "dirt_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> DIRT_TILES = HELPER.createBlock("dirt_tiles", () -> new Block(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> DIRT_TILE_STAIRS = HELPER.createBlock("dirt_tile_stairs", () -> new StairsBlock(() -> DIRT_BRICKS.get().getDefaultState(), Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DIRT_TILE_STAIRS = HELPER.createBlock("dirt_tile_stairs", () -> new StairsBlock(() -> DIRT_TILES.get().getDefaultState(), Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DIRT_TILE_SLAB = HELPER.createBlock("dirt_tile_slab", () -> new SlabBlock(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DIRT_TILE_WALL = HELPER.createBlock("dirt_tile_wall", () -> new WallBlock(Properties.DIRT_BRICKS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> DIRT_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "dirt_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -83,7 +83,7 @@ public class CCBlocks {
 
 	static class Properties {
 		public static final AbstractBlock.Properties ROCKY_DIRT = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(1.5F).sound(SoundType.GROUND);
-		public static final AbstractBlock.Properties DIRT_BRICKS = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).hardnessAndResistance(0.5F).sound(SoundType.GROUND);
+		public static final AbstractBlock.Properties DIRT_BRICKS = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F).sound(SoundType.GROUND);
 		public static final AbstractBlock.Properties COBBLESTONE_TILES = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F);
 
 		public static final AbstractBlock.Properties GOLDEN_LANTERN = Block.Properties.create(Material.IRON).hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel((state) -> 15);

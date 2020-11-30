@@ -1,0 +1,23 @@
+{
+  "entity.deeper.death": {
+    "sounds": [
+      "caverns_and_chasms:mob/deeper/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.death"
+  },
+  "entity.deeper.hurt": {
+    "sounds": [
+      "caverns_and_chasms:mob/deeper/say1",
+      "caverns_and_chasms:mob/deeper/say2",
+      "caverns_and_chasms:mob/deeper/say3",
+      "caverns_and_chasms:mob/deeper/say4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.hurt"
+  },
+  "entity.deeper.primed": {
+    "sounds": [
+      "random/fuse"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.primed"
+  }
+}

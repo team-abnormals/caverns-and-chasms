@@ -63,7 +63,6 @@ public class GoldenBucketItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         CompoundNBT tag = stack.getOrCreateTag();
-        System.out.println(tag);
         int level = tag.getInt("FluidLevel");
 
         BlockRayTraceResult result = rayTrace(worldIn, playerIn, (this.getFluid() == Fluids.EMPTY || level < 2) && !(playerIn.isCrouching() && this.getFluid() != Fluids.EMPTY) ? RayTraceContext.FluidMode.SOURCE_ONLY : RayTraceContext.FluidMode.NONE);
