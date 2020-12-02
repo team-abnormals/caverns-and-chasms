@@ -12,8 +12,6 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.CreeperEntity;
@@ -49,7 +47,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Collection;
 import java.util.Random;
-import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MODID)
 public class CCEvents {
@@ -144,9 +141,6 @@ public class CCEvents {
 		}
 	}
 
-	private static final UUID BABY_SPEED_BOOST_ID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
-	private static final AttributeModifier BABY_SPEED_BOOST = new AttributeModifier(BABY_SPEED_BOOST_ID, "Baby speed boost", 0.5D, AttributeModifier.Operation.MULTIPLY_BASE);
-
 	@SubscribeEvent
 	public static void onEvent(LivingSpawnEvent.CheckSpawn event) {
 		Entity entity = event.getEntity();
@@ -162,36 +156,6 @@ public class CCEvents {
 						world.addEntity(deeper);
 						entity.remove();
 					}
-				}
-			}
-
-			if (event.getSpawnReason() == SpawnReason.NATURAL && entity instanceof ZombieEntity) {
-				ZombieEntity zombie = (ZombieEntity) entity;
-				if (zombie.isChild() && zombie.getRidingEntity() != null && zombie.getRidingEntity().getType() == EntityType.CHICKEN) {
-
-					ChickenEntity chicken = (ChickenEntity) zombie.getRidingEntity();
-					zombie.getRidingEntity().remove();
-					zombie.stopRiding();
-					zombie.remove();
-
-					ZombieChickenEntity zombieChicken = CCEntities.ZOMBIE_CHICKEN.get().create(world.getWorld());
-					zombieChicken.copyLocationAndAnglesFrom(chicken);
-					zombieChicken.onInitialSpawn(world, world.getDifficultyForLocation(chicken.getPosition()), SpawnReason.JOCKEY, null, null);
-					zombieChicken.setChickenJockey(true);
-					if (event.getWorld() != null && !event.getWorld().getWorld().isRemote) {
-						ModifiableAttributeInstance instance = zombieChicken.getAttribute(Attributes.MOVEMENT_SPEED);
-						instance.applyNonPersistentModifier(BABY_SPEED_BOOST);
-					}
-					world.addEntity(zombieChicken);
-
-					ZombieEntity newZombie = (ZombieEntity) zombie.getType().create(world.getWorld());
-					newZombie.setChild(true);
-					for (EquipmentSlotType slot : EquipmentSlotType.values())
-						newZombie.setItemStackToSlot(slot, zombie.getItemStackFromSlot(slot));
-					newZombie.copyLocationAndAnglesFrom(zombie);
-					newZombie.onInitialSpawn(event.getWorld(), event.getWorld().getDifficultyForLocation(zombieChicken.getPosition()), SpawnReason.JOCKEY, null, null);
-					newZombie.startRiding(zombieChicken, true);
-					world.addEntity(newZombie);
 				}
 			}
 		}
