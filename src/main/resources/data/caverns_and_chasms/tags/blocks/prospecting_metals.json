@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:gold_ores",
     "#forge:ores/iron",
     "#forge:ores/gold",
     "#forge:ores/silver",
