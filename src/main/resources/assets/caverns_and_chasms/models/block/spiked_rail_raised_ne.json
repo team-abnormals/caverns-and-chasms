@@ -12,7 +12,7 @@
 			"faces": {
 				"up": {"uv": [0, 0, 16, 16], "texture": "#rail"},
 				"down": {"uv": [0, 16, 16, 0], "texture": "#rail"}
-			}a
+			}
 		},
 		{
 			"from": [3, 5, 7],
