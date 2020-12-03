@@ -25,11 +25,10 @@ public class CCEnchantments {
 	}
 
 	public static EnchantmentType[] add(EnchantmentType[] array, EnchantmentType element) {
-		EnchantmentType[] newArray = array;
-		int arrayLength = Array.getLength(newArray);
-		Object newArrayObject = Array.newInstance(newArray.getClass().getComponentType(), arrayLength + 1);
+		int arrayLength = Array.getLength(array);
+		Object newArrayObject = Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
 		System.arraycopy(array, 0, newArrayObject, 0, arrayLength);
-		newArray[newArray.length - 1] = element;
-		return newArray;
+		array[array.length - 1] = element;
+		return array;
 	}
 }

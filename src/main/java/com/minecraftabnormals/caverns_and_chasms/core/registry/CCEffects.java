@@ -15,8 +15,8 @@ public class CCEffects {
 	public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, CavernsAndChasms.MODID);
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, CavernsAndChasms.MODID);
 
-	public static final RegistryObject<Effect> REWIND = EFFECTS.register("rewind", () -> new RewindEffect());
-	public static final RegistryObject<Effect> AFFLICTION = EFFECTS.register("affliction", () -> new AfflictionEffect());
+	public static final RegistryObject<Effect> REWIND = EFFECTS.register("rewind", RewindEffect::new);
+	public static final RegistryObject<Effect> AFFLICTION = EFFECTS.register("affliction", AfflictionEffect::new);
 
 	public static final RegistryObject<Potion> REWIND_NORMAL = POTIONS.register("rewind", () -> new Potion(new EffectInstance(REWIND.get(), 400)));
 	public static final RegistryObject<Potion> REWIND_LONG = POTIONS.register("rewind_long", () -> new Potion(new EffectInstance(REWIND.get(), 800)));
