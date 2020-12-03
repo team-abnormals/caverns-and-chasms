@@ -5,6 +5,8 @@
   "block.caverns_and_chasms.necromium_block": "Block of Necromium",
   "block.caverns_and_chasms.silver_lantern": "Silver Lantern",
   "block.caverns_and_chasms.silver_bars": "Silver Bars",
+  "block.caverns_and_chasms.medium_weighted_pressure_plate": "Medium Weighted Pressure Plate",
+  "block.caverns_and_chasms.silver_button": "Silver Button",
 
   "block.caverns_and_chasms.rotten_flesh_block": "Rotten Flesh Block",
   "block.caverns_and_chasms.gravestone": "Gravestone",
@@ -151,9 +153,5 @@
   "item.minecraft.tipped_arrow.effect.rewind_long": "Arrow of Rewind",
 
   "block.minecraft.lapis_block": "Block of Lapis Lazuli",
-  "item.minecraft.netherite_scrap": "Ancient Scrap",
-  "item.minecraft.bucket": "Iron Bucket",
-  "item.minecraft.water_bucket": "Iron Water Bucket",
-  "item.minecraft.lava_bucket": "Iron Lava Bucket",
-  "item.minecraft.milk_bucket": "Iron Milk Bucket"
+  "item.minecraft.netherite_scrap": "Ancient Scrap"
 }

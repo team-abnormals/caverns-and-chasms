@@ -22,7 +22,10 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(Block.Properties.from(Blocks.GOLD_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new OreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0F, 3.0F)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new CCOreBlock(0, 1, Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.METAL_BARS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(50, Properties.SILVER_PRESSURE_PLATE), ItemGroup.REDSTONE);
+	public static final RegistryObject<Block> SILVER_BUTTON = HELPER.createCompatBlock("quark", "silver_button", () -> new SilverButtonBlock(Properties.SILVER_BUTTON), ItemGroup.REDSTONE);
+
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.SOUL_FIRE)));
@@ -35,7 +38,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.from(Blocks.STONE)), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> GOLDEN_LANTERN = HELPER.createBlock("golden_lantern", () -> new GoldenLanternBlock(Properties.GOLDEN_LANTERN), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new PaneBlock(Properties.GOLDEN_BARS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new PaneBlock(Properties.METAL_BARS), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> SUGILITE_ORE = HELPER.createBlock("sugilite_ore", () -> new CCOreBlock(2, 5, Properties.SUGILITE_ORE), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SUGILITE_BLOCK = HELPER.createBlock("sugilite_block", () -> new Block(Properties.SUGILITE), ItemGroup.BUILDING_BLOCKS);
@@ -86,8 +89,10 @@ public class CCBlocks {
 		public static final AbstractBlock.Properties DIRT_BRICKS = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F).sound(SoundType.GROUND);
 		public static final AbstractBlock.Properties COBBLESTONE_TILES = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F);
 
-		public static final AbstractBlock.Properties GOLDEN_LANTERN = Block.Properties.create(Material.IRON).hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel((state) -> 15);
-		public static final AbstractBlock.Properties GOLDEN_BARS = AbstractBlock.Properties.create(Material.IRON, MaterialColor.AIR).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).notSolid();
+		public static final AbstractBlock.Properties GOLDEN_LANTERN = AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel((state) -> 15);
+		public static final AbstractBlock.Properties METAL_BARS = AbstractBlock.Properties.create(Material.IRON, MaterialColor.AIR).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).notSolid();
+		public static final AbstractBlock.Properties SILVER_PRESSURE_PLATE = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD);
+		public static final AbstractBlock.Properties SILVER_BUTTON = AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.METAL);
 
 		public static final AbstractBlock.Properties SUGILITE_ORE = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
 		public static final AbstractBlock.Properties SUGILITE = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.PURPLE).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
