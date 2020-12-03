@@ -30,12 +30,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DrinkHelper;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Dimension;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -188,6 +188,7 @@ public class CCEvents {
 		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
 			LivingEntity entity = event.getEntityLiving();
 			CompoundNBT data = entity.getPersistentData();
+			data.putString("RewindDimension", entity.getEntityWorld().func_234923_W_().func_240901_a_().toString());
 			data.putDouble("RewindX", entity.getPosX());
 			data.putDouble("RewindY", entity.getPosY());
 			data.putDouble("RewindZ", entity.getPosZ());
@@ -208,6 +209,14 @@ public class CCEvents {
 			if (effect == CCEffects.REWIND.get()) {
 				CompoundNBT data = entity.getPersistentData();
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
+					if (data.contains("RewindDimension")) {
+						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
+						RegistryKey<World> key = RegistryKey.func_240903_a_(Registry.WORLD_KEY, resourcelocation);
+						ServerWorld dimension = entity.getServer().getWorld(key);
+
+						if (dimension != entity.getEntityWorld())
+							entity.changeDimension(dimension);
+					}
 					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
 					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 				}
@@ -229,6 +238,14 @@ public class CCEvents {
 			if (effect == CCEffects.REWIND.get()) {
 				CompoundNBT data = entity.getPersistentData();
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
+					if (data.contains("RewindDimension")) {
+						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
+						RegistryKey<World> key = RegistryKey.func_240903_a_(Registry.WORLD_KEY, resourcelocation);
+						ServerWorld dimension = entity.getServer().getWorld(key);
+
+						if (dimension != entity.getEntityWorld())
+							entity.changeDimension(dimension);
+					}
 					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
 					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 				}
