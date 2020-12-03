@@ -4,6 +4,7 @@ import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.stream.Stream;
 
-public class OreDetectorItem extends Item {
+public class OreDetectorItem extends Item implements IVanishable {
 
 	public OreDetectorItem(Properties properties) {
 		super(properties);
