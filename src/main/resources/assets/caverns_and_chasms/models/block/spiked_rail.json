@@ -1,0 +1,35 @@
+{
+	"parent": "minecraft:block/rail_flat",
+	"textures": {
+		"rail": "caverns_and_chasms:block/spiked_rail",
+		"spikes": "caverns_and_chasms:block/spiked_rail_spikes"
+	},
+	"elements": [
+		{
+			"from": [0, 1, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#rail"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#rail"}
+			}
+		},
+		{
+			"from": [3, 0, 0],
+			"to": [3, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 8, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#spikes"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#spikes"}
+			}
+		},
+		{
+			"from": [13, 0, 0],
+			"to": [13, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [20, 8, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#spikes"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#spikes"}
+			}
+		}
+	]
+}

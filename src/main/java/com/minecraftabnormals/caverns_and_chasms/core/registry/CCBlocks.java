@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
 import com.minecraftabnormals.caverns_and_chasms.common.block.*;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.SpikedRailBlock;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
@@ -25,6 +26,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.METAL_BARS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(50, Properties.SILVER_PRESSURE_PLATE), ItemGroup.REDSTONE);
 	public static final RegistryObject<Block> SILVER_BUTTON = HELPER.createCompatBlock("quark", "silver_button", () -> new SilverButtonBlock(Properties.SILVER_BUTTON), ItemGroup.REDSTONE);
+	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(AbstractBlock.Properties.from(Blocks.POWERED_RAIL)), ItemGroup.TRANSPORTATION);
 
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
