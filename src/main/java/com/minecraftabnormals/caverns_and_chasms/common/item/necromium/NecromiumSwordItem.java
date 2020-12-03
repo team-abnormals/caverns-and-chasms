@@ -23,7 +23,7 @@ public class NecromiumSwordItem extends SwordItem {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60));
+		target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60, 1));
 		return super.hitEntity(stack, target, attacker);
 	}
 
