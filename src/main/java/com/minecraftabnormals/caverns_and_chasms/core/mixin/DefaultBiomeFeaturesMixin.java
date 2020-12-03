@@ -24,7 +24,7 @@ public class DefaultBiomeFeaturesMixin {
 		if (CCConfig.COMMON.largeEmeraldVeins.get()) {
 			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE
 					.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.EMERALD_ORE.getDefaultState(), 19))
-					.withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(2, 0, 0, 32))));
+					.withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(1, 0, 0, 32))));
 		} else {
 			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.EMERALD_ORE
 					.withConfiguration(new ReplaceBlockConfig(Blocks.STONE.getDefaultState(), Blocks.EMERALD_ORE.getDefaultState()))
