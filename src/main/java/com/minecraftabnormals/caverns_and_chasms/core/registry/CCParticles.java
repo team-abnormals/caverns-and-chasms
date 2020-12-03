@@ -22,8 +22,7 @@ public class CCParticles {
 	public static final RegistryObject<BasicParticleType> CURSED_AMBIENT = createBasicParticleType(true, "cursed_ambient");
 
 	private static RegistryObject<BasicParticleType> createBasicParticleType(boolean alwaysShow, String name) {
-		RegistryObject<BasicParticleType> particleType = PARTICLES.register(name, () -> new BasicParticleType(alwaysShow));
-		return particleType;
+		return PARTICLES.register(name, () -> new BasicParticleType(alwaysShow));
 	}
 
 	@EventBusSubscriber(modid = CavernsAndChasms.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -31,18 +30,8 @@ public class CCParticles {
 
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public static void registerParticleTypes(ParticleFactoryRegisterEvent event) {
-			if (checkForNonNullWithReflectionCauseForgeIsBaby(CURSED_FLAME)) {
-				Minecraft.getInstance().particles.registerFactory(CURSED_FLAME.get(), FlameParticle.Factory::new);
-			}
-
-			if (checkForNonNullWithReflectionCauseForgeIsBaby(CURSED_AMBIENT)) {
-				Minecraft.getInstance().particles.registerFactory(CURSED_AMBIENT.get(), LavaParticle.Factory::new);
-			}
+			Minecraft.getInstance().particles.registerFactory(CURSED_FLAME.get(), FlameParticle.Factory::new);
+			Minecraft.getInstance().particles.registerFactory(CURSED_AMBIENT.get(), LavaParticle.Factory::new);
 		}
-
-	}
-
-	private static boolean checkForNonNullWithReflectionCauseForgeIsBaby(RegistryObject<BasicParticleType> registryObject) {
-		return ObfuscationReflectionHelper.getPrivateValue(RegistryObject.class, registryObject, "value") != null;
 	}
 }

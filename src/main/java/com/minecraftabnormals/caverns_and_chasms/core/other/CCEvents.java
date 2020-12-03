@@ -238,25 +238,36 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void handleAffliction(LivingDamageEvent event) {
-		LivingEntity entity = event.getEntityLiving();
+		LivingEntity target = event.getEntityLiving();
 		Random rand = new Random();
 
 		if (event.getSource().getTrueSource() instanceof LivingEntity) {
-			float decrease = 0;
+			LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
+			float afflictionChance = 0;
+			float weaknessAmount = 0;
 
 			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
-				ItemStack stack = entity.getItemStackFromSlot(slot);
-				Collection<AttributeModifier> modifiers = stack.getAttributeModifiers(slot).get(CCAttributes.AFFLICTION_CHANCE.get());
-				if (modifiers.isEmpty())
-					continue;
+				ItemStack stack = target.getItemStackFromSlot(slot);
 
-				decrease += modifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+				Collection<AttributeModifier> afflictionModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.AFFLICTION_CHANCE.get());
+				if (!afflictionModifiers.isEmpty())
+					afflictionChance += afflictionModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+
+				Collection<AttributeModifier> weaknessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.WEAKNESS_AURA.get());
+				if (!weaknessModifiers.isEmpty()) {
+					weaknessAmount += weaknessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+				}
 			}
 
-			if (rand.nextFloat() < decrease) {
-				LivingEntity livingEntity = (LivingEntity) event.getSource().getTrueSource();
-				if (livingEntity.isEntityUndead())
-					livingEntity.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+			if (rand.nextFloat() < afflictionChance) {
+				if (attacker.isEntityUndead())
+					attacker.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+			}
+
+			if (weaknessAmount != 0) {
+				for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(weaknessAmount, 0.0D, weaknessAmount))) {
+					entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
+				}
 			}
 		}
 	}

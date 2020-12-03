@@ -131,6 +131,7 @@
 
   "attribute.name.generic.affliction_chance": "Affliction Chance",
   "attribute.name.generic.experience_boost": "Experience Boost",
+  "attribute.name.generic.weakness_aura": "Weakness Aura",
 
   "tooltip.caverns_and_chasms.afflicting": "Afflicting",
   "tooltip.caverns_and_chasms.boosting": "Boosting",
