@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
@@ -16,6 +17,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 
 public class CCFeatures {
+	public static final OreFeatureConfig.FillerBlockType SOUL_SAND_VALLEY = OreFeatureConfig.FillerBlockType.create("SOUL_SAND_VALLEY", "soul_sand_valley", (state) -> {
+		if (state == null) {
+			return false;
+		} else {
+			return state.isIn(Blocks.SOUL_SAND) || state.isIn(Blocks.SOUL_SOIL);
+		}
+	});
+
 	public static void registerFeatures() {
 		ForgeRegistries.BIOMES.getValues().forEach(CCFeatures::generateFeatures);
 	}
@@ -37,7 +46,7 @@ public class CCFeatures {
 		if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)) {
 			if (biome == Biomes.SOUL_SAND_VALLEY) {
 				removeGold(biome);
-				addNetherSilverOre(biome);
+				addSoulSilverOre(biome);
 			}
 		}
 	}
@@ -56,8 +65,8 @@ public class CCFeatures {
 		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, CCBlocks.SILVER_ORE.get().getDefaultState(), 9)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(20, 32, 32, 80))));
 	}
 
-	public static void addNetherSilverOre(Biome biome) {
-		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, CCBlocks.NETHER_SILVER_ORE.get().getDefaultState(), 10)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(10, 10, 20, 128))));
+	public static void addSoulSilverOre(Biome biome) {
+		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.field_236289_V_.withConfiguration(new OreFeatureConfig(SOUL_SAND_VALLEY, CCBlocks.SOUL_SILVER_ORE.get().getDefaultState(), 17)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(33, 10, 20, 128))));
 	}
 
 	public static void removeGold(Biome biome) {

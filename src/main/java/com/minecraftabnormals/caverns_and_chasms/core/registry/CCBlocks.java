@@ -22,7 +22,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(Block.Properties.from(Blocks.GOLD_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new OreBlock(AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0F, 3.0F)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> NETHER_SILVER_ORE = HELPER.createBlock("nether_silver_ore", () -> new CCOreBlock(0, 1, Block.Properties.from(Blocks.NETHER_GOLD_ORE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new CCOreBlock(0, 1, Block.Properties.from(Blocks.SOUL_SOIL).harvestTool(ToolType.SHOVEL)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new PaneBlock(Properties.METAL_BARS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(50, Properties.SILVER_PRESSURE_PLATE), ItemGroup.REDSTONE);
 	public static final RegistryObject<Block> SILVER_BUTTON = HELPER.createCompatBlock("quark", "silver_button", () -> new SilverButtonBlock(Properties.SILVER_BUTTON), ItemGroup.REDSTONE);
