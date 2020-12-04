@@ -132,6 +132,9 @@
   "death.attack.affliction": "%1$s was afflicted",
   "death.attack.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
 
+  "death.attack.spiked_rail": "%1$s got railed",
+  "death.attack.spiked_rail.player": "%1$s got railed whilst trying to escape %2$s",
+
   "attribute.name.generic.affliction_chance": "Affliction Chance",
   "attribute.name.generic.experience_boost": "Experience Boost",
   "attribute.name.generic.weakness_aura": "Weakness Aura",
