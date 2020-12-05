@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#forge:ores/silver",
-    "#forge:ores/sugilite"
+    "#forge:ores/sugilite",
+    "#forge:ores/netherite_scrap"
   ]
 }

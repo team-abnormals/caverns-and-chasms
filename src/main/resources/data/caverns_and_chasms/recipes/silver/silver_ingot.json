@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "caverns_and_chasms:silver_ore"
+    "tag": "caverns_and_chasms:silver_ores"
   },
   "result": "caverns_and_chasms:silver_ingot",
   "experience": 1.0,

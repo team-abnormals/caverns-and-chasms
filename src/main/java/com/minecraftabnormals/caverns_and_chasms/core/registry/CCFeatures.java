@@ -66,7 +66,7 @@ public class CCFeatures {
 	}
 
 	public static void addSoulSilverOre(Biome biome) {
-		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.field_236289_V_.withConfiguration(new OreFeatureConfig(SOUL_SAND_VALLEY, CCBlocks.SOUL_SILVER_ORE.get().getDefaultState(), 17)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(33, 10, 20, 128))));
+		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.field_236289_V_.withConfiguration(new OreFeatureConfig(SOUL_SAND_VALLEY, CCBlocks.SOUL_SILVER_ORE.get().getDefaultState(), 17)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(40, 10, 20, 128))));
 	}
 
 	public static void removeGold(Biome biome) {
