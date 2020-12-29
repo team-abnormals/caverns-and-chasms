@@ -34,7 +34,7 @@ public class MimeRenderer extends BipedRenderer<MimeEntity, MimeModel<MimeEntity
 			float f4 = MathHelper.lerp(f, 0.0F, f3);
 			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f4));
 			if (entityLiving.isActualySwimming()) {
-				matrixStackIn.translate(0.0D, -1.0D, (double)0.3F);
+				matrixStackIn.translate(0.0D, -1.0D, (double) 0.3F);
 			}
 		}
 	}

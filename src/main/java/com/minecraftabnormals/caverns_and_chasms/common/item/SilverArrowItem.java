@@ -13,7 +13,7 @@ public class SilverArrowItem extends ArrowItem {
 	public SilverArrowItem(Properties builder) {
 		super(builder);
 	}
-	
+
 	@Override
 	public AbstractArrowEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
 		return new SilverArrowEntity(worldIn, shooter);

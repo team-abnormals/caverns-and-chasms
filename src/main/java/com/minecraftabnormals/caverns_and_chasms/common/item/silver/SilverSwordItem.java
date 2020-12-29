@@ -23,7 +23,7 @@ public class SilverSwordItem extends SwordItem {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if(target.isEntityUndead())
+		if (target.isEntityUndead())
 			target.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
 		return super.hitEntity(stack, target, attacker);
 	}

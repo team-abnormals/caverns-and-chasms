@@ -1,10 +1,10 @@
 package com.minecraftabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
+import com.minecraftabnormals.abnormals_core.client.ACRenderTypes;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.minecraftabnormals.abnormals_core.client.ACRenderTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;

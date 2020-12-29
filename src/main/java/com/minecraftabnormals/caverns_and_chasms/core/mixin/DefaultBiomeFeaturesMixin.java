@@ -1,7 +1,5 @@
 package com.minecraftabnormals.caverns_and_chasms.core.mixin;
 
-import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;
@@ -19,7 +17,7 @@ public class DefaultBiomeFeaturesMixin {
 //		if (CCConfig.COMMON.largeEmeraldVeins.get()) {
 //			return builder.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, CCFeatures.Configured.ORE_EMERALD_CHUNK);
 //		} else {
-			return builder.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Features.ORE_EMERALD);
+		return builder.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Features.ORE_EMERALD);
 //		}
 	}
 }

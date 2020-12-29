@@ -7,14 +7,14 @@ import net.minecraft.inventory.EquipmentSlotType;
 public class ProspectingEnchantment extends Enchantment {
 
 	public ProspectingEnchantment() {
-		super(Rarity.RARE, CCEnchantments.ORE_DETECTOR, new EquipmentSlotType[] {EquipmentSlotType.MAINHAND});
+		super(Rarity.RARE, CCEnchantments.ORE_DETECTOR, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
 	}
-	
+
 	@Override
 	public boolean isTreasureEnchantment() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean canApplyTogether(Enchantment ench) {
 		return !(ench instanceof TreasuringEnchantment) && super.canApplyTogether(ench);

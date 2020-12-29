@@ -5,7 +5,6 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.MimeEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
@@ -67,11 +66,11 @@ public class MimeModel<T extends MimeEntity> extends PlayerModel<T> {
 		float f = entity.prevRenderYawOffset + (entity.renderYawOffset - entity.prevRenderYawOffset) * partialTicks;
 		double d3 = MathHelper.sin(f * 0.017453292F);
 		double d4 = (-MathHelper.cos(f * 0.017453292F));
-		float f1 = (float)d1 * 10.0F;
+		float f1 = (float) d1 * 10.0F;
 		f1 = MathHelper.clamp(f1, -6.0F, 32.0F);
-		float f2 = (float)(d0 * d3 + d2 * d4) * 100.0F;
+		float f2 = (float) (d0 * d3 + d2 * d4) * 100.0F;
 		f2 = MathHelper.clamp(f2, 0.0F, 150.0F);
-		float f3 = (float)(d0 * d4 - d2 * d3) * 100.0F;
+		float f3 = (float) (d0 * d4 - d2 * d3) * 100.0F;
 		f3 = MathHelper.clamp(f3, -20.0F, 20.0F);
 
 		float f4 = entity.prevCameraYaw + (entity.cameraYaw - entity.prevCameraYaw) * partialTicks;
