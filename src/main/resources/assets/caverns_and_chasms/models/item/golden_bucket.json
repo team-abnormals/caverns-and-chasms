@@ -6,13 +6,13 @@
   "overrides": [
     {
       "predicate": {
-        "level": 1
+        "caverns_and_chasms:level": 1
       },
       "model": "caverns_and_chasms:item/golden_bucket1"
     },
     {
       "predicate": {
-        "level": 2
+        "caverns_and_chasms:level": 2
       },
       "model": "caverns_and_chasms:item/golden_bucket2"
     }

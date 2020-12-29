@@ -73,11 +73,11 @@ public class CCItems {
 	}
 
 	public static void registerItemProperties() {
-		ItemModelsProperties.registerProperty(GOLDEN_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(GOLDEN_WATER_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(GOLDEN_MILK_BUCKET.get(), new ResourceLocation("level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(ORE_DETECTOR.get(), new ResourceLocation("detect"), (stack, world, entity) -> {
+		ItemModelsProperties.registerProperty(GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.registerProperty(GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.registerProperty(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.registerProperty(GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.registerProperty(ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity) -> {
 			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity) {
 				return OreDetectorItem.getDetectionData(stack) ? 1 : 0;
 			} else {
