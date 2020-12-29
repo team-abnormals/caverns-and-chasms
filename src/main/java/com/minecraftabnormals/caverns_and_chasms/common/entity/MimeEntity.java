@@ -20,8 +20,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class MimeEntity extends MonsterEntity {
 				.createMutableAttribute(Attributes.ARMOR, 2.0D);
 	}
 
-	public static boolean canMimeSpawn(EntityType<? extends MonsterEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
+	public static boolean canMimeSpawn(EntityType<? extends MonsterEntity> type, IServerWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
 		return pos.getY() <= 42 && canMonsterSpawnInLight(type, worldIn, reason, pos, randomIn);
 	}
 

@@ -8,14 +8,12 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 
 public class MimeRenderer extends BipedRenderer<MimeEntity, MimeModel<MimeEntity>> {
-	private static final ResourceLocation MIME_LOCATION = new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/mime.png");
+	private static final ResourceLocation MIME_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/mime.png");
 
 	public MimeRenderer(EntityRendererManager renderManagerIn) {
 		super(renderManagerIn, new MimeModel<MimeEntity>(0.0F), 0.5F);

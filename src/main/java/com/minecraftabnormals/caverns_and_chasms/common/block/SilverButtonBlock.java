@@ -12,7 +12,7 @@ public class SilverButtonBlock extends AbstractButtonBlock {
 	}
 
 	@Override
-	public int func_235471_c_() {
+	public int getActiveDuration() {
 		return 50;
 	}
 

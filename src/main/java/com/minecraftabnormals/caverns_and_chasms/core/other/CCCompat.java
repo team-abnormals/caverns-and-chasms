@@ -4,7 +4,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.RottenEggEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SilverArrowEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.abnormals_core.common.dispenser.FishBucketDispenseBehavior;
+import com.minecraftabnormals.abnormals_core.common.dispenser.FishBucketDispenseBehavior;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;

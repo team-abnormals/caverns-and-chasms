@@ -28,7 +28,7 @@ public abstract class AbstractSkeletonEntityMixin extends MonsterEntity {
 		Random random = this.world.getRandom();
 		int difficultyChance = difficulty.getDifficulty().getId() + 1;
 
-		if (this.world.func_234922_V_() != DimensionType.THE_NETHER && random.nextInt(difficultyChance) == 0) {
+		if (this.world.getDimensionKey() != World.THE_NETHER && random.nextInt(difficultyChance) == 0) {
 			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(random.nextInt(difficultyChance) == 0 ? Items.WOODEN_SWORD : Items.WOODEN_AXE));
 		}
 	}

@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.lang.reflect.Array;
 
 public class CCEnchantments {
-	public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, CavernsAndChasms.MODID);
+	public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<Enchantment> TREASURING = ENCHANTMENTS.register("treasuring", TreasuringEnchantment::new);
 	public static final RegistryObject<Enchantment> PROSPECTING = ENCHANTMENTS.register("prospecting", ProspectingEnchantment::new);

@@ -11,12 +11,11 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class CCParticles {
-	public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MODID);
+	public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<BasicParticleType> CURSED_FLAME = createBasicParticleType(true, "cursed_flame");
 	public static final RegistryObject<BasicParticleType> CURSED_AMBIENT = createBasicParticleType(true, "cursed_ambient");
@@ -25,7 +24,7 @@ public class CCParticles {
 		return PARTICLES.register(name, () -> new BasicParticleType(alwaysShow));
 	}
 
-	@EventBusSubscriber(modid = CavernsAndChasms.MODID, bus = EventBusSubscriber.Bus.MOD)
+	@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 	public static class RegisterParticleFactories {
 
 		@SubscribeEvent(priority = EventPriority.LOWEST)

@@ -29,7 +29,7 @@ public class CCConfig {
 	}
 
 	private static String makeTranslation(String name) {
-		return CavernsAndChasms.MODID + ".config." + name;
+		return CavernsAndChasms.MOD_ID + ".config." + name;
 	}
 
 	public static final ForgeConfigSpec COMMON_SPEC;

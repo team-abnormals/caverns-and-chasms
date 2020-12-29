@@ -88,7 +88,7 @@ public class GoldenBucketItem extends Item {
                             if (soundevent == null)
                                 soundevent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL;
                             playerIn.playSound(soundevent, 1.0F, 1.0F);
-                            ItemStack itemstack1 = DrinkHelper.func_241445_a_(stack, playerIn, new ItemStack(getFilledBucket(fluid)));
+                            ItemStack itemstack1 = DrinkHelper.fill(stack, playerIn, new ItemStack(getFilledBucket(fluid)));
                             if (this.getFluid() != Fluids.EMPTY)
                                 itemstack1.getOrCreateTag().putInt("FluidLevel", level + 1);
                             if (!worldIn.isRemote) {
@@ -153,7 +153,7 @@ public class GoldenBucketItem extends Item {
             boolean flag1 = blockstate.isAir() || flag || block instanceof ILiquidContainer && ((ILiquidContainer) block).canContainFluid(worldIn, posIn, blockstate, this.getFluid());
             if (!flag1) {
                 return rayTrace != null && this.tryPlaceContainedLiquid(player, worldIn, rayTrace.getPos().offset(rayTrace.getFace()), (BlockRayTraceResult) null);
-            } else if (worldIn.func_230315_m_().func_236040_e_() && this.getFluid().isIn(FluidTags.WATER)) {
+            } else if (worldIn.getDimensionType().isUltrawarm() && this.getFluid().isIn(FluidTags.WATER)) {
                 int i = posIn.getX();
                 int j = posIn.getY();
                 int k = posIn.getZ();

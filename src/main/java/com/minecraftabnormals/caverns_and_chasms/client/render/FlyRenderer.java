@@ -15,7 +15,7 @@ public class FlyRenderer extends MobRenderer<FlyEntity, FlyModel<FlyEntity>> {
 
 	@Override
 	public ResourceLocation getEntityTexture(FlyEntity bee) {
-		return new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/fly.png");
+		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/fly.png");
 	}
 
 	@Override

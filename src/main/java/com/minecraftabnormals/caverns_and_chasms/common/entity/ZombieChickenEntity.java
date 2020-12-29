@@ -22,6 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ZombieChickenEntity extends AnimalEntity {
@@ -104,10 +105,6 @@ public class ZombieChickenEntity extends AnimalEntity {
 		}
 	}
 
-	protected boolean shouldBurnInDay() {
-		return true;
-	}
-
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean flag = super.attackEntityAsMob(entityIn);
 		if (flag) {
@@ -139,17 +136,8 @@ public class ZombieChickenEntity extends AnimalEntity {
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
 	}
 
-	@Override
-	public IPacket<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
-	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(CCItems.ZOMBIE_CHICKEN_SPAWN_EGG.get());
-	}
-
-	public ZombieChickenEntity createChild(AgeableEntity ageable) {
-		return CCEntities.ZOMBIE_CHICKEN.get().create(this.world);
+	public ZombieChickenEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+		return CCEntities.ZOMBIE_CHICKEN.get().create(world);
 	}
 
 	public CreatureAttribute getCreatureAttribute() {

@@ -32,7 +32,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.Dimension;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -48,7 +47,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Collection;
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = CavernsAndChasms.MODID)
+@Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
 
 	@SubscribeEvent
@@ -93,7 +92,7 @@ public class CCEvents {
 		if (event.getTarget() instanceof CowEntity && !((CowEntity) event.getTarget()).isChild()) {
 			if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get()) {
 				CompoundNBT tag = stack.getOrCreateTag();
-				ItemStack milkBucket = DrinkHelper.func_241445_a_(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
+				ItemStack milkBucket = DrinkHelper.fill(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
 				boolean flag = false;
 				if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get()) {
 					flag = tag.getInt("FluidLevel") >= 2;
@@ -150,7 +149,7 @@ public class CCEvents {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				CreeperEntity creeper = (CreeperEntity) entity;
 				if (world.getBlockState(creeper.getPosition().down()).isIn(CCTags.Blocks.DEEPER_SPAWN_BLOCKS)) {
-					DeeperEntity deeper = CCEntities.DEEPER.get().create(world.getWorld());
+					DeeperEntity deeper = CCEntities.DEEPER.get().create((World) world);
 					if (deeper != null) {
 						deeper.copyLocationAndAnglesFrom(creeper);
 						world.addEntity(deeper);
@@ -188,7 +187,7 @@ public class CCEvents {
 		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
 			LivingEntity entity = event.getEntityLiving();
 			CompoundNBT data = entity.getPersistentData();
-			data.putString("RewindDimension", entity.getEntityWorld().func_234923_W_().func_240901_a_().toString());
+			data.putString("RewindDimension", entity.getEntityWorld().getDimensionKey().getLocation().toString());
 			data.putDouble("RewindX", entity.getPosX());
 			data.putDouble("RewindY", entity.getPosY());
 			data.putDouble("RewindZ", entity.getPosZ());
@@ -211,7 +210,7 @@ public class CCEvents {
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
 					if (data.contains("RewindDimension")) {
 						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
-						RegistryKey<World> key = RegistryKey.func_240903_a_(Registry.WORLD_KEY, resourcelocation);
+						RegistryKey<World> key = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, resourcelocation);
 						ServerWorld dimension = entity.getServer().getWorld(key);
 
 						if (dimension != entity.getEntityWorld())
@@ -240,7 +239,7 @@ public class CCEvents {
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
 					if (data.contains("RewindDimension")) {
 						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
-						RegistryKey<World> key = RegistryKey.func_240903_a_(Registry.WORLD_KEY, resourcelocation);
+						RegistryKey<World> key = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, resourcelocation);
 						ServerWorld dimension = entity.getServer().getWorld(key);
 
 						if (dimension != entity.getEntityWorld())

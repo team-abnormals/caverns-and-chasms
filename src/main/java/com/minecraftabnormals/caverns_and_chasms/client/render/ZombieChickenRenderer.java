@@ -17,7 +17,7 @@ public class ZombieChickenRenderer extends MobRenderer<ZombieChickenEntity, Chic
 	}
 
 	public ResourceLocation getEntityTexture(ZombieChickenEntity entity) {
-		return new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/zombie_chicken.png");
+		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/zombie_chicken.png");
 	}
 
 	protected float handleRotationFloat(ZombieChickenEntity livingBase, float partialTicks) {
