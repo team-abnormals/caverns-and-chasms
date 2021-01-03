@@ -253,7 +253,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void handleAffliction(LivingDamageEvent event) {
+	public static void onLivingDamage(LivingDamageEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		Random rand = new Random();
 
@@ -282,7 +282,8 @@ public class CCEvents {
 
 			if (weaknessAmount != 0) {
 				for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(weaknessAmount, 0.0D, weaknessAmount))) {
-					entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
+					if (entity != event.getEntityLiving())
+						entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
 				}
 			}
 		}
