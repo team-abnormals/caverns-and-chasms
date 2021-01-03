@@ -66,7 +66,7 @@ public class CCFeatures {
 
 			if (event.getCategory() == Biome.Category.DESERT || event.getCategory() == Biome.Category.JUNGLE) {
 				generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SUGILITE);
-				spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(CCEntities.MIME.get(), 75, 1, 1));
+				spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(CCEntities.MIME.get(), 150, 1, 1));
 			}
 
 			if (event.getCategory() != Biome.Category.OCEAN && event.getCategory() != Biome.Category.BEACH && !DataUtil.matchesKeys(biome, Biomes.STONE_SHORE))
