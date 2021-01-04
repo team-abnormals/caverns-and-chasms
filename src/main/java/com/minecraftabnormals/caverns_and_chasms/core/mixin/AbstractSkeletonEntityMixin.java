@@ -7,7 +7,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +27,7 @@ public abstract class AbstractSkeletonEntityMixin extends MonsterEntity {
 		Random random = this.world.getRandom();
 		int difficultyChance = difficulty.getDifficulty().getId() + 1;
 
-		if (this.world.func_234922_V_() != DimensionType.THE_NETHER && random.nextInt(difficultyChance) == 0) {
+		if (this.world.getDimensionKey() != World.THE_NETHER && random.nextInt(difficultyChance) == 0) {
 			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(random.nextInt(difficultyChance) == 0 ? Items.WOODEN_SWORD : Items.WOODEN_AXE));
 		}
 	}

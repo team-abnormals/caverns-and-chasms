@@ -18,9 +18,9 @@ import java.util.stream.Stream;
  * @author Ocelot
  */
 public class DeeperSpriteUploader extends SpriteUploader {
-	public static final ResourceLocation ATLAS_LOCATION = new ResourceLocation(CavernsAndChasms.MODID, "textures/atlas/deeper.png");
-	public static final ResourceLocation DEEPER_SPRITE = new ResourceLocation(CavernsAndChasms.MODID, "deeper");
-	public static final ResourceLocation EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MODID, "deeper_emissive");
+	public static final ResourceLocation ATLAS_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/atlas/deeper.png");
+	public static final ResourceLocation DEEPER_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper");
+	public static final ResourceLocation EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_emissive");
 
 	private static DeeperSpriteUploader uploader;
 

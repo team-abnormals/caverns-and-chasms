@@ -19,36 +19,36 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @SuppressWarnings("deprecation")
 @OnlyIn(Dist.CLIENT)
 public class RottenEggRenderer<T extends Entity & IRendersAsItem> extends EntityRenderer<T> {
-   private final net.minecraft.client.renderer.ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-   private final float scale;
-   private final boolean field_229126_f_;
+	private final net.minecraft.client.renderer.ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+	private final float scale;
+	private final boolean field_229126_f_;
 
-   public RottenEggRenderer(EntityRendererManager p_i226035_1_, float p_i226035_3_, boolean p_i226035_4_) {
-      super(p_i226035_1_);
-      this.scale = p_i226035_3_;
-      this.field_229126_f_ = p_i226035_4_;
-   }
+	public RottenEggRenderer(EntityRendererManager p_i226035_1_, float p_i226035_3_, boolean p_i226035_4_) {
+		super(p_i226035_1_);
+		this.scale = p_i226035_3_;
+		this.field_229126_f_ = p_i226035_4_;
+	}
 
-   public RottenEggRenderer(EntityRendererManager renderManagerIn) {
-      this(renderManagerIn, 1.0F, false);
-   }
+	public RottenEggRenderer(EntityRendererManager renderManagerIn) {
+		this(renderManagerIn, 1.0F, false);
+	}
 
-   @Override
-   protected int getBlockLight(T entityIn, BlockPos partialTicks) {
-      return this.field_229126_f_ ? 15 : super.getBlockLight(entityIn, partialTicks);
-   }
+	@Override
+	protected int getBlockLight(T entityIn, BlockPos partialTicks) {
+		return this.field_229126_f_ ? 15 : super.getBlockLight(entityIn, partialTicks);
+	}
 
-   public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-      matrixStackIn.push();
-      matrixStackIn.scale(this.scale, this.scale, this.scale);
-      matrixStackIn.rotate(this.renderManager.getCameraOrientation());
-      matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
-      this.itemRenderer.renderItem(((IRendersAsItem)entityIn).getItem(), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-      matrixStackIn.pop();
-      super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-   }
+	public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+		matrixStackIn.push();
+		matrixStackIn.scale(this.scale, this.scale, this.scale);
+		matrixStackIn.rotate(this.renderManager.getCameraOrientation());
+		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
+		this.itemRenderer.renderItem(((IRendersAsItem) entityIn).getItem(), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+		matrixStackIn.pop();
+		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+	}
 
-   public ResourceLocation getEntityTexture(Entity entity) {
-      return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
-   }
+	public ResourceLocation getEntityTexture(Entity entity) {
+		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+	}
 }

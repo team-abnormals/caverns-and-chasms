@@ -10,10 +10,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = CavernsAndChasms.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCEffects {
-	public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, CavernsAndChasms.MODID);
-	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, CavernsAndChasms.MODID);
+	public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, CavernsAndChasms.MOD_ID);
+	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<Effect> REWIND = EFFECTS.register("rewind", RewindEffect::new);
 	public static final RegistryObject<Effect> AFFLICTION = EFFECTS.register("affliction", AfflictionEffect::new);

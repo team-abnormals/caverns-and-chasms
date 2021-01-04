@@ -20,8 +20,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -53,8 +52,9 @@ public class MimeEntity extends MonsterEntity {
 		this.goalSelector.addGoal(0, new SwimGoal(this));
 		this.goalSelector.addGoal(1, new OpenDoorGoal(this, false));
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+		this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 	}
 
@@ -67,7 +67,7 @@ public class MimeEntity extends MonsterEntity {
 				.createMutableAttribute(Attributes.ARMOR, 2.0D);
 	}
 
-	public static boolean canMimeSpawn(EntityType<? extends MonsterEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
+	public static boolean canMimeSpawn(EntityType<? extends MonsterEntity> type, IServerWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
 		return pos.getY() <= 42 && canMonsterSpawnInLight(type, worldIn, reason, pos, randomIn);
 	}
 

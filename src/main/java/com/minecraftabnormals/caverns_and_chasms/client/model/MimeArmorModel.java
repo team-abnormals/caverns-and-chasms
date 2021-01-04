@@ -1,12 +1,8 @@
 package com.minecraftabnormals.caverns_and_chasms.client.model;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 
 public class MimeArmorModel<T extends LivingEntity> extends BipedModel<T> {
 

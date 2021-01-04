@@ -229,7 +229,7 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		}
 
 		public boolean shouldContinueExecuting() {
-			return FlyEntity.this.navigator.func_226337_n_();
+			return FlyEntity.this.navigator.hasPath();
 		}
 
 		public void startExecuting() {

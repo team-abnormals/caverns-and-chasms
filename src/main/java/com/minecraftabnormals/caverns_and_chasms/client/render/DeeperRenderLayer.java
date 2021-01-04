@@ -1,10 +1,10 @@
 package com.minecraftabnormals.caverns_and_chasms.client.render;
 
+import com.minecraftabnormals.abnormals_core.client.ACRenderTypes;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.minecraftabnormals.caverns_and_chasms.client.model.DeeperModel;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.teamabnormals.abnormals_core.client.ACRenderTypes;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;

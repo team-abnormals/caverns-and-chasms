@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class CavefishRenderer extends MobRenderer<CavefishEntity, CavefishModel<CavefishEntity>> {
-	private static final ResourceLocation CAVEFISH_LOCATION = new ResourceLocation(CavernsAndChasms.MODID, "textures/entity/cavefish.png");
+	private static final ResourceLocation CAVEFISH_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/cavefish.png");
 
 	public CavefishRenderer(EntityRendererManager renderManagerIn) {
 		super(renderManagerIn, new CavefishModel<>(), 0.25F);

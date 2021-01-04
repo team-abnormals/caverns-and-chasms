@@ -14,8 +14,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
@@ -46,7 +44,7 @@ public class CursedCampfireBlock extends CampfireBlock {
 
 	@Override
 	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && ((LivingEntity)entityIn).isEntityUndead() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+		if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isEntityUndead() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
 			entityIn.attackEntityFrom(DamageSource.IN_FIRE, 4.0F);
 		}
 	}
