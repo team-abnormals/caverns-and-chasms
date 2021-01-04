@@ -1,10 +1,13 @@
 {
   "block.caverns_and_chasms.silver_block": "Hopeakuutio",
   "block.caverns_and_chasms.silver_ore": "Hopeamalmi",
-  "block.caverns_and_chasms.soul_silver_ore": "Nether-hopeamalmi",
+  "block.caverns_and_chasms.soul_silver_ore": "Sieluhopeamalmi",
   "block.caverns_and_chasms.necromium_block": "Nekromiumkuutio",
   "block.caverns_and_chasms.silver_lantern": "Hopealyhty",
   "block.caverns_and_chasms.silver_bars": "Hopeakalterit",
+  "block.caverns_and_chasms.medium_weighted_pressure_plate": "Keskipainoinen painelaatta",
+  "block.caverns_and_chasms.silver_button": "Hopeanappi",
+  "block.caverns_and_chasms.spiked_rail": "Piikkiraide",
 
   "block.caverns_and_chasms.rotten_flesh_block": "Mädäntynyt lihakuutio",
   "block.caverns_and_chasms.gravestone": "Hautakivi",
@@ -132,12 +135,17 @@
 
   "death.attack.affliction": "%1$s kuoli piinaan",
   "death.attack.affliction.player": "%1$s kuoli piinaan tämän paetessa olentoa %2$s",
+  
+  "death.attack.spiked_rail": "%1$s kuoli piikkiraiteen piikkeihin",
+  "death.attack.spiked_rail.player": "%1$s kuoli piikkiraiteen piikkeihin tämän paetessa olentoa %2$s",
 
   "attribute.name.generic.affliction_chance": "Piinan mahdollisuus",
   "attribute.name.generic.experience_boost": "Kokemuksen tehostus",
+  "attribute.name.generic.weakness_aura": "Heikentävä aura",
 
-  "tooltip.caverns_and_chasms.afflicting": "Piinan aiheutus",
+  "tooltip.caverns_and_chasms.afflicting": "Piina",
   "tooltip.caverns_and_chasms.boosting": "Tehostus",
+  "tooltip.caverns_and_chasms.slowing": "Hidastus",
 
   "item.minecraft.potion.effect.rewind": "Takaisinkelauksen taikajuoma",
   "item.minecraft.potion.effect.rewind_long": "Takaisinkelauksen taikajuoma",
@@ -150,9 +158,11 @@
 
   "item.minecraft.netherite_scrap": "Netheriittiromu",
   "block.minecraft.lantern": "Rautalyhty",
+  "block.minecraft.iron_bars": "Rautakalterit",
+  "block.minecraft.ancient_debris": "Muinaisromukuutio"
   "item.minecraft.bucket": "Rautaämpäri",
   "item.minecraft.water_bucket": "Rautavesiämpäri",
   "item.minecraft.lava_bucket": "Rautalaavaämpäri",
   "item.minecraft.milk_bucket": "Rautamaitoämpäri",
-  "block.minecraft.iron_bars": "Rautakalterit"
+  "item.minecraft.netherite_scrap": "Muinainen romu"
 }
