@@ -1,4 +1,4 @@
-package com.minecraftabnormals.caverns_and_chasms.common.item;
+package com.minecraftabnormals.caverns_and_chasms.common.item.silver;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

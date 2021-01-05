@@ -2,10 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.common.item;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IBucketPickupHandler;
-import net.minecraft.block.ILiquidContainer;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -79,6 +76,18 @@ public class GoldenBucketItem extends Item {
 			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos1, direction, stack)) {
 				if (this.getFluid() == Fluids.EMPTY || (level < 2 && worldIn.getBlockState(blockpos).getFluidState().getFluid() == this.getFluid())) {
 					BlockState blockstate1 = worldIn.getBlockState(blockpos);
+					if (blockstate1.isIn(Blocks.CAULDRON) && blockstate1.get(CauldronBlock.LEVEL) == 3) {
+						ItemStack itemstack1 = DrinkHelper.fill(stack, playerIn, new ItemStack(getFilledBucket(Fluids.WATER)));
+						if (this.getFluid() != Fluids.EMPTY)
+							stack.getOrCreateTag().putInt("FluidLevel", level + 1);
+
+						playerIn.addStat(Stats.USE_CAULDRON);
+						((CauldronBlock) blockstate1.getBlock()).setWaterLevel(worldIn, blockpos, blockstate1, 0);
+						worldIn.playSound(null, blockpos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+						return ActionResult.func_233538_a_(itemstack1, worldIn.isRemote());
+					}
+
 					if (blockstate1.getBlock() instanceof IBucketPickupHandler) {
 						Fluid fluid = ((IBucketPickupHandler) blockstate1.getBlock()).pickupFluid(worldIn, blockpos, blockstate1);
 						if (fluid != Fluids.EMPTY) {
@@ -112,6 +121,13 @@ public class GoldenBucketItem extends Item {
 					direction = result.getFace();
 					blockpos1 = blockpos.offset(direction);
 					BlockState blockstate = worldIn.getBlockState(blockpos);
+					if (blockstate.isIn(Blocks.CAULDRON) && blockstate.get(CauldronBlock.LEVEL) == 0 && this.getFluid() == Fluids.WATER) {
+						playerIn.addStat(Stats.FILL_CAULDRON);
+						((CauldronBlock) blockstate.getBlock()).setWaterLevel(worldIn, blockpos, blockstate, 3);
+						worldIn.playSound(null, blockpos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+						return ActionResult.func_233538_a_(emptyBucket(stack, playerIn), worldIn.isRemote());
+					}
+
 					BlockPos blockpos2 = canBlockContainFluid(worldIn, blockpos, blockstate) || (this.getFluid() != Fluids.EMPTY && level < 2) ? blockpos : blockpos1;
 					if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos2, result)) {
 						this.onLiquidPlaced(worldIn, stack, blockpos2);
@@ -120,7 +136,7 @@ public class GoldenBucketItem extends Item {
 						}
 
 						playerIn.addStat(Stats.ITEM_USED.get(this));
-						return ActionResult.func_233538_a_(this.emptyBucket(stack, playerIn), worldIn.isRemote());
+						return ActionResult.func_233538_a_(emptyBucket(stack, playerIn), worldIn.isRemote());
 					} else {
 						return ActionResult.resultFail(stack);
 					}
@@ -131,7 +147,7 @@ public class GoldenBucketItem extends Item {
 		}
 	}
 
-	protected ItemStack emptyBucket(ItemStack stack, PlayerEntity player) {
+	public static ItemStack emptyBucket(ItemStack stack, PlayerEntity player) {
 		int level = stack.getOrCreateTag().getInt("FluidLevel");
 		ItemStack returnStack = level > 0 ? stack : getEmptyBucket();
 		if (level > 0 && !player.abilities.isCreativeMode)
@@ -206,7 +222,7 @@ public class GoldenBucketItem extends Item {
 		return blockstate.getBlock() instanceof ILiquidContainer && ((ILiquidContainer) blockstate.getBlock()).canContainFluid(worldIn, posIn, blockstate, this.getFluid());
 	}
 
-	private Item getFilledBucket(Fluid fluid) {
+	public static Item getFilledBucket(Fluid fluid) {
 		if (fluid == Fluids.WATER) {
 			return CCItems.GOLDEN_WATER_BUCKET.get();
 		} else if (fluid == Fluids.LAVA) {

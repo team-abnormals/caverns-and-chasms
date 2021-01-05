@@ -4,6 +4,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.ZombieChickenEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCAttributes;
@@ -22,6 +23,7 @@ import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -282,8 +284,26 @@ public class CCEvents {
 
 			if (weaknessAmount != 0) {
 				for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(weaknessAmount, 0.0D, weaknessAmount))) {
-					if (entity != event.getEntityLiving())
+					if (entity != target)
 						entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
+				}
+			}
+
+			if (target.getActivePotionEffect(CCEffects.AFFLICTION.get()) != null) {
+				EffectInstance affliction = target.getActivePotionEffect(CCEffects.AFFLICTION.get());
+				affliction.amplifier += 1;
+				affliction.duration += 10;
+			}
+		}
+
+		if (target instanceof HorseEntity) {
+			HorseEntity horse = (HorseEntity) event.getEntityLiving();
+			for (ItemStack stack : horse.getArmorInventoryList()) {
+				if (stack.getItem() instanceof NecromiumHorseArmorItem) {
+					for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(2.0D, 0.0D, 2.0D))) {
+						if (entity != target && !target.isPassenger(entity))
+							entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
+					}
 				}
 			}
 		}
