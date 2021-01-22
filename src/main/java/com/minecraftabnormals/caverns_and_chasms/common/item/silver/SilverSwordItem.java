@@ -1,12 +1,12 @@
 package com.minecraftabnormals.caverns_and_chasms.common.item.silver;
 
+import com.minecraftabnormals.abnormals_core.core.util.item.filling.TargetedItemGroupFiller;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SilverSwordItem extends SwordItem {
+	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.GOLDEN_SWORD);
 
 	public SilverSwordItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
 		super(tier, attackDamageIn, attackSpeedIn, builder);
@@ -31,5 +32,10 @@ public class SilverSwordItem extends SwordItem {
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.afflicting").mergeStyle(TextFormatting.GRAY));
+	}
+
+	@Override
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		FILLER.fillItem(this, group, items);
 	}
 }

@@ -1,14 +1,18 @@
 package com.minecraftabnormals.caverns_and_chasms.common.item.silver;
 
+import com.minecraftabnormals.abnormals_core.core.util.item.filling.TargetedItemGroupFiller;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SilverArrowEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ArrowItem;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 public class SilverArrowItem extends ArrowItem {
+	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.SPECTRAL_ARROW);
 
 	public SilverArrowItem(Properties builder) {
 		super(builder);
@@ -19,8 +23,13 @@ public class SilverArrowItem extends ArrowItem {
 		return new SilverArrowEntity(worldIn, shooter);
 	}
 
+	@Override
 	public boolean isInfinite(ItemStack stack, ItemStack bow, net.minecraft.entity.player.PlayerEntity player) {
-		int enchant = EnchantmentHelper.getEnchantmentLevel(net.minecraft.enchantment.Enchantments.INFINITY, bow);
-		return enchant > 0 && this.getClass() == SilverArrowItem.class;
+		return false;
+	}
+
+	@Override
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		FILLER.fillItem(this, group, items);
 	}
 }
