@@ -72,13 +72,23 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraft}-${project.forge}"
     implementation fg.deobf("curse.maven:abnormals_core-382216:${project.abnormalsCore}")
-    implementation fg.deobf("curse.maven:jei-238222:3109181")
-    implementation fg.deobf("curse.maven:worldedit-225608:3135187")
+
+    compileOnly fg.deobf("mezz.jei:jei-1.16.4:${project.jei}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:${project.jei}")
 }
 
 repositories {
     maven {
-        url "https://www.cursemaven.com"
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+    maven {
+        name = "CurseForge"
+        url = "https://www.cursemaven.com"
     }
 }
 
