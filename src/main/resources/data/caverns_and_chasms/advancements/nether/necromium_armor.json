@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:nether/obtain_ancient_debris",
+  "display": {
+    "icon": {
+      "item": "caverns_and_chasms:necromium_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.nether.necromium_armor.title"
+    },
+    "description": {
+      "translate": "advancements.caverns_and_chasms.nether.necromium_armor.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "necromium_armor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "caverns_and_chasms:necromium_helmet"
+          },
+          {
+            "item": "caverns_and_chasms:necromium_chestplate"
+          },
+          {
+            "item": "caverns_and_chasms:necromium_leggings"
+          },
+          {
+            "item": "caverns_and_chasms:necromium_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "necromium_armor"
+    ]
+  ]
+}
