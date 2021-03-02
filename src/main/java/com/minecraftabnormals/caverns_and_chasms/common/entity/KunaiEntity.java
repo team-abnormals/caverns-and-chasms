@@ -23,11 +23,11 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 	}
 
 	public KunaiEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-		this(CCEntities.THROWING_KNIFE.get(), world);
+		this(CCEntities.KUNAI.get(), world);
 	}
 
 	public KunaiEntity(World worldIn, LivingEntity shooter) {
-		super(CCEntities.THROWING_KNIFE.get(), shooter, worldIn);
+		super(CCEntities.KUNAI.get(), shooter, worldIn);
 	}
 
 	@Override
@@ -64,6 +64,6 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 
 	@Override
 	public double getDamage() {
-		return 3.0D;
+		return 2.0D;
 	}
 }
