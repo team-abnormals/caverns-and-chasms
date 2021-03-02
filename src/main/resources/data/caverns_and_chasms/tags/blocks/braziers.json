@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "caverns_and_chasms:brazier",
+    "caverns_and_chasms:soul_brazier",
+    "caverns_and_chasms:cursed_brazier",
+    "caverns_and_chasms:ender_brazier"
+  ]
+}

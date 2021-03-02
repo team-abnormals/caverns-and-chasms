@@ -43,6 +43,11 @@ public class CCCompat {
 		RenderTypeLookup.setRenderLayer(CCBlocks.SILVER_BARS.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(CCBlocks.SPIKED_RAIL.get(), RenderType.getCutout());
 
+		RenderTypeLookup.setRenderLayer(CCBlocks.BRAZIER.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(CCBlocks.SOUL_BRAZIER.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(CCBlocks.ENDER_BRAZIER.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_BRAZIER.get(), RenderType.getCutout());
+
 		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_FIRE.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_TORCH.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(CCBlocks.CURSED_WALL_TORCH.get(), RenderType.getCutout());

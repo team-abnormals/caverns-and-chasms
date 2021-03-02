@@ -1,0 +1,6 @@
+{
+	"parent": "caverns_and_chasms:block/template_brazier",
+	"textures": {
+		"fire": "endergetic:block/ender_campfire_fire"
+	}
+}

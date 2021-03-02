@@ -10,11 +10,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.function.ToIntFunction;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCBlocks {
@@ -29,6 +32,11 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(AbstractBlock.Properties.from(Blocks.POWERED_RAIL)), ItemGroup.TRANSPORTATION);
 
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
+
+	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1, Properties.BRAZIER), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2, Properties.BRAZIER_DIM), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createBlock("ender_brazier", () -> new BrazierBlock(3, Properties.BRAZIER), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> CURSED_BRAZIER = HELPER.createBlock("cursed_brazier", () -> new BrazierBlock(4, Properties.BRAZIER_DIM), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.SOUL_FIRE)));
 	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.from(Blocks.SOUL_CAMPFIRE)), ItemGroup.DECORATIONS);
@@ -96,6 +104,9 @@ public class CCBlocks {
 		public static final AbstractBlock.Properties SILVER_PRESSURE_PLATE = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD);
 		public static final AbstractBlock.Properties SILVER_BUTTON = AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.METAL);
 
+		public static final AbstractBlock.Properties BRAZIER = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel(getLightValueLit(15)).notSolid();
+		public static final AbstractBlock.Properties BRAZIER_DIM = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel(getLightValueLit(10)).notSolid();
+
 		public static final AbstractBlock.Properties SUGILITE_ORE = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
 		public static final AbstractBlock.Properties SUGILITE = AbstractBlock.Properties.create(Material.ROCK, MaterialColor.PURPLE).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
 		public static final AbstractBlock.Properties LAPIS_LAZULI = AbstractBlock.Properties.create(Material.IRON, MaterialColor.LAPIS).setRequiresTool().hardnessAndResistance(3.0F, 3.0F);
@@ -105,6 +116,10 @@ public class CCBlocks {
 
 		private static boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
 			return true;
+		}
+
+		private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
+			return (state) -> state.get(BlockStateProperties.LIT) ? lightValue : 0;
 		}
 	}
 }

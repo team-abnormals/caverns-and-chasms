@@ -1,0 +1,6 @@
+{
+	"parent": "caverns_and_chasms:block/template_brazier_hanging",
+	"textures": {
+		"fire": "minecraft:block/soul_campfire_fire"
+	}
+}

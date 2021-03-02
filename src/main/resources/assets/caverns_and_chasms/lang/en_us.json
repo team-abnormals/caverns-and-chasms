@@ -18,6 +18,11 @@
   "block.caverns_and_chasms.cursed_lantern": "Cursed Lantern",
   "block.caverns_and_chasms.cursed_fire": "Cursed Fire",
 
+  "block.caverns_and_chasms.brazier": "Brazier",
+  "block.caverns_and_chasms.soul_brazier": "Soul Brazier",
+  "block.caverns_and_chasms.cursed_brazier": "Cursed Brazier",
+  "block.caverns_and_chasms.ender_brazier": "Ender Brazier",
+
   "block.caverns_and_chasms.golden_lantern": "Golden Lantern",
   "block.caverns_and_chasms.golden_bars": "Golden Bars",
 

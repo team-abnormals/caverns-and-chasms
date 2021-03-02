@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "lit=false,hanging=false": {
+            "model": "caverns_and_chasms:block/brazier_off"
+        },
+        "lit=false,hanging=true": {
+            "model": "caverns_and_chasms:block/brazier_off_hanging"
+        },
+        "lit=true,hanging=false": {
+            "model": "caverns_and_chasms:block/ender_brazier"
+        },
+        "lit=true,hanging=true": {
+            "model": "caverns_and_chasms:block/ender_brazier_hanging"
+        }
+    }
+}
