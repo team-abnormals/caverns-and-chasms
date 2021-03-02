@@ -18,6 +18,11 @@
   "block.caverns_and_chasms.cursed_lantern": "Kirottu lyhty",
   "block.caverns_and_chasms.cursed_fire": "Kirottu tuli",
 
+  "block.caverns_and_chasms.brazier": "Hiilipannu",
+  "block.caverns_and_chasms.soul_brazier": "Sieluhiilipannu",
+  "block.caverns_and_chasms.cursed_brazier": "Kirottu hiilipannu",
+  "block.caverns_and_chasms.ender_brazier": "Ender-hiilipannu",
+
   "block.caverns_and_chasms.golden_lantern": "Kultalyhty",
   "block.caverns_and_chasms.golden_bars": "Kultakalterit",
 
@@ -82,6 +87,7 @@
   "item.caverns_and_chasms.silver_nugget": "Hopeakimpale",
   "item.caverns_and_chasms.silver_arrow": "Hopeanuoli",
   "item.caverns_and_chasms.ore_detector": "Malmintunnistin",
+  "item.caverns_and_chasms.kunai": "Kunai",
   "item.caverns_and_chasms.silver_sword": "Hopeamiekka",
   "item.caverns_and_chasms.silver_pickaxe": "Hopeahakku",
   "item.caverns_and_chasms.silver_shovel": "Hopealapio",
@@ -120,13 +126,11 @@
   "entity.caverns_and_chasms.juggernaut": "Juggernaut",
   "entity.caverns_and_chasms.zombie_chicken": "Zombikana",
   "entity.caverns_and_chasms.fly": "Kärpänen",
+  "entity.caverns_and_chasms.rotten_egg": "Heitetty mädäntynyt muna",
+  "entity.caverns_and_chasms.kunai": "Kunai",
 
   "effect.caverns_and_chasms.rewind": "Takaisinkelaus",
   "effect.caverns_and_chasms.affliction": "Piina",
-
-  "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper kuolee",
-  "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper vahingoittuu",
-  "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper sihisee",
   
   "enchantment.caverns_and_chasms.treasuring": "Aarteenmetsästys",
   "enchantment.caverns_and_chasms.treasuring.desc": "Tunnistin tunnistaa vain jalokiviä.",
@@ -147,6 +151,16 @@
   "tooltip.caverns_and_chasms.boosting": "Tehostus",
   "tooltip.caverns_and_chasms.slowing": "Hidastus",
 
+  "advancements.caverns_and_chasms.husbandry.ancient_hoes.title": "Vaarallista omistautumista",
+  "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Käytä netheriitti- ja nekromiumharkkoja kahden kuokan päivittämiseen ja tajua sitten elämän mitättömyys",
+  "advancements.caverns_and_chasms.nether.necromium_armor.title": "Peitä minut kirouksilla",
+  "advancements.caverns_and_chasms.nether.necromium_armor.description": "Hanki kokonainen Nekromiumhaarniska",
+  "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Käytä netheriitti- tai nekromiumharkkoa kuokan päivittämiseen ja arvioi sitten elämänvalintasi uudelleen",
+
+  "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper kuolee",
+  "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper vahingoittuu",
+  "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper sihisee",
+  
   "item.minecraft.potion.effect.rewind": "Takaisinkelauksen taikajuoma",
   "item.minecraft.potion.effect.rewind_long": "Takaisinkelauksen taikajuoma",
   "item.minecraft.splash_potion.effect.rewind": "Roiskahtava takaisinkelauksen taikajuoma",
@@ -157,12 +171,7 @@
   "item.minecraft.tipped_arrow.effect.rewind_long": "Takaisinkelauksen nuoli",
 
   "item.minecraft.netherite_scrap": "Netheriittiromu",
-  "block.minecraft.lantern": "Rautalyhty",
   "block.minecraft.iron_bars": "Rautakalterit",
   "block.minecraft.ancient_debris": "Muinaisromukuutio",
-  "item.minecraft.bucket": "Rautaämpäri",
-  "item.minecraft.water_bucket": "Rautavesiämpäri",
-  "item.minecraft.lava_bucket": "Rautalaavaämpäri",
-  "item.minecraft.milk_bucket": "Rautamaitoämpäri",
   "item.minecraft.netherite_scrap": "Muinainen romu"
 }
