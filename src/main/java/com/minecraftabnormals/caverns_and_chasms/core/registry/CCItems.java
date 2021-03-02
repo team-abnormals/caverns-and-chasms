@@ -24,7 +24,7 @@ public class CCItems {
 	public static final RegistryObject<Item> SILVER_NUGGET = HELPER.createItem("silver_nugget", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 	public static final RegistryObject<Item> SILVER_ARROW = HELPER.createItem("silver_arrow", () -> new SilverArrowItem(new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> ORE_DETECTOR = HELPER.createItem("ore_detector", () -> new OreDetectorItem(new Item.Properties().maxStackSize(1).group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> THROWING_KNIFE = HELPER.createItem("throwing_knife", () -> new ThrowingKnifeItem(new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> KUNAI = HELPER.createItem("kunai", () -> new KunaiItem(new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> SILVER_SWORD = HELPER.createItem("silver_sword", () -> new SilverSwordItem(CCTiers.Tools.SILVER, 3, -2.4F, new Item.Properties().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCTiers.Tools.SILVER, 1.5F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
 	public static final RegistryObject<Item> SILVER_PICKAXE = HELPER.createItem("silver_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.SILVER, 1, -2.8F, new Item.Properties().group(ItemGroup.TOOLS)));

@@ -19,18 +19,18 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ThrowingKnifeRenderer<T extends Entity & IRendersAsItem> extends EntityRenderer<T> {
+public class KunaiRenderer<T extends Entity & IRendersAsItem> extends EntityRenderer<T> {
 	private final ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 	private final float scale;
 	private final boolean field_229126_f_;
 
-	public ThrowingKnifeRenderer(EntityRendererManager p_i226035_1_, float p_i226035_3_, boolean p_i226035_4_) {
+	public KunaiRenderer(EntityRendererManager p_i226035_1_, float p_i226035_3_, boolean p_i226035_4_) {
 		super(p_i226035_1_);
 		this.scale = p_i226035_3_;
 		this.field_229126_f_ = p_i226035_4_;
 	}
 
-	public ThrowingKnifeRenderer(EntityRendererManager renderManagerIn) {
+	public KunaiRenderer(EntityRendererManager renderManagerIn) {
 		this(renderManagerIn, 1.0F, false);
 	}
 

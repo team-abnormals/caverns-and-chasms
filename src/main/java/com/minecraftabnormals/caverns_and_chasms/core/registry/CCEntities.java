@@ -23,7 +23,7 @@ public class CCEntities {
 	public static final RegistryObject<EntityType<SpiderlingEntity>> SPIDERLING = HELPER.createLivingEntity("spiderling", SpiderlingEntity::new, EntityClassification.MONSTER, 0.35F, 0.25F);
 	public static final RegistryObject<EntityType<RottenEggEntity>> ROTTEN_EGG = HELPER.createEntity("rotten_egg", RottenEggEntity::new, RottenEggEntity::new, EntityClassification.MISC, 0.25F, 0.25F);
 	public static final RegistryObject<EntityType<SilverArrowEntity>> SILVER_ARROW = HELPER.createEntity("silver_arrow", SilverArrowEntity::new, SilverArrowEntity::new, EntityClassification.MISC, 0.5F, 0.5F);
-	public static final RegistryObject<EntityType<ThrowingKnifeEntity>> THROWING_KNIFE = HELPER.createEntity("throwing_knife", ThrowingKnifeEntity::new, ThrowingKnifeEntity::new, EntityClassification.MISC, 0.5F, 0.5F);
+	public static final RegistryObject<EntityType<KunaiEntity>> THROWING_KNIFE = HELPER.createEntity("kunai", KunaiEntity::new, KunaiEntity::new, EntityClassification.MISC, 0.5F, 0.5F);
 	public static final RegistryObject<EntityType<ZombieChickenEntity>> ZOMBIE_CHICKEN = HELPER.createLivingEntity("zombie_chicken", ZombieChickenEntity::new, EntityClassification.MONSTER, 0.4F, 0.7F);
 	public static final RegistryObject<EntityType<FlyEntity>> FLY = HELPER.createLivingEntity("fly", FlyEntity::new, EntityClassification.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<MimeEntity>> MIME = HELPER.createLivingEntity("mime", MimeEntity::new, EntityClassification.MONSTER, 0.6F, 2.1F);
@@ -43,7 +43,7 @@ public class CCEntities {
 		RenderingRegistry.registerEntityRenderingHandler(SPIDERLING.get(), SpiderlingRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(ROTTEN_EGG.get(), RottenEggRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(SILVER_ARROW.get(), SilverArrowRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(THROWING_KNIFE.get(), ThrowingKnifeRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(THROWING_KNIFE.get(), KunaiRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZOMBIE_CHICKEN.get(), ZombieChickenRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(FLY.get(), FlyRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(MIME.get(), MimeRenderer::new);

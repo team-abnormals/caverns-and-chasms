@@ -87,7 +87,7 @@
   "item.caverns_and_chasms.silver_nugget": "Silver Nugget",
   "item.caverns_and_chasms.silver_arrow": "Silver Arrow",
   "item.caverns_and_chasms.ore_detector": "Ore Detector",
-  "item.caverns_and_chasms.throwing_knife": "Throwing Knife",
+  "item.caverns_and_chasms.kunai": "Kunai",
   "item.caverns_and_chasms.silver_sword": "Silver Sword",
   "item.caverns_and_chasms.silver_pickaxe": "Silver Pickaxe",
   "item.caverns_and_chasms.silver_shovel": "Silver Shovel",
@@ -127,7 +127,7 @@
   "entity.caverns_and_chasms.zombie_chicken": "Zombie Chicken",
   "entity.caverns_and_chasms.fly": "Fly",
   "entity.caverns_and_chasms.rotten_egg": "Thrown Rotten Egg",
-  "entity.caverns_and_chasms.throwing_knife": "Throwing Knife",
+  "entity.caverns_and_chasms.kunai": "Kunai",
 
   "effect.caverns_and_chasms.rewind": "Rewind",
   "effect.caverns_and_chasms.affliction": "Affliction",

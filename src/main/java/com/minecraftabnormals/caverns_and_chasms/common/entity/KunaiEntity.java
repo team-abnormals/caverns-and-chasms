@@ -16,17 +16,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class ThrowingKnifeEntity extends AbstractArrowEntity implements IRendersAsItem {
+public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 
-	public ThrowingKnifeEntity(EntityType<? extends ThrowingKnifeEntity> type, World worldIn) {
+	public KunaiEntity(EntityType<? extends KunaiEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 
-	public ThrowingKnifeEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+	public KunaiEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
 		this(CCEntities.THROWING_KNIFE.get(), world);
 	}
 
-	public ThrowingKnifeEntity(World worldIn, LivingEntity shooter) {
+	public KunaiEntity(World worldIn, LivingEntity shooter) {
 		super(CCEntities.THROWING_KNIFE.get(), shooter, worldIn);
 	}
 
@@ -37,7 +37,7 @@ public class ThrowingKnifeEntity extends AbstractArrowEntity implements IRenders
 	}
 
 	protected ItemStack getArrowStack() {
-		return new ItemStack(CCItems.THROWING_KNIFE.get());
+		return new ItemStack(CCItems.KUNAI.get());
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class ThrowingKnifeEntity extends AbstractArrowEntity implements IRenders
 	}
 
 	public ItemStack getItem() {
-		return new ItemStack(CCItems.THROWING_KNIFE.get());
+		return new ItemStack(CCItems.KUNAI.get());
 	}
 
 	@Override
