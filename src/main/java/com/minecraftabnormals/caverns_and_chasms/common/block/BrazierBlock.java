@@ -1,6 +1,8 @@
 package com.minecraftabnormals.caverns_and_chasms.common.block;
 
+import com.minecraftabnormals.abnormals_core.core.util.BlockUtil;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -11,6 +13,7 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
@@ -31,6 +34,8 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -53,6 +58,8 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
 	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+			if (state.isIn(CCBlocks.CURSED_BRAZIER.get()) && !((LivingEntity) entityIn).isEntityUndead())
+				return;
 			entityIn.attackEntityFrom(DamageSource.IN_FIRE, (float) this.fireDamage);
 		}
 
@@ -96,40 +103,20 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 		return BlockRenderType.MODEL;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		if (stateIn.get(LIT)) {
-			if (rand.nextInt(10) == 0) {
-				worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.6F, false);
-			}
-
-			if (rand.nextInt(5) == 0) {
-				for (int i = 0; i < rand.nextInt(1) + 1; ++i) {
-					worldIn.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, rand.nextFloat() / 2.0F, 5.0E-5D, rand.nextFloat() / 2.0F);
-				}
-			}
-		}
-	}
-
-	public static void extinguish(IWorld world, BlockPos pos, BlockState state) {
+	public static BlockState extinguish(IWorld world, BlockPos pos, BlockState state) {
 		if (world.isRemote()) {
 			for (int i = 0; i < 20; ++i) {
 				spawnSmokeParticles((World) world, pos);
 			}
+		} else {
+			world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		}
+		return state.with(LIT, false);
 	}
 
 	public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
 		if (!state.get(BlockStateProperties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
-			boolean flag = state.get(LIT);
-			if (flag) {
-				if (!worldIn.isRemote()) {
-					worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-				}
-
-				extinguish(worldIn, pos, state);
-			}
-
+			if (state.get(LIT)) extinguish(worldIn, pos, state);
 			worldIn.setBlockState(pos, state.with(WATERLOGGED, true).with(LIT, false), 3);
 			worldIn.getPendingFluidTicks().scheduleTick(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
 			return true;
@@ -141,7 +128,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 	public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
 		if (!worldIn.isRemote && projectile.isBurning()) {
 			Entity entity = projectile.func_234616_v_();
-			boolean flag = entity == null || entity instanceof PlayerEntity || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
+			boolean flag = entity == null || entity instanceof PlayerEntity || ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
 			if (flag && !state.get(LIT) && !state.get(WATERLOGGED)) {
 				BlockPos blockpos = hit.getPos();
 				worldIn.setBlockState(blockpos, state.with(BlockStateProperties.LIT, true), 11);

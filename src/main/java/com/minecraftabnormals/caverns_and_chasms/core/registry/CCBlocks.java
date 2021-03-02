@@ -35,7 +35,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1, Properties.BRAZIER), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2, Properties.BRAZIER_DIM), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createBlock("ender_brazier", () -> new BrazierBlock(3, Properties.BRAZIER), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createCompatBlock("endergetic", "ender_brazier", () -> new BrazierBlock(3, Properties.BRAZIER), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> CURSED_BRAZIER = HELPER.createBlock("cursed_brazier", () -> new BrazierBlock(4, Properties.BRAZIER_DIM), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.from(Blocks.SOUL_FIRE)));

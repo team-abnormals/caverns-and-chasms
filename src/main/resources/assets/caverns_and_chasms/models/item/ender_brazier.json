@@ -1,3 +1,6 @@
 {
-    "parent": "caverns_and_chasms:block/ender_brazier"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "caverns_and_chasms:item/ender_brazier"
+    }
 }

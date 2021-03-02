@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S#S",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:ingots/silver"
+    },
+    "#": {
+      "tag": "caverns_and_chasms:cursed_fire_base_blocks"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:cursed_brazier"
+  }
+}

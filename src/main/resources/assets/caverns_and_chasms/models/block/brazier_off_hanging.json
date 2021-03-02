@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"chain": "caverns_and_chasms:block/brazier_chain",
 		"particle": "caverns_and_chasms:block/brazier_bottom",
+		"chain": "caverns_and_chasms:block/brazier_chain",
 		"bottom": "caverns_and_chasms:block/brazier_bottom",
 		"side": "caverns_and_chasms:block/brazier_side",
 		"top": "caverns_and_chasms:block/brazier_top"

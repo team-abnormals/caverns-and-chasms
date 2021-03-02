@@ -1,5 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.core.other;
 
+import com.minecraftabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
@@ -11,6 +12,7 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
@@ -33,14 +35,17 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -159,6 +164,56 @@ public class CCEvents {
 					}
 				}
 			}
+		}
+	}
+
+
+	@SubscribeEvent
+	public static void onRightClickBlock(RightClickBlock event) {
+		PlayerEntity player = event.getPlayer();
+		BlockPos pos = event.getPos();
+		World world = event.getWorld();
+		ItemStack stack = event.getItemStack();
+		BlockState state = world.getBlockState(pos);
+		Direction face = event.getFace();
+		Random random = world.getRandom();
+
+		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
+			if (stack.getToolTypes().contains(ToolType.SHOVEL)) {
+				BlockState extinguishedState = BrazierBlock.extinguish(world, pos, state);
+				if (!world.isRemote()) {
+					world.setBlockState(pos, extinguishedState, 11);
+					stack.damageItem(1, player, (entity) -> entity.sendBreakAnimation(event.getHand()));
+				}
+
+				event.setCanceled(true);
+				event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+			}
+
+			if (BrazierBlock.canBeLit(state)) {
+				if (stack.getItem() instanceof FlintAndSteelItem) {
+					world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					if (!world.isRemote()) {
+						world.setBlockState(pos, state.with(BrazierBlock.LIT, true), 11);
+						stack.damageItem(1, player, (entity) -> entity.sendBreakAnimation(event.getHand()));
+					}
+
+					event.setCanceled(true);
+					event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+				} else if (stack.getItem() instanceof FireChargeItem) {
+					world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+					if (!world.isRemote()) {
+						world.setBlockState(pos, state.with(BrazierBlock.LIT, true), 11);
+						if (!player.abilities.isCreativeMode) {
+							stack.shrink(1);
+						}
+					}
+
+					event.setCanceled(true);
+					event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+				}
+			}
+
 		}
 	}
 
