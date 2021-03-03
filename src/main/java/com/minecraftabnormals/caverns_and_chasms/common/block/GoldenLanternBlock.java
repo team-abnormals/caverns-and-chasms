@@ -42,7 +42,7 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 		this.westShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(9.0D, 14.0D, 7.0D, 0.0D, 16.0D, 9.0D));
 		this.eastShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(7.0D, 14.0D, 7.0D, 16.0D, 16.0D, 9.0D));
 
-		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
 	}
 
 	@Override

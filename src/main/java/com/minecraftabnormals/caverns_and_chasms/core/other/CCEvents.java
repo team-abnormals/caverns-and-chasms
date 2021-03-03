@@ -48,6 +48,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -241,13 +242,31 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
+		LivingEntity entity = event.getEntityLiving();
 		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
-			LivingEntity entity = event.getEntityLiving();
 			CompoundNBT data = entity.getPersistentData();
 			data.putString("RewindDimension", entity.getEntityWorld().getDimensionKey().getLocation().toString());
 			data.putDouble("RewindX", entity.getPosX());
 			data.putDouble("RewindY", entity.getPosY());
 			data.putDouble("RewindZ", entity.getPosZ());
+		}
+	}
+
+	@SubscribeEvent
+	public static void potionApplicableEvent(PotionEvent.PotionApplicableEvent event) {
+		LivingEntity entity = event.getEntityLiving();
+
+		if (event.getResult() != Result.DENY && event.getPotionEffect().getPotion() == CCEffects.AFFLICTION.get()) {
+			if (entity.getActivePotionEffect(CCEffects.AFFLICTION.get()) != null) {
+				EffectInstance affliction = entity.getActivePotionEffect(CCEffects.AFFLICTION.get());
+				if (affliction.getAmplifier() < 9) {
+					EffectInstance upgrade = new EffectInstance(affliction.getPotion(), affliction.getDuration() + 10, affliction.getAmplifier() + 1, affliction.isAmbient(), affliction.doesShowParticles(), affliction.isShowIcon());
+					entity.removeActivePotionEffect(CCEffects.AFFLICTION.get());
+					entity.addPotionEffect(upgrade);
+
+					event.setResult(Result.DENY);
+				}
+			}
 		}
 	}
 
@@ -310,7 +329,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingDamage(LivingDamageEvent event) {
+	public static void onLivingDamage(LivingHurtEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		Random rand = new Random();
 
@@ -342,12 +361,6 @@ public class CCEvents {
 					if (entity != target)
 						entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
 				}
-			}
-
-			if (target.getActivePotionEffect(CCEffects.AFFLICTION.get()) != null) {
-				EffectInstance affliction = target.getActivePotionEffect(CCEffects.AFFLICTION.get());
-				affliction.amplifier += 1;
-				affliction.duration += 10;
 			}
 		}
 
