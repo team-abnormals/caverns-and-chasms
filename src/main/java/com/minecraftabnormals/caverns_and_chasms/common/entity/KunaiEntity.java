@@ -13,9 +13,12 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 
 	public KunaiEntity(EntityType<? extends KunaiEntity> type, World worldIn) {
