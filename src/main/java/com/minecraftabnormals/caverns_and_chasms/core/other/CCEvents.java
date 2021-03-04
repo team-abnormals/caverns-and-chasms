@@ -41,6 +41,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -54,6 +55,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Collection;
 import java.util.Random;
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -290,7 +292,12 @@ public class CCEvents {
 						ServerWorld dimension = entity.getServer().getWorld(key);
 
 						if (dimension != entity.getEntityWorld())
-							entity.changeDimension(dimension);
+							entity.changeDimension(dimension, new ITeleporter() {
+								@Override
+								public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+									return repositionEntity.apply(false);
+								}
+							});
 					}
 					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
 					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
@@ -319,7 +326,12 @@ public class CCEvents {
 						ServerWorld dimension = entity.getServer().getWorld(key);
 
 						if (dimension != entity.getEntityWorld())
-							entity.changeDimension(dimension);
+							entity.changeDimension(dimension, new ITeleporter() {
+								@Override
+								public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+									return repositionEntity.apply(false);
+								}
+							});
 					}
 					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
 					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
