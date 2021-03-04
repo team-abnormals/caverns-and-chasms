@@ -2,8 +2,10 @@ package com.minecraftabnormals.caverns_and_chasms.core.other;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 
 public class CCTags {
 
@@ -20,6 +22,8 @@ public class CCTags {
 	}
 
 	public static class Items {
-
+		private static ITag.INamedTag<Item> createTag(String name) {
+			return ItemTags.makeWrapperTag(CavernsAndChasms.MOD_ID + ":" + name);
+		}
 	}
 }

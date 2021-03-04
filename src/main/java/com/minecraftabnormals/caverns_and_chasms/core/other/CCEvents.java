@@ -15,6 +15,7 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.CreeperEntity;
@@ -42,6 +43,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.ITeleporter;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -55,6 +57,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Collection;
 import java.util.Random;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -405,5 +408,14 @@ public class CCEvents {
 
 			entity.getEntityWorld().addEntity(areaeffectcloudentity);
 		}
+	}
+
+	@SubscribeEvent
+	public static void onItemModify(ItemAttributeModifierEvent event) {
+		Item item = event.getItemStack().getItem();
+		EquipmentSlotType slot = event.getSlotType();
+		UUID uuid = ArmorItem.ARMOR_MODIFIERS[slot.getIndex()];
+		if (item == Items.CHAINMAIL_HELMET && slot == EquipmentSlotType.HEAD || item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlotType.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlotType.LEGS || item == Items.CHAINMAIL_BOOTS && slot == EquipmentSlotType.FEET)
+			event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
 	}
 }

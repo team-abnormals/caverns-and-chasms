@@ -14,16 +14,16 @@ import net.minecraft.util.NonNullList;
 import java.util.UUID;
 
 public class NecromiumArmorItem extends ArmorItem {
-	private static final UUID MODIFIER = UUID.fromString("e4013bfe-9fb9-4503-8df2-d5a027de2d14");
 	private final LazyValue<Multimap<Attribute, AttributeModifier>> attributes;
 	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.NETHERITE_BOOTS);
 
 	public NecromiumArmorItem(IArmorMaterial material, EquipmentSlotType slot, Properties properties) {
 		super(material, slot, properties);
 		this.attributes = new LazyValue<>(() -> {
+			UUID uuid = ArmorItem.ARMOR_MODIFIERS[slot.getIndex()];
 			ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 			builder.putAll(super.getAttributeModifiers(slot));
-			builder.put(CCAttributes.WEAKNESS_AURA.get(), new AttributeModifier(MODIFIER, "Weakness aura", 1.0D, AttributeModifier.Operation.ADDITION));
+			builder.put(CCAttributes.WEAKNESS_AURA.get(), new AttributeModifier(uuid, "Weakness aura", 1.0D, AttributeModifier.Operation.ADDITION));
 			return builder.build();
 		});
 	}
