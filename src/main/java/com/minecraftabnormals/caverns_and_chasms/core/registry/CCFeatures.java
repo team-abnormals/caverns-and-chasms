@@ -22,7 +22,7 @@ import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent; SKELETON DOG
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -77,7 +77,7 @@ public class CCFeatures {
 	public static final class States {
 		public static final BlockState EMERALD_ORE = Blocks.EMERALD_ORE.getDefaultState();
 		public static final BlockState SILVER_ORE = CCBlocks.SILVER_ORE.get().getDefaultState();
-		public static final BlockState SOUL_SILVER_ORE = CCBlocks.SOUL_SILVER_ORE.get().getDefaultState();
+		public static final BlockState SOUL_SILVER_ORE = CCBlocks.SOUL_SILVER_ORE.get().getDefaultState(); dog
 		public static final BlockState SUGILITE_ORE = CCBlocks.SUGILITE_ORE.get().getDefaultState();
 	}
 
