@@ -82,22 +82,34 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DIRT_TILE_WALL = HELPER.createBlock("dirt_tile_wall", () -> new WallBlock(Properties.DIRT_BRICKS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> DIRT_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "dirt_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.DIRT_BRICKS), ItemGroup.BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> COBBLESTONE_TILES = HELPER.createBlock("cobblestone_tiles", () -> new Block(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> COBBLESTONE_TILE_STAIRS = HELPER.createBlock("cobblestone_tile_stairs", () -> new StairsBlock(() -> COBBLESTONE_TILES.get().getDefaultState(), Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> COBBLESTONE_TILE_SLAB = HELPER.createBlock("cobblestone_tile_slab", () -> new SlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> COBBLESTONE_TILE_WALL = HELPER.createBlock("cobblestone_tile_wall", () -> new WallBlock(Properties.COBBLESTONE_TILES), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_BRICKS = HELPER.createBlock("cobblestone_bricks", () -> new Block(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_BRICK_STAIRS = HELPER.createBlock("cobblestone_brick_stairs", () -> new StairsBlock(() -> COBBLESTONE_BRICKS.get().getDefaultState(), Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_BRICK_SLAB = HELPER.createBlock("cobblestone_brick_slab", () -> new SlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_BRICK_WALL = HELPER.createBlock("cobblestone_brick_wall", () -> new WallBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> COBBLESTONE_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "cobblestone_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILES = HELPER.createBlock("mossy_cobblestone_tiles", () -> new Block(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_STAIRS = HELPER.createBlock("mossy_cobblestone_tile_stairs", () -> new StairsBlock(() -> COBBLESTONE_TILES.get().getDefaultState(), Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_SLAB = HELPER.createBlock("mossy_cobblestone_tile_slab", () -> new SlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_WALL = HELPER.createBlock("mossy_cobblestone_tile_wall", () -> new WallBlock(Properties.COBBLESTONE_TILES), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "mossy_cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_TILES), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICKS = HELPER.createBlock("mossy_cobblestone_bricks", () -> new Block(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_STAIRS = HELPER.createBlock("mossy_cobblestone_brick_stairs", () -> new StairsBlock(() -> COBBLESTONE_BRICKS.get().getDefaultState(), Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_SLAB = HELPER.createBlock("mossy_cobblestone_brick_slab", () -> new SlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_WALL = HELPER.createBlock("mossy_cobblestone_brick_wall", () -> new WallBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "mossy_cobblestone_brick_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+
+	public static final RegistryObject<Block> COBBLESTONE_TILES = HELPER.createBlock("cobblestone_tiles", () -> new Block(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_TILE_STAIRS = HELPER.createBlock("cobblestone_tile_stairs", () -> new StairsBlock(() -> COBBLESTONE_TILES.get().getDefaultState(), Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_TILE_SLAB = HELPER.createBlock("cobblestone_tile_slab", () -> new SlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> COBBLESTONE_TILE_WALL = HELPER.createBlock("cobblestone_tile_wall", () -> new WallBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILES = HELPER.createBlock("mossy_cobblestone_tiles", () -> new Block(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_STAIRS = HELPER.createBlock("mossy_cobblestone_tile_stairs", () -> new StairsBlock(() -> COBBLESTONE_TILES.get().getDefaultState(), Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_SLAB = HELPER.createBlock("mossy_cobblestone_tile_slab", () -> new SlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_WALL = HELPER.createBlock("mossy_cobblestone_tile_wall", () -> new WallBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "mossy_cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(Properties.COBBLESTONE_BRICKS), ItemGroup.BUILDING_BLOCKS);
 
 	static class Properties {
 		public static final AbstractBlock.Properties ROCKY_DIRT = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).setRequiresTool().harvestTool(ToolType.SHOVEL).hardnessAndResistance(1.5F).sound(SoundType.GROUND);
 		public static final AbstractBlock.Properties DIRT_BRICKS = AbstractBlock.Properties.create(Material.EARTH, MaterialColor.DIRT).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F).sound(SoundType.GROUND);
-		public static final AbstractBlock.Properties COBBLESTONE_TILES = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F);
+		public static final AbstractBlock.Properties COBBLESTONE_BRICKS = AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(2.0F, 6.0F);
 
 		public static final AbstractBlock.Properties GOLDEN_LANTERN = AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel((state) -> 15);
 		public static final AbstractBlock.Properties METAL_BARS = AbstractBlock.Properties.create(Material.IRON, MaterialColor.AIR).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).notSolid();

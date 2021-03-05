@@ -58,6 +58,18 @@
   "block.caverns_and_chasms.dirt_tile_wall": "Dirt Tile Wall",
   "block.caverns_and_chasms.dirt_tile_vertical_slab": "Dirt Tile Vertical Slab",
 
+  "block.caverns_and_chasms.cobblestone_bricks": "Cobblestone Bricks",
+  "block.caverns_and_chasms.cobblestone_brick_slab": "Cobblestone Brick Slab",
+  "block.caverns_and_chasms.cobblestone_brick_stairs": "Cobblestone Brick Stairs",
+  "block.caverns_and_chasms.cobblestone_brick_wall": "Cobblestone Brick Wall",
+  "block.caverns_and_chasms.cobblestone_brick_vertical_slab": "Cobblestone Brick Vertical Slab",
+
+  "block.caverns_and_chasms.mossy_cobblestone_bricks": "Mossy Cobblestone Bricks",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_slab": "Mossy Cobblestone Brick Slab",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_stairs": "Mossy Cobblestone Brick Stairs",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_wall": "Mossy Cobblestone Brick Wall",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_vertical_slab": "Mossy Cobblestone Brick Vertical Slab",
+
   "block.caverns_and_chasms.cobblestone_tiles": "Cobblestone Tiles",
   "block.caverns_and_chasms.cobblestone_tile_slab": "Cobblestone Tile Slab",
   "block.caverns_and_chasms.cobblestone_tile_stairs": "Cobblestone Tile Stairs",

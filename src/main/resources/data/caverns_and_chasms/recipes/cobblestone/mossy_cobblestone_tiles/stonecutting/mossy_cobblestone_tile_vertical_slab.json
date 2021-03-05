@@ -2,10 +2,13 @@
   "type": "minecraft:stonecutting",
   "ingredient": [
     {
-      "item": "caverns_and_chasms:mossy_cobblestone_tiles"
+      "item": "minecraft:mossy_cobblestone"
     },
     {
-      "item": "minecraft:mossy_cobblestone"
+      "item": "caverns_and_chasms:mossy_cobblestone_bricks"
+    },
+    {
+      "item": "caverns_and_chasms:mossy_cobblestone_tiles"
     }
   ],
   "result": "caverns_and_chasms:mossy_cobblestone_tile_vertical_slab",

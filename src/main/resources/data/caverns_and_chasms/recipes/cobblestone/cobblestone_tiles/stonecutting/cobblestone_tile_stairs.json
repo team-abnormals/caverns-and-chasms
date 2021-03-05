@@ -2,10 +2,13 @@
   "type": "minecraft:stonecutting",
   "ingredient": [
     {
-      "item": "caverns_and_chasms:cobblestone_tiles"
+      "item": "minecraft:cobblestone"
     },
     {
-      "item": "minecraft:cobblestone"
+      "item": "caverns_and_chasms:cobblestone_bricks"
+    },
+    {
+      "item": "caverns_and_chasms:cobblestone_tiles"
     }
   ],
   "result": "caverns_and_chasms:cobblestone_tile_stairs",

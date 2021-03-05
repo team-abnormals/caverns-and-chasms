@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "item": "caverns_and_chasms:cobblestone_bricks"
+    }
+  ],
+  "result": "caverns_and_chasms:cobblestone_brick_slab",
+  "count": 2
+}
