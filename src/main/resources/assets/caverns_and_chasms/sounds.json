@@ -1,4 +1,13 @@
 {
+  "music.record.epilogue": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:record/epilogue",
+        "stream": true
+      }
+    ]
+  },
   "entity.deeper.death": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/death"

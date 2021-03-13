@@ -1,7 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCSounds;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.item.ItemStack;
@@ -24,12 +24,12 @@ public class DeeperEntity extends CreeperEntity {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSoundEvents.ENTITY_DEEPER_HURT.get();
+		return CCSounds.ENTITY_DEEPER_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_DEEPER_DEATH.get();
+		return CCSounds.ENTITY_DEEPER_DEATH.get();
 	}
 
 	@Override
