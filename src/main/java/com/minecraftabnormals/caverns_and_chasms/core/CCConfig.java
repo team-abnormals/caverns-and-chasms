@@ -10,31 +10,30 @@ public class CCConfig {
 		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
 		public final ConfigValue<Integer> deeperMaxSpawnHeight;
 		public final ConfigValue<Boolean> largeEmeraldVeins;
-		public final ConfigValue<Boolean> railScaffoldingBehavior;
+
+		public final ConfigValue<Boolean> betterRailPlacement;
+		public final ConfigValue<Integer> betterRailPlacementRange;
 
 		public Common(ForgeConfigSpec.Builder builder) {
-			builder.push("entities");
-			creeperExplosionsDestroyBlocks = builder
-					.translation(makeTranslation("creeperExplosionsDestroyBlocks"))
-					.define("Creeper explosions destroy blocks", false);
-			deeperMaxSpawnHeight = builder
-					.translation(makeTranslation("deeperMaxSpawnHeight"))
-					.defineInRange("Deeper max spawn height", 60, 0, 255);
+
+			builder.push("mobs");
+			creeperExplosionsDestroyBlocks = builder.define("Creeper explosions destroy blocks", false);
+			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, 0, 255);
 			builder.pop();
-			builder.push("worldgen");
-			largeEmeraldVeins = builder
-					.translation(makeTranslation("largeEmeraldVeins"))
-					.define("Large emerald veins", true);
-			railScaffoldingBehavior = builder
-					.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding")
-					.translation(makeTranslation("railScaffoldingBehavior"))
-					.define("Rail scaffolding behavior", true);
+
+			builder.push("world");
+			builder.push("generation");
+			largeEmeraldVeins = builder.define("Large emerald veins", true);
+			builder.pop();
+			builder.pop();
+
+			builder.push("tweaks");
+			builder.push("rails");
+			betterRailPlacement = builder.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding").define("Better rail placement", true);
+			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").define("Placement range", 7);
+			builder.pop();
 			builder.pop();
 		}
-	}
-
-	private static String makeTranslation(String name) {
-		return CavernsAndChasms.MOD_ID + ".config." + name;
 	}
 
 	public static final ForgeConfigSpec COMMON_SPEC;

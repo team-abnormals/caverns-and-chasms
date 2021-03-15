@@ -156,7 +156,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onEvent(LivingSpawnEvent.CheckSpawn event) {
+	public static void onLivingSpawn(LivingSpawnEvent.CheckSpawn event) {
 		Entity entity = event.getEntity();
 		IWorld world = event.getWorld();
 		boolean validSpawn = event.getSpawnReason() == SpawnReason.NATURAL || event.getSpawnReason() == SpawnReason.CHUNK_GENERATION;
@@ -225,19 +225,19 @@ public class CCEvents {
 
 		}
 
-		if (CCConfig.COMMON.railScaffoldingBehavior.get() && state.getBlock() instanceof AbstractRailBlock) {
-			if (!item.isIn(CCTags.Items.RAIL_SCAFFOLDING_BLACKLIST) && item instanceof BlockItem) {
+		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof AbstractRailBlock) {
+			if (!item.isIn(CCTags.Items.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
 				Block block = ((BlockItem) item).getBlock();
-				if (block instanceof AbstractRailBlock && !block.isIn(CCTags.Blocks.RAIL_SCAFFOLDING_BLACKLIST)) {
+				if (block instanceof AbstractRailBlock && !block.isIn(CCTags.Blocks.IGNORE_RAIL_PLACEMENT)) {
 					Direction direction = event.getPlayer().getHorizontalFacing();
 					BlockPos.Mutable currentPos = event.getPos().toMutable().move(direction);
-					for (int i = 0; i < 7; i++) {
+					for (int i = 0; i < CCConfig.COMMON.betterRailPlacementRange.get(); i++) {
 						BlockPos nextPos = null;
 						boolean isNextRail = false;
 						BlockPos.Mutable yCheckingPos = currentPos.toMutable().move(Direction.DOWN);
 						for (int j = 0; j < 3; j++) {
 							Block blockAtCheckPos = world.getBlockState(yCheckingPos).getBlock();
-							if (blockAtCheckPos instanceof AbstractRailBlock && !blockAtCheckPos.isIn(CCTags.Blocks.RAIL_SCAFFOLDING_BLACKLIST)) {
+							if (blockAtCheckPos instanceof AbstractRailBlock && !blockAtCheckPos.isIn(CCTags.Blocks.IGNORE_RAIL_PLACEMENT)) {
 								nextPos = yCheckingPos.move(direction).toImmutable();
 								isNextRail = true;
 							} else if (!isNextRail) {

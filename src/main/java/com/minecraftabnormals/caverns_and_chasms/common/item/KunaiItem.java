@@ -21,7 +21,7 @@ public class KunaiItem extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		worldIn.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-		if (!worldIn.isRemote) {
+		if (!worldIn.isRemote()) {
 			KunaiEntity throwingKnife = new KunaiEntity(worldIn, playerIn);
 			throwingKnife.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 2.5F, 0.75F);
 			worldIn.addEntity(throwingKnife);

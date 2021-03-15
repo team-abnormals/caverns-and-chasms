@@ -15,7 +15,7 @@ public class CCTags {
 		public static final ITag.INamedTag<Block> TREASURING_GEMS = createTag("treasuring_gems");
 		public static final ITag.INamedTag<Block> CURSED_FIRE_BASE_BLOCKS = createTag("cursed_fire_base_blocks");
 		public static final ITag.INamedTag<Block> BRAZIERS = createTag("braziers");
-		public static final ITag.INamedTag<Block> RAIL_SCAFFOLDING_BLACKLIST = createTag("rail_scaffolding_blacklist");
+		public static final ITag.INamedTag<Block> IGNORE_RAIL_PLACEMENT = createTag("ignore_rail_placement");
 
 		private static ITag.INamedTag<Block> createTag(String name) {
 			return BlockTags.makeWrapperTag(CavernsAndChasms.MOD_ID + ":" + name);
@@ -23,7 +23,7 @@ public class CCTags {
 	}
 
 	public static class Items {
-		public static final ITag.INamedTag<Item> RAIL_SCAFFOLDING_BLACKLIST = createTag("rail_scaffolding_blacklist");
+		public static final ITag.INamedTag<Item> IGNORE_RAIL_PLACEMENT = createTag("ignore_rail_placement");
 
 		private static ITag.INamedTag<Item> createTag(String name) {
 			return ItemTags.makeWrapperTag(CavernsAndChasms.MOD_ID + ":" + name);

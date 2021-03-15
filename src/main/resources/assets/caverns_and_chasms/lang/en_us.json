@@ -152,11 +152,14 @@
   "enchantment.caverns_and_chasms.prospecting": "Prospecting",
   "enchantment.caverns_and_chasms.prospecting.desc": "The detector will only detect metals.",
 
-  "death.attack.affliction": "%1$s was afflicted",
-  "death.attack.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
+  "death.attack.caverns_and_chasms.affliction": "%1$s was afflicted",
+  "death.attack.caverns_and_chasms.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
 
-  "death.attack.spiked_rail": "%1$s got railed",
-  "death.attack.spiked_rail.player": "%1$s got railed whilst trying to escape %2$s",
+  "death.attack.caverns_and_chasms.spiked_rail": "%1$s got railed",
+  "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s got railed whilst trying to escape %2$s",
+
+  "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
+  "death.attack.caverns_and_chasms.kunai.item": "%1$s was stabbed by %2$s using %3$s",
 
   "attribute.name.generic.affliction_chance": "Affliction Chance",
   "attribute.name.generic.experience_boost": "Experience Boost",
