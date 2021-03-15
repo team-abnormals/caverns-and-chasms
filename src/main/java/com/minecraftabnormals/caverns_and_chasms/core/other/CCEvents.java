@@ -12,6 +12,8 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.block.AbstractRailBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -180,6 +182,7 @@ public class CCEvents {
 		BlockPos pos = event.getPos();
 		World world = event.getWorld();
 		ItemStack stack = event.getItemStack();
+		Item item = stack.getItem();
 		BlockState state = world.getBlockState(pos);
 		Direction face = event.getFace();
 		Random random = world.getRandom();
@@ -220,6 +223,47 @@ public class CCEvents {
 				}
 			}
 
+		}
+
+		if (CCConfig.COMMON.railScaffoldingBehavior.get() && state.getBlock() instanceof AbstractRailBlock) {
+			if (!item.isIn(CCTags.Items.RAIL_SCAFFOLDING_BLACKLIST) && item instanceof BlockItem) {
+				Block block = ((BlockItem) item).getBlock();
+				if (block instanceof AbstractRailBlock && !block.isIn(CCTags.Blocks.RAIL_SCAFFOLDING_BLACKLIST)) {
+					Direction direction = event.getPlayer().getHorizontalFacing();
+					BlockPos.Mutable currentPos = event.getPos().toMutable().move(direction);
+					for (int i = 0; i < 7; i++) {
+						BlockPos nextPos = null;
+						boolean isNextRail = false;
+						BlockPos.Mutable yCheckingPos = currentPos.toMutable().move(Direction.DOWN);
+						for (int j = 0; j < 3; j++) {
+							Block blockAtCheckPos = world.getBlockState(yCheckingPos).getBlock();
+							if (blockAtCheckPos instanceof AbstractRailBlock && !blockAtCheckPos.isIn(CCTags.Blocks.RAIL_SCAFFOLDING_BLACKLIST)) {
+								nextPos = yCheckingPos.move(direction).toImmutable();
+								isNextRail = true;
+							} else if (!isNextRail) {
+								BlockItemUseContext context = new BlockItemUseContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(yCheckingPos));
+								if (world.getBlockState(yCheckingPos).isReplaceable(context)) {
+									BlockState stateForPlacement = state.getBlock().getStateForPlacement(context);
+									if (stateForPlacement != null && stateForPlacement.isValidPosition(world, yCheckingPos))
+										nextPos = yCheckingPos.toImmutable();
+								}
+							}
+							yCheckingPos.move(Direction.UP);
+						}
+						if (!isNextRail) {
+							if (nextPos != null) {
+								BlockItemUseContext context = new BlockItemUseContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(nextPos));
+								((BlockItem) item).tryPlace(context);
+								event.setCancellationResult(ActionResultType.SUCCESS);
+								event.setCanceled(true);
+							}
+							break;
+						} else {
+							currentPos.setPos(nextPos);
+						}
+					}
+				}
+			}
 		}
 	}
 

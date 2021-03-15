@@ -10,6 +10,7 @@ public class CCConfig {
 		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
 		public final ConfigValue<Integer> deeperMaxSpawnHeight;
 		public final ConfigValue<Boolean> largeEmeraldVeins;
+		public final ConfigValue<Boolean> railScaffoldingBehavior;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("entities");
@@ -24,6 +25,10 @@ public class CCConfig {
 			largeEmeraldVeins = builder
 					.translation(makeTranslation("largeEmeraldVeins"))
 					.define("Large emerald veins", true);
+			railScaffoldingBehavior = builder
+					.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding")
+					.translation(makeTranslation("railScaffoldingBehavior"))
+					.define("Rail scaffolding behavior", true);
 			builder.pop();
 		}
 	}
