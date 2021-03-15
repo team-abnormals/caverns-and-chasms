@@ -30,6 +30,7 @@ public class CavernsAndChasms {
 		CCEffects.EFFECTS.register(bus);
 		CCEnchantments.ENCHANTMENTS.register(bus);
 		CCParticles.PARTICLES.register(bus);
+		CCRecipes.Serailizers.RECIPE_SERIALIZERS.register(bus);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
 
