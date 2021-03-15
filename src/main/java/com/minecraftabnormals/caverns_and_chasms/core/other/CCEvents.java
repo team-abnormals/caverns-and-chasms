@@ -175,7 +175,6 @@ public class CCEvents {
 		}
 	}
 
-
 	@SubscribeEvent
 	public static void onRightClickBlock(RightClickBlock event) {
 		PlayerEntity player = event.getPlayer();

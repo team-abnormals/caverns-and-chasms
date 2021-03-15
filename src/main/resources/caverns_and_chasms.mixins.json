@@ -12,6 +12,7 @@
     "ZoglinEntityMixin"
   ],
   "client": [
+    "ClientRecipeBookMixin",
     "TieredItemMixin"
   ],
   "injectors": {

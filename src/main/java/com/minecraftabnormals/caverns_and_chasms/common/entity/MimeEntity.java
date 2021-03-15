@@ -2,7 +2,9 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.minecraftabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCRecipes.RecipeTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -14,6 +16,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolItem;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -154,6 +157,26 @@ public class MimeEntity extends MonsterEntity {
 				this.setItemStackToSlot(slot2, entity.getItemStackFromSlot(slot2));
 		}
 		return result;
+	}
+
+	@Override
+	public void onDeath(DamageSource cause) {
+		super.onDeath(cause);
+		Entity source = cause.getTrueSource();
+
+		if (source instanceof LivingEntity) {
+			LivingEntity attacker = (LivingEntity) source;
+			ItemStack stack = attacker.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
+			List<MimingRecipe> recipes = world.getRecipeManager().getRecipesForType(RecipeTypes.MIMING);
+
+			for (MimingRecipe recipe : recipes) {
+				for (Ingredient ingredient : recipe.getIngredients()) {
+					if (stack.getCount() == 1 && ingredient.test(stack)) {
+						attacker.setItemStackToSlot(EquipmentSlotType.OFFHAND, recipe.getRecipeOutput());
+					}
+				}
+			}
+		}
 	}
 
 	private static boolean isValidWeapon(ItemStack stack) {
