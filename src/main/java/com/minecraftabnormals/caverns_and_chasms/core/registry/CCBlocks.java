@@ -3,7 +3,7 @@ package com.minecraftabnormals.caverns_and_chasms.core.registry;
 import com.minecraftabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
 import com.minecraftabnormals.abnormals_core.core.util.registry.BlockSubRegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.common.block.*;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.SpikedRailBlock;
+import com.minecraftabnormals.caverns_and_chasms.common.block.SpikedRailBlock;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

@@ -1,5 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
+import com.minecraftabnormals.abnormals_core.core.util.DataUtil;
 import com.minecraftabnormals.caverns_and_chasms.common.potion.AfflictionEffect;
 import com.minecraftabnormals.caverns_and_chasms.common.potion.RewindEffect;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -22,7 +23,7 @@ public class CCEffects {
 	public static final RegistryObject<Potion> REWIND_LONG = POTIONS.register("rewind_long", () -> new Potion(new EffectInstance(REWIND.get(), 800)));
 
 	public static void registerBrewingRecipes() {
-		PotionBrewing.addMix(Potions.AWKWARD, CCItems.SUGILITE.get(), REWIND_NORMAL.get());
-		PotionBrewing.addMix(REWIND_NORMAL.get(), Items.REDSTONE, REWIND_LONG.get());
+		DataUtil.addMix(Potions.AWKWARD, CCItems.SUGILITE.get(), REWIND_NORMAL.get());
+		DataUtil.addMix(REWIND_NORMAL.get(), Items.REDSTONE, REWIND_LONG.get());
 	}
 }

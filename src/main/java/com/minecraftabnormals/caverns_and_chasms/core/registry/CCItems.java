@@ -70,6 +70,7 @@ public class CCItems {
 	public static final RegistryObject<AbnormalsSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntities.FLY::get, 920336, 7080720);
 	public static final RegistryObject<AbnormalsSpawnEggItem> ZOMBIE_CHICKEN_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_chicken", CCEntities.ZOMBIE_CHICKEN::get, 3430940, 9349983);
 	public static final RegistryObject<AbnormalsSpawnEggItem> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntities.MIME::get, 0x5A5050, 0x969964);
+	public static final RegistryObject<AbnormalsSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntities.RAT::get, 0x3B4248, 0xA76E6C);
 
 	static class Foods {
 		public static final Food CAVEFISH = new Food.Builder().hunger(1).saturation(0.3F).build();

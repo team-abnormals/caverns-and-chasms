@@ -133,6 +133,7 @@
   "item.caverns_and_chasms.juggernaut_spawn_egg": "Juggernaut Spawn Egg",
   "item.caverns_and_chasms.zombie_chicken_spawn_egg": "Zombie Chicken Spawn Egg",
   "item.caverns_and_chasms.fly_spawn_egg": "Fly Spawn Egg",
+  "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
 
   "entity.caverns_and_chasms.cavefish": "Cavefish",
   "entity.caverns_and_chasms.deeper": "Deeper",
@@ -141,6 +142,7 @@
   "entity.caverns_and_chasms.juggernaut": "Juggernaut",
   "entity.caverns_and_chasms.zombie_chicken": "Zombie Chicken",
   "entity.caverns_and_chasms.fly": "Fly",
+  "entity.caverns_and_chasms.rat": "Rat",
   "entity.caverns_and_chasms.rotten_egg": "Thrown Rotten Egg",
   "entity.caverns_and_chasms.kunai": "Kunai",
 

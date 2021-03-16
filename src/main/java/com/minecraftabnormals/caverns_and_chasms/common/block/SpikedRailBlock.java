@@ -1,4 +1,4 @@
-package com.minecraftabnormals.caverns_and_chasms.common.entity;
+package com.minecraftabnormals.caverns_and_chasms.common.block;
 
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCDamageSources;
 import net.minecraft.block.AbstractBlock;

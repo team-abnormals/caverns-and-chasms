@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 public class DeeperRenderer extends MobRenderer<DeeperEntity, DeeperModel<DeeperEntity>> {
 
 	public DeeperRenderer(EntityRendererManager renderManagerIn) {
-		super(renderManagerIn, new DeeperModel<DeeperEntity>(false, 0.0F), 0.5F);
+		super(renderManagerIn, new DeeperModel<>(false, 0.0F), 0.5F);
 		this.addLayer(new DeeperRenderLayer(this));
 	}
 

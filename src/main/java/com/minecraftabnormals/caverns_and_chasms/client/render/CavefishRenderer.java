@@ -31,7 +31,7 @@ public class CavefishRenderer extends MobRenderer<CavefishEntity, CavefishModel<
 		float f = 4.3F * MathHelper.sin(0.6F * ageInTicks);
 		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(f));
 		if (!entityLiving.isInWater()) {
-			matrixStackIn.translate((double) 0.1F, (double) 0.1F, (double) -0.1F);
+			matrixStackIn.translate(0.1F, 0.1F, -0.1F);
 			matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90.0F));
 		}
 	}

@@ -18,7 +18,7 @@ public class DeeperRenderLayer extends LayerRenderer<DeeperEntity, DeeperModel<D
 
 	public DeeperRenderLayer(IEntityRenderer<DeeperEntity, DeeperModel<DeeperEntity>> renderer) {
 		super(renderer);
-		this.model = new DeeperModel<DeeperEntity>(true, 0.0F);
+		this.model = new DeeperModel<>(true, 0.0F);
 	}
 
 	@Override
