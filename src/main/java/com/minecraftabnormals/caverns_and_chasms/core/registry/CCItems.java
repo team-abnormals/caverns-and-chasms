@@ -50,6 +50,12 @@ public class CCItems {
 	public static final RegistryObject<Item> NECROMIUM_BOOTS = HELPER.createItem("necromium_boots", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.FEET, new Item.Properties().isImmuneToFire().group(ItemGroup.COMBAT)));
 	public static final RegistryObject<Item> NECROMIUM_HORSE_ARMOR = HELPER.createItem("necromium_horse_armor", () -> new NecromiumHorseArmorItem(9, "necromium", new Item.Properties().maxStackSize(1).isImmuneToFire().group(createCompatGroup("nether_extension", ItemGroup.MISC))));
 
+	public static final RegistryObject<Item> SANGUINE_PLATING = HELPER.createItem("sanguine_plating", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
+	public static final RegistryObject<Item> SANGUINE_HELMET = HELPER.createItem("sanguine_helmet", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_CHESTPLATE = HELPER.createItem("sanguine_chestplate", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_LEGGINGS = HELPER.createItem("sanguine_leggings", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroup.COMBAT)));
+
 	public static final RegistryObject<Item> ROTTEN_EGG = HELPER.createItem("rotten_egg", () -> new RottenEggItem(new Item.Properties().maxStackSize(16).group(ItemGroup.MISC)));
 
 	public static final RegistryObject<Item> SUGILITE = HELPER.createItem("sugilite", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));

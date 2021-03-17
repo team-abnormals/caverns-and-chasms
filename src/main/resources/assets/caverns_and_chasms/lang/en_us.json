@@ -127,6 +127,12 @@
   "item.caverns_and_chasms.necromium_boots": "Necromium Boots",
   "item.caverns_and_chasms.necromium_horse_armor": "Necromium Horse Armor",
 
+  "item.caverns_and_chasms.sanguine_plating": "Sanguine Plating",
+  "item.caverns_and_chasms.sanguine_helmet": "Sanguine Helmet",
+  "item.caverns_and_chasms.sanguine_chestplate": "Sanguine Chestplate",
+  "item.caverns_and_chasms.sanguine_leggings": "Sanguine Leggings",
+  "item.caverns_and_chasms.sanguine_boots": "Sanguine Boots",
+  
   "item.caverns_and_chasms.cavefish_spawn_egg": "Cavefish Spawn Egg",
   "item.caverns_and_chasms.deeper_spawn_egg": "Deeper Spawn Egg",
   "item.caverns_and_chasms.mime_spawn_egg": "Mime Spawn Egg",
@@ -163,9 +169,10 @@
   "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
   "death.attack.caverns_and_chasms.kunai.item": "%1$s was stabbed by %2$s using %3$s",
 
-  "attribute.name.generic.affliction_chance": "Affliction Chance",
-  "attribute.name.generic.experience_boost": "Experience Boost",
-  "attribute.name.generic.weakness_aura": "Weakness Aura",
+  "attribute.caverns_and_chasms.name.generic.affliction_chance": "Affliction Chance",
+  "attribute.caverns_and_chasms.name.generic.experience_boost": "Experience Boost",
+  "attribute.caverns_and_chasms.name.generic.weakness_aura": "Weakness Aura",
+  "attribute.caverns_and_chasms.name.generic.lifesteal": "Lifesteal",
 
   "tooltip.caverns_and_chasms.afflicting": "Afflicting",
   "tooltip.caverns_and_chasms.boosting": "Boosting",

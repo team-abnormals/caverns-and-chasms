@@ -393,8 +393,9 @@ public class CCEvents {
 
 		if (event.getSource().getTrueSource() instanceof LivingEntity) {
 			LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
-			float afflictionChance = 0;
-			float weaknessAmount = 0;
+			float afflictionChance = 0.0F;
+			float weaknessAmount = 0.0F;
+			float lifeStealAmount = 0.0F;
 
 			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
 				ItemStack stack = target.getItemStackFromSlot(slot);
@@ -407,14 +408,22 @@ public class CCEvents {
 				if (!weaknessModifiers.isEmpty()) {
 					weaknessAmount += weaknessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 				}
+
+				Collection<AttributeModifier> lifeStealModifiers = attacker.getItemStackFromSlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
+				if (!lifeStealModifiers.isEmpty() && target instanceof IMob) {
+					lifeStealAmount += lifeStealModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+				}
 			}
+
+			if (lifeStealAmount > 0.0F)
+				attacker.heal(lifeStealAmount * event.getAmount());
 
 			if (rand.nextFloat() < afflictionChance) {
 				if (attacker.isEntityUndead())
 					attacker.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
 			}
 
-			if (weaknessAmount != 0) {
+			if (weaknessAmount > 0.0F) {
 				for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(weaknessAmount, 0.0D, weaknessAmount))) {
 					if (entity != target)
 						entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));

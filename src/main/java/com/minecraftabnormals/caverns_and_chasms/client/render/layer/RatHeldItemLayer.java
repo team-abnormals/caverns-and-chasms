@@ -28,7 +28,7 @@ public class RatHeldItemLayer extends LayerRenderer<RatEntity, RatModel<RatEntit
 		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(netHeadYaw));
 		matrixStackIn.rotate(Vector3f.XP.rotationDegrees(headPitch));
 		if (ratEntity.isChild()) {
-			matrixStackIn.translate(0.06F, 0.08F, -0.5D);
+			matrixStackIn.translate(0.0F, 0.08F, -0.5D);
 		} else {
 			matrixStackIn.translate(0.0F, 0.08F, -0.5D);
 		}
