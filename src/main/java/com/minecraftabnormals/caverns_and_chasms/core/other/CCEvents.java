@@ -33,6 +33,7 @@ import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.loot.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
@@ -46,6 +47,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -56,8 +58,10 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
@@ -469,5 +473,32 @@ public class CCEvents {
 		UUID uuid = ArmorItem.ARMOR_MODIFIERS[slot.getIndex()];
 		if (item == Items.CHAINMAIL_HELMET && slot == EquipmentSlotType.HEAD || item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlotType.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlotType.LEGS || item == Items.CHAINMAIL_BOOTS && slot == EquipmentSlotType.FEET)
 			event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
+	}
+
+	@SubscribeEvent
+	public static void onInjectLoot(LootTableLoadEvent event) {
+		ResourceLocation name = event.getName();
+		LootPool pool = event.getTable().getPool("main");
+
+		if (name.equals(LootTables.CHESTS_STRONGHOLD_CORRIDOR) || name.equals(LootTables.CHESTS_VILLAGE_VILLAGE_WEAPONSMITH) || name.equals(LootTables.CHESTS_END_CITY_TREASURE) || name.equals(LootTables.CHESTS_JUNGLE_TEMPLE)) {
+			addEntry(pool, ItemLootEntry.builder(CCItems.SILVER_HORSE_ARMOR.get()).build());
+		} else if (name.equals(LootTables.CHESTS_SIMPLE_DUNGEON) || name.equals(LootTables.CHESTS_DESERT_PYRAMID)) {
+			addEntry(pool, ItemLootEntry.builder(CCItems.SILVER_HORSE_ARMOR.get()).weight(10).build());
+		} else if (name.equals(LootTables.CHESTS_NETHER_BRIDGE)) {
+			addEntry(pool, ItemLootEntry.builder(CCItems.SILVER_HORSE_ARMOR.get()).weight(6).build());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private static void addEntry(LootPool pool, LootEntry entry) {
+		try {
+			List<LootEntry> lootEntries = (List<LootEntry>) ObfuscationReflectionHelper.findField(LootPool.class, "field_186453_a").get(pool);
+			if (lootEntries.stream().anyMatch(e -> e == entry)) {
+				throw new RuntimeException("Attempted to add a duplicate entry to pool: " + entry);
+			}
+			lootEntries.add(entry);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 }
