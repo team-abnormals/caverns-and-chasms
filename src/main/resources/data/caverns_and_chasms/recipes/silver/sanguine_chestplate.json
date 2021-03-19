@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "caverns_and_chasms:sanguine_plating"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:sanguine_chestplate"
+  }
+}
