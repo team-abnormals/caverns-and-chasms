@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:sanguine_plates"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:sanguine_plate_stairs",
+    "count": 4
+  }
+}

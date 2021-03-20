@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "caverns_and_chasms:block/sanguine_plate_slab" },
+        "type=top": { "model": "caverns_and_chasms:block/sanguine_plate_slab_top" },
+        "type=double": { "model": "caverns_and_chasms:block/sanguine_plates" }
+    }
+}

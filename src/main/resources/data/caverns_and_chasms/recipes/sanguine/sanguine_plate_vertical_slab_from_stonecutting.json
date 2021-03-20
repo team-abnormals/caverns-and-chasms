@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "caverns_and_chasms:sanguine_plates"
+  },
+  "result": "caverns_and_chasms:sanguine_plate_vertical_slab",
+  "count": 2,
+  "conditions": [
+    {
+      "type": "abnormals_core:quark_flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

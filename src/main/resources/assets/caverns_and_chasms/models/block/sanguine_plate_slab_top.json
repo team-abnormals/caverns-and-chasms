@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/sanguine_plates",
+    "top": "caverns_and_chasms:block/sanguine_plates",
+    "side": "caverns_and_chasms:block/sanguine_plates"
+  }
+}

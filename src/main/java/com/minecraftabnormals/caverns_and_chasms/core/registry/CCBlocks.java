@@ -3,7 +3,6 @@ package com.minecraftabnormals.caverns_and_chasms.core.registry;
 import com.minecraftabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
 import com.minecraftabnormals.abnormals_core.core.util.registry.BlockSubRegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.common.block.*;
-import com.minecraftabnormals.caverns_and_chasms.common.block.SpikedRailBlock;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -30,6 +29,11 @@ public class CCBlocks {
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(50, Properties.SILVER_PRESSURE_PLATE), ItemGroup.REDSTONE);
 	public static final RegistryObject<Block> SILVER_BUTTON = HELPER.createCompatBlock("quark", "silver_button", () -> new SilverButtonBlock(Properties.SILVER_BUTTON), ItemGroup.REDSTONE);
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(AbstractBlock.Properties.from(Blocks.POWERED_RAIL)), ItemGroup.TRANSPORTATION);
+
+	public static final RegistryObject<Block> SANGUINE_PLATES = HELPER.createBlock("sanguine_plates", () -> new Block(Properties.SANGUINE_PLATES), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SANGUINE_STAIRS = HELPER.createBlock("sanguine_plate_stairs", () -> new StairsBlock(() -> SANGUINE_PLATES.get().getDefaultState(), Properties.SANGUINE_PLATES), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SANGUINE_SLAB = HELPER.createBlock("sanguine_plate_slab", () -> new SlabBlock(Properties.SANGUINE_PLATES), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SANGUINE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "sanguine_plate_vertical_slab", () -> new VerticalSlabBlock(Properties.SANGUINE_PLATES), ItemGroup.BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.from(Blocks.NETHERITE_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 
@@ -115,6 +119,7 @@ public class CCBlocks {
 		public static final AbstractBlock.Properties METAL_BARS = AbstractBlock.Properties.create(Material.IRON, MaterialColor.AIR).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).notSolid();
 		public static final AbstractBlock.Properties SILVER_PRESSURE_PLATE = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD);
 		public static final AbstractBlock.Properties SILVER_BUTTON = AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.METAL);
+		public static final AbstractBlock.Properties SANGUINE_PLATES = Block.Properties.create(Material.IRON, MaterialColor.RED).setRequiresTool().hardnessAndResistance(2.0F, 6.0F).sound(SoundType.METAL);
 
 		public static final AbstractBlock.Properties BRAZIER = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel(getLightValueLit(15)).notSolid();
 		public static final AbstractBlock.Properties BRAZIER_DIM = AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(3.5F).sound(SoundType.LANTERN).setLightLevel(getLightValueLit(10)).notSolid();
