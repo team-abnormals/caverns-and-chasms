@@ -5,6 +5,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.ZombieChickenEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.item.TatteredCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -24,9 +25,7 @@ import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
@@ -176,6 +175,36 @@ public class CCEvents {
 					}
 				}
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLivingDeath(LivingDeathEvent event) {
+		LivingEntity entity = event.getEntityLiving();
+
+		if ((entity instanceof WolfEntity || entity instanceof CatEntity) && ((TameableEntity) entity).isTamed()) {
+			ItemStack collar = new ItemStack(CCItems.TATTERED_COLLAR.get());
+			CompoundNBT tag = collar.getOrCreateTag();
+
+			tag.putString(TatteredCollarItem.PET_ID, entity.getType().getRegistryName().toString());
+			tag.putBoolean(TatteredCollarItem.IS_CHILD, entity.isChild());
+
+			if (entity.hasCustomName()) {
+				tag.putString(TatteredCollarItem.PET_NAME, entity.getCustomName().getString());
+			}
+
+			if (entity instanceof WolfEntity) {
+				WolfEntity wolf = (WolfEntity) entity;
+				tag.putInt(TatteredCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
+			}
+
+			if (entity instanceof CatEntity) {
+				CatEntity cat = (CatEntity) entity;
+				tag.putInt(TatteredCollarItem.CAT_TYPE, cat.getCatType());
+				tag.putInt(TatteredCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
+			}
+
+			entity.entityDropItem(collar);
 		}
 	}
 

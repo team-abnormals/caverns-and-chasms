@@ -2,9 +2,12 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
+import com.minecraftabnormals.caverns_and_chasms.common.item.TatteredCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -37,6 +40,7 @@ public class CavernsAndChasms {
 		bus.addListener(this::commonSetup);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			bus.addListener(this::clientSetup);
+			bus.addListener(this::registerItemColors);
 			DeeperSpriteUploader.init(bus);
 		});
 	}
@@ -59,5 +63,10 @@ public class CavernsAndChasms {
 			CCCompat.registerRenderLayers();
 			CCItems.registerItemProperties();
 		});
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private void registerItemColors(ColorHandlerEvent.Item event) {
+		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TatteredCollarItem) stack.getItem()).getColor(stack), CCItems.TATTERED_COLLAR.get());
 	}
 }
