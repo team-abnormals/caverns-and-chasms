@@ -182,7 +182,7 @@ public class CCEvents {
 	public static void onLivingDeath(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
 
-		if ((entity instanceof WolfEntity || entity instanceof CatEntity) && ((TameableEntity) entity).isTamed()) {
+		if (entity.getType().isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS) && ((TameableEntity) entity).isTamed()) {
 			ItemStack collar = new ItemStack(CCItems.TATTERED_COLLAR.get());
 			CompoundNBT tag = collar.getOrCreateTag();
 

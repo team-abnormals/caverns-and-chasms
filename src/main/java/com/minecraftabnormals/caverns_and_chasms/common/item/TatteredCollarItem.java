@@ -51,10 +51,10 @@ public class TatteredCollarItem extends Item {
 			if (tag.contains(PET_ID)) {
 				EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(tag.getString(PET_ID)));
 
-				if (entityType == CCEntities.ZOMBIE_WOLF.get()) entityType = EntityType.WOLF;
+				if (entityType == CCEntities.ZOMBIE_WOLF.get()) entityType = CCEntities.SKELETON_WOLF.get();
 				else if (entityType == EntityType.WOLF) entityType = CCEntities.ZOMBIE_WOLF.get();
 				else if (entityType == EntityType.CAT) entityType = CCEntities.ZOMBIE_CAT.get();
-				else if (entityType == CCEntities.ZOMBIE_CAT.get()) entityType = EntityType.CAT;
+				else if (entityType == CCEntities.ZOMBIE_CAT.get()) entityType = CCEntities.SKELETON_CAT.get();
 
 				if (entityType != null && entityType.create(world) instanceof TameableEntity) {
 					TameableEntity entity = (TameableEntity) entityType.create(world);

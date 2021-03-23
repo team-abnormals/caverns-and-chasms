@@ -30,8 +30,11 @@ public class CCEntities {
 	public static final RegistryObject<EntityType<FlyEntity>> FLY = HELPER.createLivingEntity("fly", FlyEntity::new, EntityClassification.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<MimeEntity>> MIME = HELPER.createLivingEntity("mime", MimeEntity::new, EntityClassification.MONSTER, 0.6F, 2.1F);
 	public static final RegistryObject<EntityType<RatEntity>> RAT = HELPER.createLivingEntity("rat", RatEntity::new, EntityClassification.CREATURE, 0.4F, 0.45F);
+
 	public static final RegistryObject<EntityType<WolfEntity>> ZOMBIE_WOLF = HELPER.createLivingEntity("zombie_wolf", WolfEntity::new, EntityClassification.CREATURE, 0.6F, 0.85F);
+	public static final RegistryObject<EntityType<WolfEntity>> SKELETON_WOLF = HELPER.createLivingEntity("skeleton_wolf", WolfEntity::new, EntityClassification.CREATURE, 0.6F, 0.85F);
 	public static final RegistryObject<EntityType<CatEntity>> ZOMBIE_CAT = HELPER.createLivingEntity("zombie_cat", CatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
+	public static final RegistryObject<EntityType<CatEntity>> SKELETON_CAT = HELPER.createLivingEntity("skeleton_cat", CatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
 
 	public static void registerAttributes() {
 		GlobalEntityTypeAttributes.put(CAVEFISH.get(), CavefishEntity.registerAttributes().create());
@@ -41,8 +44,11 @@ public class CCEntities {
 		GlobalEntityTypeAttributes.put(FLY.get(), FlyEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(MIME.get(), MimeEntity.registerAttributes().create());
 		GlobalEntityTypeAttributes.put(RAT.get(), RatEntity.registerAttributes().create());
+
 		GlobalEntityTypeAttributes.put(ZOMBIE_WOLF.get(), WolfEntity.func_234233_eS_().create());
+		GlobalEntityTypeAttributes.put(SKELETON_WOLF.get(), WolfEntity.func_234233_eS_().create());
 		GlobalEntityTypeAttributes.put(ZOMBIE_CAT.get(), CatEntity.func_234184_eY_().create());
+		GlobalEntityTypeAttributes.put(SKELETON_CAT.get(), CatEntity.func_234184_eY_().create());
 	}
 
 	public static void registerRenderers() {
@@ -57,7 +63,9 @@ public class CCEntities {
 		RenderingRegistry.registerEntityRenderingHandler(MIME.get(), MimeRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(RAT.get(), RatRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZOMBIE_WOLF.get(), ZombieWolfRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZOMBIE_CAT.get(), ZombieCatRenderer::new);
+		RenderingRegistry.registerEntityRenderingHandler(SKELETON_CAT.get(), SkeletonCatRenderer::new);
 	}
 
 	public static void registerEntitySpawns() {

@@ -2,8 +2,10 @@ package com.minecraftabnormals.caverns_and_chasms.core.other;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 
@@ -27,6 +29,14 @@ public class CCTags {
 
 		private static ITag.INamedTag<Item> createTag(String name) {
 			return ItemTags.makeWrapperTag(CavernsAndChasms.MOD_ID + ":" + name);
+		}
+	}
+
+	public static class EntityTypes {
+		public static final ITag.INamedTag<EntityType<?>> COLLAR_DROP_MOBS = createTag("collar_drop_mobs");
+
+		private static ITag.INamedTag<EntityType<?>> createTag(String name) {
+			return EntityTypeTags.getTagById(CavernsAndChasms.MOD_ID + ":" + name);
 		}
 	}
 }
