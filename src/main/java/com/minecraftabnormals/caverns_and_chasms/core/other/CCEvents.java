@@ -32,7 +32,10 @@ import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.loot.*;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
@@ -181,30 +184,35 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingDeath(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
+		EntityType<?> type = entity.getType();
 
-		if (entity.getType().isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS) && ((TameableEntity) entity).isTamed()) {
-			ItemStack collar = new ItemStack(CCItems.TATTERED_COLLAR.get());
-			CompoundNBT tag = collar.getOrCreateTag();
+		if (entity instanceof TameableEntity) {
+			TameableEntity pet = (TameableEntity) entity;
+			if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS) && pet.isTamed()) {
+				ItemStack collar = new ItemStack(CCItems.TATTERED_COLLAR.get());
+				CompoundNBT tag = collar.getOrCreateTag();
 
-			tag.putString(TatteredCollarItem.PET_ID, entity.getType().getRegistryName().toString());
-			tag.putBoolean(TatteredCollarItem.IS_CHILD, entity.isChild());
+				tag.putString(TatteredCollarItem.OWNER_ID, pet.getOwnerId().toString());
+				tag.putString(TatteredCollarItem.PET_ID, type.getRegistryName().toString());
+				tag.putBoolean(TatteredCollarItem.IS_CHILD, entity.isChild());
 
-			if (entity.hasCustomName()) {
-				tag.putString(TatteredCollarItem.PET_NAME, entity.getCustomName().getString());
+				if (entity.hasCustomName()) {
+					tag.putString(TatteredCollarItem.PET_NAME, pet.getCustomName().getString());
+				}
+
+				if (entity instanceof WolfEntity) {
+					WolfEntity wolf = (WolfEntity) entity;
+					tag.putInt(TatteredCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
+				}
+
+				if (entity instanceof CatEntity) {
+					CatEntity cat = (CatEntity) entity;
+					tag.putInt(TatteredCollarItem.CAT_TYPE, cat.getCatType());
+					tag.putInt(TatteredCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
+				}
+
+				entity.entityDropItem(collar);
 			}
-
-			if (entity instanceof WolfEntity) {
-				WolfEntity wolf = (WolfEntity) entity;
-				tag.putInt(TatteredCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
-			}
-
-			if (entity instanceof CatEntity) {
-				CatEntity cat = (CatEntity) entity;
-				tag.putInt(TatteredCollarItem.CAT_TYPE, cat.getCatType());
-				tag.putInt(TatteredCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
-			}
-
-			entity.entityDropItem(collar);
 		}
 	}
 

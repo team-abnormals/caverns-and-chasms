@@ -10,9 +10,15 @@ import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -24,6 +30,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 
 public class TatteredCollarItem extends Item {
 	public static final String PET_NAME = "PetName";
@@ -31,6 +38,7 @@ public class TatteredCollarItem extends Item {
 	public static final String CAT_TYPE = "CatType";
 	public static final String IS_CHILD = "IsChild";
 	public static final String PET_ID = "PetID";
+	public static final String OWNER_ID = "OwnerID";
 
 	public TatteredCollarItem(Properties properties) {
 		super(properties);
@@ -44,6 +52,10 @@ public class TatteredCollarItem extends Item {
 		ItemStack stack = context.getItem();
 
 		if (state.isIn(CCBlocks.GRAVESTONE.get()) && state.get(GravestoneBlock.ACTIVATED)) {
+			BlockPos offsetPos = pos.offset(state.get(GravestoneBlock.HORIZONTAL_FACING));
+			if (!world.getBlockState(offsetPos).getCollisionShape(world, offsetPos).isEmpty())
+				return ActionResultType.FAIL;
+
 			PlayerEntity player = context.getPlayer();
 			CompoundNBT tag = stack.getOrCreateTag();
 
@@ -60,9 +72,10 @@ public class TatteredCollarItem extends Item {
 					TameableEntity entity = (TameableEntity) entityType.create(world);
 
 					entity.setTamed(true);
-					entity.setOwnerId(entity.getUniqueID());
+					entity.setOwnerId(tag.contains(OWNER_ID) ? UUID.fromString(tag.getString(OWNER_ID)) : player.getUniqueID());
 					entity.setChild(tag.getBoolean(IS_CHILD));
-					entity.setPosition(pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F);
+					entity.setPosition(offsetPos.getX() + 0.5F, offsetPos.getY(), offsetPos.getZ() + 0.5F);
+
 					if (tag.contains(PET_NAME))
 						entity.setCustomName(new StringTextComponent(tag.getString(PET_NAME)));
 
@@ -91,7 +104,7 @@ public class TatteredCollarItem extends Item {
 		return ActionResultType.PASS;
 
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		CompoundNBT tag = stack.getOrCreateTag();
