@@ -59,7 +59,8 @@ public class TatteredCollarItem extends Item {
 				if (entityType != null && entityType.create(world) instanceof TameableEntity) {
 					TameableEntity entity = (TameableEntity) entityType.create(world);
 
-					entity.setTamedBy(player);
+					entity.setTamed(true);
+					entity.setOwnerId(entity.getUniqueID());
 					entity.setChild(tag.getBoolean(IS_CHILD));
 					entity.setPosition(pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F);
 					if (tag.contains(PET_NAME))

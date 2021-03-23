@@ -31,10 +31,10 @@ public class CCEntities {
 	public static final RegistryObject<EntityType<MimeEntity>> MIME = HELPER.createLivingEntity("mime", MimeEntity::new, EntityClassification.MONSTER, 0.6F, 2.1F);
 	public static final RegistryObject<EntityType<RatEntity>> RAT = HELPER.createLivingEntity("rat", RatEntity::new, EntityClassification.CREATURE, 0.4F, 0.45F);
 
-	public static final RegistryObject<EntityType<WolfEntity>> ZOMBIE_WOLF = HELPER.createLivingEntity("zombie_wolf", WolfEntity::new, EntityClassification.CREATURE, 0.6F, 0.85F);
-	public static final RegistryObject<EntityType<WolfEntity>> SKELETON_WOLF = HELPER.createLivingEntity("skeleton_wolf", WolfEntity::new, EntityClassification.CREATURE, 0.6F, 0.85F);
-	public static final RegistryObject<EntityType<CatEntity>> ZOMBIE_CAT = HELPER.createLivingEntity("zombie_cat", CatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
-	public static final RegistryObject<EntityType<CatEntity>> SKELETON_CAT = HELPER.createLivingEntity("skeleton_cat", CatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
+	public static final RegistryObject<EntityType<ZombieWolfEntity>> ZOMBIE_WOLF = HELPER.createLivingEntity("zombie_wolf", ZombieWolfEntity::new, EntityClassification.CREATURE, 0.6F, 0.85F);
+	public static final RegistryObject<EntityType<SkeletonWolfEntity>> SKELETON_WOLF = HELPER.createLivingEntity("skeleton_wolf", SkeletonWolfEntity::new, EntityClassification.CREATURE, 0.6F, 0.85F);
+	public static final RegistryObject<EntityType<ZombieCatEntity>> ZOMBIE_CAT = HELPER.createLivingEntity("zombie_cat", ZombieCatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
+	public static final RegistryObject<EntityType<SkeletonCatEntity>> SKELETON_CAT = HELPER.createLivingEntity("skeleton_cat", SkeletonCatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
 
 	public static void registerAttributes() {
 		GlobalEntityTypeAttributes.put(CAVEFISH.get(), CavefishEntity.registerAttributes().create());
