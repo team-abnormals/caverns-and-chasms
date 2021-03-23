@@ -1,7 +1,9 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.WolfEntity;
@@ -40,6 +42,18 @@ public class ZombieWolfEntity extends WolfEntity {
 	protected void registerData() {
 		super.registerData();
 		this.dataManager.register(CONVERTING, false);
+	}
+
+	@Override
+	public ZombieWolfEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+		ZombieWolfEntity wolf = CCEntities.ZOMBIE_WOLF.get().create(world);
+		UUID uuid = this.getOwnerId();
+		if (uuid != null) {
+			wolf.setOwnerId(uuid);
+			wolf.setTamed(true);
+		}
+
+		return wolf;
 	}
 
 	@Override

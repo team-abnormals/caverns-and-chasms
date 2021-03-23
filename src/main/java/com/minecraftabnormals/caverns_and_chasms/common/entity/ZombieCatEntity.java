@@ -1,7 +1,9 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.CatEntity;
@@ -40,6 +42,28 @@ public class ZombieCatEntity extends CatEntity {
 	protected void registerData() {
 		super.registerData();
 		this.dataManager.register(CONVERTING, false);
+	}
+
+	@Override
+	public ZombieCatEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+		ZombieCatEntity cat = CCEntities.ZOMBIE_CAT.get().create(world);
+		if (this.rand.nextBoolean()) {
+			cat.setCatType(this.getCatType());
+		} else {
+			cat.setCatType(cat.getCatType());
+		}
+
+		if (this.isTamed()) {
+			cat.setOwnerId(this.getOwnerId());
+			cat.setTamed(true);
+			if (this.rand.nextBoolean()) {
+				cat.setCollarColor(this.getCollarColor());
+			} else {
+				cat.setCollarColor(cat.getCollarColor());
+			}
+		}
+
+		return cat;
 	}
 
 	@Override
