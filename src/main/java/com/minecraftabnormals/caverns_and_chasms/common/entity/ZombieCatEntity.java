@@ -159,8 +159,9 @@ public class ZombieCatEntity extends CatEntity {
 		cat.setCatType(this.getCatType());
 		cat.setCollarColor(this.getCollarColor());
 		cat.setTamed(this.isTamed());
-		cat.setOwnerId(this.getOwner().getUniqueID());
 		cat.func_233687_w_(this.isSitting());
+		if (this.getOwner() != null)
+			cat.setOwnerId(this.getOwner().getUniqueID());
 		return cat;
 	}
 

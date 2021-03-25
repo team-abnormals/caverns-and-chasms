@@ -9,7 +9,8 @@
     "AbstractSkeletonEntityMixin",
     "IronGolemEntityMixin",
     "WitherSkeletonEntityMixin",
-    "ZoglinEntityMixin"
+    "ZoglinEntityMixin",
+    "ZombieHorseEntityMixin"
   ],
   "client": [
     "ClientRecipeBookMixin",

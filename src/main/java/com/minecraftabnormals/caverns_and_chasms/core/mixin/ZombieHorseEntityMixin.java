@@ -1,12 +1,12 @@
-package com.minecraftabnormals.caverns_and_chasms.common.entity;
+package com.minecraftabnormals.caverns_and_chasms.core.mixin;
 
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
-import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
+import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -26,34 +26,27 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ZombieWolfEntity extends WolfEntity {
-	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ZombieWolfEntity.class, DataSerializers.BOOLEAN);
+@Mixin(ZombieHorseEntity.class)
+public abstract class ZombieHorseEntityMixin extends AbstractHorseEntity {
+	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ZombieHorseEntity.class, DataSerializers.BOOLEAN);
 	private int conversionTime;
 	private UUID converstionStarter;
 
-	public ZombieWolfEntity(EntityType<? extends ZombieWolfEntity> type, World worldIn) {
+	protected ZombieHorseEntityMixin(EntityType<? extends AbstractHorseEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 
 	protected void registerData() {
 		super.registerData();
 		this.dataManager.register(CONVERTING, false);
-	}
-
-	@Override
-	public ZombieWolfEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
-		ZombieWolfEntity wolf = CCEntities.ZOMBIE_WOLF.get().create(world);
-		UUID uuid = this.getOwnerId();
-		if (uuid != null) {
-			wolf.setOwnerId(uuid);
-			wolf.setTamed(true);
-		}
-
-		return wolf;
 	}
 
 	@Override
@@ -78,7 +71,7 @@ public class ZombieWolfEntity extends WolfEntity {
 		if (!this.world.isRemote && this.isAlive() && this.isConverting()) {
 			int i = this.getConversionProgress();
 			this.conversionTime -= i;
-			if (this.conversionTime <= 0 && ForgeEventFactory.canLivingConvert(this, EntityType.WOLF, (timer) -> this.conversionTime = timer)) {
+			if (this.conversionTime <= 0 && ForgeEventFactory.canLivingConvert(this, EntityType.HORSE, (timer) -> this.conversionTime = timer)) {
 				this.cureZombie((ServerWorld) this.world);
 			}
 		}
@@ -86,8 +79,8 @@ public class ZombieWolfEntity extends WolfEntity {
 		super.tick();
 	}
 
-	@Override
-	public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+	@Inject(at = @At("HEAD"), method = "func_230254_b_", cancellable = true)
+	public void onInteract(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResultType> cir) {
 		ItemStack itemstack = player.getHeldItem(hand);
 		if (itemstack.getItem() == Items.GOLDEN_APPLE) {
 			if (this.isPotionActive(Effects.WEAKNESS)) {
@@ -95,16 +88,14 @@ public class ZombieWolfEntity extends WolfEntity {
 					itemstack.shrink(1);
 				}
 
-				if (!this.world.isRemote) {
+				if (!this.world.isRemote()) {
 					this.startConverting(player.getUniqueID(), this.rand.nextInt(2401) + 3600);
 				}
 
-				return ActionResultType.SUCCESS;
+				cir.setReturnValue(ActionResultType.SUCCESS);
 			} else {
-				return ActionResultType.CONSUME;
+				cir.setReturnValue(ActionResultType.CONSUME);
 			}
-		} else {
-			return super.func_230254_b_(player, hand);
 		}
 	}
 
@@ -122,6 +113,7 @@ public class ZombieWolfEntity extends WolfEntity {
 	}
 
 	@OnlyIn(Dist.CLIENT)
+	@Override
 	public void handleStatusUpdate(byte id) {
 		if (id == 16) {
 			if (!this.isSilent()) {
@@ -134,24 +126,21 @@ public class ZombieWolfEntity extends WolfEntity {
 	}
 
 	private void cureZombie(ServerWorld world) {
-		WolfEntity wolfEntity = this.copyEntityData();
-		wolfEntity.onInitialSpawn(world, world.getDifficultyForLocation(wolfEntity.getPosition()), SpawnReason.CONVERSION, null, null);
-		wolfEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 0));
+		HorseEntity horseEntity = this.copyEntityData();
+		horseEntity.onInitialSpawn(world, world.getDifficultyForLocation(horseEntity.getPosition()), SpawnReason.CONVERSION, null, null);
+		horseEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 0));
 		if (!this.isSilent()) {
 			world.playEvent(null, 1027, this.getPosition(), 0);
 		}
 
-		ForgeEventFactory.onLivingConvert(this, wolfEntity);
+		ForgeEventFactory.onLivingConvert(this, horseEntity);
 	}
 
-	public WolfEntity copyEntityData() {
-		WolfEntity wolf = this.func_233656_b_(EntityType.WOLF, false);
-		wolf.setCollarColor(this.getCollarColor());
-		wolf.setTamed(this.isTamed());
-		wolf.func_233687_w_(this.isSitting());
-		if (this.getOwner() != null)
-			wolf.setOwnerId(this.getOwner().getUniqueID());
-		return wolf;
+	public HorseEntity copyEntityData() {
+		HorseEntity horse = this.func_233656_b_(EntityType.HORSE, true);
+		horse.setHorseTamed(this.isTame());
+		horse.setOwnerUniqueId(this.getOwnerUniqueId());
+		return horse;
 	}
 
 	private int getConversionProgress() {
