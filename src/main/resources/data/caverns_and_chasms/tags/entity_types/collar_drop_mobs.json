@@ -3,9 +3,7 @@
   "values": [
     "minecraft:wolf",
     "minecraft:cat",
-    "minecraft:horse",
     "caverns_and_chasms:zombie_wolf",
-    "caverns_and_chasms:zombie_cat",
-    "minecraft:zombie_horse"
+    "caverns_and_chasms:zombie_cat"
   ]
 }
