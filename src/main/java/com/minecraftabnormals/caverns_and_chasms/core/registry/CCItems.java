@@ -60,7 +60,7 @@ public class CCItems {
 
 	public static final RegistryObject<Item> SUGILITE = HELPER.createItem("sugilite", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));
 
-	public static final RegistryObject<Item> TATTERED_COLLAR = HELPER.createItem("tattered_collar", () -> new TatteredCollarItem(new Item.Properties().isImmuneToFire().group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().maxStackSize(1).isImmuneToFire().group(ItemGroup.MISC)));
 
 	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.CAVEFISH)));
 	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.COOKED_CAVEFISH)));

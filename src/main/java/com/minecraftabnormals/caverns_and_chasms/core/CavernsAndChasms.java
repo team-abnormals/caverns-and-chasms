@@ -2,7 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
-import com.minecraftabnormals.caverns_and_chasms.common.item.TatteredCollarItem;
+import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -67,6 +67,6 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void registerItemColors(ColorHandlerEvent.Item event) {
-		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TatteredCollarItem) stack.getItem()).getColor(stack), CCItems.TATTERED_COLLAR.get());
+		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((ForgottenCollarItem) stack.getItem()).getColor(stack), CCItems.FORGOTTEN_COLLAR.get());
 	}
 }

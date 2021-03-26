@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TatteredCollarItem extends Item {
+public class ForgottenCollarItem extends Item {
 	public static final String PET_NAME = "PetName";
 	public static final String COLLAR_COLOR = "CollarColor";
 	public static final String CAT_TYPE = "CatType";
@@ -40,7 +40,7 @@ public class TatteredCollarItem extends Item {
 	public static final String PET_ID = "PetID";
 	public static final String OWNER_ID = "OwnerID";
 
-	public TatteredCollarItem(Properties properties) {
+	public ForgottenCollarItem(Properties properties) {
 		super(properties);
 	}
 
@@ -137,6 +137,6 @@ public class TatteredCollarItem extends Item {
 
 	public int getColor(ItemStack stack) {
 		CompoundNBT tag = stack.getOrCreateTag();
-		return tag.contains(COLLAR_COLOR) ? DyeColor.byId(tag.getInt(COLLAR_COLOR)).getColorValue() : DyeColor.RED.getColorValue();
+		return tag.contains(COLLAR_COLOR) ? DyeColor.byId(tag.getInt(COLLAR_COLOR)).getColorValue() : 10511680;
 	}
 }

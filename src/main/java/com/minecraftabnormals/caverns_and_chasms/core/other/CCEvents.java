@@ -5,7 +5,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.ZombieChickenEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.item.TatteredCollarItem;
+import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -189,26 +189,26 @@ public class CCEvents {
 		if (entity instanceof TameableEntity) {
 			TameableEntity pet = (TameableEntity) entity;
 			if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS) && pet.isTamed()) {
-				ItemStack collar = new ItemStack(CCItems.TATTERED_COLLAR.get());
+				ItemStack collar = new ItemStack(CCItems.FORGOTTEN_COLLAR.get());
 				CompoundNBT tag = collar.getOrCreateTag();
 
-				tag.putString(TatteredCollarItem.OWNER_ID, pet.getOwnerId().toString());
-				tag.putString(TatteredCollarItem.PET_ID, type.getRegistryName().toString());
-				tag.putBoolean(TatteredCollarItem.IS_CHILD, entity.isChild());
+				tag.putString(ForgottenCollarItem.OWNER_ID, pet.getOwnerId().toString());
+				tag.putString(ForgottenCollarItem.PET_ID, type.getRegistryName().toString());
+				tag.putBoolean(ForgottenCollarItem.IS_CHILD, entity.isChild());
 
 				if (entity.hasCustomName()) {
-					tag.putString(TatteredCollarItem.PET_NAME, pet.getCustomName().getString());
+					tag.putString(ForgottenCollarItem.PET_NAME, pet.getCustomName().getString());
 				}
 
 				if (entity instanceof WolfEntity) {
 					WolfEntity wolf = (WolfEntity) entity;
-					tag.putInt(TatteredCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
+					tag.putInt(ForgottenCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
 				}
 
 				if (entity instanceof CatEntity) {
 					CatEntity cat = (CatEntity) entity;
-					tag.putInt(TatteredCollarItem.CAT_TYPE, cat.getCatType());
-					tag.putInt(TatteredCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
+					tag.putInt(ForgottenCollarItem.CAT_TYPE, cat.getCatType());
+					tag.putInt(ForgottenCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
 				}
 
 				entity.entityDropItem(collar);
