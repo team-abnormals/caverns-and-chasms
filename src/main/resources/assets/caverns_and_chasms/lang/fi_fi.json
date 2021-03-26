@@ -9,6 +9,11 @@
   "block.caverns_and_chasms.silver_button": "Hopeanappi",
   "block.caverns_and_chasms.spiked_rail": "Piikkiraide",
 
+  "block.caverns_and_chasms.sanguine_plates": "Sangviinilevyt",
+  "block.caverns_and_chasms.sanguine_plate_slab": "Sangviinilevylaatta",
+  "block.caverns_and_chasms.sanguine_plate_stairs": "Sangviinilevyportaat",
+  "block.caverns_and_chasms.sanguine_plate_vertical_slab": "Pystysuora sangviinilevylaatta",
+  
   "block.caverns_and_chasms.rotten_flesh_block": "Mädäntynyt lihakuutio",
   "block.caverns_and_chasms.gravestone": "Hautakivi",
 
@@ -58,6 +63,18 @@
   "block.caverns_and_chasms.dirt_tile_wall": "Mutalevymuuri",
   "block.caverns_and_chasms.dirt_tile_vertical_slab": "Pystysuora mutalevylaatta",
 
+  "block.caverns_and_chasms.cobblestone_bricks": "Mukulakivitiili",
+  "block.caverns_and_chasms.cobblestone_brick_slab": "Mukulakivitiililaatta",
+  "block.caverns_and_chasms.cobblestone_brick_stairs": "Mukulakivitiiliportaat",
+  "block.caverns_and_chasms.cobblestone_brick_wall": "Mukulakivitiilimuuri",
+  "block.caverns_and_chasms.cobblestone_brick_vertical_slab": "Pystysuora mukulakivitiililaatta",
+
+  "block.caverns_and_chasms.mossy_cobblestone_bricks": "Sammaleinen mukulakivitiili",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_slab": "Sammaleinen mukulakivitiililaatta",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_stairs": "Sammaleiset mukulakivitiiliportaat",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_wall": "Sammaleinen mukulakivitiilimuuri",
+  "block.caverns_and_chasms.mossy_cobblestone_brick_vertical_slab": "Pystysuora sammaleinen mukulakivitiililaatta",
+  
   "block.caverns_and_chasms.cobblestone_tiles": "Mukulakivilevyt",
   "block.caverns_and_chasms.cobblestone_tile_slab": "Mukulakivilevylaatta",
   "block.caverns_and_chasms.cobblestone_tile_stairs": "Mukulakivilevyportaat",
@@ -76,6 +93,8 @@
   "item.caverns_and_chasms.cooked_cavefish": "Paistettu luolakala",
   "item.caverns_and_chasms.cavefish_bucket": "Luolakala ämpärissä",
 
+  "item.caverns_and_chasms.forgotten_collar": "Unohdettu kaulapanta",
+  
   "item.caverns_and_chasms.golden_bucket": "Kultainen ämpäri",
   "item.caverns_and_chasms.golden_water_bucket": "Kultainen vesiämpäri",
   "item.caverns_and_chasms.golden_lava_bucket": "Kultainen laavaämpäri",
@@ -83,6 +102,9 @@
 
   "item.caverns_and_chasms.sugilite": "Sugiliitti",
 
+  "item.caverns_and_chasms.music_disc_epilogue": "Musiikkilevy",
+  "item.caverns_and_chasms.music_disc_epilogue.desc": "Mista Jub - Epilogue",
+  
   "item.caverns_and_chasms.silver_ingot": "Hopeaharkko",
   "item.caverns_and_chasms.silver_nugget": "Hopeakimpale",
   "item.caverns_and_chasms.silver_arrow": "Hopeanuoli",
@@ -112,12 +134,23 @@
   "item.caverns_and_chasms.necromium_boots": "Nekromiumsaappaat",
   "item.caverns_and_chasms.necromium_horse_armor": "Nekromiuminen hevosen panssari",
 
+  "item.caverns_and_chasms.sanguine_plating": "Sangviinipinnoite",
+  "item.caverns_and_chasms.sanguine_helmet": "Sangviinikypärä",
+  "item.caverns_and_chasms.sanguine_chestplate": "Sangviinirintapanssari",
+  "item.caverns_and_chasms.sanguine_leggings": "Sangviinihousut",
+  "item.caverns_and_chasms.sanguine_boots": "Sangviinisaappaat",
+  
   "item.caverns_and_chasms.cavefish_spawn_egg": "Luo luolakala",
   "item.caverns_and_chasms.deeper_spawn_egg": "Luo deeper",
   "item.caverns_and_chasms.mime_spawn_egg": "Luo miimikko",
   "item.caverns_and_chasms.juggernaut_spawn_egg": "Luo juggernaut",
   "item.caverns_and_chasms.zombie_chicken_spawn_egg": "Luo zombikana",
   "item.caverns_and_chasms.fly_spawn_egg": "Luo kärpänen",
+  "item.caverns_and_chasms.rat_spawn_egg": "Luo rotta",
+  "item.caverns_and_chasms.zombie_wolf_spawn_egg": "Luo zombisusi",
+  "item.caverns_and_chasms.zombie_cat_spawn_egg": "Luo zombikissa",
+  "item.caverns_and_chasms.skeleton_wolf_spawn_egg": "Luo luurankosusi",
+  "item.caverns_and_chasms.skeleton_cat_spawn_egg": "Luo luurankokissa",
 
   "entity.caverns_and_chasms.cavefish": "Luolakala",
   "entity.caverns_and_chasms.deeper": "Deeper",
@@ -126,8 +159,13 @@
   "entity.caverns_and_chasms.juggernaut": "Juggernaut",
   "entity.caverns_and_chasms.zombie_chicken": "Zombikana",
   "entity.caverns_and_chasms.fly": "Kärpänen",
+  "entity.caverns_and_chasms.rat": "Rotta",
   "entity.caverns_and_chasms.rotten_egg": "Heitetty mädäntynyt muna",
   "entity.caverns_and_chasms.kunai": "Kunai",
+  "entity.caverns_and_chasms.zombie_wolf": "Zombisusi",
+  "entity.caverns_and_chasms.zombie_cat": "Zombikissa",
+  "entity.caverns_and_chasms.skeleton_wolf": "Luurankosusi",
+  "entity.caverns_and_chasms.skeleton_cat": "Luurankokissa",
 
   "effect.caverns_and_chasms.rewind": "Takaisinkelaus",
   "effect.caverns_and_chasms.affliction": "Piina",
@@ -143,13 +181,18 @@
   "death.attack.spiked_rail": "%1$s kuoli piikkiraiteen piikkeihin",
   "death.attack.spiked_rail.player": "%1$s kuoli piikkiraiteen piikkeihin tämän paetessa olentoa %2$s",
 
+  "death.attack.caverns_and_chasms.kunai": "%2$s puukotti pelaajan %1$s",
+  "death.attack.caverns_and_chasms.kunai.item": "%2$s puukotti pelaajan %1$s käyttämällä %3$s",
+  
   "attribute.name.generic.affliction_chance": "Piinan mahdollisuus",
   "attribute.name.generic.experience_boost": "Kokemuksen tehostus",
   "attribute.name.generic.weakness_aura": "Heikentävä aura",
+  "attribute.caverns_and_chasms.name.generic.lifesteal": "Elinvoiman varastus",
 
   "tooltip.caverns_and_chasms.afflicting": "Piina",
   "tooltip.caverns_and_chasms.boosting": "Tehostus",
   "tooltip.caverns_and_chasms.slowing": "Hidastus",
+  "tooltip.caverns_and_chasms.baby": "Poikanen",
 
   "advancements.caverns_and_chasms.husbandry.ancient_hoes.title": "Vaarallista omistautumista",
   "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Käytä netheriitti- ja nekromiumharkkoja kahden kuokan päivittämiseen ja tajua sitten elämän mitättömyys",
