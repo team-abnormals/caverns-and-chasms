@@ -186,32 +186,46 @@ public class CCEvents {
 		LivingEntity entity = event.getEntityLiving();
 		EntityType<?> type = entity.getType();
 
-		if (entity instanceof TameableEntity) {
-			TameableEntity pet = (TameableEntity) entity;
-			if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS) && pet.isTamed()) {
-				ItemStack collar = new ItemStack(CCItems.FORGOTTEN_COLLAR.get());
-				CompoundNBT tag = collar.getOrCreateTag();
+		if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS)) {
+			ItemStack collar = new ItemStack(CCItems.FORGOTTEN_COLLAR.get());
+			CompoundNBT tag = collar.getOrCreateTag();
 
-				tag.putString(ForgottenCollarItem.OWNER_ID, pet.getOwnerId().toString());
-				tag.putString(ForgottenCollarItem.PET_ID, type.getRegistryName().toString());
-				tag.putBoolean(ForgottenCollarItem.IS_CHILD, entity.isChild());
+			tag.putString(ForgottenCollarItem.PET_ID, type.getRegistryName().toString());
+			tag.putBoolean(ForgottenCollarItem.IS_CHILD, entity.isChild());
+			if (entity.hasCustomName()) {
+				tag.putString(ForgottenCollarItem.PET_NAME, entity.getCustomName().getString());
+			}
 
-				if (entity.hasCustomName()) {
-					tag.putString(ForgottenCollarItem.PET_NAME, pet.getCustomName().getString());
+			if (entity instanceof TameableEntity) {
+				TameableEntity pet = (TameableEntity) entity;
+				if (pet.isTamed()) {
+					tag.putString(ForgottenCollarItem.OWNER_ID, pet.getOwnerId().toString());
+
+					if (entity instanceof WolfEntity) {
+						WolfEntity wolf = (WolfEntity) entity;
+						tag.putInt(ForgottenCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
+					}
+
+					if (entity instanceof CatEntity) {
+						CatEntity cat = (CatEntity) entity;
+						tag.putInt(ForgottenCollarItem.PET_VARIANT, cat.getCatType());
+						tag.putInt(ForgottenCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
+					}
+
+					entity.entityDropItem(collar);
 				}
+			} else if (entity instanceof AbstractHorseEntity) {
+				AbstractHorseEntity horse = (AbstractHorseEntity) entity;
+				if (horse.isTame()) {
+					tag.putString(ForgottenCollarItem.OWNER_ID, horse.getOwnerUniqueId().toString());
+					tag.putDouble(ForgottenCollarItem.HORSE_SPEED, horse.getBaseAttributeValue(Attributes.MOVEMENT_SPEED));
+					tag.putDouble(ForgottenCollarItem.HORSE_HEALTH, horse.getBaseAttributeValue(Attributes.MAX_HEALTH));
+					tag.putDouble(ForgottenCollarItem.HORSE_STRENGTH, horse.getBaseAttributeValue(Attributes.HORSE_JUMP_STRENGTH));
+					if (entity instanceof HorseEntity)
+						tag.putInt(ForgottenCollarItem.PET_VARIANT, ((HorseEntity) entity).func_234241_eS_());
 
-				if (entity instanceof WolfEntity) {
-					WolfEntity wolf = (WolfEntity) entity;
-					tag.putInt(ForgottenCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
+					entity.entityDropItem(collar);
 				}
-
-				if (entity instanceof CatEntity) {
-					CatEntity cat = (CatEntity) entity;
-					tag.putInt(ForgottenCollarItem.CAT_TYPE, cat.getCatType());
-					tag.putInt(ForgottenCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
-				}
-
-				entity.entityDropItem(collar);
 			}
 		}
 	}
