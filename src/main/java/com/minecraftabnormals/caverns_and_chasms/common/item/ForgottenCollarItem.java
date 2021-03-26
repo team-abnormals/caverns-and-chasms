@@ -13,8 +13,6 @@ import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
@@ -60,7 +58,7 @@ public class ForgottenCollarItem extends Item {
 		BlockState state = world.getBlockState(pos);
 		ItemStack stack = context.getItem();
 
-		if (state.isIn(CCBlocks.GRAVESTONE.get()) && state.get(GravestoneBlock.ACTIVATED)) {
+		if (state.isIn(CCBlocks.GRAVESTONE.get()) && state.get(GravestoneBlock.CHARGE) == 10) {
 			BlockPos offsetPos = pos.offset(state.get(GravestoneBlock.HORIZONTAL_FACING));
 			if (!world.getBlockState(offsetPos).getCollisionShape(world, offsetPos).isEmpty())
 				return ActionResultType.FAIL;
@@ -124,6 +122,7 @@ public class ForgottenCollarItem extends Item {
 					}
 
 					world.playSound(player, pos, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					world.setBlockState(pos, state.with(GravestoneBlock.CHARGE, 0));
 					if (!player.abilities.isCreativeMode)
 						stack.shrink(1);
 				}
