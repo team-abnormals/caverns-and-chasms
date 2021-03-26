@@ -59,10 +59,10 @@ public class SanguineArmorItem extends ArmorItem {
 
 
 	public enum SanguineArmorType implements IStringSerializable {
-		HEAD("head", EquipmentSlotType.HEAD, 8),
-		CHEST("chest", EquipmentSlotType.CHEST, 18),
-		LEGS("legs", EquipmentSlotType.LEGS, 16),
-		FEET("feet", EquipmentSlotType.FEET, 8);
+		HEAD("head", EquipmentSlotType.HEAD, 4),
+		CHEST("chest", EquipmentSlotType.CHEST, 9),
+		LEGS("legs", EquipmentSlotType.LEGS, 8),
+		FEET("feet", EquipmentSlotType.FEET, 4);
 
 		private final String name;
 		private final EquipmentSlotType slot;

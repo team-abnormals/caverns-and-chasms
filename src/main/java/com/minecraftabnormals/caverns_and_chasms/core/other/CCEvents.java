@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.core.other;
 
 import com.minecraftabnormals.caverns_and_chasms.common.block.BrazierBlock;
+import com.minecraftabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
@@ -9,10 +10,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCAttributes;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -41,6 +39,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
@@ -67,6 +66,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -185,6 +186,19 @@ public class CCEvents {
 	public static void onLivingDeath(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
 		EntityType<?> type = entity.getType();
+		World world = entity.getEntityWorld();
+
+		if (entity instanceof IMob && !world.isRemote()) {
+			AxisAlignedBB aabb = entity.getBoundingBox().grow(5.0F, 2.0F, 5.0F);
+			Stream<BlockPos> blocks = BlockPos.getAllInBox(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
+
+			blocks.forEach(pos -> {
+				BlockState state = world.getBlockState(pos);
+				if (state.isIn(CCBlocks.GRAVESTONE.get())) {
+					((GravestoneBlock) CCBlocks.GRAVESTONE.get()).powerBlock(state, world, pos);
+				}
+			});
+		}
 
 		if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS)) {
 			ItemStack collar = new ItemStack(CCItems.FORGOTTEN_COLLAR.get());

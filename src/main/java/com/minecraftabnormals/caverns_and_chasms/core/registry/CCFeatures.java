@@ -17,6 +17,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
+import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.BiomeDictionary;
@@ -65,6 +66,7 @@ public class CCFeatures {
 			}
 
 			if (event.getCategory() == Biome.Category.DESERT || event.getCategory() == Biome.Category.JUNGLE) {
+				removeLapisOre(oreFeatures);
 				generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SUGILITE);
 				spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(CCEntities.MIME.get(), 150, 1, 1));
 			}
@@ -83,7 +85,7 @@ public class CCFeatures {
 
 	public static final class Configured {
 		public static final ConfiguredFeature<?, ?> ORE_EMERALD_CHUNK = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.EMERALD_ORE, 19)).range(32).square().func_242731_b(1);
-		public static final ConfiguredFeature<?, ?> ORE_SUGILITE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SUGILITE_ORE, 8)).range(42).square().func_242731_b(7);
+		public static final ConfiguredFeature<?, ?> ORE_SUGILITE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SUGILITE_ORE, 7)).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(16, 16))).square();
 		public static final ConfiguredFeature<?, ?> ORE_SILVER = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SILVER_ORE, 9)).range(32).square().func_242731_b(2);
 		public static final ConfiguredFeature<?, ?> ORE_SILVER_SOUL = Feature.NO_SURFACE_ORE.withConfiguration(new OreFeatureConfig(SOUL_SAND_VALLEY, States.SOUL_SILVER_ORE, 17)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(8, 16, 128))).square().func_242731_b(45);
 		public static final ConfiguredFeature<?, ?> ORE_SILVER_EXTRA = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SILVER_ORE, 9)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(32, 32, 80))).square().func_242731_b(20);
@@ -115,6 +117,25 @@ public class CCFeatures {
 							if (ore.state.isIn(Blocks.GOLD_ORE) || ore.state.isIn(Blocks.NETHER_GOLD_ORE)) {
 								toRemove.add(feature);
 							}
+						}
+					}
+				}
+			}
+		}
+		toRemove.forEach(oreFeatures::remove);
+	}
+
+	public static void removeLapisOre(List<Supplier<ConfiguredFeature<?, ?>>> oreFeatures) {
+		List<Supplier<ConfiguredFeature<?, ?>>> toRemove = new ArrayList<>();
+		for (Supplier<ConfiguredFeature<?, ?>> feature : oreFeatures) {
+			if (feature.get().config instanceof DecoratedFeatureConfig) {
+				DecoratedFeatureConfig decorated = (DecoratedFeatureConfig) feature.get().config;
+				if (decorated.feature.get().config instanceof DecoratedFeatureConfig) {
+					DecoratedFeatureConfig decorated2 = (DecoratedFeatureConfig) decorated.feature.get().config;
+					if (decorated2.feature.get().config instanceof OreFeatureConfig) {
+						OreFeatureConfig ore = (OreFeatureConfig) decorated2.feature.get().config;
+						if (ore.state.isIn(Blocks.LAPIS_ORE)) {
+							toRemove.add(feature);
 						}
 					}
 				}
