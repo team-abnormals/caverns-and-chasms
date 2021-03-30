@@ -91,10 +91,13 @@ public class CCItems {
 	}
 
 	public static void registerItemProperties() {
+		ItemModelsProperties.registerProperty(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "silver_arrow"), (stack, world, entity) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.hasChargedProjectile(stack, CCItems.SILVER_ARROW.get()) ? 1.0F : 0.0F);
+
 		ItemModelsProperties.registerProperty(GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemModelsProperties.registerProperty(GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemModelsProperties.registerProperty(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemModelsProperties.registerProperty(GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+
 		ItemModelsProperties.registerProperty(ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity) -> {
 			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity) {
 				return OreDetectorItem.getDetectionData(stack) ? 1 : 0;
