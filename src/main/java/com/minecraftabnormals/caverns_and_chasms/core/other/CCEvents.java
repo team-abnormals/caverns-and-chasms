@@ -536,8 +536,12 @@ public class CCEvents {
 		Item item = event.getItemStack().getItem();
 		EquipmentSlotType slot = event.getSlotType();
 		UUID uuid = ArmorItem.ARMOR_MODIFIERS[slot.getIndex()];
-		if (item == Items.CHAINMAIL_HELMET && slot == EquipmentSlotType.HEAD || item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlotType.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlotType.LEGS || item == Items.CHAINMAIL_BOOTS && slot == EquipmentSlotType.FEET)
-			event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
+		if (CCConfig.COMMON.chainmailArmorBuff.get()) {
+			if (item == Items.CHAINMAIL_HELMET && slot == EquipmentSlotType.HEAD || item == Items.CHAINMAIL_BOOTS && slot == EquipmentSlotType.FEET)
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
+			else if (item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlotType.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlotType.LEGS)
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
+		}
 	}
 
 	@SubscribeEvent

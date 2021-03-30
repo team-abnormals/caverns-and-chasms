@@ -11,6 +11,8 @@ public class CCConfig {
 		public final ConfigValue<Integer> deeperMaxSpawnHeight;
 		public final ConfigValue<Boolean> largeEmeraldVeins;
 
+		public final ConfigValue<Boolean> chainmailArmorBuff;
+
 		public final ConfigValue<Boolean> betterRailPlacement;
 		public final ConfigValue<Integer> betterRailPlacementRange;
 
@@ -28,6 +30,7 @@ public class CCConfig {
 			builder.pop();
 
 			builder.push("tweaks");
+			chainmailArmorBuff = builder.comment("Chainmail armor increases the user's attack damage").define("Chainmail armor buff", true);
 			builder.push("rails");
 			betterRailPlacement = builder.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding").define("Better rail placement", true);
 			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").define("Placement range", 7);
