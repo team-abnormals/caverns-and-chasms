@@ -149,8 +149,10 @@
   "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
   "item.caverns_and_chasms.zombie_wolf_spawn_egg": "Zombie Wolf Spawn Egg",
   "item.caverns_and_chasms.zombie_cat_spawn_egg": "Zombie Cat Spawn Egg",
+  "item.caverns_and_chasms.zombie_parrot_spawn_egg": "Zombie Parrot Spawn Egg",
   "item.caverns_and_chasms.skeleton_wolf_spawn_egg": "Skeleton Wolf Spawn Egg",
   "item.caverns_and_chasms.skeleton_cat_spawn_egg": "Skeleton Cat Spawn Egg",
+  "item.caverns_and_chasms.skeleton_parrot_spawn_egg": "Skeleton Parrot Spawn Egg",
   
   "entity.caverns_and_chasms.cavefish": "Cavefish",
   "entity.caverns_and_chasms.deeper": "Deeper",
