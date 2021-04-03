@@ -2,6 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.DamageSource;
@@ -36,6 +37,11 @@ public class SkeletonCatEntity extends CatEntity {
 		}
 
 		return cat;
+	}
+
+	@Override
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	@Override

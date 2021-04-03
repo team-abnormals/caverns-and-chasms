@@ -4,6 +4,7 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.CatEntity;
@@ -81,6 +82,11 @@ public class ZombieCatEntity extends CatEntity {
 		if (compound.contains("ConversionTime", 99) && compound.getInt("ConversionTime") > -1) {
 			this.startConverting(compound.hasUniqueId("ConversionPlayer") ? compound.getUniqueId("ConversionPlayer") : null, compound.getInt("ConversionTime"));
 		}
+	}
+
+	@Override
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	@Override

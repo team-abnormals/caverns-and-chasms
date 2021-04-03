@@ -2,6 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.DamageSource;
@@ -29,6 +30,11 @@ public class SkeletonWolfEntity extends WolfEntity {
 		}
 
 		return wolf;
+	}
+
+	@Override
+	public CreatureAttribute getCreatureAttribute() {
+		return CreatureAttribute.UNDEAD;
 	}
 
 	@Override

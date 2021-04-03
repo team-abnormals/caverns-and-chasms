@@ -137,6 +137,7 @@ public class ZombieChickenEntity extends AnimalEntity {
 		return CCEntities.ZOMBIE_CHICKEN.get().create(world);
 	}
 
+	@Override
 	public CreatureAttribute getCreatureAttribute() {
 		return CreatureAttribute.UNDEAD;
 	}
