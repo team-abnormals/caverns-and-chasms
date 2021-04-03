@@ -1,12 +1,18 @@
 package com.minecraftabnormals.caverns_and_chasms.core.other;
 
+import com.google.common.collect.Lists;
 import com.minecraftabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonCatEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonParrotEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonWolfEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieCatEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieParrotEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieWolfEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -18,12 +24,17 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
@@ -101,6 +112,16 @@ public class CCEvents {
 		if (entity instanceof CreeperEntity && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			CreeperEntity creeper = (CreeperEntity) entity;
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolemEntity.class, true));
+		}
+		if (entity instanceof ZombieWolfEntity || entity instanceof ZombieCatEntity || entity instanceof ZombieParrotEntity || entity instanceof SkeletonWolfEntity || entity instanceof SkeletonCatEntity || entity instanceof SkeletonParrotEntity) {
+			TameableEntity tameable = (TameableEntity) entity;
+			List<Goal> goalsToRemove = Lists.newArrayList();
+			tameable.goalSelector.goals.forEach((goal) -> {
+				if (goal.getGoal() instanceof SwimGoal)
+					goalsToRemove.add(goal.getGoal());
+			});
+
+			goalsToRemove.forEach(tameable.goalSelector::removeGoal);
 		}
 	}
 

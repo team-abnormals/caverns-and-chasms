@@ -38,7 +38,6 @@ public class ZombieChickenEntity extends AnimalEntity {
 	}
 
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new SwimGoal(this));
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, FlyEntity.class, 9.0F, 1.05D, 1.05D));
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1D));
