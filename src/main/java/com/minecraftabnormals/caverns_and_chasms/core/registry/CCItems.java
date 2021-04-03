@@ -85,7 +85,7 @@ public class CCItems {
 	public static final RegistryObject<AbnormalsSpawnEggItem> ZOMBIE_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_cat", CCEntities.ZOMBIE_CAT::get, 0x4A7D52, 0x79AD69);
 	public static final RegistryObject<AbnormalsSpawnEggItem> SKELETON_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_cat", CCEntities.SKELETON_CAT::get, 0xD3D3D3, 0x979797);
 
-	static class Foods {
+	public static class Foods {
 		public static final Food CAVEFISH = new Food.Builder().hunger(1).saturation(0.3F).build();
 		public static final Food COOKED_CAVEFISH = new Food.Builder().hunger(4).saturation(0.25F).build();
 	}

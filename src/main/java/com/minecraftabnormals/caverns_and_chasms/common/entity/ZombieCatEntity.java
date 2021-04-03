@@ -146,6 +146,7 @@ public class ZombieCatEntity extends CatEntity {
 	private void cureZombie(ServerWorld world) {
 		CatEntity catEntity = this.copyEntityData();
 		catEntity.onInitialSpawn(world, world.getDifficultyForLocation(catEntity.getPosition()), SpawnReason.CONVERSION, null, null);
+		catEntity.setCatType(this.getCatType());
 		catEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 0));
 		if (!this.isSilent()) {
 			world.playEvent(null, 1027, this.getPosition(), 0);
@@ -156,7 +157,6 @@ public class ZombieCatEntity extends CatEntity {
 
 	public CatEntity copyEntityData() {
 		CatEntity cat = this.func_233656_b_(EntityType.CAT, false);
-		cat.setCatType(this.getCatType());
 		cat.setCollarColor(this.getCollarColor());
 		cat.setTamed(this.isTamed());
 		cat.func_233687_w_(this.isSitting());
