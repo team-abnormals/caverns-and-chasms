@@ -1,35 +1,37 @@
-package com.minecraftabnormals.caverns_and_chasms.common.entity;
+package com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.UUID;
+public class SkeletonParrotEntity extends ParrotEntity {
 
-public class SkeletonWolfEntity extends WolfEntity {
-
-	public SkeletonWolfEntity(EntityType<? extends SkeletonWolfEntity> type, World worldIn) {
+	public SkeletonParrotEntity(EntityType<? extends SkeletonParrotEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 
 	@Override
-	public SkeletonWolfEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
-		SkeletonWolfEntity wolf = CCEntities.SKELETON_WOLF.get().create(world);
-		UUID uuid = this.getOwnerId();
-		if (uuid != null) {
-			wolf.setOwnerId(uuid);
-			wolf.setTamed(true);
+	public SkeletonParrotEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+		SkeletonParrotEntity parrot = CCEntities.SKELETON_PARROT.get().create(world);
+		if (this.rand.nextBoolean()) {
+			parrot.setVariant(this.getVariant());
+		} else {
+			parrot.setVariant(parrot.getVariant());
 		}
 
-		return wolf;
+		if (this.isTamed()) {
+			parrot.setOwnerId(this.getOwnerId());
+			parrot.setTamed(true);
+		}
+
+		return parrot;
 	}
 
 	@Override
@@ -45,10 +47,5 @@ public class SkeletonWolfEntity extends WolfEntity {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_SKELETON_DEATH;
-	}
-
-	@Override
-	public float getShadingWhileWet(float partialTicks) {
-		return 1.0F;
 	}
 }

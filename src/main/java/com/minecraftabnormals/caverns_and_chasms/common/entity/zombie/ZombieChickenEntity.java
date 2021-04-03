@@ -1,5 +1,6 @@
-package com.minecraftabnormals.caverns_and_chasms.common.entity;
+package com.minecraftabnormals.caverns_and_chasms.common.entity.zombie;
 
+import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.block.BlockState;

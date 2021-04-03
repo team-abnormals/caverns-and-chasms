@@ -164,8 +164,10 @@
   "entity.caverns_and_chasms.kunai": "Kunai",
   "entity.caverns_and_chasms.zombie_wolf": "Zombie Wolf",
   "entity.caverns_and_chasms.zombie_cat": "Zombie Cat",
+  "entity.caverns_and_chasms.zombie_parrot": "Zombie Parrot",
   "entity.caverns_and_chasms.skeleton_wolf": "Skeleton Wolf",
   "entity.caverns_and_chasms.skeleton_cat": "Skeleton Cat",
+  "entity.caverns_and_chasms.skeleton_parrot": "Skeleton Parrot",
 
   "effect.caverns_and_chasms.rewind": "Rewind",
   "effect.caverns_and_chasms.affliction": "Affliction",

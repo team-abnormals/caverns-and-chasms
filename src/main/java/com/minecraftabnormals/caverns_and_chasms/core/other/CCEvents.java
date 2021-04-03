@@ -5,7 +5,7 @@ import com.minecraftabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.ZombieChickenEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
@@ -66,7 +66,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -185,7 +184,6 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingDeath(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		EntityType<?> type = entity.getType();
 		World world = entity.getEntityWorld();
 
 		if (entity instanceof IMob && !world.isRemote()) {
@@ -198,49 +196,6 @@ public class CCEvents {
 					((GravestoneBlock) CCBlocks.GRAVESTONE.get()).powerBlock(state, world, pos);
 				}
 			});
-		}
-
-		if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS)) {
-			ItemStack collar = new ItemStack(CCItems.FORGOTTEN_COLLAR.get());
-			CompoundNBT tag = collar.getOrCreateTag();
-
-			tag.putString(ForgottenCollarItem.PET_ID, type.getRegistryName().toString());
-			tag.putBoolean(ForgottenCollarItem.IS_CHILD, entity.isChild());
-			if (entity.hasCustomName()) {
-				tag.putString(ForgottenCollarItem.PET_NAME, entity.getCustomName().getString());
-			}
-
-			if (entity instanceof TameableEntity) {
-				TameableEntity pet = (TameableEntity) entity;
-				if (pet.isTamed()) {
-					tag.putString(ForgottenCollarItem.OWNER_ID, pet.getOwnerId().toString());
-
-					if (entity instanceof WolfEntity) {
-						WolfEntity wolf = (WolfEntity) entity;
-						tag.putInt(ForgottenCollarItem.COLLAR_COLOR, wolf.getCollarColor().getId());
-					}
-
-					if (entity instanceof CatEntity) {
-						CatEntity cat = (CatEntity) entity;
-						tag.putInt(ForgottenCollarItem.PET_VARIANT, cat.getCatType());
-						tag.putInt(ForgottenCollarItem.COLLAR_COLOR, cat.getCollarColor().getId());
-					}
-
-					entity.entityDropItem(collar);
-				}
-			} else if (entity instanceof AbstractHorseEntity) {
-				AbstractHorseEntity horse = (AbstractHorseEntity) entity;
-				if (horse.isTame()) {
-					tag.putString(ForgottenCollarItem.OWNER_ID, horse.getOwnerUniqueId().toString());
-					tag.putDouble(ForgottenCollarItem.HORSE_SPEED, horse.getBaseAttributeValue(Attributes.MOVEMENT_SPEED));
-					tag.putDouble(ForgottenCollarItem.HORSE_HEALTH, horse.getBaseAttributeValue(Attributes.MAX_HEALTH));
-					tag.putDouble(ForgottenCollarItem.HORSE_STRENGTH, horse.getBaseAttributeValue(Attributes.HORSE_JUMP_STRENGTH));
-					if (entity instanceof HorseEntity)
-						tag.putInt(ForgottenCollarItem.PET_VARIANT, ((HorseEntity) entity).func_234241_eS_());
-
-					entity.entityDropItem(collar);
-				}
-			}
 		}
 	}
 
