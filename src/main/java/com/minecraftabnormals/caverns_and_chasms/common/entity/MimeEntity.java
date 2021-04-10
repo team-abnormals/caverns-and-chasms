@@ -3,7 +3,6 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.minecraftabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCRecipes.RecipeTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -22,7 +21,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
@@ -211,11 +209,6 @@ public class MimeEntity extends MonsterEntity {
 	@Override
 	public EntitySize getSize(Pose poseIn) {
 		return SIZE_BY_POSE.getOrDefault(poseIn, STANDING_SIZE);
-	}
-
-	@Override
-	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(CCItems.MIME_SPAWN_EGG.get());
 	}
 
 	private void updateCape() {

@@ -1,7 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -15,7 +14,6 @@ import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.passive.horse.ZombieHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
@@ -29,7 +27,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorldReader;
@@ -126,15 +123,11 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		}
 	}
 
-	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(CCItems.FLY_SPAWN_EGG.get());
-	}
-
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
 		return MobEntity.func_233666_p_()
 				.createMutableAttribute(Attributes.MAX_HEALTH, 2.0D)
-				.createMutableAttribute(Attributes.FLYING_SPEED, (double) 0.8F)
-				.createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.3F)
+				.createMutableAttribute(Attributes.FLYING_SPEED, 0.8F)
+				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3F)
 				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D)
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 48.0D);
 	}

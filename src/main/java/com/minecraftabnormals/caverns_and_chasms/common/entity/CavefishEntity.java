@@ -14,7 +14,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -66,10 +65,5 @@ public class CavefishEntity extends AbstractGroupFishEntity {
 
 	public static boolean canCavefishSpawn(EntityType<? extends AbstractFishEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
 		return pos.getY() < 42 && worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER);
-	}
-
-	@Override
-	public ItemStack getPickedResult(RayTraceResult target) {
-		return new ItemStack(CCItems.CAVEFISH_SPAWN_EGG.get());
 	}
 }

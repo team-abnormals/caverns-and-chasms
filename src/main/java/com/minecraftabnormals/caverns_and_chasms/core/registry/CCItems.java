@@ -102,8 +102,8 @@ public class CCItems {
 		ItemModelsProperties.registerProperty(GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 
 		ItemModelsProperties.registerProperty(ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity) -> {
-			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity) {
-				return OreDetectorItem.getDetectionData(stack) ? 1 : 0;
+			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity && OreDetectorItem.getDetectionData(stack)) {
+				return 1;
 			} else {
 				return 0;
 			}
