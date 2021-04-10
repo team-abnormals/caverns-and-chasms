@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "caverns_and_chasms:zombie_wolf",
+    "caverns_and_chasms:zombie_cat",
+    "caverns_and_chasms:zombie_parrot",
+    "caverns_and_chasms:skeleton_wolf",
+    "caverns_and_chasms:skeleton_cat",
+    "caverns_and_chasms:skeleton_parrot"
+  ]
+}

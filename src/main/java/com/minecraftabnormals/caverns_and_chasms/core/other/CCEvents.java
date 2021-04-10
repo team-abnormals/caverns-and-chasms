@@ -6,16 +6,11 @@ import com.minecraftabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonCatEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonParrotEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonWolfEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieCatEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieParrotEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieWolfEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags.EntityTypes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
@@ -113,15 +108,15 @@ public class CCEvents {
 			CreeperEntity creeper = (CreeperEntity) entity;
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolemEntity.class, true));
 		}
-		if (entity instanceof ZombieWolfEntity || entity instanceof ZombieCatEntity || entity instanceof ZombieParrotEntity || entity instanceof SkeletonWolfEntity || entity instanceof SkeletonCatEntity || entity instanceof SkeletonParrotEntity) {
-			TameableEntity tameable = (TameableEntity) entity;
+		if (entity.getType().isContained(EntityTypes.COLLAR_DROP_MOBS) && entity instanceof TameableEntity) {
+			TameableEntity pet = (TameableEntity) entity;
 			List<Goal> goalsToRemove = Lists.newArrayList();
-			tameable.goalSelector.goals.forEach((goal) -> {
+			pet.goalSelector.goals.forEach((goal) -> {
 				if (goal.getGoal() instanceof SwimGoal)
 					goalsToRemove.add(goal.getGoal());
 			});
 
-			goalsToRemove.forEach(tameable.goalSelector::removeGoal);
+			goalsToRemove.forEach(pet.goalSelector::removeGoal);
 		}
 	}
 

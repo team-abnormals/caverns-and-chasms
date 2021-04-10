@@ -13,10 +13,12 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -119,7 +122,7 @@ public class ForgottenCollarItem extends Item {
 		BlockState state = world.getBlockState(pos);
 		ItemStack stack = context.getItem();
 
-		if (state.isIn(CCBlocks.GRAVESTONE.get()) && state.get(GravestoneBlock.CHARGE) == 10) {
+		if (state.isIn(CCBlocks.GRAVESTONE.get()) && state.get(GravestoneBlock.CHARGE) == 10 && world.canSeeSky(pos.up()) && world.isNightTime()) {
 			BlockPos offsetPos = pos.offset(state.get(GravestoneBlock.HORIZONTAL_FACING));
 			if (!world.getBlockState(offsetPos).getCollisionShape(world, offsetPos).isEmpty())
 				return ActionResultType.FAIL;
@@ -147,6 +150,7 @@ public class ForgottenCollarItem extends Item {
 					UUID owner = tag.contains(OWNER_ID) ? UUID.fromString(tag.getString(OWNER_ID)) : player.getUniqueID();
 					DyeColor collarColor = DyeColor.byId(tag.getInt(COLLAR_COLOR));
 					int variant = tag.getInt(PET_VARIANT);
+					LivingEntity returnEntity = null;
 
 					entity.setChild(tag.getBoolean(IS_CHILD));
 					entity.setPosition(offsetPos.getX() + 0.5F, offsetPos.getY(), offsetPos.getZ() + 0.5F);
@@ -161,20 +165,20 @@ public class ForgottenCollarItem extends Item {
 						if (tameableEntity instanceof WolfEntity) {
 							WolfEntity wolf = (WolfEntity) tameableEntity;
 							wolf.setCollarColor(collarColor);
-							world.addEntity(wolf);
+							returnEntity = wolf;
 						}
 
 						if (tameableEntity instanceof CatEntity) {
 							CatEntity cat = (CatEntity) tameableEntity;
 							cat.setCatType(variant);
 							cat.setCollarColor(collarColor);
-							world.addEntity(cat);
+							returnEntity = cat;
 						}
 
 						if (tameableEntity instanceof ParrotEntity) {
 							ParrotEntity parrot = (ParrotEntity) tameableEntity;
 							parrot.setVariant(variant);
-							world.addEntity(parrot);
+							returnEntity = parrot;
 						}
 
 					} else if (entity instanceof AbstractHorseEntity) {
@@ -187,13 +191,23 @@ public class ForgottenCollarItem extends Item {
 						horseEntity.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(tag.getDouble(HORSE_SPEED));
 						horseEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(tag.getDouble(HORSE_HEALTH));
 
-						world.addEntity(horseEntity);
+						returnEntity = horseEntity;
 					}
 
-					world.playSound(player, pos, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-					world.setBlockState(pos, state.with(GravestoneBlock.CHARGE, 0));
-					if (!player.abilities.isCreativeMode)
-						stack.shrink(1);
+					if (returnEntity != null) {
+						world.setBlockState(pos, state.with(GravestoneBlock.CHARGE, 0));
+
+						LightningBoltEntity bolt = EntityType.LIGHTNING_BOLT.create(world);
+						bolt.moveForced(Vector3d.copyCenteredHorizontally(entity.getPosition()));
+						bolt.setCaster(player instanceof ServerPlayerEntity ? (ServerPlayerEntity) player : null);
+						bolt.setEffectOnly(true);
+						world.addEntity(bolt);
+
+						world.playSound(player, pos, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+						world.addEntity(returnEntity);
+						if (!player.abilities.isCreativeMode)
+							stack.shrink(1);
+					}
 				}
 			}
 
