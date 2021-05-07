@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "caverns_and_chasms:necromium_pickaxe",
+    "caverns_and_chasms:necromium_shovel",
+    "caverns_and_chasms:necromium_axe",
+    "caverns_and_chasms:necromium_hoe",
+    "caverns_and_chasms:necromium_sword",
+    "caverns_and_chasms:necromium_helmet",
+    "caverns_and_chasms:necromium_chestplate",
+    "caverns_and_chasms:necromium_leggings",
+    "caverns_and_chasms:necromium_boots",
+    "caverns_and_chasms:necromium_horse_armor"
+  ]
+}
