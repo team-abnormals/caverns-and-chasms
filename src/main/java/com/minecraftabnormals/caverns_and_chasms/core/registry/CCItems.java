@@ -81,9 +81,12 @@ public class CCItems {
 	public static final RegistryObject<AbnormalsSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntities.RAT::get, 0x3B4248, 0xA76E6C);
 
 	public static final RegistryObject<AbnormalsSpawnEggItem> ZOMBIE_WOLF_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_wolf", CCEntities.ZOMBIE_WOLF::get, 0x6A9D5A, 0x364430);
-	public static final RegistryObject<AbnormalsSpawnEggItem> SKELETON_WOLF_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_wolf", CCEntities.SKELETON_WOLF::get, 0x979797, 0x494949);
 	public static final RegistryObject<AbnormalsSpawnEggItem> ZOMBIE_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_cat", CCEntities.ZOMBIE_CAT::get, 0x4A7D52, 0x79AD69);
+	public static final RegistryObject<AbnormalsSpawnEggItem> ZOMBIE_PARROT_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_parrot", CCEntities.ZOMBIE_PARROT::get, 0x315D39, 0x5A8D52);
+
+	public static final RegistryObject<AbnormalsSpawnEggItem> SKELETON_WOLF_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_wolf", CCEntities.SKELETON_WOLF::get, 0x979797, 0x494949);
 	public static final RegistryObject<AbnormalsSpawnEggItem> SKELETON_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_cat", CCEntities.SKELETON_CAT::get, 0xD3D3D3, 0x979797);
+	public static final RegistryObject<AbnormalsSpawnEggItem> SKELETON_PARROT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_parrot", CCEntities.SKELETON_PARROT::get, 0x979797, 0xADABAD);
 
 	public static class Foods {
 		public static final Food CAVEFISH = new Food.Builder().hunger(1).saturation(0.3F).build();
@@ -99,8 +102,8 @@ public class CCItems {
 		ItemModelsProperties.registerProperty(GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 
 		ItemModelsProperties.registerProperty(ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity) -> {
-			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity) {
-				return OreDetectorItem.getDetectionData(stack) ? 1 : 0;
+			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity && OreDetectorItem.getDetectionData(stack)) {
+				return 1;
 			} else {
 				return 0;
 			}

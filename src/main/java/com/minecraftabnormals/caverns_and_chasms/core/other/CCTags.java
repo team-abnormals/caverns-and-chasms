@@ -34,6 +34,7 @@ public class CCTags {
 
 	public static class EntityTypes {
 		public static final ITag.INamedTag<EntityType<?>> COLLAR_DROP_MOBS = createTag("collar_drop_mobs");
+		public static final ITag.INamedTag<EntityType<?>> UNDEAD_PETS = createTag("undead_pets");
 
 		private static ITag.INamedTag<EntityType<?>> createTag(String name) {
 			return EntityTypeTags.getTagById(CavernsAndChasms.MOD_ID + ":" + name);

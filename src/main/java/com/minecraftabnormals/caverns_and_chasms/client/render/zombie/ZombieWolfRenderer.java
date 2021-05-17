@@ -1,4 +1,4 @@
-package com.minecraftabnormals.caverns_and_chasms.client.render;
+package com.minecraftabnormals.caverns_and_chasms.client.render.zombie;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

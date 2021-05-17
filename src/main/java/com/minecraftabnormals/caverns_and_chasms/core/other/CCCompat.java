@@ -23,16 +23,16 @@ public class CCCompat {
 
 		DispenserBlock.registerDispenseBehavior(CCItems.SILVER_ARROW.get(), new ProjectileDispenseBehavior() {
 			protected ProjectileEntity getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				SilverArrowEntity arrowentity = new SilverArrowEntity(worldIn, position.getX(), position.getY(), position.getZ());
-				arrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.ALLOWED;
-				return arrowentity;
+				SilverArrowEntity entity = new SilverArrowEntity(worldIn, position.getX(), position.getY(), position.getZ());
+				entity.pickupStatus = AbstractArrowEntity.PickupStatus.ALLOWED;
+				return entity;
 			}
 		});
 
 		DispenserBlock.registerDispenseBehavior(CCItems.ROTTEN_EGG.get(), new ProjectileDispenseBehavior() {
 			protected ProjectileEntity getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				return Util.make(new RottenEggEntity(worldIn, position.getX(), position.getY(), position.getZ()), (p_218408_1_) -> {
-					p_218408_1_.setItem(stackIn);
+				return Util.make(new RottenEggEntity(worldIn, position.getX(), position.getY(), position.getZ()), (entity) -> {
+					entity.setItem(stackIn);
 				});
 			}
 		});

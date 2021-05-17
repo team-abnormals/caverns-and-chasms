@@ -1,6 +1,6 @@
-package com.minecraftabnormals.caverns_and_chasms.client.render;
+package com.minecraftabnormals.caverns_and_chasms.client.render.zombie;
 
-import com.minecraftabnormals.caverns_and_chasms.common.entity.ZombieChickenEntity;
+import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

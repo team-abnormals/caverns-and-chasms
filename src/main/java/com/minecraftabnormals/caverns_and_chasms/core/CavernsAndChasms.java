@@ -2,6 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
+import com.minecraftabnormals.caverns_and_chasms.client.render.layer.UndeadParrotLayer;
 import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
@@ -62,6 +63,9 @@ public class CavernsAndChasms {
 		event.enqueueWork(() -> {
 			CCCompat.registerRenderLayers();
 			CCItems.registerItemProperties();
+			event.getMinecraftSupplier().get().getRenderManager().getSkinMap().forEach(((s, playerRenderer) -> {
+				playerRenderer.addLayer(new UndeadParrotLayer<>(playerRenderer));
+			}));
 		});
 	}
 

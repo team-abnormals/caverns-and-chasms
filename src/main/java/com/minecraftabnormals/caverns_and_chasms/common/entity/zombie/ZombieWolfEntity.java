@@ -1,4 +1,4 @@
-package com.minecraftabnormals.caverns_and_chasms.common.entity;
+package com.minecraftabnormals.caverns_and_chasms.common.entity.zombie;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
 import net.minecraft.block.BedBlock;
@@ -7,7 +7,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -31,12 +31,12 @@ import net.minecraftforge.event.ForgeEventFactory;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class ZombieCatEntity extends CatEntity {
-	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ZombieCatEntity.class, DataSerializers.BOOLEAN);
+public class ZombieWolfEntity extends WolfEntity {
+	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ZombieWolfEntity.class, DataSerializers.BOOLEAN);
 	private int conversionTime;
 	private UUID converstionStarter;
 
-	public ZombieCatEntity(EntityType<? extends ZombieCatEntity> type, World worldIn) {
+	public ZombieWolfEntity(EntityType<? extends ZombieWolfEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 
@@ -46,25 +46,15 @@ public class ZombieCatEntity extends CatEntity {
 	}
 
 	@Override
-	public ZombieCatEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
-		ZombieCatEntity cat = CCEntities.ZOMBIE_CAT.get().create(world);
-		if (this.rand.nextBoolean()) {
-			cat.setCatType(this.getCatType());
-		} else {
-			cat.setCatType(cat.getCatType());
+	public ZombieWolfEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+		ZombieWolfEntity wolf = CCEntities.ZOMBIE_WOLF.get().create(world);
+		UUID uuid = this.getOwnerId();
+		if (uuid != null) {
+			wolf.setOwnerId(uuid);
+			wolf.setTamed(true);
 		}
 
-		if (this.isTamed()) {
-			cat.setOwnerId(this.getOwnerId());
-			cat.setTamed(true);
-			if (this.rand.nextBoolean()) {
-				cat.setCollarColor(this.getCollarColor());
-			} else {
-				cat.setCollarColor(cat.getCollarColor());
-			}
-		}
-
-		return cat;
+		return wolf;
 	}
 
 	@Override
@@ -94,7 +84,7 @@ public class ZombieCatEntity extends CatEntity {
 		if (!this.world.isRemote && this.isAlive() && this.isConverting()) {
 			int i = this.getConversionProgress();
 			this.conversionTime -= i;
-			if (this.conversionTime <= 0 && ForgeEventFactory.canLivingConvert(this, EntityType.CAT, (timer) -> this.conversionTime = timer)) {
+			if (this.conversionTime <= 0 && ForgeEventFactory.canLivingConvert(this, EntityType.WOLF, (timer) -> this.conversionTime = timer)) {
 				this.cureZombie((ServerWorld) this.world);
 			}
 		}
@@ -150,25 +140,24 @@ public class ZombieCatEntity extends CatEntity {
 	}
 
 	private void cureZombie(ServerWorld world) {
-		CatEntity catEntity = this.copyEntityData();
-		catEntity.onInitialSpawn(world, world.getDifficultyForLocation(catEntity.getPosition()), SpawnReason.CONVERSION, null, null);
-		catEntity.setCatType(this.getCatType());
-		catEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 0));
+		WolfEntity wolfEntity = this.copyEntityData();
+		wolfEntity.onInitialSpawn(world, world.getDifficultyForLocation(wolfEntity.getPosition()), SpawnReason.CONVERSION, null, null);
+		wolfEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 0));
 		if (!this.isSilent()) {
 			world.playEvent(null, 1027, this.getPosition(), 0);
 		}
 
-		ForgeEventFactory.onLivingConvert(this, catEntity);
+		ForgeEventFactory.onLivingConvert(this, wolfEntity);
 	}
 
-	public CatEntity copyEntityData() {
-		CatEntity cat = this.func_233656_b_(EntityType.CAT, false);
-		cat.setCollarColor(this.getCollarColor());
-		cat.setTamed(this.isTamed());
-		cat.func_233687_w_(this.isSitting());
+	public WolfEntity copyEntityData() {
+		WolfEntity wolf = this.func_233656_b_(EntityType.WOLF, false);
+		wolf.setCollarColor(this.getCollarColor());
+		wolf.setTamed(this.isTamed());
+		wolf.func_233687_w_(this.isSitting());
 		if (this.getOwner() != null)
-			cat.setOwnerId(this.getOwner().getUniqueID());
-		return cat;
+			wolf.setOwnerId(this.getOwner().getUniqueID());
+		return wolf;
 	}
 
 	private int getConversionProgress() {
