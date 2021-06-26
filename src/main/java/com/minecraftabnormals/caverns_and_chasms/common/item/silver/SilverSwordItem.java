@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class SilverSwordItem extends SwordItem {
 	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.GOLDEN_SWORD);
 
@@ -23,19 +25,19 @@ public class SilverSwordItem extends SwordItem {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (target.isEntityUndead())
-			target.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
-		return super.hitEntity(stack, target, attacker);
+	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		if (target.isInvertedHealAndHarm())
+			target.addEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+		return super.hurtEnemy(stack, target, attacker);
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.afflicting").mergeStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.afflicting").withStyle(TextFormatting.GRAY));
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+	public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
 		FILLER.fillItem(this, group, items);
 	}
 }

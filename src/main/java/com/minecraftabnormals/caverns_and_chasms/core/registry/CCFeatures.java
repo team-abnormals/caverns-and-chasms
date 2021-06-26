@@ -40,55 +40,55 @@ public class CCFeatures {
 		ResourceLocation biome = event.getName();
 		BiomeGenerationSettingsBuilder generation = event.getGeneration();
 		MobSpawnInfoBuilder spawns = event.getSpawns();
-		RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, biome);
+		RegistryKey<Biome> biomeKey = RegistryKey.create(Registry.BIOME_REGISTRY, biome);
 
 		List<Supplier<ConfiguredFeature<?, ?>>> oreFeatures = event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES);
 		List<Supplier<ConfiguredFeature<?, ?>>> decorFeatures = event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_DECORATION);
 
 		if (DataUtil.matchesKeys(biome, Biomes.SOUL_SAND_VALLEY)) {
 			removeGoldOre(decorFeatures);
-			event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Configured.ORE_SILVER_SOUL);
+			event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Configured.ORE_SILVER_SOUL);
 		}
 
 		if (BiomeDictionary.getTypes(biomeKey).contains(BiomeDictionary.Type.OVERWORLD)) {
 			if (event.getClimate().temperature <= 0.3D) {
 				removeGoldOre(oreFeatures);
-				generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SILVER);
+				generation.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SILVER);
 			}
 
-			if (biome.equals(Biomes.ICE_SPIKES.getLocation())) {
-				generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SILVER_EXTRA);
+			if (biome.equals(Biomes.ICE_SPIKES.location())) {
+				generation.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SILVER_EXTRA);
 			}
 
 			if (event.getCategory() == Biome.Category.EXTREME_HILLS) {
 				removeEmeraldOre(oreFeatures);
-				generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_EMERALD_CHUNK);
+				generation.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_EMERALD_CHUNK);
 			}
 
 			if (event.getCategory() == Biome.Category.DESERT || event.getCategory() == Biome.Category.JUNGLE) {
 				removeLapisOre(oreFeatures);
-				generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SUGILITE);
-				spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(CCEntities.MIME.get(), 150, 1, 1));
+				generation.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Configured.ORE_SUGILITE);
+				spawns.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(CCEntities.MIME.get(), 150, 1, 1));
 			}
 
 			if (event.getCategory() != Biome.Category.OCEAN && event.getCategory() != Biome.Category.BEACH && !DataUtil.matchesKeys(biome, Biomes.STONE_SHORE))
-				spawns.withSpawner(EntityClassification.WATER_CREATURE, new MobSpawnInfo.Spawners(CCEntities.CAVEFISH.get(), 350, 4, 7));
+				spawns.addSpawn(EntityClassification.WATER_CREATURE, new MobSpawnInfo.Spawners(CCEntities.CAVEFISH.get(), 350, 4, 7));
 		}
 	}
 
 	public static final class States {
-		public static final BlockState EMERALD_ORE = Blocks.EMERALD_ORE.getDefaultState();
-		public static final BlockState SILVER_ORE = CCBlocks.SILVER_ORE.get().getDefaultState();
-		public static final BlockState SOUL_SILVER_ORE = CCBlocks.SOUL_SILVER_ORE.get().getDefaultState();
-		public static final BlockState SUGILITE_ORE = CCBlocks.SUGILITE_ORE.get().getDefaultState();
+		public static final BlockState EMERALD_ORE = Blocks.EMERALD_ORE.defaultBlockState();
+		public static final BlockState SILVER_ORE = CCBlocks.SILVER_ORE.get().defaultBlockState();
+		public static final BlockState SOUL_SILVER_ORE = CCBlocks.SOUL_SILVER_ORE.get().defaultBlockState();
+		public static final BlockState SUGILITE_ORE = CCBlocks.SUGILITE_ORE.get().defaultBlockState();
 	}
 
 	public static final class Configured {
-		public static final ConfiguredFeature<?, ?> ORE_EMERALD_CHUNK = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.EMERALD_ORE, 19)).range(32).square().func_242731_b(1);
-		public static final ConfiguredFeature<?, ?> ORE_SUGILITE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SUGILITE_ORE, 7)).withPlacement(Placement.DEPTH_AVERAGE.configure(new DepthAverageConfig(16, 16))).square();
-		public static final ConfiguredFeature<?, ?> ORE_SILVER = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SILVER_ORE, 9)).range(32).square().func_242731_b(2);
-		public static final ConfiguredFeature<?, ?> ORE_SILVER_SOUL = Feature.NO_SURFACE_ORE.withConfiguration(new OreFeatureConfig(SOUL_SAND_VALLEY, States.SOUL_SILVER_ORE, 17)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(8, 16, 128))).square().func_242731_b(45);
-		public static final ConfiguredFeature<?, ?> ORE_SILVER_EXTRA = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.SILVER_ORE, 9)).withPlacement(Placement.RANGE.configure(new TopSolidRangeConfig(32, 32, 80))).square().func_242731_b(20);
+		public static final ConfiguredFeature<?, ?> ORE_EMERALD_CHUNK = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, States.EMERALD_ORE, 19)).range(32).squared().count(1);
+		public static final ConfiguredFeature<?, ?> ORE_SUGILITE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, States.SUGILITE_ORE, 7)).decorated(Placement.DEPTH_AVERAGE.configured(new DepthAverageConfig(16, 16))).squared();
+		public static final ConfiguredFeature<?, ?> ORE_SILVER = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, States.SILVER_ORE, 9)).range(32).squared().count(2);
+		public static final ConfiguredFeature<?, ?> ORE_SILVER_SOUL = Feature.NO_SURFACE_ORE.configured(new OreFeatureConfig(SOUL_SAND_VALLEY, States.SOUL_SILVER_ORE, 17)).decorated(Placement.RANGE.configured(new TopSolidRangeConfig(8, 16, 128))).squared().count(45);
+		public static final ConfiguredFeature<?, ?> ORE_SILVER_EXTRA = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, States.SILVER_ORE, 9)).decorated(Placement.RANGE.configured(new TopSolidRangeConfig(32, 32, 80))).squared().count(20);
 
 		public static void registerConfiguredFeatures() {
 			register("ore_emerald_chunk", ORE_EMERALD_CHUNK);
@@ -114,7 +114,7 @@ public class CCFeatures {
 						DecoratedFeatureConfig decorated3 = (DecoratedFeatureConfig) decorated2.feature.get().config;
 						if (decorated3.feature.get().config instanceof OreFeatureConfig) {
 							OreFeatureConfig ore = (OreFeatureConfig) decorated3.feature.get().config;
-							if (ore.state.isIn(Blocks.GOLD_ORE) || ore.state.isIn(Blocks.NETHER_GOLD_ORE)) {
+							if (ore.state.is(Blocks.GOLD_ORE) || ore.state.is(Blocks.NETHER_GOLD_ORE)) {
 								toRemove.add(feature);
 							}
 						}
@@ -134,7 +134,7 @@ public class CCFeatures {
 					DecoratedFeatureConfig decorated2 = (DecoratedFeatureConfig) decorated.feature.get().config;
 					if (decorated2.feature.get().config instanceof OreFeatureConfig) {
 						OreFeatureConfig ore = (OreFeatureConfig) decorated2.feature.get().config;
-						if (ore.state.isIn(Blocks.LAPIS_ORE)) {
+						if (ore.state.is(Blocks.LAPIS_ORE)) {
 							toRemove.add(feature);
 						}
 					}
@@ -151,7 +151,7 @@ public class CCFeatures {
 				DecoratedFeatureConfig decorated = (DecoratedFeatureConfig) feature.get().config;
 				if (decorated.feature.get().config instanceof ReplaceBlockConfig) {
 					ReplaceBlockConfig ore = (ReplaceBlockConfig) decorated.feature.get().config;
-					if (ore.state.isIn(Blocks.EMERALD_ORE)) {
+					if (ore.state.is(Blocks.EMERALD_ORE)) {
 						toRemove.add(feature);
 					}
 				}

@@ -17,8 +17,8 @@ public class SpikedRailBlock extends PoweredRailBlock {
 	@Override
 	public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
 		cart.getPassengers().forEach((entity) -> {
-			if (state.get(POWERED) && entity instanceof LivingEntity)
-				entity.attackEntityFrom(CCDamageSources.SPIKED_RAIL, 4.0F);
+			if (state.getValue(POWERED) && entity instanceof LivingEntity)
+				entity.hurt(CCDamageSources.SPIKED_RAIL, 4.0F);
 		});
 	}
 }

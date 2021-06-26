@@ -42,19 +42,19 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 	}
 
 	@Override
-	protected void arrowHit(LivingEntity living) {
-		super.arrowHit(living);
-		if (living.isEntityUndead())
-			living.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+	protected void doPostHurtEffects(LivingEntity living) {
+		super.doPostHurtEffects(living);
+		if (living.isInvertedHealAndHarm())
+			living.addEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
 	}
 
 	@Override
-	protected void onEntityHit(EntityRayTraceResult result) {
+	protected void onHitEntity(EntityRayTraceResult result) {
 		Entity target = result.getEntity();
-		Entity shooter = this.func_234616_v_();
+		Entity shooter = this.getOwner();
 
-		float motion = (float) this.getMotion().length();
-		int damage = MathHelper.ceil(MathHelper.clamp((double) motion * 0.5F * this.getDamage(), 0.0D, 2.147483647E9D));
+		float motion = (float) this.getDeltaMovement().length();
+		int damage = MathHelper.ceil(MathHelper.clamp((double) motion * 0.5F * this.getBaseDamage(), 0.0D, 2.147483647E9D));
 
 		DamageSource damagesource;
 		if (shooter == null) {
@@ -62,45 +62,45 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 		} else {
 			damagesource = CCDamageSources.causeKunaiDamage(this, shooter);
 			if (shooter instanceof LivingEntity) {
-				((LivingEntity) shooter).setLastAttackedEntity(target);
+				((LivingEntity) shooter).setLastHurtMob(target);
 			}
 		}
 
 		boolean isEnderman = target.getType() == EntityType.ENDERMAN;
-		if (this.isBurning() && !isEnderman) {
-			target.setFire(5);
+		if (this.isOnFire() && !isEnderman) {
+			target.setSecondsOnFire(5);
 		}
 
-		if (target.attackEntityFrom(damagesource, (float) damage)) {
+		if (target.hurt(damagesource, (float) damage)) {
 			if (isEnderman) return;
 
 			if (target instanceof LivingEntity) {
 				LivingEntity livingTarget = (LivingEntity) target;
 
-				if (!this.world.isRemote() && shooter instanceof LivingEntity) {
-					EnchantmentHelper.applyThornEnchantments(livingTarget, shooter);
-					EnchantmentHelper.applyArthropodEnchantments((LivingEntity) shooter, livingTarget);
+				if (!this.level.isClientSide() && shooter instanceof LivingEntity) {
+					EnchantmentHelper.doPostHurtEffects(livingTarget, shooter);
+					EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, livingTarget);
 				}
 
-				this.arrowHit(livingTarget);
+				this.doPostHurtEffects(livingTarget);
 				if (livingTarget != shooter && livingTarget instanceof PlayerEntity && shooter instanceof ServerPlayerEntity && !this.isSilent()) {
-					((ServerPlayerEntity) shooter).connection.sendPacket(new SChangeGameStatePacket(SChangeGameStatePacket.field_241770_g_, 0.0F));
+					((ServerPlayerEntity) shooter).connection.send(new SChangeGameStatePacket(SChangeGameStatePacket.ARROW_HIT_PLAYER, 0.0F));
 				}
 
-				if (!target.isAlive() && this.hitEntities != null) {
-					this.hitEntities.add(livingTarget);
+				if (!target.isAlive() && this.piercedAndKilledEntities != null) {
+					this.piercedAndKilledEntities.add(livingTarget);
 				}
 			}
 
-			this.playSound(this.getHitEntitySound(), 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+			this.playSound(this.getDefaultHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 		} else {
-			target.forceFireTicks(target.getFireTimer());
-			this.setMotion(this.getMotion().scale(-0.1D));
-			this.rotationYaw += 180.0F;
-			this.prevRotationYaw += 180.0F;
-			if (!this.world.isRemote() && this.getMotion().lengthSquared() < 1.0E-7D) {
-				if (this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
-					this.entityDropItem(this.getArrowStack(), 0.1F);
+			target.setRemainingFireTicks(target.getRemainingFireTicks());
+			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
+			this.yRot += 180.0F;
+			this.yRotO += 180.0F;
+			if (!this.level.isClientSide() && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+				if (this.pickup == AbstractArrowEntity.PickupStatus.ALLOWED) {
+					this.spawnAtLocation(this.getPickupItem(), 0.1F);
 				}
 
 				this.remove();
@@ -108,12 +108,12 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 		}
 	}
 
-	protected ItemStack getArrowStack() {
+	protected ItemStack getPickupItem() {
 		return new ItemStack(CCItems.KUNAI.get());
 	}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public IPacket<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -122,20 +122,20 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 	}
 
 	@Override
-	protected void func_225516_i_() {
-		++this.ticksInGround;
-		if (this.ticksInGround >= 6000) {
+	protected void tickDespawn() {
+		++this.life;
+		if (this.life >= 6000) {
 			this.remove();
 		}
 	}
 
 	@Override
-	protected SoundEvent getHitEntitySound() {
-		return SoundEvents.BLOCK_WOOD_BREAK;
+	protected SoundEvent getDefaultHitGroundSoundEvent() {
+		return SoundEvents.WOOD_BREAK;
 	}
 
 	@Override
-	public double getDamage() {
+	public double getBaseDamage() {
 		return 2.0D;
 	}
 }

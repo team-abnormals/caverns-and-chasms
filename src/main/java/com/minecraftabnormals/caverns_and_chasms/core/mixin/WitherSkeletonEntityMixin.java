@@ -22,13 +22,13 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
 		super(type, worldIn);
 	}
 
-	@Inject(method = "setEquipmentBasedOnDifficulty", at = @At("TAIL"))
-	private void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty, CallbackInfo info) {
-		Random random = this.world.getRandom();
+	@Inject(method = "populateDefaultEquipmentSlots", at = @At("TAIL"))
+	private void populateDefaultEquipmentSlots(DifficultyInstance difficulty, CallbackInfo info) {
+		Random random = this.level.getRandom();
 		int difficultyChance = difficulty.getDifficulty().getId() + 1;
 
 		if (random.nextInt(difficultyChance) != 0) {
-			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STONE_AXE));
+			this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.STONE_AXE));
 		}
 	}
 }

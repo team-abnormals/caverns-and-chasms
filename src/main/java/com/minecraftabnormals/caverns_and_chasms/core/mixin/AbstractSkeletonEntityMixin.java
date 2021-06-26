@@ -22,13 +22,13 @@ public abstract class AbstractSkeletonEntityMixin extends MonsterEntity {
 		super(type, worldIn);
 	}
 
-	@Inject(method = "setEquipmentBasedOnDifficulty", at = @At("TAIL"))
-	private void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty, CallbackInfo info) {
-		Random random = this.world.getRandom();
+	@Inject(method = "populateDefaultEquipmentSlots", at = @At("TAIL"))
+	private void populateDefaultEquipmentSlots(DifficultyInstance difficulty, CallbackInfo info) {
+		Random random = this.level.getRandom();
 		int difficultyChance = difficulty.getDifficulty().getId() + 1;
 
-		if (this.world.getDimensionKey() != World.THE_NETHER && random.nextInt(difficultyChance) == 0) {
-			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(random.nextInt(difficultyChance) == 0 ? Items.WOODEN_SWORD : Items.WOODEN_AXE));
+		if (this.level.dimension() != World.NETHER && random.nextInt(difficultyChance) == 0) {
+			this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(random.nextInt(difficultyChance) == 0 ? Items.WOODEN_SWORD : Items.WOODEN_AXE));
 		}
 	}
 }

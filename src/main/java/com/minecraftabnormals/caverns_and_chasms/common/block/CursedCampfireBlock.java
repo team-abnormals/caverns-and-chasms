@@ -17,21 +17,23 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class CursedCampfireBlock extends CampfireBlock {
 
 	public CursedCampfireBlock(Properties properties) {
 		super(false, 2, properties);
 	}
 
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public TileEntity newBlockEntity(IBlockReader worldIn) {
 		return new CursedCampfireTileEntity();
 	}
 
 	@Override
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		if (stateIn.get(LIT)) {
+		if (stateIn.getValue(LIT)) {
 			if (rand.nextInt(10) == 0) {
-				worldIn.playSound((float) pos.getX() + 0.5F, ((float) pos.getY() + 0.5F), ((float) pos.getZ() + 0.5F), SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.6F, false);
+				worldIn.playLocalSound((float) pos.getX() + 0.5F, ((float) pos.getY() + 0.5F), ((float) pos.getZ() + 0.5F), SoundEvents.CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.6F, false);
 			}
 
 			if (rand.nextInt(5) == 0) {
@@ -43,9 +45,9 @@ public class CursedCampfireBlock extends CampfireBlock {
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		if (!entityIn.isImmuneToFire() && state.get(LIT) && entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isEntityUndead() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-			entityIn.attackEntityFrom(DamageSource.IN_FIRE, 4.0F);
+	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isInvertedHealAndHarm() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+			entityIn.hurt(DamageSource.IN_FIRE, 4.0F);
 		}
 	}
 }

@@ -16,11 +16,11 @@ public class ZombieChickenRenderer extends MobRenderer<ZombieChickenEntity, Chic
 		super(renderManagerIn, new ChickenModel<>(), 0.3F);
 	}
 
-	public ResourceLocation getEntityTexture(ZombieChickenEntity entity) {
+	public ResourceLocation getTextureLocation(ZombieChickenEntity entity) {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/zombie_chicken.png");
 	}
 
-	protected float handleRotationFloat(ZombieChickenEntity livingBase, float partialTicks) {
+	protected float getBob(ZombieChickenEntity livingBase, float partialTicks) {
 		float f = MathHelper.lerp(partialTicks, livingBase.oFlap, livingBase.wingRotation);
 		float f1 = MathHelper.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.destPos);
 		return (MathHelper.sin(f) + 1.0F) * f1;

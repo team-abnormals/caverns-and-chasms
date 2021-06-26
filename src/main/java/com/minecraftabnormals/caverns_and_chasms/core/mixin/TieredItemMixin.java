@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 @Mixin(TieredItem.class)
 public abstract class TieredItemMixin extends Item {
 
@@ -25,9 +27,9 @@ public abstract class TieredItemMixin extends Item {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (this.getTier() == ItemTier.GOLD)
-			tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.boosting").mergeStyle(TextFormatting.GRAY));
-		super.addInformation(stack, worldIn, tooltip, flagIn);
+			tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.boosting").withStyle(TextFormatting.GRAY));
+		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 	}
 }

@@ -4,6 +4,8 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 
+import net.minecraft.enchantment.Enchantment.Rarity;
+
 public class TreasuringEnchantment extends Enchantment {
 
 	public TreasuringEnchantment() {
@@ -11,12 +13,12 @@ public class TreasuringEnchantment extends Enchantment {
 	}
 
 	@Override
-	public boolean isTreasureEnchantment() {
+	public boolean isTreasureOnly() {
 		return true;
 	}
 
 	@Override
-	public boolean canApplyTogether(Enchantment ench) {
-		return !(ench instanceof ProspectingEnchantment) && super.canApplyTogether(ench);
+	public boolean checkCompatibility(Enchantment ench) {
+		return !(ench instanceof ProspectingEnchantment) && super.checkCompatibility(ench);
 	}
 }

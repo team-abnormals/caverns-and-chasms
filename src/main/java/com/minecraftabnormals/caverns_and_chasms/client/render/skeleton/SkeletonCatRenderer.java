@@ -14,7 +14,7 @@ public class SkeletonCatRenderer extends CatRenderer {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(CatEntity entity) {
+	public ResourceLocation getTextureLocation(CatEntity entity) {
 		return SKELETON_CAT_TEXTURES;
 	}
 }

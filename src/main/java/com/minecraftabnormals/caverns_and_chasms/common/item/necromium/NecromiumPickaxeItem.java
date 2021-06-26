@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class NecromiumPickaxeItem extends PickaxeItem {
 	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.NETHERITE_HOE);
 
@@ -23,18 +25,18 @@ public class NecromiumPickaxeItem extends PickaxeItem {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60, 1));
-		return super.hitEntity(stack, target, attacker);
+	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 60, 1));
+		return super.hurtEnemy(stack, target, attacker);
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.slowing").mergeStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.slowing").withStyle(TextFormatting.GRAY));
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+	public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
 		FILLER.fillItem(this, group, items);
 	}
 }

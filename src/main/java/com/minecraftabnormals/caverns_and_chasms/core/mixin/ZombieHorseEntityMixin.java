@@ -36,7 +36,7 @@ import java.util.UUID;
 
 @Mixin(ZombieHorseEntity.class)
 public abstract class ZombieHorseEntityMixin extends AbstractHorseEntity {
-	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.createKey(ZombieHorseEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> CONVERTING = EntityDataManager.defineId(ZombieHorseEntity.class, DataSerializers.BOOLEAN);
 	private int conversionTime;
 	private UUID converstionStarter;
 
@@ -44,52 +44,52 @@ public abstract class ZombieHorseEntityMixin extends AbstractHorseEntity {
 		super(type, worldIn);
 	}
 
-	protected void registerData() {
-		super.registerData();
-		this.dataManager.register(CONVERTING, false);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(CONVERTING, false);
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT compound) {
-		super.writeAdditional(compound);
+	public void addAdditionalSaveData(CompoundNBT compound) {
+		super.addAdditionalSaveData(compound);
 		compound.putInt("ConversionTime", this.isConverting() ? this.conversionTime : -1);
 		if (this.converstionStarter != null) {
-			compound.putUniqueId("ConversionPlayer", this.converstionStarter);
+			compound.putUUID("ConversionPlayer", this.converstionStarter);
 		}
 	}
 
 	@Override
-	public void readAdditional(CompoundNBT compound) {
-		super.readAdditional(compound);
+	public void readAdditionalSaveData(CompoundNBT compound) {
+		super.readAdditionalSaveData(compound);
 		if (compound.contains("ConversionTime", 99) && compound.getInt("ConversionTime") > -1) {
-			this.startConverting(compound.hasUniqueId("ConversionPlayer") ? compound.getUniqueId("ConversionPlayer") : null, compound.getInt("ConversionTime"));
+			this.startConverting(compound.hasUUID("ConversionPlayer") ? compound.getUUID("ConversionPlayer") : null, compound.getInt("ConversionTime"));
 		}
 	}
 
 	@Override
 	public void tick() {
-		if (!this.world.isRemote && this.isAlive() && this.isConverting()) {
+		if (!this.level.isClientSide && this.isAlive() && this.isConverting()) {
 			int i = this.getConversionProgress();
 			this.conversionTime -= i;
 			if (this.conversionTime <= 0 && ForgeEventFactory.canLivingConvert(this, EntityType.HORSE, (timer) -> this.conversionTime = timer)) {
-				this.cureZombie((ServerWorld) this.world);
+				this.cureZombie((ServerWorld) this.level);
 			}
 		}
 
 		super.tick();
 	}
 
-	@Inject(at = @At("HEAD"), method = "func_230254_b_", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "mobInteract", cancellable = true)
 	public void onInteract(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResultType> cir) {
-		ItemStack itemstack = player.getHeldItem(hand);
+		ItemStack itemstack = player.getItemInHand(hand);
 		if (itemstack.getItem() == Items.GOLDEN_APPLE) {
-			if (this.isPotionActive(Effects.WEAKNESS)) {
-				if (!player.abilities.isCreativeMode) {
+			if (this.hasEffect(Effects.WEAKNESS)) {
+				if (!player.abilities.instabuild) {
 					itemstack.shrink(1);
 				}
 
-				if (!this.world.isRemote()) {
-					this.startConverting(player.getUniqueID(), this.rand.nextInt(2401) + 3600);
+				if (!this.level.isClientSide()) {
+					this.startConverting(player.getUUID(), this.random.nextInt(2401) + 3600);
 				}
 
 				cir.setReturnValue(ActionResultType.SUCCESS);
@@ -100,61 +100,61 @@ public abstract class ZombieHorseEntityMixin extends AbstractHorseEntity {
 	}
 
 	public boolean isConverting() {
-		return this.getDataManager().get(CONVERTING);
+		return this.getEntityData().get(CONVERTING);
 	}
 
 	private void startConverting(@Nullable UUID conversionStarterIn, int conversionTimeIn) {
 		this.converstionStarter = conversionStarterIn;
 		this.conversionTime = conversionTimeIn;
-		this.getDataManager().set(CONVERTING, true);
-		this.removePotionEffect(Effects.WEAKNESS);
-		this.addPotionEffect(new EffectInstance(Effects.STRENGTH, conversionTimeIn, Math.min(this.world.getDifficulty().getId() - 1, 0)));
-		this.world.setEntityState(this, (byte) 16);
+		this.getEntityData().set(CONVERTING, true);
+		this.removeEffect(Effects.WEAKNESS);
+		this.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, conversionTimeIn, Math.min(this.level.getDifficulty().getId() - 1, 0)));
+		this.level.broadcastEntityEvent(this, (byte) 16);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleStatusUpdate(byte id) {
+	public void handleEntityEvent(byte id) {
 		if (id == 16) {
 			if (!this.isSilent()) {
-				this.world.playSound(this.getPosX(), this.getPosYEye(), this.getPosZ(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, this.getSoundCategory(), 1.0F + this.rand.nextFloat(), this.rand.nextFloat() * 0.7F + 0.3F, false);
+				this.level.playLocalSound(this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ZOMBIE_VILLAGER_CURE, this.getSoundSource(), 1.0F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
 			}
 
 		} else {
-			super.handleStatusUpdate(id);
+			super.handleEntityEvent(id);
 		}
 	}
 
 	private void cureZombie(ServerWorld world) {
 		HorseEntity horseEntity = this.copyEntityData();
-		horseEntity.onInitialSpawn(world, world.getDifficultyForLocation(horseEntity.getPosition()), SpawnReason.CONVERSION, null, null);
-		horseEntity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 200, 0));
+		horseEntity.finalizeSpawn(world, world.getCurrentDifficultyAt(horseEntity.blockPosition()), SpawnReason.CONVERSION, null, null);
+		horseEntity.addEffect(new EffectInstance(Effects.CONFUSION, 200, 0));
 		if (!this.isSilent()) {
-			world.playEvent(null, 1027, this.getPosition(), 0);
+			world.levelEvent(null, 1027, this.blockPosition(), 0);
 		}
 
 		ForgeEventFactory.onLivingConvert(this, horseEntity);
 	}
 
 	public HorseEntity copyEntityData() {
-		HorseEntity horse = this.func_233656_b_(EntityType.HORSE, true);
-		horse.setHorseTamed(this.isTame());
-		horse.setOwnerUniqueId(this.getOwnerUniqueId());
+		HorseEntity horse = this.convertTo(EntityType.HORSE, true);
+		horse.setTamed(this.isTamed());
+		horse.setOwnerUUID(this.getOwnerUUID());
 		return horse;
 	}
 
 	private int getConversionProgress() {
 		int i = 1;
-		if (this.rand.nextFloat() < 0.01F) {
+		if (this.random.nextFloat() < 0.01F) {
 			int j = 0;
 			BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
-			for (int k = (int) this.getPosX() - 4; k < (int) this.getPosX() + 4 && j < 14; ++k) {
-				for (int l = (int) this.getPosY() - 4; l < (int) this.getPosY() + 4 && j < 14; ++l) {
-					for (int i1 = (int) this.getPosZ() - 4; i1 < (int) this.getPosZ() + 4 && j < 14; ++i1) {
-						Block block = this.world.getBlockState(blockpos$mutable.setPos(k, l, i1)).getBlock();
-						if (block.isIn(BlockTags.CARPETS) || block instanceof BedBlock) {
-							if (this.rand.nextFloat() < 0.3F) {
+			for (int k = (int) this.getX() - 4; k < (int) this.getX() + 4 && j < 14; ++k) {
+				for (int l = (int) this.getY() - 4; l < (int) this.getY() + 4 && j < 14; ++l) {
+					for (int i1 = (int) this.getZ() - 4; i1 < (int) this.getZ() + 4 && j < 14; ++i1) {
+						Block block = this.level.getBlockState(blockpos$mutable.set(k, l, i1)).getBlock();
+						if (block.is(BlockTags.CARPETS) || block instanceof BedBlock) {
+							if (this.random.nextFloat() < 0.3F) {
 								++i;
 							}
 

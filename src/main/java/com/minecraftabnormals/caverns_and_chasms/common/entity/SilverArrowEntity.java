@@ -32,17 +32,17 @@ public class SilverArrowEntity extends AbstractArrowEntity {
 	}
 
 	@Override
-	protected void arrowHit(LivingEntity living) {
-		super.arrowHit(living);
-		if (living.isEntityUndead()) living.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+	protected void doPostHurtEffects(LivingEntity living) {
+		super.doPostHurtEffects(living);
+		if (living.isInvertedHealAndHarm()) living.addEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
 	}
 
-	protected ItemStack getArrowStack() {
+	protected ItemStack getPickupItem() {
 		return new ItemStack(CCItems.SILVER_ARROW.get());
 	}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public IPacket<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

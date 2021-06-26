@@ -175,18 +175,18 @@
   "enchantment.caverns_and_chasms.prospecting": "Malminetsintä",
   "enchantment.caverns_and_chasms.prospecting.desc": "Tunnistin tunnistaa vain metalleja.",
 
-  "death.attack.affliction": "%1$s kuoli piinaan",
-  "death.attack.affliction.player": "%1$s kuoli piinaan tämän paetessa olentoa %2$s",
+  "death.attack.caverns_and_chasms.affliction": "%1$s kuoli piinaan",
+  "death.attack.caverns_and_chasms.affliction.player": "%1$s kuoli piinaan tämän paetessa olentoa %2$s",
   
-  "death.attack.spiked_rail": "%1$s kuoli piikkiraiteen piikkeihin",
-  "death.attack.spiked_rail.player": "%1$s kuoli piikkiraiteen piikkeihin tämän paetessa olentoa %2$s",
+  "death.attack.caverns_and_chasms.spiked_rail": "%1$s kuoli piikkiraiteen piikkeihin",
+  "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s kuoli piikkiraiteen piikkeihin tämän paetessa olentoa %2$s",
 
   "death.attack.caverns_and_chasms.kunai": "%2$s puukotti pelaajan %1$s",
   "death.attack.caverns_and_chasms.kunai.item": "%2$s puukotti pelaajan %1$s käyttämällä %3$s",
   
-  "attribute.name.generic.affliction_chance": "Piinan mahdollisuus",
-  "attribute.name.generic.experience_boost": "Kokemuksen tehostus",
-  "attribute.name.generic.weakness_aura": "Heikentävä aura",
+  "attribute.caverns_and_chasms.name.generic.affliction_chance": "Piinan mahdollisuus",
+  "attribute.caverns_and_chasms.name.generic.experience_boost": "Kokemuksen tehostus",
+  "attribute.caverns_and_chasms.name.generic.weakness_aura": "Heikentävä aura",
   "attribute.caverns_and_chasms.name.generic.lifesteal": "Elinvoiman varastus",
 
   "tooltip.caverns_and_chasms.afflicting": "Piina",
@@ -215,6 +215,5 @@
 
   "item.minecraft.netherite_scrap": "Netheriittiromu",
   "block.minecraft.iron_bars": "Rautakalterit",
-  "block.minecraft.ancient_debris": "Muinaisromukuutio",
-  "item.minecraft.netherite_scrap": "Muinainen romu"
+  "block.minecraft.ancient_debris": "Muinaisromukuutio"
 }

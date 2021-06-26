@@ -27,22 +27,22 @@ public class DeeperEntity extends CreeperEntity {
 	}
 
 	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity entity = (LivingEntity) source.getTrueSource();
-			if (entity.getHeldItemMainhand().getToolTypes().contains(ToolType.PICKAXE))
+	public boolean hurt(DamageSource source, float amount) {
+		if (source.getEntity() instanceof LivingEntity) {
+			LivingEntity entity = (LivingEntity) source.getEntity();
+			if (entity.getMainHandItem().getToolTypes().contains(ToolType.PICKAXE))
 				amount *= 2;
 		}
-		return super.attackEntityFrom(source, amount);
+		return super.hurt(source, amount);
 	}
 
 	@Override
-	public void explode() {
-		if (!this.world.isRemote) {
-			Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.BREAK : Explosion.Mode.NONE;
-			float f = this.isCharged() ? 2.0F : 1.0F;
+	public void explodeCreeper() {
+		if (!this.level.isClientSide) {
+			Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.Mode.BREAK : Explosion.Mode.NONE;
+			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) this.explosionRadius * f, this.isBurning(), explosion$mode);
+			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), explosion$mode);
 			this.remove();
 			this.spawnLingeringCloud();
 		}

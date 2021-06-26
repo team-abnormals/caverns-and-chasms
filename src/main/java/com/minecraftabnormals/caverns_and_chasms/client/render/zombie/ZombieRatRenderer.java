@@ -14,7 +14,7 @@ public class ZombieRatRenderer extends RatRenderer {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(RatEntity entity) {
+	public ResourceLocation getTextureLocation(RatEntity entity) {
 		return TEXTURE;
 	}
 }

@@ -18,34 +18,34 @@ public class SkeletonParrotEntity extends ParrotEntity {
 	}
 
 	@Override
-	public SkeletonParrotEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+	public SkeletonParrotEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
 		SkeletonParrotEntity parrot = CCEntities.SKELETON_PARROT.get().create(world);
-		if (this.rand.nextBoolean()) {
+		if (this.random.nextBoolean()) {
 			parrot.setVariant(this.getVariant());
 		} else {
 			parrot.setVariant(parrot.getVariant());
 		}
 
-		if (this.isTamed()) {
-			parrot.setOwnerId(this.getOwnerId());
-			parrot.setTamed(true);
+		if (this.isTame()) {
+			parrot.setOwnerUUID(this.getOwnerUUID());
+			parrot.setTame(true);
 		}
 
 		return parrot;
 	}
 
 	@Override
-	public CreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getMobType() {
 		return CreatureAttribute.UNDEAD;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return SoundEvents.ENTITY_SKELETON_HURT;
+		return SoundEvents.SKELETON_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_SKELETON_DEATH;
+		return SoundEvents.SKELETON_DEATH;
 	}
 }

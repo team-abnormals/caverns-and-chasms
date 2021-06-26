@@ -9,7 +9,7 @@ import net.minecraft.util.IndirectEntityDamageSource;
 import javax.annotation.Nullable;
 
 public class CCDamageSources {
-	public static final DamageSource AFFLICTION = new DamageSource(CavernsAndChasms.MOD_ID + ".affliction").setDamageBypassesArmor().setMagicDamage();
+	public static final DamageSource AFFLICTION = new DamageSource(CavernsAndChasms.MOD_ID + ".affliction").bypassArmor().setMagic();
 	public static final DamageSource SPIKED_RAIL = new DamageSource(CavernsAndChasms.MOD_ID + ".spiked_rail");
 
 	public static DamageSource causeKunaiDamage(KunaiEntity kunai, @Nullable Entity indirectEntity) {

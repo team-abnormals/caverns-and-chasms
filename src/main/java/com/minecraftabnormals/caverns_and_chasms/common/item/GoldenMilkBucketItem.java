@@ -22,11 +22,11 @@ public class GoldenMilkBucketItem extends Item {
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-		if (!worldIn.isRemote) {
-			ImmutableList<EffectInstance> effects = ImmutableList.copyOf(entityLiving.getActivePotionEffects());
+	public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+		if (!worldIn.isClientSide) {
+			ImmutableList<EffectInstance> effects = ImmutableList.copyOf(entityLiving.getActiveEffects());
 			for (int i = 0; i < effects.size(); ++i) {
-				entityLiving.removePotionEffect(effects.get(i).getPotion());
+				entityLiving.removeEffect(effects.get(i).getEffect());
 			}
 		}
 
@@ -35,10 +35,10 @@ public class GoldenMilkBucketItem extends Item {
 		if (entityLiving instanceof ServerPlayerEntity) {
 			ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) entityLiving;
 			CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, stack);
-			serverplayerentity.addStat(Stats.ITEM_USED.get(this));
+			serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
 		}
 
-		if (entityLiving instanceof PlayerEntity && !((PlayerEntity) entityLiving).abilities.isCreativeMode) {
+		if (entityLiving instanceof PlayerEntity && !((PlayerEntity) entityLiving).abilities.instabuild) {
 			if (level > 0)
 				stack.getOrCreateTag().putInt("FluidLevel", level - 1);
 			else
@@ -54,13 +54,13 @@ public class GoldenMilkBucketItem extends Item {
 	}
 
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
+	public UseAction getUseAnimation(ItemStack stack) {
 		return UseAction.DRINK;
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return DrinkHelper.startDrinking(worldIn, playerIn, handIn);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		return DrinkHelper.useDrink(worldIn, playerIn, handIn);
 	}
 
 	@Override

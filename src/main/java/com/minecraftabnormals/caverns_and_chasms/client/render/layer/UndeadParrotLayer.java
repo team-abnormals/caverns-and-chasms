@@ -31,13 +31,13 @@ public class UndeadParrotLayer<T extends PlayerEntity> extends LayerRenderer<T, 
    }
 
    private void renderParrot(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entity, float limbSwing, float limbSwingAmount, float netHeadYaw, float headPitch, boolean leftShoulderIn) {
-      CompoundNBT nbt = leftShoulderIn ? entity.getLeftShoulderEntity() : entity.getRightShoulderEntity();
-      EntityType.byKey(nbt.getString("id")).filter((type) -> type == CCEntities.ZOMBIE_PARROT.get() || type == CCEntities.SKELETON_PARROT.get()).ifPresent((type) -> {
-         matrixStackIn.push();
+      CompoundNBT nbt = leftShoulderIn ? entity.getShoulderEntityLeft() : entity.getShoulderEntityRight();
+      EntityType.byString(nbt.getString("id")).filter((type) -> type == CCEntities.ZOMBIE_PARROT.get() || type == CCEntities.SKELETON_PARROT.get()).ifPresent((type) -> {
+         matrixStackIn.pushPose();
          matrixStackIn.translate(leftShoulderIn ? (double)0.4F : (double)-0.4F, entity.isCrouching() ? (double)-1.3F : -1.5D, 0.0D);
-         IVertexBuilder ivertexbuilder = bufferIn.getBuffer(this.parrotModel.getRenderType(type == CCEntities.ZOMBIE_PARROT.get() ? ZombieParrotRenderer.TEXTURE : SkeletonParrotRenderer.TEXTURE));
-         this.parrotModel.renderOnShoulder(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, limbSwing, limbSwingAmount, netHeadYaw, headPitch, entity.ticksExisted);
-         matrixStackIn.pop();
+         IVertexBuilder ivertexbuilder = bufferIn.getBuffer(this.parrotModel.renderType(type == CCEntities.ZOMBIE_PARROT.get() ? ZombieParrotRenderer.TEXTURE : SkeletonParrotRenderer.TEXTURE));
+         this.parrotModel.renderOnShoulder(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, limbSwing, limbSwingAmount, netHeadYaw, headPitch, entity.tickCount);
+         matrixStackIn.popPose();
       });
    }
 }

@@ -20,34 +20,34 @@ public class SkeletonWolfEntity extends WolfEntity {
 	}
 
 	@Override
-	public SkeletonWolfEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+	public SkeletonWolfEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
 		SkeletonWolfEntity wolf = CCEntities.SKELETON_WOLF.get().create(world);
-		UUID uuid = this.getOwnerId();
+		UUID uuid = this.getOwnerUUID();
 		if (uuid != null) {
-			wolf.setOwnerId(uuid);
-			wolf.setTamed(true);
+			wolf.setOwnerUUID(uuid);
+			wolf.setTame(true);
 		}
 
 		return wolf;
 	}
 
 	@Override
-	public CreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getMobType() {
 		return CreatureAttribute.UNDEAD;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return SoundEvents.ENTITY_SKELETON_HURT;
+		return SoundEvents.SKELETON_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_SKELETON_DEATH;
+		return SoundEvents.SKELETON_DEATH;
 	}
 
 	@Override
-	public float getShadingWhileWet(float partialTicks) {
+	public float getWetShade(float partialTicks) {
 		return 1.0F;
 	}
 }

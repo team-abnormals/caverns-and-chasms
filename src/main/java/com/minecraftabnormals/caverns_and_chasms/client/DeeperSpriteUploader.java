@@ -29,7 +29,7 @@ public class DeeperSpriteUploader extends SpriteUploader {
 	}
 
 	@Override
-	protected Stream<ResourceLocation> getResourceLocations() {
+	protected Stream<ResourceLocation> getResourcesToLoad() {
 		return Stream.of(DEEPER_SPRITE, EMISSIVE_SPRITE);
 	}
 
@@ -43,7 +43,7 @@ public class DeeperSpriteUploader extends SpriteUploader {
 			Minecraft minecraft = Minecraft.getInstance();
 			IResourceManager resourceManager = minecraft.getResourceManager();
 			if (resourceManager instanceof IReloadableResourceManager) {
-				((IReloadableResourceManager) resourceManager).addReloadListener(uploader = new DeeperSpriteUploader(minecraft.textureManager, ATLAS_LOCATION, "entity/deeper"));
+				((IReloadableResourceManager) resourceManager).registerReloadListener(uploader = new DeeperSpriteUploader(minecraft.textureManager, ATLAS_LOCATION, "entity/deeper"));
 			}
 		});
 	}

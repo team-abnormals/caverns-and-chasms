@@ -27,6 +27,8 @@ import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -54,22 +56,23 @@ public class CCEntities {
 	public static final RegistryObject<EntityType<SkeletonCatEntity>> SKELETON_CAT = HELPER.createLivingEntity("skeleton_cat", SkeletonCatEntity::new, EntityClassification.CREATURE, 0.6F, 0.7F);
 	public static final RegistryObject<EntityType<SkeletonParrotEntity>> SKELETON_PARROT = HELPER.createLivingEntity("skeleton_parrot", SkeletonParrotEntity::new, EntityClassification.CREATURE, 0.5F, 0.9F);
 
-	public static void registerAttributes() {
-		GlobalEntityTypeAttributes.put(CAVEFISH.get(), CavefishEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(DEEPER.get(), DeeperEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(SPIDERLING.get(), SpiderlingEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(FLY.get(), FlyEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(MIME.get(), MimeEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(RAT.get(), RatEntity.registerAttributes().create());
+	@SubscribeEvent
+	public static void registerAttributes(EntityAttributeCreationEvent event) {
+		event.put(CAVEFISH.get(), CavefishEntity.registerAttributes().build());
+		event.put(DEEPER.get(), DeeperEntity.createAttributes().build());
+		event.put(SPIDERLING.get(), SpiderlingEntity.registerAttributes().build());
+		event.put(FLY.get(), FlyEntity.registerAttributes().build());
+		event.put(MIME.get(), MimeEntity.registerAttributes().build());
+		event.put(RAT.get(), RatEntity.registerAttributes().build());
 
-		GlobalEntityTypeAttributes.put(ZOMBIE_CHICKEN.get(), ZombieChickenEntity.registerAttributes().create());
-		GlobalEntityTypeAttributes.put(ZOMBIE_WOLF.get(), WolfEntity.func_234233_eS_().create());
-		GlobalEntityTypeAttributes.put(ZOMBIE_CAT.get(), CatEntity.func_234184_eY_().create());
-		GlobalEntityTypeAttributes.put(ZOMBIE_PARROT.get(), ParrotEntity.func_234213_eS_().create());
+		event.put(ZOMBIE_CHICKEN.get(), ZombieChickenEntity.registerAttributes().build());
+		event.put(ZOMBIE_WOLF.get(), WolfEntity.createAttributes().build());
+		event.put(ZOMBIE_CAT.get(), CatEntity.createAttributes().build());
+		event.put(ZOMBIE_PARROT.get(), ParrotEntity.createAttributes().build());
 
-		GlobalEntityTypeAttributes.put(SKELETON_WOLF.get(), WolfEntity.func_234233_eS_().create());
-		GlobalEntityTypeAttributes.put(SKELETON_CAT.get(), CatEntity.func_234184_eY_().create());
-		GlobalEntityTypeAttributes.put(SKELETON_PARROT.get(), ParrotEntity.func_234213_eS_().create());
+		event.put(SKELETON_WOLF.get(), WolfEntity.createAttributes().build());
+		event.put(SKELETON_CAT.get(), CatEntity.createAttributes().build());
+		event.put(SKELETON_PARROT.get(), ParrotEntity.createAttributes().build());
 	}
 
 	public static void registerRenderers() {
@@ -95,7 +98,7 @@ public class CCEntities {
 
 	public static void registerEntitySpawns() {
 		EntitySpawnPlacementRegistry.register(CAVEFISH.get(), EntitySpawnPlacementRegistry.PlacementType.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CavefishEntity::canCavefishSpawn);
-		EntitySpawnPlacementRegistry.register(DEEPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
+		EntitySpawnPlacementRegistry.register(DEEPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkMonsterSpawnRules);
 		EntitySpawnPlacementRegistry.register(MIME.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MimeEntity::canMimeSpawn);
 	}
 }

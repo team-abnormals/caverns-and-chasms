@@ -18,18 +18,18 @@ public class SkeletonCatEntity extends CatEntity {
 	}
 
 	@Override
-	public SkeletonCatEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+	public SkeletonCatEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
 		SkeletonCatEntity cat = CCEntities.SKELETON_CAT.get().create(world);
-		if (this.rand.nextBoolean()) {
+		if (this.random.nextBoolean()) {
 			cat.setCatType(this.getCatType());
 		} else {
 			cat.setCatType(cat.getCatType());
 		}
 
-		if (this.isTamed()) {
-			cat.setOwnerId(this.getOwnerId());
-			cat.setTamed(true);
-			if (this.rand.nextBoolean()) {
+		if (this.isTame()) {
+			cat.setOwnerUUID(this.getOwnerUUID());
+			cat.setTame(true);
+			if (this.random.nextBoolean()) {
 				cat.setCollarColor(this.getCollarColor());
 			} else {
 				cat.setCollarColor(cat.getCollarColor());
@@ -40,17 +40,17 @@ public class SkeletonCatEntity extends CatEntity {
 	}
 
 	@Override
-	public CreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getMobType() {
 		return CreatureAttribute.UNDEAD;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return SoundEvents.ENTITY_SKELETON_HURT;
+		return SoundEvents.SKELETON_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_SKELETON_DEATH;
+		return SoundEvents.SKELETON_DEATH;
 	}
 }

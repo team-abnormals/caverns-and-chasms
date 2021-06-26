@@ -11,17 +11,17 @@ public class SpiderlingRenderer extends SpiderRenderer<SpiderlingEntity> {
 
 	public SpiderlingRenderer(EntityRendererManager renderer) {
 		super(renderer);
-		this.shadowSize *= 0.35F;
+		this.shadowRadius *= 0.35F;
 	}
 
-	protected void preRenderCallback(SpiderlingEntity entity, MatrixStack stack, float partialTicks) {
+	protected void scale(SpiderlingEntity entity, MatrixStack stack, float partialTicks) {
 		stack.scale(0.35F, 0.35F, 0.35F);
 	}
 
 	/**
 	 * Returns the location of an entity's texture.
 	 */
-	public ResourceLocation getEntityTexture(SpiderlingEntity entity) {
+	public ResourceLocation getTextureLocation(SpiderlingEntity entity) {
 		return TEXTURE;
 	}
 }

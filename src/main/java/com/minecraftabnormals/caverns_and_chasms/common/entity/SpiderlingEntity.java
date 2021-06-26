@@ -20,11 +20,11 @@ public class SpiderlingEntity extends SpiderEntity {
 	}
 
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-		return SpiderEntity.func_234305_eI_().createMutableAttribute(Attributes.MAX_HEALTH, 3.0D).createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0D);
+		return SpiderEntity.createAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.ATTACK_DAMAGE, 1.0D);
 	}
 
 	@Nullable
-	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+	public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
 		return spawnDataIn;
 	}
 

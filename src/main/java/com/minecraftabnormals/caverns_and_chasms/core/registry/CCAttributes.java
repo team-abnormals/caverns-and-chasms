@@ -10,7 +10,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class CCAttributes {
 	public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<Attribute> AFFLICTION_CHANCE = ATTRIBUTES.register("affliction_chance", () -> new RangedAttribute("attribute.caverns_and_chasms.name.generic.affliction_chance", 0.0D, 0.0D, 1.0D));
-	public static final RegistryObject<Attribute> WEAKNESS_AURA = ATTRIBUTES.register("weakness_aura", () -> new RangedAttribute("attribute.caverns_and_chasms.name.generic.weakness_aura", 0.0D, 0.0D, 30.0D));
-	public static final RegistryObject<Attribute> LIFESTEAL = ATTRIBUTES.register("lifesteal", () -> new RangedAttribute("attribute.caverns_and_chasms.name.generic.lifesteal", 0.0D, 0.0D, 5.0D));
+	public static final RegistryObject<Attribute> AFFLICTION_CHANCE = register("affliction_chance", 0.0D, 0.0D, 1.0D);
+	public static final RegistryObject<Attribute> WEAKNESS_AURA = register("weakness_aura", 0.0D, 0.0D, 30.0D);
+	public static final RegistryObject<Attribute> LIFESTEAL = register("lifesteal", 0.0D, 0.0D, 5.0D);
+
+	private static RegistryObject<Attribute> register(String name, double defaultValue, double minimumValue, double maximumValue) {
+		return ATTRIBUTES.register(name, () -> new RangedAttribute("attribute." + CavernsAndChasms.MOD_ID + ".name.generic." + name, 0.0D, 0.0D, 5.0D));
+	}
 }

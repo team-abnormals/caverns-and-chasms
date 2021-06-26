@@ -22,6 +22,6 @@ public class CCEnchantments {
 	public static final EnchantmentType ORE_DETECTOR = EnchantmentType.create("ORE_DETECTOR", (item) -> item == CCItems.ORE_DETECTOR.get());
 
 	public static void registerEnchantmentTypes() {
-		ItemGroup.TOOLS.setRelevantEnchantmentTypes(DataUtil.add(ItemGroup.TOOLS.getRelevantEnchantmentTypes(), ORE_DETECTOR));
+		ItemGroup.TAB_TOOLS.setEnchantmentCategories(DataUtil.add(ItemGroup.TAB_TOOLS.getEnchantmentCategories(), ORE_DETECTOR));
 	}
 }

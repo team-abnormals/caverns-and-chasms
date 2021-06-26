@@ -21,57 +21,57 @@ import net.minecraftforge.fml.common.Mod;
 public class CCItems {
 	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
 
-	public static final RegistryObject<Item> SILVER_INGOT = HELPER.createItem("silver_ingot", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
-	public static final RegistryObject<Item> SILVER_NUGGET = HELPER.createItem("silver_nugget", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
-	public static final RegistryObject<Item> SILVER_ARROW = HELPER.createItem("silver_arrow", () -> new SilverArrowItem(new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> ORE_DETECTOR = HELPER.createItem("ore_detector", () -> new OreDetectorItem(new Item.Properties().maxStackSize(1).group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> KUNAI = HELPER.createItem("kunai", () -> new KunaiItem(new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_SWORD = HELPER.createItem("silver_sword", () -> new SilverSwordItem(CCTiers.Tools.SILVER, 3, -2.4F, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCTiers.Tools.SILVER, 1.5F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_PICKAXE = HELPER.createItem("silver_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.SILVER, 1, -2.8F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_AXE = HELPER.createItem("silver_axe", () -> new SilverAxeItem(CCTiers.Tools.SILVER, 6.0F, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_HOE = HELPER.createItem("silver_hoe", () -> new SilverHoeItem(CCTiers.Tools.SILVER, 0, -3.0F, new Item.Properties().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> SILVER_HELMET = HELPER.createItem("silver_helmet", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_CHESTPLATE = HELPER.createItem("silver_chestplate", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_LEGGINGS = HELPER.createItem("silver_leggings", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_BOOTS = HELPER.createItem("silver_boots", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SILVER_HORSE_ARMOR = HELPER.createItem("silver_horse_armor", () -> new HorseArmorItem(6, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_silver.png"), new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> SILVER_INGOT = HELPER.createItem("silver_ingot", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
+	public static final RegistryObject<Item> SILVER_NUGGET = HELPER.createItem("silver_nugget", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
+	public static final RegistryObject<Item> SILVER_ARROW = HELPER.createItem("silver_arrow", () -> new SilverArrowItem(new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> ORE_DETECTOR = HELPER.createItem("ore_detector", () -> new OreDetectorItem(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> KUNAI = HELPER.createItem("kunai", () -> new KunaiItem(new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SILVER_SWORD = HELPER.createItem("silver_sword", () -> new SilverSwordItem(CCTiers.Tools.SILVER, 3, -2.4F, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCTiers.Tools.SILVER, 1.5F, -3.0F, new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> SILVER_PICKAXE = HELPER.createItem("silver_pickaxe", () -> new SilverPickaxeItem(CCTiers.Tools.SILVER, 1, -2.8F, new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> SILVER_AXE = HELPER.createItem("silver_axe", () -> new SilverAxeItem(CCTiers.Tools.SILVER, 6.0F, -3.0F, new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> SILVER_HOE = HELPER.createItem("silver_hoe", () -> new SilverHoeItem(CCTiers.Tools.SILVER, 0, -3.0F, new Item.Properties().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> SILVER_HELMET = HELPER.createItem("silver_helmet", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.HEAD, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SILVER_CHESTPLATE = HELPER.createItem("silver_chestplate", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.CHEST, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SILVER_LEGGINGS = HELPER.createItem("silver_leggings", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.LEGS, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SILVER_BOOTS = HELPER.createItem("silver_boots", () -> new SilverArmorItem(CCTiers.Armor.SILVER, EquipmentSlotType.FEET, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SILVER_HORSE_ARMOR = HELPER.createItem("silver_horse_armor", () -> new HorseArmorItem(6, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_silver.png"), new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_MISC)));
 
-	public static final RegistryObject<Item> NECROMIUM_INGOT = HELPER.createItem("necromium_ingot", () -> new Item(new Item.Properties().isImmuneToFire().group(ItemGroup.MATERIALS)));
-	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createCompatItem("nether_extension", "necromium_nugget", new Item.Properties().isImmuneToFire(), ItemGroup.MATERIALS);
-	public static final RegistryObject<Item> NECROMIUM_SWORD = HELPER.createItem("necromium_sword", () -> new NecromiumSwordItem(CCTiers.Tools.NECROMIUM, 3, -2.4F, new Item.Properties().isImmuneToFire().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> NECROMIUM_SHOVEL = HELPER.createItem("necromium_shovel", () -> new NecromiumShovelItem(CCTiers.Tools.NECROMIUM, 1.5F, -3.0F, new Item.Properties().isImmuneToFire().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_PICKAXE = HELPER.createItem("necromium_pickaxe", () -> new NecromiumPickaxeItem(CCTiers.Tools.NECROMIUM, 1, -2.8F, new Item.Properties().isImmuneToFire().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_AXE = HELPER.createItem("necromium_axe", () -> new NecromiumAxeItem(CCTiers.Tools.NECROMIUM, 5.0F, -3.0F, new Item.Properties().isImmuneToFire().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_HOE = HELPER.createItem("necromium_hoe", () -> new NecromiumHoeItem(CCTiers.Tools.NECROMIUM, -3, 0.0F, new Item.Properties().isImmuneToFire().group(ItemGroup.TOOLS)));
-	public static final RegistryObject<Item> NECROMIUM_HELMET = HELPER.createItem("necromium_helmet", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.HEAD, new Item.Properties().isImmuneToFire().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> NECROMIUM_CHESTPLATE = HELPER.createItem("necromium_chestplate", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.CHEST, new Item.Properties().isImmuneToFire().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> NECROMIUM_LEGGINGS = HELPER.createItem("necromium_leggings", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.LEGS, new Item.Properties().isImmuneToFire().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> NECROMIUM_BOOTS = HELPER.createItem("necromium_boots", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.FEET, new Item.Properties().isImmuneToFire().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> NECROMIUM_HORSE_ARMOR = HELPER.createItem("necromium_horse_armor", () -> new NecromiumHorseArmorItem(9, "necromium", new Item.Properties().maxStackSize(1).isImmuneToFire().group(createCompatGroup("nether_extension", ItemGroup.MISC))));
+	public static final RegistryObject<Item> NECROMIUM_INGOT = HELPER.createItem("necromium_ingot", () -> new Item(new Item.Properties().fireResistant().tab(ItemGroup.TAB_MATERIALS)));
+	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createCompatItem("nether_extension", "necromium_nugget", new Item.Properties().fireResistant(), ItemGroup.TAB_MATERIALS);
+	public static final RegistryObject<Item> NECROMIUM_SWORD = HELPER.createItem("necromium_sword", () -> new NecromiumSwordItem(CCTiers.Tools.NECROMIUM, 3, -2.4F, new Item.Properties().fireResistant().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_SHOVEL = HELPER.createItem("necromium_shovel", () -> new NecromiumShovelItem(CCTiers.Tools.NECROMIUM, 1.5F, -3.0F, new Item.Properties().fireResistant().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_PICKAXE = HELPER.createItem("necromium_pickaxe", () -> new NecromiumPickaxeItem(CCTiers.Tools.NECROMIUM, 1, -2.8F, new Item.Properties().fireResistant().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_AXE = HELPER.createItem("necromium_axe", () -> new NecromiumAxeItem(CCTiers.Tools.NECROMIUM, 5.0F, -3.0F, new Item.Properties().fireResistant().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_HOE = HELPER.createItem("necromium_hoe", () -> new NecromiumHoeItem(CCTiers.Tools.NECROMIUM, -3, 0.0F, new Item.Properties().fireResistant().tab(ItemGroup.TAB_TOOLS)));
+	public static final RegistryObject<Item> NECROMIUM_HELMET = HELPER.createItem("necromium_helmet", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.HEAD, new Item.Properties().fireResistant().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_CHESTPLATE = HELPER.createItem("necromium_chestplate", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.CHEST, new Item.Properties().fireResistant().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_LEGGINGS = HELPER.createItem("necromium_leggings", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.LEGS, new Item.Properties().fireResistant().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_BOOTS = HELPER.createItem("necromium_boots", () -> new NecromiumArmorItem(CCTiers.Armor.NECROMIUM, EquipmentSlotType.FEET, new Item.Properties().fireResistant().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> NECROMIUM_HORSE_ARMOR = HELPER.createItem("necromium_horse_armor", () -> new NecromiumHorseArmorItem(9, "necromium", new Item.Properties().stacksTo(1).fireResistant().tab(createCompatGroup("nether_extension", ItemGroup.TAB_MISC))));
 
-	public static final RegistryObject<Item> SANGUINE_PLATING = HELPER.createItem("sanguine_plating", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
-	public static final RegistryObject<Item> SANGUINE_HELMET = HELPER.createItem("sanguine_helmet", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SANGUINE_CHESTPLATE = HELPER.createItem("sanguine_chestplate", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.CHEST, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SANGUINE_LEGGINGS = HELPER.createItem("sanguine_leggings", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.LEGS, new Item.Properties().group(ItemGroup.COMBAT)));
-	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.FEET, new Item.Properties().group(ItemGroup.COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_PLATING = HELPER.createItem("sanguine_plating", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
+	public static final RegistryObject<Item> SANGUINE_HELMET = HELPER.createItem("sanguine_helmet", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.HEAD, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_CHESTPLATE = HELPER.createItem("sanguine_chestplate", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.CHEST, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_LEGGINGS = HELPER.createItem("sanguine_leggings", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.LEGS, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
+	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.FEET, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
 
-	public static final RegistryObject<Item> ROTTEN_EGG = HELPER.createItem("rotten_egg", () -> new RottenEggItem(new Item.Properties().maxStackSize(16).group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> ROTTEN_EGG = HELPER.createItem("rotten_egg", () -> new RottenEggItem(new Item.Properties().stacksTo(16).tab(ItemGroup.TAB_MISC)));
 
-	public static final RegistryObject<Item> SUGILITE = HELPER.createItem("sugilite", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> SUGILITE = HELPER.createItem("sugilite", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_MISC)));
 
-	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().maxStackSize(1).isImmuneToFire().group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().stacksTo(1).fireResistant().tab(ItemGroup.TAB_MISC)));
 
-	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.CAVEFISH)));
-	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.COOKED_CAVEFISH)));
-	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new FishBucketItem(CCEntities.CAVEFISH, () -> Fluids.WATER, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)));
+	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_FOOD).food(Foods.CAVEFISH)));
+	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_FOOD).food(Foods.COOKED_CAVEFISH)));
+	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new FishBucketItem(CCEntities.CAVEFISH, () -> Fluids.WATER, new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_MISC)));
 
-	public static final RegistryObject<Item> GOLDEN_BUCKET = HELPER.createItem("golden_bucket", () -> new GoldenBucketItem(() -> Fluids.EMPTY, new Item.Properties().group(ItemGroup.MISC).maxStackSize(16)));
-	public static final RegistryObject<Item> GOLDEN_WATER_BUCKET = HELPER.createItem("golden_water_bucket", () -> new GoldenBucketItem(() -> Fluids.WATER, new Item.Properties().containerItem(GOLDEN_BUCKET.get()).group(ItemGroup.MISC).maxStackSize(1)));
-	public static final RegistryObject<Item> GOLDEN_LAVA_BUCKET = HELPER.createItem("golden_lava_bucket", () -> new GoldenBucketItem(() -> Fluids.LAVA, new Item.Properties().containerItem(GOLDEN_BUCKET.get()).group(ItemGroup.MISC).maxStackSize(1)));
-	public static final RegistryObject<Item> GOLDEN_MILK_BUCKET = HELPER.createItem("golden_milk_bucket", () -> new GoldenMilkBucketItem(new Item.Properties().containerItem(GOLDEN_BUCKET.get()).group(ItemGroup.MISC).maxStackSize(1)));
+	public static final RegistryObject<Item> GOLDEN_BUCKET = HELPER.createItem("golden_bucket", () -> new GoldenBucketItem(() -> Fluids.EMPTY, new Item.Properties().tab(ItemGroup.TAB_MISC).stacksTo(16)));
+	public static final RegistryObject<Item> GOLDEN_WATER_BUCKET = HELPER.createItem("golden_water_bucket", () -> new GoldenBucketItem(() -> Fluids.WATER, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).tab(ItemGroup.TAB_MISC).stacksTo(1)));
+	public static final RegistryObject<Item> GOLDEN_LAVA_BUCKET = HELPER.createItem("golden_lava_bucket", () -> new GoldenBucketItem(() -> Fluids.LAVA, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).tab(ItemGroup.TAB_MISC).stacksTo(1)));
+	public static final RegistryObject<Item> GOLDEN_MILK_BUCKET = HELPER.createItem("golden_milk_bucket", () -> new GoldenMilkBucketItem(new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).tab(ItemGroup.TAB_MISC).stacksTo(1)));
 
-	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new AbnormalsMusicDiscItem(11, CCSounds.EPILOGUE, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new AbnormalsMusicDiscItem(11, CCSounds.EPILOGUE, new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_MISC).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<AbnormalsSpawnEggItem> CAVEFISH_SPAWN_EGG = HELPER.createSpawnEggItem("cavefish", CCEntities.CAVEFISH::get, 14145236, 11251356);
 	public static final RegistryObject<AbnormalsSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntities.DEEPER::get, 8355711, 13717260);
@@ -89,19 +89,19 @@ public class CCItems {
 	public static final RegistryObject<AbnormalsSpawnEggItem> SKELETON_PARROT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_parrot", CCEntities.SKELETON_PARROT::get, 0x979797, 0xADABAD);
 
 	public static class Foods {
-		public static final Food CAVEFISH = new Food.Builder().hunger(1).saturation(0.3F).build();
-		public static final Food COOKED_CAVEFISH = new Food.Builder().hunger(4).saturation(0.25F).build();
+		public static final Food CAVEFISH = new Food.Builder().nutrition(1).saturationMod(0.3F).build();
+		public static final Food COOKED_CAVEFISH = new Food.Builder().nutrition(4).saturationMod(0.25F).build();
 	}
 
 	public static void registerItemProperties() {
-		ItemModelsProperties.registerProperty(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "silver_arrow"), (stack, world, entity) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.hasChargedProjectile(stack, CCItems.SILVER_ARROW.get()) ? 1.0F : 0.0F);
+		ItemModelsProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "silver_arrow"), (stack, world, entity) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.SILVER_ARROW.get()) ? 1.0F : 0.0F);
 
-		ItemModelsProperties.registerProperty(GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemModelsProperties.registerProperty(GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.register(GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.register(GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.register(GOLDEN_LAVA_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemModelsProperties.register(GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity) -> stack.getOrCreateTag().getInt("FluidLevel"));
 
-		ItemModelsProperties.registerProperty(ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity) -> {
+		ItemModelsProperties.register(ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity) -> {
 			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof PlayerEntity && OreDetectorItem.getDetectionData(stack)) {
 				return 1;
 			} else {

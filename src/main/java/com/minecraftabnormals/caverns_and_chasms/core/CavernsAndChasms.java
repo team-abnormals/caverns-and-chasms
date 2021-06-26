@@ -48,11 +48,11 @@ public class CavernsAndChasms {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			CCEntities.registerAttributes();
 			CCEntities.registerEntitySpawns();
 			CCFeatures.Configured.registerConfiguredFeatures();
 			CCEffects.registerBrewingRecipes();
 			CCCompat.registerDispenserBehaviors();
+			CCCompat.changeLocalization();
 			CCEnchantments.registerEnchantmentTypes();
 		});
 	}
@@ -63,7 +63,7 @@ public class CavernsAndChasms {
 		event.enqueueWork(() -> {
 			CCCompat.registerRenderLayers();
 			CCItems.registerItemProperties();
-			event.getMinecraftSupplier().get().getRenderManager().getSkinMap().forEach(((s, playerRenderer) -> {
+			event.getMinecraftSupplier().get().getEntityRenderDispatcher().getSkinMap().forEach(((s, playerRenderer) -> {
 				playerRenderer.addLayer(new UndeadParrotLayer<>(playerRenderer));
 			}));
 		});

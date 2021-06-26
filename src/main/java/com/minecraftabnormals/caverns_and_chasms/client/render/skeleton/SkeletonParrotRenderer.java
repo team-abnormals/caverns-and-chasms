@@ -16,7 +16,7 @@ public class SkeletonParrotRenderer extends ParrotRenderer {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(ParrotEntity entity) {
+	public ResourceLocation getTextureLocation(ParrotEntity entity) {
 		return TEXTURE;
 	}
 }

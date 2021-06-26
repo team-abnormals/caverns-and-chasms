@@ -14,12 +14,12 @@ public class FlyRenderer extends MobRenderer<FlyEntity, FlyModel<FlyEntity>> {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(FlyEntity bee) {
+	public ResourceLocation getTextureLocation(FlyEntity bee) {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/fly.png");
 	}
 
 	@Override
-	protected void preRenderCallback(FlyEntity fly, MatrixStack matrixStack, float partialTickTime) {
+	protected void scale(FlyEntity fly, MatrixStack matrixStack, float partialTickTime) {
 		matrixStack.scale(1.0F, 1.0F, 1.0F);
 	}
 }

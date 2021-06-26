@@ -14,7 +14,7 @@ public class ZombieWolfRenderer extends WolfRenderer {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(WolfEntity entity) {
+	public ResourceLocation getTextureLocation(WolfEntity entity) {
 		return ZOMBIE_WOLF_TEXTURES;
 	}
 }

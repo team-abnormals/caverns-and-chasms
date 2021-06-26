@@ -20,15 +20,17 @@ public class CCTags {
 		public static final ITag.INamedTag<Block> IGNORE_RAIL_PLACEMENT = createTag("ignore_rail_placement");
 
 		private static ITag.INamedTag<Block> createTag(String name) {
-			return BlockTags.makeWrapperTag(CavernsAndChasms.MOD_ID + ":" + name);
+			return BlockTags.bind(CavernsAndChasms.MOD_ID + ":" + name);
 		}
 	}
 
 	public static class Items {
 		public static final ITag.INamedTag<Item> IGNORE_RAIL_PLACEMENT = createTag("ignore_rail_placement");
+		public static final ITag.INamedTag<Item> EXPERIENCE_BOOST_ITEMS = createTag("experience_boost_items");
+		public static final ITag.INamedTag<Item> AFFLICTION_ITEMS = createTag("affliction_items");
 
 		private static ITag.INamedTag<Item> createTag(String name) {
-			return ItemTags.makeWrapperTag(CavernsAndChasms.MOD_ID + ":" + name);
+			return ItemTags.bind(CavernsAndChasms.MOD_ID + ":" + name);
 		}
 	}
 
@@ -37,7 +39,7 @@ public class CCTags {
 		public static final ITag.INamedTag<EntityType<?>> UNDEAD_PETS = createTag("undead_pets");
 
 		private static ITag.INamedTag<EntityType<?>> createTag(String name) {
-			return EntityTypeTags.getTagById(CavernsAndChasms.MOD_ID + ":" + name);
+			return EntityTypeTags.bind(CavernsAndChasms.MOD_ID + ":" + name);
 		}
 	}
 }

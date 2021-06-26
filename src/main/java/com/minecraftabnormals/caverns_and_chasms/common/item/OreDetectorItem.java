@@ -16,6 +16,8 @@ import net.minecraftforge.common.Tags;
 
 import java.util.stream.Stream;
 
+import net.minecraft.item.Item.Properties;
+
 public class OreDetectorItem extends Item implements IVanishable {
 
 	public OreDetectorItem(Properties properties) {
@@ -33,10 +35,10 @@ public class OreDetectorItem extends Item implements IVanishable {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		if (!world.isRemote) {
+		if (!world.isClientSide) {
 			CompoundNBT tag = stack.getOrCreateTag();
-			AxisAlignedBB aabb = entity.getBoundingBox().grow(3, 3, 3);
-			Stream<BlockPos> blocks = BlockPos.getAllInBox(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
+			AxisAlignedBB aabb = entity.getBoundingBox().inflate(3, 3, 3);
+			Stream<BlockPos> blocks = BlockPos.betweenClosedStream(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
 
 			tag.putBoolean("Detecting", false);
 
@@ -44,15 +46,15 @@ public class OreDetectorItem extends Item implements IVanishable {
 
 				Block block = world.getBlockState(blockPos).getBlock();
 
-				if (EnchantmentHelper.getEnchantmentLevel(CCEnchantments.PROSPECTING.get(), stack) > 0) {
-					if (block.isIn(CCTags.Blocks.PROSPECTING_METALS)) {
+				if (EnchantmentHelper.getItemEnchantmentLevel(CCEnchantments.PROSPECTING.get(), stack) > 0) {
+					if (block.is(CCTags.Blocks.PROSPECTING_METALS)) {
 						tag.putBoolean("Detecting", true);
 					}
-				} else if (EnchantmentHelper.getEnchantmentLevel(CCEnchantments.TREASURING.get(), stack) > 0) {
-					if (block.isIn(CCTags.Blocks.TREASURING_GEMS)) {
+				} else if (EnchantmentHelper.getItemEnchantmentLevel(CCEnchantments.TREASURING.get(), stack) > 0) {
+					if (block.is(CCTags.Blocks.TREASURING_GEMS)) {
 						tag.putBoolean("Detecting", true);
 					}
-				} else if (block.isIn(Tags.Blocks.ORES)) {
+				} else if (block.is(Tags.Blocks.ORES)) {
 					tag.putBoolean("Detecting", true);
 				}
 			});

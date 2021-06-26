@@ -21,6 +21,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 public class SanguineArmorItem extends ArmorItem {
 	private final LazyValue<Multimap<Attribute, AttributeModifier>> attributes;
 	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.GOLDEN_BOOTS);
@@ -28,21 +30,21 @@ public class SanguineArmorItem extends ArmorItem {
 	public SanguineArmorItem(IArmorMaterial material, EquipmentSlotType slot, Properties properties) {
 		super(material, slot, properties);
 		this.attributes = new LazyValue<>(() -> {
-			UUID uuid = ArmorItem.ARMOR_MODIFIERS[slot.getIndex()];
+			UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
 			ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-			builder.putAll(super.getAttributeModifiers(slot));
+			builder.putAll(super.getDefaultAttributeModifiers(slot));
 			builder.put(CCAttributes.LIFESTEAL.get(), new AttributeModifier(uuid, "Lifesteal", SanguineArmorType.slotToType(slot).getLifestealAmount(), AttributeModifier.Operation.ADDITION));
 			return builder.build();
 		});
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-		return equipmentSlot == this.slot ? this.attributes.getValue() : super.getAttributeModifiers(equipmentSlot);
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlotType equipmentSlot) {
+		return equipmentSlot == this.slot ? this.attributes.get() : super.getDefaultAttributeModifiers(equipmentSlot);
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+	public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
 		FILLER.fillItem(this, group, items);
 	}
 
@@ -86,7 +88,7 @@ public class SanguineArmorItem extends ArmorItem {
 		}
 
 		@Override
-		public String getString() {
+		public String getSerializedName() {
 			return this.name;
 		}
 	}

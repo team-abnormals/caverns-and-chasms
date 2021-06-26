@@ -43,6 +43,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.minecraft.item.Item.Properties;
+
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class ForgottenCollarItem extends Item {
 	public static final String PET_ID = "PetID";
@@ -66,20 +68,20 @@ public class ForgottenCollarItem extends Item {
 		LivingEntity entity = event.getEntityLiving();
 		EntityType<?> type = entity.getType();
 
-		if (type.isContained(CCTags.EntityTypes.COLLAR_DROP_MOBS)) {
+		if (type.is(CCTags.EntityTypes.COLLAR_DROP_MOBS)) {
 			ItemStack collar = new ItemStack(CCItems.FORGOTTEN_COLLAR.get());
 			CompoundNBT tag = collar.getOrCreateTag();
 
 			tag.putString(ForgottenCollarItem.PET_ID, type.getRegistryName().toString());
-			tag.putBoolean(ForgottenCollarItem.IS_CHILD, entity.isChild());
+			tag.putBoolean(ForgottenCollarItem.IS_CHILD, entity.isBaby());
 			if (entity.hasCustomName()) {
 				tag.putString(ForgottenCollarItem.PET_NAME, entity.getCustomName().getString());
 			}
 
 			if (entity instanceof TameableEntity) {
 				TameableEntity pet = (TameableEntity) entity;
-				if (pet.isTamed()) {
-					tag.putString(ForgottenCollarItem.OWNER_ID, pet.getOwnerId().toString());
+				if (pet.isTame()) {
+					tag.putString(ForgottenCollarItem.OWNER_ID, pet.getOwnerUUID().toString());
 
 					if (entity instanceof WolfEntity) {
 						WolfEntity wolf = (WolfEntity) entity;
@@ -97,33 +99,33 @@ public class ForgottenCollarItem extends Item {
 						tag.putInt(ForgottenCollarItem.PET_VARIANT, parrot.getVariant());
 					}
 
-					entity.entityDropItem(collar);
+					entity.spawnAtLocation(collar);
 				}
 			} else if (entity instanceof AbstractHorseEntity) {
 				AbstractHorseEntity horse = (AbstractHorseEntity) entity;
-				if (horse.isTame()) {
-					tag.putString(ForgottenCollarItem.OWNER_ID, horse.getOwnerUniqueId().toString());
-					tag.putDouble(ForgottenCollarItem.HORSE_SPEED, horse.getBaseAttributeValue(Attributes.MOVEMENT_SPEED));
-					tag.putDouble(ForgottenCollarItem.HORSE_HEALTH, horse.getBaseAttributeValue(Attributes.MAX_HEALTH));
-					tag.putDouble(ForgottenCollarItem.HORSE_STRENGTH, horse.getBaseAttributeValue(Attributes.HORSE_JUMP_STRENGTH));
+				if (horse.isTamed()) {
+					tag.putString(ForgottenCollarItem.OWNER_ID, horse.getOwnerUUID().toString());
+					tag.putDouble(ForgottenCollarItem.HORSE_SPEED, horse.getAttributeBaseValue(Attributes.MOVEMENT_SPEED));
+					tag.putDouble(ForgottenCollarItem.HORSE_HEALTH, horse.getAttributeBaseValue(Attributes.MAX_HEALTH));
+					tag.putDouble(ForgottenCollarItem.HORSE_STRENGTH, horse.getAttributeBaseValue(Attributes.JUMP_STRENGTH));
 					if (entity instanceof HorseEntity)
-						tag.putInt(ForgottenCollarItem.PET_VARIANT, ((HorseEntity) entity).func_234241_eS_());
+						tag.putInt(ForgottenCollarItem.PET_VARIANT, ((HorseEntity) entity).getTypeVariant());
 
-					entity.entityDropItem(collar);
+					entity.spawnAtLocation(collar);
 				}
 			}
 		}
 	}
 
 	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
-		World world = context.getWorld();
-		BlockPos pos = context.getPos();
+	public ActionResultType useOn(ItemUseContext context) {
+		World world = context.getLevel();
+		BlockPos pos = context.getClickedPos();
 		BlockState state = world.getBlockState(pos);
-		ItemStack stack = context.getItem();
+		ItemStack stack = context.getItemInHand();
 
-		if (state.isIn(CCBlocks.GRAVESTONE.get()) && state.get(GravestoneBlock.CHARGE) == 10 && world.canSeeSky(pos.up()) && world.isNightTime()) {
-			BlockPos offsetPos = pos.offset(state.get(GravestoneBlock.HORIZONTAL_FACING));
+		if (state.is(CCBlocks.GRAVESTONE.get()) && state.getValue(GravestoneBlock.CHARGE) == 10 && world.canSeeSky(pos.above()) && world.isNight()) {
+			BlockPos offsetPos = pos.relative(state.getValue(GravestoneBlock.FACING));
 			if (!world.getBlockState(offsetPos).getCollisionShape(world, offsetPos).isEmpty())
 				return ActionResultType.FAIL;
 
@@ -147,20 +149,20 @@ public class ForgottenCollarItem extends Item {
 
 				if (entityType != null) {
 					AnimalEntity entity = (AnimalEntity) entityType.create(world);
-					UUID owner = tag.contains(OWNER_ID) ? UUID.fromString(tag.getString(OWNER_ID)) : player.getUniqueID();
+					UUID owner = tag.contains(OWNER_ID) ? UUID.fromString(tag.getString(OWNER_ID)) : player.getUUID();
 					DyeColor collarColor = DyeColor.byId(tag.getInt(COLLAR_COLOR));
 					int variant = tag.getInt(PET_VARIANT);
 					LivingEntity returnEntity = null;
 
-					entity.setChild(tag.getBoolean(IS_CHILD));
-					entity.setPosition(offsetPos.getX() + 0.5F, offsetPos.getY(), offsetPos.getZ() + 0.5F);
+					entity.setBaby(tag.getBoolean(IS_CHILD));
+					entity.setPos(offsetPos.getX() + 0.5F, offsetPos.getY(), offsetPos.getZ() + 0.5F);
 					if (tag.contains(PET_NAME))
 						entity.setCustomName(new StringTextComponent(tag.getString(PET_NAME)));
 
 					if (entity instanceof TameableEntity) {
 						TameableEntity tameableEntity = (TameableEntity) entity;
-						tameableEntity.setTamed(true);
-						tameableEntity.setOwnerId(owner);
+						tameableEntity.setTame(true);
+						tameableEntity.setOwnerUUID(owner);
 
 						if (tameableEntity instanceof WolfEntity) {
 							WolfEntity wolf = (WolfEntity) tameableEntity;
@@ -184,10 +186,10 @@ public class ForgottenCollarItem extends Item {
 					} else if (entity instanceof AbstractHorseEntity) {
 						AbstractHorseEntity horseEntity = (AbstractHorseEntity) entity;
 
-						horseEntity.setHorseTamed(true);
-						horseEntity.setOwnerUniqueId(owner);
+						horseEntity.setTamed(true);
+						horseEntity.setOwnerUUID(owner);
 
-						horseEntity.getAttribute(Attributes.HORSE_JUMP_STRENGTH).setBaseValue(tag.getDouble(HORSE_STRENGTH));
+						horseEntity.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(tag.getDouble(HORSE_STRENGTH));
 						horseEntity.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(tag.getDouble(HORSE_SPEED));
 						horseEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(tag.getDouble(HORSE_HEALTH));
 
@@ -195,65 +197,65 @@ public class ForgottenCollarItem extends Item {
 					}
 
 					if (returnEntity != null) {
-						world.setBlockState(pos, state.with(GravestoneBlock.CHARGE, 0));
+						world.setBlockAndUpdate(pos, state.setValue(GravestoneBlock.CHARGE, 0));
 
 						LightningBoltEntity bolt = EntityType.LIGHTNING_BOLT.create(world);
-						bolt.moveForced(Vector3d.copyCenteredHorizontally(entity.getPosition()));
-						bolt.setCaster(player instanceof ServerPlayerEntity ? (ServerPlayerEntity) player : null);
-						bolt.setEffectOnly(true);
-						world.addEntity(bolt);
+						bolt.moveTo(Vector3d.atBottomCenterOf(entity.blockPosition()));
+						bolt.setCause(player instanceof ServerPlayerEntity ? (ServerPlayerEntity) player : null);
+						bolt.setVisualOnly(true);
+						world.addFreshEntity(bolt);
 
-						world.playSound(player, pos, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-						world.addEntity(returnEntity);
-						if (!player.abilities.isCreativeMode)
+						world.playSound(player, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+						world.addFreshEntity(returnEntity);
+						if (!player.abilities.instabuild)
 							stack.shrink(1);
 					}
 				}
 			}
 
-			return ActionResultType.func_233537_a_(world.isRemote);
+			return ActionResultType.sidedSuccess(world.isClientSide);
 		}
 		return ActionResultType.PASS;
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		CompoundNBT tag = stack.getOrCreateTag();
 
 		if (tag.contains(PET_NAME)) {
 			String name = tag.getString(PET_NAME);
-			tooltip.add(new StringTextComponent(name).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+			tooltip.add(new StringTextComponent(name).withStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
 		}
 
 		if (tag.contains(PET_ID)) {
 			String petID = tag.getString(PET_ID);
 			EntityType<?> pet = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(petID));
 
-			ITextComponent petType = new TranslationTextComponent(pet.getTranslationKey()).mergeStyle(TextFormatting.GRAY);
+			ITextComponent petType = new TranslationTextComponent(pet.getDescriptionId()).withStyle(TextFormatting.GRAY);
 			if (tag.contains(PET_VARIANT)) {
 				int type = tag.getInt(PET_VARIANT);
 				String texture = "";
 
 				if (pet == EntityType.CAT || pet == CCEntities.ZOMBIE_CAT.get()) {
-					texture = CatEntity.TEXTURE_BY_ID.get(type).toString().replace("minecraft:textures/entity/cat/", "");
+					texture = CatEntity.TEXTURE_BY_TYPE.get(type).toString().replace("minecraft:textures/entity/cat/", "");
 					texture = texture.replace(".png", "").replace("all_", "").replace("_", " ").concat(" ");
 				}
 
 				if (pet == EntityType.PARROT || pet == CCEntities.ZOMBIE_PARROT.get()) {
-					texture = ParrotRenderer.PARROT_TEXTURES[type].toString().replace("minecraft:textures/entity/parrot/parrot_", "");
+					texture = ParrotRenderer.PARROT_LOCATIONS[type].toString().replace("minecraft:textures/entity/parrot/parrot_", "");
 					texture = texture.replace(".png", "").replace("_", "-").concat(" ");
 				}
 
-				petType = new StringTextComponent(WordUtils.capitalize(texture)).mergeStyle(TextFormatting.GRAY).append(petType);
+				petType = new StringTextComponent(WordUtils.capitalize(texture)).withStyle(TextFormatting.GRAY).append(petType);
 			}
 
 			if (tag.getBoolean(IS_CHILD))
-				petType = new TranslationTextComponent("tooltip.caverns_and_chasms.baby").mergeStyle(TextFormatting.GRAY).appendString(" ").append(petType);
+				petType = new TranslationTextComponent("tooltip.caverns_and_chasms.baby").withStyle(TextFormatting.GRAY).append(" ").append(petType);
 
 			tooltip.add(petType);
 		}
 
-		super.addInformation(stack, worldIn, tooltip, flagIn);
+		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 	}
 
 	public int getColor(ItemStack stack) {

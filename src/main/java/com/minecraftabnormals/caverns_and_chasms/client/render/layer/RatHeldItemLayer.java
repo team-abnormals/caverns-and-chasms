@@ -18,16 +18,16 @@ public class RatHeldItemLayer extends LayerRenderer<RatEntity, RatModel<RatEntit
 	}
 
 	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, RatEntity ratEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		matrixStackIn.push();
+		matrixStackIn.pushPose();
 
-		matrixStackIn.translate((this.getEntityModel()).head.rotationPointX / 16.0F, (this.getEntityModel()).head.rotationPointY / 16.0F, ((this.getEntityModel()).head.rotationPointZ / 16.0F));
-		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(netHeadYaw));
-		matrixStackIn.rotate(Vector3f.XP.rotationDegrees(headPitch));
-		matrixStackIn.translate(0.0F, ratEntity.isChild() ? 0.4F : 0.08F, ratEntity.isChild() ? -0.7D : -0.5D);
+		matrixStackIn.translate((this.getParentModel()).head.x / 16.0F, (this.getParentModel()).head.y / 16.0F, ((this.getParentModel()).head.z / 16.0F));
+		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(netHeadYaw));
+		matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(headPitch));
+		matrixStackIn.translate(0.0F, ratEntity.isBaby() ? 0.4F : 0.08F, ratEntity.isBaby() ? -0.7D : -0.5D);
 
-		matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90.0F));
-		ItemStack stack = ratEntity.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
-		Minecraft.getInstance().getFirstPersonRenderer().renderItemSide(ratEntity, stack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
-		matrixStackIn.pop();
+		matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90.0F));
+		ItemStack stack = ratEntity.getItemBySlot(EquipmentSlotType.MAINHAND);
+		Minecraft.getInstance().getItemInHandRenderer().renderItem(ratEntity, stack, ItemCameraTransforms.TransformType.GROUND, false, matrixStackIn, bufferIn, packedLightIn);
+		matrixStackIn.popPose();
 	}
 }

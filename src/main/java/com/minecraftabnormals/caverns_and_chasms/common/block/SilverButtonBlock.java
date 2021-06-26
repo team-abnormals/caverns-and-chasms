@@ -12,12 +12,12 @@ public class SilverButtonBlock extends AbstractButtonBlock {
 	}
 
 	@Override
-	public int getActiveDuration() {
+	public int getPressDuration() {
 		return 50;
 	}
 
 	@Override
-	protected SoundEvent getSoundEvent(boolean powered) {
-		return powered ? SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON : SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF;
+	protected SoundEvent getSound(boolean powered) {
+		return powered ? SoundEvents.STONE_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_OFF;
 	}
 }

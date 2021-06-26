@@ -17,8 +17,8 @@ public class DeeperRenderer extends MobRenderer<DeeperEntity, DeeperModel<Deeper
 	}
 
 	@Override
-	protected void preRenderCallback(DeeperEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-		float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
+	protected void scale(DeeperEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+		float f = entitylivingbaseIn.getSwelling(partialTickTime);
 		float f1 = 1.0F + MathHelper.sin(f * 100.0F) * f * 0.01F;
 		f = MathHelper.clamp(f, 0.0F, 1.0F);
 		f = f * f;
@@ -29,13 +29,13 @@ public class DeeperRenderer extends MobRenderer<DeeperEntity, DeeperModel<Deeper
 	}
 
 	@Override
-	protected float getOverlayProgress(DeeperEntity livingEntityIn, float partialTicks) {
-		float f = livingEntityIn.getCreeperFlashIntensity(partialTicks);
+	protected float getWhiteOverlayProgress(DeeperEntity livingEntityIn, float partialTicks) {
+		float f = livingEntityIn.getSwelling(partialTicks);
 		return (int) (f * 10.0F) % 2 == 0 ? 0.0F : MathHelper.clamp(f, 0.5F, 1.0F);
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(DeeperEntity entity) {
+	public ResourceLocation getTextureLocation(DeeperEntity entity) {
 		return MissingTextureSprite.getLocation();
 	}
 }

@@ -29,11 +29,11 @@ import java.util.Map;
 import java.util.Random;
 
 public class MimeEntity extends MonsterEntity {
-	public static final EntitySize STANDING_SIZE = EntitySize.flexible(0.6F, 2.1F);
+	public static final EntitySize STANDING_SIZE = EntitySize.scalable(0.6F, 2.1F);
 	private static final Map<Pose, EntitySize> SIZE_BY_POSE = ImmutableMap.<Pose, EntitySize>builder()
 			.put(Pose.STANDING, STANDING_SIZE)
-			.put(Pose.SWIMMING, EntitySize.flexible(0.6F, 0.6F))
-			.put(Pose.CROUCHING, EntitySize.flexible(0.6F, 1.8F))
+			.put(Pose.SWIMMING, EntitySize.scalable(0.6F, 0.6F))
+			.put(Pose.CROUCHING, EntitySize.scalable(0.6F, 1.8F))
 			.build();
 	public double prevChasingPosX;
 	public double prevChasingPosY;
@@ -60,35 +60,35 @@ public class MimeEntity extends MonsterEntity {
 	}
 
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-		return MonsterEntity.func_234295_eP_()
-				.createMutableAttribute(Attributes.MAX_HEALTH, 20.0F)
-				.createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D)
-				.createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.3F)
-				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
-				.createMutableAttribute(Attributes.ARMOR, 2.0D);
+		return MonsterEntity.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, 20.0F)
+				.add(Attributes.FOLLOW_RANGE, 35.0D)
+				.add(Attributes.MOVEMENT_SPEED, (double) 0.3F)
+				.add(Attributes.ATTACK_DAMAGE, 4.0D)
+				.add(Attributes.ARMOR, 2.0D);
 	}
 
 	public static boolean canMimeSpawn(EntityType<? extends MonsterEntity> type, IServerWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-		return pos.getY() <= 42 && canMonsterSpawnInLight(type, worldIn, reason, pos, randomIn);
+		return pos.getY() <= 42 && checkMonsterSpawnRules(type, worldIn, reason, pos, randomIn);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
+		return SoundEvents.ZOMBIE_AMBIENT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_ZOMBIE_DEATH;
+		return SoundEvents.ZOMBIE_DEATH;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return SoundEvents.ENTITY_ZOMBIE_HURT;
+		return SoundEvents.ZOMBIE_HURT;
 	}
 
 	protected SoundEvent getStepSound() {
-		return SoundEvents.ENTITY_ZOMBIE_STEP;
+		return SoundEvents.ZOMBIE_STEP;
 	}
 
 	@Override
@@ -97,8 +97,8 @@ public class MimeEntity extends MonsterEntity {
 	}
 
 	@Override
-	public boolean attackEntityAsMob(Entity entityIn) {
-		boolean result = super.attackEntityAsMob(entityIn);
+	public boolean doHurtTarget(Entity entityIn) {
+		boolean result = super.doHurtTarget(entityIn);
 		if (entityIn instanceof LivingEntity) {
 			LivingEntity entity = (LivingEntity) entityIn;
 
@@ -107,27 +107,27 @@ public class MimeEntity extends MonsterEntity {
 			List<EquipmentSlotType> slotsWithGear = Lists.newArrayList();
 
 			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
-				this.setItemStackToSlot(slot, ItemStack.EMPTY);
+				this.setItemSlot(slot, ItemStack.EMPTY);
 				if (slot == EquipmentSlotType.MAINHAND || slot == EquipmentSlotType.OFFHAND) {
-					this.inventoryHandsDropChances[slot.getIndex()] = 0.0F;
+					this.handDropChances[slot.getIndex()] = 0.0F;
 					continue;
 				}
-				this.inventoryArmorDropChances[slot.getIndex()] = 0.0F;
-				ItemStack stack = entity.getItemStackFromSlot(slot);
+				this.armorDropChances[slot.getIndex()] = 0.0F;
+				ItemStack stack = entity.getItemBySlot(slot);
 				if (!stack.isEmpty())
 					slotsWithGear.add(slot);
 			}
 
-			ItemStack mainhand = entity.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
-			ItemStack offhand = entity.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
+			ItemStack mainhand = entity.getItemBySlot(EquipmentSlotType.MAINHAND);
+			ItemStack offhand = entity.getItemBySlot(EquipmentSlotType.OFFHAND);
 			EquipmentSlotType armor1 = null;
 			EquipmentSlotType armor2 = null;
 
 			if (slotsWithGear.size() > 0) {
-				int index = this.rand.nextInt(slotsWithGear.size());
+				int index = this.random.nextInt(slotsWithGear.size());
 				armor1 = slotsWithGear.get(index);
 				slotsWithGear.remove(index);
-				armor2 = slotsWithGear.isEmpty() ? null : slotsWithGear.get(this.rand.nextInt(slotsWithGear.size()));
+				armor2 = slotsWithGear.isEmpty() ? null : slotsWithGear.get(this.random.nextInt(slotsWithGear.size()));
 			}
 
 			if (isValidWeapon(mainhand)) {
@@ -149,28 +149,28 @@ public class MimeEntity extends MonsterEntity {
 				}
 			}
 
-			world.playMovingSound(null, this, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.HOSTILE, 1.0F, 1.0F);
-			this.setItemStackToSlot(slot1 == EquipmentSlotType.OFFHAND ? EquipmentSlotType.MAINHAND : slot1, entity.getItemStackFromSlot(slot1));
+			level.playSound(null, this, SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.HOSTILE, 1.0F, 1.0F);
+			this.setItemSlot(slot1 == EquipmentSlotType.OFFHAND ? EquipmentSlotType.MAINHAND : slot1, entity.getItemBySlot(slot1));
 			if (slot2 != null)
-				this.setItemStackToSlot(slot2, entity.getItemStackFromSlot(slot2));
+				this.setItemSlot(slot2, entity.getItemBySlot(slot2));
 		}
 		return result;
 	}
 
 	@Override
-	public void onDeath(DamageSource cause) {
-		super.onDeath(cause);
-		Entity source = cause.getTrueSource();
+	public void die(DamageSource cause) {
+		super.die(cause);
+		Entity source = cause.getEntity();
 
 		if (source instanceof LivingEntity) {
 			LivingEntity attacker = (LivingEntity) source;
-			ItemStack stack = attacker.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
-			List<MimingRecipe> recipes = world.getRecipeManager().getRecipesForType(RecipeTypes.MIMING);
+			ItemStack stack = attacker.getItemBySlot(EquipmentSlotType.OFFHAND);
+			List<MimingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeTypes.MIMING);
 
 			for (MimingRecipe recipe : recipes) {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
-						attacker.setItemStackToSlot(EquipmentSlotType.OFFHAND, recipe.getRecipeOutput());
+						attacker.setItemSlot(EquipmentSlotType.OFFHAND, recipe.getResultItem());
 					}
 				}
 			}
@@ -188,13 +188,13 @@ public class MimeEntity extends MonsterEntity {
 	}
 
 	@Override
-	public void livingTick() {
-		super.livingTick();
-		if (!world.isRemote()) {
-			Pose pose = this.getAttackTarget() != null ? this.getAttackTarget().getPose() : Pose.STANDING;
+	public void aiStep() {
+		super.aiStep();
+		if (!level.isClientSide()) {
+			Pose pose = this.getTarget() != null ? this.getTarget().getPose() : Pose.STANDING;
 			if (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING) {
-				if (!this.isPoseClear(pose)) {
-					if (this.isPoseClear(Pose.CROUCHING))
+				if (!this.canEnterPose(pose)) {
+					if (this.canEnterPose(Pose.CROUCHING))
 						pose = Pose.CROUCHING;
 					else
 						pose = Pose.SWIMMING;
@@ -207,7 +207,7 @@ public class MimeEntity extends MonsterEntity {
 	}
 
 	@Override
-	public EntitySize getSize(Pose poseIn) {
+	public EntitySize getDimensions(Pose poseIn) {
 		return SIZE_BY_POSE.getOrDefault(poseIn, STANDING_SIZE);
 	}
 
@@ -215,21 +215,21 @@ public class MimeEntity extends MonsterEntity {
 		this.prevChasingPosX = this.chasingPosX;
 		this.prevChasingPosY = this.chasingPosY;
 		this.prevChasingPosZ = this.chasingPosZ;
-		double d0 = this.getPosX() - this.chasingPosX;
-		double d1 = this.getPosY() - this.chasingPosY;
-		double d2 = this.getPosZ() - this.chasingPosZ;
+		double d0 = this.getX() - this.chasingPosX;
+		double d1 = this.getY() - this.chasingPosY;
+		double d2 = this.getZ() - this.chasingPosZ;
 		if (d0 > 10.0D)
-			this.chasingPosX = this.getPosX();
+			this.chasingPosX = this.getX();
 		if (d2 > 10.0D)
-			this.chasingPosZ = this.getPosZ();
+			this.chasingPosZ = this.getZ();
 		if (d1 > 10.0D)
-			this.chasingPosY = this.getPosY();
+			this.chasingPosY = this.getY();
 		if (d0 < -10.0D)
-			this.chasingPosX = this.getPosX();
+			this.chasingPosX = this.getX();
 		if (d2 < -10.0D)
-			this.chasingPosZ = this.getPosZ();
+			this.chasingPosZ = this.getZ();
 		if (d1 < -10.0D)
-			this.chasingPosY = this.getPosY();
+			this.chasingPosY = this.getY();
 		this.chasingPosX += d0 * 0.25D;
 		this.chasingPosZ += d2 * 0.25D;
 		this.chasingPosY += d1 * 0.25D;

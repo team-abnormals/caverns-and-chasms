@@ -5,6 +5,8 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class CCOreBlock extends OreBlock {
 	private int minXP;
 	private final int maxXP;
@@ -15,7 +17,7 @@ public class CCOreBlock extends OreBlock {
 		maxXP = max;
 	}
 
-	protected int getExperience(Random rand) {
+	protected int xpOnDrop(Random rand) {
 		return MathHelper.nextInt(rand, minXP, maxXP);
 	}
 }

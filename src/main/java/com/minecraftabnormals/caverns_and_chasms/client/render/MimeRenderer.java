@@ -21,19 +21,19 @@ public class MimeRenderer extends BipedRenderer<MimeEntity, MimeModel<MimeEntity
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(MimeEntity entity) {
+	public ResourceLocation getTextureLocation(MimeEntity entity) {
 		return MIME_LOCATION;
 	}
 
 	@Override
-	protected void applyRotations(MimeEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-		float f = entityLiving.getSwimAnimation(partialTicks);
-		super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+	protected void setupRotations(MimeEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+		float f = entityLiving.getSwimAmount(partialTicks);
+		super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
 		if (f > 0.0F) {
-			float f3 = entityLiving.isInWater() ? -90.0F - entityLiving.rotationPitch : -90.0F;
+			float f3 = entityLiving.isInWater() ? -90.0F - entityLiving.xRot : -90.0F;
 			float f4 = MathHelper.lerp(f, 0.0F, f3);
-			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f4));
-			if (entityLiving.isActualySwimming()) {
+			matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(f4));
+			if (entityLiving.isVisuallySwimming()) {
 				matrixStackIn.translate(0.0D, -1.0D, 0.3F);
 			}
 		}

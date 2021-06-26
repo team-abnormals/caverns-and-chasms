@@ -8,32 +8,32 @@ public class MimeArmorModel<T extends LivingEntity> extends BipedModel<T> {
 
 	public MimeArmorModel(float modelSizeIn) {
 		super(modelSizeIn);
-		this.bipedHead = new ModelRenderer(this, 0, 0);
-		this.bipedHead.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, modelSizeIn);
-		this.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.head = new ModelRenderer(this, 0, 0);
+		this.head.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, modelSizeIn);
+		this.head.setPos(0.0F, 0.0F, 0.0F);
 
-		this.bipedHeadwear = new ModelRenderer(this, 32, 0);
-		this.bipedHeadwear.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, modelSizeIn + 0.5F);
-		this.bipedHeadwear.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.hat = new ModelRenderer(this, 32, 0);
+		this.hat.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, modelSizeIn + 0.5F);
+		this.hat.setPos(0.0F, 0.0F, 0.0F);
 
-		this.bipedBody = new ModelRenderer(this, 16, 16);
-		this.bipedBody.addBox(-4.0F, -2.0F, -2.0F, 8.0F, 12.0F, 4.0F, modelSizeIn);
-		this.bipedBody.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.body = new ModelRenderer(this, 16, 16);
+		this.body.addBox(-4.0F, -2.0F, -2.0F, 8.0F, 12.0F, 4.0F, modelSizeIn);
+		this.body.setPos(0.0F, 0.0F, 0.0F);
 
-		this.bipedRightArm = new ModelRenderer(this, 40, 16);
-		this.bipedRightArm.addBox(-3.0F, -4.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn);
-		this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
+		this.rightArm = new ModelRenderer(this, 40, 16);
+		this.rightArm.addBox(-3.0F, -4.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn);
+		this.rightArm.setPos(-5.0F, 2.0F, 0.0F);
 
-		this.bipedLeftArm = new ModelRenderer(this, 40, 16);
-		this.bipedLeftArm.addBox(-1.0F, -4.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn, true);
-		this.bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
+		this.leftArm = new ModelRenderer(this, 40, 16);
+		this.leftArm.addBox(-1.0F, -4.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn, true);
+		this.leftArm.setPos(5.0F, 2.0F, 0.0F);
 
-		this.bipedRightLeg = new ModelRenderer(this, 0, 16);
-		this.bipedRightLeg.addBox(-2.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn);
-		this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
+		this.rightLeg = new ModelRenderer(this, 0, 16);
+		this.rightLeg.addBox(-2.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn);
+		this.rightLeg.setPos(-1.9F, 12.0F, 0.0F);
 
-		this.bipedLeftLeg = new ModelRenderer(this, 0, 16);
-		this.bipedLeftLeg.addBox(-2.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn, true);
-		this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F, 0.0F);
+		this.leftLeg = new ModelRenderer(this, 0, 16);
+		this.leftLeg.addBox(-2.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSizeIn, true);
+		this.leftLeg.setPos(1.9F, 12.0F, 0.0F);
 	}
 }

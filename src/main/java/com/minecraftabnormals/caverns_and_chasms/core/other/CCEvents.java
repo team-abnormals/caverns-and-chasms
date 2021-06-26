@@ -99,7 +99,7 @@ public class CCEvents {
 		}
 		if (entity instanceof IronGolemEntity && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			IronGolemEntity golem = (IronGolemEntity) entity;
-			golem.targetSelector.goals.stream().map(it -> it.inner).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
+			golem.targetSelector.availableGoals.stream().map(it -> it.goal).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
 				golem.targetSelector.removeGoal(goal);
 				golem.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(golem, MobEntity.class, 5, false, false, (mob) -> mob instanceof IMob));
 			});
@@ -108,10 +108,10 @@ public class CCEvents {
 			CreeperEntity creeper = (CreeperEntity) entity;
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolemEntity.class, true));
 		}
-		if (entity.getType().isContained(EntityTypes.COLLAR_DROP_MOBS) && entity instanceof TameableEntity) {
+		if (entity.getType().is(EntityTypes.COLLAR_DROP_MOBS) && entity instanceof TameableEntity) {
 			TameableEntity pet = (TameableEntity) entity;
 			List<Goal> goalsToRemove = Lists.newArrayList();
-			pet.goalSelector.goals.forEach((goal) -> {
+			pet.goalSelector.availableGoals.forEach((goal) -> {
 				if (goal.getGoal() instanceof SwimGoal)
 					goalsToRemove.add(goal.getGoal());
 			});
@@ -123,13 +123,13 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void rightClickEntity(PlayerInteractEvent.EntityInteractSpecific event) {
 		PlayerEntity player = event.getPlayer();
-		ItemStack stack = player.getHeldItem(event.getHand());
+		ItemStack stack = player.getItemInHand(event.getHand());
 		World world = event.getWorld();
 		Hand hand = event.getHand();
-		if (event.getTarget() instanceof CowEntity && !((CowEntity) event.getTarget()).isChild()) {
+		if (event.getTarget() instanceof CowEntity && !((CowEntity) event.getTarget()).isBaby()) {
 			if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get()) {
 				CompoundNBT tag = stack.getOrCreateTag();
-				ItemStack milkBucket = DrinkHelper.fill(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
+				ItemStack milkBucket = DrinkHelper.createFilledResult(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
 				boolean flag = false;
 				if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get()) {
 					flag = tag.getInt("FluidLevel") >= 2;
@@ -139,9 +139,9 @@ public class CCEvents {
 					}
 				}
 				if (!flag) {
-					player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-					player.setHeldItem(hand, milkBucket);
-					event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+					player.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
+					player.setItemInHand(hand, milkBucket);
+					event.setCancellationResult(ActionResultType.sidedSuccess(world.isClientSide()));
 					event.setCanceled(true);
 				}
 			}
@@ -156,15 +156,15 @@ public class CCEvents {
 			World world = event.getWorld();
 			SpiderlingEntity spiderling = CCEntities.SPIDERLING.get().create(world);
 			if (spiderling != null) {
-				spiderling.copyLocationAndAnglesFrom(target);
-				if (stack.hasDisplayName()) {
-					spiderling.setCustomName(stack.getDisplayName());
+				spiderling.copyPosition(target);
+				if (stack.hasCustomHoverName()) {
+					spiderling.setCustomName(stack.getHoverName());
 				}
 				if (!event.getPlayer().isCreative()) {
 					stack.shrink(1);
 				}
-				world.addEntity(spiderling);
-				event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+				world.addFreshEntity(spiderling);
+				event.setCancellationResult(ActionResultType.sidedSuccess(world.isClientSide()));
 				event.setCanceled(true);
 			}
 		}
@@ -185,11 +185,11 @@ public class CCEvents {
 		if (event.getResult() != Event.Result.DENY) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				CreeperEntity creeper = (CreeperEntity) entity;
-				if (world.getBlockState(creeper.getPosition().down()).isIn(CCTags.Blocks.DEEPER_SPAWN_BLOCKS)) {
+				if (world.getBlockState(creeper.blockPosition().below()).is(CCTags.Blocks.DEEPER_SPAWN_BLOCKS)) {
 					DeeperEntity deeper = CCEntities.DEEPER.get().create((World) world);
 					if (deeper != null) {
-						deeper.copyLocationAndAnglesFrom(creeper);
-						world.addEntity(deeper);
+						deeper.copyPosition(creeper);
+						world.addFreshEntity(deeper);
 						entity.remove();
 					}
 				}
@@ -200,15 +200,15 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingDeath(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		World world = entity.getEntityWorld();
+		World world = entity.getCommandSenderWorld();
 
-		if (entity instanceof IMob && !world.isRemote()) {
-			AxisAlignedBB aabb = entity.getBoundingBox().grow(5.0F, 2.0F, 5.0F);
-			Stream<BlockPos> blocks = BlockPos.getAllInBox(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
+		if (entity instanceof IMob && !world.isClientSide()) {
+			AxisAlignedBB aabb = entity.getBoundingBox().inflate(5.0F, 2.0F, 5.0F);
+			Stream<BlockPos> blocks = BlockPos.betweenClosedStream(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
 
 			blocks.forEach(pos -> {
 				BlockState state = world.getBlockState(pos);
-				if (state.isIn(CCBlocks.GRAVESTONE.get())) {
+				if (state.is(CCBlocks.GRAVESTONE.get())) {
 					((GravestoneBlock) CCBlocks.GRAVESTONE.get()).powerBlock(state, world, pos);
 				}
 			});
@@ -229,62 +229,62 @@ public class CCEvents {
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.getToolTypes().contains(ToolType.SHOVEL)) {
 				BlockState extinguishedState = BrazierBlock.extinguish(world, pos, state);
-				if (!world.isRemote()) {
-					world.setBlockState(pos, extinguishedState, 11);
-					stack.damageItem(1, player, (entity) -> entity.sendBreakAnimation(event.getHand()));
+				if (!world.isClientSide()) {
+					world.setBlock(pos, extinguishedState, 11);
+					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
 				}
 
 				event.setCanceled(true);
-				event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+				event.setCancellationResult(ActionResultType.sidedSuccess(world.isClientSide()));
 			}
 
 			if (BrazierBlock.canBeLit(state)) {
 				if (stack.getItem() instanceof FlintAndSteelItem) {
-					world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
-					if (!world.isRemote()) {
-						world.setBlockState(pos, state.with(BrazierBlock.LIT, true), 11);
-						stack.damageItem(1, player, (entity) -> entity.sendBreakAnimation(event.getHand()));
+					world.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					if (!world.isClientSide()) {
+						world.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
+						stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
 					}
 
 					event.setCanceled(true);
-					event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+					event.setCancellationResult(ActionResultType.sidedSuccess(world.isClientSide()));
 				} else if (stack.getItem() instanceof FireChargeItem) {
-					world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-					if (!world.isRemote()) {
-						world.setBlockState(pos, state.with(BrazierBlock.LIT, true), 11);
-						if (!player.abilities.isCreativeMode) {
+					world.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+					if (!world.isClientSide()) {
+						world.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
+						if (!player.abilities.instabuild) {
 							stack.shrink(1);
 						}
 					}
 
 					event.setCanceled(true);
-					event.setCancellationResult(ActionResultType.func_233537_a_(world.isRemote()));
+					event.setCancellationResult(ActionResultType.sidedSuccess(world.isClientSide()));
 				}
 			}
 
 		}
 
 		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof AbstractRailBlock) {
-			if (!item.isIn(CCTags.Items.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
+			if (!item.is(CCTags.Items.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
 				Block block = ((BlockItem) item).getBlock();
-				if (block instanceof AbstractRailBlock && !block.isIn(CCTags.Blocks.IGNORE_RAIL_PLACEMENT)) {
-					Direction direction = event.getPlayer().getHorizontalFacing();
-					BlockPos.Mutable currentPos = event.getPos().toMutable().move(direction);
+				if (block instanceof AbstractRailBlock && !block.is(CCTags.Blocks.IGNORE_RAIL_PLACEMENT)) {
+					Direction direction = event.getPlayer().getDirection();
+					BlockPos.Mutable currentPos = event.getPos().mutable().move(direction);
 					for (int i = 0; i < CCConfig.COMMON.betterRailPlacementRange.get(); i++) {
 						BlockPos nextPos = null;
 						boolean isNextRail = false;
-						BlockPos.Mutable yCheckingPos = currentPos.toMutable().move(Direction.DOWN);
+						BlockPos.Mutable yCheckingPos = currentPos.mutable().move(Direction.DOWN);
 						for (int j = 0; j < 3; j++) {
 							Block blockAtCheckPos = world.getBlockState(yCheckingPos).getBlock();
-							if (blockAtCheckPos instanceof AbstractRailBlock && !blockAtCheckPos.isIn(CCTags.Blocks.IGNORE_RAIL_PLACEMENT)) {
-								nextPos = yCheckingPos.move(direction).toImmutable();
+							if (blockAtCheckPos instanceof AbstractRailBlock && !blockAtCheckPos.is(CCTags.Blocks.IGNORE_RAIL_PLACEMENT)) {
+								nextPos = yCheckingPos.move(direction).immutable();
 								isNextRail = true;
 							} else if (!isNextRail) {
 								BlockItemUseContext context = new BlockItemUseContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(yCheckingPos));
-								if (world.getBlockState(yCheckingPos).isReplaceable(context)) {
+								if (world.getBlockState(yCheckingPos).canBeReplaced(context)) {
 									BlockState stateForPlacement = state.getBlock().getStateForPlacement(context);
-									if (stateForPlacement != null && stateForPlacement.isValidPosition(world, yCheckingPos))
-										nextPos = yCheckingPos.toImmutable();
+									if (stateForPlacement != null && stateForPlacement.canSurvive(world, yCheckingPos))
+										nextPos = yCheckingPos.immutable();
 								}
 							}
 							yCheckingPos.move(Direction.UP);
@@ -292,13 +292,13 @@ public class CCEvents {
 						if (!isNextRail) {
 							if (nextPos != null) {
 								BlockItemUseContext context = new BlockItemUseContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(nextPos));
-								((BlockItem) item).tryPlace(context);
+								((BlockItem) item).place(context);
 								event.setCancellationResult(ActionResultType.SUCCESS);
 								event.setCanceled(true);
 							}
 							break;
 						} else {
-							currentPos.setPos(nextPos);
+							currentPos.set(nextPos);
 						}
 					}
 				}
@@ -309,7 +309,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockEvent.BreakEvent event) {
 		PlayerEntity player = event.getPlayer();
-		Item item = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem();
+		Item item = player.getItemBySlot(EquipmentSlotType.MAINHAND).getItem();
 		if (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) {
 			int droppedXP = event.getExpToDrop();
 			event.setExpToDrop(droppedXP * 2);
@@ -320,7 +320,7 @@ public class CCEvents {
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		PlayerEntity player = event.getAttackingPlayer();
 		if (player != null) {
-			Item item = player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem();
+			Item item = player.getItemBySlot(EquipmentSlotType.MAINHAND).getItem();
 			if (item instanceof TieredItem && ((TieredItem) item).getTier() == ItemTier.GOLD) {
 				int droppedXP = event.getDroppedExperience();
 				event.setDroppedExperience(droppedXP * 2);
@@ -331,12 +331,12 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if (event.getPotionEffect().getPotion() == CCEffects.REWIND.get()) {
+		if (event.getPotionEffect().getEffect() == CCEffects.REWIND.get()) {
 			CompoundNBT data = entity.getPersistentData();
-			data.putString("RewindDimension", entity.getEntityWorld().getDimensionKey().getLocation().toString());
-			data.putDouble("RewindX", entity.getPosX());
-			data.putDouble("RewindY", entity.getPosY());
-			data.putDouble("RewindZ", entity.getPosZ());
+			data.putString("RewindDimension", entity.getCommandSenderWorld().dimension().location().toString());
+			data.putDouble("RewindX", entity.getX());
+			data.putDouble("RewindY", entity.getY());
+			data.putDouble("RewindZ", entity.getZ());
 		}
 	}
 
@@ -344,13 +344,13 @@ public class CCEvents {
 	public static void potionApplicableEvent(PotionEvent.PotionApplicableEvent event) {
 		LivingEntity entity = event.getEntityLiving();
 
-		if (event.getResult() != Result.DENY && event.getPotionEffect().getPotion() == CCEffects.AFFLICTION.get()) {
-			if (entity.getActivePotionEffect(CCEffects.AFFLICTION.get()) != null) {
-				EffectInstance affliction = entity.getActivePotionEffect(CCEffects.AFFLICTION.get());
+		if (event.getResult() != Result.DENY && event.getPotionEffect().getEffect() == CCEffects.AFFLICTION.get()) {
+			if (entity.getEffect(CCEffects.AFFLICTION.get()) != null) {
+				EffectInstance affliction = entity.getEffect(CCEffects.AFFLICTION.get());
 				if (affliction.getAmplifier() < 9) {
-					EffectInstance upgrade = new EffectInstance(affliction.getPotion(), affliction.getDuration() + 10, affliction.getAmplifier() + 1, affliction.isAmbient(), affliction.doesShowParticles(), affliction.isShowIcon());
-					entity.removeActivePotionEffect(CCEffects.AFFLICTION.get());
-					entity.addPotionEffect(upgrade);
+					EffectInstance upgrade = new EffectInstance(affliction.getEffect(), affliction.getDuration() + 10, affliction.getAmplifier() + 1, affliction.isAmbient(), affliction.isVisible(), affliction.showIcon());
+					entity.removeEffectNoUpdate(CCEffects.AFFLICTION.get());
+					entity.addEffect(upgrade);
 
 					event.setResult(Result.DENY);
 				}
@@ -362,11 +362,11 @@ public class CCEvents {
 	public static void potionRemoveEvent(PotionEvent.PotionRemoveEvent event) {
 		EffectInstance effectInstance = event.getPotionEffect();
 		if (effectInstance != null) {
-			Effect effect = effectInstance.getPotion();
+			Effect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCEffects.AFFLICTION.get() && entity.isEntityUndead()) {
-				entity.attackEntityFrom(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
+			if (effect == CCEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
+				entity.hurt(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
 			}
 
 			if (effect == CCEffects.REWIND.get()) {
@@ -374,10 +374,10 @@ public class CCEvents {
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
 					if (data.contains("RewindDimension")) {
 						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
-						RegistryKey<World> key = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, resourcelocation);
-						ServerWorld dimension = entity.getServer().getWorld(key);
+						RegistryKey<World> key = RegistryKey.create(Registry.DIMENSION_REGISTRY, resourcelocation);
+						ServerWorld dimension = entity.getServer().getLevel(key);
 
-						if (dimension != entity.getEntityWorld())
+						if (dimension != entity.getCommandSenderWorld())
 							entity.changeDimension(dimension, new ITeleporter() {
 								@Override
 								public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
@@ -385,8 +385,8 @@ public class CCEvents {
 								}
 							});
 					}
-					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
-					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+					entity.teleportTo(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
+					entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 				}
 			}
 		}
@@ -396,11 +396,11 @@ public class CCEvents {
 	public static void potionExpireEvent(PotionEvent.PotionExpiryEvent event) {
 		EffectInstance effectInstance = event.getPotionEffect();
 		if (effectInstance != null) {
-			Effect effect = effectInstance.getPotion();
+			Effect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCEffects.AFFLICTION.get() && entity.isEntityUndead()) {
-				entity.attackEntityFrom(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
+			if (effect == CCEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
+				entity.hurt(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
 			}
 
 			if (effect == CCEffects.REWIND.get()) {
@@ -408,10 +408,10 @@ public class CCEvents {
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
 					if (data.contains("RewindDimension")) {
 						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
-						RegistryKey<World> key = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, resourcelocation);
-						ServerWorld dimension = entity.getServer().getWorld(key);
+						RegistryKey<World> key = RegistryKey.create(Registry.DIMENSION_REGISTRY, resourcelocation);
+						ServerWorld dimension = entity.getServer().getLevel(key);
 
-						if (dimension != entity.getEntityWorld())
+						if (dimension != entity.getCommandSenderWorld())
 							entity.changeDimension(dimension, new ITeleporter() {
 								@Override
 								public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
@@ -419,8 +419,8 @@ public class CCEvents {
 								}
 							});
 					}
-					entity.setPositionAndUpdate(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
-					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+					entity.teleportTo(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
+					entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 				}
 			}
 		}
@@ -431,14 +431,14 @@ public class CCEvents {
 		LivingEntity target = event.getEntityLiving();
 		Random rand = new Random();
 
-		if (event.getSource().getTrueSource() instanceof LivingEntity) {
-			LivingEntity attacker = (LivingEntity) event.getSource().getTrueSource();
+		if (event.getSource().getEntity() instanceof LivingEntity) {
+			LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
 			float afflictionChance = 0.0F;
 			float weaknessAmount = 0.0F;
 			float lifeStealAmount = 0.0F;
 
 			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
-				ItemStack stack = target.getItemStackFromSlot(slot);
+				ItemStack stack = target.getItemBySlot(slot);
 
 				Collection<AttributeModifier> afflictionModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.AFFLICTION_CHANCE.get());
 				if (!afflictionModifiers.isEmpty())
@@ -449,7 +449,7 @@ public class CCEvents {
 					weaknessAmount += weaknessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 				}
 
-				Collection<AttributeModifier> lifeStealModifiers = attacker.getItemStackFromSlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
+				Collection<AttributeModifier> lifeStealModifiers = attacker.getItemBySlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
 				if (!lifeStealModifiers.isEmpty() && target instanceof IMob) {
 					lifeStealAmount += lifeStealModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 				}
@@ -459,25 +459,25 @@ public class CCEvents {
 				attacker.heal(lifeStealAmount * event.getAmount());
 
 			if (rand.nextFloat() < afflictionChance) {
-				if (attacker.isEntityUndead())
-					attacker.addPotionEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+				if (attacker.isInvertedHealAndHarm())
+					attacker.addEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
 			}
 
 			if (weaknessAmount > 0.0F) {
-				for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(weaknessAmount, 0.0D, weaknessAmount))) {
+				for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(weaknessAmount, 0.0D, weaknessAmount))) {
 					if (entity != target)
-						entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
+						entity.addEffect(new EffectInstance(Effects.WEAKNESS, 60));
 				}
 			}
 		}
 
 		if (target instanceof HorseEntity) {
 			HorseEntity horse = (HorseEntity) event.getEntityLiving();
-			for (ItemStack stack : horse.getArmorInventoryList()) {
+			for (ItemStack stack : horse.getArmorSlots()) {
 				if (stack.getItem() instanceof NecromiumHorseArmorItem) {
-					for (LivingEntity entity : target.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, target.getBoundingBox().grow(2.0D, 0.0D, 2.0D))) {
-						if (entity != target && !target.isPassenger(entity))
-							entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 60));
+					for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
+						if (entity != target && !target.hasPassenger(entity))
+							entity.addEffect(new EffectInstance(Effects.WEAKNESS, 60));
 					}
 				}
 			}
@@ -487,18 +487,18 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void livingDeathEvent(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if (event.getSource() == CCDamageSources.AFFLICTION && entity.isPotionActive(CCEffects.AFFLICTION.get())) {
-			EffectInstance effectInstance = entity.getActivePotionEffect(CCEffects.AFFLICTION.get());
+		if (event.getSource() == CCDamageSources.AFFLICTION && entity.hasEffect(CCEffects.AFFLICTION.get())) {
+			EffectInstance effectInstance = entity.getEffect(CCEffects.AFFLICTION.get());
 
-			AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ());
+			AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(entity.level, entity.getX(), entity.getY(), entity.getZ());
 			areaeffectcloudentity.setRadius(3.5F);
 			areaeffectcloudentity.setRadiusOnUse(-0.5F);
 			areaeffectcloudentity.setWaitTime(10);
 			areaeffectcloudentity.setDuration(100);
 			areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float) areaeffectcloudentity.getDuration());
-			areaeffectcloudentity.addEffect(new EffectInstance(Effects.SLOWNESS, 100, effectInstance.getAmplifier()));
+			areaeffectcloudentity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 100, effectInstance.getAmplifier()));
 
-			entity.getEntityWorld().addEntity(areaeffectcloudentity);
+			entity.getCommandSenderWorld().addFreshEntity(areaeffectcloudentity);
 		}
 	}
 
@@ -506,7 +506,7 @@ public class CCEvents {
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		Item item = event.getItemStack().getItem();
 		EquipmentSlotType slot = event.getSlotType();
-		UUID uuid = ArmorItem.ARMOR_MODIFIERS[slot.getIndex()];
+		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
 		if (CCConfig.COMMON.chainmailArmorBuff.get()) {
 			if (item == Items.CHAINMAIL_HELMET && slot == EquipmentSlotType.HEAD || item == Items.CHAINMAIL_BOOTS && slot == EquipmentSlotType.FEET)
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
@@ -520,19 +520,19 @@ public class CCEvents {
 		ResourceLocation name = event.getName();
 		LootPool pool = event.getTable().getPool("main");
 
-		if (name.equals(LootTables.CHESTS_STRONGHOLD_CORRIDOR) || name.equals(LootTables.CHESTS_VILLAGE_VILLAGE_WEAPONSMITH) || name.equals(LootTables.CHESTS_END_CITY_TREASURE) || name.equals(LootTables.CHESTS_JUNGLE_TEMPLE)) {
-			addEntry(pool, ItemLootEntry.builder(CCItems.SILVER_HORSE_ARMOR.get()).build());
-		} else if (name.equals(LootTables.CHESTS_SIMPLE_DUNGEON) || name.equals(LootTables.CHESTS_DESERT_PYRAMID)) {
-			addEntry(pool, ItemLootEntry.builder(CCItems.SILVER_HORSE_ARMOR.get()).weight(10).build());
-		} else if (name.equals(LootTables.CHESTS_NETHER_BRIDGE)) {
-			addEntry(pool, ItemLootEntry.builder(CCItems.SILVER_HORSE_ARMOR.get()).weight(6).build());
+		if (name.equals(LootTables.STRONGHOLD_CORRIDOR) || name.equals(LootTables.VILLAGE_WEAPONSMITH) || name.equals(LootTables.END_CITY_TREASURE) || name.equals(LootTables.JUNGLE_TEMPLE)) {
+			addEntry(pool, ItemLootEntry.lootTableItem(CCItems.SILVER_HORSE_ARMOR.get()).build());
+		} else if (name.equals(LootTables.SIMPLE_DUNGEON) || name.equals(LootTables.DESERT_PYRAMID)) {
+			addEntry(pool, ItemLootEntry.lootTableItem(CCItems.SILVER_HORSE_ARMOR.get()).setWeight(10).build());
+		} else if (name.equals(LootTables.NETHER_BRIDGE)) {
+			addEntry(pool, ItemLootEntry.lootTableItem(CCItems.SILVER_HORSE_ARMOR.get()).setWeight(6).build());
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	private static void addEntry(LootPool pool, LootEntry entry) {
 		try {
-			List<LootEntry> lootEntries = (List<LootEntry>) ObfuscationReflectionHelper.findField(LootPool.class, "field_186453_a").get(pool);
+			List<LootEntry> lootEntries = (List<LootEntry>) ObfuscationReflectionHelper.findField(LootPool.class, "entries").get(pool);
 			if (lootEntries.stream().anyMatch(e -> e == entry)) {
 				throw new RuntimeException("Attempted to add a duplicate entry to pool: " + entry);
 			}

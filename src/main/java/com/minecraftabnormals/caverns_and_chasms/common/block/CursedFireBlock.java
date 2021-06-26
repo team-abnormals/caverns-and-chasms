@@ -14,6 +14,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class CursedFireBlock extends AbstractFireBlock {
 
 	public CursedFireBlock(Properties builder) {
@@ -21,17 +23,17 @@ public class CursedFireBlock extends AbstractFireBlock {
 	}
 
 	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-		return this.isValidPosition(stateIn, worldIn, currentPos) ? this.getDefaultState() : Blocks.AIR.getDefaultState();
+	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+		return this.canSurvive(stateIn, worldIn, currentPos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-		return isCursedFireBase(worldIn.getBlockState(pos.down()).getBlock());
+	public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+		return isCursedFireBase(worldIn.getBlockState(pos.below()).getBlock());
 	}
 
 	public static boolean isCursedFireBase(Block block) {
-		return block.isIn(CCTags.Blocks.CURSED_FIRE_BASE_BLOCKS);
+		return block.is(CCTags.Blocks.CURSED_FIRE_BASE_BLOCKS);
 	}
 
 	@Override
@@ -40,14 +42,14 @@ public class CursedFireBlock extends AbstractFireBlock {
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		if (entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isEntityUndead()) {
-			entityIn.forceFireTicks(entityIn.getFireTimer() + 1);
-			if (entityIn.getFireTimer() == 0) {
-				entityIn.setFire(8);
+	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		if (entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isInvertedHealAndHarm()) {
+			entityIn.setRemainingFireTicks(entityIn.getRemainingFireTicks() + 1);
+			if (entityIn.getRemainingFireTicks() == 0) {
+				entityIn.setSecondsOnFire(8);
 			}
 
-			entityIn.attackEntityFrom(DamageSource.IN_FIRE, 4.0F);
+			entityIn.hurt(DamageSource.IN_FIRE, 4.0F);
 		}
 	}
 }

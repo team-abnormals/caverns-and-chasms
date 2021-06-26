@@ -21,6 +21,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggable {
 
 	protected VoxelShape downShape;
@@ -35,29 +37,29 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 	public GoldenLanternBlock(Properties properties) {
 		super(properties);
 
-		this.downShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 14.0D, 11.0D));
-		this.upShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 9.0D));
-		this.northShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(7.0D, 14.0D, 9.0D, 9.0D, 16.0D, 0.0D));
-		this.southShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 16.0D));
-		this.westShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(9.0D, 14.0D, 7.0D, 0.0D, 16.0D, 9.0D));
-		this.eastShape = VoxelShapes.or(makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), makeCuboidShape(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), makeCuboidShape(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), makeCuboidShape(7.0D, 14.0D, 7.0D, 16.0D, 16.0D, 9.0D));
+		this.downShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 2.0D, 5.0D, 11.0D, 14.0D, 11.0D));
+		this.upShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 9.0D));
+		this.northShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 9.0D, 9.0D, 16.0D, 0.0D));
+		this.southShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 16.0D));
+		this.westShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(9.0D, 14.0D, 7.0D, 0.0D, 16.0D, 9.0D));
+		this.eastShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 16.0D, 16.0D, 9.0D));
 
-		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
 	@Override
-	public boolean allowsMovement(BlockState state, IBlockReader world, BlockPos pos, PathType type) {
+	public boolean isPathfindable(BlockState state, IBlockReader world, BlockPos pos, PathType type) {
 		return false;
 	}
 
 	@Override
-	public PushReaction getPushReaction(BlockState state) {
+	public PushReaction getPistonPushReaction(BlockState state) {
 		return PushReaction.DESTROY;
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-		switch (state.get(FACING)) {
+		switch (state.getValue(FACING)) {
 			default:
 			case DOWN:
 				return this.downShape;
@@ -76,43 +78,43 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		Direction direction = context.getFace();
-		FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
-		return this.getDefaultState().with(FACING, direction.getOpposite()).with(WATERLOGGED, fluidstate.isTagged(FluidTags.WATER) && fluidstate.getLevel() == 8);
+		Direction direction = context.getClickedFace();
+		FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+		return this.defaultBlockState().setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		Direction direction = state.get(FACING);
-		BlockPos blockpos = pos.offset(direction);
-		return hasEnoughSolidSide(world, blockpos, direction.getOpposite());
+	public boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) {
+		Direction direction = state.getValue(FACING);
+		BlockPos blockpos = pos.relative(direction);
+		return canSupportCenter(world, blockpos, direction.getOpposite());
 	}
 
 	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-		if (state.get(WATERLOGGED)) {
-			world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+		if (state.getValue(WATERLOGGED)) {
+			world.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		}
-		return this.isValidPosition(state, world, currentPos) ? state : Blocks.AIR.getDefaultState();
+		return this.canSurvive(state, world, currentPos) ? state : Blocks.AIR.defaultBlockState();
 	}
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
-		return state.with(FACING, rotation.rotate(state.get(FACING)));
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return state.with(FACING, mirror.mirror(state.get(FACING)));
+		return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(FACING, WATERLOGGED);
 	}
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 }

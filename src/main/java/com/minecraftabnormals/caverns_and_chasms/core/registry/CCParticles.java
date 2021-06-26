@@ -30,10 +30,10 @@ public class CCParticles {
 
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public static void registerParticleTypes(ParticleFactoryRegisterEvent event) {
-			Minecraft.getInstance().particles.registerFactory(CURSED_FLAME.get(), FlameParticle.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(CURSED_AMBIENT.get(), LavaParticle.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(MIME_ENERGY.get(), CloudParticle.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(MIME_SPARK.get(), CloudParticle.Factory::new);
+			Minecraft.getInstance().particleEngine.register(CURSED_FLAME.get(), FlameParticle.Factory::new);
+			Minecraft.getInstance().particleEngine.register(CURSED_AMBIENT.get(), LavaParticle.Factory::new);
+			Minecraft.getInstance().particleEngine.register(MIME_ENERGY.get(), CloudParticle.Factory::new);
+			Minecraft.getInstance().particleEngine.register(MIME_SPARK.get(), CloudParticle.Factory::new);
 		}
 	}
 }

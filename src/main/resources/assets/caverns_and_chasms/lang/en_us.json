@@ -121,6 +121,7 @@
   "item.caverns_and_chasms.silver_boots": "Silver Boots",
   "item.caverns_and_chasms.silver_horse_armor": "Silver Horse Armor",
 
+  "item.caverns_and_chasms.ancient_scrap": "Ancient Scrap",
   "item.caverns_and_chasms.necromium_ingot": "Necromium Ingot",
   "item.caverns_and_chasms.necromium_nugget": "Necromium Nugget",
   "item.caverns_and_chasms.necromium_sword": "Necromium Sword",
@@ -215,8 +216,5 @@
   "item.minecraft.lingering_potion.effect.rewind": "Lingering Potion of Rewind",
   "item.minecraft.lingering_potion.effect.rewind_long": "Lingering Potion of Rewind",
   "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind",
-  "item.minecraft.tipped_arrow.effect.rewind_long": "Arrow of Rewind",
-
-  "block.minecraft.lapis_block": "Block of Lapis Lazuli",
-  "item.minecraft.netherite_scrap": "Ancient Scrap"
+  "item.minecraft.tipped_arrow.effect.rewind_long": "Arrow of Rewind"
 }

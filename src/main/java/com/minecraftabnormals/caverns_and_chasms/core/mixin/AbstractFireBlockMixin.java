@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 @Mixin(AbstractFireBlock.class)
 public final class AbstractFireBlockMixin extends Block {
 
@@ -19,10 +21,10 @@ public final class AbstractFireBlockMixin extends Block {
 		super(properties);
 	}
 
-	@Inject(at = @At("HEAD"), method = "getFireForPlacement", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "getState", cancellable = true)
 	private static void cursedFirePlacement(IBlockReader reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
-		if (CursedFireBlock.isCursedFireBase(reader.getBlockState(pos.down()).getBlock())) {
-			info.setReturnValue(CCBlocks.CURSED_FIRE.get().getDefaultState());
+		if (CursedFireBlock.isCursedFireBase(reader.getBlockState(pos.below()).getBlock())) {
+			info.setReturnValue(CCBlocks.CURSED_FIRE.get().defaultBlockState());
 		}
 	}
 }

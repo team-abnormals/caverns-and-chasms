@@ -16,7 +16,7 @@ public class RatRenderer extends MobRenderer<RatEntity, RatModel<RatEntity>> {
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(RatEntity entity) {
+	public ResourceLocation getTextureLocation(RatEntity entity) {
 		RatType type = RatType.byId(entity.getRatType());
 		return type.getTextureLocation();
 	}

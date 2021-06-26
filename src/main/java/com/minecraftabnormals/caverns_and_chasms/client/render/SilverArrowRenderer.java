@@ -12,7 +12,7 @@ public class SilverArrowRenderer extends ArrowRenderer<SilverArrowEntity> {
 		super(manager);
 	}
 
-	public ResourceLocation getEntityTexture(SilverArrowEntity entity) {
+	public ResourceLocation getTextureLocation(SilverArrowEntity entity) {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/projectiles/silver_arrow.png");
 	}
 }
