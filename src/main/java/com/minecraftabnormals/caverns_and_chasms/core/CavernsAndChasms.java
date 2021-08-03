@@ -1,5 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.core;
 
+import com.minecraftabnormals.abnormals_core.core.util.DataUtil;
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.minecraftabnormals.caverns_and_chasms.client.render.layer.UndeadParrotLayer;
@@ -37,6 +38,7 @@ public class CavernsAndChasms {
 		CCRecipes.Serailizers.RECIPE_SERIALIZERS.register(bus);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
+		DataUtil.registerConfigCondition(CavernsAndChasms.MOD_ID, CCConfig.COMMON);
 
 		bus.addListener(this::commonSetup);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {

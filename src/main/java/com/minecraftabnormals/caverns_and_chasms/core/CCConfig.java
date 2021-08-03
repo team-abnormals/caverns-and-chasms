@@ -1,5 +1,6 @@
 package com.minecraftabnormals.caverns_and_chasms.core;
 
+import com.minecraftabnormals.abnormals_core.core.annotations.ConfigKey;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import org.apache.commons.lang3.tuple.Pair;
@@ -7,13 +8,25 @@ import org.apache.commons.lang3.tuple.Pair;
 public class CCConfig {
 
 	public static class Common {
+
+		@ConfigKey("creeper_explosions_destroy_blocks")
 		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
+
+		@ConfigKey("deeper_max_spawn_height")
 		public final ConfigValue<Integer> deeperMaxSpawnHeight;
+
+		@ConfigKey("large_emerald_veins_enabled")
 		public final ConfigValue<Boolean> largeEmeraldVeins;
 
+
+		@ConfigKey("chainmail_armor_buff_enabled")
 		public final ConfigValue<Boolean> chainmailArmorBuff;
 
+
+		@ConfigKey("better_rail_placement_enabled")
 		public final ConfigValue<Boolean> betterRailPlacement;
+
+		@ConfigKey("better_rail_placement_range")
 		public final ConfigValue<Integer> betterRailPlacementRange;
 
 		public Common(ForgeConfigSpec.Builder builder) {
