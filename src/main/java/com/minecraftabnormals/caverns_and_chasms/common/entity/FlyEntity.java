@@ -35,8 +35,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 	@Nullable
 	private int underWaterTicks;

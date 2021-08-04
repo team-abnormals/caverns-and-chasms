@@ -2,7 +2,9 @@ package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.CloudParticle;
+import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.particle.LavaParticle;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;

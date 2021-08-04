@@ -13,8 +13,6 @@ import net.minecraft.util.NonNullList;
 
 import java.util.UUID;
 
-import net.minecraft.item.Item.Properties;
-
 public class SilverArmorItem extends ArmorItem {
 	private final LazyValue<Multimap<Attribute, AttributeModifier>> attributes;
 	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.GOLDEN_BOOTS);

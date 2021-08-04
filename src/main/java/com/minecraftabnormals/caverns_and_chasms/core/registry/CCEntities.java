@@ -2,6 +2,7 @@ package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
 import com.minecraftabnormals.abnormals_core.core.util.registry.EntitySubRegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.render.*;
+import com.minecraftabnormals.caverns_and_chasms.client.render.layer.UndeadParrotLayer;
 import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonCatRenderer;
 import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonParrotRenderer;
 import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonWolfRenderer;
@@ -21,17 +22,19 @@ import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCEntities {
@@ -94,6 +97,13 @@ public class CCEntities {
 		RenderingRegistry.registerEntityRenderingHandler(SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(SKELETON_CAT.get(), SkeletonCatRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(SKELETON_PARROT.get(), SkeletonParrotRenderer::new);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public static void registerRenderLayers(FMLClientSetupEvent event) {
+		event.getMinecraftSupplier().get().getEntityRenderDispatcher().getSkinMap().forEach(((s, playerRenderer) -> {
+			playerRenderer.addLayer(new UndeadParrotLayer<>(playerRenderer));
+		}));
 	}
 
 	public static void registerEntitySpawns() {

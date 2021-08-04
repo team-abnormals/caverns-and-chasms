@@ -21,8 +21,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.UUID;
 
-import net.minecraft.item.Item.Properties;
-
 public class SanguineArmorItem extends ArmorItem {
 	private final LazyValue<Multimap<Attribute, AttributeModifier>> attributes;
 	private static final TargetedItemGroupFiller FILLER = new TargetedItemGroupFiller(() -> Items.GOLDEN_BOOTS);

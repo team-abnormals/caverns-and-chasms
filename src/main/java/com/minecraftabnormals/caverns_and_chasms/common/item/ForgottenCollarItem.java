@@ -32,6 +32,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,8 +44,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import net.minecraft.item.Item.Properties;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class ForgottenCollarItem extends Item {
@@ -219,6 +219,7 @@ public class ForgottenCollarItem extends Item {
 	}
 
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		CompoundNBT tag = stack.getOrCreateTag();
 

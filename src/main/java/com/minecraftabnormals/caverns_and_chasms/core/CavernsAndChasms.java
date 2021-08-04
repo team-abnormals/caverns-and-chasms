@@ -2,7 +2,6 @@ package com.minecraftabnormals.caverns_and_chasms.core;
 
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
-import com.minecraftabnormals.caverns_and_chasms.client.render.layer.UndeadParrotLayer;
 import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
@@ -36,14 +35,15 @@ public class CavernsAndChasms {
 		CCParticles.PARTICLES.register(bus);
 		CCRecipes.Serailizers.RECIPE_SERIALIZERS.register(bus);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
-
 		bus.addListener(this::commonSetup);
+		bus.addListener(this::clientSetup);
+
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			bus.addListener(this::clientSetup);
 			bus.addListener(this::registerItemColors);
 			DeeperSpriteUploader.init(bus);
 		});
+
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -58,14 +58,12 @@ public class CavernsAndChasms {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
-		CCTileEntities.registerRenderers();
 		CCEntities.registerRenderers();
+		CCTileEntities.registerRenderers();
 		event.enqueueWork(() -> {
 			CCCompat.registerRenderLayers();
 			CCItems.registerItemProperties();
-			event.getMinecraftSupplier().get().getEntityRenderDispatcher().getSkinMap().forEach(((s, playerRenderer) -> {
-				playerRenderer.addLayer(new UndeadParrotLayer<>(playerRenderer));
-			}));
+			CCEntities.registerRenderLayers(event);
 		});
 	}
 

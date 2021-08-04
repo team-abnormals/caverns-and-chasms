@@ -14,8 +14,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class CursedFireBlock extends AbstractFireBlock {
 
 	public CursedFireBlock(Properties builder) {

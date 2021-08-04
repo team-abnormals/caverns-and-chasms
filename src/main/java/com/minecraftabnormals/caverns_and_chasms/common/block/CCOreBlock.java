@@ -5,8 +5,6 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class CCOreBlock extends OreBlock {
 	private int minXP;
 	private final int maxXP;

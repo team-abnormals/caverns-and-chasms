@@ -1,10 +1,8 @@
 package com.minecraftabnormals.caverns_and_chasms.client.render.skeleton;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.client.renderer.entity.CatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.ParrotRenderer;
-import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.util.ResourceLocation;
 

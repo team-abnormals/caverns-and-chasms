@@ -1,6 +1,5 @@
 package com.minecraftabnormals.caverns_and_chasms.common.block;
 
-import com.minecraftabnormals.abnormals_core.core.util.BlockUtil;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.block.*;
@@ -14,7 +13,6 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.pathfinding.PathType;
@@ -34,9 +32,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;

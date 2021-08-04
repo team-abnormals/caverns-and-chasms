@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class CursedCampfireBlock extends CampfireBlock {
 
 	public CursedCampfireBlock(Properties properties) {

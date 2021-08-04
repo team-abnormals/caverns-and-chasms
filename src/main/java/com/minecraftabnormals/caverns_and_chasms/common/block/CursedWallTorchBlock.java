@@ -12,8 +12,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class CursedWallTorchBlock extends WallTorchBlock {
 
 	public CursedWallTorchBlock(Properties properties) {

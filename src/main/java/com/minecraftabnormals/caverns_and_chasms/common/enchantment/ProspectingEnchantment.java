@@ -4,8 +4,6 @@ import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 
-import net.minecraft.enchantment.Enchantment.Rarity;
-
 public class ProspectingEnchantment extends Enchantment {
 
 	public ProspectingEnchantment() {

@@ -12,8 +12,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.item.Item.Properties;
-
 @Mixin(TieredItem.class)
 public abstract class TieredItemMixin extends Item {
 

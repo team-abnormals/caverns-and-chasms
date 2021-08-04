@@ -16,8 +16,6 @@ import net.minecraftforge.common.Tags;
 
 import java.util.stream.Stream;
 
-import net.minecraft.item.Item.Properties;
-
 public class OreDetectorItem extends Item implements IVanishable {
 
 	public OreDetectorItem(Properties properties) {
