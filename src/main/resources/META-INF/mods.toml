@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[32,)"
-issueTrackerURL = "https://github.com/team-abnormals/nether-caverns_and_chasms/issues"
-license = "https://github.com/team-abnormals/nether-caverns_and_chasms/blob/main/LICENSE.txt"
+issueTrackerURL = "https://github.com/team-abnormals/caverns_and_chasms/issues"
+license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENSE.txt"
 
 [[mods]]
     modId = "caverns_and_chasms"
