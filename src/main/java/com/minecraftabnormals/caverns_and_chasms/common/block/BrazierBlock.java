@@ -66,7 +66,6 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 	@Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-
 		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction.getAxis() == Direction.Axis.Y) {
 				BlockState blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);

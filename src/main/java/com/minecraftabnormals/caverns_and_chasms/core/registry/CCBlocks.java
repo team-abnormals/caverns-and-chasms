@@ -35,7 +35,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SANGUINE_SLAB = HELPER.createBlock("sanguine_plate_slab", () -> new SlabBlock(Properties.SANGUINE_PLATES), ItemGroup.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SANGUINE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "sanguine_plate_vertical_slab", () -> new VerticalSlabBlock(Properties.SANGUINE_PLATES), ItemGroup.TAB_BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.copy(Blocks.NETHERITE_BLOCK).harvestLevel(3)), ItemGroup.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Properties.NECROMIUM_BLOCK), ItemGroup.TAB_BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1, Properties.BRAZIER), ItemGroup.TAB_DECORATIONS);
 	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2, Properties.BRAZIER_DIM), ItemGroup.TAB_DECORATIONS);
@@ -130,6 +130,7 @@ public class CCBlocks {
 		public static final AbstractBlock.Properties LAMP = AbstractBlock.Properties.of(Material.BUILDABLE_GLASS).lightLevel((state) -> 15).strength(0.3F).sound(SoundType.GLASS).isValidSpawn(Properties::alwaysAllowSpawn);
 
 		public static final AbstractBlock.Properties ROTTEN_FLESH_BLOCK = AbstractBlock.Properties.of(Material.GRASS, MaterialColor.TERRACOTTA_ORANGE).harvestTool(ToolType.HOE).strength(0.8F).sound(SoundType.CORAL_BLOCK);
+		public static final AbstractBlock.Properties NECROMIUM_BLOCK = AbstractBlock.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).harvestTool(ToolType.PICKAXE).harvestLevel(3).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK);
 
 		private static boolean alwaysAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
 			return true;

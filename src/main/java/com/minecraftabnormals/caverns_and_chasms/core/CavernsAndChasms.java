@@ -51,8 +51,7 @@ public class CavernsAndChasms {
 			CCEntities.registerEntitySpawns();
 			CCFeatures.Configured.registerConfiguredFeatures();
 			CCEffects.registerBrewingRecipes();
-			CCCompat.registerDispenserBehaviors();
-			CCCompat.changeLocalization();
+			CCCompat.registerCompat();
 			CCEnchantments.registerEnchantmentTypes();
 		});
 	}
