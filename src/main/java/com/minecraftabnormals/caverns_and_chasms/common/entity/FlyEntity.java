@@ -1,6 +1,5 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
-import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -59,14 +58,13 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new TemptGoal(this, 1.25D, Ingredient.of(Items.ROTTEN_FLESH), false));
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, (double) 1.4F, true));
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.4F, true));
 		this.goalSelector.addGoal(2, new WanderGoal());
 		this.goalSelector.addGoal(3, new SwimGoal(this));
-		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(new Class[0]));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<ZombieEntity>(this, ZombieEntity.class, true));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<ZombieChickenEntity>(this, ZombieChickenEntity.class, true));
-		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<ZombieHorseEntity>(this, ZombieHorseEntity.class, true));
-		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, ZombieEntity.class, true));
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, ZombieHorseEntity.class, true));
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 	}
 
 	public void addAdditionalSaveData(CompoundNBT compound) {

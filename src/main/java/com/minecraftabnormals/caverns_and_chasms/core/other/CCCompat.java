@@ -2,7 +2,6 @@ package com.minecraftabnormals.caverns_and_chasms.core.other;
 
 import com.minecraftabnormals.abnormals_core.common.dispenser.FishBucketDispenseBehavior;
 import com.minecraftabnormals.abnormals_core.core.util.DataUtil;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.RottenEggEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SilverArrowEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -29,14 +28,6 @@ public class CCCompat {
 				SilverArrowEntity entity = new SilverArrowEntity(worldIn, position.x(), position.y(), position.z());
 				entity.pickup = AbstractArrowEntity.PickupStatus.ALLOWED;
 				return entity;
-			}
-		});
-
-		DispenserBlock.registerBehavior(CCItems.ROTTEN_EGG.get(), new ProjectileDispenseBehavior() {
-			protected ProjectileEntity getProjectile(World worldIn, IPosition position, ItemStack stackIn) {
-				return Util.make(new RottenEggEntity(worldIn, position.x(), position.y(), position.z()), (entity) -> {
-					entity.setItem(stackIn);
-				});
 			}
 		});
 	}

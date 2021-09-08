@@ -6,7 +6,6 @@ import com.minecraftabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.FlyEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.SpiderlingEntity;
-import com.minecraftabnormals.caverns_and_chasms.common.entity.zombie.ZombieChickenEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CCConfig;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -92,10 +91,6 @@ public class CCEvents {
 		if (entity instanceof SpiderEntity) {
 			SpiderEntity spider = (SpiderEntity) event.getEntity();
 			spider.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(spider, FlyEntity.class, false));
-		}
-		if (entity instanceof ChickenEntity) {
-			ChickenEntity chicken = (ChickenEntity) event.getEntity();
-			chicken.goalSelector.addGoal(1, new AvoidEntityGoal<>(chicken, ZombieChickenEntity.class, 9.0F, 1.05D, 1.05D));
 		}
 		if (entity instanceof IronGolemEntity && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			IronGolemEntity golem = (IronGolemEntity) entity;

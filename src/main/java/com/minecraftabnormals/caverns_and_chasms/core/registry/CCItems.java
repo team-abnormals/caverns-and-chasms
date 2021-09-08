@@ -56,8 +56,6 @@ public class CCItems {
 	public static final RegistryObject<Item> SANGUINE_LEGGINGS = HELPER.createItem("sanguine_leggings", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.LEGS, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
 	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlotType.FEET, new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
 
-	public static final RegistryObject<Item> ROTTEN_EGG = HELPER.createItem("rotten_egg", () -> new RottenEggItem(new Item.Properties().stacksTo(16).tab(ItemGroup.TAB_MISC)));
-
 	public static final RegistryObject<Item> SUGILITE = HELPER.createItem("sugilite", () -> new Item(new Item.Properties().tab(ItemGroup.TAB_MISC)));
 
 	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().stacksTo(1).fireResistant().tab(ItemGroup.TAB_MISC)));
@@ -76,7 +74,6 @@ public class CCItems {
 	public static final RegistryObject<AbnormalsSpawnEggItem> CAVEFISH_SPAWN_EGG = HELPER.createSpawnEggItem("cavefish", CCEntities.CAVEFISH::get, 14145236, 11251356);
 	public static final RegistryObject<AbnormalsSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntities.DEEPER::get, 8355711, 13717260);
 	public static final RegistryObject<AbnormalsSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntities.FLY::get, 920336, 7080720);
-	public static final RegistryObject<AbnormalsSpawnEggItem> ZOMBIE_CHICKEN_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_chicken", CCEntities.ZOMBIE_CHICKEN::get, 3430940, 9349983);
 	public static final RegistryObject<AbnormalsSpawnEggItem> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntities.MIME::get, 0x5A5050, 0x969964);
 	public static final RegistryObject<AbnormalsSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntities.RAT::get, 0x3B4248, 0xA76E6C);
 
