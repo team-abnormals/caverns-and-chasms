@@ -35,7 +35,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SANGUINE_SLAB = HELPER.createBlock("sanguine_plate_slab", () -> new SlabBlock(Properties.SANGUINE_PLATES), ItemGroup.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SANGUINE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "sanguine_plate_vertical_slab", () -> new VerticalSlabBlock(Properties.SANGUINE_PLATES), ItemGroup.TAB_BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.copy(Blocks.NETHERITE_BLOCK)), ItemGroup.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(Block.Properties.copy(Blocks.NETHERITE_BLOCK).harvestLevel(3)), ItemGroup.TAB_BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1, Properties.BRAZIER), ItemGroup.TAB_DECORATIONS);
 	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2, Properties.BRAZIER_DIM), ItemGroup.TAB_DECORATIONS);
