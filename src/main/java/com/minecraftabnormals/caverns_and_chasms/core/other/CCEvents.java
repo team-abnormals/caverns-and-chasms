@@ -222,7 +222,7 @@ public class CCEvents {
 		Random random = world.getRandom();
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
-			if (stack.getToolTypes().contains(ToolType.SHOVEL)) {
+			if (stack.getToolTypes().contains(ToolType.SHOVEL) && state.getValue(BrazierBlock.LIT)) {
 				BlockState extinguishedState = BrazierBlock.extinguish(world, pos, state);
 				if (!world.isClientSide()) {
 					world.setBlock(pos, extinguishedState, 11);
