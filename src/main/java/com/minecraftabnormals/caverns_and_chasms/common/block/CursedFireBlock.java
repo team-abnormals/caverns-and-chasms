@@ -1,37 +1,36 @@
 package com.minecraftabnormals.caverns_and_chasms.common.block;
 
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags;
-import net.minecraft.block.AbstractFireBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class CursedFireBlock extends AbstractFireBlock {
+public class CursedFireBlock extends BaseFireBlock {
 
 	public CursedFireBlock(Properties builder) {
 		super(builder, 4.0F);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
 		return this.canSurvive(stateIn, worldIn, currentPos) ? this.defaultBlockState() : Blocks.AIR.defaultBlockState();
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
-		return isCursedFireBase(worldIn.getBlockState(pos.below()).getBlock());
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+		return canSurviveOnBlock(level.getBlockState(pos.below()));
 	}
 
-	public static boolean isCursedFireBase(Block block) {
-		return block.is(CCTags.Blocks.CURSED_FIRE_BASE_BLOCKS);
+	public static boolean canSurviveOnBlock(BlockState state) {
+		return state.is(CCTags.Blocks.CURSED_FIRE_BASE_BLOCKS);
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class CursedFireBlock extends AbstractFireBlock {
 	}
 
 	@Override
-	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
 		if (entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isInvertedHealAndHarm()) {
 			entityIn.setRemainingFireTicks(entityIn.getRemainingFireTicks() + 1);
 			if (entityIn.getRemainingFireTicks() == 0) {

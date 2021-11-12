@@ -2,58 +2,63 @@ package com.minecraftabnormals.caverns_and_chasms.common.block;
 
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import net.minecraft.block.*;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BrazierBlock extends Block implements IWaterLoggable {
+public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	protected static final VoxelShape GROUNDED_SHAPE = VoxelShapes.or(Block.box(0.0D, 4.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D));
+	protected static final VoxelShape GROUNDED_SHAPE = Shapes.or(Block.box(0.0D, 4.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D));
 	protected static final VoxelShape HANGING_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D);
 
 	private final int fireDamage;
 
-	public BrazierBlock(int fireDamage, AbstractBlock.Properties properties) {
+	public BrazierBlock(int fireDamage, BlockBehaviour.Properties properties) {
 		super(properties);
 		this.fireDamage = fireDamage;
 		this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true).setValue(HANGING, false).setValue(WATERLOGGED, false));
 	}
 
-	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
 		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
 			if (state.is(CCBlocks.CURSED_BRAZIER.get()) && !((LivingEntity) entityIn).isInvertedHealAndHarm())
 				return;
@@ -64,7 +69,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
 		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction.getAxis() == Direction.Axis.Y) {
@@ -79,7 +84,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 		return null;
 	}
 
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
 		if (stateIn.getValue(WATERLOGGED)) {
 			worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
 		}
@@ -91,26 +96,26 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 		return state.getValue(HANGING) ? Direction.DOWN : Direction.UP;
 	}
 
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return state.getValue(HANGING) ? HANGING_SHAPE : GROUNDED_SHAPE;
 	}
 
-	public BlockRenderType getRenderShape(BlockState state) {
-		return BlockRenderType.MODEL;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.MODEL;
 	}
 
-	public static BlockState extinguish(IWorld world, BlockPos pos, BlockState state) {
+	public static BlockState extinguish(LevelAccessor world, BlockPos pos, BlockState state) {
 		if (world.isClientSide()) {
 			for (int i = 0; i < 20; ++i) {
-				spawnSmokeParticles((World) world, pos);
+				spawnSmokeParticles((Level) world, pos);
 			}
 		} else {
-			world.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			world.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 		}
 		return state.setValue(LIT, false);
 	}
 
-	public boolean placeLiquid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+	public boolean placeLiquid(LevelAccessor worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
 		if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidStateIn.getType() == Fluids.WATER) {
 			if (state.getValue(LIT)) extinguish(worldIn, pos, state);
 			worldIn.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(LIT, false), 3);
@@ -121,10 +126,10 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 		}
 	}
 
-	public void onProjectileHit(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+	public void onProjectileHit(Level worldIn, BlockState state, BlockHitResult hit, Projectile projectile) {
 		if (!worldIn.isClientSide && projectile.isOnFire()) {
 			Entity entity = projectile.getOwner();
-			boolean flag = entity == null || entity instanceof PlayerEntity || ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
+			boolean flag = entity == null || entity instanceof Player || ForgeEventFactory.getMobGriefingEvent(worldIn, entity);
 			if (flag && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
 				BlockPos blockpos = hit.getBlockPos();
 				worldIn.setBlock(blockpos, state.setValue(BlockStateProperties.LIT, true), 11);
@@ -133,12 +138,12 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
 	}
 
-	public static void spawnSmokeParticles(World worldIn, BlockPos pos) {
+	public static void spawnSmokeParticles(Level worldIn, BlockPos pos) {
 		Random random = worldIn.getRandom();
 		worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), pos.getY() + 0.4D, pos.getZ() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
 	}
 
-	public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
 		Direction direction = getBlockConnected(state).getOpposite();
 		return Block.canSupportCenter(worldIn, pos.relative(direction), direction.getOpposite());
 	}
@@ -155,11 +160,11 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(LIT, HANGING, WATERLOGGED);
 	}
 
-	public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+	public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
 		return false;
 	}
 
@@ -169,7 +174,7 @@ public class BrazierBlock extends Block implements IWaterLoggable {
 
 	@Nullable
 	@Override
-	public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
-		return isLit(state) ? PathNodeType.DAMAGE_FIRE : super.getAiPathNodeType(state, world, pos, entity);
+	public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+		return isLit(state) ? BlockPathTypes.DAMAGE_FIRE : super.getAiPathNodeType(state, world, pos, entity);
 	}
 }

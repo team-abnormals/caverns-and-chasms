@@ -1,9 +1,11 @@
 package com.minecraftabnormals.caverns_and_chasms.common.block;
 
-import net.minecraft.block.OreBlock;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.level.block.OreBlock;
+import net.minecraft.util.Mth;
 
 import java.util.Random;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class CCOreBlock extends OreBlock {
 	private int minXP;
@@ -16,6 +18,6 @@ public class CCOreBlock extends OreBlock {
 	}
 
 	protected int xpOnDrop(Random rand) {
-		return MathHelper.nextInt(rand, minXP, maxXP);
+		return Mth.nextInt(rand, minXP, maxXP);
 	}
 }

@@ -2,21 +2,21 @@ package com.minecraftabnormals.caverns_and_chasms.common.item;
 
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCTags;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEnchantments;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.IVanishable;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Vanishable;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.Tags;
 
 import java.util.stream.Stream;
 
-public class OreDetectorItem extends Item implements IVanishable {
+public class OreDetectorItem extends Item implements Vanishable {
 
 	public OreDetectorItem(Properties properties) {
 		super(properties);
@@ -32,27 +32,27 @@ public class OreDetectorItem extends Item implements IVanishable {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) {
 		if (!world.isClientSide) {
-			CompoundNBT tag = stack.getOrCreateTag();
-			AxisAlignedBB aabb = entity.getBoundingBox().inflate(3, 3, 3);
+			CompoundTag tag = stack.getOrCreateTag();
+			AABB aabb = entity.getBoundingBox().inflate(3, 3, 3);
 			Stream<BlockPos> blocks = BlockPos.betweenClosedStream(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
 
 			tag.putBoolean("Detecting", false);
 
 			blocks.forEach(blockPos -> {
 
-				Block block = world.getBlockState(blockPos).getBlock();
+				BlockState state = world.getBlockState(blockPos);
 
 				if (EnchantmentHelper.getItemEnchantmentLevel(CCEnchantments.PROSPECTING.get(), stack) > 0) {
-					if (block.is(CCTags.Blocks.PROSPECTING_METALS)) {
+					if (state.is(CCTags.Blocks.PROSPECTING_METALS)) {
 						tag.putBoolean("Detecting", true);
 					}
 				} else if (EnchantmentHelper.getItemEnchantmentLevel(CCEnchantments.TREASURING.get(), stack) > 0) {
-					if (block.is(CCTags.Blocks.TREASURING_GEMS)) {
+					if (state.is(CCTags.Blocks.TREASURING_GEMS)) {
 						tag.putBoolean("Detecting", true);
 					}
-				} else if (block.is(Tags.Blocks.ORES)) {
+				} else if (state.is(Tags.Blocks.ORES)) {
 					tag.putBoolean("Detecting", true);
 				}
 			});

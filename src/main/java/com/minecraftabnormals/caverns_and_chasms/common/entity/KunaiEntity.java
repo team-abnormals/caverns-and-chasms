@@ -2,60 +2,60 @@ package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCDamageSources;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.play.server.SChangeGameStatePacket;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
+@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
+public class KunaiEntity extends AbstractArrow implements ItemSupplier {
 
-	public KunaiEntity(EntityType<? extends KunaiEntity> type, World worldIn) {
+	public KunaiEntity(EntityType<? extends KunaiEntity> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
-	public KunaiEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-		this(CCEntities.KUNAI.get(), world);
+	public KunaiEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
+		this(CCEntityTypes.KUNAI.get(), world);
 	}
 
-	public KunaiEntity(World worldIn, LivingEntity shooter) {
-		super(CCEntities.KUNAI.get(), shooter, worldIn);
+	public KunaiEntity(Level worldIn, LivingEntity shooter) {
+		super(CCEntityTypes.KUNAI.get(), shooter, worldIn);
 	}
 
 	@Override
 	protected void doPostHurtEffects(LivingEntity living) {
 		super.doPostHurtEffects(living);
 		if (living.isInvertedHealAndHarm())
-			living.addEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+			living.addEffect(new MobEffectInstance(CCEffects.AFFLICTION.get(), 60));
 	}
 
 	@Override
-	protected void onHitEntity(EntityRayTraceResult result) {
+	protected void onHitEntity(EntityHitResult result) {
 		Entity target = result.getEntity();
 		Entity shooter = this.getOwner();
 
 		float motion = (float) this.getDeltaMovement().length();
-		int damage = MathHelper.ceil(MathHelper.clamp((double) motion * 0.5F * this.getBaseDamage(), 0.0D, 2.147483647E9D));
+		int damage = Mth.ceil(Mth.clamp((double) motion * 0.5F * this.getBaseDamage(), 0.0D, 2.147483647E9D));
 
 		DamageSource damagesource;
 		if (shooter == null) {
@@ -75,8 +75,7 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 		if (target.hurt(damagesource, (float) damage)) {
 			if (isEnderman) return;
 
-			if (target instanceof LivingEntity) {
-				LivingEntity livingTarget = (LivingEntity) target;
+			if (target instanceof LivingEntity livingTarget) {
 
 				if (!this.level.isClientSide() && shooter instanceof LivingEntity) {
 					EnchantmentHelper.doPostHurtEffects(livingTarget, shooter);
@@ -84,8 +83,8 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 				}
 
 				this.doPostHurtEffects(livingTarget);
-				if (livingTarget != shooter && livingTarget instanceof PlayerEntity && shooter instanceof ServerPlayerEntity && !this.isSilent()) {
-					((ServerPlayerEntity) shooter).connection.send(new SChangeGameStatePacket(SChangeGameStatePacket.ARROW_HIT_PLAYER, 0.0F));
+				if (livingTarget != shooter && livingTarget instanceof Player && shooter instanceof ServerPlayer && !this.isSilent()) {
+					((ServerPlayer) shooter).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
 				}
 
 				if (!target.isAlive() && this.piercedAndKilledEntities != null) {
@@ -97,14 +96,14 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 		} else {
 			target.setRemainingFireTicks(target.getRemainingFireTicks());
 			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
-			this.yRot += 180.0F;
+			this.setYRot(this.getYRot() + 180.0F);
 			this.yRotO += 180.0F;
 			if (!this.level.isClientSide() && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-				if (this.pickup == AbstractArrowEntity.PickupStatus.ALLOWED) {
+				if (this.pickup == AbstractArrow.Pickup.ALLOWED) {
 					this.spawnAtLocation(this.getPickupItem(), 0.1F);
 				}
 
-				this.remove();
+				this.discard();
 			}
 		}
 	}
@@ -114,7 +113,7 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 	}
 
 	@Override
-	public IPacket<?> getAddEntityPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -126,7 +125,7 @@ public class KunaiEntity extends AbstractArrowEntity implements IRendersAsItem {
 	protected void tickDespawn() {
 		++this.life;
 		if (this.life >= 6000) {
-			this.remove();
+			this.discard();
 		}
 	}
 

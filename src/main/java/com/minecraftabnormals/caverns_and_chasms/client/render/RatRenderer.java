@@ -4,14 +4,14 @@ import com.minecraftabnormals.caverns_and_chasms.client.model.RatModel;
 import com.minecraftabnormals.caverns_and_chasms.client.render.layer.RatHeldItemLayer;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.RatEntity;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.RatEntity.RatType;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class RatRenderer extends MobRenderer<RatEntity, RatModel<RatEntity>> {
 
-	public RatRenderer(EntityRendererManager renderManagerIn) {
-		super(renderManagerIn, new RatModel<>(), 0.2F);
+	public RatRenderer(EntityRendererProvider.Context context) {
+		super(context, new RatModel<>(RatModel.createLayerDefinition().bakeRoot()), 0.2F);
 		this.addLayer(new RatHeldItemLayer(this));
 	}
 

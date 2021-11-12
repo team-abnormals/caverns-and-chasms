@@ -2,9 +2,9 @@ package com.minecraftabnormals.caverns_and_chasms.core.other;
 
 import com.minecraftabnormals.caverns_and_chasms.common.entity.KunaiEntity;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 
 import javax.annotation.Nullable;
 

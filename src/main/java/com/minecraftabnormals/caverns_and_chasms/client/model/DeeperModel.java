@@ -1,71 +1,70 @@
 package com.minecraftabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.minecraftabnormals.abnormals_core.client.ACRenderTypes;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.teamabnormals.blueprint.client.BlueprintRenderTypes;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ListModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
-public class DeeperModel<T extends Entity> extends SegmentedModel<T> {
+public class DeeperModel<T extends Entity> extends ListModel<T> {
+	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper"), "main");
 	private final boolean emissive;
 
-	private final ModelRenderer head;
-	private final ModelRenderer body;
+	private final ModelPart head;
+	private final ModelPart body;
 
-	private final ModelRenderer leg1;
-	private final ModelRenderer leg2;
-	private final ModelRenderer leg3;
-	private final ModelRenderer leg4;
+	private final ModelPart leg1;
+	private final ModelPart leg2;
+	private final ModelPart leg3;
+	private final ModelPart leg4;
 
-	public DeeperModel(boolean emissive, float modelSize) {
-		this.texWidth = 64;
-		this.texHeight = 64;
-
+	public DeeperModel(boolean emissive, ModelPart root) {
 		this.emissive = emissive;
+		this.head = root.getChild("head");
+		this.body = root.getChild("body");
+		this.leg1 = root.getChild("leg1");
+		this.leg2 = root.getChild("leg2");
+		this.leg3 = root.getChild("leg3");
+		this.leg4 = root.getChild("leg4");
+	}
 
-		this.head = new ModelRenderer(this);
-		this.head.setPos(0.0F, 6.0F, 0.0F);
-		this.head.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
-		this.head.texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 2.0F, 8.0F, 0.0F + 0.3F, false);
-
-		this.body = new ModelRenderer(this);
-		this.body.setPos(0.0F, 24.0F, 0.0F);
-		this.body.texOffs(16, 16).addBox(-4.0F, -18.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
-		this.body.texOffs(40, 16).addBox(-4.0F, -18.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.3F, false);
-
-		this.leg1 = new ModelRenderer(this);
-		this.leg1.setPos(-2.0F, 18.0F, 4.0F);
-		this.leg1.texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.0F, false);
-
-		this.leg2 = new ModelRenderer(this);
-		this.leg2.setPos(2.0F, 18.0F, 4.0F);
-		this.leg2.texOffs(0, 26).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.0F, false);
-
-		this.leg3 = new ModelRenderer(this);
-		this.leg3.setPos(-2.0F, 18.0F, -4.0F);
-		this.leg3.texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.0F, false);
-
-		this.leg4 = new ModelRenderer(this);
-		this.leg4.setPos(2.0F, 18.0F, -4.0F);
-		this.leg4.texOffs(0, 26).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.0F, false);
+	//Layer Definition
+	public static LayerDefinition createLayerDefinition() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition root = meshdefinition.getRoot();
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 4.0F, 0.0F, 4.0F, false).addBox(-4.0F, -8.0F, -4.0F, 4.0F, -6.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, 6.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(40, 16).addBox(-4.0F, -18.0F, -2.0F, 4.0F, -6.0F, 2.0F, false).addBox(-4.0F, -18.0F, -2.0F, 4.0F, -6.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leg1 = root.addOrReplaceChild("leg1", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 18.0F, 4.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leg2 = root.addOrReplaceChild("leg2", CubeListBuilder.create().texOffs(0, 26).addBox(-2.0F, 0.0F, -2.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 18.0F, 4.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leg3 = root.addOrReplaceChild("leg3", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 18.0F, -4.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leg4 = root.addOrReplaceChild("leg4", CubeListBuilder.create().texOffs(0, 26).addBox(-2.0F, 0.0F, -2.0F, 2.0F, 6.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 18.0F, -4.0F, 0.0F, 0.0F, 0.0F));
+		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	@Override
-	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		TextureAtlasSprite sprite = this.emissive ? DeeperSpriteUploader.getEmissiveSprite() : DeeperSpriteUploader.getSprite();
-		RenderType render = this.emissive ? ACRenderTypes.getEmissiveTransluscentEntity(DeeperSpriteUploader.ATLAS_LOCATION, false) : RenderType.entityCutout(DeeperSpriteUploader.ATLAS_LOCATION);
+		RenderType render = this.emissive ? BlueprintRenderTypes.getEmissiveTranslucentEntity(DeeperSpriteUploader.ATLAS_LOCATION, false) : RenderType.entityCutout(DeeperSpriteUploader.ATLAS_LOCATION);
 		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(render)), this.emissive ? 15728880 : packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public Iterable<ModelRenderer> parts() {
+	public Iterable<ModelPart> parts() {
 		return ImmutableList.of(this.head, this.body, this.leg1, this.leg2, this.leg3, this.leg4);
 	}
 
@@ -73,9 +72,9 @@ public class DeeperModel<T extends Entity> extends SegmentedModel<T> {
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
-		this.leg1.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.leg2.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		this.leg3.xRot = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		this.leg4.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leg1.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leg2.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg3.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg4.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 	}
 }

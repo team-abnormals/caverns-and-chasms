@@ -1,11 +1,10 @@
 package com.minecraftabnormals.caverns_and_chasms.core.mixin;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.*;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public abstract class TieredItemMixin extends Item {
 
 	@Shadow
-	IItemTier getTier() {
+	Tier getTier() {
 		return null;
 	}
 
@@ -25,9 +24,9 @@ public abstract class TieredItemMixin extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		if (this.getTier() == ItemTier.GOLD)
-			tooltip.add(new TranslationTextComponent("tooltip.caverns_and_chasms.boosting").withStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+		if (this.getTier() == Tiers.GOLD)
+			tooltip.add(new TranslatableComponent("tooltip.caverns_and_chasms.boosting").withStyle(ChatFormatting.GRAY));
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 	}
 }

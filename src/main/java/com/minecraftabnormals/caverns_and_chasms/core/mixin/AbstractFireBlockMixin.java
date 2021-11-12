@@ -2,17 +2,17 @@ package com.minecraftabnormals.caverns_and_chasms.core.mixin;
 
 import com.minecraftabnormals.caverns_and_chasms.common.block.CursedFireBlock;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import net.minecraft.block.AbstractFireBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractFireBlock.class)
+@Mixin(BaseFireBlock.class)
 public final class AbstractFireBlockMixin extends Block {
 
 	private AbstractFireBlockMixin(Properties properties) {
@@ -20,8 +20,8 @@ public final class AbstractFireBlockMixin extends Block {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getState", cancellable = true)
-	private static void cursedFirePlacement(IBlockReader reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
-		if (CursedFireBlock.isCursedFireBase(reader.getBlockState(pos.below()).getBlock())) {
+	private static void cursedFirePlacement(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
+		if (CursedFireBlock.canSurviveOnBlock(reader.getBlockState(pos.below()))) {
 			info.setReturnValue(CCBlocks.CURSED_FIRE.get().defaultBlockState());
 		}
 	}

@@ -1,50 +1,56 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.controller.LookController;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.passive.IFlyingAnimal;
-import net.minecraft.entity.passive.horse.ZombieHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.pathfinding.FlyingPathNavigator;
-import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.SetTag;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
+import net.minecraft.world.entity.ai.util.HoverRandomPos;
+import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
+public class FlyEntity extends PathfinderMob implements FlyingAnimal {
 	@Nullable
 	private int underWaterTicks;
 
-	public FlyEntity(EntityType<? extends FlyEntity> fly, World world) {
+	public FlyEntity(EntityType<? extends FlyEntity> fly, Level world) {
 		super(fly, world);
-		this.moveControl = new FlyingMovementController(this, 20, true);
-		this.lookControl = new LookController(this);
-		this.setPathfindingMalus(PathNodeType.WATER, -1.0F);
-		this.setPathfindingMalus(PathNodeType.COCOA, -1.0F);
-		this.setPathfindingMalus(PathNodeType.FENCE, -1.0F);
+		this.moveControl = new FlyingMoveControl(this, 20, true);
+		this.lookControl = new LookControl(this);
+		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+		this.setPathfindingMalus(BlockPathTypes.COCOA, -1.0F);
+		this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0F);
 	}
 
 	protected void defineSynchedData() {
@@ -52,7 +58,7 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 	}
 
 	@SuppressWarnings("deprecation")
-	public float getWalkTargetValue(BlockPos pos, IWorldReader worldIn) {
+	public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {
 		return worldIn.getBlockState(pos).isAir() ? 10.0F : 0.0F;
 	}
 
@@ -60,23 +66,23 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		this.goalSelector.addGoal(0, new TemptGoal(this, 1.25D, Ingredient.of(Items.ROTTEN_FLESH), false));
 		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.4F, true));
 		this.goalSelector.addGoal(2, new WanderGoal());
-		this.goalSelector.addGoal(3, new SwimGoal(this));
+		this.goalSelector.addGoal(3, new FloatGoal(this));
 		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, ZombieEntity.class, true));
-		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, ZombieHorseEntity.class, true));
-		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, ZombieHorse.class, true));
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
-	public void addAdditionalSaveData(CompoundNBT compound) {
+	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 	}
 
-	public void readAdditionalSaveData(CompoundNBT compound) {
+	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 	}
 
 
-	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+	protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
 		return sizeIn.height * 0.5F;
 	}
 
@@ -93,7 +99,7 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 				}
 
 				if (i > 0) {
-					((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.WEAKNESS, i * 20, 0));
+					((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, i * 20, 0));
 				}
 			}
 
@@ -121,8 +127,8 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		}
 	}
 
-	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-		return MobEntity.createMobAttributes()
+	public static AttributeSupplier.Builder registerAttributes() {
+		return Mob.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 2.0D)
 				.add(Attributes.FLYING_SPEED, 0.8F)
 				.add(Attributes.MOVEMENT_SPEED, 0.3F)
@@ -130,9 +136,8 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 				.add(Attributes.FOLLOW_RANGE, 48.0D);
 	}
 
-	@SuppressWarnings("deprecation")
-	protected PathNavigator createNavigation(World worldIn) {
-		FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, worldIn) {
+	protected PathNavigation createNavigation(Level worldIn) {
+		FlyingPathNavigation navigator = new FlyingPathNavigation(this, worldIn) {
 			public boolean isStableDestination(BlockPos pos) {
 				return !this.level.getBlockState(pos.below()).isAir();
 			}
@@ -141,10 +146,10 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 				super.tick();
 			}
 		};
-		flyingpathnavigator.setCanOpenDoors(false);
-		flyingpathnavigator.setCanFloat(false);
-		flyingpathnavigator.setCanPassDoors(true);
-		return flyingpathnavigator;
+		navigator.setCanOpenDoors(false);
+		navigator.setCanFloat(false);
+		navigator.setCanPassDoors(true);
+		return navigator;
 	}
 
 
@@ -191,7 +196,7 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 			return false;
 		} else {
 			Entity entity = source.getEntity();
-			if (!this.level.isClientSide && entity instanceof PlayerEntity && !((PlayerEntity) entity).isCreative() && this.canSee(entity) && !this.isNoAi()) {
+			if (!this.level.isClientSide && entity instanceof Player && !((Player) entity).isCreative() && this.isAlive() && !this.isNoAi()) {
 				this.func_226391_a_(entity);
 			}
 
@@ -199,11 +204,11 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		}
 	}
 
-	public CreatureAttribute getMobType() {
-		return CreatureAttribute.ARTHROPOD;
+	public MobType getMobType() {
+		return MobType.ARTHROPOD;
 	}
 
-	protected void handleFluidJump(Tag<Fluid> fluidTag) {
+	protected void handleFluidJump(SetTag<Fluid> fluidTag) {
 		this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
 	}
 
@@ -211,9 +216,15 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		return false;
 	}
 
+	@Override
+	public boolean isFlying() {
+		return false;
+	}
+
 	class WanderGoal extends Goal {
+
 		WanderGoal() {
-			this.setFlags(EnumSet.of(Flag.MOVE));
+			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 		}
 
 		public boolean canUse() {
@@ -225,19 +236,18 @@ public class FlyEntity extends CreatureEntity implements IFlyingAnimal {
 		}
 
 		public void start() {
-			Vector3d vec3d = this.findPos();
-			if (vec3d != null) {
-				FlyEntity.this.navigation.moveTo(FlyEntity.this.navigation.createPath(new BlockPos(vec3d), 1), 1.0D);
+			Vec3 vec3 = this.findPos();
+			if (vec3 != null) {
+				FlyEntity.this.navigation.moveTo(FlyEntity.this.navigation.createPath(new BlockPos(vec3), 1), 1.0D);
 			}
+
 		}
 
 		@Nullable
-		private Vector3d findPos() {
-			Vector3d vec3d;
-			vec3d = FlyEntity.this.getViewVector(0.0F);
-
-			Vector3d vec3d2 = RandomPositionGenerator.getAboveLandPos(FlyEntity.this, 8, 7, vec3d, ((float) Math.PI / 2F), 2, 1);
-			return vec3d2 != null ? vec3d2 : RandomPositionGenerator.getAirPos(FlyEntity.this, 8, 4, -2, vec3d, (double) ((float) Math.PI / 2F));
+		private Vec3 findPos() {
+			Vec3 vec3 = FlyEntity.this.getViewVector(0.0F);
+			Vec3 vec32 = HoverRandomPos.getPos(FlyEntity.this, 8, 7, vec3.x, vec3.z, ((float) Math.PI / 2F), 3, 1);
+			return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(FlyEntity.this, 8, 4, -2, vec3.x, vec3.z, (float) Math.PI / 2F);
 		}
 	}
 }

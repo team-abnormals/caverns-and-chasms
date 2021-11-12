@@ -1,36 +1,35 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCSounds;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ToolActions;
 
-public class DeeperEntity extends CreeperEntity {
+public class DeeperEntity extends Creeper {
 
-	public DeeperEntity(EntityType<? extends DeeperEntity> type, World worldIn) {
+	public DeeperEntity(EntityType<? extends DeeperEntity> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSounds.ENTITY_DEEPER_HURT.get();
+		return CCSoundEvents.ENTITY_DEEPER_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSounds.ENTITY_DEEPER_DEATH.get();
+		return CCSoundEvents.ENTITY_DEEPER_DEATH.get();
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (source.getEntity() instanceof LivingEntity) {
-			LivingEntity entity = (LivingEntity) source.getEntity();
-			if (entity.getMainHandItem().getToolTypes().contains(ToolType.PICKAXE))
+		if (source.getEntity() instanceof LivingEntity entity) {
+			if (entity.getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG))
 				amount *= 2;
 		}
 		return super.hurt(source, amount);
@@ -39,11 +38,11 @@ public class DeeperEntity extends CreeperEntity {
 	@Override
 	public void explodeCreeper() {
 		if (!this.level.isClientSide) {
-			Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.Mode.BREAK : Explosion.Mode.NONE;
+			Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE;
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
 			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), explosion$mode);
-			this.remove();
+			this.discard();
 			this.spawnLingeringCloud();
 		}
 	}

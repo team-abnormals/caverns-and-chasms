@@ -1,13 +1,13 @@
 package com.minecraftabnormals.caverns_and_chasms.common.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.AbstractButtonBlock;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
-public class SilverButtonBlock extends AbstractButtonBlock {
+public class SilverButtonBlock extends ButtonBlock {
 
-	public SilverButtonBlock(AbstractBlock.Properties properties) {
+	public SilverButtonBlock(BlockBehaviour.Properties properties) {
 		super(false, properties);
 	}
 

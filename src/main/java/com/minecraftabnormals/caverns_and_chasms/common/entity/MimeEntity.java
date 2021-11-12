@@ -4,36 +4,36 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.minecraftabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCRecipes.RecipeTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolItem;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MimeEntity extends MonsterEntity {
-	public static final EntitySize STANDING_SIZE = EntitySize.scalable(0.6F, 2.1F);
-	private static final Map<Pose, EntitySize> SIZE_BY_POSE = ImmutableMap.<Pose, EntitySize>builder()
+public class MimeEntity extends Monster {
+	public static final EntityDimensions STANDING_SIZE = EntityDimensions.scalable(0.6F, 2.1F);
+	private static final Map<Pose, EntityDimensions> SIZE_BY_POSE = ImmutableMap.<Pose, EntityDimensions>builder()
 			.put(Pose.STANDING, STANDING_SIZE)
-			.put(Pose.SWIMMING, EntitySize.scalable(0.6F, 0.6F))
-			.put(Pose.CROUCHING, EntitySize.scalable(0.6F, 1.8F))
+			.put(Pose.SWIMMING, EntityDimensions.scalable(0.6F, 0.6F))
+			.put(Pose.CROUCHING, EntityDimensions.scalable(0.6F, 1.8F))
 			.build();
 	public double prevChasingPosX;
 	public double prevChasingPosY;
@@ -44,31 +44,31 @@ public class MimeEntity extends MonsterEntity {
 	public float prevCameraYaw;
 	public float cameraYaw;
 
-	public MimeEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+	public MimeEntity(EntityType<? extends Monster> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new SwimGoal(this));
+		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new OpenDoorGoal(this, false));
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
-	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-		return MonsterEntity.createMonsterAttributes()
+	public static AttributeSupplier.Builder registerAttributes() {
+		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 20.0F)
 				.add(Attributes.FOLLOW_RANGE, 35.0D)
-				.add(Attributes.MOVEMENT_SPEED, (double) 0.3F)
+				.add(Attributes.MOVEMENT_SPEED, 0.3F)
 				.add(Attributes.ATTACK_DAMAGE, 4.0D)
 				.add(Attributes.ARMOR, 2.0D);
 	}
 
-	public static boolean canMimeSpawn(EntityType<? extends MonsterEntity> type, IServerWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
+	public static boolean canMimeSpawn(EntityType<? extends Monster> type, ServerLevelAccessor worldIn, MobSpawnType reason, BlockPos pos, Random randomIn) {
 		return pos.getY() <= 42 && checkMonsterSpawnRules(type, worldIn, reason, pos, randomIn);
 	}
 
@@ -102,13 +102,13 @@ public class MimeEntity extends MonsterEntity {
 		if (entityIn instanceof LivingEntity) {
 			LivingEntity entity = (LivingEntity) entityIn;
 
-			EquipmentSlotType slot1 = EquipmentSlotType.MAINHAND;
-			EquipmentSlotType slot2 = null;
-			List<EquipmentSlotType> slotsWithGear = Lists.newArrayList();
+			EquipmentSlot slot1 = EquipmentSlot.MAINHAND;
+			EquipmentSlot slot2 = null;
+			List<EquipmentSlot> slotsWithGear = Lists.newArrayList();
 
-			for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				this.setItemSlot(slot, ItemStack.EMPTY);
-				if (slot == EquipmentSlotType.MAINHAND || slot == EquipmentSlotType.OFFHAND) {
+				if (slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND) {
 					this.handDropChances[slot.getIndex()] = 0.0F;
 					continue;
 				}
@@ -118,10 +118,10 @@ public class MimeEntity extends MonsterEntity {
 					slotsWithGear.add(slot);
 			}
 
-			ItemStack mainhand = entity.getItemBySlot(EquipmentSlotType.MAINHAND);
-			ItemStack offhand = entity.getItemBySlot(EquipmentSlotType.OFFHAND);
-			EquipmentSlotType armor1 = null;
-			EquipmentSlotType armor2 = null;
+			ItemStack mainhand = entity.getItemBySlot(EquipmentSlot.MAINHAND);
+			ItemStack offhand = entity.getItemBySlot(EquipmentSlot.OFFHAND);
+			EquipmentSlot armor1 = null;
+			EquipmentSlot armor2 = null;
 
 			if (slotsWithGear.size() > 0) {
 				int index = this.random.nextInt(slotsWithGear.size());
@@ -134,10 +134,10 @@ public class MimeEntity extends MonsterEntity {
 				if (armor1 != null)
 					slot2 = armor1;
 				else if (isValidWeapon(offhand))
-					slot2 = EquipmentSlotType.OFFHAND;
+					slot2 = EquipmentSlot.OFFHAND;
 			} else {
 				if (isValidWeapon(offhand)) {
-					slot1 = EquipmentSlotType.OFFHAND;
+					slot1 = EquipmentSlot.OFFHAND;
 					if (armor1 != null)
 						slot2 = armor1;
 				} else if (armor1 != null) {
@@ -145,12 +145,12 @@ public class MimeEntity extends MonsterEntity {
 					if (armor2 != null)
 						slot2 = armor2;
 					else
-						slot2 = EquipmentSlotType.MAINHAND;
+						slot2 = EquipmentSlot.MAINHAND;
 				}
 			}
 
-			level.playSound(null, this, SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.HOSTILE, 1.0F, 1.0F);
-			this.setItemSlot(slot1 == EquipmentSlotType.OFFHAND ? EquipmentSlotType.MAINHAND : slot1, entity.getItemBySlot(slot1));
+			level.playSound(null, this, SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.HOSTILE, 1.0F, 1.0F);
+			this.setItemSlot(slot1 == EquipmentSlot.OFFHAND ? EquipmentSlot.MAINHAND : slot1, entity.getItemBySlot(slot1));
 			if (slot2 != null)
 				this.setItemSlot(slot2, entity.getItemBySlot(slot2));
 		}
@@ -164,13 +164,13 @@ public class MimeEntity extends MonsterEntity {
 
 		if (source instanceof LivingEntity) {
 			LivingEntity attacker = (LivingEntity) source;
-			ItemStack stack = attacker.getItemBySlot(EquipmentSlotType.OFFHAND);
+			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
 			List<MimingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeTypes.MIMING);
 
 			for (MimingRecipe recipe : recipes) {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
-						attacker.setItemSlot(EquipmentSlotType.OFFHAND, recipe.getResultItem());
+						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem());
 					}
 				}
 			}
@@ -178,7 +178,7 @@ public class MimeEntity extends MonsterEntity {
 	}
 
 	private static boolean isValidWeapon(ItemStack stack) {
-		return stack.getItem() instanceof ToolItem || stack.getItem() instanceof SwordItem;
+		return stack.getItem() instanceof DiggerItem || stack.getItem() instanceof SwordItem;
 	}
 
 	@Override
@@ -207,7 +207,7 @@ public class MimeEntity extends MonsterEntity {
 	}
 
 	@Override
-	public EntitySize getDimensions(Pose poseIn) {
+	public EntityDimensions getDimensions(Pose poseIn) {
 		return SIZE_BY_POSE.getOrDefault(poseIn, STANDING_SIZE);
 	}
 

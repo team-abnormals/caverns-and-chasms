@@ -1,13 +1,24 @@
 package com.minecraftabnormals.caverns_and_chasms.core;
 
-import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.minecraftabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
+import com.minecraftabnormals.caverns_and_chasms.client.model.*;
+import com.minecraftabnormals.caverns_and_chasms.client.render.*;
+import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonCatRenderer;
+import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonParrotRenderer;
+import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonWolfRenderer;
+import com.minecraftabnormals.caverns_and_chasms.client.render.zombie.ZombieCatRenderer;
+import com.minecraftabnormals.caverns_and_chasms.client.render.zombie.ZombieParrotRenderer;
+import com.minecraftabnormals.caverns_and_chasms.client.render.zombie.ZombieWolfRenderer;
 import com.minecraftabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
+import com.minecraftabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.*;
+import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -32,11 +43,13 @@ public class CavernsAndChasms {
 		CCEffects.POTIONS.register(bus);
 		CCEffects.EFFECTS.register(bus);
 		CCEnchantments.ENCHANTMENTS.register(bus);
-		CCParticles.PARTICLES.register(bus);
+		CCParticleTypes.PARTICLES.register(bus);
 		CCRecipes.Serailizers.RECIPE_SERIALIZERS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
+		bus.addListener(this::registerLayerDefinitions);
+		bus.addListener(this::registerRenderers);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			bus.addListener(this::registerItemColors);
@@ -48,7 +61,7 @@ public class CavernsAndChasms {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			CCEntities.registerEntitySpawns();
+			CCEntityTypes.registerEntitySpawns();
 			CCFeatures.Configured.registerConfiguredFeatures();
 			CCEffects.registerBrewingRecipes();
 			CCCompat.registerCompat();
@@ -57,13 +70,37 @@ public class CavernsAndChasms {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
-		CCEntities.registerRenderers();
-		CCTileEntities.registerRenderers();
-		event.enqueueWork(() -> {
-			CCCompat.registerRenderLayers();
-			CCItems.registerItemProperties();
-			CCEntities.registerRenderLayers(event);
-		});
+		event.enqueueWork(CCClientCompat::registerClientCompat);
+	}
+
+	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(CavefishModel.LOCATION, CavefishModel::createLayerDefinition);
+		event.registerLayerDefinition(DeeperModel.LOCATION, DeeperModel::createLayerDefinition);
+		event.registerLayerDefinition(FlyModel.LOCATION, FlyModel::createLayerDefinition);
+		event.registerLayerDefinition(MimeArmorModel.LOCATION, MimeArmorModel::createLayerDefinition);
+		event.registerLayerDefinition(MimeModel.LOCATION, MimeModel::createLayerDefinition);
+		event.registerLayerDefinition(RatModel.LOCATION, RatModel::createLayerDefinition);
+		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
+
+	}
+
+	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+		event.registerEntityRenderer(CCEntityTypes.CAVEFISH.get(), CavefishRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SPIDERLING.get(), SpiderlingRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SILVER_ARROW.get(), SilverArrowRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_WOLF.get(), ZombieWolfRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_CAT.get(), ZombieCatRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_PARROT.get(), ZombieParrotRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SKELETON_CAT.get(), SkeletonCatRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SKELETON_PARROT.get(), SkeletonParrotRenderer::new);
+
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
 	}
 
 	@OnlyIn(Dist.CLIENT)

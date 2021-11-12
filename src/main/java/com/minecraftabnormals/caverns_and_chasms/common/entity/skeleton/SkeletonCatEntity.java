@@ -1,25 +1,25 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity.skeleton;
 
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.level.Level;
 
-public class SkeletonCatEntity extends CatEntity {
+public class SkeletonCatEntity extends Cat {
 
-	public SkeletonCatEntity(EntityType<? extends SkeletonCatEntity> type, World worldIn) {
+	public SkeletonCatEntity(EntityType<? extends SkeletonCatEntity> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
 	@Override
-	public SkeletonCatEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
-		SkeletonCatEntity cat = CCEntities.SKELETON_CAT.get().create(world);
+	public SkeletonCatEntity getBreedOffspring(ServerLevel world, AgeableMob entity) {
+		SkeletonCatEntity cat = CCEntityTypes.SKELETON_CAT.get().create(world);
 		if (this.random.nextBoolean()) {
 			cat.setCatType(this.getCatType());
 		} else {
@@ -40,8 +40,8 @@ public class SkeletonCatEntity extends CatEntity {
 	}
 
 	@Override
-	public CreatureAttribute getMobType() {
-		return CreatureAttribute.UNDEAD;
+	public MobType getMobType() {
+		return MobType.UNDEAD;
 	}
 
 	@Override

@@ -1,52 +1,56 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.*;
-import net.minecraft.util.math.MathHelper;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class RatEntity extends AnimalEntity {
-	private static final DataParameter<Integer> RAT_TYPE = EntityDataManager.defineId(RatEntity.class, DataSerializers.INT);
+public class RatEntity extends Animal {
+	private static final EntityDataAccessor<Integer> RAT_TYPE = SynchedEntityData.defineId(RatEntity.class, EntityDataSerializers.INT);
 	private int eatTicks;
 	private static final Predicate<ItemEntity> TRUSTED_TARGET_SELECTOR = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 
-	public RatEntity(EntityType<? extends RatEntity> type, World worldIn) {
+	public RatEntity(EntityType<? extends RatEntity> type, Level worldIn) {
 		super(type, worldIn);
 		this.setCanPickUpLoot(true);
 	}
 
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new SwimGoal(this));
+		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new FindItemsGoal());
-		this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	@Override
@@ -56,13 +60,13 @@ public class RatEntity extends AnimalEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundNBT compound) {
+	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("RatType", this.getRatType());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundNBT compound) {
+	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.setRatType(compound.getInt("RatType"));
 	}
@@ -70,12 +74,12 @@ public class RatEntity extends AnimalEntity {
 	public void aiStep() {
 		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
 			++this.eatTicks;
-			ItemStack itemstack = this.getItemBySlot(EquipmentSlotType.MAINHAND);
+			ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (this.canEatItem(itemstack)) {
 				if (this.eatTicks > 600) {
 					ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
 					if (!itemstack1.isEmpty()) {
-						this.setItemSlot(EquipmentSlotType.MAINHAND, itemstack1);
+						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
 					}
 
 					this.eatTicks = 0;
@@ -108,7 +112,7 @@ public class RatEntity extends AnimalEntity {
 				itemstack = new ItemStack(Items.FEATHER);
 			}
 
-			this.setItemSlot(EquipmentSlotType.MAINHAND, itemstack);
+			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
 		}
 	}
 
@@ -118,18 +122,18 @@ public class RatEntity extends AnimalEntity {
 
 	@Override
 	public boolean canTakeItem(ItemStack itemstackIn) {
-		EquipmentSlotType equipmentslottype = MobEntity.getEquipmentSlotForItem(itemstackIn);
+		EquipmentSlot equipmentslottype = Mob.getEquipmentSlotForItem(itemstackIn);
 		if (!this.getItemBySlot(equipmentslottype).isEmpty()) {
 			return false;
 		} else {
-			return equipmentslottype == EquipmentSlotType.MAINHAND && super.canTakeItem(itemstackIn);
+			return equipmentslottype == EquipmentSlot.MAINHAND && super.canTakeItem(itemstackIn);
 		}
 	}
 
 	@Override
 	public boolean canHoldItem(ItemStack stack) {
 		Item item = stack.getItem();
-		ItemStack itemstack = this.getItemBySlot(EquipmentSlotType.MAINHAND);
+		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
 		return itemstack.isEmpty() || this.eatTicks > 0 && item.isEdible() && !itemstack.getItem().isEdible();
 	}
 
@@ -157,12 +161,12 @@ public class RatEntity extends AnimalEntity {
 				this.spawnItem(itemstack.split(i - 1));
 			}
 
-			this.spitOutItem(this.getItemBySlot(EquipmentSlotType.MAINHAND));
+			this.spitOutItem(this.getItemBySlot(EquipmentSlot.MAINHAND));
 			this.onItemPickup(itemEntity);
-			this.setItemSlot(EquipmentSlotType.MAINHAND, itemstack.split(1));
-			this.handDropChances[EquipmentSlotType.MAINHAND.getIndex()] = 2.0F;
+			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
+			this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
 			this.take(itemEntity, itemstack.getCount());
-			itemEntity.remove();
+			itemEntity.discard();
 			this.eatTicks = 0;
 		}
 
@@ -176,8 +180,8 @@ public class RatEntity extends AnimalEntity {
 		return this.entityData.get(RAT_TYPE);
 	}
 
-	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-		return MobEntity.createMobAttributes()
+	public static AttributeSupplier.Builder registerAttributes() {
+		return Mob.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 4.0D)
 				.add(Attributes.MOVEMENT_SPEED, 0.5D)
 				.add(Attributes.ATTACK_DAMAGE, 1.0D);
@@ -199,8 +203,8 @@ public class RatEntity extends AnimalEntity {
 	}
 
 	@Override
-	public RatEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
-		RatEntity child = CCEntities.RAT.get().create(world);
+	public RatEntity getBreedOffspring(ServerLevel world, AgeableMob entity) {
+		RatEntity child = CCEntityTypes.RAT.get().create(world);
 		if (child != null) {
 			if (entity instanceof RatEntity && this.random.nextBoolean()) {
 				child.setRatType(((RatEntity) entity).getRatType());
@@ -214,8 +218,8 @@ public class RatEntity extends AnimalEntity {
 
 	public void positionRider(Entity passenger) {
 		super.positionRider(passenger);
-		float f = MathHelper.sin(this.yBodyRot * ((float) Math.PI / 180F));
-		float f1 = MathHelper.cos(this.yBodyRot * ((float) Math.PI / 180F));
+		float f = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+		float f1 = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
 		passenger.setPos(this.getX() + (double) (0.1F * f), this.getY(0.5D) + passenger.getMyRidingOffset() + 0.0D, this.getZ() - (double) (0.1F * f1));
 		if (passenger instanceof LivingEntity) {
 			((LivingEntity) passenger).yBodyRot = this.yBodyRot;
@@ -224,7 +228,7 @@ public class RatEntity extends AnimalEntity {
 
 	@Nullable
 	@Override
-	public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
 		spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn, dataTag);
 
 		float chance = random.nextFloat();
@@ -244,7 +248,7 @@ public class RatEntity extends AnimalEntity {
 		private static final RatType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(RatType::getId)).toArray(RatType[]::new);
 
 		private final int id;
-		private final LazyValue<ResourceLocation> textureLocation = new LazyValue<>(() -> new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/rat/" + this.name().toLowerCase(Locale.ROOT) + ".png"));
+		private final LazyLoadedValue<ResourceLocation> textureLocation = new LazyLoadedValue<>(() -> new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/rat/" + this.name().toLowerCase(Locale.ROOT) + ".png"));
 
 		RatType(int id) {
 			this.id = id;
@@ -272,14 +276,14 @@ public class RatEntity extends AnimalEntity {
 		}
 
 		public boolean canUse() {
-			if (!RatEntity.this.getItemBySlot(EquipmentSlotType.MAINHAND).isEmpty()) {
+			if (!RatEntity.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
 				return false;
 			} else if (RatEntity.this.getTarget() == null && RatEntity.this.getLastHurtByMob() == null) {
 				if (RatEntity.this.getRandom().nextInt(10) != 0) {
 					return false;
 				} else {
 					List<ItemEntity> list = RatEntity.this.level.getEntitiesOfClass(ItemEntity.class, RatEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), RatEntity.TRUSTED_TARGET_SELECTOR);
-					return !list.isEmpty() && RatEntity.this.getItemBySlot(EquipmentSlotType.MAINHAND).isEmpty();
+					return !list.isEmpty() && RatEntity.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
 				}
 			} else {
 				return false;
@@ -288,7 +292,7 @@ public class RatEntity extends AnimalEntity {
 
 		public void tick() {
 			List<ItemEntity> list = RatEntity.this.level.getEntitiesOfClass(ItemEntity.class, RatEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), RatEntity.TRUSTED_TARGET_SELECTOR);
-			ItemStack itemstack = RatEntity.this.getItemBySlot(EquipmentSlotType.MAINHAND);
+			ItemStack itemstack = RatEntity.this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (itemstack.isEmpty() && !list.isEmpty()) {
 				RatEntity.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
 			}

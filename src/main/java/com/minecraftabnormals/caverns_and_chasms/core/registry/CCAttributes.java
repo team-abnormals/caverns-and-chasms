@@ -1,9 +1,9 @@
 package com.minecraftabnormals.caverns_and_chasms.core.registry;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

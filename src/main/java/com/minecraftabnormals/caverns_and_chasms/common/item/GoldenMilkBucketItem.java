@@ -3,18 +3,18 @@ package com.minecraftabnormals.caverns_and_chasms.common.item;
 import com.google.common.collect.ImmutableList;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DrinkHelper;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 
 public class GoldenMilkBucketItem extends Item {
 	public GoldenMilkBucketItem(Item.Properties builder) {
@@ -22,9 +22,9 @@ public class GoldenMilkBucketItem extends Item {
 	}
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+	public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 		if (!worldIn.isClientSide) {
-			ImmutableList<EffectInstance> effects = ImmutableList.copyOf(entityLiving.getActiveEffects());
+			ImmutableList<MobEffectInstance> effects = ImmutableList.copyOf(entityLiving.getActiveEffects());
 			for (int i = 0; i < effects.size(); ++i) {
 				entityLiving.removeEffect(effects.get(i).getEffect());
 			}
@@ -32,13 +32,13 @@ public class GoldenMilkBucketItem extends Item {
 
 		int level = stack.getOrCreateTag().getInt("FluidLevel");
 
-		if (entityLiving instanceof ServerPlayerEntity) {
-			ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) entityLiving;
+		if (entityLiving instanceof ServerPlayer) {
+			ServerPlayer serverplayerentity = (ServerPlayer) entityLiving;
 			CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, stack);
 			serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
 		}
 
-		if (entityLiving instanceof PlayerEntity && !((PlayerEntity) entityLiving).abilities.instabuild) {
+		if (entityLiving instanceof Player && !((Player) entityLiving).getAbilities().instabuild) {
 			if (level > 0)
 				stack.getOrCreateTag().putInt("FluidLevel", level - 1);
 			else
@@ -54,17 +54,17 @@ public class GoldenMilkBucketItem extends Item {
 	}
 
 	@Override
-	public UseAction getUseAnimation(ItemStack stack) {
-		return UseAction.DRINK;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.DRINK;
 	}
 
 	@Override
-	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return DrinkHelper.useDrink(worldIn, playerIn, handIn);
+	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+		return ItemUtils.startUsingInstantly(worldIn, playerIn, handIn);
 	}
 
 	@Override
-	public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable net.minecraft.nbt.CompoundNBT nbt) {
+	public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable net.minecraft.nbt.CompoundTag nbt) {
 		return new net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper(stack);
 	}
 

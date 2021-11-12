@@ -1,40 +1,40 @@
 package com.minecraftabnormals.caverns_and_chasms.common.entity;
 
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEffects;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntities;
+import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class SilverArrowEntity extends AbstractArrowEntity {
+public class SilverArrowEntity extends AbstractArrow {
 
-	public SilverArrowEntity(EntityType<? extends SilverArrowEntity> type, World worldIn) {
+	public SilverArrowEntity(EntityType<? extends SilverArrowEntity> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
-	public SilverArrowEntity(World worldIn, double x, double y, double z) {
-		super(CCEntities.SILVER_ARROW.get(), x, y, z, worldIn);
+	public SilverArrowEntity(Level worldIn, double x, double y, double z) {
+		super(CCEntityTypes.SILVER_ARROW.get(), x, y, z, worldIn);
 	}
 
-	public SilverArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-		this(CCEntities.SILVER_ARROW.get(), world);
+	public SilverArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
+		this(CCEntityTypes.SILVER_ARROW.get(), world);
 	}
 
-	public SilverArrowEntity(World worldIn, LivingEntity shooter) {
-		super(CCEntities.SILVER_ARROW.get(), shooter, worldIn);
+	public SilverArrowEntity(Level worldIn, LivingEntity shooter) {
+		super(CCEntityTypes.SILVER_ARROW.get(), shooter, worldIn);
 	}
 
 	@Override
 	protected void doPostHurtEffects(LivingEntity living) {
 		super.doPostHurtEffects(living);
-		if (living.isInvertedHealAndHarm()) living.addEffect(new EffectInstance(CCEffects.AFFLICTION.get(), 60));
+		if (living.isInvertedHealAndHarm()) living.addEffect(new MobEffectInstance(CCEffects.AFFLICTION.get(), 60));
 	}
 
 	protected ItemStack getPickupItem() {
@@ -42,7 +42,7 @@ public class SilverArrowEntity extends AbstractArrowEntity {
 	}
 
 	@Override
-	public IPacket<?> getAddEntityPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

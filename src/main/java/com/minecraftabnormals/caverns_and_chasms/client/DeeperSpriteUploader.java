@@ -2,12 +2,12 @@ package com.minecraftabnormals.caverns_and_chasms.client;
 
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.SpriteUploader;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.TextureAtlasHolder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * @author Ocelot
  */
-public class DeeperSpriteUploader extends SpriteUploader {
+public class DeeperSpriteUploader extends TextureAtlasHolder {
 	public static final ResourceLocation ATLAS_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/atlas/deeper.png");
 	public static final ResourceLocation DEEPER_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper");
 	public static final ResourceLocation EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_emissive");
@@ -41,9 +41,9 @@ public class DeeperSpriteUploader extends SpriteUploader {
 	public static void init(IEventBus bus) {
 		bus.addListener(EventPriority.NORMAL, false, ColorHandlerEvent.Block.class, event -> {
 			Minecraft minecraft = Minecraft.getInstance();
-			IResourceManager resourceManager = minecraft.getResourceManager();
-			if (resourceManager instanceof IReloadableResourceManager) {
-				((IReloadableResourceManager) resourceManager).registerReloadListener(uploader = new DeeperSpriteUploader(minecraft.textureManager, ATLAS_LOCATION, "entity/deeper"));
+			ResourceManager resourceManager = minecraft.getResourceManager();
+			if (resourceManager instanceof ReloadableResourceManager) {
+				((ReloadableResourceManager) resourceManager).registerReloadListener(uploader = new DeeperSpriteUploader(minecraft.textureManager, ATLAS_LOCATION, "entity/deeper"));
 			}
 		});
 	}

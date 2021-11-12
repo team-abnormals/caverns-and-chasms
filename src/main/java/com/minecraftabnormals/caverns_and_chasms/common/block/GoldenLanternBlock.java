@@ -1,28 +1,26 @@
 package com.minecraftabnormals.caverns_and_chasms.common.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggable {
-
+public class GoldenLanternBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
 	protected VoxelShape downShape;
 	protected VoxelShape upShape;
 	protected VoxelShape northShape;
@@ -35,18 +33,18 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 	public GoldenLanternBlock(Properties properties) {
 		super(properties);
 
-		this.downShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 2.0D, 5.0D, 11.0D, 14.0D, 11.0D));
-		this.upShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 9.0D));
-		this.northShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 9.0D, 9.0D, 16.0D, 0.0D));
-		this.southShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 16.0D));
-		this.westShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(9.0D, 14.0D, 7.0D, 0.0D, 16.0D, 9.0D));
-		this.eastShape = VoxelShapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 16.0D, 16.0D, 9.0D));
+		this.downShape = Shapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 2.0D, 5.0D, 11.0D, 14.0D, 11.0D));
+		this.upShape = Shapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 9.0D));
+		this.northShape = Shapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 0.0D, 9.0D, 16.0D, 9.0D));
+		this.southShape = Shapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 9.0D, 16.0D, 16.0D));
+		this.westShape = Shapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(0.0D, 14.0D, 7.0D, 9.0D, 16.0D, 9.0D));
+		this.eastShape = Shapes.or(box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), box(1.0D, 10.0D, 1.0D, 15.0D, 12.0D, 15.0D), box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D), box(7.0D, 14.0D, 7.0D, 16.0D, 16.0D, 9.0D));
 
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState state, IBlockReader world, BlockPos pos, PathType type) {
+	public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
 		return false;
 	}
 
@@ -56,7 +54,7 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		switch (state.getValue(FACING)) {
 			default:
 			case DOWN:
@@ -75,21 +73,21 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Direction direction = context.getClickedFace();
 		FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
 		return this.defaultBlockState().setValue(FACING, direction.getOpposite()).setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
 		Direction direction = state.getValue(FACING);
 		BlockPos blockpos = pos.relative(direction);
 		return canSupportCenter(world, blockpos, direction.getOpposite());
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
 		if (state.getValue(WATERLOGGED)) {
 			world.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		}
@@ -107,7 +105,7 @@ public class GoldenLanternBlock extends DirectionalBlock implements IWaterLoggab
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, WATERLOGGED);
 	}
 
