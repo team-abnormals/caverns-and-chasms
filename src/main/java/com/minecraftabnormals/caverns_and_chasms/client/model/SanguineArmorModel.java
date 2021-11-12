@@ -51,24 +51,23 @@ public class SanguineArmorModel<T extends LivingEntity> extends HumanoidModel<T>
 		this.shoulderPadRight = root.getChild("shoulderPadRight");
 		this.shoulderPadLeft = root.getChild("shoulderPadLeft");
 	}
-
-	public SanguineArmorModel(int entityFlag) {
-		this(entityFlag, createLayerDefinition().bakeRoot());
-	}
-
 	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
-		PartDefinition helmet = root.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(47, 1).addBox(-4.0F, -8.0F, -4.0F, 4.0F, 0.0F, 4.0F, false).addBox(-6.9F, -11.55F, -1.0F, -4.9F, -6.55F, 1.0F, false).addBox(4.9F, -11.55F, -1.0F, 6.9F, -6.55F, 1.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition chestplate = root.addOrReplaceChild("chestplate", CubeListBuilder.create().texOffs(37, 13).addBox(-4.0F, 0.0F, -2.5F, 4.0F, 14.0F, 2.5F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition leggingsLeft = root.addOrReplaceChild("leggingsLeft", CubeListBuilder.create().texOffs(56, 34).addBox(-2.0F, -2.0F, -2.0F, 2.0F, 8.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition leggingsRight = root.addOrReplaceChild("leggingsRight", CubeListBuilder.create().texOffs(39, 34).addBox(-2.0F, -2.0F, -2.0F, 2.0F, 8.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition bootsLeft = root.addOrReplaceChild("bootsLeft", CubeListBuilder.create().texOffs(81, 16).addBox(-2.0F, 6.0F, -2.0F, 2.0F, 12.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition bootsRight = root.addOrReplaceChild("bootsRight", CubeListBuilder.create().texOffs(64, 16).addBox(-2.0F, 6.0F, -2.0F, 2.0F, 12.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition shoulderPadRight = root.addOrReplaceChild("shoulderPadRight", CubeListBuilder.create().texOffs(58, 3).addBox(-4.0F, -2.0F, -3.0F, 1.0F, 4.0F, 3.0F, false).addBox(-4.2F, -5.4F, -1.0F, -2.1999998F, -2.4F, 1.0F, false), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition shoulderPadLeft = root.addOrReplaceChild("shoulderPadLeft", CubeListBuilder.create().texOffs(67, 3).addBox(-1.0F, -2.0F, -3.0F, 4.0F, 4.0F, 3.0F, false).addBox(2.2F, -5.4F, -1.0F, 4.2F, -2.4F, 1.0F, false), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition helmet = root.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(47, 1).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).addBox(-6.9F, -11.55F, -1.0F, 2.0F, 5.0F, 2.0F, false).addBox(4.9F, -11.55F, -1.0F, 2.0F, 5.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition chestplate = root.addOrReplaceChild("chestplate", CubeListBuilder.create().texOffs(37, 13).addBox(-4.0F, 0.0F, -2.5F, 8.0F, 14.0F, 5.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leggingsLeft = root.addOrReplaceChild("leggingsLeft", CubeListBuilder.create().texOffs(56, 34).addBox(-2.0F, -2.0F, -2.0F, 4.0F, 10.0F, 4.0F, false), PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leggingsRight = root.addOrReplaceChild("leggingsRight", CubeListBuilder.create().texOffs(39, 34).addBox(-2.0F, -2.0F, -2.0F, 4.0F, 10.0F, 4.0F, false), PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition bootsLeft = root.addOrReplaceChild("bootsLeft", CubeListBuilder.create().texOffs(81, 16).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, false), PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition bootsRight = root.addOrReplaceChild("bootsRight", CubeListBuilder.create().texOffs(64, 16).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, false), PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition shoulderPadRight = root.addOrReplaceChild("shoulderPadRight", CubeListBuilder.create().texOffs(58, 3).addBox(-4.0F, -2.0F, -3.0F, 5.0F, 6.0F, 6.0F, false).addBox(-4.2F, -5.4F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition shoulderPadLeft = root.addOrReplaceChild("shoulderPadLeft", CubeListBuilder.create().texOffs(67, 3).addBox(-1.0F, -2.0F, -3.0F, 5.0F, 6.0F, 6.0F, false).addBox(2.2F, -5.4F, -1.0F, 1.9999998F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 128, 64);
+	}
+
+	public SanguineArmorModel(int entityFlag) {
+		this(entityFlag, createLayerDefinition().bakeRoot());
 	}
 
 	@Override

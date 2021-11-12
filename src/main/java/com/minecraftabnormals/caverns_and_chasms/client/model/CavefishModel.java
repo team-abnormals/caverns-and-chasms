@@ -32,9 +32,9 @@ public class CavefishModel<T extends CavefishEntity> extends ListModel<T> {
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
-		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 1.0F, 0.0F, 2.0F, 4.0F, 7.0F, false), PartPose.offsetAndRotation(-1.0F, 20.0F, -4.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition tail = root.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(18, 0).addBox(0.0F, 1.0F, 0.0F, 0.0F, 4.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 20.0F, 3.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition fin = root.addOrReplaceChild("fin", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, 1.0F, 0.0F, 0.0F, 3.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 18.0F, -2.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 1.0F, 0.0F, 2.0F, 3.0F, 7.0F, false), PartPose.offsetAndRotation(-1.0F, 20.0F, -4.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition tail = root.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(18, 0).addBox(0.0F, 1.0F, 0.0F, 0.0F, 3.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 20.0F, 3.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition fin = root.addOrReplaceChild("fin", CubeListBuilder.create().texOffs(24, 0).addBox(0.0F, 1.0F, 0.0F, 0.0F, 2.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 18.0F, -2.0F, 0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 32, 16);
 	}
 

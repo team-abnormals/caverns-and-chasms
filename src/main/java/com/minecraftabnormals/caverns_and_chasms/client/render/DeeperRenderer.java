@@ -1,6 +1,7 @@
 package com.minecraftabnormals.caverns_and_chasms.client.render;
 
 import com.minecraftabnormals.caverns_and_chasms.client.model.DeeperModel;
+import com.minecraftabnormals.caverns_and_chasms.client.render.layer.DeeperEmissiveLayer;
 import com.minecraftabnormals.caverns_and_chasms.common.entity.DeeperEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,12 +14,12 @@ public class DeeperRenderer extends MobRenderer<DeeperEntity, DeeperModel<Deeper
 
 	public DeeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new DeeperModel<>(false, DeeperModel.createLayerDefinition().bakeRoot()), 0.5F);
-		this.addLayer(new DeeperRenderLayer(this));
+		this.addLayer(new DeeperEmissiveLayer(this));
 	}
 
 	@Override
-	protected void scale(DeeperEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-		float f = entitylivingbaseIn.getSwelling(partialTickTime);
+	protected void scale(DeeperEntity entity, PoseStack matrixStackIn, float partialTickTime) {
+		float f = entity.getSwelling(partialTickTime);
 		float f1 = 1.0F + Mth.sin(f * 100.0F) * f * 0.01F;
 		f = Mth.clamp(f, 0.0F, 1.0F);
 		f = f * f;

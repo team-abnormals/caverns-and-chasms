@@ -28,6 +28,7 @@ public class RatModel<T extends RatEntity> extends AgeableListModel<T> {
 	public ModelPart legFrontRight;
 	public ModelPart legBackRight;
 
+	//Constructor
 	public RatModel(ModelPart root) {
 		this.body = root.getChild("body");
 		this.tail = this.body.getChild("tail");
@@ -41,21 +42,21 @@ public class RatModel<T extends RatEntity> extends AgeableListModel<T> {
 		this.legFrontRight = root.getChild("legFrontRight");
 		this.legBackRight = root.getChild("legBackRight");
 	}
-
+	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
-		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 2.5F, 2.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, -2.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(12, 5).addBox(0.0F, 0.0F, -1.0F, 0.0F, 1.0F, 7.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 8.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 13).addBox(-1.5F, -2.0F, -6.0F, 1.5F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, -2.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition earRight = head.addOrReplaceChild("earRight", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, -1.0F, 1.0F, 0.5F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition earLeft = head.addOrReplaceChild("earLeft", CubeListBuilder.create().texOffs(0, 6).addBox(1.0F, -1.0F, 0.5F, 3.0F, 1.0F, 0.5F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition whisker = head.addOrReplaceChild("whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-3.5F, -2.0F, -4.0F, 3.5F, 1.0F, -4.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition tooth = head.addOrReplaceChild("tooth", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 1.0F, -5.0F, 0.5F, 2.0F, -5.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition legFrontLeft = root.addOrReplaceChild("legFrontLeft", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 0.5F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-2.0F, 23.0F, 5.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition legBackLeft = root.addOrReplaceChild("legBackLeft", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 0.5F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(2.0F, 23.0F, 5.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition legFrontRight = root.addOrReplaceChild("legFrontRight", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 0.5F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(-2.0F, 23.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition legBackRight = root.addOrReplaceChild("legBackRight", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 0.5F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(2.0F, 23.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 5.0F, 5.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, -2.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(12, 5).addBox(0.0F, 0.0F, -1.0F, 0.0F, 1.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 8.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 13).addBox(-1.5F, -2.0F, -6.0F, 3.0F, 3.0F, 6.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, -2.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition earRight = head.addOrReplaceChild("earRight", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition earLeft = head.addOrReplaceChild("earLeft", CubeListBuilder.create().texOffs(0, 6).addBox(1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition whisker = head.addOrReplaceChild("whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-3.5F, -2.0F, -4.0F, 7.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition tooth = head.addOrReplaceChild("tooth", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 1.0F, -5.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition legFrontLeft = root.addOrReplaceChild("legFrontLeft", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 23.0F, 5.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition legBackLeft = root.addOrReplaceChild("legBackLeft", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 23.0F, 5.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition legFrontRight = root.addOrReplaceChild("legFrontRight", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 23.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition legBackRight = root.addOrReplaceChild("legBackRight", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 23.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 

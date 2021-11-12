@@ -1,23 +1,12 @@
 package com.minecraftabnormals.caverns_and_chasms.core.other;
 
-import com.minecraftabnormals.caverns_and_chasms.client.render.*;
 import com.minecraftabnormals.caverns_and_chasms.client.render.layer.UndeadParrotLayer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonCatRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonParrotRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.skeleton.SkeletonWolfRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.zombie.ZombieCatRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.zombie.ZombieParrotRenderer;
-import com.minecraftabnormals.caverns_and_chasms.client.render.zombie.ZombieWolfRenderer;
 import com.minecraftabnormals.caverns_and_chasms.common.item.OreDetectorItem;
 import com.minecraftabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import com.minecraftabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.minecraftabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.blueprint.client.renderer.SlabfishHatRenderLayer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -75,10 +64,11 @@ public class CCClientCompat {
 
 	@SubscribeEvent
 	public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
-//		event.getSkins().forEach(skin -> {
-//			PlayerRenderer renderer = event.getSkin(skin);
-//			renderer.addLayer(new UndeadParrotLayer<>(renderer, event.getEntityModels()));
-//		});
+		event.getSkins().forEach(skin -> {
+			EntityRenderer<?> renderer = event.getRenderer(EntityType.PLAYER);
+			if (renderer instanceof PlayerRenderer player)
+				player.addLayer(new UndeadParrotLayer<>(player, event.getEntityModels()));
+		});
 	}
 
 

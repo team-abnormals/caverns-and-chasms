@@ -77,7 +77,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CavefishModel.LOCATION, CavefishModel::createLayerDefinition);
 		event.registerLayerDefinition(DeeperModel.LOCATION, DeeperModel::createLayerDefinition);
 		event.registerLayerDefinition(FlyModel.LOCATION, FlyModel::createLayerDefinition);
-		event.registerLayerDefinition(MimeArmorModel.LOCATION, MimeArmorModel::createLayerDefinition);
+		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
 		event.registerLayerDefinition(MimeModel.LOCATION, MimeModel::createLayerDefinition);
 		event.registerLayerDefinition(RatModel.LOCATION, RatModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);

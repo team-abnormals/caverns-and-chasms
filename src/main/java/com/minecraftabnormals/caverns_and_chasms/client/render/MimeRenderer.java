@@ -17,7 +17,7 @@ public class MimeRenderer extends HumanoidMobRenderer<MimeEntity, MimeModel<Mime
 
 	public MimeRenderer(EntityRendererProvider.Context context) {
 		super(context, new MimeModel<>(MimeModel.createLayerDefinition().bakeRoot()), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this, new MimeArmorModel<>(MimeArmorModel.createLayerDefinition().bakeRoot()), new MimeArmorModel<>(MimeArmorModel.createLayerDefinition().bakeRoot())));
+		this.addLayer(new HumanoidArmorLayer<>(this, new MimeArmorModel<>(MimeArmorModel.createLayerDefinition(0.5F).bakeRoot()), new MimeArmorModel<>(MimeArmorModel.createLayerDefinition(1.0F).bakeRoot())));
 	}
 
 	@Override

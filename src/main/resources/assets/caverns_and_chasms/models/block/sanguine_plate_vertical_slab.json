@@ -1,5 +1,5 @@
 {
-  "parent": "abnormals_core:block/vertical_slab",
+  "parent": "blueprint:block/vertical_slab",
   "textures": {
     "bottom": "caverns_and_chasms:block/sanguine_plates",
     "top": "caverns_and_chasms:block/sanguine_plates",
