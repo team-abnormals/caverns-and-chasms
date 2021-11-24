@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/iron",
+    "#forge:ores/gold",
+    "#forge:ores/netherite_scrap",
+    "#forge:ores/silver",
+    {
+      "id": "#forge:ores/copper",
+      "required": false
+    }
+  ]
+}

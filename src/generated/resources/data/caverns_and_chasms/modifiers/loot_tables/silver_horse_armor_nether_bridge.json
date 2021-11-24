@@ -1,0 +1,25 @@
+{
+  "target": {
+    "type": "names",
+    "config": [
+      "minecraft:chests/nether_bridge"
+    ],
+    "conditions": []
+  },
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
+        "index": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 6,
+            "name": "caverns_and_chasms:silver_horse_armor"
+          }
+        ]
+      }
+    }
+  ]
+}

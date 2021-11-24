@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.minecraftabnormals.caverns_and_chasms.core.mixin",
+  "package": "com.teamabnormals.caverns_and_chasms.core.mixin",
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.8",
   "refmap": "caverns_and_chasms.refmap.json",
@@ -8,6 +8,7 @@
     "AbstractFireBlockMixin",
     "AbstractSkeletonEntityMixin",
     "IronGolemEntityMixin",
+    "SolidBucketItemMixin",
     "WitherSkeletonEntityMixin",
     "ZoglinEntityMixin",
     "ZombieHorseEntityMixin"

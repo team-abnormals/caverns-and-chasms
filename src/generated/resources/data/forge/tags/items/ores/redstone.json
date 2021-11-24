@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:redstone_ores"
+  ],
+  "remove": [
+    "minecraft:redstone_ore"
+  ]
+}

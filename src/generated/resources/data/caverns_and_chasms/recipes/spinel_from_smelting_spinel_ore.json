@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "spinel",
+  "ingredient": {
+    "item": "caverns_and_chasms:spinel_ore"
+  },
+  "result": "caverns_and_chasms:spinel",
+  "experience": 0.2,
+  "cookingtime": 200
+}

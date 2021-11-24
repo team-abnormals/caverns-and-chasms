@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "caverns_and_chasms:silver_ores"
-  },
-  "result": "caverns_and_chasms:silver_ingot",
-  "experience": 1.0,
-  "cookingtime": 100
-}

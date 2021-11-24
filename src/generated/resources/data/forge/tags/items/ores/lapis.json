@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:lapis_ores"
+  ],
+  "remove": [
+    "minecraft:lapis_ore"
+  ]
+}

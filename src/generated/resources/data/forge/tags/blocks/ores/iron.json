@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:iron_ores"
+  ],
+  "remove": [
+    "minecraft:iron_ore"
+  ]
+}

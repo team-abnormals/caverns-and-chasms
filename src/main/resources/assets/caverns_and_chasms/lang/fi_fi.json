@@ -39,15 +39,15 @@
   "block.caverns_and_chasms.lapis_pillar": "Lasuriittipilari",
   "block.caverns_and_chasms.lapis_lamp": "Lasuriittilamppu",
 
-  "block.caverns_and_chasms.sugilite_ore": "Sugiliittimalmi",
-  "block.caverns_and_chasms.sugilite_block": "Sugiliittikuutio",
-  "block.caverns_and_chasms.sugilite_bricks": "Sugiliittitiili",
-  "block.caverns_and_chasms.sugilite_brick_stairs": "Sugiliittitiiliportaat",
-  "block.caverns_and_chasms.sugilite_brick_slab": "Sugiliittitiililaatta",
-  "block.caverns_and_chasms.sugilite_brick_vertical_slab": "Pystysuora sugiliittitiililaatta",
-  "block.caverns_and_chasms.sugilite_brick_wall": "Sugiliittitiilimuuri",
-  "block.caverns_and_chasms.sugilite_pillar": "Sugiliittipilari",
-  "block.caverns_and_chasms.sugilite_lamp": "Sugiliittilamppu",
+  "block.caverns_and_chasms.spinel_ore": "Sugiliittimalmi",
+  "block.caverns_and_chasms.spinel_block": "Sugiliittikuutio",
+  "block.caverns_and_chasms.spinel_bricks": "Sugiliittitiili",
+  "block.caverns_and_chasms.spinel_brick_stairs": "Sugiliittitiiliportaat",
+  "block.caverns_and_chasms.spinel_brick_slab": "Sugiliittitiililaatta",
+  "block.caverns_and_chasms.spinel_brick_vertical_slab": "Pystysuora sugiliittitiililaatta",
+  "block.caverns_and_chasms.spinel_brick_wall": "Sugiliittitiilimuuri",
+  "block.caverns_and_chasms.spinel_pillar": "Sugiliittipilari",
+  "block.caverns_and_chasms.spinel_lamp": "Sugiliittilamppu",
 
   "block.caverns_and_chasms.rocky_dirt": "Kivinen multa",
 
@@ -100,7 +100,7 @@
   "item.caverns_and_chasms.golden_lava_bucket": "Kultainen laavaämpäri",
   "item.caverns_and_chasms.golden_milk_bucket": "Kultainen maitoämpäri",
 
-  "item.caverns_and_chasms.sugilite": "Sugiliitti",
+  "item.caverns_and_chasms.spinel": "Sugiliitti",
 
   "item.caverns_and_chasms.music_disc_epilogue": "Musiikkilevy",
   "item.caverns_and_chasms.music_disc_epilogue.desc": "Mista Jub - Epilogue",

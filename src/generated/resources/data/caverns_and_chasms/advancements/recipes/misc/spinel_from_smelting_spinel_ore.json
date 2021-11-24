@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:spinel_from_smelting_spinel_ore"
+    ]
+  },
+  "criteria": {
+    "has_spinel_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:spinel_ore"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caverns_and_chasms:spinel_from_smelting_spinel_ore"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spinel_ore",
+      "has_the_recipe"
+    ]
+  ]
+}

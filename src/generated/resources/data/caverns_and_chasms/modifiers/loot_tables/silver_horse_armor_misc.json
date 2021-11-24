@@ -1,0 +1,27 @@
+{
+  "target": {
+    "type": "names",
+    "config": [
+      "minecraft:chests/stronghold_corridor",
+      "minecraft:chests/village/village_weaponsmith",
+      "minecraft:chests/end_city_treasure",
+      "minecraft:chests/jungle_temple"
+    ],
+    "conditions": []
+  },
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
+        "index": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:silver_horse_armor"
+          }
+        ]
+      }
+    }
+  ]
+}

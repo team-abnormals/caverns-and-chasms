@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "caverns_and_chasms:sugilite_ore"
-  },
-  "result": "caverns_and_chasms:sugilite",
-  "experience": 0.2,
-  "cookingtime": 100
-}

@@ -19,7 +19,7 @@ mixin {
 }
 
 version = "${project.minecraft}-${project.modVersion}"
-group = "com.minecraftabnormals"
+group = "com.teambnormals"
 archivesBaseName = project.modId
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
@@ -68,6 +68,10 @@ minecraft {
             }
         }
     }
+}
+
+sourceSets.main.resources {
+    srcDir "src/generated/resources"
 }
 
 dependencies {

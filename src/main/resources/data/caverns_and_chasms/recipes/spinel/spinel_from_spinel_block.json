@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "spinel",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:spinel_block"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:spinel",
+    "count": 9
+  }
+}

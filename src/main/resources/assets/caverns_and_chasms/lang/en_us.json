@@ -8,7 +8,10 @@
   "block.caverns_and_chasms.medium_weighted_pressure_plate": "Medium Weighted Pressure Plate",
   "block.caverns_and_chasms.silver_button": "Silver Button",
   "block.caverns_and_chasms.spiked_rail": "Spiked Rail",
-
+  "block.caverns_and_chasms.deepslate_silver_ore": "Deepslate Silver Ore",
+  "block.caverns_and_chasms.deepslate_spinel_ore": "Deepslate Spinel Ore",
+  "block.caverns_and_chasms.raw_silver_block": "Raw Silver Block",
+  "item.caverns_and_chasms.raw_silver": "Raw Silver",
   "block.caverns_and_chasms.sanguine_plates": "Sanguine Plates",
   "block.caverns_and_chasms.sanguine_plate_slab": "Sanguine Plate Slab",
   "block.caverns_and_chasms.sanguine_plate_stairs": "Sanguine Plate Stairs",
@@ -39,15 +42,15 @@
   "block.caverns_and_chasms.lapis_pillar": "Lapis Lazuli Pillar",
   "block.caverns_and_chasms.lapis_lamp": "Lapis Lazuli Lamp",
 
-  "block.caverns_and_chasms.sugilite_ore": "Sugilite Ore",
-  "block.caverns_and_chasms.sugilite_block": "Block of Sugilite",
-  "block.caverns_and_chasms.sugilite_bricks": "Sugilite Bricks",
-  "block.caverns_and_chasms.sugilite_brick_stairs": "Sugilite Brick Stairs",
-  "block.caverns_and_chasms.sugilite_brick_slab": "Sugilite Brick Slab",
-  "block.caverns_and_chasms.sugilite_brick_vertical_slab": "Sugilite Brick Vertical Slab",
-  "block.caverns_and_chasms.sugilite_brick_wall": "Sugilite Brick Wall",
-  "block.caverns_and_chasms.sugilite_pillar": "Sugilite Pillar",
-  "block.caverns_and_chasms.sugilite_lamp": "Sugilite Lamp",
+  "block.caverns_and_chasms.spinel_ore": "Spinel Ore",
+  "block.caverns_and_chasms.spinel_block": "Block of Spinel",
+  "block.caverns_and_chasms.spinel_bricks": "Spinel Bricks",
+  "block.caverns_and_chasms.spinel_brick_stairs": "Spinel Brick Stairs",
+  "block.caverns_and_chasms.spinel_brick_slab": "Spinel Brick Slab",
+  "block.caverns_and_chasms.spinel_brick_vertical_slab": "Spinel Brick Vertical Slab",
+  "block.caverns_and_chasms.spinel_brick_wall": "Spinel Brick Wall",
+  "block.caverns_and_chasms.spinel_pillar": "Spinel Pillar",
+  "block.caverns_and_chasms.spinel_lamp": "Spinel Lamp",
 
   "block.caverns_and_chasms.rocky_dirt": "Rocky Dirt",
 
@@ -97,8 +100,9 @@
   "item.caverns_and_chasms.golden_water_bucket": "Golden Water Bucket",
   "item.caverns_and_chasms.golden_lava_bucket": "Golden Lava Bucket",
   "item.caverns_and_chasms.golden_milk_bucket": "Golden Milk Bucket",
+  "item.caverns_and_chasms.golden_powder_snow_bucket": "Golden Powder Snow Bucket",
 
-  "item.caverns_and_chasms.sugilite": "Sugilite",
+  "item.caverns_and_chasms.spinel": "Spinel",
 
   "item.caverns_and_chasms.music_disc_epilogue": "Music Disc",
   "item.caverns_and_chasms.music_disc_epilogue.desc": "Mista Jub - Epilogue",

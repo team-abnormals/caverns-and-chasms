@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "caverns_and_chasms:block/spinel_pillar" },
+        "axis=z":   { "model": "caverns_and_chasms:block/spinel_pillar", "x": 90 },
+        "axis=x":   { "model": "caverns_and_chasms:block/spinel_pillar", "x": 90, "y": 90 }
+    }
+}

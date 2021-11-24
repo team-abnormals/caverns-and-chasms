@@ -1,0 +1,20 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "caverns_and_chasms:item/golden_powder_snow_bucket0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "caverns_and_chasms:level": 1
+      },
+      "model": "caverns_and_chasms:item/golden_powder_snow_bucket1"
+    },
+    {
+      "predicate": {
+        "caverns_and_chasms:level": 2
+      },
+      "model": "caverns_and_chasms:item/golden_powder_snow_bucket2"
+    }
+  ]
+}
