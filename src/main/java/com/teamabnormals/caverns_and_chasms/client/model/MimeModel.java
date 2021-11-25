@@ -23,7 +23,6 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		this.bipedCape = root.getChild("biped_cape");
 	}
 
-	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = PlayerModel.createMesh(CubeDeformation.NONE, false);
 		PartDefinition root = meshdefinition.getRoot();

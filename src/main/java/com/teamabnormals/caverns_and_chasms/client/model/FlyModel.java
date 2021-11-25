@@ -33,7 +33,6 @@ public class FlyModel<T extends Fly> extends AgeableListModel<T> {
 	public ModelPart middleLegs;
 	public ModelPart backLegs;
 
-	//Constructor
 	public FlyModel(ModelPart root) {
 		this.body = root.getChild("body");
 		this.leftAntenna = this.body.getChild("leftAntenna");
@@ -46,7 +45,6 @@ public class FlyModel<T extends Fly> extends AgeableListModel<T> {
 		this.middleLegs = this.body.getChild("middleLegs");
 	}
 
-	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();

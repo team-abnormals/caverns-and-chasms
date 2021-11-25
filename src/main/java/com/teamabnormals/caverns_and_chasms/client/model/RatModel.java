@@ -28,7 +28,6 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 	public ModelPart legFrontRight;
 	public ModelPart legBackRight;
 
-	//Constructor
 	public RatModel(ModelPart root) {
 		this.body = root.getChild("body");
 		this.tail = this.body.getChild("tail");
@@ -43,7 +42,6 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 		this.legBackRight = root.getChild("legBackRight");
 	}
 
-	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();

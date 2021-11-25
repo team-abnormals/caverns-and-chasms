@@ -21,14 +21,12 @@ public class CavefishModel<T extends Cavefish> extends ListModel<T> {
 	public ModelPart tail;
 	public ModelPart fin;
 
-	//Constructor
 	public CavefishModel(ModelPart root) {
 		this.body = root.getChild("body");
 		this.tail = root.getChild("tail");
 		this.fin = root.getChild("fin");
 	}
 
-	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();

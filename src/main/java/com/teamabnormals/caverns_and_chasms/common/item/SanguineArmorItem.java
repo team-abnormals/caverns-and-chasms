@@ -21,6 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class SanguineArmorItem extends ArmorItem implements IItemRenderProperties {
 	private final LazyLoadedValue<Multimap<Attribute, AttributeModifier>> attributes;
@@ -50,6 +51,17 @@ public class SanguineArmorItem extends ArmorItem implements IItemRenderPropertie
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return CavernsAndChasms.MOD_ID + ":textures/models/armor/sanguine_armor.png";
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+		consumer.accept(new IItemRenderProperties() {
+			@Override
+			public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, A properties) {
+				return SanguineArmorModel.getModel(slot, entity);
+			}
+		});
 	}
 
 	@Override

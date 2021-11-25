@@ -40,7 +40,6 @@ public class DeeperModel<T extends Entity> extends ListModel<T> {
 		this.leg4 = root.getChild("leg4");
 	}
 
-	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
