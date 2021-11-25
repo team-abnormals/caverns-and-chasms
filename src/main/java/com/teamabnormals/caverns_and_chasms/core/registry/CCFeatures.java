@@ -71,7 +71,7 @@ public class CCFeatures {
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, Configured.ORE_EMERALD_CHUNK);
 			}
 
-			if (event.getCategory() == Biome.BiomeCategory.DESERT || event.getCategory() == Biome.BiomeCategory.JUNGLE) {
+			if (event.getCategory() == Biome.BiomeCategory.JUNGLE || event.getCategory() == Biome.BiomeCategory.SWAMP) {
 				removeLapisOre(oreFeatures);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, Configured.ORE_SPINEL);
 				spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
