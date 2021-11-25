@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,9 +16,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -44,11 +45,17 @@ public class ThrownSpinelPearl extends ThrowableItemProjectile {
 	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
 		Entity entity = result.getEntity();
-		entity.hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
+		Entity owner = this.getOwner();
+		entity.hurt(DamageSource.thrown(this, owner), 0.0F);
 
-		Vec3 oldPos = this.getOwner().getPosition(0.0F);
-		this.getOwner().teleportTo(entity.getX(), entity.getY(), entity.getZ());
-		result.getEntity().teleportTo(oldPos.x(), oldPos.y(), oldPos.z());
+		if (owner != null) {
+			double oldX = owner.getX();
+			double oldY = owner.getY();
+			double oldZ = owner.getZ();
+
+			owner.teleportTo(entity.getX(), entity.getY(), entity.getZ());
+			entity.teleportTo(oldX, oldY, oldZ);
+		}
 	}
 
 	public void subtractTicks(int ticks) {
@@ -113,5 +120,10 @@ public class ThrownSpinelPearl extends ThrowableItemProjectile {
 		}
 
 		return super.changeDimension(level, teleporter);
+	}
+
+	@Override
+	public Packet<?> getAddEntityPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
