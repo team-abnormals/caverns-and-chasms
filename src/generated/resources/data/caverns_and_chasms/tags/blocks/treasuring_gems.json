@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:amethyst",
+    "#forge:ores/amethyst",
     "#forge:ores/diamond",
     "#forge:ores/emerald",
     "#forge:ores/lapis",

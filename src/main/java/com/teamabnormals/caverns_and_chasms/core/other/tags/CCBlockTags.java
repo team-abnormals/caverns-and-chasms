@@ -15,9 +15,9 @@ public class CCBlockTags {
 	public static final Tag.Named<Block> SILVER_ORES = blockTag("silver_ores");
 	public static final Tag.Named<Block> SPINEL_ORES = blockTag("spinel_ores");
 
-	public static final Tag.Named<Block> AMETHYST = TagUtil.forgeBlockTag("amethyst");
-	public static final Tag.Named<Block> ORES_SILVER = TagUtil.forgeBlockTag("ores/silver");
 	public static final Tag.Named<Block> ORES_COPPER = TagUtil.forgeBlockTag("ores/copper");
+	public static final Tag.Named<Block> ORES_AMETHYST = TagUtil.forgeBlockTag("ores/amethyst");
+	public static final Tag.Named<Block> ORES_SILVER = TagUtil.forgeBlockTag("ores/silver");
 	public static final Tag.Named<Block> ORES_SPINEL = TagUtil.forgeBlockTag("ores/spinel");
 
 	public static final Tag.Named<Block> STORAGE_BLOCKS_COPPER = TagUtil.forgeBlockTag("storage_blocks/copper");

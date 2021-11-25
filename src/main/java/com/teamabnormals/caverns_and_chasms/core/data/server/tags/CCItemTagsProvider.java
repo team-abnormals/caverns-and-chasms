@@ -36,6 +36,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 
 		this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 		this.copy(CCBlockTags.ORES_COPPER, CCItemTags.ORES_COPPER);
+		this.copy(CCBlockTags.ORES_AMETHYST, CCItemTags.ORES_AMETHYST);
 		this.copy(CCBlockTags.ORES_SILVER, CCItemTags.ORES_SILVER);
 		this.copy(CCBlockTags.ORES_SPINEL, CCItemTags.ORES_SPINEL);
 		this.tag(Tags.Items.ORES_COAL).remove(Items.COAL_ORE).addTag(ItemTags.COAL_ORES);

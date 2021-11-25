@@ -32,8 +32,9 @@ public class CCItemTags {
 	public static final Tag.Named<Item> BUCKETS_MILK = TagUtil.forgeItemTag("buckets/milk");
 	public static final Tag.Named<Item> BUCKETS_POWDER_SNOW = TagUtil.forgeItemTag("buckets/powder_snow");
 
-	public static final Tag.Named<Item> ORES_SILVER = TagUtil.forgeItemTag("ores/silver");
 	public static final Tag.Named<Item> ORES_COPPER = TagUtil.forgeItemTag("ores/copper");
+	public static final Tag.Named<Item> ORES_AMETHYST = TagUtil.forgeItemTag("ores/amethyst");
+	public static final Tag.Named<Item> ORES_SILVER = TagUtil.forgeItemTag("ores/silver");
 	public static final Tag.Named<Item> ORES_SPINEL = TagUtil.forgeItemTag("ores/spinel");
 
 	public static final Tag.Named<Item> STORAGE_BLOCKS_COPPER = TagUtil.forgeItemTag("storage_blocks/copper");

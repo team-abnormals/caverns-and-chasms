@@ -49,8 +49,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.SILVER_ORES).add(CCBlocks.SILVER_ORE.get(), CCBlocks.DEEPSLATE_SILVER_ORE.get(), CCBlocks.SOUL_SILVER_ORE.get());
 		this.tag(CCBlockTags.SPINEL_ORES).add(CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 		this.tag(CCBlockTags.PROSPECTING_METALS).addTag(Tags.Blocks.ORES_IRON).addTag(Tags.Blocks.ORES_GOLD).addTag(Tags.Blocks.ORES_NETHERITE_SCRAP).addTag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.ORES_COPPER);
-		this.tag(CCBlockTags.TREASURING_GEMS).addTag(CCBlockTags.AMETHYST).addTag(Tags.Blocks.ORES_DIAMOND).addTag(Tags.Blocks.ORES_EMERALD).addTag(Tags.Blocks.ORES_LAPIS).addTag(CCBlockTags.ORES_SPINEL);
-		this.tag(CCBlockTags.AMETHYST).add(Blocks.AMETHYST_BLOCK, Blocks.AMETHYST_CLUSTER, Blocks.BUDDING_AMETHYST, Blocks.LARGE_AMETHYST_BUD, Blocks.MEDIUM_AMETHYST_BUD, Blocks.SMALL_AMETHYST_BUD);
+		this.tag(CCBlockTags.TREASURING_GEMS).addTag(CCBlockTags.ORES_AMETHYST).addTag(Tags.Blocks.ORES_DIAMOND).addTag(Tags.Blocks.ORES_EMERALD).addTag(Tags.Blocks.ORES_LAPIS).addTag(CCBlockTags.ORES_SPINEL);
 
 		this.tag(Tags.Blocks.DIRT).add(CCBlocks.DIRT_BRICKS.get(), CCBlocks.DIRT_BRICK_STAIRS.get(), CCBlocks.DIRT_BRICK_SLAB.get(), CCBlocks.DIRT_BRICK_WALL.get(), CCBlocks.DIRT_BRICK_VERTICAL_SLAB.get(), CCBlocks.DIRT_TILES.get(), CCBlocks.DIRT_TILE_STAIRS.get(), CCBlocks.DIRT_TILE_SLAB.get(), CCBlocks.DIRT_TILE_WALL.get(), CCBlocks.DIRT_TILE_VERTICAL_SLAB.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_COPPER).add(Blocks.COPPER_BLOCK);
@@ -69,9 +68,10 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(Tags.Blocks.ORES_IRON).remove(Blocks.IRON_ORE).addTag(BlockTags.IRON_ORES);
 		this.tag(Tags.Blocks.ORES_LAPIS).remove(Blocks.LAPIS_ORE).addTag(BlockTags.LAPIS_ORES);
 		this.tag(Tags.Blocks.ORES_REDSTONE).remove(Blocks.REDSTONE_ORE).addTag(BlockTags.REDSTONE_ORES);
+		this.tag(CCBlockTags.ORES_COPPER).addTag(BlockTags.COPPER_ORES);
+		this.tag(CCBlockTags.ORES_AMETHYST).add(Blocks.AMETHYST_BLOCK, Blocks.AMETHYST_CLUSTER, Blocks.BUDDING_AMETHYST, Blocks.LARGE_AMETHYST_BUD, Blocks.MEDIUM_AMETHYST_BUD, Blocks.SMALL_AMETHYST_BUD);
 		this.tag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.SILVER_ORES);
 		this.tag(CCBlockTags.ORES_SPINEL).addTag(CCBlockTags.SPINEL_ORES);
-		this.tag(CCBlockTags.ORES_COPPER).addTag(BlockTags.COPPER_ORES);
 
 		this.tag(BlueprintBlockTags.VERTICAL_SLABS).add(CCBlocks.DIRT_BRICK_VERTICAL_SLAB.get(), CCBlocks.DIRT_TILE_VERTICAL_SLAB.get(), CCBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlocks.COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlocks.SPINEL_BRICK_VERTICAL_SLAB.get(), CCBlocks.LAPIS_LAZULI_BRICK_VERTICAL_SLAB.get(), CCBlocks.SANGUINE_VERTICAL_SLAB.get());
 
