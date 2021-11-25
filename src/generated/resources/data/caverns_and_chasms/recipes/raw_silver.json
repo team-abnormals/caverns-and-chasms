@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:raw_silver_block"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:raw_silver",
+    "count": 9
+  }
+}
