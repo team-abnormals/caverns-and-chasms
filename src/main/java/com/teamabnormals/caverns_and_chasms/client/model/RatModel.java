@@ -42,6 +42,7 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 		this.legFrontRight = root.getChild("legFrontRight");
 		this.legBackRight = root.getChild("legBackRight");
 	}
+
 	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();
@@ -72,13 +73,13 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.head.xRot = headPitch * ((float)Math.PI / 180F);
-		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.head.xRot = headPitch * ((float) Math.PI / 180F);
+		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		float f = entity.isInWater() ? 1.0F : 1.5F;
 		this.tail.yRot = -f * 0.45F * Mth.sin(0.6F * ageInTicks);
 		this.legBackRight.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.legBackLeft.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.legFrontRight.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.legBackLeft.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.legFrontRight.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.legFrontLeft.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		this.head.y = !this.young ? 21.0F : 17.5F;
 	}

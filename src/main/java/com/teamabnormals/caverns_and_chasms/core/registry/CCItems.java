@@ -60,6 +60,7 @@ public class CCItems {
 	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCTiers.Armor.SANGUINE, EquipmentSlot.FEET, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
 	public static final RegistryObject<Item> SPINEL = HELPER.createItem("spinel", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> SPINEL_PEARL = HELPER.createItem("spinel_pearl", () -> new SpinelPearlItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC)));
 
 	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().stacksTo(1).fireResistant().tab(CreativeModeTab.TAB_MISC)));
 

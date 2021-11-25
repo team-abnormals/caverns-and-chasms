@@ -103,7 +103,7 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 				}
 			}
 
-			this.setTarget((LivingEntity) null);
+			this.setTarget(null);
 			this.playSound(SoundEvents.BEE_STING, 1.0F, 1.0F);
 		}
 

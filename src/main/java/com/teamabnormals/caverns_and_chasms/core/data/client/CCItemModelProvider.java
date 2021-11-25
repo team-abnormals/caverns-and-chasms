@@ -20,6 +20,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		this.generated(CCItems.RAW_SILVER.get());
+		this.generated(CCItems.SPINEL_PEARL.get());
 	}
 
 	private void generated(ItemLike item) {

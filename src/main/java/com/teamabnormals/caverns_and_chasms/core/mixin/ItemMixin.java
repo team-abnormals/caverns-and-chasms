@@ -13,7 +13,7 @@ public abstract class ItemMixin {
 
 	@Inject(method = "getItemCategory", at = @At("RETURN"), cancellable = true)
 	private void getItemCategory(CallbackInfoReturnable<CreativeModeTab> cir) {
-		if (((Item) (Object) this) == Items.BUNDLE) {
+		if ((Object) this == Items.BUNDLE) {
 			cir.setReturnValue(CreativeModeTab.TAB_TOOLS);
 		}
 	}

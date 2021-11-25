@@ -17,7 +17,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fmllegacy.RegistryObject;
-import org.lwjgl.system.CallbackI.B;
 
 import java.util.function.ToIntFunction;
 

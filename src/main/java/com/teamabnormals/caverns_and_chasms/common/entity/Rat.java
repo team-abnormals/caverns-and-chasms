@@ -294,7 +294,7 @@ public class Rat extends Animal {
 			List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.TRUSTED_TARGET_SELECTOR);
 			ItemStack itemstack = Rat.this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (itemstack.isEmpty() && !list.isEmpty()) {
-				Rat.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
+				Rat.this.getNavigation().moveTo(list.get(0), 1.2F);
 			}
 
 		}
@@ -302,7 +302,7 @@ public class Rat extends Animal {
 		public void start() {
 			List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.TRUSTED_TARGET_SELECTOR);
 			if (!list.isEmpty()) {
-				Rat.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
+				Rat.this.getNavigation().moveTo(list.get(0), 1.2F);
 			}
 
 		}

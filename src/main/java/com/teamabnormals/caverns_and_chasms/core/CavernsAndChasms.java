@@ -25,6 +25,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.Serializers;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
@@ -135,6 +136,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SPINEL_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_WOLF.get(), ZombieWolfRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_CAT.get(), ZombieCatRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_PARROT.get(), ZombieParrotRenderer::new);

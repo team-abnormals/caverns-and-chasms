@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:spinel_pearl"
+    ]
+  },
+  "criteria": {
+    "has_spinel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:spinel"
+            ]
+          }
+        ]
+      }
+    },
+    "has_ender_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:ender_pearl"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caverns_and_chasms:spinel_pearl"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spinel",
+      "has_ender_pearl",
+      "has_the_recipe"
+    ]
+  ]
+}

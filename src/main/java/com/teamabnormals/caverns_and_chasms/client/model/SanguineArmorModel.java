@@ -51,6 +51,7 @@ public class SanguineArmorModel<T extends LivingEntity> extends HumanoidModel<T>
 		this.shoulderPadRight = root.getChild("shoulderPadRight");
 		this.shoulderPadLeft = root.getChild("shoulderPadLeft");
 	}
+
 	//Layer Definition
 	public static LayerDefinition createLayerDefinition() {
 		MeshDefinition meshdefinition = new MeshDefinition();

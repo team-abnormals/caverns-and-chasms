@@ -69,7 +69,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.SILVER_GEAR).add(CCItems.SILVER_SWORD.get(), CCItems.SILVER_PICKAXE.get(), CCItems.SILVER_AXE.get(), CCItems.SILVER_SHOVEL.get(), CCItems.SILVER_HOE.get(), CCItems.SILVER_HELMET.get(), CCItems.SILVER_CHESTPLATE.get(), CCItems.SILVER_LEGGINGS.get(), CCItems.SILVER_BOOTS.get(), CCItems.SILVER_HORSE_ARMOR.get());
 		this.tag(CCItemTags.NECROMIUM_GEAR).add(CCItems.NECROMIUM_SWORD.get(), CCItems.NECROMIUM_PICKAXE.get(), CCItems.NECROMIUM_AXE.get(), CCItems.NECROMIUM_SHOVEL.get(), CCItems.NECROMIUM_HOE.get(), CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get(), CCItems.NECROMIUM_HORSE_ARMOR.get());
 		this.tag(CCItemTags.IGNORE_RAIL_PLACEMENT).addOptional(new ResourceLocation("create", "cart_assembler"));
-		
+
 		this.tag(CCItemTags.BUCKETS_WATER).add(Items.WATER_BUCKET, CCItems.GOLDEN_WATER_BUCKET.get());
 		this.tag(CCItemTags.BUCKETS_LAVA).add(Items.LAVA_BUCKET, CCItems.GOLDEN_LAVA_BUCKET.get());
 		this.tag(CCItemTags.BUCKETS_MILK).add(Items.MILK_BUCKET, CCItems.GOLDEN_MILK_BUCKET.get());
@@ -79,7 +79,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.INGOTS_SILVER).add(CCItems.SILVER_INGOT.get());
 		this.tag(CCItemTags.INGOTS_NECROMIUM).add(CCItems.NECROMIUM_INGOT.get());
 		this.tag(Tags.Items.INGOTS).addTag(CCItemTags.INGOTS_COPPER).addTag(CCItemTags.INGOTS_SILVER).addTag(CCItemTags.INGOTS_NECROMIUM);
-		
+
 		this.tag(CCItemTags.NUGGETS_SILVER).add(CCItems.SILVER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(CCItems.NECROMIUM_NUGGET.get());
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);

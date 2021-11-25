@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "SPS",
+    " S "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "caverns_and_chasms:spinel"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:spinel_pearl"
+  }
+}
