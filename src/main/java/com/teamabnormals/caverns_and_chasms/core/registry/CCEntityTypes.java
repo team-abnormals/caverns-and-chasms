@@ -34,7 +34,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
 	public static final RegistryObject<EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, MobCategory.CREATURE, 0.4F, 0.45F);
-	public static final RegistryObject<EntityType<ThrownSpinelPearl>> SPINEL_PEARL = HELPER.createEntity("spinel_pearl", ThrownSpinelPearl::new, ThrownSpinelPearl::new, MobCategory.MONSTER, 0.25F, 0.25F);
+	public static final RegistryObject<EntityType<ThrownSpinelPearl>> SPINEL_PEARL = HELPER.createEntity("spinel_pearl", ThrownSpinelPearl::new, ThrownSpinelPearl::new, MobCategory.MISC, 0.25F, 0.25F);
 
 	public static final RegistryObject<EntityType<ZombieWolf>> ZOMBIE_WOLF = HELPER.createLivingEntity("zombie_wolf", ZombieWolf::new, MobCategory.CREATURE, 0.6F, 0.85F);
 	public static final RegistryObject<EntityType<ZombieCat>> ZOMBIE_CAT = HELPER.createLivingEntity("zombie_cat", ZombieCat::new, MobCategory.CREATURE, 0.6F, 0.7F);
