@@ -15,6 +15,23 @@ public class CCItemTags {
 	public static final Tag.Named<Item> SILVER_GEAR = itemTag("silver_gear");
 	public static final Tag.Named<Item> NECROMIUM_GEAR = itemTag("necromium_gear");
 
+	public static final Tag.Named<Item> INGOTS_NECROMIUM = TagUtil.forgeItemTag("ingots/necromium");
+	public static final Tag.Named<Item> INGOTS_SILVER = TagUtil.forgeItemTag("ingots/silver");
+	public static final Tag.Named<Item> INGOTS_COPPER = TagUtil.forgeItemTag("ingots/copper");
+
+	public static final Tag.Named<Item> NUGGETS_NECROMIUM = TagUtil.forgeItemTag("nuggets/necromium");
+	public static final Tag.Named<Item> NUGGETS_SILVER = TagUtil.forgeItemTag("nuggets/silver");
+
+	public static final Tag.Named<Item> RAW_FISHES = TagUtil.forgeItemTag("raw_fishes");
+	public static final Tag.Named<Item> RAW_FISHES_CAVEFISH = TagUtil.forgeItemTag("raw_fishes/cavefish");
+	public static final Tag.Named<Item> COOKED_FISHES = TagUtil.forgeItemTag("cooked_fishes");
+	public static final Tag.Named<Item> COOKED_FISHES_CAVEFISH = TagUtil.forgeItemTag("cooked_fishes/cavefish");
+
+	public static final Tag.Named<Item> BUCKETS_WATER = TagUtil.forgeItemTag("buckets/water");
+	public static final Tag.Named<Item> BUCKETS_LAVA = TagUtil.forgeItemTag("buckets/lava");
+	public static final Tag.Named<Item> BUCKETS_MILK = TagUtil.forgeItemTag("buckets/milk");
+	public static final Tag.Named<Item> BUCKETS_POWDER_SNOW = TagUtil.forgeItemTag("buckets/powder_snow");
+
 	public static final Tag.Named<Item> ORES_SILVER = TagUtil.forgeItemTag("ores/silver");
 	public static final Tag.Named<Item> ORES_COPPER = TagUtil.forgeItemTag("ores/copper");
 	public static final Tag.Named<Item> ORES_SPINEL = TagUtil.forgeItemTag("ores/spinel");

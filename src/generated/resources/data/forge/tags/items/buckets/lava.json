@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:lava_bucket",
     "caverns_and_chasms:golden_lava_bucket"
   ]
 }
