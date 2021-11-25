@@ -1,0 +1,25 @@
+{
+  "target": {
+    "type": "names",
+    "config": [
+      "minecraft:chests/buried_treasure"
+    ],
+    "conditions": []
+  },
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
+        "index": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "caverns_and_chasms:silver_ingot"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "target": {
+    "type": "names",
+    "config": [
+      "minecraft:chests/shipwreck_map"
+    ],
+    "conditions": []
+  },
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
+        "index": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:ore_detector"
+          }
+        ]
+      }
+    }
+  ]
+}
