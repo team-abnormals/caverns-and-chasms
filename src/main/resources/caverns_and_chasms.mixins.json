@@ -8,6 +8,7 @@
     "AbstractFireBlockMixin",
     "AbstractSkeletonEntityMixin",
     "IronGolemEntityMixin",
+    "ItemMixin",
     "SolidBucketItemMixin",
     "WitherSkeletonEntityMixin",
     "ZoglinEntityMixin",
