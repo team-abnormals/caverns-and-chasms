@@ -31,9 +31,9 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		PartDefinition hat = root.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		PartDefinition rightArm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -4.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition leftArm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -4.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leftArm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -4.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		PartDefinition rightLeg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(-1.9F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		PartDefinition leftLeg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(1.9F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition leftLeg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offsetAndRotation(1.9F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		PartDefinition bipedCape = root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, -2.0F, 2.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
