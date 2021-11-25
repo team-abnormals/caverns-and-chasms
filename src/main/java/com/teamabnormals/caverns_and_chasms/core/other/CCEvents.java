@@ -454,7 +454,7 @@ public class CCEvents {
 				}
 
 				Collection<AttributeModifier> lifeStealModifiers = attacker.getItemBySlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
-				if (!lifeStealModifiers.isEmpty() && target instanceof Enemy) {
+				if (!lifeStealModifiers.isEmpty() && (target instanceof Enemy || target instanceof Player)) {
 					lifeStealAmount += lifeStealModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 				}
 			}
