@@ -21,11 +21,20 @@ public class CCItemModelProvider extends ItemModelProvider {
 	protected void registerModels() {
 		this.generated(CCItems.RAW_SILVER.get());
 		this.generated(CCItems.SPINEL_PEARL.get());
+		this.handheld(CCItems.TUNING_FORK.get());
 	}
 
 	private void generated(ItemLike item) {
+		basicModel(item, "generated");
+	}
+
+	private void handheld(ItemLike item) {
+		basicModel(item, "handheld");
+	}
+
+	private void basicModel(ItemLike item, String type) {
 		ResourceLocation itemName = item.asItem().getRegistryName();
-		withExistingParent(itemName.getPath(), "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + itemName.getPath()));
+		withExistingParent(itemName.getPath(), "item/" + type).texture("layer0", new ResourceLocation(this.modid, "item/" + itemName.getPath()));
 	}
 
 	private void blockItem(Block block) {

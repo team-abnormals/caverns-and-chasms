@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.Registry;
@@ -34,6 +35,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		ObfuscationReflectionHelper.setPrivateValue(Item.class, Items.BUNDLE, CreativeModeTab.TAB_TOOLS, "f_41377_");
 		ShapedRecipeBuilder.shaped(Items.BUNDLE).define('R', Items.RABBIT_HIDE).define('S', Items.STRING).pattern("SRS").pattern("R R").pattern("RRR").unlockedBy("has_rabbit_hide", has(Items.RABBIT_HIDE)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(Items.BUNDLE)));
 		ShapedRecipeBuilder.shaped(CCItems.SPINEL_PEARL.get()).define('P', Items.ENDER_PEARL).define('S', CCItems.SPINEL.get()).pattern(" S ").pattern("SPS").pattern(" S ").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL)).save(consumer);
+		ShapedRecipeBuilder.shaped(CCItems.TUNING_FORK.get()).define('#', CCItemTags.INGOTS_COPPER).pattern(" # ").pattern(" ##").pattern("#  ").unlockedBy("has_copper_ingot", has(CCItemTags.INGOTS_COPPER)).save(consumer);
 
 		nineBlockStorageRecipes(consumer, CCItems.RAW_SILVER.get(), CCBlocks.RAW_SILVER_BLOCK.get());
 

@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.Spiderling;
+import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -50,6 +51,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ToolActions;
@@ -59,6 +61,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -200,6 +203,20 @@ public class CCEvents {
 					((GravestoneBlock) CCBlocks.GRAVESTONE.get()).powerBlock(state, world, pos);
 				}
 			});
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLeftClickBlock(LeftClickBlock event) {
+		Level world = event.getWorld();
+		BlockPos pos = event.getPos();
+		BlockState state = world.getBlockState(pos);
+
+		if (event.getItemStack().getItem() instanceof TuningForkItem && state.getBlock() instanceof NoteBlock) {
+			CompoundTag tag = event.getItemStack().getOrCreateTag();
+			if (tag.contains("Note")) {
+				world.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, tag.getInt("Note")));
+			}
 		}
 	}
 
