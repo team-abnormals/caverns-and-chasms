@@ -14,6 +14,7 @@ import com.teamabnormals.caverns_and_chasms.client.render.zombie.ZombieWolfRende
 import com.teamabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifiersProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBlockTagsProvider;
@@ -104,6 +105,7 @@ public class CavernsAndChasms {
 			dataGenerator.addProvider(new CCItemTagsProvider(dataGenerator, blockTagGen, existingFileHelper));
 			dataGenerator.addProvider(new CCEntityTypeTagsProvider(dataGenerator, existingFileHelper));
 			dataGenerator.addProvider(new CCRecipeProvider(dataGenerator));
+			dataGenerator.addProvider(new CCLootTableProvider(dataGenerator));
 			dataGenerator.addProvider(CCLootModifiersProvider.createLootModifierDataProvider(dataGenerator));
 		}
 

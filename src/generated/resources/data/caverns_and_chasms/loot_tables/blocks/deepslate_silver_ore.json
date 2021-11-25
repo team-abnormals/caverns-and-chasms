@@ -2,7 +2,8 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -24,19 +25,11 @@
                   }
                 }
               ],
-              "name": "caverns_and_chasms:spinel_ore"
+              "name": "caverns_and_chasms:deepslate_silver_ore"
             },
             {
               "type": "minecraft:item",
               "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": {
-                    "min": 3.0,
-                    "max": 6.0,
-                    "type": "minecraft:uniform"
-                  }
-                },
                 {
                   "function": "minecraft:apply_bonus",
                   "enchantment": "minecraft:fortune",
@@ -46,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "caverns_and_chasms:spinel"
+              "name": "caverns_and_chasms:raw_silver"
             }
           ]
         }

@@ -2,11 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:silver_ore"
+          "name": "caverns_and_chasms:raw_silver_block"
         }
       ],
       "conditions": [
