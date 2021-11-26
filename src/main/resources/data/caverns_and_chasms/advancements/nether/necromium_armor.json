@@ -25,16 +25,24 @@
       "conditions": {
         "items": [
           {
-            "item": "caverns_and_chasms:necromium_helmet"
+            "items": [
+              "caverns_and_chasms:necromium_helmet"
+            ]
           },
           {
-            "item": "caverns_and_chasms:necromium_chestplate"
+            "items": [
+              "caverns_and_chasms:necromium_chestplate"
+            ]
           },
           {
-            "item": "caverns_and_chasms:necromium_leggings"
+            "items": [
+              "caverns_and_chasms:necromium_leggings"
+            ]
           },
           {
-            "item": "caverns_and_chasms:necromium_boots"
+            "items": [
+              "caverns_and_chasms:necromium_boots"
+            ]
           }
         ]
       }

@@ -21,7 +21,9 @@
             "conditions": {
               "items": [
                 {
-                  "item": "caverns_and_chasms:necromium_hoe"
+                  "items": [
+                    "caverns_and_chasms:necromium_hoe"
+                  ]
                 }
               ]
             }

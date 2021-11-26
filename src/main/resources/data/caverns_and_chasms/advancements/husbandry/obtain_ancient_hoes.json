@@ -25,10 +25,14 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:netherite_hoe"
+            "items": [
+              "minecraft:netherite_hoe"
+            ]
           },
           {
-            "item": "caverns_and_chasms:necromium_hoe"
+            "items": [
+              "caverns_and_chasms:necromium_hoe"
+            ]
           }
         ]
       }
