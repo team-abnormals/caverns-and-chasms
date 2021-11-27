@@ -64,12 +64,6 @@ public class SanguineArmorItem extends ArmorItem implements IItemRenderPropertie
 		});
 	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack stack, EquipmentSlot armorSlot, A _default) {
-		return SanguineArmorModel.getModel(armorSlot, entityLiving);
-	}
-
 	public enum SanguineArmorType implements StringRepresentable {
 		HEAD("head", EquipmentSlot.HEAD, 4),
 		CHEST("chest", EquipmentSlot.CHEST, 9),

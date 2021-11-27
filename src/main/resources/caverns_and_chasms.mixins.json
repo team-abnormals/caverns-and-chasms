@@ -9,6 +9,7 @@
     "AbstractSkeletonEntityMixin",
     "IronGolemEntityMixin",
     "ItemMixin",
+    "ItemStackMixin",
     "SolidBucketItemMixin",
     "WitherSkeletonEntityMixin",
     "ZoglinEntityMixin",

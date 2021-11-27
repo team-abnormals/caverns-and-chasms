@@ -21,6 +21,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 	protected void registerModels() {
 		this.generated(CCItems.RAW_SILVER.get());
 		this.generated(CCItems.SPINEL_PEARL.get());
+		this.generated(CCItems.SPINEL_CROWN.get());
 		this.handheld(CCItems.TUNING_FORK.get());
 	}
 

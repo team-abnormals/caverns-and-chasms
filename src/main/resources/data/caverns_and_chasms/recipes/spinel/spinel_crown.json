@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SBS",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "caverns_and_chasms:spinel"
+    },
+    "B": {
+      "item": "caverns_and_chasms:spinel_block"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:spinel_crown",
+    "nbt": {
+      "Enchantments": [
+        {
+          "lvl": 1,
+          "id": "minecraft:binding_curse"
+        }
+      ]
+    }
+  }
+}

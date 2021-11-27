@@ -49,11 +49,6 @@ public class CavernsAndChasms {
 	public static final String MOD_ID = "caverns_and_chasms";
 	public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
-	/*
-	 * TODO:
-	 *  Fix GoldenBucketItem
-	 *  Fix SanguineArmorModel
-	 */
 	public CavernsAndChasms() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		MinecraftForge.EVENT_BUS.register(this);
@@ -121,10 +116,11 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CavefishModel.LOCATION, CavefishModel::createLayerDefinition);
 		event.registerLayerDefinition(DeeperModel.LOCATION, DeeperModel::createLayerDefinition);
 		event.registerLayerDefinition(FlyModel.LOCATION, FlyModel::createLayerDefinition);
-		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
 		event.registerLayerDefinition(MimeModel.LOCATION, MimeModel::createLayerDefinition);
 		event.registerLayerDefinition(RatModel.LOCATION, RatModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
+		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
+		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(0.0F));
 	}
 
 	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

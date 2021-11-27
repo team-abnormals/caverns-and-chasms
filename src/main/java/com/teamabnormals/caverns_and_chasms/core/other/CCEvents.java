@@ -336,7 +336,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if (event.getPotionEffect().getEffect() == CCEffects.REWIND.get()) {
+		if (event.getPotionEffect().getEffect() == CCEffects.REWIND.get() && !entity.hasEffect(CCEffects.REWIND.get())) {
 			CompoundTag data = entity.getPersistentData();
 			data.putString("RewindDimension", entity.getCommandSenderWorld().dimension().location().toString());
 			data.putDouble("RewindX", entity.getX());
