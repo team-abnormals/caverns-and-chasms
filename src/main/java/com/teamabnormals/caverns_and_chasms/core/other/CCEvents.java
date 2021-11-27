@@ -334,6 +334,13 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
+	public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
+		if (event.getSlot() == EquipmentSlot.HEAD && event.getFrom().getItem() == CCItems.SPINEL_CROWN.get()) {
+			event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
+		}
+	}
+
+	@SubscribeEvent
 	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
 		LivingEntity entity = event.getEntityLiving();
 		if (event.getPotionEffect().getEffect() == CCEffects.REWIND.get() && !entity.hasEffect(CCEffects.REWIND.get())) {

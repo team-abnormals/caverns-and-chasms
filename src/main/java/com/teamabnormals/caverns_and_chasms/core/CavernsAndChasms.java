@@ -120,7 +120,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(RatModel.LOCATION, RatModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
-		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(0.0F));
+		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(false));
 	}
 
 	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

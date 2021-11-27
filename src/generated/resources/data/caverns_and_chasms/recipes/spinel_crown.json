@@ -16,14 +16,6 @@
     }
   },
   "result": {
-    "item": "caverns_and_chasms:spinel_crown",
-    "nbt": {
-      "Enchantments": [
-        {
-          "lvl": 1,
-          "id": "minecraft:binding_curse"
-        }
-      ]
-    }
+    "item": "caverns_and_chasms:spinel_crown"
   }
 }
