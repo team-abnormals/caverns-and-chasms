@@ -1,0 +1,50 @@
+{
+  "target": {
+    "type": "names",
+    "config": [
+      "minecraft:chests/ruined_portal"
+    ],
+    "conditions": []
+  },
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
+        "index": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 10,
+            "name": "caverns_and_chasms:spinel_crown"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "min": 8.0,
+                  "max": 16.0
+                },
+                "add": false
+              }
+            ],
+            "name": "caverns_and_chasms:golden_bars"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "caverns_and_chasms:golden_lantern"
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:golden_bucket"
+          }
+        ]
+      }
+    }
+  ]
+}
