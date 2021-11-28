@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -69,7 +70,7 @@ public class SpinelCrownItem extends ArmorItem implements IItemRenderProperties 
 		consumer.accept(new IItemRenderProperties() {
 			@Override
 			public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, A properties) {
-				return SpinelCrownModel.getModel(entity instanceof AbstractPiglin);
+				return SpinelCrownModel.getModel(entity instanceof AbstractPiglin || entity instanceof ZombifiedPiglin);
 			}
 		});
 	}
