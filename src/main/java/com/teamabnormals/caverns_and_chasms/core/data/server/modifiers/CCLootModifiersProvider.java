@@ -31,11 +31,17 @@ import java.util.List;
 public class CCLootModifiersProvider {
 	public static ModifierDataProvider<LootTableLoadEvent, Gson, Pair<Gson, PredicateManager>> createLootModifierDataProvider(DataGenerator dataGenerator) {
 		return LootModifiers.createDataProvider(dataGenerator, "Caverns & Chasms Loot Modifiers", CavernsAndChasms.MOD_ID,
-				createModifierEntry("ore_detector_shipwreck", false, 1, CCItems.ORE_DETECTOR.get(), 1, BuiltInLootTables.SHIPWRECK_MAP),
+				createModifierEntry("shipwreck_map", false, 1, CCItems.ORE_DETECTOR.get(), 1, BuiltInLootTables.SHIPWRECK_MAP),
+				createModifierEntry("shipwreck_treasure", Collections.singletonList(createModifier(false, 1, CCItems.SPINEL.get(), 20, 1, 10)), BuiltInLootTables.SHIPWRECK_TREASURE),
+				createModifierEntry("abandoned_mineshaft", Collections.singletonList(createModifier(false, 1, CCItems.SPINEL.get(), 5, 6, 11)), BuiltInLootTables.ABANDONED_MINESHAFT),
+				createModifierEntry("jungle_temple", Collections.singletonList(createModifier(Arrays.asList(
+						createLootEntry(CCItems.SILVER_INGOT.get(), 15, 2, 7),
+						createLootEntry(CCItems.SPINEL.get(), 15, 4, 9)))
+				), BuiltInLootTables.JUNGLE_TEMPLE),
 
 				createModifierEntry("buried_treasure", Arrays.asList(
 						createModifier(false, 3, CCItems.ORE_DETECTOR.get(), 1),
-						createModifier(false, 1, CCItems.SILVER_INGOT.get(), 10)
+						createModifier(false, 1, CCItems.SILVER_INGOT.get(), 10, 1, 4)
 				), BuiltInLootTables.BURIED_TREASURE),
 
 				createModifierEntry("ruined_portal", Collections.singletonList(
@@ -78,6 +84,14 @@ public class CCLootModifiersProvider {
 
 	private static ConfiguredModifier<LootTableLoadEvent, ?, Gson, Pair<Gson, PredicateManager>, ?> createModifier(boolean replace, int index, ItemLike item, int weight) {
 		return createModifier(replace, index, Collections.singletonList(createLootEntry(item, weight)));
+	}
+
+	private static ConfiguredModifier<LootTableLoadEvent, ?, Gson, Pair<Gson, PredicateManager>, ?> createModifier(boolean replace, int index, ItemLike item, int weight, int min, int max) {
+		return createModifier(replace, index, Collections.singletonList(createLootEntry(item, weight, min, max)));
+	}
+
+	private static ConfiguredModifier<LootTableLoadEvent, ?, Gson, Pair<Gson, PredicateManager>, ?> createModifier(ItemLike item, int weight, int min, int max) {
+		return createModifier(false, 0, item, weight, min, max);
 	}
 
 	private static ConfiguredModifier<LootTableLoadEvent, ?, Gson, Pair<Gson, PredicateManager>, ?> createModifier(Item item, int weight) {
