@@ -82,8 +82,8 @@ public class CCClientCompat {
 			Level level = player.level;
 
 			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("latitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
-				event.getToolTip().add(createTooltip("longitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
+				event.getToolTip().add(createTooltip("latitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
+				event.getToolTip().add(createTooltip("longitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
 			}
 
 			if (item == Items.CLOCK) {
