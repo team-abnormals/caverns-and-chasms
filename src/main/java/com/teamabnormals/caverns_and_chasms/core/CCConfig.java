@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -39,12 +40,40 @@ public class CCConfig {
 		}
 	}
 
+	public static class Client {
+		public final BooleanValue compassesDisplayPosition;
+
+		public final BooleanValue clocksDisplayTime;
+		public final BooleanValue clocksDisplayDay;
+		public final BooleanValue clocksUse24hrTime;
+
+		public Client(ForgeConfigSpec.Builder builder) {
+			builder.push("items");
+			builder.push("compass");
+			compassesDisplayPosition = builder.comment("Compasses display X and Z coordinates in the item description").define("Compasses display position", true);
+			builder.pop();
+			builder.push("clock");
+			clocksDisplayTime = builder.comment("Clocks display the time of day in the item description").define("Clocks display time", true);
+			clocksDisplayDay = builder.comment("Clocks display the what day it is in the item description").define("Clocks display day", true);
+			clocksUse24hrTime = builder.comment("Clocks use 24-hour time if displaying the time").define("Clocks use 24-hour time", false);
+			builder.pop();
+			builder.pop();
+		}
+	}
+
 	public static final ForgeConfigSpec COMMON_SPEC;
 	public static final Common COMMON;
+
+	public static final ForgeConfigSpec CLIENT_SPEC;
+	public static final Client CLIENT;
 
 	static {
 		Pair<Common, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Common::new);
 		COMMON_SPEC = commonSpecPair.getRight();
 		COMMON = commonSpecPair.getLeft();
+
+		Pair<Client, ForgeConfigSpec> clientSpecPair = new ForgeConfigSpec.Builder().configure(Client::new);
+		CLIENT_SPEC = clientSpecPair.getRight();
+		CLIENT = clientSpecPair.getLeft();
 	}
 }

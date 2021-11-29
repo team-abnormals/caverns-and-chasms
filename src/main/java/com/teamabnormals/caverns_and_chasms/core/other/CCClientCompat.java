@@ -1,18 +1,34 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.caverns_and_chasms.common.item.OreDetectorItem;
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Locale;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class CCClientCompat {
@@ -55,5 +71,78 @@ public class CCClientCompat {
 				return 0;
 			}
 		});
+	}
+
+	@SubscribeEvent
+	public static void onItemTooltip(ItemTooltipEvent event) {
+		Item item = event.getItemStack().getItem();
+		Player player = event.getPlayer();
+
+		if (player != null) {
+			Level level = player.level;
+
+			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
+				event.getToolTip().add(createTooltip("latitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
+				event.getToolTip().add(createTooltip("longitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
+			}
+
+			if (item == Items.CLOCK) {
+				if (CCConfig.CLIENT.clocksDisplayTime.get()) {
+					event.getToolTip().add(new TextComponent(calculateTime(level)).withStyle(ChatFormatting.GRAY));
+				}
+
+				if (CCConfig.CLIENT.clocksDisplayDay.get()) {
+					event.getToolTip().add(createTooltip("day").withStyle(ChatFormatting.GRAY).append(new TextComponent(" " + level.getDayTime() / 24000L).withStyle(ChatFormatting.GRAY)));
+				}
+			}
+		}
+	}
+
+	private static TranslatableComponent createTooltip(String identifier) {
+		return new TranslatableComponent("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
+	}
+
+	private static String calculateTime(Level level) {
+		String addition = "";
+
+		int totalMinutes = (int) (level.dayTime() * 3 / 50);
+		int hour = 6 + (totalMinutes / 60);
+		if (hour >= 24) hour %= 24;
+		int minute = totalMinutes % 60;
+
+		if (!CCConfig.CLIENT.clocksUse24hrTime.get()) {
+			addition = " " + (hour > 11 ? createTooltip("pm").getString() : createTooltip("am").getString());
+			hour = hour > 12 ? hour - 12 : hour == 0 ? 12 : hour;
+		}
+
+		String stringMinute = (minute < 10 ? "0" : "") + minute;
+		return hour + ":" + stringMinute + addition;
+	}
+
+	@SubscribeEvent
+	public static void onItemUse(RightClickItem event) {
+		if (event.getEntityLiving() instanceof Player player) {
+			Item item = event.getItemStack().getItem();
+			Level level = player.level;
+			boolean displayTime = CCConfig.CLIENT.clocksDisplayTime.get();
+			boolean displayDay = CCConfig.CLIENT.clocksDisplayDay.get();
+			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
+				player.displayClientMessage(createTooltip("latitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f, ", player.getX())).append(createTooltip("longitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getZ()))))), true);
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			} else if (item == Items.CLOCK && (displayDay || displayTime)) {
+				TextComponent time = new TextComponent(calculateTime(level));
+				MutableComponent day = createTooltip("day").append(new TextComponent(" " + (level.getDayTime() + 6000) / 24000L));
+				TextComponent message = new TextComponent("");
+				if (CCConfig.CLIENT.clocksDisplayTime.get()) {
+					message.append(time);
+					if (displayDay) message.append(new TextComponent(", "));
+				}
+				if (displayDay) message.append(day);
+				player.displayClientMessage(message, true);
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			}
+		}
 	}
 }

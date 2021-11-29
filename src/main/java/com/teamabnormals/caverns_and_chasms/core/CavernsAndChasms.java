@@ -74,7 +74,9 @@ public class CavernsAndChasms {
 			DeeperSpriteUploader.init(bus);
 		});
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
+		ModLoadingContext context = ModLoadingContext.get();
+		context.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
+		context.registerConfig(ModConfig.Type.CLIENT, CCConfig.CLIENT_SPEC);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {

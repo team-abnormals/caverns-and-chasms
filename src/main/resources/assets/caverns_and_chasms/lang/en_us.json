@@ -237,6 +237,12 @@
   "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",
   "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper hisses",
 
+  "tooltip.caverns_and_chasms.latitude": "Latitude",
+  "tooltip.caverns_and_chasms.longitude": "Longitude",
+  "tooltip.caverns_and_chasms.am": "AM",
+  "tooltip.caverns_and_chasms.pm": "PM",
+  "tooltip.caverns_and_chasms.day": "Day",
+
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.potion.effect.rewind_long": "Potion of Rewind",
   "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",
