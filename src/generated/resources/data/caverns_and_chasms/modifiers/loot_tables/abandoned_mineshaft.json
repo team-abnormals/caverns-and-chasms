@@ -11,8 +11,43 @@
       "type": "entries",
       "config": {
         "replace": false,
+        "index": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "minecraft:bundle"
+          },
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "name": "caverns_and_chasms:ore_detector"
+          }
+        ]
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
         "index": 1,
         "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "min": 1.0,
+                  "max": 3.0
+                },
+                "add": false
+              }
+            ],
+            "name": "caverns_and_chasms:silver_ingot"
+          },
           {
             "type": "minecraft:item",
             "weight": 5,
@@ -28,6 +63,31 @@
               }
             ],
             "name": "caverns_and_chasms:spinel"
+          }
+        ]
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "replace": false,
+        "index": 2,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "weight": 5,
+            "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "min": 1.0,
+                  "max": 4.0
+                },
+                "add": false
+              }
+            ],
+            "name": "caverns_and_chasms:spiked_rail"
           }
         ]
       }

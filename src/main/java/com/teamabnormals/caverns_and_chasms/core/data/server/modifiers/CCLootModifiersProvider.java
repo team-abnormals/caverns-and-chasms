@@ -15,6 +15,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.PredicateManager;
@@ -33,7 +34,17 @@ public class CCLootModifiersProvider {
 		return LootModifiers.createDataProvider(dataGenerator, "Caverns & Chasms Loot Modifiers", CavernsAndChasms.MOD_ID,
 				createModifierEntry("shipwreck_map", false, 1, CCItems.ORE_DETECTOR.get(), 1, BuiltInLootTables.SHIPWRECK_MAP),
 				createModifierEntry("shipwreck_treasure", Collections.singletonList(createModifier(false, 1, CCItems.SPINEL.get(), 20, 1, 10)), BuiltInLootTables.SHIPWRECK_TREASURE),
-				createModifierEntry("abandoned_mineshaft", Collections.singletonList(createModifier(false, 1, CCItems.SPINEL.get(), 5, 6, 11)), BuiltInLootTables.ABANDONED_MINESHAFT),
+
+				createModifierEntry("abandoned_mineshaft", Arrays.asList(
+						createModifier(Arrays.asList(
+								createLootEntry(Items.BUNDLE, 5),
+								createLootEntry(CCItems.ORE_DETECTOR.get(), 5))),
+						createModifier(false, 1, Arrays.asList(
+								createLootEntry(CCItems.SILVER_INGOT.get(), 5, 1, 3),
+								createLootEntry(CCItems.SPINEL.get(), 5, 6, 11))),
+						createModifier(false, 2, CCBlocks.SPIKED_RAIL.get(), 5, 1, 4)
+				), BuiltInLootTables.ABANDONED_MINESHAFT),
+
 				createModifierEntry("jungle_temple", Collections.singletonList(createModifier(Arrays.asList(
 						createLootEntry(CCItems.SILVER_INGOT.get(), 15, 2, 7),
 						createLootEntry(CCItems.SPINEL.get(), 15, 4, 9)))
