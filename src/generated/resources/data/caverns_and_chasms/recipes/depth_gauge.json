@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/silver"
+      "item": "caverns_and_chasms:silver_ingot"
     },
     "X": {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:redstone"
     }
   },
   "result": {
-    "item": "caverns_and_chasms:ore_detector"
+    "item": "caverns_and_chasms:depth_gauge"
   }
 }

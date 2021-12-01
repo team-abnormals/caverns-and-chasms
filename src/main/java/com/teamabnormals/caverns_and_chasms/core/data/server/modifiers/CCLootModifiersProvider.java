@@ -32,13 +32,14 @@ import java.util.List;
 public class CCLootModifiersProvider {
 	public static ModifierDataProvider<LootTableLoadEvent, Gson, Pair<Gson, PredicateManager>> createLootModifierDataProvider(DataGenerator dataGenerator) {
 		return LootModifiers.createDataProvider(dataGenerator, "Caverns & Chasms Loot Modifiers", CavernsAndChasms.MOD_ID,
-				createModifierEntry("shipwreck_map", false, 1, CCItems.ORE_DETECTOR.get(), 1, BuiltInLootTables.SHIPWRECK_MAP),
+				createModifierEntry("shipwreck_map", false, 1, CCItems.DEPTH_GAUGE.get(), 1, BuiltInLootTables.SHIPWRECK_MAP),
 				createModifierEntry("shipwreck_treasure", Collections.singletonList(createModifier(false, 1, CCItems.SPINEL.get(), 20, 1, 10)), BuiltInLootTables.SHIPWRECK_TREASURE),
+				createModifierEntry("buried_treasure", Collections.singletonList(createModifier(false, 1, CCItems.SILVER_INGOT.get(), 10, 1, 4)), BuiltInLootTables.BURIED_TREASURE),
 
 				createModifierEntry("abandoned_mineshaft", Arrays.asList(
 						createModifier(Arrays.asList(
 								createLootEntry(Items.BUNDLE, 5),
-								createLootEntry(CCItems.ORE_DETECTOR.get(), 5))),
+								createLootEntry(CCItems.DEPTH_GAUGE.get(), 5))),
 						createModifier(false, 1, Arrays.asList(
 								createLootEntry(CCItems.SILVER_INGOT.get(), 5, 1, 3),
 								createLootEntry(CCItems.SPINEL.get(), 5, 6, 11))),
@@ -50,10 +51,6 @@ public class CCLootModifiersProvider {
 						createLootEntry(CCItems.SPINEL.get(), 15, 4, 9)))
 				), BuiltInLootTables.JUNGLE_TEMPLE),
 
-				createModifierEntry("buried_treasure", Arrays.asList(
-						createModifier(false, 3, CCItems.ORE_DETECTOR.get(), 1),
-						createModifier(false, 1, CCItems.SILVER_INGOT.get(), 10, 1, 4)
-				), BuiltInLootTables.BURIED_TREASURE),
 
 				createModifierEntry("ruined_portal", Collections.singletonList(
 						createModifier(Arrays.asList(

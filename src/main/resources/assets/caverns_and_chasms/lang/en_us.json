@@ -139,7 +139,7 @@
   "item.caverns_and_chasms.silver_ingot": "Silver Ingot",
   "item.caverns_and_chasms.silver_nugget": "Silver Nugget",
   "item.caverns_and_chasms.silver_arrow": "Silver Arrow",
-  "item.caverns_and_chasms.ore_detector": "Ore Detector",
+  "item.caverns_and_chasms.depth_gauge": "Depth Gauge",
   "item.caverns_and_chasms.kunai": "Kunai",
   "item.caverns_and_chasms.silver_sword": "Silver Sword",
   "item.caverns_and_chasms.silver_pickaxe": "Silver Pickaxe",
@@ -203,11 +203,6 @@
   "effect.caverns_and_chasms.rewind": "Rewind",
   "effect.caverns_and_chasms.affliction": "Affliction",
 
-  "enchantment.caverns_and_chasms.treasuring": "Treasuring",
-  "enchantment.caverns_and_chasms.treasuring.desc": "The detector will only detect gems.",
-  "enchantment.caverns_and_chasms.prospecting": "Prospecting",
-  "enchantment.caverns_and_chasms.prospecting.desc": "The detector will only detect metals.",
-
   "death.attack.caverns_and_chasms.affliction": "%1$s was afflicted",
   "death.attack.caverns_and_chasms.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
 
@@ -239,6 +234,7 @@
 
   "tooltip.caverns_and_chasms.latitude": "Latitude",
   "tooltip.caverns_and_chasms.longitude": "Longitude",
+  "tooltip.caverns_and_chasms.altitude": "Altitude",
   "tooltip.caverns_and_chasms.am": "AM",
   "tooltip.caverns_and_chasms.pm": "PM",
   "tooltip.caverns_and_chasms.day": "Day",

@@ -108,7 +108,6 @@
   "item.caverns_and_chasms.silver_ingot": "Hopeaharkko",
   "item.caverns_and_chasms.silver_nugget": "Hopeakimpale",
   "item.caverns_and_chasms.silver_arrow": "Hopeanuoli",
-  "item.caverns_and_chasms.ore_detector": "Malmintunnistin",
   "item.caverns_and_chasms.kunai": "Kunai",
   "item.caverns_and_chasms.silver_sword": "Hopeamiekka",
   "item.caverns_and_chasms.silver_pickaxe": "Hopeahakku",
@@ -144,7 +143,6 @@
   "item.caverns_and_chasms.deeper_spawn_egg": "Luo deeper",
   "item.caverns_and_chasms.mime_spawn_egg": "Luo miimikko",
   "item.caverns_and_chasms.juggernaut_spawn_egg": "Luo juggernaut",
-  "item.caverns_and_chasms.zombie_chicken_spawn_egg": "Luo zombikana",
   "item.caverns_and_chasms.fly_spawn_egg": "Luo kärpänen",
   "item.caverns_and_chasms.rat_spawn_egg": "Luo rotta",
   "item.caverns_and_chasms.zombie_wolf_spawn_egg": "Luo zombisusi",
@@ -157,10 +155,8 @@
   "entity.caverns_and_chasms.spiderling": "Hämähäkin poikanen",
   "entity.caverns_and_chasms.mime": "Miimikko",
   "entity.caverns_and_chasms.juggernaut": "Juggernaut",
-  "entity.caverns_and_chasms.zombie_chicken": "Zombikana",
   "entity.caverns_and_chasms.fly": "Kärpänen",
   "entity.caverns_and_chasms.rat": "Rotta",
-  "entity.caverns_and_chasms.rotten_egg": "Heitetty mädäntynyt muna",
   "entity.caverns_and_chasms.kunai": "Kunai",
   "entity.caverns_and_chasms.zombie_wolf": "Zombisusi",
   "entity.caverns_and_chasms.zombie_cat": "Zombikissa",
@@ -169,11 +165,6 @@
 
   "effect.caverns_and_chasms.rewind": "Takaisinkelaus",
   "effect.caverns_and_chasms.affliction": "Piina",
-  
-  "enchantment.caverns_and_chasms.treasuring": "Aarteenmetsästys",
-  "enchantment.caverns_and_chasms.treasuring.desc": "Tunnistin tunnistaa vain jalokiviä.",
-  "enchantment.caverns_and_chasms.prospecting": "Malminetsintä",
-  "enchantment.caverns_and_chasms.prospecting.desc": "Tunnistin tunnistaa vain metalleja.",
 
   "death.attack.caverns_and_chasms.affliction": "%1$s kuoli piinaan",
   "death.attack.caverns_and_chasms.affliction.player": "%1$s kuoli piinaan tämän paetessa olentoa %2$s",

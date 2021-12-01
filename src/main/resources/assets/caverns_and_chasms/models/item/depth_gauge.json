@@ -1,0 +1,40 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "caverns_and_chasms:item/depth_gauge_00"
+    },
+    "overrides": [
+        { "predicate": { "caverns_and_chasms:depth": 0.00000 }, "model": "caverns_and_chasms:item/depth_gauge_00" },
+        { "predicate": { "caverns_and_chasms:depth": 0.03125 }, "model": "caverns_and_chasms:item/depth_gauge_01" },
+        { "predicate": { "caverns_and_chasms:depth": 0.06250 }, "model": "caverns_and_chasms:item/depth_gauge_02" },
+        { "predicate": { "caverns_and_chasms:depth": 0.09375 }, "model": "caverns_and_chasms:item/depth_gauge_03" },
+        { "predicate": { "caverns_and_chasms:depth": 0.12500 }, "model": "caverns_and_chasms:item/depth_gauge_04" },
+        { "predicate": { "caverns_and_chasms:depth": 0.15625 }, "model": "caverns_and_chasms:item/depth_gauge_05" },
+        { "predicate": { "caverns_and_chasms:depth": 0.18750 }, "model": "caverns_and_chasms:item/depth_gauge_06" },
+        { "predicate": { "caverns_and_chasms:depth": 0.21875 }, "model": "caverns_and_chasms:item/depth_gauge_07" },
+        { "predicate": { "caverns_and_chasms:depth": 0.25000 }, "model": "caverns_and_chasms:item/depth_gauge_08" },
+        { "predicate": { "caverns_and_chasms:depth": 0.28125 }, "model": "caverns_and_chasms:item/depth_gauge_09" },
+        { "predicate": { "caverns_and_chasms:depth": 0.31250 }, "model": "caverns_and_chasms:item/depth_gauge_10" },
+        { "predicate": { "caverns_and_chasms:depth": 0.34375 }, "model": "caverns_and_chasms:item/depth_gauge_11" },
+        { "predicate": { "caverns_and_chasms:depth": 0.37500 }, "model": "caverns_and_chasms:item/depth_gauge_12" },
+        { "predicate": { "caverns_and_chasms:depth": 0.40625 }, "model": "caverns_and_chasms:item/depth_gauge_13" },
+        { "predicate": { "caverns_and_chasms:depth": 0.43750 }, "model": "caverns_and_chasms:item/depth_gauge_14" },
+        { "predicate": { "caverns_and_chasms:depth": 0.46875 }, "model": "caverns_and_chasms:item/depth_gauge_15" },
+        { "predicate": { "caverns_and_chasms:depth": 0.50000 }, "model": "caverns_and_chasms:item/depth_gauge_16" },
+        { "predicate": { "caverns_and_chasms:depth": 0.53125 }, "model": "caverns_and_chasms:item/depth_gauge_17" },
+        { "predicate": { "caverns_and_chasms:depth": 0.56250 }, "model": "caverns_and_chasms:item/depth_gauge_18" },
+        { "predicate": { "caverns_and_chasms:depth": 0.59375 }, "model": "caverns_and_chasms:item/depth_gauge_19" },
+        { "predicate": { "caverns_and_chasms:depth": 0.62500 }, "model": "caverns_and_chasms:item/depth_gauge_20" },
+        { "predicate": { "caverns_and_chasms:depth": 0.65625 }, "model": "caverns_and_chasms:item/depth_gauge_21" },
+        { "predicate": { "caverns_and_chasms:depth": 0.68750 }, "model": "caverns_and_chasms:item/depth_gauge_22" },
+        { "predicate": { "caverns_and_chasms:depth": 0.71875 }, "model": "caverns_and_chasms:item/depth_gauge_23" },
+        { "predicate": { "caverns_and_chasms:depth": 0.75000 }, "model": "caverns_and_chasms:item/depth_gauge_24" },
+        { "predicate": { "caverns_and_chasms:depth": 0.78125 }, "model": "caverns_and_chasms:item/depth_gauge_25" },
+        { "predicate": { "caverns_and_chasms:depth": 0.81250 }, "model": "caverns_and_chasms:item/depth_gauge_26" },
+        { "predicate": { "caverns_and_chasms:depth": 0.84375 }, "model": "caverns_and_chasms:item/depth_gauge_27" },
+        { "predicate": { "caverns_and_chasms:depth": 0.87500 }, "model": "caverns_and_chasms:item/depth_gauge_28" },
+        { "predicate": { "caverns_and_chasms:depth": 0.90625 }, "model": "caverns_and_chasms:item/depth_gauge_29" },
+        { "predicate": { "caverns_and_chasms:depth": 0.93750 }, "model": "caverns_and_chasms:item/depth_gauge_30" },
+        { "predicate": { "caverns_and_chasms:depth": 0.96875 }, "model": "caverns_and_chasms:item/depth_gauge_31" }
+    ]
+}

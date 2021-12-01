@@ -15,7 +15,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "caverns_and_chasms:ore_detector"
+            "name": "caverns_and_chasms:depth_gauge"
           }
         ]
       }

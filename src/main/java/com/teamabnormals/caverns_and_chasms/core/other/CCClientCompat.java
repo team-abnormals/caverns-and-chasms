@@ -1,33 +1,36 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.teamabnormals.caverns_and_chasms.common.item.OreDetectorItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -64,21 +67,58 @@ public class CCClientCompat {
 		ItemProperties.register(CCItems.GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemProperties.register(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
 
-		ItemProperties.register(CCItems.ORE_DETECTOR.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "detect"), (stack, world, entity, hash) -> {
-			if (stack.hasTag() && stack.getTag().contains("Detecting") && entity instanceof Player && OreDetectorItem.getDetectionData(stack)) {
-				return 1;
-			} else {
-				return 0;
+		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "depth"), new ClampedItemPropertyFunction() {
+			private double rotation;
+			private double rota;
+			private long lastUpdateTick;
+
+			public float unclampedCall(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity livingEntity, int p_174668_) {
+				Entity entity = livingEntity != null ? livingEntity : stack.getEntityRepresentation();
+				if (entity == null) {
+					return 0.25F;
+				} else {
+					if (level == null && entity.level instanceof ClientLevel) {
+						level = (ClientLevel) entity.level;
+					}
+
+					if (level == null) {
+						return 0.25F;
+					} else {
+						double depth;
+						if (level.dimensionType().natural()) {
+							int height = Mth.clamp((int) entity.getY() - 1, 0, 256) / 8;
+							depth = height / 32.0;
+						} else {
+							depth = Math.random();
+							depth = this.wobble(level, depth);
+						}
+
+						return (float) depth;
+					}
+				}
+			}
+
+			private double wobble(Level level, double depth) {
+				if (level.getGameTime() != this.lastUpdateTick) {
+					this.lastUpdateTick = level.getGameTime();
+					double d0 = depth - this.rotation;
+					this.rota += d0 * 0.05D;
+					this.rota *= 0.8D;
+					this.rotation = this.rotation + this.rota;
+				}
+
+				return this.rotation;
 			}
 		});
 	}
 
 	@SubscribeEvent
 	public static void onItemTooltip(ItemTooltipEvent event) {
-		Item item = event.getItemStack().getItem();
+		ItemStack stack = event.getItemStack();
+		Item item = stack.getItem();
 		Player player = event.getPlayer();
 
-		if (player != null) {
+		if (player != null && player.getInventory().contains(stack)) {
 			Level level = player.level;
 
 			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
@@ -95,11 +135,19 @@ public class CCClientCompat {
 					event.getToolTip().add(createTooltip("day").withStyle(ChatFormatting.GRAY).append(new TextComponent(" " + level.getDayTime() / 24000L).withStyle(ChatFormatting.GRAY)));
 				}
 			}
+
+			if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
+				event.getToolTip().add(createTooltip("altitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getY())).withStyle(ChatFormatting.GRAY)));
+			}
 		}
 	}
 
 	private static TranslatableComponent createTooltip(String identifier) {
 		return new TranslatableComponent("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
+	}
+
+	private static TranslatableComponent createTooltip(String identifier, int blocks) {
+		return new TranslatableComponent("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier, blocks);
 	}
 
 	private static String calculateTime(Level level) {
@@ -140,6 +188,10 @@ public class CCClientCompat {
 				}
 				if (displayDay) message.append(day);
 				player.displayClientMessage(message, true);
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			} else if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
+				player.displayClientMessage(createTooltip("altitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getY()))), true);
 				event.setCanceled(true);
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}

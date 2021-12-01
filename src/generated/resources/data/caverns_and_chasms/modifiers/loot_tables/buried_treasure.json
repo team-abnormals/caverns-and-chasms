@@ -11,19 +11,6 @@
       "type": "entries",
       "config": {
         "replace": false,
-        "index": 3,
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "name": "caverns_and_chasms:ore_detector"
-          }
-        ]
-      }
-    },
-    {
-      "type": "entries",
-      "config": {
-        "replace": false,
         "index": 1,
         "entries": [
           {

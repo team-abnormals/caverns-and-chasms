@@ -21,7 +21,7 @@
           {
             "type": "minecraft:item",
             "weight": 5,
-            "name": "caverns_and_chasms:ore_detector"
+            "name": "caverns_and_chasms:depth_gauge"
           }
         ]
       }

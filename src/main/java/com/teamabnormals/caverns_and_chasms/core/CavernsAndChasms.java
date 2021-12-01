@@ -57,7 +57,6 @@ public class CavernsAndChasms {
 		CCAttributes.ATTRIBUTES.register(bus);
 		CCEffects.POTIONS.register(bus);
 		CCEffects.EFFECTS.register(bus);
-		CCEnchantments.ENCHANTMENTS.register(bus);
 		CCParticleTypes.PARTICLES.register(bus);
 		Serializers.RECIPE_SERIALIZERS.register(bus);
 
@@ -85,7 +84,6 @@ public class CavernsAndChasms {
 			CCFeatures.Configured.registerConfiguredFeatures();
 			CCEffects.registerBrewingRecipes();
 			CCCompat.registerCompat();
-			CCEnchantments.registerEnchantmentTypes();
 		});
 	}
 

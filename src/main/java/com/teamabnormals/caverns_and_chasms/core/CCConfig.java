@@ -47,6 +47,8 @@ public class CCConfig {
 		public final BooleanValue clocksDisplayDay;
 		public final BooleanValue clocksUse24hrTime;
 
+		public final BooleanValue depthGaugesDisplayPosition;
+
 		public Client(ForgeConfigSpec.Builder builder) {
 			builder.push("items");
 			builder.push("compass");
@@ -56,6 +58,9 @@ public class CCConfig {
 			clocksDisplayTime = builder.comment("Clocks display the time of day in the item description").define("Clocks display time", true);
 			clocksDisplayDay = builder.comment("Clocks display the what day it is in the item description").define("Clocks display day", true);
 			clocksUse24hrTime = builder.comment("Clocks use 24-hour time if displaying the time").define("Clocks use 24-hour time", false);
+			builder.pop();
+			builder.push("depth_gauge");
+			depthGaugesDisplayPosition = builder.comment("Depth Gauges display Y coordinates in the item description").define("Depth Gauges display position", true);
 			builder.pop();
 			builder.pop();
 		}

@@ -23,6 +23,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.generated(CCItems.SPINEL_PEARL.get());
 		this.generated(CCItems.SPINEL_CROWN.get());
 		this.handheld(CCItems.TUNING_FORK.get());
+		this.animatedModel(CCItems.DEPTH_GAUGE.get(), 32);
 	}
 
 	private void generated(ItemLike item) {
@@ -41,5 +42,12 @@ public class CCItemModelProvider extends ItemModelProvider {
 	private void blockItem(Block block) {
 		ResourceLocation name = block.getRegistryName();
 		this.getBuilder(name.getPath()).parent(new UncheckedModelFile(new ResourceLocation(this.modid, "block/" + name.getPath())));
+	}
+
+	private void animatedModel(ItemLike item, int count) {
+		for (int i = 0; i < count; i++) {
+			String path = item.asItem().getRegistryName().getPath() + "_" + String.format("%02d", i);
+			withExistingParent(path, "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + path));
+		}
 	}
 }
