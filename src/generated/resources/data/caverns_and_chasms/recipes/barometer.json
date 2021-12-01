@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:ingots/silver"
+      "tag": "forge:ingots/copper"
     },
     "X": {
       "item": "minecraft:redstone"
     }
   },
   "result": {
-    "item": "caverns_and_chasms:depth_gauge"
+    "item": "caverns_and_chasms:barometer"
   }
 }

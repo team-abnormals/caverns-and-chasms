@@ -24,6 +24,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.generated(CCItems.SPINEL_CROWN.get());
 		this.handheld(CCItems.TUNING_FORK.get());
 		this.animatedModel(CCItems.DEPTH_GAUGE.get(), 32);
+		this.generated(CCItems.BAROMETER.get());
 	}
 
 	private void generated(ItemLike item) {

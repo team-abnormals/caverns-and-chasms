@@ -42,12 +42,13 @@ public class CCConfig {
 
 	public static class Client {
 		public final BooleanValue compassesDisplayPosition;
+		public final BooleanValue depthGaugesDisplayPosition;
+		public final BooleanValue barometersDisplayWeather;
 
 		public final BooleanValue clocksDisplayTime;
 		public final BooleanValue clocksDisplayDay;
 		public final BooleanValue clocksUse24hrTime;
 
-		public final BooleanValue depthGaugesDisplayPosition;
 
 		public Client(ForgeConfigSpec.Builder builder) {
 			builder.push("items");
@@ -61,6 +62,9 @@ public class CCConfig {
 			builder.pop();
 			builder.push("depth_gauge");
 			depthGaugesDisplayPosition = builder.comment("Depth Gauges display Y coordinates in the item description").define("Depth Gauges display position", true);
+			builder.pop();
+			builder.push("barometer");
+			barometersDisplayWeather = builder.comment("Barometers display the weather in the item description").define("Barometers display weather", true);
 			builder.pop();
 			builder.pop();
 		}

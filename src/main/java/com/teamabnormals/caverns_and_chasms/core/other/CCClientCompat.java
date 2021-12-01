@@ -24,6 +24,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
@@ -139,15 +141,31 @@ public class CCClientCompat {
 			if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
 				event.getToolTip().add(createTooltip("altitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getY())).withStyle(ChatFormatting.GRAY)));
 			}
+
+			if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
+				event.getToolTip().add(createTooltip("weather").withStyle(ChatFormatting.GRAY).append(": ").append(createTooltip(getWeather(player, level)).withStyle(ChatFormatting.GRAY)));
+			}
 		}
+	}
+
+	private static String getWeather(Player player, Level level) {
+		Precipitation precipitation = level.getBiome(player.blockPosition()).getPrecipitation();
+
+		if (precipitation != Precipitation.NONE) {
+			if (level.isThundering())
+				return "stormy";
+			else if (level.isRaining()) {
+				if (precipitation == Precipitation.SNOW)
+					return "snowy";
+				return "rainy";
+			}
+		}
+
+		return level.dimensionType().hasSkyLight() && !level.dimensionType().hasCeiling() ? "clear" : "null";
 	}
 
 	private static TranslatableComponent createTooltip(String identifier) {
 		return new TranslatableComponent("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
-	}
-
-	private static TranslatableComponent createTooltip(String identifier, int blocks) {
-		return new TranslatableComponent("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier, blocks);
 	}
 
 	private static String calculateTime(Level level) {
@@ -192,6 +210,10 @@ public class CCClientCompat {
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			} else if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
 				player.displayClientMessage(createTooltip("altitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getY()))), true);
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			} else if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
+				player.displayClientMessage(createTooltip("weather").append(": ").append(createTooltip(getWeather(player, level))), true);
 				event.setCanceled(true);
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}

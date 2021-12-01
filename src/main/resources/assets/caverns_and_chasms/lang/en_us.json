@@ -110,6 +110,7 @@
   "item.caverns_and_chasms.music_disc_epilogue.desc": "Mista Jub - Epilogue",
 
   "item.caverns_and_chasms.tuning_fork": "Tuning Fork",
+  "item.caverns_and_chasms.barometer": "Barometer",
   "item.caverns_and_chasms.tuning_fork.note.0": "F#",
   "item.caverns_and_chasms.tuning_fork.note.1": "G",
   "item.caverns_and_chasms.tuning_fork.note.2": "G#",
@@ -238,6 +239,12 @@
   "tooltip.caverns_and_chasms.am": "AM",
   "tooltip.caverns_and_chasms.pm": "PM",
   "tooltip.caverns_and_chasms.day": "Day",
+  "tooltip.caverns_and_chasms.weather": "Weather",
+  "tooltip.caverns_and_chasms.clear": "Clear",
+  "tooltip.caverns_and_chasms.rainy": "Rainy",
+  "tooltip.caverns_and_chasms.snowy": "Snowy",
+  "tooltip.caverns_and_chasms.stormy": "Stormy",
+  "tooltip.caverns_and_chasms.null": "Null",
 
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.potion.effect.rewind_long": "Potion of Rewind",

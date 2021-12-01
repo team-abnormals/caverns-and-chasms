@@ -37,7 +37,8 @@ public class CCRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(CCItems.SPINEL_PEARL.get()).define('P', Items.ENDER_PEARL).define('S', CCItems.SPINEL.get()).pattern(" S ").pattern("SPS").pattern(" S ").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL)).save(consumer);
 		ShapedRecipeBuilder.shaped(CCItems.SPINEL_CROWN.get()).define('G', Items.GOLD_INGOT).define('S', CCItems.SPINEL.get()).define('B', CCBlocks.SPINEL_BLOCK.get()).pattern("SBS").pattern("GGG").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(CCItems.TUNING_FORK.get()).define('#', CCItemTags.INGOTS_COPPER).pattern(" # ").pattern(" ##").pattern("#  ").unlockedBy("has_copper_ingot", has(CCItemTags.INGOTS_COPPER)).save(consumer);
-		ShapedRecipeBuilder.shaped(CCItems.DEPTH_GAUGE.get()).define('#', CCItems.SILVER_INGOT.get()).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
+		ShapedRecipeBuilder.shaped(CCItems.BAROMETER.get()).define('#', CCItemTags.INGOTS_COPPER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
+		ShapedRecipeBuilder.shaped(CCItems.DEPTH_GAUGE.get()).define('#', CCItemTags.INGOTS_SILVER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
 
 		nineBlockStorageRecipes(consumer, CCItems.RAW_SILVER.get(), CCBlocks.RAW_SILVER_BLOCK.get());
 

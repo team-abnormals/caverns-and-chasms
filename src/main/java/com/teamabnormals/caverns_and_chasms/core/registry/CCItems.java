@@ -25,6 +25,7 @@ public class CCItems {
 	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
 
 	public static final RegistryObject<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
+	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new InjectedItem(Items.COMPASS, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
 	public static final RegistryObject<Item> SILVER_INGOT = HELPER.createItem("silver_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> SILVER_NUGGET = HELPER.createItem("silver_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
