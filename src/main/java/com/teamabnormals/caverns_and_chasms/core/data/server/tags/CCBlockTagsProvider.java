@@ -33,6 +33,19 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.STAIRS).add(CCBlocks.DIRT_BRICK_STAIRS.get(), CCBlocks.DIRT_TILE_STAIRS.get(), CCBlocks.COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.COBBLESTONE_TILE_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_STAIRS.get(), CCBlocks.SPINEL_BRICK_STAIRS.get(), CCBlocks.LAPIS_LAZULI_BRICK_STAIRS.get(), CCBlocks.SANGUINE_STAIRS.get());
 		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CCBlocks.CURSED_TORCH.get());
 		this.tag(BlockTags.WALLS).add(CCBlocks.DIRT_BRICK_WALL.get(), CCBlocks.DIRT_TILE_WALL.get(), CCBlocks.COBBLESTONE_BRICK_WALL.get(), CCBlocks.COBBLESTONE_TILE_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_WALL.get(), CCBlocks.SPINEL_BRICK_WALL.get(), CCBlocks.LAPIS_LAZULI_BRICK_WALL.get());
+		this.tag(BlockTags.PLANKS).add(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.VERTICAL_AZALEA_PLANKS.get());
+		this.tag(BlockTags.LOGS_THAT_BURN).addTag(CCBlockTags.AZALEA_LOGS);
+		this.tag(BlockTags.WOODEN_SLABS).add(CCBlocks.AZALEA_SLAB.get());
+		this.tag(BlockTags.WOODEN_STAIRS).add(CCBlocks.AZALEA_STAIRS.get());
+		this.tag(BlockTags.WOODEN_FENCES).add(CCBlocks.AZALEA_FENCE.get());
+		this.tag(BlockTags.WOODEN_DOORS).add(CCBlocks.AZALEA_DOOR.get());
+		this.tag(BlockTags.WOODEN_TRAPDOORS).add(CCBlocks.AZALEA_TRAPDOOR.get());
+		this.tag(BlockTags.WOODEN_BUTTONS).add(CCBlocks.AZALEA_BUTTON.get());
+		this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(CCBlocks.AZALEA_PRESSURE_PLATE.get());
+		this.tag(BlockTags.STANDING_SIGNS).add(CCBlocks.AZALEA_SIGN.getFirst().get());
+		this.tag(BlockTags.WALL_SIGNS).add(CCBlocks.AZALEA_SIGN.getSecond().get());
+		this.tag(BlockTags.CLIMBABLE).add(CCBlocks.AZALEA_LADDER.get());
+		this.tag(BlockTags.BEEHIVES).add(CCBlocks.AZALEA_BEEHIVE.get());
 
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(CCBlocks.ROCKY_DIRT.get(), CCBlocks.SILVER_BLOCK.get(), CCBlocks.RAW_SILVER_BLOCK.get(), CCBlocks.SILVER_ORE.get(), CCBlocks.DEEPSLATE_SILVER_ORE.get(), CCBlocks.SILVER_BARS.get(), CCBlocks.MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), CCBlocks.SILVER_BUTTON.get(), CCBlocks.SPIKED_RAIL.get(), CCBlocks.SANGUINE_PLATES.get(), CCBlocks.SANGUINE_STAIRS.get(), CCBlocks.SANGUINE_SLAB.get(), CCBlocks.SANGUINE_VERTICAL_SLAB.get(), CCBlocks.CURSED_LANTERN.get(), CCBlocks.BRAZIER.get(), CCBlocks.SOUL_BRAZIER.get(), CCBlocks.CURSED_BRAZIER.get(), CCBlocks.ENDER_BRAZIER.get(), CCBlocks.GRAVESTONE.get(), CCBlocks.GOLDEN_LANTERN.get(), CCBlocks.GOLDEN_BARS.get(), CCBlocks.SPINEL_BLOCK.get(), CCBlocks.SPINEL_LAMP.get(), CCBlocks.SPINEL_PILLAR.get(), CCBlocks.SPINEL_BRICKS.get(), CCBlocks.SPINEL_BRICK_STAIRS.get(), CCBlocks.SPINEL_BRICK_SLAB.get(), CCBlocks.SPINEL_BRICK_WALL.get(), CCBlocks.SPINEL_BRICK_VERTICAL_SLAB.get(), CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get(), CCBlocks.NECROMIUM_BLOCK.get(), CCBlocks.LAPIS_LAZULI_LAMP.get(), CCBlocks.LAPIS_LAZULI_PILLAR.get(), CCBlocks.LAPIS_LAZULI_BRICKS.get(), CCBlocks.LAPIS_LAZULI_BRICK_STAIRS.get(), CCBlocks.LAPIS_LAZULI_BRICK_SLAB.get(), CCBlocks.LAPIS_LAZULI_BRICK_WALL.get(), CCBlocks.LAPIS_LAZULI_BRICK_VERTICAL_SLAB.get(), CCBlocks.COBBLESTONE_BRICKS.get(), CCBlocks.COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.COBBLESTONE_BRICK_SLAB.get(), CCBlocks.COBBLESTONE_BRICK_WALL.get(), CCBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlocks.COBBLESTONE_TILES.get(), CCBlocks.COBBLESTONE_TILE_STAIRS.get(), CCBlocks.COBBLESTONE_TILE_SLAB.get(), CCBlocks.COBBLESTONE_TILE_WALL.get(), CCBlocks.COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_BRICKS.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_TILES.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB.get());
 		this.tag(BlockTags.MINEABLE_WITH_AXE).add(CCBlocks.CURSED_CAMPFIRE.get());
@@ -50,6 +63,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.SPINEL_ORES).add(CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 		this.tag(CCBlockTags.PROSPECTING_METALS).addTag(Tags.Blocks.ORES_IRON).addTag(Tags.Blocks.ORES_GOLD).addTag(Tags.Blocks.ORES_NETHERITE_SCRAP).addTag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.ORES_COPPER);
 		this.tag(CCBlockTags.TREASURING_GEMS).addTag(CCBlockTags.ORES_AMETHYST).addTag(Tags.Blocks.ORES_DIAMOND).addTag(Tags.Blocks.ORES_EMERALD).addTag(Tags.Blocks.ORES_LAPIS).addTag(CCBlockTags.ORES_SPINEL);
+		this.tag(CCBlockTags.AZALEA_LOGS).add(CCBlocks.AZALEA_LOG.get(), CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.AZALEA_WOOD.get(), CCBlocks.STRIPPED_AZALEA_WOOD.get());
 
 		this.tag(Tags.Blocks.DIRT).add(CCBlocks.DIRT_BRICKS.get(), CCBlocks.DIRT_BRICK_STAIRS.get(), CCBlocks.DIRT_BRICK_SLAB.get(), CCBlocks.DIRT_BRICK_WALL.get(), CCBlocks.DIRT_BRICK_VERTICAL_SLAB.get(), CCBlocks.DIRT_TILES.get(), CCBlocks.DIRT_TILE_STAIRS.get(), CCBlocks.DIRT_TILE_SLAB.get(), CCBlocks.DIRT_TILE_WALL.get(), CCBlocks.DIRT_TILE_VERTICAL_SLAB.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_COPPER).add(Blocks.COPPER_BLOCK);
@@ -72,8 +86,14 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.ORES_AMETHYST).add(Blocks.AMETHYST_BLOCK, Blocks.AMETHYST_CLUSTER, Blocks.BUDDING_AMETHYST, Blocks.LARGE_AMETHYST_BUD, Blocks.MEDIUM_AMETHYST_BUD, Blocks.SMALL_AMETHYST_BUD);
 		this.tag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.SILVER_ORES);
 		this.tag(CCBlockTags.ORES_SPINEL).addTag(CCBlockTags.SPINEL_ORES);
+		this.tag(Tags.Blocks.CHESTS_WOODEN).add(CCBlocks.AZALEA_CHEST.getFirst().get(), CCBlocks.AZALEA_CHEST.getSecond().get());
+		this.tag(Tags.Blocks.CHESTS_TRAPPED).add(CCBlocks.AZALEA_CHEST.getSecond().get());
+		this.tag(Tags.Blocks.FENCES_WOODEN).add(CCBlocks.AZALEA_FENCE.get());
+		this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(CCBlocks.AZALEA_FENCE_GATE.get());
 
+		this.tag(BlueprintBlockTags.LADDERS).add(CCBlocks.AZALEA_LADDER.get());
 		this.tag(BlueprintBlockTags.VERTICAL_SLABS).add(CCBlocks.DIRT_BRICK_VERTICAL_SLAB.get(), CCBlocks.DIRT_TILE_VERTICAL_SLAB.get(), CCBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlocks.COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlocks.SPINEL_BRICK_VERTICAL_SLAB.get(), CCBlocks.LAPIS_LAZULI_BRICK_VERTICAL_SLAB.get(), CCBlocks.SANGUINE_VERTICAL_SLAB.get());
-
+		this.tag(BlueprintBlockTags.WOODEN_VERTICAL_SLABS).add(CCBlocks.AZALEA_VERTICAL_SLAB.get());
+		this.tag(BlueprintBlockTags.HEDGES).add(CCBlocks.AZALEA_HEDGE.get(), CCBlocks.FLOWERING_AZALEA_HEDGE.get());
 	}
 }

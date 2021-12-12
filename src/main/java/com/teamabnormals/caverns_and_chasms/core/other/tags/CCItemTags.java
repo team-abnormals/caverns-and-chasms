@@ -14,6 +14,7 @@ public class CCItemTags {
 	public static final Tag.Named<Item> SPINEL_ORES = itemTag("spinel_ores");
 	public static final Tag.Named<Item> SILVER_GEAR = itemTag("silver_gear");
 	public static final Tag.Named<Item> NECROMIUM_GEAR = itemTag("necromium_gear");
+	public static final Tag.Named<Item> AZALEA_LOGS = itemTag("azalea_logs");
 
 	public static final Tag.Named<Item> INGOTS_NECROMIUM = TagUtil.forgeItemTag("ingots/necromium");
 	public static final Tag.Named<Item> INGOTS_SILVER = TagUtil.forgeItemTag("ingots/silver");

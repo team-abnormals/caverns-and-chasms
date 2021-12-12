@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/ladder",
+  "textures": {
+    "particle": "caverns_and_chasms:block/azalea_ladder",
+    "texture": "caverns_and_chasms:block/azalea_ladder"
+  }
+}

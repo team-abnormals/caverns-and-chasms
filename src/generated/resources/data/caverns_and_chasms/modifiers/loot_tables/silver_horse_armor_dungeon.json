@@ -7,6 +7,7 @@
     ],
     "conditions": []
   },
+  "priority": "normal",
   "modifiers": [
     {
       "type": "entries",

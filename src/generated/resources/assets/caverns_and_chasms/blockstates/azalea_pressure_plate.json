@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "caverns_and_chasms:block/azalea_pressure_plate"
+    },
+    "powered=true": {
+      "model": "caverns_and_chasms:block/azalea_pressure_plate_down"
+    }
+  }
+}

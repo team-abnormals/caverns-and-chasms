@@ -58,6 +58,16 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_WALL_TORCH.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_LANTERN.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_CAMPFIRE.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LADDER.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_POST.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.STRIPPED_AZALEA_POST.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LEAF_CARPET.get(), RenderType.cutoutMipped());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOWERING_AZALEA_LEAF_CARPET.get(), RenderType.cutoutMipped());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_HEDGE.get(), RenderType.cutoutMipped());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOWERING_AZALEA_HEDGE.get(), RenderType.cutoutMipped());
 	}
 
 	public static void registerItemProperties() {
