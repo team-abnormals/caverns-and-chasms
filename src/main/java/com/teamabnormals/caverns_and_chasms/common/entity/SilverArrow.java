@@ -1,8 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEffects;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
@@ -10,8 +8,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
 
 public class SilverArrow extends AbstractArrow {
 
@@ -23,7 +21,7 @@ public class SilverArrow extends AbstractArrow {
 		super(CCEntityTypes.SILVER_ARROW.get(), x, y, z, worldIn);
 	}
 
-	public SilverArrow(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
+	public SilverArrow(PlayMessages.SpawnEntity spawnEntity, Level world) {
 		this(CCEntityTypes.SILVER_ARROW.get(), world);
 	}
 

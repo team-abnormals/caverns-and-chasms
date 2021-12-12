@@ -1,8 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.blueprint.common.item.BlueprintRecordItem;
-import com.teamabnormals.blueprint.common.item.BlueprintSpawnEggItem;
-import com.teamabnormals.blueprint.common.item.InjectedItem;
+import com.teamabnormals.blueprint.common.item.*;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.*;
@@ -18,7 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCItems {
@@ -69,8 +67,8 @@ public class CCItems {
 
 	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().stacksTo(1).fireResistant().tab(CreativeModeTab.TAB_MISC)));
 
-	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(Foods.CAVEFISH)));
-	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(Foods.COOKED_CAVEFISH)));
+	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.CAVEFISH)));
+	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.COOKED_CAVEFISH)));
 	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new MobBucketItem(CCEntityTypes.CAVEFISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
 
 	public static final RegistryObject<Item> GOLDEN_BUCKET = HELPER.createItem("golden_bucket", () -> new GoldenBucketItem(() -> Fluids.EMPTY, new Item.Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(16)));
@@ -95,7 +93,7 @@ public class CCItems {
 	public static final RegistryObject<BlueprintSpawnEggItem> SKELETON_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_cat", CCEntityTypes.SKELETON_CAT::get, 0xD3D3D3, 0x979797);
 	public static final RegistryObject<BlueprintSpawnEggItem> SKELETON_PARROT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_parrot", CCEntityTypes.SKELETON_PARROT::get, 0x979797, 0xADABAD);
 
-	public static class Foods {
+	public static class CCFoods {
 		public static final FoodProperties CAVEFISH = new FoodProperties.Builder().nutrition(1).saturationMod(0.3F).build();
 		public static final FoodProperties COOKED_CAVEFISH = new FoodProperties.Builder().nutrition(4).saturationMod(0.25F).build();
 	}

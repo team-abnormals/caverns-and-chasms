@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.crafting.Recipe;
@@ -14,7 +14,7 @@ public class ClientRecipeBookMixin {
 
 	@Inject(at = @At("HEAD"), method = "getCategory", cancellable = true)
 	private static void getCategory(Recipe<?> recipe, CallbackInfoReturnable<RecipeBookCategories> cir) {
-		if (recipe.getType() == CCRecipes.RecipeTypes.MIMING) {
+		if (recipe.getType() == CCRecipeTypes.MIMING) {
 			cir.setReturnValue(RecipeBookCategories.UNKNOWN);
 		}
 	}

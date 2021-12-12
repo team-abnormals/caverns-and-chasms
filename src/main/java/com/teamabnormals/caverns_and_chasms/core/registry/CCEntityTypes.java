@@ -2,25 +2,17 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.core.util.registry.EntitySubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.entity.*;
-import com.teamabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonCat;
-import com.teamabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonParrot;
-import com.teamabnormals.caverns_and_chasms.common.entity.skeleton.SkeletonWolf;
-import com.teamabnormals.caverns_and_chasms.common.entity.zombie.ZombieCat;
-import com.teamabnormals.caverns_and_chasms.common.entity.zombie.ZombieParrot;
-import com.teamabnormals.caverns_and_chasms.common.entity.zombie.ZombieWolf;
+import com.teamabnormals.caverns_and_chasms.common.entity.skeleton.*;
+import com.teamabnormals.caverns_and_chasms.common.entity.zombie.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Parrot;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCEntityTypes {

@@ -2,18 +2,14 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.FlameParticle;
-import net.minecraft.client.particle.LavaParticle;
-import net.minecraft.client.particle.PlayerCloudParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.*;
 
 public class CCParticleTypes {
 	public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MOD_ID);

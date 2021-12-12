@@ -10,7 +10,6 @@ public class CCConfig {
 	public static class Common {
 		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
 		public final ConfigValue<Integer> deeperMaxSpawnHeight;
-		public final ConfigValue<Boolean> largeEmeraldVeins;
 
 		public final ConfigValue<Boolean> chainmailArmorBuff;
 
@@ -22,12 +21,6 @@ public class CCConfig {
 			builder.push("mobs");
 			creeperExplosionsDestroyBlocks = builder.define("Creeper explosions destroy blocks", false);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, 0, 255);
-			builder.pop();
-
-			builder.push("world");
-			builder.push("generation");
-			largeEmeraldVeins = builder.define("Large emerald veins", true);
-			builder.pop();
 			builder.pop();
 
 			builder.push("tweaks");

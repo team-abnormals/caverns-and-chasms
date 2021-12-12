@@ -3,7 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.RecipeTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -165,7 +165,7 @@ public class Mime extends Monster {
 		if (source instanceof LivingEntity) {
 			LivingEntity attacker = (LivingEntity) source;
 			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
-			List<MimingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeTypes.MIMING);
+			List<MimingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING);
 
 			for (MimingRecipe recipe : recipes) {
 				for (Ingredient ingredient : recipe.getIngredients()) {

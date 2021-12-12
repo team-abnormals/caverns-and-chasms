@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.Kunai;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -34,6 +35,8 @@ public class KunaiItem extends Item {
 		if (!playerIn.getAbilities().instabuild) {
 			itemstack.shrink(1);
 		}
+
+		System.out.println(BuiltinRegistries.CONFIGURED_FEATURE.keySet());
 		return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
 	}
 }

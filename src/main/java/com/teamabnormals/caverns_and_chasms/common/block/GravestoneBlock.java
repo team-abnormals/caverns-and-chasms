@@ -4,18 +4,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -71,7 +64,7 @@ public class GravestoneBlock extends HorizontalDirectionalBlock {
 	public void powerBlock(BlockState state, Level world, BlockPos pos) {
 		world.setBlock(pos, state.setValue(POWERED, true).setValue(GravestoneBlock.CHARGE, state.getValue(CHARGE) < 10 ? state.getValue(CHARGE) + 1 : state.getValue(CHARGE)), 3);
 		this.updateNeighbors(state, world, pos);
-		world.getBlockTicks().scheduleTick(pos, this, 20);
+		world.scheduleTick(pos, this, 20);
 	}
 
 	public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {

@@ -1,9 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEffects;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,9 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
@@ -24,8 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class Kunai extends AbstractArrow implements ItemSupplier {
@@ -34,7 +30,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 		super(type, worldIn);
 	}
 
-	public Kunai(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
+	public Kunai(PlayMessages.SpawnEntity spawnEntity, Level world) {
 		this(CCEntityTypes.KUNAI.get(), world);
 	}
 

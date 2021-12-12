@@ -7,9 +7,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -17,8 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.util.ITeleporter;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +32,7 @@ public class ThrownSpinelPearl extends ThrowableItemProjectile {
 		this.ticks = getDefaultTicks();
 	}
 
-	public ThrownSpinelPearl(FMLPlayMessages.SpawnEntity spawnEntity, Level level) {
+	public ThrownSpinelPearl(PlayMessages.SpawnEntity spawnEntity, Level level) {
 		this(CCEntityTypes.SPINEL_PEARL.get(), level);
 	}
 

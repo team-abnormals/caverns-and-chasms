@@ -4,7 +4,7 @@ import com.teamabnormals.blueprint.core.util.registry.SoundSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCSoundEvents {

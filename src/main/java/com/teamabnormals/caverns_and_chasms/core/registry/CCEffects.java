@@ -3,16 +3,12 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 import com.teamabnormals.blueprint.common.effect.BlueprintMobEffect;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.*;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CCEffects {

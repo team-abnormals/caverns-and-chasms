@@ -23,7 +23,9 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCItemTagsProv
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.Serializers;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -58,7 +60,7 @@ public class CavernsAndChasms {
 		CCEffects.POTIONS.register(bus);
 		CCEffects.EFFECTS.register(bus);
 		CCParticleTypes.PARTICLES.register(bus);
-		Serializers.RECIPE_SERIALIZERS.register(bus);
+		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -80,10 +82,9 @@ public class CavernsAndChasms {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			CCEntityTypes.registerEntitySpawns();
-			CCFeatures.Configured.registerConfiguredFeatures();
-			CCEffects.registerBrewingRecipes();
 			CCCompat.registerCompat();
+			CCEntityTypes.registerEntitySpawns();
+			CCEffects.registerBrewingRecipes();
 		});
 	}
 

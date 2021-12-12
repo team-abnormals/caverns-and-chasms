@@ -86,7 +86,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
 		if (stateIn.getValue(WATERLOGGED)) {
-			worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+			worldIn.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
 		}
 
 		return getBlockConnected(stateIn).getOpposite() == facing && !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
@@ -119,7 +119,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 		if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidStateIn.getType() == Fluids.WATER) {
 			if (state.getValue(LIT)) extinguish(worldIn, pos, state);
 			worldIn.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(LIT, false), 3);
-			worldIn.getLiquidTicks().scheduleTick(pos, fluidStateIn.getType(), fluidStateIn.getType().getTickDelay(worldIn));
+			worldIn.scheduleTick(pos, fluidStateIn.getType(), fluidStateIn.getType().getTickDelay(worldIn));
 			return true;
 		} else {
 			return false;
