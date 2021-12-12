@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_fence_gate",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "caverns_and_chasms:azalea_planks"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:azalea_fence_gate"
+  }
+}
