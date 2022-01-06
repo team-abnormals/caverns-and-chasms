@@ -55,8 +55,4 @@ public class CCItemTags {
 	private static Tag.Named<Item> itemTag(String name) {
 		return TagUtil.itemTag(CavernsAndChasms.MOD_ID, name);
 	}
-
-	private static Tag.Named<Item> createForgeTag(String name) {
-		return ItemTags.bind("forge:" + name);
-	}
 }
