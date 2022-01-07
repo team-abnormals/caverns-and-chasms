@@ -6,6 +6,8 @@
     "minecraft:iron_pickaxe",
     "minecraft:golden_pickaxe",
     "minecraft:diamond_pickaxe",
-    "minecraft:netherite_pickaxe"
+    "minecraft:netherite_pickaxe",
+    "caverns_and_chasms:silver_pickaxe",
+    "caverns_and_chasms:necromium_pickaxe"
   ]
 }
