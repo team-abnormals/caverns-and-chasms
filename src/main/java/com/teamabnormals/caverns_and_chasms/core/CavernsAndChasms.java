@@ -71,15 +71,6 @@ public class CavernsAndChasms {
 			CCCompat.registerCompat();
 			CCEntityTypes.registerEntitySpawns();
 			CCEffects.registerBrewingRecipes();
-
-			ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
-			HoneycombItem.WAXABLES.get().forEach(builder::put);
-			builder.put(CCBlocks.COPPER_BARS.get(), CCBlocks.WAXED_COPPER_BARS.get());
-			builder.put(CCBlocks.EXPOSED_COPPER_BARS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
-			builder.put(CCBlocks.WEATHERED_COPPER_BARS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
-			builder.put(CCBlocks.OXIDIZED_COPPER_BARS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
-
-			HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 		});
 	}
 
