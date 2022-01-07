@@ -1,0 +1,33 @@
+{
+  "advancement": "minecraft:husbandry/wax_on",
+  "modifiers": [
+    {
+      "type": "criteria",
+      "config": {
+        "mode": "replace",
+        "criteria": {
+          "wax_on": {
+            "trigger": "minecraft:item_used_on_block",
+            "conditions": {
+              "location": {
+                "block": {
+                  "tag": "forge:waxable_copper"
+                }
+              },
+              "item": {
+                "items": [
+                  "minecraft:honeycomb"
+                ]
+              }
+            }
+          }
+        },
+        "requirements": [
+          [
+            "wax_on"
+          ]
+        ]
+      }
+    }
+  ]
+}

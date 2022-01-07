@@ -59,6 +59,14 @@
     "caverns_and_chasms:mossy_cobblestone_tile_stairs",
     "caverns_and_chasms:mossy_cobblestone_tile_slab",
     "caverns_and_chasms:mossy_cobblestone_tile_wall",
-    "caverns_and_chasms:mossy_cobblestone_tile_vertical_slab"
+    "caverns_and_chasms:mossy_cobblestone_tile_vertical_slab",
+    "caverns_and_chasms:copper_bars",
+    "caverns_and_chasms:exposed_copper_bars",
+    "caverns_and_chasms:weathered_copper_bars",
+    "caverns_and_chasms:oxidized_copper_bars",
+    "caverns_and_chasms:waxed_copper_bars",
+    "caverns_and_chasms:waxed_exposed_copper_bars",
+    "caverns_and_chasms:waxed_weathered_copper_bars",
+    "caverns_and_chasms:waxed_oxidized_copper_bars"
   ]
 }

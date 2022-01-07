@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
@@ -17,6 +19,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSeri
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.HoneycombItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -67,6 +71,15 @@ public class CavernsAndChasms {
 			CCCompat.registerCompat();
 			CCEntityTypes.registerEntitySpawns();
 			CCEffects.registerBrewingRecipes();
+
+			ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
+			HoneycombItem.WAXABLES.get().forEach(builder::put);
+			builder.put(CCBlocks.COPPER_BARS.get(), CCBlocks.WAXED_COPPER_BARS.get());
+			builder.put(CCBlocks.EXPOSED_COPPER_BARS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
+			builder.put(CCBlocks.WEATHERED_COPPER_BARS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
+			builder.put(CCBlocks.OXIDIZED_COPPER_BARS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
+
+			HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 		});
 	}
 
@@ -91,7 +104,7 @@ public class CavernsAndChasms {
 		if (event.includeClient()) {
 			generator.addProvider(new CCItemModelProvider(generator, helper));
 			generator.addProvider(new CCBlockStateProvider(generator, helper));
-			//dataGenerator.addProvider(new CCLanguageProvider(dataGenerator));
+			//generator.addProvider(new CCLanguageProvider(generator));
 		}
 	}
 

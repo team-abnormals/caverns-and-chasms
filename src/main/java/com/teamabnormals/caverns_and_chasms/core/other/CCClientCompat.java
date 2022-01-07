@@ -38,6 +38,14 @@ public class CCClientCompat {
 	}
 
 	public static void registerRenderLayers() {
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.GOLDEN_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SILVER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SPIKED_RAIL.get(), RenderType.cutout());

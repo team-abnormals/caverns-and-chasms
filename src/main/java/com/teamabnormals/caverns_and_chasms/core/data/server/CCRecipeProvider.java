@@ -40,6 +40,12 @@ public class CCRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(CCItems.BAROMETER.get()).define('#', CCItemTags.INGOTS_COPPER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
 		ShapedRecipeBuilder.shaped(CCItems.DEPTH_GAUGE.get()).define('#', CCItemTags.INGOTS_SILVER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
 
+		ShapedRecipeBuilder.shaped(CCBlocks.COPPER_BARS.get(), 16).define('#', CCItemTags.INGOTS_COPPER).pattern("###").pattern("###").unlockedBy("has_copper_ingot", has(CCItemTags.INGOTS_COPPER)).save(consumer);
+		waxRecipe(consumer, CCBlocks.COPPER_BARS.get(), CCBlocks.WAXED_COPPER_BARS.get());
+		waxRecipe(consumer, CCBlocks.EXPOSED_COPPER_BARS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
+		waxRecipe(consumer, CCBlocks.WEATHERED_COPPER_BARS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
+		waxRecipe(consumer, CCBlocks.OXIDIZED_COPPER_BARS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
+
 		nineBlockStorageRecipes(consumer, CCItems.RAW_SILVER.get(), CCBlocks.RAW_SILVER_BLOCK.get());
 
 		oreSmelting(consumer, SILVER_SMELTABLES, CCItems.SILVER_INGOT.get(), 1.0F, 200, "silver_ingot");
@@ -52,6 +58,14 @@ public class CCRecipeProvider extends RecipeProvider {
 		woodFromLogs(consumer, CCBlocks.AZALEA_WOOD.get(), CCBlocks.AZALEA_LOG.get());
 		woodFromLogs(consumer, CCBlocks.STRIPPED_AZALEA_WOOD.get(), CCBlocks.STRIPPED_AZALEA_LOG.get());
 		woodenBoat(consumer, CCItems.AZALEA_BOAT.get(), CCBlocks.AZALEA_PLANKS.get());
+	}
+
+	private static void waxRecipe(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike result) {
+		ShapelessRecipeBuilder.shapeless(result).requires(input).requires(Items.HONEYCOMB).group(getItemName(result)).unlockedBy(getHasName(input), has(input)).save(consumer, getConversionRecipeName(result, Items.HONEYCOMB));
+	}
+
+	private static ResourceLocation getConversionRecipeName(ItemLike result, ItemLike input) {
+		return new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(result) + "_from_" + getItemName(input));
 	}
 
 	private static void planksFromLogs(Consumer<FinishedRecipe> p_126018_, ItemLike p_126019_, Tag<Item> p_126020_) {

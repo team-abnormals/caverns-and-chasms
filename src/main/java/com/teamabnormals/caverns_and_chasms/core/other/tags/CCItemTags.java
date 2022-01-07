@@ -48,6 +48,7 @@ public class CCItemTags {
 	public static final Tag.Named<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.forgeItemTag("storage_blocks/raw_silver");
 
 	public static final Tag.Named<Item> TOOLS_PICKAXES = TagUtil.forgeItemTag("tools/pickaxes");
+	public static final Tag.Named<Item> TOOLS_AXES = TagUtil.forgeItemTag("tools/axes");
 	public static final Tag.Named<Item> TOOLS_SHOVELS = TagUtil.forgeItemTag("tools/shovels");
 
 	private static Tag.Named<Item> itemTag(String name) {

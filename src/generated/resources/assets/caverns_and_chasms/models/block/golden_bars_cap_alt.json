@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/iron_bars_cap_alt",
+  "textures": {
+    "particle": "caverns_and_chasms:block/golden_bars",
+    "bars": "caverns_and_chasms:block/golden_bars",
+    "edge": "caverns_and_chasms:block/golden_bars_edge"
+  }
+}

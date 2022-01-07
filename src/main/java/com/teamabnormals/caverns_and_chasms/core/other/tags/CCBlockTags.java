@@ -16,11 +16,12 @@ public class CCBlockTags {
 	public static final Tag.Named<Block> SPINEL_ORES = blockTag("spinel_ores");
 	public static final Tag.Named<Block> AZALEA_LOGS = blockTag("azalea_logs");
 
+	public static final Tag.Named<Block> WAXABLE_COPPER_BLOCKS = TagUtil.forgeBlockTag("waxable_copper");
+	public static final Tag.Named<Block> WAXED_COPPER_BLOCKS = TagUtil.forgeBlockTag("waxed_copper");
 	public static final Tag.Named<Block> ORES_COPPER = TagUtil.forgeBlockTag("ores/copper");
 	public static final Tag.Named<Block> ORES_AMETHYST = TagUtil.forgeBlockTag("ores/amethyst");
 	public static final Tag.Named<Block> ORES_SILVER = TagUtil.forgeBlockTag("ores/silver");
 	public static final Tag.Named<Block> ORES_SPINEL = TagUtil.forgeBlockTag("ores/spinel");
-
 	public static final Tag.Named<Block> STORAGE_BLOCKS_COPPER = TagUtil.forgeBlockTag("storage_blocks/copper");
 	public static final Tag.Named<Block> STORAGE_BLOCKS_SILVER = TagUtil.forgeBlockTag("storage_blocks/silver");
 	public static final Tag.Named<Block> STORAGE_BLOCKS_SPINEL = TagUtil.forgeBlockTag("storage_blocks/spinel");

@@ -1,0 +1,31 @@
+{
+  "advancement": "minecraft:husbandry/wax_off",
+  "modifiers": [
+    {
+      "type": "criteria",
+      "config": {
+        "mode": "replace",
+        "criteria": {
+          "wax_off": {
+            "trigger": "minecraft:item_used_on_block",
+            "conditions": {
+              "location": {
+                "block": {
+                  "tag": "forge:waxed_copper"
+                }
+              },
+              "item": {
+                "tag": "forge:tools/axes"
+              }
+            }
+          }
+        },
+        "requirements": [
+          [
+            "wax_off"
+          ]
+        ]
+      }
+    }
+  ]
+}

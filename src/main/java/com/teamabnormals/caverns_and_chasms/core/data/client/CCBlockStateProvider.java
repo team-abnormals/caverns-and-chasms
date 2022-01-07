@@ -39,6 +39,17 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SILVER_ORE.get());
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 
+		this.registerBars(CCBlocks.COPPER_BARS.get());
+		this.registerBars(CCBlocks.EXPOSED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.WEATHERED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.OXIDIZED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.WAXED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
+		this.registerBars(CCBlocks.GOLDEN_BARS.get());
+		this.registerBars(CCBlocks.SILVER_BARS.get());
+
 		this.registerBlockWithVariants(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_STAIRS.get(), CCBlocks.AZALEA_SLAB.get(), CCBlocks.AZALEA_VERTICAL_SLAB.get());
 		this.registerLogBlocks(CCBlocks.AZALEA_LOG.get(), CCBlocks.AZALEA_WOOD.get());
 		this.registerLogBlocks(CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.STRIPPED_AZALEA_WOOD.get());
@@ -68,7 +79,7 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 	private void registerGeneratedItemModel(ItemLike item, String type) {
 		ResourceLocation itemName = item.asItem().getRegistryName();
-		itemModels().withExistingParent(itemName.getPath(), "item/generated").texture("layer0", new ResourceLocation(CavernsAndChasms.MOD_ID, type + "/" + itemName.getPath()));
+		itemModels().withExistingParent(itemName.getPath(), "item/generated").texture("layer0", new ResourceLocation(itemName.getNamespace(), type + "/" + itemName.getPath().replace("waxed_", "")));
 	}
 
 	public void registerFenceBlocks(Block block, Block fence, Block fenceGate) {
@@ -154,6 +165,51 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerGeneratedItemModel(door, "item");
 		this.trapdoorBlock((TrapDoorBlock) trapdoor, blockTexture(trapdoor), true);
 		this.itemModels().getBuilder(name(trapdoor)).parent(this.models().trapdoorOrientableBottom(name(trapdoor) + "_bottom", blockTexture(trapdoor)));
+	}
+
+	public void registerBars(Block bars) {
+		this.registerGeneratedItemModel(bars, "block");
+		this.ironBarsBlock(bars);
+	}
+
+	private void ironBarsBlock(Block block) {
+		String name = name(block);
+		ResourceLocation barsTexture = prefix("block/", new ResourceLocation(block.getRegistryName().getNamespace(), name(block).replace("waxed_", "")));
+		ResourceLocation edgeTexture = suffix(barsTexture, "_edge");
+
+		ModelFile post = barsBlock(name, "post", barsTexture).texture("bars", edgeTexture);
+		ModelFile postEnds = barsBlock(name, "post_ends", barsTexture).texture("edge", edgeTexture);
+		ModelFile side = barsBlock(name, "side", barsTexture).texture("bars", barsTexture).texture("edge", edgeTexture);
+		ModelFile sideAlt = barsBlock(name, "side_alt", barsTexture).texture("bars", barsTexture).texture("edge", edgeTexture);
+		ModelFile cap = barsBlock(name, "cap", barsTexture).texture("bars", barsTexture).texture("edge", edgeTexture);
+		ModelFile capAlt = barsBlock(name, "cap_alt", barsTexture).texture("bars", barsTexture).texture("edge", edgeTexture);
+
+		paneBlock(block, post, postEnds, side, sideAlt, cap, capAlt);
+	}
+
+	private BlockModelBuilder barsBlock(String name, String suffix, ResourceLocation barsTexture) {
+		return models().getBuilder(name + "_" + suffix).parent(new UncheckedModelFile(new ResourceLocation("block/iron_bars_" + suffix))).texture("particle", barsTexture);
+	}
+
+	public void paneBlock(Block block, ModelFile post, ModelFile postEnds, ModelFile side, ModelFile sideAlt, ModelFile cap, ModelFile capAlt) {
+		MultiPartBlockStateBuilder builder = getMultipartBuilder(block).part().modelFile(postEnds).addModel().end();
+		builder.part().modelFile(post).addModel().condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).end();
+
+		for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
+			builder.part().modelFile(direction == Direction.SOUTH || direction == Direction.WEST ? capAlt : cap).rotationY(direction.getAxis() == Axis.X ? 90 : 0).addModel()
+					.condition(BlockStateProperties.NORTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.NORTH)
+					.condition(BlockStateProperties.WEST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.WEST)
+					.condition(BlockStateProperties.SOUTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.SOUTH)
+					.condition(BlockStateProperties.EAST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.EAST)
+					.end();
+
+		}
+
+		PipeBlock.PROPERTY_BY_DIRECTION.forEach((dir, value) -> {
+			if (dir.getAxis().isHorizontal()) {
+				builder.part().modelFile(dir == Direction.SOUTH || dir == Direction.WEST ? sideAlt : side).rotationY(dir.getAxis() == Axis.X ? 90 : 0).addModel().condition(value, true).end();
+			}
+		});
 	}
 
 	public void registerHedge(Block leaves, Block log, Block hedge) {

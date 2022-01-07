@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/iron_bars_post_ends",
+  "textures": {
+    "particle": "caverns_and_chasms:block/copper_bars",
+    "edge": "caverns_and_chasms:block/copper_bars_edge"
+  }
+}

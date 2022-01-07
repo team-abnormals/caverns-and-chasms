@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:copper_block",
+    "minecraft:exposed_copper",
+    "minecraft:weathered_copper",
+    "minecraft:oxidized_copper",
+    "minecraft:cut_copper",
+    "minecraft:exposed_cut_copper",
+    "minecraft:weathered_cut_copper",
+    "minecraft:oxidized_cut_copper",
+    "minecraft:cut_copper_slab",
+    "minecraft:exposed_cut_copper_slab",
+    "minecraft:weathered_cut_copper_slab",
+    "minecraft:oxidized_cut_copper_slab",
+    "minecraft:cut_copper_stairs",
+    "minecraft:exposed_cut_copper_stairs",
+    "minecraft:weathered_cut_copper_stairs",
+    "minecraft:oxidized_cut_copper_stairs",
+    "caverns_and_chasms:copper_bars",
+    "caverns_and_chasms:exposed_copper_bars",
+    "caverns_and_chasms:weathered_copper_bars",
+    "caverns_and_chasms:oxidized_copper_bars"
+  ]
+}

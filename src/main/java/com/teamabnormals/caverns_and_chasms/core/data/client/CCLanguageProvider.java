@@ -22,6 +22,15 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCBlocks.RAW_SILVER_BLOCK.get());
 		this.add(CCBlocks.DEEPSLATE_SILVER_ORE.get());
 		this.add(CCBlocks.DEEPSLATE_SPINEL_ORE.get());
+
+		this.add(CCBlocks.COPPER_BARS.get());
+		this.add(CCBlocks.EXPOSED_COPPER_BARS.get());
+		this.add(CCBlocks.WEATHERED_COPPER_BARS.get());
+		this.add(CCBlocks.OXIDIZED_COPPER_BARS.get());
+		this.add(CCBlocks.WAXED_COPPER_BARS.get());
+		this.add(CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
+		this.add(CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
+		this.add(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
 	}
 
 	private void add(Item item) {
