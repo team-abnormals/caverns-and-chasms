@@ -22,7 +22,7 @@ public class CCEffects {
 	public static final RegistryObject<Potion> REWIND_LONG = POTIONS.register("rewind_long", () -> new Potion(new MobEffectInstance(REWIND.get(), 800)));
 
 	public static void registerBrewingRecipes() {
-		DataUtil.addMix(Potions.AWKWARD, CCItems.SPINEL.get(), REWIND_NORMAL.get());
+		DataUtil.addMix(Potions.AWKWARD, CCItems.SPINEL_PEARL.get(), REWIND_NORMAL.get());
 		DataUtil.addMix(REWIND_NORMAL.get(), Items.REDSTONE, REWIND_LONG.get());
 	}
 }
