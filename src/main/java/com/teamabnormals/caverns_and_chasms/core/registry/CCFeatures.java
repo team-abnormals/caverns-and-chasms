@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.core.util.DataUtil;
+import com.teamabnormals.caverns_and_chasms.common.world.gen.feature.RockyDirtFeature;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -36,6 +37,9 @@ import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +48,11 @@ import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCFeatures {
+	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, CavernsAndChasms.MOD_ID);
+
 	public static final RuleTest SOUL_SAND_VALLEY = new TagMatchTest(BlockTags.WITHER_SUMMON_BASE_BLOCKS);
+
+	public static final RegistryObject<Feature<OreConfiguration>> ROCKY_DIRT_ORE = FEATURES.register("rocky_dirt_ore", () -> new RockyDirtFeature(OreConfiguration.CODEC));
 
 	@SubscribeEvent
 	public static void onBiomeLoad(BiomeLoadingEvent event) {
@@ -80,6 +88,9 @@ public class CCFeatures {
 				spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
 			}
 
+			removeDirtOre(oreFeatures);
+			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
+
 			if (event.getCategory() != Biome.BiomeCategory.OCEAN && event.getCategory() != Biome.BiomeCategory.BEACH)
 				spawns.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 350, 4, 7));
 		}
@@ -94,6 +105,7 @@ public class CCFeatures {
 		public static final ConfiguredFeature<?, ?> ORE_SOUL_SILVER = register("ore_soul_silver", Feature.ORE.configured(new OreConfiguration(SOUL_SAND_VALLEY, CCBlocks.SOUL_SILVER_ORE.get().defaultBlockState(), 17, 1.0F)));
 		public static final ConfiguredFeature<?, ?> ORE_SPINEL = register("ore_spinel", Feature.ORE.configured(new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7)));
 		public static final ConfiguredFeature<?, ?> ORE_SPINEL_BURIED = register("ore_spinel_buried", Feature.ORE.configured(new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7, 1.0F)));
+		public static final ConfiguredFeature<?, ?> ORE_ROCKY_DIRT = register("ore_rocky_dirt", ROCKY_DIRT_ORE.get().configured(new OreConfiguration(OreFeatures.NATURAL_STONE, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33)));
 
 		public static final ConfiguredFeature<?, ?> AZALEA_TREE = register("azalea_tree", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build()));
 
@@ -109,6 +121,7 @@ public class CCFeatures {
 		public static final PlacedFeature ORE_SILVER_SOUL = register("ore_silver_soul", CCConfiguredFeatures.ORE_SOUL_SILVER.placed(commonOrePlacement(45, PlacementUtils.RANGE_10_10)));
 		public static final PlacedFeature ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL.placed(commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32)))));
 		public static final PlacedFeature ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED.placed(commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64)))));
+		public static final PlacedFeature ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCConfiguredFeatures.ORE_ROCKY_DIRT.placed(commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160)))));
 
 		private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
 			return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
@@ -146,6 +159,23 @@ public class CCFeatures {
 				if (feature.config instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
 						if (targetBlockState.state.is(Blocks.LAPIS_ORE) || targetBlockState.state.is(Blocks.DEEPSLATE_LAPIS_ORE)) {
+							toRemove.add(placedFeature);
+						}
+					}));
+				}
+			}
+		}
+
+		toRemove.forEach(oreFeatures::remove);
+	}
+
+	public static void removeDirtOre(List<Supplier<PlacedFeature>> oreFeatures) {
+		List<Supplier<PlacedFeature>> toRemove = new ArrayList<>();
+		for (Supplier<PlacedFeature> placedFeature : oreFeatures) {
+			for (ConfiguredFeature<?, ?> feature : placedFeature.get().getFeatures().collect(Collectors.toList())) {
+				if (feature.config instanceof OreConfiguration ore) {
+					ore.targetStates.forEach((targetBlockState -> {
+						if (targetBlockState.state.is(Blocks.DIRT)) {
 							toRemove.add(placedFeature);
 						}
 					}));

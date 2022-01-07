@@ -45,6 +45,7 @@ public class CavernsAndChasms {
 		CCAttributes.ATTRIBUTES.register(bus);
 		CCEffects.POTIONS.register(bus);
 		CCEffects.EFFECTS.register(bus);
+		CCFeatures.FEATURES.register(bus);
 		CCParticleTypes.PARTICLES.register(bus);
 		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
 
