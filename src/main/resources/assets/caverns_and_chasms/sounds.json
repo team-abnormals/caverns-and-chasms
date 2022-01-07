@@ -8,6 +8,50 @@
       }
     ]
   },
+  "block.rocky_dirt.break": {
+    "sounds": [
+      "caverns_and_chasms:block/rocky_dirt/place1",
+      "caverns_and_chasms:block/rocky_dirt/place2",
+      "caverns_and_chasms:block/rocky_dirt/place3",
+      "caverns_and_chasms:block/rocky_dirt/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rocky_dirt.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/rocky_dirt/step1",
+      "caverns_and_chasms:block/rocky_dirt/step2",
+      "caverns_and_chasms:block/rocky_dirt/step3",
+      "caverns_and_chasms:block/rocky_dirt/step4"
+    ]
+  },
+  "block.rocky_dirt.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/rocky_dirt/step1",
+      "caverns_and_chasms:block/rocky_dirt/step2",
+      "caverns_and_chasms:block/rocky_dirt/step3",
+      "caverns_and_chasms:block/rocky_dirt/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.rocky_dirt.place": {
+    "sounds": [
+      "caverns_and_chasms:block/rocky_dirt/place1",
+      "caverns_and_chasms:block/rocky_dirt/place2",
+      "caverns_and_chasms:block/rocky_dirt/place3",
+      "caverns_and_chasms:block/rocky_dirt/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.rocky_dirt.step": {
+    "sounds": [
+      "caverns_and_chasms:block/rocky_dirt/step1",
+      "caverns_and_chasms:block/rocky_dirt/step2",
+      "caverns_and_chasms:block/rocky_dirt/step3",
+      "caverns_and_chasms:block/rocky_dirt/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.deeper.death": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/death"
