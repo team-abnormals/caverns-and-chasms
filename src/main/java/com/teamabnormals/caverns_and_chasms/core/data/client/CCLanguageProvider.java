@@ -11,6 +11,7 @@ import net.minecraftforge.common.data.LanguageProvider;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class CCLanguageProvider extends LanguageProvider {
+
 	public CCLanguageProvider(DataGenerator gen) {
 		super(gen, CavernsAndChasms.MOD_ID, "en_us");
 	}

@@ -65,8 +65,6 @@ public class CCItems {
 	public static final RegistryObject<Item> SPINEL_PEARL = HELPER.createItem("spinel_pearl", () -> new SpinelPearlItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC)));
 	public static final RegistryObject<Item> SPINEL_CROWN = HELPER.createItem("spinel_crown", () -> new SpinelCrownItem(CCTiers.Armor.SPINEL_CROWN, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
-	public static final RegistryObject<Item> FORGOTTEN_COLLAR = HELPER.createItem("forgotten_collar", () -> new ForgottenCollarItem(new Item.Properties().stacksTo(1).fireResistant().tab(CreativeModeTab.TAB_MISC)));
-
 	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.CAVEFISH)));
 	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.COOKED_CAVEFISH)));
 	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new MobBucketItem(CCEntityTypes.CAVEFISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
@@ -85,14 +83,6 @@ public class CCItems {
 	public static final RegistryObject<BlueprintSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntityTypes.FLY::get, 920336, 7080720);
 	public static final RegistryObject<BlueprintSpawnEggItem> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntityTypes.MIME::get, 0x5A5050, 0x969964);
 	public static final RegistryObject<BlueprintSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntityTypes.RAT::get, 0x3B4248, 0xA76E6C);
-
-	public static final RegistryObject<BlueprintSpawnEggItem> ZOMBIE_WOLF_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_wolf", CCEntityTypes.ZOMBIE_WOLF::get, 0x6A9D5A, 0x364430);
-	public static final RegistryObject<BlueprintSpawnEggItem> ZOMBIE_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_cat", CCEntityTypes.ZOMBIE_CAT::get, 0x4A7D52, 0x79AD69);
-	public static final RegistryObject<BlueprintSpawnEggItem> ZOMBIE_PARROT_SPAWN_EGG = HELPER.createSpawnEggItem("zombie_parrot", CCEntityTypes.ZOMBIE_PARROT::get, 0x315D39, 0x5A8D52);
-
-	public static final RegistryObject<BlueprintSpawnEggItem> SKELETON_WOLF_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_wolf", CCEntityTypes.SKELETON_WOLF::get, 0x979797, 0x494949);
-	public static final RegistryObject<BlueprintSpawnEggItem> SKELETON_CAT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_cat", CCEntityTypes.SKELETON_CAT::get, 0xD3D3D3, 0x979797);
-	public static final RegistryObject<BlueprintSpawnEggItem> SKELETON_PARROT_SPAWN_EGG = HELPER.createSpawnEggItem("skeleton_parrot", CCEntityTypes.SKELETON_PARROT::get, 0x979797, 0xADABAD);
 
 	public static class CCFoods {
 		public static final FoodProperties CAVEFISH = new FoodProperties.Builder().nutrition(1).saturationMod(0.3F).build();

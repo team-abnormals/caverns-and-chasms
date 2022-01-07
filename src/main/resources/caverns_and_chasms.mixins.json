@@ -13,8 +13,7 @@
     "ItemStackMixin",
     "SolidBucketItemMixin",
     "WitherSkeletonEntityMixin",
-    "ZoglinEntityMixin",
-    "ZombieHorseEntityMixin"
+    "ZoglinEntityMixin"
   ],
   "client": [
     "ClientRecipeBookMixin",

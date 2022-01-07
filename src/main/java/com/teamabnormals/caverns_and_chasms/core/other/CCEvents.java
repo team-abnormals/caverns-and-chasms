@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.*;
@@ -81,15 +82,6 @@ public class CCEvents {
 		if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolem.class, true));
 		}
-		if (entity.getType().is(CCEntityTypeTags.COLLAR_DROP_MOBS) && entity instanceof TamableAnimal pet) {
-			List<Goal> goalsToRemove = Lists.newArrayList();
-			pet.goalSelector.availableGoals.forEach((goal) -> {
-				if (goal.getGoal() instanceof FloatGoal)
-					goalsToRemove.add(goal.getGoal());
-			});
-
-			goalsToRemove.forEach(pet.goalSelector::removeGoal);
-		}
 	}
 
 	@SubscribeEvent
@@ -98,7 +90,7 @@ public class CCEvents {
 		ItemStack stack = player.getItemInHand(event.getHand());
 		Level world = event.getWorld();
 		InteractionHand hand = event.getHand();
-		if (event.getTarget() instanceof LivingEntity entity && entity.getType().is(CCEntityTypeTags.MILKABLE)) {
+		if (event.getTarget() instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE)) {
 			if (!entity.isBaby() && (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get())) {
 				CompoundTag tag = stack.getOrCreateTag();
 				ItemStack milkBucket = ItemUtils.createFilledResult(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());

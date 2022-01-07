@@ -4,10 +4,6 @@ import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.render.*;
-import com.teamabnormals.caverns_and_chasms.client.render.layer.UndeadParrotLayer;
-import com.teamabnormals.caverns_and_chasms.client.render.skeleton.*;
-import com.teamabnormals.caverns_and_chasms.client.render.zombie.*;
-import com.teamabnormals.caverns_and_chasms.common.item.ForgottenCollarItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
@@ -20,11 +16,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -45,6 +38,7 @@ public class CavernsAndChasms {
 
 	public CavernsAndChasms() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModLoadingContext context = ModLoadingContext.get();
 		MinecraftForge.EVENT_BUS.register(this);
 
 		REGISTRY_HELPER.register(bus);
@@ -60,14 +54,9 @@ public class CavernsAndChasms {
 
 		bus.addListener(this::registerLayerDefinitions);
 		bus.addListener(this::registerRenderers);
-		bus.addListener(this::registerLayers);
 
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			bus.addListener(this::registerItemColors);
-			DeeperSpriteUploader.init(bus);
-		});
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
 
-		ModLoadingContext context = ModLoadingContext.get();
 		context.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
 		context.registerConfig(ModConfig.Type.CLIENT, CCConfig.CLIENT_SPEC);
 	}
@@ -85,22 +74,22 @@ public class CavernsAndChasms {
 	}
 
 	private void dataSetup(GatherDataEvent event) {
-		DataGenerator dataGenerator = event.getGenerator();
-		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+		DataGenerator generator = event.getGenerator();
+		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-			CCBlockTagsProvider blockTagGen = new CCBlockTagsProvider(dataGenerator, existingFileHelper);
-			dataGenerator.addProvider(blockTagGen);
-			dataGenerator.addProvider(new CCItemTagsProvider(dataGenerator, blockTagGen, existingFileHelper));
-			dataGenerator.addProvider(new CCEntityTypeTagsProvider(dataGenerator, existingFileHelper));
-			dataGenerator.addProvider(new CCRecipeProvider(dataGenerator));
-			dataGenerator.addProvider(new CCLootTableProvider(dataGenerator));
-			dataGenerator.addProvider(CCLootModifiersProvider.createLootModifierDataProvider(dataGenerator));
+			CCBlockTagsProvider blockTagGen = new CCBlockTagsProvider(generator, helper);
+			generator.addProvider(blockTagGen);
+			generator.addProvider(new CCItemTagsProvider(generator, blockTagGen, helper));
+			generator.addProvider(new CCEntityTypeTagsProvider(generator, helper));
+			generator.addProvider(new CCRecipeProvider(generator));
+			generator.addProvider(new CCLootTableProvider(generator));
+			generator.addProvider(CCLootModifiersProvider.createLootModifierDataProvider(generator));
 		}
 
 		if (event.includeClient()) {
-			dataGenerator.addProvider(new CCItemModelProvider(dataGenerator, existingFileHelper));
-			dataGenerator.addProvider(new CCBlockStateProvider(dataGenerator, existingFileHelper));
+			generator.addProvider(new CCItemModelProvider(generator, helper));
+			generator.addProvider(new CCBlockStateProvider(generator, helper));
 			//dataGenerator.addProvider(new CCLanguageProvider(dataGenerator));
 		}
 	}
@@ -126,25 +115,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.SPINEL_PEARL.get(), ThrownItemRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_WOLF.get(), ZombieWolfRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_CAT.get(), ZombieCatRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.ZOMBIE_PARROT.get(), ZombieParrotRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.SKELETON_WOLF.get(), SkeletonWolfRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.SKELETON_CAT.get(), SkeletonCatRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.SKELETON_PARROT.get(), SkeletonParrotRenderer::new);
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private void registerItemColors(ColorHandlerEvent.Item event) {
-		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((ForgottenCollarItem) stack.getItem()).getColor(stack), CCItems.FORGOTTEN_COLLAR.get());
-	}
-
-	private void registerLayers(EntityRenderersEvent.AddLayers event) {
-		event.getSkins().forEach(skin -> {
-			PlayerRenderer renderer = event.getSkin(skin);
-			renderer.addLayer(new UndeadParrotLayer<>(renderer, event.getEntityModels()));
-		});
 	}
 }
