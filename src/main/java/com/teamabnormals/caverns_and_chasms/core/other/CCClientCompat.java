@@ -81,6 +81,9 @@ public class CCClientCompat {
 		ItemProperties.register(CCItems.GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemProperties.register(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, world, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
 
+		ItemProperties.register(CCItems.TUNING_FORK.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "holding"), (stack, world, entity, hash) -> {
+			return stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F;
+		});
 		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "depth"), new ClampedItemPropertyFunction() {
 			private double rotation;
 			private double rota;

@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.render.*;
+import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
@@ -22,6 +23,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -59,6 +62,7 @@ public class CavernsAndChasms {
 
 		bus.addListener(this::registerLayerDefinitions);
 		bus.addListener(this::registerRenderers);
+		bus.addListener(this::registerItemColors);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
 
@@ -122,5 +126,10 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.SPINEL_PEARL.get(), ThrownItemRenderer::new);
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	public void registerItemColors(ColorHandlerEvent.Item event) {
+		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
 	}
 }

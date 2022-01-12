@@ -12,12 +12,15 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.*;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.*;
@@ -179,69 +182,64 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLeftClickBlock(LeftClickBlock event) {
-		Level world = event.getWorld();
-		BlockPos pos = event.getPos();
-		BlockState state = world.getBlockState(pos);
-
-		if (event.getItemStack().getItem() instanceof TuningForkItem && state.getBlock() instanceof NoteBlock) {
-			CompoundTag tag = event.getItemStack().getOrCreateTag();
-			if (tag.contains("Note")) {
-				world.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, tag.getInt("Note")));
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public static void onRightClickBlock(RightClickBlock event) {
 		Player player = event.getPlayer();
 		BlockPos pos = event.getPos();
-		Level world = event.getWorld();
+		Level level = event.getWorld();
 		ItemStack stack = event.getItemStack();
 		Item item = stack.getItem();
-		BlockState state = world.getBlockState(pos);
+		BlockState state = level.getBlockState(pos);
 		Direction face = event.getFace();
-		Random random = world.getRandom();
+		Random random = level.getRandom();
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
-				BlockState extinguishedState = BrazierBlock.extinguish(world, pos, state);
-				if (!world.isClientSide()) {
-					world.setBlock(pos, extinguishedState, 11);
+				BlockState extinguishedState = BrazierBlock.extinguish(level, pos, state);
+				if (!level.isClientSide()) {
+					level.setBlock(pos, extinguishedState, 11);
 					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
 				}
 
 				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}
 
 			if (BrazierBlock.canBeLit(state)) {
 				if (stack.getItem() instanceof FlintAndSteelItem) {
-					world.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
-					if (!world.isClientSide()) {
-						world.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
+					level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					if (!level.isClientSide()) {
+						level.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
 						stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
 					}
 
 					event.setCanceled(true);
-					event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
+					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 				} else if (stack.getItem() instanceof FireChargeItem) {
-					world.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-					if (!world.isClientSide()) {
-						world.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
+					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+					if (!level.isClientSide()) {
+						level.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
 						if (!player.getAbilities().instabuild) {
 							stack.shrink(1);
 						}
 					}
 
 					event.setCanceled(true);
-					event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
+					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 				}
 			}
-
-		}
-
-		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
+		} else if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get()) {
+			CompoundTag tag = stack.getOrCreateTag();
+			if (!player.isCrouching() && tag.contains("Note")) {
+				int note = tag.getInt("Note");
+				level.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, Mth.clamp(note, 0, 24)));
+				player.displayClientMessage(new TranslatableComponent(item.getDescriptionId() + ".change_note", new TranslatableComponent(item.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+				if (!level.isClientSide()) {
+					level.blockEvent(pos, state.getBlock(), 0, 0);
+				}
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			}
+		} else if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
 				Block block = ((BlockItem) item).getBlock();
 				if (block instanceof BaseRailBlock && !state.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {
@@ -252,15 +250,15 @@ public class CCEvents {
 						boolean isNextRail = false;
 						BlockPos.MutableBlockPos yCheckingPos = currentPos.mutable().move(Direction.DOWN);
 						for (int j = 0; j < 3; j++) {
-							BlockState stateAtCheckPos = world.getBlockState(yCheckingPos);
+							BlockState stateAtCheckPos = level.getBlockState(yCheckingPos);
 							if (stateAtCheckPos.getBlock() instanceof BaseRailBlock && !stateAtCheckPos.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {
 								nextPos = yCheckingPos.move(direction).immutable();
 								isNextRail = true;
 							} else if (!isNextRail) {
 								BlockPlaceContext context = new BlockPlaceContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(yCheckingPos));
-								if (world.getBlockState(yCheckingPos).canBeReplaced(context)) {
+								if (level.getBlockState(yCheckingPos).canBeReplaced(context)) {
 									BlockState stateForPlacement = state.getBlock().getStateForPlacement(context);
-									if (stateForPlacement != null && stateForPlacement.canSurvive(world, yCheckingPos))
+									if (stateForPlacement != null && stateForPlacement.canSurvive(level, yCheckingPos))
 										nextPos = yCheckingPos.immutable();
 								}
 							}

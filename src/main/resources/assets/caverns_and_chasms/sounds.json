@@ -52,6 +52,12 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "item.tuning_fork.vibrate": {
+    "sounds": [
+      "caverns_and_chasms:item/tuning_fork/vibrate"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.tuning_fork.vibrate"
+  },
   "entity.deeper.death": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/death"

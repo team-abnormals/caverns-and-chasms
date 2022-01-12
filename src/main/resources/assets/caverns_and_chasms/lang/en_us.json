@@ -149,6 +149,9 @@
 
   "item.caverns_and_chasms.tuning_fork": "Tuning Fork",
   "item.caverns_and_chasms.barometer": "Barometer",
+  "item.caverns_and_chasms.tuning_fork.capture_note": "Captured note %s",
+  "item.caverns_and_chasms.tuning_fork.change_note": "Set note to %s",
+  "item.caverns_and_chasms.tuning_fork.note": "Note",
   "item.caverns_and_chasms.tuning_fork.note.0": "F#",
   "item.caverns_and_chasms.tuning_fork.note.1": "G",
   "item.caverns_and_chasms.tuning_fork.note.2": "G#",
@@ -253,6 +256,8 @@
   "advancements.caverns_and_chasms.nether.necromium_armor.title": "Cover Me in Curses",
   "advancements.caverns_and_chasms.nether.necromium_armor.description": "Get a full suit of Necromium armor",
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium ingot to upgrade a hoe, and then reevaluate your life choices",
+
+  "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Tuning Fork vibrates",
 
   "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper dies",
   "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",

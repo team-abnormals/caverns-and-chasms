@@ -22,7 +22,6 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.generated(CCItems.RAW_SILVER.get());
 		this.generated(CCItems.SPINEL_PEARL.get());
 		this.generated(CCItems.SPINEL_CROWN.get());
-		this.handheld(CCItems.TUNING_FORK.get());
 		this.animatedModel(CCItems.DEPTH_GAUGE.get(), 32);
 		this.generated(CCItems.BAROMETER.get());
 		this.generated(CCItems.AZALEA_BOAT.get());
