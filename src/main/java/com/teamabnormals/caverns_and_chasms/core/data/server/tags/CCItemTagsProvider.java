@@ -40,6 +40,8 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
 		this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
 
+		this.copy(BlockTags.DIRT, ItemTags.DIRT);
+
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);
 		this.copy(CCBlockTags.CURSED_FIRE_BASE_BLOCKS, CCItemTags.CURSED_FIRE_BASE_BLOCKS);
