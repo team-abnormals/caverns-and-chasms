@@ -4,7 +4,6 @@ import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.*;
-import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -12,7 +11,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -48,7 +46,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -227,7 +224,9 @@ public class CCEvents {
 					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 				}
 			}
-		} else if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get()) {
+		}
+
+		if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get()) {
 			CompoundTag tag = stack.getOrCreateTag();
 			if (!player.isCrouching() && tag.contains("Note")) {
 				int note = tag.getInt("Note");
@@ -239,7 +238,9 @@ public class CCEvents {
 				event.setCanceled(true);
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}
-		} else if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
+		}
+
+		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
 				Block block = ((BlockItem) item).getBlock();
 				if (block instanceof BaseRailBlock && !state.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {

@@ -80,7 +80,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> SPINEL_ORE = HELPER.createBlock("spinel_ore", () -> new InjectedOreBlock(Items.DEEPSLATE_LAPIS_ORE, CCProperties.ORE, UniformInt.of(2, 5)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DEEPSLATE_SPINEL_ORE = HELPER.createBlock("deepslate_spinel_ore", () -> new InjectedOreBlock(Items.DEEPSLATE_LAPIS_ORE, CCProperties.DEEPSLATE_ORE, UniformInt.of(2, 5)), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SPINEL_BLOCK = HELPER.createBlock("spinel_block", () -> new Block(CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SPINEL_BLOCK = HELPER.createBlock("spinel_block", () -> new InjectedBlock(Items.LAPIS_BLOCK, CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SPINEL_BRICKS = HELPER.createBlock("spinel_bricks", () -> new Block(CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SPINEL_BRICK_STAIRS = HELPER.createBlock("spinel_brick_stairs", () -> new StairBlock(() -> SPINEL_BRICKS.get().defaultBlockState(), CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SPINEL_BRICK_SLAB = HELPER.createBlock("spinel_brick_slab", () -> new SlabBlock(CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
