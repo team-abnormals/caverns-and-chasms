@@ -60,6 +60,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
 			this.dropSelf(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
 
+			this.dropWhenSilkTouch(CCBlocks.FRAGILE_STONE.get());
+
 			this.add(CCBlocks.SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
 			this.add(CCBlocks.DEEPSLATE_SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
 			this.add(CCBlocks.SPINEL_ORE.get(), BlockProvider::createSpinelOreDrops);
@@ -73,8 +75,8 @@ public class CCLootTableProvider extends LootTableProvider {
 		@Override
 		public Iterable<Block> getKnownBlocks() {
 			return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> block.getRegistryName().getNamespace().equals(CavernsAndChasms.MOD_ID) && (
-					block == CCBlocks.RAW_SILVER_BLOCK.get() || block == CCBlocks.SILVER_ORE.get() || block == CCBlocks.DEEPSLATE_SILVER_ORE.get() || block == CCBlocks.SPINEL_ORE.get() || block == CCBlocks.DEEPSLATE_SPINEL_ORE.get() || block instanceof IronBarsBlock)
-			).collect(Collectors.toSet());
+					block == CCBlocks.FRAGILE_STONE.get() || block == CCBlocks.RAW_SILVER_BLOCK.get() || block == CCBlocks.SILVER_ORE.get() || block == CCBlocks.DEEPSLATE_SILVER_ORE.get() || block == CCBlocks.SPINEL_ORE.get() || block == CCBlocks.DEEPSLATE_SPINEL_ORE.get() || block instanceof IronBarsBlock)
+					).collect(Collectors.toSet());
 		}
 	}
 }

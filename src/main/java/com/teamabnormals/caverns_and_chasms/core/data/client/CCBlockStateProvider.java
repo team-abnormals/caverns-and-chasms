@@ -50,6 +50,8 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerBars(CCBlocks.GOLDEN_BARS.get());
 		this.registerBars(CCBlocks.SILVER_BARS.get());
 
+		this.simpleBlockWithItem(CCBlocks.FRAGILE_STONE.get());
+
 		this.registerBlockWithVariants(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_STAIRS.get(), CCBlocks.AZALEA_SLAB.get(), CCBlocks.AZALEA_VERTICAL_SLAB.get());
 		this.registerLogBlocks(CCBlocks.AZALEA_LOG.get(), CCBlocks.AZALEA_WOOD.get());
 		this.registerLogBlocks(CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.STRIPPED_AZALEA_WOOD.get());

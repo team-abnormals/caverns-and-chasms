@@ -98,6 +98,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> LAPIS_LAZULI_LAMP = HELPER.createBlock("lapis_lamp", () -> new Block(CCProperties.LAMP), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> ROCKY_DIRT = HELPER.createBlock("rocky_dirt", () -> new RockyDirtBlock(CCProperties.ROCKY_DIRT), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> FRAGILE_STONE = HELPER.createBlock("fragile_stone", () -> new FragileStoneBlock(CCProperties.FRAGILE_STONE), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> DIRT_BRICKS = HELPER.createBlock("dirt_bricks", () -> new Block(CCProperties.DIRT_BRICKS), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DIRT_BRICK_STAIRS = HELPER.createBlock("dirt_brick_stairs", () -> new StairBlock(() -> DIRT_BRICKS.get().defaultBlockState(), CCProperties.DIRT_BRICKS), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -164,6 +165,7 @@ public class CCBlocks {
 
 	public static class CCProperties {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F);
+		public static final BlockBehaviour.Properties FRAGILE_STONE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().strength(1.0F);
 		public static final BlockBehaviour.Properties DIRT_BRICKS = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F);
 

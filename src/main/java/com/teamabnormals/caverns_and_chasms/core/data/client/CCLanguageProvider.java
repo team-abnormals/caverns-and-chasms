@@ -31,6 +31,8 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
 		this.add(CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
 		this.add(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
+
+		this.add(CCBlocks.FRAGILE_STONE.get());
 	}
 
 	private void add(Item item) {
