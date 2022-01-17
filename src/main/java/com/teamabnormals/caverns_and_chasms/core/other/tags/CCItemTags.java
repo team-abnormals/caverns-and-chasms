@@ -18,7 +18,8 @@ public class CCItemTags {
 
 	public static final Tag.Named<Item> INGOTS_NECROMIUM = TagUtil.forgeItemTag("ingots/necromium");
 	public static final Tag.Named<Item> INGOTS_SILVER = TagUtil.forgeItemTag("ingots/silver");
-	public static final Tag.Named<Item> INGOTS_COPPER = TagUtil.forgeItemTag("ingots/copper");
+
+	public static final Tag.Named<Item> RAW_MATERIALS_SILVER = TagUtil.forgeItemTag("raw_materials/silver");
 
 	public static final Tag.Named<Item> NUGGETS_NECROMIUM = TagUtil.forgeItemTag("nuggets/necromium");
 	public static final Tag.Named<Item> NUGGETS_SILVER = TagUtil.forgeItemTag("nuggets/silver");
@@ -33,18 +34,13 @@ public class CCItemTags {
 	public static final Tag.Named<Item> BUCKETS_MILK = TagUtil.forgeItemTag("buckets/milk");
 	public static final Tag.Named<Item> BUCKETS_POWDER_SNOW = TagUtil.forgeItemTag("buckets/powder_snow");
 
-	public static final Tag.Named<Item> ORES_COPPER = TagUtil.forgeItemTag("ores/copper");
 	public static final Tag.Named<Item> ORES_AMETHYST = TagUtil.forgeItemTag("ores/amethyst");
 	public static final Tag.Named<Item> ORES_SILVER = TagUtil.forgeItemTag("ores/silver");
 	public static final Tag.Named<Item> ORES_SPINEL = TagUtil.forgeItemTag("ores/spinel");
 
-	public static final Tag.Named<Item> STORAGE_BLOCKS_COPPER = TagUtil.forgeItemTag("storage_blocks/copper");
 	public static final Tag.Named<Item> STORAGE_BLOCKS_SILVER = TagUtil.forgeItemTag("storage_blocks/silver");
 	public static final Tag.Named<Item> STORAGE_BLOCKS_SPINEL = TagUtil.forgeItemTag("storage_blocks/spinel");
 	public static final Tag.Named<Item> STORAGE_BLOCKS_NECROMIUM = TagUtil.forgeItemTag("storage_blocks/necromium");
-	public static final Tag.Named<Item> STORAGE_BLOCKS_RAW_IRON = TagUtil.forgeItemTag("storage_blocks/raw_iron");
-	public static final Tag.Named<Item> STORAGE_BLOCKS_RAW_COPPER = TagUtil.forgeItemTag("storage_blocks/raw_copper");
-	public static final Tag.Named<Item> STORAGE_BLOCKS_RAW_GOLD = TagUtil.forgeItemTag("storage_blocks/raw_gold");
 	public static final Tag.Named<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.forgeItemTag("storage_blocks/raw_silver");
 
 	public static final Tag.Named<Item> TOOLS_PICKAXES = TagUtil.forgeItemTag("tools/pickaxes");

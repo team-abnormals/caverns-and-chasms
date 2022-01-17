@@ -48,24 +48,19 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(CCBlockTags.AZALEA_LOGS, CCItemTags.AZALEA_LOGS);
 
 		this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
-		this.copy(CCBlockTags.ORES_COPPER, CCItemTags.ORES_COPPER);
 		this.copy(CCBlockTags.ORES_AMETHYST, CCItemTags.ORES_AMETHYST);
 		this.copy(CCBlockTags.ORES_SILVER, CCItemTags.ORES_SILVER);
 		this.copy(CCBlockTags.ORES_SPINEL, CCItemTags.ORES_SPINEL);
-		this.tag(Tags.Items.ORES_COAL).remove(Items.COAL_ORE).addTag(ItemTags.COAL_ORES);
-		this.tag(Tags.Items.ORES_EMERALD).remove(Items.EMERALD_ORE).addTag(ItemTags.EMERALD_ORES);
-		this.tag(Tags.Items.ORES_DIAMOND).remove(Items.DIAMOND_ORE).addTag(ItemTags.DIAMOND_ORES);
-		this.tag(Tags.Items.ORES_IRON).remove(Items.IRON_ORE).addTag(ItemTags.IRON_ORES);
-		this.tag(Tags.Items.ORES_LAPIS).remove(Items.LAPIS_ORE).addTag(ItemTags.LAPIS_ORES);
-		this.tag(Tags.Items.ORES_REDSTONE).remove(Items.REDSTONE_ORE).addTag(ItemTags.REDSTONE_ORES);
+		this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
+		this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
+		this.copy(Tags.Blocks.ORE_RATES_DENSE, Tags.Items.ORE_RATES_DENSE);
+		this.copy(Tags.Blocks.ORE_RATES_SINGULAR, Tags.Items.ORE_RATES_SINGULAR);
+		this.copy(Tags.Blocks.ORE_RATES_SPARSE, Tags.Items.ORE_RATES_SPARSE);
+
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
-		this.copy(CCBlockTags.STORAGE_BLOCKS_COPPER, CCItemTags.STORAGE_BLOCKS_COPPER);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_SILVER, CCItemTags.STORAGE_BLOCKS_SILVER);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_SPINEL, CCItemTags.STORAGE_BLOCKS_SPINEL);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_NECROMIUM, CCItemTags.STORAGE_BLOCKS_NECROMIUM);
-		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_COPPER, CCItemTags.STORAGE_BLOCKS_RAW_COPPER);
-		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_IRON, CCItemTags.STORAGE_BLOCKS_RAW_IRON);
-		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_GOLD, CCItemTags.STORAGE_BLOCKS_RAW_GOLD);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER, CCItemTags.STORAGE_BLOCKS_RAW_SILVER);
 		this.copy(Tags.Blocks.CHESTS_WOODEN, Tags.Items.CHESTS_WOODEN);
 		this.copy(Tags.Blocks.CHESTS_TRAPPED, Tags.Items.CHESTS_TRAPPED);
@@ -94,10 +89,11 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.BUCKETS_LAVA).add(Items.LAVA_BUCKET, CCItems.GOLDEN_LAVA_BUCKET.get());
 		this.tag(CCItemTags.BUCKETS_MILK).add(Items.MILK_BUCKET, CCItems.GOLDEN_MILK_BUCKET.get());
 		this.tag(CCItemTags.BUCKETS_POWDER_SNOW).add(Items.POWDER_SNOW_BUCKET, CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
-		this.tag(CCItemTags.INGOTS_COPPER).add(Items.COPPER_INGOT);
 		this.tag(CCItemTags.INGOTS_SILVER).add(CCItems.SILVER_INGOT.get());
 		this.tag(CCItemTags.INGOTS_NECROMIUM).add(CCItems.NECROMIUM_INGOT.get());
-		this.tag(Tags.Items.INGOTS).addTag(CCItemTags.INGOTS_COPPER).addTag(CCItemTags.INGOTS_SILVER).addTag(CCItemTags.INGOTS_NECROMIUM);
+		this.tag(Tags.Items.INGOTS).addTag(CCItemTags.INGOTS_SILVER).addTag(CCItemTags.INGOTS_NECROMIUM);
+		this.tag(Tags.Items.RAW_MATERIALS).addTag(CCItemTags.RAW_MATERIALS_SILVER);
+		this.tag(CCItemTags.RAW_MATERIALS_SILVER).add(CCItems.RAW_SILVER.get());
 		this.tag(CCItemTags.NUGGETS_SILVER).add(CCItems.SILVER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(CCItems.NECROMIUM_NUGGET.get());
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);

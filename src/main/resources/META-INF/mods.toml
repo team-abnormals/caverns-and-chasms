@@ -27,7 +27,7 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
 [[dependencies.caverns_and_chasms]]
     modId = "forge"
     mandatory = true
-    versionRange = "[39.0.0,)"
+    versionRange = "[39.0.18,)"
     ordering = "AFTER"
     side = "BOTH"
 

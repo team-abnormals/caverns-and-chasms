@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#minecraft:diamond_ores"
-  ],
-  "remove": [
-    "minecraft:diamond_ore"
-  ]
-}

@@ -71,7 +71,6 @@ public class CCGeneration {
 
 			removeDirtOre(oreFeatures);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
-
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE);
 
 			if (!DataUtil.matchesKeys(biome, Biomes.LUSH_CAVES) && category != Biome.BiomeCategory.OCEAN && category != Biome.BiomeCategory.BEACH)

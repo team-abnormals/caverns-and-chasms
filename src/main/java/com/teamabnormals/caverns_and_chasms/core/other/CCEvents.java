@@ -172,7 +172,7 @@ public class CCEvents {
 		if (event.getResult() != Event.Result.DENY) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				Creeper creeper = (Creeper) entity;
-				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWN_BLOCKS)) {
+				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_BLOCKS)) {
 					Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
 					if (deeper != null) {
 						deeper.copyPosition(creeper);

@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
+    "#forge:ores/copper",
     "#forge:ores/iron",
     "#forge:ores/gold",
     "#forge:ores/netherite_scrap",
-    "#forge:ores/silver",
-    "#forge:ores/copper"
+    "#forge:ores/silver"
   ]
 }
