@@ -1,11 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.item.silver;
 
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
-import com.teamabnormals.caverns_and_chasms.common.entity.SilverArrow;
+import com.teamabnormals.caverns_and_chasms.common.entity.projectile.SilverArrow;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class SilverArrowItem extends ArrowItem {

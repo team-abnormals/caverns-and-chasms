@@ -16,8 +16,8 @@
     "ZoglinEntityMixin"
   ],
   "client": [
-    "ClientRecipeBookMixin",
-    "TieredItemMixin"
+    "client.ClientRecipeBookMixin",
+    "client.TieredItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

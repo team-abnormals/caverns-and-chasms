@@ -1,9 +1,19 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.core.util.registry.EntitySubRegistryHelper;
-import com.teamabnormals.caverns_and_chasms.common.entity.*;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Cavefish;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
+import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
+import com.teamabnormals.caverns_and_chasms.common.entity.projectile.SilverArrow;
+import com.teamabnormals.caverns_and_chasms.common.entity.projectile.ThrownSpinelPearl;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;

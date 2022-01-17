@@ -3,16 +3,22 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
 import com.teamabnormals.caverns_and_chasms.client.model.SpinelCrownModel;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEffects;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -51,7 +57,7 @@ public class SpinelCrownItem extends ArmorItem implements IItemRenderProperties 
 	@Override
 	public void onArmorTick(ItemStack stack, Level world, Player player) {
 		if (!world.isClientSide()) {
-			MobEffectInstance effectInstance = new MobEffectInstance(CCEffects.REWIND.get(), 36000, 0, false, false, true);
+			MobEffectInstance effectInstance = new MobEffectInstance(CCMobEffects.REWIND.get(), 36000, 0, false, false, true);
 			effectInstance.setCurativeItems(Collections.singletonList(new ItemStack(CCItems.SPINEL_CROWN.get())));
 			player.addEffect(effectInstance);
 		}

@@ -17,7 +17,6 @@ public class CCConfig {
 		public final ConfigValue<Integer> betterRailPlacementRange;
 
 		public Common(ForgeConfigSpec.Builder builder) {
-
 			builder.push("mobs");
 			creeperExplosionsDestroyBlocks = builder.define("Creeper explosions destroy blocks", false);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, 0, 255);
@@ -41,7 +40,6 @@ public class CCConfig {
 		public final BooleanValue clocksDisplayTime;
 		public final BooleanValue clocksDisplayDay;
 		public final BooleanValue clocksUse24hrTime;
-
 
 		public Client(ForgeConfigSpec.Builder builder) {
 			builder.push("items");

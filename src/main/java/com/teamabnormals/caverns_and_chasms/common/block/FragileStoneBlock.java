@@ -1,11 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class FragileStoneBlock extends Block {
 	public FragileStoneBlock(Properties properties) {
@@ -46,7 +44,7 @@ public class FragileStoneBlock extends Block {
 	}
 
 	private static void breakNeighbors(Level level, BlockPos pos) {
-		for(Direction direction : Direction.values()) {
+		for (Direction direction : Direction.values()) {
 			BlockPos blockpos = pos.relative(direction);
 			Block block = level.getBlockState(blockpos).getBlock();
 			if (block == CCBlocks.FRAGILE_STONE.get()) {

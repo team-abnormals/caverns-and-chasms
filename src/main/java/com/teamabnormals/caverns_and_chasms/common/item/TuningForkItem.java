@@ -1,12 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +22,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class TuningForkItem extends Item {
 
@@ -83,7 +81,7 @@ public class TuningForkItem extends Item {
 		if (tag.contains("Note")) {
 			int note = tag.getInt("Note");
 			this.playNote(target.getLevel(), target.getX(), target.getY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), (double)note / 24.0D, 0.0D, 0.0D);
+			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 		}
 
 		return super.hurtEnemy(stack, target, attacker);

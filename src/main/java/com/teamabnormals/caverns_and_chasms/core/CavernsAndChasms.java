@@ -1,18 +1,18 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
-import com.google.common.base.Suppliers;
-import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
-import com.teamabnormals.caverns_and_chasms.client.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
-import com.teamabnormals.caverns_and_chasms.client.render.*;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
+import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifiersProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
+import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBlockTagsProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCEntityTypeTagsProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCItemTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
@@ -20,8 +20,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSeri
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.HoneycombItem;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -50,10 +48,10 @@ public class CavernsAndChasms {
 
 		REGISTRY_HELPER.register(bus);
 		CCAttributes.ATTRIBUTES.register(bus);
-		CCEffects.POTIONS.register(bus);
-		CCEffects.EFFECTS.register(bus);
+		CCMobEffects.POTIONS.register(bus);
+		CCMobEffects.MOB_EFFECTS.register(bus);
 		CCFeatures.FEATURES.register(bus);
-		CCParticleTypes.PARTICLES.register(bus);
+		CCParticleTypes.PARTICLE_TYPES.register(bus);
 		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
 
 		bus.addListener(this::commonSetup);
@@ -74,7 +72,7 @@ public class CavernsAndChasms {
 		event.enqueueWork(() -> {
 			CCCompat.registerCompat();
 			CCEntityTypes.registerEntitySpawns();
-			CCEffects.registerBrewingRecipes();
+			CCMobEffects.registerBrewingRecipes();
 		});
 	}
 
@@ -127,7 +125,7 @@ public class CavernsAndChasms {
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
 	}
-	
+
 	@OnlyIn(Dist.CLIENT)
 	public void registerItemColors(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());

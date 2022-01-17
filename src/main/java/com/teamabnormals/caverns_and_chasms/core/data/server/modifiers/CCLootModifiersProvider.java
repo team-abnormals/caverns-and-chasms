@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.loot.modification.LootModifiers;
 import com.teamabnormals.blueprint.common.loot.modification.modifiers.LootPoolEntriesModifier.Config;
-import com.teamabnormals.blueprint.core.util.modification.*;
+import com.teamabnormals.blueprint.core.util.modification.ConfiguredModifier;
+import com.teamabnormals.blueprint.core.util.modification.ModifierDataProvider;
+import com.teamabnormals.blueprint.core.util.modification.TargetedModifier;
 import com.teamabnormals.blueprint.core.util.modification.targeting.ConditionedModifierTargetSelector;
 import com.teamabnormals.blueprint.core.util.modification.targeting.ModifierTargetSelectorRegistry;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -23,7 +25,9 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.event.LootTableLoadEvent;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class CCLootModifiersProvider {
 	public static ModifierDataProvider<LootTableLoadEvent, Gson, Pair<Gson, PredicateManager>> createLootModifierDataProvider(DataGenerator dataGenerator) {

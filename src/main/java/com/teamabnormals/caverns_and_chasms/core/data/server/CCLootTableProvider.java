@@ -25,7 +25,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CCLootTableProvider extends LootTableProvider {
@@ -76,7 +78,7 @@ public class CCLootTableProvider extends LootTableProvider {
 		public Iterable<Block> getKnownBlocks() {
 			return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> block.getRegistryName().getNamespace().equals(CavernsAndChasms.MOD_ID) && (
 					block == CCBlocks.FRAGILE_STONE.get() || block == CCBlocks.RAW_SILVER_BLOCK.get() || block == CCBlocks.SILVER_ORE.get() || block == CCBlocks.DEEPSLATE_SILVER_ORE.get() || block == CCBlocks.SPINEL_ORE.get() || block == CCBlocks.DEEPSLATE_SPINEL_ORE.get() || block instanceof IronBarsBlock)
-					).collect(Collectors.toSet());
+			).collect(Collectors.toSet());
 		}
 	}
 }

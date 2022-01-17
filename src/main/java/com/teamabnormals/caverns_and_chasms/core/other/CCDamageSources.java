@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.Kunai;
+import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;

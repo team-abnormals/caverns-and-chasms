@@ -1,10 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Map;
-
 import com.google.common.collect.Maps;
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
-
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.CreativeModeTab;
@@ -12,6 +9,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import java.util.Map;
 
 public class InjectedOreBlock extends OreBlock {
 	private static final Map<Item, TargetedItemCategoryFiller> FILLER_MAP = Maps.newHashMap();

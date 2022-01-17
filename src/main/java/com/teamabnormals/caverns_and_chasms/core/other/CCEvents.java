@@ -3,14 +3,22 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
-import com.teamabnormals.caverns_and_chasms.common.entity.*;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import net.minecraft.core.*;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +29,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.*;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,14 +39,21 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.goat.Goat;
-import net.minecraft.world.entity.animal.horse.*;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ToolActions;
@@ -44,7 +61,12 @@ import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
@@ -53,7 +75,9 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Random;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -314,7 +338,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if (event.getPotionEffect().getEffect() == CCEffects.REWIND.get() && !entity.hasEffect(CCEffects.REWIND.get())) {
+		if (event.getPotionEffect().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND.get())) {
 			CompoundTag data = entity.getPersistentData();
 			data.putString("RewindDimension", entity.getCommandSenderWorld().dimension().location().toString());
 			data.putDouble("RewindX", entity.getX());
@@ -327,12 +351,12 @@ public class CCEvents {
 	public static void potionApplicableEvent(PotionEvent.PotionApplicableEvent event) {
 		LivingEntity entity = event.getEntityLiving();
 
-		if (event.getResult() != Result.DENY && event.getPotionEffect().getEffect() == CCEffects.AFFLICTION.get()) {
-			if (entity.getEffect(CCEffects.AFFLICTION.get()) != null) {
-				MobEffectInstance affliction = entity.getEffect(CCEffects.AFFLICTION.get());
+		if (event.getResult() != Result.DENY && event.getPotionEffect().getEffect() == CCMobEffects.AFFLICTION.get()) {
+			if (entity.getEffect(CCMobEffects.AFFLICTION.get()) != null) {
+				MobEffectInstance affliction = entity.getEffect(CCMobEffects.AFFLICTION.get());
 				if (affliction.getAmplifier() < 9) {
 					MobEffectInstance upgrade = new MobEffectInstance(affliction.getEffect(), affliction.getDuration() + 10, affliction.getAmplifier() + 1, affliction.isAmbient(), affliction.isVisible(), affliction.showIcon());
-					entity.removeEffectNoUpdate(CCEffects.AFFLICTION.get());
+					entity.removeEffectNoUpdate(CCMobEffects.AFFLICTION.get());
 					entity.addEffect(upgrade);
 
 					event.setResult(Result.DENY);
@@ -348,11 +372,11 @@ public class CCEvents {
 			MobEffect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
+			if (effect == CCMobEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
 				entity.hurt(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
 			}
 
-			if (effect == CCEffects.REWIND.get()) {
+			if (effect == CCMobEffects.REWIND.get()) {
 				CompoundTag data = entity.getPersistentData();
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
 					if (data.contains("RewindDimension")) {
@@ -382,11 +406,11 @@ public class CCEvents {
 			MobEffect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
+			if (effect == CCMobEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
 				entity.hurt(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
 			}
 
-			if (effect == CCEffects.REWIND.get()) {
+			if (effect == CCMobEffects.REWIND.get()) {
 				CompoundTag data = entity.getPersistentData();
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
 					if (data.contains("RewindDimension")) {
@@ -442,7 +466,7 @@ public class CCEvents {
 
 			if (rand.nextFloat() < afflictionChance) {
 				if (attacker.isInvertedHealAndHarm())
-					attacker.addEffect(new MobEffectInstance(CCEffects.AFFLICTION.get(), 60));
+					attacker.addEffect(new MobEffectInstance(CCMobEffects.AFFLICTION.get(), 60));
 			}
 
 			if (weaknessAmount > 0.0F) {
@@ -469,8 +493,8 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void livingDeathEvent(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if (event.getSource() == CCDamageSources.AFFLICTION && entity.hasEffect(CCEffects.AFFLICTION.get())) {
-			MobEffectInstance effectInstance = entity.getEffect(CCEffects.AFFLICTION.get());
+		if (event.getSource() == CCDamageSources.AFFLICTION && entity.hasEffect(CCMobEffects.AFFLICTION.get())) {
+			MobEffectInstance effectInstance = entity.getEffect(CCMobEffects.AFFLICTION.get());
 
 			AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(entity.level, entity.getX(), entity.getY(), entity.getZ());
 			areaeffectcloudentity.setRadius(3.5F);
