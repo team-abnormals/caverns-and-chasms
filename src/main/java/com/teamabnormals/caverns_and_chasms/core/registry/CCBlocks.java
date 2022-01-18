@@ -39,7 +39,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new InjectedOreBlock(Items.NETHER_QUARTZ_ORE, Block.Properties.copy(Blocks.SOUL_SOIL), UniformInt.of(0, 1)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new InjectedBlock(Items.RAW_GOLD_BLOCK, BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(50, CCProperties.SILVER_PRESSURE_PLATE), CreativeModeTab.TAB_REDSTONE);
+	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new MediumWeightedPressurePlateBlock(CCProperties.SILVER_PRESSURE_PLATE), CreativeModeTab.TAB_REDSTONE);
 	public static final RegistryObject<Block> SILVER_BUTTON = HELPER.createCompatBlock("quark", "silver_button", () -> new SilverButtonBlock(CCProperties.SILVER_BUTTON), CreativeModeTab.TAB_REDSTONE);
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)), CreativeModeTab.TAB_TRANSPORTATION);
 

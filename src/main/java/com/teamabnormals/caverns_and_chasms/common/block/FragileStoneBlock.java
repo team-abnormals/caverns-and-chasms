@@ -24,7 +24,7 @@ public class FragileStoneBlock extends Block {
 
 	@Override
 	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockentity, ItemStack stack) {
-		if (!level.isClientSide && !player.isCreative() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
+		if (!level.isClientSide() && !player.isCreative() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
 			breakNeighbors(level, pos);
 		}
 		super.playerDestroy(level, player, pos, state, blockentity, stack);
@@ -32,7 +32,7 @@ public class FragileStoneBlock extends Block {
 
 	@Override
 	public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			breakNeighbors(level, pos);
 		}
 	}

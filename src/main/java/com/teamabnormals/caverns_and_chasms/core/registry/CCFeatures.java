@@ -52,7 +52,7 @@ public class CCFeatures {
 		public static final ConfiguredFeature<?, ?> ORE_SPINEL = register("ore_spinel", Feature.ORE.configured(new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7)));
 		public static final ConfiguredFeature<?, ?> ORE_SPINEL_BURIED = register("ore_spinel_buried", Feature.ORE.configured(new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7, 1.0F)));
 		public static final ConfiguredFeature<?, ?> ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCFeatures.ORE_WITH_DIRT.get().configured(new OreConfiguration(OreFeatures.NATURAL_STONE, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33)));
-		public static final ConfiguredFeature<?, ?> ORE_FRAGILE_STONE = register("ore_fragile_stone", Feature.ORE.configured(new OreConfiguration(OreFeatures.STONE_ORE_REPLACEABLES, CCBlocks.FRAGILE_STONE.get().defaultBlockState(), 33)));
+		public static final ConfiguredFeature<?, ?> ORE_FRAGILE_STONE = register("ore_fragile_stone", Feature.ORE.configured(new OreConfiguration(OreFeatures.STONE_ORE_REPLACEABLES, CCBlocks.FRAGILE_STONE.get().defaultBlockState(), 48, 0.7F)));
 
 		public static final ConfiguredFeature<?, ?> AZALEA_TREE = register("azalea_tree", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build()));
 
@@ -69,7 +69,7 @@ public class CCFeatures {
 		public static final PlacedFeature ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL.placed(commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32)))));
 		public static final PlacedFeature ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED.placed(commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64)))));
 		public static final PlacedFeature ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCConfiguredFeatures.ORE_ROCKY_DIRT.placed(commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160)))));
-		public static final PlacedFeature ORE_FRAGILE_STONE = register("ore_fragile_stone", CCConfiguredFeatures.ORE_FRAGILE_STONE.placed(commonOrePlacement(5, HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(60)))));
+		public static final PlacedFeature ORE_FRAGILE_STONE = register("ore_fragile_stone", CCConfiguredFeatures.ORE_FRAGILE_STONE.placed(commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(60)))));
 
 		private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
 			return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
