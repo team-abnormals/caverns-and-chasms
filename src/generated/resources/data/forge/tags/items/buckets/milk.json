@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:milk_bucket",
     "caverns_and_chasms:golden_milk_bucket"
   ]
 }

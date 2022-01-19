@@ -29,11 +29,6 @@ public class CCItemTags {
 	public static final Tag.Named<Item> COOKED_FISHES = TagUtil.forgeItemTag("cooked_fishes");
 	public static final Tag.Named<Item> COOKED_FISHES_CAVEFISH = TagUtil.forgeItemTag("cooked_fishes/cavefish");
 
-	public static final Tag.Named<Item> BUCKETS_WATER = TagUtil.forgeItemTag("buckets/water");
-	public static final Tag.Named<Item> BUCKETS_LAVA = TagUtil.forgeItemTag("buckets/lava");
-	public static final Tag.Named<Item> BUCKETS_MILK = TagUtil.forgeItemTag("buckets/milk");
-	public static final Tag.Named<Item> BUCKETS_POWDER_SNOW = TagUtil.forgeItemTag("buckets/powder_snow");
-
 	public static final Tag.Named<Item> ORES_AMETHYST = TagUtil.forgeItemTag("ores/amethyst");
 	public static final Tag.Named<Item> ORES_SILVER = TagUtil.forgeItemTag("ores/silver");
 	public static final Tag.Named<Item> ORES_SPINEL = TagUtil.forgeItemTag("ores/spinel");
