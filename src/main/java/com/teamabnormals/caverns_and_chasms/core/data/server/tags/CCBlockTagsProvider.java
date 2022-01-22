@@ -13,8 +13,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class CCBlockTagsProvider extends BlockTagsProvider {
 
-	public CCBlockTagsProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, CavernsAndChasms.MOD_ID, existingFileHelper);
+	public CCBlockTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
+		super(generator, CavernsAndChasms.MOD_ID, fileHelper);
 	}
 
 	@Override
