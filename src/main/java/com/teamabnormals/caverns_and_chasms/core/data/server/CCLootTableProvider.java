@@ -67,14 +67,32 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public void addTables() {
+			this.add(SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
+			this.add(DEEPSLATE_SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
+			this.add(SOUL_SILVER_ORE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
+			this.add(SPINEL_ORE.get(), CCBlockLoot::createSpinelOreDrops);
+			this.add(DEEPSLATE_SPINEL_ORE.get(), CCBlockLoot::createSpinelOreDrops);
+
+			this.dropWhenSilkTouch(FRAGILE_STONE.get());
+			this.add(ROCKY_DIRT.get(), (block) -> LootTable.lootTable().withPool(LootPool.lootPool().add(AlternativesEntry.alternatives(LootItem.lootTableItem(ROCKY_DIRT.get()).when(HAS_SILK_TOUCH), LootItem.lootTableItem(Items.COBBLESTONE).when(HAS_PICKAXE), LootItem.lootTableItem(Items.DIRT).when(HAS_SHOVEL), applyExplosionCondition(ROCKY_DIRT.get(), LootItem.lootTableItem(ROCKY_DIRT.get()))))));
+			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
+			this.dropSelf(GRAVESTONE.get());
+			this.dropSelf(NECROMIUM_BLOCK.get());
+
 			this.dropSelf(SILVER_BLOCK.get());
 			this.dropSelf(RAW_SILVER_BLOCK.get());
 			this.dropSelf(MEDIUM_WEIGHTED_PRESSURE_PLATE.get());
 			this.dropSelf(SILVER_BUTTON.get());
 			this.dropSelf(SPIKED_RAIL.get());
-
 			this.dropSelf(SILVER_BARS.get());
+			this.dropSelf(BRAZIER.get());
+			this.dropSelf(SOUL_BRAZIER.get());
+			this.dropSelf(ENDER_BRAZIER.get());
+			this.dropSelf(CURSED_BRAZIER.get());
+
 			this.dropSelf(GOLDEN_BARS.get());
+			this.dropSelf(GOLDEN_LANTERN.get());
+
 			this.dropSelf(COPPER_BARS.get());
 			this.dropSelf(EXPOSED_COPPER_BARS.get());
 			this.dropSelf(WEATHERED_COPPER_BARS.get());
@@ -84,55 +102,33 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_COPPER_BARS.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_BARS.get());
 
-			this.dropWhenSilkTouch(FRAGILE_STONE.get());
-
-			this.add(SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
-			this.add(DEEPSLATE_SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
-			this.add(SPINEL_ORE.get(), CCBlockLoot::createSpinelOreDrops);
-			this.add(DEEPSLATE_SPINEL_ORE.get(), CCBlockLoot::createSpinelOreDrops);
-			this.add(SOUL_SILVER_ORE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
-
-			this.add(ROCKY_DIRT.get(), (block) -> LootTable.lootTable().withPool(LootPool.lootPool().add(AlternativesEntry.alternatives(
-					LootItem.lootTableItem(ROCKY_DIRT.get()).when(HAS_SILK_TOUCH),
-					LootItem.lootTableItem(Items.COBBLESTONE).when(HAS_PICKAXE),
-					LootItem.lootTableItem(Items.DIRT).when(HAS_SHOVEL),
-					applyExplosionCondition(ROCKY_DIRT.get(), LootItem.lootTableItem(ROCKY_DIRT.get()))))));
-
-			this.dropSelf(BRAZIER.get());
-			this.dropSelf(SOUL_BRAZIER.get());
-			this.dropSelf(ENDER_BRAZIER.get());
-			this.dropSelf(CURSED_BRAZIER.get());
-
-			this.dropSelf(COBBLESTONE_BRICKS.get());
-			this.dropSelf(COBBLESTONE_BRICK_STAIRS.get());
-			this.dropSelf(COBBLESTONE_BRICK_WALL.get());
-			this.add(COBBLESTONE_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
-			this.add(COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-
-			this.dropSelf(COBBLESTONE_TILES.get());
-			this.dropSelf(COBBLESTONE_TILE_STAIRS.get());
-			this.dropSelf(COBBLESTONE_TILE_WALL.get());
-			this.add(COBBLESTONE_TILE_SLAB.get(), BlockLoot::createSlabItemTable);
-			this.add(COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-
 			this.dropSelf(DIRT_BRICKS.get());
 			this.dropSelf(DIRT_BRICK_STAIRS.get());
 			this.dropSelf(DIRT_BRICK_WALL.get());
 			this.add(DIRT_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(DIRT_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-
 			this.dropSelf(DIRT_TILES.get());
 			this.dropSelf(DIRT_TILE_STAIRS.get());
 			this.dropSelf(DIRT_TILE_WALL.get());
 			this.add(DIRT_TILE_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(DIRT_TILE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 
+			this.dropSelf(COBBLESTONE_BRICKS.get());
+			this.dropSelf(COBBLESTONE_BRICK_STAIRS.get());
+			this.dropSelf(COBBLESTONE_BRICK_WALL.get());
+			this.add(COBBLESTONE_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+			this.dropSelf(COBBLESTONE_TILES.get());
+			this.dropSelf(COBBLESTONE_TILE_STAIRS.get());
+			this.dropSelf(COBBLESTONE_TILE_WALL.get());
+			this.add(COBBLESTONE_TILE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+
 			this.dropSelf(MOSSY_COBBLESTONE_BRICKS.get());
 			this.dropSelf(MOSSY_COBBLESTONE_BRICK_STAIRS.get());
 			this.dropSelf(MOSSY_COBBLESTONE_BRICK_WALL.get());
 			this.add(MOSSY_COBBLESTONE_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-
 			this.dropSelf(MOSSY_COBBLESTONE_TILES.get());
 			this.dropSelf(MOSSY_COBBLESTONE_TILE_STAIRS.get());
 			this.dropSelf(MOSSY_COBBLESTONE_TILE_WALL.get());
@@ -144,8 +140,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(LAPIS_LAZULI_BRICK_WALL.get());
 			this.add(LAPIS_LAZULI_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(LAPIS_LAZULI_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-			this.dropSelf(LAPIS_LAZULI_LAMP.get());
 			this.dropSelf(LAPIS_LAZULI_PILLAR.get());
+			this.dropSelf(LAPIS_LAZULI_LAMP.get());
 
 			this.dropSelf(SPINEL_BLOCK.get());
 			this.dropSelf(SPINEL_BRICKS.get());
@@ -153,9 +149,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SPINEL_BRICK_WALL.get());
 			this.add(SPINEL_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(SPINEL_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-			this.dropSelf(SPINEL_LAMP.get());
 			this.dropSelf(SPINEL_PILLAR.get());
-			this.dropSelf(SPINEL_BRICKS.get());
+			this.dropSelf(SPINEL_LAMP.get());
 
 			this.dropSelf(SANGUINE_PLATES.get());
 			this.dropSelf(SANGUINE_STAIRS.get());
@@ -167,12 +162,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CURSED_TORCH.get());
 			this.dropOther(CURSED_WALL_TORCH.get(), CURSED_TORCH.get());
 			this.add(CURSED_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ROTTEN_FLESH_BLOCK.get().asItem()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
-
-			this.dropSelf(GOLDEN_LANTERN.get());
-
-			this.dropSelf(GRAVESTONE.get());
-			this.dropSelf(NECROMIUM_BLOCK.get());
-			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 
 			this.dropSelf(AZALEA_PLANKS.get());
 			this.dropSelf(AZALEA_LOG.get());
@@ -194,7 +183,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(AZALEA_LADDER.get());
 			this.dropSelf(AZALEA_LEAF_CARPET.get());
 			this.dropSelf(FLOWERING_AZALEA_LEAF_CARPET.get());
-
 			this.add(AZALEA_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(AZALEA_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 			this.add(AZALEA_DOOR.get(), BlockLoot::createDoorTable);
