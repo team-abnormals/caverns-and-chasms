@@ -11,6 +11,14 @@
   "block.caverns_and_chasms.waxed_weathered_copper_bars": "Waxed Weathered Copper Bars",
   "block.caverns_and_chasms.weathered_copper_bars": "Weathered Copper Bars",
   "block.caverns_and_chasms.fragile_stone": "Fragile Stone",
+  "block.caverns_and_chasms.copper_button": "Copper Button",
+  "block.caverns_and_chasms.exposed_copper_button": "Exposed Copper Button",
+  "block.caverns_and_chasms.weathered_copper_button": "Weathered Copper Button",
+  "block.caverns_and_chasms.oxidized_copper_button": "Oxidized Copper Button",
+  "block.caverns_and_chasms.waxed_copper_button": "Waxed Copper Button",
+  "block.caverns_and_chasms.waxed_exposed_copper_button": "Waxed Exposed Copper Button",
+  "block.caverns_and_chasms.waxed_weathered_copper_button": "Waxed Weathered Copper Button",
+  "block.caverns_and_chasms.waxed_oxidized_copper_button": "Waxed Oxidized Copper Button",
   "item.caverns_and_chasms.raw_silver": "Raw Silver",
 
   "block.caverns_and_chasms.silver_block": "Block of Silver",
@@ -229,6 +237,7 @@
   "entity.caverns_and_chasms.juggernaut": "Juggernaut",
   "entity.caverns_and_chasms.fly": "Fly",
   "entity.caverns_and_chasms.rat": "Rat",
+  "entity.caverns_and_chasms.copper_golem": "Copper Golem",
   "entity.caverns_and_chasms.kunai": "Kunai",
 
   "effect.caverns_and_chasms.rewind": "Rewind",

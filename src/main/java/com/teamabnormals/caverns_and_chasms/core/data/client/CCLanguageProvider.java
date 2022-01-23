@@ -32,6 +32,15 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
 		this.add(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
 
+		this.add(CCBlocks.COPPER_BUTTON.get());
+		this.add(CCBlocks.EXPOSED_COPPER_BUTTON.get());
+		this.add(CCBlocks.WEATHERED_COPPER_BUTTON.get());
+		this.add(CCBlocks.OXIDIZED_COPPER_BUTTON.get());
+		this.add(CCBlocks.WAXED_COPPER_BUTTON.get());
+		this.add(CCBlocks.WAXED_EXPOSED_COPPER_BUTTON.get());
+		this.add(CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
+		this.add(CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
+
 		this.add(CCBlocks.FRAGILE_STONE.get());
 	}
 

@@ -116,6 +116,15 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_COPPER_BARS.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_BARS.get());
 
+			this.dropSelf(COPPER_BUTTON.get());
+			this.dropSelf(EXPOSED_COPPER_BUTTON.get());
+			this.dropSelf(WEATHERED_COPPER_BUTTON.get());
+			this.dropSelf(OXIDIZED_COPPER_BUTTON.get());
+			this.dropSelf(WAXED_COPPER_BUTTON.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_BUTTON.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_BUTTON.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_BUTTON.get());
+
 			this.dropSelf(DIRT_BRICKS.get());
 			this.dropSelf(DIRT_BRICK_STAIRS.get());
 			this.dropSelf(DIRT_BRICK_WALL.get());

@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
@@ -16,6 +17,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
+
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -24,6 +27,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -53,6 +57,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
+import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -301,6 +308,37 @@ public class CCEvents {
 							currentPos.set(nextPos);
 						}
 					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onEntityPlaceBlock(BlockEvent.EntityPlaceEvent event) {
+		if (event.getEntity() != null) {
+			Level level = event.getEntity().getLevel();
+			BlockPos pos = event.getPos();
+			BlockState placedblock = event.getPlacedBlock();
+
+			if (placedblock.getBlock() == Blocks.LIGHTNING_ROD && placedblock.getValue(LightningRodBlock.FACING) == Direction.UP) {
+				BlockPos pos1 = pos.below();
+				BlockState state = level.getBlockState(pos1);
+				if (state.getBlock() instanceof CarvedPumpkinBlock) {
+					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+					level.setBlock(pos1, Blocks.AIR.defaultBlockState(), 2);
+					level.levelEvent(2001, pos, Block.getId(placedblock));
+					level.levelEvent(2001, pos1, Block.getId(placedblock));
+
+					CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
+					coppergolem.moveTo((double)pos1.getX() + 0.5D, (double)pos1.getY() + 0.05D, (double)pos1.getZ() + 0.5D, 0.0F, 0.0F);
+					level.addFreshEntity(coppergolem);
+
+					for(ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, coppergolem.getBoundingBox().inflate(5.0D))) {
+						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, coppergolem);
+					}
+
+					level.blockUpdated(pos, Blocks.AIR);
+					level.blockUpdated(pos1, Blocks.AIR);
 				}
 			}
 		}

@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.core.util.registry.EntitySubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Cavefish;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
@@ -33,6 +34,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
 	public static final RegistryObject<EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, MobCategory.CREATURE, 0.4F, 0.45F);
+	public static final RegistryObject<EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 1.0F);
 	public static final RegistryObject<EntityType<ThrownSpinelPearl>> SPINEL_PEARL = HELPER.createEntity("spinel_pearl", ThrownSpinelPearl::new, ThrownSpinelPearl::new, MobCategory.MISC, 0.25F, 0.25F);
 
 	@SubscribeEvent
@@ -43,6 +45,7 @@ public class CCEntityTypes {
 		event.put(FLY.get(), Fly.registerAttributes().build());
 		event.put(MIME.get(), Mime.registerAttributes().build());
 		event.put(RAT.get(), Rat.registerAttributes().build());
+		event.put(COPPER_GOLEM.get(), CopperGolem.registerAttributes().build());
 	}
 
 	public static void registerEntitySpawns() {
