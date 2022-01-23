@@ -48,7 +48,7 @@ public class FragileStoneBlock extends Block {
 			BlockPos blockpos = pos.relative(direction);
 			Block block = level.getBlockState(blockpos).getBlock();
 			if (block == CCBlocks.FRAGILE_STONE.get()) {
-				level.scheduleTick(blockpos, block, 3 + level.getRandom().nextInt(2));
+				level.scheduleTick(blockpos, block, 3 + level.getRandom().nextInt(3));
 			}
 		}
 	}

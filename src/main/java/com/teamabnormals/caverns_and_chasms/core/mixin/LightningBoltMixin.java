@@ -1,6 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.teamabnormals.caverns_and_chasms.common.block.WeatheringCopperBarsBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.WeatheringCopperButtonBlock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.Level;
@@ -23,12 +25,20 @@ public final class LightningBoltMixin {
 			BlockState copperState = level.getBlockState(copperPos);
 			if (copperState.getBlock() instanceof WeatheringCopperBarsBlock) {
 				WeatheringCopperBarsBlock.getPrevious(copperState).ifPresent((prevState) -> level.setBlockAndUpdate(copperPos, prevState));
+			} else if (copperState.getBlock() instanceof WeatheringCopperButtonBlock) {
+				WeatheringCopperButtonBlock.getPrevious(copperState).ifPresent((prevState) -> level.setBlockAndUpdate(copperPos, prevState));
 			}
 		}
 	}
 
 	@Redirect(method = "clearCopperOnLightningStrike", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/WeatheringCopper;getFirst(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;"))
 	private static BlockState clearCopperOnLightningStrike(BlockState state) {
-		return state.getBlock() instanceof WeatheringCopperBarsBlock ? WeatheringCopperBarsBlock.getFirst(state) : state;
+		if (state.getBlock() instanceof WeatheringCopperBarsBlock) {
+			return WeatheringCopperBarsBlock.getFirst(state);
+		} else if (state.getBlock() instanceof WeatheringCopperButtonBlock) {
+			return WeatheringCopperButtonBlock.getFirst(state);
+		} else {
+			return state;
+		}
 	}
 }

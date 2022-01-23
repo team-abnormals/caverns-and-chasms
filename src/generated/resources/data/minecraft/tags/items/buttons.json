@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    "caverns_and_chasms:silver_button"
+    "caverns_and_chasms:silver_button",
+    "caverns_and_chasms:copper_button",
+    "caverns_and_chasms:exposed_copper_button",
+    "caverns_and_chasms:weathered_copper_button",
+    "caverns_and_chasms:oxidized_copper_button",
+    "caverns_and_chasms:waxed_copper_button",
+    "caverns_and_chasms:waxed_exposed_copper_button",
+    "caverns_and_chasms:waxed_weathered_copper_button",
+    "caverns_and_chasms:waxed_oxidized_copper_button"
   ]
 }

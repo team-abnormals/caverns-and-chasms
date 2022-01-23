@@ -107,6 +107,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(FlyModel.LOCATION, FlyModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeModel.LOCATION, MimeModel::createLayerDefinition);
 		event.registerLayerDefinition(RatModel.LOCATION, RatModel::createLayerDefinition);
+		event.registerLayerDefinition(CopperGolemModel.LOCATION, CopperGolemModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
 		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(false));
@@ -121,6 +122,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.SPINEL_PEARL.get(), ThrownItemRenderer::new);
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
