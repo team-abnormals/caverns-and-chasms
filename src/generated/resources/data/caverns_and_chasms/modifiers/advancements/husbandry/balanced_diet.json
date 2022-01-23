@@ -1,24 +1,35 @@
 {
-  "advancement": "minecraft:husbandry/balanced_diet",
+  "advancement": {
+    "type": "names",
+    "config": [
+      "minecraft:husbandry/balanced_diet"
+    ],
+    "conditions": []
+  },
+  "priority": "normal",
   "modifiers": [
     {
       "type": "criteria",
       "config": {
         "mode": "modify",
         "criteria": {
-          "caverns_and_chasms:cavefish": {
-            "trigger": "minecraft:consume_item",
-            "conditions": {
-              "item": {
-                "item": "caverns_and_chasms:cavefish"
-              }
-            }
-          },
           "caverns_and_chasms:cooked_cavefish": {
             "trigger": "minecraft:consume_item",
             "conditions": {
               "item": {
-                "item": "caverns_and_chasms:cavefish"
+                "items": [
+                  "caverns_and_chasms:cooked_cavefish"
+                ]
+              }
+            }
+          },
+          "caverns_and_chasms:cavefish": {
+            "trigger": "minecraft:consume_item",
+            "conditions": {
+              "item": {
+                "items": [
+                  "caverns_and_chasms:cavefish"
+                ]
               }
             }
           }

@@ -1,5 +1,12 @@
 {
-  "advancement": "minecraft:husbandry/fishy_business",
+  "advancement": {
+    "type": "names",
+    "config": [
+      "minecraft:husbandry/fishy_business"
+    ],
+    "conditions": []
+  },
+  "priority": "normal",
   "modifiers": [
     {
       "type": "indexed_requirements",
@@ -11,15 +18,15 @@
             "trigger": "minecraft:fishing_rod_hooked",
             "conditions": {
               "item": {
-                "item": "caverns_and_chasms:cavefish"
+                "items": [
+                  "caverns_and_chasms:cavefish"
+                ]
               }
             }
           }
         },
         "requirements": [
-          [
-            "caverns_and_chasms:cavefish"
-          ]
+          "caverns_and_chasms:cavefish"
         ]
       }
     }

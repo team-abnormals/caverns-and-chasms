@@ -7,8 +7,10 @@ import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploade
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.CCAdvancementProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifiersProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifiersProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBlockTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCEntityTypeTagsProvider;
@@ -91,7 +93,9 @@ public class CavernsAndChasms {
 			generator.addProvider(new CCEntityTypeTagsProvider(generator, fileHelper));
 			generator.addProvider(new CCRecipeProvider(generator));
 			generator.addProvider(new CCLootTableProvider(generator));
-			generator.addProvider(CCLootModifiersProvider.createLootModifierDataProvider(generator));
+			generator.addProvider(new CCAdvancementProvider(generator, fileHelper));
+			generator.addProvider(CCLootModifiersProvider.createDataProvider(generator));
+			generator.addProvider(CCAdvancementModifiersProvider.createDataProvider(generator));
 		}
 
 		if (event.includeClient()) {

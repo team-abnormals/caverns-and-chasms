@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CCLootModifiersProvider {
-	public static ModifierDataProvider<LootTableLoadEvent, Gson, Pair<Gson, PredicateManager>> createLootModifierDataProvider(DataGenerator dataGenerator) {
+	public static ModifierDataProvider<LootTableLoadEvent, Gson, Pair<Gson, PredicateManager>> createDataProvider(DataGenerator dataGenerator) {
 		return LootModifiers.createDataProvider(dataGenerator, "Loot Modifiers", CavernsAndChasms.MOD_ID,
 				createModifierEntry("shipwreck_map", false, 1, CCItems.DEPTH_GAUGE.get(), 1, BuiltInLootTables.SHIPWRECK_MAP),
 				createModifierEntry("shipwreck_treasure", Collections.singletonList(createModifier(false, 1, CCItems.SPINEL.get(), 20, 1, 10)), BuiltInLootTables.SHIPWRECK_TREASURE),

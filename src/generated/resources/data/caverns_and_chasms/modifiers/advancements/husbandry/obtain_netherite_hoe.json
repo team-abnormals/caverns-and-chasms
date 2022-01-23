@@ -1,5 +1,12 @@
 {
-  "advancement": "minecraft:husbandry/obtain_netherite_hoe",
+  "advancement": {
+    "type": "names",
+    "config": [
+      "minecraft:husbandry/obtain_netherite_hoe"
+    ],
+    "conditions": []
+  },
+  "priority": "normal",
   "modifiers": [
     {
       "type": "display",
@@ -16,7 +23,7 @@
         "mode": "modify",
         "index": 0,
         "criteria": {
-          "necromium_hoe": {
+          "caverns_and_chasms:necromium_hoe": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
               "items": [
@@ -30,9 +37,7 @@
           }
         },
         "requirements": [
-          [
-            "necromium_hoe"
-          ]
+          "caverns_and_chasms:necromium_hoe"
         ]
       }
     }

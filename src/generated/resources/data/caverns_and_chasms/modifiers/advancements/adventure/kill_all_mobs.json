@@ -1,11 +1,17 @@
 {
-  "advancement": "minecraft:adventure/kill_a_mob",
+  "advancement": {
+    "type": "names",
+    "config": [
+      "minecraft:adventure/kill_all_mobs"
+    ],
+    "conditions": []
+  },
+  "priority": "normal",
   "modifiers": [
     {
-      "type": "indexed_requirements",
+      "type": "criteria",
       "config": {
         "mode": "modify",
-        "index": 0,
         "criteria": {
           "caverns_and_chasms:deeper": {
             "trigger": "minecraft:player_killed_entity",

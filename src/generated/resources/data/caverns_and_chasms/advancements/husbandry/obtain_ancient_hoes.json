@@ -6,10 +6,10 @@
       "nbt": "{Damage:0}"
     },
     "title": {
-      "translate": "advancements.caverns_and_chasms.husbandry.ancient_hoes.title"
+      "translate": "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.title"
     },
     "description": {
-      "translate": "advancements.caverns_and_chasms.husbandry.ancient_hoes.description"
+      "translate": "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.description"
     },
     "frame": "challenge",
     "show_toast": true,
