@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:spinel"
+    ]
+  },
+  "criteria": {
+    "has_spinel_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:spinel_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caverns_and_chasms:spinel"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spinel_block",
+      "has_the_recipe"
+    ]
+  ]
+}
