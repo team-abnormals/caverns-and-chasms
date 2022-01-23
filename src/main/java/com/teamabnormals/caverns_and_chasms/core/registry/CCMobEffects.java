@@ -20,7 +20,6 @@ public class CCMobEffects {
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<MobEffect> REWIND = MOB_EFFECTS.register("rewind", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0xCE65B4));
-	public static final RegistryObject<MobEffect> AFFLICTION = MOB_EFFECTS.register("affliction", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0x677A95));
 
 	public static final RegistryObject<Potion> REWIND_NORMAL = POTIONS.register("rewind", () -> new Potion(new MobEffectInstance(REWIND.get(), 400)));
 	public static final RegistryObject<Potion> REWIND_LONG = POTIONS.register("rewind_long", () -> new Potion(new MobEffectInstance(REWIND.get(), 800)));

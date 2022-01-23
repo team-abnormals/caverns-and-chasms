@@ -7,6 +7,8 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.silver.AfflictingItem;
+import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
@@ -32,7 +34,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -71,7 +78,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -348,33 +354,11 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionApplicableEvent(PotionEvent.PotionApplicableEvent event) {
-		LivingEntity entity = event.getEntityLiving();
-
-		if (event.getResult() != Result.DENY && event.getPotionEffect().getEffect() == CCMobEffects.AFFLICTION.get()) {
-			if (entity.getEffect(CCMobEffects.AFFLICTION.get()) != null) {
-				MobEffectInstance affliction = entity.getEffect(CCMobEffects.AFFLICTION.get());
-				if (affliction.getAmplifier() < 9) {
-					MobEffectInstance upgrade = new MobEffectInstance(affliction.getEffect(), affliction.getDuration() + 10, affliction.getAmplifier() + 1, affliction.isAmbient(), affliction.isVisible(), affliction.showIcon());
-					entity.removeEffectNoUpdate(CCMobEffects.AFFLICTION.get());
-					entity.addEffect(upgrade);
-
-					event.setResult(Result.DENY);
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public static void potionRemoveEvent(PotionEvent.PotionRemoveEvent event) {
 		MobEffectInstance effectInstance = event.getPotionEffect();
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntityLiving();
-
-			if (effect == CCMobEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
-				entity.hurt(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
-			}
 
 			if (effect == CCMobEffects.REWIND.get()) {
 				CompoundTag data = entity.getPersistentData();
@@ -406,10 +390,6 @@ public class CCEvents {
 			MobEffect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntityLiving();
 
-			if (effect == CCMobEffects.AFFLICTION.get() && entity.isInvertedHealAndHarm()) {
-				entity.hurt(CCDamageSources.AFFLICTION, (effectInstance.getAmplifier() + 1) * 3);
-			}
-
 			if (effect == CCMobEffects.REWIND.get()) {
 				CompoundTag data = entity.getPersistentData();
 				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
@@ -436,19 +416,17 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingDamage(LivingHurtEvent event) {
 		LivingEntity target = event.getEntityLiving();
-		Random rand = new Random();
 
 		if (event.getSource().getEntity() instanceof LivingEntity attacker) {
-			float afflictionChance = 0.0F;
 			float weaknessAmount = 0.0F;
 			float lifeStealAmount = 0.0F;
 
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				ItemStack stack = target.getItemBySlot(slot);
 
-				Collection<AttributeModifier> afflictionModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.AFFLICTION_CHANCE.get());
-				if (!afflictionModifiers.isEmpty())
-					afflictionChance += afflictionModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+				if (stack.getItem() instanceof AfflictingItem afflictingItem && !target.level.isClientSide()) {
+					afflictingItem.causeAfflictionDamage(attacker, true);
+				}
 
 				Collection<AttributeModifier> weaknessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.WEAKNESS_AURA.get());
 				if (!weaknessModifiers.isEmpty()) {
@@ -464,47 +442,28 @@ public class CCEvents {
 			if (lifeStealAmount > 0.0F)
 				attacker.heal(lifeStealAmount * event.getAmount());
 
-			if (rand.nextFloat() < afflictionChance) {
-				if (attacker.isInvertedHealAndHarm())
-					attacker.addEffect(new MobEffectInstance(CCMobEffects.AFFLICTION.get(), 60));
-			}
-
 			if (weaknessAmount > 0.0F) {
 				for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(weaknessAmount, 0.0D, weaknessAmount))) {
 					if (entity != target)
 						entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
 				}
 			}
-		}
 
-		if (target instanceof Horse) {
-			Horse horse = (Horse) event.getEntityLiving();
-			for (ItemStack stack : horse.getArmorSlots()) {
-				if (stack.getItem() instanceof NecromiumHorseArmorItem) {
-					for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
-						if (entity != target && !target.hasPassenger(entity))
-							entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
+			if (target instanceof Horse) {
+				Horse horse = (Horse) event.getEntityLiving();
+				for (ItemStack stack : horse.getArmorSlots()) {
+					if (stack.getItem() instanceof NecromiumHorseArmorItem) {
+						for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
+							if (entity != target && !target.hasPassenger(entity))
+								entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
+						}
+					}
+
+					if (stack.getItem() instanceof SilverHorseArmorItem silverHorseArmorItem) {
+						silverHorseArmorItem.causeAfflictionDamage(attacker, true);
 					}
 				}
 			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void livingDeathEvent(LivingDeathEvent event) {
-		LivingEntity entity = event.getEntityLiving();
-		if (event.getSource() == CCDamageSources.AFFLICTION && entity.hasEffect(CCMobEffects.AFFLICTION.get())) {
-			MobEffectInstance effectInstance = entity.getEffect(CCMobEffects.AFFLICTION.get());
-
-			AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(entity.level, entity.getX(), entity.getY(), entity.getZ());
-			areaeffectcloudentity.setRadius(3.5F);
-			areaeffectcloudentity.setRadiusOnUse(-0.5F);
-			areaeffectcloudentity.setWaitTime(10);
-			areaeffectcloudentity.setDuration(100);
-			areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float) areaeffectcloudentity.getDuration());
-			areaeffectcloudentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, effectInstance.getAmplifier()));
-
-			entity.getCommandSenderWorld().addFreshEntity(areaeffectcloudentity);
 		}
 	}
 

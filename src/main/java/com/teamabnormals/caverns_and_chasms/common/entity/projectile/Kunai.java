@@ -1,9 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
+import com.teamabnormals.caverns_and_chasms.common.item.silver.AfflictingItem;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,7 +11,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,7 +27,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
-public class Kunai extends AbstractArrow implements ItemSupplier {
+public class Kunai extends AbstractArrow implements ItemSupplier, AfflictingItem {
 
 	public Kunai(EntityType<? extends Kunai> type, Level worldIn) {
 		super(type, worldIn);
@@ -45,8 +44,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 	@Override
 	protected void doPostHurtEffects(LivingEntity living) {
 		super.doPostHurtEffects(living);
-		if (living.isInvertedHealAndHarm())
-			living.addEffect(new MobEffectInstance(CCMobEffects.AFFLICTION.get(), 60));
+		this.causeAfflictionDamage(living);
 	}
 
 	@Override

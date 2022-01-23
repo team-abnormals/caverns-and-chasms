@@ -82,21 +82,21 @@ public class CavernsAndChasms {
 
 	private void dataSetup(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();
-		ExistingFileHelper helper = event.getExistingFileHelper();
+		ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-			CCBlockTagsProvider blockTagGen = new CCBlockTagsProvider(generator, helper);
-			generator.addProvider(blockTagGen);
-			generator.addProvider(new CCItemTagsProvider(generator, blockTagGen, helper));
-			generator.addProvider(new CCEntityTypeTagsProvider(generator, helper));
+			CCBlockTagsProvider blockTags = new CCBlockTagsProvider(generator, fileHelper);
+			generator.addProvider(blockTags);
+			generator.addProvider(new CCItemTagsProvider(generator, blockTags, fileHelper));
+			generator.addProvider(new CCEntityTypeTagsProvider(generator, fileHelper));
 			generator.addProvider(new CCRecipeProvider(generator));
 			generator.addProvider(new CCLootTableProvider(generator));
 			generator.addProvider(CCLootModifiersProvider.createLootModifierDataProvider(generator));
 		}
 
 		if (event.includeClient()) {
-			generator.addProvider(new CCItemModelProvider(generator, helper));
-			generator.addProvider(new CCBlockStateProvider(generator, helper));
+			generator.addProvider(new CCItemModelProvider(generator, fileHelper));
+			generator.addProvider(new CCBlockStateProvider(generator, fileHelper));
 			//generator.addProvider(new CCLanguageProvider(generator));
 		}
 	}

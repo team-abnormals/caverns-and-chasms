@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.DamageProvider;
+import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.SparkProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.FlameParticle;
@@ -24,6 +26,8 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> CURSED_AMBIENT = createBasicParticleType(true, "cursed_ambient");
 	public static final RegistryObject<SimpleParticleType> MIME_ENERGY = createBasicParticleType(true, "mime_energy");
 	public static final RegistryObject<SimpleParticleType> MIME_SPARK = createBasicParticleType(true, "mime_spark");
+	public static final RegistryObject<SimpleParticleType> AFFLICTION_DAMAGE = createBasicParticleType(true, "affliction_damage");
+	public static final RegistryObject<SimpleParticleType> AFFLICTION_SPARK = createBasicParticleType(true, "affliction_spark");
 
 	private static RegistryObject<SimpleParticleType> createBasicParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -36,5 +40,7 @@ public class CCParticleTypes {
 		manager.register(CURSED_AMBIENT.get(), LavaParticle.Provider::new);
 		manager.register(MIME_ENERGY.get(), PlayerCloudParticle.Provider::new);
 		manager.register(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
+		manager.register(AFFLICTION_DAMAGE.get(), DamageProvider::new);
+		manager.register(AFFLICTION_SPARK.get(), SparkProvider::new);
 	}
 }

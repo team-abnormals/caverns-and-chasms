@@ -10,7 +10,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class CCAttributes {
 	public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<Attribute> AFFLICTION_CHANCE = register("affliction_chance", 0.0D, 0.0D, 1.0D);
 	public static final RegistryObject<Attribute> WEAKNESS_AURA = register("weakness_aura", 0.0D, 0.0D, 30.0D);
 	public static final RegistryObject<Attribute> LIFESTEAL = register("lifesteal", 0.0D, 0.0D, 5.0D);
 

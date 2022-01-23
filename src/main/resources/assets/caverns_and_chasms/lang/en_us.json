@@ -232,7 +232,6 @@
   "entity.caverns_and_chasms.kunai": "Kunai",
 
   "effect.caverns_and_chasms.rewind": "Rewind",
-  "effect.caverns_and_chasms.affliction": "Affliction",
 
   "death.attack.caverns_and_chasms.affliction": "%1$s was afflicted",
   "death.attack.caverns_and_chasms.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
@@ -243,8 +242,6 @@
   "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
   "death.attack.caverns_and_chasms.kunai.item": "%1$s was stabbed by %2$s using %3$s",
 
-  "attribute.caverns_and_chasms.name.generic.affliction_chance": "Affliction Chance",
-  "attribute.caverns_and_chasms.name.generic.experience_boost": "Experience Boost",
   "attribute.caverns_and_chasms.name.generic.weakness_aura": "Weakness Aura",
   "attribute.caverns_and_chasms.name.generic.lifesteal": "Lifesteal",
 

@@ -1,10 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
+import com.teamabnormals.caverns_and_chasms.common.item.silver.AfflictingItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -13,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
-public class SilverArrow extends AbstractArrow {
+public class SilverArrow extends AbstractArrow implements AfflictingItem {
 
 	public SilverArrow(EntityType<? extends SilverArrow> type, Level worldIn) {
 		super(type, worldIn);
@@ -34,7 +33,7 @@ public class SilverArrow extends AbstractArrow {
 	@Override
 	protected void doPostHurtEffects(LivingEntity living) {
 		super.doPostHurtEffects(living);
-		if (living.isInvertedHealAndHarm()) living.addEffect(new MobEffectInstance(CCMobEffects.AFFLICTION.get(), 60));
+		this.causeAfflictionDamage(living);
 	}
 
 	protected ItemStack getPickupItem() {
