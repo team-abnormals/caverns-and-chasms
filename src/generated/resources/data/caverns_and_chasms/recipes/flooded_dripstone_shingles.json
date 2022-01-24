@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:buckets/water"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    },
+    {
+      "item": "caverns_and_chasms:dripstone_shingles"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:flooded_dripstone_shingles",
+    "count": 8
+  }
+}

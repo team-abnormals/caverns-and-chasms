@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
+import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -99,6 +100,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
 		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
+		ShapelessRecipeBuilder.shapeless(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), 8).requires(BlueprintItemTags.BUCKETS_WATER).requires(CCBlocks.DRIPSTONE_SHINGLES.get(), 8).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer);
 
 		generateRecipes(consumer, AZALEA_PLANKS);
 		planksFromLogs(consumer, CCBlocks.AZALEA_PLANKS.get(), CCItemTags.AZALEA_LOGS);
