@@ -86,6 +86,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(Tags.Items.INGOTS).addTag(CCItemTags.INGOTS_SILVER).addTag(CCItemTags.INGOTS_NECROMIUM);
 		this.tag(Tags.Items.RAW_MATERIALS).addTag(CCItemTags.RAW_MATERIALS_SILVER);
 		this.tag(CCItemTags.RAW_MATERIALS_SILVER).add(CCItems.RAW_SILVER.get());
+		this.tag(CCItemTags.NUGGETS_COPPER).add(CCItems.COPPER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_SILVER).add(CCItems.SILVER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(CCItems.NECROMIUM_NUGGET.get());
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);

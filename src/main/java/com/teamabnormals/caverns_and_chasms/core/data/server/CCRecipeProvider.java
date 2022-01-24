@@ -67,6 +67,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		nineBlockStorageRecipes(consumer, Items.ROTTEN_FLESH, CCBlocks.ROTTEN_FLESH_BLOCK.get());
 		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, CCItems.SILVER_INGOT.get(), CCBlocks.SILVER_BLOCK.get(), "silver_ingot_from_silver_block", "silver_ingot");
 		nineBlockStorageRecipesWithCustomPacking(consumer, CCItems.SILVER_NUGGET.get(), CCItems.SILVER_INGOT.get(), "silver_ingot_from_nuggets", "silver_ingot");
+		nineBlockStorageRecipesWithCustomPacking(consumer, CCItems.COPPER_NUGGET.get(), Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
 
 		oreSmelting(consumer, SILVER_SMELTABLES, CCItems.SILVER_INGOT.get(), 1.0F, 200, "silver_ingot");
 		oreSmelting(consumer, SPINEL_SMELTABLES, CCItems.SPINEL.get(), 0.2F, 200, "spinel");

@@ -21,8 +21,9 @@ public class CCItemTags {
 
 	public static final Tag.Named<Item> RAW_MATERIALS_SILVER = TagUtil.forgeItemTag("raw_materials/silver");
 
-	public static final Tag.Named<Item> NUGGETS_NECROMIUM = TagUtil.forgeItemTag("nuggets/necromium");
+	public static final Tag.Named<Item> NUGGETS_COPPER = TagUtil.forgeItemTag("nuggets/copper");
 	public static final Tag.Named<Item> NUGGETS_SILVER = TagUtil.forgeItemTag("nuggets/silver");
+	public static final Tag.Named<Item> NUGGETS_NECROMIUM = TagUtil.forgeItemTag("nuggets/necromium");
 
 	public static final Tag.Named<Item> RAW_FISHES = TagUtil.forgeItemTag("raw_fishes");
 	public static final Tag.Named<Item> RAW_FISHES_CAVEFISH = TagUtil.forgeItemTag("raw_fishes/cavefish");

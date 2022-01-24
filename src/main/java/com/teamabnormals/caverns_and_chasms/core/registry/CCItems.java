@@ -32,6 +32,7 @@ public class CCItems {
 
 	public static final RegistryObject<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
 	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new InjectedItem(Items.COMPASS, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+	public static final RegistryObject<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 
 	public static final RegistryObject<Item> RAW_SILVER = HELPER.createItem("raw_silver", () -> new InjectedItem(Items.GOLD_INGOT, new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> SILVER_INGOT = HELPER.createItem("silver_ingot", () -> new InjectedItem(Items.GOLD_INGOT, new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));

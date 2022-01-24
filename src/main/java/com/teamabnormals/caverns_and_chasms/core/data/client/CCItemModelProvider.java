@@ -19,6 +19,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
+		this.generated(CCItems.COPPER_NUGGET.get());
 		this.generated(CCItems.RAW_SILVER.get());
 		this.generated(CCItems.SPINEL_PEARL.get());
 		this.generated(CCItems.SPINEL_CROWN.get());

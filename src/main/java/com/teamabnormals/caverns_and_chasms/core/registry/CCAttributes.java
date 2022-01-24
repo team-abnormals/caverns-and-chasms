@@ -14,6 +14,6 @@ public class CCAttributes {
 	public static final RegistryObject<Attribute> LIFESTEAL = register("lifesteal", 0.0D, 0.0D, 5.0D);
 
 	private static RegistryObject<Attribute> register(String name, double defaultValue, double minimumValue, double maximumValue) {
-		return ATTRIBUTES.register(name, () -> new RangedAttribute("attribute." + CavernsAndChasms.MOD_ID + ".name.generic." + name, 0.0D, 0.0D, 5.0D));
+		return ATTRIBUTES.register(name, () -> new RangedAttribute("attribute." + CavernsAndChasms.MOD_ID + ".name.generic." + name, defaultValue, minimumValue, maximumValue));
 	}
 }
