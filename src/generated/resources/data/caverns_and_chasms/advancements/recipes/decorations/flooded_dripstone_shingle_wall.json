@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:flooded_dripstone_shingle_wall"
+    ]
+  },
+  "criteria": {
+    "has_flooded_dripstone_shingles": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:flooded_dripstone_shingles"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "caverns_and_chasms:flooded_dripstone_shingle_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_flooded_dripstone_shingles",
+      "has_the_recipe"
+    ]
+  ]
+}

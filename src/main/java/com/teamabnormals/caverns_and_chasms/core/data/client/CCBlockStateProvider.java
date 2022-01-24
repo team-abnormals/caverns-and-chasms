@@ -45,6 +45,10 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SILVER_ORE.get());
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 
+		this.registerBlockWithVariants(CCBlocks.DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get());
+		this.simpleBlockWithItem(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get());
+		this.registerBlockWithVariants(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get());
+
 		this.registerBars(CCBlocks.COPPER_BARS.get());
 		this.registerBars(CCBlocks.EXPOSED_COPPER_BARS.get());
 		this.registerBars(CCBlocks.WEATHERED_COPPER_BARS.get());
@@ -176,6 +180,12 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerItemModel(stairs);
 		this.registerItemModel(slab);
 		this.registerItemModel(verticalSlab);
+	}
+
+	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block verticalSlab, Block wall) {
+		this.registerBlockWithVariants(block, stairs, slab, verticalSlab);
+		this.wallBlock((WallBlock) wall, blockTexture(block));
+		this.itemModels().getBuilder(name(wall)).parent(this.models().wallInventory(name(wall) + "_inventory", blockTexture(block)));
 	}
 
 	public void registerDoorBlocks(Block door, Block trapdoor) {

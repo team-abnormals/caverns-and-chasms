@@ -76,6 +76,16 @@
     "caverns_and_chasms:waxed_copper_button",
     "caverns_and_chasms:waxed_exposed_copper_button",
     "caverns_and_chasms:waxed_weathered_copper_button",
-    "caverns_and_chasms:waxed_oxidized_copper_button"
+    "caverns_and_chasms:waxed_oxidized_copper_button",
+    "caverns_and_chasms:dripstone_shingles",
+    "caverns_and_chasms:dripstone_shingle_stairs",
+    "caverns_and_chasms:dripstone_shingle_slab",
+    "caverns_and_chasms:dripstone_shingle_wall",
+    "caverns_and_chasms:chiseled_dripstone_shingles",
+    "caverns_and_chasms:flooded_dripstone_shingles",
+    "caverns_and_chasms:flooded_dripstone_shingle_stairs",
+    "caverns_and_chasms:flooded_dripstone_shingle_slab",
+    "caverns_and_chasms:flooded_dripstone_shingle_wall",
+    "caverns_and_chasms:flooded_dripstone_shingle_vertical_slab"
   ]
 }

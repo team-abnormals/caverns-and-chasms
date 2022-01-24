@@ -109,6 +109,18 @@
   "block.caverns_and_chasms.mossy_cobblestone_tile_wall": "Mossy Cobblestone Tile Wall",
   "block.caverns_and_chasms.mossy_cobblestone_tile_vertical_slab": "Mossy Cobblestone Tile Vertical Slab",
 
+  "block.caverns_and_chasms.dripstone_shingles": "Dripstone Shingles",
+  "block.caverns_and_chasms.dripstone_shingle_slab": "Dripstone Shingle Slab",
+  "block.caverns_and_chasms.dripstone_shingle_stairs": "Dripstone Shingle Stairs",
+  "block.caverns_and_chasms.dripstone_shingle_wall": "Dripstone Shingle Wall",
+  "block.caverns_and_chasms.dripstone_shingle_vertical_slab": "Dripstone Shingle Vertical Slab",
+  "block.caverns_and_chasms.chiseled_dripstone_shingles": "Chiseled Dripstone Shingles",
+  "block.caverns_and_chasms.flooded_dripstone_shingles": "Flooded Dripstone Shingles",
+  "block.caverns_and_chasms.flooded_dripstone_shingle_slab": "Flooded Dripstone Shingle Slab",
+  "block.caverns_and_chasms.flooded_dripstone_shingle_stairs": "Flooded Dripstone Shingle Stairs",
+  "block.caverns_and_chasms.flooded_dripstone_shingle_wall": "Flooded Dripstone Shingle Wall",
+  "block.caverns_and_chasms.flooded_dripstone_shingle_vertical_slab": "Flooded Dripstone Shingle Vertical Slab",
+  
   "block.caverns_and_chasms.azalea_beehive": "Azalea Beehive",
   "block.caverns_and_chasms.azalea_bookshelf": "Azalea Bookshelf",
   "block.caverns_and_chasms.azalea_button": "Azalea Button",

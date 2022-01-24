@@ -13,6 +13,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -34,7 +35,10 @@ import java.util.function.Consumer;
 public class CCRecipeProvider extends RecipeProvider {
 	private static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(CCBlocks.SILVER_ORE.get(), CCBlocks.DEEPSLATE_SILVER_ORE.get(), CCBlocks.SOUL_SILVER_ORE.get(), CCItems.RAW_SILVER.get());
 	private static final ImmutableList<ItemLike> SPINEL_SMELTABLES = ImmutableList.of(CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get());
+
 	public static final BlockFamily AZALEA_PLANKS = new BlockFamily.Builder(CCBlocks.AZALEA_PLANKS.get()).button(CCBlocks.AZALEA_BUTTON.get()).fence(CCBlocks.AZALEA_FENCE.get()).fenceGate(CCBlocks.AZALEA_FENCE_GATE.get()).pressurePlate(CCBlocks.AZALEA_PRESSURE_PLATE.get()).sign(CCBlocks.AZALEA_SIGN.getFirst().get(), CCBlocks.AZALEA_SIGN.getSecond().get()).slab(CCBlocks.AZALEA_SLAB.get()).stairs(CCBlocks.AZALEA_STAIRS.get()).door(CCBlocks.AZALEA_DOOR.get()).trapdoor(CCBlocks.AZALEA_TRAPDOOR.get()).recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
+	public static final BlockFamily DRIPSTONE_SHINGLES = new BlockFamily.Builder(CCBlocks.DRIPSTONE_SHINGLES.get()).slab(CCBlocks.DRIPSTONE_SHINGLE_SLAB.get()).stairs(CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get()).wall(CCBlocks.DRIPSTONE_SHINGLE_WALL.get()).chiseled(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get()).getFamily();
+	public static final BlockFamily FLOODED_DRIPSTONE_SHINGLES = new BlockFamily.Builder(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()).slab(CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get()).stairs(CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get()).wall(CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get()).getFamily();
 
 	public CCRecipeProvider(DataGenerator generator) {
 		super(generator);
@@ -73,6 +77,28 @@ public class CCRecipeProvider extends RecipeProvider {
 		oreSmelting(consumer, SPINEL_SMELTABLES, CCItems.SPINEL.get(), 0.2F, 200, "spinel");
 		oreBlasting(consumer, SILVER_SMELTABLES, CCItems.SILVER_INGOT.get(), 1.0F, 100, "silver_ingot");
 		oreBlasting(consumer, SPINEL_SMELTABLES, CCItems.SPINEL.get(), 0.2F, 100, "spinel");
+
+
+		ShapedRecipeBuilder.shaped(CCBlocks.DRIPSTONE_SHINGLES.get(), 4).define('#', Blocks.DRIPSTONE_BLOCK).pattern("##").pattern("##").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
+		generateRecipes(consumer, DRIPSTONE_SHINGLES);
+		//SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get()).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "chiseled_dripstone_shingles_from_dripstone_shingles_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), 2).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "dripstone_shingles_slab_from_dripstone_shingles_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get()).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "dripstone_shingles_stairs_from_dripstone_shingles_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.DRIPSTONE_SHINGLE_WALL.get()).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "dripstone_shingles_wall_from_dripstone_shingles_stonecutting");
+
+		generateRecipes(consumer, FLOODED_DRIPSTONE_SHINGLES);
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), 2).unlockedBy("has_flooded_dripstone_shingles", has(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get())).save(consumer, "flooded_dripstone_shingles_slab_from_flooded_dripstone_shingles_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get()).unlockedBy("has_flooded_dripstone_shingles", has(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get())).save(consumer, "flooded_dripstone_shingles_stairs_from_flooded_dripstone_shingles_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get()).unlockedBy("has_flooded_dripstone_shingles", has(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get())).save(consumer, "flooded_dripstone_shingles_wall_from_flooded_dripstone_shingles_stonecutting");
+
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
 
 		generateRecipes(consumer, AZALEA_PLANKS);
 		planksFromLogs(consumer, CCBlocks.AZALEA_PLANKS.get(), CCItemTags.AZALEA_LOGS);
@@ -118,6 +144,14 @@ public class CCRecipeProvider extends RecipeProvider {
 		nineBlockStorageRecipes(p_176617_, p_176618_, p_176619_, getSimpleRecipeName(p_176619_), null, p_176620_, p_176621_);
 	}
 
+	private static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176736_, ItemLike p_176737_, ItemLike p_176738_) {
+		stonecutterResultFromBase(p_176736_, p_176737_, p_176738_, 1);
+	}
+
+	private static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176547_, ItemLike p_176548_, ItemLike p_176549_, int p_176550_) {
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(p_176549_), p_176548_, p_176550_).unlockedBy(getHasName(p_176549_), has(p_176549_)).save(p_176547_, getConversionRecipeName(p_176548_, p_176549_) + "_stonecutting");
+	}
+	
 	private static void oreSmelting(Consumer<FinishedRecipe> consumer, List<ItemLike> ingredients, ItemLike result, float xp, int cookTime, String group) {
 		oreCooking(consumer, RecipeSerializer.SMELTING_RECIPE, ingredients, result, xp, cookTime, group, "_from_smelting");
 	}

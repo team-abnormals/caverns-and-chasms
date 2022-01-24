@@ -8,6 +8,8 @@
     "caverns_and_chasms:mossy_cobblestone_brick_wall",
     "caverns_and_chasms:mossy_cobblestone_tile_wall",
     "caverns_and_chasms:spinel_brick_wall",
-    "caverns_and_chasms:lapis_brick_wall"
+    "caverns_and_chasms:lapis_brick_wall",
+    "caverns_and_chasms:dripstone_shingle_wall",
+    "caverns_and_chasms:flooded_dripstone_shingle_wall"
   ]
 }

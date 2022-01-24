@@ -160,6 +160,18 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(MOSSY_COBBLESTONE_TILE_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 
+			this.dropSelf(DRIPSTONE_SHINGLES.get());
+			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());
+			this.dropSelf(DRIPSTONE_SHINGLE_WALL.get());
+			this.add(DRIPSTONE_SHINGLE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+			this.dropSelf(CHISELED_DRIPSTONE_SHINGLES.get());
+			this.dropSelf(FLOODED_DRIPSTONE_SHINGLES.get());
+			this.dropSelf(FLOODED_DRIPSTONE_SHINGLE_STAIRS.get());
+			this.dropSelf(FLOODED_DRIPSTONE_SHINGLE_WALL.get());
+			this.add(FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(FLOODED_DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+
 			this.dropSelf(LAPIS_LAZULI_BRICKS.get());
 			this.dropSelf(LAPIS_LAZULI_BRICK_STAIRS.get());
 			this.dropSelf(LAPIS_LAZULI_BRICK_WALL.get());

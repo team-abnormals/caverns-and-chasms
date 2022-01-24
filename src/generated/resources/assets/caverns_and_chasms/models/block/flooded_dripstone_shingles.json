@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "caverns_and_chasms:block/flooded_dripstone_shingles"
+  }
+}
