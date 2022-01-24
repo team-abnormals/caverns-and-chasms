@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:dripstone_shingle_wall_from_dripstone_shingles_stonecutting"
+      "caverns_and_chasms:dripstone_shingle_stairs_from_dripstone_shingles_stonecutting"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:dripstone_shingle_wall_from_dripstone_shingles_stonecutting"
+        "recipe": "caverns_and_chasms:dripstone_shingle_stairs_from_dripstone_shingles_stonecutting"
       }
     }
   },

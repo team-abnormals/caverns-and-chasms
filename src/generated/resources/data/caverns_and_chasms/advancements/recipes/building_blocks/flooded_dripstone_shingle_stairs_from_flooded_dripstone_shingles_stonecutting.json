@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:dripstone_shingle_stairs_from_dripstone_shingles_stonecutting"
+      "caverns_and_chasms:flooded_dripstone_shingle_stairs_from_flooded_dripstone_shingles_stonecutting"
     ]
   },
   "criteria": {
-    "has_dripstone_shingles": {
+    "has_flooded_dripstone_shingles": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "caverns_and_chasms:dripstone_shingles"
+              "caverns_and_chasms:flooded_dripstone_shingles"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:dripstone_shingle_stairs_from_dripstone_shingles_stonecutting"
+        "recipe": "caverns_and_chasms:flooded_dripstone_shingle_stairs_from_flooded_dripstone_shingles_stonecutting"
       }
     }
   },
   "requirements": [
     [
-      "has_dripstone_shingles",
+      "has_flooded_dripstone_shingles",
       "has_the_recipe"
     ]
   ]

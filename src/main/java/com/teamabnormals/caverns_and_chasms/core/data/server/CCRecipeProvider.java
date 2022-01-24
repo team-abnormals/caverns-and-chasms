@@ -81,15 +81,15 @@ public class CCRecipeProvider extends RecipeProvider {
 
 		ShapedRecipeBuilder.shaped(CCBlocks.DRIPSTONE_SHINGLES.get(), 4).define('#', Blocks.DRIPSTONE_BLOCK).pattern("##").pattern("##").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		generateRecipes(consumer, DRIPSTONE_SHINGLES);
-		//SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get()).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "chiseled_dripstone_shingles_from_dripstone_shingles_stonecutting");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), 2).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "dripstone_shingle_slab_from_dripstone_shingles_stonecutting");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get()).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "dripstone_shingle_stairs_from_dripstone_shingles_stonecutting");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.DRIPSTONE_SHINGLES.get()), CCBlocks.DRIPSTONE_SHINGLE_WALL.get()).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer, "dripstone_shingle_wall_from_dripstone_shingles_stonecutting");
+		stonecutterResultFromBase(consumer, CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLES.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
+		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_WALL.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
 
 		generateRecipes(consumer, FLOODED_DRIPSTONE_SHINGLES);
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), 2).unlockedBy("has_flooded_dripstone_shingles", has(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get())).save(consumer, "flooded_dripstone_shingle_slab_from_flooded_dripstone_shingles_stonecutting");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get()).unlockedBy("has_flooded_dripstone_shingles", has(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get())).save(consumer, "flooded_dripstone_shingle_stairs_from_flooded_dripstone_shingles_stonecutting");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get()).unlockedBy("has_flooded_dripstone_shingles", has(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get())).save(consumer, "flooded_dripstone_shingle_wall_from_flooded_dripstone_shingles_stonecutting");
+		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
+		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
 
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
