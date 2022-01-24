@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "caverns_and_chasms:block/flooded_dripstone_shingles",
-    "bottom": "caverns_and_chasms:block/flooded_dripstone_shingles",
-    "top": "caverns_and_chasms:block/flooded_dripstone_shingles"
-  }
-}

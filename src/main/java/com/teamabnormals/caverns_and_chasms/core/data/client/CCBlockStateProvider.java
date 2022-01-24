@@ -47,7 +47,7 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 		this.registerBlockWithVariants(CCBlocks.DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get());
 		this.simpleBlockWithItem(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get());
-		this.registerBlockWithVariants(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get());
+		this.simpleBlockWithItem(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
 
 		this.registerBars(CCBlocks.COPPER_BARS.get());
 		this.registerBars(CCBlocks.EXPOSED_COPPER_BARS.get());

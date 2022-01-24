@@ -39,7 +39,6 @@ public class CCRecipeProvider extends RecipeProvider {
 
 	public static final BlockFamily AZALEA_PLANKS = new BlockFamily.Builder(CCBlocks.AZALEA_PLANKS.get()).button(CCBlocks.AZALEA_BUTTON.get()).fence(CCBlocks.AZALEA_FENCE.get()).fenceGate(CCBlocks.AZALEA_FENCE_GATE.get()).pressurePlate(CCBlocks.AZALEA_PRESSURE_PLATE.get()).sign(CCBlocks.AZALEA_SIGN.getFirst().get(), CCBlocks.AZALEA_SIGN.getSecond().get()).slab(CCBlocks.AZALEA_SLAB.get()).stairs(CCBlocks.AZALEA_STAIRS.get()).door(CCBlocks.AZALEA_DOOR.get()).trapdoor(CCBlocks.AZALEA_TRAPDOOR.get()).recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
 	public static final BlockFamily DRIPSTONE_SHINGLES = new BlockFamily.Builder(CCBlocks.DRIPSTONE_SHINGLES.get()).slab(CCBlocks.DRIPSTONE_SHINGLE_SLAB.get()).stairs(CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get()).wall(CCBlocks.DRIPSTONE_SHINGLE_WALL.get()).chiseled(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get()).getFamily();
-	public static final BlockFamily FLOODED_DRIPSTONE_SHINGLES = new BlockFamily.Builder(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get()).slab(CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get()).stairs(CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get()).wall(CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get()).getFamily();
 
 	public CCRecipeProvider(DataGenerator generator) {
 		super(generator);
@@ -82,24 +81,16 @@ public class CCRecipeProvider extends RecipeProvider {
 
 		ShapedRecipeBuilder.shaped(CCBlocks.DRIPSTONE_SHINGLES.get(), 4).define('#', Blocks.DRIPSTONE_BLOCK).pattern("##").pattern("##").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		generateRecipes(consumer, DRIPSTONE_SHINGLES);
-		stonecutterResultFromBase(consumer, CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLES.get(), 2);
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_WALL.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
-
-		generateRecipes(consumer, FLOODED_DRIPSTONE_SHINGLES);
-		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), 2);
-		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
-		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get(), CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
-
+		stonecutterResultFromBase(consumer, CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLES.get());
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
-		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
-		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
-		stonecutterResultFromBase(consumer, CCBlocks.FLOODED_DRIPSTONE_SHINGLE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
+
 		ShapelessRecipeBuilder.shapeless(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), 8).requires(BlueprintItemTags.BUCKETS_WATER).requires(CCBlocks.DRIPSTONE_SHINGLES.get(), 8).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer);
 
 		generateRecipes(consumer, AZALEA_PLANKS);

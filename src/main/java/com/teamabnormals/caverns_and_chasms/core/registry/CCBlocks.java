@@ -150,10 +150,6 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "dripstone_shingle_vertical_slab", () -> new VerticalSlabBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> CHISELED_DRIPSTONE_SHINGLES = HELPER.createBlock("chiseled_dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLES = HELPER.createBlock("flooded_dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("flooded_dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("flooded_dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLE_WALL = HELPER.createBlock("flooded_dripstone_shingle_wall", () -> new WallBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "flooded_dripstone_shingle_vertical_slab", () -> new VerticalSlabBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new StrippedLogBlock(CCProperties.AZALEA_WOOD.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new StrippedWoodBlock(CCProperties.AZALEA_WOOD.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);

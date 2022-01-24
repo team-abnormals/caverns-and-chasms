@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "caverns_and_chasms:flooded_dripstone_shingles"
-  },
-  "result": "caverns_and_chasms:flooded_dripstone_shingle_stairs",
-  "count": 1
-}
