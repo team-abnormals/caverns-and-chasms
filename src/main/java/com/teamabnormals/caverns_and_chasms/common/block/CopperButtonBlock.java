@@ -16,17 +16,12 @@ public class CopperButtonBlock extends ButtonBlock {
 
 	@Override
 	public int getPressDuration() {
-		switch(this.weatherState) {
-		case UNAFFECTED:
-		default:
-			return 20;
-		case EXPOSED:
-			return 30;
-		case WEATHERED:
-			return 40;
-		case OXIDIZED:
-			return 50;
-		}
+		return switch (this.weatherState) {
+			default -> 20;
+			case EXPOSED -> 30;
+			case WEATHERED -> 40;
+			case OXIDIZED -> 50;
+		};
 	}
 
 	@Override

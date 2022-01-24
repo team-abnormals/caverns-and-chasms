@@ -22,7 +22,6 @@ public class DripstoneShingleBlock extends Block {
 		super(properties);
 	}
 
-
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
 		BlockPos belowPos = pos.below();
