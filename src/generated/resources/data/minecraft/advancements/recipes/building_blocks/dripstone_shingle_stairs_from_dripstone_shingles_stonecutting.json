@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:dripstone_shingles_stairs_from_dripstone_shingles_stonecutting"
+      "minecraft:dripstone_shingle_stairs_from_dripstone_shingles_stonecutting"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:dripstone_shingles_stairs_from_dripstone_shingles_stonecutting"
+        "recipe": "minecraft:dripstone_shingle_stairs_from_dripstone_shingles_stonecutting"
       }
     }
   },
