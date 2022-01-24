@@ -19,7 +19,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
-
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -324,27 +323,27 @@ public class CCEvents {
 		if (event.getEntity() != null) {
 			Level level = event.getEntity().getLevel();
 			BlockPos pos = event.getPos();
-			BlockState placedblock = event.getPlacedBlock();
+			BlockState state = event.getPlacedBlock();
 
-			if (placedblock.getBlock() == Blocks.LIGHTNING_ROD && placedblock.getValue(LightningRodBlock.FACING) == Direction.UP) {
-				BlockPos pos1 = pos.below();
-				BlockState state = level.getBlockState(pos1);
-				if (state.getBlock() instanceof CarvedPumpkinBlock) {
+			if (state.is(Blocks.LIGHTNING_ROD) && state.getValue(LightningRodBlock.FACING) == Direction.UP) {
+				BlockPos belowPos = pos.below();
+				BlockState belowState = level.getBlockState(belowPos);
+				if (belowState.getBlock() instanceof CarvedPumpkinBlock) {
 					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-					level.setBlock(pos1, Blocks.AIR.defaultBlockState(), 2);
-					level.levelEvent(2001, pos, Block.getId(placedblock));
-					level.levelEvent(2001, pos1, Block.getId(placedblock));
+					level.setBlock(belowPos, Blocks.AIR.defaultBlockState(), 2);
+					level.levelEvent(2001, pos, Block.getId(state));
+					level.levelEvent(2001, belowPos, Block.getId(state));
 
-					CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
-					coppergolem.moveTo((double)pos1.getX() + 0.5D, (double)pos1.getY() + 0.05D, (double)pos1.getZ() + 0.5D, 0.0F, 0.0F);
-					level.addFreshEntity(coppergolem);
+					CopperGolem golem = CCEntityTypes.COPPER_GOLEM.get().create(level);
+					golem.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D, 0.0F, 0.0F);
+					level.addFreshEntity(golem);
 
-					for(ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, coppergolem.getBoundingBox().inflate(5.0D))) {
-						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, coppergolem);
+					for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, golem.getBoundingBox().inflate(5.0D))) {
+						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, golem);
 					}
 
 					level.blockUpdated(pos, Blocks.AIR);
-					level.blockUpdated(pos1, Blocks.AIR);
+					level.blockUpdated(belowPos, Blocks.AIR);
 				}
 			}
 		}

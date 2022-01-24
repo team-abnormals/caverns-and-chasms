@@ -1,13 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.Locale;
-import java.util.UUID;
-
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,7 +21,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -49,6 +41,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.Locale;
+import java.util.UUID;
 
 public class CopperGolem extends AbstractGolem {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
@@ -217,7 +215,7 @@ public class CopperGolem extends AbstractGolem {
 
 	private void spawnSparkParticles(ParticleOptions particle) {
 		if (this.level.isClientSide) {
-			for(int i = 0; i < 7; ++i) {
+			for (int i = 0; i < 7; ++i) {
 				double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
@@ -273,7 +271,7 @@ public class CopperGolem extends AbstractGolem {
 		}
 	}
 
-	public static enum WeatherAmount {
+	public enum WeatherAmount {
 		UNAFFECTED(0, 0.0D),
 		EXPOSED(1, 0.05D),
 		WEATHERED(2, 0.1D),

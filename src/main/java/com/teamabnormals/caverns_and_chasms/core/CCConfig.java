@@ -19,7 +19,7 @@ public class CCConfig {
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("mobs");
 			creeperExplosionsDestroyBlocks = builder.define("Creeper explosions destroy blocks", false);
-			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, 0, 255);
+			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, 0, 320);
 			builder.pop();
 
 			builder.push("tweaks");

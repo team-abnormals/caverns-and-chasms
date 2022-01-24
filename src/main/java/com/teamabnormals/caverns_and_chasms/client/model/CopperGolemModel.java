@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -67,8 +66,8 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 	@Override
 	public void setupAnim(T copperGolem, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!copperGolem.isFrozen()) {
-			this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-			this.head.xRot = headPitch * ((float)Math.PI / 180F);
+			this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
+			this.head.xRot = headPitch * ((float) Math.PI / 180F);
 			this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingAmount;
 			this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingAmount;
 			this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13.0F) * 1.6F * limbSwingAmount;
