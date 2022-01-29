@@ -10,6 +10,10 @@
     "caverns_and_chasms:spinel_brick_stairs",
     "caverns_and_chasms:lapis_brick_stairs",
     "caverns_and_chasms:sanguine_plate_stairs",
-    "caverns_and_chasms:dripstone_shingle_stairs"
+    "caverns_and_chasms:dripstone_shingle_stairs",
+    "caverns_and_chasms:calcite_stairs",
+    "caverns_and_chasms:polished_calcite_stairs",
+    "caverns_and_chasms:tuff_stairs",
+    "caverns_and_chasms:polished_tuff_stairs"
   ]
 }

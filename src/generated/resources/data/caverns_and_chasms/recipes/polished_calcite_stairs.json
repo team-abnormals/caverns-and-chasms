@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:polished_calcite"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:polished_calcite_stairs",
+    "count": 4
+  }
+}

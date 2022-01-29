@@ -143,6 +143,24 @@ public class CCBlocks {
 	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_WALL = HELPER.createBlock("mossy_cobblestone_tile_wall", () -> new WallBlock(CCProperties.COBBLESTONE_BRICKS), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "mossy_cobblestone_tile_vertical_slab", () -> new VerticalSlabBlock(CCProperties.COBBLESTONE_BRICKS), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
+	public static final RegistryObject<Block> CALCITE_STAIRS = HELPER.createBlock("calcite_stairs", () -> new StairBlock(() -> Blocks.CALCITE.defaultBlockState(), CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CALCITE_SLAB = HELPER.createBlock("calcite_slab", () -> new SlabBlock(CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CALCITE_WALL = HELPER.createBlock("calcite_wall", () -> new WallBlock(CCProperties.CALCITE), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> CALCITE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "calcite_vertical_slab", () -> new VerticalSlabBlock(CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_CALCITE = HELPER.createBlock("polished_calcite", () -> new InjectedBlock(Items.CALCITE, CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_CALCITE_STAIRS = HELPER.createBlock("polished_calcite_stairs", () -> new StairBlock(() -> POLISHED_CALCITE.get().defaultBlockState(), CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_CALCITE_SLAB = HELPER.createBlock("polished_calcite_slab", () -> new SlabBlock(CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_CALCITE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "polished_calcite_vertical_slab", () -> new VerticalSlabBlock(CCProperties.CALCITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	
+	public static final RegistryObject<Block> TUFF_STAIRS = HELPER.createBlock("tuff_stairs", () -> new StairBlock(() -> Blocks.TUFF.defaultBlockState(), CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> TUFF_SLAB = HELPER.createBlock("tuff_slab", () -> new SlabBlock(CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> TUFF_WALL = HELPER.createBlock("tuff_wall", () -> new WallBlock(CCProperties.TUFF), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> TUFF_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "tuff_vertical_slab", () -> new VerticalSlabBlock(CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_TUFF = HELPER.createBlock("polished_tuff", () -> new InjectedBlock(Items.TUFF, CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_TUFF_STAIRS = HELPER.createBlock("polished_tuff_stairs", () -> new StairBlock(() -> POLISHED_TUFF.get().defaultBlockState(), CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_TUFF_SLAB = HELPER.createBlock("polished_tuff_slab", () -> new SlabBlock(CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_TUFF_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "polished_tuff_vertical_slab", () -> new VerticalSlabBlock(CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
+
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -181,6 +199,8 @@ public class CCBlocks {
 	public static class CCProperties {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F);
 		public static final BlockBehaviour.Properties FRAGILE_STONE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().strength(1.0F);
+		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).sound(SoundType.CALCITE).requiresCorrectToolForDrops().strength(0.75F);
+		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GRAY).sound(SoundType.TUFF).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties DIRT_BRICKS = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F);
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);

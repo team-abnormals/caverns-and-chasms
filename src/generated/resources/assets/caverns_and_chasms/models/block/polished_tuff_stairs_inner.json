@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "caverns_and_chasms:block/polished_tuff",
+    "bottom": "caverns_and_chasms:block/polished_tuff",
+    "top": "caverns_and_chasms:block/polished_tuff"
+  }
+}

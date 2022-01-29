@@ -109,6 +109,22 @@
   "block.caverns_and_chasms.mossy_cobblestone_tile_wall": "Mossy Cobblestone Tile Wall",
   "block.caverns_and_chasms.mossy_cobblestone_tile_vertical_slab": "Mossy Cobblestone Tile Vertical Slab",
 
+  "block.caverns_and_chasms.calcite_slab": "Calcite Slab",
+  "block.caverns_and_chasms.calcite_stairs": "Calcite Stairs",
+  "block.caverns_and_chasms.calcite_wall": "Calcite Wall",
+  "block.caverns_and_chasms.calcite_vertical_slab": "Calcite Vertical Slab",
+  "block.caverns_and_chasms.polished_calcite": "Polished Calcite",
+  "block.caverns_and_chasms.polished_calcite_slab": "Polished Calcite Slab",
+  "block.caverns_and_chasms.polished_calcite_stairs": "Polished Calcite Stairs",
+
+  "block.caverns_and_chasms.tuff_slab": "Tuff Slab",
+  "block.caverns_and_chasms.tuff_stairs": "Tuff Stairs",
+  "block.caverns_and_chasms.tuff_wall": "Tuff Wall",
+  "block.caverns_and_chasms.tuff_vertical_slab": "Tuff Vertical Slab",
+  "block.caverns_and_chasms.polished_tuff": "Polished Tuff",
+  "block.caverns_and_chasms.polished_tuff_slab": "Polished Tuff Slab",
+  "block.caverns_and_chasms.polished_tuff_stairs": "Polished Tuff Stairs",
+
   "block.caverns_and_chasms.dripstone_shingles": "Dripstone Shingles",
   "block.caverns_and_chasms.dripstone_shingle_slab": "Dripstone Shingle Slab",
   "block.caverns_and_chasms.dripstone_shingle_stairs": "Dripstone Shingle Stairs",
@@ -116,7 +132,7 @@
   "block.caverns_and_chasms.dripstone_shingle_vertical_slab": "Dripstone Shingle Vertical Slab",
   "block.caverns_and_chasms.chiseled_dripstone_shingles": "Chiseled Dripstone Shingles",
   "block.caverns_and_chasms.flooded_dripstone_shingles": "Flooded Dripstone Shingles",
-  
+
   "block.caverns_and_chasms.azalea_beehive": "Azalea Beehive",
   "block.caverns_and_chasms.azalea_bookshelf": "Azalea Bookshelf",
   "block.caverns_and_chasms.azalea_button": "Azalea Button",
@@ -147,7 +163,7 @@
   "block.caverns_and_chasms.stripped_azalea_wood": "Stripped Azalea Wood",
   "block.caverns_and_chasms.vertical_azalea_planks": "Vertical Azalea Planks",
   "item.caverns_and_chasms.azalea_boat": "Azalea Boat",
-  
+
   "item.caverns_and_chasms.cavefish": "Raw Cavefish",
   "item.caverns_and_chasms.cooked_cavefish": "Cooked Cavefish",
   "item.caverns_and_chasms.cavefish_bucket": "Bucket of Cavefish",
@@ -271,6 +287,8 @@
   "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Use Netherite and Necromium ingots to upgrade two hoes, and then realize that life is insignificant",
   "advancements.caverns_and_chasms.nether.necromium_armor.title": "Cover Me in Curses",
   "advancements.caverns_and_chasms.nether.necromium_armor.description": "Get a full suit of Necromium armor",
+  "advancements.caverns_and_chasms.adventure.summon_copper_golem.title": "Ex Machina",
+  "advancements.caverns_and_chasms.adventure.summon_copper_golem.description": "Construct a Copper Golem by placing a lightning rod on top of a carved pumpkin",
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium ingot to upgrade a hoe, and then reevaluate your life choices",
 
   "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Tuning Fork vibrates",

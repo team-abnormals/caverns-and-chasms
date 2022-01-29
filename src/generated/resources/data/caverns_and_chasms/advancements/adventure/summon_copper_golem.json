@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:carved_pumpkin"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.summon_copper_golem.title"
+    },
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.summon_copper_golem.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "summoned_golem": {
+      "trigger": "minecraft:summoned_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "caverns_and_chasms:copper_golem"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "summoned_golem"
+    ]
+  ]
+}

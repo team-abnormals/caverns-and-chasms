@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "caverns_and_chasms:block/tuff_slab_top"
+    },
+    "type=bottom": {
+      "model": "caverns_and_chasms:block/tuff_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/tuff"
+    }
+  }
+}

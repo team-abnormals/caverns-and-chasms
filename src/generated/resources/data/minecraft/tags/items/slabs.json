@@ -10,6 +10,10 @@
     "caverns_and_chasms:spinel_brick_slab",
     "caverns_and_chasms:lapis_brick_slab",
     "caverns_and_chasms:sanguine_plate_slab",
-    "caverns_and_chasms:dripstone_shingle_slab"
+    "caverns_and_chasms:dripstone_shingle_slab",
+    "caverns_and_chasms:calcite_slab",
+    "caverns_and_chasms:polished_calcite_slab",
+    "caverns_and_chasms:tuff_slab",
+    "caverns_and_chasms:polished_tuff_slab"
   ]
 }

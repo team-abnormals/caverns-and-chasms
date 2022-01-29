@@ -160,6 +160,24 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(MOSSY_COBBLESTONE_TILE_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 
+			this.dropSelf(CALCITE_STAIRS.get());
+			this.dropSelf(CALCITE_WALL.get());
+			this.add(CALCITE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(CALCITE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+			this.dropSelf(POLISHED_CALCITE.get());
+			this.dropSelf(POLISHED_CALCITE_STAIRS.get());
+			this.add(POLISHED_CALCITE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(POLISHED_CALCITE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+
+			this.dropSelf(TUFF_STAIRS.get());
+			this.dropSelf(TUFF_WALL.get());
+			this.add(TUFF_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(TUFF_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+			this.dropSelf(POLISHED_TUFF.get());
+			this.dropSelf(POLISHED_TUFF_STAIRS.get());
+			this.add(POLISHED_TUFF_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(POLISHED_TUFF_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+
 			this.dropSelf(DRIPSTONE_SHINGLES.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_WALL.get());

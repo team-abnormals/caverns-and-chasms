@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:calcite"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:calcite_slab",
+    "count": 6
+  }
+}

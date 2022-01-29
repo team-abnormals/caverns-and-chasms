@@ -14,6 +14,6 @@ public class CopperGolemRenderer extends MobRenderer<CopperGolem, CopperGolemMod
 
 	@Override
 	public ResourceLocation getTextureLocation(CopperGolem copperGolem) {
-		return copperGolem.getWeatherAmount().getTextureLocation();
+		return copperGolem.getOxidation().getTextureLocation();
 	}
 }

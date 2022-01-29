@@ -45,6 +45,12 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SILVER_ORE.get());
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 
+		this.registerBlockVariants(Blocks.CALCITE, CCBlocks.CALCITE_STAIRS.get(), CCBlocks.CALCITE_SLAB.get(), CCBlocks.CALCITE_VERTICAL_SLAB.get(), CCBlocks.CALCITE_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.POLISHED_CALCITE.get(), CCBlocks.POLISHED_CALCITE_STAIRS.get(), CCBlocks.POLISHED_CALCITE_SLAB.get(), CCBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get());
+
+		this.registerBlockVariants(Blocks.TUFF, CCBlocks.TUFF_STAIRS.get(), CCBlocks.TUFF_SLAB.get(), CCBlocks.TUFF_VERTICAL_SLAB.get(), CCBlocks.TUFF_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.POLISHED_TUFF.get(), CCBlocks.POLISHED_TUFF_STAIRS.get(), CCBlocks.POLISHED_TUFF_SLAB.get(), CCBlocks.POLISHED_TUFF_VERTICAL_SLAB.get());
+
 		this.registerBlockWithVariants(CCBlocks.DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get());
 		this.simpleBlockWithItem(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get());
 		this.simpleBlockWithItem(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
@@ -157,12 +163,12 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 	public void buttonBlock(Block block, Function<BlockState, ModelFile> modelFunc) {
 		this.getVariantBuilder(block)
-				.forAllStates(state -> ConfiguredModel.builder()
-						.modelFile(modelFunc.apply(state))
-						.uvLock(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL)
-						.rotationX(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL ? 90 : state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)
-						.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + (state.getValue(BlockStateProperties.ATTACH_FACE) != AttachFace.CEILING ? 180 : 0)) % 360)
-						.build()
+		.forAllStates(state -> ConfiguredModel.builder()
+				.modelFile(modelFunc.apply(state))
+				.uvLock(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL)
+				.rotationX(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL ? 90 : state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)
+				.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + (state.getValue(BlockStateProperties.ATTACH_FACE) != AttachFace.CEILING ? 180 : 0)) % 360)
+				.build()
 				);
 	}
 
@@ -170,16 +176,26 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(modelFunc.apply(state)).build());
 	}
 
-	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block verticalSlab) {
-		this.simpleBlock(block);
+	public void registerBlockVariants(Block block, Block stairs, Block slab, Block verticalSlab) {
 		this.stairsBlock((StairBlock) stairs, blockTexture(block));
 		this.slabBlock((SlabBlock) slab, blockTexture(block), blockTexture(block));
 		this.verticalSlabBlock(block, (VerticalSlabBlock) verticalSlab);
 
-		this.registerItemModel(block);
 		this.registerItemModel(stairs);
 		this.registerItemModel(slab);
 		this.registerItemModel(verticalSlab);
+	}
+
+	public void registerBlockVariants(Block block, Block stairs, Block slab, Block verticalSlab, Block wall) {
+		this.registerBlockVariants(block, stairs, slab, verticalSlab);
+		this.wallBlock((WallBlock) wall, blockTexture(block));
+		this.itemModels().getBuilder(name(wall)).parent(this.models().wallInventory(name(wall) + "_inventory", blockTexture(block)));
+	}
+
+	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block verticalSlab) {
+		this.simpleBlock(block);
+		this.registerItemModel(block);
+		this.registerBlockVariants(block, stairs, slab, verticalSlab);
 	}
 
 	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block verticalSlab, Block wall) {
@@ -225,11 +241,11 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 		for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
 			builder.part().modelFile(direction == Direction.SOUTH || direction == Direction.WEST ? capAlt : cap).rotationY(direction.getAxis() == Axis.X ? 90 : 0).addModel()
-					.condition(BlockStateProperties.NORTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.NORTH)
-					.condition(BlockStateProperties.WEST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.WEST)
-					.condition(BlockStateProperties.SOUTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.SOUTH)
-					.condition(BlockStateProperties.EAST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.EAST)
-					.end();
+			.condition(BlockStateProperties.NORTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.NORTH)
+			.condition(BlockStateProperties.WEST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.WEST)
+			.condition(BlockStateProperties.SOUTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.SOUTH)
+			.condition(BlockStateProperties.EAST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.EAST)
+			.end();
 
 		}
 
@@ -259,15 +275,15 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		ModelFile chainSmall = new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/chain_small"));
 		ModelFile chainSmallTop = new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/chain_small_top"));
 		this.getMultipartBuilder(post)
-				.part().modelFile(model).addModel().condition(RotatedPillarBlock.AXIS, Axis.Y).end()
-				.part().modelFile(model).rotationX(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.Z).end()
-				.part().modelFile(model).rotationX(90).rotationY(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.X).end()
-				.part().modelFile(chainSmall).addModel().condition(CHAINED[0], true).end()
-				.part().modelFile(chainSmallTop).addModel().condition(CHAINED[1], true).end()
-				.part().modelFile(chainSmallTop).rotationX(90).addModel().condition(CHAINED[2], true).end()
-				.part().modelFile(chainSmall).rotationX(90).addModel().condition(CHAINED[3], true).end()
-				.part().modelFile(chainSmall).rotationX(90).rotationY(90).addModel().condition(CHAINED[4], true).end()
-				.part().modelFile(chainSmallTop).rotationX(90).rotationY(90).addModel().condition(CHAINED[5], true).end();
+		.part().modelFile(model).addModel().condition(RotatedPillarBlock.AXIS, Axis.Y).end()
+		.part().modelFile(model).rotationX(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.Z).end()
+		.part().modelFile(model).rotationX(90).rotationY(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.X).end()
+		.part().modelFile(chainSmall).addModel().condition(CHAINED[0], true).end()
+		.part().modelFile(chainSmallTop).addModel().condition(CHAINED[1], true).end()
+		.part().modelFile(chainSmallTop).rotationX(90).addModel().condition(CHAINED[2], true).end()
+		.part().modelFile(chainSmall).rotationX(90).addModel().condition(CHAINED[3], true).end()
+		.part().modelFile(chainSmall).rotationX(90).rotationY(90).addModel().condition(CHAINED[4], true).end()
+		.part().modelFile(chainSmallTop).rotationX(90).rotationY(90).addModel().condition(CHAINED[5], true).end();
 		this.registerItemModel(post);
 	}
 
@@ -323,11 +339,11 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.verticalSlab(name(slab), blockTexture(planks));
 		UncheckedModelFile model = new UncheckedModelFile(prefix("block/", slab.getRegistryName()));
 		this.getVariantBuilder(slab)
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.NORTH).addModels(new ConfiguredModel(model, 0, 0, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.SOUTH).addModels(new ConfiguredModel(model, 0, 180, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.EAST).addModels(new ConfiguredModel(model, 0, 90, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.WEST).addModels(new ConfiguredModel(model, 0, 270, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(models().cubeAll(name(planks), blockTexture(planks))));
+		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.NORTH).addModels(new ConfiguredModel(model, 0, 0, true))
+		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.SOUTH).addModels(new ConfiguredModel(model, 0, 180, true))
+		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.EAST).addModels(new ConfiguredModel(model, 0, 90, true))
+		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.WEST).addModels(new ConfiguredModel(model, 0, 270, true))
+		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(models().cubeAll(name(planks), blockTexture(planks))));
 	}
 
 	private String name(Block block) {

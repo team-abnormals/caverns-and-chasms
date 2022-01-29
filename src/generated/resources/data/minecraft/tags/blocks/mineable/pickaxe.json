@@ -82,6 +82,22 @@
     "caverns_and_chasms:dripstone_shingle_slab",
     "caverns_and_chasms:dripstone_shingle_wall",
     "caverns_and_chasms:chiseled_dripstone_shingles",
-    "caverns_and_chasms:flooded_dripstone_shingles"
+    "caverns_and_chasms:flooded_dripstone_shingles",
+    "caverns_and_chasms:calcite_stairs",
+    "caverns_and_chasms:calcite_slab",
+    "caverns_and_chasms:calcite_wall",
+    "caverns_and_chasms:calcite_vertical_slab",
+    "caverns_and_chasms:polished_calcite",
+    "caverns_and_chasms:polished_calcite_stairs",
+    "caverns_and_chasms:polished_calcite_slab",
+    "caverns_and_chasms:polished_calcite_vertical_slab",
+    "caverns_and_chasms:tuff_stairs",
+    "caverns_and_chasms:tuff_slab",
+    "caverns_and_chasms:tuff_wall",
+    "caverns_and_chasms:tuff_vertical_slab",
+    "caverns_and_chasms:polished_tuff",
+    "caverns_and_chasms:polished_tuff_stairs",
+    "caverns_and_chasms:polished_tuff_slab",
+    "caverns_and_chasms:polished_tuff_vertical_slab"
   ]
 }

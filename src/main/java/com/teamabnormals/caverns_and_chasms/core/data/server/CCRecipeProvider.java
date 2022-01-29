@@ -39,6 +39,10 @@ public class CCRecipeProvider extends RecipeProvider {
 
 	public static final BlockFamily AZALEA_PLANKS = new BlockFamily.Builder(CCBlocks.AZALEA_PLANKS.get()).button(CCBlocks.AZALEA_BUTTON.get()).fence(CCBlocks.AZALEA_FENCE.get()).fenceGate(CCBlocks.AZALEA_FENCE_GATE.get()).pressurePlate(CCBlocks.AZALEA_PRESSURE_PLATE.get()).sign(CCBlocks.AZALEA_SIGN.getFirst().get(), CCBlocks.AZALEA_SIGN.getSecond().get()).slab(CCBlocks.AZALEA_SLAB.get()).stairs(CCBlocks.AZALEA_STAIRS.get()).door(CCBlocks.AZALEA_DOOR.get()).trapdoor(CCBlocks.AZALEA_TRAPDOOR.get()).recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
 	public static final BlockFamily DRIPSTONE_SHINGLES = new BlockFamily.Builder(CCBlocks.DRIPSTONE_SHINGLES.get()).slab(CCBlocks.DRIPSTONE_SHINGLE_SLAB.get()).stairs(CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get()).wall(CCBlocks.DRIPSTONE_SHINGLE_WALL.get()).chiseled(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get()).getFamily();
+	public static final BlockFamily CALCITE = new BlockFamily.Builder(Blocks.CALCITE).slab(CCBlocks.CALCITE_SLAB.get()).stairs(CCBlocks.CALCITE_STAIRS.get()).wall(CCBlocks.CALCITE_WALL.get()).getFamily();
+	public static final BlockFamily POLISHED_CALCITE = new BlockFamily.Builder(CCBlocks.POLISHED_CALCITE.get()).slab(CCBlocks.POLISHED_CALCITE_SLAB.get()).stairs(CCBlocks.POLISHED_CALCITE_STAIRS.get()).getFamily();
+	public static final BlockFamily TUFF = new BlockFamily.Builder(Blocks.TUFF).slab(CCBlocks.TUFF_SLAB.get()).stairs(CCBlocks.TUFF_STAIRS.get()).wall(CCBlocks.TUFF_WALL.get()).getFamily();
+	public static final BlockFamily POLISHED_TUFF = new BlockFamily.Builder(CCBlocks.POLISHED_TUFF.get()).slab(CCBlocks.POLISHED_TUFF_SLAB.get()).stairs(CCBlocks.POLISHED_TUFF_STAIRS.get()).getFamily();
 
 	public CCRecipeProvider(DataGenerator generator) {
 		super(generator);
@@ -78,6 +82,30 @@ public class CCRecipeProvider extends RecipeProvider {
 		oreBlasting(consumer, SILVER_SMELTABLES, CCItems.SILVER_INGOT.get(), 1.0F, 100, "silver_ingot");
 		oreBlasting(consumer, SPINEL_SMELTABLES, CCItems.SPINEL.get(), 0.2F, 100, "spinel");
 
+		generateRecipes(consumer, CALCITE);
+		stonecutterResultFromBase(consumer, CCBlocks.CALCITE_SLAB.get(), Blocks.CALCITE, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.CALCITE_STAIRS.get(), Blocks.CALCITE);
+		stonecutterResultFromBase(consumer, CCBlocks.CALCITE_WALL.get(), Blocks.CALCITE);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE.get(), Blocks.CALCITE);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_SLAB.get(), Blocks.CALCITE, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_STAIRS.get(), Blocks.CALCITE);
+		ShapedRecipeBuilder.shaped(CCBlocks.POLISHED_CALCITE.get(), 4).define('#', Blocks.CALCITE).pattern("##").pattern("##").unlockedBy("has_tuff", has(Blocks.CALCITE)).save(consumer);
+		generateRecipes(consumer, POLISHED_CALCITE);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_SLAB.get(), CCBlocks.POLISHED_CALCITE.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_STAIRS.get(), CCBlocks.POLISHED_CALCITE.get());
+
+		ShapelessRecipeBuilder.shapeless(Blocks.TUFF, 2).requires(Blocks.ANDESITE).requires(Blocks.COBBLED_DEEPSLATE).unlockedBy("has_stone", has(Blocks.ANDESITE)).save(consumer);
+		generateRecipes(consumer, TUFF);
+		stonecutterResultFromBase(consumer, CCBlocks.TUFF_SLAB.get(), Blocks.TUFF, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.TUFF_STAIRS.get(), Blocks.TUFF);
+		stonecutterResultFromBase(consumer, CCBlocks.TUFF_WALL.get(), Blocks.TUFF);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_TUFF.get(), Blocks.TUFF);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_TUFF_SLAB.get(), Blocks.TUFF, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_TUFF_STAIRS.get(), Blocks.TUFF);
+		ShapedRecipeBuilder.shaped(CCBlocks.POLISHED_TUFF.get(), 4).define('#', Blocks.TUFF).pattern("##").pattern("##").unlockedBy("has_tuff", has(Blocks.TUFF)).save(consumer);
+		generateRecipes(consumer, POLISHED_TUFF);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_TUFF_SLAB.get(), CCBlocks.POLISHED_TUFF.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_TUFF_STAIRS.get(), CCBlocks.POLISHED_TUFF.get());
 
 		ShapedRecipeBuilder.shaped(CCBlocks.DRIPSTONE_SHINGLES.get(), 4).define('#', Blocks.DRIPSTONE_BLOCK).pattern("##").pattern("##").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		generateRecipes(consumer, DRIPSTONE_SHINGLES);

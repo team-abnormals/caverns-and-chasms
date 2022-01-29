@@ -28,6 +28,8 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 	private final ModelPart leftArm;
 	private final ModelPart rightLeg;
 	private final ModelPart leftLeg;
+	private float headSpinTicks;
+	private float buttonPressTicks;
 
 	public CopperGolemModel(ModelPart rootIn) {
 		this.root = rootIn;
@@ -64,21 +66,31 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 	}
 
 	@Override
-	public void setupAnim(T copperGolem, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (!copperGolem.isFrozen()) {
-			this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
-			this.head.xRot = headPitch * ((float) Math.PI / 180F);
-			this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingAmount;
-			this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingAmount;
-			this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13.0F) * 1.6F * limbSwingAmount;
-			this.leftLeg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13.0F) * 1.6F * limbSwingAmount;
+	public void prepareMobModel(T copperGolem, float limbSwing, float limbSwingTicks, float partialTick) {
+		super.prepareMobModel(copperGolem, limbSwing, limbSwingTicks, partialTick);
+		this.headSpinTicks = copperGolem.getHeadSpinTicks(partialTick);
+		this.buttonPressTicks = copperGolem.getPressButtonTicks(partialTick);
+	}
+
+	@Override
+	public void setupAnim(T copperGolem, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		float f = this.headSpinTicks - 6;
+		float headspinanim = f > 0 ? f * 2.0F * (float) Math.PI / CopperGolem.HEAD_SPIN_TIME : 0.0F;
+		float headtiltanim = f <= 0 ? 0.1F - Mth.triangleWave(this.headSpinTicks, 6.0F) * 0.1F : 0.0F;
+
+		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F) + headspinanim;
+		this.head.xRot = headPitch * ((float) Math.PI / 180F);
+		this.head.zRot = headtiltanim;
+
+		if (this.buttonPressTicks > 0.0F) {
+			this.rightArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, CopperGolem.PRESS_ANIM_TIME);
+			this.leftArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, CopperGolem.PRESS_ANIM_TIME);
 		} else {
-			this.head.yRot = 0.0F;
-			this.head.xRot = 0.0F;
-			this.rightArm.xRot = 0.0F;
-			this.leftArm.xRot = 0.0F;
-			this.rightLeg.xRot = 0.0F;
-			this.leftLeg.xRot = 0.0F;
+			this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
+			this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
 		}
+
+		this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingTicks;
+		this.leftLeg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingTicks;
 	}
 }
