@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:copper_ingot"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.smelt_copper.title"
+    },
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.smelt_copper.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:copper_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "copper"
+    ]
+  ]
+}

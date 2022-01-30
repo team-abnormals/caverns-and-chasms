@@ -28,18 +28,22 @@ public class CCAdvancementProvider extends AdvancementProvider {
 	@Override
 	protected void registerAdvancements(Consumer<Advancement> consumer, ExistingFileHelper fileHelper) {
 		createAdvancement("obtain_ancient_hoes", "husbandry", new ResourceLocation("husbandry/obtain_netherite_hoe"), CCItems.NECROMIUM_HOE.get(), FrameType.CHALLENGE, true, true, false)
-		.rewards(AdvancementRewards.Builder.experience(100))
-		.addCriterion("ancient_hoes", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_HOE, CCItems.NECROMIUM_HOE.get()))
-		.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_ancient_hoes");
+				.rewards(AdvancementRewards.Builder.experience(100))
+				.addCriterion("ancient_hoes", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_HOE, CCItems.NECROMIUM_HOE.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_ancient_hoes");
 
 		createAdvancement("necromium_armor", "nether", new ResourceLocation("nether/obtain_ancient_debris"), CCItems.NECROMIUM_CHESTPLATE.get(), FrameType.CHALLENGE, true, true, false)
-		.rewards(AdvancementRewards.Builder.experience(100))
-		.addCriterion("necromium_armor", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get()))
-		.save(consumer, CavernsAndChasms.MOD_ID + ":nether/necromium_armor");
+				.rewards(AdvancementRewards.Builder.experience(100))
+				.addCriterion("necromium_armor", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/necromium_armor");
 
-		createAdvancement("summon_copper_golem", "adventure", new ResourceLocation("adventure/root"), Items.CARVED_PUMPKIN, FrameType.TASK, true, true, false)
-		.addCriterion("summoned_golem", SummonedEntityTrigger.TriggerInstance.summonedEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))
-		.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/summon_copper_golem");
+		createAdvancement("smelt_copper", "adventure", new ResourceLocation("adventure/root"), Items.COPPER_INGOT, FrameType.TASK, true, true, false)
+				.addCriterion("copper", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_INGOT))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/smelt_copper");
+
+		createAdvancement("summon_copper_golem", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), Items.CARVED_PUMPKIN, FrameType.GOAL, true, true, false)
+				.addCriterion("summoned_golem", SummonedEntityTrigger.TriggerInstance.summonedEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/summon_copper_golem");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {

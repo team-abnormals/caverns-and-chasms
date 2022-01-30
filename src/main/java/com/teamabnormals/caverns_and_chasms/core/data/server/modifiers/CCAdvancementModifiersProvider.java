@@ -46,25 +46,34 @@ public class CCAdvancementModifiersProvider {
 				createModifierEntry("husbandry/balanced_diet", Collections.singletonList(createCriteriaModifier(Mode.MODIFY, Arrays.asList(
 						Pair.of("cavefish", new Criterion(ConsumeItemTrigger.TriggerInstance.usedItem(CCItems.CAVEFISH.get()))),
 						Pair.of("cooked_cavefish", new Criterion(ConsumeItemTrigger.TriggerInstance.usedItem(CCItems.COOKED_CAVEFISH.get()))))))),
+
 				createModifierEntry("husbandry/fishy_business", Collections.singletonList(createIndexedRequirementsModifier(0, Collections.singletonList(
 						Pair.of("cavefish", new Criterion(FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.Builder.item().of(CCItems.CAVEFISH.get()).build()))))))),
+
 				createModifierEntry("husbandry/tactical_fishing", Collections.singletonList(createIndexedRequirementsModifier(0, Collections.singletonList(
 						Pair.of("cavefish_bucket", new Criterion(FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(CCItems.CAVEFISH_BUCKET.get()).build()))))))),
+
 				createModifierEntry("husbandry/obtain_netherite_hoe", Arrays.asList(
 						createDescriptionModifier("husbandry", "netherite_hoe"),
 						createIndexedRequirementsModifier(0, Collections.singletonList(Pair.of("necromium_hoe", new Criterion(InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get()))))))),
+
 				createModifierEntry("husbandry/wax_on", Collections.singletonList(createCriteriaModifier(Mode.REPLACE, Collections.singletonList(
 						Pair.of("wax_on", new Criterion(TriggerInstance.itemUsedOnBlock(
 								LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).build()),
 								ItemPredicate.Builder.item().of(Items.HONEYCOMB)))))))),
+
 				createModifierEntry("husbandry/wax_off", Collections.singletonList(createCriteriaModifier(Mode.REPLACE, Collections.singletonList(
 						Pair.of("wax_off", new Criterion(TriggerInstance.itemUsedOnBlock(
 								LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()),
 								ItemPredicate.Builder.item().of(CCItemTags.TOOLS_AXES)))))))),
 
+				createModifierEntry("adventure/spyglass_at_parrot", Collections.singletonList(createParentModifier(new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper")))),
+				createModifierEntry("adventure/lightning_rod_with_villager_no_fire", Collections.singletonList(createParentModifier(new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper")))),
+
 				createModifierEntry("adventure/kill_a_mob", Collections.singletonList(createIndexedRequirementsModifier(0, Arrays.asList(
 						Pair.of("deeper", new Criterion(KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get())))),
 						Pair.of("mime", new Criterion(KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.MIME.get())))))))),
+
 				createModifierEntry("adventure/kill_all_mobs", Collections.singletonList(createCriteriaModifier(Mode.MODIFY, Arrays.asList(
 						Pair.of("deeper", new Criterion(KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get())))),
 						Pair.of("mime", new Criterion(KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.MIME.get()))))))))
@@ -100,6 +109,10 @@ public class CCAdvancementModifiersProvider {
 
 	private static ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?> createDescriptionModifier(String category, String name) {
 		return new ConfiguredModifier<>(AdvancementModifiers.DISPLAY_INFO_MODIFIER, new DisplayInfoModifier.Config(Mode.MODIFY, Optional.empty(), Optional.of(new TranslatableComponent("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".description")), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
+	}
+
+	private static ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?> createParentModifier(ResourceLocation parent) {
+		return new ConfiguredModifier<>(AdvancementModifiers.PARENT_MODIFIER, parent);
 	}
 
 	private static ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?> createCriteriaModifier(Mode mode, List<Pair<String, Criterion>> criterions) {

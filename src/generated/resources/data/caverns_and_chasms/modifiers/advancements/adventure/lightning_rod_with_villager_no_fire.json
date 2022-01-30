@@ -1,0 +1,16 @@
+{
+  "advancement": {
+    "type": "names",
+    "config": [
+      "minecraft:adventure/lightning_rod_with_villager_no_fire"
+    ],
+    "conditions": []
+  },
+  "priority": "normal",
+  "modifiers": [
+    {
+      "type": "parent",
+      "config": "caverns_and_chasms:adventure/smelt_copper"
+    }
+  ]
+}

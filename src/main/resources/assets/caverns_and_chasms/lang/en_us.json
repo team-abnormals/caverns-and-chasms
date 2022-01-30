@@ -283,13 +283,15 @@
   "tooltip.caverns_and_chasms.boosting": "Boosting",
   "tooltip.caverns_and_chasms.slowing": "Slowing",
 
+  "advancements.caverns_and_chasms.adventure.smelt_copper.title": "Copping Copper",
+  "advancements.caverns_and_chasms.adventure.smelt_copper.description": "Smelt a Copper Ingot",
   "advancements.caverns_and_chasms.husbandry.ancient_hoes.title": "Dangerous Determination",
-  "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Use Netherite and Necromium ingots to upgrade two hoes, and then realize that life is insignificant",
+  "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Use Netherite and Necromium Ingots to upgrade two hoes, and then realize that life is insignificant",
   "advancements.caverns_and_chasms.nether.necromium_armor.title": "Cover Me in Curses",
   "advancements.caverns_and_chasms.nether.necromium_armor.description": "Get a full suit of Necromium armor",
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.title": "Ex Machina",
-  "advancements.caverns_and_chasms.adventure.summon_copper_golem.description": "Construct a Copper Golem by placing a lightning rod on top of a carved pumpkin",
-  "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium ingot to upgrade a hoe, and then reevaluate your life choices",
+  "advancements.caverns_and_chasms.adventure.summon_copper_golem.description": "Construct a Copper Golem by placing a Lightning Rod on top of a Carved Pumpkin",
+  "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium Ingot to upgrade a hoe, and then reevaluate your life choices",
 
   "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Tuning Fork vibrates",
 
