@@ -67,8 +67,7 @@ public class CCAdvancementModifiersProvider {
 								LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()),
 								ItemPredicate.Builder.item().of(CCItemTags.TOOLS_AXES)))))))),
 
-				createModifierEntry("adventure/spyglass_at_parrot", Collections.singletonList(createParentModifier(new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper")))),
-				createModifierEntry("adventure/lightning_rod_with_villager_no_fire", Collections.singletonList(createParentModifier(new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper")))),
+				createModifierEntry(Arrays.asList(new ResourceLocation("adventure/spyglass_at_parrot"), new ResourceLocation("adventure/lightning_rod_with_villager_no_fire")), "adventure/smelt_copper_parent", Collections.singletonList(createParentModifier(new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper")))),
 
 				createModifierEntry("adventure/kill_a_mob", Collections.singletonList(createIndexedRequirementsModifier(0, Arrays.asList(
 						Pair.of("deeper", new Criterion(KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get())))),
@@ -80,11 +79,15 @@ public class CCAdvancementModifiersProvider {
 		);
 	}
 
-	private static ModifierDataProvider.ProviderEntry<Advancement.Builder, Void, DeserializationContext> createModifierEntry(String target, List<ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?>> modifiers) {
+	private static ModifierDataProvider.ProviderEntry<Advancement.Builder, Void, DeserializationContext> createModifierEntry(List<ResourceLocation> targets, String name, List<ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?>> modifiers) {
 		return new ModifierDataProvider.ProviderEntry<>(
-				new TargetedModifier<>(new ConditionedModifierTargetSelector<>(ModifierTargetSelectorRegistry.NAMES.withConfiguration(Collections.singletonList(new ResourceLocation(target)))), modifiers),
-				new ResourceLocation(CavernsAndChasms.MOD_ID, target)
+				new TargetedModifier<>(new ConditionedModifierTargetSelector<>(ModifierTargetSelectorRegistry.NAMES.withConfiguration(targets)), modifiers),
+				new ResourceLocation(CavernsAndChasms.MOD_ID, name)
 		);
+	}
+
+	private static ModifierDataProvider.ProviderEntry<Advancement.Builder, Void, DeserializationContext> createModifierEntry(String target, List<ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?>> modifiers) {
+		return createModifierEntry(Collections.singletonList(new ResourceLocation(target)), target, modifiers);
 	}
 
 	private static ConfiguredModifier<Advancement.Builder, ?, Void, DeserializationContext, ?> createEffectsChangedModifier(MobEffect... entries) {

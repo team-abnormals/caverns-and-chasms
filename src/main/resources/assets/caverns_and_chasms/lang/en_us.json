@@ -285,6 +285,10 @@
 
   "advancements.caverns_and_chasms.adventure.smelt_copper.title": "Copping Copper",
   "advancements.caverns_and_chasms.adventure.smelt_copper.description": "Smelt a Copper Ingot",
+  "advancements.caverns_and_chasms.adventure.use_tuning_fork.title": "You Can Tune a Piano...",
+  "advancements.caverns_and_chasms.adventure.use_tuning_fork.description": "Use a Tuning Fork to capture the note from a Note Block",
+  "advancements.caverns_and_chasms.adventure.tune_a_fish.title": "But You Can't Tuna Fish!",
+  "advancements.caverns_and_chasms.adventure.tune_a_fish.description": "Attack a fish with a Tuning Fork",
   "advancements.caverns_and_chasms.husbandry.ancient_hoes.title": "Dangerous Determination",
   "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Use Netherite and Necromium Ingots to upgrade two hoes, and then realize that life is insignificant",
   "advancements.caverns_and_chasms.nether.necromium_armor.title": "Cover Me in Curses",
