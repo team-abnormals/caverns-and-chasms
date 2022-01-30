@@ -82,6 +82,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		oreBlasting(consumer, SILVER_SMELTABLES, CCItems.SILVER_INGOT.get(), 1.0F, 100, "silver_ingot");
 		oreBlasting(consumer, SPINEL_SMELTABLES, CCItems.SPINEL.get(), 0.2F, 100, "spinel");
 
+		ShapedRecipeBuilder.shaped(Blocks.CALCITE, 2).define('B', Items.BONE_MEAL).define('C', Blocks.COBBLESTONE).pattern("CB").pattern("BC").unlockedBy("has_bone_meal", has(Items.BONE_MEAL)).save(consumer);
 		generateRecipes(consumer, CALCITE);
 		stonecutterResultFromBase(consumer, CCBlocks.CALCITE_SLAB.get(), Blocks.CALCITE, 2);
 		stonecutterResultFromBase(consumer, CCBlocks.CALCITE_STAIRS.get(), Blocks.CALCITE);
@@ -89,12 +90,11 @@ public class CCRecipeProvider extends RecipeProvider {
 		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE.get(), Blocks.CALCITE);
 		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_SLAB.get(), Blocks.CALCITE, 2);
 		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_STAIRS.get(), Blocks.CALCITE);
-		ShapedRecipeBuilder.shaped(CCBlocks.POLISHED_CALCITE.get(), 4).define('#', Blocks.CALCITE).pattern("##").pattern("##").unlockedBy("has_tuff", has(Blocks.CALCITE)).save(consumer);
+		ShapedRecipeBuilder.shaped(CCBlocks.POLISHED_CALCITE.get(), 4).define('#', Blocks.CALCITE).pattern("##").pattern("##").unlockedBy("has_calcite", has(Blocks.CALCITE)).save(consumer);
 		generateRecipes(consumer, POLISHED_CALCITE);
 		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_SLAB.get(), CCBlocks.POLISHED_CALCITE.get(), 2);
 		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_CALCITE_STAIRS.get(), CCBlocks.POLISHED_CALCITE.get());
 
-		ShapelessRecipeBuilder.shapeless(Blocks.TUFF, 2).requires(Blocks.ANDESITE).requires(Blocks.COBBLED_DEEPSLATE).unlockedBy("has_stone", has(Blocks.ANDESITE)).save(consumer);
 		generateRecipes(consumer, TUFF);
 		stonecutterResultFromBase(consumer, CCBlocks.TUFF_SLAB.get(), Blocks.TUFF, 2);
 		stonecutterResultFromBase(consumer, CCBlocks.TUFF_STAIRS.get(), Blocks.TUFF);
@@ -118,7 +118,6 @@ public class CCRecipeProvider extends RecipeProvider {
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.DRIPSTONE_SHINGLE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterResultFromBase(consumer, CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
-
 		ShapelessRecipeBuilder.shapeless(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), 8).requires(BlueprintItemTags.BUCKETS_WATER).requires(CCBlocks.DRIPSTONE_SHINGLES.get(), 8).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer);
 
 		generateRecipes(consumer, AZALEA_PLANKS);
