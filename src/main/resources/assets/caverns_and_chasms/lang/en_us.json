@@ -163,6 +163,9 @@
   "block.caverns_and_chasms.stripped_azalea_wood": "Stripped Azalea Wood",
   "block.caverns_and_chasms.vertical_azalea_planks": "Vertical Azalea Planks",
   "item.caverns_and_chasms.azalea_boat": "Azalea Boat",
+  "item.caverns_and_chasms.azalea_chest_boat": "Azalea Boat with Chest",
+  "item.caverns_and_chasms.azalea_furnace_boat": "Azalea Boat with Furnace",
+  "item.caverns_and_chasms.large_azalea_boat": "Large Azalea Boat",
 
   "item.caverns_and_chasms.cavefish": "Raw Cavefish",
   "item.caverns_and_chasms.cooked_cavefish": "Cooked Cavefish",
