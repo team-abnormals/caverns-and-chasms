@@ -11,6 +11,7 @@
   "block.caverns_and_chasms.deepslate_spinel_ore": "Pohjaliuskespinellimalmi",
   "block.caverns_and_chasms.raw_silver_block": "Raaka hopeakuutio",
   "block.caverns_and_chasms.fragile_stone": "Hauras kivi",
+  "block.caverns_and_chasms.fragile_deepslate": "Hauras pohjaliuskekivi",
   "block.caverns_and_chasms.copper_button": "Kuparinappi",
   "block.caverns_and_chasms.exposed_copper_button": "Altistunut kuparinappi",
   "block.caverns_and_chasms.weathered_copper_button": "Rapautunut kuparinappi",
@@ -163,6 +164,9 @@
   "block.caverns_and_chasms.stripped_azalea_wood": "Kuorittu ataleapuu",
   "block.caverns_and_chasms.vertical_azalea_planks": "Kohtisuorat atsalealankut",
   "item.caverns_and_chasms.azalea_boat": "Atsaleavene",
+  "item.caverns_and_chasms.azalea_chest_boat": "Arkullinen atsaleavene",
+  "item.caverns_and_chasms.azalea_furnace_boat": "Moottoroitu atsaleavene",
+  "item.caverns_and_chasms.large_azalea_boat": "Suuri atsaleavene",
 
   "item.caverns_and_chasms.cavefish": "Luolakala",
   "item.caverns_and_chasms.cooked_cavefish": "Paistettu luolakala",
@@ -183,6 +187,7 @@
 
   "item.caverns_and_chasms.tuning_fork": "Äänirauta",
   "item.caverns_and_chasms.barometer": "Ilmapuntari",
+  "item.caverns_and_chasms.oxidized_copper_golem": "Hapettunut kuparigolem",
   "item.caverns_and_chasms.tuning_fork.capture_note": "Siepattiin sävel %s",
   "item.caverns_and_chasms.tuning_fork.change_note": "Asetettiin säveleksi %s",
   "item.caverns_and_chasms.tuning_fork.note": "Sävel",
