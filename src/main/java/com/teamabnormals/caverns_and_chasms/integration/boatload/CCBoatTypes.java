@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import java.util.function.Supplier;
 
 public class CCBoatTypes {
-	public static final BoatloadBoatType AZALEA = BoatloadBoatType.register(BoatloadBoatType.create(new ResourceLocation(CavernsAndChasms.MOD_ID, "azalea"), () -> CCBlocks.AZALEA_PLANKS.get().asItem(), CCItems.AZALEA_BOAT, CCItems.AZALEA_CHEST_BOAT, CCItems.AZALEA_FURNACE_BOAT, CCItems.LARGE_AZALEA_BOAT));
+	public static final BoatloadBoatType AZALEA = BoatloadBoatType.register(BoatloadBoatType.create(new ResourceLocation(CavernsAndChasms.MOD_ID, "azalea"), () -> CCBlocks.AZALEA_PLANKS.get().asItem(), () -> CCItems.AZALEA_BOAT.get(), () -> CCItems.AZALEA_CHEST_BOAT.get(), () -> CCItems.AZALEA_FURNACE_BOAT.get(), () -> CCItems.LARGE_AZALEA_BOAT.get()));
 
 	public static final Supplier<Item> AZALEA_CHEST_BOAT = () -> new ChestBoatItem(AZALEA);
 	public static final Supplier<Item> AZALEA_FURNACE_BOAT = () -> new FurnaceBoatItem(AZALEA);
