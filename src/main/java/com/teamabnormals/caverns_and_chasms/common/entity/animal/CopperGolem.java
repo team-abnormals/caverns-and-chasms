@@ -1,19 +1,15 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -30,15 +26,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -51,38 +45,40 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.*;
+
 public class CopperGolem extends AbstractGolem {
-	public static final int HEAD_SPIN_TIME = 16;
-	public static final int PRESS_ANIM_TIME = 12;
-	
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
 	private static final EntityDataAccessor<Integer> OXIDATION = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
 
+	private int oxidationTime = this.nextOxidationTime();
 	private int ticksSinceButtonPress;
 
-	private float headSpinTicks;
-	private float headSpinTicksO;
-	private float buttonPressTicks;
-	private float buttonPressTicksO;
+	private int headSpinTicks;
+	private int headSpinTicksO;
+	private int buttonPressTicks;
+	private int buttonPressTicksO;
 
 	public CopperGolem(EntityType<? extends AbstractGolem> entity, Level level) {
 		super(entity, level);
+		this.moveControl = new CopperGolem.CopperGolemMoveControl();
 	}
 
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new CopperGolem.PressButtonGoal());
 		this.goalSelector.addGoal(1, new CopperGolem.RandomWalkingGoal());
-		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(2, new CopperGolem.StareAtPlayerGoal());
+		this.goalSelector.addGoal(3, new CopperGolem.LookAroundRandomly());
 	}
 
 	@Override
@@ -99,6 +95,11 @@ public class CopperGolem extends AbstractGolem {
 	@Override
 	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
 		return size.height * 0.7F;
+	}
+
+	@Override
+	protected Entity.MovementEmission getMovementEmission() {
+		return this.isStatue() ? Entity.MovementEmission.NONE : super.getMovementEmission();
 	}
 
 	@Override
@@ -120,6 +121,8 @@ public class CopperGolem extends AbstractGolem {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("Oxidation", this.getOxidation().getId());
+		compound.putInt("OxidationTime", this.oxidationTime);
+		compound.putInt("TicksSinceButtonPress", this.ticksSinceButtonPress);
 		compound.putBoolean("Waxed", this.isWaxed());
 	}
 
@@ -127,6 +130,10 @@ public class CopperGolem extends AbstractGolem {
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.setOxidation(Oxidation.byId(compound.getInt("Oxidation")));
+		if (compound.contains("OxidationTime")) {
+			this.oxidationTime = compound.getInt("OxidationTime");
+		}
+		this.ticksSinceButtonPress = compound.getInt("TicksSinceButtonPress");
 		this.setWaxed(compound.getBoolean("Waxed"));
 	}
 
@@ -140,9 +147,19 @@ public class CopperGolem extends AbstractGolem {
 		AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
 		attributeinstance.removeModifier(SPEED_MODIFIER_UUID);
 		if (oxidation != Oxidation.UNAFFECTED) {
-			double penalty = oxidation == Oxidation.EXPOSED ? -0.05D : oxidation == Oxidation.WEATHERED ? -0.1D : -0.25D;
+			double penalty = oxidation == Oxidation.EXPOSED ? -0.075D : oxidation == Oxidation.WEATHERED ? -0.15D : -0.25D;
 			attributeinstance.addTransientModifier(new AttributeModifier(SPEED_MODIFIER_UUID, "Weathering speed penalty", penalty, AttributeModifier.Operation.ADDITION));
 		}
+
+		if (oxidation == Oxidation.OXIDIZED) {
+			this.maxUpStep = 0.0F;
+		} else {
+			this.maxUpStep = 1.0F;
+		}
+	}
+
+	public boolean isStatue() {
+		return this.getOxidation() == Oxidation.OXIDIZED;
 	}
 
 	public boolean isWaxed() {
@@ -157,12 +174,22 @@ public class CopperGolem extends AbstractGolem {
 	public void tick() {
 		super.tick();
 
+		if (!this.level.isClientSide && this.isAlive() && !this.isWaxed() && !this.isStatue() && --this.oxidationTime <= 0 && this.oxidize()) {
+			this.oxidationTime = this.nextOxidationTime();
+		}
+
 		this.updateHeadSpinTicks();
-		this.updatePressButtonTicks();
+		this.updateButtonPressTicks();
 	}
 
 	@Override
 	public void aiStep() {
+		if (this.isStatue() || this.isImmobile()) {
+			this.jumping = false;
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
+
 		super.aiStep();
 
 		if (this.level.isClientSide) {
@@ -184,21 +211,35 @@ public class CopperGolem extends AbstractGolem {
 		ItemStack itemstack = player.getItemInHand(hand);
 		Item item = itemstack.getItem();
 		boolean success = false;
-		if (item == Items.HONEYCOMB) {
+		if (item == Items.COPPER_INGOT) {
+			float f = this.getHealth();
+			this.heal(15.0F);
+			if (this.getHealth() != f) {
+				this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+				if (!player.getAbilities().instabuild) {
+					itemstack.shrink(1);
+				}
+				success = true;
+			}
+		} else if (item == Items.HONEYCOMB) {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);
 				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
-				itemstack.shrink(1);
+				if (!player.getAbilities().instabuild) {
+					itemstack.shrink(1);
+				}
 				success = true;
 			}
 		} else if ((item instanceof AxeItem)) {
 			if (this.isWaxed()) {
 				this.setWaxed(false);
+				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.WAX_OFF);
 				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
 			} else if (this.deoxidize()) {
+				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.SCRAPE);
 				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
@@ -220,26 +261,88 @@ public class CopperGolem extends AbstractGolem {
 			this.setOxidation(Oxidation.UNAFFECTED);
 		}
 
-		this.spinHead(4, false);
-		this.level.broadcastEntityEvent(this, (byte)6);
+		this.spinHead();
+		this.level.broadcastEntityEvent(this, (byte) 6);
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
+		Entity enity = source.getDirectEntity();
 		if (this.isInvulnerableTo(source)) {
 			return false;
+		} else if (this.isStatue() && enity instanceof Player && ((Player) enity).getAbilities().mayBuild && ((Player) enity).getMainHandItem().is(CCItemTags.TOOLS_PICKAXES)) {
+			if (!this.level.isClientSide && !this.isRemoved()) {
+				Block.popResource(this.level, this.blockPosition(), new ItemStack(CCItems.OXIDIZED_COPPER_GOLEM.get()));
+				((ServerLevel)this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);
+				this.level.playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
+				this.discard();
+				
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			this.spinHead(1, false);
-			this.level.broadcastEntityEvent(this, (byte)4);
-			return super.hurt(source, amount);
+			boolean flag = super.hurt(source, amount);
+
+			if (this.isStatue()) {
+				this.animationSpeed = 0.0F;
+			} else {
+				this.spinHead();
+			}
+
+			return flag;
 		}
 	}
 
-	public boolean oxidize() {
+	@Override
+	public void knockback(double x, double y, double z) {
+		if (!this.isStatue()) {
+			super.knockback(x, y, z);
+		}
+	}
+
+	@Override
+	public boolean isPushable() {
+		return !this.isStatue() && super.isPushable();
+	}
+
+	@Override
+	public void push(double x, double y, double z) {
+		if (!this.isStatue()) {
+			super.push(x, y, z);
+		}
+	}
+
+	@Override
+	protected float tickHeadTurn(float yRot, float xRot) {
+		if (this.isStatue()) {
+			this.yBodyRotO = this.yRotO;
+			this.yBodyRot = this.getYRot();
+			return 0.0F;
+		} else {
+			return super.tickHeadTurn(yRot, xRot);
+		}
+	}
+
+	@Override
+	public void calculateEntityAnimation(LivingEntity entity, boolean isFlying) {
+		entity.animationSpeedOld = entity.animationSpeed;
+		double d0 = this.isStatue() ? 0.0D : entity.getX() - entity.xo;
+		double d1 = this.isStatue() ? 0.0D : entity.getZ() - entity.zo;
+		float f = (float) Math.sqrt(d0 * d0 + d1 * d1) * 4.0F;
+		if (f > 1.0F) {
+			f = 1.0F;
+		}
+
+		entity.animationSpeed += (f - entity.animationSpeed) * 0.4F;
+		entity.animationPosition += entity.animationSpeed;
+	}
+
+	private boolean oxidize() {
 		return this.changeOxidation(1);
 	}
 
-	public boolean deoxidize() {
+	private boolean deoxidize() {
 		return this.changeOxidation(-1);
 	}
 
@@ -249,11 +352,20 @@ public class CopperGolem extends AbstractGolem {
 		return this.getOxidation() != oxidation;
 	}
 
-	private void spinHead(int spins, boolean resetAnimation) {
-		if (this.headSpinTicks <= HEAD_SPIN_TIME / 2 || resetAnimation) {
-			this.headSpinTicks = spins * HEAD_SPIN_TIME + 8;
+	private int nextOxidationTime() {
+		return this.random.nextInt(144000) + 240000;
+	}
+
+	private void spinHead() {
+		if (this.headSpinTicks <= 16) {
+			this.headSpinTicks = 26;
 			this.headSpinTicksO = this.headSpinTicks;
 		}
+	}
+
+	private void pressButton() {
+		this.buttonPressTicks = 12;
+		this.buttonPressTicksO = this.buttonPressTicks;
 	}
 
 	private void updateHeadSpinTicks() {
@@ -263,7 +375,7 @@ public class CopperGolem extends AbstractGolem {
 		}
 	}
 
-	private void updatePressButtonTicks() {
+	private void updateButtonPressTicks() {
 		this.buttonPressTicksO = this.buttonPressTicks;
 		if (this.buttonPressTicks > 0) {
 			--this.buttonPressTicks;
@@ -293,31 +405,110 @@ public class CopperGolem extends AbstractGolem {
 
 	public void handleEntityEvent(byte id) {
 		if (id == 4) {
-			this.spinHead(1, false);
+			this.spinHead();
 		} else if (id == 6) {
-			this.spinHead(4, false);
+			this.spinHead();
 			this.spawnSparkParticles(ParticleTypes.ELECTRIC_SPARK);
 		} else if (id == 8) {
-			this.buttonPressTicks = PRESS_ANIM_TIME;
-			this.buttonPressTicksO = this.buttonPressTicks;
+			this.pressButton();
 		}
 		super.handleEntityEvent(id);
 	}
 
+	public class CopperGolemLookControl extends LookControl {
+		public CopperGolemLookControl() {
+			super(CopperGolem.this);
+		}
+
+		public void tick() {
+			if (!CopperGolem.this.isStatue()) {
+				super.tick();
+			}
+		}
+	}
+
+	class CopperGolemMoveControl extends MoveControl {
+		public CopperGolemMoveControl() {
+			super(CopperGolem.this);
+		}
+
+		public void tick() {
+			if (!CopperGolem.this.isStatue()) {
+				super.tick();
+			}
+
+		}
+	}
+
 	class RandomWalkingGoal extends WaterAvoidingRandomStrollGoal {
+		private int walkDelay;
+
 		public RandomWalkingGoal() {
 			super(CopperGolem.this, 1.0D);
 		}
 
 		@Override
 		public boolean canUse() {
-			return CopperGolem.this.ticksSinceButtonPress > 0 ? false : super.canUse();
+			return !CopperGolem.this.isStatue() && CopperGolem.this.ticksSinceButtonPress <= 0 && super.canUse();
+		}
+
+		@Override
+		public boolean canContinueToUse() {
+			return (this.walkDelay > 0 || !this.mob.getNavigation().isDone()) && !CopperGolem.this.isStatue() && !this.mob.isVehicle();
+		}
+
+		@Override
+		public void start() {
+			this.walkDelay = 12;
+			CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte) 4);
+		}
+
+		@Override
+		public void tick() {
+			if (this.walkDelay > 0) {
+				--this.walkDelay;
+				if (this.walkDelay == 0) {
+					CopperGolem.this.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+				}
+			}
+		}
+	}
+
+	class StareAtPlayerGoal extends LookAtPlayerGoal {
+		public StareAtPlayerGoal() {
+			super(CopperGolem.this, Player.class, 6.0F);
+		}
+
+		@Override
+		public boolean canUse() {
+			return !CopperGolem.this.isStatue() && super.canUse();
+		}
+
+		@Override
+		public boolean canContinueToUse() {
+			return !CopperGolem.this.isStatue() && super.canUse();
+		}
+	}
+
+	class LookAroundRandomly extends RandomLookAroundGoal {
+		public LookAroundRandomly() {
+			super(CopperGolem.this);
+		}
+
+		@Override
+		public boolean canUse() {
+			return !CopperGolem.this.isStatue() && super.canUse();
+		}
+
+		@Override
+		public boolean canContinueToUse() {
+			return !CopperGolem.this.isStatue() && super.canUse();
 		}
 	}
 
 	class PressButtonGoal extends Goal {
 		private BlockPos blockPos = BlockPos.ZERO;
-		private Direction buttonDirection;
+		private Vec3i buttonNormal;
 		private int nextStartTicks;
 		private int tryTicks;
 		private int maxStayTicks;
@@ -335,14 +526,14 @@ public class CopperGolem extends AbstractGolem {
 				return false;
 			} else {
 				this.nextStartTicks = 20;
-				return this.findRandomButton();
+				return !CopperGolem.this.isStatue() && this.findRandomButton();
 			}
 		}
 
 		@Override
 		public boolean canContinueToUse() {
 			if (this.tryTicks >= -this.maxStayTicks && this.tryTicks <= 1200) {
-				return this.isUnpressedButton(CopperGolem.this.level, this.blockPos);
+				return !CopperGolem.this.isStatue() && this.isUnpressedButton(CopperGolem.this.level, this.blockPos);
 			} else {
 				return false;
 			}
@@ -353,26 +544,26 @@ public class CopperGolem extends AbstractGolem {
 			this.moveMobToBlock();
 			this.tryTicks = 0;
 			this.maxStayTicks = CopperGolem.this.getRandom().nextInt(CopperGolem.this.getRandom().nextInt(1200) + 1200) + 1200;
-			this.pressWaitTicks = 10 + PRESS_ANIM_TIME / 2;
+			this.pressWaitTicks = 16;
 		}
 
 		@Override
 		public void tick() {
-			Vec3i normal = this.buttonDirection.getNormal();
-			CopperGolem.this.getLookControl().setLookAt(this.blockPos.getX() + 0.5D + normal.getX() * 0.5D, this.blockPos.getY() + 0.5D + normal.getY() * 0.5D, this.blockPos.getZ() + 0.5D + normal.getZ() * 0.5D, 10.0F, CopperGolem.this.getMaxHeadXRot());
+			CopperGolem.this.getLookControl().setLookAt(this.blockPos.getX() + 0.5D + this.buttonNormal.getX() * 0.5D, this.blockPos.getY() + 0.5D + this.buttonNormal.getY() * 0.5D, this.blockPos.getZ() + 0.5D + this.buttonNormal.getZ() * 0.5D, 10.0F, CopperGolem.this.getMaxHeadXRot());
 
-			if (!this.blockPos.closerThan(CopperGolem.this.position(), 1.0D)) {
+			if (!this.blockPos.closerThan(CopperGolem.this.position(), 1.25D)) {
 				++this.tryTicks;
-				this.pressWaitTicks = 10 + PRESS_ANIM_TIME / 2;
-				if (this.tryTicks % 40 == 0) {
+				this.pressWaitTicks = 20;
+				if (this.tryTicks % 20 == 0) {
 					this.moveMobToBlock();
 				}
 			} else {
 				--this.tryTicks;
 				--this.pressWaitTicks;
-				
-				if (this.pressWaitTicks == PRESS_ANIM_TIME / 2) {
-					CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte)8);
+
+				if (this.pressWaitTicks == 6) {
+					CopperGolem.this.pressButton();
+					CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte) 8);
 				} else if (this.pressWaitTicks <= 0) {
 					BlockState state = CopperGolem.this.level.getBlockState(this.blockPos);
 					if (!state.getValue(CopperButtonBlock.POWERED)) {
@@ -383,6 +574,11 @@ public class CopperGolem extends AbstractGolem {
 					}
 				}
 			}
+		}
+
+		@Override
+		public void stop() {
+			CopperGolem.this.getNavigation().stop();
 		}
 
 		@Override
@@ -397,7 +593,7 @@ public class CopperGolem extends AbstractGolem {
 		private boolean findRandomButton() {
 			List<BlockPos> buttonpositions = Lists.newArrayList();
 
-			for(BlockPos pos : BlockPos.betweenClosed(Mth.floor(CopperGolem.this.getX() - 8.0D), Mth.floor(CopperGolem.this.getY() - 4.0D), Mth.floor(CopperGolem.this.getZ() - 8.0D), Mth.floor(CopperGolem.this.getX() + 8.0D), Mth.floor(CopperGolem.this.getY() + 4.0D), Mth.floor(CopperGolem.this.getZ() + 8.0D))) {
+			for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(CopperGolem.this.getX() - 8.0D), Mth.floor(CopperGolem.this.getY() - 4.0D), Mth.floor(CopperGolem.this.getZ() - 8.0D), Mth.floor(CopperGolem.this.getX() + 8.0D), Mth.floor(CopperGolem.this.getY() + 4.0D), Mth.floor(CopperGolem.this.getZ() + 8.0D))) {
 				if (CopperGolem.this.isWithinRestriction(pos) && this.isUnpressedButton(CopperGolem.this.level, pos)) {
 					buttonpositions.add(new BlockPos(pos));
 				}
@@ -407,7 +603,8 @@ public class CopperGolem extends AbstractGolem {
 				this.blockPos = buttonpositions.get(CopperGolem.this.getRandom().nextInt(buttonpositions.size()));
 				BlockState state = CopperGolem.this.level.getBlockState(this.blockPos);
 				AttachFace face = state.getValue(CopperButtonBlock.FACE);
-				this.buttonDirection = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(CopperButtonBlock.FACING).getOpposite();
+				Direction direction = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(CopperButtonBlock.FACING).getOpposite();
+				this.buttonNormal = direction.getNormal();
 				return true;
 			}
 
@@ -418,7 +615,7 @@ public class CopperGolem extends AbstractGolem {
 			BlockState state = level.getBlockState(pos);
 			BlockPos belowpos = pos.below();
 			BlockState belowstate = level.getBlockState(belowpos);
-			return state.getBlock() instanceof CopperButtonBlock && !state.getValue(CopperButtonBlock.POWERED) && level.getBlockState(pos).isPathfindable(level, pos, PathComputationType.LAND) && belowstate.entityCanStandOn(level, belowpos, CopperGolem.this);
+			return state.getBlock() instanceof CopperButtonBlock && !state.getValue(CopperButtonBlock.POWERED) && belowstate.entityCanStandOn(level, belowpos, CopperGolem.this);
 		}
 	}
 

@@ -21,8 +21,8 @@ import net.minecraft.util.Mth;
 public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T> {
 	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "copper_golem"), "main");
 	private final ModelPart root;
-	private final ModelPart body;
 	private final ModelPart head;
+	private final ModelPart body;
 	private final ModelPart nose;
 	private final ModelPart rightArm;
 	private final ModelPart leftArm;
@@ -33,9 +33,9 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 
 	public CopperGolemModel(ModelPart rootIn) {
 		this.root = rootIn;
-		this.body = rootIn.getChild("body");
-		this.head = this.body.getChild("head");
+		this.head = rootIn.getChild("head");
 		this.nose = this.head.getChild("nose");
+		this.body = rootIn.getChild("body");
 		this.rightArm = this.body.getChild("right_arm");
 		this.leftArm = this.body.getChild("left_arm");
 		this.rightLeg = rootIn.getChild("right_leg");
@@ -46,12 +46,12 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 11).addBox(-4.0F, 0.0F, -2.5F, 8.0F, 6.0F, 5.0F, new CubeDeformation(0.15F)), PartPose.offset(0.0F, 15.0F, 0.0F));
-		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -5.0F, -3.0F, 8.0F, 5.0F, 6.0F, new CubeDeformation(0.4F))
+		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -5.0F, -3.0F, 8.0F, 5.0F, 6.0F, new CubeDeformation(0.4F))
 				.texOffs(0, 33).addBox(-4.0F, -5.0F, -3.0F, 8.0F, 5.0F, 6.0F, new CubeDeformation(0.6F))
 				.texOffs(22, 0).addBox(-1.0F, -7.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-				.texOffs(22, 18).addBox(-2.0F, -10.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+				.texOffs(22, 18).addBox(-2.0F, -10.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 15.0F, 0.0F));
 		head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(12, 22).addBox(-1.0F, 0.0F, -1.25F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, -3.5F));
+		PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 11).addBox(-4.0F, 0.0F, -2.5F, 8.0F, 6.0F, 5.0F, new CubeDeformation(0.15F)), PartPose.offset(0.0F, 15.0F, 0.0F));
 		body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 22).mirror().addBox(-3.0F, -1.0F, -1.5F, 3.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, 0.0F, 0.0F));
 		body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 22).addBox(0.0F, -1.0F, -1.5F, 3.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, 0.0F, 0.0F));
 		partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(24, 7).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.0F, 21.0F, 0.0F));
@@ -74,23 +74,22 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 
 	@Override
 	public void setupAnim(T copperGolem, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = this.headSpinTicks - 6;
-		float headspinanim = f > 0 ? f * 2.0F * (float) Math.PI / CopperGolem.HEAD_SPIN_TIME : 0.0F;
-		float headtiltanim = f <= 0 ? 0.1F - Mth.triangleWave(this.headSpinTicks, 6.0F) * 0.1F : 0.0F;
+		float headspinanim = this.headSpinTicks > 10 ? Mth.TWO_PI * (this.headSpinTicks - 10F) / 16F : this.headSpinTicks > 4 ? -Mth.sin(Mth.PI * (this.headSpinTicks - 4.0F) / 6.0F) * (this.headSpinTicks - 4.0F) / 10.0F : 0.0F;
+		float headtilt = this.headSpinTicks < 10 ? Mth.sin(Mth.PI * this.headSpinTicks * 0.3F) * this.headSpinTicks * 0.012F : 0.0F;
 
-		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F) + headspinanim;
-		this.head.xRot = headPitch * ((float) Math.PI / 180F);
-		this.head.zRot = headtiltanim;
+		this.head.yRot = netHeadYaw * (Mth.PI / 180F) + headspinanim;
+		this.head.xRot = headPitch * (Mth.PI / 180F);
+		this.head.zRot = headtilt;
 
 		if (this.buttonPressTicks > 0.0F) {
-			this.rightArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, CopperGolem.PRESS_ANIM_TIME);
-			this.leftArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, CopperGolem.PRESS_ANIM_TIME);
+			this.rightArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, 12F);
+			this.leftArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, 12F);
 		} else {
 			this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
 			this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
 		}
 
-		this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingTicks;
-		this.leftLeg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13.0F) * limbSwingTicks;
+		this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13F) * limbSwingTicks;
+		this.leftLeg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13F) * limbSwingTicks;
 	}
 }
