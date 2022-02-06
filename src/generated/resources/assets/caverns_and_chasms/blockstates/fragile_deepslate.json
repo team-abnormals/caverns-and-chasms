@@ -1,0 +1,62 @@
+{
+  "variants": {
+    "axis=x": [
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate_mirrored",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate_mirrored",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "axis=y": [
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate"
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate_mirrored"
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate",
+        "x": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate_mirrored",
+        "x": 180
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate",
+        "x": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate_mirrored",
+        "x": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/fragile_deepslate_mirrored",
+        "x": 180,
+        "y": 90
+      }
+    ]
+  }
+}

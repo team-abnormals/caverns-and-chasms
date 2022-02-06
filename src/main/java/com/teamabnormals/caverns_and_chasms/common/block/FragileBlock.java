@@ -11,17 +11,17 @@ import net.minecraft.world.level.block.Block;
 
 public interface FragileBlock {
 
-	static void breakNeighbors(Level level, BlockPos pos) {
+	default void breakNeighbors(Level level, BlockPos pos) {
 		for (Direction direction : Direction.values()) {
 			BlockPos blockpos = pos.relative(direction);
 			Block block = level.getBlockState(blockpos).getBlock();
-			if (block instanceof FragileBlock)  {
+			if (block instanceof FragileBlock) {
 				level.scheduleTick(blockpos, block, 4 + level.getRandom().nextInt(4));
 			}
 		}
 	}
 
-	static boolean shouldBreakNeighbors(Player player, ItemStack stack) {
+	default boolean shouldBreakNeighbors(Player player, ItemStack stack) {
 		return !player.isCreative() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0;
 	}
 }

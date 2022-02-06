@@ -3,6 +3,7 @@
   "values": [
     "minecraft:gravel",
     "caverns_and_chasms:fragile_stone",
+    "caverns_and_chasms:fragile_deepslate",
     "#minecraft:base_stone_overworld",
     "#forge:ores"
   ]

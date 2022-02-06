@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_mirrored",
+  "textures": {
+    "side": "caverns_and_chasms:block/fragile_deepslate",
+    "end": "caverns_and_chasms:block/fragile_deepslate_top"
+  }
+}
