@@ -1,9 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -22,6 +26,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -41,19 +46,34 @@ public class TuningForkItem extends Item {
 	public InteractionResult useOn(UseOnContext context) {
 		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
+		Direction direction = context.getClickedFace();
 		Player player = context.getPlayer();
 		BlockState state = level.getBlockState(pos);
+		ItemStack stack = context.getItemInHand();
+		CompoundTag tag = stack.getOrCreateTag();
 
-		if (state.getBlock() instanceof NoteBlock && player != null && player.isCrouching()) {
-			ItemStack stack = context.getItemInHand();
-			CompoundTag tag = stack.getOrCreateTag();
-			int note = state.getValue(NoteBlock.NOTE);
-			if (!tag.contains("Note") || tag.getInt("Note") != note) {
-				tag.putInt("Note", state.getValue(NoteBlock.NOTE));
-				player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".capture_note", new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-				this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+		if (player != null) {
+			if (state.getBlock() instanceof NoteBlock && player.isCrouching()) {
+				int note = state.getValue(NoteBlock.NOTE);
+				if (!tag.contains("Note") || tag.getInt("Note") != note) {
+					tag.putInt("Note", state.getValue(NoteBlock.NOTE));
+					player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".capture_note", new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+					this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+				}
+				return InteractionResult.sidedSuccess(level.isClientSide());
+			} else {
+				if (tag.contains("Note")) {
+					BlockPos targetpos = pos.relative(direction);
+					int note = tag.getInt("Note");
+					player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".note").append(": ").append(new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+					this.playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+					this.attractCopperGolemsToPos(level, targetpos);
+					if (level.isClientSide) {
+						level.addParticle(ParticleTypes.NOTE, targetpos.getX() + 0.5D, targetpos.getY() + 0.25D, targetpos.getZ() + 0.5D, (double) note / 24.0D, 0.0D, 0.0D);
+					}
+					return InteractionResult.sidedSuccess(level.isClientSide());
+				}
 			}
-			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
 
 		return super.useOn(context);
@@ -68,6 +88,7 @@ public class TuningForkItem extends Item {
 			int note = tag.getInt("Note");
 			player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".note").append(": ").append(new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 			this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+			this.attractCopperGolemsToPos(level, player.blockPosition());
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
@@ -82,6 +103,7 @@ public class TuningForkItem extends Item {
 			int note = tag.getInt("Note");
 			this.playNote(target.getLevel(), target.getX(), target.getY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+			this.attractCopperGolemsToPos(target.getLevel(), target.blockPosition());
 		}
 
 		return super.hurtEnemy(stack, target, attacker);
@@ -98,9 +120,15 @@ public class TuningForkItem extends Item {
 		}
 	}
 
-	public void playNote(Level level, double x, double y, double z, SoundEvent soundEvent, int note) {
+	private void playNote(Level level, double x, double y, double z, SoundEvent soundEvent, int note) {
 		float pitch = (float) Math.pow(2.0D, (double) (note - 12) / 12.0D);
 		level.playSound(null, x, y, z, soundEvent, SoundSource.NEUTRAL, 1.0F, pitch);
+	}
+
+	private void attractCopperGolemsToPos(Level level, BlockPos pos) {
+		for(CopperGolem coppergolem : level.getEntitiesOfClass(CopperGolem.class, (new AABB(pos)).inflate(8.0D))) {
+			coppergolem.setTuningForkTargetPos(pos);
+		}
 	}
 
 	public int getColor(ItemStack stack) {

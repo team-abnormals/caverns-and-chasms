@@ -334,12 +334,12 @@ public class CCEvents {
 					level.levelEvent(2001, pos, Block.getId(state));
 					level.levelEvent(2001, belowPos, Block.getId(state));
 
-					CopperGolem golem = CCEntityTypes.COPPER_GOLEM.get().create(level);
-					golem.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D, 0.0F, 0.0F);
-					level.addFreshEntity(golem);
+					CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
+					coppergolem.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D, 0.0F, 0.0F);
+					level.addFreshEntity(coppergolem);
 
-					for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, golem.getBoundingBox().inflate(5.0D))) {
-						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, golem);
+					for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, coppergolem.getBoundingBox().inflate(5.0D))) {
+						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, coppergolem);
 					}
 
 					level.blockUpdated(pos, Blocks.AIR);
