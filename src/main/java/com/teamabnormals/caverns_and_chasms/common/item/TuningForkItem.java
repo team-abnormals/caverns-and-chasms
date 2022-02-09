@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -63,7 +62,7 @@ public class TuningForkItem extends Item {
 				return InteractionResult.sidedSuccess(level.isClientSide());
 			} else {
 				if (tag.contains("Note")) {
-					BlockPos targetpos = pos.relative(direction);
+					BlockPos targetpos = state.getCollisionShape(level, pos).isEmpty() ? pos : pos.relative(direction);
 					int note = tag.getInt("Note");
 					player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".note").append(": ").append(new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);

@@ -33,10 +33,12 @@ public class AfflictionParticle extends TextureSheetParticle {
 		this.tick();
 	}
 
+	@Override
 	public float getQuadSize(float p_105938_) {
 		return this.quadSize * Mth.clamp(((float) this.age + p_105938_) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
 	}
 
+	@Override
 	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
