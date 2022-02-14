@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFi
 import com.teamabnormals.caverns_and_chasms.client.model.SanguineArmorModel;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.LazyLoadedValue;
@@ -29,7 +30,7 @@ import java.util.function.Consumer;
 
 public class SanguineArmorItem extends ArmorItem implements IItemRenderProperties {
 	private final LazyLoadedValue<Multimap<Attribute, AttributeModifier>> attributes;
-	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.GOLDEN_BOOTS);
+	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(CCItems.SILVER_BOOTS);
 
 	public SanguineArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {
 		super(material, slot, properties);

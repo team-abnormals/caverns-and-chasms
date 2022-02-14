@@ -284,14 +284,14 @@ public class CopperGolem extends AbstractGolem {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		Entity enity = source.getDirectEntity();
+		Entity entity = source.getDirectEntity();
 		if (this.isInvulnerableTo(source)) {
 			return false;
-		} else if (this.isStatue() && enity instanceof Player && ((Player) enity).getAbilities().mayBuild && ((Player) enity).getMainHandItem().is(CCItemTags.TOOLS_PICKAXES)) {
+		} else if (this.isStatue() && entity instanceof Player && ((Player) entity).getAbilities().mayBuild && ((Player) entity).getMainHandItem().is(CCItemTags.TOOLS_PICKAXES)) {
 			if (!this.level.isClientSide && !this.isRemoved()) {
 				Block.popResource(this.level, this.blockPosition(), new ItemStack(CCItems.OXIDIZED_COPPER_GOLEM.get()));
 				((ServerLevel)this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);
-				this.level.playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
+				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
 				this.discard();
 
 				return true;
