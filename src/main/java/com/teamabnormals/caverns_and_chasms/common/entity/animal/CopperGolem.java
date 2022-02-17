@@ -110,11 +110,6 @@ public class CopperGolem extends AbstractGolem {
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-		return size.height * 0.7F;
-	}
-
-	@Override
 	protected Entity.MovementEmission getMovementEmission() {
 		return this.isStatue() ? Entity.MovementEmission.NONE : super.getMovementEmission();
 	}
@@ -312,6 +307,11 @@ public class CopperGolem extends AbstractGolem {
 	}
 
 	@Override
+	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+		return size.height * 0.7F;
+	}
+
+	@Override
 	public void knockback(double x, double y, double z) {
 		if (!this.isStatue()) {
 			super.knockback(x, y, z);
@@ -328,6 +328,11 @@ public class CopperGolem extends AbstractGolem {
 		if (!this.isStatue()) {
 			super.push(x, y, z);
 		}
+	}
+
+	@Override
+	protected int decreaseAirSupply(int supply) {
+		return supply;
 	}
 
 	public void setTuningForkTargetPos(BlockPos pos) {
