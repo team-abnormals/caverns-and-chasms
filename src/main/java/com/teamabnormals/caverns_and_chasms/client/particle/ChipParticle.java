@@ -16,9 +16,9 @@ public class ChipParticle extends TextureSheetParticle {
 	public ChipParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		super(level, x, y, z, xSpeed, ySpeed, zSpeed);
 		this.setSize(0.02F, 0.02F);
-		this.quadSize *= 2.0F;
+		this.quadSize *= 3.0F;
 		this.gravity = 1.0F;
-		this.lifetime = this.random.nextInt(80) + 60;
+		this.lifetime = this.random.nextInt(60) + 60;
 	}
 
 	@Override

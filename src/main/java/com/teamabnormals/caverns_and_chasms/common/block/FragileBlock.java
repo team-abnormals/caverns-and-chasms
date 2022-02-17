@@ -29,22 +29,23 @@ public interface FragileBlock {
 		}
 	}
 
-	default void crack(Level level, BlockState state, BlockPos pos, Random random, String particlestring) {
+	default void crack(Level level, BlockState state, BlockPos pos, Random random, boolean isDeepslate) {
 		double d0 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
 		double d1 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
 		double d2 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
 		double d3 = random.nextGaussian() * 0.04D;
 		double d4 = random.nextGaussian() * 0.04D;
 		double d5 = random.nextGaussian() * 0.04D;
-		NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + ":fragile_stone_dust", d0, d1, d2, d3, d4, d5);
+		NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + (isDeepslate ? ":deepslate_dust" : ":stone_dust"), d0, d1, d2, d3, d4, d5);
 
-		for(int x = 0; x < 3; ++x) {
+		int i = random.nextInt(2) + 1;
+		for(int j = 0; j < i; ++j) {
 			double d6 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
 			double d7 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
 			double d8 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
 			double d9 = ((double) random.nextFloat() - 0.5D) * 0.02D;
 			double d10 = ((double) random.nextFloat() - 0.5D) * 0.02D;
-			NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + ":" + particlestring, d6, d7, d8, d9, -0.4D, d10);
+			NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + (isDeepslate ? ":deepslate_chip" : ":stone_chip"), d6, d7, d8, d9, -0.4D, d10);
 		}
 
 		SoundType soundtype = state.getSoundType(level, pos, null);
