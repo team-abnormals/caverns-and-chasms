@@ -1,10 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
+import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags; 
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
@@ -47,7 +48,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -91,6 +95,7 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -102,21 +107,21 @@ public class CCEvents {
 
 		if (entity instanceof Zombie zombie) {
 			zombie.goalSelector.addGoal(1, new AvoidEntityGoal<>(zombie, Fly.class, 9.0F, 1.05D, 1.05D));
-		}
-		if (entity instanceof AbstractHorse horse && !(entity instanceof SkeletonHorse)) {
+		} else if (entity instanceof AbstractHorse horse && !(entity instanceof SkeletonHorse)) {
 			horse.goalSelector.addGoal(1, new AvoidEntityGoal<>(horse, Fly.class, 8.0F, 1.1D, 1.1D));
-		}
-		if (entity instanceof Spider spider) {
+		} else if (entity instanceof Spider spider) {
 			spider.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(spider, Fly.class, false));
-		}
-		if (entity instanceof IronGolem golem && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
+		} else if (entity instanceof IronGolem golem && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			golem.targetSelector.availableGoals.stream().map(it -> it.goal).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
 				golem.targetSelector.removeGoal(goal);
 				golem.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(golem, Mob.class, 5, false, false, (mob) -> mob instanceof Enemy));
 			});
-		}
-		if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
+		} else if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolem.class, true));
+		} else if (entity instanceof Cat cat) {
+			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, (Predicate<LivingEntity>)null));
+		} else if (entity instanceof Ocelot ocelot) {
+			ocelot.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(ocelot, Rat.class, false));
 		}
 	}
 

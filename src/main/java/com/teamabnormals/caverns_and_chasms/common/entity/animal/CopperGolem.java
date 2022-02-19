@@ -243,7 +243,7 @@ public class CopperGolem extends AbstractGolem {
 				}
 				success = true;
 			}
-		} else if ((item instanceof AxeItem)) {
+		} else if (item instanceof AxeItem) {
 			if (this.isWaxed()) {
 				this.setWaxed(false);
 				this.oxidationTime = this.nextOxidationTime();
