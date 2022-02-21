@@ -42,7 +42,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
@@ -62,6 +61,7 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.ShoulderRidingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -75,7 +75,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-public class Rat extends TamableAnimal {
+public class Rat extends ShoulderRidingEntity {
 	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isTame() && !entity.isBaby() && entity.isAlive();
 	private static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 
@@ -96,12 +96,13 @@ public class Rat extends TamableAnimal {
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
 		this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
 		this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(5, new Rat.StayInGroupGoal());
-		this.goalSelector.addGoal(6, new Rat.StayWithParentGoal());
-		this.goalSelector.addGoal(7, new Rat.RandomWalkingGoal());
-		this.goalSelector.addGoal(8, new Rat.FindItemsGoal());
-		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(5, new Rat.JumpOnOwnersShoulderGoal());
+		this.goalSelector.addGoal(6, new Rat.StayInGroupGoal());
+		this.goalSelector.addGoal(7, new Rat.StayWithParentGoal());
+		this.goalSelector.addGoal(8, new Rat.RandomWalkingGoal());
+		this.goalSelector.addGoal(9, new Rat.FindItemsGoal());
+		this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
 		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -155,7 +156,7 @@ public class Rat extends TamableAnimal {
 	public void aiStep() {
 		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
 			++this.eatTicks;
-			ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+			ItemStack itemstack = this.getMainHandItem();
 			if (this.canEatItem(itemstack)) {
 				if (this.eatTicks > 600) {
 					ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
@@ -279,7 +280,7 @@ public class Rat extends TamableAnimal {
 	@Override
 	public boolean canHoldItem(ItemStack stack) {
 		Item item = stack.getItem();
-		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+		ItemStack itemstack = this.getMainHandItem();
 		return itemstack.isEmpty() || this.eatTicks > 0 && item.isEdible() && !itemstack.getItem().isEdible();
 	}
 
@@ -307,7 +308,7 @@ public class Rat extends TamableAnimal {
 				this.spawnItem(itemstack.split(i - 1));
 			}
 
-			this.spitOutItem(this.getItemBySlot(EquipmentSlot.MAINHAND));
+			this.spitOutItem(this.getMainHandItem());
 			this.onItemPickup(itemEntity);
 			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
 			this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
@@ -345,11 +346,15 @@ public class Rat extends TamableAnimal {
 	}
 
 	public float getTailWagAmount() {
-		if (this.isTame()) {
-			float f = Mth.clamp(1.0F - (this.getMaxHealth() - this.getHealth()) / this.getMaxHealth(), 0.0F, 1.0F);
-			return this.isInWater() ? f : f * 1.5F;
+		return getTailWagAmount(this.isTame(), this.isInWater(), this.getMaxHealth(), this.getHealth());
+	}
+
+	public static float getTailWagAmount(boolean isTame, boolean isInWater, float maxHealth, float health) {
+		if (isTame) {
+			float f = Mth.clamp(1.0F - (maxHealth - health) / maxHealth, 0.0F, 1.0F);
+			return isInWater ? f : f * 1.5F;
 		} else {
-			return this.isInWater() ? 1.0F : 1.5F;
+			return isInWater ? 1.0F : 1.5F;
 		}
 	}
 
@@ -511,6 +516,46 @@ public class Rat extends TamableAnimal {
 		}
 	}
 
+	class JumpOnOwnersShoulderGoal extends Goal {
+		private ServerPlayer owner;
+
+		public JumpOnOwnersShoulderGoal() {
+			super();
+			this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+		}
+
+		@Override
+		public boolean canUse() {
+			return !Rat.this.isOrderedToSit() && Rat.this.canSitOnShoulder() && this.shouldJumpOnShoulder();
+		}
+
+		@Override
+		public void start() {
+			this.owner = (ServerPlayer) Rat.this.getOwner();
+		}
+
+		@Override
+		public void stop() {
+			this.owner = null;
+		}
+
+		@Override
+		public void tick() {
+			if (!Rat.this.isInSittingPose() && !Rat.this.isLeashed() && Rat.this.getBoundingBox().intersects(this.owner.getBoundingBox())) {
+				Rat.this.spitOutItem(Rat.this.getMainHandItem());
+				Rat.this.setEntityOnShoulder(this.owner);
+			} else {
+				Rat.this.getLookControl().setLookAt(this.owner, 10.0F, Rat.this.getMaxHeadXRot());
+				Rat.this.getNavigation().moveTo(this.owner, 1.0D);
+			}
+		}
+
+		private boolean shouldJumpOnShoulder() {
+			ServerPlayer owner = (ServerPlayer) Rat.this.getOwner();
+			return owner != null && owner.isCrouching() && !owner.isSpectator() && !owner.getAbilities().flying && !owner.isInWater() && !owner.isInPowderSnow;
+		}
+	}
+
 	class StayInGroupGoal extends Goal {
 		private Vec3 groupCenter;
 		private int timeToRecalcPath;
@@ -592,14 +637,14 @@ public class Rat extends TamableAnimal {
 
 		@Override
 		public boolean canUse() {
-			if (!Rat.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
+			if (!Rat.this.getMainHandItem().isEmpty()) {
 				return false;
 			} else if (Rat.this.getTarget() == null && Rat.this.getLastHurtByMob() == null) {
 				if (Rat.this.getRandom().nextInt(10) != 0) {
 					return false;
 				} else {
 					List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
-					return !list.isEmpty() && Rat.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
+					return !list.isEmpty() && Rat.this.getMainHandItem().isEmpty();
 				}
 			} else {
 				return false;
@@ -609,7 +654,7 @@ public class Rat extends TamableAnimal {
 		@Override
 		public void tick() {
 			List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
-			ItemStack itemstack = Rat.this.getItemBySlot(EquipmentSlot.MAINHAND);
+			ItemStack itemstack = Rat.this.getMainHandItem();
 			if (itemstack.isEmpty() && !list.isEmpty()) {
 				Rat.this.getNavigation().moveTo(list.get(0), 1.2F);
 			}

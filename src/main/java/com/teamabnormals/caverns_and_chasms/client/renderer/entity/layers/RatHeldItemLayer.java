@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -11,12 +12,16 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class RatHeldItemLayer extends RenderLayer<Rat, RatModel<Rat>> {
 	public RatHeldItemLayer(RenderLayerParent<Rat, RatModel<Rat>> entityRenderer) {
 		super(entityRenderer);
 	}
 
+	@Override
 	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		matrixStackIn.pushPose();
 

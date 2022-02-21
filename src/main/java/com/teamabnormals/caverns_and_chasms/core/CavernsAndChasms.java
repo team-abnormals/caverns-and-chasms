@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
@@ -21,6 +22,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -62,6 +64,7 @@ public class CavernsAndChasms {
 
 		bus.addListener(this::registerLayerDefinitions);
 		bus.addListener(this::registerRenderers);
+		bus.addListener(this::registerLayers);
 		bus.addListener(this::registerItemColors);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
@@ -130,6 +133,14 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.SPINEL_PEARL.get(), ThrownItemRenderer::new);
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void registerLayers(EntityRenderersEvent.AddLayers event) {
+		event.getSkins().forEach(skin -> {
+			PlayerRenderer renderer = event.getSkin(skin);
+			renderer.addLayer(new RatOnShoulderLayer(renderer));
+		});
 	}
 
 	@OnlyIn(Dist.CLIENT)
