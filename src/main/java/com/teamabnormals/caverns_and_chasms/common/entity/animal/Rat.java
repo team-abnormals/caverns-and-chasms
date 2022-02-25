@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -34,6 +35,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -42,8 +44,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
@@ -53,22 +57,28 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -78,11 +88,16 @@ import net.minecraft.world.phys.Vec3;
 public class Rat extends ShoulderRidingEntity {
 	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isTame() && !entity.isBaby() && entity.isAlive();
 	private static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
+	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> {
+		return !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
+	};
 
 	private static final EntityDataAccessor<Integer> RAT_TYPE = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> TRUSTING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 
-	private List<Rat> group;
+	private List<Rat> group = Lists.newArrayList();
 	private int eatTicks;
 
 	public Rat(EntityType<? extends Rat> type, Level worldIn) {
@@ -96,16 +111,22 @@ public class Rat extends ShoulderRidingEntity {
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
 		this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
 		this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(5, new Rat.JumpOnOwnersShoulderGoal());
-		this.goalSelector.addGoal(6, new Rat.StayInGroupGoal());
-		this.goalSelector.addGoal(7, new Rat.StayWithParentGoal());
-		this.goalSelector.addGoal(8, new Rat.RandomWalkingGoal());
-		this.goalSelector.addGoal(9, new Rat.FindItemsGoal());
-		this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(5, new Rat.RatTemptGoal());
+		this.goalSelector.addGoal(6, new Rat.RatJumpOnOwnersShoulderGoal());
+		this.goalSelector.addGoal(7, new Rat.RatStayInGroupGoal());
+		this.goalSelector.addGoal(8, new Rat.RatFollowParentGoal());
+		this.goalSelector.addGoal(9, new Rat.RatAvoidEntityGoal<>(Player.class, 10.0F, 1.0F, 1.2F, (entity) -> {
+			return AVOID_PLAYERS.test(entity);
+		}));
+		this.goalSelector.addGoal(10, new Rat.RatRandomStrollGoal());
+		this.goalSelector.addGoal(11, new Rat.RatFindItemsGoal());
+		this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		this.targetSelector.addGoal(3, new Rat.RatStopAttackingGoal());
+		this.targetSelector.addGoal(4, (new Rat.RatHurtByTargetGoal()).setAlertOthers());
+		this.targetSelector.addGoal(5, new Rat.RatRandomTargetGoal<>(Player.class, true, null));
 	}
 
 	@Override
@@ -113,6 +134,8 @@ public class Rat extends ShoulderRidingEntity {
 		super.defineSynchedData();
 		this.entityData.define(RAT_TYPE, 0);
 		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
+		this.entityData.define(TRUSTING, false);
+		this.entityData.define(RUNNING_AWAY, false);
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
@@ -142,6 +165,7 @@ public class Rat extends ShoulderRidingEntity {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("Type", this.getRatType());
 		compound.putByte("CollarColor", (byte)this.getCollarColor().getId());
+		compound.putBoolean("Trusting", this.isTrusting());
 	}
 
 	@Override
@@ -151,6 +175,39 @@ public class Rat extends ShoulderRidingEntity {
 		if (compound.contains("CollarColor", 99)) {
 			this.setCollarColor(DyeColor.byId(compound.getInt("CollarColor")));
 		}
+		this.setTrusting(compound.getBoolean("Trusting"));
+	}
+
+	private void setRatType(int id) {
+		this.entityData.set(RAT_TYPE, id);
+	}
+
+	public int getRatType() {
+		return this.entityData.get(RAT_TYPE);
+	}
+
+	public DyeColor getCollarColor() {
+		return DyeColor.byId(this.entityData.get(COLLAR_COLOR));
+	}
+
+	public void setCollarColor(DyeColor color) {
+		this.entityData.set(COLLAR_COLOR, color.getId());
+	}
+
+	boolean isTrusting() {
+		return this.entityData.get(TRUSTING);
+	}
+
+	private void setTrusting(boolean trusting) {
+		this.entityData.set(TRUSTING, trusting);
+	}
+
+	boolean isRunningAway() {
+		return this.entityData.get(RUNNING_AWAY);
+	}
+
+	private void setRunningAway(boolean runningAway) {
+		this.entityData.set(RUNNING_AWAY, runningAway);
 	}
 
 	public void aiStep() {
@@ -214,7 +271,7 @@ public class Rat extends ShoulderRidingEntity {
 
 				return interactionresult;
 			}
-		} else if (itemstack.is(CCItemTags.RAT_TAME_ITEMS)) {
+		} else if ((this.isTrusting() || (this.getTarget() != player && !this.isRunningAway())) && itemstack.is(CCItemTags.RAT_TAME_ITEMS)) {
 			this.usePlayerItem(player, hand, itemstack);
 
 			if (!this.level.isClientSide) {
@@ -233,6 +290,62 @@ public class Rat extends ShoulderRidingEntity {
 		}
 
 		return super.mobInteract(player, hand);
+	}
+
+	public List<Rat> getGroup() {
+		return this.group;
+	}
+
+	public int getFriendAmount() {
+		int size = this.group.size();
+		return this.isBaby() ? size : size - 1;
+	}
+
+	public boolean isSurroundedByFriends() {
+		return this.getFriendAmount() > 0;
+	}
+
+	public boolean trustsPlayers() {
+		return this.isTrusting() || this.isTame();
+	}
+
+	public boolean shouldAttack(LivingEntity target) {
+		if (this.isTame() || this.getFriendAmount() > 1) {
+			if (target instanceof Player) {
+				return !this.trustsPlayers();
+			} else {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean shouldRunAway() {
+		return !this.trustsPlayers() && this.getFriendAmount() <= 1;
+	}
+
+	public Vec3 findGroupCenter(List<Rat> groupIn) {
+		double x = 0.0D;
+		double y = 0.0D;
+		double z = 0.0D;
+
+		for(Rat friend : groupIn) {
+			x += friend.getX();
+			y += friend.getY();
+			z += friend.getZ();
+		}
+
+		return new Vec3(x / groupIn.size(), y / groupIn.size(), z / groupIn.size());
+	}
+
+	public float getTailWagAmount() {
+		if (this.isTame()) {
+			float f = Mth.clamp(1.0F - (this.getMaxHealth() - this.getHealth()) / this.getMaxHealth(), 0.0F, 1.0F);
+			return this.isInWater() ? f : f * 1.5F;
+		} else {
+			return this.isInWater() ? 1.0F : 1.5F;
+		}
 	}
 
 	@Override
@@ -318,46 +431,6 @@ public class Rat extends ShoulderRidingEntity {
 		}
 	}
 
-	public List<Rat> getGroup() {
-		return this.group;
-	}
-
-	public int getFriendAmount() {
-		int size = this.group.size();
-		return this.isBaby() ? size : size - 1;
-	}
-
-	public boolean isSurroundedByFriends() {
-		return this.group != null && this.getFriendAmount() > 0;
-	}
-
-	public Vec3 findGroupCenter(List<Rat> groupIn) {
-		double x = 0.0D;
-		double y = 0.0D;
-		double z = 0.0D;
-
-		for(Rat friend : groupIn) {
-			x += friend.getX();
-			y += friend.getY();
-			z += friend.getZ();
-		}
-
-		return new Vec3(x / groupIn.size(), y / groupIn.size(), z / groupIn.size());
-	}
-
-	public float getTailWagAmount() {
-		return getTailWagAmount(this.isTame(), this.isInWater(), this.getMaxHealth(), this.getHealth());
-	}
-
-	public static float getTailWagAmount(boolean isTame, boolean isInWater, float maxHealth, float health) {
-		if (isTame) {
-			float f = Mth.clamp(1.0F - (maxHealth - health) / maxHealth, 0.0F, 1.0F);
-			return isInWater ? f : f * 1.5F;
-		} else {
-			return isInWater ? 1.0F : 1.5F;
-		}
-	}
-
 	@Override
 	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
 		return false;
@@ -379,20 +452,22 @@ public class Rat extends ShoulderRidingEntity {
 		}
 	}
 
-	private void setRatType(int id) {
-		this.entityData.set(RAT_TYPE, id);
-	}
-
-	public int getRatType() {
-		return this.entityData.get(RAT_TYPE);
-	}
-
-	public DyeColor getCollarColor() {
-		return DyeColor.byId(this.entityData.get(COLLAR_COLOR));
-	}
-
-	public void setCollarColor(DyeColor color) {
-		this.entityData.set(COLLAR_COLOR, color.getId());
+	@Override
+	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
+		if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
+			if (target instanceof Wolf) {
+				Wolf wolf = (Wolf) target;
+				return !wolf.isTame() || wolf.getOwner() != owner;
+			} else if (target instanceof Player && owner instanceof Player && !((Player) owner).canHarmPlayer((Player) target)) {
+				return false;
+			} else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
+				return false;
+			} else {
+				return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -452,10 +527,16 @@ public class Rat extends ShoulderRidingEntity {
 	public Rat getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		Rat child = CCEntityTypes.RAT.get().create(level);
 		if (child != null) {
-			if (otherParent instanceof Rat && this.random.nextBoolean()) {
-				child.setRatType(((Rat) otherParent).getRatType());
-			} else {
-				child.setRatType(this.getRatType());
+			if (otherParent instanceof Rat) {
+				if (this.random.nextBoolean()) {
+					child.setRatType(((Rat) otherParent).getRatType());
+				} else {
+					child.setRatType(this.getRatType());
+				}
+
+				if (this.trustsPlayers() || ((Rat) otherParent).trustsPlayers()) {
+					child.setTrusting(true);
+				}
 			}
 		}
 
@@ -516,11 +597,44 @@ public class Rat extends ShoulderRidingEntity {
 		}
 	}
 
-	class JumpOnOwnersShoulderGoal extends Goal {
+	class RatAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
+		public RatAvoidEntityGoal(Class<T> avoidClass, float maxDist, double walkSpeedModifier, double sprintSpeedModifier, Predicate<LivingEntity> predicate) {
+			super(Rat.this, avoidClass, maxDist, walkSpeedModifier, sprintSpeedModifier, predicate);
+		}
+
+		@Override
+		public boolean canUse() {
+			return Rat.this.shouldRunAway() && super.canUse();
+		}
+
+		@Override
+		public void start() {
+			super.start();
+			Rat.this.setRunningAway(true);
+		}
+
+		@Override
+		public void stop() {
+			super.stop();
+			Rat.this.setRunningAway(false);
+		}
+	}
+
+	class RatTemptGoal extends TemptGoal {
+		public RatTemptGoal() {
+			super(Rat.this, 1.0D, Ingredient.of(CCItemTags.RAT_FOOD), false);
+		}
+
+		@Override
+		public boolean canUse() {
+			return Rat.this.trustsPlayers() && super.canUse();
+		}
+	}
+
+	class RatJumpOnOwnersShoulderGoal extends Goal {
 		private ServerPlayer owner;
 
-		public JumpOnOwnersShoulderGoal() {
-			super();
+		public RatJumpOnOwnersShoulderGoal() {
 			this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
 		}
 
@@ -542,7 +656,6 @@ public class Rat extends ShoulderRidingEntity {
 		@Override
 		public void tick() {
 			if (!Rat.this.isInSittingPose() && !Rat.this.isLeashed() && Rat.this.getBoundingBox().intersects(this.owner.getBoundingBox())) {
-				Rat.this.spitOutItem(Rat.this.getMainHandItem());
 				Rat.this.setEntityOnShoulder(this.owner);
 			} else {
 				Rat.this.getLookControl().setLookAt(this.owner, 10.0F, Rat.this.getMaxHeadXRot());
@@ -556,20 +669,19 @@ public class Rat extends ShoulderRidingEntity {
 		}
 	}
 
-	class StayInGroupGoal extends Goal {
+	class RatStayInGroupGoal extends Goal {
 		private Vec3 groupCenter;
 		private int timeToRecalcPath;
 
-		public StayInGroupGoal() {
+		public RatStayInGroupGoal() {
 			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 		}
 
 		@Override
 		public boolean canUse() {
 			if (!Rat.this.isTame() && !Rat.this.isBaby() && Rat.this.isSurroundedByFriends()) {
-				Vec3 vec3 = Rat.this.findGroupCenter(Rat.this.getGroup());
-				if (Rat.this.distanceToSqr(vec3) > 16.0D) {
-					this.groupCenter = vec3;
+				this.setGroupCenter();
+				if (Rat.this.distanceToSqr(this.groupCenter) > 16.0D) {
 					return true;
 				}
 			}
@@ -599,30 +711,36 @@ public class Rat extends ShoulderRidingEntity {
 		public void tick() {
 			if (--this.timeToRecalcPath <= 0) {
 				this.timeToRecalcPath = this.adjustedTickDelay(10);
+				this.setGroupCenter();
 				Rat.this.getNavigation().moveTo(this.groupCenter.x, this.groupCenter.y, this.groupCenter.z, 1.0D);
 			}
 		}
+
+		private void setGroupCenter() {
+			this.groupCenter = Rat.this.findGroupCenter(Rat.this.getGroup());
+		}
 	}
 
-	class StayWithParentGoal extends FollowParentGoal {
-		public StayWithParentGoal() {
-			super(Rat.this, 1.0D);
+	class RatFollowParentGoal extends FollowParentGoal {
+		public RatFollowParentGoal() {
+			super(Rat.this, 1.2D);
 			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 		}
 	}
 
-	class RandomWalkingGoal extends WaterAvoidingRandomStrollGoal {
-		public RandomWalkingGoal() {
+	class RatRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
+		public RatRandomStrollGoal() {
 			super(Rat.this, 1.0D);
 		}
 
 		@Nullable
+		@Override
 		protected Vec3 getPosition() {
 			if (Rat.this.isInWaterOrBubble()) {
 				Vec3 vec3 = LandRandomPos.getPos(Rat.this, 15, 7);
 				return vec3 == null ? super.getPosition() : vec3;
 			} else {
-				boolean flag = Rat.this.isSurroundedByFriends() || Rat.this.isTame();
+				boolean flag = Rat.this.isTame() || Rat.this.isSurroundedByFriends();
 				int max = flag ? 6 : 10;
 				int min = flag ? 3 : 7;
 				return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, max, min) : DefaultRandomPos.getPos(this.mob, max, min);
@@ -630,8 +748,8 @@ public class Rat extends ShoulderRidingEntity {
 		}
 	}
 
-	class FindItemsGoal extends Goal {
-		public FindItemsGoal() {
+	class RatFindItemsGoal extends Goal {
+		public RatFindItemsGoal() {
 			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 		}
 
@@ -668,5 +786,64 @@ public class Rat extends ShoulderRidingEntity {
 			}
 		}
 	}
-}
 
+	class RatStopAttackingGoal extends Goal {
+		public RatStopAttackingGoal() {
+			this.setFlags(EnumSet.of(Goal.Flag.TARGET));
+		}
+
+		@Override
+		public boolean canUse() {
+			return !Rat.this.isTame() && !Rat.this.shouldAttack(Rat.this.getTarget());
+		}
+
+		@Override
+		public boolean canContinueToUse() {
+			return !Rat.this.isTame() && !Rat.this.shouldAttack(Rat.this.getTarget());
+		}
+
+		@Override
+		public void start() {
+			Rat.this.setTarget(null);
+		}
+	}
+
+	class RatHurtByTargetGoal extends HurtByTargetGoal {
+		public RatHurtByTargetGoal() {
+			super(Rat.this);
+		}
+
+		@Override
+		public boolean canUse() {
+			return Rat.this.shouldAttack(Rat.this.getLastHurtByMob()) && super.canUse();
+		}
+
+		@Override
+		protected void alertOther(Mob mob, LivingEntity target) {
+			if (mob instanceof Rat && ((Rat) mob).shouldAttack(this.targetMob)) {
+				super.alertOther(mob, target);
+			}
+		}
+	}
+
+	class RatRandomTargetGoal<T extends LivingEntity> extends NonTameRandomTargetGoal<T> {
+		public RatRandomTargetGoal(Class<T> targetType, boolean mustReach, Predicate<LivingEntity> predicate) {
+			super(Rat.this, targetType, mustReach, predicate);
+		}
+
+		@Override
+		public boolean canUse() {
+			return super.canUse() && Rat.this.shouldAttack(this.target);
+		}
+
+		@Override
+		public void start() {
+			for(Rat friend : Rat.this.getGroup()) {
+				if (friend != Rat.this && friend.shouldAttack(this.target) && friend.getTarget() == null) {
+					friend.setTarget(this.target);
+				}
+			}
+			super.start();
+		}
+	}
+}

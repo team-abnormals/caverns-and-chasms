@@ -22,7 +22,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class RatModel<T extends Rat> extends AgeableListModel<T> {
 	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "rat"), "main");
-	public ModelPart root;
 	public ModelPart head;
 	public ModelPart rightEar;
 	public ModelPart leftEar;
@@ -36,7 +35,6 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 	public ModelPart rightHindLeg;
 
 	public RatModel(ModelPart root) {
-		this.root = root;
 		this.head = root.getChild("head");
 		this.rightEar = this.head.getChild("right_ear");
 		this.leftEar = this.head.getChild("left_ear");
