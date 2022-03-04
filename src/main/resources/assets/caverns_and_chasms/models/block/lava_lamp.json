@@ -1,0 +1,49 @@
+{
+	"credit": "Five",
+	"texture_size": [32, 16],
+	"textures": {
+		"0": "caverns_and_chasms:block/lava_lamp",
+		"particle": "caverns_and_chasms:block/lava_lamp"
+	},
+	"elements": [
+		{
+			"name": "lava",
+			"from": [2, 0, 2],
+			"to": [14, 2, 14],
+			"faces": {
+				"north": {"uv": [0, 7, 6, 8], "texture": "#0"},
+				"east": {"uv": [0, 7, 6, 8], "texture": "#0"},
+				"south": {"uv": [0, 7, 6, 8], "texture": "#0"},
+				"west": {"uv": [0, 7, 6, 8], "texture": "#0"},
+				"up": {"uv": [10, 7, 4, 1], "texture": "#0"},
+				"down": {"uv": [16, 1, 10, 7], "texture": "#0"}
+			}
+		},
+		{
+			"name": "base",
+			"from": [2, 14, 2],
+			"to": [14, 16, 14],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"east": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"south": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"west": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"up": {"uv": [16, 7, 10, 1], "texture": "#0"},
+				"down": {"uv": [10, 1, 4, 7], "texture": "#0"}
+			}
+		},
+		{
+			"name": "otherbase",
+			"from": [4, 2, 4],
+			"to": [12, 14, 12],
+			"faces": {
+				"north": {"uv": [0, 1, 4, 7], "texture": "#0"},
+				"east": {"uv": [0, 1, 4, 7], "texture": "#0"},
+				"south": {"uv": [0, 1, 4, 7], "texture": "#0"},
+				"west": {"uv": [0, 1, 4, 7], "texture": "#0"},
+				"up": {"uv": [5, 4, 9, 12], "texture": "#0"},
+				"down": {"uv": [5, 4, 9, 12], "texture": "#0"}
+			}
+		}
+	]
+}

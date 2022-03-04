@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:golden_lantern"
+          "name": "caverns_and_chasms:lava_lamp"
         }
       ],
       "conditions": [

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G",
+    "B",
+    "G"
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "B": {
+      "tag": "forge:buckets/lava"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:lava_lamp"
+  }
+}

@@ -1,12 +1,4 @@
 {
-  "block.caverns_and_chasms.copper_bars": "Kuparikalterit",
-  "block.caverns_and_chasms.exposed_copper_bars": "Altistuneet kuparikalterit",
-  "block.caverns_and_chasms.weathered_copper_bars": "Rapautuneet kuparikalterit",
-  "block.caverns_and_chasms.oxidized_copper_bars": "Hapettuneet kuparikalterit",
-  "block.caverns_and_chasms.waxed_copper_bars": "Vahatut kuparikalterit",
-  "block.caverns_and_chasms.waxed_exposed_copper_bars": "Vahatut altistuneet kuparikalterit",
-  "block.caverns_and_chasms.waxed_weathered_copper_bars": "Vahatut rapautuneet kuparikalterit",
-  "block.caverns_and_chasms.waxed_oxidized_copper_bars": "Vahatut hapettuneet kuparikalterit",
   "block.caverns_and_chasms.deepslate_silver_ore": "Pohjaliuskehopeamalmi",
   "block.caverns_and_chasms.deepslate_spinel_ore": "Pohjaliuskespinellimalmi",
   "block.caverns_and_chasms.raw_silver_block": "Raaka hopeakuutio",
@@ -51,7 +43,17 @@
   "block.caverns_and_chasms.cursed_brazier": "Kirottu hiilipannu",
   "block.caverns_and_chasms.ender_brazier": "Ender-hiilipannu",
 
-  "block.caverns_and_chasms.golden_lantern": "Kultalyhty",
+  "block.caverns_and_chasms.floodlight": "Valonheitin",
+  "block.caverns_and_chasms.copper_bars": "Kuparikalterit",
+  "block.caverns_and_chasms.exposed_copper_bars": "Altistuneet kuparikalterit",
+  "block.caverns_and_chasms.weathered_copper_bars": "Rapautuneet kuparikalterit",
+  "block.caverns_and_chasms.oxidized_copper_bars": "Hapettuneet kuparikalterit",
+  "block.caverns_and_chasms.waxed_copper_bars": "Vahatut kuparikalterit",
+  "block.caverns_and_chasms.waxed_exposed_copper_bars": "Vahatut altistuneet kuparikalterit",
+  "block.caverns_and_chasms.waxed_weathered_copper_bars": "Vahatut rapautuneet kuparikalterit",
+  "block.caverns_and_chasms.waxed_oxidized_copper_bars": "Vahatut hapettuneet kuparikalterit",
+
+  "block.caverns_and_chasms.lava_lamp": "Laavalamppu",
   "block.caverns_and_chasms.golden_bars": "Kultakalterit",
 
   "block.caverns_and_chasms.lapis_bricks": "Lasuriittitiili",

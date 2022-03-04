@@ -56,7 +56,7 @@ public class CCLootModifiersProvider {
 						createModifier(Arrays.asList(
 								createLootEntry(CCItems.SPINEL_CROWN.get(), 10),
 								createLootEntry(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16),
-								createLootEntry(CCBlocks.GOLDEN_LANTERN.get(), 5),
+								createLootEntry(CCBlocks.LAVA_LAMP.get(), 5),
 								createLootEntry(CCItems.GOLDEN_BUCKET.get(), 1)
 						))
 				), BuiltInLootTables.RUINED_PORTAL),

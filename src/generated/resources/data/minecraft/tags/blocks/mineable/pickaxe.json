@@ -22,7 +22,7 @@
     "caverns_and_chasms:cursed_brazier",
     "caverns_and_chasms:ender_brazier",
     "caverns_and_chasms:gravestone",
-    "caverns_and_chasms:golden_lantern",
+    "caverns_and_chasms:lava_lamp",
     "caverns_and_chasms:golden_bars",
     "caverns_and_chasms:spinel_block",
     "caverns_and_chasms:spinel_lamp",
@@ -99,6 +99,7 @@
     "caverns_and_chasms:polished_tuff",
     "caverns_and_chasms:polished_tuff_stairs",
     "caverns_and_chasms:polished_tuff_slab",
-    "caverns_and_chasms:polished_tuff_vertical_slab"
+    "caverns_and_chasms:polished_tuff_vertical_slab",
+    "caverns_and_chasms:floodlight"
   ]
 }
