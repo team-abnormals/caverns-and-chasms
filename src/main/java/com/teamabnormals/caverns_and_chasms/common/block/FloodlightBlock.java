@@ -1,15 +1,20 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import java.util.Random;
+
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,6 +75,17 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 		}
 
 		return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+	}
+
+	@Override
+	public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+		if (random.nextInt(3) == 0) {
+			Vec3i vec3i = state.getValue(FACING).getNormal();
+			double x = 0.1D + random.nextDouble() * 0.8D + vec3i.getX();
+			double y = 0.1D + random.nextDouble() * 0.8D + vec3i.getY();
+			double z = 0.1D + random.nextDouble() * 0.8D + vec3i.getZ();
+			level.addParticle(CCParticleTypes.FLOODLIGHT_DUST.get(), pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0, 0, 0);
+		}
 	}
 
 	@Override

@@ -1,10 +1,18 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import java.util.Random;
+
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -22,9 +30,12 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
-	private static final VoxelShape X_AXIS_SHAPE = Shapes.or(box(0.0D, 2.0D, 2.0D, 2.0D, 14.0D, 14.0D), box(2.0D, 4.0D, 4.0D, 14.0D, 12.0D, 12.0D), box(14.0D, 2.0D, 2.0D, 16.0D, 14.0D, 14.0D));
-	private static final VoxelShape Y_AXIS_SHAPE = Shapes.or(box(2.0D, 0.0D, 2.0D, 14.0D, 2.0D, 14.0D), box(4.0D, 2.0D, 4.0D, 12.0D, 14.0D, 12.0D), box(2.0D, 14.0D, 2.0D, 14.0D, 16.0D, 14.0D));
-	private static final VoxelShape Z_AXIS_SHAPE = Shapes.or(box(2.0D, 2.0D, 0.0D, 14.0D, 14.0D, 2.0D), box(4.0D, 4.0D, 2.0D, 12.0D, 12.0D, 14.0D), box(2.0D, 2.0D, 14.0D, 14.0D, 14.0D, 16.0D));
+	private static final VoxelShape X_LAVA_SHAPE = box(2.0D, 4.0D, 4.0D, 14.0D, 12.0D, 12.0D);
+	private static final VoxelShape Y_LAVA_SHAPE = box(4.0D, 2.0D, 4.0D, 12.0D, 14.0D, 12.0D);
+	private static final VoxelShape Z_LAVA_SHAPE = box(4.0D, 4.0D, 2.0D, 12.0D, 12.0D, 14.0D);
+	private static final VoxelShape X_AXIS_SHAPE = Shapes.or(box(0.0D, 2.0D, 2.0D, 2.0D, 14.0D, 14.0D), box(14.0D, 2.0D, 2.0D, 16.0D, 14.0D, 14.0D), X_LAVA_SHAPE);
+	private static final VoxelShape Y_AXIS_SHAPE = Shapes.or(box(2.0D, 0.0D, 2.0D, 14.0D, 2.0D, 14.0D), box(2.0D, 14.0D, 2.0D, 14.0D, 16.0D, 14.0D), Y_LAVA_SHAPE);
+	private static final VoxelShape Z_AXIS_SHAPE = Shapes.or(box(2.0D, 2.0D, 0.0D, 14.0D, 14.0D, 2.0D), box(2.0D, 2.0D, 14.0D, 14.0D, 14.0D, 16.0D), Z_LAVA_SHAPE);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public LavaLampBlock(Properties properties) {
@@ -58,6 +69,37 @@ public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterlogg
 		}
 
 		return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+	}
+
+	@Override
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (this.isEntityTouchingLava(state, pos, entity)) {
+			entity.lavaHurt();
+		}
+	}
+
+	private boolean isEntityTouchingLava(BlockState state, BlockPos pos, Entity entity) {
+		Axis axis = state.getValue(AXIS);
+		VoxelShape voxelshape = axis == Axis.X ? X_LAVA_SHAPE : axis == Axis.Y ? Y_LAVA_SHAPE : Z_LAVA_SHAPE;
+		VoxelShape voxelshape1 = voxelshape.move(pos.getX(), pos.getY(), pos.getZ());
+		return entity.getBoundingBox().intersects(voxelshape1.bounds().inflate(1.0E-7D));
+	}
+
+	@Override
+	public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+		if (state.getValue(WATERLOGGED)) {
+			Axis axis = state.getValue(AXIS);
+			for (int i = 0; i < 3; ++i) {
+				boolean side = random.nextBoolean();
+				double d0 = random.nextDouble() * 0.75D + 0.125D;
+				double d1 = !side ? random.nextDouble() * 0.75D + 0.125D : random.nextBoolean() ? 0.0D : 1.0D;
+				double d2 = side ? random.nextDouble() * 0.75D + 0.125D : axis == Axis.Y && random.nextBoolean() ? 0.0D : 1.0D;
+				double x = axis == Axis.X ? d0 : d1;
+				double y = axis == Axis.Y ? d0 : d2;
+				double z = axis == Axis.X ? d1 : axis == Axis.Y ? d2 : d0;
+				level.addParticle(CCParticleTypes.LAVA_LAMP_SMOKE.get(), pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0.0D, 0.0D, 0.0D);
+			}
+		}
 	}
 
 	@Override

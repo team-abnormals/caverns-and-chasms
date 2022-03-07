@@ -3,6 +3,8 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.DamageProvider;
 import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.SparkProvider;
 import com.teamabnormals.caverns_and_chasms.client.particle.ChipParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.FloodlightDustParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.LavaLampSmokeParticle;
 import com.teamabnormals.caverns_and_chasms.client.particle.StoneDustParticle;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 
@@ -25,16 +27,18 @@ import net.minecraftforge.registries.RegistryObject;
 public class CCParticleTypes {
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<SimpleParticleType> CURSED_FLAME = createBasicParticleType(true, "cursed_flame");
-	public static final RegistryObject<SimpleParticleType> CURSED_AMBIENT = createBasicParticleType(true, "cursed_ambient");
+	public static final RegistryObject<SimpleParticleType> CURSED_FLAME = createBasicParticleType(false, "cursed_flame");
+	public static final RegistryObject<SimpleParticleType> CURSED_AMBIENT = createBasicParticleType(false, "cursed_ambient");
 	public static final RegistryObject<SimpleParticleType> MIME_ENERGY = createBasicParticleType(true, "mime_energy");
 	public static final RegistryObject<SimpleParticleType> MIME_SPARK = createBasicParticleType(true, "mime_spark");
 	public static final RegistryObject<SimpleParticleType> AFFLICTION_DAMAGE = createBasicParticleType(true, "affliction_damage");
-	public static final RegistryObject<SimpleParticleType> AFFLICTION_SPARK = createBasicParticleType(true, "affliction_spark");
+	public static final RegistryObject<SimpleParticleType> AFFLICTION_SPARK = createBasicParticleType(false, "affliction_spark");
 	public static final RegistryObject<SimpleParticleType> STONE_DUST = createBasicParticleType(true, "stone_dust");
 	public static final RegistryObject<SimpleParticleType> DEEPSLATE_DUST = createBasicParticleType(true, "deepslate_dust");
-	public static final RegistryObject<SimpleParticleType> STONE_CHIP = createBasicParticleType(true, "stone_chip");
-	public static final RegistryObject<SimpleParticleType> DEEPSLATE_CHIP = createBasicParticleType(true, "deepslate_chip");
+	public static final RegistryObject<SimpleParticleType> STONE_CHIP = createBasicParticleType(false, "stone_chip");
+	public static final RegistryObject<SimpleParticleType> DEEPSLATE_CHIP = createBasicParticleType(false, "deepslate_chip");
+	public static final RegistryObject<SimpleParticleType> LAVA_LAMP_SMOKE = createBasicParticleType(true, "lava_lamp_smoke");
+	public static final RegistryObject<SimpleParticleType> FLOODLIGHT_DUST = createBasicParticleType(false, "floodlight_dust");
 
 	private static RegistryObject<SimpleParticleType> createBasicParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -53,5 +57,7 @@ public class CCParticleTypes {
 		manager.register(DEEPSLATE_DUST.get(), StoneDustParticle.Provider::new);
 		manager.register(STONE_CHIP.get(), ChipParticle.Provider::new);
 		manager.register(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
+		manager.register(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
+		manager.register(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
 	}
 }
