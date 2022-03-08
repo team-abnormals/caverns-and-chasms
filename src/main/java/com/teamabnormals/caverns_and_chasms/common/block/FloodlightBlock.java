@@ -93,10 +93,12 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 		return PushReaction.DESTROY;
 	}
 
+	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
 		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
+	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
 	}
