@@ -1,16 +1,30 @@
 {
   "variants": {
-    "axis=x": {
+    "facing=down": {
+      "model": "caverns_and_chasms:block/lava_lamp",
+      "x": 180
+    },
+    "facing=east": {
       "model": "caverns_and_chasms:block/lava_lamp",
       "x": 90,
       "y": 90
     },
-    "axis=y": {
-      "model": "caverns_and_chasms:block/lava_lamp"
-    },
-    "axis=z": {
+    "facing=north": {
       "model": "caverns_and_chasms:block/lava_lamp",
       "x": 90
+    },
+    "facing=south": {
+      "model": "caverns_and_chasms:block/lava_lamp",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "caverns_and_chasms:block/lava_lamp"
+    },
+    "facing=west": {
+      "model": "caverns_and_chasms:block/lava_lamp",
+      "x": 90,
+      "y": 270
     }
   }
 }

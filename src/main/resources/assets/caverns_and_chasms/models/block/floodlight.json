@@ -1,34 +1,32 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "caverns_and_chasms:block/floodlight",
+		"floodlight": "caverns_and_chasms:block/floodlight",
 		"particle": "caverns_and_chasms:block/floodlight"
 	},
 	"elements": [
 		{
-			"name": "lid",
 			"from": [0, 0, 0],
 			"to": [16, 4, 16],
 			"faces": {
-				"north": {"uv": [0, 9, 8, 11], "texture": "#0"},
-				"east": {"uv": [0, 9, 8, 11], "texture": "#0"},
-				"south": {"uv": [0, 9, 8, 11], "texture": "#0"},
-				"west": {"uv": [0, 9, 8, 11], "texture": "#0"},
-				"up": {"uv": [0, 0, 8, 8], "texture": "#0"},
-				"down": {"uv": [8, 0, 16, 8], "texture": "#0"}
+				"north": {"uv": [0, 9, 8, 11], "texture": "#floodlight"},
+				"east": {"uv": [0, 9, 8, 11], "texture": "#floodlight"},
+				"south": {"uv": [0, 9, 8, 11], "texture": "#floodlight"},
+				"west": {"uv": [0, 9, 8, 11], "texture": "#floodlight"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#floodlight"},
+				"down": {"uv": [8, 0, 16, 8], "texture": "#floodlight"}
 			}
 		},
 		{
-			"name": "lid",
 			"from": [7, 4, 7],
 			"to": [9, 16, 9],
 			"faces": {
-				"north": {"uv": [8.5, 10, 9.5, 16], "texture": "#0"},
-				"east": {"uv": [8.5, 10, 9.5, 16], "texture": "#0"},
-				"south": {"uv": [8.5, 10, 9.5, 16], "texture": "#0"},
-				"west": {"uv": [8.5, 10, 9.5, 16], "texture": "#0"},
-				"up": {"uv": [8.5, 8.5, 9.5, 9.5], "texture": "#0"},
-				"down": {"uv": [8.5, 8.5, 9.5, 9.5], "texture": "#0"}
+				"north": {"uv": [8.5, 10, 9.5, 16], "texture": "#floodlight"},
+				"east": {"uv": [8.5, 10, 9.5, 16], "texture": "#floodlight"},
+				"south": {"uv": [8.5, 10, 9.5, 16], "texture": "#floodlight"},
+				"west": {"uv": [8.5, 10, 9.5, 16], "texture": "#floodlight"},
+				"up": {"uv": [8.5, 8.5, 9.5, 9.5], "texture": "#floodlight"},
+				"down": {"uv": [8.5, 8.5, 9.5, 9.5], "texture": "#floodlight"}
 			}
 		}
 	]

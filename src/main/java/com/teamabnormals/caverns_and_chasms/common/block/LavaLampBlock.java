@@ -18,7 +18,9 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -32,7 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
+public class LavaLampBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
 	private static final VoxelShape X_LAVA_SHAPE = box(2.0D, 4.0D, 4.0D, 14.0D, 12.0D, 12.0D);
 	private static final VoxelShape Y_LAVA_SHAPE = box(4.0D, 2.0D, 4.0D, 12.0D, 14.0D, 12.0D);
 	private static final VoxelShape Z_LAVA_SHAPE = box(4.0D, 4.0D, 2.0D, 12.0D, 12.0D, 14.0D);
@@ -43,12 +45,12 @@ public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterlogg
 
 	public LavaLampBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, false));
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		switch (state.getValue(AXIS)) {
+		switch (state.getValue(FACING).getAxis()) {
 		case X:
 		default:
 			return X_AXIS_SHAPE;
@@ -61,8 +63,13 @@ public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterlogg
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		Direction direction = context.getClickedFace();
+		BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos().relative(direction.getOpposite()));
+
+		Direction facing = blockstate.is(this) && blockstate.getValue(FACING).getAxis() == direction.getAxis() ? blockstate.getValue(FACING) : direction;
 		FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-		return super.getStateForPlacement(context).setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
+
+		return super.getStateForPlacement(context).setValue(FACING, facing).setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
 	}
 
 	@Override
@@ -90,7 +97,7 @@ public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterlogg
 	}
 
 	private boolean isEntityTouchingLava(BlockState state, BlockPos pos, Entity entity) {
-		Axis axis = state.getValue(AXIS);
+		Axis axis = state.getValue(FACING).getAxis();
 		VoxelShape voxelshape = axis == Axis.X ? X_LAVA_SHAPE : axis == Axis.Y ? Y_LAVA_SHAPE : Z_LAVA_SHAPE;
 		VoxelShape voxelshape1 = voxelshape.move(pos.getX(), pos.getY(), pos.getZ());
 		return entity.getBoundingBox().intersects(voxelshape1.bounds().inflate(1.0E-7D));
@@ -99,7 +106,7 @@ public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterlogg
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
 		if (state.getValue(WATERLOGGED)) {
-			Axis axis = state.getValue(AXIS);
+			Axis axis = state.getValue(FACING).getAxis();
 			for (int i = 0; i < 3; ++i) {
 				boolean side = random.nextBoolean();
 				double d0 = random.nextDouble() * 0.75D + 0.125D;
@@ -119,8 +126,18 @@ public class LavaLampBlock extends RotatedPillarBlock implements SimpleWaterlogg
 	}
 
 	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.rotate(mirror.getRotation(state.getValue(FACING)));
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(AXIS, WATERLOGGED);
+		builder.add(FACING, WATERLOGGED);
 	}
 
 	@Override
