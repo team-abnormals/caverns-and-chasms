@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -43,15 +44,17 @@ public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, Player
 
 			matrixStackIn.translate(leftShoulder ? (double)0.4F : (double)-0.4F, player.isCrouching() ? (double)-1.3F : -1.5D, -0.0625D);
 
-			int age = compound.getInt("Age");
+			boolean isbaby = compound.getInt("Age") < 0;
 			float ageinticks = player.tickCount + partialTicks;
 			RatType type = RatType.byId(compound.getInt("Type"));
 			DyeColor collarcolor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
+			ItemStack stack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
 			VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(type.getTextureLocation()));
 
-			this.model.young = age < 0;
+			this.model.young = isbaby;
 			this.model.renderOnShoulder(matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
 			RatCollarLayer.renderCollar(this.model, matrixStackIn, bufferIn, packedLightIn, collarcolor, 0, 0, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
+			RatHeldItemLayer.renderItem(this.model, matrixStackIn, bufferIn, packedLightIn, player, isbaby, stack, limbSwing, limbSwingAmount, partialTicks, ageinticks, netHeadYaw, headPitch);
 
 			matrixStackIn.popPose();
 		});
