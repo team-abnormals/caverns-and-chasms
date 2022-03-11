@@ -9,6 +9,7 @@
     "AbstractSkeletonEntityMixin",
     "AzaleaTreeGrowerMixin",
     "IronGolemEntityMixin",
+    "ItemEntityMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LightningBoltMixin",

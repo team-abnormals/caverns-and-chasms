@@ -44,6 +44,8 @@
   "block.caverns_and_chasms.ender_brazier": "Ender-hiilipannu",
 
   "block.caverns_and_chasms.floodlight": "Valonheitin",
+  "block.caverns_and_chasms.coil": "Käämi",
+
   "block.caverns_and_chasms.copper_bars": "Kuparikalterit",
   "block.caverns_and_chasms.exposed_copper_bars": "Altistuneet kuparikalterit",
   "block.caverns_and_chasms.weathered_copper_bars": "Rapautuneet kuparikalterit",

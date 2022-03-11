@@ -1,0 +1,8 @@
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"top": "caverns_and_chasms:block/coil_top",
+		"bottom": "caverns_and_chasms:block/coil_bottom",
+		"side": "caverns_and_chasms:block/coil_side"
+	}
+}
