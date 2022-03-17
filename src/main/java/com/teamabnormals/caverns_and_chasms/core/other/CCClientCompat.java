@@ -167,7 +167,7 @@ public class CCClientCompat {
 	}
 
 	private static String getWeather(Player player, Level level) {
-		Precipitation precipitation = level.getBiome(player.blockPosition()).getPrecipitation();
+		Precipitation precipitation = level.getBiome(player.blockPosition()).value().getPrecipitation();
 
 		if (precipitation != Precipitation.NONE) {
 			if (level.isThundering())

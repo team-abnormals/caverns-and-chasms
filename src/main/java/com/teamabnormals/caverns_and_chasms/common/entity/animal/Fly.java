@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.SetTag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -208,7 +208,7 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 		return MobType.ARTHROPOD;
 	}
 
-	protected void handleFluidJump(SetTag<Fluid> fluidTag) {
+	protected void handleFluidJump(TagKey<Fluid> fluidTag) {
 		this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
 	}
 

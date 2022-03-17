@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.grower.AzaleaTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +15,7 @@ import java.util.Random;
 public final class AzaleaTreeGrowerMixin {
 
 	@Inject(at = @At("HEAD"), method = "getConfiguredFeature", cancellable = true)
-	private void getConfiguredFeature(Random random, boolean bool, CallbackInfoReturnable<ConfiguredFeature<?, ?>> cir) {
+	private void getConfiguredFeature(Random random, boolean bool, CallbackInfoReturnable<Holder<ConfiguredFeature<?, ?>>> cir) {
 		cir.setReturnValue(CCConfiguredFeatures.AZALEA_TREE);
 	}
 }

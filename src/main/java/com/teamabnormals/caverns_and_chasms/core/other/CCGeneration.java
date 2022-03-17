@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +27,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -43,8 +43,8 @@ public class CCGeneration {
 
 		ResourceKey<Biome> key = ResourceKey.create(Registry.BIOME_REGISTRY, biome);
 
-		List<Supplier<PlacedFeature>> oreFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES);
-		List<Supplier<PlacedFeature>> decorFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_DECORATION);
+		List<Holder<PlacedFeature>> oreFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES);
+		List<Holder<PlacedFeature>> decorFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_DECORATION);
 
 		if (DataUtil.matchesKeys(biome, Biomes.SOUL_SAND_VALLEY)) {
 			removeGoldOre(decorFeatures);
@@ -78,11 +78,11 @@ public class CCGeneration {
 		}
 	}
 
-	public static void removeGoldOre(List<Supplier<PlacedFeature>> oreFeatures) {
-		List<Supplier<PlacedFeature>> toRemove = new ArrayList<>();
-		for (Supplier<PlacedFeature> placedFeature : oreFeatures) {
-			for (ConfiguredFeature<?, ?> feature : placedFeature.get().getFeatures().collect(Collectors.toList())) {
-				if (feature.config instanceof OreConfiguration ore) {
+	public static void removeGoldOre(List<Holder<PlacedFeature>> oreFeatures) {
+		List<Holder<PlacedFeature>> toRemove = new ArrayList<>();
+		for (Holder<PlacedFeature> placedFeature : oreFeatures) {
+			for (ConfiguredFeature<?, ?> feature : placedFeature.value().getFeatures().collect(Collectors.toList())) {
+				if (feature.config() instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
 						if (targetBlockState.state.is(Blocks.GOLD_ORE) || targetBlockState.state.is(Blocks.DEEPSLATE_GOLD_ORE) || targetBlockState.state.is(Blocks.NETHER_GOLD_ORE)) {
 							toRemove.add(placedFeature);
@@ -94,11 +94,11 @@ public class CCGeneration {
 		toRemove.forEach(oreFeatures::remove);
 	}
 
-	public static void removeLapisOre(List<Supplier<PlacedFeature>> oreFeatures) {
-		List<Supplier<PlacedFeature>> toRemove = new ArrayList<>();
-		for (Supplier<PlacedFeature> placedFeature : oreFeatures) {
-			for (ConfiguredFeature<?, ?> feature : placedFeature.get().getFeatures().collect(Collectors.toList())) {
-				if (feature.config instanceof OreConfiguration ore) {
+	public static void removeLapisOre(List<Holder<PlacedFeature>> oreFeatures) {
+		List<Holder<PlacedFeature>> toRemove = new ArrayList<>();
+		for (Holder<PlacedFeature> placedFeature : oreFeatures) {
+			for (ConfiguredFeature<?, ?> feature : placedFeature.value().getFeatures().collect(Collectors.toList())) {
+				if (feature.config() instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
 						if (targetBlockState.state.is(Blocks.LAPIS_ORE) || targetBlockState.state.is(Blocks.DEEPSLATE_LAPIS_ORE)) {
 							toRemove.add(placedFeature);
@@ -111,11 +111,11 @@ public class CCGeneration {
 		toRemove.forEach(oreFeatures::remove);
 	}
 
-	public static void removeDirtOre(List<Supplier<PlacedFeature>> oreFeatures) {
-		List<Supplier<PlacedFeature>> toRemove = new ArrayList<>();
-		for (Supplier<PlacedFeature> placedFeature : oreFeatures) {
-			for (ConfiguredFeature<?, ?> feature : placedFeature.get().getFeatures().collect(Collectors.toList())) {
-				if (feature.config instanceof OreConfiguration ore) {
+	public static void removeDirtOre(List<Holder<PlacedFeature>> oreFeatures) {
+		List<Holder<PlacedFeature>> toRemove = new ArrayList<>();
+		for (Holder<PlacedFeature> placedFeature : oreFeatures) {
+			for (ConfiguredFeature<?, ?> feature : placedFeature.value().getFeatures().collect(Collectors.toList())) {
+				if (feature.config() instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
 						if (targetBlockState.state.is(Blocks.DIRT)) {
 							toRemove.add(placedFeature);

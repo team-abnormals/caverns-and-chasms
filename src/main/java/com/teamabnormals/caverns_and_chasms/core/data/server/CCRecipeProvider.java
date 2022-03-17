@@ -6,6 +6,8 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.DataGenerator;
@@ -17,7 +19,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -140,7 +142,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(result) + "_from_" + getItemName(input));
 	}
 
-	private static void planksFromLogs(Consumer<FinishedRecipe> p_126018_, ItemLike p_126019_, Tag<Item> p_126020_) {
+	private static void planksFromLogs(Consumer<FinishedRecipe> p_126018_, ItemLike p_126019_, TagKey<Item> p_126020_) {
 		ShapelessRecipeBuilder.shapeless(p_126019_, 4).requires(p_126020_).group("planks").unlockedBy("has_logs", has(p_126020_)).save(p_126018_);
 	}
 
@@ -189,6 +191,10 @@ public class CCRecipeProvider extends RecipeProvider {
 		for (ItemLike itemlike : ingredients) {
 			SimpleCookingRecipeBuilder.cooking(Ingredient.of(itemlike), result, xp, cookTime, cookingType).group(group).unlockedBy(getHasName(itemlike), has(itemlike)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(result) + recipeSuffix + "_" + getItemName(itemlike)));
 		}
+	}
+
+	private static InventoryChangeTrigger.TriggerInstance has(TagKey<Item> p_206407_) {
+		return inventoryTrigger(ItemPredicate.Builder.item().of(p_206407_).build());
 	}
 
 	private static String getSimpleRecipeName(ItemLike p_176645_) {

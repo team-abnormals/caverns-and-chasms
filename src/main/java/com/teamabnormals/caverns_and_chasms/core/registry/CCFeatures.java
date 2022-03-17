@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.OreWithDirtFeature;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -47,32 +47,32 @@ public class CCFeatures {
 		public static final List<OreConfiguration.TargetBlockState> ORE_SPINEL_TARGET_LIST = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, CCBlocks.SPINEL_ORE.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, CCBlocks.DEEPSLATE_SPINEL_ORE.get().defaultBlockState()));
 		public static final List<OreConfiguration.TargetBlockState> ORE_FRAGILE_STONE_TARGET_LIST = List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState()));
 
-		public static final ConfiguredFeature<?, ?> ORE_SILVER = register("ore_silver", Feature.ORE.configured(new OreConfiguration(ORE_SILVER_TARGET_LIST, 9)));
-		public static final ConfiguredFeature<?, ?> ORE_SILVER_BURIED = register("ore_silver_buried", Feature.ORE.configured(new OreConfiguration(ORE_SILVER_TARGET_LIST, 9, 0.5F)));
-		public static final ConfiguredFeature<?, ?> ORE_SOUL_SILVER = register("ore_soul_silver", Feature.ORE.configured(new OreConfiguration(new TagMatchTest(BlockTags.WITHER_SUMMON_BASE_BLOCKS), CCBlocks.SOUL_SILVER_ORE.get().defaultBlockState(), 17, 1.0F)));
-		public static final ConfiguredFeature<?, ?> ORE_SPINEL = register("ore_spinel", Feature.ORE.configured(new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7)));
-		public static final ConfiguredFeature<?, ?> ORE_SPINEL_BURIED = register("ore_spinel_buried", Feature.ORE.configured(new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7, 1.0F)));
-		public static final ConfiguredFeature<?, ?> ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCFeatures.ORE_WITH_DIRT.get().configured(new OreConfiguration(OreFeatures.NATURAL_STONE, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33)));
-		public static final ConfiguredFeature<?, ?> ORE_FRAGILE_STONE = register("ore_fragile_stone", Feature.ORE.configured(new OreConfiguration(ORE_FRAGILE_STONE_TARGET_LIST, 48, 0.1F)));
-		public static final ConfiguredFeature<?, ?> ORE_FRAGILE_STONE_BURIED = register("ore_fragile_stone_buried", Feature.ORE.configured(new OreConfiguration(ORE_FRAGILE_STONE_TARGET_LIST, 48, 1.0F)));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_SILVER = register("ore_silver", Feature.ORE, new OreConfiguration(ORE_SILVER_TARGET_LIST, 9));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_SILVER_BURIED = register("ore_silver_buried", Feature.ORE, new OreConfiguration(ORE_SILVER_TARGET_LIST, 9, 0.5F));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_SOUL_SILVER = register("ore_soul_silver", Feature.ORE, new OreConfiguration(new TagMatchTest(BlockTags.WITHER_SUMMON_BASE_BLOCKS), CCBlocks.SOUL_SILVER_ORE.get().defaultBlockState(), 17, 1.0F));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_SPINEL = register("ore_spinel", Feature.ORE, new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_SPINEL_BURIED = register("ore_spinel_buried", Feature.ORE, new OreConfiguration(ORE_SPINEL_TARGET_LIST, 7, 1.0F));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCFeatures.ORE_WITH_DIRT.get(), new OreConfiguration(OreFeatures.NATURAL_STONE, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE = register("ore_fragile_stone", Feature.ORE, new OreConfiguration(ORE_FRAGILE_STONE_TARGET_LIST, 48, 0.1F));
+		public static final Holder<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE_BURIED = register("ore_fragile_stone_buried", Feature.ORE, new OreConfiguration(ORE_FRAGILE_STONE_TARGET_LIST, 48, 1.0F));
 
-		public static final ConfiguredFeature<?, ?> AZALEA_TREE = register("azalea_tree", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build()));
+		public static final Holder<ConfiguredFeature<?, ?>> AZALEA_TREE = register("azalea_tree", Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build());
 
-		private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
-			return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name), configuredFeature);
+		public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<?, ?>> register(String name, F feature, FC config) {
+			return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name), new ConfiguredFeature<>(feature, config));
 		}
 	}
 
 	public static final class CCPlacedFeatures {
-		public static final PlacedFeature ORE_SILVER_EXTRA = register("ore_silver_extra", CCConfiguredFeatures.ORE_SILVER.placed(commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256)))));
-		public static final PlacedFeature ORE_SILVER = register("ore_silver", CCConfiguredFeatures.ORE_SILVER_BURIED.placed(commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32)))));
-		public static final PlacedFeature ORE_SILVER_LOWER = register("ore_silver_lower", CCConfiguredFeatures.ORE_SILVER_BURIED.placed(orePlacement(CountPlacement.of(UniformInt.of(0, 1)), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(-48)))));
-		public static final PlacedFeature ORE_SILVER_SOUL = register("ore_silver_soul", CCConfiguredFeatures.ORE_SOUL_SILVER.placed(commonOrePlacement(45, PlacementUtils.RANGE_10_10)));
-		public static final PlacedFeature ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL.placed(commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32)))));
-		public static final PlacedFeature ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED.placed(commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64)))));
-		public static final PlacedFeature ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCConfiguredFeatures.ORE_ROCKY_DIRT.placed(commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160)))));
-		public static final PlacedFeature ORE_FRAGILE_STONE = register("ore_fragile_stone", CCConfiguredFeatures.ORE_FRAGILE_STONE.placed(commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64)))));
-		public static final PlacedFeature ORE_FRAGILE_STONE_BURIED = register("ore_fragile_stone_buried", CCConfiguredFeatures.ORE_FRAGILE_STONE_BURIED.placed(commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64)))));
+		public static final Holder<PlacedFeature> ORE_SILVER_EXTRA = register("ore_silver_extra", CCConfiguredFeatures.ORE_SILVER, commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
+		public static final Holder<PlacedFeature> ORE_SILVER = register("ore_silver", CCConfiguredFeatures.ORE_SILVER_BURIED, commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
+		public static final Holder<PlacedFeature> ORE_SILVER_LOWER = register("ore_silver_lower", CCConfiguredFeatures.ORE_SILVER_BURIED, orePlacement(CountPlacement.of(UniformInt.of(0, 1)), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(-48))));
+		public static final Holder<PlacedFeature> ORE_SILVER_SOUL = register("ore_silver_soul", CCConfiguredFeatures.ORE_SOUL_SILVER, commonOrePlacement(45, PlacementUtils.RANGE_10_10));
+		public static final Holder<PlacedFeature> ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL, commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
+		public static final Holder<PlacedFeature> ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64))));
+		public static final Holder<PlacedFeature> ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCConfiguredFeatures.ORE_ROCKY_DIRT, commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160))));
+		public static final Holder<PlacedFeature> ORE_FRAGILE_STONE = register("ore_fragile_stone", CCConfiguredFeatures.ORE_FRAGILE_STONE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
+		public static final Holder<PlacedFeature> ORE_FRAGILE_STONE_BURIED = register("ore_fragile_stone_buried", CCConfiguredFeatures.ORE_FRAGILE_STONE_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
 
 		private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
 			return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
@@ -82,8 +82,12 @@ public class CCFeatures {
 			return orePlacement(CountPlacement.of(count), modifier);
 		}
 
-		public static PlacedFeature register(String name, PlacedFeature placedFeature) {
-			return Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name), placedFeature);
+		public static Holder<PlacedFeature> register(String name, Holder<? extends ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... placementModifiers) {
+			return register(name, configuredFeature, List.of(placementModifiers));
+		}
+
+		public static Holder<PlacedFeature> register(String name, Holder<? extends ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> placementModifiers) {
+			return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name), new PlacedFeature(Holder.hackyErase(configuredFeature), placementModifiers));
 		}
 	}
 }

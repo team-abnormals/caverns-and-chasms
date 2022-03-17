@@ -33,7 +33,7 @@ public class SpinelCrownModel<T extends LivingEntity> extends HumanoidModel<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <A extends HumanoidModel<?>> A getModel(boolean isPiglin) {
-		return (A) CACHE.computeIfAbsent(isPiglin, SpinelCrownModel::new);
+	public static HumanoidModel<?> getModel(boolean isPiglin) {
+		return CACHE.computeIfAbsent(isPiglin, SpinelCrownModel::new);
 	}
 }

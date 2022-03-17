@@ -137,8 +137,8 @@ public class SanguineArmorModel<T extends LivingEntity> extends HumanoidModel<T>
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <A extends HumanoidModel<?>> A getModel(EquipmentSlot slot, LivingEntity entity) {
+	public static HumanoidModel<?> getModel(EquipmentSlot slot, LivingEntity entity) {
 		int entityFlag = (slot.ordinal() & 15) | (0) << 4 | (0) << 5 | (entity.isBaby() ? 1 : 0) << 6;
-		return (A) CACHE.computeIfAbsent(entityFlag, SanguineArmorModel::new);
+		return CACHE.computeIfAbsent(entityFlag, SanguineArmorModel::new);
 	}
 }

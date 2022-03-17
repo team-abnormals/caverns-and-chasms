@@ -73,7 +73,7 @@ public class SpinelCrownItem extends ArmorItem implements IItemRenderProperties 
 	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 		consumer.accept(new IItemRenderProperties() {
 			@Override
-			public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, A properties) {
+			public HumanoidModel<?> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> properties) {
 				return SpinelCrownModel.getModel(entity instanceof AbstractPiglin || entity instanceof ZombifiedPiglin);
 			}
 		});

@@ -606,7 +606,7 @@ public class CopperGolem extends AbstractGolem {
 		public void tick() {
 			CopperGolem.this.getLookControl().setLookAt(this.blockPos.getX() + 0.5D + this.buttonNormal.getX() * 0.5D, this.blockPos.getY() + 0.5D + this.buttonNormal.getY() * 0.5D, this.blockPos.getZ() + 0.5D + this.buttonNormal.getZ() * 0.5D, 10.0F, CopperGolem.this.getMaxHeadXRot());
 
-			if (!this.blockPos.closerThan(CopperGolem.this.position(), 1.25D)) {
+			if (!this.blockPos.closerThan(CopperGolem.this.blockPosition(), 1.25D)) {
 				++this.tryTicks;
 				this.pressWaitTicks = 20;
 				if (this.tryTicks % 20 == 0) {

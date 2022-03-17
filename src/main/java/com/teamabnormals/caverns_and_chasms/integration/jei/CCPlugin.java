@@ -4,7 +4,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +19,6 @@ public class CCPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(CCBlocks.CURSED_CAMPFIRE.get()), VanillaRecipeCategoryUid.CAMPFIRE);
+		registration.addRecipeCatalyst(new ItemStack(CCBlocks.CURSED_CAMPFIRE.get()), RecipeTypes.CAMPFIRE_COOKING);
 	}
 }
