@@ -13,6 +13,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifiersProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifiersProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBiomeTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBlockTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCEntityTypeTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCItemTagsProvider;
@@ -94,6 +95,7 @@ public class CavernsAndChasms {
 			generator.addProvider(blockTags);
 			generator.addProvider(new CCItemTagsProvider(generator, blockTags, fileHelper));
 			generator.addProvider(new CCEntityTypeTagsProvider(generator, fileHelper));
+			generator.addProvider(new CCBiomeTagsProvider(generator, fileHelper));
 			generator.addProvider(new CCRecipeProvider(generator));
 			generator.addProvider(new CCLootTableProvider(generator));
 			generator.addProvider(new CCAdvancementProvider(generator, fileHelper));
