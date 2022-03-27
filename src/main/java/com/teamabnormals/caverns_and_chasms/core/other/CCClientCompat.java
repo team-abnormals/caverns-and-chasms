@@ -32,6 +32,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -95,19 +96,21 @@ public class CCClientCompat {
 			public float unclampedCall(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity livingEntity, int p_174668_) {
 				Entity entity = livingEntity != null ? livingEntity : stack.getEntityRepresentation();
 				if (entity == null) {
-					return 0.25F;
+					return 0.33333F;
 				} else {
 					if (level == null && entity.level instanceof ClientLevel) {
 						level = (ClientLevel) entity.level;
 					}
 
 					if (level == null) {
-						return 0.25F;
+						return 0.33333F;
 					} else {
 						double depth;
 						if (level.dimensionType().natural()) {
-							int height = Mth.clamp((int) entity.getY() - 1, 0, 256) / 8;
-							depth = height / 32.0;
+							DecimalFormat format = new DecimalFormat("0.00000");
+							int height = (Mth.clamp((int) entity.getY() - 1, -64, 320) + 64) / 8;
+							depth = height / 48.0;
+							depth = Float.parseFloat(format.format(depth));
 						} else {
 							depth = Math.random();
 							depth = this.wobble(level, depth);
