@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -107,7 +108,7 @@ public class CCClientCompat {
 					} else {
 						double depth;
 						if (level.dimensionType().natural()) {
-							DecimalFormat format = new DecimalFormat("0.00000");
+							DecimalFormat format = new DecimalFormat("0.00000", DecimalFormatSymbols.getInstance(Locale.ROOT));
 							int height = (Mth.clamp((int) entity.getY() - 1, -64, 320) + 64) / 8;
 							depth = height / 48.0;
 							depth = Float.parseFloat(format.format(depth));
