@@ -14,7 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
@@ -22,40 +21,24 @@ import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
 
-public class ThrownSpinelPearl extends ThrowableItemProjectile {
+public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	private int ticks;
 
-	public ThrownSpinelPearl(EntityType<? extends ThrownSpinelPearl> entityType, Level level) {
+	public ThrownBejeweledPearl(EntityType<? extends ThrownBejeweledPearl> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	public ThrownSpinelPearl(Level level, LivingEntity entity) {
-		super(CCEntityTypes.SPINEL_PEARL.get(), entity, level);
+	public ThrownBejeweledPearl(Level level, LivingEntity entity) {
+		super(CCEntityTypes.BEJEWELED_PEARL.get(), entity, level);
 		this.ticks = getDefaultTicks();
 	}
 
-	public ThrownSpinelPearl(PlayMessages.SpawnEntity spawnEntity, Level level) {
-		this(CCEntityTypes.SPINEL_PEARL.get(), level);
+	public ThrownBejeweledPearl(PlayMessages.SpawnEntity spawnEntity, Level level) {
+		this(CCEntityTypes.BEJEWELED_PEARL.get(), level);
 	}
 
 	protected Item getDefaultItem() {
-		return CCItems.SPINEL_PEARL.get();
-	}
-
-	protected void onHitEntity(EntityHitResult result) {
-		super.onHitEntity(result);
-		Entity entity = result.getEntity();
-		Entity owner = this.getOwner();
-		entity.hurt(DamageSource.thrown(this, owner), 0.0F);
-
-		if (owner != null) {
-			double oldX = owner.getX();
-			double oldY = owner.getY();
-			double oldZ = owner.getZ();
-
-			owner.teleportTo(entity.getX(), entity.getY(), entity.getZ());
-			entity.teleportTo(oldX, oldY, oldZ);
-		}
+		return CCItems.BEJEWELED_PEARL.get();
 	}
 
 	public void subtractTicks(int ticks) {

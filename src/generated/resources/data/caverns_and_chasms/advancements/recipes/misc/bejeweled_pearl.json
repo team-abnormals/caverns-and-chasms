@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:spinel_pearl"
+      "caverns_and_chasms:bejeweled_pearl"
     ]
   },
   "criteria": {
@@ -33,7 +33,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "caverns_and_chasms:spinel_pearl"
+        "recipe": "caverns_and_chasms:bejeweled_pearl"
       }
     }
   },

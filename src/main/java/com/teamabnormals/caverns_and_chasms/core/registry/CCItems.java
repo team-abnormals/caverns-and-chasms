@@ -70,7 +70,7 @@ public class CCItems {
 	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, EquipmentSlot.FEET, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
 	public static final RegistryObject<Item> SPINEL = HELPER.createItem("spinel", () -> new InjectedItem(Items.LAPIS_LAZULI, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-	public static final RegistryObject<Item> SPINEL_PEARL = HELPER.createItem("spinel_pearl", () -> new SpinelPearlItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC)));
 	public static final RegistryObject<Item> SPINEL_CROWN = HELPER.createItem("spinel_crown", () -> new SpinelCrownItem(CCArmorMaterials.SPINEL_CROWN, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
 	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.CAVEFISH)));
