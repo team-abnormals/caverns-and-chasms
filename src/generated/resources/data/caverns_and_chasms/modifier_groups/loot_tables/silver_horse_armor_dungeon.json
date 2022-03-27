@@ -1,11 +1,9 @@
 {
-  "target": {
+  "selector": {
     "type": "names",
     "config": [
-      "minecraft:chests/stronghold_corridor",
-      "minecraft:chests/village/village_weaponsmith",
-      "minecraft:chests/end_city_treasure",
-      "minecraft:chests/jungle_temple"
+      "minecraft:chests/simple_dungeon",
+      "minecraft:chests/desert_pyramid"
     ],
     "conditions": []
   },
@@ -19,6 +17,7 @@
         "entries": [
           {
             "type": "minecraft:item",
+            "weight": 10,
             "name": "caverns_and_chasms:silver_horse_armor"
           }
         ]

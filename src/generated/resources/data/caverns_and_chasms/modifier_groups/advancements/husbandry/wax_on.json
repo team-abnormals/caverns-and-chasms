@@ -1,5 +1,5 @@
 {
-  "advancement": {
+  "selector": {
     "type": "names",
     "config": [
       "minecraft:husbandry/wax_on"

@@ -1,32 +1,33 @@
 {
-  "advancement": {
+  "selector": {
     "type": "names",
     "config": [
-      "minecraft:husbandry/tactical_fishing"
+      "minecraft:husbandry/fishy_business"
     ],
     "conditions": []
   },
   "priority": "normal",
   "modifiers": [
     {
-      "type": "indexed_requirements",
+      "type": "criteria",
       "config": {
         "mode": "modify",
-        "index": 0,
         "criteria": {
-          "caverns_and_chasms:cavefish_bucket": {
-            "trigger": "minecraft:filled_bucket",
+          "caverns_and_chasms:cavefish": {
+            "trigger": "minecraft:fishing_rod_hooked",
             "conditions": {
               "item": {
                 "items": [
-                  "caverns_and_chasms:cavefish_bucket"
+                  "caverns_and_chasms:cavefish"
                 ]
               }
             }
           }
         },
         "requirements": [
-          "caverns_and_chasms:cavefish_bucket"
+          [
+            "caverns_and_chasms:cavefish"
+          ]
         ]
       }
     }

@@ -1,8 +1,11 @@
 {
-  "target": {
+  "selector": {
     "type": "names",
     "config": [
-      "minecraft:chests/shipwreck_map"
+      "minecraft:chests/stronghold_corridor",
+      "minecraft:chests/village/village_weaponsmith",
+      "minecraft:chests/end_city_treasure",
+      "minecraft:chests/jungle_temple"
     ],
     "conditions": []
   },
@@ -12,11 +15,11 @@
       "type": "entries",
       "config": {
         "replace": false,
-        "index": 1,
+        "index": 0,
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "caverns_and_chasms:depth_gauge"
+            "name": "caverns_and_chasms:silver_horse_armor"
           }
         ]
       }

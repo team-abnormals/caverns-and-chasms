@@ -1,8 +1,8 @@
 {
-  "target": {
+  "selector": {
     "type": "names",
     "config": [
-      "minecraft:chests/buried_treasure"
+      "minecraft:chests/shipwreck_treasure"
     ],
     "conditions": []
   },
@@ -16,19 +16,19 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "weight": 10,
+            "weight": 20,
             "functions": [
               {
                 "function": "minecraft:set_count",
                 "count": {
                   "type": "minecraft:uniform",
                   "min": 1.0,
-                  "max": 4.0
+                  "max": 10.0
                 },
                 "add": false
               }
             ],
-            "name": "caverns_and_chasms:silver_ingot"
+            "name": "caverns_and_chasms:spinel"
           }
         ]
       }

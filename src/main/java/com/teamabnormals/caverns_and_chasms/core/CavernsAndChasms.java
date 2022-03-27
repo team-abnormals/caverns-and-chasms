@@ -99,8 +99,8 @@ public class CavernsAndChasms {
 			generator.addProvider(new CCRecipeProvider(generator));
 			generator.addProvider(new CCLootTableProvider(generator));
 			generator.addProvider(new CCAdvancementProvider(generator, fileHelper));
-			generator.addProvider(CCLootModifiersProvider.createDataProvider(generator));
-			generator.addProvider(CCAdvancementModifiersProvider.createDataProvider(generator));
+			generator.addProvider(new CCAdvancementModifiersProvider(generator));
+			generator.addProvider(new CCLootModifiersProvider(generator));
 		}
 
 		if (event.includeClient()) {

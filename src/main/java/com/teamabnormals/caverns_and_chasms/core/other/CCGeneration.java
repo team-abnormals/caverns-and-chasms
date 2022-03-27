@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBiomeTags;
+import com.teamabnormals.blueprint.core.util.TagUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -43,46 +44,42 @@ public class CCGeneration {
 		List<Holder<PlacedFeature>> oreFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES);
 		List<Holder<PlacedFeature>> decorFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_DECORATION);
 
-		if (isTagged(biome, CCBiomeTags.HAS_SOUL_SILVER_ORE)) {
+		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_SOUL_SILVER_ORE)) {
 			removeGoldOre(decorFeatures);
 			event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CCPlacedFeatures.ORE_SILVER_SOUL);
 		}
 
-		if (isTagged(biome, BlueprintBiomeTags.IS_OVERWORLD)) {
-			if (event.getClimate().temperature <= 0.3D || isTagged(biome, CCBiomeTags.HAS_SILVER_ORE)) {
+		if (TagUtil.isTagged(biome, BlueprintBiomeTags.IS_OVERWORLD)) {
+			if (event.getClimate().temperature <= 0.3D || TagUtil.isTagged(biome, CCBiomeTags.HAS_SILVER_ORE)) {
 				removeGoldOre(oreFeatures);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_LOWER);
 			}
 
-			if (isTagged(biome, CCBiomeTags.HAS_EXTRA_SILVER_ORE)) {
+			if (TagUtil.isTagged(biome, CCBiomeTags.HAS_EXTRA_SILVER_ORE)) {
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_EXTRA);
 			}
 
-			if (isTagged(biome, CCBiomeTags.HAS_SPINEL_ORE)) {
+			if (TagUtil.isTagged(biome, CCBiomeTags.HAS_SPINEL_ORE)) {
 				removeLapisOre(oreFeatures);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_BURIED);
 			}
 
-			if (isTagged(biome, CCBiomeTags.HAS_MIME)) {
+			if (TagUtil.isTagged(biome, CCBiomeTags.HAS_MIME)) {
 				spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
 			}
 
-			if (!isTagged(biome, CCBiomeTags.WITHOUT_ROCKY_DIRT)) {
+			if (!TagUtil.isTagged(biome, CCBiomeTags.WITHOUT_ROCKY_DIRT)) {
 				removeDirtOre(oreFeatures);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
 			}
 
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE);
 
-			if (!isTagged(biome, CCBiomeTags.WITHOUT_CAVEFISH_SPAWNS))
+			if (!TagUtil.isTagged(biome, CCBiomeTags.WITHOUT_CAVEFISH_SPAWNS))
 				spawns.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 25, 4, 7));
 		}
-	}
-
-	private static boolean isTagged(Biome biome, TagKey<Biome> tagKey) {
-		return ForgeRegistries.BIOMES.tags().getTag(tagKey).contains(biome);
 	}
 
 	public static void removeGoldOre(List<Holder<PlacedFeature>> oreFeatures) {

@@ -1,5 +1,5 @@
 {
-  "advancement": {
+  "selector": {
     "type": "names",
     "config": [
       "minecraft:husbandry/obtain_netherite_hoe"
@@ -13,7 +13,7 @@
       "config": {
         "mode": "modify",
         "description": {
-          "translate": "advancements.caverns_and_chasms.husbandry.netherite_hoe.description"
+          "translate": "advancements.caverns_and_chasms.husbandry.obtain_netherite_hoe.description"
         }
       }
     },
