@@ -23,6 +23,6 @@ public class CupricTorchBlock extends TorchBlock {
 		double d1 = (double) pos.getY() + 0.7D;
 		double d2 = (double) pos.getZ() + 0.5D;
 		worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-		worldIn.addParticle(CCParticleTypes.CUPRIC_FLAME.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+		worldIn.addParticle(CCParticleTypes.CUPRIC_FIRE_FLAME.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
 }	

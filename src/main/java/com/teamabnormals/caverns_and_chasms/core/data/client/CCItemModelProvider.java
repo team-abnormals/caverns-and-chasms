@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +25,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.generated(CCItems.BEJEWELED_PEARL.get());
 		this.generated(CCItems.BEJEWELED_APPLE.get());
 		this.generated(CCItems.SPINEL_CROWN.get());
+		this.generated(CCBlocks.CUPRIC_CANDLE.get());
 		this.animatedModel(CCItems.DEPTH_GAUGE.get(), 48);
 		this.generated(CCItems.BAROMETER.get());
 		this.generated(CCItems.OXIDIZED_COPPER_GOLEM.get());

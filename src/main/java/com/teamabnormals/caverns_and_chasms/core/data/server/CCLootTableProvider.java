@@ -7,6 +7,7 @@ import com.teamabnormals.blueprint.common.block.VerticalSlabBlock;
 import com.teamabnormals.blueprint.common.block.VerticalSlabBlock.VerticalSlabType;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -216,6 +218,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CUPRIC_TORCH.get());
 			this.dropOther(CUPRIC_WALL_TORCH.get(), CUPRIC_TORCH.get());
 			this.add(CUPRIC_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ROTTEN_FLESH_BLOCK.get().asItem()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
+			this.add(CCBlocks.CUPRIC_CANDLE.get(), BlockLoot::createCandleDrops);
+			this.add(CCBlocks.CUPRIC_CANDLE_CAKE.get(), createCandleCakeDrops(CCBlocks.CUPRIC_CANDLE.get()));
 
 			this.dropSelf(AZALEA_PLANKS.get());
 			this.dropSelf(AZALEA_LOG.get());

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "caverns_and_chasms:block/cupric_candle_cake"
+    },
+    "lit=true": {
+      "model": "caverns_and_chasms:block/cupric_candle_cake_lit"
+    }
+  }
+}

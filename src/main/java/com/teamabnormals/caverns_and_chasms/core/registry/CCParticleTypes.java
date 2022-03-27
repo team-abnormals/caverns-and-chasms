@@ -27,8 +27,8 @@ import net.minecraftforge.registries.RegistryObject;
 public class CCParticleTypes {
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<SimpleParticleType> CUPRIC_FLAME = createBasicParticleType(false, "cupric_flame");
-	public static final RegistryObject<SimpleParticleType> CUPRIC_AMBIENT = createBasicParticleType(false, "cupric_ambient");
+	public static final RegistryObject<SimpleParticleType> CUPRIC_FIRE_FLAME = createBasicParticleType(false, "cupric_fire_flame");
+	public static final RegistryObject<SimpleParticleType> SMALL_CUPRIC_FIRE_FLAME = createBasicParticleType(false, "small_cupric_fire_flame");
 	public static final RegistryObject<SimpleParticleType> MIME_ENERGY = createBasicParticleType(true, "mime_energy");
 	public static final RegistryObject<SimpleParticleType> MIME_SPARK = createBasicParticleType(true, "mime_spark");
 	public static final RegistryObject<SimpleParticleType> AFFLICTION_DAMAGE = createBasicParticleType(true, "affliction_damage");
@@ -47,8 +47,8 @@ public class CCParticleTypes {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void registerParticleTypes(ParticleFactoryRegisterEvent event) {
 		ParticleEngine manager = Minecraft.getInstance().particleEngine;
-		manager.register(CUPRIC_FLAME.get(), FlameParticle.Provider::new);
-		manager.register(CUPRIC_AMBIENT.get(), LavaParticle.Provider::new);
+		manager.register(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
+		manager.register(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
 		manager.register(MIME_ENERGY.get(), PlayerCloudParticle.Provider::new);
 		manager.register(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
 		manager.register(AFFLICTION_DAMAGE.get(), DamageProvider::new);
