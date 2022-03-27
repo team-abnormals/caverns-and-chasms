@@ -49,6 +49,20 @@ public class CCGeneration {
 			event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CCPlacedFeatures.ORE_SILVER_SOUL);
 		}
 
+		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_EXTRA_SILVER_ORE)) {
+			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_EXTRA);
+		}
+
+		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_SPINEL_ORE)) {
+			removeLapisOre(oreFeatures);
+			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL);
+			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_BURIED);
+		}
+
+		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_MIME)) {
+			spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
+		}
+
 		if (TagUtil.isTagged(biome, BlueprintBiomeTags.IS_OVERWORLD)) {
 			if (event.getClimate().temperature <= 0.3D || TagUtil.isTagged(biome, CCBiomeTags.HAS_SILVER_ORE)) {
 				removeGoldOre(oreFeatures);
@@ -56,25 +70,8 @@ public class CCGeneration {
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_LOWER);
 			}
 
-			if (TagUtil.isTagged(biome, CCBiomeTags.HAS_EXTRA_SILVER_ORE)) {
-				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_EXTRA);
-			}
-
-			if (TagUtil.isTagged(biome, CCBiomeTags.HAS_SPINEL_ORE)) {
-				removeLapisOre(oreFeatures);
-				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL);
-				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_BURIED);
-			}
-
-			if (TagUtil.isTagged(biome, CCBiomeTags.HAS_MIME)) {
-				spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
-			}
-
-			if (!TagUtil.isTagged(biome, CCBiomeTags.WITHOUT_ROCKY_DIRT)) {
-				removeDirtOre(oreFeatures);
-				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
-			}
-
+			removeDirtOre(oreFeatures);
+			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE);
 
 			if (!TagUtil.isTagged(biome, CCBiomeTags.WITHOUT_CAVEFISH_SPAWNS))

@@ -13,7 +13,6 @@ public class CCBiomeTags {
 
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
 
-	public static final TagKey<Biome> WITHOUT_ROCKY_DIRT = biomeTag("without_rocky_dirt");
 	public static final TagKey<Biome> WITHOUT_CAVEFISH_SPAWNS = biomeTag("without_cavefish_spawns");
 
 	private static TagKey<Biome> biomeTag(String name) {

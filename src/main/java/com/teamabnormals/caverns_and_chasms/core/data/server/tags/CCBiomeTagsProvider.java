@@ -24,7 +24,6 @@ public class CCBiomeTagsProvider extends BlueprintBiomeTagsProvider {
 
 		this.tag(CCBiomeTags.HAS_MIME).addTag(BiomeTags.IS_JUNGLE).addTag(BlueprintBiomeTags.IS_SWAMP).add(Biomes.LUSH_CAVES);
 
-		this.tag(CCBiomeTags.WITHOUT_ROCKY_DIRT).add(Biomes.STONY_SHORE);
 		this.tag(CCBiomeTags.WITHOUT_CAVEFISH_SPAWNS).addTag(BiomeTags.IS_OCEAN).addTag(BiomeTags.IS_BEACH).add(Biomes.STONY_SHORE, Biomes.LUSH_CAVES);
 	}
 }
