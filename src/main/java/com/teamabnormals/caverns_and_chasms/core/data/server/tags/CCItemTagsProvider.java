@@ -50,9 +50,9 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);
-		this.copy(CCBlockTags.CURSED_FIRE_BASE_BLOCKS, CCItemTags.CURSED_FIRE_BASE_BLOCKS);
 		this.copy(CCBlockTags.AZALEA_LOGS, CCItemTags.AZALEA_LOGS);
 		this.tag(CCItemTags.AFFLICTION_ITEMS).add(CCItems.SILVER_SWORD.get(), CCItems.SILVER_PICKAXE.get(), CCItems.SILVER_AXE.get(), CCItems.SILVER_SHOVEL.get(), CCItems.SILVER_HOE.get());
+		this.tag(CCItemTags.CUPRIC_FIRE_BASE_ITEMS).add(Items.COPPER_INGOT, Items.RAW_COPPER, CCItems.COPPER_NUGGET.get());
 		this.tag(CCItemTags.EXPERIENCE_BOOST_ITEMS).add(Items.GOLDEN_SWORD, Items.GOLDEN_PICKAXE, Items.GOLDEN_AXE, Items.GOLDEN_SHOVEL, Items.GOLDEN_HOE);
 		this.tag(CCItemTags.SILVER_GEAR).add(CCItems.SILVER_SWORD.get(), CCItems.SILVER_PICKAXE.get(), CCItems.SILVER_AXE.get(), CCItems.SILVER_SHOVEL.get(), CCItems.SILVER_HOE.get(), CCItems.SILVER_HELMET.get(), CCItems.SILVER_CHESTPLATE.get(), CCItems.SILVER_LEGGINGS.get(), CCItems.SILVER_BOOTS.get(), CCItems.SILVER_HORSE_ARMOR.get());
 		this.tag(CCItemTags.NECROMIUM_GEAR).add(CCItems.NECROMIUM_SWORD.get(), CCItems.NECROMIUM_PICKAXE.get(), CCItems.NECROMIUM_AXE.get(), CCItems.NECROMIUM_SHOVEL.get(), CCItems.NECROMIUM_HOE.get(), CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get(), CCItems.NECROMIUM_HORSE_ARMOR.get());

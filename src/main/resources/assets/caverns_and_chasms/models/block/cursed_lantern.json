@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_lantern",
-  "textures": {
-    "lantern": "caverns_and_chasms:block/cursed_lantern"
-  }
-}

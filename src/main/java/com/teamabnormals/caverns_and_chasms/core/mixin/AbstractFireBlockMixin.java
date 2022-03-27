@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.block.CursedFireBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.CupricFireBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -21,8 +21,8 @@ public final class AbstractFireBlockMixin extends Block {
 
 	@Inject(at = @At("HEAD"), method = "getState", cancellable = true)
 	private static void cursedFirePlacement(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<BlockState> info) {
-		if (CursedFireBlock.canSurviveOnBlock(reader.getBlockState(pos.below()))) {
-			info.setReturnValue(CCBlocks.CURSED_FIRE.get().defaultBlockState());
+		if (CupricFireBlock.canSurviveOnBlock(reader.getBlockState(pos.below()))) {
+			info.setReturnValue(CCBlocks.CUPRIC_FIRE.get().defaultBlockState());
 		}
 	}
 }

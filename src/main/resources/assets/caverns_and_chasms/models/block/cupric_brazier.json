@@ -1,0 +1,6 @@
+{
+	"parent": "caverns_and_chasms:block/template_brazier",
+	"textures": {
+		"fire": "caverns_and_chasms:block/cupric_campfire_fire"
+	}
+}

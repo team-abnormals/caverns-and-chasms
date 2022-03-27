@@ -50,16 +50,16 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new InjectedBlock(Items.NETHERITE_BLOCK, CCProperties.NECROMIUM_BLOCK), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1, CCProperties.BRAZIER), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2, CCProperties.BRAZIER_DIM), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createCompatBlock("endergetic", "ender_brazier", () -> new BrazierBlock(3, CCProperties.BRAZIER), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> CURSED_BRAZIER = HELPER.createBlock("cursed_brazier", () -> new BrazierBlock(4, CCProperties.BRAZIER_DIM), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1.0F, CCProperties.BRAZIER), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2.0F, CCProperties.BRAZIER_DIM), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createCompatBlock("endergetic", "ender_brazier", () -> new BrazierBlock(3.0F, CCProperties.BRAZIER), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> CUPRIC_BRAZIER = HELPER.createBlock("cupric_brazier", () -> new BrazierBlock(0.5F, CCProperties.BRAZIER_DIM), CreativeModeTab.TAB_DECORATIONS);
 
-	public static final RegistryObject<Block> CURSED_FIRE = HELPER.createBlockNoItem("cursed_fire", () -> new CursedFireBlock(Block.Properties.copy(Blocks.SOUL_FIRE)));
-	public static final RegistryObject<Block> CURSED_CAMPFIRE = HELPER.createBlock("cursed_campfire", () -> new CursedCampfireBlock(Block.Properties.copy(Blocks.SOUL_CAMPFIRE)), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> CURSED_LANTERN = HELPER.createBlock("cursed_lantern", () -> new LanternBlock(Block.Properties.copy(Blocks.SOUL_LANTERN)), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> CURSED_WALL_TORCH = HELPER.createBlockNoItem("cursed_wall_torch", () -> new CursedWallTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)));
-	public static final RegistryObject<Block> CURSED_TORCH = HELPER.createStandingAndWallBlock("cursed_torch", () -> new CursedTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)), CURSED_WALL_TORCH, CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> CUPRIC_FIRE = HELPER.createBlockNoItem("cupric_fire", () -> new CupricFireBlock(Block.Properties.copy(Blocks.SOUL_FIRE)));
+	public static final RegistryObject<Block> CUPRIC_CAMPFIRE = HELPER.createBlock("cupric_campfire", () -> new CupricCampfireBlock(Block.Properties.copy(Blocks.SOUL_CAMPFIRE)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> CUPRIC_LANTERN = HELPER.createBlock("cupric_lantern", () -> new LanternBlock(Block.Properties.copy(Blocks.SOUL_LANTERN)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> CUPRIC_WALL_TORCH = HELPER.createBlockNoItem("cupric_wall_torch", () -> new CupricWallTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)));
+	public static final RegistryObject<Block> CUPRIC_TORCH = HELPER.createStandingAndWallBlock("cupric_torch", () -> new CupricTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)), CUPRIC_WALL_TORCH, CreativeModeTab.TAB_DECORATIONS);
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.copy(Blocks.STONE)), CreativeModeTab.TAB_DECORATIONS);

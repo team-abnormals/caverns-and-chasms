@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "caverns_and_chasms:block/cupric_lantern"
+    },
+    "hanging=true": {
+      "model": "caverns_and_chasms:block/cupric_lantern_hanging"
+    }
+  }
+}

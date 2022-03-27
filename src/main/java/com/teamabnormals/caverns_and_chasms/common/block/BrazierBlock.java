@@ -50,9 +50,9 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	protected static final VoxelShape GROUNDED_SHAPE = Shapes.or(Block.box(0.0D, 4.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D));
 	protected static final VoxelShape HANGING_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D);
 
-	private final int fireDamage;
+	private final float fireDamage;
 
-	public BrazierBlock(int fireDamage, BlockBehaviour.Properties properties) {
+	public BrazierBlock(float fireDamage, BlockBehaviour.Properties properties) {
 		super(properties);
 		this.fireDamage = fireDamage;
 		this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true).setValue(HANGING, false).setValue(WATERLOGGED, false));
@@ -60,9 +60,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
 		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-			if (state.is(CCBlocks.CURSED_BRAZIER.get()) && !((LivingEntity) entityIn).isInvertedHealAndHarm())
-				return;
-			entityIn.hurt(DamageSource.IN_FIRE, (float) this.fireDamage);
+			entityIn.hurt(DamageSource.IN_FIRE, this.fireDamage);
 		}
 
 		super.entityInside(state, worldIn, pos, entityIn);

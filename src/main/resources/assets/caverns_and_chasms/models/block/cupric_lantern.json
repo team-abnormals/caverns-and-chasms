@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "caverns_and_chasms:block/cupric_lantern"
+  }
+}

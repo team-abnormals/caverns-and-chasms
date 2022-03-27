@@ -59,13 +59,13 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.BRAZIER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SOUL_BRAZIER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ENDER_BRAZIER.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_BRAZIER.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CUPRIC_BRAZIER.get(), RenderType.cutout());
 
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_FIRE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_TORCH.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_WALL_TORCH.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_LANTERN.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CURSED_CAMPFIRE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CUPRIC_FIRE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CUPRIC_TORCH.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CUPRIC_WALL_TORCH.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CUPRIC_LANTERN.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CUPRIC_CAMPFIRE.get(), RenderType.cutout());
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LADDER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_DOOR.get(), RenderType.cutout());

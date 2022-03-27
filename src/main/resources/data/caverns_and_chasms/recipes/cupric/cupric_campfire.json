@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "S#S",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "tag": "minecraft:logs"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "#": {
+      "tag": "caverns_and_chasms:cupric_fire_base_items"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:cupric_campfire"
+  }
+}

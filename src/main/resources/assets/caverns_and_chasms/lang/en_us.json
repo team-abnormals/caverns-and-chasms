@@ -32,15 +32,15 @@
   "block.caverns_and_chasms.rotten_flesh_block": "Rotten Flesh Block",
   "block.caverns_and_chasms.gravestone": "Gravestone",
 
-  "block.caverns_and_chasms.cursed_campfire": "Cursed Campfire",
-  "block.caverns_and_chasms.cursed_torch": "Cursed Torch",
-  "block.caverns_and_chasms.cursed_wall_torch": "Cursed Wall Torch",
-  "block.caverns_and_chasms.cursed_lantern": "Cursed Lantern",
-  "block.caverns_and_chasms.cursed_fire": "Cursed Fire",
+  "block.caverns_and_chasms.cupric_campfire": "Cupric Campfire",
+  "block.caverns_and_chasms.cupric_torch": "Cupric Torch",
+  "block.caverns_and_chasms.cupric_wall_torch": "Cupric Wall Torch",
+  "block.caverns_and_chasms.cupric_lantern": "Cupric Lantern",
+  "block.caverns_and_chasms.cupric_fire": "Cupric Fire",
 
   "block.caverns_and_chasms.brazier": "Brazier",
   "block.caverns_and_chasms.soul_brazier": "Soul Brazier",
-  "block.caverns_and_chasms.cursed_brazier": "Cursed Brazier",
+  "block.caverns_and_chasms.cupric_brazier": "Cupric Brazier",
   "block.caverns_and_chasms.ender_brazier": "Ender Brazier",
 
   "block.caverns_and_chasms.floodlight": "Floodlight",

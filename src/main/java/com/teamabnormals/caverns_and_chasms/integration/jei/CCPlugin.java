@@ -19,6 +19,6 @@ public class CCPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(CCBlocks.CURSED_CAMPFIRE.get()), RecipeTypes.CAMPFIRE_COOKING);
+		registration.addRecipeCatalyst(new ItemStack(CCBlocks.CUPRIC_CAMPFIRE.get()), RecipeTypes.CAMPFIRE_COOKING);
 	}
 }

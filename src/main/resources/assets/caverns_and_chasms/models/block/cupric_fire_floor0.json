@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_floor",
+  "textures": {
+    "fire": "caverns_and_chasms:block/cupric_fire_0"
+  }
+}

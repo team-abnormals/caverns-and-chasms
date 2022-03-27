@@ -146,7 +146,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
 
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.CURSED_CAMPFIRE.get(), CampfireRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 	}
 
 	@OnlyIn(Dist.CLIENT)

@@ -105,7 +105,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(BRAZIER.get());
 			this.dropSelf(SOUL_BRAZIER.get());
 			this.dropSelf(ENDER_BRAZIER.get());
-			this.dropSelf(CURSED_BRAZIER.get());
+			this.dropSelf(CUPRIC_BRAZIER.get());
 
 			this.dropSelf(LAVA_LAMP.get());
 			this.dropSelf(GOLDEN_BARS.get());
@@ -212,11 +212,11 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(SANGUINE_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(SANGUINE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 
-			this.add(CURSED_FIRE.get(), noDrop());
-			this.dropSelf(CURSED_LANTERN.get());
-			this.dropSelf(CURSED_TORCH.get());
-			this.dropOther(CURSED_WALL_TORCH.get(), CURSED_TORCH.get());
-			this.add(CURSED_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ROTTEN_FLESH_BLOCK.get().asItem()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
+			this.add(CUPRIC_FIRE.get(), noDrop());
+			this.dropSelf(CUPRIC_LANTERN.get());
+			this.dropSelf(CUPRIC_TORCH.get());
+			this.dropOther(CUPRIC_WALL_TORCH.get(), CUPRIC_TORCH.get());
+			this.add(CUPRIC_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ROTTEN_FLESH_BLOCK.get().asItem()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
 
 			this.dropSelf(AZALEA_PLANKS.get());
 			this.dropSelf(AZALEA_LOG.get());
