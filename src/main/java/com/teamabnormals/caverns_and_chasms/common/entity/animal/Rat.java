@@ -88,9 +88,7 @@ import net.minecraft.world.phys.Vec3;
 public class Rat extends ShoulderRidingEntity {
 	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isTame() && !entity.isBaby() && entity.isAlive();
 	private static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
-	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> {
-		return !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
-	};
+	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
 
 	private static final EntityDataAccessor<Integer> RAT_TYPE = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
@@ -115,9 +113,7 @@ public class Rat extends ShoulderRidingEntity {
 		this.goalSelector.addGoal(6, new Rat.RatJumpOnOwnersShoulderGoal());
 		this.goalSelector.addGoal(7, new Rat.RatStayInGroupGoal());
 		this.goalSelector.addGoal(8, new Rat.RatFollowParentGoal());
-		this.goalSelector.addGoal(9, new Rat.RatAvoidEntityGoal<>(Player.class, 10.0F, 1.0F, 1.2F, (entity) -> {
-			return AVOID_PLAYERS.test(entity);
-		}));
+		this.goalSelector.addGoal(9, new Rat.RatAvoidEntityGoal<>(Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
 		this.goalSelector.addGoal(10, new Rat.RatRandomStrollGoal());
 		this.goalSelector.addGoal(11, new Rat.RatFindItemsGoal());
 		this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -229,9 +225,7 @@ public class Rat extends ShoulderRidingEntity {
 			}
 
 			List<Rat> rats = this.level.getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS);
-			rats.sort(Comparator.comparing((entity) -> {
-				return this.distanceToSqr(entity);
-			}));
+			rats.sort(Comparator.comparing((entity) -> this.distanceToSqr(entity)));
 			this.group = rats.stream().limit(4).collect(Collectors.toList());
 		}
 
@@ -455,8 +449,7 @@ public class Rat extends ShoulderRidingEntity {
 	@Override
 	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
 		if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
-			if (target instanceof Wolf) {
-				Wolf wolf = (Wolf) target;
+			if (target instanceof Wolf wolf) {
 				return !wolf.isTame() || wolf.getOwner() != owner;
 			} else if (target instanceof Player && owner instanceof Player && !((Player) owner).canHarmPlayer((Player) target)) {
 				return false;
@@ -681,9 +674,7 @@ public class Rat extends ShoulderRidingEntity {
 		public boolean canUse() {
 			if (!Rat.this.isTame() && !Rat.this.isBaby() && Rat.this.isSurroundedByFriends()) {
 				this.setGroupCenter();
-				if (Rat.this.distanceToSqr(this.groupCenter) > 16.0D) {
-					return true;
-				}
+				return Rat.this.distanceToSqr(this.groupCenter) > 16.0D;
 			}
 
 			return false;
