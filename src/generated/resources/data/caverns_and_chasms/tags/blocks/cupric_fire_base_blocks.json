@@ -1,9 +1,8 @@
 {
   "replace": false,
   "values": [
-    "minecraft:copper_ore",
-    "minecraft:deepslate_copper_ore",
-    "minecraft:raw_copper_block",
+    "#forge:ores/copper",
+    "#forge:storage_blocks/raw_copper",
     "caverns_and_chasms:coil",
     "caverns_and_chasms:floodlight",
     "minecraft:copper_block",

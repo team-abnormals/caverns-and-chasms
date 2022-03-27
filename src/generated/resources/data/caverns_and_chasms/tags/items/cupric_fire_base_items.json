@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "minecraft:copper_ingot",
-    "minecraft:raw_copper",
-    "caverns_and_chasms:copper_nugget"
+    "#forge:ingots/copper",
+    "#forge:raw_materials/copper",
+    "#forge:nuggets/copper"
   ]
 }
