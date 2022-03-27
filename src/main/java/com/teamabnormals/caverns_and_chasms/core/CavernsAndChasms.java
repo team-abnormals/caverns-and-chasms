@@ -21,16 +21,20 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -67,6 +71,8 @@ public class CavernsAndChasms {
 		bus.addListener(this::registerRenderers);
 		bus.addListener(this::registerLayers);
 		bus.addListener(this::registerItemColors);
+
+		bus.addGenericListener(Block.class, this::registerRecipeTypes);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
 
@@ -108,6 +114,10 @@ public class CavernsAndChasms {
 			generator.addProvider(new CCBlockStateProvider(generator, fileHelper));
 			//generator.addProvider(new CCLanguageProvider(generator));
 		}
+	}
+
+	private void registerRecipeTypes(RegistryEvent.Register<Block> event) {
+		CCRecipeTypes.MIMING = RecipeType.register(CavernsAndChasms.MOD_ID + ":miming");
 	}
 
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {

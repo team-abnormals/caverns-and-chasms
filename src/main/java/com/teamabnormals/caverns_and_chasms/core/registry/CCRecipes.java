@@ -18,6 +18,6 @@ public class CCRecipes {
 	}
 
 	public static class CCRecipeTypes {
-		public static final RecipeType<MimingRecipe> MIMING = RecipeType.register(CavernsAndChasms.MOD_ID + ":miming");
+		public static RecipeType<MimingRecipe> MIMING;
 	}
 }
