@@ -71,6 +71,7 @@ public class CCItems {
 
 	public static final RegistryObject<Item> SPINEL = HELPER.createItem("spinel", () -> new InjectedItem(Items.LAPIS_LAZULI, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 	public static final RegistryObject<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<Item> BEJEWELED_APPLE = HELPER.createItem("bejeweled_apple", () -> new BejeweledAppleItem(new Item.Properties().food(CCFoods.BEJEWELED_APPLE).tab(CreativeModeTab.TAB_FOOD)));
 	public static final RegistryObject<Item> SPINEL_CROWN = HELPER.createItem("spinel_crown", () -> new SpinelCrownItem(CCArmorMaterials.SPINEL_CROWN, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
 	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.CAVEFISH)));
@@ -97,6 +98,7 @@ public class CCItems {
 	public static final RegistryObject<ForgeSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntityTypes.RAT::get, 0x3B4248, 0xA76E6C);
 
 	public static class CCFoods {
+		public static final FoodProperties BEJEWELED_APPLE = new FoodProperties.Builder().nutrition(4).saturationMod(1.2F).alwaysEat().build();
 		public static final FoodProperties CAVEFISH = new FoodProperties.Builder().nutrition(1).saturationMod(0.3F).build();
 		public static final FoodProperties COOKED_CAVEFISH = new FoodProperties.Builder().nutrition(4).saturationMod(0.25F).build();
 	}

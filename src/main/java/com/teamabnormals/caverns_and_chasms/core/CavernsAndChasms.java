@@ -17,6 +17,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBiomeTagsPro
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBlockTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCEntityTypeTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCItemTagsProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCMobEffectTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
@@ -102,6 +103,7 @@ public class CavernsAndChasms {
 			generator.addProvider(new CCItemTagsProvider(generator, blockTags, fileHelper));
 			generator.addProvider(new CCEntityTypeTagsProvider(generator, fileHelper));
 			generator.addProvider(new CCBiomeTagsProvider(generator, fileHelper));
+			generator.addProvider(new CCMobEffectTagsProvider(generator, fileHelper));
 			generator.addProvider(new CCRecipeProvider(generator));
 			generator.addProvider(new CCLootTableProvider(generator));
 			generator.addProvider(new CCAdvancementProvider(generator, fileHelper));

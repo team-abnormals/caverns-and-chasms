@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bad_omen",
+    "minecraft:hero_of_the_village",
+    {
+      "id": "environmental:serenity",
+      "required": false
+    }
+  ]
+}

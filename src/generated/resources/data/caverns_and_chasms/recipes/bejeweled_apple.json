@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SAS",
+    "SSS"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:golden_apple"
+    },
+    "S": {
+      "item": "caverns_and_chasms:spinel"
+    }
+  },
+  "result": {
+    "item": "caverns_and_chasms:bejeweled_apple",
+    "count": 2
+  }
+}
