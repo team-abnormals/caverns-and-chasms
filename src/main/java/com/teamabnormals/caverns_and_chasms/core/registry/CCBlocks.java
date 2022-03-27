@@ -62,7 +62,6 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CUPRIC_TORCH = HELPER.createStandingAndWallBlock("cupric_torch", () -> new CupricTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)), CUPRIC_WALL_TORCH, CreativeModeTab.TAB_DECORATIONS);
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> GRAVESTONE = HELPER.createBlock("gravestone", () -> new GravestoneBlock(Block.Properties.copy(Blocks.STONE)), CreativeModeTab.TAB_DECORATIONS);
 
 	public static final RegistryObject<Block> FLOODLIGHT = HELPER.createBlock("floodlight", () -> new FloodlightBlock(CCProperties.FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> COIL = HELPER.createBlock("coil", () -> new CoilBlock(CCProperties.COIL), CreativeModeTab.TAB_REDSTONE);

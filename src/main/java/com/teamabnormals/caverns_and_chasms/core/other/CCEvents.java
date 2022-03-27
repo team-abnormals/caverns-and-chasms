@@ -1,8 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags; 
+import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.GravestoneBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
@@ -16,7 +15,6 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
@@ -72,13 +70,11 @@ import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -96,7 +92,6 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -119,7 +114,7 @@ public class CCEvents {
 		} else if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolem.class, true));
 		} else if (entity instanceof Cat cat) {
-			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, (Predicate<LivingEntity>)null));
+			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, (Predicate<LivingEntity>) null));
 		} else if (entity instanceof Ocelot ocelot) {
 			ocelot.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(ocelot, Rat.class, false));
 		}
@@ -198,24 +193,6 @@ public class CCEvents {
 					}
 				}
 			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void onLivingDeath(LivingDeathEvent event) {
-		LivingEntity entity = event.getEntityLiving();
-		Level world = entity.getCommandSenderWorld();
-
-		if (entity instanceof Enemy && !world.isClientSide()) {
-			AABB aabb = entity.getBoundingBox().inflate(5.0F, 2.0F, 5.0F);
-			Stream<BlockPos> blocks = BlockPos.betweenClosedStream(new BlockPos(aabb.minX, aabb.minY, aabb.minZ), new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ));
-
-			blocks.forEach(pos -> {
-				BlockState state = world.getBlockState(pos);
-				if (state.is(CCBlocks.GRAVESTONE.get())) {
-					((GravestoneBlock) CCBlocks.GRAVESTONE.get()).powerBlock(state, world, pos);
-				}
-			});
 		}
 	}
 
