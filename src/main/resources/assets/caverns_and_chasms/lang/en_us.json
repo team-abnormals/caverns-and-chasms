@@ -260,7 +260,6 @@
   "item.caverns_and_chasms.cavefish_spawn_egg": "Cavefish Spawn Egg",
   "item.caverns_and_chasms.deeper_spawn_egg": "Deeper Spawn Egg",
   "item.caverns_and_chasms.mime_spawn_egg": "Mime Spawn Egg",
-  "item.caverns_and_chasms.juggernaut_spawn_egg": "Juggernaut Spawn Egg",
   "item.caverns_and_chasms.fly_spawn_egg": "Fly Spawn Egg",
   "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
   
@@ -268,7 +267,6 @@
   "entity.caverns_and_chasms.deeper": "Deeper",
   "entity.caverns_and_chasms.spiderling": "Spiderling",
   "entity.caverns_and_chasms.mime": "Mime",
-  "entity.caverns_and_chasms.juggernaut": "Juggernaut",
   "entity.caverns_and_chasms.fly": "Fly",
   "entity.caverns_and_chasms.rat": "Rat",
   "entity.caverns_and_chasms.copper_golem": "Copper Golem",
