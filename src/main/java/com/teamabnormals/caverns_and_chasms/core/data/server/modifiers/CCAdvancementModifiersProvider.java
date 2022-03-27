@@ -46,14 +46,14 @@ public class CCAdvancementModifiersProvider extends AdvancementModifierProvider 
 		this.registerEntry("nether/all_potions", new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())), new ResourceLocation(("nether/all_potions")));
 
 		this.registerEntry("husbandry/balanced_diet", createCriteriaModifier(Mode.MODIFY, Pair.of("cavefish", new Criterion(ConsumeItemTrigger.TriggerInstance.usedItem(CCItems.CAVEFISH.get()))), Pair.of("cooked_cavefish", new Criterion(ConsumeItemTrigger.TriggerInstance.usedItem(CCItems.COOKED_CAVEFISH.get())))), new ResourceLocation("husbandry/balanced_diet"));
-		this.registerEntry("husbandry/fishy_business", createCriteriaModifier(Mode.MODIFY, Pair.of("cavefish", new Criterion(FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.Builder.item().of(CCItems.CAVEFISH.get()).build())))), new ResourceLocation("husbandry/fishy_business"));
+		this.registerEntry("husbandry/fishy_business", createIndexedRequirementsModifier(0, Collections.singletonList(Pair.of("cavefish", new Criterion(FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.Builder.item().of(CCItems.CAVEFISH.get()).build()))))), new ResourceLocation("husbandry/fishy_business"));
 		this.registerEntry("husbandry/tactical_fishing", createIndexedRequirementsModifier(0, Collections.singletonList(Pair.of("cavefish_bucket", new Criterion(FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(CCItems.CAVEFISH_BUCKET.get()).build()))))), new ResourceLocation("husbandry/tactical_fishing"));
 		this.registerEntry("husbandry/wax_on", createCriteriaModifier(Mode.REPLACE, Pair.of("wax_on", new Criterion(TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB))))), new ResourceLocation("husbandry/wax_on"));
 		this.registerEntry("husbandry/wax_off", createCriteriaModifier(Mode.REPLACE, Pair.of("wax_off", new Criterion(TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(CCItemTags.TOOLS_AXES))))), new ResourceLocation("husbandry/wax_off"));
 
 		this.registerEntry("husbandry/obtain_netherite_hoe",
 				new ObjectModifierGroup<>(new NamesResourceSelector(new ResourceLocation("husbandry/obtain_netherite_hoe")), List.of(
-						new DisplayInfoModifier(Mode.MODIFY, Optional.empty(), Optional.of(new TranslatableComponent("advancements." + this.getModId() + ".husbandry.obtain_netherite_hoe.description")), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()),
+						new DisplayInfoModifier(Mode.MODIFY, Optional.empty(), Optional.of(new TranslatableComponent("advancements." + this.getModId() + ".husbandry.netherite_hoe.description")), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()),
 						createIndexedRequirementsModifier(0, Collections.singletonList(Pair.of("necromium_hoe", new Criterion(InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())))))
 				)));
 

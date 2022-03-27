@@ -9,9 +9,10 @@
   "priority": "normal",
   "modifiers": [
     {
-      "type": "criteria",
+      "type": "indexed_requirements",
       "config": {
         "mode": "modify",
+        "index": 0,
         "criteria": {
           "caverns_and_chasms:cavefish": {
             "trigger": "minecraft:fishing_rod_hooked",
@@ -25,9 +26,7 @@
           }
         },
         "requirements": [
-          [
-            "caverns_and_chasms:cavefish"
-          ]
+          "caverns_and_chasms:cavefish"
         ]
       }
     }
