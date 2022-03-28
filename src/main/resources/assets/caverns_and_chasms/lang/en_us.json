@@ -19,7 +19,6 @@
   "block.caverns_and_chasms.silver_ore": "Silver Ore",
   "block.caverns_and_chasms.soul_silver_ore": "Soul Silver Ore",
   "block.caverns_and_chasms.necromium_block": "Block of Necromium",
-  "block.caverns_and_chasms.silver_lantern": "Silver Lantern",
   "block.caverns_and_chasms.silver_bars": "Silver Bars",
   "block.caverns_and_chasms.medium_weighted_pressure_plate": "Medium Weighted Pressure Plate",
   "block.caverns_and_chasms.silver_button": "Silver Button",
@@ -30,11 +29,9 @@
   "block.caverns_and_chasms.sanguine_plate_vertical_slab": "Sanguine Plate Vertical Slab",
 
   "block.caverns_and_chasms.rotten_flesh_block": "Rotten Flesh Block",
-  "block.caverns_and_chasms.gravestone": "Gravestone",
 
   "block.caverns_and_chasms.cupric_campfire": "Cupric Campfire",
   "block.caverns_and_chasms.cupric_torch": "Cupric Torch",
-  "block.caverns_and_chasms.cupric_wall_torch": "Cupric Wall Torch",
   "block.caverns_and_chasms.cupric_lantern": "Cupric Lantern",
   "block.caverns_and_chasms.cupric_fire": "Cupric Fire",
   "block.caverns_and_chasms.cupric_candle": "Cupric Candle",
