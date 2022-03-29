@@ -8,7 +8,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -41,12 +40,12 @@ public class CCGeneration {
 
 		if (name == null) return;
 
-		List<Holder<PlacedFeature>> oreFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES);
-		List<Holder<PlacedFeature>> decorFeatures = event.getGeneration().getFeatures(Decoration.UNDERGROUND_DECORATION);
+		List<Holder<PlacedFeature>> ores = generation.getFeatures(Decoration.UNDERGROUND_ORES);
+		List<Holder<PlacedFeature>> decorations = generation.getFeatures(Decoration.UNDERGROUND_DECORATION);
 
 		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_SOUL_SILVER_ORE)) {
-			removeGoldOre(decorFeatures);
-			event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CCPlacedFeatures.ORE_SILVER_SOUL);
+			removeGoldOre(decorations);
+			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CCPlacedFeatures.ORE_SILVER_SOUL);
 		}
 
 		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_EXTRA_SILVER_ORE)) {
@@ -54,7 +53,7 @@ public class CCGeneration {
 		}
 
 		if (TagUtil.isTagged(biome, CCBiomeTags.HAS_SPINEL_ORE)) {
-			removeLapisOre(oreFeatures);
+			removeLapisOre(ores);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_BURIED);
 		}
@@ -65,12 +64,12 @@ public class CCGeneration {
 
 		if (TagUtil.isTagged(biome, BlueprintBiomeTags.IS_OVERWORLD)) {
 			if (event.getClimate().temperature <= 0.3D || TagUtil.isTagged(biome, CCBiomeTags.HAS_SILVER_ORE)) {
-				removeGoldOre(oreFeatures);
+				removeGoldOre(ores);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_LOWER);
 			}
 
-			removeDirtOre(oreFeatures);
+			removeDirtOre(ores);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE);
 
@@ -79,9 +78,9 @@ public class CCGeneration {
 		}
 	}
 
-	public static void removeGoldOre(List<Holder<PlacedFeature>> oreFeatures) {
+	public static void removeGoldOre(List<Holder<PlacedFeature>> features) {
 		List<Holder<PlacedFeature>> toRemove = new ArrayList<>();
-		for (Holder<PlacedFeature> placedFeature : oreFeatures) {
+		for (Holder<PlacedFeature> placedFeature : features) {
 			for (ConfiguredFeature<?, ?> feature : placedFeature.value().getFeatures().collect(Collectors.toList())) {
 				if (feature.config() instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
@@ -92,12 +91,12 @@ public class CCGeneration {
 				}
 			}
 		}
-		toRemove.forEach(oreFeatures::remove);
+		toRemove.forEach(features::remove);
 	}
 
-	public static void removeLapisOre(List<Holder<PlacedFeature>> oreFeatures) {
+	public static void removeLapisOre(List<Holder<PlacedFeature>> features) {
 		List<Holder<PlacedFeature>> toRemove = new ArrayList<>();
-		for (Holder<PlacedFeature> placedFeature : oreFeatures) {
+		for (Holder<PlacedFeature> placedFeature : features) {
 			for (ConfiguredFeature<?, ?> feature : placedFeature.value().getFeatures().collect(Collectors.toList())) {
 				if (feature.config() instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
@@ -109,12 +108,12 @@ public class CCGeneration {
 			}
 		}
 
-		toRemove.forEach(oreFeatures::remove);
+		toRemove.forEach(features::remove);
 	}
 
-	public static void removeDirtOre(List<Holder<PlacedFeature>> oreFeatures) {
+	public static void removeDirtOre(List<Holder<PlacedFeature>> features) {
 		List<Holder<PlacedFeature>> toRemove = new ArrayList<>();
-		for (Holder<PlacedFeature> placedFeature : oreFeatures) {
+		for (Holder<PlacedFeature> placedFeature : features) {
 			for (ConfiguredFeature<?, ?> feature : placedFeature.value().getFeatures().collect(Collectors.toList())) {
 				if (feature.config() instanceof OreConfiguration ore) {
 					ore.targetStates.forEach((targetBlockState -> {
@@ -126,6 +125,6 @@ public class CCGeneration {
 			}
 		}
 
-		toRemove.forEach(oreFeatures::remove);
+		toRemove.forEach(features::remove);
 	}
 }

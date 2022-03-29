@@ -34,9 +34,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CCAdvancementModifiersProvider extends AdvancementModifierProvider {
+public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 
-	public CCAdvancementModifiersProvider(DataGenerator dataGenerator) {
+	public CCAdvancementModifierProvider(DataGenerator dataGenerator) {
 		super(dataGenerator, CavernsAndChasms.MOD_ID);
 	}
 
