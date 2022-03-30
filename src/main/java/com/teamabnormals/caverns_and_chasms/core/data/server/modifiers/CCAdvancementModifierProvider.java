@@ -74,5 +74,8 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 			killAllMobs.addCriterion(name, triggerInstance);
 			names.add(name);
 		}
+
+		this.entry("adventure/kill_a_mob").selects("adventure/kill_a_mob").addModifier(killAMob.addIndexedRequirements(0, false, names.toArray(new String[0])).build());
+		this.entry("adventure/kill_all_mobs").selects("adventure/kill_all_mobs").addModifier(killAllMobs.requirements(RequirementsStrategy.AND).build());
 	}
 }
