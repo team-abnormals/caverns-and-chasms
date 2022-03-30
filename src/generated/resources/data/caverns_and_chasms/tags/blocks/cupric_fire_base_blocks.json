@@ -3,7 +3,7 @@
   "values": [
     "#forge:ores/copper",
     "#forge:storage_blocks/raw_copper",
-    "caverns_and_chasms:coil",
+    "caverns_and_chasms:inductor",
     "caverns_and_chasms:floodlight",
     "minecraft:copper_block",
     "minecraft:exposed_copper",

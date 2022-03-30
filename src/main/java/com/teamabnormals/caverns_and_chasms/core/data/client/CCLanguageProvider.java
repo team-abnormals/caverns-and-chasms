@@ -31,7 +31,7 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCBlocks.WAXED_COPPER_BARS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BARS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BARS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
 		this.add(CCBlocks.COPPER_BUTTON.get(), CCBlocks.EXPOSED_COPPER_BUTTON.get(), CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.OXIDIZED_COPPER_BUTTON.get());
 		this.add(CCBlocks.WAXED_COPPER_BUTTON.get(), CCBlocks.WAXED_EXPOSED_COPPER_BUTTON.get(), CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
-		this.add(CCBlocks.COIL.get(), CCBlocks.FLOODLIGHT.get());
+		this.add(CCBlocks.INDUCTOR.get(), CCBlocks.FLOODLIGHT.get());
 		this.add(CCBlocks.LAVA_LAMP.get(), CCBlocks.GOLDEN_BARS.get());
 		this.add(CCBlocks.ROTTEN_FLESH_BLOCK.get());
 		this.add(CCBlocks.BRAZIER.get(), CCBlocks.SOUL_BRAZIER.get(), CCBlocks.ENDER_BRAZIER.get(), CCBlocks.CUPRIC_BRAZIER.get());

@@ -22,12 +22,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class CoilBlock extends DirectionalBlock {
+public class InductorBlock extends DirectionalBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final BooleanProperty COOLDOWN = BooleanProperty.create("cooldown");
 	public static final IntegerProperty INDUCTION_POWER = IntegerProperty.create("induction_power", 0, 5);
 
-	public CoilBlock(Properties properties) {
+	public InductorBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(POWERED, false).setValue(COOLDOWN, false));
 	}

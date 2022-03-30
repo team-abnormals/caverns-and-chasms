@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:coil"
+      "caverns_and_chasms:inductor"
     ]
   },
   "criteria": {
-    "has_redstone": {
+    "has_copper_ingot": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:redstone"
-            ]
+            "tag": "forge:ingots/copper"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "caverns_and_chasms:coil"
+        "recipe": "caverns_and_chasms:inductor"
       }
     }
   },
   "requirements": [
     [
-      "has_redstone",
+      "has_copper_ingot",
       "has_the_recipe"
     ]
   ]

@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.teamabnormals.caverns_and_chasms.common.block.CoilBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.InductorBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +32,7 @@ public abstract class ItemEntityMixin extends Entity {
 		for (BlockPos blockpos : BlockPos.betweenClosed(pos.getX() - 8, pos.getY() - 8, pos.getZ() - 8, pos.getX() + 8, pos.getY() + 8, pos.getZ() + 8)) {
 			BlockState blockstate = this.level.getBlockState(blockpos);
 
-			if (blockstate.getBlock() instanceof CoilBlock && (blockstate.getValue(CoilBlock.POWERED) || blockstate.getValue(CoilBlock.INDUCTION_POWER) > 0)) {
+			if (blockstate.getBlock() instanceof InductorBlock && (blockstate.getValue(InductorBlock.POWERED) || blockstate.getValue(InductorBlock.INDUCTION_POWER) > 0)) {
 				double x = blockpos.getX() + 0.5D - this.getX();
 				double y = blockpos.getY() + 0.5D - this.getY();
 				double z = blockpos.getZ() + 0.5D - this.getZ();
@@ -41,7 +41,7 @@ public abstract class ItemEntityMixin extends Entity {
 
 				if (d0 < 8.0D) {
 					double d1 = 1.0D - d0 / 8.0D;
-					double d2 = blockstate.getValue(CoilBlock.POWERED) ? 1 : blockstate.getValue(CoilBlock.INDUCTION_POWER) / 5;
+					double d2 = blockstate.getValue(InductorBlock.POWERED) ? 1 : blockstate.getValue(InductorBlock.INDUCTION_POWER) / 5;
 					double d3 = d1 * d1 * d2;
 					double d4 = d3 * 0.075D;
 					vec3 = vec3.add(new Vec3(vec31.x() * d4 / d0, vec31.y() * d4 / d0, vec31.z() * d4 / d0));
