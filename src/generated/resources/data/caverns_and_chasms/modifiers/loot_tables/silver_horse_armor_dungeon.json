@@ -2,9 +2,9 @@
   "selector": {
     "type": "names",
     "config": [
-      "minecraft:chests/shipwreck_map"
-    ],
-    "conditions": []
+      "minecraft:chests/simple_dungeon",
+      "minecraft:chests/desert_pyramid"
+    ]
   },
   "priority": "normal",
   "modifiers": [
@@ -12,11 +12,12 @@
       "type": "entries",
       "config": {
         "replace": false,
-        "index": 1,
+        "index": 0,
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "caverns_and_chasms:depth_gauge"
+            "weight": 10,
+            "name": "caverns_and_chasms:silver_horse_armor"
           }
         ]
       }

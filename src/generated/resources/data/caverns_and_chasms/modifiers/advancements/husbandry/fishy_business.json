@@ -1,18 +1,10 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:husbandry/fishy_business"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:husbandry/fishy_business",
   "priority": "normal",
   "modifiers": [
     {
-      "type": "indexed_requirements",
+      "type": "criteria",
       "config": {
-        "mode": "modify",
-        "index": 0,
         "criteria": {
           "caverns_and_chasms:cavefish": {
             "trigger": "minecraft:fishing_rod_hooked",
@@ -25,8 +17,14 @@
             }
           }
         },
-        "requirements": [
-          "caverns_and_chasms:cavefish"
+        "indexed_requirements": [
+          {
+            "index": 0,
+            "replace": false,
+            "requirements": [
+              "caverns_and_chasms:cavefish"
+            ]
+          }
         ]
       }
     }

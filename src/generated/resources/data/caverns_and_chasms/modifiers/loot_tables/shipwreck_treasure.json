@@ -1,11 +1,5 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:chests/shipwreck_treasure"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:chests/shipwreck_treasure",
   "priority": "normal",
   "modifiers": [
     {

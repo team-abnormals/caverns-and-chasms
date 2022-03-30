@@ -1,11 +1,5 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:chests/ruined_portal"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:chests/ruined_portal",
   "priority": "normal",
   "modifiers": [
     {

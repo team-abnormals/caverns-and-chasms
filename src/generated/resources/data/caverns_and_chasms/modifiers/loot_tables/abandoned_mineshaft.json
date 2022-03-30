@@ -1,11 +1,5 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:chests/abandoned_mineshaft"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:chests/abandoned_mineshaft",
   "priority": "normal",
   "modifiers": [
     {

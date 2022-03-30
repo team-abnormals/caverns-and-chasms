@@ -1,11 +1,5 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:chests/nether_bridge"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:chests/nether_bridge",
   "priority": "normal",
   "modifiers": [
     {

@@ -1,0 +1,33 @@
+{
+  "selector": "minecraft:husbandry/bred_all_animals",
+  "priority": "normal",
+  "modifiers": [
+    {
+      "type": "criteria",
+      "config": {
+        "criteria": {
+          "caverns_and_chasms:rat": {
+            "trigger": "minecraft:bred_animals",
+            "conditions": {
+              "child": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "predicate": {
+                    "type": "caverns_and_chasms:rat"
+                  },
+                  "entity": "this"
+                }
+              ]
+            }
+          }
+        },
+        "requirements": [
+          [
+            "caverns_and_chasms:rat"
+          ]
+        ],
+        "should_replace_requirements": false
+      }
+    }
+  ]
+}

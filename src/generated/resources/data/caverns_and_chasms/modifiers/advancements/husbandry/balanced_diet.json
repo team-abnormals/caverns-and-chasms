@@ -1,24 +1,17 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:husbandry/balanced_diet"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:husbandry/balanced_diet",
   "priority": "normal",
   "modifiers": [
     {
       "type": "criteria",
       "config": {
-        "mode": "modify",
         "criteria": {
-          "caverns_and_chasms:cooked_cavefish": {
+          "caverns_and_chasms:bejeweled_apple": {
             "trigger": "minecraft:consume_item",
             "conditions": {
               "item": {
                 "items": [
-                  "caverns_and_chasms:cooked_cavefish"
+                  "caverns_and_chasms:bejeweled_apple"
                 ]
               }
             }
@@ -32,16 +25,30 @@
                 ]
               }
             }
+          },
+          "caverns_and_chasms:cooked_cavefish": {
+            "trigger": "minecraft:consume_item",
+            "conditions": {
+              "item": {
+                "items": [
+                  "caverns_and_chasms:cooked_cavefish"
+                ]
+              }
+            }
           }
         },
         "requirements": [
+          [
+            "caverns_and_chasms:bejeweled_apple"
+          ],
           [
             "caverns_and_chasms:cavefish"
           ],
           [
             "caverns_and_chasms:cooked_cavefish"
           ]
-        ]
+        ],
+        "should_replace_requirements": false
       }
     }
   ]

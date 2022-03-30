@@ -6,8 +6,7 @@
       "minecraft:chests/village/village_weaponsmith",
       "minecraft:chests/end_city_treasure",
       "minecraft:chests/jungle_temple"
-    ],
-    "conditions": []
+    ]
   },
   "priority": "normal",
   "modifiers": [

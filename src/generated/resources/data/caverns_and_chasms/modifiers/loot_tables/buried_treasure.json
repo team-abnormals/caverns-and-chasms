@@ -1,11 +1,5 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:chests/buried_treasure"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:chests/buried_treasure",
   "priority": "normal",
   "modifiers": [
     {

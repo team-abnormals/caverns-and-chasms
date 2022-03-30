@@ -1,18 +1,10 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:husbandry/tactical_fishing"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:husbandry/tactical_fishing",
   "priority": "normal",
   "modifiers": [
     {
-      "type": "indexed_requirements",
+      "type": "criteria",
       "config": {
-        "mode": "modify",
-        "index": 0,
         "criteria": {
           "caverns_and_chasms:cavefish_bucket": {
             "trigger": "minecraft:filled_bucket",
@@ -25,8 +17,14 @@
             }
           }
         },
-        "requirements": [
-          "caverns_and_chasms:cavefish_bucket"
+        "indexed_requirements": [
+          {
+            "index": 0,
+            "replace": false,
+            "requirements": [
+              "caverns_and_chasms:cavefish_bucket"
+            ]
+          }
         ]
       }
     }

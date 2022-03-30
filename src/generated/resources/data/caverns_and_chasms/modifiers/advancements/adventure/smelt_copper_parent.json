@@ -4,8 +4,7 @@
     "config": [
       "minecraft:adventure/spyglass_at_parrot",
       "minecraft:adventure/lightning_rod_with_villager_no_fire"
-    ],
-    "conditions": []
+    ]
   },
   "priority": "normal",
   "modifiers": [

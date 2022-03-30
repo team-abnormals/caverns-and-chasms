@@ -1,11 +1,5 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:nether/all_potions"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:nether/all_potions",
   "priority": "normal",
   "modifiers": [
     {

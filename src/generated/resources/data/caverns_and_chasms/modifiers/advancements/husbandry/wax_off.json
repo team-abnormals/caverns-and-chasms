@@ -1,17 +1,10 @@
 {
-  "selector": {
-    "type": "names",
-    "config": [
-      "minecraft:husbandry/wax_off"
-    ],
-    "conditions": []
-  },
+  "selector": "minecraft:husbandry/wax_off",
   "priority": "normal",
   "modifiers": [
     {
       "type": "criteria",
       "config": {
-        "mode": "replace",
         "criteria": {
           "caverns_and_chasms:wax_off": {
             "trigger": "minecraft:item_used_on_block",
@@ -26,12 +19,7 @@
               }
             }
           }
-        },
-        "requirements": [
-          [
-            "caverns_and_chasms:wax_off"
-          ]
-        ]
+        }
       }
     }
   ]
