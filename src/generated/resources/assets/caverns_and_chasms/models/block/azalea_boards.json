@@ -1,0 +1,6 @@
+{
+  "parent": "blueprint:block/template_boards",
+  "textures": {
+    "all": "caverns_and_chasms:block/azalea_boards"
+  }
+}

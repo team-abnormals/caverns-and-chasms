@@ -84,11 +84,9 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerLogBlocks(CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.STRIPPED_AZALEA_WOOD.get());
 		this.registerFenceBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_FENCE.get(), CCBlocks.AZALEA_FENCE_GATE.get());
 		this.registerDoorBlocks(CCBlocks.AZALEA_DOOR.get(), CCBlocks.AZALEA_TRAPDOOR.get());
-		this.registerCompatBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.VERTICAL_AZALEA_PLANKS.get(), CCBlocks.AZALEA_LADDER.get(), CCBlocks.AZALEA_BOOKSHELF.get(), CCBlocks.AZALEA_BEEHIVE.get());
+		this.registerCompatBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BOARDS.get(), CCBlocks.AZALEA_LADDER.get(), CCBlocks.AZALEA_BOOKSHELF.get(), CCBlocks.AZALEA_BEEHIVE.get());
 		this.registerSignBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_SIGN);
 		this.registerChestBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_CHEST);
-		this.registerLeafCarpet(Blocks.AZALEA_LEAVES, CCBlocks.AZALEA_LEAF_CARPET.get());
-		this.registerLeafCarpet(Blocks.FLOWERING_AZALEA_LEAVES, CCBlocks.FLOWERING_AZALEA_LEAF_CARPET.get());
 		this.registerButton(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BUTTON.get());
 		this.registerPressurePlate(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_PRESSURE_PLATE.get());
 		this.registerHedge(Blocks.AZALEA_LEAVES, CCBlocks.AZALEA_LOG.get(), CCBlocks.AZALEA_HEDGE.get());
@@ -143,26 +141,16 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerItemModel(fenceGate);
 	}
 
-	public void registerCompatBlocks(Block block, Block verticalPlanks, Block ladder, Block bookshelf, Block beehive) {
+	public void registerCompatBlocks(Block block, Block boards, Block ladder, Block bookshelf, Block beehive) {
 		this.horizontalBlock(ladder, models().withExistingParent(name(ladder), "block/ladder").texture("particle", blockTexture(ladder)).texture("texture", blockTexture(ladder)));
 		this.registerGeneratedItemModel(ladder, "block");
 		this.simpleBlock(bookshelf, this.models().cubeColumn(name(bookshelf), blockTexture(bookshelf), blockTexture(block)));
 		this.registerItemModel(bookshelf);
 		this.registerBeehive(beehive);
-		this.simpleBlock(verticalPlanks, models().getBuilder(name(verticalPlanks)).parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/vertical_planks"))).texture("all", blockTexture(block)));
-		this.registerItemModel(verticalPlanks);
-	}
-
-	public void registerLeaves(Block leaves, Block leafCarpet) {
-		this.simpleBlock(leaves, models().withExistingParent(name(leaves), "block/leaves").texture("all", blockTexture(leaves)));
-		this.simpleBlock(leafCarpet, models().getBuilder(name(leafCarpet)).parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/leaf_carpet"))).texture("all", blockTexture(leaves)));
-		this.registerItemModel(leaves);
-		this.registerItemModel(leafCarpet);
-	}
-
-	public void registerLeafCarpet(Block leaves, Block leafCarpet) {
-		this.simpleBlock(leafCarpet, models().getBuilder(name(leafCarpet)).parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/leaf_carpet"))).texture("all", blockTexture(leaves)));
-		this.registerItemModel(leafCarpet);
+		ModelFile boardsModel = models().getBuilder(name(boards)).parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/template_boards"))).texture("all", blockTexture(boards));
+		ModelFile boardsHorizontalModel = models().getBuilder(name(boards) + "_horizontal").parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/template_boards_horizontal"))).texture("all", blockTexture(boards));
+		this.getVariantBuilder(boards).partialState().with(RotatedPillarBlock.AXIS, Axis.Y).modelForState().modelFile(boardsModel).addModel().partialState().with(RotatedPillarBlock.AXIS, Axis.Z).modelForState().modelFile(boardsHorizontalModel).addModel().partialState().with(RotatedPillarBlock.AXIS, Axis.X).modelForState().modelFile(boardsHorizontalModel).rotationY(90).addModel();
+		this.registerItemModel(boards);
 	}
 
 	public void registerBeehive(Block block) {

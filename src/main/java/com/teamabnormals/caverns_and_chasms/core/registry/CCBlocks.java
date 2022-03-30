@@ -187,19 +187,19 @@ public class CCBlocks {
 	public static final RegistryObject<Block> AZALEA_PRESSURE_PLATE = HELPER.createBlock("azalea_pressure_plate", () -> new WoodPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, CCProperties.AZALEA_WOOD.pressurePlate()), CreativeModeTab.TAB_REDSTONE);
 	public static final RegistryObject<Block> AZALEA_BUTTON = HELPER.createBlock("azalea_button", () -> new BlueprintWoodButtonBlock(CCProperties.AZALEA_WOOD.button()), CreativeModeTab.TAB_REDSTONE);
 	public static final RegistryObject<Block> AZALEA_TRAPDOOR = HELPER.createBlock("azalea_trapdoor", () -> new WoodTrapDoorBlock(CCProperties.AZALEA_WOOD.trapdoor()), CreativeModeTab.TAB_REDSTONE);
-	public static final RegistryObject<Block> AZALEA_LEAF_CARPET = HELPER.createCompatBlock("quark", "azalea_leaf_carpet", () -> new LeafCarpetBlock(CCProperties.AZALEA_WOOD.leafCarpet()), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> FLOWERING_AZALEA_LEAF_CARPET = HELPER.createCompatBlock("quark", "flowering_azalea_leaf_carpet", () -> new LeafCarpetBlock(CCProperties.AZALEA_WOOD.leafCarpet()), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> VERTICAL_AZALEA_PLANKS = HELPER.createCompatBlock("quark", "vertical_azalea_planks", () -> new Block(CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> AZALEA_SIGN = HELPER.createSignBlock("azalea", MaterialColor.TERRACOTTA_PURPLE);
+
+	public static final RegistryObject<Block> AZALEA_BOARDS = HELPER.createCompatBlock("woodworks", "azalea_boards", () -> new RotatedPillarBlock(CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_BOOKSHELF = HELPER.createCompatFuelBlock("woodworks", "azalea_bookshelf", () -> new BookshelfBlock(CCProperties.AZALEA_WOOD.bookshelf()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_LADDER = HELPER.createCompatFuelBlock("woodworks", "azalea_ladder", () -> new BlueprintLadderBlock(CCProperties.AZALEA_WOOD.ladder()), 300, CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> AZALEA_BEEHIVE = HELPER.createCompatBlock("woodworks", "azalea_beehive", () -> new BlueprintBeehiveBlock(CCProperties.AZALEA_WOOD.beehive()), CreativeModeTab.TAB_DECORATIONS);
+	public static final Pair<RegistryObject<BlueprintChestBlock>, RegistryObject<BlueprintTrappedChestBlock>> AZALEA_CHEST = HELPER.createCompatChestBlocks("woodworks", "azalea", MaterialColor.TERRACOTTA_PURPLE);
+
 	public static final RegistryObject<Block> AZALEA_VERTICAL_SLAB = HELPER.createCompatFuelBlock("quark", "azalea_vertical_slab", () -> new VerticalSlabBlock(CCProperties.AZALEA_WOOD.planks()), 150, CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_BOOKSHELF = HELPER.createCompatFuelBlock("quark", "azalea_bookshelf", () -> new BookshelfBlock(CCProperties.AZALEA_WOOD.bookshelf()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_LADDER = HELPER.createCompatFuelBlock("quark", "azalea_ladder", () -> new BlueprintLadderBlock(PropertyUtil.LADDER), 300, CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> STRIPPED_AZALEA_POST = HELPER.createCompatFuelBlock("quark", "stripped_azalea_post", () -> new WoodPostBlock(CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> AZALEA_POST = HELPER.createCompatFuelBlock("quark", "azalea_post", () -> new WoodPostBlock(STRIPPED_AZALEA_POST, CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> AZALEA_HEDGE = HELPER.createCompatFuelBlock("quark", "azalea_hedge", () -> new HedgeBlock(CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> FLOWERING_AZALEA_HEDGE = HELPER.createCompatFuelBlock("quark", "flowering_azalea_hedge", () -> new HedgeBlock(CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> AZALEA_BEEHIVE = HELPER.createCompatBlock("buzzier_bees", "azalea_beehive", () -> new BlueprintBeehiveBlock(CCProperties.AZALEA_WOOD.beehive()), CreativeModeTab.TAB_DECORATIONS);
-	public static final Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> AZALEA_SIGN = HELPER.createSignBlock("azalea", MaterialColor.TERRACOTTA_PURPLE);
-	public static final Pair<RegistryObject<BlueprintChestBlock>, RegistryObject<BlueprintTrappedChestBlock>> AZALEA_CHEST = HELPER.createCompatChestBlocks("quark", "azalea", MaterialColor.TERRACOTTA_PURPLE);
 
 	public static class CCProperties {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F);

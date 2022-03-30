@@ -73,8 +73,6 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_POST.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.STRIPPED_AZALEA_POST.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LEAF_CARPET.get(), RenderType.cutoutMipped());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOWERING_AZALEA_LEAF_CARPET.get(), RenderType.cutoutMipped());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_HEDGE.get(), RenderType.cutoutMipped());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOWERING_AZALEA_HEDGE.get(), RenderType.cutoutMipped());
 	}
