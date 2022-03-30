@@ -11,7 +11,7 @@
             "conditions": {
               "location": {
                 "block": {
-                  "tag": "forge:waxable_copper"
+                  "tag": "forge:waxable_copper_blocks"
                 }
               },
               "item": {
@@ -21,7 +21,16 @@
               }
             }
           }
-        }
+        },
+        "indexed_requirements": [
+          {
+            "index": 0,
+            "replace": false,
+            "requirements": [
+              "caverns_and_chasms:wax_on"
+            ]
+          }
+        ]
       }
     }
   ]
