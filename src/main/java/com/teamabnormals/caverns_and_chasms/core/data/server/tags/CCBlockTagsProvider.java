@@ -34,7 +34,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.STAIRS).add(CCBlocks.DIRT_BRICK_STAIRS.get(), CCBlocks.DIRT_TILE_STAIRS.get(), CCBlocks.COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.COBBLESTONE_TILE_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_STAIRS.get(), CCBlocks.SPINEL_BRICK_STAIRS.get(), CCBlocks.LAPIS_LAZULI_BRICK_STAIRS.get(), CCBlocks.SANGUINE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.CALCITE_STAIRS.get(), CCBlocks.POLISHED_CALCITE_STAIRS.get(), CCBlocks.TUFF_STAIRS.get(), CCBlocks.POLISHED_TUFF_STAIRS.get());
 		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CCBlocks.CUPRIC_TORCH.get());
 		this.tag(BlockTags.WALLS).add(CCBlocks.DIRT_BRICK_WALL.get(), CCBlocks.DIRT_TILE_WALL.get(), CCBlocks.COBBLESTONE_BRICK_WALL.get(), CCBlocks.COBBLESTONE_TILE_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_TILE_WALL.get(), CCBlocks.SPINEL_BRICK_WALL.get(), CCBlocks.LAPIS_LAZULI_BRICK_WALL.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get(), CCBlocks.CALCITE_WALL.get(), CCBlocks.TUFF_WALL.get());
-		this.tag(BlockTags.PLANKS).add(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BOARDS.get());
+		this.tag(BlockTags.PLANKS).add(CCBlocks.AZALEA_PLANKS.get());
 		this.tag(BlockTags.LOGS_THAT_BURN).addTag(CCBlockTags.AZALEA_LOGS);
 		this.tag(BlockTags.WOODEN_SLABS).add(CCBlocks.AZALEA_SLAB.get());
 		this.tag(BlockTags.WOODEN_STAIRS).add(CCBlocks.AZALEA_STAIRS.get());

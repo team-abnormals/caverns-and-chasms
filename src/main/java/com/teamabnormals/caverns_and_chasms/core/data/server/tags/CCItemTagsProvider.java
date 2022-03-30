@@ -41,7 +41,6 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
 		this.copy(BlockTags.CANDLES, ItemTags.CANDLES);
-		this.tag(ItemTags.ARROWS).add(CCItems.SILVER_ARROW.get());
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(CCItems.SILVER_INGOT.get(), CCItems.NECROMIUM_INGOT.get());
 		this.tag(ItemTags.FISHES).add(CCItems.CAVEFISH.get(), CCItems.COOKED_CAVEFISH.get());
 		this.tag(ItemTags.MUSIC_DISCS).add(CCItems.MUSIC_DISC_EPILOGUE.get());

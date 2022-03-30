@@ -36,7 +36,6 @@ public class CCItems {
 	public static final RegistryObject<Item> RAW_SILVER = HELPER.createItem("raw_silver", () -> new InjectedItem(Items.GOLD_INGOT, new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> SILVER_INGOT = HELPER.createItem("silver_ingot", () -> new InjectedItem(Items.GOLD_INGOT, new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> SILVER_NUGGET = HELPER.createItem("silver_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
-	public static final RegistryObject<Item> SILVER_ARROW = HELPER.createItem("silver_arrow", () -> new SilverArrowItem(new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> KUNAI = HELPER.createItem("kunai", () -> new KunaiItem(new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> SILVER_SWORD = HELPER.createItem("silver_sword", () -> new SilverSwordItem(CCItemTiers.SILVER, 3, -2.4F, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> SILVER_SHOVEL = HELPER.createItem("silver_shovel", () -> new SilverShovelItem(CCItemTiers.SILVER, 1.5F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));

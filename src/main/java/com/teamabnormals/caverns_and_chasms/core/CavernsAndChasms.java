@@ -138,7 +138,6 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.CAVEFISH.get(), CavefishRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.SPIDERLING.get(), SpiderlingRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.SILVER_ARROW.get(), SilverArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);

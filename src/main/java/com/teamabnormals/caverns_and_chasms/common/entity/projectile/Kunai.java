@@ -33,6 +33,10 @@ public class Kunai extends AbstractArrow implements ItemSupplier, AfflictingItem
 		super(type, worldIn);
 	}
 
+	public Kunai(Level worldIn, double x, double y, double z) {
+		super(CCEntityTypes.KUNAI.get(), x, y, z, worldIn);
+	}
+
 	public Kunai(PlayMessages.SpawnEntity spawnEntity, Level world) {
 		this(CCEntityTypes.KUNAI.get(), world);
 	}
