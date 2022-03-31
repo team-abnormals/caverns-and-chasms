@@ -27,7 +27,7 @@ import net.minecraftforge.client.IItemRenderProperties;
 import java.util.Collections;
 import java.util.function.Consumer;
 
-public class SpinelCrownItem extends ArmorItem implements IItemRenderProperties {
+public class SpinelCrownItem extends ArmorItem {
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.TURTLE_HELMET);
 
 	public SpinelCrownItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {

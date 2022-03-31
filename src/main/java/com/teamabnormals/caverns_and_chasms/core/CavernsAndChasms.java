@@ -68,10 +68,12 @@ public class CavernsAndChasms {
 		bus.addListener(this::clientSetup);
 		bus.addListener(this::dataSetup);
 
-		bus.addListener(this::registerLayerDefinitions);
-		bus.addListener(this::registerRenderers);
-		bus.addListener(this::registerLayers);
-		bus.addListener(this::registerItemColors);
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+			bus.addListener(this::registerLayerDefinitions);
+			bus.addListener(this::registerRenderers);
+			bus.addListener(this::registerLayers);
+			bus.addListener(this::registerItemColors);
+		});
 
 		bus.addGenericListener(Block.class, this::registerRecipeTypes);
 
@@ -122,6 +124,7 @@ public class CavernsAndChasms {
 		CCRecipeTypes.MIMING = RecipeType.register(CavernsAndChasms.MOD_ID + ":miming");
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(CavefishModel.LOCATION, CavefishModel::createLayerDefinition);
 		event.registerLayerDefinition(DeeperModel.LOCATION, DeeperModel::createLayerDefinition);
@@ -134,6 +137,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(false));
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(CCEntityTypes.CAVEFISH.get(), CavefishRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);

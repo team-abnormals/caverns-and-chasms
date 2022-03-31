@@ -27,7 +27,7 @@ import net.minecraftforge.client.IItemRenderProperties;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class SanguineArmorItem extends ArmorItem implements IItemRenderProperties {
+public class SanguineArmorItem extends ArmorItem {
 	private final LazyLoadedValue<Multimap<Attribute, AttributeModifier>> attributes;
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(CCItems.SILVER_BOOTS);
 
