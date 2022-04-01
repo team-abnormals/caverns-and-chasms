@@ -63,7 +63,7 @@ public class CCGeneration {
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_EXTRA);
 			}
 
-			if (category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP || DataUtil.matchesKeys(name, Biomes.LUSH_CAVES)) {
+			if (category.equals(BiomeCategory.JUNGLE) || category.equals(BiomeCategory.SWAMP) || DataUtil.matchesKeys(name, Biomes.LUSH_CAVES)) {
 				removeLapisOre(ores);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL);
 				generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_BURIED);
@@ -74,7 +74,7 @@ public class CCGeneration {
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_ROCKY_DIRT);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE);
 
-			if (!DataUtil.matchesKeys(name, Biomes.LUSH_CAVES) && category != Biome.BiomeCategory.OCEAN && category != Biome.BiomeCategory.BEACH) {
+			if (!DataUtil.matchesKeys(name, Biomes.LUSH_CAVES) && !category.equals(BiomeCategory.OCEAN) && !category.equals(BiomeCategory.BEACH)) {
 				spawns.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 25, 4, 7));
 			}
 		}
