@@ -79,6 +79,8 @@ public class CopperGolem extends AbstractGolem {
 	@Nullable
 	private BlockPos tuningForkTargetPos;
 
+	public long lastHit;
+
 	private int headSpinTicks;
 	private int headSpinTicksO;
 	private int buttonPressTicks;
@@ -279,31 +281,63 @@ public class CopperGolem extends AbstractGolem {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		Entity entity = source.getDirectEntity();
 		if (this.isInvulnerableTo(source)) {
 			return false;
-		} else if (this.isStatue() && entity instanceof Player && ((Player) entity).getAbilities().mayBuild && ((Player) entity).getMainHandItem().is(CCItemTags.TOOLS_PICKAXES)) {
+		} else if (this.isStatue()) {
 			if (!this.level.isClientSide && !this.isRemoved()) {
-				Block.popResource(this.level, this.blockPosition(), new ItemStack(CCItems.OXIDIZED_COPPER_GOLEM.get()));
-				((ServerLevel)this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);
-				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
-				this.discard();
+				Entity directentity = source.getDirectEntity();
+				if (DamageSource.OUT_OF_WORLD.equals(source)) {
+					this.removeStatue();
+					return false;
+				} else if (source.isExplosion()) {
+					this.breakStatue(source, true, false);
+					return false;
+				} else if ("player".equals(source.getMsgId()) && directentity instanceof Player && ((Player) directentity).getAbilities().mayBuild) {
+					if (((Player) directentity).getMainHandItem().is(CCItemTags.TOOLS_PICKAXES)) {
+						this.breakStatue(source, true, true);
+						return true;
+					} else if (source.isCreativePlayer()) {
+						this.breakStatue(source, false, false);
+						return true;
+					} else {
+						long i = this.level.getGameTime();
+						if (i - this.lastHit > 5L) {
+							this.level.broadcastEntityEvent(this, (byte) 10);
+							this.gameEvent(GameEvent.ENTITY_DAMAGED, source.getEntity());
+							this.lastHit = i;
+						} 
 
-				return true;
-			} else {
-				return false;
+						return true;
+					}
+				}
 			}
+
+			return false;
 		} else {
 			boolean flag = super.hurt(source, amount);
-
-			if (this.isStatue()) {
-				this.animationSpeed = 0.0F;
-			} else {
+			if (flag) {
 				this.spinHead();
 			}
-
 			return flag;
 		}
+	}
+
+	private void breakStatue(DamageSource source, boolean dropLoot, boolean brokenWithPickaxe) {
+		if (dropLoot) {
+			if (brokenWithPickaxe) {
+				Block.popResource(this.level, this.blockPosition(), new ItemStack(CCItems.OXIDIZED_COPPER_GOLEM.get()));
+			} else {
+				this.dropAllDeathLoot(source);
+			}
+		}
+
+		((ServerLevel)this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);
+		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
+		this.removeStatue();
+	}
+
+	private void removeStatue() {
+		this.remove(RemovalReason.KILLED);
 	}
 
 	@Override
@@ -437,6 +471,11 @@ public class CopperGolem extends AbstractGolem {
 			this.spawnSparkParticles(ParticleTypes.ELECTRIC_SPARK);
 		} else if (id == 8) {
 			this.pressButton();
+		} else if (id == 10) {
+			if (this.level.isClientSide) {
+				this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F, false);
+				this.lastHit = this.level.getGameTime();
+			}
 		}
 		super.handleEntityEvent(id);
 	}
@@ -606,7 +645,7 @@ public class CopperGolem extends AbstractGolem {
 		public void tick() {
 			CopperGolem.this.getLookControl().setLookAt(this.blockPos.getX() + 0.5D + this.buttonNormal.getX() * 0.5D, this.blockPos.getY() + 0.5D + this.buttonNormal.getY() * 0.5D, this.blockPos.getZ() + 0.5D + this.buttonNormal.getZ() * 0.5D, 10.0F, CopperGolem.this.getMaxHeadXRot());
 
-			if (!this.blockPos.closerThan(CopperGolem.this.blockPosition(), 1.25D)) {
+			if (CopperGolem.this.distanceToSqr(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D) > 1.5625D) {
 				++this.tryTicks;
 				this.pressWaitTicks = 20;
 				if (this.tryTicks % 20 == 0) {
@@ -642,7 +681,7 @@ public class CopperGolem extends AbstractGolem {
 		}
 
 		private void moveMobToBlock() {
-			CopperGolem.this.getNavigation().moveTo(CopperGolem.this.getNavigation().createPath(this.blockPos.getX() + 0.5D, this.blockPos.getY(), this.blockPos.getZ() + 0.5D, 0), 1.0D);
+			CopperGolem.this.getNavigation().moveTo(CopperGolem.this.getNavigation().createPath(this.blockPos.getX(), this.blockPos.getY(), this.blockPos.getZ(), 0), 1.0D);
 		}
 
 		private boolean findRandomButton() {

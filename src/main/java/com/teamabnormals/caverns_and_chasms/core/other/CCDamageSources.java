@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 public class CCDamageSources {
 	public static final DamageSource AFFLICTION = new DamageSource(CavernsAndChasms.MOD_ID + ".affliction").bypassArmor().setMagic();
 	public static final DamageSource SPIKED_RAIL = new DamageSource(CavernsAndChasms.MOD_ID + ".spiked_rail");
+	public static final DamageSource LAVA_LAMP = new DamageSource(CavernsAndChasms.MOD_ID + ".lava_lamp").setIsFire();
 
 	public static DamageSource causeKunaiDamage(Kunai kunai, @Nullable Entity indirectEntity) {
 		return (new IndirectEntityDamageSource(CavernsAndChasms.MOD_ID + ".kunai", kunai, indirectEntity)).setProjectile();

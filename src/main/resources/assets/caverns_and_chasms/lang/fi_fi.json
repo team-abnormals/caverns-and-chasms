@@ -276,10 +276,13 @@
   "effect.caverns_and_chasms.rewind": "Takaisinkelaus",
 
   "death.attack.caverns_and_chasms.affliction": "%1$s kuoli piinaan",
-  "death.attack.caverns_and_chasms.affliction.player": "%1$s kuoli piinaan tämän paetessa olentoa %2$s",
+  "death.attack.caverns_and_chasms.affliction.player": "%1$s kuoli piinaan yrittäessään paeta %2$s",
 
-  "death.attack.caverns_and_chasms.spiked_rail": "%1$s kuoli piikkiraiteen piikkeihin",
-  "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s kuoli piikkiraiteen piikkeihin tämän paetessa olentoa %2$s",
+  "death.attack.caverns_and_chasms.spiked_rail": "%1$s kuoli piikkiraiteeseen",
+  "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s kuoli piikkiraiteeseen yrittäessään paeta %2$s",
+
+  "death.attack.caverns_and_chasms.lava_lamp": "%1$s poltti näppinsä",
+  "death.attack.caverns_and_chasms.lava_lamp.player": "%1$s poltti näppinsä yrittäessään paeta %2$s",
 
   "death.attack.caverns_and_chasms.kunai": "%2$s puukotti pelaajan %1$s",
   "death.attack.caverns_and_chasms.kunai.item": "%2$s puukotti pelaajan %1$s käyttämällä %3$s",
