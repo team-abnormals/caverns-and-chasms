@@ -67,6 +67,7 @@ import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolActions;
 
 public class CopperGolem extends AbstractGolem {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
@@ -293,7 +294,7 @@ public class CopperGolem extends AbstractGolem {
 					this.breakStatue(source, true, false);
 					return false;
 				} else if ("player".equals(source.getMsgId()) && directentity instanceof Player && ((Player) directentity).getAbilities().mayBuild) {
-					if (((Player) directentity).getMainHandItem().is(CCItemTags.TOOLS_PICKAXES)) {
+					if (((Player) directentity).getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG)) {
 						this.breakStatue(source, true, true);
 						return true;
 					} else if (source.isCreativePlayer()) {

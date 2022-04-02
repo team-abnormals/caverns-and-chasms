@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.block.VerticalSlabBlock;
 import com.teamabnormals.blueprint.common.block.VerticalSlabBlock.VerticalSlabType;
+import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -106,6 +107,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SOUL_BRAZIER.get());
 			this.dropSelf(ENDER_BRAZIER.get());
 			this.dropSelf(CUPRIC_BRAZIER.get());
+
+			this.add(CCBlocks.TMT.get(), LootTable.lootTable().withPool(applyExplosionCondition(CCBlocks.TMT.get(), LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCBlocks.TMT.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(CCBlocks.TMT.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TmtBlock.UNSTABLE, false)))))));
 
 			this.dropSelf(LAVA_LAMP.get());
 			this.dropSelf(GOLDEN_BARS.get());

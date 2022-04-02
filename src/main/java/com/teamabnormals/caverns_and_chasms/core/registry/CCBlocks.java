@@ -69,6 +69,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
+	public static final RegistryObject<Block> TMT = HELPER.createBlock("tmt", () -> new TmtBlock(CCProperties.TMT), CreativeModeTab.TAB_REDSTONE);
+
 	public static final RegistryObject<Block> FLOODLIGHT = HELPER.createBlock("floodlight", () -> new FloodlightBlock(CCProperties.FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> INDUCTOR = HELPER.createBlock("inductor", () -> new InductorBlock(CCProperties.INDUCTOR), CreativeModeTab.TAB_REDSTONE);
 
@@ -218,6 +220,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties CUPRIC_CANDLE = BlockBehaviour.Properties.of(Material.DECORATION, MaterialColor.COLOR_ORANGE).noOcclusion().strength(0.1F).sound(SoundType.CANDLE).lightLevel(CupricCandleBlock.DIM_LIGHT_EMISSION);
 		public static final BlockBehaviour.Properties CUPRIC_CANDLE_CAKE = BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel(getLightValueLit(2));
 
+		public static final BlockBehaviour.Properties TMT = BlockBehaviour.Properties.of(Material.EXPLOSIVE).instabreak().sound(SoundType.GRASS);
 		public static final BlockBehaviour.Properties FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 10);
 		public static final BlockBehaviour.Properties INDUCTOR = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 4.8F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15);

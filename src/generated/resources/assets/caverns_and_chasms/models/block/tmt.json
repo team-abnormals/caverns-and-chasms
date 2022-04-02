@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "caverns_and_chasms:block/tmt_side",
+    "bottom": "caverns_and_chasms:block/tmt_bottom",
+    "top": "caverns_and_chasms:block/tmt_top"
+  }
+}

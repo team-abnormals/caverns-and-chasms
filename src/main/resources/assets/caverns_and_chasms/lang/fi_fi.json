@@ -43,6 +43,8 @@
   "block.caverns_and_chasms.cupric_brazier": "Kirottu hiilipannu",
   "block.caverns_and_chasms.ender_brazier": "Ender-hiilipannu",
 
+  "block.caverns_and_chasms.tmt": "TMT",
+
   "block.caverns_and_chasms.floodlight": "Valonheitin",
   "block.caverns_and_chasms.inductor": "Käämi",
 
@@ -183,7 +185,8 @@
   "item.caverns_and_chasms.golden_powder_snow_bucket": "Kultainen puuterilumiämpäri",
 
   "item.caverns_and_chasms.spinel": "Spinelli",
-  "item.caverns_and_chasms.bejeweled_pearl": "Spinellihelmi",
+  "item.caverns_and_chasms.bejeweled_pearl": "Koristeltu helmi",
+  "item.caverns_and_chasms.bejeweled_apple": "Koristeltu omena",
   "item.caverns_and_chasms.spinel_crown": "Spinellikruunu",
 
   "item.caverns_and_chasms.music_disc_epilogue": "Musiikkilevy",
