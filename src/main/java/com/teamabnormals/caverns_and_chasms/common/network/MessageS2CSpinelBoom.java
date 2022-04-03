@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.network;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.blueprint.client.ClientInfo;
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
 
 import net.minecraft.client.Minecraft;
@@ -65,11 +66,10 @@ public class MessageS2CSpinelBoom {
 
 	public static void handle(MessageS2CSpinelBoom message, Supplier<NetworkEvent.Context> ctx) {
 		NetworkEvent.Context context = ctx.get();
-		LocalPlayer player = Minecraft.getInstance().player;
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-			SpinelBoom boom = new SpinelBoom(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength);
+			SpinelBoom boom = new SpinelBoom(ClientInfo.getClientPlayerLevel(), null, message.posX, message.posY, message.posZ, message.strength);
 			boom.finalizeExplosion(true);
-			context.setPacketHandled(true);
 		}
+		context.setPacketHandled(true);
 	}
 }

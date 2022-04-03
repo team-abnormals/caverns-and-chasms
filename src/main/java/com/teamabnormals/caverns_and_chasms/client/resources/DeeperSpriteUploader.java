@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.resources;
 
+import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -20,6 +21,7 @@ import java.util.stream.Stream;
 public class DeeperSpriteUploader extends TextureAtlasHolder {
 	public static final ResourceLocation ATLAS_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/atlas/deeper.png");
 	public static final ResourceLocation DEEPER_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper");
+	public static final ResourceLocation PRIMED_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_primed");
 	public static final ResourceLocation EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_emissive");
 
 	private static DeeperSpriteUploader uploader;
@@ -30,7 +32,7 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 
 	@Override
 	protected Stream<ResourceLocation> getResourcesToLoad() {
-		return Stream.of(DEEPER_SPRITE, EMISSIVE_SPRITE);
+		return Stream.of(DEEPER_SPRITE, PRIMED_SPRITE, EMISSIVE_SPRITE);
 	}
 
 	/**
@@ -51,14 +53,15 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 	/**
 	 * @return The sprite for the deeper
 	 */
-	public static TextureAtlasSprite getSprite() {
-		return uploader.getSprite(DEEPER_SPRITE);
-	}
-
-	/**
-	 * @return The sprite for the deeper outer layer
-	 */
-	public static TextureAtlasSprite getEmissiveSprite() {
-		return uploader.getSprite(EMISSIVE_SPRITE);
+	public static TextureAtlasSprite getSprite(DeeperModel.DeeperSprite sprite) {
+		switch(sprite) {
+		case BASE:
+		default:
+			return uploader.getSprite(DEEPER_SPRITE);
+		case PRIMED:
+			return uploader.getSprite(PRIMED_SPRITE);
+		case EMISSIVE:
+			return uploader.getSprite(EMISSIVE_SPRITE);
+		}
 	}
 }
