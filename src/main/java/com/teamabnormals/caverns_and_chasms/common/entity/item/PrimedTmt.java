@@ -42,11 +42,13 @@ public class PrimedTmt extends PrimedTnt {
 
 	@Override
 	protected void explode() {
+		/*
 		SpinelBoom boom = new SpinelBoom(this.level, this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F);
 		if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level, boom)) return;
 		boom.explode();
 		boom.finalizeExplosion(true);
 		CavernsAndChasms.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> this), new MessageS2CSpinelBoom((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
+		*/
 	}
 
 	@Override

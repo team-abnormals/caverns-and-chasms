@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class MessageS2CSpinelBoom {
+	/*
 	public float posX;
 	public float posY;
 	public float posZ;
@@ -72,4 +73,5 @@ public class MessageS2CSpinelBoom {
 		}
 		context.setPacketHandled(true);
 	}
+	*/
 }

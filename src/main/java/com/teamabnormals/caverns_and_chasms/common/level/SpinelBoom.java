@@ -20,7 +20,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class SpinelBoom extends Explosion {
+public class SpinelBoom /* extends Explosion*/ {
+	/*
 	private final Level level;
 	@Nullable
 	private final Entity source;
@@ -92,4 +93,5 @@ public class SpinelBoom extends Explosion {
 	public Map<Player, Vec3> getHitPlayers() {
 		return this.hitPlayers;
 	}
+	*/
 }

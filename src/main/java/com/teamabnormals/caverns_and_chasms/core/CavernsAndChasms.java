@@ -55,18 +55,20 @@ public class CavernsAndChasms {
 	public static final String NETWORK_PROTOCOL = "CC1";
 	public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
+	/*
 	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MOD_ID, "net"))
 			.networkProtocolVersion(() -> NETWORK_PROTOCOL)
 			.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
 			.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
 			.simpleChannel();
+			*/
 
 	public CavernsAndChasms() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext context = ModLoadingContext.get();
 		MinecraftForge.EVENT_BUS.register(this);
 
-		this.registerMessages();
+		// this.registerMessages();
 
 		REGISTRY_HELPER.register(bus);
 		CCEntityTypes.ENTITIES.register(bus);
@@ -178,8 +180,10 @@ public class CavernsAndChasms {
 		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
 	}
 
+	/*
 	private void registerMessages() {
 		int id = -1;
 		CHANNEL.registerMessage(id++, MessageS2CSpinelBoom.class, MessageS2CSpinelBoom::serialize, MessageS2CSpinelBoom::deserialize, MessageS2CSpinelBoom::handle);
 	}
+	*/
 }
