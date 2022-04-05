@@ -33,6 +33,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -435,8 +436,9 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingDamage(LivingHurtEvent event) {
 		LivingEntity target = event.getEntityLiving();
+		DamageSource source = event.getSource();
 
-		if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+		if (source.getEntity() instanceof LivingEntity attacker) {
 			float weaknessAmount = 0.0F;
 			float lifeStealAmount = 0.0F;
 
@@ -483,6 +485,12 @@ public class CCEvents {
 					}
 				}
 			}
+		}
+
+		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
+		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
+			target.broadcastBreakEvent(EquipmentSlot.HEAD);
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}
 

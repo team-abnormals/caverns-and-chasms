@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
+import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.network.MessageS2CSpinelBoom;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
@@ -178,6 +179,7 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	public void registerItemColors(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
+		event.getItemColors().register((stack, color) -> color > 0 ? -1 : TetherPotionItem.getColor(stack), CCItems.TETHER_POTION.get());
 	}
 
 	/*
