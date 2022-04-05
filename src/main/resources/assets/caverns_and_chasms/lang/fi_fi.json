@@ -325,11 +325,7 @@
   "tooltip.caverns_and_chasms.null": "Null",
 
   "item.minecraft.potion.effect.rewind": "Takaisinkelauksen taikajuoma",
-  "item.minecraft.potion.effect.rewind_long": "Takaisinkelauksen taikajuoma",
   "item.minecraft.splash_potion.effect.rewind": "Roiskahtava takaisinkelauksen taikajuoma",
-  "item.minecraft.splash_potion.effect.rewind_long": "Roiskahtava takaisinkelauksen taikajuoma",
   "item.minecraft.lingering_potion.effect.rewind": "Viipyvä takaisinkelauksen taikajuoma",
-  "item.minecraft.lingering_potion.effect.rewind_long": "Viipyvä takaisinkelauksen taikajuoma",
-  "item.minecraft.tipped_arrow.effect.rewind": "Takaisinkelauksen nuoli",
-  "item.minecraft.tipped_arrow.effect.rewind_long": "Takaisinkelauksen nuoli"
+  "item.minecraft.tipped_arrow.effect.rewind": "Takaisinkelauksen nuoli"
 }
