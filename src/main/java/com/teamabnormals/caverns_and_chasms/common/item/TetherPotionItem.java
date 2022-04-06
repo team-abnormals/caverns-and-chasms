@@ -1,8 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
@@ -10,26 +8,20 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Wearable;
@@ -103,34 +95,14 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@Override
 	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
 		if (this.allowdedIn(group)) {
-			List<List<Pair<MobEffect, Integer>>> list = Lists.newArrayList();
-
+			ItemStack ingredient = new ItemStack(Items.REDSTONE);
 			for(Potion potion : Registry.POTION) {
-				if (potion != Potions.EMPTY) {
-					ItemStack itemstack = PotionUtils.setPotion(new ItemStack(this), potion);
-					if (!CCPotionUtil.isElegantPotion(itemstack)) {
-						boolean flag = false;
-
-						if (potion.getEffects().isEmpty()) {
-							flag = true;
-						} else {
-							List<Pair<MobEffect, Integer>> list1 = Lists.newArrayList();
-
-							for (MobEffectInstance mobeffectinstance : potion.getEffects()) {
-								list1.add(new Pair<MobEffect, Integer>(mobeffectinstance.getEffect(), mobeffectinstance.getAmplifier()));
-							}
-
-							if (list.stream().filter(list2 -> list2.equals(list1)).toList().isEmpty()) {
-								list.add(list1);
-								flag = true;
-							}
-						}
-
-						if (flag) {
-							items.add(itemstack);
-							if (potion == Potions.AWKWARD) {
-								items.add(PotionUtils.setPotion(new ItemStack(this), Potions.HEALING));
-							}
+				ItemStack itemstack = PotionUtils.setPotion(new ItemStack(this), potion);
+				if (potion != Potions.EMPTY && !CCPotionUtil.isElegantPotion(itemstack)) {
+					if (potion.getEffects().isEmpty() || CCPotionUtil.getInputTetherPotion(ingredient, potion) == Potions.EMPTY) {
+						items.add(itemstack);
+						if (potion == Potions.AWKWARD) {
+							items.add(PotionUtils.setPotion(new ItemStack(this), Potions.HEALING));
 						}
 					}
 				}
