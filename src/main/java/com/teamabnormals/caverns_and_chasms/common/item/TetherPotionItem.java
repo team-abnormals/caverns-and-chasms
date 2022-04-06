@@ -1,7 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,11 +8,11 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
@@ -84,12 +82,12 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 
 	@Override
 	public boolean isFoil(ItemStack stack) {
-		return super.isFoil(stack) && !isElegantPotion(stack);
+		return super.isFoil(stack) && !CCPotionUtil.isElegantPotion(stack);
 	}
 
 	@Override
 	public String getDescriptionId(ItemStack stack) {
-		if (isElegantPotion(stack)) {
+		if (CCPotionUtil.isElegantPotion(stack)) {
 			return this.getDescriptionId() + ".effect.elegant";
 		} else {
 			return super.getDescriptionId(stack);
@@ -99,56 +97,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-		List<MobEffectInstance> list = getContinuousEffects(stack, true);
-		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
-
-		if (list.isEmpty()) {
-			tooltip.add((new TranslatableComponent("effect.none")).withStyle(ChatFormatting.GRAY));
-		} else {
-			for(MobEffectInstance mobeffectinstance : list) {
-				MutableComponent mutablecomponent = new TranslatableComponent(mobeffectinstance.getDescriptionId());
-				MobEffect effect = mobeffectinstance.getEffect();
-				Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
-				if (!map.isEmpty()) {
-					for(Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-						AttributeModifier attributemodifier = entry.getValue();
-						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
-					}
-				}
-
-				if (mobeffectinstance.getAmplifier() > 0) {
-					mutablecomponent = new TranslatableComponent("potion.withAmplifier", mutablecomponent, new TranslatableComponent("potion.potency." + mobeffectinstance.getAmplifier()));
-				}
-
-				mutablecomponent = new TranslatableComponent("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(40));
-
-				tooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
-			}
-		}
-
-		if (!list1.isEmpty()) {
-			tooltip.add(TextComponent.EMPTY);
-			tooltip.add((new TranslatableComponent("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
-
-			for(Pair<Attribute, AttributeModifier> pair : list1) {
-				AttributeModifier attributemodifier2 = pair.getSecond();
-				double d0 = attributemodifier2.getAmount();
-				double d1;
-				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-					d1 = attributemodifier2.getAmount();
-				} else {
-					d1 = attributemodifier2.getAmount() * 100.0D;
-				}
-
-				if (d0 > 0.0D) {
-					tooltip.add((new TranslatableComponent("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
-				} else if (d0 < 0.0D) {
-					d1 *= -1.0D;
-					tooltip.add((new TranslatableComponent("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
-				}
-			}
-		}
+		CCPotionUtil.addTetherPotionTooltip(stack, tooltip);
 	}
 
 	@Override
@@ -159,7 +108,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 			for(Potion potion : Registry.POTION) {
 				if (potion != Potions.EMPTY) {
 					ItemStack itemstack = PotionUtils.setPotion(new ItemStack(this), potion);
-					if (!isElegantPotion(itemstack)) {
+					if (!CCPotionUtil.isElegantPotion(itemstack)) {
 						boolean flag = false;
 
 						if (potion.getEffects().isEmpty()) {
@@ -186,31 +135,6 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 					}
 				}
 			}
-		}
-	}
-
-	public static List<MobEffectInstance> getContinuousEffects(ItemStack stack, boolean includeCustom) {
-		List<MobEffectInstance> list = includeCustom ? PotionUtils.getMobEffects(stack) : new ArrayList<>(PotionUtils.getPotion(stack).getEffects());
-		Iterator<MobEffectInstance> iterator = list.iterator();
-		while (iterator.hasNext()) {
-			if (iterator.next().getEffect().isInstantenous()) {
-				iterator.remove();
-			}
-		}
-
-		return list;
-	}
-
-	public static boolean isElegantPotion(ItemStack stack) {
-		return getContinuousEffects(stack, false).isEmpty() && PotionUtils.getPotion(stack).hasInstantEffects();
-	}
-
-	public static int getColor(ItemStack stack) {
-		CompoundTag compoundtag = stack.getTag();
-		if (compoundtag != null && compoundtag.contains("CustomPotionColor", 99)) {
-			return compoundtag.getInt("CustomPotionColor");
-		} else {
-			return PotionUtils.getPotion(stack) == Potions.EMPTY ? 16253176 : PotionUtils.getColor(getContinuousEffects(stack, true));
 		}
 	}
 }

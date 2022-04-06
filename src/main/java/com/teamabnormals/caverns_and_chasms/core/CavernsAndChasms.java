@@ -21,6 +21,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCItemTagsProv
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCMobEffectTagsProvider;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
+import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
@@ -179,7 +180,7 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	public void registerItemColors(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
-		event.getItemColors().register((stack, color) -> color > 0 ? -1 : TetherPotionItem.getColor(stack), CCItems.TETHER_POTION.get());
+		event.getItemColors().register((stack, color) -> color > 0 ? -1 : CCPotionUtil.getTetherPotionColor(stack), CCItems.TETHER_POTION.get());
 	}
 
 	/*

@@ -1,5 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import java.util.Collection;
+import java.util.Random;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
@@ -18,6 +24,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,6 +68,9 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -74,6 +84,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
+import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -87,12 +98,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Collection;
-import java.util.Random;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -488,7 +493,7 @@ public class CCEvents {
 		}
 
 		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
-		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
+		if (stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
@@ -504,6 +509,21 @@ public class CCEvents {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
 			else if (item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlot.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlot.LEGS)
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
+		}
+	}
+
+	@SubscribeEvent
+	public static void onPotionBrewed(PotionBrewEvent.Post event) {
+		for (int i = 0; i < event.getLength(); i++) {
+			ItemStack itemstack = event.getItem(i);
+			if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
+				Potion potion = PotionUtils.getPotion(itemstack);
+				ItemStack ingredient = new ItemStack(Items.REDSTONE);
+				Potion inputpotion = CCPotionUtil.getInputTetherPotion(ingredient, potion);
+				if (inputpotion != Potions.EMPTY) {
+					event.setItem(i, PotionUtils.setPotion(itemstack, inputpotion));
+				}
+			}
 		}
 	}
 }
