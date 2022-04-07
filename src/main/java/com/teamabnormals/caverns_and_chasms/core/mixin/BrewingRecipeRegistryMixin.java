@@ -15,7 +15,7 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 @Mixin(BrewingRecipeRegistry.class)
 public final class BrewingRecipeRegistryMixin {
 
-	@Inject(at = @At("HEAD"), method = "isValidInput", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "isValidInput", cancellable = true, remap = false)
 	private static void isValidInput(ItemStack stack, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (stack.getCount() == 1 && stack.getItem() == CCItems.TETHER_POTION.get()) {
@@ -23,7 +23,7 @@ public final class BrewingRecipeRegistryMixin {
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "hasOutput", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "hasOutput", cancellable = true, remap = false)
 	private static void hasOutput(ItemStack input, ItemStack ingredient, CallbackInfoReturnable<Boolean> cir)
 	{
 		if (input.getItem() == CCItems.TETHER_POTION.get()) {
