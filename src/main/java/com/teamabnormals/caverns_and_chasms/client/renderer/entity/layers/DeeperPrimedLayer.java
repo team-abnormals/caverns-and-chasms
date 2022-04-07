@@ -35,6 +35,6 @@ public class DeeperPrimedLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> 
 
 	private float getExplosionEmissionProgress(Deeper livingEntityIn, float partialTicks) {
 		float f = livingEntityIn.getSwelling(partialTicks);
-		return Mth.clamp(f * f, 0.0F, 1.0F);
+		return (int) (f * 10.0F) % 2 == 0 ? Mth.clamp(f - 0.25F, 0.0F, 1.0F) : Mth.clamp(f, 0.0F, 1.0F);
 	}
 }
