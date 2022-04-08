@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SSS",
+    " S ",
     "SPS",
-    "SSS"
+    " S "
   ],
   "key": {
     "P": {
@@ -15,6 +15,6 @@
   },
   "result": {
     "item": "caverns_and_chasms:bejeweled_pearl",
-    "count": 4
+    "count": 2
   }
 }

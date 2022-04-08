@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -127,6 +128,13 @@ public class CCClientCompat {
 				}
 
 				return this.rotation;
+			}
+		});
+		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "charge"), (stack, world, entity, hash) -> {
+			if (entity == null) {
+				return 0.0F;
+			} else {
+				return entity.getUseItem() != stack ? 0.0F : (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
 			}
 		});
 	}

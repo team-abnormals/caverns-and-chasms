@@ -1,8 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
+import javax.annotation.Nullable;
+
+import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,10 +24,8 @@ import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
-import javax.annotation.Nullable;
-
 public class ThrownBejeweledPearl extends ThrowableItemProjectile {
-	private int ticks;
+	private int life;
 
 	public ThrownBejeweledPearl(EntityType<? extends ThrownBejeweledPearl> entityType, Level level) {
 		super(entityType, level);
@@ -30,28 +33,29 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 	public ThrownBejeweledPearl(Level level, LivingEntity entity) {
 		super(CCEntityTypes.BEJEWELED_PEARL.get(), entity, level);
-		this.ticks = getDefaultTicks();
 	}
 
 	public ThrownBejeweledPearl(PlayMessages.SpawnEntity spawnEntity, Level level) {
 		this(CCEntityTypes.BEJEWELED_PEARL.get(), level);
 	}
 
+	@Override
 	protected Item getDefaultItem() {
 		return CCItems.BEJEWELED_PEARL.get();
 	}
 
-	public void subtractTicks(int ticks) {
-		this.ticks -= ticks;
+	public void setLife(int life) {
+		this.life = life;
 	}
 
+	public int getLife() {
+		return this.life;
+	}
+
+	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
 		this.doTeleport();
-	}
-
-	private int getDefaultTicks() {
-		return 60;
 	}
 
 	private void doTeleport() {
@@ -83,19 +87,21 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 		}
 	}
 
+	@Override
 	public void tick() {
 		Entity entity = this.getOwner();
 		if (entity instanceof Player && !entity.isAlive()) {
 			this.discard();
 		} else {
-			this.ticks--;
-			if (ticks <= 0)
+			this.life++;
+			if (this.life >= BejeweledPearlItem.getMaxLifetime())
 				this.doTeleport();
 			super.tick();
 		}
 	}
 
 	@Nullable
+	@Override
 	public Entity changeDimension(ServerLevel level, ITeleporter teleporter) {
 		Entity entity = this.getOwner();
 		if (entity != null && entity.level.dimension() != level.dimension()) {
@@ -103,6 +109,18 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 		}
 
 		return super.changeDimension(level, teleporter);
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putInt("Life", this.life);
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.life = compound.getInt("Life");
 	}
 
 	@Override

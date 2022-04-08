@@ -1,0 +1,15 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "caverns_and_chasms:item/bejeweled_pearl"
+    },
+    "overrides": [
+        { "predicate": { "caverns_and_chasms:charge": 0.125 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_0" },
+        { "predicate": { "caverns_and_chasms:charge": 0.25 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_1" },
+		{ "predicate": { "caverns_and_chasms:charge": 0.375 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_2" },
+		{ "predicate": { "caverns_and_chasms:charge": 0.5 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_3" },
+		{ "predicate": { "caverns_and_chasms:charge": 0.625 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_4" },
+		{ "predicate": { "caverns_and_chasms:charge": 0.75 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_5" },
+		{ "predicate": { "caverns_and_chasms:charge": 0.875 }, "model": "caverns_and_chasms:item/bejeweled_pearl_charge_6" }
+    ]
+}
