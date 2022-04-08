@@ -20,6 +20,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
@@ -35,6 +36,8 @@ public class CCPotionUtil {
 		List<MobEffectInstance> list = CCPotionUtil.getContinuousEffects(stack, true);
 		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 
+		tooltip.add(TextComponent.EMPTY);
+		tooltip.add((new TranslatableComponent("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
 		if (list.isEmpty()) {
 			tooltip.add((new TranslatableComponent("effect.none")).withStyle(ChatFormatting.GRAY));
 		} else {
