@@ -312,6 +312,10 @@
   "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",
   "subtitles.caverns_and_chasms.entity.deeper.primed": "Deeper hisses",
 
+  "subtitles.caverns_and_chasms.entity.mime.death": "Mime dies",
+  "subtitles.caverns_and_chasms.entity.mime.hurt": "Mime hurts",
+  "subtitles.caverns_and_chasms.entity.mime.copy": "Mime mimes",
+
   "tooltip.caverns_and_chasms.latitude": "Latitude",
   "tooltip.caverns_and_chasms.longitude": "Longitude",
   "tooltip.caverns_and_chasms.altitude": "Altitude",

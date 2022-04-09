@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 
 import net.minecraft.core.BlockPos;

@@ -25,6 +25,10 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ENTITY_DEEPER_HURT = HELPER.createSoundEvent("entity.deeper.hurt");
 	public static final RegistryObject<SoundEvent> ENTITY_DEEPER_PRIMED = HELPER.createSoundEvent("entity.deeper.primed");
 
+	public static final RegistryObject<SoundEvent> ENTITY_MIME_DEATH = HELPER.createSoundEvent("entity.mime.death");
+	public static final RegistryObject<SoundEvent> ENTITY_MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
+	public static final RegistryObject<SoundEvent> ENTITY_MIME_COPY = HELPER.createSoundEvent("entity.mime.copy");
+
 	public static class CCSoundTypes {
 		public static final SoundType ROCKY_DIRT = new SoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK.get(), CCSoundEvents.ROCKY_DIRT_STEP.get(), CCSoundEvents.ROCKY_DIRT_PLACE.get(), CCSoundEvents.ROCKY_DIRT_HIT.get(), CCSoundEvents.ROCKY_DIRT_FALL.get());
 	}
