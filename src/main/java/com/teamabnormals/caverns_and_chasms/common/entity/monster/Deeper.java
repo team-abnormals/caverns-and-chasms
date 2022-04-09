@@ -14,6 +14,7 @@ public class Deeper extends Creeper {
 
 	public Deeper(EntityType<? extends Deeper> type, Level worldIn) {
 		super(type, worldIn);
+		this.explosionRadius = 4;
 	}
 
 	@Override
