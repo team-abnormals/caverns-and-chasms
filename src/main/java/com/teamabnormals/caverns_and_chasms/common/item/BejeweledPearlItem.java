@@ -41,28 +41,27 @@ public class BejeweledPearlItem extends Item {
 
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int releaseTime) {
+		this.throwPearl(stack, level, entity, this.getUseDuration(stack) - releaseTime);
+	}
+
+	@Override
+	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+		return this.throwPearl(stack, level, entity, getMaxLifetime() - getChargeStageDuration());
+	}
+
+	private ItemStack throwPearl(ItemStack stack, Level level, LivingEntity entity, int useTime) {
 		if (entity instanceof Player player) {
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENDER_PEARL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 			player.getCooldowns().addCooldown(this, 20);
 			if (!level.isClientSide) {
 				ThrownBejeweledPearl pearl = new ThrownBejeweledPearl(level, player);
-				pearl.setLife(getChargeStage(this.getUseDuration(stack) - releaseTime) * getChargeStageDuration());
+				pearl.setLife(getChargeStage(useTime) * getChargeStageDuration());
 				pearl.setItem(stack);
 				pearl.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
 				level.addFreshEntity(pearl);
 			}
 
 			player.awardStat(Stats.ITEM_USED.get(this));
-			if (!player.getAbilities().instabuild) {
-				stack.shrink(1);
-			}
-		}
-	}
-
-	@Override
-	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-		if (entity instanceof Player player) {
-			player.getCooldowns().addCooldown(this, 20);
 			if (!player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
@@ -91,7 +90,7 @@ public class BejeweledPearlItem extends Item {
 	}
 
 	public static int getChargeStageDuration() {
-		return 5;
+		return 4;
 	}
 
 	public static int getChargeStages() {

@@ -78,5 +78,24 @@
       "random/fuse"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.deeper.primed"
+  },
+  "entity.mime.death": {
+    "sounds": [
+      "caverns_and_chasms:mob/mime/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.death"
+  },
+  "entity.mime.hurt": {
+    "sounds": [
+      "caverns_and_chasms:mob/mime/hurt1",
+      "caverns_and_chasms:mob/mime/hurt2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.hurt"
+  },
+  "entity.mime.copy": {
+    "sounds": [
+      "caverns_and_chasms:mob/mime/copy"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.copy"
   }
 }

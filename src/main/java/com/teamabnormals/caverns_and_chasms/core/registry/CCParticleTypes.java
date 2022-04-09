@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.S
 import com.teamabnormals.caverns_and_chasms.client.particle.ChipParticle;
 import com.teamabnormals.caverns_and_chasms.client.particle.FloodlightDustParticle;
 import com.teamabnormals.caverns_and_chasms.client.particle.LavaLampSmokeParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.MimeEnergyParticle;
 import com.teamabnormals.caverns_and_chasms.client.particle.StoneDustParticle;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 
@@ -49,7 +50,7 @@ public class CCParticleTypes {
 		ParticleEngine manager = Minecraft.getInstance().particleEngine;
 		manager.register(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
 		manager.register(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
-		manager.register(MIME_ENERGY.get(), PlayerCloudParticle.Provider::new);
+		manager.register(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
 		manager.register(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
 		manager.register(AFFLICTION_DAMAGE.get(), DamageProvider::new);
 		manager.register(AFFLICTION_SPARK.get(), SparkProvider::new);
