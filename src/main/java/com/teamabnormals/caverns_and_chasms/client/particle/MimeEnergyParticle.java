@@ -29,8 +29,17 @@ public class MimeEnergyParticle extends TextureSheetParticle {
 	}
 
 	@Override
+	public void tick() {
+		super.tick();
+		float f = 1.0F - this.age / (2.0F * this.lifetime);
+		this.rCol = f;
+		this.gCol = f;
+		this.bCol = f;
+	}
+
+	@Override
 	public float getQuadSize(float partialTicks) {
-		return this.quadSize * (1.0F - (float) (this.age * this.age) / (float) (this.lifetime * this.lifetime));
+		return this.quadSize * (1.0F - this.age / (2.0F * this.lifetime));
 	}
 
 	@OnlyIn(Dist.CLIENT)
