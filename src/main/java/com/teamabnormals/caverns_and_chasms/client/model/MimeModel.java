@@ -1,13 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
-import java.util.Map;
-
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -80,6 +78,7 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.crouching = entityIn.isCrouching();
 		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+
 		if (entityIn.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
 			if (entityIn.isCrouching()) {
 				this.bipedCape.z = 1.4F;
@@ -94,6 +93,27 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		} else {
 			this.bipedCape.z = -1.1F;
 			this.bipedCape.y = -0.85F;
+		}
+
+		float f = Mth.sin(limbSwing * 0.4F) * limbSwingAmount * 0.25F;
+		float f1 = Mth.cos(limbSwing * 0.4F) * limbSwingAmount * 0.25F;
+
+		this.body.zRot = f;
+		this.head.zRot = f1;
+		this.head.x = Mth.sin(f) * 11.0F;
+		this.head.y += 11.0F - Mth.cos(f) * 11.0F;
+		this.body.x = Mth.sin(f) * 11.0F;
+		this.body.y += 11.0F - Mth.cos(f) * 11.0F;
+		this.rightArm.x += Mth.sin(f) * 11.0F;
+		this.rightArm.y += 11.0F - Mth.cos(f) * 11.0F;
+		this.leftArm.x += Mth.sin(f) * 11.0F;
+		this.leftArm.y += 11.0F - Mth.cos(f) * 11.0F;
+		this.bipedCape.x = Mth.sin(f) * 11.0F;
+		this.bipedCape.y += 11.0F - Mth.cos(f) * 11.0F;
+
+		if (this.swimAmount <= 0.0F) {
+			this.rightArm.zRot += f1 + 0.1F * limbSwingAmount;
+			this.leftArm.zRot += f1 - 0.1F * limbSwingAmount;
 		}
 
 		this.saveAnimationValues(entityIn);
