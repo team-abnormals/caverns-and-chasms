@@ -58,6 +58,17 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.tuning_fork.vibrate"
   },
+  "item.armor.equip_tether_potion": {
+    "sounds": [
+      "item/armor/equip_leather1",
+      "item/armor/equip_leather2",
+      "item/armor/equip_leather3",
+      "item/armor/equip_leather4",
+      "item/armor/equip_leather5",
+      "item/armor/equip_leather6"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_tether_potion"
+  },
   "entity.deeper.death": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/death"

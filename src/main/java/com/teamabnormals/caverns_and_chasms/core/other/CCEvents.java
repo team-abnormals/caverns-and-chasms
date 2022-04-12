@@ -361,8 +361,15 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
-		if (event.getSlot() == EquipmentSlot.HEAD && event.getFrom().getItem() == CCItems.SPINEL_CROWN.get()) {
-			event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
+		if (event.getSlot() == EquipmentSlot.HEAD) {
+			ItemStack itemstack = event.getFrom();
+			if (itemstack.getItem() == CCItems.SPINEL_CROWN.get()) {
+				event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
+			} else if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
+				for(MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
+					event.getEntityLiving().removeEffect(mobeffectinstance.getEffect());
+				}
+			}
 		}
 	}
 
@@ -442,6 +449,7 @@ public class CCEvents {
 	public static void onLivingDamage(LivingHurtEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		DamageSource source = event.getSource();
+		Level level = target.getLevel();
 
 		if (source.getEntity() instanceof LivingEntity attacker) {
 			float weaknessAmount = 0.0F;
@@ -450,7 +458,7 @@ public class CCEvents {
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				ItemStack stack = target.getItemBySlot(slot);
 
-				if (stack.getItem() instanceof AfflictingItem afflictingItem && !target.level.isClientSide()) {
+				if (stack.getItem() instanceof AfflictingItem afflictingItem && !level.isClientSide()) {
 					afflictingItem.causeAfflictionDamage(attacker, true);
 				}
 
@@ -492,9 +500,10 @@ public class CCEvents {
 			}
 		}
 
-		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
-		if (stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+		ItemStack itemstack = target.getItemBySlot(EquipmentSlot.HEAD);
+		if (!level.isClientSide() && itemstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
+			level.levelEvent(2002, target.eyeBlockPosition(), CCPotionUtil.getTetherPotionColor(itemstack));
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}

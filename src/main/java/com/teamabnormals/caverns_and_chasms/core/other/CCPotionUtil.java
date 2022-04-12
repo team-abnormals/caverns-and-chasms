@@ -57,7 +57,7 @@ public class CCPotionUtil {
 					mutablecomponent = new TranslatableComponent("potion.withAmplifier", mutablecomponent, new TranslatableComponent("potion.potency." + mobeffectinstance.getAmplifier()));
 				}
 
-				mutablecomponent = new TranslatableComponent("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(40));
+				mutablecomponent = new TranslatableComponent("potion.withDuration", mutablecomponent, "**:**");
 
 				tooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
 			}

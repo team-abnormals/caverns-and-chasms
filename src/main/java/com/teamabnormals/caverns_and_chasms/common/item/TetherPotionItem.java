@@ -5,10 +5,12 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -45,7 +47,8 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 		if (!world.isClientSide()) {
 			for(MobEffectInstance mobeffectinstance : PotionUtils.getMobEffects(stack)) {
 				if (!mobeffectinstance.getEffect().isInstantenous()) {
-					player.addEffect(new MobEffectInstance(mobeffectinstance.getEffect(), 40, mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible(), mobeffectinstance.showIcon()));
+					MobEffectInstance mobeffectinstance1 = new MobEffectInstance(mobeffectinstance.getEffect(), 36000, mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible(), mobeffectinstance.showIcon());
+					player.addEffect(mobeffectinstance1);
 				}
 			}
 		}
@@ -72,6 +75,12 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@Override
 	public boolean isFoil(ItemStack stack) {
 		return super.isFoil(stack) && !CCPotionUtil.isElegantPotion(stack);
+	}
+
+	@Nullable
+	@Override
+	public SoundEvent getEquipSound() {
+		return CCSoundEvents.ARMOR_EQUIP_TETHER_POTION.get();
 	}
 
 	@Override
