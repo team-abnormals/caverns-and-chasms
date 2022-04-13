@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 
 @Mixin(BrewingRecipeRegistry.class)
@@ -26,10 +25,8 @@ public final class BrewingRecipeRegistryMixin {
 	@Inject(at = @At("HEAD"), method = "hasOutput", cancellable = true, remap = false)
 	private static void hasOutput(ItemStack input, ItemStack ingredient, CallbackInfoReturnable<Boolean> cir)
 	{
-		if (input.getItem() == CCItems.TETHER_POTION.get()) {
-			if (CCPotionUtil.isElegantPotion(input) || ingredient.getItem() == Items.REDSTONE) {
-				cir.setReturnValue(false);
-			}
+		if (input.getItem() == CCItems.TETHER_POTION.get() && CCPotionUtil.isElegantPotion(input)) {
+			cir.setReturnValue(false);
 		}
 	}
 }

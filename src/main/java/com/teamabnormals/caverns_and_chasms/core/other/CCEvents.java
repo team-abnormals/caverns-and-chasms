@@ -68,9 +68,6 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -84,7 +81,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
-import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -366,8 +362,10 @@ public class CCEvents {
 			if (itemstack.getItem() == CCItems.SPINEL_CROWN.get()) {
 				event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
 			} else if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
+				LivingEntity livingentity = event.getEntityLiving();
 				for(MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
-					event.getEntityLiving().removeEffect(mobeffectinstance.getEffect());
+					livingentity.removeEffectNoUpdate(mobeffectinstance.getEffect());
+					livingentity.forceAddEffect(new MobEffectInstance(mobeffectinstance.getEffect(), CCPotionUtil.getTetherPotionDuration(mobeffectinstance.getDuration()), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible(), mobeffectinstance.showIcon()), null);
 				}
 			}
 		}
@@ -518,21 +516,6 @@ public class CCEvents {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
 			else if (item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlot.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlot.LEGS)
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
-		}
-	}
-
-	@SubscribeEvent
-	public static void onPotionBrewed(PotionBrewEvent.Post event) {
-		for (int i = 0; i < event.getLength(); i++) {
-			ItemStack itemstack = event.getItem(i);
-			if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
-				Potion potion = PotionUtils.getPotion(itemstack);
-				ItemStack ingredient = new ItemStack(Items.REDSTONE);
-				Potion inputpotion = CCPotionUtil.getInputTetherPotion(ingredient, potion);
-				if (inputpotion != Potions.EMPTY) {
-					event.setItem(i, PotionUtils.setPotion(itemstack, inputpotion));
-				}
-			}
 		}
 	}
 }

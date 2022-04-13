@@ -20,7 +20,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Wearable;
@@ -101,15 +100,12 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@Override
 	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
 		if (this.allowdedIn(group)) {
-			ItemStack ingredient = new ItemStack(Items.REDSTONE);
 			for(Potion potion : Registry.POTION) {
 				ItemStack itemstack = PotionUtils.setPotion(new ItemStack(this), potion);
 				if (potion != Potions.EMPTY && !CCPotionUtil.isElegantPotion(itemstack)) {
-					if (potion.getEffects().isEmpty() || CCPotionUtil.getInputTetherPotion(ingredient, potion) == Potions.EMPTY) {
-						items.add(itemstack);
-						if (potion == Potions.AWKWARD) {
-							items.add(PotionUtils.setPotion(new ItemStack(this), Potions.HEALING));
-						}
+					items.add(itemstack);
+					if (potion == Potions.AWKWARD) {
+						items.add(PotionUtils.setPotion(new ItemStack(this), Potions.HEALING));
 					}
 				}
 			}

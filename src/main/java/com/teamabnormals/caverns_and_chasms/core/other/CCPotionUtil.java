@@ -8,10 +8,8 @@ import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,11 +22,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 public class CCPotionUtil {
 
@@ -57,7 +52,7 @@ public class CCPotionUtil {
 					mutablecomponent = new TranslatableComponent("potion.withAmplifier", mutablecomponent, new TranslatableComponent("potion.potency." + mobeffectinstance.getAmplifier()));
 				}
 
-				mutablecomponent = new TranslatableComponent("potion.withDuration", mutablecomponent, "**:**");
+				mutablecomponent = new TranslatableComponent("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(getTetherPotionDuration(mobeffectinstance.getDuration())));
 
 				tooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
 			}
@@ -99,6 +94,11 @@ public class CCPotionUtil {
 		return list;
 	}
 
+	public static int getTetherPotionDuration(int originalDuration) {
+		int duration = Math.round(10 - 1 / ((originalDuration / 20 + 200) * 0.0005F)) * 20;
+		return duration < 20 ? 20 : duration;
+	}
+
 	public static boolean isElegantPotion(ItemStack stack) {
 		return getContinuousEffects(stack, false).isEmpty() && PotionUtils.getPotion(stack).hasInstantEffects();
 	}
@@ -110,24 +110,5 @@ public class CCPotionUtil {
 		} else {
 			return PotionUtils.getPotion(stack) == Potions.EMPTY ? 16253176 : PotionUtils.getColor(getContinuousEffects(stack, true));
 		}
-	}
-
-	public static Potion getInputTetherPotion(ItemStack ingredient, Potion outputPotion) {
-		for (IBrewingRecipe recipe : BrewingRecipeRegistry.getRecipes())
-		{
-			if (recipe.isIngredient(ingredient))
-			{
-				for (Potion inputPotion : Registry.POTION)
-				{
-					ItemStack input = PotionUtils.setPotion(new ItemStack(CCItems.TETHER_POTION.get()), inputPotion);
-					if (PotionUtils.getPotion(recipe.getOutput(input, ingredient)) == outputPotion)
-					{
-						return inputPotion;
-					}
-				}
-			}
-		}
-
-		return Potions.EMPTY;
 	}
 }
