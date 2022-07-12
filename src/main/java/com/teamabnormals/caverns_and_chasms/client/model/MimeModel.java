@@ -95,8 +95,8 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 			this.bipedCape.y = -0.85F;
 		}
 
-		float f = Mth.sin(limbSwing * 0.4F) * limbSwingAmount * 0.25F;
-		float f1 = Mth.cos(limbSwing * 0.4F) * limbSwingAmount * 0.25F;
+		float f = Mth.sin(limbSwing * 0.4F) * limbSwingAmount * 0.3F;
+		float f1 = Mth.cos(limbSwing * 0.4F) * limbSwingAmount * 0.3F;
 
 		this.body.zRot = f;
 		this.head.zRot = f1;
