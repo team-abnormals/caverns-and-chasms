@@ -1,5 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import java.util.Collection;
+import java.util.Random;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
@@ -18,6 +24,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,6 +40,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -86,12 +94,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Collection;
-import java.util.Random;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -355,8 +357,17 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
-		if (event.getSlot() == EquipmentSlot.HEAD && event.getFrom().getItem() == CCItems.SPINEL_CROWN.get()) {
-			event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
+		if (event.getSlot() == EquipmentSlot.HEAD) {
+			ItemStack itemstack = event.getFrom();
+			if (itemstack.getItem() == CCItems.SPINEL_CROWN.get()) {
+				event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
+			} else if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
+				LivingEntity livingentity = event.getEntityLiving();
+				for(MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
+					livingentity.removeEffectNoUpdate(mobeffectinstance.getEffect());
+					livingentity.forceAddEffect(new MobEffectInstance(mobeffectinstance.getEffect(), CCPotionUtil.getTetherPotionDuration(mobeffectinstance.getDuration()), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible(), mobeffectinstance.showIcon()), null);
+				}
+			}
 		}
 	}
 
@@ -435,15 +446,17 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingDamage(LivingHurtEvent event) {
 		LivingEntity target = event.getEntityLiving();
+		DamageSource source = event.getSource();
+		Level level = target.getLevel();
 
-		if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+		if (source.getEntity() instanceof LivingEntity attacker) {
 			float weaknessAmount = 0.0F;
 			float lifeStealAmount = 0.0F;
 
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				ItemStack stack = target.getItemBySlot(slot);
 
-				if (stack.getItem() instanceof AfflictingItem afflictingItem && !target.level.isClientSide()) {
+				if (stack.getItem() instanceof AfflictingItem afflictingItem && !level.isClientSide()) {
 					afflictingItem.causeAfflictionDamage(attacker, true);
 				}
 
@@ -483,6 +496,13 @@ public class CCEvents {
 					}
 				}
 			}
+		}
+
+		ItemStack itemstack = target.getItemBySlot(EquipmentSlot.HEAD);
+		if (!level.isClientSide() && itemstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+			target.broadcastBreakEvent(EquipmentSlot.HEAD);
+			level.levelEvent(2002, target.eyeBlockPosition(), CCPotionUtil.getTetherPotionColor(itemstack));
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}
 

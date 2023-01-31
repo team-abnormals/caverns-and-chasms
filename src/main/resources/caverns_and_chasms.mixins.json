@@ -8,6 +8,7 @@
     "AbstractFireBlockMixin",
     "AbstractSkeletonEntityMixin",
     "AzaleaTreeGrowerMixin",
+    "BrewingRecipeRegistryMixin",
     "IronGolemEntityMixin",
     "ItemEntityMixin",
     "ItemMixin",

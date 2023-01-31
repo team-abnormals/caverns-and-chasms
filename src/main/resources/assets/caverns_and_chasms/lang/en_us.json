@@ -307,6 +307,7 @@
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium Ingot to upgrade a hoe, and then reevaluate your life choices",
 
   "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Tuning Fork vibrates",
+  "subtitles.caverns_and_chasms.item.armor.equip_tether_potion": "Tether Potion tethers",
 
   "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper dies",
   "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",
@@ -329,8 +330,33 @@
   "tooltip.caverns_and_chasms.stormy": "Stormy",
   "tooltip.caverns_and_chasms.null": "Null",
 
+  "item.caverns_and_chasms.tether_potion.effect.empty": "Tether Uncraftable Potion",
+  "item.caverns_and_chasms.tether_potion.effect.water": "Tether Water Bottle",
+  "item.caverns_and_chasms.tether_potion.effect.mundane": "Mundane Tether Potion",
+  "item.caverns_and_chasms.tether_potion.effect.thick": "Thick Tether Potion",
+  "item.caverns_and_chasms.tether_potion.effect.awkward": "Awkward Tether Potion",
+  "item.caverns_and_chasms.tether_potion.effect.night_vision": "Tether Potion of Night Vision",
+  "item.caverns_and_chasms.tether_potion.effect.invisibility": "Tether Potion of Invisibility",
+  "item.caverns_and_chasms.tether_potion.effect.leaping": "Tether Potion of Leaping",
+  "item.caverns_and_chasms.tether_potion.effect.fire_resistance": "Tether Potion of Fire Resistance",
+  "item.caverns_and_chasms.tether_potion.effect.swiftness": "Tether Potion of Swiftness",
+  "item.caverns_and_chasms.tether_potion.effect.slowness": "Tether Potion of Slowness",
+  "item.caverns_and_chasms.tether_potion.effect.water_breathing": "Tether Potion of Water Breathing",
+  "item.caverns_and_chasms.tether_potion.effect.healing": "Tether Potion of Healing",
+  "item.caverns_and_chasms.tether_potion.effect.harming": "Tether Potion of Harming",
+  "item.caverns_and_chasms.tether_potion.effect.poison": "Tether Potion of Poison",
+  "item.caverns_and_chasms.tether_potion.effect.regeneration": "Tether Potion of Regeneration",
+  "item.caverns_and_chasms.tether_potion.effect.strength": "Tether Potion of Strength",
+  "item.caverns_and_chasms.tether_potion.effect.weakness": "Tether Potion of Weakness",
+  "item.caverns_and_chasms.tether_potion.effect.levitation": "Tether Potion of Levitation",
+  "item.caverns_and_chasms.tether_potion.effect.luck": "Tether Potion of Luck",
+  "item.caverns_and_chasms.tether_potion.effect.turtle_master": "Tether Potion of the Turtle Master",
+  "item.caverns_and_chasms.tether_potion.effect.slow_falling": "Tether Potion of Slow Falling",
+  "item.caverns_and_chasms.tether_potion.effect.elegant": "Elegant Tether Potion",
+
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",
   "item.minecraft.lingering_potion.effect.rewind": "Lingering Potion of Rewind",
-  "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind"
+  "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind",
+  "item.caverns_and_chasms.tether_potion.effect.rewind": "Tether Potion of Rewind"
 }
