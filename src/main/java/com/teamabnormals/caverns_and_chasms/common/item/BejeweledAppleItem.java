@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCMobEffectTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.Random;
 
 public class BejeweledAppleItem extends Item {
 
@@ -22,7 +22,7 @@ public class BejeweledAppleItem extends Item {
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 		super.finishUsingItem(stack, level, entity);
 
-		Random random = level.getRandom();
+		RandomSource random = level.getRandom();
 		if (!level.isClientSide) {
 			entity.addEffect(new MobEffectInstance(getRandomEffect(random), 400 + (20 * random.nextInt(21)), 1));
 			entity.addEffect(new MobEffectInstance(getRandomEffect(random), 1200 + (20 * random.nextInt(61))));
@@ -35,7 +35,7 @@ public class BejeweledAppleItem extends Item {
 		return stack;
 	}
 
-	private MobEffect getRandomEffect(Random random) {
+	private MobEffect getRandomEffect(RandomSource random) {
 		List<MobEffect> mobEffectList = ForgeRegistries.MOB_EFFECTS.getValues().stream().toList();
 		MobEffect effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
 		while (ForgeRegistries.MOB_EFFECTS.tags().getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).contains(effect) || effect.isInstantenous())

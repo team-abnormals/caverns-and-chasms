@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "item": "minecraft:tuff"
   },
-  "result": "caverns_and_chasms:polished_tuff_stairs",
-  "count": 1
+  "result": "caverns_and_chasms:polished_tuff_stairs"
 }

@@ -6,9 +6,9 @@ import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat.RatType;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -23,10 +23,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 	private final RatModel<Rat> model;
+	private final ItemInHandRenderer itemInHandRenderer;
 
 	public RatOnShoulderLayer(PlayerRenderer renderer) {
 		super(renderer);
 		this.model = new RatModel<>(RatModel.createLayerDefinition().bakeRoot());
+
+		this.itemInHandRenderer = renderer.entityRenderDispatcher.getItemInHandRenderer();
 	}
 
 	@Override
@@ -37,12 +40,10 @@ public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, Player
 
 	private void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float netHeadYaw, float headPitch, boolean leftShoulder) {
 		CompoundTag compound = leftShoulder ? player.getShoulderEntityLeft() : player.getShoulderEntityRight();
-		EntityType.byString(compound.getString("id")).filter((entitytype) -> {
-			return entitytype == CCEntityTypes.RAT.get();
-		}).ifPresent((entitytype) -> {
+		EntityType.byString(compound.getString("id")).filter((entitytype) -> entitytype == CCEntityTypes.RAT.get()).ifPresent((entitytype) -> {
 			matrixStackIn.pushPose();
 
-			matrixStackIn.translate(leftShoulder ? (double)0.4F : (double)-0.4F, player.isCrouching() ? (double)-1.3F : -1.5D, -0.0625D);
+			matrixStackIn.translate(leftShoulder ? (double) 0.4F : (double) -0.4F, player.isCrouching() ? (double) -1.3F : -1.5D, -0.0625D);
 
 			boolean isbaby = compound.getInt("Age") < 0;
 			float ageinticks = player.tickCount + partialTicks;
@@ -54,7 +55,7 @@ public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, Player
 			this.model.young = isbaby;
 			this.model.renderOnShoulder(matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
 			RatCollarLayer.renderCollar(this.model, matrixStackIn, bufferIn, packedLightIn, collarcolor, 0, 0, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
-			RatHeldItemLayer.renderItem(this.model, matrixStackIn, bufferIn, packedLightIn, player, isbaby, stack, limbSwing, limbSwingAmount, partialTicks, ageinticks, netHeadYaw, headPitch);
+			RatHeldItemLayer.renderItem(this.model, this.itemInHandRenderer, matrixStackIn, bufferIn, packedLightIn, player, isbaby, stack, limbSwing, limbSwingAmount, partialTicks, ageinticks, netHeadYaw, headPitch);
 
 			matrixStackIn.popPose();
 		});

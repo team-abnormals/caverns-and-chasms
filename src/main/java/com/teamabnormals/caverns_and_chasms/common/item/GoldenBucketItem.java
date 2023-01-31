@@ -24,12 +24,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.AbstractCauldronBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.LayeredCauldronBlock;
-import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
@@ -37,6 +32,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
@@ -69,7 +65,7 @@ public class GoldenBucketItem extends Item {
 
 	@Override
 	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-		if (this.allowdedIn(group)) {
+		if (this.allowedIn(group)) {
 			items.add(resetFluidLevel(new ItemStack(this)));
 		}
 	}
@@ -130,7 +126,7 @@ public class GoldenBucketItem extends Item {
 						if (fluid != Fluids.EMPTY && getFilledBucket(fluid) != null) {
 							player.awardStat(Stats.ITEM_USED.get(this));
 
-							SoundEvent emptySound = this.getFluid().getAttributes().getEmptySound();
+							SoundEvent emptySound = this.getFluid().getFluidType().getSound(player, level, pos, SoundActions.BUCKET_EMPTY);
 							if (emptySound == null)
 								emptySound = fluid.is(FluidTags.LAVA) ? SoundEvents.BUCKET_FILL_LAVA : SoundEvents.BUCKET_FILL;
 							player.playSound(emptySound, 1.0F, 1.0F);
@@ -253,7 +249,7 @@ public class GoldenBucketItem extends Item {
 	}
 
 	protected void playEmptySound(@Nullable Player player, LevelAccessor level, BlockPos pos) {
-		SoundEvent soundevent = this.getFluid().getAttributes().getEmptySound();
+		SoundEvent soundevent = this.getFluid().getFluidType().getSound(player, level, pos, SoundActions.BUCKET_EMPTY);
 		if (soundevent == null)
 			soundevent = this.getFluid().is(FluidTags.LAVA) ? SoundEvents.BUCKET_EMPTY_LAVA : SoundEvents.BUCKET_EMPTY;
 		level.playSound(player, pos, soundevent, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -294,7 +290,7 @@ public class GoldenBucketItem extends Item {
 	}
 
 	@Override
-	public ItemStack getContainerItem(ItemStack stack) {
+	public ItemStack getCraftingRemainingItem(ItemStack stack) {
 		int level = stack.getOrCreateTag().getInt(NBT_TAG);
 		ItemStack newStack = getFilledBucket(this.getFluid());
 		if (level > 0 && newStack != null) {

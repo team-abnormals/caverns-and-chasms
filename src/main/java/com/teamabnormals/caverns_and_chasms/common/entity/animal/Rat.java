@@ -1,20 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -28,37 +17,15 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
@@ -73,17 +40,18 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity {
 	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isTame() && !entity.isBaby() && entity.isAlive();
@@ -160,7 +128,7 @@ public class Rat extends ShoulderRidingEntity {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("Type", this.getRatType());
-		compound.putByte("CollarColor", (byte)this.getCollarColor().getId());
+		compound.putByte("CollarColor", (byte) this.getCollarColor().getId());
 		compound.putBoolean("Trusting", this.isTrusting());
 	}
 
@@ -240,8 +208,8 @@ public class Rat extends ShoulderRidingEntity {
 		if (this.isTame()) {
 			if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
 				this.usePlayerItem(player, hand, itemstack);
-				this.heal((float)item.getFoodProperties().getNutrition());
-				this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+				this.heal((float) item.getFoodProperties().getNutrition());
+				this.gameEvent(GameEvent.EAT, this);
 
 				return InteractionResult.sidedSuccess(this.level.isClientSide);
 			} else if (item instanceof DyeItem) {
@@ -274,9 +242,9 @@ public class Rat extends ShoulderRidingEntity {
 					this.navigation.stop();
 					this.setTarget(null);
 					this.setOrderedToSit(true);
-					this.level.broadcastEntityEvent(this, (byte)7);
+					this.level.broadcastEntityEvent(this, (byte) 7);
 				} else {
-					this.level.broadcastEntityEvent(this, (byte)6);
+					this.level.broadcastEntityEvent(this, (byte) 6);
 				}
 			}
 
@@ -324,7 +292,7 @@ public class Rat extends ShoulderRidingEntity {
 		double y = 0.0D;
 		double z = 0.0D;
 
-		for(Rat friend : groupIn) {
+		for (Rat friend : groupIn) {
 			x += friend.getX();
 			y += friend.getY();
 			z += friend.getZ();
@@ -343,16 +311,16 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-		if (this.random.nextFloat() < 0.2F) {
-			float f = this.random.nextFloat();
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+		if (random.nextFloat() < 0.2F) {
+			float f = random.nextFloat();
 			ItemStack itemstack;
 			if (f < 0.05F) {
 				itemstack = new ItemStack(Items.EMERALD);
 			} else if (f < 0.2F) {
 				itemstack = new ItemStack(Items.EGG);
 			} else if (f < 0.4F) {
-				itemstack = this.random.nextBoolean() ? new ItemStack(Items.RABBIT_FOOT) : new ItemStack(Items.RABBIT_HIDE);
+				itemstack = random.nextBoolean() ? new ItemStack(Items.RABBIT_FOOT) : new ItemStack(Items.RABBIT_HIDE);
 			} else if (f < 0.6F) {
 				itemstack = new ItemStack(Items.WHEAT);
 			} else if (f < 0.8F) {
@@ -491,7 +459,7 @@ public class Rat extends ShoulderRidingEntity {
 				ageablemob.setBaby(true);
 				ageablemob.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
 				level.addFreshEntityWithPassengers(ageablemob);
-				level.broadcastEntityEvent(this, (byte)18);
+				level.broadcastEntityEvent(this, (byte) 18);
 			}
 		}
 
@@ -555,7 +523,7 @@ public class Rat extends ShoulderRidingEntity {
 		RatType type = chance < 0.05F ? RatType.WHITE : chance < 0.30F ? RatType.BROWN : chance < 0.65F ? RatType.GRAY : RatType.BLUE;
 		this.setRatType(type.getId());
 
-		this.populateDefaultEquipmentSlots(difficulty);
+		this.populateDefaultEquipmentSlots(this.random, difficulty);
 		return super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn, dataTag);
 	}
 
@@ -829,7 +797,7 @@ public class Rat extends ShoulderRidingEntity {
 
 		@Override
 		public void start() {
-			for(Rat friend : Rat.this.getGroup()) {
+			for (Rat friend : Rat.this.getGroup()) {
 				if (friend != Rat.this && friend.shouldAttack(this.target) && friend.getTarget() == null) {
 					friend.setTarget(this.target);
 				}

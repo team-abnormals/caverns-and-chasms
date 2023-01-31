@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "caverns_and_chasms:block/dripstone_shingle_slab_top"
-    },
     "type=bottom": {
       "model": "caverns_and_chasms:block/dripstone_shingle_slab"
     },
     "type=double": {
       "model": "caverns_and_chasms:block/dripstone_shingles"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/dripstone_shingle_slab_top"
     }
   }
 }

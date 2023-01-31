@@ -1,47 +1,47 @@
 {
-  "selector": "minecraft:chests/jungle_temple",
-  "priority": "normal",
   "modifiers": [
     {
       "type": "entries",
       "config": {
-        "replace": false,
-        "index": 0,
         "entries": [
           {
             "type": "minecraft:item",
-            "weight": 15,
             "functions": [
               {
-                "function": "minecraft:set_count",
+                "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "min": 2.0,
-                  "max": 7.0
+                  "max": 7.0,
+                  "min": 2.0
                 },
-                "add": false
+                "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:silver_ingot"
+            "name": "caverns_and_chasms:silver_ingot",
+            "weight": 15
           },
           {
             "type": "minecraft:item",
-            "weight": 15,
             "functions": [
               {
-                "function": "minecraft:set_count",
+                "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "min": 4.0,
-                  "max": 9.0
+                  "max": 9.0,
+                  "min": 4.0
                 },
-                "add": false
+                "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:spinel"
+            "name": "caverns_and_chasms:spinel",
+            "weight": 15
           }
-        ]
+        ],
+        "index": 0,
+        "replace": false
       }
     }
-  ]
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/jungle_temple"
 }

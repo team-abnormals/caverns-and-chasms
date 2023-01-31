@@ -1,91 +1,91 @@
 {
-  "selector": "minecraft:chests/abandoned_mineshaft",
-  "priority": "normal",
   "modifiers": [
     {
       "type": "entries",
       "config": {
-        "replace": false,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "minecraft:bundle",
+            "weight": 5
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:depth_gauge",
+            "weight": 5
+          }
+        ],
         "index": 0,
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "weight": 5,
-            "name": "minecraft:bundle"
-          },
-          {
-            "type": "minecraft:item",
-            "weight": 5,
-            "name": "caverns_and_chasms:depth_gauge"
-          }
-        ]
+        "replace": false
       }
     },
     {
       "type": "entries",
       "config": {
-        "replace": false,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 3.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_ingot",
+            "weight": 5
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 11.0,
+                  "min": 6.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:spinel",
+            "weight": 5
+          }
+        ],
         "index": 1,
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "weight": 5,
-            "functions": [
-              {
-                "function": "minecraft:set_count",
-                "count": {
-                  "type": "minecraft:uniform",
-                  "min": 1.0,
-                  "max": 3.0
-                },
-                "add": false
-              }
-            ],
-            "name": "caverns_and_chasms:silver_ingot"
-          },
-          {
-            "type": "minecraft:item",
-            "weight": 5,
-            "functions": [
-              {
-                "function": "minecraft:set_count",
-                "count": {
-                  "type": "minecraft:uniform",
-                  "min": 6.0,
-                  "max": 11.0
-                },
-                "add": false
-              }
-            ],
-            "name": "caverns_and_chasms:spinel"
-          }
-        ]
+        "replace": false
       }
     },
     {
       "type": "entries",
       "config": {
-        "replace": false,
-        "index": 2,
         "entries": [
           {
             "type": "minecraft:item",
-            "weight": 5,
             "functions": [
               {
-                "function": "minecraft:set_count",
+                "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "min": 1.0,
-                  "max": 4.0
+                  "max": 4.0,
+                  "min": 1.0
                 },
-                "add": false
+                "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:spiked_rail"
+            "name": "caverns_and_chasms:spiked_rail",
+            "weight": 5
           }
-        ]
+        ],
+        "index": 2,
+        "replace": false
       }
     }
-  ]
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/abandoned_mineshaft"
 }

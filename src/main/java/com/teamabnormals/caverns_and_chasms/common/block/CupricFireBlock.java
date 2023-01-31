@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -11,8 +12,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Random;
 
 public class CupricFireBlock extends BaseFireBlock {
 
@@ -40,7 +39,7 @@ public class CupricFireBlock extends BaseFireBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		level.scheduleTick(pos, this, getFireTickDelay(level.random));
 		if (level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)) {
 			if (!state.canSurvive(level, pos)) {
@@ -60,7 +59,7 @@ public class CupricFireBlock extends BaseFireBlock {
 		level.scheduleTick(pos, this, getFireTickDelay(level.random));
 	}
 
-	private static int getFireTickDelay(Random random) {
+	private static int getFireTickDelay(RandomSource random) {
 		return 30 + random.nextInt(10);
 	}
 

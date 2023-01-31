@@ -17,11 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractCauldronBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LayeredCauldronBlock;
-import net.minecraft.world.level.block.PowderSnowBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -118,7 +114,7 @@ public class GoldenSolidBucketItem extends BlockItem implements DispensibleConta
 	}
 
 	@Override
-	public ItemStack getContainerItem(ItemStack stack) {
+	public ItemStack getCraftingRemainingItem(ItemStack stack) {
 		int level = stack.getOrCreateTag().getInt("FluidLevel");
 		if (level > 0) {
 			ItemStack newStack = new ItemStack(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());

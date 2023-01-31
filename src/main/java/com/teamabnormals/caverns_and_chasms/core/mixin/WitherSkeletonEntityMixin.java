@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,8 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Random;
-
 @Mixin(WitherSkeleton.class)
 public abstract class WitherSkeletonEntityMixin extends AbstractSkeleton {
 
@@ -23,8 +22,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeleton {
 	}
 
 	@Inject(method = "populateDefaultEquipmentSlots", at = @At("TAIL"))
-	private void populateDefaultEquipmentSlots(DifficultyInstance difficulty, CallbackInfo info) {
-		Random random = this.level.getRandom();
+	private void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty, CallbackInfo info) {
 		int difficultyChance = difficulty.getDifficulty().getId() + 1;
 
 		if (random.nextInt(difficultyChance) != 0) {

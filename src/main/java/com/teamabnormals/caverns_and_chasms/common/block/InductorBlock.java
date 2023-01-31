@@ -1,12 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -21,6 +18,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+
+import javax.annotation.Nullable;
 
 public class InductorBlock extends DirectionalBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -67,7 +66,7 @@ public class InductorBlock extends DirectionalBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (hasInductionSignal(state)) {
 			level.setBlock(pos, state.setValue(COOLDOWN, true).setValue(INDUCTION_POWER, 0), 3);
 			level.scheduleTick(pos, state.getBlock(), 4);

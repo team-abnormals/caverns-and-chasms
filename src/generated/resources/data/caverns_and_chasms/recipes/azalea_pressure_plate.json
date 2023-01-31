@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wooden_pressure_plate",
-  "pattern": [
-    "##"
-  ],
   "key": {
     "#": {
       "item": "caverns_and_chasms:azalea_planks"
     }
   },
+  "pattern": [
+    "##"
+  ],
   "result": {
     "item": "caverns_and_chasms:azalea_pressure_plate"
   }

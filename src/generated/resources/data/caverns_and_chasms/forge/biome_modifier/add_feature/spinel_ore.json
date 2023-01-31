@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#caverns_and_chasms:has_feature/spinel_ore",
+  "features": [
+    "caverns_and_chasms:ore_spinel",
+    "caverns_and_chasms:ore_spinel_buried"
+  ],
+  "step": "underground_ores"
+}

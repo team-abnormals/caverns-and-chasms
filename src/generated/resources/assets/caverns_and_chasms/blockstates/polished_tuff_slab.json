@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "caverns_and_chasms:block/polished_tuff_slab_top"
-    },
     "type=bottom": {
       "model": "caverns_and_chasms:block/polished_tuff_slab"
     },
     "type=double": {
       "model": "caverns_and_chasms:block/polished_tuff"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/polished_tuff_slab_top"
     }
   }
 }

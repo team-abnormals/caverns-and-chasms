@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "caverns_and_chasms:block/azalea_slab_top"
-    },
     "type=bottom": {
       "model": "caverns_and_chasms:block/azalea_slab"
     },
     "type=double": {
       "model": "caverns_and_chasms:block/azalea_planks"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/azalea_slab_top"
     }
   }
 }

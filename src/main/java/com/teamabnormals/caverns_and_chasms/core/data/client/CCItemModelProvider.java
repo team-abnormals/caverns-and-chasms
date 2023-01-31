@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 
 public class CCItemModelProvider extends ItemModelProvider {
@@ -28,8 +29,8 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.animatedModel(CCItems.DEPTH_GAUGE.get(), 48);
 		this.generated(CCItems.BAROMETER.get());
 		this.generated(CCItems.OXIDIZED_COPPER_GOLEM.get());
-		this.generated(CCItems.AZALEA_BOAT.get());
-		this.generated(CCItems.AZALEA_CHEST_BOAT.get());
+		this.generated(CCItems.AZALEA_BOAT.getFirst().get());
+		this.generated(CCItems.AZALEA_BOAT.getSecond().get());
 		this.generated(CCItems.AZALEA_FURNACE_BOAT.get());
 		this.generated(CCItems.LARGE_AZALEA_BOAT.get());
 	}
@@ -43,18 +44,18 @@ public class CCItemModelProvider extends ItemModelProvider {
 	}
 
 	private void basicModel(ItemLike item, String type) {
-		ResourceLocation itemName = item.asItem().getRegistryName();
+		ResourceLocation itemName = ForgeRegistries.ITEMS.getKey(item.asItem());
 		withExistingParent(itemName.getPath(), "item/" + type).texture("layer0", new ResourceLocation(this.modid, "item/" + itemName.getPath()));
 	}
 
 	private void blockItem(Block block) {
-		ResourceLocation name = block.getRegistryName();
+		ResourceLocation name = ForgeRegistries.BLOCKS.getKey(block);
 		this.getBuilder(name.getPath()).parent(new UncheckedModelFile(new ResourceLocation(this.modid, "block/" + name.getPath())));
 	}
 
 	private void animatedModel(ItemLike item, int count) {
 		for (int i = 0; i < count; i++) {
-			String path = item.asItem().getRegistryName().getPath() + "_" + String.format("%02d", i);
+			String path = ForgeRegistries.ITEMS.getKey(item.asItem()).getPath() + "_" + String.format("%02d", i);
 			withExistingParent(path, "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + path));
 		}
 	}

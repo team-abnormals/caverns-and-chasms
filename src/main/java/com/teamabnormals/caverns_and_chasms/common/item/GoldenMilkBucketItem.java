@@ -68,7 +68,7 @@ public class GoldenMilkBucketItem extends Item {
 	}
 
 	@Override
-	public ItemStack getContainerItem(ItemStack stack) {
+	public ItemStack getCraftingRemainingItem(ItemStack stack) {
 		int level = stack.getOrCreateTag().getInt("FluidLevel");
 		if (level > 0) {
 			ItemStack newStack = new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());

@@ -1,9 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import javax.annotation.Nullable;
-
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,6 +12,8 @@ import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
+import javax.annotation.Nullable;
+
 public class TmtBlock extends TntBlock {
 
 	public TmtBlock(Properties properties) {
@@ -24,9 +23,9 @@ public class TmtBlock extends TntBlock {
 	@Override
 	public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
 		if (!level.isClientSide) {
-			PrimedTmt primedtmt = new PrimedTmt(level, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, explosion.getSourceMob());
+			PrimedTmt primedtmt = new PrimedTmt(level, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, explosion.getSourceMob());
 			int i = primedtmt.getFuse();
-			primedtmt.setFuse((short)(level.random.nextInt(i / 4) + i / 8));
+			primedtmt.setFuse((short) (level.random.nextInt(i / 4) + i / 8));
 			level.addFreshEntity(primedtmt);
 		}
 	}
@@ -36,7 +35,7 @@ public class TmtBlock extends TntBlock {
 		if (!level.isClientSide) {
 			PrimedTmt primedtmt = new PrimedTmt(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, igniter);
 			level.addFreshEntity(primedtmt);
-			level.playSound((Player)null, primedtmt.getX(), primedtmt.getY(), primedtmt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
+			level.playSound((Player) null, primedtmt.getX(), primedtmt.getY(), primedtmt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.gameEvent(igniter, GameEvent.PRIME_FUSE, pos);
 		}
 	}

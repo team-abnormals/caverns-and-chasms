@@ -1,17 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Random;
-
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -19,11 +16,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -53,13 +46,13 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		switch (state.getValue(FACING).getAxis()) {
-		case X:
-		default:
-			return X_AXIS_SHAPE;
-		case Y:
-			return Y_AXIS_SHAPE;
-		case Z:
-			return Z_AXIS_SHAPE;
+			case X:
+			default:
+				return X_AXIS_SHAPE;
+			case Y:
+				return Y_AXIS_SHAPE;
+			case Z:
+				return Z_AXIS_SHAPE;
 		}
 	}
 
@@ -77,7 +70,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		if (!level.isClientSide() && state.getValue(WATERLOGGED)) {
-			Random random = level.random;
+			RandomSource random = level.random;
 			level.playSound(null, pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (random.nextFloat() - random.nextFloat()) * 0.8F);
 		}
 	}
@@ -111,7 +104,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(WATERLOGGED)) {
 			Axis axis = state.getValue(FACING).getAxis();
 			for (int i = 0; i < 3; ++i) {

@@ -1,11 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
@@ -13,6 +10,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
+import javax.annotation.Nullable;
 
 public class FragileStoneBlock extends Block implements FragileBlock {
 	public FragileStoneBlock(Properties properties) {
@@ -35,7 +34,7 @@ public class FragileStoneBlock extends Block implements FragileBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		this.breakNeighbors(level, pos);
 		this.crack(level, state, pos, random, false);
 	}

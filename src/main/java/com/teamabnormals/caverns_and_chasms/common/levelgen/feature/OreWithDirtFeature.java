@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,14 +14,13 @@ import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 
 import java.util.BitSet;
-import java.util.Random;
 
 public class OreWithDirtFeature extends OreFeature {
 	public OreWithDirtFeature(Codec<OreConfiguration> config) {
 		super(config);
 	}
 
-	protected boolean doPlace(WorldGenLevel level, Random random, OreConfiguration config, double p_66536_, double p_66537_, double p_66538_, double p_66539_, double p_66540_, double p_66541_, int p_66542_, int p_66543_, int p_66544_, int p_66545_, int p_66546_) {
+	protected boolean doPlace(WorldGenLevel level, RandomSource random, OreConfiguration config, double p_66536_, double p_66537_, double p_66538_, double p_66539_, double p_66540_, double p_66541_, int p_66542_, int p_66543_, int p_66544_, int p_66545_, int p_66546_) {
 		int i = 0;
 		BitSet bitset = new BitSet(p_66545_ * p_66546_ * p_66545_);
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();

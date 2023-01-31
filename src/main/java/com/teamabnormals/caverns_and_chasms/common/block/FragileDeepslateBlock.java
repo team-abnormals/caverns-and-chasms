@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class FragileDeepslateBlock extends RotatedPillarBlock implements FragileBlock {
 	public FragileDeepslateBlock(Properties properties) {
@@ -34,7 +34,7 @@ public class FragileDeepslateBlock extends RotatedPillarBlock implements Fragile
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		this.breakNeighbors(level, pos);
 		this.crack(level, state, pos, random, true);
 	}

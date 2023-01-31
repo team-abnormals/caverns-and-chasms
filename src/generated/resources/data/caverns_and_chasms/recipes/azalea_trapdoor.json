@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wooden_trapdoor",
-  "pattern": [
-    "###",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "caverns_and_chasms:azalea_planks"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "caverns_and_chasms:azalea_trapdoor",
-    "count": 2
+    "count": 2,
+    "item": "caverns_and_chasms:azalea_trapdoor"
   }
 }

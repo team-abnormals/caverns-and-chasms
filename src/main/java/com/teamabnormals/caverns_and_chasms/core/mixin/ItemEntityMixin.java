@@ -1,12 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import com.teamabnormals.caverns_and_chasms.common.block.InductorBlock;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -14,6 +8,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity {
@@ -45,10 +43,10 @@ public abstract class ItemEntityMixin extends Entity {
 					double d3 = d1 * d1 * d2;
 					double d4 = d3 * 0.075D;
 					vec3 = vec3.add(new Vec3(vec31.x() * d4 / d0, vec31.y() * d4 / d0, vec31.z() * d4 / d0));
-					
+
 					if (Math.abs(x) <= 0.625D && Math.abs(y) <= 0.625D && Math.abs(z) <= 0.625D) {
 						flag = true;
-						
+
 						float f1 = blockstate.getFriction(this.level, blockpos, this);
 						if (f1 < f) {
 							f = f1;
@@ -64,7 +62,7 @@ public abstract class ItemEntityMixin extends Entity {
 		}
 
 		this.setDeltaMovement(this.getDeltaMovement().add(vec3));
-		
+
 		if (flag) {
 			float f1 = this.onGround ? 1.0F : f;
 			this.setDeltaMovement(this.getDeltaMovement().multiply(f1, f, f1));

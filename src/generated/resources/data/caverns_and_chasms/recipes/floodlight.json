@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
   "pattern": [
     " C ",
     "CCC",
     " A "
   ],
-  "key": {
-    "C": {
-      "tag": "forge:ingots/copper"
-    },
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    }
-  },
   "result": {
     "item": "caverns_and_chasms:floodlight"
   }

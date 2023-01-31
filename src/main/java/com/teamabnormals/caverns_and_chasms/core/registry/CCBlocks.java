@@ -1,12 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.mojang.datafixers.util.Pair;
-import com.teamabnormals.blueprint.common.block.BlueprintBeehiveBlock;
-import com.teamabnormals.blueprint.common.block.BlueprintLadderBlock;
-import com.teamabnormals.blueprint.common.block.BookshelfBlock;
-import com.teamabnormals.blueprint.common.block.HedgeBlock;
-import com.teamabnormals.blueprint.common.block.InjectedBlock;
-import com.teamabnormals.blueprint.common.block.VerticalSlabBlock;
+import com.teamabnormals.blueprint.common.block.*;
 import com.teamabnormals.blueprint.common.block.chest.BlueprintChestBlock;
 import com.teamabnormals.blueprint.common.block.chest.BlueprintTrappedChestBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
@@ -38,9 +33,9 @@ public class CCBlocks {
 	public static final BlockSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getBlockSubHelper();
 
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new InjectedBlock(Items.GOLD_BLOCK, BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new InjectedOreBlock(Items.DEEPSLATE_GOLD_ORE, CCProperties.ORE), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = HELPER.createBlock("deepslate_silver_ore", () -> new InjectedOreBlock(Items.DEEPSLATE_GOLD_ORE, CCProperties.DEEPSLATE_ORE), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new InjectedOreBlock(Items.NETHER_QUARTZ_ORE, Block.Properties.copy(Blocks.SOUL_SOIL), UniformInt.of(0, 1)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new OreBlock(Items.DEEPSLATE_GOLD_ORE, CCProperties.ORE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = HELPER.createBlock("deepslate_silver_ore", () -> new OreBlock(Items.DEEPSLATE_GOLD_ORE, CCProperties.DEEPSLATE_ORE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new OreBlock(Items.NETHER_QUARTZ_ORE, Block.Properties.copy(Blocks.SOUL_SOIL), UniformInt.of(0, 1)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new InjectedBlock(Items.RAW_GOLD_BLOCK, BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new MediumWeightedPressurePlateBlock(CCProperties.SILVER_PRESSURE_PLATE), CreativeModeTab.TAB_REDSTONE);
@@ -95,8 +90,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> LAVA_LAMP = HELPER.createBlock("lava_lamp", () -> new LavaLampBlock(CCProperties.LAVA_LAMP), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS), CreativeModeTab.TAB_DECORATIONS);
 
-	public static final RegistryObject<Block> SPINEL_ORE = HELPER.createBlock("spinel_ore", () -> new InjectedOreBlock(Items.DEEPSLATE_LAPIS_ORE, CCProperties.ORE, UniformInt.of(2, 5)), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> DEEPSLATE_SPINEL_ORE = HELPER.createBlock("deepslate_spinel_ore", () -> new InjectedOreBlock(Items.DEEPSLATE_LAPIS_ORE, CCProperties.DEEPSLATE_ORE, UniformInt.of(2, 5)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SPINEL_ORE = HELPER.createBlock("spinel_ore", () -> new OreBlock(Items.DEEPSLATE_LAPIS_ORE, CCProperties.ORE, UniformInt.of(2, 5)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DEEPSLATE_SPINEL_ORE = HELPER.createBlock("deepslate_spinel_ore", () -> new OreBlock(Items.DEEPSLATE_LAPIS_ORE, CCProperties.DEEPSLATE_ORE, UniformInt.of(2, 5)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SPINEL_BLOCK = HELPER.createBlock("spinel_block", () -> new InjectedBlock(Items.LAPIS_BLOCK, CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SPINEL_BRICKS = HELPER.createBlock("spinel_bricks", () -> new Block(CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> SPINEL_BRICK_STAIRS = HELPER.createBlock("spinel_brick_stairs", () -> new StairBlock(() -> SPINEL_BRICKS.get().defaultBlockState(), CCProperties.SPINEL), CreativeModeTab.TAB_BUILDING_BLOCKS);

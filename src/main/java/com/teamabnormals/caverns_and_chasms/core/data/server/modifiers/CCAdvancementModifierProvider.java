@@ -13,13 +13,13 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.advancements.critereon.ItemUsedOnBlockTrigger.TriggerInstance;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
@@ -42,24 +42,24 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		Collection<RegistryObject<Item>> items = CCItems.HELPER.getDeferredRegister().getEntries();
 		items.forEach(item -> {
 			if (item.get().isEdible()) {
-				balancedDiet.addCriterion(item.get().getRegistryName().getPath(), ConsumeItemTrigger.TriggerInstance.usedItem(item.get()));
+				balancedDiet.addCriterion(ForgeRegistries.ITEMS.getKey(item.get()).getPath(), ConsumeItemTrigger.TriggerInstance.usedItem(item.get()));
 			}
 		});
 		this.entry("husbandry/balanced_diet").selects("husbandry/balanced_diet").addModifier(balancedDiet.requirements(RequirementsStrategy.AND).build());
 
 		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
 		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
-			breedAllAnimals.addCriterion(entityType.getRegistryName().getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
+			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
 		}
 		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
 
 		this.entry("husbandry/fishy_business").selects("husbandry/fishy_business").addModifier(CriteriaModifier.builder(this.modId).addCriterion("cavefish", FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.Builder.item().of(CCItems.CAVEFISH.get()).build())).addIndexedRequirements(0, false, "cavefish").build());
 		this.entry("husbandry/tactical_fishing").selects("husbandry/tactical_fishing").addModifier(CriteriaModifier.builder(this.modId).addCriterion("cavefish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(CCItems.CAVEFISH_BUCKET.get()).build())).addIndexedRequirements(0, false, "cavefish_bucket").build());
-		this.entry("husbandry/wax_on").selects("husbandry/wax_on").addModifier(CriteriaModifier.builder(this.modId).addCriterion("wax_on", TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB))).addIndexedRequirements(0, false, "wax_on").build());
-		this.entry("husbandry/wax_off").selects("husbandry/wax_off").addModifier(CriteriaModifier.builder(this.modId).addCriterion("wax_off", TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(CCItemTags.TOOLS_AXES))).addIndexedRequirements(0, false, "wax_off").build());
+		this.entry("husbandry/wax_on").selects("husbandry/wax_on").addModifier(CriteriaModifier.builder(this.modId).addCriterion("wax_on", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB))).addIndexedRequirements(0, false, "wax_on").build());
+		this.entry("husbandry/wax_off").selects("husbandry/wax_off").addModifier(CriteriaModifier.builder(this.modId).addCriterion("wax_off", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(CCItemTags.TOOLS_AXES))).addIndexedRequirements(0, false, "wax_off").build());
 
 		this.entry("husbandry/obtain_netherite_hoe").selects("husbandry/obtain_netherite_hoe")
-				.addModifier(DisplayInfoModifier.builder().description(new TranslatableComponent("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build())
+				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId).addCriterion("necromium_hoe", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())).addIndexedRequirements(0, false, "necromium_hoe").build());
 
 		this.entry("adventure/smelt_copper_parent").selects("adventure/spyglass_at_parrot", "adventure/lightning_rod_with_villager_no_fire").addModifier(new ParentModifier(new ResourceLocation(this.modId, "adventure/smelt_copper")));
@@ -68,7 +68,7 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		CriteriaModifier.Builder killAllMobs = CriteriaModifier.builder(this.modId);
 		ArrayList<String> names = org.apache.commons.compress.utils.Lists.newArrayList();
 		for (EntityType<?> entityType : MOBS_TO_KILL) {
-			String name = entityType.getRegistryName().getPath();
+			String name = ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath();
 			KilledTrigger.TriggerInstance triggerInstance = KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
 			killAMob.addCriterion(name, triggerInstance);
 			killAllMobs.addCriterion(name, triggerInstance);

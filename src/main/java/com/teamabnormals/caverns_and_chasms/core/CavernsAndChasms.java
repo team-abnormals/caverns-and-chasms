@@ -5,40 +5,35 @@ import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
-import com.teamabnormals.caverns_and_chasms.common.network.MessageS2CSpinelBoom;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCAdvancementProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCBiomeModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCBlockTagsProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCEntityTypeTagsProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCItemTagsProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.tags.CCMobEffectTagsProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -47,9 +42,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
 
 @Mod(CavernsAndChasms.MOD_ID)
 public class CavernsAndChasms {
@@ -80,6 +72,9 @@ public class CavernsAndChasms {
 		CCFeatures.FEATURES.register(bus);
 		CCParticleTypes.PARTICLE_TYPES.register(bus);
 		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
+		CCConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
+		CCPlacedFeatures.PLACED_FEATURES.register(bus);
+		CCRecipeTypes.RECIPE_TYPES.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -91,8 +86,6 @@ public class CavernsAndChasms {
 			bus.addListener(this::registerLayers);
 			bus.addListener(this::registerItemColors);
 		});
-
-		bus.addGenericListener(Block.class, this::registerRecipeTypes);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
 
@@ -114,30 +107,26 @@ public class CavernsAndChasms {
 
 	private void dataSetup(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();
-		ExistingFileHelper fileHelper = event.getExistingFileHelper();
+		ExistingFileHelper helper = event.getExistingFileHelper();
 
-		if (event.includeServer()) {
-			CCBlockTagsProvider blockTags = new CCBlockTagsProvider(generator, fileHelper);
-			generator.addProvider(blockTags);
-			generator.addProvider(new CCItemTagsProvider(generator, blockTags, fileHelper));
-			generator.addProvider(new CCEntityTypeTagsProvider(generator, fileHelper));
-			generator.addProvider(new CCMobEffectTagsProvider(generator, fileHelper));
-			generator.addProvider(new CCRecipeProvider(generator));
-			generator.addProvider(new CCLootTableProvider(generator));
-			generator.addProvider(new CCAdvancementProvider(generator, fileHelper));
-			generator.addProvider(new CCAdvancementModifierProvider(generator));
-			generator.addProvider(new CCLootModifierProvider(generator));
-		}
+		boolean server = event.includeServer();
+		CCBlockTagsProvider blockTags = new CCBlockTagsProvider(generator, helper);
+		generator.addProvider(server, blockTags);
+		generator.addProvider(server, new CCItemTagsProvider(generator, blockTags, helper));
+		generator.addProvider(server, new CCEntityTypeTagsProvider(generator, helper));
+		generator.addProvider(server, new CCMobEffectTagsProvider(generator, helper));
+		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
+		generator.addProvider(server, new CCRecipeProvider(generator));
+		generator.addProvider(server, new CCLootTableProvider(generator));
+		generator.addProvider(server, new CCAdvancementProvider(generator, helper));
+		generator.addProvider(server, new CCAdvancementModifierProvider(generator));
+		generator.addProvider(server, new CCLootModifierProvider(generator));
+		generator.addProvider(server, CCBiomeModifierProvider.create(generator, helper));
 
-		if (event.includeClient()) {
-			generator.addProvider(new CCItemModelProvider(generator, fileHelper));
-			generator.addProvider(new CCBlockStateProvider(generator, fileHelper));
-			//generator.addProvider(new CCLanguageProvider(generator));
-		}
-	}
-
-	private void registerRecipeTypes(RegistryEvent.Register<Block> event) {
-		CCRecipeTypes.MIMING = RecipeType.register(CavernsAndChasms.MOD_ID + ":miming");
+		boolean client = event.includeClient();
+		generator.addProvider(client, new CCItemModelProvider(generator, helper));
+		generator.addProvider(client, new CCBlockStateProvider(generator, helper));
+		//generator.addProvider(client, new CCLanguageProvider(generator));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -178,9 +167,9 @@ public class CavernsAndChasms {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void registerItemColors(ColorHandlerEvent.Item event) {
-		event.getItemColors().register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
-		event.getItemColors().register((stack, color) -> color > 0 ? -1 : CCPotionUtil.getTetherPotionColor(stack), CCItems.TETHER_POTION.get());
+	public void registerItemColors(RegisterColorHandlersEvent.Item event) {
+		event.register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
+		event.register((stack, color) -> color > 0 ? -1 : CCPotionUtil.getTetherPotionColor(stack), CCItems.TETHER_POTION.get());
 	}
 
 	/*

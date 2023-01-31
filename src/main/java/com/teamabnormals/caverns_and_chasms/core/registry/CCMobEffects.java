@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 import com.teamabnormals.blueprint.common.effect.BlueprintMobEffect;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;

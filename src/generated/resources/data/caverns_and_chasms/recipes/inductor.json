@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "CIC",
-    "CRC",
-    "CIC"
-  ],
   "key": {
     "C": {
       "tag": "forge:ingots/copper"
@@ -16,6 +11,11 @@
       "item": "minecraft:redstone"
     }
   },
+  "pattern": [
+    "CIC",
+    "CRC",
+    "CIC"
+  ],
   "result": {
     "item": "caverns_and_chasms:inductor"
   }

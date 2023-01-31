@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.AgeableListModel;
-import net.minecraft.client.model.ParrotModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -14,7 +13,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
@@ -88,52 +86,52 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 	}
 
 	public void setupAnim(RatModel.State state, float tailWagAmount, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		switch(state) {
-		case STANDING:
-			this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
-			this.body.setPos(0.0F, 21.0F, -3.0F);
-			this.body.xRot = 0.0F;
-			this.rightHindLeg.setPos(-2.0F, 23.0F, 4.0F);
-			this.leftHindLeg.setPos(2.0F, 23.0F, 4.0F);
-			this.rightFrontLeg.setPos(-2.0F, 23.0F, -1.0F);
-			this.leftFrontLeg.setPos(2.0F, 23.0F, -1.0F);
-			this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
-			this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
-			this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			this.tail.setPos(0.0F, 21.0F, 5.0F);
-			this.tail.xRot = 0.0F;
-			break;
-		case SITTING:
-			this.head.setPos(0.0F, !this.young ? 15.0F : 14.0F, !this.young ? 0.5F : -1.5F);
-			this.body.setPos(0.0F, 16.0F, -0.5F);
-			this.body.xRot = -Mth.PI / 2.0F;
-			this.rightHindLeg.setPos(-2.0F, 24.0F, -3.0F);
-			this.leftHindLeg.setPos(2.0F, 24.0F, -3.0F);
-			this.rightFrontLeg.setPos(-2.0F, 19.0F, -2.5F);
-			this.leftFrontLeg.setPos(2.0F, 19.0F, -2.5F);
-			this.rightHindLeg.xRot = -Mth.PI / 2.0F;
-			this.leftHindLeg.xRot = -Mth.PI / 2.0F;
-			this.rightFrontLeg.xRot = -Mth.PI / 4.0F;
-			this.leftFrontLeg.xRot = -Mth.PI / 4.0F;
-			this.tail.setPos(0.0F, 23.0F, 2.5F);
-			this.tail.xRot = 0.0F;
-			break;
-		case ON_SHOULDER:
-			this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
-			this.body.setPos(0.0F, 21.0F, -3.0F);
-			this.body.xRot = 0.0F;
-			this.rightHindLeg.setPos(-1.0F, 23.0F, 3.0F);
-			this.leftHindLeg.setPos(1.0F, 23.0F, 3.0F);
-			this.rightFrontLeg.setPos(-1.0F, 23.0F, 0.0F);
-			this.leftFrontLeg.setPos(1.0F, 23.0F, 0.0F);
-			this.rightHindLeg.xRot = 0.0F;
-			this.leftHindLeg.xRot = 0.0F;
-			this.rightFrontLeg.xRot = 0.0F;
-			this.leftFrontLeg.xRot = 0.0F;
-			this.tail.setPos(0.0F, 21.0F, 5.0F);
-			this.tail.xRot = -1.0F;
-			break;
+		switch (state) {
+			case STANDING:
+				this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
+				this.body.setPos(0.0F, 21.0F, -3.0F);
+				this.body.xRot = 0.0F;
+				this.rightHindLeg.setPos(-2.0F, 23.0F, 4.0F);
+				this.leftHindLeg.setPos(2.0F, 23.0F, 4.0F);
+				this.rightFrontLeg.setPos(-2.0F, 23.0F, -1.0F);
+				this.leftFrontLeg.setPos(2.0F, 23.0F, -1.0F);
+				this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+				this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
+				this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
+				this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+				this.tail.setPos(0.0F, 21.0F, 5.0F);
+				this.tail.xRot = 0.0F;
+				break;
+			case SITTING:
+				this.head.setPos(0.0F, !this.young ? 15.0F : 14.0F, !this.young ? 0.5F : -1.5F);
+				this.body.setPos(0.0F, 16.0F, -0.5F);
+				this.body.xRot = -Mth.PI / 2.0F;
+				this.rightHindLeg.setPos(-2.0F, 24.0F, -3.0F);
+				this.leftHindLeg.setPos(2.0F, 24.0F, -3.0F);
+				this.rightFrontLeg.setPos(-2.0F, 19.0F, -2.5F);
+				this.leftFrontLeg.setPos(2.0F, 19.0F, -2.5F);
+				this.rightHindLeg.xRot = -Mth.PI / 2.0F;
+				this.leftHindLeg.xRot = -Mth.PI / 2.0F;
+				this.rightFrontLeg.xRot = -Mth.PI / 4.0F;
+				this.leftFrontLeg.xRot = -Mth.PI / 4.0F;
+				this.tail.setPos(0.0F, 23.0F, 2.5F);
+				this.tail.xRot = 0.0F;
+				break;
+			case ON_SHOULDER:
+				this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
+				this.body.setPos(0.0F, 21.0F, -3.0F);
+				this.body.xRot = 0.0F;
+				this.rightHindLeg.setPos(-1.0F, 23.0F, 3.0F);
+				this.leftHindLeg.setPos(1.0F, 23.0F, 3.0F);
+				this.rightFrontLeg.setPos(-1.0F, 23.0F, 0.0F);
+				this.leftFrontLeg.setPos(1.0F, 23.0F, 0.0F);
+				this.rightHindLeg.xRot = 0.0F;
+				this.leftHindLeg.xRot = 0.0F;
+				this.rightFrontLeg.xRot = 0.0F;
+				this.leftFrontLeg.xRot = 0.0F;
+				this.tail.setPos(0.0F, 21.0F, 5.0F);
+				this.tail.xRot = -1.0F;
+				break;
 		}
 
 		this.head.xRot = headPitch * (Mth.PI / 180F);

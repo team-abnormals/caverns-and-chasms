@@ -1,38 +1,36 @@
 {
-  "selector": "minecraft:adventure/kill_a_mob",
-  "priority": "normal",
   "modifiers": [
     {
       "type": "criteria",
       "config": {
         "criteria": {
           "caverns_and_chasms:deeper": {
-            "trigger": "minecraft:player_killed_entity",
             "conditions": {
               "entity": [
                 {
                   "condition": "minecraft:entity_properties",
+                  "entity": "this",
                   "predicate": {
                     "type": "caverns_and_chasms:deeper"
-                  },
-                  "entity": "this"
+                  }
                 }
               ]
-            }
+            },
+            "trigger": "minecraft:player_killed_entity"
           },
           "caverns_and_chasms:mime": {
-            "trigger": "minecraft:player_killed_entity",
             "conditions": {
               "entity": [
                 {
                   "condition": "minecraft:entity_properties",
+                  "entity": "this",
                   "predicate": {
                     "type": "caverns_and_chasms:mime"
-                  },
-                  "entity": "this"
+                  }
                 }
               ]
-            }
+            },
+            "trigger": "minecraft:player_killed_entity"
           }
         },
         "indexed_requirements": [
@@ -47,5 +45,7 @@
         ]
       }
     }
-  ]
+  ],
+  "priority": "normal",
+  "selector": "minecraft:adventure/kill_a_mob"
 }

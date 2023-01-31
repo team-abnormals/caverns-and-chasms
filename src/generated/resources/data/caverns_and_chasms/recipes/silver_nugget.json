@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "caverns_and_chasms:silver_nugget",
-    "count": 9
+    "count": 9,
+    "item": "caverns_and_chasms:silver_nugget"
   }
 }

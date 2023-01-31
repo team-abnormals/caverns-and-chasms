@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,8 +19,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Random;
 
 public class GravestoneBlock extends HorizontalDirectionalBlock {
 	public static final IntegerProperty CHARGE = IntegerProperty.create("charge", 0, 10);
@@ -74,7 +73,7 @@ public class GravestoneBlock extends HorizontalDirectionalBlock {
 		world.scheduleTick(pos, this, 20);
 	}
 
-	public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource rand) {
 		if (state.getValue(POWERED)) {
 			worldIn.setBlock(pos, state.setValue(POWERED, false), 3);
 			this.updateNeighbors(state, worldIn, pos);

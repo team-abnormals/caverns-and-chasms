@@ -9,7 +9,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -56,7 +55,7 @@ public class TuningForkItem extends Item {
 				int note = state.getValue(NoteBlock.NOTE);
 				if (!tag.contains("Note") || tag.getInt("Note") != note) {
 					tag.putInt("Note", state.getValue(NoteBlock.NOTE));
-					player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".capture_note", new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".capture_note", Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide());
@@ -64,7 +63,7 @@ public class TuningForkItem extends Item {
 				if (tag.contains("Note")) {
 					BlockPos targetpos = state.getCollisionShape(level, pos).isEmpty() ? pos : pos.relative(direction);
 					int note = tag.getInt("Note");
-					player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".note").append(": ").append(new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 					this.attractCopperGolemsToPos(level, targetpos);
 					if (level.isClientSide) {
@@ -85,7 +84,7 @@ public class TuningForkItem extends Item {
 
 		if (tag.contains("Note")) {
 			int note = tag.getInt("Note");
-			player.displayClientMessage(new TranslatableComponent(this.getDescriptionId() + ".note").append(": ").append(new TranslatableComponent(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 			this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 			this.attractCopperGolemsToPos(level, player.blockPosition());
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
@@ -114,7 +113,7 @@ public class TuningForkItem extends Item {
 		if (tag != null) {
 			if (tag.contains("Note")) {
 				int note = tag.getInt("Note");
-				tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".note." + note).append(" (" + note + ")").withStyle(ChatFormatting.GRAY));
+				tooltip.add(Component.translatable(this.getDescriptionId() + ".note." + note).append(" (" + note + ")").withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
@@ -125,7 +124,7 @@ public class TuningForkItem extends Item {
 	}
 
 	private void attractCopperGolemsToPos(Level level, BlockPos pos) {
-		for(CopperGolem coppergolem : level.getEntitiesOfClass(CopperGolem.class, (new AABB(pos)).inflate(8.0D))) {
+		for (CopperGolem coppergolem : level.getEntitiesOfClass(CopperGolem.class, (new AABB(pos)).inflate(8.0D))) {
 			coppergolem.setTuningForkTargetPos(pos);
 		}
 	}

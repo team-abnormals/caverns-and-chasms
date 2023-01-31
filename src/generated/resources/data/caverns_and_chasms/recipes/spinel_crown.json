@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SBS",
-    "GGG"
-  ],
   "key": {
+    "B": {
+      "item": "caverns_and_chasms:spinel_block"
+    },
     "G": {
       "tag": "forge:ingots/gold"
     },
     "S": {
       "item": "caverns_and_chasms:spinel"
-    },
-    "B": {
-      "item": "caverns_and_chasms:spinel_block"
     }
   },
+  "pattern": [
+    "SBS",
+    "GGG"
+  ],
   "result": {
     "item": "caverns_and_chasms:spinel_crown"
   }

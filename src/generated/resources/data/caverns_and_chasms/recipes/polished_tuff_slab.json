@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
   "key": {
     "#": {
       "item": "caverns_and_chasms:polished_tuff"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "caverns_and_chasms:polished_tuff_slab",
-    "count": 6
+    "count": 6,
+    "item": "caverns_and_chasms:polished_tuff_slab"
   }
 }

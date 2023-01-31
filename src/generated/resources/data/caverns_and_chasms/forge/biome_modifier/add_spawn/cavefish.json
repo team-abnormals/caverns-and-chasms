@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#caverns_and_chasms:has_animal/cavefish",
+  "spawners": {
+    "type": "caverns_and_chasms:cavefish",
+    "maxCount": 7,
+    "minCount": 4,
+    "weight": 25
+  }
+}

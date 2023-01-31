@@ -1,0 +1,9 @@
+{
+  "type": "forge:remove_features",
+  "biomes": "#caverns_and_chasms:has_feature/soul_silver_ore",
+  "features": [
+    "minecraft:ore_gold_nether",
+    "minecraft:ore_gold_deltas"
+  ],
+  "steps": "underground_decoration"
+}

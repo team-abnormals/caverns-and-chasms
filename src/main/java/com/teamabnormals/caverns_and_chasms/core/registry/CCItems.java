@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.item.BlueprintRecordItem;
 import com.teamabnormals.blueprint.common.item.InjectedItem;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
@@ -13,11 +14,7 @@ import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -73,7 +70,7 @@ public class CCItems {
 	public static final RegistryObject<Item> BEJEWELED_APPLE = HELPER.createItem("bejeweled_apple", () -> new BejeweledAppleItem(new Item.Properties().food(CCFoods.BEJEWELED_APPLE).rarity(Rarity.RARE).tab(CreativeModeTab.TAB_FOOD)));
 	public static final RegistryObject<Item> SPINEL_CROWN = HELPER.createItem("spinel_crown", () -> new SpinelCrownItem(CCArmorMaterials.SPINEL_CROWN, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> TETHER_POTION = HELPER.createItem("tether_potion", () -> new TetherPotionItem((new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_BREWING)));
-	
+
 	public static final RegistryObject<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.CAVEFISH)));
 	public static final RegistryObject<Item> COOKED_CAVEFISH = HELPER.createItem("cooked_cavefish", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(CCFoods.COOKED_CAVEFISH)));
 	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new MobBucketItem(CCEntityTypes.CAVEFISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
@@ -84,12 +81,11 @@ public class CCItems {
 	public static final RegistryObject<Item> GOLDEN_MILK_BUCKET = HELPER.createItem("golden_milk_bucket", () -> new GoldenMilkBucketItem(new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).tab(CreativeModeTab.TAB_MISC).stacksTo(1)));
 	public static final RegistryObject<Item> GOLDEN_POWDER_SNOW_BUCKET = HELPER.createItem("golden_powder_snow_bucket", () -> new GoldenSolidBucketItem(Blocks.POWDER_SNOW, SoundEvents.POWDER_SNOW_PLACE, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).tab(CreativeModeTab.TAB_MISC).stacksTo(1)));
 
-	public static final RegistryObject<Item> AZALEA_BOAT = HELPER.createBoatItem("azalea", CCBlocks.AZALEA_PLANKS);
-	public static final RegistryObject<Item> AZALEA_CHEST_BOAT = HELPER.createItem("azalea_chest_boat", ItemSubRegistryHelper.areModsLoaded("boatload") ? CCBoatTypes.AZALEA_CHEST_BOAT : () -> new Item(new Item.Properties()));
+	public static final Pair<RegistryObject<Item>, RegistryObject<Item>> AZALEA_BOAT = HELPER.createBoatAndChestBoatItem("azalea", CCBlocks.AZALEA_PLANKS);
 	public static final RegistryObject<Item> AZALEA_FURNACE_BOAT = HELPER.createItem("azalea_furnace_boat", ItemSubRegistryHelper.areModsLoaded("boatload") ? CCBoatTypes.AZALEA_FURNACE_BOAT : () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> LARGE_AZALEA_BOAT = HELPER.createItem("large_azalea_boat", ItemSubRegistryHelper.areModsLoaded("boatload") ? CCBoatTypes.LARGE_AZALEA_BOAT : () -> new Item(new Item.Properties()));
 
-	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), 77));
 
 	public static final RegistryObject<ForgeSpawnEggItem> CAVEFISH_SPAWN_EGG = HELPER.createSpawnEggItem("cavefish", CCEntityTypes.CAVEFISH::get, 14145236, 11251356);
 	public static final RegistryObject<ForgeSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntityTypes.DEEPER::get, 8355711, 13717260);

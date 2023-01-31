@@ -5,12 +5,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Random;
 import java.util.function.ToIntFunction;
 
 public class CupricCandleBlock extends CandleBlock {
@@ -21,14 +21,14 @@ public class CupricCandleBlock extends CandleBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(LIT)) {
 			this.getParticleOffsets(state).forEach((vec3) -> addCupricParticlesAndSound(level, vec3.add(pos.getX(), pos.getY(), pos.getZ()), random));
 		}
 	}
 
 
-	public static void addCupricParticlesAndSound(Level level, Vec3 vec3, Random random) {
+	public static void addCupricParticlesAndSound(Level level, Vec3 vec3, RandomSource random) {
 		float f = random.nextFloat();
 		if (f < 0.3F) {
 			level.addParticle(ParticleTypes.SMOKE, vec3.x, vec3.y, vec3.z, 0.0D, 0.0D, 0.0D);

@@ -1,12 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,7 +40,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -137,7 +136,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	public static void spawnSmokeParticles(Level worldIn, BlockPos pos) {
-		Random random = worldIn.getRandom();
+		RandomSource random = worldIn.getRandom();
 		worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), pos.getY() + 0.4D, pos.getZ() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
 	}
 
@@ -172,7 +171,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Nullable
 	@Override
-	public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
-		return isLit(state) ? BlockPathTypes.DAMAGE_FIRE : super.getAiPathNodeType(state, world, pos, entity);
+	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+		return isLit(state) ? BlockPathTypes.DAMAGE_FIRE : super.getBlockPathType(state, world, pos, entity);
 	}
 }

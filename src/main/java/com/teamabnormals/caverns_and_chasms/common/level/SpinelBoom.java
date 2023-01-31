@@ -1,25 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.level;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Maps;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-
 public class SpinelBoom /* extends Explosion*/ {
 	/*
 	private final Level level;

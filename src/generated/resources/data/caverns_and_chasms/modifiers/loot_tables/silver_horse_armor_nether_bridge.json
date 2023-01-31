@@ -1,20 +1,20 @@
 {
-  "selector": "minecraft:chests/nether_bridge",
-  "priority": "normal",
   "modifiers": [
     {
       "type": "entries",
       "config": {
-        "replace": false,
-        "index": 0,
         "entries": [
           {
             "type": "minecraft:item",
-            "weight": 6,
-            "name": "caverns_and_chasms:silver_horse_armor"
+            "name": "caverns_and_chasms:silver_horse_armor",
+            "weight": 6
           }
-        ]
+        ],
+        "index": 0,
+        "replace": false
       }
     }
-  ]
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/nether_bridge"
 }

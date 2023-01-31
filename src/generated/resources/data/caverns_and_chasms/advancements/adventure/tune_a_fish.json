@@ -1,27 +1,21 @@
 {
   "parent": "caverns_and_chasms:adventure/use_tuning_fork",
-  "display": {
-    "icon": {
-      "item": "caverns_and_chasms:tuning_fork"
-    },
-    "title": {
-      "translate": "advancements.caverns_and_chasms.adventure.tune_a_fish.title"
-    },
-    "description": {
-      "translate": "advancements.caverns_and_chasms.adventure.tune_a_fish.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": true
-  },
   "criteria": {
     "attack_fish": {
-      "trigger": "minecraft:player_hurt_entity",
       "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#forge:fishes"
+            }
+          }
+        ],
         "player": [
           {
             "condition": "minecraft:entity_properties",
+            "entity": "this",
             "predicate": {
               "equipment": {
                 "mainhand": {
@@ -30,20 +24,26 @@
                   ]
                 }
               }
-            },
-            "entity": "this"
-          }
-        ],
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "#forge:fishes"
-            },
-            "entity": "this"
+            }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.tune_a_fish.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "caverns_and_chasms:tuning_fork"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.tune_a_fish.title"
     }
   },
   "requirements": [

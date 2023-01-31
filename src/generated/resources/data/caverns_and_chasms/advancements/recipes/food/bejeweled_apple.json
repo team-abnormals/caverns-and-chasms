@@ -1,25 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "caverns_and_chasms:bejeweled_apple"
-    ]
-  },
   "criteria": {
-    "has_spinel": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "caverns_and_chasms:spinel"
-            ]
-          }
-        ]
-      }
-    },
     "has_golden_apple": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -28,13 +10,26 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_spinel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:spinel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "caverns_and_chasms:bejeweled_apple"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
@@ -43,5 +38,10 @@
       "has_golden_apple",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:bejeweled_apple"
+    ]
+  }
 }

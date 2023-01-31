@@ -1,19 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -34,13 +24,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -67,6 +51,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolActions;
+
+import javax.annotation.Nullable;
+import java.util.*;
 
 public class CopperGolem extends AbstractGolem {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
@@ -303,9 +290,9 @@ public class CopperGolem extends AbstractGolem {
 						long i = this.level.getGameTime();
 						if (i - this.lastHit > 5L) {
 							this.level.broadcastEntityEvent(this, (byte) 10);
-							this.gameEvent(GameEvent.ENTITY_DAMAGED, source.getEntity());
+							this.gameEvent(GameEvent.ENTITY_DAMAGE, source.getEntity());
 							this.lastHit = i;
-						} 
+						}
 
 						return true;
 					}
@@ -331,7 +318,7 @@ public class CopperGolem extends AbstractGolem {
 			}
 		}
 
-		((ServerLevel)this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double)(this.getBbWidth() / 4.0F), (double)(this.getBbHeight() / 4.0F), (double)(this.getBbWidth() / 4.0F), 0.05D);
+		((ServerLevel) this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (double) (this.getBbWidth() / 4.0F), (double) (this.getBbHeight() / 4.0F), (double) (this.getBbWidth() / 4.0F), 0.05D);
 		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
 		this.removeStatue();
 	}
@@ -663,7 +650,7 @@ public class CopperGolem extends AbstractGolem {
 					if (!state.getValue(CopperButtonBlock.POWERED)) {
 						((CopperButtonBlock) state.getBlock()).press(state, CopperGolem.this.level, this.blockPos);
 						CopperGolem.this.level.playSound(null, this.blockPos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
-						CopperGolem.this.level.gameEvent(CopperGolem.this, GameEvent.BLOCK_PRESS, this.blockPos);
+						CopperGolem.this.level.gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
 						CopperGolem.this.ticksSinceButtonPress = 80;
 					}
 				}

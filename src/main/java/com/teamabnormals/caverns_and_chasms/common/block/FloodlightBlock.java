@@ -1,22 +1,16 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Random;
-
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -46,19 +40,19 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		switch (state.getValue(FACING)) {
-		case DOWN:
-		default:
-			return DOWN_SHAPE;
-		case UP:
-			return UP_SHAPE;
-		case NORTH:
-			return NORTH_SHAPE;
-		case SOUTH:
-			return SOUTH_SHAPE;
-		case WEST:
-			return WEST_SHAPE;
-		case EAST:
-			return EAST_SHAPE;
+			case DOWN:
+			default:
+				return DOWN_SHAPE;
+			case UP:
+				return UP_SHAPE;
+			case NORTH:
+				return NORTH_SHAPE;
+			case SOUTH:
+				return SOUTH_SHAPE;
+			case WEST:
+				return WEST_SHAPE;
+			case EAST:
+				return EAST_SHAPE;
 		}
 	}
 
@@ -78,7 +72,7 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (random.nextInt(3) == 0) {
 			Vec3i vec3i = state.getValue(FACING).getNormal();
 			double x = 0.1D + random.nextDouble() * 0.8D + vec3i.getX();

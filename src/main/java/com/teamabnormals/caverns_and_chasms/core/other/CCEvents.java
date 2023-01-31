@@ -1,11 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import java.util.Collection;
-import java.util.Random;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
@@ -24,13 +18,12 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
-
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -38,18 +31,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -71,35 +60,31 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseRailBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CarvedPumpkinBlock;
-import net.minecraft.world.level.block.LightningRodBlock;
-import net.minecraft.world.level.block.NoteBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Collection;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
 
 	@SubscribeEvent
-	public static void onLivingSpawned(EntityJoinWorldEvent event) {
+	public static void onLivingSpawned(EntityJoinLevelEvent event) {
 		Entity entity = event.getEntity();
 
 		if (entity instanceof Zombie zombie) {
@@ -124,9 +109,9 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void rightClickEntity(PlayerInteractEvent.EntityInteractSpecific event) {
-		Player player = event.getPlayer();
+		Player player = event.getEntity();
 		ItemStack stack = player.getItemInHand(event.getHand());
-		Level world = event.getWorld();
+		Level level = event.getLevel();
 		InteractionHand hand = event.getHand();
 		if (event.getTarget() instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE)) {
 			if (!entity.isBaby() && (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get())) {
@@ -142,7 +127,7 @@ public class CCEvents {
 				if (!fullBucket) {
 					player.playSound(entity instanceof Goat goat ? goat.isScreamingGoat() ? SoundEvents.GOAT_SCREAMING_MILK : SoundEvents.GOAT_MILK : SoundEvents.COW_MILK, 1.0F, 1.0F);
 					player.setItemInHand(hand, milkBucket);
-					event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
+					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 					event.setCanceled(true);
 				}
 			}
@@ -154,14 +139,14 @@ public class CCEvents {
 		ItemStack stack = event.getItemStack();
 		Entity target = event.getTarget();
 		if (target.getType() == EntityType.SPIDER && stack.getItem() == Items.SPIDER_SPAWN_EGG) {
-			Level world = event.getWorld();
+			Level world = event.getLevel();
 			Spiderling spiderling = CCEntityTypes.SPIDERLING.get().create(world);
 			if (spiderling != null) {
 				spiderling.copyPosition(target);
 				if (stack.hasCustomHoverName()) {
 					spiderling.setCustomName(stack.getHoverName());
 				}
-				if (!event.getPlayer().isCreative()) {
+				if (!event.getEntity().isCreative()) {
 					stack.shrink(1);
 				}
 				world.addFreshEntity(spiderling);
@@ -181,7 +166,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingSpawn(LivingSpawnEvent.CheckSpawn event) {
 		Entity entity = event.getEntity();
-		LevelAccessor world = event.getWorld();
+		LevelAccessor world = event.getLevel();
 		boolean validSpawn = event.getSpawnReason() == MobSpawnType.NATURAL || event.getSpawnReason() == MobSpawnType.CHUNK_GENERATION;
 		if (event.getResult() != Event.Result.DENY) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
@@ -200,14 +185,14 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onRightClickBlock(RightClickBlock event) {
-		Player player = event.getPlayer();
+		Player player = event.getEntity();
 		BlockPos pos = event.getPos();
-		Level level = event.getWorld();
+		Level level = event.getLevel();
 		ItemStack stack = event.getItemStack();
 		Item item = stack.getItem();
 		BlockState state = level.getBlockState(pos);
 		Direction face = event.getFace();
-		Random random = level.getRandom();
+		RandomSource random = level.getRandom();
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
@@ -251,7 +236,7 @@ public class CCEvents {
 			if (!player.isCrouching() && tag.contains("Note")) {
 				int note = tag.getInt("Note");
 				level.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, Mth.clamp(note, 0, 24)));
-				player.displayClientMessage(new TranslatableComponent(item.getDescriptionId() + ".change_note", new TranslatableComponent(item.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+				player.displayClientMessage(Component.translatable(item.getDescriptionId() + ".change_note", Component.translatable(item.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 				if (!level.isClientSide()) {
 					level.blockEvent(pos, state.getBlock(), 0, 0);
 				}
@@ -264,7 +249,7 @@ public class CCEvents {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
 				Block block = ((BlockItem) item).getBlock();
 				if (block instanceof BaseRailBlock && !state.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {
-					Direction direction = event.getPlayer().getDirection();
+					Direction direction = player.getDirection();
 					BlockPos.MutableBlockPos currentPos = event.getPos().mutable().move(direction);
 					for (int i = 0; i < CCConfig.COMMON.betterRailPlacementRange.get(); i++) {
 						BlockPos nextPos = null;
@@ -276,7 +261,7 @@ public class CCEvents {
 								nextPos = yCheckingPos.move(direction).immutable();
 								isNextRail = true;
 							} else if (!isNextRail) {
-								BlockPlaceContext context = new BlockPlaceContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(yCheckingPos));
+								BlockPlaceContext context = new BlockPlaceContext(player, event.getHand(), event.getItemStack(), event.getHitVec().withPosition(yCheckingPos));
 								if (level.getBlockState(yCheckingPos).canBeReplaced(context)) {
 									BlockState stateForPlacement = state.getBlock().getStateForPlacement(context);
 									if (stateForPlacement != null && stateForPlacement.canSurvive(level, yCheckingPos))
@@ -287,7 +272,7 @@ public class CCEvents {
 						}
 						if (!isNextRail) {
 							if (nextPos != null) {
-								BlockPlaceContext context = new BlockPlaceContext(event.getPlayer(), event.getHand(), event.getItemStack(), event.getHitVec().withPosition(nextPos));
+								BlockPlaceContext context = new BlockPlaceContext(player, event.getHand(), event.getItemStack(), event.getHitVec().withPosition(nextPos));
 								((BlockItem) item).place(context);
 								event.setCancellationResult(InteractionResult.SUCCESS);
 								event.setCanceled(true);
@@ -360,10 +345,10 @@ public class CCEvents {
 		if (event.getSlot() == EquipmentSlot.HEAD) {
 			ItemStack itemstack = event.getFrom();
 			if (itemstack.getItem() == CCItems.SPINEL_CROWN.get()) {
-				event.getEntityLiving().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
+				event.getEntity().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
 			} else if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
-				LivingEntity livingentity = event.getEntityLiving();
-				for(MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
+				LivingEntity livingentity = event.getEntity();
+				for (MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
 					livingentity.removeEffectNoUpdate(mobeffectinstance.getEffect());
 					livingentity.forceAddEffect(new MobEffectInstance(mobeffectinstance.getEffect(), CCPotionUtil.getTetherPotionDuration(mobeffectinstance.getDuration()), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible(), mobeffectinstance.showIcon()), null);
 				}
@@ -372,9 +357,9 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionAddedEvent(PotionEvent.PotionAddedEvent event) {
-		LivingEntity entity = event.getEntityLiving();
-		if (event.getPotionEffect().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND.get())) {
+	public static void potionAddedEvent(MobEffectEvent.Added event) {
+		LivingEntity entity = event.getEntity();
+		if (event.getEffectInstance().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND.get())) {
 			CompoundTag data = entity.getPersistentData();
 			data.putString("RewindDimension", entity.getCommandSenderWorld().dimension().location().toString());
 			data.putDouble("RewindX", entity.getX());
@@ -384,11 +369,11 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionRemoveEvent(PotionEvent.PotionRemoveEvent event) {
-		MobEffectInstance effectInstance = event.getPotionEffect();
+	public static void potionRemoveEvent(MobEffectEvent.Remove event) {
+		MobEffectInstance effectInstance = event.getEffectInstance();
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect();
-			LivingEntity entity = event.getEntityLiving();
+			LivingEntity entity = event.getEntity();
 
 			if (effect == CCMobEffects.REWIND.get()) {
 				CompoundTag data = entity.getPersistentData();
@@ -414,11 +399,11 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionExpireEvent(PotionEvent.PotionExpiryEvent event) {
-		MobEffectInstance effectInstance = event.getPotionEffect();
+	public static void potionExpireEvent(MobEffectEvent.Expired event) {
+		MobEffectInstance effectInstance = event.getEffectInstance();
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect();
-			LivingEntity entity = event.getEntityLiving();
+			LivingEntity entity = event.getEntity();
 
 			if (effect == CCMobEffects.REWIND.get()) {
 				CompoundTag data = entity.getPersistentData();
@@ -445,7 +430,7 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onLivingDamage(LivingHurtEvent event) {
-		LivingEntity target = event.getEntityLiving();
+		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
 		Level level = target.getLevel();
 
@@ -482,7 +467,7 @@ public class CCEvents {
 			}
 
 			if (target instanceof Horse) {
-				Horse horse = (Horse) event.getEntityLiving();
+				Horse horse = (Horse) event.getEntity();
 				for (ItemStack stack : horse.getArmorSlots()) {
 					if (stack.getItem() instanceof NecromiumHorseArmorItem) {
 						for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
@@ -501,7 +486,7 @@ public class CCEvents {
 		ItemStack itemstack = target.getItemBySlot(EquipmentSlot.HEAD);
 		if (!level.isClientSide() && itemstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
-			level.levelEvent(2002, target.eyeBlockPosition(), CCPotionUtil.getTetherPotionColor(itemstack));
+			level.levelEvent(2002, new BlockPos(target.getEyePosition(1.0F)), CCPotionUtil.getTetherPotionColor(itemstack));
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}

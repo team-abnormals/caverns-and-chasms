@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
@@ -18,6 +19,16 @@ public class CCRecipes {
 	}
 
 	public static class CCRecipeTypes {
-		public static RecipeType<MimingRecipe> MIMING;
+		public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, CavernsAndChasms.MOD_ID);
+
+		public static final RegistryObject<RecipeType<MimingRecipe>> MIMING = RECIPE_TYPES.register("miming", () -> registerRecipeType("miming"));
+
+		public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(String name) {
+			return new RecipeType<>() {
+				public String toString() {
+					return CavernsAndChasms.MOD_ID + ":" + name;
+				}
+			};
+		}
 	}
 }

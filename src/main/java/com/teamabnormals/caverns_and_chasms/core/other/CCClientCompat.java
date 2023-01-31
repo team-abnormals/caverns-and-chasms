@@ -11,9 +11,8 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
@@ -143,28 +142,28 @@ public class CCClientCompat {
 	public static void onItemTooltip(ItemTooltipEvent event) {
 		ItemStack stack = event.getItemStack();
 		Item item = stack.getItem();
-		Player player = event.getPlayer();
+		Player player = event.getEntity();
 
 		if (player != null && player.getInventory().contains(stack)) {
 			Level level = player.level;
 
 			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("latitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
-				event.getToolTip().add(createTooltip("longitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
+				event.getToolTip().add(createTooltip("latitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
+				event.getToolTip().add(createTooltip("longitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
 			}
 
 			if (item == Items.CLOCK) {
 				if (CCConfig.CLIENT.clocksDisplayTime.get()) {
-					event.getToolTip().add(new TextComponent(calculateTime(level)).withStyle(ChatFormatting.GRAY));
+					event.getToolTip().add(Component.literal(calculateTime(level)).withStyle(ChatFormatting.GRAY));
 				}
 
 				if (CCConfig.CLIENT.clocksDisplayDay.get()) {
-					event.getToolTip().add(createTooltip("day").withStyle(ChatFormatting.GRAY).append(new TextComponent(" " + level.getDayTime() / 24000L).withStyle(ChatFormatting.GRAY)));
+					event.getToolTip().add(createTooltip("day").withStyle(ChatFormatting.GRAY).append(Component.literal(" " + level.getDayTime() / 24000L).withStyle(ChatFormatting.GRAY)));
 				}
 			}
 
 			if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("altitude").withStyle(ChatFormatting.GRAY).append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getY())).withStyle(ChatFormatting.GRAY)));
+				event.getToolTip().add(createTooltip("altitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getY())).withStyle(ChatFormatting.GRAY)));
 			}
 
 			if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
@@ -189,8 +188,8 @@ public class CCClientCompat {
 		return level.dimensionType().hasSkyLight() && !level.dimensionType().hasCeiling() ? "clear" : "null";
 	}
 
-	private static TranslatableComponent createTooltip(String identifier) {
-		return new TranslatableComponent("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
+	private static MutableComponent createTooltip(String identifier) {
+		return Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
 	}
 
 	private static String calculateTime(Level level) {
@@ -212,36 +211,35 @@ public class CCClientCompat {
 
 	@SubscribeEvent
 	public static void onItemUse(RightClickItem event) {
-		if (event.getEntityLiving() instanceof Player player) {
-			Item item = event.getItemStack().getItem();
-			Level level = player.level;
-			boolean displayTime = CCConfig.CLIENT.clocksDisplayTime.get();
-			boolean displayDay = CCConfig.CLIENT.clocksDisplayDay.get();
-			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-				player.displayClientMessage(createTooltip("latitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f, ", player.getX())).append(createTooltip("longitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getZ()))))), true);
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-			} else if (item == Items.CLOCK && (displayDay || displayTime)) {
-				TextComponent time = new TextComponent(calculateTime(level));
-				MutableComponent day = createTooltip("day").append(new TextComponent(" " + (level.getDayTime() + 6000) / 24000L));
-				TextComponent message = new TextComponent("");
-				if (CCConfig.CLIENT.clocksDisplayTime.get()) {
-					message.append(time);
-					if (displayDay) message.append(new TextComponent(", "));
-				}
-				if (displayDay) message.append(day);
-				player.displayClientMessage(message, true);
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-			} else if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
-				player.displayClientMessage(createTooltip("altitude").append(new TextComponent(String.format(Locale.ROOT, ": %.3f", player.getY()))), true);
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-			} else if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
-				player.displayClientMessage(createTooltip("weather").append(": ").append(createTooltip(getWeather(player, level))), true);
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+		Player player = event.getEntity();
+		Item item = event.getItemStack().getItem();
+		Level level = player.level;
+		boolean displayTime = CCConfig.CLIENT.clocksDisplayTime.get();
+		boolean displayDay = CCConfig.CLIENT.clocksDisplayDay.get();
+		if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
+			player.displayClientMessage(createTooltip("latitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f, ", player.getX())).append(createTooltip("longitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getZ()))))), true);
+			event.setCanceled(true);
+			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+		} else if (item == Items.CLOCK && (displayDay || displayTime)) {
+			MutableComponent time = Component.literal(calculateTime(level));
+			MutableComponent day = createTooltip("day").append(Component.literal(" " + (level.getDayTime() + 6000) / 24000L));
+			MutableComponent message = Component.literal("");
+			if (CCConfig.CLIENT.clocksDisplayTime.get()) {
+				message.append(time);
+				if (displayDay) message.append(Component.literal(", "));
 			}
+			if (displayDay) message.append(day);
+			player.displayClientMessage(message, true);
+			event.setCanceled(true);
+			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+		} else if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
+			player.displayClientMessage(createTooltip("altitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getY()))), true);
+			event.setCanceled(true);
+			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+		} else if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
+			player.displayClientMessage(createTooltip("weather").append(": ").append(createTooltip(getWeather(player, level))), true);
+			event.setCanceled(true);
+			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 		}
 	}
 }

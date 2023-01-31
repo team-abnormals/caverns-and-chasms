@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/azalea_door_bottom",
-    "top": "caverns_and_chasms:block/azalea_door_top"
-  }
-}

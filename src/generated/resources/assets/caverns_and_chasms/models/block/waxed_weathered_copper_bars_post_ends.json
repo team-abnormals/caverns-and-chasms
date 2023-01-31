@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/iron_bars_post_ends",
   "textures": {
-    "particle": "caverns_and_chasms:block/weathered_copper_bars",
-    "edge": "caverns_and_chasms:block/weathered_copper_bars_edge"
+    "edge": "caverns_and_chasms:block/weathered_copper_bars_edge",
+    "particle": "caverns_and_chasms:block/weathered_copper_bars"
   }
 }

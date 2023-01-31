@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.core.other.tags;
 
 import com.teamabnormals.blueprint.core.util.TagUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 

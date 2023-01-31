@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -16,8 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-
-import java.util.Random;
 
 public class Cavefish extends AbstractSchoolingFish {
 	public Cavefish(EntityType<? extends Cavefish> entity, Level world) {
@@ -63,7 +62,7 @@ public class Cavefish extends AbstractSchoolingFish {
 		return SoundEvents.SALMON_FLOP;
 	}
 
-	public static boolean canCavefishSpawn(EntityType<? extends AbstractFish> type, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, Random randomIn) {
+	public static boolean canCavefishSpawn(EntityType<? extends AbstractFish> type, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource randomIn) {
 		return pos.getY() < 42 && worldIn.getBlockState(pos).is(Blocks.WATER) && worldIn.getBlockState(pos.above()).is(Blocks.WATER);
 	}
 }

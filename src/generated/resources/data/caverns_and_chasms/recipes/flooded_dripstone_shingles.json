@@ -30,7 +30,7 @@
     }
   ],
   "result": {
-    "item": "caverns_and_chasms:flooded_dripstone_shingles",
-    "count": 8
+    "count": 8,
+    "item": "caverns_and_chasms:flooded_dripstone_shingles"
   }
 }

@@ -6,33 +6,21 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Registry;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class CCRecipeProvider extends RecipeProvider {
@@ -133,81 +121,44 @@ public class CCRecipeProvider extends RecipeProvider {
 		planksFromLogs(consumer, CCBlocks.AZALEA_PLANKS.get(), CCItemTags.AZALEA_LOGS);
 		woodFromLogs(consumer, CCBlocks.AZALEA_WOOD.get(), CCBlocks.AZALEA_LOG.get());
 		woodFromLogs(consumer, CCBlocks.STRIPPED_AZALEA_WOOD.get(), CCBlocks.STRIPPED_AZALEA_LOG.get());
-		woodenBoat(consumer, CCItems.AZALEA_BOAT.get(), CCBlocks.AZALEA_PLANKS.get());
+		woodenBoat(consumer, CCItems.AZALEA_BOAT.getFirst().get(), CCBlocks.AZALEA_PLANKS.get());
+		chestBoat(consumer, CCItems.AZALEA_BOAT.getSecond().get(), CCItems.AZALEA_BOAT.getFirst().get());
 	}
 
 	private static void waxRecipe(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike result) {
-		ShapelessRecipeBuilder.shapeless(result).requires(input).requires(Items.HONEYCOMB).group(getItemName(result)).unlockedBy(getHasName(input), has(input)).save(consumer, getConversionRecipeName(result, Items.HONEYCOMB));
+		ShapelessRecipeBuilder.shapeless(result).requires(input).requires(Items.HONEYCOMB).group(getItemName(result)).unlockedBy(getHasName(input), has(input)).save(consumer, getModConversionRecipeName(result, Items.HONEYCOMB));
 	}
 
-	private static ResourceLocation getConversionRecipeName(ItemLike result, ItemLike input) {
+	private static ResourceLocation getModConversionRecipeName(ItemLike result, ItemLike input) {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(result) + "_from_" + getItemName(input));
 	}
 
-	private static void planksFromLogs(Consumer<FinishedRecipe> p_126018_, ItemLike p_126019_, TagKey<Item> p_126020_) {
-		ShapelessRecipeBuilder.shapeless(p_126019_, 4).requires(p_126020_).group("planks").unlockedBy("has_logs", has(p_126020_)).save(p_126018_);
+	private static void chestBoat(Consumer<FinishedRecipe> p_236372_, ItemLike p_236373_, ItemLike p_236374_) {
+		ShapelessRecipeBuilder.shapeless(p_236373_).requires(Blocks.CHEST).requires(p_236374_).group("chest_boat").unlockedBy("has_boat", has(ItemTags.BOATS)).save(p_236372_);
 	}
 
-	private static void woodFromLogs(Consumer<FinishedRecipe> p_126003_, ItemLike p_126004_, ItemLike p_126005_) {
-		ShapedRecipeBuilder.shaped(p_126004_, 3).define('#', p_126005_).pattern("##").pattern("##").group("bark").unlockedBy("has_log", has(p_126005_)).save(p_126003_);
-	}
-
-	private static void woodenBoat(Consumer<FinishedRecipe> p_126022_, ItemLike p_126023_, ItemLike p_126024_) {
-		ShapedRecipeBuilder.shaped(p_126023_).define('#', p_126024_).pattern("# #").pattern("###").group("boat").unlockedBy("in_water", insideOf(Blocks.WATER)).save(p_126022_);
-	}
-
-	private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, ItemLike item, ItemLike block) {
+	public static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, ItemLike item, ItemLike block) {
 		nineBlockStorageRecipes(consumer, item, block, getItemName(block), null, getItemName(item), null);
 	}
 
-	private static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, ItemLike item, ItemLike block, String shapedName, @Nullable String shapedGroup, String shapelessName, @Nullable String shapelessGroup) {
+	public static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, ItemLike item, ItemLike block, String shapedName, @Nullable String shapedGroup, String shapelessName, @Nullable String shapelessGroup) {
 		ShapelessRecipeBuilder.shapeless(item, 9).requires(block).group(shapelessGroup).unlockedBy(getHasName(block), has(block)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, shapelessName));
 		ShapedRecipeBuilder.shaped(block).define('#', item).pattern("###").pattern("###").pattern("###").group(shapedGroup).unlockedBy(getHasName(item), has(item)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, shapedName));
 	}
 
-	private static void nineBlockStorageRecipesWithCustomPacking(Consumer<FinishedRecipe> p_176563_, ItemLike p_176564_, ItemLike p_176565_, String p_176566_, String p_176567_) {
+	public static void nineBlockStorageRecipesWithCustomPacking(Consumer<FinishedRecipe> p_176563_, ItemLike p_176564_, ItemLike p_176565_, String p_176566_, String p_176567_) {
 		nineBlockStorageRecipes(p_176563_, p_176564_, p_176565_, p_176566_, p_176567_, getSimpleRecipeName(p_176564_), null);
 	}
 
-	private static void nineBlockStorageRecipesRecipesWithCustomUnpacking(Consumer<FinishedRecipe> p_176617_, ItemLike p_176618_, ItemLike p_176619_, String p_176620_, String p_176621_) {
+	public static void nineBlockStorageRecipesRecipesWithCustomUnpacking(Consumer<FinishedRecipe> p_176617_, ItemLike p_176618_, ItemLike p_176619_, String p_176620_, String p_176621_) {
 		nineBlockStorageRecipes(p_176617_, p_176618_, p_176619_, getSimpleRecipeName(p_176619_), null, p_176620_, p_176621_);
 	}
 
-	private static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176736_, ItemLike p_176737_, ItemLike p_176738_) {
+	public static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176736_, ItemLike p_176737_, ItemLike p_176738_) {
 		stonecutterResultFromBase(p_176736_, p_176737_, p_176738_, 1);
 	}
 
-	private static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176547_, ItemLike p_176548_, ItemLike p_176549_, int p_176550_) {
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(p_176549_), p_176548_, p_176550_).unlockedBy(getHasName(p_176549_), has(p_176549_)).save(p_176547_, getConversionRecipeName(p_176548_, p_176549_) + "_stonecutting");
-	}
-
-	private static void oreSmelting(Consumer<FinishedRecipe> consumer, List<ItemLike> ingredients, ItemLike result, float xp, int cookTime, String group) {
-		oreCooking(consumer, RecipeSerializer.SMELTING_RECIPE, ingredients, result, xp, cookTime, group, "_from_smelting");
-	}
-
-	private static void oreBlasting(Consumer<FinishedRecipe> consumer, List<ItemLike> ingredients, ItemLike result, float xp, int cookTime, String group) {
-		oreCooking(consumer, RecipeSerializer.BLASTING_RECIPE, ingredients, result, xp, cookTime, group, "_from_blasting");
-	}
-
-	private static void oreCooking(Consumer<FinishedRecipe> consumer, SimpleCookingSerializer<?> cookingType, List<ItemLike> ingredients, ItemLike result, float xp, int cookTime, String group, String recipeSuffix) {
-		for (ItemLike itemlike : ingredients) {
-			SimpleCookingRecipeBuilder.cooking(Ingredient.of(itemlike), result, xp, cookTime, cookingType).group(group).unlockedBy(getHasName(itemlike), has(itemlike)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(result) + recipeSuffix + "_" + getItemName(itemlike)));
-		}
-	}
-
-	private static InventoryChangeTrigger.TriggerInstance has(TagKey<Item> p_206407_) {
-		return inventoryTrigger(ItemPredicate.Builder.item().of(p_206407_).build());
-	}
-
-	private static String getSimpleRecipeName(ItemLike p_176645_) {
-		return getItemName(p_176645_);
-	}
-
-	private static String getHasName(ItemLike item) {
-		return "has_" + getItemName(item);
-	}
-
-	private static String getItemName(ItemLike item) {
-		return Registry.ITEM.getKey(item.asItem()).getPath();
+	public static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176547_, ItemLike p_176548_, ItemLike p_176549_, int p_176550_) {
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(p_176549_), p_176548_, p_176550_).unlockedBy(getHasName(p_176549_), has(p_176549_)).save(p_176547_, getModConversionRecipeName(p_176548_, p_176549_) + "_stonecutting");
 	}
 }

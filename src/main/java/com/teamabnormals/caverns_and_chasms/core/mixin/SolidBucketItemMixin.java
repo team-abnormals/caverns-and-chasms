@@ -18,7 +18,7 @@ public abstract class SolidBucketItemMixin extends BlockItem {
 
 	@Override
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-		if (getBlock() == Blocks.POWDER_SNOW && this.allowdedIn(tab)) {
+		if (getBlock() == Blocks.POWDER_SNOW && this.allowedIn(tab)) {
 			items.add(new ItemStack(this));
 		}
 	}

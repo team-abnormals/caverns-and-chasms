@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "caverns_and_chasms:block/fragile_deepslate",
-    "end": "caverns_and_chasms:block/fragile_deepslate_top"
+    "end": "caverns_and_chasms:block/fragile_deepslate_top",
+    "side": "caverns_and_chasms:block/fragile_deepslate"
   }
 }

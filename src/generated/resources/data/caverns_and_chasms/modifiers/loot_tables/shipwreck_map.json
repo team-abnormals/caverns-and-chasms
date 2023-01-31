@@ -1,19 +1,19 @@
 {
-  "selector": "minecraft:chests/shipwreck_map",
-  "priority": "normal",
   "modifiers": [
     {
       "type": "entries",
       "config": {
-        "replace": false,
-        "index": 1,
         "entries": [
           {
             "type": "minecraft:item",
             "name": "caverns_and_chasms:depth_gauge"
           }
-        ]
+        ],
+        "index": 1,
+        "replace": false
       }
     }
-  ]
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/shipwreck_map"
 }

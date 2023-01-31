@@ -10,7 +10,7 @@ import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -42,7 +42,7 @@ public class CCAdvancementProvider extends AdvancementProvider {
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/smelt_copper");
 
 		createAdvancement("use_tuning_fork", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, false)
-				.addCriterion("use_tuning_fork", ItemUsedOnBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(Blocks.NOTE_BLOCK).build()), ItemPredicate.Builder.item().of(CCItems.TUNING_FORK.get())))
+				.addCriterion("use_tuning_fork", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(Blocks.NOTE_BLOCK).build()), ItemPredicate.Builder.item().of(CCItems.TUNING_FORK.get())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/use_tuning_fork");
 
 		createAdvancement("tune_a_fish", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/use_tuning_fork"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, true)
@@ -56,8 +56,8 @@ public class CCAdvancementProvider extends AdvancementProvider {
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
 		return Advancement.Builder.advancement().parent(Advancement.Builder.advancement().build(parent)).display(icon,
-				new TranslatableComponent("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".title"),
-				new TranslatableComponent("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".description"),
+				Component.translatable("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".title"),
+				Component.translatable("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".description"),
 				null, frame, showToast, announceToChat, hidden);
 	}
 }

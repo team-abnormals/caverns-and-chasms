@@ -1,11 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
-import javax.annotation.Nullable;
-
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -23,6 +20,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
+
+import javax.annotation.Nullable;
 
 public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	private int life;

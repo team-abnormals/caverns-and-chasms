@@ -2,21 +2,14 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.DamageProvider;
 import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.SparkProvider;
-import com.teamabnormals.caverns_and_chasms.client.particle.ChipParticle;
-import com.teamabnormals.caverns_and_chasms.client.particle.FloodlightDustParticle;
-import com.teamabnormals.caverns_and_chasms.client.particle.LavaLampSmokeParticle;
-import com.teamabnormals.caverns_and_chasms.client.particle.MimeEnergyParticle;
-import com.teamabnormals.caverns_and_chasms.client.particle.StoneDustParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.FlameParticle;
-import net.minecraft.client.particle.LavaParticle;
-import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.PlayerCloudParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -24,7 +17,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CCParticleTypes {
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MOD_ID);
 
@@ -46,19 +39,18 @@ public class CCParticleTypes {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void registerParticleTypes(ParticleFactoryRegisterEvent event) {
-		ParticleEngine manager = Minecraft.getInstance().particleEngine;
-		manager.register(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
-		manager.register(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
-		manager.register(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
-		manager.register(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
-		manager.register(AFFLICTION_DAMAGE.get(), DamageProvider::new);
-		manager.register(AFFLICTION_SPARK.get(), SparkProvider::new);
-		manager.register(STONE_DUST.get(), StoneDustParticle.Provider::new);
-		manager.register(DEEPSLATE_DUST.get(), StoneDustParticle.Provider::new);
-		manager.register(STONE_CHIP.get(), ChipParticle.Provider::new);
-		manager.register(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
-		manager.register(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
-		manager.register(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+	public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
+		event.register(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
+		event.register(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
+		event.register(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
+		event.register(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
+		event.register(AFFLICTION_DAMAGE.get(), DamageProvider::new);
+		event.register(AFFLICTION_SPARK.get(), SparkProvider::new);
+		event.register(STONE_DUST.get(), StoneDustParticle.Provider::new);
+		event.register(DEEPSLATE_DUST.get(), StoneDustParticle.Provider::new);
+		event.register(STONE_CHIP.get(), ChipParticle.Provider::new);
+		event.register(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
+		event.register(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
+		event.register(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
 	}
 }

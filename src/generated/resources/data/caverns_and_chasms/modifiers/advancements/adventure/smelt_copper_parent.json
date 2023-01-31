@@ -1,16 +1,16 @@
 {
+  "modifiers": [
+    {
+      "type": "parent",
+      "config": "caverns_and_chasms:adventure/smelt_copper"
+    }
+  ],
+  "priority": "normal",
   "selector": {
     "type": "names",
     "config": [
       "minecraft:adventure/spyglass_at_parrot",
       "minecraft:adventure/lightning_rod_with_villager_no_fire"
     ]
-  },
-  "priority": "normal",
-  "modifiers": [
-    {
-      "type": "parent",
-      "config": "caverns_and_chasms:adventure/smelt_copper"
-    }
-  ]
+  }
 }

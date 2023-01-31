@@ -5,12 +5,11 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
 import java.util.List;
-import java.util.Random;
 
 public interface AfflictingItem {
 
@@ -24,7 +23,7 @@ public interface AfflictingItem {
 			if (target instanceof WitherBoss)
 				damage *= 3.0F;
 			target.hurt(CCDamageSources.AFFLICTION, damage);
-			Random rand = target.getRandom();
+			RandomSource rand = target.getRandom();
 			int count = 2 + rand.nextInt(2) + rand.nextInt(2);
 			for (int i = 0; i < count; ++i) {
 				double d0 = rand.nextGaussian() * 0.02D;
@@ -37,6 +36,6 @@ public interface AfflictingItem {
 	}
 
 	default void addAfflictionTooltip(List<Component> tooltip) {
-		tooltip.add(new TranslatableComponent("tooltip.caverns_and_chasms.afflicting").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.caverns_and_chasms.afflicting").withStyle(ChatFormatting.GRAY));
 	}
 }

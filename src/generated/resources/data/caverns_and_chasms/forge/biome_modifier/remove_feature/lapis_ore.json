@@ -1,0 +1,9 @@
+{
+  "type": "forge:remove_features",
+  "biomes": "#caverns_and_chasms:has_feature/spinel_ore",
+  "features": [
+    "minecraft:ore_lapis",
+    "minecraft:ore_lapis_buried"
+  ],
+  "steps": "underground_ores"
+}

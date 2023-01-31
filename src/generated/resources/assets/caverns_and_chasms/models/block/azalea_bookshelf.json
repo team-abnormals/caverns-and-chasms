@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "caverns_and_chasms:block/azalea_bookshelf",
-    "end": "caverns_and_chasms:block/azalea_planks"
+    "end": "caverns_and_chasms:block/azalea_planks",
+    "side": "caverns_and_chasms:block/azalea_bookshelf"
   }
 }

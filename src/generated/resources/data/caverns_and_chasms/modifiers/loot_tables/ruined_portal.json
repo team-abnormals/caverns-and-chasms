@@ -1,45 +1,45 @@
 {
-  "selector": "minecraft:chests/ruined_portal",
-  "priority": "normal",
   "modifiers": [
     {
       "type": "entries",
       "config": {
-        "replace": false,
-        "index": 0,
         "entries": [
           {
             "type": "minecraft:item",
-            "weight": 10,
-            "name": "caverns_and_chasms:spinel_crown"
+            "name": "caverns_and_chasms:spinel_crown",
+            "weight": 10
           },
           {
             "type": "minecraft:item",
-            "weight": 5,
             "functions": [
               {
-                "function": "minecraft:set_count",
+                "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "min": 8.0,
-                  "max": 16.0
+                  "max": 16.0,
+                  "min": 8.0
                 },
-                "add": false
+                "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:golden_bars"
+            "name": "caverns_and_chasms:golden_bars",
+            "weight": 5
           },
           {
             "type": "minecraft:item",
-            "weight": 5,
-            "name": "caverns_and_chasms:lava_lamp"
+            "name": "caverns_and_chasms:lava_lamp",
+            "weight": 5
           },
           {
             "type": "minecraft:item",
             "name": "caverns_and_chasms:golden_bucket"
           }
-        ]
+        ],
+        "index": 0,
+        "replace": false
       }
     }
-  ]
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/ruined_portal"
 }

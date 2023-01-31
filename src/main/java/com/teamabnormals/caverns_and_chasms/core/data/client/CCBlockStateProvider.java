@@ -20,15 +20,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
@@ -104,7 +100,7 @@ public class CCBlockStateProvider extends BlockStateProvider {
 	}
 
 	public void cubeBottomTop(Block block) {
-		ResourceLocation name = block.getRegistryName();
+		ResourceLocation name = ForgeRegistries.BLOCKS.getKey(block);
 		this.cubeBottomTop(block, prefix("block/", suffix(name, "_side")), prefix("block/", suffix(name, "_bottom")), prefix("block/", suffix(name, "_top")));
 	}
 
@@ -125,7 +121,7 @@ public class CCBlockStateProvider extends BlockStateProvider {
 				.nextModel().modelFile(model).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 180).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90)
 				.nextModel().modelFile(mirroredModel).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 180).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90)
 				.build()
-				);
+		);
 
 		simpleBlockItem(block, model);
 	}
@@ -142,7 +138,7 @@ public class CCBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void registerGeneratedItemModel(ItemLike item, String type) {
-		ResourceLocation itemName = item.asItem().getRegistryName();
+		ResourceLocation itemName = ForgeRegistries.ITEMS.getKey(item.asItem());
 		itemModels().withExistingParent(itemName.getPath(), "item/generated").texture("layer0", new ResourceLocation(itemName.getNamespace(), type + "/" + itemName.getPath().replace("waxed_", "")));
 	}
 
@@ -189,12 +185,12 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 	public void buttonBlock(Block block, Function<BlockState, ModelFile> modelFunc) {
 		this.getVariantBuilder(block)
-		.forAllStates(state -> ConfiguredModel.builder()
-				.modelFile(modelFunc.apply(state))
-				.uvLock(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL)
-				.rotationX(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL ? 90 : state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)
-				.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + (state.getValue(BlockStateProperties.ATTACH_FACE) != AttachFace.CEILING ? 180 : 0)) % 360)
-				.build()
+				.forAllStates(state -> ConfiguredModel.builder()
+						.modelFile(modelFunc.apply(state))
+						.uvLock(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL)
+						.rotationX(state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.WALL ? 90 : state.getValue(BlockStateProperties.ATTACH_FACE) == AttachFace.CEILING ? 180 : 0)
+						.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + (state.getValue(BlockStateProperties.ATTACH_FACE) != AttachFace.CEILING ? 180 : 0)) % 360)
+						.build()
 				);
 	}
 
@@ -244,7 +240,7 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 	private void ironBarsBlock(Block block) {
 		String name = name(block);
-		ResourceLocation barsTexture = prefix("block/", new ResourceLocation(block.getRegistryName().getNamespace(), name(block).replace("waxed_", "")));
+		ResourceLocation barsTexture = prefix("block/", new ResourceLocation(ForgeRegistries.BLOCKS.getKey(block).getNamespace(), name(block).replace("waxed_", "")));
 		ResourceLocation edgeTexture = suffix(barsTexture, "_edge");
 
 		ModelFile post = barsBlock(name, "post", barsTexture).texture("bars", edgeTexture);
@@ -267,11 +263,11 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 		for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
 			builder.part().modelFile(direction == Direction.SOUTH || direction == Direction.WEST ? capAlt : cap).rotationY(direction.getAxis() == Axis.X ? 90 : 0).addModel()
-			.condition(BlockStateProperties.NORTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.NORTH)
-			.condition(BlockStateProperties.WEST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.WEST)
-			.condition(BlockStateProperties.SOUTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.SOUTH)
-			.condition(BlockStateProperties.EAST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.EAST)
-			.end();
+					.condition(BlockStateProperties.NORTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.NORTH)
+					.condition(BlockStateProperties.WEST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.WEST)
+					.condition(BlockStateProperties.SOUTH, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.SOUTH)
+					.condition(BlockStateProperties.EAST, PipeBlock.PROPERTY_BY_DIRECTION.get(direction) == BlockStateProperties.EAST)
+					.end();
 
 		}
 
@@ -301,15 +297,15 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		ModelFile chainSmall = new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/chain_small"));
 		ModelFile chainSmallTop = new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/chain_small_top"));
 		this.getMultipartBuilder(post)
-		.part().modelFile(model).addModel().condition(RotatedPillarBlock.AXIS, Axis.Y).end()
-		.part().modelFile(model).rotationX(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.Z).end()
-		.part().modelFile(model).rotationX(90).rotationY(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.X).end()
-		.part().modelFile(chainSmall).addModel().condition(CHAINED[0], true).end()
-		.part().modelFile(chainSmallTop).addModel().condition(CHAINED[1], true).end()
-		.part().modelFile(chainSmallTop).rotationX(90).addModel().condition(CHAINED[2], true).end()
-		.part().modelFile(chainSmall).rotationX(90).addModel().condition(CHAINED[3], true).end()
-		.part().modelFile(chainSmall).rotationX(90).rotationY(90).addModel().condition(CHAINED[4], true).end()
-		.part().modelFile(chainSmallTop).rotationX(90).rotationY(90).addModel().condition(CHAINED[5], true).end();
+				.part().modelFile(model).addModel().condition(RotatedPillarBlock.AXIS, Axis.Y).end()
+				.part().modelFile(model).rotationX(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.Z).end()
+				.part().modelFile(model).rotationX(90).rotationY(90).addModel().condition(RotatedPillarBlock.AXIS, Axis.X).end()
+				.part().modelFile(chainSmall).addModel().condition(CHAINED[0], true).end()
+				.part().modelFile(chainSmallTop).addModel().condition(CHAINED[1], true).end()
+				.part().modelFile(chainSmallTop).rotationX(90).addModel().condition(CHAINED[2], true).end()
+				.part().modelFile(chainSmall).rotationX(90).addModel().condition(CHAINED[3], true).end()
+				.part().modelFile(chainSmall).rotationX(90).rotationY(90).addModel().condition(CHAINED[4], true).end()
+				.part().modelFile(chainSmallTop).rotationX(90).rotationY(90).addModel().condition(CHAINED[5], true).end();
 		this.registerItemModel(post);
 	}
 
@@ -363,17 +359,17 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 	public void verticalSlabBlock(Block planks, VerticalSlabBlock slab) {
 		this.verticalSlab(name(slab), blockTexture(planks));
-		UncheckedModelFile model = new UncheckedModelFile(prefix("block/", slab.getRegistryName()));
+		UncheckedModelFile model = new UncheckedModelFile(prefix("block/", ForgeRegistries.BLOCKS.getKey(slab)));
 		this.getVariantBuilder(slab)
-		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.NORTH).addModels(new ConfiguredModel(model, 0, 0, true))
-		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.SOUTH).addModels(new ConfiguredModel(model, 0, 180, true))
-		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.EAST).addModels(new ConfiguredModel(model, 0, 90, true))
-		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.WEST).addModels(new ConfiguredModel(model, 0, 270, true))
-		.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(models().cubeAll(name(planks), blockTexture(planks))));
+				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.NORTH).addModels(new ConfiguredModel(model, 0, 0, true))
+				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.SOUTH).addModels(new ConfiguredModel(model, 0, 180, true))
+				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.EAST).addModels(new ConfiguredModel(model, 0, 90, true))
+				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.WEST).addModels(new ConfiguredModel(model, 0, 270, true))
+				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(models().cubeAll(name(planks), blockTexture(planks))));
 	}
 
 	private String name(Block block) {
-		return block.getRegistryName().getPath();
+		return ForgeRegistries.BLOCKS.getKey(block).getPath();
 	}
 
 	private ResourceLocation prefix(String prefix, ResourceLocation rl) {

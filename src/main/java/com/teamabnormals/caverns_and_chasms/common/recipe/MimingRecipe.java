@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 
 public class MimingRecipe extends SingleItemRecipe {
 	public MimingRecipe(ResourceLocation p_i50021_1_, String p_i50021_2_, Ingredient p_i50021_3_, ItemStack p_i50021_4_) {
-		super(CCRecipeTypes.MIMING, CCRecipeSerializers.MIMING.get(), p_i50021_1_, p_i50021_2_, p_i50021_3_, p_i50021_4_);
+		super(CCRecipeTypes.MIMING.get(), CCRecipeSerializers.MIMING.get(), p_i50021_1_, p_i50021_2_, p_i50021_3_, p_i50021_4_);
 	}
 
 	public boolean matches(Container inv, Level worldIn) {

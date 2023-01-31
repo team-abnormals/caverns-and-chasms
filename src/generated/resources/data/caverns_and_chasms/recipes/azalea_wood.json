@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "bark",
-  "pattern": [
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "caverns_and_chasms:azalea_log"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "caverns_and_chasms:azalea_wood",
-    "count": 3
+    "count": 3,
+    "item": "caverns_and_chasms:azalea_wood"
   }
 }

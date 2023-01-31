@@ -12,7 +12,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.ThrownBejeweledPearl;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -29,7 +28,7 @@ import net.minecraftforge.registries.RegistryObject;
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CCEntityTypes {
 	public static final EntitySubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getEntitySubHelper();
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, CavernsAndChasms.MOD_ID);
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<EntityType<Cavefish>> CAVEFISH = HELPER.createLivingEntity("cavefish", Cavefish::new, MobCategory.WATER_CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);

@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 2,
   "ingredient": {
     "item": "minecraft:dripstone_block"
   },
-  "result": "caverns_and_chasms:dripstone_shingle_slab",
-  "count": 2
+  "result": "caverns_and_chasms:dripstone_shingle_slab"
 }

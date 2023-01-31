@@ -9,7 +9,7 @@ import net.minecraft.client.resources.TextureAtlasHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -41,7 +41,7 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 	 * @param bus The bus to register to
 	 */
 	public static void init(IEventBus bus) {
-		bus.addListener(EventPriority.NORMAL, false, ColorHandlerEvent.Block.class, event -> {
+		bus.addListener(EventPriority.NORMAL, false, RegisterColorHandlersEvent.Block.class, event -> {
 			Minecraft minecraft = Minecraft.getInstance();
 			ResourceManager resourceManager = minecraft.getResourceManager();
 			if (resourceManager instanceof ReloadableResourceManager) {
@@ -54,14 +54,14 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 	 * @return The sprite for the deeper
 	 */
 	public static TextureAtlasSprite getSprite(DeeperModel.DeeperSprite sprite) {
-		switch(sprite) {
-		case BASE:
-		default:
-			return uploader.getSprite(DEEPER_SPRITE);
-		case PRIMED:
-			return uploader.getSprite(PRIMED_SPRITE);
-		case EMISSIVE:
-			return uploader.getSprite(EMISSIVE_SPRITE);
+		switch (sprite) {
+			case BASE:
+			default:
+				return uploader.getSprite(DEEPER_SPRITE);
+			case PRIMED:
+				return uploader.getSprite(PRIMED_SPRITE);
+			case EMISSIVE:
+				return uploader.getSprite(EMISSIVE_SPRITE);
 		}
 	}
 }

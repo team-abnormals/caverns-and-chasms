@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "caverns_and_chasms:spinel"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
   "pattern": [
     " S ",
     "STS",
     " S "
   ],
-  "key": {
-    "T": {
-      "item": "minecraft:tnt"
-    },
-    "S": {
-      "item": "caverns_and_chasms:spinel"
-    }
-  },
   "result": {
-    "item": "caverns_and_chasms:tmt",
-    "count": 4
+    "count": 4,
+    "item": "caverns_and_chasms:tmt"
   }
 }

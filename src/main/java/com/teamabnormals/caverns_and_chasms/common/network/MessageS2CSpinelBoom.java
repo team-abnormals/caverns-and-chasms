@@ -1,20 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.network;
 
-import com.google.common.collect.Lists;
-import com.teamabnormals.blueprint.client.ClientInfo;
-import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.List;
-import java.util.function.Supplier;
-
 public class MessageS2CSpinelBoom {
 	/*
 	public float posX;

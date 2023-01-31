@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "caverns_and_chasms:block/polished_calcite_slab_top"
-    },
     "type=bottom": {
       "model": "caverns_and_chasms:block/polished_calcite_slab"
     },
     "type=double": {
       "model": "caverns_and_chasms:block/polished_calcite"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/polished_calcite_slab_top"
     }
   }
 }

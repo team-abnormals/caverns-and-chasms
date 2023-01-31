@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "side": "caverns_and_chasms:block/azalea_log",
-    "end": "caverns_and_chasms:block/azalea_log_top"
+    "end": "caverns_and_chasms:block/azalea_log_top",
+    "side": "caverns_and_chasms:block/azalea_log"
   }
 }

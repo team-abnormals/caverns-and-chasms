@@ -4,11 +4,7 @@ import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFi
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.HorseArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 
 public class NecromiumHorseArmorItem extends HorseArmorItem {
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.DIAMOND_HORSE_ARMOR);

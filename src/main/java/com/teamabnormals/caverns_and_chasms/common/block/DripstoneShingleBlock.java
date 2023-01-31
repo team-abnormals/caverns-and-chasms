@@ -7,14 +7,13 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Random;
 
 public class DripstoneShingleBlock extends Block {
 
@@ -23,7 +22,7 @@ public class DripstoneShingleBlock extends Block {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+	public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
 		BlockPos belowPos = pos.below();
 		BlockState belowState = level.getBlockState(belowPos);
 		ParticleOptions particle = ParticleTypes.DRIPPING_DRIPSTONE_WATER;

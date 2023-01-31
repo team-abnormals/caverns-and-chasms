@@ -1,13 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import java.util.Random;
-
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -29,7 +27,7 @@ public interface FragileBlock {
 		}
 	}
 
-	default void crack(Level level, BlockState state, BlockPos pos, Random random, boolean isDeepslate) {
+	default void crack(Level level, BlockState state, BlockPos pos, RandomSource random, boolean isDeepslate) {
 		double d0 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
 		double d1 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
 		double d2 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
@@ -39,7 +37,7 @@ public interface FragileBlock {
 		NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + (isDeepslate ? ":deepslate_dust" : ":stone_dust"), d0, d1, d2, d3, d4, d5);
 
 		int i = random.nextInt(2) + 1;
-		for(int j = 0; j < i; ++j) {
+		for (int j = 0; j < i; ++j) {
 			double d6 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
 			double d7 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
 			double d8 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;

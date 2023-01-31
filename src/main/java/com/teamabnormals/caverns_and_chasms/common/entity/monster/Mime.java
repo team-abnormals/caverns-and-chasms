@@ -1,10 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.mojang.math.Vector3f;
@@ -12,30 +7,19 @@ import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -47,9 +31,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 public class Mime extends Monster {
 	private static final UUID SPEED_MODIFIER_SNEAKING_UUID = UUID.fromString("D0DEF8EE-3E50-4FFC-A20D-3B9B27F4A3F3");
-	private static final AttributeModifier SPEED_MODIFIER_SNEAKING = new AttributeModifier(SPEED_MODIFIER_SNEAKING_UUID, "Sneaking speed boost", (double)-0.3F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+	private static final AttributeModifier SPEED_MODIFIER_SNEAKING = new AttributeModifier(SPEED_MODIFIER_SNEAKING_UUID, "Sneaking speed boost", (double) -0.3F, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final EntityDimensions STANDING_SIZE = EntityDimensions.scalable(0.6F, 2.1F);
 	private static final Map<Pose, EntityDimensions> SIZE_BY_POSE = ImmutableMap.<Pose, EntityDimensions>builder()
 			.put(Pose.STANDING, STANDING_SIZE)
@@ -91,7 +79,7 @@ public class Mime extends Monster {
 				.add(Attributes.ARMOR, 2.0D);
 	}
 
-	public static boolean canMimeSpawn(EntityType<? extends Monster> type, ServerLevelAccessor worldIn, MobSpawnType reason, BlockPos pos, Random randomIn) {
+	public static boolean canMimeSpawn(EntityType<? extends Monster> type, ServerLevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource randomIn) {
 		return pos.getY() <= 42 && checkMonsterSpawnRules(type, worldIn, reason, pos, randomIn);
 	}
 
@@ -175,7 +163,7 @@ public class Mime extends Monster {
 		if (source instanceof LivingEntity) {
 			LivingEntity attacker = (LivingEntity) source;
 			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
-			List<MimingRecipe> recipes = this.level.getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING);
+			List<MimingRecipe> recipes = this.level.getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
 
 			for (MimingRecipe recipe : recipes) {
 				for (Ingredient ingredient : recipe.getIngredients()) {
@@ -203,7 +191,7 @@ public class Mime extends Monster {
 		if (this.isAlive()) {
 			if (this.level.isClientSide) {
 				if (this.random.nextInt(4) == 0) {
-					for(int i = 0; i < 2; ++i) {
+					for (int i = 0; i < 2; ++i) {
 						float f = (180F - this.yBodyRot) * (Mth.PI / 180F);
 						Vector3f vector3f = this.armRotations[i];
 						Vec3 vec3 = new Vec3(0.0D, -0.5625D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());

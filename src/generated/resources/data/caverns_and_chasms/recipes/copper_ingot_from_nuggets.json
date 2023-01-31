@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "copper_ingot",
-  "pattern": [
-    "###",
-    "###",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "caverns_and_chasms:copper_nugget"
     }
   },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
   "result": {
     "item": "minecraft:copper_ingot"
   }
