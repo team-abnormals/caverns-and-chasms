@@ -10,7 +10,6 @@
     "AzaleaTreeGrowerMixin",
     "BrewingRecipeRegistryMixin",
     "IronGolemEntityMixin",
-    "ItemEntityMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LightningBoltMixin",

@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.InductorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -9,19 +11,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import javax.annotation.Nullable;
 
-public class InductorBlock extends DirectionalBlock {
+public class InductorBlock extends BaseEntityBlock {
+	public static final DirectionProperty FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final BooleanProperty COOLDOWN = BooleanProperty.create("cooldown");
 	public static final IntegerProperty INDUCTION_POWER = IntegerProperty.create("induction_power", 0, 5);
@@ -98,6 +102,21 @@ public class InductorBlock extends DirectionalBlock {
 
 	private boolean hasInductionSignal(BlockState state) {
 		return state.getValue(INDUCTION_POWER) > 0;
+	}
+
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.MODEL;
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new InductorBlockEntity(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		return level.isClientSide ? null : createTickerHelper(type, CCBlockEntityTypes.INDUCTOR.get(), InductorBlockEntity::serverTick);
 	}
 
 	@Override
