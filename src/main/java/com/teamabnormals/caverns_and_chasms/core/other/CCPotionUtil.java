@@ -89,7 +89,7 @@ public class CCPotionUtil {
 		return Math.max(duration, 20);
 	}
 
-	public static boolean isElegantPotion(ItemStack stack) {
+	public static boolean isElegantTetherPotion(ItemStack stack) {
 		return getContinuousEffects(stack, false).isEmpty() && PotionUtils.getPotion(stack).hasInstantEffects();
 	}
 

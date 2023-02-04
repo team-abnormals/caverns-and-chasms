@@ -18,6 +18,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
@@ -63,6 +64,7 @@ public class CavernsAndChasms {
 		MinecraftForge.EVENT_BUS.register(this);
 
 		// this.registerMessages();
+		CCDataProcessors.registerTrackedData();
 
 		REGISTRY_HELPER.register(bus);
 		CCEntityTypes.ENTITIES.register(bus);
@@ -168,7 +170,7 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	public void registerItemColors(RegisterColorHandlersEvent.Item event) {
-		event.register((stack, color) -> color > 0 ? -1 : ((TuningForkItem) stack.getItem()).getColor(stack), CCItems.TUNING_FORK.get());
+		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
 		event.register((stack, color) -> color > 0 ? -1 : CCPotionUtil.getTetherPotionColor(stack), CCItems.TETHER_POTION.get());
 	}
 

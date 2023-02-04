@@ -67,7 +67,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 
 	@Override
 	public boolean isFoil(ItemStack stack) {
-		return super.isFoil(stack) && !CCPotionUtil.isElegantPotion(stack);
+		return super.isFoil(stack) && !CCPotionUtil.isElegantTetherPotion(stack);
 	}
 
 	@Nullable
@@ -78,7 +78,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 
 	@Override
 	public String getDescriptionId(ItemStack stack) {
-		if (CCPotionUtil.isElegantPotion(stack)) {
+		if (CCPotionUtil.isElegantTetherPotion(stack)) {
 			return this.getDescriptionId() + ".effect.elegant";
 		} else {
 			return super.getDescriptionId(stack);
@@ -96,7 +96,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 		if (this.allowedIn(group)) {
 			for (Potion potion : Registry.POTION) {
 				ItemStack itemstack = PotionUtils.setPotion(new ItemStack(this), potion);
-				if (potion != Potions.EMPTY && !CCPotionUtil.isElegantPotion(itemstack)) {
+				if (potion != Potions.EMPTY && !CCPotionUtil.isElegantTetherPotion(itemstack)) {
 					items.add(itemstack);
 					if (potion == Potions.AWKWARD) {
 						items.add(PotionUtils.setPotion(new ItemStack(this), Potions.HEALING));

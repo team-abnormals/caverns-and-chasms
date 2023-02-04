@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
+import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
+import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -25,9 +27,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public class TuningForkItem extends Item {
 
@@ -65,10 +69,10 @@ public class TuningForkItem extends Item {
 					int note = tag.getInt("Note");
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-					this.attractCopperGolemsToPos(level, targetpos);
-					if (level.isClientSide) {
-						level.addParticle(ParticleTypes.NOTE, targetpos.getX() + 0.5D, targetpos.getY() + 0.25D, targetpos.getZ() + 0.5D, (double) note / 24.0D, 0.0D, 0.0D);
-					}
+                    if (level.isClientSide)
+                        level.addParticle(ParticleTypes.NOTE, targetpos.getX() + 0.5D, targetpos.getY() + 0.25D, targetpos.getZ() + 0.5D, (double) note / 24.0D, 0.0D, 0.0D);
+                    else
+                        attractGolemsToPos(level, targetpos, player);
 					return InteractionResult.sidedSuccess(level.isClientSide());
 				}
 			}
@@ -86,11 +90,38 @@ public class TuningForkItem extends Item {
 			int note = tag.getInt("Note");
 			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 			this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-			this.attractCopperGolemsToPos(level, player.blockPosition());
+            if (!level.isClientSide)
+			    attractGolemsToPos(level, player.blockPosition(), player);
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
 		return super.use(level, player, hand);
+	}
+
+	@Override
+	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+		CompoundTag tag = stack.getOrCreateTag();
+
+		if (target instanceof ControllableGolem && ((ControllableGolem) target).canBeControlled(player) && tag.contains("Note")) {
+			IDataManager data = ((IDataManager) target);
+			if (data.getValue(CCDataProcessors.CONTROLLER_UUID).isEmpty()) {
+				data.setValue(CCDataProcessors.CONTROLLER_UUID, Optional.of(player.getUUID()));
+				data.setValue(CCDataProcessors.FORGET_CONTROLLER_TIME, 200);
+				((ControllableGolem) target).onTuningForkControl(player);
+
+                int note = tag.getInt("Note");
+                this.playNote(player.level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+                if (player.level.isClientSide) {
+                    player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+                }
+			} else {
+				data.setValue(CCDataProcessors.CONTROLLER_UUID, Optional.empty());
+			}
+
+			return InteractionResult.sidedSuccess(player.level.isClientSide);
+		}
+
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -101,7 +132,10 @@ public class TuningForkItem extends Item {
 			int note = tag.getInt("Note");
 			this.playNote(target.getLevel(), target.getX(), target.getY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
-			this.attractCopperGolemsToPos(target.getLevel(), target.blockPosition());
+
+			if (!target.level.isClientSide && attacker instanceof Player) {
+                orderGolemsToAttackEntity(target.getLevel(), target, (Player) attacker);
+            }
 		}
 
 		return super.hurtEnemy(stack, target, attacker);
@@ -123,13 +157,33 @@ public class TuningForkItem extends Item {
 		level.playSound(null, x, y, z, soundEvent, SoundSource.NEUTRAL, 1.0F, pitch);
 	}
 
-	private void attractCopperGolemsToPos(Level level, BlockPos pos) {
-		for (CopperGolem coppergolem : level.getEntitiesOfClass(CopperGolem.class, (new AABB(pos)).inflate(8.0D))) {
-			coppergolem.setTuningForkTargetPos(pos);
+	private static void attractGolemsToPos(Level level, BlockPos pos, Player player) {
+		for (LivingEntity entity : getControlledGolems(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, player)) {
+			ControllableGolem golem = (ControllableGolem) entity;
+			if (golem.shouldMoveToTuningForkPos(pos, player)) {
+				golem.moveToTuningForkPos(pos);
+			}
 		}
 	}
 
-	public int getColor(ItemStack stack) {
+    private static void orderGolemsToAttackEntity(Level level, LivingEntity target, Player player) {
+		for (LivingEntity entity : getControlledGolems(level, target.getX(), target.getY(), target.getZ(), player)) {
+			ControllableGolem golem = (ControllableGolem) entity;
+			if (golem.shouldAttackTuningForkTarget(target, player)) {
+				golem.attackTuningForkTarget(target);
+			} else if (golem.shouldMoveToTuningForkPos(target.blockPosition(), player)) {
+				golem.moveToTuningForkPos(target.blockPosition());
+			}
+		}
+    }
+
+	public static List<LivingEntity> getControlledGolems(Level level, double x, double y, double z, Player player) {
+		return level.getEntitiesOfClass(LivingEntity.class, (new AABB(new Vec3(x - 0.5D, y, z - 0.5D), new Vec3(x + 0.5D, y + 1.0D, z + 0.5D))).inflate(8.0D), (entity) -> {
+			return entity != null && entity.isAlive() && entity instanceof ControllableGolem && ControllableGolem.getController((ControllableGolem) entity) == player;
+		});
+	}
+
+	public static int getNoteColor(ItemStack stack) {
 		CompoundTag tag = stack.getOrCreateTag();
 		if (tag.contains("Note")) {
 			int note = tag.getInt("Note");

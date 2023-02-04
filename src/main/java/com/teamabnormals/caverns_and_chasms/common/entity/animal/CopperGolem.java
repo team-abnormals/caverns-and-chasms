@@ -2,6 +2,8 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
+import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
@@ -55,16 +57,13 @@ import net.minecraftforge.common.ToolActions;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class CopperGolem extends AbstractGolem {
+public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
 	private static final EntityDataAccessor<Integer> OXIDATION = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
 
 	private int oxidationTime = this.nextOxidationTime();
 	private int ticksSinceButtonPress;
-
-	@Nullable
-	private BlockPos tuningForkTargetPos;
 
 	public long lastHit;
 
@@ -80,7 +79,7 @@ public class CopperGolem extends AbstractGolem {
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new CopperGolem.FollowTuningForkGoal());
+		this.goalSelector.addGoal(0, new CopperGolem.CopperGolemFollowTuningForkGoal());
 		this.goalSelector.addGoal(1, new CopperGolem.PressButtonGoal());
 		this.goalSelector.addGoal(2, new CopperGolem.RandomWalkingGoal());
 		this.goalSelector.addGoal(3, new CopperGolem.StareAtPlayerGoal());
@@ -170,6 +169,33 @@ public class CopperGolem extends AbstractGolem {
 	public void setWaxed(boolean waxed) {
 		this.entityData.set(WAXED, waxed);
 	}
+
+	@Override
+	public boolean canBeControlled(Player controller) {
+		return !this.isStatue();
+	}
+
+	@Override
+	public void onTuningForkControl(Player controller) {
+		this.spinHead();
+		// this.level.broadcastEntityEvent(this, (byte) 4);
+	}
+
+	@Override
+	public boolean shouldMoveToTuningForkPos(BlockPos pos, Player controller) {
+		return true;
+	}
+
+	@Override
+	public void moveToTuningForkPos(BlockPos pos) {}
+
+	@Override
+	public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
+		return false;
+	}
+
+	@Override
+	public void attackTuningForkTarget(LivingEntity target) {}
 
 	@Override
 	public void tick() {
@@ -354,10 +380,6 @@ public class CopperGolem extends AbstractGolem {
 	@Override
 	protected int decreaseAirSupply(int supply) {
 		return supply;
-	}
-
-	public void setTuningForkTargetPos(BlockPos pos) {
-		this.tuningForkTargetPos = pos;
 	}
 
 	@Override
@@ -559,31 +581,19 @@ public class CopperGolem extends AbstractGolem {
 		}
 	}
 
-	class FollowTuningForkGoal extends Goal {
-		public FollowTuningForkGoal() {
-			super();
-			this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+	class CopperGolemFollowTuningForkGoal extends FollowTuningForkGoal {
+		public CopperGolemFollowTuningForkGoal() {
+			super(CopperGolem.this);
 		}
 
 		@Override
 		public boolean canUse() {
-			return !CopperGolem.this.isStatue() && CopperGolem.this.tuningForkTargetPos != null;
+			return !CopperGolem.this.isStatue() && super.canUse();
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return !CopperGolem.this.isStatue() && !CopperGolem.this.getNavigation().isDone() && CopperGolem.this.tuningForkTargetPos == null;
-		}
-
-		@Override
-		public void start() {
-			CopperGolem.this.getNavigation().moveTo(CopperGolem.this.getNavigation().createPath(CopperGolem.this.tuningForkTargetPos.getX() + 0.5D, CopperGolem.this.tuningForkTargetPos.getY(), CopperGolem.this.tuningForkTargetPos.getZ() + 0.5D, 0), 1.0D);
-			CopperGolem.this.tuningForkTargetPos = null;
-		}
-
-		@Override
-		public void stop() {
-			CopperGolem.this.getNavigation().stop();
+			return !CopperGolem.this.isStatue() && super.canUse();
 		}
 	}
 

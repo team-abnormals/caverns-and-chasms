@@ -503,4 +503,33 @@ public class CCEvents {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
 		}
 	}
+
+    @SubscribeEvent
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+		// Currently causes a crash.
+		/*
+		LivingEntity entity = event.getEntity();
+		Level level = entity.getLevel();
+
+		if (!level.isClientSide && entity instanceof Player) {
+			Player player = (Player) entity;
+			IDataManager data = ((IDataManager) player);
+			ControllableGolem golem = TuningForkItem.getControlledGolem(player);
+
+			if (golem != null) {
+				int controllingtime = data.getValue(CCDataProcessors.GOLEM_CONTROLLING_TIME);
+				if (controllingtime <= 0 || !golem.canBeControlled(player)) {
+					data.setValue(CCDataProcessors.CONTROLLED_GOLEM, Optional.empty());
+				} else {
+					boolean flag = !(player.getMainHandItem().getItem() instanceof TuningForkItem) && !(player.getOffhandItem().getItem() instanceof TuningForkItem);
+					if (flag || ((LivingEntity) golem).distanceToSqr(player) > 256.0D) {
+						data.setValue(CCDataProcessors.GOLEM_CONTROLLING_TIME, controllingtime - 1);
+					} else {
+						data.setValue(CCDataProcessors.GOLEM_CONTROLLING_TIME, 200);
+					}
+				}
+			}
+		}
+		 */
+    }
 }

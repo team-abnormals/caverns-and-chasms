@@ -21,7 +21,7 @@ public final class BrewingRecipeRegistryMixin {
 
 	@Inject(at = @At("HEAD"), method = "hasOutput", cancellable = true, remap = false)
 	private static void hasOutput(ItemStack input, ItemStack ingredient, CallbackInfoReturnable<Boolean> cir) {
-		if (input.getItem() == CCItems.TETHER_POTION.get() && CCPotionUtil.isElegantPotion(input)) {
+		if (input.getItem() == CCItems.TETHER_POTION.get() && CCPotionUtil.isElegantTetherPotion(input)) {
 			cir.setReturnValue(false);
 		}
 	}
