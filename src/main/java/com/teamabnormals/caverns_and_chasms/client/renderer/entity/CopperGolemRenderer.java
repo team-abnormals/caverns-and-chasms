@@ -4,10 +4,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.client.model.CopperGolemModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+
+import java.util.Locale;
 
 public class CopperGolemRenderer extends MobRenderer<CopperGolem, CopperGolemModel<CopperGolem>> {
 
@@ -17,7 +20,9 @@ public class CopperGolemRenderer extends MobRenderer<CopperGolem, CopperGolemMod
 
 	@Override
 	public ResourceLocation getTextureLocation(CopperGolem copperGolem) {
-		return copperGolem.getOxidation().getTextureLocation();
+		CopperGolem.Oxidation oxidation = copperGolem.getOxidation();
+		String damaged = copperGolem.isDamaged() ? "_damaged" : "";
+		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/copper_golem/copper_golem_" + oxidation.name().toLowerCase(Locale.ROOT) + damaged + ".png");
 	}
 
 	@Override

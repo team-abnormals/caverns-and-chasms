@@ -367,9 +367,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 			return false;
 		} else {
+			boolean damaged = this.isDamaged();
 			boolean flag = super.hurt(source, amount);
 			if (flag) {
 				this.spinHead();
+				if (this.isDamaged() != damaged)
+					this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 1.0F, 1.0F);
 			}
 			return flag;
 		}
@@ -391,6 +394,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	private void removeStatue() {
 		this.remove(RemovalReason.KILLED);
+	}
+
+	public boolean isDamaged() {
+		return this.getHealth() / this.getMaxHealth() < 0.5F;
 	}
 
 	@Override
@@ -759,7 +766,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		private static final Oxidation[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(Oxidation::getId)).toArray(Oxidation[]::new);
 
 		private final int id;
-		private final LazyLoadedValue<ResourceLocation> textureLocation = new LazyLoadedValue<>(() -> new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/copper_golem/copper_golem_" + this.name().toLowerCase(Locale.ROOT) + ".png"));
 
 		Oxidation(int id) {
 			this.id = id;
@@ -767,10 +773,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		public int getId() {
 			return this.id;
-		}
-
-		public ResourceLocation getTextureLocation() {
-			return this.textureLocation.get();
 		}
 
 		public static Oxidation byId(int id) {
