@@ -61,9 +61,14 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
 	private static final EntityDataAccessor<Integer> OXIDATION = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Optional<UUID>> CONTROLLER_UUID = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.OPTIONAL_UUID);
 
 	private int oxidationTime = this.nextOxidationTime();
 	private int ticksSinceButtonPress;
+
+	private int forgetControllerTime;
+    @Nullable
+    private BlockPos tuningForkPos;
 
 	public long lastHit;
 
@@ -91,6 +96,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		super.defineSynchedData();
 		this.entityData.define(OXIDATION, 0);
 		this.entityData.define(WAXED, false);
+		this.entityData.define(CONTROLLER_UUID, Optional.empty());
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
@@ -178,7 +184,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	@Override
 	public void onTuningForkControl(Player controller) {
 		this.spinHead();
-		// this.level.broadcastEntityEvent(this, (byte) 4);
 	}
 
 	@Override
@@ -186,16 +191,51 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		return true;
 	}
 
-	@Override
-	public void moveToTuningForkPos(BlockPos pos) {}
+    @Override
+    public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
+        return false;
+    }
 
 	@Override
-	public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
-		return false;
+	public void setControllerUUID(UUID uuid) {
+		this.entityData.set(CONTROLLER_UUID, Optional.ofNullable(uuid));
+	}
+
+	@Nullable
+	@Override
+	public UUID getControllerUUID() {
+		return this.entityData.get(CONTROLLER_UUID).orElse((UUID) null);
 	}
 
 	@Override
-	public void attackTuningForkTarget(LivingEntity target) {}
+	public void setForgetControllerTime(int time) {
+		this.forgetControllerTime = time;
+	}
+
+	@Override
+	public int getForgetControllerTime() {
+		return this.forgetControllerTime;
+	}
+
+	@Override
+	public void setTuningForkPos(BlockPos pos) {
+        this.tuningForkPos = pos;
+    }
+
+    @Nullable
+    @Override
+    public BlockPos getTuningForkPos() {
+        return this.tuningForkPos;
+    }
+
+	@Override
+	public void setTuningForkTarget(LivingEntity target) {}
+
+	@Nullable
+	@Override
+	public LivingEntity getTuningForkTarget() {
+		return null;
+	}
 
 	@Override
 	public void tick() {
@@ -583,7 +623,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	class CopperGolemFollowTuningForkGoal extends FollowTuningForkGoal {
 		public CopperGolemFollowTuningForkGoal() {
-			super(CopperGolem.this);
+			super(CopperGolem.this, 1.0D);
 		}
 
 		@Override
@@ -593,7 +633,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		@Override
 		public boolean canContinueToUse() {
-			return !CopperGolem.this.isStatue() && super.canUse();
+			return !CopperGolem.this.isStatue() && super.canContinueToUse();
 		}
 	}
 

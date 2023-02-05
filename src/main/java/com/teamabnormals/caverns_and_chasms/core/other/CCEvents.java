@@ -2,6 +2,9 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
+import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.AttackTuningForkTargetGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
@@ -93,11 +96,15 @@ public class CCEvents {
 			horse.goalSelector.addGoal(1, new AvoidEntityGoal<>(horse, Fly.class, 8.0F, 1.1D, 1.1D));
 		} else if (entity instanceof Spider spider) {
 			spider.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(spider, Fly.class, false));
-		} else if (entity instanceof IronGolem golem && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
-			golem.targetSelector.availableGoals.stream().map(it -> it.goal).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
-				golem.targetSelector.removeGoal(goal);
-				golem.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(golem, Mob.class, 5, false, false, (mob) -> mob instanceof Enemy));
-			});
+		} else if (entity instanceof IronGolem golem) {
+			if (!CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
+				golem.targetSelector.availableGoals.stream().map(it -> it.goal).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
+					golem.targetSelector.removeGoal(goal);
+					golem.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(golem, Mob.class, 5, false, false, (mob) -> mob instanceof Enemy));
+				});
+			}
+			golem.goalSelector.addGoal(0, new FollowTuningForkGoal((ControllableGolem) golem, 0.9D));
+			golem.targetSelector.addGoal(2, new AttackTuningForkTargetGoal((ControllableGolem) golem));
 		} else if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolem.class, true));
 		} else if (entity instanceof Cat cat) {
@@ -506,30 +513,10 @@ public class CCEvents {
 
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-		// Currently causes a crash.
-		/*
 		LivingEntity entity = event.getEntity();
-		Level level = entity.getLevel();
-
-		if (!level.isClientSide && entity instanceof Player) {
-			Player player = (Player) entity;
-			IDataManager data = ((IDataManager) player);
-			ControllableGolem golem = TuningForkItem.getControlledGolem(player);
-
-			if (golem != null) {
-				int controllingtime = data.getValue(CCDataProcessors.GOLEM_CONTROLLING_TIME);
-				if (controllingtime <= 0 || !golem.canBeControlled(player)) {
-					data.setValue(CCDataProcessors.CONTROLLED_GOLEM, Optional.empty());
-				} else {
-					boolean flag = !(player.getMainHandItem().getItem() instanceof TuningForkItem) && !(player.getOffhandItem().getItem() instanceof TuningForkItem);
-					if (flag || ((LivingEntity) golem).distanceToSqr(player) > 256.0D) {
-						data.setValue(CCDataProcessors.GOLEM_CONTROLLING_TIME, controllingtime - 1);
-					} else {
-						data.setValue(CCDataProcessors.GOLEM_CONTROLLING_TIME, 200);
-					}
-				}
-			}
+		if (event.getEntity() instanceof ControllableGolem) {
+			if (((ControllableGolem) entity).getController() != null)
+				((ControllableGolem) entity).tuningForkBehaviorTick();
 		}
-		 */
     }
 }

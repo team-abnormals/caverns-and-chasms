@@ -1,9 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
-import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -18,6 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +30,6 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 public class TuningForkItem extends Item {
 
@@ -103,11 +101,14 @@ public class TuningForkItem extends Item {
 		CompoundTag tag = stack.getOrCreateTag();
 
 		if (target instanceof ControllableGolem && ((ControllableGolem) target).canBeControlled(player) && tag.contains("Note")) {
-			IDataManager data = ((IDataManager) target);
-			if (data.getValue(CCDataProcessors.CONTROLLER_UUID).isEmpty()) {
-				data.setValue(CCDataProcessors.CONTROLLER_UUID, Optional.of(player.getUUID()));
-				data.setValue(CCDataProcessors.FORGET_CONTROLLER_TIME, 200);
-				((ControllableGolem) target).onTuningForkControl(player);
+			ControllableGolem golem = (ControllableGolem) target;
+			if (golem.getController() == null) {
+                golem.setController(player);
+				golem.setForgetControllerTime(200);
+				golem.setTuningForkPos(null);
+				golem.setTuningForkTarget(null);
+
+                golem.onTuningForkControl(player);
 
                 int note = tag.getInt("Note");
                 this.playNote(player.level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
@@ -115,7 +116,7 @@ public class TuningForkItem extends Item {
                     player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
                 }
 			} else {
-				data.setValue(CCDataProcessors.CONTROLLER_UUID, Optional.empty());
+                golem.setController(null);
 			}
 
 			return InteractionResult.sidedSuccess(player.level.isClientSide);
@@ -158,28 +159,28 @@ public class TuningForkItem extends Item {
 	}
 
 	private static void attractGolemsToPos(Level level, BlockPos pos, Player player) {
-		for (LivingEntity entity : getControlledGolems(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, player)) {
-			ControllableGolem golem = (ControllableGolem) entity;
+		for (Mob mob : getControlledGolems(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, player)) {
+			ControllableGolem golem = (ControllableGolem) mob;
 			if (golem.shouldMoveToTuningForkPos(pos, player)) {
-				golem.moveToTuningForkPos(pos);
+				golem.setTuningForkPos(pos);
 			}
 		}
 	}
 
     private static void orderGolemsToAttackEntity(Level level, LivingEntity target, Player player) {
-		for (LivingEntity entity : getControlledGolems(level, target.getX(), target.getY(), target.getZ(), player)) {
-			ControllableGolem golem = (ControllableGolem) entity;
+		for (Mob mob : getControlledGolems(level, target.getX(), target.getY(), target.getZ(), player)) {
+			ControllableGolem golem = (ControllableGolem) mob;
 			if (golem.shouldAttackTuningForkTarget(target, player)) {
-				golem.attackTuningForkTarget(target);
+				golem.setTuningForkTarget(target);
 			} else if (golem.shouldMoveToTuningForkPos(target.blockPosition(), player)) {
-				golem.moveToTuningForkPos(target.blockPosition());
+				golem.setTuningForkPos(target.blockPosition());
 			}
 		}
     }
 
-	public static List<LivingEntity> getControlledGolems(Level level, double x, double y, double z, Player player) {
-		return level.getEntitiesOfClass(LivingEntity.class, (new AABB(new Vec3(x - 0.5D, y, z - 0.5D), new Vec3(x + 0.5D, y + 1.0D, z + 0.5D))).inflate(8.0D), (entity) -> {
-			return entity != null && entity.isAlive() && entity instanceof ControllableGolem && ControllableGolem.getController((ControllableGolem) entity) == player;
+	public static List<Mob> getControlledGolems(Level level, double x, double y, double z, Player player) {
+		return level.getEntitiesOfClass(Mob.class, (new AABB(new Vec3(x - 0.5D, y, z - 0.5D), new Vec3(x + 0.5D, y + 1.0D, z + 0.5D))).inflate(8.0D), (entity) -> {
+			return entity != null && entity.isAlive() && entity instanceof ControllableGolem && ((ControllableGolem) entity).getController() == player && ((ControllableGolem) entity).canBeControlled(player);
 		});
 	}
 
