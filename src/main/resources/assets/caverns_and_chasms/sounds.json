@@ -108,5 +108,26 @@
       "caverns_and_chasms:mob/mime/copy"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.mime.copy"
+  },
+  "entity.copper_golem.repair": {
+    "sounds": [
+      "caverns_and_chasms:mob/copper_golem/repair"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.repair"
+  },
+  "entity.copper_golem.gear": {
+    "sounds": [
+      "caverns_and_chasms:mob/copper_golem/gear"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.gear"
+  },
+  "entity.copper_golem.step": {
+    "sounds": [
+      "caverns_and_chasms:mob/copper_golem/step1",
+      "caverns_and_chasms:mob/copper_golem/step2",
+      "caverns_and_chasms:mob/copper_golem/step3",
+      "caverns_and_chasms:mob/copper_golem/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

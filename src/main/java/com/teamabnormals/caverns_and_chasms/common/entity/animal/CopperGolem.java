@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -120,7 +121,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(SoundEvents.IRON_GOLEM_STEP, 1.0F, 1.0F);
+		this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_STEP.get(), 1.0F, 1.0F);
 	}
 
 	@Override
@@ -282,7 +283,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			float f = this.getHealth();
 			this.heal(15.0F);
 			if (this.getHealth() != f) {
-				this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+				this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_REPAIR.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
 				if (!player.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
@@ -476,6 +477,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		if (this.headSpinTicks <= 16) {
 			this.headSpinTicks = 26;
 			this.headSpinTicksO = this.headSpinTicks;
+			this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
 		}
 	}
 

@@ -315,6 +315,9 @@
   "subtitles.caverns_and_chasms.entity.mime.death": "Miimikko kuolee",
   "subtitles.caverns_and_chasms.entity.mime.hurt": "Miimikko vahingoittuu",
   "subtitles.caverns_and_chasms.entity.mime.copy": "Miimikko matkii",
+  
+  "subtitles.caverns_and_chasms.entity.copper_golem.repair": "Kuparigolem korjautuu",
+  "subtitles.caverns_and_chasms.entity.copper_golem.gear": "Kuparigolem pyöräyttää päätään",
 
   "tooltip.caverns_and_chasms.latitude": "Leveysaste",
   "tooltip.caverns_and_chasms.longitude": "Pituusaste",
