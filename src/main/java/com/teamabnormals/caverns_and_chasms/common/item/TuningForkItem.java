@@ -108,6 +108,8 @@ public class TuningForkItem extends Item {
 				golem.setTuningForkPos(null);
 				golem.setTuningForkTarget(null);
 
+				((Mob) golem).getNavigation().stop();
+				((Mob) golem).setTarget(null);
                 golem.onTuningForkControl(player);
 
                 int note = tag.getInt("Note");
