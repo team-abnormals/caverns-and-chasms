@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.TetherPotionLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
@@ -23,6 +24,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfigure
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -163,6 +166,7 @@ public class CavernsAndChasms {
 		event.getSkins().forEach(skin -> {
 			PlayerRenderer renderer = event.getSkin(skin);
 			renderer.addLayer(new RatOnShoulderLayer(renderer));
+			renderer.addLayer(new TetherPotionLayer<>(renderer, new HumanoidModel(event.getEntityModels().bakeLayer(ModelLayers.PLAYER_INNER_ARMOR))));
 		});
 	}
 

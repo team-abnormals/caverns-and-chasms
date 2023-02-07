@@ -3,5 +3,10 @@
     "textures": {
         "layer0": "item/potion_overlay",
         "layer1": "caverns_and_chasms:item/tether_potion"
-    }
+    },
+	"display": {
+		"head": {
+			"scale": [0, 0, 0]
+		}
+	}
 }

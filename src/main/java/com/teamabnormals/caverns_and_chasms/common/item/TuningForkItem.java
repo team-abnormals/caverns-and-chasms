@@ -189,10 +189,10 @@ public class TuningForkItem extends Item {
 		if (tag.contains("Note")) {
 			int note = tag.getInt("Note");
 			float f = note / 24.0F;
-			float rcol = Math.max(0.0F, Mth.sin((f + 0.0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
-			float gcol = Math.max(0.0F, Mth.sin((f + 0.33333334F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
-			float bcol = Math.max(0.0F, Mth.sin((f + 0.6666667F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
-			return ((int) (rcol * 255.0F) << 16) + ((int) (gcol * 255.0F) << 8) + ((int) (bcol * 255.0F));
+			float r = Math.max(0.0F, Mth.sin((f + 0.0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
+			float g = Math.max(0.0F, Mth.sin((f + 0.33333334F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
+			float b = Math.max(0.0F, Mth.sin((f + 0.6666667F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
+			return ((int) (r * 255.0F) << 16) + ((int) (g * 255.0F) << 8) + ((int) (b * 255.0F));
 		} else {
 			return -1;
 		}
