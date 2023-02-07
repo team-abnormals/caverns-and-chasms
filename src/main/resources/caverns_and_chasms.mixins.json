@@ -19,6 +19,7 @@
   ],
   "client": [
     "client.ClientRecipeBookMixin",
+    "client.HumanoidArmorLayerMixin",
     "client.TieredItemMixin"
   ],
   "injectors": {
