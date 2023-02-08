@@ -70,7 +70,7 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 
 	@Override
 	public void setupAnim(T copperGolem, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		float headspinanim = this.headSpinTicks > 10 ? Mth.TWO_PI * (this.headSpinTicks - 10F) / 16F : this.headSpinTicks > 4 ? -Mth.sin(Mth.PI * (this.headSpinTicks - 4.0F) / 6.0F) * (this.headSpinTicks - 4.0F) / 10.0F : 0.0F;
+		float headspinanim = this.headSpinTicks > 10 ? Mth.TWO_PI * (this.headSpinTicks - 10F) / 12F : this.headSpinTicks > 4 ? -Mth.sin(Mth.PI * (this.headSpinTicks - 4.0F) / 6.0F) * (this.headSpinTicks - 4.0F) / 10.0F : 0.0F;
 		float headtilt = this.headSpinTicks < 10 ? Mth.sin(Mth.PI * this.headSpinTicks * 0.3F) * this.headSpinTicks * 0.012F : 0.0F;
 
 		this.head.yRot = netHeadYaw * (Mth.PI / 180F) + headspinanim;

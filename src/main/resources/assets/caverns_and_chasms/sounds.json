@@ -109,6 +109,33 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.mime.copy"
   },
+  "entity.copper_golem.death": {
+    "sounds": [
+      "caverns_and_chasms:mob/copper_golem/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.death"
+  },
+  "entity.copper_golem.hurt": {
+    "sounds": [
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/hurt1",
+        "volume": 0.8
+      },
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/hurt2",
+        "volume": 0.8
+      },
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/hurt3",
+        "volume": 0.8
+      },
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/hurt4",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.hurt"
+  },
   "entity.copper_golem.repair": {
     "sounds": [
       "caverns_and_chasms:mob/copper_golem/repair"
@@ -117,7 +144,11 @@
   },
   "entity.copper_golem.gear": {
     "sounds": [
-      "caverns_and_chasms:mob/copper_golem/gear"
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/gear",
+        "volume": 0.8,
+		"pitch": 1.1
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.gear"
   },

@@ -30,6 +30,8 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ENTITY_MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
 	public static final RegistryObject<SoundEvent> ENTITY_MIME_COPY = HELPER.createSoundEvent("entity.mime.copy");
 
+	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_DEATH = HELPER.createSoundEvent("entity.copper_golem.death");
+	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_HURT = HELPER.createSoundEvent("entity.copper_golem.hurt");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_REPAIR = HELPER.createSoundEvent("entity.copper_golem.repair");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_GEAR = HELPER.createSoundEvent("entity.copper_golem.gear");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_STEP = HELPER.createSoundEvent("entity.copper_golem.step");

@@ -317,6 +317,8 @@
   "subtitles.caverns_and_chasms.entity.mime.hurt": "Mime hurts",
   "subtitles.caverns_and_chasms.entity.mime.copy": "Mime mimes",
   
+  "subtitles.caverns_and_chasms.entity.copper_golem.death": "Copper Golem dies",
+  "subtitles.caverns_and_chasms.entity.copper_golem.hurt": "Copper Golem hurts",
   "subtitles.caverns_and_chasms.entity.copper_golem.repair": "Copper Golem repaired",
   "subtitles.caverns_and_chasms.entity.copper_golem.gear": "Copper Golem spins head",
 

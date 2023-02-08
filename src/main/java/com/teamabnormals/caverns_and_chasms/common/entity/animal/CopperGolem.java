@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -17,12 +16,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -111,12 +108,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return SoundEvents.IRON_GOLEM_HURT;
+		return CCSoundEvents.ENTITY_COPPER_GOLEM_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.IRON_GOLEM_DEATH;
+		return CCSoundEvents.ENTITY_COPPER_GOLEM_DEATH.get();
 	}
 
 	@Override
@@ -475,8 +472,8 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	}
 
 	private void spinHead() {
-		if (this.headSpinTicks <= 16) {
-			this.headSpinTicks = 26;
+		if (this.headSpinTicks <= 12) {
+			this.headSpinTicks = 22;
 			this.headSpinTicksO = this.headSpinTicks;
 			this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
 		}
@@ -560,7 +557,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			if (!CopperGolem.this.isStatue()) {
 				super.tick();
 			}
-
 		}
 	}
 
@@ -606,12 +602,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		@Override
 		public boolean canUse() {
-			return !CopperGolem.this.isStatue() && super.canUse();
+			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canUse();
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return !CopperGolem.this.isStatue() && super.canContinueToUse();
+			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canContinueToUse();
 		}
 	}
 
@@ -622,12 +618,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		@Override
 		public boolean canUse() {
-			return !CopperGolem.this.isStatue() && super.canUse();
+			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canUse();
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return !CopperGolem.this.isStatue() && super.canContinueToUse();
+			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canContinueToUse();
 		}
 	}
 
