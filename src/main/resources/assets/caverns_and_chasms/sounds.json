@@ -142,12 +142,45 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.repair"
   },
+  "entity.copper_golem.damage": {
+    "sounds": [
+      {
+        "name": "mob/irongolem/damage1",
+        "volume": 0.8
+      },
+      {
+        "name": "mob/irongolem/damage2",
+        "volume": 0.8
+      },
+      {
+        "name": "mob/irongolem/damage1",
+        "volume": 0.8,
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/irongolem/damage2",
+        "volume": 0.8,
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.damage"
+  },
   "entity.copper_golem.gear": {
     "sounds": [
 	  {
-        "name": "caverns_and_chasms:mob/copper_golem/gear",
+        "name": "caverns_and_chasms:mob/copper_golem/gear1",
         "volume": 0.8,
-		"pitch": 1.1
+		"pitch": 1.2
+      },
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/gear2",
+        "volume": 0.8,
+		"pitch": 1.2
+      },
+	  {
+        "name": "caverns_and_chasms:mob/copper_golem/gear3",
+        "volume": 0.8,
+		"pitch": 1.2
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.gear"

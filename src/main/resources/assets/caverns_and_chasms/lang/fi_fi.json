@@ -319,6 +319,7 @@
   "subtitles.caverns_and_chasms.entity.copper_golem.death": "Kuparigolem kuolee",
   "subtitles.caverns_and_chasms.entity.copper_golem.hurt": "Kuparigolem vahingoittuu",
   "subtitles.caverns_and_chasms.entity.copper_golem.repair": "Kuparigolem korjautuu",
+  "subtitles.caverns_and_chasms.entity.copper_golem.damage": "Kuparigolem hajoaa",
   "subtitles.caverns_and_chasms.entity.copper_golem.gear": "Kuparigolem pyöräyttää päätään",
 
   "tooltip.caverns_and_chasms.latitude": "Leveysaste",

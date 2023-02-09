@@ -371,7 +371,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				this.spinHead();
 				this.level.broadcastEntityEvent(this, (byte) 4);
 				if (this.isDamaged() != damaged)
-					this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 1.0F, 1.0F);
+					this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_DAMAGE.get(), 1.0F, 1.0F);
 			}
 			return flag;
 		}

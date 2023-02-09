@@ -33,6 +33,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_DEATH = HELPER.createSoundEvent("entity.copper_golem.death");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_HURT = HELPER.createSoundEvent("entity.copper_golem.hurt");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_REPAIR = HELPER.createSoundEvent("entity.copper_golem.repair");
+	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_DAMAGE = HELPER.createSoundEvent("entity.copper_golem.damage");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_GEAR = HELPER.createSoundEvent("entity.copper_golem.gear");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_STEP = HELPER.createSoundEvent("entity.copper_golem.step");
 
