@@ -22,7 +22,7 @@ public class FollowTuningForkGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return golem.getController() != null && golem.getTuningForkPos() != null;
+		return golem.getTuningForkPos() != null;
 	}
 
 	@Override

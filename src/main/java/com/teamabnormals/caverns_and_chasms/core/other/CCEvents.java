@@ -1,9 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.AttackTuningForkTargetGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
@@ -105,7 +106,9 @@ public class CCEvents {
 				});
 			}
 			golem.goalSelector.addGoal(0, new FollowTuningForkGoal((ControllableGolem) golem, 0.9D));
-			golem.targetSelector.addGoal(2, new AttackTuningForkTargetGoal((ControllableGolem) golem));
+			golem.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(golem, LivingEntity.class, 5, false, false, (target) -> {
+				return ((ControllableGolem) golem).isTuningForkTarget(target);
+			}));
 		} else if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
 			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolem.class, true));
 		} else if (entity instanceof Cat cat) {
@@ -548,9 +551,32 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingTick(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
-		if (event.getEntity() instanceof ControllableGolem) {
-			if (((ControllableGolem) entity).getController() != null)
-				((ControllableGolem) entity).tuningForkBehaviorTick();
+		if (entity instanceof Player) {
+			Player player = (Player) entity;
+			IDataManager data = (IDataManager) entity;
+			ControllableGolem golem = TuningForkItem.findControlledGolem(player);
+
+			if (golem != null) {
+				int forgettime = TuningForkItem.getForgetGolemTime(player);
+				if (forgettime > 0) {
+					if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem()))
+						TuningForkItem.setForgetGolemTime(player, forgettime - 1);
+
+					golem.setBeingTuningForkControlled(true);
+				} else {
+					TuningForkItem.setControlledGolem(player, null);
+				}
+			} else if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
+				TuningForkItem.setControlledGolem(player, null);
+			}
+		} else if (entity instanceof ControllableGolem) {
+			ControllableGolem golem = (ControllableGolem) entity;
+			if (!golem.isBeingTuningForkControlled()) {
+				golem.setTuningForkPos(null);
+				golem.setTuningForkTarget(null);
+			} else {
+				golem.setBeingTuningForkControlled(false);
+			}
 		}
 	}
 }

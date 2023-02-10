@@ -52,21 +52,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolActions;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
 	private static final EntityDataAccessor<Integer> OXIDATION = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Optional<UUID>> CONTROLLER_UUID = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.OPTIONAL_UUID);
 
 	private int oxidationTime = this.nextOxidationTime();
 	private int ticksSinceButtonPress;
-
-	private int forgetControllerTime;
-	@Nullable
-	private BlockPos tuningForkPos;
 
 	public long lastHit;
 
@@ -94,7 +88,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		super.defineSynchedData();
 		this.entityData.define(OXIDATION, 0);
 		this.entityData.define(WAXED, false);
-		this.entityData.define(CONTROLLER_UUID, Optional.empty());
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
@@ -126,7 +119,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("Oxidation", this.getOxidation().getId());
 		compound.putInt("OxidationTime", this.oxidationTime);
-		compound.putInt("TicksSinceButtonPress", this.ticksSinceButtonPress);
 		compound.putBoolean("Waxed", this.isWaxed());
 	}
 
@@ -137,7 +129,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		if (compound.contains("OxidationTime")) {
 			this.oxidationTime = compound.getInt("OxidationTime");
 		}
-		this.ticksSinceButtonPress = compound.getInt("TicksSinceButtonPress");
 		this.setWaxed(compound.getBoolean("Waxed"));
 	}
 
@@ -174,73 +165,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		this.entityData.set(WAXED, waxed);
 	}
 
-	@Override
-	public boolean canBeControlled(Player controller) {
-		return !this.isStatue();
-	}
-
-	@Override
-	public void onTuningForkControl(Player controller) {
-		this.spinHead();
-	}
-
-	@Override
-	public boolean shouldMoveToTuningForkPos(BlockPos pos, Player controller) {
-		return true;
-	}
-
-	@Override
-	public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
-		return false;
-	}
-
-	@Override
-	public void setControllerUUID(UUID uuid) {
-		this.entityData.set(CONTROLLER_UUID, Optional.ofNullable(uuid));
-	}
-
-	@Nullable
-	@Override
-	public UUID getControllerUUID() {
-		return this.entityData.get(CONTROLLER_UUID).orElse((UUID) null);
-	}
-
-	@Override
-	public void setForgetControllerTime(int time) {
-		this.forgetControllerTime = time;
-	}
-
-	@Override
-	public int getForgetControllerTime() {
-		return this.forgetControllerTime;
-	}
-
-	@Override
-	public void setTuningForkPos(BlockPos pos) {
-		this.tuningForkPos = pos;
-	}
-
-	@Nullable
-	@Override
-	public BlockPos getTuningForkPos() {
-		return this.tuningForkPos;
-	}
-
-	@Override
-	public void setTuningForkTarget(LivingEntity target) {
-	}
-
-	@Nullable
-	@Override
-	public LivingEntity getTuningForkTarget() {
-		return null;
-	}
-
-	@Override
 	public void tick() {
 		super.tick();
 
-		if (!this.level.isClientSide && this.isAlive() && !this.isWaxed() && !this.isStatue() && --this.oxidationTime <= 0 && this.oxidize()) {
+		if (!this.level.isClientSide && this.isAlive() && !this.isWaxed() && !this.isStatue() && --this.oxidationTime <= 0 && this.oxidize(1)) {
 			this.oxidationTime = this.nextOxidationTime();
 		}
 
@@ -304,7 +232,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				this.spawnSparkParticles(ParticleTypes.WAX_OFF);
 				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
-			} else if (this.deoxidize()) {
+			} else if (this.oxidize(-1)) {
 				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.SCRAPE);
 				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -328,7 +256,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		}
 
 		this.spinHead();
-		this.level.broadcastEntityEvent(this, (byte) 6);
+		this.level.broadcastEntityEvent(this, (byte) 5);
 	}
 
 	@Override
@@ -354,7 +282,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 					} else {
 						long i = this.level.getGameTime();
 						if (i - this.lastHit > 5L) {
-							this.level.broadcastEntityEvent(this, (byte) 10);
+							this.level.broadcastEntityEvent(this, (byte) 7);
 							this.gameEvent(GameEvent.ENTITY_DAMAGE, source.getEntity());
 							this.lastHit = i;
 						}
@@ -454,17 +382,25 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		entity.animationPosition += entity.animationSpeed;
 	}
 
-	private boolean oxidize() {
-		return this.changeOxidation(1);
+	@Override
+	public boolean canBeTuningForkControlled(Player controller) {
+		return !this.isStatue();
 	}
 
-	private boolean deoxidize() {
-		return this.changeOxidation(-1);
+	@Override
+	public void onTuningForkControlStart(Player controller) {
+		this.spinHead();
 	}
 
-	private boolean changeOxidation(int amount) {
+	@Override
+	public void onTuningForkControlEnd(Player controller) {
+		this.spinHead();
+	}
+
+	private boolean oxidize(int amount) {
 		Oxidation oxidation = this.getOxidation();
 		this.setOxidation(Oxidation.byId(Mth.clamp(oxidation.getId() + amount, 0, 3)));
+
 		return this.getOxidation() != oxidation;
 	}
 
@@ -473,8 +409,8 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	}
 
 	private void spinHead() {
-		if (this.headSpinTicks <= 12) {
-			this.headSpinTicks = 22;
+		if (this.headSpinTicks <= 10) {
+			this.headSpinTicks = 24;
 			this.headSpinTicksO = this.headSpinTicks;
 			this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
 		}
@@ -497,6 +433,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		if (this.buttonPressTicks > 0) {
 			--this.buttonPressTicks;
 		}
+	}
+
+	public boolean isSpinningHead() {
+		return this.headSpinTicks > 0;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -523,12 +463,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	public void handleEntityEvent(byte id) {
 		if (id == 4) {
 			this.spinHead();
-		} else if (id == 6) {
+		} else if (id == 5) {
 			this.spinHead();
 			this.spawnSparkParticles(ParticleTypes.ELECTRIC_SPARK);
-		} else if (id == 8) {
+		} else if (id == 6) {
 			this.pressButton();
-		} else if (id == 10) {
+		} else if (id == 7) {
 			if (this.level.isClientSide) {
 				this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F, false);
 				this.lastHit = this.level.getGameTime();
@@ -603,12 +543,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		@Override
 		public boolean canUse() {
-			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canUse();
+			return !CopperGolem.this.isSpinningHead() && !CopperGolem.this.isStatue() && super.canUse();
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canContinueToUse();
+			return !CopperGolem.this.isSpinningHead() && !CopperGolem.this.isStatue() && super.canContinueToUse();
 		}
 	}
 
@@ -619,12 +559,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		@Override
 		public boolean canUse() {
-			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canUse();
+			return !CopperGolem.this.isSpinningHead() && !CopperGolem.this.isStatue() && super.canUse();
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return CopperGolem.this.headSpinTicks <= 0 && !CopperGolem.this.isStatue() && super.canContinueToUse();
+			return !CopperGolem.this.isSpinningHead() && !CopperGolem.this.isStatue() && super.canContinueToUse();
 		}
 	}
 
@@ -701,7 +641,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 				if (this.pressWaitTicks == 6) {
 					CopperGolem.this.pressButton();
-					CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte) 8);
+					CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte) 6);
 				} else if (this.pressWaitTicks <= 0) {
 					BlockState state = CopperGolem.this.level.getBlockState(this.blockPos);
 					if (!state.getValue(CopperButtonBlock.POWERED)) {
