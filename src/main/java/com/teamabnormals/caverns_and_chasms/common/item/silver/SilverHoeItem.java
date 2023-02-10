@@ -1,17 +1,19 @@
 package com.teamabnormals.caverns_and_chasms.common.item.silver;
 
+import com.google.common.collect.Multimap;
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-public class SilverHoeItem extends HoeItem implements AfflictingItem {
+public class SilverHoeItem extends HoeItem implements SilverItem {
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(CCItems.SILVER_AXE);
 
 	public SilverHoeItem(Tier tier, int maxDamage, float attackSpeedIn, Properties builder) {
@@ -19,14 +21,14 @@ public class SilverHoeItem extends HoeItem implements AfflictingItem {
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		this.causeAfflictionDamage(target);
-		return super.hurtEnemy(stack, target, attacker);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+		return addMagicDamageAttribute(1.0F, slot, super.getAttributeModifiers(slot, stack));
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-		this.addAfflictionTooltip(tooltip);
+	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		this.causeMagicDamage(stack, target);
+		return super.hurtEnemy(stack, target, attacker);
 	}
 
 	@Override

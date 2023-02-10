@@ -10,9 +10,10 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
+import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.silver.AfflictingItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
@@ -328,10 +329,12 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockEvent.BreakEvent event) {
 		Player player = event.getPlayer();
-		Item item = player.getItemBySlot(EquipmentSlot.MAINHAND).getItem();
-		if (item instanceof TieredItem && ((TieredItem) item).getTier() == Tiers.GOLD) {
-			int droppedXP = event.getExpToDrop();
-			event.setExpToDrop(droppedXP * 2);
+		ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
+		Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
+		if (!experienceModifiers.isEmpty()) {
+			int xp = event.getExpToDrop();
+			double experienceBoost = experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+			event.setExpToDrop((int) (xp + xp * experienceBoost));
 		}
 	}
 
@@ -339,10 +342,12 @@ public class CCEvents {
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		Player player = event.getAttackingPlayer();
 		if (player != null) {
-			Item item = player.getItemBySlot(EquipmentSlot.MAINHAND).getItem();
-			if (item instanceof TieredItem && ((TieredItem) item).getTier() == Tiers.GOLD) {
-				int droppedXP = event.getDroppedExperience();
-				event.setDroppedExperience(droppedXP * 2);
+			ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
+			Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
+			if (!experienceModifiers.isEmpty()) {
+				int xp = event.getDroppedExperience();
+				double experienceBoost = experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+				event.setDroppedExperience((int) (xp + xp * experienceBoost));
 			}
 		}
 	}
@@ -441,30 +446,57 @@ public class CCEvents {
 		DamageSource source = event.getSource();
 		Level level = target.getLevel();
 
+		if (source.isMagic()) {
+			float magicProtection = 0.0F;
+			for (EquipmentSlot slot : EquipmentSlot.values()) {
+				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
+					ItemStack stack = target.getItemBySlot(slot);
+					Collection<AttributeModifier> magicProt = stack.getAttributeModifiers(slot).get(CCAttributes.MAGIC_PROTECTION.get());
+					if (!magicProt.isEmpty()) {
+						magicProtection += magicProt.stream().mapToDouble(AttributeModifier::getAmount).sum();
+					}
+				}
+			}
+
+			if (magicProtection > 0.0F) {
+				event.setAmount(event.getAmount() - event.getAmount() * magicProtection);
+				SilverItem.causeMagicProtectionParticles(target);
+			}
+
+			if (target instanceof Horse horse) {
+				for (ItemStack stack : horse.getArmorSlots()) {
+					if (stack.getItem() instanceof SilverHorseArmorItem) {
+						event.setAmount(event.getAmount() - event.getAmount() * 0.30F);
+						SilverItem.causeMagicProtectionParticles(horse);
+					}
+				}
+			}
+		}
+
 		if (source.getEntity() instanceof LivingEntity attacker) {
 			float weaknessAmount = 0.0F;
 			float lifeStealAmount = 0.0F;
 
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
-				ItemStack stack = target.getItemBySlot(slot);
+				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
+					ItemStack stack = target.getItemBySlot(slot);
 
-				if (stack.getItem() instanceof AfflictingItem afflictingItem && !level.isClientSide()) {
-					afflictingItem.causeAfflictionDamage(attacker, true);
-				}
+					Collection<AttributeModifier> weaknessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.WEAKNESS_AURA.get());
+					if (!weaknessModifiers.isEmpty()) {
+						weaknessAmount += weaknessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+					}
 
-				Collection<AttributeModifier> weaknessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.WEAKNESS_AURA.get());
-				if (!weaknessModifiers.isEmpty()) {
-					weaknessAmount += weaknessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-				}
-
-				Collection<AttributeModifier> lifeStealModifiers = attacker.getItemBySlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
-				if (!lifeStealModifiers.isEmpty() && (target instanceof Enemy || target instanceof Player)) {
-					lifeStealAmount += lifeStealModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+					Collection<AttributeModifier> lifeStealModifiers = attacker.getItemBySlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
+					if (!lifeStealModifiers.isEmpty() && (target instanceof Enemy || target instanceof Player)) {
+						lifeStealAmount += lifeStealModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+					}
 				}
 			}
 
-			if (lifeStealAmount > 0.0F)
+			if (lifeStealAmount > 0.0F) {
 				attacker.heal(lifeStealAmount * event.getAmount());
+				SanguineArmorItem.causeHealParticles(attacker, lifeStealAmount);
+			}
 
 			if (weaknessAmount > 0.0F) {
 				for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(weaknessAmount, 0.0D, weaknessAmount))) {
@@ -473,18 +505,13 @@ public class CCEvents {
 				}
 			}
 
-			if (target instanceof Horse) {
-				Horse horse = (Horse) event.getEntity();
+			if (target instanceof Horse horse) {
 				for (ItemStack stack : horse.getArmorSlots()) {
 					if (stack.getItem() instanceof NecromiumHorseArmorItem) {
 						for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
 							if (entity != target && !target.hasPassenger(entity))
 								entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
 						}
-					}
-
-					if (stack.getItem() instanceof SilverHorseArmorItem silverHorseArmorItem) {
-						silverHorseArmorItem.causeAfflictionDamage(attacker, true);
 					}
 				}
 			}
@@ -500,23 +527,30 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onItemModify(ItemAttributeModifierEvent event) {
-		Item item = event.getItemStack().getItem();
+		ItemStack stack = event.getItemStack();
 		EquipmentSlot slot = event.getSlotType();
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
 		if (CCConfig.COMMON.chainmailArmorBuff.get()) {
-			if (item == Items.CHAINMAIL_HELMET && slot == EquipmentSlot.HEAD || item == Items.CHAINMAIL_BOOTS && slot == EquipmentSlot.FEET)
+			if (stack.is(Items.CHAINMAIL_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.CHAINMAIL_BOOTS) && slot == EquipmentSlot.FEET)
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
-			else if (item == Items.CHAINMAIL_CHESTPLATE && slot == EquipmentSlot.CHEST || item == Items.CHAINMAIL_LEGGINGS && slot == EquipmentSlot.LEGS)
+			else if (stack.is(Items.CHAINMAIL_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.CHAINMAIL_LEGGINGS) && slot == EquipmentSlot.LEGS)
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
+		}
+
+		//TODO: Use tag
+		if (slot == EquipmentSlot.MAINHAND) {
+			if (stack.is(Items.GOLDEN_SWORD) || stack.is(Items.GOLDEN_SHOVEL) || stack.is(Items.GOLDEN_PICKAXE) || stack.is(Items.GOLDEN_AXE) || stack.is(Items.GOLDEN_HOE)) {
+				event.addModifier(CCAttributes.EXPERIENCE_BOOST.get(), new AttributeModifier(UUID.fromString("1B1C193D-1484-4CB9-8DC7-FE226C77657A"), "Exerience boost", 0.75D, AttributeModifier.Operation.MULTIPLY_BASE));
+			}
 		}
 	}
 
-    @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+	@SubscribeEvent
+	public static void onLivingTick(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
 		if (event.getEntity() instanceof ControllableGolem) {
 			if (((ControllableGolem) entity).getController() != null)
 				((ControllableGolem) entity).tuningForkBehaviorTick();
 		}
-    }
+	}
 }

@@ -34,8 +34,8 @@ public abstract class IronGolemEntityMixin extends AbstractGolem implements Cont
 	private int forgetControllerTime;
 	@Nullable
 	private LivingEntity tuningForkTarget;
-    @Nullable
-    private BlockPos tuningForkPos;
+	@Nullable
+	private BlockPos tuningForkPos;
 
 	private IronGolemEntityMixin(EntityType<? extends AbstractGolem> entity, Level world) {
 		super(entity, world);
@@ -44,10 +44,10 @@ public abstract class IronGolemEntityMixin extends AbstractGolem implements Cont
 	@Shadow
 	public abstract boolean isPlayerCreated();
 
-    @Inject(at = @At("TAIL"), method = "defineSynchedData")
-    protected void defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(CONTROLLER_UUID, Optional.empty());
-    }
+	@Inject(at = @At("TAIL"), method = "defineSynchedData")
+	protected void defineSynchedData(CallbackInfo ci) {
+		this.entityData.define(CONTROLLER_UUID, Optional.empty());
+	}
 
 	@Inject(at = @At("HEAD"), method = "doPush")
 	public void doPush(Entity entity, CallbackInfo ci) {
@@ -71,49 +71,50 @@ public abstract class IronGolemEntityMixin extends AbstractGolem implements Cont
 	}
 
 	@Override
-	public void onTuningForkControl(Player controller) {}
+	public void onTuningForkControl(Player controller) {
+	}
 
 	@Override
 	public boolean shouldMoveToTuningForkPos(BlockPos pos, Player controller) {
 		return true;
 	}
 
-    @Override
-    public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
-        return !(target instanceof Villager);
-    }
+	@Override
+	public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
+		return !(target instanceof Villager);
+	}
 
-    @Override
-    public void setControllerUUID(UUID uuid) {
+	@Override
+	public void setControllerUUID(UUID uuid) {
 		this.entityData.set(CONTROLLER_UUID, Optional.ofNullable(uuid));
-    }
+	}
 
-    @Nullable
-    @Override
-    public UUID getControllerUUID() {
+	@Nullable
+	@Override
+	public UUID getControllerUUID() {
 		return this.entityData.get(CONTROLLER_UUID).orElse((UUID) null);
-    }
+	}
 
-    @Override
-    public void setForgetControllerTime(int time) {
-        this.forgetControllerTime = time;
-    }
+	@Override
+	public void setForgetControllerTime(int time) {
+		this.forgetControllerTime = time;
+	}
 
-    @Override
-    public int getForgetControllerTime() {
-        return this.forgetControllerTime;
-    }
+	@Override
+	public int getForgetControllerTime() {
+		return this.forgetControllerTime;
+	}
 
-    @Override
-    public void setTuningForkPos(BlockPos pos) {
-        this.tuningForkPos = pos;
-    }
+	@Override
+	public void setTuningForkPos(BlockPos pos) {
+		this.tuningForkPos = pos;
+	}
 
-    @Nullable
-    @Override
-    public BlockPos getTuningForkPos() {
-        return this.tuningForkPos;
-    }
+	@Nullable
+	@Override
+	public BlockPos getTuningForkPos() {
+		return this.tuningForkPos;
+	}
 
 	@Override
 	public void setTuningForkTarget(LivingEntity target) {

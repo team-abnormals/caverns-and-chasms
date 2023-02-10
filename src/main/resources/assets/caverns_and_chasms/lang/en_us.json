@@ -285,12 +285,12 @@
   "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
   "death.attack.caverns_and_chasms.kunai.item": "%1$s was stabbed by %2$s using %3$s",
 
+  "attribute.caverns_and_chasms.name.generic.magic_damage": "Magic Damage",
+  "attribute.caverns_and_chasms.name.generic.magic_protection": "Magic Protection",
+  "attribute.caverns_and_chasms.name.generic.experience_boost": "Experience Boost",
+  "attribute.caverns_and_chasms.name.generic.slowness_infliction": "Slowness Infliction",
   "attribute.caverns_and_chasms.name.generic.weakness_aura": "Weakness Aura",
   "attribute.caverns_and_chasms.name.generic.lifesteal": "Lifesteal",
-
-  "tooltip.caverns_and_chasms.afflicting": "Afflicting",
-  "tooltip.caverns_and_chasms.boosting": "Boosting",
-  "tooltip.caverns_and_chasms.slowing": "Slowing",
 
   "advancements.caverns_and_chasms.adventure.smelt_copper.title": "Copping Copper",
   "advancements.caverns_and_chasms.adventure.smelt_copper.description": "Smelt a Copper Ingot",
@@ -298,8 +298,8 @@
   "advancements.caverns_and_chasms.adventure.use_tuning_fork.description": "Use a Tuning Fork to capture the note from a Note Block",
   "advancements.caverns_and_chasms.adventure.tune_a_fish.title": "But You Can't Tuna Fish!",
   "advancements.caverns_and_chasms.adventure.tune_a_fish.description": "Attack a fish with a Tuning Fork",
-  "advancements.caverns_and_chasms.husbandry.ancient_hoes.title": "Dangerous Determination",
-  "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Use Netherite and Necromium Ingots to upgrade two hoes, and then realize that life is insignificant",
+  "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.title": "Dangerous Determination",
+  "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.description": "Use Netherite and Necromium Ingots to upgrade two hoes, and then realize that life is insignificant",
   "advancements.caverns_and_chasms.nether.necromium_armor.title": "Cover Me in Curses",
   "advancements.caverns_and_chasms.nether.necromium_armor.description": "Get a full suit of Necromium armor",
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.title": "Ex Machina",

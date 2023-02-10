@@ -39,21 +39,14 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		switch (state.getValue(FACING)) {
-			case DOWN:
-			default:
-				return DOWN_SHAPE;
-			case UP:
-				return UP_SHAPE;
-			case NORTH:
-				return NORTH_SHAPE;
-			case SOUTH:
-				return SOUTH_SHAPE;
-			case WEST:
-				return WEST_SHAPE;
-			case EAST:
-				return EAST_SHAPE;
-		}
+		return switch (state.getValue(FACING)) {
+			case DOWN -> DOWN_SHAPE;
+			case UP -> UP_SHAPE;
+			case NORTH -> NORTH_SHAPE;
+			case SOUTH -> SOUTH_SHAPE;
+			case WEST -> WEST_SHAPE;
+			case EAST -> EAST_SHAPE;
+		};
 	}
 
 	@Override
