@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
 import com.teamabnormals.caverns_and_chasms.client.model.SanguineArmorModel;
@@ -9,8 +10,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.NonNullList;
-import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,23 +27,20 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class SanguineArmorItem extends ArmorItem {
-	private final LazyLoadedValue<Multimap<Attribute, AttributeModifier>> attributes;
+	public static final float[] LIFESTEAL_AMOUNT_PER_SLOT = new float[]{0.03F, 0.06F, 0.07F, 0.04F};
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(CCItems.SILVER_BOOTS);
 
 	public SanguineArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {
 		super(material, slot, properties);
-		this.attributes = new LazyLoadedValue<>(() -> {
-			UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-			ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-			builder.putAll(super.getDefaultAttributeModifiers(slot));
-			builder.put(CCAttributes.LIFESTEAL.get(), new AttributeModifier(uuid, "Lifesteal", SanguineArmorType.slotToType(slot).getLifestealAmount(), AttributeModifier.Operation.ADDITION));
-			return builder.build();
-		});
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-		return equipmentSlot == this.slot ? this.attributes.get() : super.getDefaultAttributeModifiers(equipmentSlot);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+		builder.putAll(super.getAttributeModifiers(this.getSlot(), stack));
+		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
+		builder.put(CCAttributes.LIFESTEAL.get(), new AttributeModifier(uuid, "Lifesteal", LIFESTEAL_AMOUNT_PER_SLOT[slot.getIndex()], AttributeModifier.Operation.MULTIPLY_BASE));
+		return slot == this.slot ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 
 	@Override
@@ -66,38 +62,5 @@ public class SanguineArmorItem extends ArmorItem {
 				return SanguineArmorModel.getModel(slot, entity);
 			}
 		});
-	}
-
-	public enum SanguineArmorType implements StringRepresentable {
-		HEAD("head", EquipmentSlot.HEAD, 4),
-		CHEST("chest", EquipmentSlot.CHEST, 9),
-		LEGS("legs", EquipmentSlot.LEGS, 8),
-		FEET("feet", EquipmentSlot.FEET, 4);
-
-		private final String name;
-		private final EquipmentSlot slot;
-		private final int reduction;
-
-		SanguineArmorType(String name, EquipmentSlot slot, int reduction) {
-			this.name = name;
-			this.slot = slot;
-			this.reduction = reduction;
-		}
-
-		public static SanguineArmorType slotToType(EquipmentSlot slot) {
-			for (SanguineArmorType type : values())
-				if (type.slot == slot)
-					return type;
-			return HEAD;
-		}
-
-		public float getLifestealAmount() {
-			return this.reduction * 0.01F;
-		}
-
-		@Override
-		public String getSerializedName() {
-			return this.name;
-		}
 	}
 }

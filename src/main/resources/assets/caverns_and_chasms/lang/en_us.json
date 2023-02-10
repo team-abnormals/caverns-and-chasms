@@ -285,12 +285,12 @@
   "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
   "death.attack.caverns_and_chasms.kunai.item": "%1$s was stabbed by %2$s using %3$s",
 
+  "attribute.caverns_and_chasms.name.generic.magic_damage": "Magic Damage",
+  "attribute.caverns_and_chasms.name.generic.magic_protection": "Magic Protection",
+  "attribute.caverns_and_chasms.name.generic.experience_boost": "Experience Boost",
+  "attribute.caverns_and_chasms.name.generic.slowness_infliction": "Slowness Infliction",
   "attribute.caverns_and_chasms.name.generic.weakness_aura": "Weakness Aura",
   "attribute.caverns_and_chasms.name.generic.lifesteal": "Lifesteal",
-
-  "tooltip.caverns_and_chasms.afflicting": "Afflicting",
-  "tooltip.caverns_and_chasms.boosting": "Boosting",
-  "tooltip.caverns_and_chasms.slowing": "Slowing",
 
   "advancements.caverns_and_chasms.adventure.smelt_copper.title": "Copping Copper",
   "advancements.caverns_and_chasms.adventure.smelt_copper.description": "Smelt a Copper Ingot",

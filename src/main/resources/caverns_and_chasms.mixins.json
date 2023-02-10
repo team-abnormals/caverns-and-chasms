@@ -19,8 +19,7 @@
   ],
   "client": [
     "client.ClientRecipeBookMixin",
-    "client.HumanoidArmorLayerMixin",
-    "client.TieredItemMixin"
+    "client.HumanoidArmorLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

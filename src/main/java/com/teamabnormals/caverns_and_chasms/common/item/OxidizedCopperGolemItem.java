@@ -38,7 +38,7 @@ public class OxidizedCopperGolemItem extends Item {
 			ItemStack itemstack = context.getItemInHand();
 			Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
 			AABB aabb = CCEntityTypes.COPPER_GOLEM.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
-			if (level.noCollision((Entity) null, aabb) && level.getEntities((Entity) null, aabb).isEmpty()) {
+			if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty()) {
 				if (level instanceof ServerLevel) {
 					ServerLevel serverlevel = (ServerLevel) level;
 					CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), (Component) null, context.getPlayer(), blockpos, MobSpawnType.SPAWN_EGG, true, true);
