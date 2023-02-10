@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
+import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.blueprint.core.util.item.filling.TargetedItemCategoryFiller;
 import com.teamabnormals.caverns_and_chasms.client.model.SanguineArmorModel;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -10,6 +11,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,6 +54,17 @@ public class SanguineArmorItem extends ArmorItem {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return CavernsAndChasms.MOD_ID + ":textures/models/armor/sanguine_armor.png";
+	}
+
+	public static void causeHealParticles(LivingEntity entity, float amount) {
+		RandomSource random = entity.getRandom();
+		int count = 3;
+		for (int i = 0; i < count; ++i) {
+			double d0 = random.nextGaussian() * 0.02D;
+			double d1 = random.nextGaussian() * 0.02D;
+			double d2 = random.nextGaussian() * 0.02D;
+			NetworkUtil.spawnParticle(ParticleTypes.HEART.writeToString(), entity.getRandomX(0.75D), entity.getEyeY() + 0.1F + random.nextDouble() * 0.3F, entity.getRandomZ(0.75D), d0, d1, d2);
+		}
 	}
 
 	@Override

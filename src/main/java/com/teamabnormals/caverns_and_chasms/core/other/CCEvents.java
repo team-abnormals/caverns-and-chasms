@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
+import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
@@ -494,6 +495,7 @@ public class CCEvents {
 
 			if (lifeStealAmount > 0.0F) {
 				attacker.heal(lifeStealAmount * event.getAmount());
+				SanguineArmorItem.causeHealParticles(attacker, lifeStealAmount);
 			}
 
 			if (weaknessAmount > 0.0F) {
