@@ -65,8 +65,8 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	private int ticksSinceButtonPress;
 
 	private int forgetControllerTime;
-    @Nullable
-    private BlockPos tuningForkPos;
+	@Nullable
+	private BlockPos tuningForkPos;
 
 	public long lastHit;
 
@@ -189,10 +189,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		return true;
 	}
 
-    @Override
-    public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
-        return false;
-    }
+	@Override
+	public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
+		return false;
+	}
 
 	@Override
 	public void setControllerUUID(UUID uuid) {
@@ -217,17 +217,18 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	@Override
 	public void setTuningForkPos(BlockPos pos) {
-        this.tuningForkPos = pos;
-    }
+		this.tuningForkPos = pos;
+	}
 
-    @Nullable
-    @Override
-    public BlockPos getTuningForkPos() {
-        return this.tuningForkPos;
-    }
+	@Nullable
+	@Override
+	public BlockPos getTuningForkPos() {
+		return this.tuningForkPos;
+	}
 
 	@Override
-	public void setTuningForkTarget(LivingEntity target) {}
+	public void setTuningForkTarget(LivingEntity target) {
+	}
 
 	@Nullable
 	@Override
