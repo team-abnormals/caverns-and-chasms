@@ -1,10 +1,9 @@
 {
   "type": "forge:remove_features",
-  "biomes": "#caverns_and_chasms:has_feature/silver_ore",
+  "biomes": "#minecraft:is_overworld",
   "features": [
     "minecraft:ore_gold",
-    "minecraft:ore_gold_lower",
-    "minecraft:ore_gold_extra"
+    "minecraft:ore_gold_lower"
   ],
   "steps": "underground_ores"
 }

@@ -81,6 +81,7 @@ public class CavernsAndChasms {
 		CCConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
 		CCPlacedFeatures.PLACED_FEATURES.register(bus);
 		CCRecipeTypes.RECIPE_TYPES.register(bus);
+		CCBiomeModifierTypes.BIOME_MODIFIER_SERIALIZERS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);

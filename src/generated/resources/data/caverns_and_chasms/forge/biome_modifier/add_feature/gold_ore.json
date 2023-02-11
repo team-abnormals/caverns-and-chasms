@@ -1,0 +1,6 @@
+{
+  "type": "caverns_and_chasms:add_features_inverted",
+  "features": "caverns_and_chasms:ore_gold_buried_with_silver",
+  "inverted_biomes": "#caverns_and_chasms:has_feature/silver_ore",
+  "step": "underground_ores"
+}

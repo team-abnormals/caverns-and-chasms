@@ -1,0 +1,9 @@
+{
+  "type": "caverns_and_chasms:add_features_inverted",
+  "features": [
+    "caverns_and_chasms:ore_lapis_with_spinel",
+    "caverns_and_chasms:ore_spinel_buried_lower"
+  ],
+  "inverted_biomes": "#caverns_and_chasms:has_feature/spinel_ore",
+  "step": "underground_ores"
+}
