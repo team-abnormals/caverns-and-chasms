@@ -6,8 +6,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.DebugPackets;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,9 +29,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.EntityPositionSource;
-import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -37,11 +41,11 @@ import java.util.UUID;
 public class Glare extends PathfinderMob {
 	protected static final ImmutableList<SensorType<? extends Sensor<? super Glare>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY);
 	protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.IS_PANICKING);
+	private static final EntityDataAccessor<Boolean> DATA_GRUMPY = SynchedEntityData.defineId(Glare.class, EntityDataSerializers.BOOLEAN);
 
 	public Glare(EntityType<? extends Glare> glare, Level level) {
 		super(glare, level);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
-		PositionSource positionsource = new EntityPositionSource(this, this.getEyeHeight());
 	}
 
 	protected Brain.Provider<Glare> brainProvider() {
@@ -70,6 +74,31 @@ public class Glare extends PathfinderMob {
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.entityData.define(DATA_GRUMPY, false);
+	}
+
+	public boolean shouldBeGrumpy() {
+		Level level = this.getLevel();
+		RandomSource random = this.getRandom();
+		BlockPos pos = this.getOnPos();
+		DimensionType dimension = level.dimensionType();
+		int i = dimension.monsterSpawnBlockLightLimit();
+		if (i < 15 && level.getBrightness(LightLayer.BLOCK, pos) > i) {
+			return false;
+		} else {
+			int j = level.isThundering() ? level.getMaxLocalRawBrightness(pos, 10) : level.getMaxLocalRawBrightness(pos);
+			return j <= dimension.monsterSpawnLightTest().sample(random);
+		}
+	}
+
+	public boolean isGrumpy() {
+		return this.entityData.get(DATA_GRUMPY);
+	}
+
+	public void setGrumpy(boolean grumpy) {
+		if (!this.level.isClientSide) {
+			this.entityData.set(DATA_GRUMPY, grumpy);
+		}
 	}
 
 	public void travel(Vec3 p_218382_) {
@@ -146,6 +175,11 @@ public class Glare extends PathfinderMob {
 
 	public void aiStep() {
 		super.aiStep();
+		if (this.isGrumpy() && !this.shouldBeGrumpy()) {
+			this.setGrumpy(false);
+		} else if (!this.isGrumpy() && this.shouldBeGrumpy()) {
+			this.setGrumpy(true);
+		}
 	}
 
 	public void tick() {

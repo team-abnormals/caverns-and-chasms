@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.teamabnormals.caverns_and_chasms.client.model.GlareModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.GlareEyesLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.glare.Glare;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,6 +16,7 @@ public class GlareRenderer extends MobRenderer<Glare, GlareModel<Glare>> {
 
 	public GlareRenderer(EntityRendererProvider.Context context) {
 		super(context, new GlareModel<>(context.bakeLayer(GlareModel.LOCATION)), 0.4F);
+		this.addLayer(new GlareEyesLayer<>(this));
 	}
 
 	public ResourceLocation getTextureLocation(Glare glare) {
