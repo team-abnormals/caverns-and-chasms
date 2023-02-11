@@ -261,6 +261,7 @@
   "item.caverns_and_chasms.mime_spawn_egg": "Mime Spawn Egg",
   "item.caverns_and_chasms.fly_spawn_egg": "Fly Spawn Egg",
   "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
+  "item.caverns_and_chasms.glare_spawn_egg": "Glare Spawn Egg",
   
   "entity.caverns_and_chasms.cavefish": "Cavefish",
   "entity.caverns_and_chasms.deeper": "Deeper",
@@ -269,6 +270,7 @@
   "entity.caverns_and_chasms.fly": "Fly",
   "entity.caverns_and_chasms.rat": "Rat",
   "entity.caverns_and_chasms.copper_golem": "Copper Golem",
+  "entity.caverns_and_chasms.glare": "Glare",
   "entity.caverns_and_chasms.kunai": "Kunai",
 
   "effect.caverns_and_chasms.rewind": "Rewind",

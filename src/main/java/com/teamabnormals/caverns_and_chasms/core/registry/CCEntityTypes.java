@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Cavefish;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.glare.Glare;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
@@ -40,6 +41,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
 	public static final RegistryObject<EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = HELPER.createEntity("spinel_pearl", ThrownBejeweledPearl::new, ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);
 	public static final RegistryObject<EntityType<PrimedTmt>> TMT = ENTITIES.register("tmt", () -> EntityType.Builder.<PrimedTmt>of(PrimedTmt::new, MobCategory.MISC).fireImmune().sized(0.98F, 0.98F).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "tmt").toString()));
+	public static final RegistryObject<EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.CREATURE, 0.8F, 1.2F);
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {
@@ -50,6 +52,7 @@ public class CCEntityTypes {
 		event.put(MIME.get(), Mime.registerAttributes().build());
 		event.put(RAT.get(), Rat.registerAttributes().build());
 		event.put(COPPER_GOLEM.get(), CopperGolem.registerAttributes().build());
+		event.put(GLARE.get(), Glare.createAttributes().build());
 	}
 
 	public static void registerEntitySpawns() {
