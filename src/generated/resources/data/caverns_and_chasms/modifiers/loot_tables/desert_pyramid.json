@@ -11,8 +11,8 @@
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "max": 7.0,
-                  "min": 2.0
+                  "max": 5.0,
+                  "min": 1.0
                 },
                 "function": "minecraft:set_count"
               }
@@ -22,23 +22,8 @@
           },
           {
             "type": "minecraft:item",
-            "functions": [
-              {
-                "add": false,
-                "count": {
-                  "type": "minecraft:uniform",
-                  "max": 9.0,
-                  "min": 4.0
-                },
-                "function": "minecraft:set_count"
-              }
-            ],
-            "name": "caverns_and_chasms:spinel",
-            "weight": 15
-          },
-          {
-            "type": "minecraft:item",
-            "name": "caverns_and_chasms:silver_horse_armor"
+            "name": "caverns_and_chasms:silver_horse_armor",
+            "weight": 10
           }
         ],
         "index": 0,
@@ -47,5 +32,5 @@
     }
   ],
   "priority": "normal",
-  "selector": "minecraft:chests/jungle_temple"
+  "selector": "minecraft:chests/desert_pyramid"
 }

@@ -6,6 +6,10 @@
         "entries": [
           {
             "type": "minecraft:item",
+            "name": "caverns_and_chasms:barometer"
+          },
+          {
+            "type": "minecraft:item",
             "name": "caverns_and_chasms:depth_gauge"
           }
         ],

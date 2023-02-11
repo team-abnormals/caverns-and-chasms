@@ -1,0 +1,28 @@
+{
+  "modifiers": [
+    {
+      "type": "pools",
+      "config": {
+        "pools": [
+          {
+            "bonus_rolls": 0.0,
+            "entries": [
+              {
+                "type": "minecraft:item",
+                "name": "caverns_and_chasms:barometer"
+              }
+            ],
+            "rolls": {
+              "type": "minecraft:uniform",
+              "max": 1.0,
+              "min": 0.0
+            }
+          }
+        ],
+        "replace": false
+      }
+    }
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/village/village_fisher"
+}

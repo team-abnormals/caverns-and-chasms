@@ -11,23 +11,19 @@
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "max": 16.0,
-                  "min": 8.0
+                  "max": 5.0,
+                  "min": 1.0
                 },
                 "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:golden_bars",
+            "name": "caverns_and_chasms:silver_ingot",
             "weight": 5
           },
           {
             "type": "minecraft:item",
-            "name": "caverns_and_chasms:lava_lamp",
-            "weight": 5
-          },
-          {
-            "type": "minecraft:item",
-            "name": "caverns_and_chasms:golden_bucket"
+            "name": "caverns_and_chasms:silver_horse_armor",
+            "weight": 6
           }
         ],
         "index": 0,
@@ -36,5 +32,5 @@
     }
   ],
   "priority": "normal",
-  "selector": "minecraft:chests/ruined_portal"
+  "selector": "minecraft:chests/nether_bridge"
 }

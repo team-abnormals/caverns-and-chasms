@@ -11,6 +11,47 @@
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
+                  "max": 5.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_ingot",
+            "weight": 10
+          }
+        ],
+        "index": 0,
+        "replace": false
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 10.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_nugget",
+            "weight": 10
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
                   "max": 10.0,
                   "min": 1.0
                 },
