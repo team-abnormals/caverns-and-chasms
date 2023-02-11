@@ -12,6 +12,7 @@
                 "name": "caverns_and_chasms:barometer"
               }
             ],
+            "name": "caverns_and_chasms:barometer",
             "rolls": {
               "type": "minecraft:uniform",
               "max": 1.0,

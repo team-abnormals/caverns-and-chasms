@@ -11,9 +11,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.Arrays;
@@ -56,7 +58,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 4))));
 
 		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
-				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(CCItems.BAROMETER.get())).build()), false));
+				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":barometer").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(CCItems.BAROMETER.get())).build()), false));
 		this.entry("village_weaponsmith").selects(BuiltInLootTables.VILLAGE_WEAPONSMITH).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 3), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
 		this.entry("village_toolsmith").selects(BuiltInLootTables.VILLAGE_TOOLSMITH).addModifier(new LootPoolEntriesModifier(false, 0,
