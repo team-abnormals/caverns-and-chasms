@@ -79,8 +79,8 @@ public class Mime extends Monster {
 				.add(Attributes.ARMOR, 2.0D);
 	}
 
-	public static boolean canMimeSpawn(EntityType<? extends Monster> type, ServerLevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource randomIn) {
-		return pos.getY() <= 42 && checkMonsterSpawnRules(type, worldIn, reason, pos, randomIn);
+	public static boolean checkMimeSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+		return pos.getY() <= 48 && (random.nextInt(10) == 0 || pos.getY() <= 0) && checkMonsterSpawnRules(type, level, reason, pos, random);
 	}
 
 	@Override

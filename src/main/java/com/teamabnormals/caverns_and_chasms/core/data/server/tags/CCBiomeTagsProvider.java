@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
+import com.teamabnormals.blueprint.core.other.tags.BlueprintBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import net.minecraft.data.DataGenerator;
@@ -24,7 +25,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(CCBiomeTags.HAS_ROCKY_DIRT).addTag(BiomeTags.IS_OVERWORLD);
 		this.tag(CCBiomeTags.HAS_FRAGILE_STONE).addTag(BiomeTags.IS_OVERWORLD);
 
-		this.tag(CCBiomeTags.HAS_MIME).addTag(CCBiomeTags.HAS_SPINEL_ORE);
+		this.tag(CCBiomeTags.HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(CCBiomeTags.HAS_CAVEFISH);
 	}
 }

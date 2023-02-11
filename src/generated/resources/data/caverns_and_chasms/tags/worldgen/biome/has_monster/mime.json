@@ -1,5 +1,5 @@
 {
   "values": [
-    "#caverns_and_chasms:has_feature/spinel_ore"
+    "#forge:with_default_monster_spawns"
   ]
 }

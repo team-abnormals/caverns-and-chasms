@@ -62,7 +62,7 @@ public class Cavefish extends AbstractSchoolingFish {
 		return SoundEvents.SALMON_FLOP;
 	}
 
-	public static boolean canCavefishSpawn(EntityType<? extends AbstractFish> type, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource randomIn) {
-		return pos.getY() < 42 && worldIn.getBlockState(pos).is(Blocks.WATER) && worldIn.getBlockState(pos.above()).is(Blocks.WATER);
+	public static boolean checkCavefishSpawnRules(EntityType<? extends AbstractFish> type, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource randomIn) {
+		return pos.getY() < 48 && worldIn.getBlockState(pos).is(Blocks.WATER) && worldIn.getBlockState(pos.above()).is(Blocks.WATER);
 	}
 }
