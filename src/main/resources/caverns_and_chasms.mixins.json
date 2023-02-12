@@ -20,6 +20,7 @@
   ],
   "client": [
     "client.ClientRecipeBookMixin",
+    "client.EntityRenderDispatcherMixin",
     "client.HumanoidArmorLayerMixin"
   ],
   "injectors": {
