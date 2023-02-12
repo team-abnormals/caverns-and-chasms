@@ -9,12 +9,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 
 // Made with Blockbench 4.1.3
 // Exported for Minecraft version 1.17 with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
-public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T> {
+public class CopperGolemModel<T extends LivingEntity> extends HierarchicalModel<T> {
 	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "copper_golem"), "main");
 	private final ModelPart root;
 	private final ModelPart head;
@@ -62,30 +63,35 @@ public class CopperGolemModel<T extends CopperGolem> extends HierarchicalModel<T
 	}
 
 	@Override
-	public void prepareMobModel(T copperGolem, float limbSwing, float limbSwingTicks, float partialTick) {
-		super.prepareMobModel(copperGolem, limbSwing, limbSwingTicks, partialTick);
-		this.headSpinTicks = copperGolem.getHeadSpinTicks(partialTick);
-		this.buttonPressTicks = copperGolem.getPressButtonTicks(partialTick);
+	public void prepareMobModel(T entity, float limbSwing, float limbSwingTicks, float partialTick) {
+		super.prepareMobModel(entity, limbSwing, limbSwingTicks, partialTick);
+
+		if (entity instanceof CopperGolem) {
+			this.headSpinTicks = ((CopperGolem) entity).getHeadSpinTicks(partialTick);
+			this.buttonPressTicks = ((CopperGolem) entity).getPressButtonTicks(partialTick);
+		}
 	}
 
 	@Override
-	public void setupAnim(T copperGolem, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		float headspinanim = this.headSpinTicks > 10 ? Mth.TWO_PI * (this.headSpinTicks - 10F) / 14F : this.headSpinTicks > 4 ? -Mth.sin(Mth.PI * (this.headSpinTicks - 4.0F) / 6.0F) * (this.headSpinTicks - 4.0F) / 10.0F : 0.0F;
-		float headtilt = this.headSpinTicks < 10 ? Mth.sin(Mth.PI * this.headSpinTicks * 0.3F) * this.headSpinTicks * 0.012F : 0.0F;
+	public void setupAnim(T entity, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		if (entity instanceof CopperGolem) {
+			float headspinanim = this.headSpinTicks > 10 ? Mth.TWO_PI * (this.headSpinTicks - 10F) / 14F : this.headSpinTicks > 4 ? -Mth.sin(Mth.PI * (this.headSpinTicks - 4.0F) / 6.0F) * (this.headSpinTicks - 4.0F) / 10.0F : 0.0F;
+			float headtilt = this.headSpinTicks < 10 ? Mth.sin(Mth.PI * this.headSpinTicks * 0.3F) * this.headSpinTicks * 0.012F : 0.0F;
 
-		this.head.yRot = netHeadYaw * (Mth.PI / 180F) + headspinanim;
-		this.head.xRot = headPitch * (Mth.PI / 180F);
-		this.head.zRot = headtilt;
+			this.head.yRot = netHeadYaw * (Mth.PI / 180F) + headspinanim;
+			this.head.xRot = headPitch * (Mth.PI / 180F);
+			this.head.zRot = headtilt;
 
-		if (this.buttonPressTicks > 0.0F) {
-			this.rightArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, 12F);
-			this.leftArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, 12F);
-		} else {
-			this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
-			this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
+			if (this.buttonPressTicks > 0.0F) {
+				this.rightArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, 12F);
+				this.leftArm.xRot = -1.0F + Mth.triangleWave(this.buttonPressTicks, 12F);
+			} else {
+				this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
+				this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(limbSwing, 13.0F)) * 1.6F * limbSwingTicks;
+			}
+
+			this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13F) * limbSwingTicks;
+			this.leftLeg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13F) * limbSwingTicks;
 		}
-
-		this.rightLeg.xRot = -1.5F * Mth.triangleWave(limbSwing, 13F) * limbSwingTicks;
-		this.leftLeg.xRot = 1.5F * Mth.triangleWave(limbSwing, 13F) * limbSwingTicks;
 	}
 }
