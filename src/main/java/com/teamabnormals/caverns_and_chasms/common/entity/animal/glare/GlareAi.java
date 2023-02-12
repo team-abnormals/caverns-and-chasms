@@ -3,6 +3,11 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.glare;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.behavior.GetMadAtDarkness;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.behavior.GoToDarkBlock;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.behavior.GoToSporeBlossom;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.behavior.SpinAtSporeBlossom;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -27,15 +32,19 @@ public class GlareAi {
 	}
 
 	private static void initCoreActivity(Brain<Glare> p_218426_) {
-		p_218426_.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(2.5F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
+		p_218426_.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new AnimalPanic(1.5F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
 	}
 
 	private static void initIdleActivity(Brain<Glare> brain) {
-		brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new GoToWantedItem<>((p_218428_) -> {
-			return true;
-		}, 1.75F, true, 32)), Pair.of(1, new StayCloseToTarget<>(GlareAi::getLikedPlayerPositionTracker, 4, 16, 2.25F)), Pair.of(2, new RunSometimes<>(new SetEntityLookTarget((p_218434_) -> {
-			return true;
-		}, 6.0F), UniformInt.of(30, 60))), Pair.of(4, new RunOne<>(ImmutableList.of(Pair.of(new FlyingRandomStroll(1.0F), 2), Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))), ImmutableSet.of());
+		brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(
+				Pair.of(0, new StayCloseToTarget<>(GlareAi::getLikedPlayerPositionTracker, 4, 12, 1.75F)),
+				Pair.of(1, new SpinAtSporeBlossom<>()),
+				Pair.of(1, new RunSometimes<>(new GoToSporeBlossom<>(CCMemoryModuleTypes.NEAREST_SPORE_BLOSSOM.get(), 0, 1.25F), UniformInt.of(400, 600))),
+				Pair.of(2, new GetMadAtDarkness<>()),
+				Pair.of(2, new RunSometimes<>(new GoToDarkBlock<>(CCMemoryModuleTypes.NEAREST_DARK_BLOCK.get(), 0, 1.25F), UniformInt.of(100, 300))),
+				Pair.of(3, new RunSometimes<>(new SetEntityLookTarget((p_218434_) -> true, 6.0F), UniformInt.of(30, 60))),
+				Pair.of(4, new RunOne<>(ImmutableList.of(Pair.of(new FlyingRandomStroll(1.0F), 2), Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))
+		), ImmutableSet.of());
 	}
 
 	public static void updateActivity(Glare glare) {

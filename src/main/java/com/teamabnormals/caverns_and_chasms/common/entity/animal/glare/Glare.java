@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.glare;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +12,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -42,7 +45,7 @@ import java.util.UUID;
 
 public class Glare extends PathfinderMob {
 	protected static final ImmutableList<SensorType<? extends Sensor<? super Glare>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY);
-	protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, MemoryModuleType.LIKED_PLAYER, MemoryModuleType.IS_PANICKING);
+	protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.PATH, MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.HURT_BY, CCMemoryModuleTypes.NEAREST_DARK_BLOCK.get(), CCMemoryModuleTypes.NEAREST_SPORE_BLOSSOM.get(), CCMemoryModuleTypes.DISLIKED_PLAYER.get(), MemoryModuleType.LIKED_PLAYER, MemoryModuleType.IS_PANICKING);
 	private static final EntityDataAccessor<Boolean> DATA_GRUMPY = SynchedEntityData.defineId(Glare.class, EntityDataSerializers.BOOLEAN);
 
 	public Glare(EntityType<? extends Glare> glare, Level level) {
@@ -63,7 +66,7 @@ public class Glare extends PathfinderMob {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.FLYING_SPEED, 0.1F).add(Attributes.MOVEMENT_SPEED, 0.1F).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.FOLLOW_RANGE, 48.0D);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.FLYING_SPEED, 0.1F).add(Attributes.MOVEMENT_SPEED, 0.1F).add(Attributes.FOLLOW_RANGE, 48.0D);
 	}
 
 	public static boolean checkGlareSpawnRules(EntityType<? extends Glare> glare, LevelAccessor level, MobSpawnType type, BlockPos pos, RandomSource random) {
@@ -102,9 +105,7 @@ public class Glare extends PathfinderMob {
 		this.entityData.define(DATA_GRUMPY, false);
 	}
 
-	public boolean shouldBeGrumpy() {
-		Level level = this.getLevel();
-		BlockPos pos = this.blockPosition();
+	public static boolean shouldBeGrumpy(Level level, BlockPos pos) {
 		DimensionType dimension = level.dimensionType();
 		int i = dimension.monsterSpawnBlockLightLimit();
 		return i >= 15 || level.getBrightness(LightLayer.BLOCK, pos) <= i;
@@ -154,7 +155,12 @@ public class Glare extends PathfinderMob {
 			Optional<UUID> optional = this.getBrain().getMemory(MemoryModuleType.LIKED_PLAYER);
 			if (optional.isPresent() && player.getUUID().equals(optional.get())) {
 				this.getBrain().eraseMemory(MemoryModuleType.LIKED_PLAYER);
+				this.getBrain().setMemory(CCMemoryModuleTypes.DISLIKED_PLAYER.get(), player.getUUID());
 			}
+		}
+
+		if (source.isFire()) {
+			damage *= 2.0F;
 		}
 
 		return super.hurt(source, damage);
@@ -194,9 +200,9 @@ public class Glare extends PathfinderMob {
 
 	public void aiStep() {
 		super.aiStep();
-		if (this.isGrumpy() && !this.shouldBeGrumpy()) {
+		if (this.isGrumpy() && !shouldBeGrumpy(this.getLevel(), this.blockPosition())) {
 			this.setGrumpy(false);
-		} else if (!this.isGrumpy() && this.shouldBeGrumpy()) {
+		} else if (!this.isGrumpy() && shouldBeGrumpy(this.getLevel(), this.blockPosition())) {
 			this.setGrumpy(true);
 		}
 	}
@@ -207,13 +213,17 @@ public class Glare extends PathfinderMob {
 
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(Items.GLOW_BERRIES)) {
+		Optional<UUID> optional = this.getBrain().getMemory(MemoryModuleType.LIKED_PLAYER);
+
+		if (stack.is(Items.GLOW_BERRIES) && (this.getHealth() < this.getMaxHealth() || (optional.isPresent() && player.getUUID().equals(optional.get())))) {
+			this.getBrain().eraseMemory(CCMemoryModuleTypes.DISLIKED_PLAYER.get());
+			this.level.playSound(player, this, SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 2.0F, 1.0F);
+			for (int i = 0; i < 3; i++) {
+				spawnHeartParticle();
+			}
 			this.removeInteractionItem(player, stack);
-			//this.level.playSound(player, this, SoundEvents.GLARE_ITEM_GIVEN, SoundSource.NEUTRAL, 2.0F, 1.0F);
-			this.getBrain().setMemory(MemoryModuleType.LIKED_PLAYER, player.getUUID());
 			return InteractionResult.SUCCESS;
 		} else if (hand == InteractionHand.MAIN_HAND && stack.isEmpty()) {
-			//this.level.playSound(player, this, SoundEvents.GLARE_ITEM_TAKEN, SoundSource.NEUTRAL, 2.0F, 1.0F);
 			this.getBrain().eraseMemory(MemoryModuleType.LIKED_PLAYER);
 			return InteractionResult.SUCCESS;
 		} else {
