@@ -6,10 +6,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
 public class CCBlockTags {
-	public static final TagKey<Block> DEEPER_SPAWNABLE_BLOCKS = blockTag("deeper_spawnable_blocks");
+	public static final TagKey<Block> DEEPER_SPAWNABLE_ON = blockTag("deeper_spawnable_on");
 	public static final TagKey<Block> GLARE_SPAWNABLE_NEAR = blockTag("glare_spawnable_near");
-	public static final TagKey<Block> PROSPECTING_METALS = blockTag("prospecting_metals");
-	public static final TagKey<Block> TREASURING_GEMS = blockTag("treasuring_gems");
 	public static final TagKey<Block> CUPRIC_FIRE_BASE_BLOCKS = blockTag("cupric_fire_base_blocks");
 	public static final TagKey<Block> BRAZIERS = blockTag("braziers");
 	public static final TagKey<Block> IGNORE_RAIL_PLACEMENT = blockTag("ignore_rail_placement");

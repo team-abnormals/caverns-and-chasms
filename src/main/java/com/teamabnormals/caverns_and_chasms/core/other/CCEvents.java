@@ -182,7 +182,7 @@ public class CCEvents {
 		if (event.getResult() != Event.Result.DENY) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				Creeper creeper = (Creeper) entity;
-				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_BLOCKS)) {
+				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
 					Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
 					if (deeper != null) {
 						deeper.copyPosition(creeper);
@@ -540,9 +540,8 @@ public class CCEvents {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
 		}
 
-		//TODO: Use tag
 		if (slot == EquipmentSlot.MAINHAND) {
-			if (stack.is(Items.GOLDEN_SWORD) || stack.is(Items.GOLDEN_SHOVEL) || stack.is(Items.GOLDEN_PICKAXE) || stack.is(Items.GOLDEN_AXE) || stack.is(Items.GOLDEN_HOE)) {
+			if (stack.is(CCItemTags.EXPERIENCE_BOOST_ITEMS)) {
 				event.addModifier(CCAttributes.EXPERIENCE_BOOST.get(), new AttributeModifier(UUID.fromString("1B1C193D-1484-4CB9-8DC7-FE226C77657A"), "Exerience boost", 0.75D, AttributeModifier.Operation.MULTIPLY_BASE));
 			}
 		}
@@ -551,8 +550,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingTick(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
-		if (entity instanceof Player) {
-			Player player = (Player) entity;
+		if (entity instanceof Player player) {
 			IDataManager data = (IDataManager) entity;
 			ControllableGolem golem = TuningForkItem.findControlledGolem(player);
 
@@ -569,8 +567,7 @@ public class CCEvents {
 			} else if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
 				TuningForkItem.setControlledGolem(player, null);
 			}
-		} else if (entity instanceof ControllableGolem) {
-			ControllableGolem golem = (ControllableGolem) entity;
+		} else if (entity instanceof ControllableGolem golem) {
 			if (!golem.isBeingTuningForkControlled()) {
 				golem.setTuningForkPos(null);
 				golem.setTuningForkTarget(null);
