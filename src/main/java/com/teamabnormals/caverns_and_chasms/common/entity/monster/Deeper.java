@@ -31,7 +31,7 @@ public class Deeper extends Creeper {
 	public boolean hurt(DamageSource source, float amount) {
 		if (source.getEntity() instanceof LivingEntity entity) {
 			if (entity.getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG))
-				amount *= 2;
+				amount *= 3.0F;
 		}
 		return super.hurt(source, amount);
 	}
