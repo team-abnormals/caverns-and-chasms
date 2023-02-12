@@ -5,18 +5,18 @@
   "minVersion": "0.8",
   "refmap": "caverns_and_chasms.refmap.json",
   "mixins": [
-    "AbstractFireBlockMixin",
-    "AbstractSkeletonEntityMixin",
+    "AbstractSkeletonMixin",
     "AzaleaTreeGrowerMixin",
+    "BaseFireBlockMixin",
     "BrewingRecipeRegistryMixin",
-    "IronGolemEntityMixin",
+    "IronGolemMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LightningBoltMixin",
     "MobMixin",
     "SolidBucketItemMixin",
-    "WitherSkeletonEntityMixin",
-    "ZoglinEntityMixin"
+    "WitherSkeletonMixin",
+    "ZoglinMixin"
   ],
   "client": [
     "client.ClientRecipeBookMixin",

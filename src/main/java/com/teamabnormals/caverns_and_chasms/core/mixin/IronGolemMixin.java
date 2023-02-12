@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(IronGolem.class)
-public abstract class IronGolemEntityMixin extends AbstractGolem implements ControllableGolem {
+public abstract class IronGolemMixin extends AbstractGolem implements ControllableGolem {
 
-	private IronGolemEntityMixin(EntityType<? extends AbstractGolem> entity, Level world) {
+	private IronGolemMixin(EntityType<? extends AbstractGolem> entity, Level world) {
 		super(entity, world);
 	}
 

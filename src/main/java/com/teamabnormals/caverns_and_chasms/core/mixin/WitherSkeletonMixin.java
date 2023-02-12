@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WitherSkeleton.class)
-public abstract class WitherSkeletonEntityMixin extends AbstractSkeleton {
+public abstract class WitherSkeletonMixin extends AbstractSkeleton {
 
-	protected WitherSkeletonEntityMixin(EntityType<? extends AbstractSkeleton> type, Level worldIn) {
+	protected WitherSkeletonMixin(EntityType<? extends AbstractSkeleton> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
