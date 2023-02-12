@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,6 +53,7 @@ public class CCDataProcessors {
     public static final TrackedData<Integer> FORGET_GOLEM_TIME = TrackedData.Builder.create(DataProcessors.INT, () -> 0).build();
     public static final TrackedData<Optional<BlockPos>> TUNING_FORK_POS = TrackedData.Builder.create(OPTIONAL_POS, () -> Optional.empty()).build();
     public static final TrackedData<Optional<UUID>> TUNING_FORK_TARGET_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
+    public static final TrackedData<Optional<UUID>> OWNED_GLARE_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).enableSaving().build();
 
     public static void registerTrackedData() {
         TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
@@ -59,5 +61,6 @@ public class CCDataProcessors {
         TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "forget_golem_time"), FORGET_GOLEM_TIME);
         TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "tuning_fork_pos"), TUNING_FORK_POS);
         TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "tuning_fork_target_uuid"), TUNING_FORK_TARGET_UUID);
+        TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "owned_glare_uuid"), OWNED_GLARE_UUID);
     }
 }
