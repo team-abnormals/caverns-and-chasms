@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.glare;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -64,6 +66,29 @@ public class Glare extends PathfinderMob {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.FLYING_SPEED, 0.1F).add(Attributes.MOVEMENT_SPEED, 0.1F).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.FOLLOW_RANGE, 48.0D);
 	}
 
+	public static boolean checkGlareSpawnRules(EntityType<? extends Glare> glare, LevelAccessor level, MobSpawnType type, BlockPos pos, RandomSource random) {
+		if (pos.getY() < 48 && level.getBrightness(LightLayer.SKY, pos) == 0) {
+			int plants = 0;
+			int range = 5;
+
+			start:
+			for (int i = -range; i <= range; i++) {
+				for (int j = -range; j <= range; j++) {
+					for (int k = -range; k <= range; k++) {
+						if (level.getBlockState(pos.offset(i, j, k)).is(CCBlockTags.GLARE_SPAWNABLE_NEAR)) {
+							plants++;
+							if (plants > 10) {
+								break start;
+							}
+						}
+					}
+				}
+			}
+			return plants > 0 && (plants > 10 || random.nextInt(plants) != 0);
+		}
+		return false;
+	}
+
 	protected PathNavigation createNavigation(Level p_218342_) {
 		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_218342_);
 		flyingpathnavigation.setCanOpenDoors(false);
@@ -79,16 +104,10 @@ public class Glare extends PathfinderMob {
 
 	public boolean shouldBeGrumpy() {
 		Level level = this.getLevel();
-		RandomSource random = this.getRandom();
-		BlockPos pos = this.getOnPos();
+		BlockPos pos = this.blockPosition();
 		DimensionType dimension = level.dimensionType();
 		int i = dimension.monsterSpawnBlockLightLimit();
-		if (i < 15 && level.getBrightness(LightLayer.BLOCK, pos) > i) {
-			return false;
-		} else {
-			int j = level.isThundering() ? level.getMaxLocalRawBrightness(pos, 10) : level.getMaxLocalRawBrightness(pos);
-			return j <= dimension.monsterSpawnLightTest().sample(random);
-		}
+		return i >= 15 || level.getBrightness(LightLayer.BLOCK, pos) <= i;
 	}
 
 	public boolean isGrumpy() {

@@ -3,7 +3,8 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.modifiers;
 import com.mojang.serialization.JsonOps;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.InvertedAddFeaturesBiomeModifier;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.BlacklistedAddFeaturesBiomeModifier;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.BlacklistedAddSpawnsBiomeModifier;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import net.minecraft.core.Holder;
@@ -45,12 +46,14 @@ public class CCBiomeModifierProvider {
 	public static JsonCodecProvider<BiomeModifier> create(DataGenerator generator, ExistingFileHelper existingFileHelper) {
 		addSpawn("cavefish", CCBiomeTags.HAS_CAVEFISH, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 25, 4, 7));
 		addSpawn("mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
+		addSpawn("glare_lush_caves", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
+		addSpawnBlacklisted("glare", CCBiomeTags.WITHOUT_GLARE_SPAWNS, BiomeTags.IS_OVERWORLD, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 200, 1, 1));
 
 		addFeature("base_ores", BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_GOLD_AND_SILVER_LOWER, CCPlacedFeatures.ORE_LAPIS_AND_SPINEL_BURIED);
 		addFeature("spinel_ore", CCBiomeTags.HAS_SPINEL_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_WITH_LAPIS, CCPlacedFeatures.ORE_SPINEL_BURIED_UPPER);
 		addFeature("silver_ore", CCBiomeTags.HAS_SILVER_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_BURIED_WITH_GOLD);
-		addFeatureInverted("lapis_ore", CCBiomeTags.HAS_SPINEL_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_LAPIS_WITH_SPINEL, CCPlacedFeatures.ORE_SPINEL_BURIED_LOWER);
-		addFeatureInverted("gold_ore", CCBiomeTags.HAS_SILVER_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_GOLD_BURIED_WITH_SILVER);
+		addFeatureBlacklisted("lapis_ore", CCBiomeTags.HAS_SPINEL_ORE, BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_LAPIS_WITH_SPINEL, CCPlacedFeatures.ORE_SPINEL_BURIED_LOWER);
+		addFeatureBlacklisted("gold_ore", CCBiomeTags.HAS_SILVER_ORE, BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_GOLD_BURIED_WITH_SILVER);
 
 		addFeature("extra_silver_ore", CCBiomeTags.HAS_EXTRA_SILVER_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_EXTRA);
 		addFeature("soul_silver_ore", CCBiomeTags.HAS_SOUL_SILVER_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SILVER_SOUL);
@@ -75,12 +78,16 @@ public class CCBiomeModifierProvider {
 	}
 
 	@SafeVarargs
-	private static void addFeatureInverted(String name, TagKey<Biome> biomes, GenerationStep.Decoration step, RegistryObject<PlacedFeature>... features) {
-		addModifier("add_feature/" + name, new InvertedAddFeaturesBiomeModifier(new HolderSet.Named<>(BIOMES, biomes), featureSet(features), step));
+	private static void addFeatureBlacklisted(String name, TagKey<Biome> biomes, TagKey<Biome> blacklistedBiomes, GenerationStep.Decoration step, RegistryObject<PlacedFeature>... features) {
+		addModifier("add_feature/" + name, new BlacklistedAddFeaturesBiomeModifier(new HolderSet.Named<>(BIOMES, biomes), new HolderSet.Named<>(BIOMES, blacklistedBiomes), featureSet(features), step));
 	}
 
-	private static void addSpawn(String name, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData... spawns) {
-		addModifier("add_spawn/" + name, new AddSpawnsBiomeModifier(new HolderSet.Named<>(BIOMES, tagKey), List.of(spawns)));
+	private static void addSpawn(String name, TagKey<Biome> biomes, MobSpawnSettings.SpawnerData... spawns) {
+		addModifier("add_spawn/" + name, new AddSpawnsBiomeModifier(new HolderSet.Named<>(BIOMES, biomes), List.of(spawns)));
+	}
+
+	private static void addSpawnBlacklisted(String name, TagKey<Biome> biomes, TagKey<Biome> blacklistedBiomes, MobSpawnSettings.SpawnerData... spawns) {
+		addModifier("add_spawn/" + name, new BlacklistedAddSpawnsBiomeModifier(new HolderSet.Named<>(BIOMES, biomes), new HolderSet.Named<>(BIOMES, blacklistedBiomes), List.of(spawns)));
 	}
 
 	private static void addModifier(String name, BiomeModifier modifier) {
