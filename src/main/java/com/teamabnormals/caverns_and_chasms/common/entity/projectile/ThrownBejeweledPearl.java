@@ -6,6 +6,9 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,8 +16,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.util.ITeleporter;
@@ -22,9 +27,10 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
+import java.util.OptionalInt;
 
 public class ThrownBejeweledPearl extends ThrowableItemProjectile {
-	private int life;
+	private static final EntityDataAccessor<Integer> LIFE = SynchedEntityData.defineId(ThrownBejeweledPearl.class, EntityDataSerializers.INT);
 
 	public ThrownBejeweledPearl(EntityType<? extends ThrownBejeweledPearl> entityType, Level level) {
 		super(entityType, level);
@@ -39,16 +45,41 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(LIFE, 0);
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putInt("Life", this.getLife());
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.setLife(compound.getInt("Life"));
+	}
+
+	public void setLife(int amount) {
+		this.entityData.set(LIFE, amount);
+	}
+
+	public int getLife() {
+		return this.entityData.get(LIFE);
+	}
+
+	@Override
 	protected Item getDefaultItem() {
 		return CCItems.BEJEWELED_PEARL.get();
 	}
 
-	public void setLife(int life) {
-		this.life = life;
-	}
-
-	public int getLife() {
-		return this.life;
+	@Override
+	public ItemStack getItem() {
+		ItemStack itemstack = new ItemStack(this.getDefaultItem());
+		itemstack.getOrCreateTag().putInt("Life", this.getLife());
+		return itemstack;
 	}
 
 	@Override
@@ -92,8 +123,8 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 		if (entity instanceof Player && !entity.isAlive()) {
 			this.discard();
 		} else {
-			this.life++;
-			if (this.life >= BejeweledPearlItem.getMaxLifetime())
+			this.setLife(this.getLife() + 1);
+			if (this.getLife() >= BejeweledPearlItem.getMaxLifetime())
 				this.doTeleport();
 			super.tick();
 		}
@@ -108,18 +139,6 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 		}
 
 		return super.changeDimension(level, teleporter);
-	}
-
-	@Override
-	public void addAdditionalSaveData(CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putInt("Life", this.life);
-	}
-
-	@Override
-	public void readAdditionalSaveData(CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		this.life = compound.getInt("Life");
 	}
 
 	@Override

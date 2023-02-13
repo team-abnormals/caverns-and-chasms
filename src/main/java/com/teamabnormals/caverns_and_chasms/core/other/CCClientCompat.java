@@ -130,11 +130,12 @@ public class CCClientCompat {
 			}
 		});
 		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "charge"), (stack, world, entity, hash) -> {
-			if (entity == null) {
+			if (entity != null && entity.getUseItem() == stack)
+				return (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
+			else if (stack.getOrCreateTag().contains("Life"))
+				return (float) BejeweledPearlItem.getChargeStage(stack.getTag().getInt("Life")) / BejeweledPearlItem.getChargeStages();
+			else
 				return 0.0F;
-			} else {
-				return entity.getUseItem() != stack ? 0.0F : (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
-			}
 		});
 	}
 
