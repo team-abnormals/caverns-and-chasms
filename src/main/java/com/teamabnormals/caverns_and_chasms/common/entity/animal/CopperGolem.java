@@ -454,16 +454,18 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				return false;
 			} else {
 				this.nextStartTicks = 20;
-				return this.findRandomButton();
+				return !CopperGolem.this.isBeingTuningForkControlled() && this.findRandomButton();
 			}
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			if (this.tryTicks >= -this.maxStayTicks && this.tryTicks <= 1200) {
-				return this.isUnpressedButton(CopperGolem.this.level, this.blockPos);
-			} else {
+			if (CopperGolem.this.isBeingTuningForkControlled()) {
 				return false;
+			} else if (this.tryTicks < -this.maxStayTicks || this.tryTicks > 1200) {
+				return false;
+			} else {
+				return this.isUnpressedButton(CopperGolem.this.level, this.blockPos);
 			}
 		}
 

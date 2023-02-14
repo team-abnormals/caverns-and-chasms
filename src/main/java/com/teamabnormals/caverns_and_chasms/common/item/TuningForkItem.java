@@ -137,11 +137,9 @@ public class TuningForkItem extends Item {
 				golem.setTuningForkTarget(null);
 				((Mob) golem).getNavigation().stop();
 				((Mob) golem).setTarget(null);
-                golem.setBeingTuningForkControlled(true);
                 golem.onTuningForkControlStart(player);
 			} else {
 				setControlledGolem(player, null);
-                golem.setBeingTuningForkControlled(false);
 				golem.onTuningForkControlEnd(player);
 			}
 		} else {

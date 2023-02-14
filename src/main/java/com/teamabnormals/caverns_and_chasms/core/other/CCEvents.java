@@ -559,8 +559,6 @@ public class CCEvents {
 				if (forgettime > 0) {
 					if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem()))
 						TuningForkItem.setForgetGolemTime(player, forgettime - 1);
-
-					golem.setBeingTuningForkControlled(true);
 				} else {
 					TuningForkItem.setControlledGolem(player, null);
 				}
@@ -568,11 +566,12 @@ public class CCEvents {
 				TuningForkItem.setControlledGolem(player, null);
 			}
 		} else if (entity instanceof ControllableGolem golem) {
-			if (!golem.isBeingTuningForkControlled()) {
+			boolean controlled = golem.getTuningForkController() != null;
+			golem.setBeingTuningForkControlled(controlled);
+
+			if (!controlled) {
 				golem.setTuningForkPos(null);
 				golem.setTuningForkTarget(null);
-			} else {
-				golem.setBeingTuningForkControlled(false);
 			}
 		}
 	}
