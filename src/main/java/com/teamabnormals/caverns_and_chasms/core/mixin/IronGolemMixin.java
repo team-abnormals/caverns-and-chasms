@@ -47,7 +47,7 @@ public abstract class IronGolemMixin extends AbstractGolem implements Controllab
 
 	@Override
 	public boolean canBeTuningForkControlled(Player controller) {
-		return !((NeutralMob) this).isAngryAt(controller);
+		return this.getTarget() != controller && !((NeutralMob) this).isAngryAt(controller);
 	}
 
     @Override

@@ -218,6 +218,7 @@ public class TuningForkItem extends Item {
 		if (golem != null && golem.shouldMoveToTuningForkPos(pos, player)) {
 			golem.setTuningForkPos(pos);
 			golem.setTuningForkTarget(null);
+			((Mob) golem).setTarget(null);
 		}
 	}
 
@@ -230,6 +231,7 @@ public class TuningForkItem extends Item {
 			} else if (golem.shouldMoveToTuningForkPos(target.blockPosition(), player)) {
 				golem.setTuningForkPos(target.blockPosition());
 				golem.setTuningForkTarget(null);
+				((Mob) golem).setTarget(null);
 			}
 		}
 	}
