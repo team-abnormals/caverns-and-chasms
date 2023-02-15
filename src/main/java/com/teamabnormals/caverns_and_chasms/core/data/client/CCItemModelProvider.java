@@ -24,7 +24,6 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.generated(CCItems.COPPER_NUGGET.get());
 		this.generated(CCItems.RAW_SILVER.get());
 		this.generated(CCItems.BEJEWELED_APPLE.get());
-		this.generated(CCItems.SPINEL_CROWN.get());
 		this.generated(CCBlocks.CUPRIC_CANDLE.get());
 		this.animatedModel(CCItems.DEPTH_GAUGE.get(), 48);
 		this.generated(CCItems.BAROMETER.get());

@@ -359,9 +359,7 @@ public class CCEvents {
 	public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
 		if (event.getSlot() == EquipmentSlot.HEAD) {
 			ItemStack itemstack = event.getFrom();
-			if (itemstack.getItem() == CCItems.SPINEL_CROWN.get()) {
-				event.getEntity().curePotionEffects(new ItemStack(CCItems.SPINEL_CROWN.get()));
-			} else if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
+			if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
 				LivingEntity livingentity = event.getEntity();
 				for (MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
 					livingentity.removeEffectNoUpdate(mobeffectinstance.getEffect());

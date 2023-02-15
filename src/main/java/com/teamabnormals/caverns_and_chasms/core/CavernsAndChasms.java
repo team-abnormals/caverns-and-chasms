@@ -143,7 +143,6 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CopperGolemModel.LOCATION, CopperGolemModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
-		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(false));
 		event.registerLayerDefinition(GlareModel.LOCATION, GlareModel::createBodyLayer);
 	}
 
