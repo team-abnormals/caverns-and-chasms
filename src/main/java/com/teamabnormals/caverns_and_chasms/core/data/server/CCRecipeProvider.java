@@ -18,12 +18,17 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class CCRecipeProvider extends RecipeProvider {
+	public static final ModLoadedCondition BOATLOAD_LOADED = new ModLoadedCondition("boatload");
+
 	private static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(CCBlocks.SILVER_ORE.get(), CCBlocks.DEEPSLATE_SILVER_ORE.get(), CCBlocks.SOUL_SILVER_ORE.get(), CCItems.RAW_SILVER.get());
 	private static final ImmutableList<ItemLike> SPINEL_SMELTABLES = ImmutableList.of(CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 
@@ -123,6 +128,8 @@ public class CCRecipeProvider extends RecipeProvider {
 		woodFromLogs(consumer, CCBlocks.STRIPPED_AZALEA_WOOD.get(), CCBlocks.STRIPPED_AZALEA_LOG.get());
 		woodenBoat(consumer, CCItems.AZALEA_BOAT.getFirst().get(), CCBlocks.AZALEA_PLANKS.get());
 		chestBoat(consumer, CCItems.AZALEA_BOAT.getSecond().get(), CCItems.AZALEA_BOAT.getFirst().get());
+		conditionalRecipe(consumer, BOATLOAD_LOADED, ShapelessRecipeBuilder.shapeless(CCItems.AZALEA_FURNACE_BOAT.get()).requires(Blocks.FURNACE).requires(CCItems.AZALEA_BOAT.getFirst().get()).group("furnace_boat").unlockedBy("has_boat", has(ItemTags.BOATS)));
+		conditionalRecipe(consumer, BOATLOAD_LOADED, ShapedRecipeBuilder.shaped(CCItems.LARGE_AZALEA_BOAT.get()).define('#', CCBlocks.AZALEA_PLANKS.get()).define('B', CCItems.AZALEA_BOAT.getFirst().get()).pattern("#B#").pattern("###").group("large_boat").unlockedBy("has_boat", has(ItemTags.BOATS)));
 	}
 
 	private static void waxRecipe(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike result) {
@@ -131,6 +138,14 @@ public class CCRecipeProvider extends RecipeProvider {
 
 	private static ResourceLocation getModConversionRecipeName(ItemLike result, ItemLike input) {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(result) + "_from_" + getItemName(input));
+	}
+
+	public static void conditionalRecipe(Consumer<FinishedRecipe> consumer, ICondition condition, RecipeBuilder recipe) {
+		conditionalRecipe(consumer, condition, recipe, RecipeBuilder.getDefaultRecipeId(recipe.getResult()));
+	}
+
+	public static void conditionalRecipe(Consumer<FinishedRecipe> consumer, ICondition condition, RecipeBuilder recipe, ResourceLocation id) {
+		ConditionalRecipe.builder().addCondition(condition).addRecipe(consumer1 -> recipe.save(consumer1, id)).generateAdvancement(new ResourceLocation(id.getNamespace(), "recipes/" + recipe.getResult().getItemCategory().getRecipeFolderName() + "/" + id.getPath())).build(consumer, id);
 	}
 
 	private static void chestBoat(Consumer<FinishedRecipe> p_236372_, ItemLike p_236373_, ItemLike p_236374_) {
