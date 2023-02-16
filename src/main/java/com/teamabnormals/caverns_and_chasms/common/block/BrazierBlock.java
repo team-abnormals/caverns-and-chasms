@@ -189,4 +189,14 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
 		return isLit(state) ? BlockPathTypes.DAMAGE_FIRE : super.getBlockPathType(state, level, pos, entity);
 	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return state.getValue(LIT) ? 15 : 0;
+	}
 }
