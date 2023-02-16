@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -57,6 +57,7 @@ public class Mime extends Monster {
 
 	public Mime(EntityType<? extends Monster> type, Level worldIn) {
 		super(type, worldIn);
+		Arrays.fill(this.handDropChances, 0.0F);
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class Mime extends Monster {
 
 	public static AttributeSupplier.Builder registerAttributes() {
 		return Monster.createMonsterAttributes()
-				.add(Attributes.MAX_HEALTH, 20.0F)
+				.add(Attributes.MAX_HEALTH, 30.0F)
 				.add(Attributes.FOLLOW_RANGE, 35.0D)
 				.add(Attributes.MOVEMENT_SPEED, 0.25F)
 				.add(Attributes.ATTACK_DAMAGE, 4.0D)
@@ -96,61 +97,20 @@ public class Mime extends Monster {
 	@Override
 	public boolean doHurtTarget(Entity entityIn) {
 		boolean result = super.doHurtTarget(entityIn);
-		if (entityIn instanceof LivingEntity) {
-			LivingEntity entity = (LivingEntity) entityIn;
-
-			EquipmentSlot slot1 = EquipmentSlot.MAINHAND;
-			EquipmentSlot slot2 = null;
-			List<EquipmentSlot> slotsWithGear = Lists.newArrayList();
-
+		if (entityIn instanceof LivingEntity entity) {
+			boolean mimed = false;
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
-				this.setItemSlot(slot, ItemStack.EMPTY);
-				if (slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND) {
-					this.handDropChances[slot.getIndex()] = 0.0F;
-					continue;
-				}
-				this.armorDropChances[slot.getIndex()] = 0.0F;
-				ItemStack stack = entity.getItemBySlot(slot);
-				if (!stack.isEmpty())
-					slotsWithGear.add(slot);
-			}
-
-			ItemStack mainhand = entity.getItemBySlot(EquipmentSlot.MAINHAND);
-			ItemStack offhand = entity.getItemBySlot(EquipmentSlot.OFFHAND);
-			EquipmentSlot armor1 = null;
-			EquipmentSlot armor2 = null;
-
-			if (slotsWithGear.size() > 0) {
-				int index = this.random.nextInt(slotsWithGear.size());
-				armor1 = slotsWithGear.get(index);
-				slotsWithGear.remove(index);
-				armor2 = slotsWithGear.isEmpty() ? null : slotsWithGear.get(this.random.nextInt(slotsWithGear.size()));
-			}
-
-			if (isValidWeapon(mainhand)) {
-				if (armor1 != null)
-					slot2 = armor1;
-				else if (isValidWeapon(offhand))
-					slot2 = EquipmentSlot.OFFHAND;
-			} else {
-				if (isValidWeapon(offhand)) {
-					slot1 = EquipmentSlot.OFFHAND;
-					if (armor1 != null)
-						slot2 = armor1;
-				} else if (armor1 != null) {
-					slot1 = armor1;
-					if (armor2 != null)
-						slot2 = armor2;
-					else
-						slot2 = EquipmentSlot.MAINHAND;
+				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
+					ItemStack stack = entity.getItemBySlot(slot);
+					if (stack != this.getItemBySlot(slot)) {
+						this.setItemSlot(slot, stack);
+						mimed = true;
+					}
 				}
 			}
 
-			this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_COPY.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
-			this.copyMainArm(entity);
-			this.setItemSlot(slot1 == EquipmentSlot.OFFHAND ? EquipmentSlot.MAINHAND : slot1, entity.getItemBySlot(slot1));
-			if (slot2 != null)
-				this.setItemSlot(slot2, entity.getItemBySlot(slot2));
+			if (mimed)
+				this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_COPY.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 		}
 		return result;
 	}
@@ -160,8 +120,7 @@ public class Mime extends Monster {
 		super.die(cause);
 		Entity source = cause.getEntity();
 
-		if (source instanceof LivingEntity) {
-			LivingEntity attacker = (LivingEntity) source;
+		if (source instanceof LivingEntity attacker) {
 			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
 			List<MimingRecipe> recipes = this.level.getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
 
@@ -206,6 +165,12 @@ public class Mime extends Monster {
 				}
 			} else {
 				LivingEntity target = this.getTarget();
+
+				if (target != null) {
+					this.copyMainArm(target);
+					this.setItemSlot(EquipmentSlot.MAINHAND, target.getItemBySlot(EquipmentSlot.MAINHAND));
+					this.setItemSlot(EquipmentSlot.OFFHAND, target.getItemBySlot(EquipmentSlot.OFFHAND));
+				}
 
 				Pose pose = target != null ? target.getPose() : Pose.STANDING;
 				if (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING) {
