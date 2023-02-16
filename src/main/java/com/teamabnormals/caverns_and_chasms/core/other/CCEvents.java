@@ -67,6 +67,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
@@ -207,7 +208,7 @@ public class CCEvents {
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
-				BlockState extinguishedState = BrazierBlock.extinguish(level, pos, state);
+				BlockState extinguishedState = BrazierBlock.extinguish(player, level, pos, state);
 				if (!level.isClientSide()) {
 					level.setBlock(pos, extinguishedState, 11);
 					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
@@ -222,6 +223,7 @@ public class CCEvents {
 					level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					if (!level.isClientSide()) {
 						level.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
+						level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 						stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
 					}
 
@@ -231,6 +233,7 @@ public class CCEvents {
 					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 					if (!level.isClientSide()) {
 						level.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
+						level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 						if (!player.getAbilities().instabuild) {
 							stack.shrink(1);
 						}
