@@ -1,11 +1,10 @@
 {
-  "type": "caverns_and_chasms:add_spawns_blacklisted",
-  "biomes": "#minecraft:is_overworld",
-  "blacklisted_biomes": "#caverns_and_chasms:without_glare_spawns",
+  "type": "forge:add_spawns",
+  "biomes": "#caverns_and_chasms:has_animal/glare",
   "spawners": {
     "type": "caverns_and_chasms:glare",
     "maxCount": 1,
     "minCount": 1,
-    "weight": 200
+    "weight": 20
   }
 }

@@ -16,7 +16,6 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
 	public static final TagKey<Biome> HAS_CAVEFISH = biomeTag("has_animal/cavefish");
 	public static final TagKey<Biome> HAS_GLARE = biomeTag("has_animal/glare");
-	public static final TagKey<Biome> WITHOUT_GLARE_SPAWNS = biomeTag("without_glare_spawns");
 
 	private static TagKey<Biome> biomeTag(String name) {
 		return TagUtil.biomeTag(CavernsAndChasms.MOD_ID, name);

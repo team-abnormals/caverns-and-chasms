@@ -46,8 +46,7 @@ public class CCBiomeModifierProvider {
 	public static JsonCodecProvider<BiomeModifier> create(DataGenerator generator, ExistingFileHelper existingFileHelper) {
 		addSpawn("cavefish", CCBiomeTags.HAS_CAVEFISH, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 25, 4, 7));
 		addSpawn("mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
-		addSpawn("glare_lush_caves", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
-		addSpawnBlacklisted("glare", CCBiomeTags.WITHOUT_GLARE_SPAWNS, BiomeTags.IS_OVERWORLD, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 200, 1, 1));
+		addSpawn("glare", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
 
 		addFeature("base_ores", BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_GOLD_AND_SILVER_LOWER, CCPlacedFeatures.ORE_LAPIS_AND_SPINEL_BURIED);
 		addFeature("spinel_ore", CCBiomeTags.HAS_SPINEL_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL_WITH_LAPIS, CCPlacedFeatures.ORE_SPINEL_BURIED_UPPER);

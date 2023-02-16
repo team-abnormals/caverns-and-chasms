@@ -3,7 +3,7 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.model.GlareModel;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.glare.Glare;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

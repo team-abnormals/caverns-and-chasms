@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.glare.Glare;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -43,6 +43,10 @@ public class GlareModel<T extends Glare> extends HierarchicalModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.bottom.xRot = Math.min(limbSwingAmount / 0.3F, 0.3F) * 0.6981317F;
+
+		//TODO: Make tail move back and forth a bit when idle
+		this.head.y += Math.sin(ageInTicks / 5) * 0.5F;
+		this.bottom.y += Math.sin(ageInTicks / 5) * 0.5F;
 	}
 
 	@Override

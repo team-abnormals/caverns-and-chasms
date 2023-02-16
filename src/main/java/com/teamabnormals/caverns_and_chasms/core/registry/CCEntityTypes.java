@@ -5,7 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Cavefish;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.glare.Glare;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;

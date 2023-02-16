@@ -26,8 +26,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(CCBiomeTags.HAS_FRAGILE_STONE).addTag(BiomeTags.IS_OVERWORLD);
 
 		this.tag(CCBiomeTags.HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
-		this.tag(CCBiomeTags.HAS_GLARE).add(Biomes.LUSH_CAVES);
-		this.tag(CCBiomeTags.WITHOUT_GLARE_SPAWNS).add(Biomes.DEEP_DARK, Biomes.LUSH_CAVES);
+		this.tag(CCBiomeTags.HAS_GLARE).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS).add(Biomes.MUSHROOM_FIELDS);
 		this.tag(CCBiomeTags.HAS_CAVEFISH);
 	}
 }
