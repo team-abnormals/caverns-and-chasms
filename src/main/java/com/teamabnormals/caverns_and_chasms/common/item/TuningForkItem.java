@@ -27,6 +27,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -56,22 +57,28 @@ public class TuningForkItem extends Item {
 		if (player != null) {
 			if (state.getBlock() instanceof NoteBlock && player.isCrouching()) {
 				int note = state.getValue(NoteBlock.NOTE);
+
 				if (!tag.contains("Note") || tag.getInt("Note") != note) {
 					tag.putInt("Note", state.getValue(NoteBlock.NOTE));
+
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".capture_note", Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 				}
+
 				return InteractionResult.sidedSuccess(level.isClientSide());
 			} else {
 				if (tag.contains("Note")) {
 					BlockPos targetpos = state.getCollisionShape(level, pos).isEmpty() ? pos : pos.relative(direction);
 					int note = tag.getInt("Note");
+
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-                    if (level.isClientSide)
+
+					if (level.isClientSide)
                         level.addParticle(ParticleTypes.NOTE, targetpos.getX() + 0.5D, targetpos.getY() + 0.25D, targetpos.getZ() + 0.5D, (double) note / 24.0D, 0.0D, 0.0D);
                     else
-						attractGolemToPos(level, targetpos, player);
+						attractGolemToPos(targetpos, player);
+
 					return InteractionResult.sidedSuccess(level.isClientSide());
 				}
 			}
@@ -88,9 +95,16 @@ public class TuningForkItem extends Item {
 		if (tag.contains("Note")) {
 			int note = tag.getInt("Note");
 			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-			this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-            if (!level.isClientSide)
-				attractGolemToPos(level, player.blockPosition(), player);
+
+			Vec3 vec3 = player.getEyePosition().add(player.getViewVector(1.0F).normalize().scale(1.5D));
+			this.playNote(level, vec3.x(), vec3.y(), vec3.z(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+
+            if (level.isClientSide) {
+				level.addParticle(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), (double) note / 24.0D, 0.0D, 0.0D);
+			} else {
+				attractGolemToPos(new BlockPos(vec3.x(), vec3.y(), vec3.z()), player);
+			}
+
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
@@ -101,12 +115,21 @@ public class TuningForkItem extends Item {
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
 		CompoundTag tag = stack.getOrCreateTag();
 
+		int note = tag.getInt("Note");
+		this.playNote(player.level, target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+
+		if (player.level.isClientSide) {
+			player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+		}
+
 		if (target instanceof ControllableGolem && ((ControllableGolem) target).canBeTuningForkControlled(player) && tag.contains("Note")) {
 			ControllableGolem golem = (ControllableGolem) target;
 			Player originalcontroller = golem.getTuningForkController();
+
 			if (originalcontroller != player) {
 				setControlledGolem(player, golem);
                 setForgetGolemTime(player, 200);
+
 				if (originalcontroller != null)
 					setControlledGolem(originalcontroller, null);
 
@@ -114,24 +137,18 @@ public class TuningForkItem extends Item {
 				golem.setTuningForkTarget(null);
 				((Mob) golem).getNavigation().stop();
 				((Mob) golem).setTarget(null);
-                golem.setBeingTuningForkControlled(true);
                 golem.onTuningForkControlStart(player);
-
-				int note = tag.getInt("Note");
-				this.playNote(player.level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-				if (player.level.isClientSide) {
-					player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
-				}
 			} else {
 				setControlledGolem(player, null);
-                golem.setBeingTuningForkControlled(false);
 				golem.onTuningForkControlEnd(player);
 			}
-
-			return InteractionResult.sidedSuccess(player.level.isClientSide);
+		} else {
+			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+			if (!player.level.isClientSide)
+				attractGolemToPos(target.blockPosition(), player);
 		}
 
-		return InteractionResult.PASS;
+		return InteractionResult.sidedSuccess(player.level.isClientSide);
 	}
 
 	@Override
@@ -140,11 +157,13 @@ public class TuningForkItem extends Item {
 
 		if (tag.contains("Note")) {
 			int note = tag.getInt("Note");
-			this.playNote(target.getLevel(), target.getX(), target.getY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 
-			if (!target.level.isClientSide && attacker instanceof Player) {
-				orderGolemToAttackEntity(target.getLevel(), target, (Player) attacker);
+			this.playNote(target.getLevel(), target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+
+			if (attacker instanceof Player) {
+				((Player) attacker).displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+				orderGolemToAttackEntity(target, (Player) attacker);
             }
 		}
 
@@ -154,11 +173,9 @@ public class TuningForkItem extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		CompoundTag tag = stack.getTag();
-		if (tag != null) {
-			if (tag.contains("Note")) {
-				int note = tag.getInt("Note");
-				tooltip.add(Component.translatable(this.getDescriptionId() + ".note." + note).append(" (" + note + ")").withStyle(ChatFormatting.GRAY));
-			}
+		if (tag != null && tag.contains("Note")) {
+			int note = tag.getInt("Note");
+			tooltip.add(Component.translatable(this.getDescriptionId() + ".note." + note).append(" (" + note + ")").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -176,7 +193,7 @@ public class TuningForkItem extends Item {
 	}
 
 	public static ControllableGolem findControlledGolem(Player player) {
-		for (Mob mob : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(12.0D))) {
+		for (Mob mob : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16.0D))) {
 			if (mob instanceof ControllableGolem) {
                 ControllableGolem golem = (ControllableGolem) mob;
                 if (golem.isTuningForkControlledBy(player) && golem.canBeTuningForkControlled(player))
@@ -194,19 +211,26 @@ public class TuningForkItem extends Item {
         return ((IDataManager) player).getValue(CCDataProcessors.FORGET_GOLEM_TIME);
     }
 
-	private static void attractGolemToPos(Level level, BlockPos pos, Player player) {
+	private static void attractGolemToPos(BlockPos pos, Player player) {
 		ControllableGolem golem = findControlledGolem(player);
-		if (golem != null && golem.shouldMoveToTuningForkPos(pos, player))
+		if (golem != null && golem.shouldMoveToTuningForkPos(pos, player)) {
 			golem.setTuningForkPos(pos);
+			golem.setTuningForkTarget(null);
+			((Mob) golem).setTarget(null);
+		}
 	}
 
-    private static void orderGolemToAttackEntity(Level level, LivingEntity target, Player player) {
+    private static void orderGolemToAttackEntity(LivingEntity target, Player player) {
 		ControllableGolem golem = findControlledGolem(player);
 		if (golem != null) {
-			if (golem.shouldAttackTuningForkTarget(target, player))
+			if (golem.shouldAttackTuningForkTarget(target, player)) {
 				golem.setTuningForkTarget(target);
-			else if (golem.shouldMoveToTuningForkPos(target.blockPosition(), player))
+				golem.setTuningForkPos(null);
+			} else if (golem.shouldMoveToTuningForkPos(target.blockPosition(), player)) {
 				golem.setTuningForkPos(target.blockPosition());
+				golem.setTuningForkTarget(null);
+				((Mob) golem).setTarget(null);
+			}
 		}
 	}
 

@@ -143,7 +143,6 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CopperGolemModel.LOCATION, CopperGolemModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
-		event.registerLayerDefinition(SpinelCrownModel.LOCATION, () -> SpinelCrownModel.createLayerDefinition(false));
 		event.registerLayerDefinition(GlareModel.LOCATION, GlareModel::createBodyLayer);
 	}
 
@@ -157,6 +156,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);

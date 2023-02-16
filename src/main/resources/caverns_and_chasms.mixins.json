@@ -11,10 +11,10 @@
     "BrewingRecipeRegistryMixin",
     "IronGolemMixin",
     "ItemMixin",
-    "ItemStackMixin",
     "LightningBoltMixin",
     "MobMixin",
     "SolidBucketItemMixin",
+    "ThrownPotionMixin",
     "WitherSkeletonMixin",
     "ZoglinMixin"
   ],

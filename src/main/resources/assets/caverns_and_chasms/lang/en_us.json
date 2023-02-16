@@ -184,7 +184,6 @@
   "item.caverns_and_chasms.spinel": "Spinel",
   "item.caverns_and_chasms.bejeweled_pearl": "Bejeweled Pearl",
   "item.caverns_and_chasms.bejeweled_apple": "Bejeweled Apple",
-  "item.caverns_and_chasms.spinel_crown": "Spinel Crown",
 
   "item.caverns_and_chasms.music_disc_epilogue": "Music Disc",
   "item.caverns_and_chasms.music_disc_epilogue.desc": "RENREN - Epilogue",
@@ -270,6 +269,7 @@
   "entity.caverns_and_chasms.fly": "Fly",
   "entity.caverns_and_chasms.rat": "Rat",
   "entity.caverns_and_chasms.copper_golem": "Copper Golem",
+  "entity.caverns_and_chasms.oxidized_copper_golem": "Oxidized Copper Golem",
   "entity.caverns_and_chasms.glare": "Glare",
   "entity.caverns_and_chasms.kunai": "Kunai",
 
