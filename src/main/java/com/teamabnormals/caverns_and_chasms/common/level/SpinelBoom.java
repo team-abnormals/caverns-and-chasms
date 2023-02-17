@@ -1,14 +1,15 @@
 package com.teamabnormals.caverns_and_chasms.common.level;
 
 import com.google.common.collect.Maps;
-import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.Explosion;
@@ -16,7 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -49,40 +49,41 @@ public class SpinelBoom extends Explosion {
 	}
 
 	public void applyKnockback() {
-		float f = this.radius * 2.0F;
-		int x1 = Mth.floor(this.x - f - 1.0D);
-		int x2 = Mth.floor(this.x + f + 1.0D);
-		int y1 = Mth.floor(this.y - f - 1.0D);
-		int y2 = Mth.floor(this.y + f + 1.0D);
-		int z1 = Mth.floor(this.z - f - 1.0D);
-		int z2 = Mth.floor(this.z + f + 1.0D);
-		List<Entity> list = this.level.getEntities(this.source, new AABB(x1, y1, z1, x2, y2, z2));
-		ForgeEventFactory.onExplosionDetonate(this.level, this, list, f);
+		float f2 = this.radius * 2.0F;
+		int k1 = Mth.floor(this.x - (double) f2 - 1.0D);
+		int l1 = Mth.floor(this.x + (double) f2 + 1.0D);
+		int i2 = Mth.floor(this.y - (double) f2 - 1.0D);
+		int i1 = Mth.floor(this.y + (double) f2 + 1.0D);
+		int j2 = Mth.floor(this.z - (double) f2 - 1.0D);
+		int j1 = Mth.floor(this.z + (double) f2 + 1.0D);
+		List<Entity> list = this.level.getEntities(this.source, new AABB((double) k1, (double) i2, (double) j2, (double) l1, (double) i1, (double) j1));
+		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f2);
 		Vec3 vec3 = new Vec3(this.x, this.y, this.z);
 
-		for (Entity entity : list) {
+		for (int k2 = 0; k2 < list.size(); ++k2) {
+			Entity entity = list.get(k2);
 			if (!entity.ignoreExplosion()) {
-				double d0 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f;
-				if (d0 <= 1.0D) {
-					double d1 = entity.getX() - this.x;
-					double d2 = (entity instanceof PrimedTmt ? entity.getY() : entity.getEyeY()) - this.y;
-					double d3 = entity.getZ() - this.z;
-					double d4 = Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3);
-					if (d4 != 0.0D) {
-						d1 /= d4;
-						d2 /= d4;
-						d3 /= d4;
-						double d5 = getSeenPercent(vec3, entity);
-						double d6 = (1.0D - d0) * d5;
-						double d7 = d6;
+				double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
+				if (d12 <= 1.0D) {
+					double d5 = entity.getX() - this.x;
+					double d7 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - this.y;
+					double d9 = entity.getZ() - this.z;
+					double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+					if (d13 != 0.0D) {
+						d5 /= d13;
+						d7 /= d13;
+						d9 /= d13;
+						double d14 = (double) getSeenPercent(vec3, entity);
+						double d10 = (1.0D - d12) * d14;
+						double d11 = d10;
 						if (entity instanceof LivingEntity) {
-							d7 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d6);
+							d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
 						}
 
-						entity.setDeltaMovement(entity.getDeltaMovement().add(d1 * d7, d2 * d7, d3 * d7));
+						entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
 						if (entity instanceof Player player) {
 							if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
-								this.hitPlayers.put(player, new Vec3(d1 * d6, d2 * d6, d3 * d6));
+								this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
 							}
 						}
 					}
@@ -94,7 +95,9 @@ public class SpinelBoom extends Explosion {
 	@Override
 	public void finalizeExplosion(boolean spawnParticles) {
 		if (this.level.isClientSide) {
-			this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.getRandom().nextFloat() - this.level.getRandom().nextFloat()) * 0.2F) * 0.7F, false);
+			RandomSource random = this.level.getRandom();
+			float amount = random.nextFloat() - random.nextFloat();
+			this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + amount * 0.2F) * 0.7F, false);
 		}
 
 		if (spawnParticles) {

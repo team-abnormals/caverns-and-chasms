@@ -32,7 +32,7 @@ public class PrimedTmt extends PrimedTnt {
 		this(CCEntityTypes.TMT.get(), level);
 		this.setPos(x, y, z);
 		double d0 = level.getRandom().nextDouble() * (double) ((float) Math.PI * 2F);
-		this.setDeltaMovement(-Math.sin(d0) * 0.02D, 0.2F, -Math.cos(d0) * 0.02D);
+		this.setDeltaMovement(-Math.sin(d0) * 0.02D, (double) 0.2F, -Math.cos(d0) * 0.02D);
 		this.setFuse(30);
 		this.xo = x;
 		this.yo = y;
@@ -85,7 +85,7 @@ public class PrimedTmt extends PrimedTnt {
 
 		boom.getHitPlayers().forEach((player, vec3) -> {
 			if (player instanceof ServerPlayer serverplayer)
-				serverplayer.connection.send(new ClientboundExplodePacket(pos.getX(), pos.getY(), pos.getZ(), 4.0F, boom.getToBlow(), boom.getHitPlayers().get(serverplayer)));
+				serverplayer.connection.send(new ClientboundExplodePacket(pos.getX(), pos.getY(), pos.getZ(), 4.0F, boom.getToBlow(), vec3));
 		});
 
 		return boom;
