@@ -5,12 +5,12 @@ import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.S
 import com.teamabnormals.caverns_and_chasms.client.particle.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.particle.PlayerCloudParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
@@ -33,12 +33,15 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> DEEPSLATE_CHIP = createBasicParticleType(false, "deepslate_chip");
 	public static final RegistryObject<SimpleParticleType> LAVA_LAMP_SMOKE = createBasicParticleType(true, "lava_lamp_smoke");
 	public static final RegistryObject<SimpleParticleType> FLOODLIGHT_DUST = createBasicParticleType(false, "floodlight_dust");
+	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_CIRCLE = createBasicParticleType(true, "spinel_boom_circle");
+	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_STAR = createBasicParticleType(true, "spinel_boom_star");
+	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_EMITTER = createBasicParticleType(true, "spinel_boom_emitter");
 
 	private static RegistryObject<SimpleParticleType> createBasicParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
+	@SubscribeEvent
 	public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
 		event.register(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
 		event.register(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
@@ -52,5 +55,8 @@ public class CCParticleTypes {
 		event.register(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
 		event.register(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
 		event.register(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+		event.register(SPINEL_BOOM_CIRCLE.get(), HugeExplosionParticle.Provider::new);
+		event.register(SPINEL_BOOM_STAR.get(), HugeExplosionParticle.Provider::new);
+		event.register(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());
 	}
 }

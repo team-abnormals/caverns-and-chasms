@@ -54,11 +54,7 @@ public class CavernsAndChasms {
 	public static final String NETWORK_PROTOCOL = "CC1";
 	public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
-	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MOD_ID, "net"))
-			.networkProtocolVersion(() -> NETWORK_PROTOCOL)
-			.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
-			.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
-			.simpleChannel();
+	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MOD_ID, "net")).networkProtocolVersion(() -> NETWORK_PROTOCOL).clientAcceptedVersions(NETWORK_PROTOCOL::equals).serverAcceptedVersions(NETWORK_PROTOCOL::equals).simpleChannel();
 
 	public CavernsAndChasms() {
 		this.registerMessages();
@@ -182,6 +178,7 @@ public class CavernsAndChasms {
 	}
 
 	private void registerMessages() {
-		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle);
+		int id = -1;
+		CHANNEL.registerMessage(id++, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle);
 	}
 }

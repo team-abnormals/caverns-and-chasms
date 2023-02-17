@@ -2,8 +2,8 @@ package com.teamabnormals.caverns_and_chasms.common.level;
 
 import com.google.common.collect.Maps;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -98,11 +98,7 @@ public class SpinelBoom extends Explosion {
 		}
 
 		if (spawnParticles) {
-			if (!(this.radius < 2.0F)) {
-				this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
-			} else {
-				this.level.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
-			}
+			this.level.addParticle(CCParticleTypes.SPINEL_BOOM_EMITTER.get(), this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 		}
 	}
 

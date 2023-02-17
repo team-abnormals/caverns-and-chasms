@@ -50,8 +50,8 @@ public abstract class IronGolemMixin extends AbstractGolem implements Controllab
 		return this.getTarget() != controller && !((NeutralMob) this).isAngryAt(controller);
 	}
 
-    @Override
-    public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
-        return !(target instanceof Villager);
-    }
+	@Override
+	public boolean shouldAttackTuningForkTarget(LivingEntity target, Player controller) {
+		return !(target instanceof Villager);
+	}
 }

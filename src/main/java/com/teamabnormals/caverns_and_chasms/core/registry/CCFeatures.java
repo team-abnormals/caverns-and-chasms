@@ -89,7 +89,7 @@ public class CCFeatures {
 
 	public static final class CCPlacedFeatures {
 		public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, CavernsAndChasms.MOD_ID);
-		
+
 		private static final RegistryObject<PlacedFeature> ORE_GOLD_BURIED = register("ore_gold_buried", CCConfiguredFeatures.ORE_GOLD_BURIED, List.of());
 		private static final RegistryObject<PlacedFeature> ORE_LAPIS = register("ore_lapis", CCConfiguredFeatures.ORE_LAPIS, List.of());
 		private static final RegistryObject<PlacedFeature> ORE_LAPIS_BURIED = register("ore_lapis_buried", CCConfiguredFeatures.ORE_LAPIS_BURIED, List.of());

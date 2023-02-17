@@ -16,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +26,6 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
-import java.util.OptionalInt;
 
 public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	private static final EntityDataAccessor<Integer> LIFE = SynchedEntityData.defineId(ThrownBejeweledPearl.class, EntityDataSerializers.INT);
