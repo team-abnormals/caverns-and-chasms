@@ -2,8 +2,10 @@ package com.teamabnormals.caverns_and_chasms.common.level;
 
 import com.google.common.collect.Maps;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,8 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -30,14 +30,8 @@ public class SpinelBoom extends Explosion {
 	private final double x;
 	private final double y;
 	private final double z;
-	private final ObjectArrayList<BlockPos> toBlow = new ObjectArrayList<>();
 	private final Map<Player, Vec3> hitPlayers = Maps.newHashMap();
 
-	@OnlyIn(Dist.CLIENT)
-	public SpinelBoom(Level level, @Nullable Entity source, double x, double y, double z, float radius, List<BlockPos> toBlow) {
-		this(level, source, x, y, z, radius);
-		this.toBlow.addAll(toBlow);
-	}
 
 	public SpinelBoom(Level levelIn, @Nullable Entity sourceIn, double xIn, double yIn, double zIn, float radiusIn) {
 		super(levelIn, sourceIn, null, null, xIn, yIn, zIn, radiusIn, false, BlockInteraction.NONE);
@@ -52,7 +46,9 @@ public class SpinelBoom extends Explosion {
 	@Override
 	public void explode() {
 		this.level.gameEvent(this.source, GameEvent.EXPLODE, new BlockPos(this.x, this.y, this.z));
+	}
 
+	public void applyKnockback() {
 		float f = this.radius * 2.0F;
 		int x1 = Mth.floor(this.x - f - 1.0D);
 		int x2 = Mth.floor(this.x + f + 1.0D);
@@ -64,8 +60,7 @@ public class SpinelBoom extends Explosion {
 		ForgeEventFactory.onExplosionDetonate(this.level, this, list, f);
 		Vec3 vec3 = new Vec3(this.x, this.y, this.z);
 
-		for (int i = 0; i < list.size(); ++i) {
-			Entity entity = list.get(i);
+		for (Entity entity : list) {
 			if (!entity.ignoreExplosion()) {
 				double d0 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f;
 				if (d0 <= 1.0D) {
@@ -92,6 +87,21 @@ public class SpinelBoom extends Explosion {
 						}
 					}
 				}
+			}
+		}
+	}
+
+	@Override
+	public void finalizeExplosion(boolean spawnParticles) {
+		if (this.level.isClientSide) {
+			this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.getRandom().nextFloat() - this.level.getRandom().nextFloat()) * 0.2F) * 0.7F, false);
+		}
+
+		if (spawnParticles) {
+			if (!(this.radius < 2.0F)) {
+				this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
+			} else {
+				this.level.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 			}
 		}
 	}
