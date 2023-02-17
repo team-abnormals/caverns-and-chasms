@@ -9,6 +9,7 @@
     "AzaleaTreeGrowerMixin",
     "BaseFireBlockMixin",
     "BrewingRecipeRegistryMixin",
+    "ExplosionMixin",
     "IronGolemMixin",
     "ItemMixin",
     "LightningBoltMixin",
