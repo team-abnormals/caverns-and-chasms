@@ -1,7 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.InductorBlockEntity;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -12,9 +10,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,7 +19,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 import javax.annotation.Nullable;
 
-public class InductorBlock extends BaseEntityBlock {
+public class InductorBlock extends Block /* extends BaseEntityBlock */ {
 	public static final DirectionProperty FACING = DirectionalBlock.FACING;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final BooleanProperty COOLDOWN = BooleanProperty.create("cooldown");
@@ -108,6 +103,7 @@ public class InductorBlock extends BaseEntityBlock {
 		return RenderShape.MODEL;
 	}
 
+	/*
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new InductorBlockEntity(pos, state);
@@ -118,6 +114,7 @@ public class InductorBlock extends BaseEntityBlock {
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return level.isClientSide ? null : createTickerHelper(type, CCBlockEntityTypes.INDUCTOR.get(), InductorBlockEntity::serverTick);
 	}
+	*/
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {

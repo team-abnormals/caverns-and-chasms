@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -16,6 +17,16 @@ import javax.annotation.Nullable;
 public class FragileStoneBlock extends Block implements FragileBlock {
 	public FragileStoneBlock(Properties properties) {
 		super(properties);
+	}
+
+	@Override
+	public String getDustParticle() {
+		return CavernsAndChasms.MOD_ID + ":stone_dust";
+	}
+
+	@Override
+	public String getChipParticle() {
+		return CavernsAndChasms.MOD_ID + ":stone_chip";
 	}
 
 	@Override
