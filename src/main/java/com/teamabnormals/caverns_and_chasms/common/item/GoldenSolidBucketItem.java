@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +16,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -41,31 +41,7 @@ public class GoldenSolidBucketItem extends BlockItem implements DispensibleConta
 		BlockState state = level.getBlockState(pos);
 		int fluidLevel = stack.getOrCreateTag().getInt("FluidLevel");
 
-		if (state.getBlock() instanceof AbstractCauldronBlock cauldronBlock && player != null) {
-			if (player.isCrouching() || fluidLevel == 2 || !cauldronBlock.isFull(state) || cauldronBlock != Blocks.POWDER_SNOW_CAULDRON) {
-				level.setBlockAndUpdate(pos, Blocks.POWDER_SNOW_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3));
-				level.playSound(null, pos, SoundEvents.BUCKET_EMPTY_POWDER_SNOW, SoundSource.BLOCKS, 1.0F, 1.0F);
-				player.awardStat(Stats.FILL_CAULDRON);
-				if (!player.isCreative()) {
-					if (fluidLevel > 0) {
-						stack.getOrCreateTag().putInt("FluidLevel", fluidLevel - 1);
-					} else {
-						stack = GoldenBucketItem.getEmptyBucket();
-					}
-					player.setItemInHand(hand, stack);
-				}
-				return InteractionResult.sidedSuccess(level.isClientSide());
-			} else if (cauldronBlock.isFull(state)) {
-				level.playSound(null, pos, SoundEvents.BUCKET_FILL_POWDER_SNOW, SoundSource.BLOCKS, 1.0F, 1.0F);
-				player.awardStat(Stats.USE_CAULDRON);
-				level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-				if (!player.isCreative()) {
-					stack.getOrCreateTag().putInt("FluidLevel", fluidLevel + 1);
-					player.setItemInHand(hand, stack);
-				}
-				return InteractionResult.sidedSuccess(level.isClientSide());
-			}
-		} else if (state.getBlock() instanceof PowderSnowBlock powderSnowBlock && player != null && !player.isCrouching() && fluidLevel < 2) {
+		if (state.getBlock() instanceof PowderSnowBlock powderSnowBlock && player != null && !player.isCrouching() && fluidLevel < 2) {
 			powderSnowBlock.pickupBlock(level, pos, state);
 			player.playSound(SoundEvents.BUCKET_FILL_POWDER_SNOW, 1.0F, 1.0F);
 			stack.getOrCreateTag().putInt("FluidLevel", fluidLevel + 1);

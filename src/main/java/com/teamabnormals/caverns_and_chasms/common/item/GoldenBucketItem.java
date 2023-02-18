@@ -24,7 +24,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
@@ -32,6 +35,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -58,9 +62,16 @@ public class GoldenBucketItem extends Item {
 		stack.getOrCreateTag().putInt(NBT_TAG, level);
 	}
 
-	public static void decreaseFluidLevel(ItemStack stack) {
+	public static ItemStack decreaseFluidLevel(ItemStack stack) {
 		int level = stack.getOrCreateTag().getInt(NBT_TAG);
 		if (level > 0) stack.getOrCreateTag().putInt(NBT_TAG, level - 1);
+		return stack;
+	}
+
+	public static ItemStack increaseFluidLevel(ItemStack stack) {
+		int level = stack.getOrCreateTag().getInt(NBT_TAG);
+		if (level < 3) stack.getOrCreateTag().putInt(NBT_TAG, level + 1);
+		return stack;
 	}
 
 	@Override
@@ -99,50 +110,26 @@ public class GoldenBucketItem extends Item {
 			BlockPos sourcePos = pos.relative(direction);
 			if (level.mayInteract(player, pos) && player.mayUseItemAt(sourcePos, direction, stack)) {
 				BlockState sourceState = level.getBlockState(pos);
-
-				boolean empty = this.getFluid() == Fluids.EMPTY;
-				boolean canFitMoreFluid = bucketLevel < 2 && sourceState.getFluidState().getType() == this.getFluid();
-				boolean canFitFromCauldron = !empty && bucketLevel < 2 && !player.isCrouching() && sourceState.getBlock() instanceof AbstractCauldronBlock cauldronBlock && cauldronBlock.isFull(sourceState) && !(this.getFluid() != Fluids.EMPTY && cauldronBlock != Blocks.CAULDRON && cauldronBlock != getCauldron());
-
-				if (empty || canFitMoreFluid || canFitFromCauldron) {
-					// Picking up from Cauldron
-					if (sourceState.getBlock() instanceof AbstractCauldronBlock cauldronBlock && cauldronBlock.isFull(sourceState) && getBucketForCauldron(cauldronBlock) != null) {
-						ItemStack newBucket = ItemUtils.createFilledResult(stack, player, getBucketForCauldron(cauldronBlock));
-						SoundEvent fillSound = newBucket.getItem() == CCItems.GOLDEN_LAVA_BUCKET.get() ? SoundEvents.BUCKET_FILL_LAVA : newBucket.getItem() == CCItems.GOLDEN_POWDER_SNOW_BUCKET.get() ? SoundEvents.BUCKET_FILL_POWDER_SNOW : SoundEvents.BUCKET_FILL;
-						if (this.getFluid() != Fluids.EMPTY) {
-							setFluidLevel(newBucket, bucketLevel + 1);
-						}
-
-						player.awardStat(Stats.USE_CAULDRON);
-						level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
-						level.playSound(null, pos, fillSound, SoundSource.BLOCKS, 1.0F, 1.0F);
-						return InteractionResultHolder.sidedSuccess(newBucket, level.isClientSide());
-					}
-
+				if (this.getFluid() == Fluids.EMPTY || bucketLevel < 2 && sourceState.getFluidState().getType() == this.getFluid()) {
 					// Picking up raw fluids & powder snow
 					if (sourceState.getBlock() instanceof BucketPickup bucketPickup) {
 						bucketPickup.pickupBlock(level, pos, sourceState);
 						Fluid fluid = sourceState.is(Blocks.WATER) ? Fluids.WATER : sourceState.is(Blocks.LAVA) ? Fluids.LAVA : Fluids.EMPTY;
-						if (fluid != Fluids.EMPTY && getFilledBucket(fluid) != null) {
-							player.awardStat(Stats.ITEM_USED.get(this));
+						ItemStack newBucket = ItemStack.EMPTY;
 
-							SoundEvent emptySound = this.getFluid().getFluidType().getSound(player, level, pos, SoundActions.BUCKET_EMPTY);
-							if (emptySound == null)
-								emptySound = fluid.is(FluidTags.LAVA) ? SoundEvents.BUCKET_FILL_LAVA : SoundEvents.BUCKET_FILL;
-							player.playSound(emptySound, 1.0F, 1.0F);
-							ItemStack newBucket = ItemUtils.createFilledResult(stack, player, getFilledBucket(fluid));
+						if (fluid != Fluids.EMPTY && getFilledBucket(fluid) != null) {
+							newBucket = ItemUtils.createFilledResult(stack, player, getFilledBucket(fluid));
 							if (this.getFluid() != Fluids.EMPTY)
 								setFluidLevel(newBucket, bucketLevel + 1);
-							if (!level.isClientSide) {
-								CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, newBucket);
-							}
-
-							return InteractionResultHolder.sidedSuccess(newBucket, level.isClientSide());
 						}
 
 						if (sourceState.is(Blocks.POWDER_SNOW)) {
-							player.playSound(SoundEvents.BUCKET_FILL_POWDER_SNOW, 1.0F, 1.0F);
-							ItemStack newBucket = ItemUtils.createFilledResult(stack, player, new ItemStack(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get()));
+							newBucket = ItemUtils.createFilledResult(stack, player, new ItemStack(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get()));
+						}
+
+						if (!newBucket.isEmpty()) {
+							player.awardStat(Stats.ITEM_USED.get(this));
+							bucketPickup.getPickupSound(sourceState).ifPresent((soundEvent) -> player.playSound(soundEvent, 1.0F, 1.0F));
 							if (!level.isClientSide) {
 								CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, newBucket);
 							}
@@ -160,34 +147,20 @@ public class GoldenBucketItem extends Item {
 						return InteractionResultHolder.pass(stack);
 					}
 
-					// Placing contents into Cauldron
+					// Placing contents
 					pos = result.getBlockPos();
 					direction = result.getDirection();
 					sourcePos = pos.relative(direction);
 					BlockState state = level.getBlockState(pos);
-					if (state.getBlock() instanceof AbstractCauldronBlock) {
-						Block cauldron = getCauldron();
-						if (cauldron != null) {
-							player.awardStat(Stats.FILL_CAULDRON);
-							BlockState newState = cauldron.defaultBlockState();
-							if (newState.hasProperty(LayeredCauldronBlock.LEVEL))
-								newState = newState.setValue(LayeredCauldronBlock.LEVEL, 3);
-							level.setBlockAndUpdate(pos, newState);
-							playEmptySound(null, level, pos);
-							return InteractionResultHolder.sidedSuccess(emptyBucket(stack, player), level.isClientSide());
-						}
-					}
-
-					// Placing contents
 					BlockPos newPos = canBlockContainFluid(level, pos, state) || (this.getFluid() != Fluids.EMPTY && bucketLevel < 2) ? pos : sourcePos;
-					if (this.tryPlaceContainedLiquid(player, level, newPos, result)) {
-						this.onLiquidPlaced(level, stack, newPos);
+					if (this.emptyContents(player, level, newPos, result)) {
+						this.checkExtraContent(level, stack, newPos);
 						if (player instanceof ServerPlayer) {
 							CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) player, newPos, stack);
 						}
 
 						player.awardStat(Stats.ITEM_USED.get(this));
-						return InteractionResultHolder.sidedSuccess(emptyBucket(stack, player), level.isClientSide());
+						return InteractionResultHolder.sidedSuccess(getEmptySuccessItem(stack, player), level.isClientSide());
 					} else {
 						return InteractionResultHolder.fail(stack);
 					}
@@ -198,7 +171,7 @@ public class GoldenBucketItem extends Item {
 		}
 	}
 
-	public static ItemStack emptyBucket(ItemStack stack, Player player) {
+	public static ItemStack getEmptySuccessItem(ItemStack stack, Player player) {
 		int level = stack.getOrCreateTag().getInt(NBT_TAG);
 		ItemStack returnStack = level > 0 ? stack : getEmptyBucket();
 		if (!player.getAbilities().instabuild)
@@ -206,10 +179,10 @@ public class GoldenBucketItem extends Item {
 		return !player.getAbilities().instabuild ? returnStack : stack;
 	}
 
-	public void onLiquidPlaced(Level worldIn, ItemStack p_203792_2_, BlockPos pos) {
+	public void checkExtraContent(Level worldIn, ItemStack p_203792_2_, BlockPos pos) {
 	}
 
-	public boolean tryPlaceContainedLiquid(@Nullable Player player, Level level, BlockPos pos, @Nullable BlockHitResult result) {
+	public boolean emptyContents(@Nullable Player player, Level level, BlockPos pos, @Nullable BlockHitResult result) {
 		if (!(this.getFluid() instanceof FlowingFluid)) {
 			return false;
 		} else {
@@ -218,7 +191,7 @@ public class GoldenBucketItem extends Item {
 			Material material = state.getMaterial();
 			boolean replaceable = state.canBeReplaced(this.getFluid());
 			if (!(state.isAir() || replaceable || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, pos, state, this.getFluid()))) {
-				return result != null && this.tryPlaceContainedLiquid(player, level, result.getBlockPos().relative(result.getDirection()), null);
+				return result != null && this.emptyContents(player, level, result.getBlockPos().relative(result.getDirection()), null);
 			} else if (level.dimensionType().ultraWarm() && this.getFluid().is(FluidTags.WATER)) {
 				int i = pos.getX();
 				int j = pos.getY();
@@ -272,20 +245,7 @@ public class GoldenBucketItem extends Item {
 	public static ItemStack getFilledBucket(Fluid fluid) {
 		if (fluid == Fluids.WATER) return new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get());
 		if (fluid == Fluids.LAVA) return new ItemStack(CCItems.GOLDEN_LAVA_BUCKET.get());
-		return null;
-
-	}
-
-	public static ItemStack getBucketForCauldron(AbstractCauldronBlock block) {
-		if (block == Blocks.WATER_CAULDRON) return new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get());
-		if (block == Blocks.LAVA_CAULDRON) return new ItemStack(CCItems.GOLDEN_LAVA_BUCKET.get());
-		if (block == Blocks.POWDER_SNOW_CAULDRON) return new ItemStack(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
-		return null;
-	}
-
-	public Block getCauldron() {
-		if (this.getFluid() == Fluids.WATER) return Blocks.WATER_CAULDRON;
-		if (this.getFluid() == Fluids.LAVA) return Blocks.LAVA_CAULDRON;
+		if (fluid == ForgeMod.MILK.get()) return new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
 		return null;
 	}
 
