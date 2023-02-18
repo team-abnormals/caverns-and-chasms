@@ -565,18 +565,19 @@ public class CCEvents {
 		LivingEntity entity = event.getEntity();
 		if (entity instanceof Player player) {
 			IDataManager data = (IDataManager) entity;
-			ControllableGolem golem = TuningForkItem.findControlledGolem(player);
-
-			if (golem != null) {
-				int forgettime = TuningForkItem.getForgetGolemTime(player);
-				if (forgettime > 0) {
-					if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem()))
-						TuningForkItem.setForgetGolemTime(player, forgettime - 1);
+			if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
+				ControllableGolem golem = TuningForkItem.findControlledGolem(player);
+				if (golem != null) {
+					int forgettime = TuningForkItem.getForgetGolemTime(player);
+					if (forgettime > 0) {
+						if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem()))
+							TuningForkItem.setForgetGolemTime(player, forgettime - 1);
+					} else {
+						TuningForkItem.setControlledGolem(player, null);
+					}
 				} else {
 					TuningForkItem.setControlledGolem(player, null);
 				}
-			} else if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
-				TuningForkItem.setControlledGolem(player, null);
 			}
 		} else if (entity instanceof ControllableGolem golem) {
 			boolean controlled = golem.getTuningForkController() != null;

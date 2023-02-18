@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -15,7 +14,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import javax.annotation.Nonnull;
+
 public interface FragileBlock {
+	@Nonnull
+	String getDustParticle();
+
+	@Nonnull
+	String getChipParticle();
 
 	default void breakNeighbors(Level level, BlockPos pos) {
 		for (Direction direction : Direction.values()) {
@@ -34,7 +40,7 @@ public interface FragileBlock {
 		double d3 = random.nextGaussian() * 0.04D;
 		double d4 = random.nextGaussian() * 0.04D;
 		double d5 = random.nextGaussian() * 0.04D;
-		NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + (isDeepslate ? ":deepslate_dust" : ":stone_dust"), d0, d1, d2, d3, d4, d5);
+		NetworkUtil.spawnParticle(this.getDustParticle(), d0, d1, d2, d3, d4, d5);
 
 		int i = random.nextInt(2) + 1;
 		for (int j = 0; j < i; ++j) {
@@ -43,7 +49,7 @@ public interface FragileBlock {
 			double d8 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
 			double d9 = ((double) random.nextFloat() - 0.5D) * 0.02D;
 			double d10 = ((double) random.nextFloat() - 0.5D) * 0.02D;
-			NetworkUtil.spawnParticle(CavernsAndChasms.MOD_ID + (isDeepslate ? ":deepslate_chip" : ":stone_chip"), d6, d7, d8, d9, -0.4D, d10);
+			NetworkUtil.spawnParticle(this.getChipParticle(), d6, d7, d8, d9, -0.4D, d10);
 		}
 
 		SoundType soundtype = state.getSoundType(level, pos, null);
