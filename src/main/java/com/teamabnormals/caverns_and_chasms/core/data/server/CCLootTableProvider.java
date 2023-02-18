@@ -125,17 +125,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_COPPER_BUTTON.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_BUTTON.get());
 
-			this.dropSelf(DIRT_BRICKS.get());
-			this.dropSelf(DIRT_BRICK_STAIRS.get());
-			this.dropSelf(DIRT_BRICK_WALL.get());
-			this.add(DIRT_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
-			this.add(DIRT_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-			this.dropSelf(DIRT_TILES.get());
-			this.dropSelf(DIRT_TILE_STAIRS.get());
-			this.dropSelf(DIRT_TILE_WALL.get());
-			this.add(DIRT_TILE_SLAB.get(), BlockLoot::createSlabItemTable);
-			this.add(DIRT_TILE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-
 			this.dropSelf(COBBLESTONE_BRICKS.get());
 			this.dropSelf(COBBLESTONE_BRICK_STAIRS.get());
 			this.dropSelf(COBBLESTONE_BRICK_WALL.get());

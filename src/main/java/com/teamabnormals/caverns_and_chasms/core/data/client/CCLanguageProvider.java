@@ -38,8 +38,6 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCBlocks.BRAZIER.get(), CCBlocks.SOUL_BRAZIER.get(), CCBlocks.ENDER_BRAZIER.get(), CCBlocks.CUPRIC_BRAZIER.get());
 		this.add(CCBlocks.CUPRIC_FIRE.get(), CCBlocks.CUPRIC_TORCH.get(), CCBlocks.CUPRIC_LANTERN.get(), CCBlocks.CUPRIC_CAMPFIRE.get(), CCBlocks.CUPRIC_CANDLE.get(), CCBlocks.CUPRIC_CANDLE_CAKE.get());
 		this.add(CCBlocks.FRAGILE_STONE.get(), CCBlocks.FRAGILE_DEEPSLATE.get(), CCBlocks.ROCKY_DIRT.get());
-		this.add(CCBlocks.DIRT_BRICKS.get(), CCBlocks.DIRT_BRICK_SLAB.get(), CCBlocks.DIRT_BRICK_STAIRS.get(), CCBlocks.DIRT_BRICK_WALL.get(), CCBlocks.DIRT_BRICK_VERTICAL_SLAB.get());
-		this.add(CCBlocks.DIRT_TILES.get(), CCBlocks.DIRT_TILE_SLAB.get(), CCBlocks.DIRT_TILE_STAIRS.get(), CCBlocks.DIRT_TILE_WALL.get(), CCBlocks.DIRT_TILE_VERTICAL_SLAB.get());
 		this.add(CCBlocks.COBBLESTONE_BRICKS.get(), CCBlocks.COBBLESTONE_BRICK_SLAB.get(), CCBlocks.COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.COBBLESTONE_BRICK_WALL.get(), CCBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get());
 		this.add(CCBlocks.COBBLESTONE_TILES.get(), CCBlocks.COBBLESTONE_TILE_SLAB.get(), CCBlocks.COBBLESTONE_TILE_STAIRS.get(), CCBlocks.COBBLESTONE_TILE_WALL.get(), CCBlocks.COBBLESTONE_TILE_VERTICAL_SLAB.get());
 		this.add(CCBlocks.MOSSY_COBBLESTONE_BRICKS.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_SLAB.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_WALL.get(), CCBlocks.MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get());
