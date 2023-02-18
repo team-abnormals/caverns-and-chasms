@@ -105,7 +105,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(GOLDEN_BARS.get());
 
 			this.dropSelf(FLOODLIGHT.get());
-			this.dropSelf(INDUCTOR.get());
+			// this.dropSelf(INDUCTOR.get());
 
 			this.dropSelf(COPPER_BARS.get());
 			this.dropSelf(EXPOSED_COPPER_BARS.get());
