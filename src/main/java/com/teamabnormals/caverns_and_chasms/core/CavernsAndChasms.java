@@ -18,7 +18,6 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
-import com.teamabnormals.caverns_and_chasms.core.other.CCPotionUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
@@ -28,6 +27,7 @@ import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -165,6 +165,6 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	public void registerItemColors(RegisterColorHandlersEvent.Item event) {
 		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
-		event.register((stack, color) -> color > 0 ? -1 : CCPotionUtil.getTetherPotionColor(stack), CCItems.TETHER_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
 	}
 }

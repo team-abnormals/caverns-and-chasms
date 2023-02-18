@@ -32,15 +32,15 @@
   "block.caverns_and_chasms.rotten_flesh_block": "Mädäntynyt lihakuutio",
   "block.caverns_and_chasms.gravestone": "Hautakivi",
 
-  "block.caverns_and_chasms.cupric_campfire": "Kirottu nuotio",
-  "block.caverns_and_chasms.cupric_torch": "Kirottu soihtu",
-  "block.caverns_and_chasms.cupric_wall_torch": "Kirottu seinäsoihtu",
-  "block.caverns_and_chasms.cupric_lantern": "Kirottu lyhty",
-  "block.caverns_and_chasms.cupric_fire": "Kirottu tuli",
+  "block.caverns_and_chasms.cupric_campfire": "Kuparinuotio",
+  "block.caverns_and_chasms.cupric_torch": "Kuparisoihtu",
+  "block.caverns_and_chasms.cupric_wall_torch": "Kupariseinäsoihtu",
+  "block.caverns_and_chasms.cupric_lantern": "Kuparilyhty",
+  "block.caverns_and_chasms.cupric_fire": "Kuparituli",
 
   "block.caverns_and_chasms.brazier": "Hiilipannu",
   "block.caverns_and_chasms.soul_brazier": "Sieluhiilipannu",
-  "block.caverns_and_chasms.cupric_brazier": "Kirottu hiilipannu",
+  "block.caverns_and_chasms.cupric_brazier": "Kuparihiilipannu",
   "block.caverns_and_chasms.ender_brazier": "Ender-hiilipannu",
 
   "block.caverns_and_chasms.tmt": "TMT",

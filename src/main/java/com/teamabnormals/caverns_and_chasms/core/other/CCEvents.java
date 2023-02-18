@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
@@ -62,6 +63,7 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -361,12 +363,14 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
 		if (event.getSlot() == EquipmentSlot.HEAD) {
-			ItemStack itemstack = event.getFrom();
-			if (itemstack.getItem() == CCItems.TETHER_POTION.get()) {
-				LivingEntity livingentity = event.getEntity();
-				for (MobEffectInstance mobeffectinstance : CCPotionUtil.getContinuousEffects(itemstack, true)) {
-					livingentity.removeEffectNoUpdate(mobeffectinstance.getEffect());
-					livingentity.forceAddEffect(new MobEffectInstance(mobeffectinstance.getEffect(), CCPotionUtil.getTetherPotionDuration(mobeffectinstance.getDuration()), mobeffectinstance.getAmplifier(), mobeffectinstance.isAmbient(), mobeffectinstance.isVisible(), mobeffectinstance.showIcon()), null);
+			ItemStack stack = event.getFrom();
+			if (stack.getItem() == CCItems.TETHER_POTION.get()) {
+				LivingEntity entity = event.getEntity();
+				for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
+					if (!instance.getEffect().isInstantenous()) {
+						entity.removeEffectNoUpdate(instance.getEffect());
+						entity.forceAddEffect(new MobEffectInstance(instance.getEffect(), TetherPotionItem.getTetherPotionDuration(instance.getDuration()), instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()), null);
+					}
 				}
 			}
 		}
@@ -521,10 +525,18 @@ public class CCEvents {
 			}
 		}
 
-		ItemStack itemstack = target.getItemBySlot(EquipmentSlot.HEAD);
-		if (!level.isClientSide() && itemstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
+		if (!level.isClientSide() && stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+			Player player = target instanceof Player ? (Player) target : null;
+
+			for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
+				if (instance.getEffect().isInstantenous()) {
+					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+				}
+			}
+
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
-			level.levelEvent(2002, new BlockPos(target.getEyePosition(1.0F)), CCPotionUtil.getTetherPotionColor(itemstack));
+			level.levelEvent(2002, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}
