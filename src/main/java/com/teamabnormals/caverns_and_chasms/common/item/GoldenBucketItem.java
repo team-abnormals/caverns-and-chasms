@@ -16,10 +16,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -44,7 +41,7 @@ import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class GoldenBucketItem extends Item {
+public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 	private static final String NBT_TAG = "FluidLevel";
 	private final Supplier<? extends Fluid> fluidSupplier;
 
@@ -117,8 +114,8 @@ public class GoldenBucketItem extends Item {
 						Fluid fluid = sourceState.is(Blocks.WATER) ? Fluids.WATER : sourceState.is(Blocks.LAVA) ? Fluids.LAVA : Fluids.EMPTY;
 						ItemStack newBucket = ItemStack.EMPTY;
 
-						if (fluid != Fluids.EMPTY && getFilledBucket(fluid) != null) {
-							newBucket = ItemUtils.createFilledResult(stack, player, getFilledBucket(fluid));
+						if (fluid != Fluids.EMPTY && getFilledBucket(sourceState) != null) {
+							newBucket = ItemUtils.createFilledResult(stack, player, getFilledBucket(sourceState));
 							if (this.getFluid() != Fluids.EMPTY)
 								setFluidLevel(newBucket, bucketLevel + 1);
 						}
@@ -171,12 +168,12 @@ public class GoldenBucketItem extends Item {
 		}
 	}
 
-	public static ItemStack getEmptySuccessItem(ItemStack stack, Player player) {
+	public static ItemStack getEmptySuccessItem(ItemStack stack, @Nullable Player player) {
 		int level = stack.getOrCreateTag().getInt(NBT_TAG);
 		ItemStack returnStack = level > 0 ? stack : getEmptyBucket();
-		if (!player.getAbilities().instabuild)
+		if (player == null || !player.getAbilities().instabuild)
 			decreaseFluidLevel(stack);
-		return !player.getAbilities().instabuild ? returnStack : stack;
+		return player == null || !player.getAbilities().instabuild ? returnStack : stack;
 	}
 
 	public void checkExtraContent(Level worldIn, ItemStack p_203792_2_, BlockPos pos) {
@@ -245,7 +242,15 @@ public class GoldenBucketItem extends Item {
 	public static ItemStack getFilledBucket(Fluid fluid) {
 		if (fluid == Fluids.WATER) return new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get());
 		if (fluid == Fluids.LAVA) return new ItemStack(CCItems.GOLDEN_LAVA_BUCKET.get());
-		if (fluid == ForgeMod.MILK.get()) return new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
+		if (ForgeMod.MILK.isPresent() && fluid == ForgeMod.MILK.get()) return new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
+		return null;
+	}
+
+	public static ItemStack getFilledBucket(BlockState state) {
+		if (state.getFluidState().is(Fluids.WATER)) return new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get());
+		if (state.getFluidState().is(Fluids.LAVA)) return new ItemStack(CCItems.GOLDEN_LAVA_BUCKET.get());
+		if (state.is(Blocks.POWDER_SNOW)) return new ItemStack(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
+		if (ForgeMod.MILK.isPresent() && state.getFluidState().is(ForgeMod.MILK.get())) return new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
 		return null;
 	}
 
