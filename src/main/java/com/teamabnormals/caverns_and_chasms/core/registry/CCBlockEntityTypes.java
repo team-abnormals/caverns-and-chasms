@@ -13,5 +13,5 @@ public class CCBlockEntityTypes {
 	public static final BlockEntitySubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getBlockEntitySubHelper();
 
 	public static final RegistryObject<BlockEntityType<CupricCampfireBlockEntity>> CUPRIC_CAMPFIRE = HELPER.createBlockEntity("cupric_campfire", CupricCampfireBlockEntity::new, () -> new Block[]{CCBlocks.CUPRIC_CAMPFIRE.get()});
-	// public static final RegistryObject<BlockEntityType<InductorBlockEntity>> INDUCTOR = HELPER.createBlockEntity("inductor", InductorBlockEntity::new, () -> new Block[]{CCBlocks.INDUCTOR.get()});
+//	public static final RegistryObject<BlockEntityType<InductorBlockEntity>> INDUCTOR = HELPER.createBlockEntity("inductor", InductorBlockEntity::new, () -> new Block[]{CCBlocks.INDUCTOR.get()});
 }
