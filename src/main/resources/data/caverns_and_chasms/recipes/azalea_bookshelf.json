@@ -1,0 +1,51 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:or",
+          "values": [
+            {
+              "type": "blueprint:and",
+              "values": [
+                {
+                  "type": "forge:mod_loaded",
+                  "modid": "woodworks"
+                },
+                {
+                  "type": "woodworks:config",
+                  "value": "wooden_bookshelves"
+                }
+              ]
+            },
+            {
+              "type": "blueprint:quark_flag",
+              "flag": "variant_bookshelves"
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "wooden_bookshelf",
+        "key": {
+          "#": {
+            "item": "caverns_and_chasms:azalea_planks"
+          },
+          "X": {
+            "item": "minecraft:book"
+          }
+        },
+        "pattern": [
+          "###",
+          "XXX",
+          "###"
+        ],
+        "result": {
+          "item": "caverns_and_chasms:azalea_bookshelf"
+        }
+      }
+    }
+  ]
+}
