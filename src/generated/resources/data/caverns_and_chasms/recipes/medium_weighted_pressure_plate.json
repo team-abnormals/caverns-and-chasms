@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:medium_weighted_pressure_plate"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "nether_extension"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "caverns_and_chasms:necromium_ingot"
+          }
+        ],
+        "result": {
+          "count": 9,
+          "item": "caverns_and_chasms:necromium_nugget"
+        }
+      }
+    }
+  ]
+}

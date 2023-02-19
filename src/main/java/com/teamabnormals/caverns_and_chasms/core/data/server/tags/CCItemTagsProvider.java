@@ -105,5 +105,8 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(BlueprintBlockTags.VERTICAL_SLABS, BlueprintItemTags.VERTICAL_SLABS);
 		this.copy(BlueprintBlockTags.WOODEN_VERTICAL_SLABS, BlueprintItemTags.WOODEN_VERTICAL_SLABS);
 		this.tag(BlueprintItemTags.BOATABLE_CHESTS).add(CCBlocks.AZALEA_CHEST.getFirst().get().asItem());
+
+		this.tag(CCItemTags.BOTTLES_MILK);
+		this.tag(CCItemTags.ENDER_FIRE_BASE_BLOCKS);
 	}
 }

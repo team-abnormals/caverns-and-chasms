@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "blueprint:quark_flag",
+          "flag": "vertical_slabs"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "caverns_and_chasms:azalea_slab"
+          }
+        ],
+        "result": {
+          "item": "caverns_and_chasms:azalea_vertical_slab"
+        }
+      }
+    }
+  ]
+}

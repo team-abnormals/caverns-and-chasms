@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spinel_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:spinel_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_spinel_pillar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:spinel_pillar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:spinel_pillar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_spinel_bricks",
+      "has_spinel_pillar",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:spinel_pillar"
+    ]
+  }
+}

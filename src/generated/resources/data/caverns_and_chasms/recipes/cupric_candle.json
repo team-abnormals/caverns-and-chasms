@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buzzier_bees"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "key": {
+          "C": {
+            "tag": "minecraft:soul_fire_base_blocks"
+          },
+          "H": {
+            "item": "minecraft:honeycomb"
+          },
+          "S": {
+            "item": "minecraft:string"
+          }
+        },
+        "pattern": [
+          "S",
+          "H",
+          "C"
+        ],
+        "result": {
+          "item": "caverns_and_chasms:cupric_candle"
+        }
+      }
+    }
+  ]
+}

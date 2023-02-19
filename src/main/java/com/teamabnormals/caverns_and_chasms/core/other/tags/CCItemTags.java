@@ -46,6 +46,10 @@ public class CCItemTags {
 	public static final TagKey<Item> TOOLS_AXES = TagUtil.itemTag("forge", "tools/axes");
 	public static final TagKey<Item> TOOLS_SHOVELS = TagUtil.itemTag("forge", "tools/shovels");
 
+	public static final TagKey<Item> BOTTLES_MILK = TagUtil.itemTag("forge", "bottles/milk");
+
+	public static final TagKey<Item> ENDER_FIRE_BASE_BLOCKS = TagUtil.itemTag("endergetic", "ender_fire_base_blocks");
+
 	private static TagKey<Item> itemTag(String name) {
 		return TagUtil.itemTag(CavernsAndChasms.MOD_ID, name);
 	}

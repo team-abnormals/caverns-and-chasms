@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "caverns_and_chasms:spinel_bricks"
-  },
-  "result": "caverns_and_chasms:spinel_pillar",
-  "count": 1
-}

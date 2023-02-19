@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "cobblestone_bricks",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:cobblestone_bricks"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:mossy_cobblestone_bricks"
+  }
+}

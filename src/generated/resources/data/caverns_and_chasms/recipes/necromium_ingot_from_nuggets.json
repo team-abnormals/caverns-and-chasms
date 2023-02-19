@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "nether_extension"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "necromium_ingot",
+        "key": {
+          "#": {
+            "item": "caverns_and_chasms:necromium_nugget"
+          }
+        },
+        "pattern": [
+          "###",
+          "###",
+          "###"
+        ],
+        "result": {
+          "item": "caverns_and_chasms:necromium_ingot"
+        }
+      }
+    }
+  ]
+}

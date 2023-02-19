@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:bottles/milk"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "caverns_and_chasms:golden_bucket"
+          },
+          {
+            "tag": "forge:bottles/milk"
+          }
+        ],
+        "result": {
+          "item": "caverns_and_chasms:golden_milk_bucket"
+        }
+      }
+    }
+  ]
+}

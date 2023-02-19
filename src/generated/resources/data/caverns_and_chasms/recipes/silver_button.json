@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "blueprint:quark_flag",
+          "flag": "gold_metal_button"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "tag": "minecraft:wooden_buttons"
+          },
+          {
+            "tag": "forge:ingots/silver"
+          }
+        ],
+        "result": {
+          "item": "caverns_and_chasms:silver_button"
+        }
+      }
+    }
+  ]
+}

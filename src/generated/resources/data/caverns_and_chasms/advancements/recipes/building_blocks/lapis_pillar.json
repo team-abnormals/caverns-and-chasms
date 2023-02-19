@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lapis_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:lapis_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_lapis_pillar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:lapis_pillar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:lapis_pillar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_lapis_bricks",
+      "has_lapis_pillar",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:lapis_pillar"
+    ]
+  }
+}

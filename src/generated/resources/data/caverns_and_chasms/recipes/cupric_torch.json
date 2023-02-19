@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "C": {
+      "tag": "caverns_and_chasms:cupric_fire_base_items"
+    },
+    "X": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ]
+  },
+  "pattern": [
+    "X",
+    "#",
+    "C"
+  ],
+  "result": {
+    "count": 4,
+    "item": "caverns_and_chasms:cupric_torch"
+  }
+}
