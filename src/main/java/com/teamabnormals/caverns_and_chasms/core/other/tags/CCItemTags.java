@@ -12,8 +12,6 @@ public class CCItemTags {
 	public static final TagKey<Item> EXPERIENCE_BOOST_ITEMS = itemTag("experience_boost_items");
 	public static final TagKey<Item> SILVER_ORES = itemTag("silver_ores");
 	public static final TagKey<Item> SPINEL_ORES = itemTag("spinel_ores");
-	public static final TagKey<Item> SILVER_GEAR = itemTag("silver_gear");
-	public static final TagKey<Item> NECROMIUM_GEAR = itemTag("necromium_gear");
 	public static final TagKey<Item> AZALEA_LOGS = itemTag("azalea_logs");
 
 	public static final TagKey<Item> RAT_FOOD = itemTag("rat_food");

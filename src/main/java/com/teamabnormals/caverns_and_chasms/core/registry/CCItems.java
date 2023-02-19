@@ -49,7 +49,7 @@ public class CCItems {
 	public static final RegistryObject<Item> DEPTH_GAUGE = HELPER.createItem("depth_gauge", () -> new InjectedItem(Items.CLOCK, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
 	public static final RegistryObject<Item> NECROMIUM_INGOT = HELPER.createItem("necromium_ingot", () -> new InjectedItem(Items.NETHERITE_INGOT, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_MATERIALS)));
-	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createCompatItem("nether_extension", "necromium_nugget", new Item.Properties().fireResistant(), CreativeModeTab.TAB_MATERIALS);
+	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createItem("necromium_nugget", () -> new Item(new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> NECROMIUM_SWORD = HELPER.createItem("necromium_sword", () -> new NecromiumSwordItem(CCItemTiers.NECROMIUM, 3, -2.4F, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> NECROMIUM_SHOVEL = HELPER.createItem("necromium_shovel", () -> new NecromiumShovelItem(CCItemTiers.NECROMIUM, 1.5F, -3.0F, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_TOOLS)));
 	public static final RegistryObject<Item> NECROMIUM_PICKAXE = HELPER.createItem("necromium_pickaxe", () -> new NecromiumPickaxeItem(CCItemTiers.NECROMIUM, 1, -2.8F, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_TOOLS)));
@@ -60,6 +60,8 @@ public class CCItems {
 	public static final RegistryObject<Item> NECROMIUM_LEGGINGS = HELPER.createItem("necromium_leggings", () -> new NecromiumArmorItem(CCArmorMaterials.NECROMIUM, EquipmentSlot.LEGS, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> NECROMIUM_BOOTS = HELPER.createItem("necromium_boots", () -> new NecromiumArmorItem(CCArmorMaterials.NECROMIUM, EquipmentSlot.FEET, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> NECROMIUM_HORSE_ARMOR = HELPER.createItem("necromium_horse_armor", () -> new NecromiumHorseArmorItem(9, "necromium", new Item.Properties().stacksTo(1).fireResistant().tab(ItemSubRegistryHelper.areModsLoaded("nether_extension") ? CreativeModeTab.TAB_MISC : null)));
+
+	public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_MATERIALS)));
 
 	public static final RegistryObject<Item> SANGUINE_PLATING = HELPER.createItem("sanguine_plating", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> SANGUINE_HELMET = HELPER.createItem("sanguine_helmet", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));

@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "caverns_and_chasms:necromium_ingot"
+      "item": "minecraft:netherite_ingot"
     }
   ],
   "result": {
     "count": 9,
-    "item": "caverns_and_chasms:necromium_nugget"
+    "item": "caverns_and_chasms:netherite_nugget"
   }
 }

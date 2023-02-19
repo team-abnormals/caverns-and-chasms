@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_silver_gear": {
+    "has_netherite_nugget": {
       "conditions": {
         "items": [
           {
-            "tag": "caverns_and_chasms:silver_gear"
+            "items": [
+              "caverns_and_chasms:netherite_nugget"
+            ]
           }
         ]
       },
@@ -13,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:silver_nugget_from_smelting"
+        "recipe": "caverns_and_chasms:netherite_ingot_from_nuggets"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_silver_gear",
+      "has_netherite_nugget",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:silver_nugget_from_smelting"
+      "caverns_and_chasms:netherite_ingot_from_nuggets"
     ]
   }
 }
