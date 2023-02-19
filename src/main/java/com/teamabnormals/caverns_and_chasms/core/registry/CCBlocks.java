@@ -163,32 +163,33 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CHISELED_DRIPSTONE_SHINGLES = HELPER.createBlock("chiseled_dripstone_shingles", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLES = HELPER.createBlock("flooded_dripstone_shingles", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new StrippedLogBlock(CCProperties.AZALEA_WOOD.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new StrippedWoodBlock(CCProperties.AZALEA_WOOD.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_LOG = HELPER.createBlock("azalea_log", () -> new LogBlock(STRIPPED_AZALEA_LOG, CCProperties.AZALEA_WOOD.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_WOOD = HELPER.createBlock("azalea_wood", () -> new WoodBlock(STRIPPED_AZALEA_WOOD, CCProperties.AZALEA_WOOD.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_PLANKS = HELPER.createBlock("azalea_planks", () -> new PlanksBlock(CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_DOOR = HELPER.createBlock("azalea_door", () -> new WoodDoorBlock(CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_REDSTONE);
-	public static final RegistryObject<Block> AZALEA_SLAB = HELPER.createBlock("azalea_slab", () -> new WoodSlabBlock(CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_STAIRS = HELPER.createBlock("azalea_stairs", () -> new StairBlock(() -> AZALEA_PLANKS.get().defaultBlockState(), CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_FENCE = HELPER.createFuelBlock("azalea_fence", () -> new WoodFenceBlock(CCProperties.AZALEA_WOOD.planks()), 300, CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> AZALEA_FENCE_GATE = HELPER.createFuelBlock("azalea_fence_gate", () -> new WoodFenceGateBlock(CCProperties.AZALEA_WOOD.planks()), 300, CreativeModeTab.TAB_REDSTONE);
-	public static final RegistryObject<Block> AZALEA_PRESSURE_PLATE = HELPER.createBlock("azalea_pressure_plate", () -> new WoodPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, CCProperties.AZALEA_WOOD.pressurePlate()), CreativeModeTab.TAB_REDSTONE);
-	public static final RegistryObject<Block> AZALEA_BUTTON = HELPER.createBlock("azalea_button", () -> new BlueprintWoodButtonBlock(CCProperties.AZALEA_WOOD.button()), CreativeModeTab.TAB_REDSTONE);
-	public static final RegistryObject<Block> AZALEA_TRAPDOOR = HELPER.createBlock("azalea_trapdoor", () -> new WoodTrapDoorBlock(CCProperties.AZALEA_WOOD.trapdoor()), CreativeModeTab.TAB_REDSTONE);
+	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new StrippedLogBlock(CCProperties.AZALEA.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new StrippedWoodBlock(CCProperties.AZALEA.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_LOG = HELPER.createBlock("azalea_log", () -> new LogBlock(STRIPPED_AZALEA_LOG, CCProperties.AZALEA.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_WOOD = HELPER.createBlock("azalea_wood", () -> new WoodBlock(STRIPPED_AZALEA_WOOD, CCProperties.AZALEA.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_PLANKS = HELPER.createBlock("azalea_planks", () -> new PlanksBlock(CCProperties.AZALEA.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_DOOR = HELPER.createBlock("azalea_door", () -> new WoodDoorBlock(CCProperties.AZALEA.planks()), CreativeModeTab.TAB_REDSTONE);
+	public static final RegistryObject<Block> AZALEA_SLAB = HELPER.createBlock("azalea_slab", () -> new WoodSlabBlock(CCProperties.AZALEA.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_STAIRS = HELPER.createBlock("azalea_stairs", () -> new StairBlock(() -> AZALEA_PLANKS.get().defaultBlockState(), CCProperties.AZALEA.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_FENCE = HELPER.createFuelBlock("azalea_fence", () -> new WoodFenceBlock(CCProperties.AZALEA.planks()), 300, CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> AZALEA_FENCE_GATE = HELPER.createFuelBlock("azalea_fence_gate", () -> new WoodFenceGateBlock(CCProperties.AZALEA.planks()), 300, CreativeModeTab.TAB_REDSTONE);
+	public static final RegistryObject<Block> AZALEA_PRESSURE_PLATE = HELPER.createBlock("azalea_pressure_plate", () -> new WoodPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, CCProperties.AZALEA.pressurePlate()), CreativeModeTab.TAB_REDSTONE);
+	public static final RegistryObject<Block> AZALEA_BUTTON = HELPER.createBlock("azalea_button", () -> new BlueprintWoodButtonBlock(CCProperties.AZALEA.button()), CreativeModeTab.TAB_REDSTONE);
+	public static final RegistryObject<Block> AZALEA_TRAPDOOR = HELPER.createBlock("azalea_trapdoor", () -> new WoodTrapDoorBlock(CCProperties.AZALEA.trapdoor()), CreativeModeTab.TAB_REDSTONE);
 	public static final Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> AZALEA_SIGN = HELPER.createSignBlock("azalea", MaterialColor.TERRACOTTA_PURPLE);
 
-	public static final RegistryObject<Block> AZALEA_BOARDS = HELPER.createCompatBlock("woodworks", "azalea_boards", () -> new RotatedPillarBlock(CCProperties.AZALEA_WOOD.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_BOOKSHELF = HELPER.createCompatFuelBlock("woodworks", "azalea_bookshelf", () -> new BookshelfBlock(CCProperties.AZALEA_WOOD.bookshelf()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_LADDER = HELPER.createCompatFuelBlock("woodworks", "azalea_ladder", () -> new BlueprintLadderBlock(CCProperties.AZALEA_WOOD.ladder()), 300, CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> AZALEA_BEEHIVE = HELPER.createCompatBlock("woodworks", "azalea_beehive", () -> new BlueprintBeehiveBlock(CCProperties.AZALEA_WOOD.beehive()), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> AZALEA_BOARDS = HELPER.createCompatBlock("woodworks", "azalea_boards", () -> new RotatedPillarBlock(CCProperties.AZALEA.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_BOOKSHELF = HELPER.createCompatFuelBlock("woodworks", "azalea_bookshelf", () -> new BookshelfBlock(CCProperties.AZALEA.bookshelf()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_LADDER = HELPER.createCompatFuelBlock("woodworks", "azalea_ladder", () -> new BlueprintLadderBlock(CCProperties.AZALEA.ladder()), 300, CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> AZALEA_BEEHIVE = HELPER.createCompatBlock("woodworks", "azalea_beehive", () -> new BlueprintBeehiveBlock(CCProperties.AZALEA.beehive()), CreativeModeTab.TAB_DECORATIONS);
 	public static final Pair<RegistryObject<BlueprintChestBlock>, RegistryObject<BlueprintTrappedChestBlock>> AZALEA_CHEST = HELPER.createCompatChestBlocks("woodworks", "azalea", MaterialColor.TERRACOTTA_PURPLE);
 
-	public static final RegistryObject<Block> AZALEA_VERTICAL_SLAB = HELPER.createCompatFuelBlock("quark", "azalea_vertical_slab", () -> new VerticalSlabBlock(CCProperties.AZALEA_WOOD.planks()), 150, CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> STRIPPED_AZALEA_POST = HELPER.createCompatFuelBlock("quark", "stripped_azalea_post", () -> new WoodPostBlock(CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_POST = HELPER.createCompatFuelBlock("quark", "azalea_post", () -> new WoodPostBlock(STRIPPED_AZALEA_POST, CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> AZALEA_HEDGE = HELPER.createCompatFuelBlock("quark", "azalea_hedge", () -> new HedgeBlock(CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> FLOWERING_AZALEA_HEDGE = HELPER.createCompatFuelBlock("quark", "flowering_azalea_hedge", () -> new HedgeBlock(CCProperties.AZALEA_WOOD.log()), 300, CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> VERTICAL_AZALEA_PLANKS = HELPER.createCompatBlock("quark", "vertical_azalea_planks", () -> new Block(CCProperties.AZALEA.planks()), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_VERTICAL_SLAB = HELPER.createCompatFuelBlock("quark", "azalea_vertical_slab", () -> new VerticalSlabBlock(CCProperties.AZALEA.planks()), 150, CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> STRIPPED_AZALEA_POST = HELPER.createCompatFuelBlock("quark", "stripped_azalea_post", () -> new WoodPostBlock(CCProperties.AZALEA.log()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_POST = HELPER.createCompatFuelBlock("quark", "azalea_post", () -> new WoodPostBlock(STRIPPED_AZALEA_POST, CCProperties.AZALEA.log()), 300, CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AZALEA_HEDGE = HELPER.createCompatFuelBlock("quark", "azalea_hedge", () -> new HedgeBlock(CCProperties.AZALEA.log()), 300, CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> FLOWERING_AZALEA_HEDGE = HELPER.createCompatFuelBlock("quark", "flowering_azalea_hedge", () -> new HedgeBlock(CCProperties.AZALEA.log()), 300, CreativeModeTab.TAB_DECORATIONS);
 
 	public static class CCProperties {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).requiresCorrectToolForDrops().strength(1.5F);
@@ -196,7 +197,6 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties FRAGILE_DEEPSLATE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.DEEPSLATE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE);
 		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).sound(SoundType.CALCITE).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GRAY).sound(SoundType.TUFF).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-		public static final BlockBehaviour.Properties DIRT_BRICKS = BlockBehaviour.Properties.of(Material.DIRT, MaterialColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F);
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);
 
@@ -225,7 +225,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ROTTEN_FLESH_BLOCK = BlockBehaviour.Properties.of(Material.GRASS, MaterialColor.TERRACOTTA_ORANGE).strength(0.8F).sound(SoundType.CORAL_BLOCK);
 		public static final BlockBehaviour.Properties NECROMIUM_BLOCK = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK);
 
-		public static final WoodSetProperties AZALEA_WOOD = WoodSetProperties.builder(MaterialColor.TERRACOTTA_PURPLE).leavesSound(SoundType.AZALEA_LEAVES).build();
+		public static final WoodSetProperties AZALEA = WoodSetProperties.builder(MaterialColor.TERRACOTTA_PURPLE).leavesSound(SoundType.AZALEA_LEAVES).build();
 
 		private static boolean alwaysAllowSpawn(BlockState state, BlockGetter reader, BlockPos pos, EntityType<?> entity) {
 			return true;

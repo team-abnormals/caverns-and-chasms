@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "criteria": {
+          "has_the_recipe": {
+            "conditions": {
+              "recipe": "caverns_and_chasms:vertical_azalea_planks_revert"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+          },
+          "has_vertical_azalea_planks": {
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "caverns_and_chasms:vertical_azalea_planks"
+                  ]
+                }
+              ]
+            },
+            "trigger": "minecraft:inventory_changed"
+          }
+        },
+        "requirements": [
+          [
+            "has_vertical_azalea_planks",
+            "has_the_recipe"
+          ]
+        ],
+        "rewards": {
+          "recipes": [
+            "caverns_and_chasms:vertical_azalea_planks_revert"
+          ]
+        }
+      },
+      "conditions": [
+        {
+          "type": "blueprint:quark_flag",
+          "flag": "vertical_planks"
+        }
+      ]
+    }
+  ]
+}

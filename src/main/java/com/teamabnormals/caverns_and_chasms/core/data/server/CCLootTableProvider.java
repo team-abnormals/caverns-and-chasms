@@ -221,6 +221,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(AZALEA_HEDGE.get());
 			this.dropSelf(FLOWERING_AZALEA_HEDGE.get());
 			this.dropSelf(AZALEA_LADDER.get());
+			this.dropSelf(VERTICAL_AZALEA_PLANKS.get());
 			this.add(AZALEA_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(AZALEA_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 			this.add(AZALEA_DOOR.get(), BlockLoot::createDoorTable);
