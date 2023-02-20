@@ -2,7 +2,9 @@ package com.teamabnormals.caverns_and_chasms.common.entity;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +22,14 @@ public interface ControllableGolem {
 	}
 
 	default void onTuningForkControlEnd(Player player) {
+	}
+
+	default void tungingForkControlTick() {
+		Mob mob = (Mob) this;
+		if (mob.level.isClientSide && mob.tickCount % 20 == 0) {
+			RandomSource random = mob.getRandom();
+			mob.level.addParticle(CCParticleTypes.GOLEM_NOTE.get(), mob.getX() + random.nextDouble() * 0.8D - 0.4D, mob.getEyeY() + random.nextDouble() * 0.8D - 0.4D, mob.getZ() + random.nextDouble() * 0.8D - 0.4D, 0.0D, 0.0D, 0.0D);
+		}
 	}
 
 	default boolean shouldMoveToTuningForkPos(BlockPos pos, Player player) {

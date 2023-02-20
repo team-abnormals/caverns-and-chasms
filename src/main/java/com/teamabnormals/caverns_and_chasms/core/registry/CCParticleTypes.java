@@ -36,6 +36,7 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_CIRCLE = registerSimpleParticleType(true, "spinel_boom_circle");
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_STAR = registerSimpleParticleType(true, "spinel_boom_star");
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_EMITTER = registerSimpleParticleType(true, "spinel_boom_emitter");
+	public static final RegistryObject<SimpleParticleType> GOLEM_NOTE = registerSimpleParticleType(true, "golem_note");
 
 	private static RegistryObject<SimpleParticleType> registerSimpleParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -60,6 +61,7 @@ public class CCParticleTypes {
 			event.register(SPINEL_BOOM_CIRCLE.get(), HugeExplosionParticle.Provider::new);
 			event.register(SPINEL_BOOM_STAR.get(), HugeExplosionParticle.Provider::new);
 			event.register(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());
+			event.register(GOLEM_NOTE.get(), GolemNoteParticle.Provider::new);
 		}
 	}
 }

@@ -582,8 +582,9 @@ public class CCEvents {
 		} else if (entity instanceof ControllableGolem golem) {
 			boolean controlled = golem.getTuningForkController() != null;
 			golem.setBeingTuningForkControlled(controlled);
-
-			if (!controlled) {
+			if (controlled) {
+				golem.tungingForkControlTick();
+			} else {
 				golem.setTuningForkPos(null);
 				golem.setTuningForkTarget(null);
 			}
