@@ -149,19 +149,18 @@ public class Mime extends Monster {
 		super.aiStep();
 		if (this.isAlive()) {
 			if (this.level.isClientSide) {
-				if (this.random.nextInt(4) == 0) {
-					for (int i = 0; i < 2; ++i) {
-						float f = (180F - this.yBodyRot) * (Mth.PI / 180F);
-						Vector3f vector3f = this.armRotations[i];
-						Vec3 vec3 = new Vec3(0.0D, -0.5625D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());
-						Vec3 vec31 = new Vec3(i == 0 ? 0.125D : -0.125D, 0.0D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());
-						Vec3 vec32 = new Vec3(this.armPositions[i]).yRot(f).scale(-0.0625D);
-						vec3 = vec3.add(vec31).add(vec32).add(0.0D, 1.5D, 0.0D);
-						double d0 = this.random.nextFloat() * 0.1D - 0.05D;
-						double d1 = this.random.nextFloat() * 0.1D - 0.05D;
-						double d2 = this.random.nextFloat() * 0.1D - 0.05D;
-						this.level.addParticle(CCParticleTypes.MIME_ENERGY.get(), this.getX() + vec3.x() + d0, this.getY() + vec3.y() + d1, this.getZ() + vec3.z() + d2, 0.0D, 0.0D, 0.0D);
-					}
+				if (this.random.nextInt(5) == 0) {
+					int i = this.random.nextInt(2);
+					float f = (180F - this.yBodyRot) * (Mth.PI / 180F);
+					Vector3f vector3f = this.armRotations[i];
+					Vec3 vec3 = new Vec3(0.0D, -0.5625D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());
+					Vec3 vec31 = new Vec3(i == 0 ? 0.125D : -0.125D, 0.0D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());
+					Vec3 vec32 = new Vec3(this.armPositions[i]).yRot(f).scale(-0.0625D);
+					vec3 = vec3.add(vec31).add(vec32).add(0.0D, 1.5D, 0.0D);
+					double d0 = this.random.nextFloat() * 0.1D - 0.05D;
+					double d1 = this.random.nextFloat() * 0.1D - 0.05D;
+					double d2 = this.random.nextFloat() * 0.1D - 0.05D;
+					this.level.addParticle(CCParticleTypes.MIME_ENERGY.get(), this.getX() + vec3.x() + d0, this.getY() + vec3.y() + d1, this.getZ() + vec3.z() + d2, 0.0D, 0.0D, 0.0D);
 				}
 			} else {
 				LivingEntity target = this.getTarget();
