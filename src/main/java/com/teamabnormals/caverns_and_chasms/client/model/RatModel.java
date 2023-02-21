@@ -21,10 +21,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RatModel<T extends Rat> extends AgeableListModel<T> {
 	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "rat"), "main");
 	public ModelPart head;
-	public ModelPart rightEar;
-	public ModelPart leftEar;
-	public ModelPart whisker;
-	public ModelPart tooth;
 	public ModelPart body;
 	public ModelPart tail;
 	public ModelPart leftFrontLeg;
@@ -34,10 +30,6 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 
 	public RatModel(ModelPart root) {
 		this.head = root.getChild("head");
-		this.rightEar = this.head.getChild("right_ear");
-		this.leftEar = this.head.getChild("left_ear");
-		this.whisker = this.head.getChild("whisker");
-		this.tooth = this.head.getChild("tooth");
 		this.body = root.getChild("body");
 		this.rightHindLeg = root.getChild("right_hind_leg");
 		this.leftHindLeg = root.getChild("left_hind_leg");
@@ -50,17 +42,17 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
 
-		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 13).addBox(-1.5F, -2.0F, -6.0F, 3.0F, 3.0F, 6.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 6).mirror().addBox(1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-3.5F, -2.0F, -4.0F, 7.0F, 3.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("tooth", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 1.0F, -5.0F, 1.0F, 1.0F, 0.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 5.0F, 5.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 23.0F, 4.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 23.0F, 4.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(-2.0F, 23.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(2.0F, 23.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(12, 5).addBox(0.0F, 0.0F, -1.0F, 0.0F, 1.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 21.0F, 5.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 13).addBox(-1.5F, -2.0F, -6.0F, 3.0F, 3.0F, 6.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
+		head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 6).mirror().addBox(1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		head.addOrReplaceChild("whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-3.5F, -2.0F, -4.0F, 7.0F, 3.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		head.addOrReplaceChild("tooth", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 1.0F, -5.0F, 1.0F, 1.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 5.0F, 5.0F, 8.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(-2.0F, 23.0F, 4.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(2.0F, 23.0F, 4.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(-2.0F, 23.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(2.0F, 23.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(12, 5).addBox(0.0F, 0.0F, -1.0F, 0.0F, 1.0F, 8.0F), PartPose.offsetAndRotation(0.0F, 21.0F, 5.0F, 0.0F, 0.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
