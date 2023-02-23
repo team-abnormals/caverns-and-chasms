@@ -69,6 +69,7 @@ public class CavernsAndChasms {
 		CCRecipeTypes.RECIPE_TYPES.register(bus);
 		CCBiomeModifierTypes.BIOME_MODIFIER_SERIALIZERS.register(bus);
 		CCMemoryModuleTypes.MEMORY_MODULE_TYPES.register(bus);
+		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -110,6 +111,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCEntityTypeTagsProvider(generator, helper));
 		generator.addProvider(server, new CCMobEffectTagsProvider(generator, helper));
 		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
+		generator.addProvider(server, new CCPaintingVariantTagsProvider(generator, helper));
 		generator.addProvider(server, new CCRecipeProvider(generator));
 		generator.addProvider(server, new CCLootTableProvider(generator));
 		generator.addProvider(server, new CCAdvancementProvider(generator, helper));
