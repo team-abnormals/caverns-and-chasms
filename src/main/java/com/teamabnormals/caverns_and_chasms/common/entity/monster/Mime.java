@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeType
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -44,8 +45,10 @@ public class Mime extends Monster {
 			.put(Pose.SWIMMING, EntityDimensions.scalable(0.6F, 0.6F))
 			.put(Pose.CROUCHING, EntityDimensions.scalable(0.6F, 1.8F))
 			.build();
+
 	public final Vector3f[] armPositions = new Vector3f[]{new Vector3f(-5.0F, 2.0F, 0.0F), new Vector3f(5.0F, 2.0F, 0.0F)};
 	public final Vector3f[] armRotations = new Vector3f[]{Vector3f.ZERO, Vector3f.ZERO};
+
 	public double prevChasingPosX;
 	public double prevChasingPosY;
 	public double prevChasingPosZ;
@@ -54,6 +57,8 @@ public class Mime extends Monster {
 	public double chasingPosZ;
 	public float prevCameraYaw;
 	public float cameraYaw;
+
+	private int copyTime;
 
 	public Mime(EntityType<? extends Monster> type, Level worldIn) {
 		super(type, worldIn);
@@ -103,8 +108,8 @@ public class Mime extends Monster {
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
 					ItemStack stack = entity.getItemBySlot(slot);
-					if (stack != this.getItemBySlot(slot)) {
-						this.setItemSlot(slot, stack);
+					if (this.shouldCopyItem(this.getItemBySlot(slot), stack)) {
+						this.setItemSlot(slot, stack.copy());
 						mimed = true;
 					}
 				}
@@ -133,10 +138,6 @@ public class Mime extends Monster {
 				}
 			}
 		}
-	}
-
-	private static boolean isValidWeapon(ItemStack stack) {
-		return stack.getItem() instanceof DiggerItem || stack.getItem() instanceof SwordItem;
 	}
 
 	@Override
@@ -168,8 +169,32 @@ public class Mime extends Monster {
 
 				if (target != null) {
 					this.copyMainArm(target);
-					this.setItemSlot(EquipmentSlot.MAINHAND, target.getItemBySlot(EquipmentSlot.MAINHAND));
-					this.setItemSlot(EquipmentSlot.OFFHAND, target.getItemBySlot(EquipmentSlot.OFFHAND));
+
+					if (target.swinging && !this.swinging)
+						this.swing(target.swingingArm);
+
+					if (this.copyTime > 0) {
+						--this.copyTime;
+						if (this.copyTime == 0) {
+							boolean mimed = false;
+
+							if (this.shouldCopyItem(this.getMainHandItem(), target.getMainHandItem())) {
+								this.setItemSlot(EquipmentSlot.MAINHAND, target.getMainHandItem().copy());
+								mimed = true;
+							}
+							if (this.shouldCopyItem(this.getOffhandItem(), target.getOffhandItem())) {
+								this.setItemSlot(EquipmentSlot.OFFHAND, target.getOffhandItem().copy());
+								mimed = true;
+							}
+
+							if (mimed)
+								this.level.playSound(null, this, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.HOSTILE, 1.0F, 1.0F);
+						}
+					} else if (this.shouldCopyItem(this.getMainHandItem(), target.getMainHandItem()) || this.shouldCopyItem(this.getOffhandItem(), target.getOffhandItem())) {
+						this.copyTime = this.random.nextInt(3) + 4;
+					}
+				} else {
+					this.copyTime = 0;
 				}
 
 				Pose pose = target != null ? target.getPose() : Pose.STANDING;
@@ -187,12 +212,21 @@ public class Mime extends Monster {
 
 				this.handleSneakingSpeed();
 				this.setSprinting((this.level.getDifficulty() == Difficulty.NORMAL || this.level.getDifficulty() == Difficulty.HARD) && target != null && target.isSprinting());
-
-				if (target != null && target.swinging && !this.swinging) {
-					this.copyMainArm(target);
-					this.swing(target.swingingArm);
-				}
 			}
+		}
+	}
+
+	private boolean shouldCopyItem(ItemStack currentStack, ItemStack targetStack) {
+		if (currentStack.isEmpty() != targetStack.isEmpty()) {
+			return true;
+		} else if (currentStack.isDamageableItem() != targetStack.isDamageableItem()) {
+			return true;
+		} else {
+			ItemStack itemstack = targetStack.copy();
+			itemstack.setCount(currentStack.getCount());
+			if (currentStack.isDamageableItem())
+				itemstack.setDamageValue(currentStack.getDamageValue());
+			return !ItemStack.matches(currentStack, itemstack);
 		}
 	}
 
