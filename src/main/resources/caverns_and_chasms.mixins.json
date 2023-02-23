@@ -14,7 +14,6 @@
     "ItemMixin",
     "LightningBoltMixin",
     "MobMixin",
-    "SolidBucketItemMixin",
     "ThrownPotionMixin",
     "WitherSkeletonMixin",
     "ZoglinMixin"

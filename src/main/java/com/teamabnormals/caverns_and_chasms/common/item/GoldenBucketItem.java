@@ -45,7 +45,7 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 	private static final String NBT_TAG = "FluidLevel";
 	private final Supplier<? extends Fluid> fluidSupplier;
 
-	public GoldenBucketItem(java.util.function.Supplier<? extends Fluid> supplier, Item.Properties builder) {
+	public GoldenBucketItem(Supplier<? extends Fluid> supplier, Item.Properties builder) {
 		super(builder);
 		this.fluidSupplier = supplier;
 	}
