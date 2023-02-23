@@ -10,7 +10,7 @@ public class SilverHorseArmorItem extends HorseArmorItem implements SilverItem {
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.GOLDEN_HORSE_ARMOR);
 
 	public SilverHorseArmorItem(Item.Properties builder) {
-		super(6, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_silver.png"), builder);
+		super(7, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_silver.png"), builder);
 	}
 
 	@Override

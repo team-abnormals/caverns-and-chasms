@@ -17,12 +17,14 @@ import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.util.Map;
@@ -124,7 +127,7 @@ public class CCCompat {
 			}
 		});
 
-		DispenseItemBehavior dispenseBucketBehavior = new DefaultDispenseItemBehavior() {
+		DispenseItemBehavior goldenBucketDispenseBehavior = new DefaultDispenseItemBehavior() {
 			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 
 			public ItemStack execute(BlockSource source, ItemStack stack) {
@@ -156,9 +159,29 @@ public class CCCompat {
 			}
 		};
 
-		DispenserBlock.registerBehavior(CCItems.GOLDEN_LAVA_BUCKET.get(), dispenseBucketBehavior);
-		DispenserBlock.registerBehavior(CCItems.GOLDEN_WATER_BUCKET.get(), dispenseBucketBehavior);
-		DispenserBlock.registerBehavior(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), dispenseBucketBehavior);
+		DispenserBlock.registerBehavior(CCItems.GOLDEN_LAVA_BUCKET.get(), goldenBucketDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.GOLDEN_WATER_BUCKET.get(), goldenBucketDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), goldenBucketDispenseBehavior);
+
+		DefaultDispenseItemBehavior horseArmorDispenseBehavior = new OptionalDispenseItemBehavior() {
+			protected ItemStack execute(BlockSource source, ItemStack stack) {
+				BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+
+				for(AbstractHorse abstracthorse : source.getLevel().getEntitiesOfClass(AbstractHorse.class, new AABB(blockpos), (p_123533_) -> p_123533_.isAlive() && p_123533_.canWearArmor())) {
+					if (abstracthorse.isArmor(stack) && !abstracthorse.isWearingArmor() && abstracthorse.isTamed()) {
+						abstracthorse.getSlot(401).set(stack.split(1));
+						this.setSuccess(true);
+						return stack;
+					}
+				}
+
+				return super.execute(source, stack);
+			}
+		};
+
+		DispenserBlock.registerBehavior(CCItems.SILVER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.NETHERITE_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.NECROMIUM_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 	}
 
 	private static void changeLocalization() {

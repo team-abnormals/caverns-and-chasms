@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
+import com.teamabnormals.caverns_and_chasms.common.item.NetheriteHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
@@ -538,6 +539,17 @@ public class CCEvents {
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			level.levelEvent(2002, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+	}
+
+	@SubscribeEvent
+	public static void knockbackEvent(LivingKnockBackEvent event) {
+		if (event.getEntity() instanceof Horse horse) {
+			for (ItemStack stack : horse.getArmorSlots()) {
+				if (stack.getItem() instanceof NetheriteHorseArmorItem horseArmorItem) {
+					event.setStrength(event.getStrength() * (1.0F - horseArmorItem.getKnockbackResistance()));
+				}
+			}
 		}
 	}
 

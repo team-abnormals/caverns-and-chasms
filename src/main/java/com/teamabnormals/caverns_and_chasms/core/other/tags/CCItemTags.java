@@ -23,6 +23,7 @@ public class CCItemTags {
 	public static final TagKey<Item> RAW_MATERIALS_SILVER = TagUtil.itemTag("forge", "raw_materials/silver");
 
 	public static final TagKey<Item> NUGGETS_COPPER = TagUtil.itemTag("forge", "nuggets/copper");
+	public static final TagKey<Item> NUGGETS_NETHERITE = TagUtil.itemTag("forge", "nuggets/netherite");
 	public static final TagKey<Item> NUGGETS_SILVER = TagUtil.itemTag("forge", "nuggets/silver");
 	public static final TagKey<Item> NUGGETS_NECROMIUM = TagUtil.itemTag("forge", "nuggets/necromium");
 

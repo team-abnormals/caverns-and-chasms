@@ -177,6 +177,8 @@ public class CCRecipeProvider extends RecipeProvider {
 		necromiumSmithing(consumer, Items.DIAMOND_PICKAXE, CCItems.NECROMIUM_PICKAXE.get());
 		necromiumSmithing(consumer, Items.DIAMOND_HOE, CCItems.NECROMIUM_HOE.get());
 		necromiumSmithing(consumer, Items.DIAMOND_SHOVEL, CCItems.NECROMIUM_SHOVEL.get());
+		necromiumSmithing(consumer, Items.DIAMOND_HORSE_ARMOR, CCItems.NECROMIUM_HORSE_ARMOR.get());
+		netheriteSmithing(consumer, Items.DIAMOND_HORSE_ARMOR, CCItems.NETHERITE_HORSE_ARMOR.get());
 
 		nineBlockStorageRecipesWithCustomPacking(consumer, CCItems.NETHERITE_NUGGET.get(), Items.NETHERITE_INGOT, "netherite_ingot_from_nuggets", "netherite_ingot");
 
