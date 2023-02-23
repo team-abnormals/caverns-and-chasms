@@ -48,6 +48,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(ItemTags.PIGLIN_REPELLENTS).add(CCBlocks.SOUL_BRAZIER.get().asItem());
 		this.tag(ItemTags.BOATS).add(CCItems.AZALEA_BOAT.getFirst().get());
 		this.tag(ItemTags.CHEST_BOATS).add(CCItems.AZALEA_BOAT.getSecond().get());
+		this.tag(ItemTags.ARROWS).add(CCItems.BLUNT_ARROW.get());
 
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);

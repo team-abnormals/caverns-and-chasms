@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
@@ -15,6 +16,7 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
 	@Override
 	public void addTags() {
+		this.tag(EntityTypeTags.ARROWS).add(CCEntityTypes.BLUNT_ARROW.get());
 		this.tag(BlueprintEntityTypeTags.FISHES).add(CCEntityTypes.CAVEFISH.get());
 	}
 }
