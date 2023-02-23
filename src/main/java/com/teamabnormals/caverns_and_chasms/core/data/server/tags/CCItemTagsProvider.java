@@ -100,6 +100,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.TOOLS_PICKAXES).add(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
 		this.tag(CCItemTags.TOOLS_AXES).add(Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE, CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
 		this.tag(CCItemTags.TOOLS_SHOVELS).add(Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.NETHERITE_SHOVEL, CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());
+		this.tag(Tags.Items.HEADS).add(CCItems.MIME_HEAD.get());
 
 		this.copy(BlueprintBlockTags.LADDERS, BlueprintItemTags.LADDERS);
 		this.copy(BlueprintBlockTags.VERTICAL_SLABS, BlueprintItemTags.VERTICAL_SLABS);

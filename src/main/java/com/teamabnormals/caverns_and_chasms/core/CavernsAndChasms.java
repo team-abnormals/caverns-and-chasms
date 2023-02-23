@@ -19,11 +19,13 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
@@ -80,6 +82,7 @@ public class CavernsAndChasms {
 			bus.addListener(this::registerRenderers);
 			bus.addListener(this::registerLayers);
 			bus.addListener(this::registerItemColors);
+			bus.addListener(this::createSkullModels);
 		});
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
@@ -97,7 +100,10 @@ public class CavernsAndChasms {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
-		event.enqueueWork(CCClientCompat::registerClientCompat);
+		event.enqueueWork(() -> {
+			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_LOCATION);
+			CCClientCompat.registerClientCompat();
+		});
 	}
 
 	private void dataSetup(GatherDataEvent event) {
@@ -135,6 +141,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CopperGolemModel.LOCATION, CopperGolemModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
+		event.registerLayerDefinition(MimeHeadModel.LOCATION, MimeHeadModel::createHeadLayer);
 		event.registerLayerDefinition(GlareModel.LOCATION, GlareModel::createBodyLayer);
 	}
 
@@ -155,6 +162,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -169,5 +177,10 @@ public class CavernsAndChasms {
 	public void registerItemColors(RegisterColorHandlersEvent.Item event) {
 		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
 		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
+		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(MimeHeadModel.LOCATION)));
 	}
 }

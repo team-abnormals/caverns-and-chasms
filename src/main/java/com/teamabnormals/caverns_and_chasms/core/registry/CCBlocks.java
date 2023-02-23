@@ -63,6 +63,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CUPRIC_CANDLE_CAKE = HELPER.createBlockNoItem("cupric_candle_cake", () -> new CupricCandleCakeBlock(CUPRIC_CANDLE.get(), CCProperties.CUPRIC_CANDLE_CAKE));
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MIME_HEAD = HELPER.createBlockNoItem("mime_head", () -> new CCSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F)));
+	public static final RegistryObject<Block> MIME_WALL_HEAD = HELPER.createBlockNoItem("mime_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F).dropsLike(MIME_HEAD.get())));
 
 	public static final RegistryObject<Block> TMT = HELPER.createBlock("tmt", () -> new TmtBlock(CCProperties.TMT), CreativeModeTab.TAB_REDSTONE);
 
@@ -234,5 +236,9 @@ public class CCBlocks {
 		private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
 			return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
 		}
+	}
+
+	public enum CCSkullTypes implements SkullBlock.Type {
+		MIME;
 	}
 }

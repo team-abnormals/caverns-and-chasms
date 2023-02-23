@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -20,11 +21,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -39,11 +39,7 @@ public class Mime extends Monster {
 	private static final UUID SPEED_MODIFIER_SNEAKING_UUID = UUID.fromString("D0DEF8EE-3E50-4FFC-A20D-3B9B27F4A3F3");
 	private static final AttributeModifier SPEED_MODIFIER_SNEAKING = new AttributeModifier(SPEED_MODIFIER_SNEAKING_UUID, "Sneaking speed boost", (double) -0.3F, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final EntityDimensions STANDING_SIZE = EntityDimensions.scalable(0.6F, 2.1F);
-	private static final Map<Pose, EntityDimensions> SIZE_BY_POSE = ImmutableMap.<Pose, EntityDimensions>builder()
-			.put(Pose.STANDING, STANDING_SIZE)
-			.put(Pose.SWIMMING, EntityDimensions.scalable(0.6F, 0.6F))
-			.put(Pose.CROUCHING, EntityDimensions.scalable(0.6F, 1.8F))
-			.build();
+	private static final Map<Pose, EntityDimensions> SIZE_BY_POSE = ImmutableMap.<Pose, EntityDimensions>builder().put(Pose.STANDING, STANDING_SIZE).put(Pose.SWIMMING, EntityDimensions.scalable(0.6F, 0.6F)).put(Pose.CROUCHING, EntityDimensions.scalable(0.6F, 1.8F)).build();
 	public final Vector3f[] armPositions = new Vector3f[]{new Vector3f(-5.0F, 2.0F, 0.0F), new Vector3f(5.0F, 2.0F, 0.0F)};
 	public final Vector3f[] armRotations = new Vector3f[]{Vector3f.ZERO, Vector3f.ZERO};
 	public double prevChasingPosX;
@@ -96,6 +92,25 @@ public class Mime extends Monster {
 	}
 
 	@Override
+	protected void dropCustomDeathLoot(DamageSource source, int p_34292_, boolean p_34293_) {
+		super.dropCustomDeathLoot(source, p_34292_, p_34293_);
+		Entity entity = source.getEntity();
+		if (entity instanceof Creeper creeper) {
+			if (creeper.canDropMobsSkull()) {
+				ItemStack itemstack = this.getSkull();
+				if (!itemstack.isEmpty()) {
+					creeper.increaseDroppedSkulls();
+					this.spawnAtLocation(itemstack);
+				}
+			}
+		}
+	}
+
+	protected ItemStack getSkull() {
+		return new ItemStack(CCItems.MIME_HEAD.get());
+	}
+
+	@Override
 	public boolean doHurtTarget(Entity entityIn) {
 		boolean result = super.doHurtTarget(entityIn);
 		if (entityIn instanceof LivingEntity entity) {
@@ -110,8 +125,7 @@ public class Mime extends Monster {
 				}
 			}
 
-			if (mimed)
-				this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_COPY.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+			if (mimed) this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_COPY.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 		}
 		return result;
 	}
@@ -133,10 +147,6 @@ public class Mime extends Monster {
 				}
 			}
 		}
-	}
-
-	private static boolean isValidWeapon(ItemStack stack) {
-		return stack.getItem() instanceof DiggerItem || stack.getItem() instanceof SwordItem;
 	}
 
 	@Override
@@ -175,10 +185,8 @@ public class Mime extends Monster {
 				Pose pose = target != null ? target.getPose() : Pose.STANDING;
 				if (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING) {
 					if (!this.canEnterPose(pose)) {
-						if (this.canEnterPose(Pose.CROUCHING))
-							pose = Pose.CROUCHING;
-						else
-							pose = Pose.SWIMMING;
+						if (this.canEnterPose(Pose.CROUCHING)) pose = Pose.CROUCHING;
+						else pose = Pose.SWIMMING;
 					}
 				} else {
 					pose = Pose.STANDING;
@@ -230,18 +238,12 @@ public class Mime extends Monster {
 		double d0 = this.getX() - this.chasingPosX;
 		double d1 = this.getY() - this.chasingPosY;
 		double d2 = this.getZ() - this.chasingPosZ;
-		if (d0 > 10.0D)
-			this.chasingPosX = this.getX();
-		if (d2 > 10.0D)
-			this.chasingPosZ = this.getZ();
-		if (d1 > 10.0D)
-			this.chasingPosY = this.getY();
-		if (d0 < -10.0D)
-			this.chasingPosX = this.getX();
-		if (d2 < -10.0D)
-			this.chasingPosZ = this.getZ();
-		if (d1 < -10.0D)
-			this.chasingPosY = this.getY();
+		if (d0 > 10.0D) this.chasingPosX = this.getX();
+		if (d2 > 10.0D) this.chasingPosZ = this.getZ();
+		if (d1 > 10.0D) this.chasingPosY = this.getY();
+		if (d0 < -10.0D) this.chasingPosX = this.getX();
+		if (d2 < -10.0D) this.chasingPosZ = this.getZ();
+		if (d1 < -10.0D) this.chasingPosY = this.getY();
 		this.chasingPosX += d0 * 0.25D;
 		this.chasingPosZ += d2 * 0.25D;
 		this.chasingPosY += d1 * 0.25D;

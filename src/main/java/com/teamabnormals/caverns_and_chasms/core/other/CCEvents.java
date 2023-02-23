@@ -77,6 +77,7 @@ import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
@@ -539,6 +540,15 @@ public class CCEvents {
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			level.levelEvent(2002, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+		}
+	}
+
+	@SubscribeEvent
+	public static void visibilityEvent(LivingVisibilityEvent event) {
+		Entity lookingEntity = event.getLookingEntity();
+		LivingEntity entity = event.getEntity();
+		if (lookingEntity.getType() == CCEntityTypes.MIME.get() && entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MIME_HEAD.get())) {
+			event.modifyVisibility(0.5F);
 		}
 	}
 

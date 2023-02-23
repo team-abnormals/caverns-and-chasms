@@ -182,6 +182,15 @@ public class CCCompat {
 		DispenserBlock.registerBehavior(CCItems.SILVER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.NETHERITE_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.NECROMIUM_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+
+		DispenseItemBehavior armorDispenseBehavior = new OptionalDispenseItemBehavior() {
+			protected ItemStack execute(BlockSource source, ItemStack stack) {
+				this.setSuccess(ArmorItem.dispenseArmor(source, stack));
+				return stack;
+			}
+		};
+
+		DispenserBlock.registerBehavior(CCItems.MIME_HEAD.get(), armorDispenseBehavior);
 	}
 
 	private static void changeLocalization() {

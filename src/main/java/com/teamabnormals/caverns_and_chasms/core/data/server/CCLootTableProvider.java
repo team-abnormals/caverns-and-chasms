@@ -87,6 +87,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(ROCKY_DIRT.get(), (block) -> LootTable.lootTable().withPool(LootPool.lootPool().add(AlternativesEntry.alternatives(LootItem.lootTableItem(ROCKY_DIRT.get()).when(HAS_SILK_TOUCH), LootItem.lootTableItem(Items.COBBLESTONE).when(HAS_PICKAXE), LootItem.lootTableItem(Items.DIRT).when(HAS_SHOVEL), applyExplosionCondition(ROCKY_DIRT.get(), LootItem.lootTableItem(ROCKY_DIRT.get()))))));
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 			this.dropSelf(NECROMIUM_BLOCK.get());
+			this.dropSelf(MIME_HEAD.get());
 
 			this.dropSelf(SILVER_BLOCK.get());
 			this.dropSelf(RAW_SILVER_BLOCK.get());
