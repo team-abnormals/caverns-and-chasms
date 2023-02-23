@@ -58,6 +58,7 @@ public class Mime extends Monster {
 	public Mime(EntityType<? extends Monster> type, Level worldIn) {
 		super(type, worldIn);
 		Arrays.fill(this.handDropChances, 0.0F);
+		Arrays.fill(this.armorDropChances, 0.0F);
 	}
 
 	@Override
