@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DeeperModel<T extends Entity> extends ListModel<T> {
 	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper"), "main");
+	public static final ModelLayerLocation HEAD_LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_head"), "main");
 	private final DeeperSprite sprite;
 
 	private final ModelPart head;

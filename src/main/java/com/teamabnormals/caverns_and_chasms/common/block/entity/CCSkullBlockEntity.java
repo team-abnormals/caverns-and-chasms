@@ -31,6 +31,6 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 				return !(Math.abs(zDist) > (double) 1.0E-5F) && !(Math.abs(xDist) > (double) 1.0E-5F) ? 0.0F : (float) (Mth.atan2(zDist, xDist) + ((float) Math.PI / 2.0F));
 			}
 		}
-		return super.getMouthAnimation(p_59763_);
+		return 0.0F;
 	}
 }

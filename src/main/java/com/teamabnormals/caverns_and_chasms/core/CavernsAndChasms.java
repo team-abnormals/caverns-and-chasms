@@ -2,9 +2,11 @@ package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
+import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel.DeeperSprite;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
@@ -24,11 +26,13 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfigure
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
+import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -101,6 +105,7 @@ public class CavernsAndChasms {
 
 	private void clientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
+			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png"));
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_LOCATION);
 			CCClientCompat.registerClientCompat();
 		});
@@ -141,6 +146,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CopperGolemModel.LOCATION, CopperGolemModel::createLayerDefinition);
 		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
+		event.registerLayerDefinition(DeeperModel.HEAD_LOCATION, SkullModel::createHumanoidHeadLayer);
 		event.registerLayerDefinition(MimeHeadModel.LOCATION, MimeHeadModel::createHeadLayer);
 		event.registerLayerDefinition(GlareModel.LOCATION, GlareModel::createBodyLayer);
 	}
@@ -181,6 +187,7 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
+		event.registerSkullModel(CCSkullTypes.DEEPER, new SkullModel(event.getEntityModelSet().bakeLayer(DeeperModel.HEAD_LOCATION)));
 		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(MimeHeadModel.LOCATION)));
 	}
 }

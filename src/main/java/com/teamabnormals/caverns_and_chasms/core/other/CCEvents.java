@@ -545,9 +545,10 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void visibilityEvent(LivingVisibilityEvent event) {
-		Entity lookingEntity = event.getLookingEntity();
 		LivingEntity entity = event.getEntity();
-		if (lookingEntity.getType() == CCEntityTypes.MIME.get() && entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MIME_HEAD.get())) {
+		EntityType<?> looking = event.getLookingEntity().getType();
+		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
+		if ((looking == CCEntityTypes.DEEPER.get() && stack.is(CCItems.DEEPER_HEAD.get())) || (looking == CCEntityTypes.MIME.get() && stack.is(CCItems.MIME_HEAD.get()))) {
 			event.modifyVisibility(0.5F);
 		}
 	}
