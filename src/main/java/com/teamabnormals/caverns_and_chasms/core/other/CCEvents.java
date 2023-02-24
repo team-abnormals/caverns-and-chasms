@@ -528,7 +528,7 @@ public class CCEvents {
 		}
 
 		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
-		if (!level.isClientSide() && stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+		if (stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
 			Player player = target instanceof Player ? (Player) target : null;
 
 			for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
@@ -538,7 +538,8 @@ public class CCEvents {
 			}
 
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
-			level.levelEvent(2002, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
+			int i = PotionUtils.getPotion(stack).hasInstantEffects() ? 2007 : 2002;
+			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}

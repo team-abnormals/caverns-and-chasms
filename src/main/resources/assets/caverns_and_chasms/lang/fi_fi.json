@@ -306,7 +306,8 @@
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Käytä netheriitti- tai nekromiumharkkoa kuokan päivittämiseen ja arvioi sitten elämänvalintasi uudelleen",
 
   "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Äänirauta värähtelee",
-  "subtitles.caverns_and_chasms.item.armor.equip_tether_potion": "Kiedottava taikajuoma kiedotaan",
+  "subtitles.caverns_and_chasms.item.tether_potion.equip": "Kiedottava taikajuoma kiedotaan",
+  "subtitles.caverns_and_chasms.item.tether_potion.break": "Kiedottava taikajuoma pirstoutuu",
 
   "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper kuolee",
   "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper vahingoittuu",

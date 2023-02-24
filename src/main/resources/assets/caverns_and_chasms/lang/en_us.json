@@ -306,7 +306,8 @@
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium Ingot to upgrade a hoe, and then reevaluate your life choices",
 
   "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Tuning Fork vibrates",
-  "subtitles.caverns_and_chasms.item.armor.equip_tether_potion": "Tether Potion tethers",
+  "subtitles.caverns_and_chasms.item.tether_potion.equip": "Tether Potion tethers",
+  "subtitles.caverns_and_chasms.item.tether_potion.break": "Tether Potion smashes",
 
   "subtitles.caverns_and_chasms.entity.deeper.death": "Deeper dies",
   "subtitles.caverns_and_chasms.entity.deeper.hurt": "Deeper hurts",

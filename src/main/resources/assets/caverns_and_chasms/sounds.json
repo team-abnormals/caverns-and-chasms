@@ -58,16 +58,22 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.tuning_fork.vibrate"
   },
-  "item.armor.equip_tether_potion": {
+  "item.tether_potion.equip": {
     "sounds": [
-      "item/armor/equip_leather1",
-      "item/armor/equip_leather2",
-      "item/armor/equip_leather3",
-      "item/armor/equip_leather4",
-      "item/armor/equip_leather5",
-      "item/armor/equip_leather6"
+      "caverns_and_chasms:item/tether_potion/equip1",
+      "caverns_and_chasms:item/tether_potion/equip2",
+	  "caverns_and_chasms:item/tether_potion/equip3",
+	  "caverns_and_chasms:item/tether_potion/equip4"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_tether_potion"
+    "subtitle": "subtitles.caverns_and_chasms.item.tether_potion.equip"
+  },
+  "item.tether_potion.break": {
+    "sounds": [
+      "caverns_and_chasms:item/tether_potion/break1",
+      "caverns_and_chasms:item/tether_potion/break2",
+	  "caverns_and_chasms:item/tether_potion/break3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.tether_potion.break"
   },
   "entity.deeper.death": {
     "sounds": [
