@@ -18,7 +18,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 
 	@Override
 	public void addTags() {
-		this.tag(CCBiomeTags.HAS_SPINEL_ORE).addTag(BiomeTags.IS_JUNGLE).addTag(Tags.Biomes.IS_SWAMP).add(Biomes.LUSH_CAVES);
+		this.tag(CCBiomeTags.HAS_SPINEL_ORE).add(Biomes.LUSH_CAVES);
 		this.tag(CCBiomeTags.HAS_SILVER_ORE).addTag(Tags.Biomes.IS_COLD_OVERWORLD).add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST);
 		this.tag(CCBiomeTags.HAS_EXTRA_SILVER_ORE).add(Biomes.ICE_SPIKES);
 		this.tag(CCBiomeTags.HAS_SOUL_SILVER_ORE).add(Biomes.SOUL_SAND_VALLEY);

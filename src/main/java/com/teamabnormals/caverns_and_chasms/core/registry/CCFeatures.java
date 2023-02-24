@@ -51,18 +51,12 @@ public class CCFeatures {
 		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SILVER_BURIED = register("ore_silver_buried", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(getOreSilverTargetList(), 9, 0.5F)));
 		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SOUL_SILVER = register("ore_soul_silver", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(new TagMatchTest(BlockTags.WITHER_SUMMON_BASE_BLOCKS), CCBlocks.SOUL_SILVER_ORE.get().defaultBlockState(), 17, 1.0F)));
 
-		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_LAPIS = register("ore_lapis", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.ORE_LAPIS_TARGET_LIST, 7)));
-		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_LAPIS_BURIED = register("ore_lapis_buried", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OreFeatures.ORE_LAPIS_TARGET_LIST, 7, 1.0F)));
-		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SPINEL = register("ore_spinel", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(getOreSpinelTargetList(), 7)));
-		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SPINEL_BURIED = register("ore_spinel_buried", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(getOreSpinelTargetList(), 7, 1.0F)));
-
 		public static final RegistryObject<ConfiguredFeature<RandomFeatureConfiguration, ?>> ORE_SILVER_BURIED_WITH_GOLD = register("ore_silver_buried_with_gold", () -> new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SILVER_BURIED, 0.80F)), CCPlacedFeatures.ORE_GOLD_BURIED.getHolder().get())));
 		public static final RegistryObject<ConfiguredFeature<RandomFeatureConfiguration, ?>> ORE_GOLD_BURIED_WITH_SILVER = register("ore_gold_buried_with_silver", () -> new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_GOLD_BURIED, 0.80F)), CCPlacedFeatures.ORE_SILVER_BURIED.getHolder().get())));
 		public static final RegistryObject<ConfiguredFeature<RandomFeatureConfiguration, ?>> ORE_GOLD_AND_SILVER_BURIED = register("ore_gold_and_silver_buried", () -> new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SILVER_BURIED, 0.5F)), CCPlacedFeatures.ORE_GOLD_BURIED.getHolder().get())));
 
-		public static final RegistryObject<ConfiguredFeature<RandomFeatureConfiguration, ?>> ORE_LAPIS_AND_SPINEL_BURIED = register("ore_lapis_and_spinel_buried", () -> new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SPINEL_BURIED, 0.5F)), CCPlacedFeatures.ORE_LAPIS_BURIED.getHolder().get())));
-		public static final RegistryObject<ConfiguredFeature<RandomFeatureConfiguration, ?>> ORE_LAPIS_WITH_SPINEL = register("ore_lapis_with_spinel", () -> new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_LAPIS, 0.80F)), CCPlacedFeatures.ORE_SPINEL.getHolder().get())));
-		public static final RegistryObject<ConfiguredFeature<RandomFeatureConfiguration, ?>> ORE_SPINEL_WITH_LAPIS = register("ore_spinel_with_lapis", () -> new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SPINEL, 0.80F)), CCPlacedFeatures.ORE_LAPIS.getHolder().get())));
+		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SPINEL = register("ore_spinel", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(getOreSpinelTargetList(), 6)));
+		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_SPINEL_BURIED = register("ore_spinel_buried", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(getOreSpinelTargetList(), 12, 0.5F)));
 
 		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_ROCKY_DIRT = register("ore_rocky_dirt", () -> new ConfiguredFeature<>(CCFeatures.ORE_WITH_DIRT.get(), new OreConfiguration(OreFeatures.NATURAL_STONE, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33)));
 		public static final RegistryObject<ConfiguredFeature<OreConfiguration, ?>> ORE_FRAGILE_STONE = register("ore_fragile_stone", () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState())), 48, 0.1F)));
@@ -91,11 +85,7 @@ public class CCFeatures {
 		public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, CavernsAndChasms.MOD_ID);
 
 		private static final RegistryObject<PlacedFeature> ORE_GOLD_BURIED = register("ore_gold_buried", CCConfiguredFeatures.ORE_GOLD_BURIED, List.of());
-		private static final RegistryObject<PlacedFeature> ORE_LAPIS = register("ore_lapis", CCConfiguredFeatures.ORE_LAPIS, List.of());
-		private static final RegistryObject<PlacedFeature> ORE_LAPIS_BURIED = register("ore_lapis_buried", CCConfiguredFeatures.ORE_LAPIS_BURIED, List.of());
 		private static final RegistryObject<PlacedFeature> ORE_SILVER_BURIED = register("ore_silver_buried", CCConfiguredFeatures.ORE_SILVER_BURIED, List.of());
-		private static final RegistryObject<PlacedFeature> ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL, List.of());
-		private static final RegistryObject<PlacedFeature> ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED, List.of());
 
 		public static final RegistryObject<PlacedFeature> ORE_SILVER_BURIED_WITH_GOLD = register("ore_silver_buried_with_gold", CCConfiguredFeatures.ORE_SILVER_BURIED_WITH_GOLD, commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
 		public static final RegistryObject<PlacedFeature> ORE_GOLD_BURIED_WITH_SILVER = register("ore_gold_buried_with_silver", CCConfiguredFeatures.ORE_GOLD_BURIED_WITH_SILVER, commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
@@ -104,11 +94,8 @@ public class CCFeatures {
 		public static final RegistryObject<PlacedFeature> ORE_SILVER_EXTRA = register("ore_silver_extra", CCConfiguredFeatures.ORE_SILVER, commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
 		public static final RegistryObject<PlacedFeature> ORE_SILVER_SOUL = register("ore_silver_soul", CCConfiguredFeatures.ORE_SOUL_SILVER, commonOrePlacement(45, PlacementUtils.RANGE_10_10));
 
-		public static final RegistryObject<PlacedFeature> ORE_SPINEL_WITH_LAPIS = register("ore_spinel_with_lapis", CCConfiguredFeatures.ORE_SPINEL_WITH_LAPIS, commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
-		public static final RegistryObject<PlacedFeature> ORE_LAPIS_WITH_SPINEL = register("ore_lapis_with_spinel", CCConfiguredFeatures.ORE_LAPIS_WITH_SPINEL, commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
-		public static final RegistryObject<PlacedFeature> ORE_SPINEL_BURIED_UPPER = register("ore_spinel_buried_upper", CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(64))));
-		public static final RegistryObject<PlacedFeature> ORE_SPINEL_BURIED_LOWER = register("ore_spinel_buried_lower", CCConfiguredFeatures.ORE_LAPIS_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(64))));
-		public static final RegistryObject<PlacedFeature> ORE_LAPIS_AND_SPINEL_BURIED = register("ore_lapis_and_spinel_buried", CCConfiguredFeatures.ORE_LAPIS_AND_SPINEL_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(0))));
+		public static final RegistryObject<PlacedFeature> ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL, commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(64))));
+		public static final RegistryObject<PlacedFeature> ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48))));
 
 		public static final RegistryObject<PlacedFeature> ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCConfiguredFeatures.ORE_ROCKY_DIRT, commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160))));
 		public static final RegistryObject<PlacedFeature> ORE_FRAGILE_STONE = register("ore_fragile_stone", CCConfiguredFeatures.ORE_FRAGILE_STONE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));

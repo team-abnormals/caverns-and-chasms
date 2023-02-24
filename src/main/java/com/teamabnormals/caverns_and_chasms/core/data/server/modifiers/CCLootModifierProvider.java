@@ -42,14 +42,14 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.BAROMETER.get(), 1), lootPool(CCItems.DEPTH_GAUGE.get(), 1))));
 		this.entry("shipwreck_treasure").selects(BuiltInLootTables.SHIPWRECK_TREASURE)
 				.addModifier(new LootPoolEntriesModifier(false, 0, List.of(lootPool(CCItems.SILVER_INGOT.get(), 10, 1, 5))))
-				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.SILVER_NUGGET.get(), 10, 1, 10), lootPool(CCItems.SPINEL.get(), 20, 1, 10))));
+				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.SILVER_NUGGET.get(), 10, 1, 10), lootPool(CCItems.SPINEL.get(), 20, 1, 8))));
 		this.entry("buried_treasure").selects(BuiltInLootTables.BURIED_TREASURE)
 				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.SILVER_INGOT.get(), 10, 1, 4))));
 
 		this.entry("desert_pyramid").selects(BuiltInLootTables.DESERT_PYRAMID).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 1, 5), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 10))));
 		this.entry("jungle_temple").selects(BuiltInLootTables.JUNGLE_TEMPLE).addModifier(new LootPoolEntriesModifier(false, 0,
-				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SPINEL.get(), 15, 4, 9), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
+				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SPINEL.get(), 15, 2, 5), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
 		this.entry("woodland_mansion").selects(BuiltInLootTables.WOODLAND_MANSION).addModifier(new LootPoolEntriesModifier(false, 1,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 4))));
 
