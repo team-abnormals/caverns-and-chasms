@@ -7,6 +7,11 @@
     "caverns_and_chasms:spinel_brick_vertical_slab",
     "caverns_and_chasms:lapis_brick_vertical_slab",
     "caverns_and_chasms:sanguine_plate_vertical_slab",
+    "caverns_and_chasms:dripstone_shingle_vertical_slab",
+    "caverns_and_chasms:calcite_vertical_slab",
+    "caverns_and_chasms:polished_calcite_vertical_slab",
+    "caverns_and_chasms:tuff_vertical_slab",
+    "caverns_and_chasms:polished_tuff_vertical_slab",
     "caverns_and_chasms:cut_amethyst_brick_vertical_slab"
   ]
 }
