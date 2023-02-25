@@ -4,6 +4,10 @@
     "caverns_and_chasms:silver_pickaxe",
     "caverns_and_chasms:silver_axe",
     "caverns_and_chasms:silver_shovel",
-    "caverns_and_chasms:silver_hoe"
+    "caverns_and_chasms:silver_hoe",
+    {
+      "id": "abnormals_delight:silver_knife",
+      "required": false
+    }
   ]
 }

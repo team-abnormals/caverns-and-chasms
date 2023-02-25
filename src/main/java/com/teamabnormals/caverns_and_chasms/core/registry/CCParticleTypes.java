@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.DamageProvider;
-import com.teamabnormals.caverns_and_chasms.client.particle.AfflictionParticle.SparkProvider;
+import com.teamabnormals.caverns_and_chasms.client.particle.SilverParticle.DamageProvider;
+import com.teamabnormals.caverns_and_chasms.client.particle.SilverParticle.SparkProvider;
 import com.teamabnormals.caverns_and_chasms.client.particle.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.particle.FlameParticle;
@@ -25,8 +25,8 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> SMALL_CUPRIC_FIRE_FLAME = registerSimpleParticleType(false, "small_cupric_fire_flame");
 	public static final RegistryObject<SimpleParticleType> MIME_ENERGY = registerSimpleParticleType(true, "mime_energy");
 	public static final RegistryObject<SimpleParticleType> MIME_SPARK = registerSimpleParticleType(true, "mime_spark");
-	public static final RegistryObject<SimpleParticleType> AFFLICTION_DAMAGE = registerSimpleParticleType(true, "affliction_damage");
-	public static final RegistryObject<SimpleParticleType> AFFLICTION_SPARK = registerSimpleParticleType(false, "affliction_spark");
+	public static final RegistryObject<SimpleParticleType> SILVER_HIT = registerSimpleParticleType(true, "silver_hit");
+	public static final RegistryObject<SimpleParticleType> SILVER_SPARK = registerSimpleParticleType(false, "silver_spark");
 	public static final RegistryObject<SimpleParticleType> STONE_DUST = registerSimpleParticleType(true, "stone_dust");
 	public static final RegistryObject<SimpleParticleType> DEEPSLATE_DUST = registerSimpleParticleType(true, "deepslate_dust");
 	public static final RegistryObject<SimpleParticleType> STONE_CHIP = registerSimpleParticleType(false, "stone_chip");
@@ -50,8 +50,8 @@ public class CCParticleTypes {
 			event.register(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
 			event.register(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
 			event.register(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
-			event.register(AFFLICTION_DAMAGE.get(), DamageProvider::new);
-			event.register(AFFLICTION_SPARK.get(), SparkProvider::new);
+			event.register(SILVER_HIT.get(), DamageProvider::new);
+			event.register(SILVER_SPARK.get(), SparkProvider::new);
 			event.register(STONE_DUST.get(), StoneDustParticle.Provider::new);
 			event.register(DEEPSLATE_DUST.get(), StoneDustParticle.Provider::new);
 			event.register(STONE_CHIP.get(), ChipParticle.Provider::new);

@@ -272,9 +272,6 @@
 
   "effect.caverns_and_chasms.rewind": "Takaisinkelaus",
 
-  "death.attack.caverns_and_chasms.affliction": "%1$s kuoli piinaan",
-  "death.attack.caverns_and_chasms.affliction.player": "%1$s kuoli piinaan yrittäessään paeta %2$s",
-
   "death.attack.caverns_and_chasms.spiked_rail": "%1$s kuoli piikkiraiteeseen",
   "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s kuoli piikkiraiteeseen yrittäessään paeta %2$s",
 
@@ -287,12 +284,8 @@
   "attribute.caverns_and_chasms.name.generic.weakness_aura": "Heikentävä aura",
   "attribute.caverns_and_chasms.name.generic.lifesteal": "Elinvoiman varastus",
 
-  "tooltip.caverns_and_chasms.afflicting": "Piina",
-  "tooltip.caverns_and_chasms.boosting": "Tehostus",
-  "tooltip.caverns_and_chasms.slowing": "Hidastus",
-
-  "advancements.caverns_and_chasms.husbandry.ancient_hoes.title": "Vaarallista omistautumista",
-  "advancements.caverns_and_chasms.husbandry.ancient_hoes.description": "Käytä netheriitti- ja nekromiumharkkoja kahden kuokan päivittämiseen ja tajua sitten elämän mitättömyys",
+  "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.title": "Vaarallista omistautumista",
+  "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.description": "Käytä netheriitti- ja nekromiumharkkoja kahden kuokan päivittämiseen ja tajua sitten elämän mitättömyys",
   "advancements.caverns_and_chasms.nether.necromium_armor.title": "Peitä minut kirouksilla",
   "advancements.caverns_and_chasms.nether.necromium_armor.description": "Hanki kokonainen Nekromiumhaarniska",
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.title": "Ex Machina",

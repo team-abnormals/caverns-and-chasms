@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
-import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -27,7 +26,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
-public class Kunai extends AbstractArrow implements ItemSupplier, SilverItem {
+public class Kunai extends AbstractArrow implements ItemSupplier {
 
 	public Kunai(EntityType<? extends Kunai> type, Level worldIn) {
 		super(type, worldIn);

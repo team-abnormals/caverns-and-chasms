@@ -6,7 +6,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 
-public class SilverHorseArmorItem extends HorseArmorItem implements SilverItem {
+public class SilverHorseArmorItem extends HorseArmorItem {
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.GOLDEN_HORSE_ARMOR);
 
 	public SilverHorseArmorItem(Item.Properties builder) {

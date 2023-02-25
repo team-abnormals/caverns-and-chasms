@@ -7,9 +7,9 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class AfflictionParticle extends TextureSheetParticle {
+public class SilverParticle extends TextureSheetParticle {
 
-	AfflictionParticle(ClientLevel level, double p_105920_, double p_105921_, double p_105922_, double p_105923_, double p_105924_, double p_105925_) {
+	SilverParticle(ClientLevel level, double p_105920_, double p_105921_, double p_105922_, double p_105923_, double p_105924_, double p_105925_) {
 		super(level, p_105920_, p_105921_, p_105922_, 0.0D, 0.0D, 0.0D);
 		this.friction = 0.7F;
 		this.gravity = 0.5F;
@@ -48,7 +48,7 @@ public class AfflictionParticle extends TextureSheetParticle {
 		}
 
 		public Particle createParticle(SimpleParticleType p_105952_, ClientLevel p_105953_, double p_105954_, double p_105955_, double p_105956_, double p_105957_, double p_105958_, double p_105959_) {
-			AfflictionParticle critparticle = new AfflictionParticle(p_105953_, p_105954_, p_105955_, p_105956_, p_105957_, p_105958_ + 1.0D, p_105959_);
+			SilverParticle critparticle = new SilverParticle(p_105953_, p_105954_, p_105955_, p_105956_, p_105957_, p_105958_ + 1.0D, p_105959_);
 			critparticle.setLifetime(20);
 			critparticle.pickSprite(this.sprite);
 			return critparticle;
@@ -64,7 +64,7 @@ public class AfflictionParticle extends TextureSheetParticle {
 		}
 
 		public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double p_105996_, double p_105997_, double p_105998_, double p_105999_, double p_106000_, double p_106001_) {
-			AfflictionParticle particle = new AfflictionParticle(level, p_105996_, p_105997_, p_105998_, p_105999_, p_106000_, p_106001_);
+			SilverParticle particle = new SilverParticle(level, p_105996_, p_105997_, p_105998_, p_105999_, p_106000_, p_106001_);
 			particle.pickSprite(this.sprite);
 			return particle;
 		}

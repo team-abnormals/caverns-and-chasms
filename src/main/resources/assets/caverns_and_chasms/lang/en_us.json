@@ -274,9 +274,6 @@
 
   "effect.caverns_and_chasms.rewind": "Rewind",
 
-  "death.attack.caverns_and_chasms.affliction": "%1$s was afflicted",
-  "death.attack.caverns_and_chasms.affliction.player": "%1$s was afflicted whilst trying to escape %2$s",
-
   "death.attack.caverns_and_chasms.spiked_rail": "%1$s got railed",
   "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s got railed whilst trying to escape %2$s",
 

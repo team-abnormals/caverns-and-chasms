@@ -10,6 +10,7 @@
     "BaseFireBlockMixin",
     "BrewingRecipeRegistryMixin",
     "CreeperMixin",
+    "EnchantmentHelperMixin",
     "ExplosionMixin",
     "IronGolemMixin",
     "ItemMixin",

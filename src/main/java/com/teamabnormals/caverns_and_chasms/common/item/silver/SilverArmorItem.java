@@ -13,7 +13,7 @@ import net.minecraft.world.item.*;
 
 import java.util.UUID;
 
-public class SilverArmorItem extends ArmorItem implements SilverItem {
+public class SilverArmorItem extends ArmorItem {
 	public static final float[] MAGIC_PROTECTION_PER_ITEM = new float[]{0.05F, 0.08F, 0.11F, 0.06F};
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.GOLDEN_BOOTS);
 

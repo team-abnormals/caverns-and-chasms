@@ -570,6 +570,15 @@ public class CCEvents {
 			if (stack.is(CCItemTags.EXPERIENCE_BOOST_ITEMS)) {
 				event.addModifier(CCAttributes.EXPERIENCE_BOOST.get(), new AttributeModifier(UUID.fromString("1B1C193D-1484-4CB9-8DC7-FE226C77657A"), "Exerience boost", 0.75D, AttributeModifier.Operation.MULTIPLY_BASE));
 			}
+
+			if (stack.is(CCItemTags.MAGIC_DAMAGE_ITEMS)) {
+				float damage = stack.getItem() instanceof AxeItem || stack.getItem() instanceof SwordItem ? 3.0F : 1.0F;
+				event.addModifier(CCAttributes.MAGIC_DAMAGE.get(), new AttributeModifier(UUID.fromString("b3406524-886c-49c3-94e6-88edd0e8e63b"), "Magic damage", damage, AttributeModifier.Operation.ADDITION));
+			}
+
+			if (stack.is(CCItemTags.SLOWNESS_INFLICTING_ITEMS)) {
+				event.addModifier(CCAttributes.SLOWNESS_INFLICTION.get(), new AttributeModifier(UUID.fromString("47b62d26-2010-4a6a-9f87-ebe11c50f467"), "Slowness infliction", 1.0F, AttributeModifier.Operation.ADDITION));
+			}
 		}
 	}
 
