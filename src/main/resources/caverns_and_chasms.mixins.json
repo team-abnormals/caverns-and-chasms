@@ -11,6 +11,7 @@
     "BrewingRecipeRegistryMixin",
     "CreeperMixin",
     "ExplosionMixin",
+    "IronGolemMixin",
     "ItemMixin",
     "LightningBoltMixin",
     "MobMixin",
