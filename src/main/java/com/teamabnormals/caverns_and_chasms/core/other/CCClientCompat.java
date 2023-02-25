@@ -137,6 +137,25 @@ public class CCClientCompat {
 			else
 				return 0.0F;
 		});
+		ItemProperties.register(CCItems.BAROMETER.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "weather"), (ClampedItemPropertyFunction) (stack, level, livingEntity, seed) -> {
+			Entity entity = livingEntity != null ? livingEntity : stack.getEntityRepresentation();
+			if (entity == null) {
+				return 0.4F;
+			} else {
+				if (level == null && entity.level instanceof ClientLevel) {
+					level = (ClientLevel) entity.level;
+				}
+
+				if (level == null) {
+					return 0.4F;
+				} else {
+					DecimalFormat format = new DecimalFormat("0.00", DecimalFormatSymbols.getInstance(Locale.ROOT));
+					Precipitation precipitation = level.getBiome(entity.blockPosition()).value().getPrecipitation();
+					float max = (!level.dimensionType().hasSkyLight() || level.dimensionType().hasCeiling()) ? 0.2F : precipitation == Precipitation.NONE ? 0.4F : level.isThundering() ? 0.8F : level.isRaining() ? (precipitation == Precipitation.SNOW ? 1.0F : 0.6F) : 0.4F;
+					return Float.parseFloat(format.format(max));
+				}
+			}
+		});
 	}
 
 	@SubscribeEvent

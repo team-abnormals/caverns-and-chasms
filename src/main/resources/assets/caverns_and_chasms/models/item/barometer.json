@@ -1,0 +1,29 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "caverns_and_chasms:item/barometer_00"
+    },
+    "overrides": [
+        { "predicate": { "caverns_and_chasms:weather": 0.00 }, "model": "caverns_and_chasms:item/barometer_00" },
+        { "predicate": { "caverns_and_chasms:weather": 0.05 }, "model": "caverns_and_chasms:item/barometer_01" },
+        { "predicate": { "caverns_and_chasms:weather": 0.10 }, "model": "caverns_and_chasms:item/barometer_02" },
+        { "predicate": { "caverns_and_chasms:weather": 0.15 }, "model": "caverns_and_chasms:item/barometer_03" },
+        { "predicate": { "caverns_and_chasms:weather": 0.20 }, "model": "caverns_and_chasms:item/barometer_04" },
+        { "predicate": { "caverns_and_chasms:weather": 0.25 }, "model": "caverns_and_chasms:item/barometer_05" },
+        { "predicate": { "caverns_and_chasms:weather": 0.30 }, "model": "caverns_and_chasms:item/barometer_06" },
+        { "predicate": { "caverns_and_chasms:weather": 0.35 }, "model": "caverns_and_chasms:item/barometer_07" },
+        { "predicate": { "caverns_and_chasms:weather": 0.40 }, "model": "caverns_and_chasms:item/barometer_08" },
+        { "predicate": { "caverns_and_chasms:weather": 0.45 }, "model": "caverns_and_chasms:item/barometer_09" },
+        { "predicate": { "caverns_and_chasms:weather": 0.50 }, "model": "caverns_and_chasms:item/barometer_10" },
+        { "predicate": { "caverns_and_chasms:weather": 0.55 }, "model": "caverns_and_chasms:item/barometer_11" },
+        { "predicate": { "caverns_and_chasms:weather": 0.60 }, "model": "caverns_and_chasms:item/barometer_12" },
+        { "predicate": { "caverns_and_chasms:weather": 0.65 }, "model": "caverns_and_chasms:item/barometer_13" },
+        { "predicate": { "caverns_and_chasms:weather": 0.70 }, "model": "caverns_and_chasms:item/barometer_14" },
+        { "predicate": { "caverns_and_chasms:weather": 0.75 }, "model": "caverns_and_chasms:item/barometer_15" },
+        { "predicate": { "caverns_and_chasms:weather": 0.80 }, "model": "caverns_and_chasms:item/barometer_16" },
+        { "predicate": { "caverns_and_chasms:weather": 0.85 }, "model": "caverns_and_chasms:item/barometer_17" },
+        { "predicate": { "caverns_and_chasms:weather": 0.90 }, "model": "caverns_and_chasms:item/barometer_18" },
+        { "predicate": { "caverns_and_chasms:weather": 0.95 }, "model": "caverns_and_chasms:item/barometer_19" },
+        { "predicate": { "caverns_and_chasms:weather": 1.00 }, "model": "caverns_and_chasms:item/barometer_20" }
+    ]
+}
