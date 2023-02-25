@@ -167,10 +167,6 @@
   "item.caverns_and_chasms.azalea_furnace_boat": "Azalea Boat with Furnace",
   "item.caverns_and_chasms.large_azalea_boat": "Large Azalea Boat",
 
-  "item.caverns_and_chasms.cavefish": "Raw Cavefish",
-  "item.caverns_and_chasms.cooked_cavefish": "Cooked Cavefish",
-  "item.caverns_and_chasms.cavefish_bucket": "Bucket of Cavefish",
-
   "item.caverns_and_chasms.golden_bucket": "Golden Bucket",
   "item.caverns_and_chasms.golden_water_bucket": "Golden Water Bucket",
   "item.caverns_and_chasms.golden_lava_bucket": "Golden Lava Bucket",
@@ -251,15 +247,13 @@
   "item.caverns_and_chasms.sanguine_chestplate": "Sanguine Chestplate",
   "item.caverns_and_chasms.sanguine_leggings": "Sanguine Leggings",
   "item.caverns_and_chasms.sanguine_boots": "Sanguine Boots",
-  
-  "item.caverns_and_chasms.cavefish_spawn_egg": "Cavefish Spawn Egg",
+
   "item.caverns_and_chasms.deeper_spawn_egg": "Deeper Spawn Egg",
   "item.caverns_and_chasms.mime_spawn_egg": "Mime Spawn Egg",
   "item.caverns_and_chasms.fly_spawn_egg": "Fly Spawn Egg",
   "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
   "item.caverns_and_chasms.glare_spawn_egg": "Glare Spawn Egg",
-  
-  "entity.caverns_and_chasms.cavefish": "Cavefish",
+
   "entity.caverns_and_chasms.deeper": "Deeper",
   "entity.caverns_and_chasms.spiderling": "Spiderling",
   "entity.caverns_and_chasms.mime": "Mime",

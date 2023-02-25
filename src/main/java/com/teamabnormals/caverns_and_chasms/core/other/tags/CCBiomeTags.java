@@ -14,7 +14,6 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> HAS_FRAGILE_STONE = biomeTag("has_feature/fragile_stone");
 
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
-	public static final TagKey<Biome> HAS_CAVEFISH = biomeTag("has_animal/cavefish");
 	public static final TagKey<Biome> HAS_GLARE = biomeTag("has_animal/glare");
 
 	private static TagKey<Biome> biomeTag(String name) {

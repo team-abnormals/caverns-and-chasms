@@ -44,7 +44,6 @@ public class CCBiomeModifierProvider {
 	private static final HashMap<ResourceLocation, BiomeModifier> MODIFIERS = new HashMap<>();
 
 	public static JsonCodecProvider<BiomeModifier> create(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		addSpawn("cavefish", CCBiomeTags.HAS_CAVEFISH, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 25, 4, 7));
 		addSpawn("mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
 		addSpawn("glare", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
 

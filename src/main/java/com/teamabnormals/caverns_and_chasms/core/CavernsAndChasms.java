@@ -138,7 +138,6 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(CavefishModel.LOCATION, CavefishModel::createLayerDefinition);
 		event.registerLayerDefinition(DeeperModel.LOCATION, DeeperModel::createLayerDefinition);
 		event.registerLayerDefinition(FlyModel.LOCATION, FlyModel::createLayerDefinition);
 		event.registerLayerDefinition(MimeModel.LOCATION, MimeModel::createLayerDefinition);
@@ -153,7 +152,6 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(CCEntityTypes.CAVEFISH.get(), CavefishRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.SPIDERLING.get(), SpiderlingRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);

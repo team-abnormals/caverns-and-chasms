@@ -72,7 +72,6 @@ public class CCCompat {
 	}
 
 	private static void registerDispenserBehaviors() {
-		DispenserBlock.registerBehavior(CCItems.CAVEFISH_BUCKET.get(), new FishBucketDispenseItemBehavior());
 		DispenserBlock.registerBehavior(CCItems.KUNAI.get(), new AbstractProjectileDispenseBehavior() {
 			protected Projectile getProjectile(Level worldIn, Position position, ItemStack stackIn) {
 				Kunai entity = new Kunai(worldIn, position.x(), position.y(), position.z());

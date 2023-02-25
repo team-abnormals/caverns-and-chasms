@@ -174,10 +174,6 @@
   "item.caverns_and_chasms.azalea_furnace_boat": "Moottoroitu atsaleavene",
   "item.caverns_and_chasms.large_azalea_boat": "Suuri atsaleavene",
 
-  "item.caverns_and_chasms.cavefish": "Luolakala",
-  "item.caverns_and_chasms.cooked_cavefish": "Paistettu luolakala",
-  "item.caverns_and_chasms.cavefish_bucket": "Luolakala ämpärissä",
-
   "item.caverns_and_chasms.golden_bucket": "Kultainen ämpäri",
   "item.caverns_and_chasms.golden_water_bucket": "Kultainen vesiämpäri",
   "item.caverns_and_chasms.golden_lava_bucket": "Kultainen laavaämpäri",
@@ -258,14 +254,12 @@
   "item.caverns_and_chasms.sanguine_leggings": "Sangviinihousut",
   "item.caverns_and_chasms.sanguine_boots": "Sangviinisaappaat",
 
-  "item.caverns_and_chasms.cavefish_spawn_egg": "Luo luolakala",
   "item.caverns_and_chasms.deeper_spawn_egg": "Luo deeper",
   "item.caverns_and_chasms.mime_spawn_egg": "Luo miimikko",
   "item.caverns_and_chasms.fly_spawn_egg": "Luo kärpänen",
   "item.caverns_and_chasms.rat_spawn_egg": "Luo rotta",
   "item.caverns_and_chasms.glare_spawn_egg": "Luo kurkki",
 
-  "entity.caverns_and_chasms.cavefish": "Luolakala",
   "entity.caverns_and_chasms.deeper": "Deeper",
   "entity.caverns_and_chasms.spiderling": "Hämähäkin poikanen",
   "entity.caverns_and_chasms.mime": "Miimikko",

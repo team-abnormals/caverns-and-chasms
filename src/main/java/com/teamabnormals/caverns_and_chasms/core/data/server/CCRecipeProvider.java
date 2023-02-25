@@ -95,8 +95,6 @@ public class CCRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(CCBlocks.FLOODLIGHT.get()).define('C', Tags.Items.INGOTS_COPPER).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 //		ShapedRecipeBuilder.shaped(CCBlocks.INDUCTOR.get()).define('C', Tags.Items.INGOTS_COPPER).define('I', Items.IRON_BLOCK).define('R', Items.REDSTONE).pattern("CIC").pattern("CRC").pattern("CIC").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 
-		foodCookingRecipes(consumer, CCItems.CAVEFISH.get(), CCItems.COOKED_CAVEFISH.get());
-
 		ShapedRecipeBuilder.shaped(CCBlocks.CUPRIC_TORCH.get(), 4).define('X', Ingredient.of(Items.COAL, Items.CHARCOAL)).define('#', Items.STICK).define('C', CCItemTags.CUPRIC_FIRE_BASE_ITEMS).pattern("X").pattern("#").pattern("C").unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_ITEMS)).save(consumer);
 		ShapedRecipeBuilder.shaped(CCBlocks.CUPRIC_CAMPFIRE.get()).define('L', ItemTags.LOGS).define('S', Items.STICK).define('#', CCItemTags.CUPRIC_FIRE_BASE_ITEMS).pattern(" S ").pattern("S#S").pattern("LLL").unlockedBy("has_stick", has(Items.STICK)).unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_ITEMS)).save(consumer);
 		ShapedRecipeBuilder.shaped(CCBlocks.CUPRIC_LANTERN.get()).define('#', CCBlocks.CUPRIC_TORCH.get()).define('X', Items.IRON_NUGGET).pattern("XXX").pattern("X#X").pattern("XXX").unlockedBy("has_copper", has(CCBlocks.CUPRIC_TORCH.get())).save(consumer);

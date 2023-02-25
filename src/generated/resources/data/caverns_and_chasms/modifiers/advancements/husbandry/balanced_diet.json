@@ -13,37 +13,11 @@
               }
             },
             "trigger": "minecraft:consume_item"
-          },
-          "caverns_and_chasms:cavefish": {
-            "conditions": {
-              "item": {
-                "items": [
-                  "caverns_and_chasms:cavefish"
-                ]
-              }
-            },
-            "trigger": "minecraft:consume_item"
-          },
-          "caverns_and_chasms:cooked_cavefish": {
-            "conditions": {
-              "item": {
-                "items": [
-                  "caverns_and_chasms:cooked_cavefish"
-                ]
-              }
-            },
-            "trigger": "minecraft:consume_item"
           }
         },
         "requirements": [
           [
             "caverns_and_chasms:bejeweled_apple"
-          ],
-          [
-            "caverns_and_chasms:cavefish"
-          ],
-          [
-            "caverns_and_chasms:cooked_cavefish"
           ]
         ],
         "should_replace_requirements": false

@@ -17,6 +17,5 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 	@Override
 	public void addTags() {
 		this.tag(EntityTypeTags.ARROWS).add(CCEntityTypes.BLUNT_ARROW.get());
-		this.tag(BlueprintEntityTypeTags.FISHES).add(CCEntityTypes.CAVEFISH.get());
 	}
 }

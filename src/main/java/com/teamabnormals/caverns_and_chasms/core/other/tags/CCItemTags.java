@@ -27,11 +27,6 @@ public class CCItemTags {
 	public static final TagKey<Item> NUGGETS_SILVER = TagUtil.itemTag("forge", "nuggets/silver");
 	public static final TagKey<Item> NUGGETS_NECROMIUM = TagUtil.itemTag("forge", "nuggets/necromium");
 
-	public static final TagKey<Item> RAW_FISHES = TagUtil.itemTag("forge", "raw_fishes");
-	public static final TagKey<Item> RAW_FISHES_CAVEFISH = TagUtil.itemTag("forge", "raw_fishes/cavefish");
-	public static final TagKey<Item> COOKED_FISHES = TagUtil.itemTag("forge", "cooked_fishes");
-	public static final TagKey<Item> COOKED_FISHES_CAVEFISH = TagUtil.itemTag("forge", "cooked_fishes/cavefish");
-
 	public static final TagKey<Item> ORES_AMETHYST = TagUtil.itemTag("forge", "ores/amethyst");
 	public static final TagKey<Item> ORES_SILVER = TagUtil.itemTag("forge", "ores/silver");
 	public static final TagKey<Item> ORES_SPINEL = TagUtil.itemTag("forge", "ores/spinel");

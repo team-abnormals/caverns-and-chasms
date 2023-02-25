@@ -42,7 +42,6 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
 		this.copy(BlockTags.CANDLES, ItemTags.CANDLES);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(CCItems.SILVER_INGOT.get(), CCItems.NECROMIUM_INGOT.get());
-		this.tag(ItemTags.FISHES).add(CCItems.CAVEFISH.get(), CCItems.COOKED_CAVEFISH.get());
 		this.tag(ItemTags.MUSIC_DISCS).add(CCItems.MUSIC_DISC_EPILOGUE.get());
 		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.get().asItem(), CCBlocks.GOLDEN_BARS.get().asItem(), CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
 		this.tag(ItemTags.PIGLIN_REPELLENTS).add(CCBlocks.SOUL_BRAZIER.get().asItem());
@@ -93,10 +92,6 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.NUGGETS_SILVER).add(CCItems.SILVER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(CCItems.NECROMIUM_NUGGET.get());
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);
-		this.tag(CCItemTags.RAW_FISHES).addTag(CCItemTags.RAW_FISHES_CAVEFISH);
-		this.tag(CCItemTags.RAW_FISHES_CAVEFISH).add(CCItems.CAVEFISH.get());
-		this.tag(CCItemTags.COOKED_FISHES).addTag(CCItemTags.COOKED_FISHES_CAVEFISH);
-		this.tag(CCItemTags.COOKED_FISHES_CAVEFISH).add(CCItems.COOKED_CAVEFISH.get());
 		this.tag(CCItemTags.TOOLS_PICKAXES).add(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
 		this.tag(CCItemTags.TOOLS_AXES).add(Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE, CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
 		this.tag(CCItemTags.TOOLS_SHOVELS).add(Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.NETHERITE_SHOVEL, CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "cookingtime": 200,
-  "experience": 0.35,
-  "ingredient": {
-    "item": "caverns_and_chasms:cavefish"
-  },
-  "result": "caverns_and_chasms:cooked_cavefish"
-}

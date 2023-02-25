@@ -29,7 +29,6 @@ public class CCEntityTypes {
 	public static final EntitySubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getEntitySubHelper();
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<EntityType<Cavefish>> CAVEFISH = HELPER.createLivingEntity("cavefish", Cavefish::new, MobCategory.WATER_CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = HELPER.createLivingEntity("spiderling", Spiderling::new, MobCategory.MONSTER, 0.35F, 0.25F);
 	public static final RegistryObject<EntityType<Kunai>> KUNAI = HELPER.createEntity("kunai", Kunai::new, Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
@@ -45,7 +44,6 @@ public class CCEntityTypes {
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {
-		event.put(CAVEFISH.get(), Cavefish.registerAttributes().build());
 		event.put(DEEPER.get(), Deeper.createAttributes().build());
 		event.put(SPIDERLING.get(), Spiderling.registerAttributes().build());
 		event.put(FLY.get(), Fly.registerAttributes().build());
@@ -57,7 +55,6 @@ public class CCEntityTypes {
 	}
 
 	public static void registerEntitySpawns() {
-		SpawnPlacements.register(CAVEFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Cavefish::checkCavefishSpawnRules);
 		SpawnPlacements.register(DEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 		SpawnPlacements.register(MIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mime::checkMimeSpawnRules);
 		SpawnPlacements.register(GLARE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Glare::checkGlareSpawnRules);
