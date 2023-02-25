@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 public class FragileStoneBlock extends Block implements FragileBlock {
+
 	public FragileStoneBlock(Properties properties) {
 		super(properties);
 	}

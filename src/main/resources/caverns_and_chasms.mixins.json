@@ -9,14 +9,13 @@
     "AzaleaTreeGrowerMixin",
     "BaseFireBlockMixin",
     "BrewingRecipeRegistryMixin",
+    "CreeperMixin",
     "ExplosionMixin",
-    "IronGolemMixin",
     "ItemMixin",
     "LightningBoltMixin",
     "MobMixin",
     "ThrownPotionMixin",
-    "WitherSkeletonMixin",
-    "ZoglinMixin"
+    "WitherSkeletonMixin"
   ],
   "client": [
     "client.ClientRecipeBookMixin",

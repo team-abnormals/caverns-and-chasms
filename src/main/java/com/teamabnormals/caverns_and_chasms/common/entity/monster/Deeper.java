@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.sounds.SoundEvent;
@@ -44,7 +45,8 @@ public class Deeper extends Creeper {
 	@Override
 	public void explodeCreeper() {
 		if (!this.level.isClientSide) {
-			Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE;
+			Explosion.BlockInteraction mode = CCConfig.COMMON.deepersDropAllBlocks.get() ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.DESTROY;
+			Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? mode : Explosion.BlockInteraction.NONE;
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
 			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), explosion$mode);

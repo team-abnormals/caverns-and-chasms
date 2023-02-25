@@ -2,31 +2,43 @@ package com.teamabnormals.caverns_and_chasms.core;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class CCConfig {
 
 	public static class Common {
-		public final ConfigValue<Boolean> creeperExplosionsDestroyBlocks;
-		public final ConfigValue<Integer> deeperMaxSpawnHeight;
+		public final BooleanValue creepersDropAllBlocks;
+		public final BooleanValue creeperExplosionNerf;
+		public final DoubleValue creeperExplosionNerfFactor;
 
-		public final ConfigValue<Boolean> chainmailArmorBuff;
+		public final BooleanValue deepersDropAllBlocks;
+		public final IntValue deeperMaxSpawnHeight;
 
-		public final ConfigValue<Boolean> betterRailPlacement;
-		public final ConfigValue<Integer> betterRailPlacementRange;
+		public final BooleanValue chainmailArmorBuff;
+
+		public final BooleanValue betterRailPlacement;
+		public final IntValue betterRailPlacementRange;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("mobs");
-			creeperExplosionsDestroyBlocks = builder.define("Creeper explosions destroy blocks", false);
+			builder.push("creeper");
+			creepersDropAllBlocks = builder.define("Creeper explosions drop all blocks", true);
+			creeperExplosionNerf = builder.comment("Creeper explosions have a weaker power").define("Creeper explosion nerf", true);
+			creeperExplosionNerfFactor = builder.comment("How much weaker Creeper explosions are").defineInRange("Creeper explosion nerf factor", 0.5D, 0, Double.MAX_VALUE);
+			builder.pop();
+			builder.push("deeper");
+			deepersDropAllBlocks = builder.define("Deeper explosions drop all blocks", true);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
+			builder.pop();
 			builder.pop();
 
 			builder.push("tweaks");
 			chainmailArmorBuff = builder.comment("Chainmail armor increases the user's attack damage").define("Chainmail armor buff", true);
 			builder.push("rails");
 			betterRailPlacement = builder.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding").define("Better rail placement", true);
-			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").define("Placement range", 7);
+			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").defineInRange("Placement range", 7, 0, Integer.MAX_VALUE);
 			builder.pop();
 			builder.pop();
 		}

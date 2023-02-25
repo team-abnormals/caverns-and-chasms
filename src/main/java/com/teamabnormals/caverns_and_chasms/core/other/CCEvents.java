@@ -75,7 +75,6 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.EntityMobGriefingEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -88,7 +87,6 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -104,7 +102,7 @@ public class CCEvents {
 		} else if (entity instanceof Spider spider) {
 			spider.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(spider, Fly.class, false));
 		} else if (entity instanceof IronGolem golem) {
-			if (!CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
+			if (!CCConfig.COMMON.creeperExplosionNerf.get()) {
 				golem.targetSelector.availableGoals.stream().map(it -> it.goal).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
 					golem.targetSelector.removeGoal(goal);
 					golem.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(golem, Mob.class, 5, false, false, (mob) -> mob instanceof Enemy));
@@ -114,10 +112,8 @@ public class CCEvents {
 			golem.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(golem, LivingEntity.class, 5, false, false, (target) -> {
 				return ((ControllableGolem) golem).isTuningForkTarget(target);
 			}));
-		} else if (entity instanceof Creeper creeper && !CCConfig.COMMON.creeperExplosionsDestroyBlocks.get()) {
-			creeper.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(creeper, IronGolem.class, true));
 		} else if (entity instanceof Cat cat) {
-			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, (Predicate<LivingEntity>) null));
+			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, null));
 		} else if (entity instanceof Ocelot ocelot) {
 			ocelot.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(ocelot, Rat.class, false));
 		}
@@ -169,13 +165,6 @@ public class CCEvents {
 				event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
 				event.setCanceled(true);
 			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void onExplosion(EntityMobGriefingEvent event) {
-		if (!CCConfig.COMMON.creeperExplosionsDestroyBlocks.get() && event.getEntity() != null && event.getEntity().getType() == EntityType.CREEPER) {
-			event.setResult(Event.Result.DENY);
 		}
 	}
 
