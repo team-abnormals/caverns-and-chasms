@@ -174,6 +174,14 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CHISELED_DRIPSTONE_SHINGLES.get());
 			this.dropSelf(FLOODED_DRIPSTONE_SHINGLES.get());
 
+			this.dropSelf(AMETHYST_BLOCK.get());
+			this.dropSelf(CUT_AMETHYST.get());
+			this.dropSelf(CUT_AMETHYST_BRICKS.get());
+			this.dropSelf(CUT_AMETHYST_BRICK_STAIRS.get());
+			this.dropSelf(CUT_AMETHYST_BRICK_WALL.get());
+			this.add(CUT_AMETHYST_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(CUT_AMETHYST_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+			
 			this.dropSelf(LAPIS_LAZULI_BRICKS.get());
 			this.dropSelf(LAPIS_LAZULI_BRICK_STAIRS.get());
 			this.dropSelf(LAPIS_LAZULI_BRICK_WALL.get());

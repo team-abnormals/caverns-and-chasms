@@ -69,6 +69,7 @@ public class CCRecipeProvider extends RecipeProvider {
 	public static final BlockFamily LAPIS_LAZULI_BRICKS = new BlockFamily.Builder(CCBlocks.LAPIS_LAZULI_BRICKS.get()).slab(CCBlocks.LAPIS_LAZULI_BRICK_SLAB.get()).stairs(CCBlocks.LAPIS_LAZULI_BRICK_STAIRS.get()).wall(CCBlocks.LAPIS_LAZULI_BRICK_WALL.get()).getFamily();
 	public static final BlockFamily SPINEL_BRICKS = new BlockFamily.Builder(CCBlocks.SPINEL_BRICKS.get()).slab(CCBlocks.SPINEL_BRICK_SLAB.get()).stairs(CCBlocks.SPINEL_BRICK_STAIRS.get()).wall(CCBlocks.SPINEL_BRICK_WALL.get()).getFamily();
 	public static final BlockFamily SANGUINE_PLATES = new BlockFamily.Builder(CCBlocks.SANGUINE_PLATES.get()).slab(CCBlocks.SANGUINE_SLAB.get()).stairs(CCBlocks.SANGUINE_STAIRS.get()).getFamily();
+	public static final BlockFamily CUT_AMETHYST_BRICKS = new BlockFamily.Builder(CCBlocks.CUT_AMETHYST_BRICKS.get()).slab(CCBlocks.CUT_AMETHYST_BRICK_SLAB.get()).stairs(CCBlocks.CUT_AMETHYST_BRICK_STAIRS.get()).wall(CCBlocks.CUT_AMETHYST_BRICK_WALL.get()).getFamily();
 
 	public CCRecipeProvider(DataGenerator generator) {
 		super(generator);
@@ -253,6 +254,28 @@ public class CCRecipeProvider extends RecipeProvider {
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLES.get(), 2);
 		ShapelessRecipeBuilder.shapeless(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get(), 8).requires(BlueprintItemTags.BUCKETS_WATER).requires(CCBlocks.DRIPSTONE_SHINGLES.get(), 8).unlockedBy("has_dripstone_shingles", has(CCBlocks.DRIPSTONE_SHINGLES.get())).save(consumer);
+
+		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, Items.AMETHYST_SHARD, CCBlocks.AMETHYST_BLOCK.get(), "amethyst_from_amethyst_block", "amethyst_shard");
+		ShapedRecipeBuilder.shaped(CCBlocks.CUT_AMETHYST.get(), 4).define('#', Blocks.AMETHYST_BLOCK).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.AMETHYST_BLOCK), has(Blocks.AMETHYST_BLOCK)).save(consumer);
+		ShapedRecipeBuilder.shaped(CCBlocks.CUT_AMETHYST_BRICKS.get(), 4).define('#', CCBlocks.CUT_AMETHYST.get()).pattern("##").pattern("##").unlockedBy(getHasName(CCBlocks.CUT_AMETHYST.get()), has(CCBlocks.CUT_AMETHYST.get())).save(consumer);
+		generateRecipes(consumer, CUT_AMETHYST_BRICKS);
+		verticalSlabRecipes(consumer, CUT_AMETHYST_BRICKS, CCBlocks.CUT_AMETHYST_BRICK_VERTICAL_SLAB.get());
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_SLAB.get(), CCBlocks.CUT_AMETHYST_BRICKS.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_STAIRS.get(), CCBlocks.CUT_AMETHYST_BRICKS.get());
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_WALL.get(), CCBlocks.CUT_AMETHYST_BRICKS.get());
+		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.CUT_AMETHYST_BRICK_VERTICAL_SLAB.get(), CCBlocks.CUT_AMETHYST_BRICKS.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICKS.get(), CCBlocks.CUT_AMETHYST.get());
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_SLAB.get(), CCBlocks.CUT_AMETHYST.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_STAIRS.get(), CCBlocks.CUT_AMETHYST.get());
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_WALL.get(), CCBlocks.CUT_AMETHYST.get());
+		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.CUT_AMETHYST_BRICK_VERTICAL_SLAB.get(), CCBlocks.CUT_AMETHYST.get(), 2);
+
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST.get(), Blocks.AMETHYST_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICKS.get(), Blocks.AMETHYST_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_SLAB.get(), Blocks.AMETHYST_BLOCK, 2);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_STAIRS.get(), Blocks.AMETHYST_BLOCK);
+		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_WALL.get(), Blocks.AMETHYST_BLOCK);
+		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.CUT_AMETHYST_BRICK_VERTICAL_SLAB.get(), Blocks.AMETHYST_BLOCK, 2);
 
 		ShapedRecipeBuilder.shaped(CCBlocks.COBBLESTONE_BRICKS.get(), 4).define('#', Blocks.COBBLESTONE).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.COBBLESTONE), has(Blocks.COBBLESTONE)).save(consumer);
 		generateRecipes(consumer, COBBLESTONE_BRICKS);

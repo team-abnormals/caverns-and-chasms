@@ -133,7 +133,15 @@
   "block.caverns_and_chasms.dripstone_shingle_vertical_slab": "Dripstone Shingle Vertical Slab",
   "block.caverns_and_chasms.chiseled_dripstone_shingles": "Chiseled Dripstone Shingles",
   "block.caverns_and_chasms.flooded_dripstone_shingles": "Flooded Dripstone Shingles",
-
+  
+  "block.caverns_and_chasms.amethyst": "Amethyst",
+  "block.caverns_and_chasms.cut_amethyst": "Cut Amethyst",
+  "block.caverns_and_chasms.cut_amethyst_bricks": "Cut Amethyst Bricks",
+  "block.caverns_and_chasms.cut_amethyst_brick_slab": "Cut Amethyst Brick Slab",
+  "block.caverns_and_chasms.cut_amethyst_brick_stairs": "Cut Amethyst Brick Stairs",
+  "block.caverns_and_chasms.cut_amethyst_brick_wall": "Cut Amethyst Brick Wall",
+  "block.caverns_and_chasms.cut_amethyst_brick_vertical_slab": "Cut Amethyst Brick Vertical Slab",
+  
   "block.caverns_and_chasms.azalea_beehive": "Azalea Beehive",
   "block.caverns_and_chasms.azalea_bookshelf": "Azalea Bookshelf",
   "block.caverns_and_chasms.azalea_button": "Azalea Button",
