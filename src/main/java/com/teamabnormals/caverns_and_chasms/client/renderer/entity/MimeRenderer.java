@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.MimeArmorModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
@@ -13,16 +14,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel<Mime>> {
-	public static final ResourceLocation MIME_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/mime.png");
+	public static final ResourceLocation MIME_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/mime.png");
 
 	public MimeRenderer(EntityRendererProvider.Context context) {
-		super(context, new MimeModel<>(MimeModel.createLayerDefinition().bakeRoot()), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this, new MimeArmorModel<>(MimeArmorModel.createLayerDefinition(0.5F).bakeRoot()), new MimeArmorModel<>(MimeArmorModel.createLayerDefinition(1.0F).bakeRoot())));
+		super(context, new MimeModel<>(context.bakeLayer(CCModelLayers.MIME)), 0.5F);
+		this.addLayer(new HumanoidArmorLayer<>(this, new MimeArmorModel<>(context.bakeLayer(CCModelLayers.MIME_ARMOR_INNER)), new MimeArmorModel<>(context.bakeLayer(CCModelLayers.MIME_ARMOR_OUTER))));
 	}
 
 	@Override
 	public ResourceLocation getTextureLocation(Mime entity) {
-		return MIME_LOCATION;
+		return MIME_TEXTURE;
 	}
 
 	@Override

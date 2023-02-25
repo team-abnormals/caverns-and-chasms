@@ -4,19 +4,15 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class MimeModel<T extends Mime> extends PlayerModel<T> {
-	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "mime"), "main");
 	private final ModelPart bipedCape;
 
 	public MimeModel(ModelPart root) {

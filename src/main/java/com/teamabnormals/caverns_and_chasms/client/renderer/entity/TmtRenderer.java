@@ -25,6 +25,7 @@ public class TmtRenderer extends EntityRenderer<PrimedTmt> {
 		this.blockRenderer = context.getBlockRenderDispatcher();
 	}
 
+	@Override
 	public void render(PrimedTmt primedTmt, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
 		matrixStack.pushPose();
 		matrixStack.translate(0.0D, 0.5D, 0.0D);

@@ -14,13 +14,12 @@ public class SpiderlingRenderer extends SpiderRenderer<Spiderling> {
 		this.shadowRadius *= 0.35F;
 	}
 
+	@Override
 	protected void scale(Spiderling entity, PoseStack stack, float partialTicks) {
 		stack.scale(0.35F, 0.35F, 0.35F);
 	}
 
-	/**
-	 * Returns the location of an entity's texture.
-	 */
+	@Override
 	public ResourceLocation getTextureLocation(Spiderling entity) {
 		return TEXTURE;
 	}

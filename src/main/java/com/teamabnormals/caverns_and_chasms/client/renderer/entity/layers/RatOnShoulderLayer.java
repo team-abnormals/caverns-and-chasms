@@ -5,8 +5,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat.RatType;
+import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,10 +27,9 @@ public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, Player
 	private final RatModel<Rat> model;
 	private final ItemInHandRenderer itemInHandRenderer;
 
-	public RatOnShoulderLayer(PlayerRenderer renderer) {
+	public RatOnShoulderLayer(PlayerRenderer renderer, EntityModelSet entityModelSet) {
 		super(renderer);
-		this.model = new RatModel<>(RatModel.createLayerDefinition().bakeRoot());
-
+		this.model = new RatModel<>(entityModelSet.bakeLayer(CCModelLayers.RAT));
 		this.itemInHandRenderer = renderer.entityRenderDispatcher.getItemInHandRenderer();
 	}
 

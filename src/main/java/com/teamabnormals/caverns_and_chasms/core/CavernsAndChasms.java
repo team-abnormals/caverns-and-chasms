@@ -18,6 +18,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
+import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
@@ -104,7 +105,7 @@ public class CavernsAndChasms {
 	private void clientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png"));
-			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_LOCATION);
+			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_TEXTURE);
 			CCClientCompat.registerClientCompat();
 		});
 	}
@@ -136,16 +137,17 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(DeeperModel.LOCATION, DeeperModel::createLayerDefinition);
-		event.registerLayerDefinition(FlyModel.LOCATION, FlyModel::createLayerDefinition);
-		event.registerLayerDefinition(MimeModel.LOCATION, MimeModel::createLayerDefinition);
-		event.registerLayerDefinition(RatModel.LOCATION, RatModel::createLayerDefinition);
-		event.registerLayerDefinition(CopperGolemModel.LOCATION, CopperGolemModel::createLayerDefinition);
-		event.registerLayerDefinition(SanguineArmorModel.LOCATION, SanguineArmorModel::createLayerDefinition);
-		event.registerLayerDefinition(MimeArmorModel.LOCATION, () -> MimeArmorModel.createLayerDefinition(0.0F));
-		event.registerLayerDefinition(DeeperModel.HEAD_LOCATION, SkullModel::createHumanoidHeadLayer);
-		event.registerLayerDefinition(MimeHeadModel.LOCATION, MimeHeadModel::createHeadLayer);
-		event.registerLayerDefinition(GlareModel.LOCATION, GlareModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.DEEPER, DeeperModel::createLayerDefinition);
+		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createLayerDefinition);
+		event.registerLayerDefinition(CCModelLayers.MIME, MimeModel::createLayerDefinition);
+		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createLayerDefinition);
+		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createLayerDefinition);
+		event.registerLayerDefinition(CCModelLayers.SANGUINE_ARMOR, SanguineArmorModel::createLayerDefinition);
+		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_INNER, () -> MimeArmorModel.createLayerDefinition(0.5F));
+		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_OUTER, () -> MimeArmorModel.createLayerDefinition(1.0F));
+		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, SkullModel::createHumanoidHeadLayer);
+		event.registerLayerDefinition(CCModelLayers.MIME_HEAD, MimeHeadModel::createHeadLayer);
+		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -171,7 +173,7 @@ public class CavernsAndChasms {
 	public void registerLayers(EntityRenderersEvent.AddLayers event) {
 		event.getSkins().forEach(skin -> {
 			PlayerRenderer renderer = event.getSkin(skin);
-			renderer.addLayer(new RatOnShoulderLayer(renderer));
+			renderer.addLayer(new RatOnShoulderLayer(renderer, event.getEntityModels()));
 		});
 	}
 
@@ -183,7 +185,7 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
-		event.registerSkullModel(CCSkullTypes.DEEPER, new SkullModel(event.getEntityModelSet().bakeLayer(DeeperModel.HEAD_LOCATION)));
-		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(MimeHeadModel.LOCATION)));
+		event.registerSkullModel(CCSkullTypes.DEEPER, new SkullModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
+		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
 	}
 }

@@ -1,18 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.SkullModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MimeHeadModel extends SkullModel {
-	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "mime_head"), "main");
 
 	public MimeHeadModel(ModelPart part) {
 		super(part);

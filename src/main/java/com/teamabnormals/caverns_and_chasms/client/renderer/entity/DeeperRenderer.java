@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.DeeperPrimedLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
+import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
@@ -13,8 +14,8 @@ import net.minecraft.util.Mth;
 public class DeeperRenderer extends MobRenderer<Deeper, DeeperModel<Deeper>> {
 
 	public DeeperRenderer(EntityRendererProvider.Context context) {
-		super(context, new DeeperModel<>(DeeperModel.DeeperSprite.BASE, DeeperModel.createLayerDefinition().bakeRoot()), 0.5F);
-		this.addLayer(new DeeperPrimedLayer(this));
+		super(context, new DeeperModel<>(DeeperModel.DeeperSprite.BASE, context.bakeLayer(CCModelLayers.DEEPER)), 0.5F);
+		this.addLayer(new DeeperPrimedLayer(this, context));
 	}
 
 	@Override

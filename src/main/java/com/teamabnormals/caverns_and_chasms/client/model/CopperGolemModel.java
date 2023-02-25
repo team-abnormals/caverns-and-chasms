@@ -1,13 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -16,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 // Paste this class into your mod and generate all required imports
 
 public class CopperGolemModel<T extends LivingEntity> extends HierarchicalModel<T> {
-	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "copper_golem"), "main");
 	private final ModelPart root;
 	private final ModelPart head;
 	private final ModelPart body;

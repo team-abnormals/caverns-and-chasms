@@ -5,24 +5,19 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.blueprint.client.BlueprintRenderTypes;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ListModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DeeperModel<T extends Entity> extends ListModel<T> {
-	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper"), "main");
-	public static final ModelLayerLocation HEAD_LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_head"), "main");
 	private final DeeperSprite sprite;
 
 	private final ModelPart head;

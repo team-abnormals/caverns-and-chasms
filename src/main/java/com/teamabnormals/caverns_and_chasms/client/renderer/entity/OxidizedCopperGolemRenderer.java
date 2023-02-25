@@ -5,6 +5,7 @@ import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.client.model.CopperGolemModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +18,7 @@ public class OxidizedCopperGolemRenderer extends LivingEntityRenderer<OxidizedCo
 	private static final ResourceLocation OXIDIZED_COPPER_GOLEM_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/copper_golem/copper_golem_oxidized.png");
 
 	public OxidizedCopperGolemRenderer(EntityRendererProvider.Context context) {
-		super(context, new CopperGolemModel<>(CopperGolemModel.createLayerDefinition().bakeRoot()), 0.0F);
+		super(context, new CopperGolemModel<>(context.bakeLayer(CCModelLayers.COPPER_GOLEM)), 0.0F);
 	}
 
 	@Override

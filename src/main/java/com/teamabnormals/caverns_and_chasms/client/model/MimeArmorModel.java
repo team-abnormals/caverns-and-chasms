@@ -1,16 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
 public class MimeArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
-	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "mime"), "outer_armor");
 
 	public MimeArmorModel(ModelPart root) {
 		super(root);

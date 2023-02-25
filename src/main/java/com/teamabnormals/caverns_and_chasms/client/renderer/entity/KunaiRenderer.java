@@ -39,6 +39,7 @@ public class KunaiRenderer<T extends Entity & ItemSupplier> extends EntityRender
 		return this.fullBright ? 15 : super.getBlockLightLevel(entityIn, partialTicks);
 	}
 
+	@Override
 	public void render(T entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
 		matrixStackIn.pushPose();
 		float testScale = 1.5F;
@@ -57,6 +58,7 @@ public class KunaiRenderer<T extends Entity & ItemSupplier> extends EntityRender
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 	}
 
+	@Override
 	public ResourceLocation getTextureLocation(Entity entity) {
 		return TextureAtlas.LOCATION_BLOCKS;
 	}

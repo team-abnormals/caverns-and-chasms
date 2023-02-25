@@ -2,13 +2,10 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -16,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SanguineArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
-	public static final ModelLayerLocation LOCATION = new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, "sanguine_armor"), "main");
 	private static final Map<Integer, SanguineArmorModel<? extends LivingEntity>> CACHE = new HashMap<>();
 
 	public ModelPart helmet;
