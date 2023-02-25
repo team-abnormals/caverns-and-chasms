@@ -2,40 +2,31 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
-import com.teamabnormals.blueprint.common.dispenser.FishBucketDispenseItemBehavior;
 import com.teamabnormals.blueprint.core.util.DataUtil;
-import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
-import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
+import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
-import net.minecraft.core.Position;
 import net.minecraft.core.cauldron.CauldronInteraction;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.util.Map;
@@ -72,123 +63,21 @@ public class CCCompat {
 	}
 
 	private static void registerDispenserBehaviors() {
-		DispenserBlock.registerBehavior(CCItems.KUNAI.get(), new AbstractProjectileDispenseBehavior() {
-			protected Projectile getProjectile(Level worldIn, Position position, ItemStack stackIn) {
-				Kunai entity = new Kunai(worldIn, position.x(), position.y(), position.z());
-				entity.pickup = AbstractArrow.Pickup.ALLOWED;
-				return entity;
-			}
-		});
+		DispenserBlock.registerBehavior(CCItems.KUNAI.get(), new KunaiDispenseBehavior());
+		DispenserBlock.registerBehavior(CCBlocks.TMT.get(), new TMTDispenseBehavior());
+		DispenserBlock.registerBehavior(CCItems.GOLDEN_BUCKET.get(), new GoldenBucketDispenseBehavior());
 
-		DispenserBlock.registerBehavior(CCBlocks.TMT.get(), new DefaultDispenseItemBehavior() {
-			protected ItemStack execute(BlockSource source, ItemStack stack) {
-				Level level = source.getLevel();
-				BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-				PrimedTmt primedtmt = new PrimedTmt(level, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, null);
-				level.addFreshEntity(primedtmt);
-				level.playSound(null, primedtmt.getX(), primedtmt.getY(), primedtmt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
-				level.gameEvent(null, GameEvent.ENTITY_PLACE, pos);
-				stack.shrink(1);
-				return stack;
-			}
-		});
-
-		DispenserBlock.registerBehavior(CCItems.GOLDEN_BUCKET.get(), new DefaultDispenseItemBehavior() {
-			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-			public ItemStack execute(BlockSource source, ItemStack stack) {
-				LevelAccessor level = source.getLevel();
-				BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-				BlockState state = level.getBlockState(pos);
-				Block block = state.getBlock();
-				if (block instanceof BucketPickup bucketPickup) {
-					ItemStack itemstack = GoldenBucketItem.getFilledBucket(state);
-					bucketPickup.pickupBlock(level, pos, state);
-					if (itemstack == null) {
-						return super.execute(source, stack);
-					} else {
-						level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-						Item item = itemstack.getItem();
-						stack.shrink(1);
-						if (stack.isEmpty()) {
-							return new ItemStack(item);
-						} else {
-							if (source.<DispenserBlockEntity>getEntity().addItem(new ItemStack(item)) < 0) {
-								this.defaultDispenseItemBehavior.dispense(source, new ItemStack(item));
-							}
-
-							return stack;
-						}
-					}
-				} else {
-					return super.execute(source, stack);
-				}
-			}
-		});
-
-		DispenseItemBehavior goldenBucketDispenseBehavior = new DefaultDispenseItemBehavior() {
-			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-			public ItemStack execute(BlockSource source, ItemStack stack) {
-				DispensibleContainerItem dispensibleItem = (DispensibleContainerItem) stack.getItem();
-				BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-				Level level = source.getLevel();
-				BlockState state = level.getBlockState(pos);
-				ItemStack filled = GoldenBucketItem.getFilledBucket(state);
-				if (state.getBlock() instanceof BucketPickup bucketPickup && filled != null && stack.is(filled.getItem()) && stack.getOrCreateTag().getInt("FluidLevel") < 3) {
-					bucketPickup.pickupBlock(level, pos, state);
-					level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-					ItemStack returnItem = stack.copy();
-					GoldenBucketItem.increaseFluidLevel(returnItem);
-					stack.shrink(1);
-					if (stack.isEmpty()) {
-						return returnItem;
-					} else {
-						if (source.<DispenserBlockEntity>getEntity().addItem(returnItem) < 0) {
-							this.defaultDispenseItemBehavior.dispense(source, returnItem);
-						}
-						return stack;
-					}
-				} else if (dispensibleItem.emptyContents(null, level, pos, null)) {
-					dispensibleItem.checkExtraContent(null, level, stack, pos);
-					return GoldenBucketItem.getEmptySuccessItem(stack, null);
-				} else {
-					return this.defaultDispenseItemBehavior.dispense(source, stack);
-				}
-			}
-		};
-
+		DispenseItemBehavior goldenBucketDispenseBehavior = new FilledGoldenBucketDispenseBehavior();
 		DispenserBlock.registerBehavior(CCItems.GOLDEN_LAVA_BUCKET.get(), goldenBucketDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.GOLDEN_WATER_BUCKET.get(), goldenBucketDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), goldenBucketDispenseBehavior);
 
-		DefaultDispenseItemBehavior horseArmorDispenseBehavior = new OptionalDispenseItemBehavior() {
-			protected ItemStack execute(BlockSource source, ItemStack stack) {
-				BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-
-				for(AbstractHorse abstracthorse : source.getLevel().getEntitiesOfClass(AbstractHorse.class, new AABB(blockpos), (p_123533_) -> p_123533_.isAlive() && p_123533_.canWearArmor())) {
-					if (abstracthorse.isArmor(stack) && !abstracthorse.isWearingArmor() && abstracthorse.isTamed()) {
-						abstracthorse.getSlot(401).set(stack.split(1));
-						this.setSuccess(true);
-						return stack;
-					}
-				}
-
-				return super.execute(source, stack);
-			}
-		};
-
+		DefaultDispenseItemBehavior horseArmorDispenseBehavior = new HorseArmorDispenseBehavior();
 		DispenserBlock.registerBehavior(CCItems.SILVER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.NETHERITE_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.NECROMIUM_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 
-		DispenseItemBehavior armorDispenseBehavior = new OptionalDispenseItemBehavior() {
-			protected ItemStack execute(BlockSource source, ItemStack stack) {
-				this.setSuccess(ArmorItem.dispenseArmor(source, stack));
-				return stack;
-			}
-		};
-
+		DispenseItemBehavior armorDispenseBehavior = new ArmorDispenseBehavior();
 		DispenserBlock.registerBehavior(CCItems.DEEPER_HEAD.get(), armorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.MIME_HEAD.get(), armorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.TETHER_POTION.get(), armorDispenseBehavior);
