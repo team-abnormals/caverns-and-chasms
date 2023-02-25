@@ -222,6 +222,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get(), Blocks.CALCITE, 2);
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get(), CCBlocks.POLISHED_CALCITE.get(), 2);
 
+		ShapelessRecipeBuilder.shapeless(Blocks.TUFF, 2).requires(Blocks.BASALT).requires(Blocks.COBBLESTONE).unlockedBy("has_stone", has(Blocks.BASALT)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(Blocks.TUFF).getPath()));
 		generateRecipes(consumer, TUFF);
 		verticalSlabRecipes(consumer, TUFF, CCBlocks.TUFF_VERTICAL_SLAB.get());
 		stonecutterResultFromBase(consumer, CCBlocks.TUFF_SLAB.get(), Blocks.TUFF, 2);
