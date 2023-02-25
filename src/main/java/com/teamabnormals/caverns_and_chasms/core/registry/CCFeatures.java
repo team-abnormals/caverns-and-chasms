@@ -94,8 +94,8 @@ public class CCFeatures {
 		public static final RegistryObject<PlacedFeature> ORE_SILVER_EXTRA = register("ore_silver_extra", CCConfiguredFeatures.ORE_SILVER, commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
 		public static final RegistryObject<PlacedFeature> ORE_SILVER_SOUL = register("ore_silver_soul", CCConfiguredFeatures.ORE_SOUL_SILVER, commonOrePlacement(45, PlacementUtils.RANGE_10_10));
 
-		public static final RegistryObject<PlacedFeature> ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL, commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(64))));
-		public static final RegistryObject<PlacedFeature> ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(6, HeightRangePlacement.uniform(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48))));
+		public static final RegistryObject<PlacedFeature> ORE_SPINEL = register("ore_spinel", CCConfiguredFeatures.ORE_SPINEL, commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(64))));
+		public static final RegistryObject<PlacedFeature> ORE_SPINEL_BURIED = register("ore_spinel_buried", CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48))));
 
 		public static final RegistryObject<PlacedFeature> ORE_ROCKY_DIRT = register("ore_rocky_dirt", CCConfiguredFeatures.ORE_ROCKY_DIRT, commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160))));
 		public static final RegistryObject<PlacedFeature> ORE_FRAGILE_STONE = register("ore_fragile_stone", CCConfiguredFeatures.ORE_FRAGILE_STONE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
