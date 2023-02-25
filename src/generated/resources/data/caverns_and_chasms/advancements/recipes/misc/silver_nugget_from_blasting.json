@@ -123,7 +123,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:silver_nugget_from_smelting"
+        "recipe": "caverns_and_chasms:silver_nugget_from_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -145,7 +145,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:silver_nugget_from_smelting"
+      "caverns_and_chasms:silver_nugget_from_blasting"
     ]
   }
 }

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:netherite_horse_armor_smithing"
+        "recipe": "caverns_and_chasms:netherite_horse_armor_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:netherite_horse_armor_smithing"
+      "caverns_and_chasms:netherite_horse_armor_smithing"
     ]
   }
 }
