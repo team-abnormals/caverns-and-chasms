@@ -204,7 +204,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		stonecutterResultFromBase(consumer, CCBlocks.SPINEL_PILLAR.get(), CCBlocks.SPINEL_BRICKS.get());
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.SPINEL_BRICK_VERTICAL_SLAB.get(), CCBlocks.SPINEL_BRICKS.get(), 2);
 
-		ShapedRecipeBuilder.shaped(Blocks.CALCITE, 2).define('B', Items.BONE_MEAL).define('C', Blocks.COBBLESTONE).pattern("CB").pattern("BC").unlockedBy("has_bone_meal", has(Items.BONE_MEAL)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
+		ShapelessRecipeBuilder.shapeless(Blocks.CALCITE).requires(Blocks.DIORITE).requires(Items.AMETHYST_SHARD).unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
 		generateRecipes(consumer, CALCITE);
 		verticalSlabRecipes(consumer, CALCITE, CCBlocks.CALCITE_VERTICAL_SLAB.get());
 		stonecutterResultFromBase(consumer, CCBlocks.CALCITE_SLAB.get(), Blocks.CALCITE, 2);

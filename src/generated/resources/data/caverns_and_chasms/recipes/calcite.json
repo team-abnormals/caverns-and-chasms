@@ -1,19 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "key": {
-    "B": {
-      "item": "minecraft:bone_meal"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:diorite"
     },
-    "C": {
-      "item": "minecraft:cobblestone"
+    {
+      "item": "minecraft:amethyst_shard"
     }
-  },
-  "pattern": [
-    "CB",
-    "BC"
   ],
   "result": {
-    "count": 2,
     "item": "minecraft:calcite"
   }
 }

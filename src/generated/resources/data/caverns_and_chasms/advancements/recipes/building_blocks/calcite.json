@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bone_meal": {
+    "has_amethyst_shard": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:bone_meal"
+              "minecraft:amethyst_shard"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_bone_meal",
+      "has_amethyst_shard",
       "has_the_recipe"
     ]
   ],
