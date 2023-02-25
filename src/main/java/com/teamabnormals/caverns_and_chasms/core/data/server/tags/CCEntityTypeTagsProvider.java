@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
-import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.data.DataGenerator;

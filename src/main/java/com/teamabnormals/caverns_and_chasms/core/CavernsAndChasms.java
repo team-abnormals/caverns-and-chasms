@@ -2,11 +2,9 @@ package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
-import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel.DeeperSprite;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
