@@ -76,7 +76,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@Nullable
 	@Override
 	public SoundEvent getEquipSound() {
-		return CCSoundEvents.ARMOR_EQUIP_TETHER_POTION.get();
+		return CCSoundEvents.TETHER_POTION_EQUIP.get();
 	}
 
 	@OnlyIn(Dist.CLIENT)
