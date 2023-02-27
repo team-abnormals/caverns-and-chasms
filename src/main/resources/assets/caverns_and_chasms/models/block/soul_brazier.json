@@ -1,6 +1,7 @@
 {
 	"parent": "caverns_and_chasms:block/template_brazier",
 	"textures": {
-		"fire": "minecraft:block/soul_campfire_fire"
+		"fire": "minecraft:block/soul_campfire_fire",
+		"lit": "caverns_and_chasms:block/soul_brazier_top_lit"
 	}
 }

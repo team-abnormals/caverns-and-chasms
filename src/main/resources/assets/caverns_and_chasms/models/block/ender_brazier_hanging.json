@@ -1,6 +1,7 @@
 {
 	"parent": "caverns_and_chasms:block/template_brazier_hanging",
 	"textures": {
-		"fire": "endergetic:block/ender_campfire_fire"
+		"fire": "endergetic:block/ender_campfire_fire",
+		"lit": "caverns_and_chasms:block/ender_brazier_top_lit"
 	}
 }
