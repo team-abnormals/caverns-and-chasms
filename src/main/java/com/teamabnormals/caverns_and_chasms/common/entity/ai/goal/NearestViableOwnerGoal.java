@@ -3,6 +3,9 @@ package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
@@ -60,6 +63,7 @@ public class NearestViableOwnerGoal<T extends LivingEntity> extends TargetGoal {
 	public void start() {
 		if (this.mob instanceof Glare glare) {
 			glare.setLikedPlayerUUID(this.target.getUUID());
+			glare.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
 			IDataManager manager = (IDataManager) this.target;
 			manager.setValue(CCDataProcessors.OWNED_GLARE_UUID, Optional.of(glare.getUUID()));
 			super.start();

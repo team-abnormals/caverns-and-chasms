@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowLikedPla
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.NearestViableOwnerGoal;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -178,6 +180,7 @@ public class Glare extends PathfinderMob {
 			IDataManager manager = (IDataManager) attacker;
 			manager.setValue(CCDataProcessors.OWNED_GLARE_UUID, Optional.empty());
 			if (this.getLikedPlayerUUID() != null && player.getUUID().equals(this.getLikedPlayerUUID())) {
+				this.playSound(CCSoundEvents.ENTITY_GLARE_UNTAME.get(), 1.0F, 1.0F);
 				this.setLikedPlayerUUID(null);
 			}
 		}
@@ -195,17 +198,17 @@ public class Glare extends PathfinderMob {
 	protected void checkFallDamage(double p_218316_, boolean p_218317_, BlockState p_218318_, BlockPos p_218319_) {
 	}
 
-//	protected SoundEvent getAmbientSound() {
-//		return this.hasItemInSlot(EquipmentSlot.MAINHAND) ? SoundEvents.GLARE_AMBIENT_WITH_ITEM : SoundEvents.GLARE_AMBIENT_WITHOUT_ITEM;
-//	}
-//
-//	protected SoundEvent getHurtSound(DamageSource p_218369_) {
-//		return SoundEvents.GLARE_HURT;
-//	}
-//
-//	protected SoundEvent getDeathSound() {
-//		return SoundEvents.GLARE_DEATH;
-//	}
+	protected SoundEvent getAmbientSound() {
+		return this.isGrumpy() ? CCSoundEvents.ENTITY_GLARE_ANGRY.get() : CCSoundEvents.ENTITY_GLARE_AMBIENT.get();
+	}
+
+	protected SoundEvent getHurtSound(DamageSource p_218369_) {
+		return CCSoundEvents.ENTITY_GLARE_HURT.get();
+	}
+
+	protected SoundEvent getDeathSound() {
+		return CCSoundEvents.ENTITY_GLARE_DEATH.get();
+	}
 
 	protected float getSoundVolume() {
 		return 0.4F;
@@ -215,6 +218,7 @@ public class Glare extends PathfinderMob {
 		super.aiStep();
 		if (this.isGrumpy() && !shouldBeGrumpy(this.getLevel(), this.blockPosition())) {
 			this.setGrumpy(false);
+			this.playAmbientSound();
 		} else if (!this.isGrumpy() && shouldBeGrumpy(this.getLevel(), this.blockPosition())) {
 			this.setGrumpy(true);
 		}
@@ -228,16 +232,13 @@ public class Glare extends PathfinderMob {
 		ItemStack stack = player.getItemInHand(hand);
 		//Optional<UUID> optional = this.getBrain().getMemory(MemoryModuleType.LIKED_PLAYER);
 // || (optional.isPresent() && player.getUUID().equals(optional.get()))
-		if (stack.is(Items.GLOW_BERRIES) && (this.getHealth() < this.getMaxHealth())) {
+		if (stack.is(Items.GLOW_BERRIES)) {
 			//this.getBrain().eraseMemory(CCMemoryModuleTypes.DISLIKED_PLAYER.get());
-			this.level.playSound(player, this, SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 2.0F, 1.0F);
+			this.level.playSound(player, this, CCSoundEvents.ENTITY_GLARE_EAT.get(), SoundSource.NEUTRAL, 1.0F, Mth.randomBetween(this.level.random, 0.8F, 1.2F));
 			for (int i = 0; i < 3; i++) {
 				spawnHeartParticle();
 			}
 			this.removeInteractionItem(player, stack);
-			return InteractionResult.SUCCESS;
-		} else if (hand == InteractionHand.MAIN_HAND && stack.isEmpty()) {
-			//this.getBrain().eraseMemory(MemoryModuleType.LIKED_PLAYER);
 			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);

@@ -322,6 +322,14 @@
   "subtitles.caverns_and_chasms.entity.copper_golem.damage": "Copper Golem breaks",
   "subtitles.caverns_and_chasms.entity.copper_golem.gear": "Copper Golem spins head",
 
+  "subtitles.caverns_and_chasms.entity.glare.death": "Glare dies",
+  "subtitles.caverns_and_chasms.entity.glare.hurt": "Glare hurts",
+  "subtitles.caverns_and_chasms.entity.glare.ambient": "Glare squeaks",
+  "subtitles.caverns_and_chasms.entity.glare.angry": "Glare groans",
+  "subtitles.caverns_and_chasms.entity.glare.eat": "Glare eats",
+  "subtitles.caverns_and_chasms.entity.glare.tame": "Glare tames",
+  "subtitles.caverns_and_chasms.entity.glare.untame": "Glare untames",
+
   "tooltip.caverns_and_chasms.latitude": "Latitude",
   "tooltip.caverns_and_chasms.longitude": "Longitude",
   "tooltip.caverns_and_chasms.altitude": "Altitude",

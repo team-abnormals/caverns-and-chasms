@@ -199,5 +199,60 @@
       "caverns_and_chasms:mob/copper_golem/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.glare.ambient": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/ambient1",
+      "caverns_and_chasms:mob/glare/ambient2",
+      "caverns_and_chasms:mob/glare/ambient3",
+      "caverns_and_chasms:mob/glare/ambient4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.ambient"
+  },
+  "entity.glare.angry": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/angry1",
+      "caverns_and_chasms:mob/glare/angry2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.angry"
+  },
+  "entity.glare.death": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.death"
+  },
+  "entity.glare.eat": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/eat1",
+      "caverns_and_chasms:mob/glare/eat2",
+      "caverns_and_chasms:mob/glare/eat3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.eat"
+  },
+  "entity.glare.hurt": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/hurt1",
+      "caverns_and_chasms:mob/glare/hurt2",
+      "caverns_and_chasms:mob/glare/hurt3",
+      "caverns_and_chasms:mob/glare/hurt4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.hurt"
+  },
+  "entity.glare.tame": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/tame1",
+      "caverns_and_chasms:mob/glare/tame2",
+      "caverns_and_chasms:mob/glare/tame3",
+      "caverns_and_chasms:mob/glare/tame4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.tame"
+  },
+  "entity.glare.untame": {
+    "sounds": [
+      "caverns_and_chasms:mob/glare/untame1",
+      "caverns_and_chasms:mob/glare/untame2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.glare.untame"
   }
 }

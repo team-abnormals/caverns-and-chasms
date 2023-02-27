@@ -39,6 +39,14 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_GEAR = HELPER.createSoundEvent("entity.copper_golem.gear");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_STEP = HELPER.createSoundEvent("entity.copper_golem.step");
 
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_DEATH = HELPER.createSoundEvent("entity.glare.death");
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_ANGRY = HELPER.createSoundEvent("entity.glare.angry");
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_EAT = HELPER.createSoundEvent("entity.glare.eat");
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_HURT = HELPER.createSoundEvent("entity.glare.hurt");
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_AMBIENT = HELPER.createSoundEvent("entity.glare.ambient");
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_TAME = HELPER.createSoundEvent("entity.glare.tame");
+	public static final RegistryObject<SoundEvent> ENTITY_GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
+
 	public static class CCSoundTypes {
 		public static final SoundType ROCKY_DIRT = new SoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK.get(), CCSoundEvents.ROCKY_DIRT_STEP.get(), CCSoundEvents.ROCKY_DIRT_PLACE.get(), CCSoundEvents.ROCKY_DIRT_HIT.get(), CCSoundEvents.ROCKY_DIRT_FALL.get());
 	}
