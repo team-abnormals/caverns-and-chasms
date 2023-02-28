@@ -15,6 +15,7 @@ public class CCItemTags {
 	public static final TagKey<Item> SPINEL_ORES = itemTag("spinel_ores");
 	public static final TagKey<Item> AZALEA_LOGS = itemTag("azalea_logs");
 
+	public static final TagKey<Item> GLARE_FOOD = itemTag("glare_food");
 	public static final TagKey<Item> RAT_FOOD = itemTag("rat_food");
 	public static final TagKey<Item> RAT_TAME_ITEMS = itemTag("rat_tame_items");
 

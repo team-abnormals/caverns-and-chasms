@@ -280,7 +280,7 @@ public class Glare extends PathfinderMob {
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(Items.GLOW_BERRIES)) {
+		if (stack.is(CCItemTags.GLARE_FOOD)) {
 			this.level.playSound(player, this, CCSoundEvents.ENTITY_GLARE_EAT.get(), SoundSource.NEUTRAL, 1.0F, Mth.randomBetween(this.level.random, 0.8F, 1.2F));
 			this.addParticlesAroundSelf(ParticleTypes.HEART);
 			this.removeInteractionItem(player, stack);
