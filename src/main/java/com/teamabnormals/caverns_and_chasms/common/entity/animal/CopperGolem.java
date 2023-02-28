@@ -258,13 +258,11 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		oxidizedgolem.setYHeadRot(f);
 		oxidizedgolem.setYBodyRot(f);
 
+		oxidizedgolem.setNoAI(this.isNoAi());
 		oxidizedgolem.setInvulnerable(this.isInvulnerable());
+		oxidizedgolem.setPersistenceRequired(this.isPersistenceRequired());
 
-		if (this.isNoAi())
-			oxidizedgolem.setNoAI();
-
-		if (this.isPersistenceRequired())
-			oxidizedgolem.setPersistenceRequired();
+		oxidizedgolem.setDamaged(this.isDamaged());
 
 		if (this.hasCustomName()) {
 			oxidizedgolem.setCustomName(this.getCustomName());

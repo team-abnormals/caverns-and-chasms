@@ -8,6 +8,9 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -35,6 +38,8 @@ import java.util.List;
 public class OxidizedCopperGolem extends LivingEntity {
 	private static final List<ItemStack> EMPTY_LIST = Collections.emptyList();
 
+	private static final EntityDataAccessor<Boolean> DAMAGED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
+
 	private boolean isNoAi;
 	private boolean persistenceRequired;
 
@@ -43,6 +48,12 @@ public class OxidizedCopperGolem extends LivingEntity {
 	public OxidizedCopperGolem(EntityType<? extends OxidizedCopperGolem> entity, Level level) {
 		super(entity, level);
 		this.maxUpStep = 0.0F;
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(DAMAGED, false);
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
@@ -64,6 +75,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 		super.addAdditionalSaveData(compound);
 		compound.putBoolean("NoAI", this.isNoAi);
 		compound.putBoolean("PersistenceRequired", this.persistenceRequired);
+		compound.putBoolean("Damaged", this.isDamaged());
 	}
 
 	@Override
@@ -71,6 +83,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 		super.readAdditionalSaveData(compound);
 		this.isNoAi = compound.getBoolean("NoAI");
 		this.persistenceRequired = compound.getBoolean("PersistenceRequired");
+		this.setDamaged(compound.getBoolean("Damaged"));
 	}
 
 	@Override
@@ -111,18 +124,15 @@ public class OxidizedCopperGolem extends LivingEntity {
 					this.breakStatue(source, true, false);
 					return false;
 				} else if ("player".equals(source.getMsgId()) && directentity instanceof Player && ((Player) directentity).getAbilities().mayBuild) {
-					if (((Player) directentity).getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG)) {
-						this.breakStatue(source, true, true);
-						return true;
-					} else if (source.isCreativePlayer()) {
+					if (source.isCreativePlayer()) {
 						this.breakStatue(source, false, false);
 						return true;
-					} else {
-						long i = this.level.getGameTime();
-						if (i - this.lastHit > 5L) {
-							this.level.broadcastEntityEvent(this, (byte) 4);
-							this.gameEvent(GameEvent.ENTITY_DAMAGE, source.getEntity());
-							this.lastHit = i;
+					} else if (((Player) directentity).getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG)) {
+						if (this.isDamaged()) {
+							this.breakStatue(source, true, true);
+						} else {
+							this.setDamaged(true);
+							this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
 						}
 						return true;
 					}
@@ -174,6 +184,9 @@ public class OxidizedCopperGolem extends LivingEntity {
 			coppergolem.setInvulnerable(this.isInvulnerable());
 			coppergolem.setOxidation(oxidation);
 
+			if (this.isDamaged())
+				coppergolem.setHealth(coppergolem.getMaxHealth() * 0.5F - 1.0F);
+
 			if (this.persistenceRequired)
 				coppergolem.setPersistenceRequired();
 
@@ -197,6 +210,14 @@ public class OxidizedCopperGolem extends LivingEntity {
 		return null;
 	}
 
+	public boolean isDamaged() {
+		return this.entityData.get(DAMAGED);
+	}
+
+	public void setDamaged(boolean damaged) {
+		this.entityData.set(DAMAGED, damaged);
+	}
+
 	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == 4) {
@@ -208,12 +229,12 @@ public class OxidizedCopperGolem extends LivingEntity {
 		super.handleEntityEvent(id);
 	}
 
-	public void setNoAI() {
-		this.isNoAi = true;
+	public void setNoAI(boolean noAi) {
+		this.isNoAi = noAi;
 	}
 
-	public void setPersistenceRequired() {
-		this.persistenceRequired = true;
+	public void setPersistenceRequired(boolean persistenceRequired) {
+		this.persistenceRequired = persistenceRequired;
 	}
 
 	@Override
