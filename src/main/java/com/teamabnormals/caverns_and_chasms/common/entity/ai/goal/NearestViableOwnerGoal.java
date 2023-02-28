@@ -4,8 +4,7 @@ import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
@@ -37,19 +36,12 @@ public class NearestViableOwnerGoal<T extends LivingEntity> extends TargetGoal {
 	}
 
 	public boolean canUse() {
-		if (this.mob instanceof Glare glare && glare.getLikedPlayerUUID() == null) {
+		if (this.mob instanceof Glare glare && glare.getOwnerUUID() == null) {
 			if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) {
 				return false;
 			} else {
 				this.findTarget();
-
-				if (this.target != null) {
-					IDataManager manager = (IDataManager) this.target;
-					Optional<UUID> ownedGlare = manager.getValue(CCDataProcessors.OWNED_GLARE_UUID);
-					return ownedGlare.isEmpty() || this.mob.level.getPlayerByUUID(ownedGlare.get()) != null;
-				}
-
-				return false;
+				return this.target != null;
 			}
 		}
 
@@ -62,12 +54,15 @@ public class NearestViableOwnerGoal<T extends LivingEntity> extends TargetGoal {
 
 	public void start() {
 		if (this.mob instanceof Glare glare) {
-			glare.setLikedPlayerUUID(this.target.getUUID());
-			glare.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
 			IDataManager manager = (IDataManager) this.target;
-			manager.setValue(CCDataProcessors.OWNED_GLARE_UUID, Optional.of(glare.getUUID()));
-			super.start();
+			Optional<UUID> ownedGlare = manager.getValue(CCDataProcessors.OWNED_GLARE_UUID);
+			if ((ownedGlare.isEmpty() || (glare.level instanceof ServerLevel server && server.getEntity(ownedGlare.get()) == null)) && glare.getAngryAtUUID() != this.target.getUUID()) {
+				glare.setOwnerUUID(this.target.getUUID());
+				glare.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
+				manager.setValue(CCDataProcessors.OWNED_GLARE_UUID, Optional.of(glare.getUUID()));
+			}
 		}
+		super.start();
 	}
 
 	public void setTarget(@Nullable LivingEntity entity) {

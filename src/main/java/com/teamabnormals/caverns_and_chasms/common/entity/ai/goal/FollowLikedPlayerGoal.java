@@ -19,16 +19,16 @@ public class FollowLikedPlayerGoal extends Goal {
 	}
 
 	public boolean canUse() {
-		if (this.glare.getLikedPlayerUUID() == null) {
+		if (this.glare.getOwnerUUID() == null) {
 			return false;
 		} else {
-			this.likedPlayer = glare.level.getPlayerByUUID(glare.getLikedPlayerUUID());
+			this.likedPlayer = glare.level.getPlayerByUUID(glare.getOwnerUUID());
 			return this.glare.distanceToSqr(this.likedPlayer) >= 64.0D;
 		}
 	}
 
 	public boolean canContinueToUse() {
-		if (this.glare.getLikedPlayerUUID() == null) {
+		if (this.glare.getOwnerUUID() == null) {
 			return false;
 		} else if (!this.likedPlayer.isAlive()) {
 			return false;
