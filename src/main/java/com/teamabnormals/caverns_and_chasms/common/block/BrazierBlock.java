@@ -47,8 +47,8 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	protected static final VoxelShape GROUNDED_SHAPE = Shapes.or(Block.box(0.0D, 4.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D));
-	protected static final VoxelShape HANGING_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D);
+	protected static final VoxelShape GROUNDED_SHAPE = Shapes.or(Block.box(1.0D, 4.0D, 1.0D, 15.0D, 9.0D, 15.0D), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D));
+	protected static final VoxelShape HANGING_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 5.0D, 15.0D);
 
 	private final float fireDamage;
 
