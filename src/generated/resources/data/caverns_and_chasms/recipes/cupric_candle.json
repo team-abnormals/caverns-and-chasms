@@ -12,7 +12,7 @@
         "type": "minecraft:crafting_shaped",
         "key": {
           "C": {
-            "tag": "minecraft:soul_fire_base_blocks"
+            "tag": "caverns_and_chasms:cupric_fire_base_items"
           },
           "H": {
             "item": "minecraft:honeycomb"
