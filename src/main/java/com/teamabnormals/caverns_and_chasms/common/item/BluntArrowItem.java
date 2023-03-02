@@ -10,6 +10,8 @@ import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 public class BluntArrowItem extends ArrowItem {
@@ -26,7 +28,8 @@ public class BluntArrowItem extends ArrowItem {
 
 	@Override
 	public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
-		return true;
+		int enchant = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.INFINITY_ARROWS, bow);
+		return enchant > 0;
 	}
 
 	@Override
