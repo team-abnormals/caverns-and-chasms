@@ -20,6 +20,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.FireworkStarRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -37,10 +40,11 @@ public class CCCompat {
 	public static void registerCompat() {
 		registerFlammables();
 		registerDispenserBehaviors();
+		registerWaxables();
+		registerCauldronInteractions();
+		registerFireworkIngredients();
 		changeLocalization();
 		setFireproof();
-		addWaxables();
-		registerCauldronInteractions();
 	}
 
 	private static void registerFlammables() {
@@ -96,7 +100,7 @@ public class CCCompat {
 		ObfuscationReflectionHelper.setPrivateValue(Item.class, CCBlocks.NECROMIUM_BLOCK.get().asItem(), true, "f_41372_");
 	}
 
-	private static void addWaxables() {
+	private static void registerWaxables() {
 		ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
 		HoneycombItem.WAXABLES.get().forEach(builder::put);
 		builder.put(CCBlocks.COPPER_BARS.get(), CCBlocks.WAXED_COPPER_BARS.get());
@@ -108,6 +112,12 @@ public class CCCompat {
 		builder.put(CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
 		builder.put(CCBlocks.OXIDIZED_COPPER_BUTTON.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
+	}
+
+	private static void registerFireworkIngredients() {
+		FireworkStarRecipe.SHAPE_INGREDIENT = Ingredient.merge(List.of(FireworkStarRecipe.SHAPE_INGREDIENT, Ingredient.of(CCItems.DEEPER_HEAD.get(), CCItems.MIME_HEAD.get())));
+		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.DEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
+		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
 	}
 
 	private static void registerCauldronInteractions() {
