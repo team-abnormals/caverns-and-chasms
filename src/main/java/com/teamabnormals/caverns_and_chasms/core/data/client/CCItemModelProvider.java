@@ -28,13 +28,10 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.generatedItem(
 				COPPER_NUGGET.get(), OXIDIZED_COPPER_GOLEM.get(),
 				RAW_SILVER.get(),
-				BEJEWELED_APPLE.get(),
+				BEJEWELED_APPLE.get(), BLUNT_ARROW.get(),
 				AZALEA_BOAT.getFirst().get(), AZALEA_BOAT.getSecond().get(), AZALEA_FURNACE_BOAT.get(), LARGE_AZALEA_BOAT.get()
 		);
-		this.handheldItem(
-				KUNAI.get(),
-				BLUNT_ARROW.get()
-		);
+		this.handheldItem(KUNAI.get());
 	}
 
 	private void generatedItem(ItemLike... items) {
