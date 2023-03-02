@@ -101,7 +101,7 @@ public class GoldenSolidBucketItem extends BlockItem implements DispensibleConta
 	@Override
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
 		if (this.allowedIn(tab)) {
-			items.add(new ItemStack(this));
+			items.add(this.getDefaultInstance());
 		}
 	}
 }
