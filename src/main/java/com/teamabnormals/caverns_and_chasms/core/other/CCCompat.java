@@ -62,6 +62,7 @@ public class CCCompat {
 		DataUtil.registerFlammable(CCBlocks.AZALEA_HEDGE.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.FLOWERING_AZALEA_HEDGE.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.VERTICAL_AZALEA_PLANKS.get(), 5, 20);
+		DataUtil.registerFlammable(CCBlocks.TMT.get(), 15, 100);
 	}
 
 	private static void registerDispenserBehaviors() {
