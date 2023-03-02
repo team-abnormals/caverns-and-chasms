@@ -118,8 +118,8 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
 				.modelFile(model).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 0)
 				.nextModel().modelFile(mirroredModel).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 0)
-				.nextModel().modelFile(model).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 180).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90)
-				.nextModel().modelFile(mirroredModel).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 180).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90)
+				.nextModel().modelFile(model).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 180)
+				.nextModel().modelFile(mirroredModel).rotationX(state.getValue(BlockStateProperties.AXIS) == Axis.Y ? 0 : 90).rotationY(state.getValue(BlockStateProperties.AXIS) == Axis.X ? 90 : 180)
 				.build()
 		);
 
