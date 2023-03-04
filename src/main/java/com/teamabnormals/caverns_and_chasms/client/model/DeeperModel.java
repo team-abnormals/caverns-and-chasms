@@ -38,7 +38,7 @@ public class DeeperModel<T extends Entity> extends ListModel<T> {
 		this.leg4 = root.getChild("leg4");
 	}
 
-	public static LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
 		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 2.0F, 8.0F, new CubeDeformation(0.3F, 0.3F, 0.3F)), PartPose.offsetAndRotation(0.0F, 6.0F, 0.0F, 0.0F, 0.0F, 0.0F));

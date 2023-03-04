@@ -41,7 +41,7 @@ public class FlyModel<T extends Fly> extends AgeableListModel<T> {
 		this.middleLegs = this.body.getChild("middleLegs");
 	}
 
-	public static LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
 		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.5F, -3.0F, 5.0F, 5.0F, 6.0F, false), PartPose.offsetAndRotation(0.0F, 20.0F, 0.0F, 0.0F, 0.0F, 0.0F));

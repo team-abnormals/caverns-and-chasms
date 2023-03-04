@@ -35,7 +35,7 @@ public class CopperGolemModel<T extends LivingEntity> extends HierarchicalModel<
 		this.leftLeg = rootIn.getChild("left_leg");
 	}
 
-	public static LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 

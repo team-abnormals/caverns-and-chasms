@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCop
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
@@ -33,6 +34,7 @@ public class CCEntityTypes {
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
+	public static final RegistryObject<EntityType<Peeper>> PEEPER = HELPER.createLivingEntity("peeper", Peeper::new, MobCategory.MONSTER, 0.6F, 2.2F);
 	public static final RegistryObject<EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
 	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, MobCategory.CREATURE, 0.5F, 0.45F);
@@ -48,6 +50,7 @@ public class CCEntityTypes {
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {
 		event.put(DEEPER.get(), Deeper.createAttributes().build());
+		event.put(PEEPER.get(), Peeper.createAttributes().build());
 		event.put(MIME.get(), Mime.registerAttributes().build());
 		event.put(FLY.get(), Fly.registerAttributes().build());
 		event.put(RAT.get(), Rat.registerAttributes().build());

@@ -452,12 +452,11 @@ public class CCRecipeProvider extends RecipeProvider {
 		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), output, 0.35F, 600).unlockedBy(getHasName(input), has(input)).save(consumer, RecipeBuilder.getDefaultRecipeId(output) + "_from_campfire_cooking");
 	}
 
-
 	public static void mimingRecipe(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike output) {
-		mimingRecipe(consumer, Ingredient.of(input), output, 1).unlockedBy(getHasName(input), has(input)).save(consumer);
+		mimingRecipe(Ingredient.of(input), output, 1).unlockedBy(getHasName(input), has(input)).save(consumer);
 	}
 
-	public static SingleItemRecipeBuilder mimingRecipe(Consumer<FinishedRecipe> consumer, Ingredient input, ItemLike output, int count) {
+	public static SingleItemRecipeBuilder mimingRecipe(Ingredient input, ItemLike output, int count) {
 		return new SingleItemRecipeBuilder(CCRecipeSerializers.MIMING.get(), input, output, count);
 	}
 

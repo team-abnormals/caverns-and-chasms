@@ -20,7 +20,7 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		this.bipedCape = root.getChild("biped_cape");
 	}
 
-	public static LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = PlayerModel.createMesh(CubeDeformation.NONE, false);
 		PartDefinition root = meshdefinition.getRoot();
 		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(8, 60).addBox(-2.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false).texOffs(18, 60).addBox(1.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));

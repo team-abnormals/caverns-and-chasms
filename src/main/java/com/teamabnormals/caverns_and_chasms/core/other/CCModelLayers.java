@@ -8,6 +8,8 @@ public class CCModelLayers {
 	public static final ModelLayerLocation COPPER_GOLEM = register("copper_golem");
 	public static final ModelLayerLocation DEEPER = register("deeper");
 	public static final ModelLayerLocation DEEPER_HEAD = register("deeper_head");
+	public static final ModelLayerLocation PEEPER = register("peeper");
+	public static final ModelLayerLocation PEEPER_HEAD = register("peeper_head");
 	public static final ModelLayerLocation FLY = register("fly");
 	public static final ModelLayerLocation GLARE = register("glare");
 	public static final ModelLayerLocation MIME = register("mime");

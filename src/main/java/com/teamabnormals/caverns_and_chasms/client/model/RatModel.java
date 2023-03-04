@@ -34,7 +34,7 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 		this.tail = root.getChild("tail");
 	}
 
-	public static LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
 

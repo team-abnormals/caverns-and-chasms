@@ -137,14 +137,15 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(CCModelLayers.DEEPER, DeeperModel::createLayerDefinition);
-		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createLayerDefinition);
-		event.registerLayerDefinition(CCModelLayers.MIME, MimeModel::createLayerDefinition);
-		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createLayerDefinition);
-		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createLayerDefinition);
-		event.registerLayerDefinition(CCModelLayers.SANGUINE_ARMOR, SanguineArmorModel::createLayerDefinition);
-		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_INNER, () -> MimeArmorModel.createLayerDefinition(0.5F));
-		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_OUTER, () -> MimeArmorModel.createLayerDefinition(1.0F));
+		event.registerLayerDefinition(CCModelLayers.DEEPER, DeeperModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.PEEPER, PeeperModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.MIME, MimeModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.SANGUINE_ARMOR, SanguineArmorModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_INNER, () -> MimeArmorModel.createBodyLayer(0.5F));
+		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_OUTER, () -> MimeArmorModel.createBodyLayer(1.0F));
 		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, SkullModel::createHumanoidHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.MIME_HEAD, MimeHeadModel::createHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
@@ -153,6 +154,7 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.PEEPER.get(), PeeperRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.SPIDERLING.get(), SpiderlingRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);

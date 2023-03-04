@@ -43,7 +43,7 @@ public class SanguineArmorModel<T extends LivingEntity> extends HumanoidModel<T>
 		this.shoulderPadLeft = root.getChild("shoulderPadLeft");
 	}
 
-	public static LayerDefinition createLayerDefinition() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
 		PartDefinition root = meshdefinition.getRoot();
 		PartDefinition helmet = root.addOrReplaceChild("helmet", CubeListBuilder.create().texOffs(1, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.6F)).texOffs(38, 1).addBox(-6.9F, -11.55F, -1.0F, 2.0F, 5.0F, 2.0F, new CubeDeformation(0.25F)).texOffs(47, 1).addBox(4.9F, -11.55F, -1.0F, 2.0F, 5.0F, 2.0F, new CubeDeformation(0.25F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
@@ -58,7 +58,7 @@ public class SanguineArmorModel<T extends LivingEntity> extends HumanoidModel<T>
 	}
 
 	public SanguineArmorModel(int entityFlag) {
-		this(entityFlag, createLayerDefinition().bakeRoot());
+		this(entityFlag, createBodyLayer().bakeRoot());
 	}
 
 	@Override

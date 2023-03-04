@@ -12,7 +12,7 @@ public class MimeArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
 		super(root);
 	}
 
-	public static LayerDefinition createLayerDefinition(float modelSize) {
+	public static LayerDefinition createBodyLayer(float modelSize) {
 		CubeDeformation deformation = CubeDeformation.NONE;
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();

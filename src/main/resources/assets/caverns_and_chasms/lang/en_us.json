@@ -257,12 +257,14 @@
   "item.caverns_and_chasms.sanguine_boots": "Sanguine Boots",
 
   "item.caverns_and_chasms.deeper_spawn_egg": "Deeper Spawn Egg",
+  "item.caverns_and_chasms.peeper_spawn_egg": "Peeper Spawn Egg",
   "item.caverns_and_chasms.mime_spawn_egg": "Mime Spawn Egg",
   "item.caverns_and_chasms.fly_spawn_egg": "Fly Spawn Egg",
   "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
   "item.caverns_and_chasms.glare_spawn_egg": "Glare Spawn Egg",
 
   "entity.caverns_and_chasms.deeper": "Deeper",
+  "entity.caverns_and_chasms.peeper": "Peeper",
   "entity.caverns_and_chasms.spiderling": "Spiderling",
   "entity.caverns_and_chasms.mime": "Mime",
   "entity.caverns_and_chasms.fly": "Fly",

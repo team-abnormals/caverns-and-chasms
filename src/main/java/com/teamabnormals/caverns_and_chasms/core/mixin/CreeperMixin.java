@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -29,5 +30,10 @@ public abstract class CreeperMixin extends LivingEntity {
 		}
 
 		return level.explode(creeper, x, y, z, power, interaction);
+	}
+
+	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Creeper;isAlive()Z"))
+	private boolean tick(Creeper creeper) {
+		return creeper.isAlive() || creeper instanceof Peeper;
 	}
 }

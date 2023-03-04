@@ -32,6 +32,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 				AZALEA_BOAT.getFirst().get(), AZALEA_BOAT.getSecond().get(), AZALEA_FURNACE_BOAT.get(), LARGE_AZALEA_BOAT.get()
 		);
 		this.handheldItem(KUNAI.get());
+		this.spawnEggItem(PEEPER_SPAWN_EGG.get());
 	}
 
 	private void generatedItem(ItemLike... items) {
@@ -42,6 +43,14 @@ public class CCItemModelProvider extends ItemModelProvider {
 	private void handheldItem(ItemLike... items) {
 		for (ItemLike item : items)
 			item(item, "handheld");
+	}
+
+	private void spawnEggItem(ItemLike... items) {
+		for (ItemLike item : items) {
+			ResourceLocation name = ForgeRegistries.ITEMS.getKey(item.asItem());
+			if (name != null)
+				withExistingParent(name.getPath(), "item/template_spawn_egg");
+		}
 	}
 
 	private void item(ItemLike item, String type) {
