@@ -33,13 +33,14 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition root = meshdefinition.getRoot();
 
-		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -12.0F, -7.99F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)).texOffs(40, 0).addBox(-5.0F, -12.0F, -7.99F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.4F)), PartPose.offset(0.0F, 1.0F, 0.0F));
+		CubeDeformation extrudes = new CubeDeformation(0.25F);
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -12.0F, -7.99F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)).texOffs(40, 0).addBox(-5.0F, -12.0F, -7.99F, 10.0F, 10.0F, 10.0F, extrudes), PartPose.offset(0.0F, 1.0F, 0.0F));
 		PartDefinition pupil = head.addOrReplaceChild("pupil", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, -8.0F));
-		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 17.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(40, 20).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 17.0F, 4.0F, new CubeDeformation(0.4F)), PartPose.offset(0.0F, 22.0F, 0.0F));
-		PartDefinition right_hind_leg = root.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(48, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(112, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.4F)), PartPose.offset(-2.0F, 16.0F, 4.0F));
+		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 20).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 17.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(40, 20).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 17.0F, 4.0F, extrudes), PartPose.offset(0.0F, 22.0F, 0.0F));
+		PartDefinition right_hind_leg = root.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(48, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(112, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, extrudes), PartPose.offset(-2.0F, 16.0F, 4.0F));
 		PartDefinition left_hind_leg = root.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(32, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 16.0F, 4.0F));
 		PartDefinition right_front_leg = root.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(0, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 16.0F, -4.0F));
-		PartDefinition left_front_leg = root.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(16, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(80, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.4F)), PartPose.offset(2.0F, 16.0F, -4.0F));
+		PartDefinition left_front_leg = root.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(16, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(80, 41).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 9.0F, 4.0F, extrudes), PartPose.offset(2.0F, 16.0F, -4.0F));
 
 		return LayerDefinition.create(meshdefinition, 128, 64);
 	}

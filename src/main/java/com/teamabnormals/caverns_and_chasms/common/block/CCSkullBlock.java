@@ -28,6 +28,6 @@ public class CCSkullBlock extends SkullBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return !level.isClientSide || !state.is(CCBlocks.MIME_HEAD.get()) && !state.is(CCBlocks.MIME_WALL_HEAD.get()) ? null : createTickerHelper(type, CCBlockEntityTypes.SKULL.get(), SkullBlockEntity::dragonHeadAnimation);
+		return !level.isClientSide || !state.is(CCBlocks.PEEPER_HEAD.get()) && !state.is(CCBlocks.PEEPER_WALL_HEAD.get()) && !state.is(CCBlocks.MIME_HEAD.get()) && !state.is(CCBlocks.MIME_WALL_HEAD.get()) ? null : createTickerHelper(type, CCBlockEntityTypes.SKULL.get(), SkullBlockEntity::dragonHeadAnimation);
 	}
 }

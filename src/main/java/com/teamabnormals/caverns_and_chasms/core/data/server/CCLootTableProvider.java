@@ -87,6 +87,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 			this.dropSelf(NECROMIUM_BLOCK.get());
 			this.dropSelf(DEEPER_HEAD.get());
+			this.dropSelf(PEEPER_HEAD.get());
 			this.dropSelf(MIME_HEAD.get());
 
 			this.dropSelf(SILVER_BLOCK.get());

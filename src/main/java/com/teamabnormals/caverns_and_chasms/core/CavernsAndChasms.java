@@ -105,6 +105,7 @@ public class CavernsAndChasms {
 	private void clientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png"));
+			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.PEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png"));
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_TEXTURE);
 			CCClientCompat.registerClientCompat();
 		});
@@ -138,16 +139,17 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(CCModelLayers.DEEPER, DeeperModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, SkullModel::createHumanoidHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.PEEPER, PeeperModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.PEEPER_HEAD, PeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.MIME, MimeModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_INNER, () -> MimeArmorModel.createBodyLayer(0.5F));
+		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_OUTER, () -> MimeArmorModel.createBodyLayer(1.0F));
+		event.registerLayerDefinition(CCModelLayers.MIME_HEAD, MimeHeadModel::createHeadLayer);
+		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.SANGUINE_ARMOR, SanguineArmorModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_INNER, () -> MimeArmorModel.createBodyLayer(0.5F));
-		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_OUTER, () -> MimeArmorModel.createBodyLayer(1.0F));
-		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, SkullModel::createHumanoidHeadLayer);
-		event.registerLayerDefinition(CCModelLayers.MIME_HEAD, MimeHeadModel::createHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
 	}
 
@@ -189,5 +191,6 @@ public class CavernsAndChasms {
 	private void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
 		event.registerSkullModel(CCSkullTypes.DEEPER, new SkullModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
 		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
+		event.registerSkullModel(CCSkullTypes.PEEPER, new PeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.PEEPER_HEAD)));
 	}
 }

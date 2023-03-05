@@ -8,18 +8,20 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class MimeHeadModel extends SkullModel {
+public class PeeperHeadModel extends SkullModel {
 
-	public MimeHeadModel(ModelPart part) {
+	public PeeperHeadModel(ModelPart part) {
 		super(part);
 	}
 
 	public static LayerDefinition createHeadLayer() {
 		MeshDefinition meshdefinition = SkullModel.createHeadModel();
-		PartDefinition partdefinition = meshdefinition.getRoot();
-		partdefinition.getChild("head").addOrReplaceChild("horns", CubeListBuilder.create().texOffs(8, 60).addBox(-2.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F).texOffs(0, 59).addBox(-4.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F).texOffs(18, 60).addBox(1.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F).texOffs(10, 59).addBox(2.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F), PartPose.ZERO);
-		partdefinition.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.ZERO);
-		return LayerDefinition.create(meshdefinition, 64, 64);
+		PartDefinition root = meshdefinition.getRoot();
+
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -10.0F, -4.99F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)).texOffs(40, 0).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.25F)), PartPose.ZERO);
+		PartDefinition pupil = head.addOrReplaceChild("pupil", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.0F, -5.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.ZERO);
+
+		return LayerDefinition.create(meshdefinition, 128, 64);
 	}
 
 	@Override

@@ -66,6 +66,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> DEEPER_HEAD = HELPER.createBlockNoItem("deeper_head", () -> new CCSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F)));
 	public static final RegistryObject<Block> DEEPER_WALL_HEAD = HELPER.createBlockNoItem("deeper_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F).dropsLike(DEEPER_HEAD.get())));
+	public static final RegistryObject<Block> PEEPER_HEAD = HELPER.createBlockNoItem("peeper_head", () -> new CCSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F)));
+	public static final RegistryObject<Block> PEEPER_WALL_HEAD = HELPER.createBlockNoItem("peeper_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F).dropsLike(PEEPER_HEAD.get())));
 	public static final RegistryObject<Block> MIME_HEAD = HELPER.createBlockNoItem("mime_head", () -> new CCSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F)));
 	public static final RegistryObject<Block> MIME_WALL_HEAD = HELPER.createBlockNoItem("mime_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of(Material.DECORATION).strength(1.0F).dropsLike(MIME_HEAD.get())));
 
@@ -251,6 +253,6 @@ public class CCBlocks {
 	}
 
 	public enum CCSkullTypes implements SkullBlock.Type {
-		MIME, DEEPER;
+		MIME, DEEPER, PEEPER
 	}
 }
