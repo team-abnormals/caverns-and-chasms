@@ -23,14 +23,14 @@ public class FollowLikedPlayerGoal extends Goal {
 			return false;
 		} else {
 			this.likedPlayer = glare.level.getPlayerByUUID(glare.getOwnerUUID());
-			return this.glare.distanceToSqr(this.likedPlayer) >= 64.0D;
+			return this.likedPlayer != null && this.glare.distanceToSqr(this.likedPlayer) >= 64.0D;
 		}
 	}
 
 	public boolean canContinueToUse() {
 		if (this.glare.getOwnerUUID() == null) {
 			return false;
-		} else if (!this.likedPlayer.isAlive()) {
+		} else if (this.likedPlayer == null || !this.likedPlayer.isAlive()) {
 			return false;
 		} else {
 			double distance = this.glare.distanceToSqr(this.likedPlayer);
