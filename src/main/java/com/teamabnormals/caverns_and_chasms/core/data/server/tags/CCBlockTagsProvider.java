@@ -25,7 +25,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.CAMPFIRES).add(CUPRIC_CAMPFIRE.get());
 		this.tag(BlockTags.DIRT).add(ROCKY_DIRT.get());
 		this.tag(BlockTags.FIRE).add(CUPRIC_FIRE.get());
-		this.tag(BlockTags.GUARDED_BY_PIGLINS).add(GOLDEN_BARS.get(), LAVA_LAMP.get());
+		this.tag(BlockTags.GUARDED_BY_PIGLINS).add(GOLDEN_BARS.get(), LAVA_LAMP.get(), AZALEA_CHEST.getFirst().get(), AZALEA_CHEST.getSecond().get());
 		this.tag(BlockTags.PIGLIN_REPELLENTS).add(SOUL_BRAZIER.get());
 		this.tag(BlockTags.PRESSURE_PLATES).add(MEDIUM_WEIGHTED_PRESSURE_PLATE.get());
 		this.tag(BlockTags.RAILS).add(SPIKED_RAIL.get());
