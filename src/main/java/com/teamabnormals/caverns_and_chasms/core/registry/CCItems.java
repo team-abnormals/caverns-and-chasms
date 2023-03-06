@@ -31,7 +31,7 @@ public class CCItems {
 	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
 
 	public static final RegistryObject<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
-	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new InjectedItem(Items.COMPASS, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new InjectedItem(Items.CLOCK, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 	public static final RegistryObject<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_DECORATIONS)));
 	public static final RegistryObject<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 
@@ -52,7 +52,7 @@ public class CCItems {
 	public static final RegistryObject<Item> SILVER_LEGGINGS = HELPER.createItem("silver_leggings", () -> new SilverArmorItem(CCArmorMaterials.SILVER, EquipmentSlot.LEGS, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> SILVER_BOOTS = HELPER.createItem("silver_boots", () -> new SilverArmorItem(CCArmorMaterials.SILVER, EquipmentSlot.FEET, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 	public static final RegistryObject<Item> SILVER_HORSE_ARMOR = HELPER.createItem("silver_horse_armor", () -> new SilverHorseArmorItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC)));
-	public static final RegistryObject<Item> DEPTH_GAUGE = HELPER.createItem("depth_gauge", () -> new InjectedItem(Items.CLOCK, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+	public static final RegistryObject<Item> DEPTH_GAUGE = HELPER.createItem("depth_gauge", () -> new InjectedItem(Items.COMPASS, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
 	public static final RegistryObject<Item> NECROMIUM_INGOT = HELPER.createItem("necromium_ingot", () -> new InjectedItem(Items.NETHERITE_INGOT, new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_MATERIALS)));
 	public static final RegistryObject<Item> NECROMIUM_NUGGET = HELPER.createItem("necromium_nugget", () -> new Item(new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_MATERIALS)));
