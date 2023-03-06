@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "refmap": "caverns_and_chasms.refmap.json",
   "mixins": [
+    "AbstractMinecartMixin",
     "AbstractSkeletonMixin",
     "AzaleaTreeGrowerMixin",
     "BaseFireBlockMixin",

@@ -19,15 +19,16 @@ public class SpikedRailBlock extends PoweredRailBlock {
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.ACTIVATOR_RAIL);
 
 	public SpikedRailBlock(BlockBehaviour.Properties properties) {
-		super(properties, true);
+		super(properties);
 	}
 
 	@Override
 	public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
 		cart.getPassengers().forEach((entity) -> {
 			if (state.getValue(POWERED) && entity instanceof LivingEntity target) {
-				target.hurt(CCDamageSources.SPIKED_RAIL, 4.0F);
-				SilverItem.causeMagicDamageParticles(target);
+				if (target.hurt(CCDamageSources.SPIKED_RAIL, 4.0F)) {
+					SilverItem.causeMagicDamageParticles(target);
+				}
 			}
 		});
 	}
