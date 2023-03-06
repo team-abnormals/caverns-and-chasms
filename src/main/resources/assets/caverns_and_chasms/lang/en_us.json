@@ -349,6 +349,7 @@
   "tooltip.caverns_and_chasms.stormy": "Stormy",
   "tooltip.caverns_and_chasms.null": "Null",
 
+  "item.caverns_and_chasms.tether_potion.null": "Tether ",
   "item.caverns_and_chasms.tether_potion.effect.empty": "Tether Uncraftable Potion",
   "item.caverns_and_chasms.tether_potion.effect.water": "Tether Water Bottle",
   "item.caverns_and_chasms.tether_potion.effect.mundane": "Mundane Tether Potion",
@@ -371,7 +372,6 @@
   "item.caverns_and_chasms.tether_potion.effect.luck": "Tether Potion of Luck",
   "item.caverns_and_chasms.tether_potion.effect.turtle_master": "Tether Potion of the Turtle Master",
   "item.caverns_and_chasms.tether_potion.effect.slow_falling": "Tether Potion of Slow Falling",
-  "item.caverns_and_chasms.tether_potion.effect.elegant": "Elegant Tether Potion",
 
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",

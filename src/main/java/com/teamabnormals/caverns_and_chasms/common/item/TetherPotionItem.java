@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,10 +19,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PotionItem;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Wearable;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -77,6 +75,19 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@Override
 	public SoundEvent getEquipSound() {
 		return CCSoundEvents.TETHER_POTION_EQUIP.get();
+	}
+
+	@Override
+	public Component getName(ItemStack stack) {
+		Component component = super.getName(stack);
+		if (component.toString().contains("item.")) {
+			MutableComponent intro = Component.translatable(this.getDescriptionId() + ".null");
+			ItemStack regularPotion = PotionUtils.setPotion(new ItemStack(Items.POTION), PotionUtils.getPotion(stack.getTag()));
+			String newComponent = regularPotion.getDescriptionId();
+			return intro.append(Component.translatable(newComponent));
+		} else {
+			return component;
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -148,7 +159,7 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	}
 
 	public static int getTetherPotionDuration(int originalDuration) {
-		int duration = Math.round(10 - 1 / ((originalDuration / 20 + 200) * 0.0005F)) * 20;
+		int duration = Math.round(10 - 1 / ((originalDuration / 20.0F + 200) * 0.0005F)) * 20;
 		return Math.max(duration, 20);
 	}
 }
