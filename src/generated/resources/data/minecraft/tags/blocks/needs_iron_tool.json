@@ -3,6 +3,10 @@
     "caverns_and_chasms:silver_block",
     "caverns_and_chasms:raw_silver_block",
     "caverns_and_chasms:silver_ore",
-    "caverns_and_chasms:deepslate_silver_ore"
+    "caverns_and_chasms:deepslate_silver_ore",
+    "caverns_and_chasms:sanguine_plates",
+    "caverns_and_chasms:sanguine_plate_slab",
+    "caverns_and_chasms:sanguine_plate_stairs",
+    "caverns_and_chasms:sanguine_plate_vertical_slab"
   ]
 }
