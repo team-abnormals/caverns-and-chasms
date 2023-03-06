@@ -201,6 +201,7 @@ public class CCEvents {
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
+				level.levelEvent(null, 1009, pos, 0);
 				BlockState extinguishedState = BrazierBlock.extinguish(player, level, pos, state);
 				if (!level.isClientSide()) {
 					level.setBlock(pos, extinguishedState, 11);

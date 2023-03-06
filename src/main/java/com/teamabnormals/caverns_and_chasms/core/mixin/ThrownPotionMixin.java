@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.level.Level;
@@ -23,6 +24,7 @@ public abstract class ThrownPotionMixin extends ThrowableItemProjectile {
 	private void dowseFire(BlockPos pos, CallbackInfo ci) {
 		BlockState state = this.level.getBlockState(pos);
 		if (BrazierBlock.isLit(state)) {
+			this.level.levelEvent(null, 1009, pos, 0);
 			this.level.setBlockAndUpdate(pos, BrazierBlock.extinguish(this.getOwner(), this.level, pos, state));
 		}
 	}

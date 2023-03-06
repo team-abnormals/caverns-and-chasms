@@ -111,10 +111,9 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 		BlockState extinguishedsstate = state.setValue(LIT, false);
 		if (level.isClientSide()) {
 			for (int i = 0; i < 20; ++i) {
-				spawnSmokeParticles((Level) level, pos);
+				spawnSmokeParticles((Level) level, pos.offset(0.5D, 0, 0.5D));
 			}
 		} else {
-			level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, extinguishedsstate));
 		}
 		return extinguishedsstate;
@@ -123,7 +122,10 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	@Override
 	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidStateIn) {
 		if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidStateIn.getType() == Fluids.WATER) {
-			if (state.getValue(LIT)) extinguish(null, level, pos, state);
+			if (state.getValue(LIT)) {
+				level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
+				extinguish(null, level, pos, state);
+			}
 			level.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(LIT, false), 3);
 			level.scheduleTick(pos, fluidStateIn.getType(), fluidStateIn.getType().getTickDelay(level));
 			return true;
@@ -147,7 +149,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	public static void spawnSmokeParticles(Level level, BlockPos pos) {
 		RandomSource random = level.getRandom();
-		level.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), pos.getY() + 0.4D, pos.getZ() + 0.25D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
+		level.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), pos.getY() + 0.4D, pos.getZ() + 0.5D + random.nextDouble() / 2.0D * (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
 	}
 
 	@Override
