@@ -11,7 +11,7 @@ public class MediumWeightedPressurePlateBlock extends WeightedPressurePlateBlock
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.LIGHT_WEIGHTED_PRESSURE_PLATE);
 
 	public MediumWeightedPressurePlateBlock(Properties properties) {
-		super(50, properties);
+		super(75, properties);
 	}
 
 	@Override
