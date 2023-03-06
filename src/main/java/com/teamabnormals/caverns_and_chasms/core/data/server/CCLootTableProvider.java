@@ -209,7 +209,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CUPRIC_LANTERN.get());
 			this.dropSelf(CUPRIC_TORCH.get());
 			this.dropOther(CUPRIC_WALL_TORCH.get(), CUPRIC_TORCH.get());
-			this.add(CUPRIC_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ROTTEN_FLESH_BLOCK.get().asItem()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
+			this.add(CUPRIC_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(Items.COPPER_BLOCK).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
 			this.add(CCBlocks.CUPRIC_CANDLE.get(), BlockLoot::createCandleDrops);
 			this.add(CCBlocks.CUPRIC_CANDLE_CAKE.get(), createCandleCakeDrops(CCBlocks.CUPRIC_CANDLE.get()));
 

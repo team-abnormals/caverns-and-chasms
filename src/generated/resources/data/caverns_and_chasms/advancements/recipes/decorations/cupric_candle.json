@@ -8,7 +8,7 @@
             "conditions": {
               "items": [
                 {
-                  "tag": "caverns_and_chasms:cupric_fire_base_items"
+                  "tag": "caverns_and_chasms:cupric_fire_base_blocks"
                 }
               ]
             },

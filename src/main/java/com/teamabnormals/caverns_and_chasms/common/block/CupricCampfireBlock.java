@@ -30,8 +30,8 @@ public class CupricCampfireBlock extends CampfireBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
-		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && ((LivingEntity) entityIn).isInvertedHealAndHarm() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-			entityIn.hurt(DamageSource.IN_FIRE, 4.0F);
+		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+			entityIn.hurt(DamageSource.IN_FIRE, 0.5F);
 		}
 	}
 

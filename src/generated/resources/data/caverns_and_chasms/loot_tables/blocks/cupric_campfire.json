@@ -40,7 +40,7 @@
                   "function": "minecraft:set_count"
                 }
               ],
-              "name": "caverns_and_chasms:rotten_flesh_block"
+              "name": "minecraft:copper_block"
             }
           ]
         }
