@@ -332,9 +332,14 @@ public class CCEvents {
 		ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
 		Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
 		if (!experienceModifiers.isEmpty()) {
-			int xp = event.getExpToDrop();
-			double experienceBoost = experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-			event.setExpToDrop((int) (xp + xp * experienceBoost));
+			float experienceBoost = event.getExpToDrop() * (float) experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+			int base = Mth.floor(experienceBoost);
+			float bonus = Mth.frac(experienceBoost);
+			if (bonus != 0.0F && Math.random() < bonus) {
+				++base;
+			}
+
+			event.setExpToDrop(base);
 		}
 	}
 
@@ -345,9 +350,14 @@ public class CCEvents {
 			ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
 			Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
 			if (!experienceModifiers.isEmpty()) {
-				int xp = event.getDroppedExperience();
-				double experienceBoost = experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-				event.setDroppedExperience((int) (xp + xp * experienceBoost));
+				float experienceBoost = (float) (event.getDroppedExperience() * experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum());
+				int base = Mth.floor(experienceBoost);
+				float bonus = Mth.frac(experienceBoost);
+				if (bonus != 0.0F && Math.random() < bonus) {
+					++base;
+				}
+
+				event.setDroppedExperience(base);
 			}
 		}
 	}
@@ -541,8 +551,8 @@ public class CCEvents {
 		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (
 				(looking == CCEntityTypes.DEEPER.get() && stack.is(CCItems.DEEPER_HEAD.get())) ||
-				(looking == CCEntityTypes.PEEPER.get() && stack.is(CCItems.PEEPER_HEAD.get())) ||
-				(looking == CCEntityTypes.MIME.get() && stack.is(CCItems.MIME_HEAD.get()))
+						(looking == CCEntityTypes.PEEPER.get() && stack.is(CCItems.PEEPER_HEAD.get())) ||
+						(looking == CCEntityTypes.MIME.get() && stack.is(CCItems.MIME_HEAD.get()))
 		) {
 			event.modifyVisibility(0.5F);
 		}
