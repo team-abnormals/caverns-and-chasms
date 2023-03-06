@@ -170,13 +170,13 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CHISELED_DRIPSTONE_SHINGLES = HELPER.createBlock("chiseled_dripstone_shingles", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> FLOODED_DRIPSTONE_SHINGLES = HELPER.createBlock("flooded_dripstone_shingles", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-	public static final RegistryObject<Block> AMETHYST_BLOCK = HELPER.createBlock("amethyst_block", () -> new Block(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CUT_AMETHYST = HELPER.createBlock("cut_amethyst", () -> new Block(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CUT_AMETHYST_BRICKS = HELPER.createBlock("cut_amethyst_bricks", () -> new Block(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_STAIRS = HELPER.createBlock("cut_amethyst_brick_stairs", () -> new StairBlock(() -> CUT_AMETHYST_BRICKS.get().defaultBlockState(), CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_SLAB = HELPER.createBlock("cut_amethyst_brick_slab", () -> new SlabBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_WALL = HELPER.createBlock("cut_amethyst_brick_wall", () -> new WallBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "cut_amethyst_brick_vertical_slab", () -> new VerticalSlabBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> AMETHYST_BLOCK = HELPER.createBlock("amethyst_block", () -> new AmethystBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CUT_AMETHYST = HELPER.createBlock("cut_amethyst", () -> new AmethystBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CUT_AMETHYST_BRICKS = HELPER.createBlock("cut_amethyst_bricks", () -> new AmethystBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_STAIRS = HELPER.createBlock("cut_amethyst_brick_stairs", () -> new AmethystStairBlock(() -> CUT_AMETHYST_BRICKS.get().defaultBlockState(), CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_SLAB = HELPER.createBlock("cut_amethyst_brick_slab", () -> new AmethystSlabBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_WALL = HELPER.createBlock("cut_amethyst_brick_wall", () -> new AmethystWallBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "cut_amethyst_brick_vertical_slab", () -> new AmethystVerticalSlabBlock(CCProperties.AMETHYST), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
 	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new StrippedLogBlock(CCProperties.AZALEA.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new StrippedWoodBlock(CCProperties.AZALEA.log()), CreativeModeTab.TAB_BUILDING_BLOCKS);
