@@ -36,7 +36,6 @@ public class KunaiItem extends Item {
 			itemstack.shrink(1);
 		}
 
-		System.out.println(BuiltinRegistries.CONFIGURED_FEATURE.keySet());
 		return InteractionResultHolder.sidedSuccess(itemstack, worldIn.isClientSide());
 	}
 }
