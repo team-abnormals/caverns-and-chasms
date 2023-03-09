@@ -7,6 +7,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.StringUtil;
@@ -15,6 +17,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -39,18 +42,6 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	@Override
 	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
 		return EquipmentSlot.HEAD;
-	}
-
-	@Override
-	public void onArmorTick(ItemStack stack, Level world, Player player) {
-		if (!world.isClientSide()) {
-			for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
-				if (!instance.getEffect().isInstantenous()) {
-					MobEffectInstance instance1 = new MobEffectInstance(instance.getEffect(), 36000, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon());
-					player.addEffect(instance1);
-				}
-			}
-		}
 	}
 
 	@Override
@@ -161,5 +152,26 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	public static int getTetherPotionDuration(int originalDuration) {
 		int duration = Math.round(10 - 1 / ((originalDuration / 20.0F + 200) * 0.0005F)) * 20;
 		return Math.max(duration, 20);
+	}
+
+	public static void updateTetherPotionEffects(LivingEntity entity, ItemStack stack, boolean infiniteDuration) {
+		for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
+			if (!instance.getEffect().isInstantenous()) {
+				int i = infiniteDuration ? 32767 : getTetherPotionDuration(instance.getDuration());
+				MobEffectInstance currentinstance = entity.getEffect(instance.getEffect());
+				MobEffectInstance newinstance = new MobEffectInstance(instance.getEffect(), i, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon());
+
+				if (infiniteDuration)
+					newinstance.setNoCounter(true);
+
+				if (currentinstance == null) {
+					entity.addEffect(newinstance);
+				} else if (currentinstance.getAmplifier() <= instance.getAmplifier()) {
+					entity.getActiveEffectsMap().put(instance.getEffect(), newinstance);
+					if (entity instanceof ServerPlayer)
+						((ServerPlayer) entity).connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), newinstance));
+				}
+			}
+		}
 	}
 }

@@ -48,6 +48,6 @@ public class FragileStoneBlock extends Block implements FragileBlock {
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		this.breakNeighbors(level, pos);
-		this.crack(level, state, pos, random, false);
+		this.crack(level, state, pos, random);
 	}
 }

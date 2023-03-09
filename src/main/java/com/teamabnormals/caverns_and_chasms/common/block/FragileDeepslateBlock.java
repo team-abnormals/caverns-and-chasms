@@ -48,6 +48,6 @@ public class FragileDeepslateBlock extends RotatedPillarBlock implements Fragile
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		this.breakNeighbors(level, pos);
-		this.crack(level, state, pos, random, true);
+		this.crack(level, state, pos, random);
 	}
 }

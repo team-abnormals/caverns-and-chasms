@@ -367,13 +367,7 @@ public class CCEvents {
 		if (event.getSlot() == EquipmentSlot.HEAD) {
 			ItemStack stack = event.getFrom();
 			if (stack.getItem() == CCItems.TETHER_POTION.get()) {
-				LivingEntity entity = event.getEntity();
-				for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
-					if (!instance.getEffect().isInstantenous()) {
-						entity.removeEffectNoUpdate(instance.getEffect());
-						entity.forceAddEffect(new MobEffectInstance(instance.getEffect(), TetherPotionItem.getTetherPotionDuration(instance.getDuration()), instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()), null);
-					}
-				}
+				TetherPotionItem.updateTetherPotionEffects(event.getEntity(), stack, false);
 			}
 		}
 	}
@@ -530,6 +524,8 @@ public class CCEvents {
 		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
 		if (stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
 			Player player = target instanceof Player ? (Player) target : null;
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 
 			for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
 				if (instance.getEffect().isInstantenous()) {
@@ -537,10 +533,8 @@ public class CCEvents {
 				}
 			}
 
-			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			int i = PotionUtils.getPotion(stack).hasInstantEffects() ? 2007 : 2002;
 			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
-			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 		}
 	}
 
@@ -600,6 +594,8 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingTick(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
+		Level level = entity.getLevel();
+
 		if (entity instanceof Player player) {
 			IDataManager data = (IDataManager) entity;
 			if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
@@ -625,6 +621,11 @@ public class CCEvents {
 				golem.setTuningForkPos(null);
 				golem.setTuningForkTarget(null);
 			}
+		}
+
+		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
+		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
+			TetherPotionItem.updateTetherPotionEffects(entity, stack, true);
 		}
 	}
 }

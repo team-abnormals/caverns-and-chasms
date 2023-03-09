@@ -33,7 +33,7 @@ public interface FragileBlock {
 		}
 	}
 
-	default void crack(Level level, BlockState state, BlockPos pos, RandomSource random, boolean isDeepslate) {
+	default void crack(Level level, BlockState state, BlockPos pos, RandomSource random) {
 		double d0 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
 		double d1 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
 		double d2 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
