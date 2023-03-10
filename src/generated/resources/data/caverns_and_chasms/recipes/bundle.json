@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "R": {
-      "item": "minecraft:rabbit_hide"
+      "item": "minecraft:leather"
     },
     "S": {
       "item": "minecraft:string"

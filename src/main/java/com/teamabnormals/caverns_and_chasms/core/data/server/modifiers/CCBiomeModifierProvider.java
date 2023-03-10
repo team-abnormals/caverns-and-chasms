@@ -58,7 +58,6 @@ public class CCBiomeModifierProvider {
 		addFeature("fragile_stone", CCBiomeTags.HAS_FRAGILE_STONE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE, CCPlacedFeatures.ORE_FRAGILE_STONE_BURIED);
 
 		removeFeature("gold_ore", BiomeTags.IS_OVERWORLD, Set.of(Decoration.UNDERGROUND_ORES), OrePlacements.ORE_GOLD, OrePlacements.ORE_GOLD_LOWER);
-		removeFeature("lapis_ore", BiomeTags.IS_OVERWORLD, Set.of(Decoration.UNDERGROUND_ORES), OrePlacements.ORE_LAPIS, OrePlacements.ORE_LAPIS_BURIED);
 		removeFeature("dirt_ore", CCBiomeTags.HAS_ROCKY_DIRT, Set.of(Decoration.UNDERGROUND_ORES), OrePlacements.ORE_DIRT);
 
 		return JsonCodecProvider.forDatapackRegistry(generator, existingFileHelper, CavernsAndChasms.MOD_ID, RegistryOps.create(JsonOps.INSTANCE, ACCESS), ForgeRegistries.Keys.BIOME_MODIFIERS, MODIFIERS);

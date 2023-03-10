@@ -1,9 +1,0 @@
-{
-  "type": "forge:remove_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": [
-    "minecraft:ore_lapis",
-    "minecraft:ore_lapis_buried"
-  ],
-  "steps": "underground_ores"
-}

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_rabbit_hide": {
+    "has_leather": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:rabbit_hide"
+              "minecraft:leather"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_rabbit_hide",
+      "has_leather",
       "has_the_recipe"
     ]
   ],
