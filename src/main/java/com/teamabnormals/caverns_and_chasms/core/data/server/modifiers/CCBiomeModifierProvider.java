@@ -44,7 +44,7 @@ public class CCBiomeModifierProvider {
 	private static final HashMap<ResourceLocation, BiomeModifier> MODIFIERS = new HashMap<>();
 
 	public static JsonCodecProvider<BiomeModifier> create(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		addSpawn("mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 150, 1, 1));
+		addSpawn("mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 100, 1, 1));
 		addSpawn("glare", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
 
 		addFeature("base_ores", BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_GOLD_AND_SILVER_LOWER, CCPlacedFeatures.ORE_SPINEL_BURIED);
