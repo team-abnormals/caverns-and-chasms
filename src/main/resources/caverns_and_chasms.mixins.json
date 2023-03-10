@@ -6,7 +6,6 @@
   "refmap": "caverns_and_chasms.refmap.json",
   "mixins": [
     "AbstractMinecartMixin",
-    "AbstractSkeletonMixin",
     "AzaleaTreeGrowerMixin",
     "BaseFireBlockMixin",
     "BrewingRecipeRegistryMixin",
@@ -23,7 +22,6 @@
     "WitherSkeletonMixin"
   ],
   "client": [
-    "client.ClientRecipeBookMixin",
     "client.EntityRenderDispatcherMixin",
     "client.HumanoidArmorLayerMixin"
   ],
