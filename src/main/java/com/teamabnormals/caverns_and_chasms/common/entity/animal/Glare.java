@@ -1,9 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowLikedPlayerGoal;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.NearestViableOwnerGoal;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -14,7 +11,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -57,7 +53,7 @@ public class Glare extends PathfinderMob {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.FLYING_SPEED, 0.1F).add(Attributes.MOVEMENT_SPEED, 0.1F).add(Attributes.FOLLOW_RANGE, 48.0D);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FLYING_SPEED, 0.1F).add(Attributes.MOVEMENT_SPEED, 0.1F).add(Attributes.FOLLOW_RANGE, 48.0D);
 	}
 
 	@Override
@@ -68,12 +64,6 @@ public class Glare extends PathfinderMob {
 		this.goalSelector.addGoal(2, new FollowLikedPlayerGoal(this, 1.75F));
 		this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-
-		this.targetSelector.addGoal(0, new NearestViableOwnerGoal<>(this, Player.class, true, (entity) -> {
-			IDataManager manager = (IDataManager) entity;
-			Optional<UUID> ownedGlare = manager.getValue(CCDataProcessors.OWNED_GLARE_UUID);
-			return (ownedGlare.isEmpty() || (this.level instanceof ServerLevel server && server.getEntity(ownedGlare.get()) == null)) && this.getAngryAtUUID() != entity.getUUID();
-		}));
 
 		//TODO: More AI
 		// Spin under Spore Blossoms
@@ -216,8 +206,6 @@ public class Glare extends PathfinderMob {
 	public boolean hurt(DamageSource source, float damage) {
 		Entity attacker = source.getEntity();
 		if (attacker instanceof Player player) {
-			IDataManager manager = (IDataManager) attacker;
-			manager.setValue(CCDataProcessors.OWNED_GLARE_UUID, Optional.empty());
 			if (this.getOwnerUUID() != null && player.getUUID().equals(this.getOwnerUUID())) {
 				this.playSound(CCSoundEvents.ENTITY_GLARE_UNTAME.get(), 1.0F, 1.0F);
 				this.addParticlesAroundSelf(ParticleTypes.ANGRY_VILLAGER);
@@ -285,6 +273,12 @@ public class Glare extends PathfinderMob {
 			this.addParticlesAroundSelf(ParticleTypes.HEART);
 			this.removeInteractionItem(player, stack);
 			this.setAngryAtUUID(null);
+			if (this.getOwnerUUID() == null)
+				this.setOwnerUUID(player.getUUID());
+			return InteractionResult.SUCCESS;
+		} else if (this.getOwnerUUID() == null && this.getAngryAtUUID() != player.getUUID()) {
+			this.addParticlesAroundSelf(ParticleTypes.HEART);
+			this.setOwnerUUID(player.getUUID());
 			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);
@@ -298,12 +292,17 @@ public class Glare extends PathfinderMob {
 
 	@Override
 	public boolean removeWhenFarAway(double p_218384_) {
-		return false;
+		return this.getOwnerUUID() == null;
+	}
+
+	@Override
+	public boolean isPersistenceRequired() {
+		return this.getOwnerUUID() != null;
 	}
 
 	@Override
 	protected boolean shouldStayCloseToLeashHolder() {
-		return false;
+		return true;
 	}
 
 	@Override

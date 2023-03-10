@@ -19,7 +19,7 @@ public class FollowLikedPlayerGoal extends Goal {
 	}
 
 	public boolean canUse() {
-		if (this.glare.getOwnerUUID() == null) {
+		if (this.glare.getOwnerUUID() == null || this.glare.isLeashed()) {
 			return false;
 		} else {
 			this.likedPlayer = glare.level.getPlayerByUUID(glare.getOwnerUUID());
@@ -31,6 +31,8 @@ public class FollowLikedPlayerGoal extends Goal {
 		if (this.glare.getOwnerUUID() == null) {
 			return false;
 		} else if (this.likedPlayer == null || !this.likedPlayer.isAlive()) {
+			return false;
+		} else if (this.glare.isLeashed()) {
 			return false;
 		} else {
 			double distance = this.glare.distanceToSqr(this.likedPlayer);
@@ -47,7 +49,7 @@ public class FollowLikedPlayerGoal extends Goal {
 	}
 
 	public void tick() {
-		if (--this.timeToRecalcPath <= 0) {
+		if (--this.timeToRecalcPath <= 0 && this.likedPlayer != null) {
 			this.timeToRecalcPath = this.adjustedTickDelay(10);
 			this.glare.getNavigation().moveTo(this.likedPlayer, this.speedModifier);
 		}
