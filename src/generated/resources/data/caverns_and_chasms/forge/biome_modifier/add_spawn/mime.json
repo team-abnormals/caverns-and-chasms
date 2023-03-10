@@ -5,6 +5,6 @@
     "type": "caverns_and_chasms:mime",
     "maxCount": 1,
     "minCount": 1,
-    "weight": 150
+    "weight": 100
   }
 }
