@@ -10,6 +10,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -32,7 +35,8 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 public class Peeper extends Creeper {
-	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("06ecce1b-07a2-4f68-ba2c-8b90cb8bc7a3");
+	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("113f0691-d920-423d-acd2-9ca0c577991f");
+	private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Peeper frozen", -100.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
 	public Peeper(EntityType<? extends Peeper> type, Level worldIn) {
 		super(type, worldIn);
@@ -42,14 +46,11 @@ public class Peeper extends Creeper {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new PeeperFreezeWhenTargetStill(this));
-		this.goalSelector.addGoal(2, new PeeperSwellGoal(this));
-		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Ocelot.class, 6.0F, 1.0D, 1.2D));
-		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Cat.class, 6.0F, 1.0D, 1.2D));
-		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
-		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
-		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(1, new PeeperSwellGoal(this));
+		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 		this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 	}
@@ -96,6 +97,21 @@ public class Peeper extends Creeper {
 	}
 
 	@Override
+	public void aiStep() {
+		AttributeInstance speedAttribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
+		if (speedAttribute.getModifier(SPEED_MODIFIER_UUID) != null) {
+			speedAttribute.removeModifier(SPEED_MODIFIER);
+		}
+
+		if (this.getTarget() instanceof MovingPlayer player && !player.isMoving()) {
+			speedAttribute.addTransientModifier(SPEED_MODIFIER);
+			this.getLookControl().setLookAt(this.getTarget().getX(), this.getTarget().getEyeY(), this.getTarget().getZ());
+		}
+
+		super.aiStep();
+	}
+
+	@Override
 	public void explodeCreeper() {
 		if (!this.level.isClientSide) {
 			Explosion.BlockInteraction explosion$mode = ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE;
@@ -137,32 +153,5 @@ public class Peeper extends Creeper {
 
 	protected ItemStack getSkull() {
 		return new ItemStack(CCItems.PEEPER_HEAD.get());
-	}
-
-	static class PeeperFreezeWhenTargetStill extends Goal {
-		private final Peeper peeper;
-		@Nullable
-		private LivingEntity target;
-
-		public PeeperFreezeWhenTargetStill(Peeper peeper) {
-			this.peeper = peeper;
-			this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
-		}
-
-		public boolean canUse() {
-			this.target = this.peeper.getTarget();
-			if (this.target == null || !target.isAlive())
-				return true;
-			return target instanceof MovingPlayer player && !player.isMoving();
-		}
-
-		public void start() {
-			this.peeper.getNavigation().stop();
-		}
-
-		public void tick() {
-			if (this.target != null)
-				this.peeper.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
-		}
 	}
 }
