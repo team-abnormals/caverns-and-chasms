@@ -80,6 +80,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(Tags.Blocks.CHESTS_TRAPPED, Tags.Items.CHESTS_TRAPPED);
 		this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
 		this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+		this.copy(Tags.Blocks.BOOKSHELVES, Tags.Items.BOOKSHELVES);
 		this.tag(BlueprintItemTags.BUCKETS_EMPTY).add(CCItems.GOLDEN_BUCKET.get());
 		this.tag(BlueprintItemTags.BUCKETS_WATER).add(CCItems.GOLDEN_WATER_BUCKET.get());
 		this.tag(BlueprintItemTags.BUCKETS_LAVA).add(CCItems.GOLDEN_LAVA_BUCKET.get());
