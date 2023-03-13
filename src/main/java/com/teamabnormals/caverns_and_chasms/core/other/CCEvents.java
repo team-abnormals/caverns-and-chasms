@@ -339,7 +339,7 @@ public class CCEvents {
 				++base;
 			}
 
-			event.setExpToDrop(base);
+			event.setExpToDrop(event.getExpToDrop() + base);
 		}
 	}
 
@@ -357,7 +357,7 @@ public class CCEvents {
 					++base;
 				}
 
-				event.setDroppedExperience(base);
+				event.setDroppedExperience(event.getDroppedExperience() + base);
 			}
 		}
 	}
