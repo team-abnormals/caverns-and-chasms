@@ -106,15 +106,6 @@
     "caverns_and_chasms:cut_amethyst_brick_stairs",
     "caverns_and_chasms:cut_amethyst_brick_slab",
     "caverns_and_chasms:cut_amethyst_brick_wall",
-    "caverns_and_chasms:cut_amethyst_brick_vertical_slab",
-    "caverns_and_chasms:azalea_boards",
-    "caverns_and_chasms:azalea_bookshelf",
-    "caverns_and_chasms:azalea_ladder",
-    "caverns_and_chasms:azalea_beehive",
-    "caverns_and_chasms:azalea_chest",
-    "caverns_and_chasms:azalea_trapped_chest",
-    "caverns_and_chasms:azalea_hedge",
-    "caverns_and_chasms:azalea_post",
-    "caverns_and_chasms:stripped_azalea_post"
+    "caverns_and_chasms:cut_amethyst_brick_vertical_slab"
   ]
 }
