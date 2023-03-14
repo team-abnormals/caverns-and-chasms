@@ -172,7 +172,7 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 		int level = stack.getOrCreateTag().getInt(NBT_TAG);
 		ItemStack returnStack = level > 0 ? stack : getEmptyBucket();
 		if (player == null || !player.getAbilities().instabuild)
-			decreaseFluidLevel(stack);
+			decreaseFluidLevel(returnStack);
 		return player == null || !player.getAbilities().instabuild ? returnStack : stack;
 	}
 

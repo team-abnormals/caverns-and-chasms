@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
+import com.teamabnormals.blueprint.core.api.BlueprintCauldronInteraction;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
@@ -12,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -30,9 +32,9 @@ import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 public class CCCompat {
@@ -123,38 +125,36 @@ public class CCCompat {
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
 	}
 
+	public static final CauldronInteraction FILL_WATER = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_EMPTY);
+	public static final CauldronInteraction FILL_LAVA = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.LAVA_CAULDRON.defaultBlockState(), blockState -> true, SoundEvents.BUCKET_EMPTY_LAVA);
+	public static final CauldronInteraction FILL_POWDER_SNOW = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.POWDER_SNOW_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_EMPTY_POWDER_SNOW);
+	public static final CauldronInteraction FILL_MILK = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, ForgeRegistries.BLOCKS.getValue(new ResourceLocation("neapolitan", "milk_cauldron")).defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_EMPTY_POWDER_SNOW);
+
 	private static void registerCauldronInteractions() {
 		addFillBucketInteractions();
-		addDefaultInteractions(CauldronInteraction.EMPTY);
-		addDefaultInteractions(CauldronInteraction.WATER);
-		addDefaultInteractions(CauldronInteraction.LAVA);
-		addDefaultInteractions(CauldronInteraction.POWDER_SNOW);
-//		addDefaultInteractions(CauldronInteraction.MILK);
-	}
-
-	private static void addDefaultInteractions(Map<Item, CauldronInteraction> map) {
-		map.put(CCItems.GOLDEN_LAVA_BUCKET.get(), FILL_LAVA);
-		map.put(CCItems.GOLDEN_WATER_BUCKET.get(), FILL_WATER);
-		map.put(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), FILL_POWDER_SNOW);
-//		map.put(CCItems.GOLDEN_MILK_BUCKET.get(), FILL_MILK);
+		BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_LAVA_BUCKET.get(), FILL_LAVA);
+		BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_WATER_BUCKET.get(), FILL_WATER);
+		BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), FILL_POWDER_SNOW);
+		if (ForgeRegistries.BLOCKS.containsKey(new ResourceLocation("neapolitan", "milk_cauldron"))) {
+			BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_MILK_BUCKET.get(), FILL_MILK);
+		}
 	}
 
 	private static void addFillBucketInteractions() {
 		CauldronInteraction.WATER.put(CCItems.GOLDEN_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillBucket(state, level, pos, player, hand, stack, new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get()), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL));
 		CauldronInteraction.LAVA.put(CCItems.GOLDEN_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillBucket(state, level, pos, player, hand, stack, new ItemStack(CCItems.GOLDEN_LAVA_BUCKET.get()), blockState -> true, SoundEvents.BUCKET_FILL_LAVA));
 		CauldronInteraction.POWDER_SNOW.put(CCItems.GOLDEN_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillBucket(state, level, pos, player, hand, stack, new ItemStack(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get()), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL_POWDER_SNOW));
-//		CauldronInteraction.MILK.put(CCItems.GOLDEN_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillBucket(state, level, pos, player, hand, stack, new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get()), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL_MILK));
 
-		CauldronInteraction.WATER.put(CCItems.GOLDEN_MILK_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillFilledBucket(state, level, pos, player, hand, stack, blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL));
+		CauldronInteraction.WATER.put(CCItems.GOLDEN_WATER_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillFilledBucket(state, level, pos, player, hand, stack, blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL));
 		CauldronInteraction.LAVA.put(CCItems.GOLDEN_LAVA_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillFilledBucket(state, level, pos, player, hand, stack, blockState -> true, SoundEvents.BUCKET_FILL_LAVA));
 		CauldronInteraction.POWDER_SNOW.put(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillFilledBucket(state, level, pos, player, hand, stack, blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL_POWDER_SNOW));
-//		CauldronInteraction.MILK.put(CCItems.GOLDEN_MILK_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillFilledBucket(state, level, pos, player, hand, stack, blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL_MILK));
-	}
 
-	public static CauldronInteraction FILL_WATER = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_EMPTY);
-	public static CauldronInteraction FILL_LAVA = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.LAVA_CAULDRON.defaultBlockState(), blockState -> true, SoundEvents.BUCKET_EMPTY_LAVA);
-	public static CauldronInteraction FILL_POWDER_SNOW = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.POWDER_SNOW_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_EMPTY_POWDER_SNOW);
-//	public static CauldronInteraction FILL_MILK = (state, level, pos, player, hand, stack) -> emptyBucket(level, pos, player, hand, stack, Blocks.MILK_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_EMPTY_MILK);
+		BlueprintCauldronInteraction milk = BlueprintCauldronInteraction.getTypeFromLocation(new ResourceLocation("neapolitan", "milk"));
+		if (milk != null) {
+			milk.map().put(CCItems.GOLDEN_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillBucket(state, level, pos, player, hand, stack, new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get()), blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL));
+			milk.map().put(CCItems.GOLDEN_MILK_BUCKET.get(), (state, level, pos, player, hand, stack) -> fillFilledBucket(state, level, pos, player, hand, stack, blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, SoundEvents.BUCKET_FILL));
+		}
+	}
 
 	public static InteractionResult fillBucket(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, ItemStack output, Predicate<BlockState> statePredicate, SoundEvent soundEvent) {
 		if (!statePredicate.test(state)) {
@@ -193,7 +193,7 @@ public class CCCompat {
 	}
 
 	public static InteractionResult emptyBucket(Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, BlockState state, Predicate<BlockState> statePredicate, SoundEvent soundEvent) {
-		if (state.equals(level.getBlockState(pos)) && stack.getOrCreateTag().getInt("FluidLevel") != 3 && statePredicate.test(state)) {
+		if (state.equals(level.getBlockState(pos)) && stack.getOrCreateTag().getInt("FluidLevel") < 2 && statePredicate.test(state)) {
 			return fillFilledBucket(state, level, pos, player, hand, stack, statePredicate, soundEvent);
 		} else {
 			if (!level.isClientSide) {
