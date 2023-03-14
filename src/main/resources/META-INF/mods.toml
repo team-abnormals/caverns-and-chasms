@@ -21,7 +21,7 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
     modId = "minecraft"
     mandatory = true
     versionRange = "[1.19.2,1.19.3)"
-    ordering = "NONE"
+    ordering = "AFTER"
     side = "BOTH"
 
 [[dependencies.caverns_and_chasms]]
@@ -34,6 +34,6 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
 [[dependencies.caverns_and_chasms]]
     modId = "blueprint"
     mandatory = true
-    versionRange = "[6.1.0,)"
+    versionRange = "[6.1.2,)"
     ordering = "AFTER"
     side = "BOTH"
