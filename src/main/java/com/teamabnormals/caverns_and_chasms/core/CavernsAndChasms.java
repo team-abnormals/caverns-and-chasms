@@ -15,10 +15,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvance
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCBiomeModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
-import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
-import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
-import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
+import com.teamabnormals.caverns_and_chasms.core.other.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
@@ -95,6 +92,7 @@ public class CavernsAndChasms {
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
+		CCCauldronInteractions.registerCauldronInteractions();
 		event.enqueueWork(() -> {
 			CCCompat.registerCompat();
 			CCEntityTypes.registerEntitySpawns();
