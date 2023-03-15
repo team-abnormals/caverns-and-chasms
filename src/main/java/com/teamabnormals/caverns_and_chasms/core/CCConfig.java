@@ -16,6 +16,9 @@ public class CCConfig {
 		public final BooleanValue deepersDropAllBlocks;
 		public final IntValue deeperMaxSpawnHeight;
 
+//		public final BooleanValue skeletonHealthNerf;
+//		public final DoubleValue skeletonHealth;
+
 		public final BooleanValue chainmailArmorBuff;
 
 		public final BooleanValue betterRailPlacement;
@@ -32,6 +35,10 @@ public class CCConfig {
 			deepersDropAllBlocks = builder.define("Deeper explosions drop all blocks", true);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
 			builder.pop();
+//			builder.push("skeleton");
+//			skeletonHealthNerf = builder.define("If Skeleton's health should be nerfed from 20", true);
+//			skeletonHealth = builder.comment("Skeleton health").defineInRange("Creeper explosion nerf factor", 10.0D, 1.0D, 1024.0D);
+//			builder.pop();
 			builder.pop();
 
 			builder.push("tweaks");

@@ -19,9 +19,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
@@ -58,6 +60,11 @@ public class CCEntityTypes {
 		event.put(COPPER_GOLEM.get(), CopperGolem.registerAttributes().build());
 		event.put(OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolem.registerAttributes().build());
 		event.put(SPIDERLING.get(), Spiderling.registerAttributes().build());
+	}
+
+	@SubscribeEvent
+	public static void registerAttributes(EntityAttributeModificationEvent event) {
+		event.add(EntityType.SKELETON, Attributes.MAX_HEALTH, 10.0D);
 	}
 
 	public static void registerEntitySpawns() {
