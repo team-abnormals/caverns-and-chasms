@@ -24,6 +24,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent.Operation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
@@ -33,7 +35,7 @@ import net.minecraftforge.registries.RegistryObject;
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CCEntityTypes {
 	public static final EntitySubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getEntitySubHelper();
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CavernsAndChasms.MOD_ID);
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<Peeper>> PEEPER = HELPER.createLivingEntity("peeper", Peeper::new, MobCategory.MONSTER, 0.6F, 2.2F);
@@ -42,10 +44,10 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, MobCategory.CREATURE, 0.5F, 0.45F);
 	public static final RegistryObject<EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.AMBIENT, 0.8F, 1.2F);
 	public static final RegistryObject<EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
-	public static final RegistryObject<EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITIES.register("oxidized_copper_golem", () -> EntityType.Builder.<OxidizedCopperGolem>of(OxidizedCopperGolem::new, MobCategory.MISC).fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidized_copper_golem").toString()));
+	public static final RegistryObject<EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.register("oxidized_copper_golem", () -> EntityType.Builder.<OxidizedCopperGolem>of(OxidizedCopperGolem::new, MobCategory.MISC).fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidized_copper_golem").toString()));
 	public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = HELPER.createLivingEntity("spiderling", Spiderling::new, MobCategory.MONSTER, 0.35F, 0.25F);
 	public static final RegistryObject<EntityType<Kunai>> KUNAI = HELPER.createEntity("kunai", Kunai::new, Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
-	public static final RegistryObject<EntityType<PrimedTmt>> TMT = ENTITIES.register("tmt", () -> EntityType.Builder.<PrimedTmt>of(PrimedTmt::new, MobCategory.MISC).fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "tmt").toString()));
+	public static final RegistryObject<EntityType<PrimedTmt>> TMT = ENTITY_TYPES.register("tmt", () -> EntityType.Builder.<PrimedTmt>of(PrimedTmt::new, MobCategory.MISC).fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "tmt").toString()));
 	public static final RegistryObject<EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = HELPER.createEntity("spinel_pearl", ThrownBejeweledPearl::new, ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);
 	public static final RegistryObject<EntityType<BluntArrow>> BLUNT_ARROW = HELPER.createEntity("blunt_arrow", BluntArrow::new, BluntArrow::new, MobCategory.MISC, 0.5F, 0.5F);
 
@@ -67,9 +69,10 @@ public class CCEntityTypes {
 		event.add(EntityType.SKELETON, Attributes.MAX_HEALTH, 10.0D);
 	}
 
-	public static void registerEntitySpawns() {
-		SpawnPlacements.register(DEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-		SpawnPlacements.register(MIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mime::checkMimeSpawnRules);
-		SpawnPlacements.register(GLARE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Glare::checkGlareSpawnRules);
+	@SubscribeEvent
+	public static void registerAttributes(SpawnPlacementRegisterEvent event) {
+		event.register(DEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, Operation.OR);
+		event.register(MIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mime::checkMimeSpawnRules, Operation.OR);
+		event.register(GLARE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Glare::checkGlareSpawnRules, Operation.OR);
 	}
 }

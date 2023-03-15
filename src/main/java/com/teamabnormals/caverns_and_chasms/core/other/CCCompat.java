@@ -46,6 +46,7 @@ public class CCCompat {
 		registerFireworkIngredients();
 		changeLocalization();
 		setFireproof();
+		CCCauldronInteractions.registerCauldronInteractions();
 	}
 
 	private static void registerFlammables() {

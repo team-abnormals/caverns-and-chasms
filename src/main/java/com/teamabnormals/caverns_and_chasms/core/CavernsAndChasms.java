@@ -59,7 +59,7 @@ public class CavernsAndChasms {
 		CCDataProcessors.registerTrackedData();
 
 		REGISTRY_HELPER.register(bus);
-		CCEntityTypes.ENTITIES.register(bus);
+		CCEntityTypes.ENTITY_TYPES.register(bus);
 		CCAttributes.ATTRIBUTES.register(bus);
 		CCMobEffects.POTIONS.register(bus);
 		CCMobEffects.MOB_EFFECTS.register(bus);
@@ -92,10 +92,8 @@ public class CavernsAndChasms {
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
-		CCCauldronInteractions.registerCauldronInteractions();
 		event.enqueueWork(() -> {
 			CCCompat.registerCompat();
-			CCEntityTypes.registerEntitySpawns();
 			CCMobEffects.registerBrewingRecipes();
 		});
 	}
