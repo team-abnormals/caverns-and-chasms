@@ -12,6 +12,7 @@ public class FollowLikedPlayerGoal extends Goal {
 	private Player likedPlayer;
 	private final double speedModifier;
 	private int timeToRecalcPath;
+	private final double followDistance = 64.0D;
 
 	public FollowLikedPlayerGoal(Glare glare, double speed) {
 		this.glare = glare;
@@ -23,7 +24,7 @@ public class FollowLikedPlayerGoal extends Goal {
 			return false;
 		} else {
 			this.likedPlayer = glare.level.getPlayerByUUID(glare.getOwnerUUID());
-			return this.likedPlayer != null && this.glare.distanceToSqr(this.likedPlayer) >= 64.0D;
+			return this.likedPlayer != null && this.glare.distanceToSqr(this.likedPlayer) >= followDistance;
 		}
 	}
 
@@ -36,7 +37,9 @@ public class FollowLikedPlayerGoal extends Goal {
 			return false;
 		} else {
 			double distance = this.glare.distanceToSqr(this.likedPlayer);
-			return distance >= 64.0D;
+			if (distance < followDistance)
+				this.glare.getNavigation().stop();
+			return distance >= followDistance;
 		}
 	}
 

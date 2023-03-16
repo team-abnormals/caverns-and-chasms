@@ -70,7 +70,6 @@ public class CavernsAndChasms {
 		CCPlacedFeatures.PLACED_FEATURES.register(bus);
 		CCRecipeTypes.RECIPE_TYPES.register(bus);
 		CCBiomeModifierTypes.BIOME_MODIFIER_SERIALIZERS.register(bus);
-		CCMemoryModuleTypes.MEMORY_MODULE_TYPES.register(bus);
 		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
 
 		bus.addListener(this::commonSetup);

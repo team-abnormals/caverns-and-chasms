@@ -42,7 +42,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
 	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, MobCategory.CREATURE, 0.5F, 0.45F);
-	public static final RegistryObject<EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.AMBIENT, 0.8F, 1.2F);
+	public static final RegistryObject<EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.AMBIENT, 0.5F, 0.75F);
 	public static final RegistryObject<EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
 	public static final RegistryObject<EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.register("oxidized_copper_golem", () -> EntityType.Builder.<OxidizedCopperGolem>of(OxidizedCopperGolem::new, MobCategory.MISC).fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidized_copper_golem").toString()));
 	public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = HELPER.createLivingEntity("spiderling", Spiderling::new, MobCategory.MONSTER, 0.35F, 0.25F);
