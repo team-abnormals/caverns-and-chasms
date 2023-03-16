@@ -8,7 +8,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "tag": "forge:nuggets/silver"
+      "item": "minecraft:gold_nugget"
     }
   },
   "pattern": [
@@ -17,6 +17,6 @@
     "XRX"
   ],
   "result": {
-    "item": "caverns_and_chasms:spiked_rail"
+    "item": "minecraft:powered_rail"
   }
 }

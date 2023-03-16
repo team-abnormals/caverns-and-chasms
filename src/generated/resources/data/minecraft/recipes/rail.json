@@ -4,19 +4,17 @@
     "#": {
       "item": "minecraft:stick"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
     "X": {
-      "tag": "forge:nuggets/silver"
+      "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
     "X X",
     "X#X",
-    "XRX"
+    "X X"
   ],
   "result": {
-    "item": "caverns_and_chasms:spiked_rail"
+    "count": 3,
+    "item": "minecraft:rail"
   }
 }
