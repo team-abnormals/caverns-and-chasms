@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nonnull;
 
@@ -56,6 +57,7 @@ public interface FragileBlock {
 		level.playSound(null, pos, soundtype.getBreakSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
 
 		level.removeBlock(pos, true);
+		level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(state));
 	}
 
 	default boolean shouldBreakNeighbors(Player player, ItemStack stack) {

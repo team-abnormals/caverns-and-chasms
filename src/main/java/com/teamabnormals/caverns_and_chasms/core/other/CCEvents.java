@@ -122,10 +122,11 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void rightClickEntity(PlayerInteractEvent.EntityInteractSpecific event) {
 		Player player = event.getEntity();
+		Entity target = event.getTarget();
 		ItemStack stack = player.getItemInHand(event.getHand());
 		Level level = event.getLevel();
 		InteractionHand hand = event.getHand();
-		if (event.getTarget() instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE)) {
+		if (target instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE)) {
 			if (!entity.isBaby() && (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get())) {
 				CompoundTag tag = stack.getOrCreateTag();
 				ItemStack milkBucket = ItemUtils.createFilledResult(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
@@ -138,6 +139,7 @@ public class CCEvents {
 				}
 				if (!fullBucket) {
 					player.playSound(entity instanceof Goat goat ? goat.isScreamingGoat() ? SoundEvents.GOAT_SCREAMING_MILK : SoundEvents.GOAT_MILK : SoundEvents.COW_MILK, 1.0F, 1.0F);
+					target.gameEvent(GameEvent.ENTITY_INTERACT);
 					player.setItemInHand(hand, milkBucket);
 					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 					event.setCanceled(true);
@@ -245,8 +247,9 @@ public class CCEvents {
 				int note = tag.getInt("Note");
 				level.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, Mth.clamp(note, 0, 24)));
 				player.displayClientMessage(Component.translatable(item.getDescriptionId() + ".change_note", Component.translatable(item.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-				if (!level.isClientSide()) {
+				if (!level.isClientSide() && level.getBlockState(pos.above()).isAir()) {
 					level.blockEvent(pos, state.getBlock(), 0, 0);
+					level.gameEvent(player, GameEvent.NOTE_BLOCK_PLAY, pos);
 				}
 				event.setCanceled(true);
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));

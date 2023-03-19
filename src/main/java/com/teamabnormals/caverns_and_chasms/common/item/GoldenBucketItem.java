@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -127,6 +128,7 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 						if (!newBucket.isEmpty()) {
 							player.awardStat(Stats.ITEM_USED.get(this));
 							bucketPickup.getPickupSound(sourceState).ifPresent((soundEvent) -> player.playSound(soundEvent, 1.0F, 1.0F));
+							level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
 							if (!level.isClientSide) {
 								CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, newBucket);
 							}
@@ -223,6 +225,7 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 		if (soundevent == null)
 			soundevent = this.getFluid().is(FluidTags.LAVA) ? SoundEvents.BUCKET_EMPTY_LAVA : SoundEvents.BUCKET_EMPTY;
 		level.playSound(player, pos, soundevent, SoundSource.BLOCKS, 1.0F, 1.0F);
+		level.gameEvent(player, GameEvent.FLUID_PLACE, pos);
 	}
 
 	@Override
