@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -52,6 +53,10 @@ public class CCDataProcessors {
 	public static final TrackedData<Integer> FORGET_GOLEM_TIME = TrackedData.Builder.create(DataProcessors.INT, () -> 0).build();
 	public static final TrackedData<Optional<BlockPos>> TUNING_FORK_POS = TrackedData.Builder.create(OPTIONAL_POS, () -> Optional.empty()).build();
 	public static final TrackedData<Optional<UUID>> TUNING_FORK_TARGET_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
+	public static final TrackedData<ResourceLocation> REWIND_DIMENSION = TrackedData.Builder.create(DataProcessors.RESOURCE_LOCATION, () -> Level.OVERWORLD.location()).enableSaving().build();
+	public static final TrackedData<Double> REWIND_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
+	public static final TrackedData<Double> REWIND_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
+	public static final TrackedData<Double> REWIND_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 
 	public static void registerTrackedData() {
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
@@ -59,5 +64,9 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "forget_golem_time"), FORGET_GOLEM_TIME);
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "tuning_fork_pos"), TUNING_FORK_POS);
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "tuning_fork_target_uuid"), TUNING_FORK_TARGET_UUID);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_dimension"), REWIND_DIMENSION);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_x"), REWIND_X);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_y"), REWIND_Y);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_z"), REWIND_Z);
 	}
 }

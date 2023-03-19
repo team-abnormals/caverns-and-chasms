@@ -379,11 +379,11 @@ public class CCEvents {
 	public static void potionAddedEvent(MobEffectEvent.Added event) {
 		LivingEntity entity = event.getEntity();
 		if (event.getEffectInstance().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND.get())) {
-			CompoundTag data = entity.getPersistentData();
-			data.putString("RewindDimension", entity.getCommandSenderWorld().dimension().location().toString());
-			data.putDouble("RewindX", entity.getX());
-			data.putDouble("RewindY", entity.getY());
-			data.putDouble("RewindZ", entity.getZ());
+			IDataManager data = ((IDataManager) entity);
+			data.setValue(CCDataProcessors.REWIND_DIMENSION, entity.getCommandSenderWorld().dimension().location());
+			data.setValue(CCDataProcessors.REWIND_X, entity.getX());
+			data.setValue(CCDataProcessors.REWIND_Y, entity.getY());
+			data.setValue(CCDataProcessors.REWIND_Z, entity.getZ());
 		}
 	}
 
@@ -393,27 +393,8 @@ public class CCEvents {
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntity();
-
-			if (effect == CCMobEffects.REWIND.get()) {
-				CompoundTag data = entity.getPersistentData();
-				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
-					if (data.contains("RewindDimension")) {
-						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
-						ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, resourcelocation);
-						ServerLevel dimension = entity.getServer().getLevel(key);
-
-						if (dimension != entity.getCommandSenderWorld())
-							entity.changeDimension(dimension, new ITeleporter() {
-								@Override
-								public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-									return repositionEntity.apply(false);
-								}
-							});
-					}
-					entity.teleportTo(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
-					entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
-				}
-			}
+			if (effect == CCMobEffects.REWIND.get())
+				rewindTeleport(entity);
 		}
 	}
 
@@ -423,27 +404,8 @@ public class CCEvents {
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect();
 			LivingEntity entity = event.getEntity();
-
-			if (effect == CCMobEffects.REWIND.get()) {
-				CompoundTag data = entity.getPersistentData();
-				if (data.contains("RewindX") && data.contains("RewindY") && data.contains("RewindZ")) {
-					if (data.contains("RewindDimension")) {
-						ResourceLocation resourcelocation = new ResourceLocation(data.getString("RewindDimension"));
-						ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, resourcelocation);
-						ServerLevel dimension = entity.getServer().getLevel(key);
-
-						if (dimension != entity.getCommandSenderWorld())
-							entity.changeDimension(dimension, new ITeleporter() {
-								@Override
-								public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-									return repositionEntity.apply(false);
-								}
-							});
-					}
-					entity.teleportTo(data.getDouble("RewindX"), data.getDouble("RewindY"), data.getDouble("RewindZ"));
-					entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
-				}
-			}
+			if (effect == CCMobEffects.REWIND.get())
+				rewindTeleport(entity);
 		}
 	}
 
@@ -630,5 +592,33 @@ public class CCEvents {
 		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
 			TetherPotionItem.updateTetherPotionEffects(entity, stack, true);
 		}
+	}
+
+	private static void rewindTeleport(LivingEntity entity) {
+		IDataManager data = ((IDataManager) entity);
+		ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, data.getValue(CCDataProcessors.REWIND_DIMENSION));
+		ServerLevel dimension = entity.getServer().getLevel(key);
+
+		if (dimension != entity.getCommandSenderWorld()) {
+			entity.changeDimension(dimension, new ITeleporter() {
+				@Override
+				public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+					return repositionEntity.apply(false);
+				}
+			});
+		}
+
+		double x = data.getValue(CCDataProcessors.REWIND_X);
+		double y = data.getValue(CCDataProcessors.REWIND_Y);
+		double z = data.getValue(CCDataProcessors.REWIND_Z);
+
+		if (entity.isPassenger())
+			entity.dismountTo(x, y, z);
+		else
+			entity.teleportTo(x, y ,z);
+
+		entity.teleportTo(data.getValue(CCDataProcessors.REWIND_X), data.getValue(CCDataProcessors.REWIND_Y), data.getValue(CCDataProcessors.REWIND_Z));
+		entity.resetFallDistance();
+		entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 	}
 }
