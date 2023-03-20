@@ -2,21 +2,7 @@
   "parent": "caverns_and_chasms:adventure/smelt_copper",
   "criteria": {
     "use_tuning_fork": {
-      "conditions": {
-        "item": {
-          "items": [
-            "caverns_and_chasms:tuning_fork"
-          ]
-        },
-        "location": {
-          "block": {
-            "blocks": [
-              "minecraft:note_block"
-            ]
-          }
-        }
-      },
-      "trigger": "minecraft:item_used_on_block"
+      "trigger": "caverns_and_chasms:use_tuning_fork"
     }
   },
   "display": {

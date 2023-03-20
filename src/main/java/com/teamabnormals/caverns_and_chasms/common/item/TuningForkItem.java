@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
@@ -11,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -64,6 +66,8 @@ public class TuningForkItem extends Item {
 
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".capture_note", Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+					if (player instanceof ServerPlayer)
+						CCCriteriaTriggers.USE_TUNING_FORK.trigger((ServerPlayer) player);
 				}
 
 				return InteractionResult.sidedSuccess(level.isClientSide());

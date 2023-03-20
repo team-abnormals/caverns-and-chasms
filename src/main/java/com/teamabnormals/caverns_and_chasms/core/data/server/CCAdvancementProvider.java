@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.Advancement;
@@ -42,7 +43,7 @@ public class CCAdvancementProvider extends AdvancementProvider {
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/smelt_copper");
 
 		createAdvancement("use_tuning_fork", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, false)
-				.addCriterion("use_tuning_fork", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(Blocks.NOTE_BLOCK).build()), ItemPredicate.Builder.item().of(CCItems.TUNING_FORK.get())))
+				.addCriterion("use_tuning_fork", CCCriteriaTriggers.USE_TUNING_FORK.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/use_tuning_fork");
 
 		createAdvancement("tune_a_fish", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/use_tuning_fork"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, true)
