@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
@@ -32,7 +33,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -71,6 +71,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
@@ -255,6 +256,13 @@ public class CCEvents {
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}
 		}
+
+		/*
+		if (state.getBlock() instanceof CopperButtonBlock && state.getValue(CopperButtonBlock.POWERED)) {
+			if (item == Items.HONEYCOMB || item instanceof AxeItem)
+				event.setUseItem(Event.Result.DENY);
+		}
+		*/
 
 		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
@@ -588,9 +596,9 @@ public class CCEvents {
 			}
 		}
 
-		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
-		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
-			TetherPotionItem.updateTetherPotionEffects(entity, stack, true);
+		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
+		if (headstack.getItem() == CCItems.TETHER_POTION.get()) {
+			TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 		}
 	}
 
