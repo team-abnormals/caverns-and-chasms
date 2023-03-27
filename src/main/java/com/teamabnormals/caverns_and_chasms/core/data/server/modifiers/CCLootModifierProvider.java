@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -68,6 +69,9 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 5), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 6))));
 
 		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE).addModifier(new LootPoolEntriesModifier(false, 0,
+				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
+
+		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "kousa_sanctum")).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
 	}
 
