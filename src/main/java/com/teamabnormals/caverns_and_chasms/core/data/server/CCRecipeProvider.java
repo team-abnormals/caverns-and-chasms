@@ -97,6 +97,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(CCItems.DEPTH_GAUGE.get()).define('#', CCItemTags.INGOTS_SILVER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
 		mimingRecipe(consumer, Items.MUSIC_DISC_11, CCItems.MUSIC_DISC_EPILOGUE.get());
 		ShapedRecipeBuilder.shaped(CCBlocks.ROCKY_DIRT.get(), 4).define('D', Blocks.DIRT).define('C', Blocks.COBBLESTONE).pattern("DC").pattern("CD").unlockedBy("has_dirt", has(Blocks.DIRT)).unlockedBy("has_cobblestone", has(Blocks.COBBLESTONE)).save(consumer);
+		ShapelessRecipeBuilder.shapeless(Blocks.ROOTED_DIRT).requires(Blocks.DIRT).requires(Blocks.HANGING_ROOTS).unlockedBy("has_hanging_roots", has(Blocks.HANGING_ROOTS)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(Blocks.ROOTED_DIRT)));
 
 		ShapedRecipeBuilder.shaped(CCBlocks.LAVA_LAMP.get()).define('G', Tags.Items.INGOTS_GOLD).define('B', BlueprintItemTags.BUCKETS_LAVA).pattern("GGG").pattern("GBG").pattern("GGG").unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD)).save(consumer);
 
