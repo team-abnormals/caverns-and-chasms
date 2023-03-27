@@ -44,6 +44,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.WOODEN_TRAPDOORS).add(AZALEA_TRAPDOOR.get());
 		this.tag(BlockTags.WOODEN_BUTTONS).add(AZALEA_BUTTON.get());
 		this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(AZALEA_PRESSURE_PLATE.get());
+		this.tag(BlockTags.FENCE_GATES).add(AZALEA_FENCE_GATE.get());
+		this.tag(BlockTags.OVERWORLD_NATURAL_LOGS).add(AZALEA_LOG.get());
 		this.tag(BlockTags.STANDING_SIGNS).add(AZALEA_SIGN.getFirst().get());
 		this.tag(BlockTags.WALL_SIGNS).add(AZALEA_SIGN.getSecond().get());
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
@@ -115,6 +117,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(Tags.Blocks.FENCES_WOODEN).add(AZALEA_FENCE.get());
 		this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(AZALEA_FENCE_GATE.get());
 		this.tag(Tags.Blocks.BOOKSHELVES).add(AZALEA_BOOKSHELF.get());
+		this.tag(Tags.Blocks.STONE).add(POLISHED_CALCITE.get(), POLISHED_TUFF.get());
 
 		this.tag(BlueprintBlockTags.LADDERS).add(AZALEA_LADDER.get());
 		this.tag(BlueprintBlockTags.VERTICAL_SLABS).add(COBBLESTONE_BRICK_VERTICAL_SLAB.get(), COBBLESTONE_TILE_VERTICAL_SLAB.get(), MOSSY_COBBLESTONE_BRICK_VERTICAL_SLAB.get(), MOSSY_COBBLESTONE_TILE_VERTICAL_SLAB.get(), SPINEL_BRICK_VERTICAL_SLAB.get(), LAPIS_LAZULI_BRICK_VERTICAL_SLAB.get(), SANGUINE_VERTICAL_SLAB.get(), DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CALCITE_VERTICAL_SLAB.get(), POLISHED_CALCITE_VERTICAL_SLAB.get(), TUFF_VERTICAL_SLAB.get(), POLISHED_TUFF_VERTICAL_SLAB.get(), CUT_AMETHYST_BRICK_VERTICAL_SLAB.get());
