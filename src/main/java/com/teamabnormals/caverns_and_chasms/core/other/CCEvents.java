@@ -320,7 +320,7 @@ public class CCEvents {
 					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 					level.setBlock(belowPos, Blocks.AIR.defaultBlockState(), 2);
 					level.levelEvent(2001, pos, Block.getId(state));
-					level.levelEvent(2001, belowPos, Block.getId(state));
+					level.levelEvent(2001, belowPos, Block.getId(belowState));
 
 					CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
 					coppergolem.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D, 0.0F, 0.0F);
