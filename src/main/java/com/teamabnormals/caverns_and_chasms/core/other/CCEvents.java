@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
@@ -71,7 +70,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
@@ -623,7 +621,7 @@ public class CCEvents {
 		if (entity.isPassenger())
 			entity.dismountTo(x, y, z);
 		else
-			entity.teleportTo(x, y ,z);
+			entity.teleportTo(x, y, z);
 
 		entity.teleportTo(data.getValue(CCDataProcessors.REWIND_X), data.getValue(CCDataProcessors.REWIND_Y), data.getValue(CCDataProcessors.REWIND_Z));
 		entity.resetFallDistance();

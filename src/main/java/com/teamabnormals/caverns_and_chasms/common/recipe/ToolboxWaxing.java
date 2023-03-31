@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.common.recipe;
 
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WeatheringToolboxBlock;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;

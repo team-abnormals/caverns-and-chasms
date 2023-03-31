@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.client.particle.*;
 import com.teamabnormals.caverns_and_chasms.client.particle.SilverParticle.DamageProvider;
 import com.teamabnormals.caverns_and_chasms.client.particle.SilverParticle.SparkProvider;
-import com.teamabnormals.caverns_and_chasms.client.particle.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.HugeExplosionParticle;
