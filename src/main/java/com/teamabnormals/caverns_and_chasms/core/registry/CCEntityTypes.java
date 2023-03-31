@@ -70,7 +70,7 @@ public class CCEntityTypes {
 	}
 
 	@SubscribeEvent
-	public static void registerAttributes(SpawnPlacementRegisterEvent event) {
+	public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
 		event.register(DEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, Operation.OR);
 		event.register(MIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mime::checkMimeSpawnRules, Operation.OR);
 		event.register(GLARE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Glare::checkGlareSpawnRules, Operation.OR);
