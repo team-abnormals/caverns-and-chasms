@@ -231,7 +231,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties CUPRIC_CANDLE_CAKE = BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel(getLightValueLit(2));
 
 		public static final BlockBehaviour.Properties TMT = BlockBehaviour.Properties.of(Material.EXPLOSIVE).instabreak().sound(SoundType.GRASS);
-		public static final BlockBehaviour.Properties TOOLBOX = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).strength(3.0F, 6.0F).sound(SoundType.COPPER);
+		public static final BlockBehaviour.Properties TOOLBOX = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).strength(0.2F, 6.0F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 10);
 		public static final BlockBehaviour.Properties INDUCTOR = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 4.8F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15);
