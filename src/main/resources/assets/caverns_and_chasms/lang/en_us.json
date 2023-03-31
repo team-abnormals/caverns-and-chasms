@@ -12,6 +12,14 @@
   "block.caverns_and_chasms.waxed_exposed_copper_button": "Waxed Exposed Copper Button",
   "block.caverns_and_chasms.waxed_weathered_copper_button": "Waxed Weathered Copper Button",
   "block.caverns_and_chasms.waxed_oxidized_copper_button": "Waxed Oxidized Copper Button",
+  "block.caverns_and_chasms.toolbox": "Toolbox",
+  "block.caverns_and_chasms.exposed_toolbox": "Exposed Toolbox",
+  "block.caverns_and_chasms.weathered_toolbox": "Weathered Toolbox",
+  "block.caverns_and_chasms.oxidized_toolbox": "Oxidized Toolbox",
+  "block.caverns_and_chasms.waxed_toolbox": "Waxed Toolbox",
+  "block.caverns_and_chasms.waxed_exposed_toolbox": "Waxed Exposed Toolbox",
+  "block.caverns_and_chasms.waxed_weathered_toolbox": "Waxed Weathered Toolbox",
+  "block.caverns_and_chasms.waxed_oxidized_toolbox": "Waxed Oxidized Toolbox",
   "item.caverns_and_chasms.raw_silver": "Raw Silver",
   "item.caverns_and_chasms.copper_nugget": "Copper Nugget",
   "item.caverns_and_chasms.netherite_nugget": "Netherite Nugget",
@@ -279,6 +287,9 @@
   "entity.caverns_and_chasms.kunai": "Kunai",
 
   "effect.caverns_and_chasms.rewind": "Rewind",
+
+  "container.caverns_and_chasms.toolbox": "Toolbox",
+  "container.caverns_and_chasms.toolbox.more": "and %s more...",
 
   "death.attack.caverns_and_chasms.spiked_rail": "%1$s got railed",
   "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s got railed whilst trying to escape %2$s",

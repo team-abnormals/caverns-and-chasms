@@ -45,7 +45,6 @@ public class CCCompat {
 		registerWaxables();
 		registerFireworkIngredients();
 		changeLocalization();
-		setFireproof();
 		CCCauldronInteractions.registerCauldronInteractions();
 	}
 
@@ -100,10 +99,6 @@ public class CCCompat {
 		DataUtil.changeBlockLocalization(CCBlocks.AMETHYST_BLOCK.get(), "minecraft", "amethyst_block");
 	}
 
-	private static void setFireproof() {
-		ObfuscationReflectionHelper.setPrivateValue(Item.class, CCBlocks.NECROMIUM_BLOCK.get().asItem(), true, "f_41372_");
-	}
-
 	private static void registerWaxables() {
 		ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
 		HoneycombItem.WAXABLES.get().forEach(builder::put);
@@ -115,6 +110,10 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_COPPER_BUTTON.get(), CCBlocks.WAXED_EXPOSED_COPPER_BUTTON.get());
 		builder.put(CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
 		builder.put(CCBlocks.OXIDIZED_COPPER_BUTTON.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
+		builder.put(CCBlocks.TOOLBOX.get(), CCBlocks.WAXED_TOOLBOX.get());
+		builder.put(CCBlocks.EXPOSED_TOOLBOX.get(), CCBlocks.WAXED_EXPOSED_TOOLBOX.get());
+		builder.put(CCBlocks.WEATHERED_TOOLBOX.get(), CCBlocks.WAXED_WEATHERED_TOOLBOX.get());
+		builder.put(CCBlocks.OXIDIZED_TOOLBOX.get(), CCBlocks.WAXED_OXIDIZED_TOOLBOX.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

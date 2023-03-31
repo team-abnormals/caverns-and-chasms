@@ -23,6 +23,10 @@
     "caverns_and_chasms:copper_button",
     "caverns_and_chasms:exposed_copper_button",
     "caverns_and_chasms:weathered_copper_button",
-    "caverns_and_chasms:oxidized_copper_button"
+    "caverns_and_chasms:oxidized_copper_button",
+    "caverns_and_chasms:toolbox",
+    "caverns_and_chasms:exposed_toolbox",
+    "caverns_and_chasms:weathered_toolbox",
+    "caverns_and_chasms:oxidized_toolbox"
   ]
 }

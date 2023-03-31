@@ -13,7 +13,17 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface CCWeatheringCopper extends WeatheringCopper {
-	Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> HashBiMap.create(ImmutableBiMap.<Block, Block>builder().put(CCBlocks.COPPER_BARS.get(), CCBlocks.EXPOSED_COPPER_BARS.get()).put(CCBlocks.EXPOSED_COPPER_BARS.get(), CCBlocks.WEATHERED_COPPER_BARS.get()).put(CCBlocks.WEATHERED_COPPER_BARS.get(), CCBlocks.OXIDIZED_COPPER_BARS.get()).put(CCBlocks.COPPER_BUTTON.get(), CCBlocks.EXPOSED_COPPER_BUTTON.get()).put(CCBlocks.EXPOSED_COPPER_BUTTON.get(), CCBlocks.WEATHERED_COPPER_BUTTON.get()).put(CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.OXIDIZED_COPPER_BUTTON.get()).build()));
+	Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> HashBiMap.create(ImmutableBiMap.<Block, Block>builder()
+			.put(CCBlocks.COPPER_BARS.get(), CCBlocks.EXPOSED_COPPER_BARS.get())
+			.put(CCBlocks.EXPOSED_COPPER_BARS.get(), CCBlocks.WEATHERED_COPPER_BARS.get())
+			.put(CCBlocks.WEATHERED_COPPER_BARS.get(), CCBlocks.OXIDIZED_COPPER_BARS.get())
+			.put(CCBlocks.COPPER_BUTTON.get(), CCBlocks.EXPOSED_COPPER_BUTTON.get())
+			.put(CCBlocks.EXPOSED_COPPER_BUTTON.get(), CCBlocks.WEATHERED_COPPER_BUTTON.get())
+			.put(CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.OXIDIZED_COPPER_BUTTON.get())
+			.put(CCBlocks.TOOLBOX.get(), CCBlocks.EXPOSED_TOOLBOX.get())
+			.put(CCBlocks.EXPOSED_TOOLBOX.get(), CCBlocks.WEATHERED_TOOLBOX.get())
+			.put(CCBlocks.WEATHERED_TOOLBOX.get(), CCBlocks.OXIDIZED_TOOLBOX.get())
+			.build()));
 	Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
 
 	@Override

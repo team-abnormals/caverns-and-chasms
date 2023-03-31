@@ -8,6 +8,7 @@
     "AbstractMinecartMixin",
     "AzaleaTreeGrowerMixin",
     "BaseFireBlockMixin",
+    "BlockItemMixin",
     "BrewingRecipeRegistryMixin",
     "CreeperMixin",
     "EnchantmentHelperMixin",

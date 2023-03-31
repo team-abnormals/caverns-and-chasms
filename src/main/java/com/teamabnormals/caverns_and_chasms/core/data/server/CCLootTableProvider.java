@@ -6,8 +6,10 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.block.VerticalSlabBlock;
 import com.teamabnormals.blueprint.common.block.VerticalSlabBlock.VerticalSlabType;
 import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.critereon.*;
@@ -29,14 +31,14 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.*;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -108,6 +110,15 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(FLOODLIGHT.get());
 //			this.dropSelf(INDUCTOR.get());
+
+			this.add(TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(EXPOSED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(WEATHERED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(OXIDIZED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(WAXED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(WAXED_EXPOSED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(WAXED_WEATHERED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
+			this.add(WAXED_OXIDIZED_TOOLBOX.get(), CCBlockLoot::createToolboxDrop);
 
 			this.dropSelf(COPPER_BARS.get());
 			this.dropSelf(EXPOSED_COPPER_BARS.get());
@@ -182,7 +193,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CUT_AMETHYST_BRICK_WALL.get());
 			this.add(CUT_AMETHYST_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(CUT_AMETHYST_BRICK_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
-			
+
 			this.dropSelf(LAPIS_LAZULI_BRICKS.get());
 			this.dropSelf(LAPIS_LAZULI_BRICK_STAIRS.get());
 			this.dropSelf(LAPIS_LAZULI_BRICK_WALL.get());
@@ -239,6 +250,10 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(AZALEA_CHEST.getFirst().get(), BlockLoot::createNameableBlockEntityTable);
 			this.add(AZALEA_CHEST.getSecond().get(), BlockLoot::createNameableBlockEntityTable);
 			this.add(AZALEA_BOOKSHELF.get(), (block) -> createSingleItemTableWithSilkTouch(block, Items.BOOK, ConstantValue.exactly(3.0F)));
+		}
+
+		protected static LootTable.Builder createToolboxDrop(Block p_124295_) {
+			return LootTable.lootTable().withPool(applyExplosionCondition(p_124295_, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(p_124295_).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Lock", "BlockEntityTag.Lock").copy("LootTable", "BlockEntityTag.LootTable").copy("LootTableSeed", "BlockEntityTag.LootTableSeed")).apply(SetContainerContents.setContents(CCBlockEntityTypes.TOOLBOX.get()).withEntry(DynamicLoot.dynamicEntry(ToolboxBlock.CONTENTS))))));
 		}
 
 		protected static LootTable.Builder createSpinelOreDrops(Block block) {

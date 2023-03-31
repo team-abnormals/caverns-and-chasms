@@ -85,10 +85,14 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge-api:${project.jei}")
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge:${project.jei}")
 
+    compileOnly fg.deobf("curse.maven:quark-243121:4463411")
+    compileOnly fg.deobf("curse.maven:autoreglib-250363:4100299")
+
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
 repositories {
+    maven { url "https://www.cursemaven.com" }
     maven { url "https://maven.jaackson.me" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url "https://modmaven.k-4u.nl" }

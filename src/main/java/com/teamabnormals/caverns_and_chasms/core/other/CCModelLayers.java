@@ -18,6 +18,7 @@ public class CCModelLayers {
 	public static final ModelLayerLocation MIME_HEAD = register("mime_head");
 	public static final ModelLayerLocation RAT = register("rat");
 	public static final ModelLayerLocation SANGUINE_ARMOR = register("sanguine_armor");
+	public static final ModelLayerLocation TOOLBOX = register("toolbox");
 
 	public static ModelLayerLocation register(String name) {
 		return register(name, "main");

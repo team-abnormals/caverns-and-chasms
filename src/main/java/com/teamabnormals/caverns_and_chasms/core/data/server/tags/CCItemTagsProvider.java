@@ -63,6 +63,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.GLARE_FOOD).add(Items.GLOW_BERRIES);
 		this.tag(CCItemTags.RAT_FOOD).add(Items.ROTTEN_FLESH);
 		this.tag(CCItemTags.RAT_TAME_ITEMS).add(Items.ROTTEN_FLESH);
+		this.tag(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS).add(Items.SPYGLASS, Items.TOTEM_OF_UNDYING, CCItems.TUNING_FORK.get());
 
 		this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 		this.copy(CCBlockTags.ORES_AMETHYST, CCItemTags.ORES_AMETHYST);
