@@ -163,9 +163,9 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 				if (infiniteDuration)
 					newinstance.setNoCounter(true);
 
-				if (currentinstance == null) {
+				if (currentinstance == null || currentinstance.getAmplifier() < instance.getAmplifier()) {
 					entity.addEffect(newinstance);
-				} else if (currentinstance.getAmplifier() <= instance.getAmplifier()) {
+				} else if (currentinstance.getAmplifier() == instance.getAmplifier()) {
 					entity.getActiveEffectsMap().put(instance.getEffect(), newinstance);
 					if (entity instanceof ServerPlayer)
 						((ServerPlayer) entity).connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), newinstance));

@@ -255,12 +255,6 @@ public class CCEvents {
 			}
 		}
 
-		/*
-		if (state.getBlock() instanceof CopperButtonBlock && state.getValue(CopperButtonBlock.POWERED)) {
-			if (item == Items.HONEYCOMB || item instanceof AxeItem)
-				event.setUseItem(Event.Result.DENY);
-		}
-		*/
 
 		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
@@ -492,20 +486,20 @@ public class CCEvents {
 			}
 		}
 
-		ItemStack stack = target.getItemBySlot(EquipmentSlot.HEAD);
-		if (stack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
+		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
 			Player player = target instanceof Player ? (Player) target : null;
-			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 
-			for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
+			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 				if (instance.getEffect().isInstantenous()) {
 					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
 				}
 			}
 
-			int i = PotionUtils.getPotion(stack).hasInstantEffects() ? 2007 : 2002;
-			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(stack));
+			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
+			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
 		}
 	}
 
@@ -595,7 +589,7 @@ public class CCEvents {
 		}
 
 		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
-		if (headstack.getItem() == CCItems.TETHER_POTION.get()) {
+		if (!level.isClientSide() && headstack.getItem() == CCItems.TETHER_POTION.get()) {
 			TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 		}
 	}
