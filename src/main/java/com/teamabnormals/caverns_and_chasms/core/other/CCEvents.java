@@ -410,10 +410,9 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingDamage(LivingHurtEvent event) {
+	public static void onLivingHurt(LivingHurtEvent event) {
 		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
-		Level level = target.getLevel();
 
 		if (source.isMagic()) {
 			float magicProtection = 0.0F;
@@ -485,23 +484,30 @@ public class CCEvents {
 				}
 			}
 		}
-
-		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
-		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
-			Player player = target instanceof Player ? (Player) target : null;
-			target.broadcastBreakEvent(EquipmentSlot.HEAD);
-			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-
-			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
-				if (instance.getEffect().isInstantenous()) {
-					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
-				}
-			}
-
-			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
-			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
-		}
 	}
+
+    @SubscribeEvent
+    public static void onLivingDamage(LivingDamageEvent event) {
+        LivingEntity target = event.getEntity();
+        DamageSource source = event.getSource();
+        Level level = target.getLevel();
+        ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
+
+        if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+            Player player = target instanceof Player ? (Player) target : null;
+            target.broadcastBreakEvent(EquipmentSlot.HEAD);
+            target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+
+            for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
+                if (instance.getEffect().isInstantenous()) {
+                    instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+                }
+            }
+
+            int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
+            level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+        }
+    }
 
 	@SubscribeEvent
 	public static void visibilityEvent(LivingVisibilityEvent event) {
