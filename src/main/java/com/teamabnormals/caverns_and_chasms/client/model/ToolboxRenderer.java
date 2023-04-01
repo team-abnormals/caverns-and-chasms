@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
@@ -34,12 +35,23 @@ import java.util.Map;
 public class ToolboxRenderer<T extends ToolboxBlockEntity> implements BlockEntityRenderer<T> {
 	public static Block itemBlock = null;
 
-	public static final ResourceLocation TOOLBOX_SHEET = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/atlas/toolboxes.png");
+	public static final ResourceLocation[] TOOLBOX_TEXTURES = {
+			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/toolbox"),
+			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/exposed_toolbox"),
+			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/weathered_toolbox"),
+			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/oxidized_toolbox")
+	};
+
 	public static final Map<WeatherState, Material> TOOLBOX_MATERIALS = Map.of(
-			WeatherState.UNAFFECTED, new Material(TOOLBOX_SHEET, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/toolbox")),
-			WeatherState.EXPOSED, new Material(TOOLBOX_SHEET, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/exposed_toolbox")),
-			WeatherState.WEATHERED, new Material(TOOLBOX_SHEET, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/weathered_toolbox")),
-			WeatherState.OXIDIZED, new Material(TOOLBOX_SHEET, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/oxidized_toolbox")));
+			WeatherState.UNAFFECTED, createToolboxMaterial(TOOLBOX_TEXTURES[0]),
+			WeatherState.EXPOSED, createToolboxMaterial(TOOLBOX_TEXTURES[1]),
+			WeatherState.WEATHERED, createToolboxMaterial(TOOLBOX_TEXTURES[2]),
+			WeatherState.OXIDIZED, createToolboxMaterial(TOOLBOX_TEXTURES[3])
+	);
+
+	private static Material createToolboxMaterial(ResourceLocation texture) {
+		return new Material(InventoryMenu.BLOCK_ATLAS, texture);
+	}
 
 	private final ModelPart base;
 	private final ModelPart lid;

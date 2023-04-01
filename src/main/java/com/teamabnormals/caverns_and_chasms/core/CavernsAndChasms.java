@@ -32,15 +32,16 @@ import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -55,6 +56,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 @Mod(CavernsAndChasms.MOD_ID)
@@ -92,6 +94,7 @@ public class CavernsAndChasms {
 			bus.addListener(this::registerLayerDefinitions);
 			bus.addListener(this::registerRenderers);
 			bus.addListener(this::registerLayers);
+			bus.addListener(this::stitchTextures);
 			bus.addListener(this::registerItemColors);
 			bus.addListener(this::createSkullModels);
 			bus.addListener(this::registerClientTooltips);
@@ -112,7 +115,6 @@ public class CavernsAndChasms {
 
 	private void clientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
-			ModelBakery.UNREFERENCED_TEXTURES.addAll(ToolboxRenderer.TOOLBOX_MATERIALS.values());
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png"));
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.PEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png"));
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_TEXTURE);
@@ -191,6 +193,13 @@ public class CavernsAndChasms {
 			PlayerRenderer renderer = event.getSkin(skin);
 			renderer.addLayer(new RatOnShoulderLayer(renderer, event.getEntityModels()));
 		});
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void stitchTextures(TextureStitchEvent.Pre event) {
+		if (InventoryMenu.BLOCK_ATLAS.equals(event.getAtlas().location())) {
+			Arrays.stream(ToolboxRenderer.TOOLBOX_TEXTURES).forEach(event::addSprite);
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
