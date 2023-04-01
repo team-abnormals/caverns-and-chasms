@@ -286,6 +286,8 @@ public class CCRecipeProvider extends RecipeProvider {
 		stonecutterResultFromBase(consumer, CCBlocks.CUT_AMETHYST_BRICK_WALL.get(), Blocks.AMETHYST_BLOCK);
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.CUT_AMETHYST_BRICK_VERTICAL_SLAB.get(), Blocks.AMETHYST_BLOCK, 2);
 
+		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, Items.ECHO_SHARD, CCBlocks.ECHO_BLOCK.get(), "echo_shard_from_echo_block", "echo_shard");
+
 		ShapedRecipeBuilder.shaped(CCBlocks.COBBLESTONE_BRICKS.get(), 4).define('#', Blocks.COBBLESTONE).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.COBBLESTONE), has(Blocks.COBBLESTONE)).save(consumer);
 		generateRecipes(consumer, COBBLESTONE_BRICKS);
 		verticalSlabRecipes(consumer, COBBLESTONE_BRICKS, CCBlocks.COBBLESTONE_BRICK_VERTICAL_SLAB.get());

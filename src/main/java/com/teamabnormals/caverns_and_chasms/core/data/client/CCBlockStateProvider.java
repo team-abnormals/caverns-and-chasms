@@ -52,6 +52,8 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.simpleBlockWithItem(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get());
 		this.simpleBlockWithItem(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
 
+		this.simpleBlockWithItem(CCBlocks.ECHO_BLOCK.get());
+
 		this.cubeBottomTop(CCBlocks.TMT.get());
 
 		this.registerBars(CCBlocks.COPPER_BARS.get());
