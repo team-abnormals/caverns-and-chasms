@@ -31,12 +31,6 @@ public class BluntArrow extends AbstractArrow {
 	}
 
 	@Override
-	protected void onHitEntity(EntityHitResult result) {
-		this.setBaseDamage(0.0D);
-		super.onHitEntity(result);
-	}
-
-	@Override
 	protected ItemStack getPickupItem() {
 		return new ItemStack(CCItems.BLUNT_ARROW.get());
 	}

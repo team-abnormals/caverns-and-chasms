@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
+import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.NetheriteHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
@@ -484,6 +485,10 @@ public class CCEvents {
 				}
 			}
 		}
+
+        if (source.getDirectEntity() instanceof BluntArrow) {
+            event.setAmount(0.0F);
+        }
 	}
 
     @SubscribeEvent
