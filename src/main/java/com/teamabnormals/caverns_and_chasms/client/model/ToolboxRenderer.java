@@ -65,7 +65,7 @@ public class ToolboxRenderer<T extends ToolboxBlockEntity> implements BlockEntit
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition mesh = new MeshDefinition();
 		PartDefinition root = mesh.getRoot();
-		root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -6.0F, -4.0F, 16.0F, 6.0F, 8.0F), PartPose.offset(0.0F, 24.0F, 0.0F));
+		root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, 0.0F, -8.0F, 16.0F, 6.0F, 8.0F), PartPose.offset(0.0F, 18.0F, 4.0F));
 		root.addOrReplaceChild("lid", CubeListBuilder.create().texOffs(0, 14).addBox(-8.0F, -2.0F, -8.0F, 16.0F, 2.0F, 8.0F).texOffs(0, 29).addBox(-4.0F, -5.0F, -4.0F, 8.0F, 3.0F, 0.0F), PartPose.offset(0.0F, 18.0F, 4.0F));
 		return LayerDefinition.create(mesh, 64, 32);
 	}
@@ -76,14 +76,23 @@ public class ToolboxRenderer<T extends ToolboxBlockEntity> implements BlockEntit
 		BlockState state = toolbox.getLevel() != null ? toolbox.getBlockState() : CCBlocks.TOOLBOX.get().defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH);
 		Block block = inventoryBlock == null ? state.getBlock() : inventoryBlock;
 		if (block instanceof ToolboxBlock toolboxBlock) {
+			boolean hanging = state.getValue(ToolboxBlock.HANGING);
+
 			poseStack.pushPose();
 
 			poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
-			poseStack.translate(0.5F, -1.5F, -0.5F);
+			poseStack.translate(0.5F, !hanging ? -1.5F : -1.8125F, -0.5F);
 			poseStack.mulPose(Vector3f.YP.rotationDegrees(state.getValue(ToolboxBlock.FACING).toYRot()));
 
 			float openness = 1.0F - toolbox.getProgress(partialTicks);
-			lid.xRot = -((1.0F - openness * openness * openness) * ((float) Math.PI / 2F));
+			float xRot = -((1.0F - openness * openness * openness) * ((float) Math.PI / 2F));
+			if (!hanging) {
+				base.xRot = 0.0F;
+				lid.xRot = xRot;
+			} else {
+				lid.xRot = 0.0F;
+				base.xRot = -xRot * 5.0F / 12.0F;
+			}
 
 			VertexConsumer vertexConsumer = TOOLBOX_MATERIALS.get(toolboxBlock.getWeatherState()).buffer(buffer, RenderType::entityCutout);
 			lid.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);

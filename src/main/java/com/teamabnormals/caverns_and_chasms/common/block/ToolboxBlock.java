@@ -28,6 +28,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -36,8 +37,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -47,44 +53,52 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ToolboxBlock extends BaseEntityBlock {
+public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
+	public static final BooleanProperty HANGING = BooleanProperty.create("hanging");
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
 	private final WeatherState weatherState;
 
 	public static final VoxelShape SHAPE_X = Block.box(4.0F, 0.0F, 0.0F, 12.0F, 8.0F, 16.0F);
 	public static final VoxelShape SHAPE_Z = Block.box(0.0F, 0.0F, 4.0F, 16.0F, 8.0F, 12.0F);
+	public static final VoxelShape SHAPE_X_HANGING = SHAPE_X.move(0.0F, 5.0F / 16.0F, 0.0F);
+	public static final VoxelShape SHAPE_Z_HANGING = SHAPE_Z.move(0.0F, 5.0F / 16.0F, 0.0F);
 
 	public ToolboxBlock(WeatherState p_56188_, BlockBehaviour.Properties p_56189_) {
 		super(p_56189_);
 		this.weatherState = p_56188_;
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HANGING, false).setValue(WATERLOGGED, false));
 	}
 
-	public BlockEntity newBlockEntity(BlockPos p_154552_, BlockState p_154553_) {
-		return new ToolboxBlockEntity(p_154552_, p_154553_);
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new ToolboxBlockEntity(pos, state);
 	}
 
 	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_154543_, BlockState p_154544_, BlockEntityType<T> p_154545_) {
-		return createTickerHelper(p_154545_, CCBlockEntityTypes.TOOLBOX.get(), ToolboxBlockEntity::tick);
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+		return createTickerHelper(entityType, CCBlockEntityTypes.TOOLBOX.get(), ToolboxBlockEntity::tick);
 	}
 
-	public RenderShape getRenderShape(BlockState p_56255_) {
+	@Override
+	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	public InteractionResult use(BlockState p_56227_, Level p_56228_, BlockPos p_56229_, Player p_56230_, InteractionHand p_56231_, BlockHitResult p_56232_) {
-		if (p_56228_.isClientSide) {
+	@Override
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+		if (level.isClientSide) {
 			return InteractionResult.SUCCESS;
-		} else if (p_56230_.isSpectator()) {
+		} else if (player.isSpectator()) {
 			return InteractionResult.CONSUME;
 		} else {
-			BlockEntity blockentity = p_56228_.getBlockEntity(p_56229_);
-			if (blockentity instanceof ToolboxBlockEntity toolbox) {
-				p_56230_.openMenu(toolbox);
-				p_56230_.awardStat(Stats.OPEN_SHULKER_BOX);
-				PiglinAi.angerNearbyPiglins(p_56230_, true);
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof ToolboxBlockEntity toolbox) {
+				player.openMenu(toolbox);
+				player.awardStat(Stats.OPEN_SHULKER_BOX);
+				PiglinAi.angerNearbyPiglins(player, true);
 				return InteractionResult.CONSUME;
 			} else {
 				return InteractionResult.PASS;
@@ -92,13 +106,37 @@ public class ToolboxBlock extends BaseEntityBlock {
 		}
 	}
 
-	public BlockState getStateForPlacement(BlockPlaceContext p_56198_) {
-		return this.defaultBlockState().setValue(FACING, p_56198_.getHorizontalDirection().getOpposite());
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		Direction direction = context.getHorizontalDirection().getOpposite();
+		boolean hanging = context.getClickedFace() == Direction.DOWN;
+		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+
+		return this.defaultBlockState().setValue(FACING, direction).setValue(HANGING, hanging).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_56249_) {
-		p_56249_.add(FACING);
+	public BlockState updateShape(BlockState state, Direction direction, BlockState offsetState, LevelAccessor level, BlockPos pos, BlockPos offsetPos) {
+		if (state.getValue(WATERLOGGED)) {
+			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		}
+
+		return super.updateShape(state, direction, offsetState, level, pos, offsetPos);
+	}
+
+	@Override
+	public FluidState getFluidState(BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+	}
+
+	@Override
+	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType pathComputationType) {
+		return false;
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(FACING, HANGING, WATERLOGGED);
 	}
 
 	@Override
@@ -124,8 +162,8 @@ public class ToolboxBlock extends BaseEntityBlock {
 	}
 
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		BlockEntity blockentity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-		if (blockentity instanceof ToolboxBlockEntity toolbox) {
+		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+		if (blockEntity instanceof ToolboxBlockEntity toolbox) {
 			builder = builder.withDynamicDrop(CONTENTS, (p_56218_, p_56219_) -> {
 				for (int i = 0; i < toolbox.getContainerSize(); ++i) {
 					p_56219_.accept(toolbox.getItem(i));
@@ -138,25 +176,24 @@ public class ToolboxBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public void setPlacedBy(Level p_56206_, BlockPos p_56207_, BlockState p_56208_, LivingEntity p_56209_, ItemStack p_56210_) {
-		if (p_56210_.hasCustomHoverName()) {
-			BlockEntity blockentity = p_56206_.getBlockEntity(p_56207_);
-			if (blockentity instanceof ToolboxBlockEntity toolbox) {
-				toolbox.setCustomName(p_56210_.getHoverName());
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+		if (stack.hasCustomHoverName()) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof ToolboxBlockEntity toolbox) {
+				toolbox.setCustomName(stack.getHoverName());
 			}
 		}
-
 	}
 
 	@Override
-	public void onRemove(BlockState p_56234_, Level p_56235_, BlockPos p_56236_, BlockState p_56237_, boolean p_56238_) {
-		if (!p_56234_.is(p_56237_.getBlock())) {
-			BlockEntity blockentity = p_56235_.getBlockEntity(p_56236_);
-			if (blockentity instanceof ToolboxBlockEntity) {
-				p_56235_.updateNeighbourForOutputSignal(p_56236_, p_56234_.getBlock());
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState p_56237_, boolean p_56238_) {
+		if (!state.is(p_56237_.getBlock())) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof ToolboxBlockEntity) {
+				level.updateNeighbourForOutputSignal(pos, state.getBlock());
 			}
 
-			super.onRemove(p_56234_, p_56235_, p_56236_, p_56237_, p_56238_);
+			super.onRemove(state, level, pos, p_56237_, p_56238_);
 		}
 	}
 
@@ -200,7 +237,8 @@ public class ToolboxBlock extends BaseEntityBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return state.getValue(FACING).getAxis() == Axis.X ? SHAPE_X : SHAPE_Z;
+		boolean hanging = state.getValue(HANGING);
+		return state.getValue(FACING).getAxis() == Axis.X ? !hanging ? SHAPE_X : SHAPE_X_HANGING : !hanging ? SHAPE_Z : SHAPE_Z_HANGING;
 	}
 
 	@Override
@@ -214,16 +252,10 @@ public class ToolboxBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter p_56202_, BlockPos p_56203_, BlockState p_56204_) {
-		ItemStack itemstack = super.getCloneItemStack(p_56202_, p_56203_, p_56204_);
-		p_56202_.getBlockEntity(p_56203_, CCBlockEntityTypes.TOOLBOX.get()).ifPresent((p_187446_) -> {
-			p_187446_.saveToItem(itemstack);
-		});
-		return itemstack;
-	}
-
-	public static WeatherState getWeatherStateFromBlock(Block block) {
-		return block instanceof ToolboxBlock toolboxBlock ? toolboxBlock.getWeatherState() : null;
+	public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+		ItemStack stack = super.getCloneItemStack(level, pos, state);
+		level.getBlockEntity(pos, CCBlockEntityTypes.TOOLBOX.get()).ifPresent(block -> block.saveToItem(stack));
+		return stack;
 	}
 
 	public static Block getBlockByWeatherState(WeatherState weatherState, boolean weathers) {
