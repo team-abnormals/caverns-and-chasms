@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.inventory;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
 
 public class ToolboxSlot extends Slot {
@@ -13,6 +14,6 @@ public class ToolboxSlot extends Slot {
 
 	@Override
 	public boolean mayPlace(ItemStack stack) {
-		return stack.getItem().canBeDepleted() || stack.is(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS);
+		return stack.getItem().canBeDepleted() || stack.getItem() instanceof HorseArmorItem || stack.is(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS);
 	}
 }
