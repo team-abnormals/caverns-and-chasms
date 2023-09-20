@@ -178,6 +178,16 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(POLISHED_TUFF_SLAB.get(), BlockLoot::createSlabItemTable);
 			this.add(POLISHED_TUFF_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
 
+			this.dropSelf(SUGILITE.get());
+			this.dropSelf(SUGILITE_STAIRS.get());
+			this.dropSelf(SUGILITE_WALL.get());
+			this.add(SUGILITE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(SUGILITE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+			this.dropSelf(POLISHED_SUGILITE.get());
+			this.dropSelf(POLISHED_SUGILITE_STAIRS.get());
+			this.add(POLISHED_SUGILITE_SLAB.get(), BlockLoot::createSlabItemTable);
+			this.add(POLISHED_SUGILITE_VERTICAL_SLAB.get(), CCBlockLoot::createVerticalSlabItemTable);
+
 			this.dropSelf(DRIPSTONE_SHINGLES.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_WALL.get());

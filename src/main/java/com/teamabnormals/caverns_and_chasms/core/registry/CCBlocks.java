@@ -173,6 +173,17 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_TUFF_SLAB = HELPER.createBlock("polished_tuff_slab", () -> new SlabBlock(CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> POLISHED_TUFF_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "polished_tuff_vertical_slab", () -> new VerticalSlabBlock(CCProperties.TUFF), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
+	public static final RegistryObject<Block> SUGILITE = HELPER.createBlock("sugilite", () -> new Block(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_STAIRS = HELPER.createBlock("sugilite_stairs", () -> new StairBlock(() -> SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_SLAB = HELPER.createBlock("sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> SUGILITE_WALL = HELPER.createBlock("sugilite_wall", () -> new WallBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> SUGILITE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "sugilite_vertical_slab", () -> new VerticalSlabBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_SUGILITE = HELPER.createBlock("polished_sugilite", () -> new Block(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_SUGILITE_STAIRS = HELPER.createBlock("polished_sugilite_stairs", () -> new StairBlock(() -> POLISHED_SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_SUGILITE_SLAB = HELPER.createBlock("polished_sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+	public static final RegistryObject<Block> POLISHED_SUGILITE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "polished_sugilite_vertical_slab", () -> new VerticalSlabBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
+
+
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -225,6 +236,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties FRAGILE_DEEPSLATE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.DEEPSLATE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE);
 		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).sound(SoundType.CALCITE).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GRAY).sound(SoundType.TUFF).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.0F, 6.0F);
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BROWN).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);
 		public static final BlockBehaviour.Properties AMETHYST = BlockBehaviour.Properties.of(Material.AMETHYST, MaterialColor.COLOR_PURPLE).strength(1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops();

@@ -48,6 +48,9 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerBlockVariants(Blocks.TUFF, CCBlocks.TUFF_STAIRS.get(), CCBlocks.TUFF_SLAB.get(), CCBlocks.TUFF_VERTICAL_SLAB.get(), CCBlocks.TUFF_WALL.get());
 		this.registerBlockWithVariants(CCBlocks.POLISHED_TUFF.get(), CCBlocks.POLISHED_TUFF_STAIRS.get(), CCBlocks.POLISHED_TUFF_SLAB.get(), CCBlocks.POLISHED_TUFF_VERTICAL_SLAB.get());
 
+		this.registerBlockWithVariants(CCBlocks.SUGILITE.get(), CCBlocks.SUGILITE_STAIRS.get(), CCBlocks.SUGILITE_SLAB.get(), CCBlocks.SUGILITE_VERTICAL_SLAB.get(), CCBlocks.SUGILITE_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.POLISHED_SUGILITE.get(), CCBlocks.POLISHED_SUGILITE_STAIRS.get(), CCBlocks.POLISHED_SUGILITE_SLAB.get(), CCBlocks.POLISHED_SUGILITE_VERTICAL_SLAB.get());
+
 		this.registerBlockWithVariants(CCBlocks.DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get());
 		this.simpleBlockWithItem(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get());
 		this.simpleBlockWithItem(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());

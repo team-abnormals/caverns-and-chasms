@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/polished_sugilite",
+    "side": "caverns_and_chasms:block/polished_sugilite",
+    "top": "caverns_and_chasms:block/polished_sugilite"
+  }
+}

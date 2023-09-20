@@ -62,6 +62,8 @@ public class CCRecipeProvider extends RecipeProvider {
 	public static final BlockFamily POLISHED_CALCITE = new BlockFamily.Builder(CCBlocks.POLISHED_CALCITE.get()).slab(CCBlocks.POLISHED_CALCITE_SLAB.get()).stairs(CCBlocks.POLISHED_CALCITE_STAIRS.get()).getFamily();
 	public static final BlockFamily TUFF = new BlockFamily.Builder(Blocks.TUFF).slab(CCBlocks.TUFF_SLAB.get()).stairs(CCBlocks.TUFF_STAIRS.get()).wall(CCBlocks.TUFF_WALL.get()).getFamily();
 	public static final BlockFamily POLISHED_TUFF = new BlockFamily.Builder(CCBlocks.POLISHED_TUFF.get()).slab(CCBlocks.POLISHED_TUFF_SLAB.get()).stairs(CCBlocks.POLISHED_TUFF_STAIRS.get()).getFamily();
+	public static final BlockFamily SUGILITE = new BlockFamily.Builder(CCBlocks.SUGILITE.get()).slab(CCBlocks.SUGILITE_SLAB.get()).stairs(CCBlocks.SUGILITE_STAIRS.get()).wall(CCBlocks.SUGILITE_WALL.get()).getFamily();
+	public static final BlockFamily POLISHED_SUGILITE = new BlockFamily.Builder(CCBlocks.POLISHED_SUGILITE.get()).slab(CCBlocks.POLISHED_SUGILITE_SLAB.get()).stairs(CCBlocks.POLISHED_SUGILITE_STAIRS.get()).getFamily();
 	public static final BlockFamily COBBLESTONE_BRICKS = new BlockFamily.Builder(CCBlocks.COBBLESTONE_BRICKS.get()).slab(CCBlocks.COBBLESTONE_BRICK_SLAB.get()).stairs(CCBlocks.COBBLESTONE_BRICK_STAIRS.get()).wall(CCBlocks.COBBLESTONE_BRICK_WALL.get()).getFamily();
 	public static final BlockFamily COBBLESTONE_TILES = new BlockFamily.Builder(CCBlocks.COBBLESTONE_TILES.get()).slab(CCBlocks.COBBLESTONE_TILE_SLAB.get()).stairs(CCBlocks.COBBLESTONE_TILE_STAIRS.get()).wall(CCBlocks.COBBLESTONE_TILE_WALL.get()).getFamily();
 	public static final BlockFamily MOSSY_COBBLESTONE_BRICKS = new BlockFamily.Builder(CCBlocks.MOSSY_COBBLESTONE_BRICKS.get()).slab(CCBlocks.MOSSY_COBBLESTONE_BRICK_SLAB.get()).stairs(CCBlocks.MOSSY_COBBLESTONE_BRICK_STAIRS.get()).wall(CCBlocks.MOSSY_COBBLESTONE_BRICK_WALL.get()).getFamily();
@@ -247,6 +249,24 @@ public class CCRecipeProvider extends RecipeProvider {
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.TUFF_VERTICAL_SLAB.get(), Blocks.TUFF, 2);
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.POLISHED_TUFF_VERTICAL_SLAB.get(), Blocks.TUFF, 2);
 		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.POLISHED_TUFF_VERTICAL_SLAB.get(), CCBlocks.POLISHED_TUFF.get(), 2);
+
+		generateRecipes(consumer, SUGILITE);
+		ShapelessRecipeBuilder.shapeless(CCBlocks.SUGILITE.get()).requires(Blocks.GRANITE).requires(CCItems.SPINEL.get()).unlockedBy("has_spinel", has(CCItems.SPINEL.get())).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(CCBlocks.SUGILITE.get()).getPath()));
+		verticalSlabRecipes(consumer, SUGILITE, CCBlocks.SUGILITE_VERTICAL_SLAB.get());
+		stonecutterResultFromBase(consumer, CCBlocks.SUGILITE_SLAB.get(), CCBlocks.SUGILITE.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.SUGILITE_STAIRS.get(), CCBlocks.SUGILITE.get());
+		stonecutterResultFromBase(consumer, CCBlocks.SUGILITE_WALL.get(), CCBlocks.SUGILITE.get());
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_SUGILITE.get(), CCBlocks.SUGILITE.get());
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_SUGILITE_SLAB.get(), CCBlocks.SUGILITE.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_SUGILITE_STAIRS.get(), CCBlocks.SUGILITE.get());
+		ShapedRecipeBuilder.shaped(CCBlocks.POLISHED_SUGILITE.get(), 4).define('#', CCBlocks.SUGILITE.get()).pattern("##").pattern("##").unlockedBy("has_sugilite", has(CCBlocks.SUGILITE.get())).save(consumer);
+		generateRecipes(consumer, POLISHED_SUGILITE);
+		verticalSlabRecipes(consumer, POLISHED_SUGILITE, CCBlocks.POLISHED_SUGILITE_VERTICAL_SLAB.get());
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_SUGILITE_SLAB.get(), CCBlocks.POLISHED_SUGILITE.get(), 2);
+		stonecutterResultFromBase(consumer, CCBlocks.POLISHED_SUGILITE_STAIRS.get(), CCBlocks.POLISHED_SUGILITE.get());
+		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.SUGILITE_VERTICAL_SLAB.get(), CCBlocks.SUGILITE.get(), 2);
+		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.POLISHED_SUGILITE_VERTICAL_SLAB.get(), CCBlocks.SUGILITE.get(), 2);
+		conditionalStonecuttingRecipe(consumer, VERTICAL_SLABS, CCBlocks.POLISHED_SUGILITE_VERTICAL_SLAB.get(), CCBlocks.POLISHED_SUGILITE.get(), 2);
 
 		ShapedRecipeBuilder.shaped(CCBlocks.DRIPSTONE_SHINGLES.get(), 4).define('#', Blocks.DRIPSTONE_BLOCK).pattern("##").pattern("##").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		generateRecipes(consumer, DRIPSTONE_SHINGLES);

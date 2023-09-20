@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "caverns_and_chasms:block/sugilite_slab"
+    },
+    "type=double": {
+      "model": "caverns_and_chasms:block/sugilite"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/sugilite_slab_top"
+    }
+  }
+}
