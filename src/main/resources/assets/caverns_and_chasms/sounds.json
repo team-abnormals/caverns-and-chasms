@@ -254,5 +254,17 @@
       "caverns_and_chasms:mob/glare/untame2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.glare.untame"
+  },
+  "item.lost_goat_horn.sound.0": {
+    "sounds": [
+      "caverns_and_chasms:item/lost_goat_horn/call0"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.lost_goat_horn.play"
+  },
+  "item.lost_goat_horn.sound.1": {
+    "sounds": [
+      "caverns_and_chasms:item/lost_goat_horn/call1"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.lost_goat_horn.play"
   }
 }

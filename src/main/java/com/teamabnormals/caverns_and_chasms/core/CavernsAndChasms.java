@@ -15,10 +15,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvance
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCBiomeModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
-import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
-import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
-import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
+import com.teamabnormals.caverns_and_chasms.core.other.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
@@ -85,6 +82,7 @@ public class CavernsAndChasms {
 		CCBiomeModifierTypes.BIOME_MODIFIER_SERIALIZERS.register(bus);
 		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
 		CCMenuTypes.MENU_TYPES.register(bus);
+		CCInstruments.INSTRUMENTS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -135,6 +133,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCMobEffectTagsProvider(generator, helper));
 		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
 		generator.addProvider(server, new CCPaintingVariantTagsProvider(generator, helper));
+		generator.addProvider(server, new CCInstrumentTagsProvider(generator, helper));
 		generator.addProvider(server, new CCRecipeProvider(generator));
 		generator.addProvider(server, new CCLootTableProvider(generator));
 		generator.addProvider(server, new CCAdvancementProvider(generator, helper));
@@ -164,6 +163,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CCModelLayers.SANGUINE_ARMOR, SanguineArmorModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TOOLBOX, ToolboxRenderer::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.LOST_GOAT, LostGoatModel::createBodyLayer);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -181,6 +181,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.LOST_GOAT.get(), LostGoatRenderer::new);
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);

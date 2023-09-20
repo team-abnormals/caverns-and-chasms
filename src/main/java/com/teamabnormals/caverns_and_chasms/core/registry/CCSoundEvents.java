@@ -1,11 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.google.common.collect.ImmutableList;
 import com.teamabnormals.blueprint.core.util.registry.SoundSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.stream.IntStream;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CCSoundEvents {
@@ -46,6 +49,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ENTITY_GLARE_AMBIENT = HELPER.createSoundEvent("entity.glare.ambient");
 	public static final RegistryObject<SoundEvent> ENTITY_GLARE_TAME = HELPER.createSoundEvent("entity.glare.tame");
 	public static final RegistryObject<SoundEvent> ENTITY_GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
+
+	public static final ImmutableList<RegistryObject<SoundEvent>> LOST_GOAT_HORN_SOUND_VARIANTS = registerGoatHornSoundVariants();
+
+	private static ImmutableList<RegistryObject<SoundEvent>> registerGoatHornSoundVariants() {
+		return IntStream.range(0, 2).mapToObj((suffix) -> HELPER.createSoundEvent("item.lost_goat_horn.sound." + suffix)).collect(ImmutableList.toImmutableList());
+	}
 
 	public static class CCSoundTypes {
 		public static final SoundType ROCKY_DIRT = new SoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK.get(), CCSoundEvents.ROCKY_DIRT_STEP.get(), CCSoundEvents.ROCKY_DIRT_PLACE.get(), CCSoundEvents.ROCKY_DIRT_HIT.get(), CCSoundEvents.ROCKY_DIRT_FALL.get());

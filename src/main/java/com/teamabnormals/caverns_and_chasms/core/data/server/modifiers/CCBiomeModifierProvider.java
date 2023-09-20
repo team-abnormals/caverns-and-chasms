@@ -46,6 +46,7 @@ public class CCBiomeModifierProvider {
 	public static JsonCodecProvider<BiomeModifier> create(DataGenerator generator, ExistingFileHelper existingFileHelper) {
 		addSpawn("mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 100, 1, 1));
 		addSpawn("glare", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
+		addSpawn("lost_goat", CCBiomeTags.HAS_LOST_GOAT, new MobSpawnSettings.SpawnerData(CCEntityTypes.LOST_GOAT.get(), 1, 1, 1));
 
 		addFeature("base_ores", BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_GOLD_AND_SILVER_LOWER, CCPlacedFeatures.ORE_SPINEL_BURIED);
 		addFeature("spinel_ore", CCBiomeTags.HAS_SPINEL_ORE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_SPINEL);

@@ -287,6 +287,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(FLY.get(), LootTable.lootTable());
 			this.add(RAT.get(), LootTable.lootTable());
 			this.add(GLARE.get(), LootTable.lootTable());
+			this.add(LOST_GOAT.get(), LootTable.lootTable());
 		}
 
 		@Override

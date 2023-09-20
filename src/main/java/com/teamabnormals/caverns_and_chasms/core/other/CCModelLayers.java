@@ -12,6 +12,7 @@ public class CCModelLayers {
 	public static final ModelLayerLocation PEEPER_HEAD = register("peeper_head");
 	public static final ModelLayerLocation FLY = register("fly");
 	public static final ModelLayerLocation GLARE = register("glare");
+	public static final ModelLayerLocation LOST_GOAT = register("lost_goat");
 	public static final ModelLayerLocation MIME = register("mime");
 	public static final ModelLayerLocation MIME_ARMOR_INNER = register("mime", "inner_armor");
 	public static final ModelLayerLocation MIME_ARMOR_OUTER = register("mime", "outer_armor");

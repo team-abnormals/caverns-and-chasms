@@ -61,12 +61,6 @@ public class FlyModel<T extends Fly> extends AgeableListModel<T> {
 		this.body.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 
-	public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
-	}
-
 	@Override
 	protected Iterable<ModelPart> headParts() {
 		return ImmutableList.of();

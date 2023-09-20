@@ -200,6 +200,10 @@
   "item.caverns_and_chasms.bejeweled_apple": "Bejeweled Apple",
   "item.caverns_and_chasms.blunt_arrow": "Blunt Arrow",
 
+  "item.caverns_and_chasms.lost_goat_horn": "Lost Goat Horn",
+  "instrument.caverns_and_chasms.warn_lost_goat_horn": "Warn",
+  "instrument.caverns_and_chasms.bellow_lost_goat_horn": "Bellow",
+
   "item.caverns_and_chasms.music_disc_epilogue": "Music Disc",
   "item.caverns_and_chasms.music_disc_epilogue.desc": "RENREN - Epilogue",
 
@@ -287,6 +291,7 @@
   "entity.caverns_and_chasms.oxidized_copper_golem": "Oxidized Copper Golem",
   "entity.caverns_and_chasms.glare": "Glare",
   "entity.caverns_and_chasms.kunai": "Kunai",
+  "entity.caverns_and_chasms.lost_goat": "Lost Goat",
 
   "effect.caverns_and_chasms.rewind": "Rewind",
 
@@ -322,6 +327,8 @@
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.title": "Ex Machina",
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.description": "Construct a Copper Golem by placing a Lightning Rod on top of a Carved Pumpkin",
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Use a Netherite or Necromium Ingot to upgrade a hoe, and then reevaluate your life choices",
+
+  "subtitles.caverns_and_chasms.item.lost_goat_horn.play": "Lost Goat Horn plays",
 
   "subtitles.caverns_and_chasms.item.tuning_fork.vibrate": "Tuning Fork vibrates",
   "subtitles.caverns_and_chasms.item.tether_potion.equip": "Tether Potion tethers",
