@@ -25,7 +25,7 @@ public abstract class EnchantmentHelperMixin {
 
 	@Inject(method = "doPostDamageEffects", at = @At("HEAD"))
 	private static void doPostDamageEffects(LivingEntity attacker, Entity target, CallbackInfo ci) {
-		if (target instanceof LivingEntity livingTarget) {
+		if (attacker != null && target instanceof LivingEntity livingTarget) {
 			ItemStack stack = attacker.getMainHandItem();
 			Collection<AttributeModifier> magicDamageModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.MAGIC_DAMAGE.get());
 
