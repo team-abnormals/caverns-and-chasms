@@ -2,7 +2,7 @@
   "variants": {
     "axis=x": {
       "model": "caverns_and_chasms:block/azalea_boards_horizontal",
-      "y": 90
+      "y": 270
     },
     "axis=y": {
       "model": "caverns_and_chasms:block/azalea_boards"
