@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningFo
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
@@ -80,11 +81,14 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -486,33 +490,33 @@ public class CCEvents {
 			}
 		}
 
-        if (source.getDirectEntity() instanceof BluntArrow) {
-            event.setAmount(0.0F);
-        }
+		if (source.getDirectEntity() instanceof BluntArrow) {
+			event.setAmount(0.0F);
+		}
 	}
 
-    @SubscribeEvent
-    public static void onLivingDamage(LivingDamageEvent event) {
-        LivingEntity target = event.getEntity();
-        DamageSource source = event.getSource();
-        Level level = target.getLevel();
-        ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
+	@SubscribeEvent
+	public static void onLivingDamage(LivingDamageEvent event) {
+		LivingEntity target = event.getEntity();
+		DamageSource source = event.getSource();
+		Level level = target.getLevel();
+		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
 
-        if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
-            Player player = target instanceof Player ? (Player) target : null;
-            target.broadcastBreakEvent(EquipmentSlot.HEAD);
-            target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+			Player player = target instanceof Player ? (Player) target : null;
+			target.broadcastBreakEvent(EquipmentSlot.HEAD);
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 
-            for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
-                if (instance.getEffect().isInstantenous()) {
-                    instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
-                }
-            }
+			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
+				if (instance.getEffect().isInstantenous()) {
+					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+				}
+			}
 
-            int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
-            level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
-        }
-    }
+			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
+			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+		}
+	}
 
 	@SubscribeEvent
 	public static void visibilityEvent(LivingVisibilityEvent event) {
@@ -536,6 +540,18 @@ public class CCEvents {
 					event.setStrength(event.getStrength() * (1.0F - horseArmorItem.getKnockbackResistance()));
 				}
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onExplosion(ExplosionEvent.Detonate event) {
+		if (event.getExplosion().getExploder() instanceof PrimedTmt) {
+			List<BlockPos> toNotBlow = new ArrayList<>();
+			event.getAffectedBlocks().forEach(pos -> {
+				if (!(event.getLevel().getBlockState(pos).getBlock() instanceof TntBlock))
+					toNotBlow.add(pos);
+			});
+			event.getAffectedBlocks().removeAll(toNotBlow);
 		}
 	}
 

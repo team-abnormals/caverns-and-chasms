@@ -4,14 +4,13 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
 public class PrimedTmt extends PrimedTnt {
 	@Nullable
-	private LivingEntity tmtPlacedBy;
+	private LivingEntity owner;
 
 	public PrimedTmt(EntityType<? extends PrimedTmt> type, Level level) {
 		super(type, level);
@@ -26,17 +25,12 @@ public class PrimedTmt extends PrimedTnt {
 		this.xo = x;
 		this.yo = y;
 		this.zo = z;
-		this.tmtPlacedBy = igniter;
-	}
-
-	@Override
-	protected void explode() {
-		this.level.explode(this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F, Explosion.BlockInteraction.NONE);
+		this.owner = igniter;
 	}
 
 	@Override
 	@Nullable
 	public LivingEntity getOwner() {
-		return this.tmtPlacedBy;
+		return this.owner;
 	}
 }
