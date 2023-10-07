@@ -210,7 +210,7 @@
   "item.caverns_and_chasms.bejeweled_apple": "Bejeweled Apple",
   "item.caverns_and_chasms.blunt_arrow": "Blunt Arrow",
 
-  "item.caverns_and_chasms.lost_goat_horn": "Lost Goat Horn",
+  "item.caverns_and_chasms.lost_goat_horn": "Goat Horn",
   "instrument.caverns_and_chasms.warn_lost_goat_horn": "Warn",
   "instrument.caverns_and_chasms.bellow_lost_goat_horn": "Bellow",
 
@@ -253,6 +253,7 @@
   "item.caverns_and_chasms.silver_nugget": "Silver Nugget",
   "item.caverns_and_chasms.depth_gauge": "Depth Gauge",
   "item.caverns_and_chasms.kunai": "Kunai",
+  "item.caverns_and_chasms.large_arrow": "Large Arrow",
   "item.caverns_and_chasms.silver_sword": "Silver Sword",
   "item.caverns_and_chasms.silver_pickaxe": "Silver Pickaxe",
   "item.caverns_and_chasms.silver_shovel": "Silver Shovel",

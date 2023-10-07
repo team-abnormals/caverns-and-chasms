@@ -50,7 +50,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(ItemTags.CHEST_BOATS).add(CCItems.AZALEA_BOAT.getSecond().get());
 		this.tag(BlueprintItemTags.FURNACE_BOATS).add(CCItems.AZALEA_FURNACE_BOAT.get());
 		this.tag(BlueprintItemTags.LARGE_BOATS).add(CCItems.LARGE_AZALEA_BOAT.get());
-		this.tag(ItemTags.ARROWS).add(CCItems.BLUNT_ARROW.get());
+		this.tag(ItemTags.ARROWS).add(CCItems.LARGE_ARROW.get(), CCItems.BLUNT_ARROW.get());
 
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);

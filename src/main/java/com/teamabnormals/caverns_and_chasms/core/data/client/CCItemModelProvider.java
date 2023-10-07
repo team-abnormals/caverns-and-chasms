@@ -27,7 +27,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.animatedModel(BAROMETER.get(), 21);
 		this.generatedItem(
 				COPPER_NUGGET.get(), OXIDIZED_COPPER_GOLEM.get(),
-				RAW_SILVER.get(),
+				RAW_SILVER.get(), LARGE_ARROW.get(),
 				BEJEWELED_APPLE.get(), BLUNT_ARROW.get(),
 				AZALEA_BOAT.getFirst().get(), AZALEA_BOAT.getSecond().get(), AZALEA_FURNACE_BOAT.get(), LARGE_AZALEA_BOAT.get()
 		);
