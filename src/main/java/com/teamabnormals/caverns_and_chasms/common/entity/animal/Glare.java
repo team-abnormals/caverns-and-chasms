@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowLikedPlayerGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GoToDarkSpotGoal;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -25,7 +26,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -62,12 +62,11 @@ public class Glare extends PathfinderMob {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.5F));
 		this.goalSelector.addGoal(2, new FollowLikedPlayerGoal(this, 1.75F));
-		this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
+		this.goalSelector.addGoal(3, new GoToDarkSpotGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
 
 		//TODO: More AI
 		// Spin under Spore Blossoms
-		// Go to dark blocks
 		// Look at ore blocks
 		// Press down on big dripleaves
 		// Approach axolotls
@@ -252,11 +251,10 @@ public class Glare extends PathfinderMob {
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		if (this.isGrumpy() && !shouldBeGrumpy(this.getLevel(), this.blockPosition())) {
-			this.setGrumpy(false);
+		boolean shouldBeGrumpy = shouldBeGrumpy(this.getLevel(), this.blockPosition());
+		if ((this.isGrumpy() && !shouldBeGrumpy) || (!this.isGrumpy() && shouldBeGrumpy)) {
+			this.setGrumpy(!this.isGrumpy());
 			this.playAmbientSound();
-		} else if (!this.isGrumpy() && shouldBeGrumpy(this.getLevel(), this.blockPosition())) {
-			this.setGrumpy(true);
 		}
 	}
 
