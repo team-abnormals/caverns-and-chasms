@@ -25,6 +25,7 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 	public ModelPart rightHindLeg;
 
 	public RatModel(ModelPart root) {
+		super(false, 5.0F, 2.0F);
 		this.head = root.getChild("head");
 		this.body = root.getChild("body");
 		this.rightHindLeg = root.getChild("right_hind_leg");
