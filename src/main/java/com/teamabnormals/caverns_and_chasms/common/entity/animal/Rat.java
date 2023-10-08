@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -193,7 +194,7 @@ public class Rat extends ShoulderRidingEntity {
 			}
 
 			List<Rat> rats = this.level.getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS);
-			rats.sort(Comparator.comparing((entity) -> this.distanceToSqr(entity)));
+			rats.sort(Comparator.comparing(this::distanceToSqr));
 			this.group = rats.stream().limit(4).collect(Collectors.toList());
 		}
 
@@ -316,17 +317,17 @@ public class Rat extends ShoulderRidingEntity {
 			float f = random.nextFloat();
 			ItemStack itemstack;
 			if (f < 0.05F) {
-				itemstack = new ItemStack(Items.EMERALD);
+				itemstack = new ItemStack(Items.DIAMOND);
 			} else if (f < 0.2F) {
-				itemstack = new ItemStack(Items.EGG);
+				itemstack = random.nextBoolean() ? new ItemStack(Items.RAW_GOLD) : new ItemStack(CCItems.RAW_SILVER.get());
 			} else if (f < 0.4F) {
-				itemstack = random.nextBoolean() ? new ItemStack(Items.RABBIT_FOOT) : new ItemStack(Items.RABBIT_HIDE);
+				itemstack = random.nextBoolean() ? new ItemStack(Items.LAPIS_LAZULI) : new ItemStack(CCItems.SPINEL.get());
 			} else if (f < 0.6F) {
-				itemstack = new ItemStack(Items.WHEAT);
+				itemstack = new ItemStack(Items.REDSTONE);
 			} else if (f < 0.8F) {
-				itemstack = new ItemStack(Items.LEATHER);
+				itemstack = new ItemStack(Items.SLIME_BALL);
 			} else {
-				itemstack = new ItemStack(Items.FEATHER);
+				itemstack = new ItemStack(Items.BONE);
 			}
 
 			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
