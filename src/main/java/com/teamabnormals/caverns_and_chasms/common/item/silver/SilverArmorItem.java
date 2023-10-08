@@ -14,7 +14,7 @@ import net.minecraft.world.item.*;
 import java.util.UUID;
 
 public class SilverArmorItem extends ArmorItem {
-	public static final float[] MAGIC_PROTECTION_PER_ITEM = new float[]{0.05F, 0.08F, 0.11F, 0.06F};
+	public static final float[] MAGIC_PROTECTION_PER_ITEM = new float[]{0.1F, 0.15F, 0.15F, 0.1F};
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.GOLDEN_BOOTS);
 
 	public SilverArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {

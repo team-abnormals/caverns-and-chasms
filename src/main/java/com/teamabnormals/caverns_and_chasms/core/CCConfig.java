@@ -19,7 +19,8 @@ public class CCConfig {
 //		public final BooleanValue skeletonHealthNerf;
 //		public final DoubleValue skeletonHealth;
 
-		public final BooleanValue chainmailArmorBuff;
+		public final BooleanValue chainmailArmorIncreasesDamage;
+		public final BooleanValue goldenArmorIncreasesSpeed;
 
 		public final BooleanValue betterRailPlacement;
 		public final IntValue betterRailPlacementRange;
@@ -42,7 +43,8 @@ public class CCConfig {
 			builder.pop();
 
 			builder.push("tweaks");
-			chainmailArmorBuff = builder.comment("Chainmail armor increases the user's attack damage").define("Chainmail armor buff", true);
+			chainmailArmorIncreasesDamage = builder.comment("Chainmail armor increases the user's attack damage").define("Chainmail armor increases damage", true);
+			goldenArmorIncreasesSpeed = builder.comment("Golden armor increases the user's movement speed").define("Golden armor increases speed", true);
 			builder.push("rails");
 			betterRailPlacement = builder.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding").define("Better rail placement", true);
 			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").defineInRange("Placement range", 7, 0, Integer.MAX_VALUE);
