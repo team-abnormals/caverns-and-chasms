@@ -131,6 +131,11 @@ public class CCRecipeProvider extends RecipeProvider {
 		waxRecipe(consumer, CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
 		waxRecipe(consumer, CCBlocks.OXIDIZED_COPPER_BUTTON.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
 
+		waxRecipe(consumer, Blocks.LIGHTNING_ROD, CCBlocks.WAXED_LIGHTNING_ROD.get());
+		waxRecipe(consumer, CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+		waxRecipe(consumer, CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+		waxRecipe(consumer, CCBlocks.OXIDIZED_LIGHTNING_ROD.get(), CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+
 		nineBlockStorageRecipes(consumer, CCItems.SPINEL.get(), CCBlocks.SPINEL_BLOCK.get());
 		nineBlockStorageRecipes(consumer, CCItems.RAW_SILVER.get(), CCBlocks.RAW_SILVER_BLOCK.get());
 		nineBlockStorageRecipes(consumer, Items.ROTTEN_FLESH, CCBlocks.ROTTEN_FLESH_BLOCK.get());

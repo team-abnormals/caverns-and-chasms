@@ -97,6 +97,10 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_TOOLBOX.get(), CCBlocks.WAXED_EXPOSED_TOOLBOX.get());
 		builder.put(CCBlocks.WEATHERED_TOOLBOX.get(), CCBlocks.WAXED_WEATHERED_TOOLBOX.get());
 		builder.put(CCBlocks.OXIDIZED_TOOLBOX.get(), CCBlocks.WAXED_OXIDIZED_TOOLBOX.get());
+		builder.put(Blocks.LIGHTNING_ROD, CCBlocks.WAXED_LIGHTNING_ROD.get());
+		builder.put(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+		builder.put(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+		builder.put(CCBlocks.OXIDIZED_LIGHTNING_ROD.get(), CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

@@ -27,6 +27,10 @@
     "caverns_and_chasms:waxed_toolbox",
     "caverns_and_chasms:waxed_exposed_toolbox",
     "caverns_and_chasms:waxed_weathered_toolbox",
-    "caverns_and_chasms:waxed_oxidized_toolbox"
+    "caverns_and_chasms:waxed_oxidized_toolbox",
+    "caverns_and_chasms:waxed_lightning_rod",
+    "caverns_and_chasms:waxed_exposed_lightning_rod",
+    "caverns_and_chasms:waxed_weathered_lightning_rod",
+    "caverns_and_chasms:waxed_oxidized_lightning_rod"
   ]
 }

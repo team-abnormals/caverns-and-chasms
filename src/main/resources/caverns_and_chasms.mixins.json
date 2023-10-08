@@ -16,6 +16,7 @@
     "IronGolemMixin",
     "ItemMixin",
     "LightningBoltMixin",
+    "LightningRodBlockMixin",
     "MobMixin",
     "PlayerMixin",
     "SolidBucketItemMixin",

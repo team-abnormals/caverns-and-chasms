@@ -38,8 +38,7 @@ public class OxidizedCopperGolemItem extends Item {
 			Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
 			AABB aabb = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 			if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty()) {
-				if (level instanceof ServerLevel) {
-					ServerLevel serverlevel = (ServerLevel) level;
+				if (level instanceof ServerLevel serverlevel) {
 					Component customname = itemstack.hasCustomHoverName() ? itemstack.getHoverName() : null;
 					OxidizedCopperGolem coppergolem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), customname, context.getPlayer(), blockpos, MobSpawnType.SPAWN_EGG, true, true);
 					if (coppergolem == null) {
@@ -53,6 +52,8 @@ public class OxidizedCopperGolemItem extends Item {
 					serverlevel.addFreshEntityWithPassengers(coppergolem);
 					level.playSound(null, coppergolem.getX(), coppergolem.getY(), coppergolem.getZ(), SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
 					coppergolem.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
+					System.out.println(f);
+
 				}
 
 				itemstack.shrink(1);

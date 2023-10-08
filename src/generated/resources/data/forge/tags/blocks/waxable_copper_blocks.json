@@ -27,6 +27,10 @@
     "caverns_and_chasms:toolbox",
     "caverns_and_chasms:exposed_toolbox",
     "caverns_and_chasms:weathered_toolbox",
-    "caverns_and_chasms:oxidized_toolbox"
+    "caverns_and_chasms:oxidized_toolbox",
+    "minecraft:lightning_rod",
+    "caverns_and_chasms:exposed_lightning_rod",
+    "caverns_and_chasms:weathered_lightning_rod",
+    "caverns_and_chasms:oxidized_lightning_rod"
   ]
 }

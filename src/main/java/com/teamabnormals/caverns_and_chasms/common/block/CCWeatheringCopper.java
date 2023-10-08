@@ -6,6 +6,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -23,6 +24,9 @@ public interface CCWeatheringCopper extends WeatheringCopper {
 			.put(CCBlocks.TOOLBOX.get(), CCBlocks.EXPOSED_TOOLBOX.get())
 			.put(CCBlocks.EXPOSED_TOOLBOX.get(), CCBlocks.WEATHERED_TOOLBOX.get())
 			.put(CCBlocks.WEATHERED_TOOLBOX.get(), CCBlocks.OXIDIZED_TOOLBOX.get())
+			.put(Blocks.LIGHTNING_ROD, CCBlocks.EXPOSED_LIGHTNING_ROD.get())
+			.put(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.WEATHERED_LIGHTNING_ROD.get())
+			.put(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.OXIDIZED_LIGHTNING_ROD.get())
 			.build()));
 	Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
 

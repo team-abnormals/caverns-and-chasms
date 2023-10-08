@@ -105,6 +105,14 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BUTTON = HELPER.createBlock("waxed_weathered_copper_button", () -> new CopperButtonBlock(WeatherState.WEATHERED, CCProperties.COPPER_BUTTON), CreativeModeTab.TAB_REDSTONE);
 	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BUTTON = HELPER.createBlock("waxed_oxidized_copper_button", () -> new CopperButtonBlock(WeatherState.OXIDIZED, CCProperties.COPPER_BUTTON), CreativeModeTab.TAB_REDSTONE);
 
+	public static final RegistryObject<Block> EXPOSED_LIGHTNING_ROD = HELPER.createBlock("exposed_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> WEATHERED_LIGHTNING_ROD = HELPER.createBlock("weathered_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> OXIDIZED_LIGHTNING_ROD = HELPER.createBlock("oxidized_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> WAXED_LIGHTNING_ROD = HELPER.createBlock("waxed_lightning_rod", () -> new LightningRodBlock(WeatheringLightningRodBlock.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> WAXED_EXPOSED_LIGHTNING_ROD = HELPER.createBlock("waxed_exposed_lightning_rod", () -> new LightningRodBlock(BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> WAXED_WEATHERED_LIGHTNING_ROD = HELPER.createBlock("waxed_weathered_lightning_rod", () -> new LightningRodBlock(BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> WAXED_OXIDIZED_LIGHTNING_ROD = HELPER.createBlock("waxed_oxidized_lightning_rod", () -> new LightningRodBlock(BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)), CreativeModeTab.TAB_DECORATIONS);
+
 	public static final RegistryObject<Block> LAVA_LAMP = HELPER.createBlock("lava_lamp", () -> new LavaLampBlock(CCProperties.LAVA_LAMP), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS), CreativeModeTab.TAB_DECORATIONS);
 

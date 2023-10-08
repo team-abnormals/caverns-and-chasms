@@ -6,8 +6,10 @@ import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem.Oxidation;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
@@ -23,10 +25,7 @@ import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
+import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -310,21 +309,35 @@ public class CCEvents {
 			BlockPos pos = event.getPos();
 			BlockState state = event.getPlacedBlock();
 
-			if (state.is(Blocks.LIGHTNING_ROD) && state.getValue(LightningRodBlock.FACING) == Direction.UP) {
+			if (state.getBlock() instanceof LightningRodBlock && state.getValue(LightningRodBlock.FACING) == Direction.UP) {
 				BlockPos belowPos = pos.below();
 				BlockState belowState = level.getBlockState(belowPos);
 				if (belowState.getBlock() instanceof CarvedPumpkinBlock) {
+					float yRot = belowState.getValue(CarvedPumpkinBlock.FACING).toYRot();
 					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 					level.setBlock(belowPos, Blocks.AIR.defaultBlockState(), 2);
 					level.levelEvent(2001, pos, Block.getId(state));
 					level.levelEvent(2001, belowPos, Block.getId(belowState));
 
-					CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
-					coppergolem.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D, 0.0F, 0.0F);
-					level.addFreshEntity(coppergolem);
+					LivingEntity living;
+					if (state.is(CCBlocks.OXIDIZED_LIGHTNING_ROD.get()) || state.is(CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get())) {
+						living = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(level);
+					} else {
+						CopperGolem copperGolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
+						copperGolem.setOxidation(state.is(Blocks.LIGHTNING_ROD) || state.is(CCBlocks.WAXED_LIGHTNING_ROD.get()) ? Oxidation.UNAFFECTED : state.is(CCBlocks.EXPOSED_LIGHTNING_ROD.get()) || state.is(CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get()) ? Oxidation.EXPOSED : Oxidation.WEATHERED);
+						if (state.is(CCBlockTags.WAXED_COPPER_BLOCKS)) {
+							copperGolem.setWaxed(true);
+						}
+						living = copperGolem;
+					}
 
-					for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, coppergolem.getBoundingBox().inflate(5.0D))) {
-						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, coppergolem);
+					living.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D);
+					living.yHeadRot = yRot;
+					living.yBodyRot = yRot;
+
+					level.addFreshEntity(living);
+					for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, living.getBoundingBox().inflate(5.0D))) {
+						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, living);
 					}
 
 					level.blockUpdated(pos, Blocks.AIR);

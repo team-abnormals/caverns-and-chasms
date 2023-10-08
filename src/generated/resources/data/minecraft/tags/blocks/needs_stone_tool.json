@@ -16,6 +16,13 @@
     "caverns_and_chasms:lapis_brick_stairs",
     "caverns_and_chasms:lapis_brick_slab",
     "caverns_and_chasms:lapis_brick_wall",
-    "caverns_and_chasms:lapis_brick_vertical_slab"
+    "caverns_and_chasms:lapis_brick_vertical_slab",
+    "caverns_and_chasms:exposed_lightning_rod",
+    "caverns_and_chasms:weathered_lightning_rod",
+    "caverns_and_chasms:oxidized_lightning_rod",
+    "caverns_and_chasms:waxed_lightning_rod",
+    "caverns_and_chasms:waxed_exposed_lightning_rod",
+    "caverns_and_chasms:waxed_weathered_lightning_rod",
+    "caverns_and_chasms:waxed_oxidized_lightning_rod"
   ]
 }

@@ -79,6 +79,14 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerButton(Blocks.WEATHERED_COPPER, CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
 		this.registerButton(Blocks.OXIDIZED_COPPER, CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
 
+		this.registerLightningRod(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.EXPOSED_LIGHTNING_ROD.get());
+		this.registerLightningRod(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.WEATHERED_LIGHTNING_ROD.get());
+		this.registerLightningRod(CCBlocks.OXIDIZED_LIGHTNING_ROD.get(), CCBlocks.OXIDIZED_LIGHTNING_ROD.get());
+		this.registerLightningRod(Blocks.LIGHTNING_ROD, CCBlocks.WAXED_LIGHTNING_ROD.get());
+		this.registerLightningRod(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+		this.registerLightningRod(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+		this.registerLightningRod(CCBlocks.OXIDIZED_LIGHTNING_ROD.get(), CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+
 		this.stoneBlock(CCBlocks.FRAGILE_STONE.get());
 		this.deepslateBlock(CCBlocks.FRAGILE_DEEPSLATE.get());
 
@@ -179,6 +187,23 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		ModelFile buttonInventory = models().withExistingParent(name(buttonBlock) + "_inventory", "block/button_inventory").texture("texture", blockTexture(block));
 		this.buttonBlock(buttonBlock, (state -> state.getValue(BlockStateProperties.POWERED) ? buttonPressed : button));
 		this.itemModels().getBuilder(name(buttonBlock)).parent(buttonInventory);
+	}
+
+	public void registerLightningRod(Block parent, Block block) {
+		ModelFile rod = models().withExistingParent(name(block), "block/lightning_rod").texture("texture", blockTexture(parent));
+		ModelFile on = new ExistingModelFile(new ResourceLocation("block/lightning_rod_on"), this.models().existingFileHelper);
+
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					Direction dir = state.getValue(BlockStateProperties.FACING);
+					return ConfiguredModel.builder()
+							.modelFile(state.getValue(LightningRodBlock.POWERED) ? on : rod)
+							.rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+							.rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360)
+							.build();
+				}, BlockStateProperties.WATERLOGGED);
+
+		this.itemModels().getBuilder(name(block)).parent(rod);
 	}
 
 	public void registerPressurePlate(Block block, Block pressurePlateBlock) {

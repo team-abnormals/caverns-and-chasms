@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:waxed_weathered_lightning_rod_from_honeycomb"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weathered_lightning_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:weathered_lightning_rod"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_weathered_lightning_rod",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:waxed_weathered_lightning_rod_from_honeycomb"
+    ]
+  }
+}
