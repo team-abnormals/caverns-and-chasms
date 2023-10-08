@@ -70,6 +70,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
@@ -190,6 +191,16 @@ public class CCEvents {
 					}
 				}
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+		if (event.getEntity() instanceof Player player && event.getPlacedBlock().is(CCBlocks.ROTTEN_FLESH_BLOCK.get())) {
+			LevelAccessor level = event.getLevel();
+			BlockPos pos = event.getPos();
+			List<Rat> rats = level.getEntitiesOfClass(Rat.class, new AABB(pos).inflate(8.0D, 4.0D, 8.0D), entity -> entity.isAlive() && !entity.isTame());
+			rats.stream().limit(9).toList().forEach(rat -> rat.setTamer(player));
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.RatDevourRottenFleshGoal;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -55,7 +56,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity {
-	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isTame() && !entity.isBaby() && entity.isAlive();
+	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isBaby() && entity.isAlive();
 	private static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
 
@@ -66,6 +67,7 @@ public class Rat extends ShoulderRidingEntity {
 
 	private List<Rat> group = Lists.newArrayList();
 	private int eatTicks;
+	private Player tamer;
 
 	public Rat(EntityType<? extends Rat> type, Level worldIn) {
 		super(type, worldIn);
@@ -80,6 +82,7 @@ public class Rat extends ShoulderRidingEntity {
 		this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new Rat.RatTemptGoal());
 		this.goalSelector.addGoal(6, new Rat.RatJumpOnOwnersShoulderGoal());
+		this.goalSelector.addGoal(6, new RatDevourRottenFleshGoal(this, 1.25D, 16, 4));
 		this.goalSelector.addGoal(7, new Rat.RatStayInGroupGoal());
 		this.goalSelector.addGoal(8, new Rat.RatFollowParentGoal());
 		this.goalSelector.addGoal(9, new Rat.RatAvoidEntityGoal<>(Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
@@ -193,7 +196,7 @@ public class Rat extends ShoulderRidingEntity {
 				}
 			}
 
-			List<Rat> rats = this.level.getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS);
+			List<Rat> rats = this.level.getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS.and(entity -> entity.isTame() == this.isTame()));
 			rats.sort(Comparator.comparing(this::distanceToSqr));
 			this.group = rats.stream().limit(4).collect(Collectors.toList());
 		}
@@ -255,6 +258,14 @@ public class Rat extends ShoulderRidingEntity {
 		return super.mobInteract(player, hand);
 	}
 
+	public void setTamer(Player entity) {
+		this.tamer = entity;
+	}
+
+	public Player getTamer() {
+		return this.tamer;
+	}
+
 	public List<Rat> getGroup() {
 		return this.group;
 	}
@@ -273,7 +284,7 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	public boolean shouldAttack(LivingEntity target) {
-		if (this.isTame() || this.getFriendAmount() > 1) {
+		if (this.getFriendAmount() > 1) {
 			if (target instanceof Player) {
 				return !this.trustsPlayers();
 			} else {
@@ -417,6 +428,10 @@ public class Rat extends ShoulderRidingEntity {
 
 	@Override
 	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
+		if (this.getFriendAmount() < 2) {
+			return false;
+		}
+
 		if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
 			if (target instanceof Wolf wolf) {
 				return !wolf.isTame() || wolf.getOwner() != owner;
