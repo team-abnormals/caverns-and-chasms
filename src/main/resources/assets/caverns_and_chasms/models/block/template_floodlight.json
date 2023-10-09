@@ -1,8 +1,6 @@
 {
-	"credit": "Made with Blockbench",
 	"textures": {
-		"floodlight": "caverns_and_chasms:block/floodlight",
-		"particle": "caverns_and_chasms:block/floodlight"
+		"particle": "#floodlight"
 	},
 	"elements": [
 		{

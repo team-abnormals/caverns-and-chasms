@@ -27,6 +27,9 @@ public interface CCWeatheringCopper extends WeatheringCopper {
 			.put(Blocks.LIGHTNING_ROD, CCBlocks.EXPOSED_LIGHTNING_ROD.get())
 			.put(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.WEATHERED_LIGHTNING_ROD.get())
 			.put(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.OXIDIZED_LIGHTNING_ROD.get())
+			.put(CCBlocks.FLOODLIGHT.get(), CCBlocks.EXPOSED_FLOODLIGHT.get())
+			.put(CCBlocks.EXPOSED_FLOODLIGHT.get(), CCBlocks.WEATHERED_FLOODLIGHT.get())
+			.put(CCBlocks.WEATHERED_FLOODLIGHT.get(), CCBlocks.OXIDIZED_FLOODLIGHT.get())
 			.build()));
 	Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
 

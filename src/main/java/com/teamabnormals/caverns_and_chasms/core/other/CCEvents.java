@@ -117,7 +117,7 @@ public class CCEvents {
 				return ((ControllableGolem) golem).isTuningForkTarget(target);
 			}));
 		} else if (entity instanceof Cat cat) {
-			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, null));
+			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, target -> target instanceof Rat rat && !rat.isTame()));
 		} else if (entity instanceof Ocelot ocelot) {
 			ocelot.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(ocelot, Rat.class, false));
 		}

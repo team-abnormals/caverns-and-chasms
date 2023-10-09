@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_floodlight",
+  "textures": {
+    "floodlight": "caverns_and_chasms:block/floodlight"
+  }
+}

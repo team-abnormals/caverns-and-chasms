@@ -33,6 +33,9 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> DEEPSLATE_CHIP = registerSimpleParticleType(false, "deepslate_chip");
 	public static final RegistryObject<SimpleParticleType> LAVA_LAMP_SMOKE = registerSimpleParticleType(true, "lava_lamp_smoke");
 	public static final RegistryObject<SimpleParticleType> FLOODLIGHT_DUST = registerSimpleParticleType(false, "floodlight_dust");
+	public static final RegistryObject<SimpleParticleType> EXPOSED_FLOODLIGHT_DUST = registerSimpleParticleType(false, "exposed_floodlight_dust");
+	public static final RegistryObject<SimpleParticleType> WEATHERED_FLOODLIGHT_DUST = registerSimpleParticleType(false, "weathered_floodlight_dust");
+	public static final RegistryObject<SimpleParticleType> OXIDIZED_FLOODLIGHT_DUST = registerSimpleParticleType(false, "oxidized_floodlight_dust");
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_CIRCLE = registerSimpleParticleType(true, "spinel_boom_circle");
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_STAR = registerSimpleParticleType(true, "spinel_boom_star");
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_EMITTER = registerSimpleParticleType(true, "spinel_boom_emitter");
@@ -58,6 +61,9 @@ public class CCParticleTypes {
 			event.register(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
 			event.register(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
 			event.register(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+			event.register(EXPOSED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+			event.register(WEATHERED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+			event.register(OXIDIZED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
 			event.register(SPINEL_BOOM_CIRCLE.get(), HugeExplosionParticle.Provider::new);
 			event.register(SPINEL_BOOM_STAR.get(), HugeExplosionParticle.Provider::new);
 			event.register(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());

@@ -2,7 +2,6 @@
   "values": [
     "#forge:ores/copper",
     "#forge:storage_blocks/raw_copper",
-    "caverns_and_chasms:floodlight",
     "minecraft:copper_block",
     "minecraft:exposed_copper",
     "minecraft:weathered_copper",
@@ -34,6 +33,14 @@
     "minecraft:waxed_cut_copper_stairs",
     "minecraft:waxed_exposed_cut_copper_stairs",
     "minecraft:waxed_weathered_cut_copper_stairs",
-    "minecraft:waxed_oxidized_cut_copper_stairs"
+    "minecraft:waxed_oxidized_cut_copper_stairs",
+    "caverns_and_chasms:floodlight",
+    "caverns_and_chasms:exposed_floodlight",
+    "caverns_and_chasms:weathered_floodlight",
+    "caverns_and_chasms:oxidized_floodlight",
+    "caverns_and_chasms:waxed_floodlight",
+    "caverns_and_chasms:waxed_exposed_floodlight",
+    "caverns_and_chasms:waxed_weathered_floodlight",
+    "caverns_and_chasms:waxed_oxidized_floodlight"
   ]
 }

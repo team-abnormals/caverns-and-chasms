@@ -79,6 +79,15 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerButton(Blocks.WEATHERED_COPPER, CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
 		this.registerButton(Blocks.OXIDIZED_COPPER, CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
 
+		this.registerFloodlight(CCBlocks.FLOODLIGHT.get(), CCBlocks.FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.EXPOSED_FLOODLIGHT.get(), CCBlocks.EXPOSED_FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.WEATHERED_FLOODLIGHT.get(), CCBlocks.WEATHERED_FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.OXIDIZED_FLOODLIGHT.get(), CCBlocks.OXIDIZED_FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.FLOODLIGHT.get(), CCBlocks.WAXED_FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.EXPOSED_FLOODLIGHT.get(), CCBlocks.WAXED_EXPOSED_FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.WEATHERED_FLOODLIGHT.get(), CCBlocks.WAXED_WEATHERED_FLOODLIGHT.get());
+		this.registerFloodlight(CCBlocks.OXIDIZED_FLOODLIGHT.get(), CCBlocks.WAXED_OXIDIZED_FLOODLIGHT.get());
+
 		this.registerLightningRod(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.EXPOSED_LIGHTNING_ROD.get());
 		this.registerLightningRod(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.WEATHERED_LIGHTNING_ROD.get());
 		this.registerLightningRod(CCBlocks.OXIDIZED_LIGHTNING_ROD.get(), CCBlocks.OXIDIZED_LIGHTNING_ROD.get());
@@ -189,8 +198,24 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.itemModels().getBuilder(name(buttonBlock)).parent(buttonInventory);
 	}
 
+	public void registerFloodlight(Block parent, Block block) {
+		ModelFile rod = models().withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_floodlight").texture("floodlight", blockTexture(parent));
+
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					Direction dir = state.getValue(BlockStateProperties.FACING);
+					return ConfiguredModel.builder()
+							.modelFile(rod)
+							.rotationX(dir == Direction.UP ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+							.rotationY(dir.getAxis().isVertical() ? 0 : ((int) dir.toYRot()) % 360)
+							.build();
+				}, BlockStateProperties.WATERLOGGED);
+
+		this.registerGeneratedItemModel(block, "item");
+	}
+
 	public void registerLightningRod(Block parent, Block block) {
-		ModelFile rod = models().withExistingParent(name(block), "block/lightning_rod").texture("texture", blockTexture(parent));
+		ModelFile rod = models().withExistingParent(name(block), "block/lightning_rod").texture("texture", blockTexture(parent)).texture("particle", blockTexture(parent));
 		ModelFile on = new ExistingModelFile(new ResourceLocation("block/lightning_rod_on"), this.models().existingFileHelper);
 
 		this.getVariantBuilder(block)

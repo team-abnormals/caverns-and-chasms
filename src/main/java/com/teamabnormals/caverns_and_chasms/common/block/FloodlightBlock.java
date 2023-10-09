@@ -11,6 +11,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,6 +25,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FloodlightBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
+	private final WeatheringCopper.WeatherState weatherState;
+
 	private static final VoxelShape DOWN_SHAPE = Shapes.or(box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), box(7.0D, 4.0D, 7.0D, 9.0D, 16.0D, 9.0D));
 	private static final VoxelShape UP_SHAPE = Shapes.or(box(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D), box(7.0D, 0.0D, 7.0D, 9.0D, 12.0D, 9.0D));
 	private static final VoxelShape NORTH_SHAPE = Shapes.or(box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 4.0D), box(7.0D, 7.0D, 4.0D, 9.0D, 9.0D, 16.0D));
@@ -32,8 +35,9 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 	private static final VoxelShape EAST_SHAPE = Shapes.or(box(12.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D), box(0.0D, 7.0D, 7.0D, 12.0D, 9.0D, 9.0D));
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public FloodlightBlock(Properties properties) {
+	public FloodlightBlock(WeatheringCopper.WeatherState weatherState, Properties properties) {
 		super(properties);
+		this.weatherState = weatherState;
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, false));
 	}
 
@@ -71,7 +75,13 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 			double x = 0.1D + random.nextDouble() * 0.8D + vec3i.getX();
 			double y = 0.1D + random.nextDouble() * 0.8D + vec3i.getY();
 			double z = 0.1D + random.nextDouble() * 0.8D + vec3i.getZ();
-			level.addParticle(CCParticleTypes.FLOODLIGHT_DUST.get(), pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0, 0, 0);
+
+			level.addParticle(switch (this.getWeatherState()) {
+				case UNAFFECTED -> CCParticleTypes.FLOODLIGHT_DUST.get();
+				case EXPOSED -> CCParticleTypes.EXPOSED_FLOODLIGHT_DUST.get();
+				case WEATHERED -> CCParticleTypes.WEATHERED_FLOODLIGHT_DUST.get();
+				case OXIDIZED -> CCParticleTypes.OXIDIZED_FLOODLIGHT_DUST.get();
+			}, pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0, 0, 0);
 		}
 	}
 
@@ -103,5 +113,9 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 	@Override
 	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
 		return false;
+	}
+
+	public WeatherState getWeatherState() {
+		return this.weatherState;
 	}
 }

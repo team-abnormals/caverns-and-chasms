@@ -69,6 +69,13 @@
   "block.caverns_and_chasms.tmt": "TMT",
 
   "block.caverns_and_chasms.floodlight": "Floodlight",
+  "block.caverns_and_chasms.exposed_floodlight": "Exposed Floodlight",
+  "block.caverns_and_chasms.weathered_floodlight": "Weathered Floodlight",
+  "block.caverns_and_chasms.oxidized_floodlight": "Oxidized Floodlight",
+  "block.caverns_and_chasms.waxed_floodlight": "Waxed Floodlight",
+  "block.caverns_and_chasms.waxed_exposed_floodlight": "Waxed Exposed Floodlight",
+  "block.caverns_and_chasms.waxed_weathered_floodlight": "Waxed Weathered Floodlight",
+  "block.caverns_and_chasms.waxed_oxidized_floodlight": "Waxed Oxidized Floodlight",
   "block.caverns_and_chasms.inductor": "Inductor",
 
   "block.caverns_and_chasms.copper_bars": "Copper Bars",

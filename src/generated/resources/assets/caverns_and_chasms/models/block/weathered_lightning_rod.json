@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/lightning_rod",
   "textures": {
+    "particle": "caverns_and_chasms:block/weathered_lightning_rod",
     "texture": "caverns_and_chasms:block/weathered_lightning_rod"
   }
 }

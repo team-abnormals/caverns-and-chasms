@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:waxed_weathered_floodlight_from_honeycomb"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weathered_floodlight": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:weathered_floodlight"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_weathered_floodlight",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:waxed_weathered_floodlight_from_honeycomb"
+    ]
+  }
+}

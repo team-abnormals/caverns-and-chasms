@@ -31,6 +31,10 @@
     "caverns_and_chasms:waxed_lightning_rod",
     "caverns_and_chasms:waxed_exposed_lightning_rod",
     "caverns_and_chasms:waxed_weathered_lightning_rod",
-    "caverns_and_chasms:waxed_oxidized_lightning_rod"
+    "caverns_and_chasms:waxed_oxidized_lightning_rod",
+    "caverns_and_chasms:waxed_floodlight",
+    "caverns_and_chasms:waxed_exposed_floodlight",
+    "caverns_and_chasms:waxed_weathered_floodlight",
+    "caverns_and_chasms:waxed_oxidized_floodlight"
   ]
 }

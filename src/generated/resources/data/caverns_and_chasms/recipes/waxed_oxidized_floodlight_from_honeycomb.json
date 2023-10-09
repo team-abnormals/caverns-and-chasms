@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "waxed_oxidized_floodlight",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:oxidized_floodlight"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_oxidized_floodlight"
+  }
+}
