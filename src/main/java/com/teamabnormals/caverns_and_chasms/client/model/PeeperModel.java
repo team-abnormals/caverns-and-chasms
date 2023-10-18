@@ -21,7 +21,7 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 	public PeeperModel(ModelPart root) {
 		this.root = root;
 		this.head = root.getChild("head");
-		this.pupil = root.getChild("head").getChild("pupil");
+		this.pupil = this.head.getChild("pupil");
 		this.rightHindLeg = root.getChild("right_hind_leg");
 		this.leftHindLeg = root.getChild("left_hind_leg");
 		this.rightFrontLeg = root.getChild("right_front_leg");
@@ -64,6 +64,11 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 		}
 
 		if (target != null) {
+			this.pupil.xScale = 1.0F;
+			this.pupil.yScale = 1.0F;
+			this.pupil.xScale = 1.0F + 2.0F / peeper.distanceTo(target);
+			this.pupil.yScale = 1.0F + 2.0F / peeper.distanceTo(target);
+
 //			Vec3 vec3 = target.getEyePosition(0.0F);
 //			Vec3 vec31 = peeper.getEyePosition(0.0F);
 //			double d0 = vec3.y - vec31.y;
