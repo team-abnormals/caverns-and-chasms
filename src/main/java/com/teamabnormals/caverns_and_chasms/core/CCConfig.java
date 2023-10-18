@@ -15,6 +15,7 @@ public class CCConfig {
 
 		public final BooleanValue deepersDropAllBlocks;
 		public final IntValue deeperMaxSpawnHeight;
+		public final IntValue peeperMaxSpawnHeight;
 
 //		public final BooleanValue skeletonHealthNerf;
 //		public final DoubleValue skeletonHealth;
@@ -35,6 +36,9 @@ public class CCConfig {
 			builder.push("deeper");
 			deepersDropAllBlocks = builder.define("Deeper explosions drop all blocks", true);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
+			builder.pop();
+			builder.push("peeper");
+			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);
 			builder.pop();
 //			builder.push("skeleton");
 //			skeletonHealthNerf = builder.define("If Skeleton's health should be nerfed from 20", true);

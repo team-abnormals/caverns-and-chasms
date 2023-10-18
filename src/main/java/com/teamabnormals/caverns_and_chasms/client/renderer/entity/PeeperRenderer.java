@@ -2,6 +2,8 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.DeeperPrimedLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPrimedLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
@@ -11,10 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
+	public static final ResourceLocation PEEPER = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png");
+	public static final ResourceLocation PEEPER_GLOW = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper_glow.png");
 
 	public PeeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new PeeperModel<>(context.bakeLayer(CCModelLayers.PEEPER)), 0.5F);
-		//this.addLayer(new DeeperPrimedLayer(this, context));
+		this.addLayer(new PeeperPrimedLayer(this, context));
 	}
 
 	@Override
@@ -31,6 +35,6 @@ public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
 
 	@Override
 	public ResourceLocation getTextureLocation(Peeper entity) {
-		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png");
+		return PEEPER;
 	}
 }

@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.NetheriteHorseArmorItem;
@@ -176,18 +177,27 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onLivingSpawn(LivingSpawnEvent.CheckSpawn event) {
-		Entity entity = event.getEntity();
+		LivingEntity entity = event.getEntity();
 		LevelAccessor world = event.getLevel();
 		boolean validSpawn = event.getSpawnReason() == MobSpawnType.NATURAL || event.getSpawnReason() == MobSpawnType.CHUNK_GENERATION;
 		if (event.getResult() != Event.Result.DENY) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				Creeper creeper = (Creeper) entity;
 				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
-					Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
-					if (deeper != null) {
-						deeper.copyPosition(creeper);
-						world.addFreshEntity(deeper);
-						entity.discard();
+					if (event.getY() < CCConfig.COMMON.peeperMaxSpawnHeight.get() && entity.getRandom().nextFloat() < 0.7F) {
+						Peeper peeper = CCEntityTypes.PEEPER.get().create((Level) world);
+						if (peeper != null) {
+							peeper.copyPosition(creeper);
+							world.addFreshEntity(peeper);
+							entity.discard();
+						}
+					} else {
+						Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
+						if (deeper != null) {
+							deeper.copyPosition(creeper);
+							world.addFreshEntity(deeper);
+							entity.discard();
+						}
 					}
 				}
 			}

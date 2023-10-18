@@ -34,7 +34,6 @@ public class Peeper extends Creeper {
 
 	public Peeper(EntityType<? extends Peeper> type, Level worldIn) {
 		super(type, worldIn);
-		this.maxSwell = 20;
 	}
 
 	@Override
@@ -55,7 +54,7 @@ public class Peeper extends Creeper {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.28D);
+		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.22D);
 	}
 
 	@Override

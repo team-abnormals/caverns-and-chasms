@@ -284,7 +284,7 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	public boolean shouldAttack(LivingEntity target) {
-		if (this.getFriendAmount() > 1) {
+		if (this.getFriendAmount() > 1 && this.tamer == null) {
 			if (target instanceof Player) {
 				return !this.trustsPlayers();
 			} else {
