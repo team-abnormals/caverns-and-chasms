@@ -28,7 +28,7 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 			if (player != null) {
 				double xDist = player.getX() - x;
 				double zDist = player.getZ() - z;
-				return !(Math.abs(zDist) > (double) 1.0E-5F) && !(Math.abs(xDist) > (double) 1.0E-5F) ? 0.0F : (float) (Mth.atan2(zDist, xDist) + ((float) Math.PI / 2.0F));
+				return (!(Math.abs(zDist) > (double) 1.0E-5F) && !(Math.abs(xDist) > (double) 1.0E-5F) ? 0.0F : (float) (Mth.atan2(zDist, xDist) + ((float) Math.PI / 2.0F))) - ((float) Math.PI * 2.0F);
 			}
 		}
 		return 0.0F;

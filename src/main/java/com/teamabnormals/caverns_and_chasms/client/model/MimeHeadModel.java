@@ -23,8 +23,7 @@ public class MimeHeadModel extends SkullModel {
 	}
 
 	@Override
-	public void setupAnim(float p_104188_, float p_104189_, float p_104190_) {
-		super.setupAnim(p_104188_, p_104189_, p_104190_);
-		this.head.yRot = p_104188_ == 0.0F || p_104188_ > 360.0F ? p_104189_ * ((float) Math.PI / 180F) : p_104188_;
+	public void setupAnim(float ageInTicks, float netHeadYaw, float headPitch) {
+		super.setupAnim(ageInTicks, netHeadYaw, headPitch);
 	}
 }
