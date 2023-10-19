@@ -44,7 +44,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<Peeper>> PEEPER = HELPER.createLivingEntity("peeper", Peeper::new, MobCategory.MONSTER, 0.6F, 2.2F);
 	public static final RegistryObject<EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
-	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
+//	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
 	public static final RegistryObject<EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, MobCategory.CREATURE, 0.5F, 0.45F);
 	public static final RegistryObject<EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.AMBIENT, 0.5F, 0.75F);
 	public static final RegistryObject<EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
@@ -62,7 +62,7 @@ public class CCEntityTypes {
 		event.put(DEEPER.get(), Deeper.createAttributes().build());
 		event.put(PEEPER.get(), Peeper.createAttributes().build());
 		event.put(MIME.get(), Mime.registerAttributes().build());
-		event.put(FLY.get(), Fly.registerAttributes().build());
+//		event.put(FLY.get(), Fly.registerAttributes().build());
 		event.put(RAT.get(), Rat.registerAttributes().build());
 		event.put(GLARE.get(), Glare.createAttributes().build());
 		event.put(COPPER_GOLEM.get(), CopperGolem.registerAttributes().build());

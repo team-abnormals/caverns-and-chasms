@@ -51,7 +51,7 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCItems.COPPER_NUGGET.get(), CCItems.BAROMETER.get(), CCItems.TUNING_FORK.get(), CCItems.OXIDIZED_COPPER_GOLEM.get());
 		this.add(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
 		this.add(CCItems.SANGUINE_PLATING.get(), CCItems.SANGUINE_HELMET.get(), CCItems.SANGUINE_CHESTPLATE.get(), CCItems.SANGUINE_LEGGINGS.get(), CCItems.SANGUINE_BOOTS.get());
-		this.add(CCItems.DEEPER_SPAWN_EGG.get(), CCItems.MIME_SPAWN_EGG.get(), CCItems.FLY_SPAWN_EGG.get(), CCItems.RAT_SPAWN_EGG.get());
+		this.add(CCItems.DEEPER_SPAWN_EGG.get(), CCItems.MIME_SPAWN_EGG.get(), CCItems.RAT_SPAWN_EGG.get());
 	}
 
 	private void add(Block... blocks) {
