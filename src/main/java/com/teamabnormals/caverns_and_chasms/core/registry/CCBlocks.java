@@ -78,11 +78,11 @@ public class CCBlocks {
 	public static final RegistryObject<Block> FLOODLIGHT = HELPER.createBlock("floodlight", () -> new WeatheringFloodlightBlock(WeatherState.UNAFFECTED, CCProperties.FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> EXPOSED_FLOODLIGHT = HELPER.createBlock("exposed_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> WEATHERED_FLOODLIGHT = HELPER.createBlock("weathered_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> OXIDIZED_FLOODLIGHT = HELPER.createBlock("oxidized_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.OXIDIZED, CCProperties.OXIDZIED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> OXIDIZED_FLOODLIGHT = HELPER.createBlock("oxidized_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> WAXED_FLOODLIGHT = HELPER.createBlock("waxed_floodlight", () -> new FloodlightBlock(WeatherState.UNAFFECTED, CCProperties.FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> WAXED_EXPOSED_FLOODLIGHT = HELPER.createBlock("waxed_exposed_floodlight", () -> new FloodlightBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 	public static final RegistryObject<Block> WAXED_WEATHERED_FLOODLIGHT = HELPER.createBlock("waxed_weathered_floodlight", () -> new FloodlightBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
-	public static final RegistryObject<Block> WAXED_OXIDIZED_FLOODLIGHT = HELPER.createBlock("waxed_oxidized_floodlight", () -> new FloodlightBlock(WeatherState.OXIDIZED, CCProperties.OXIDZIED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
+	public static final RegistryObject<Block> WAXED_OXIDIZED_FLOODLIGHT = HELPER.createBlock("waxed_oxidized_floodlight", () -> new FloodlightBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_FLOODLIGHT), CreativeModeTab.TAB_DECORATIONS);
 
 	//	public static final RegistryObject<Block> INDUCTOR = HELPER.createBlock("inductor", () -> new InductorBlock(CCProperties.INDUCTOR), CreativeModeTab.TAB_REDSTONE);
 
@@ -199,7 +199,6 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_SUGILITE_SLAB = HELPER.createBlock("polished_sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> POLISHED_SUGILITE_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "polished_sugilite_vertical_slab", () -> new VerticalSlabBlock(CCProperties.SUGILITE), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
-
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES), CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -266,7 +265,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 10);
 		public static final BlockBehaviour.Properties EXPOSED_FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 9);
 		public static final BlockBehaviour.Properties WEATHERED_FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 8);
-		public static final BlockBehaviour.Properties OXIDZIED_FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 7);
+		public static final BlockBehaviour.Properties OXIDIZED_FLOODLIGHT = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 7);
 
 		public static final BlockBehaviour.Properties INDUCTOR = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 4.8F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15);
