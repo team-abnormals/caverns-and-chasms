@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -48,6 +49,9 @@ public class PeeperSwellGoal extends Goal {
 		} else if (this.target instanceof MovingPlayer player && !player.isMoving()) {
 			this.peeper.setSwellDir(0);
 		} else {
+			if (this.peeper.getSwellDir() == 0) {
+				this.peeper.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
+			}
 			this.peeper.setSwellDir(1);
 		}
 	}

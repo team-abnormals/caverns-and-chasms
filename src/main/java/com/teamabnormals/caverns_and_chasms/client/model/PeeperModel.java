@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
+import com.teamabnormals.blueprint.core.util.MathUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HierarchicalModel;
@@ -7,6 +8,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 
 public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
@@ -66,23 +68,18 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 		if (target != null) {
 			this.pupil.xScale = 1.0F;
 			this.pupil.yScale = 1.0F;
-			this.pupil.xScale = 1.0F + 2.0F / peeper.distanceTo(target);
-			this.pupil.yScale = 1.0F + 2.0F / peeper.distanceTo(target);
 
-//			Vec3 vec3 = target.getEyePosition(0.0F);
-//			Vec3 vec31 = peeper.getEyePosition(0.0F);
-//			double d0 = vec3.y - vec31.y;
-//			if (d0 > 0.0D) {
-//				this.pupil.y = 0.0F;
-//			} else {
-//				this.pupil.y = 1.0F;
-//			}
-//
-//			Vec3 vec32 = peeper.getViewVector(0.0F);
-//			vec32 = new Vec3(vec32.x, 0.0D, vec32.z);
-//			Vec3 vec33 = (new Vec3(vec31.x - vec3.x, 0.0D, vec31.z - vec3.z)).normalize().yRot(((float) Math.PI / 2F));
-//			double d1 = vec32.dot(vec33);
-//			this.pupil.x = Mth.sqrt((float) Math.abs(d1)) * 2.0F * (float) Math.signum(d1);
+			float scale = Math.min(1.5F, 2.0F / peeper.distanceTo(target));
+			this.pupil.xScale += scale;
+			this.pupil.yScale += scale;
+
+			RandomSource random = peeper.getRandom();
+			this.pupil.x = 0.0F;
+			this.pupil.y = -7.0F;
+			if (peeper.distanceTo(target) <= 3.0F) {
+				this.pupil.x += (float) MathUtil.makeNegativeRandomly(random.nextFloat() * 0.25F, random);
+				this.pupil.y += (float) MathUtil.makeNegativeRandomly(random.nextFloat() * 0.25F, random);
+			}
 		}
 
 		this.pupil.visible = true;
