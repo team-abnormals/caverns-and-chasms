@@ -21,10 +21,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -108,11 +105,11 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 			BlockPos sourcePos = pos.relative(direction);
 			if (level.mayInteract(player, pos) && player.mayUseItemAt(sourcePos, direction, stack)) {
 				BlockState sourceState = level.getBlockState(pos);
-				if (this.getFluid() == Fluids.EMPTY || bucketLevel < 2 && sourceState.getFluidState().getType() == this.getFluid()) {
+				if (this.getFluid() == Fluids.EMPTY || (bucketLevel < 2 && sourceState.getFluidState().getType() == this.getFluid())) {
 					// Picking up raw fluids & powder snow
 					if (sourceState.getBlock() instanceof BucketPickup bucketPickup) {
 						bucketPickup.pickupBlock(level, pos, sourceState);
-						Fluid fluid = sourceState.is(Blocks.WATER) ? Fluids.WATER : sourceState.is(Blocks.LAVA) ? Fluids.LAVA : Fluids.EMPTY;
+						Fluid fluid = sourceState.getFluidState().is(Fluids.WATER) ? Fluids.WATER : sourceState.getFluidState().is(Fluids.LAVA) ? Fluids.LAVA : Fluids.EMPTY;
 						ItemStack newBucket = ItemStack.EMPTY;
 
 						if (fluid != Fluids.EMPTY && getFilledBucket(sourceState) != null) {
