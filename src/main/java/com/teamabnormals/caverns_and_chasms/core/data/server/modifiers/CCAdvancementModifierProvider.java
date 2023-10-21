@@ -35,6 +35,9 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 
 	@Override
 	protected void registerEntries() {
+		this.entry("story/lava_bucket").selects("story/lava_bucket").addModifier(CriteriaModifier.builder(this.modId).addCriterion("golden_lava_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.GOLDEN_LAVA_BUCKET.get())).addIndexedRequirements(0, false, "golden_lava_bucket").build());
+
+
 		this.entry("nether/all_effects").selects("nether/all_effects").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
 		this.entry("nether/all_potions").selects("nether/all_potions").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
 
