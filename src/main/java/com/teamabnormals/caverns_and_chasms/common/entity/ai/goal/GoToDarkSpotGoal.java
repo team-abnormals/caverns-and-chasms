@@ -35,7 +35,7 @@ public class GoToDarkSpotGoal extends WaterAvoidingRandomFlyingGoal {
 
 	protected Vec3 getModifiedPosition() {
 		Vec3 vec3 = this.mob.getViewVector(0.0F);
-		Vec3 vec31 = HoverRandomPos.getPos(this.mob, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 1, 0);
-		return vec31 != null ? vec31 : AirAndWaterRandomPos.getPos(this.mob, 8, 4, -12, vec3.x, vec3.z, (float)Math.PI / 2F);
+		Vec3 vec31 = HoverRandomPos.getPos(this.mob, 8, 7, vec3.x, vec3.z, ((float) Math.PI / 2F), 1, 0);
+		return vec31 != null ? vec31 : AirAndWaterRandomPos.getPos(this.mob, 8, 4, -12, vec3.x, vec3.z, (float) Math.PI / 2F);
 	}
 }

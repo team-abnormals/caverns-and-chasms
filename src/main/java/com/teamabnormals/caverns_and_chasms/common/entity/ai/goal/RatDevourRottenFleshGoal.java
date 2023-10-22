@@ -4,20 +4,16 @@ import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelReader;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class RatDevourRottenFleshGoal extends MoveToBlockGoal {
 	private final Rat rat;
@@ -82,7 +78,7 @@ public class RatDevourRottenFleshGoal extends MoveToBlockGoal {
 			++this.eatingTime;
 			if (random.nextFloat() < 0.3F) {
 				ItemStack flesh = new ItemStack(Items.ROTTEN_FLESH);
-				this.rat.playSound(this.rat.getEatingSound(flesh), 0.5F + 0.5F * (float)random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+				this.rat.playSound(this.rat.getEatingSound(flesh), 0.5F + 0.5F * (float) random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 				this.rat.spawnItemParticles(flesh, 4);
 			}
 		}
@@ -92,7 +88,7 @@ public class RatDevourRottenFleshGoal extends MoveToBlockGoal {
 			this.rat.playSound(SoundEvents.PLAYER_BURP, 0.5F, random.nextFloat() * 0.1F + 0.9F);
 			this.rat.tame(this.rat.getTamer());
 			if (!this.rat.level.isClientSide()) {
-				for(int i = 0; i < 4; ++i) {
+				for (int i = 0; i < 4; ++i) {
 					double d0 = random.nextGaussian() * 0.02D;
 					double d1 = random.nextGaussian() * 0.02D;
 					double d2 = random.nextGaussian() * 0.02D;
