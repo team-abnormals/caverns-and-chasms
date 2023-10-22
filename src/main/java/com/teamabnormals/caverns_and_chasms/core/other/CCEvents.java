@@ -107,12 +107,6 @@ public class CCEvents {
 		} else if (entity instanceof Spider spider) {
 			spider.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(spider, Fly.class, false));
 		} else if (entity instanceof IronGolem golem) {
-			if (!CCConfig.COMMON.creeperExplosionNerf.get()) {
-				golem.targetSelector.availableGoals.stream().map(it -> it.goal).filter(it -> it instanceof NearestAttackableTargetGoal<?>).findFirst().ifPresent(goal -> {
-					golem.targetSelector.removeGoal(goal);
-					golem.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(golem, Mob.class, 5, false, false, (mob) -> mob instanceof Enemy));
-				});
-			}
 			golem.goalSelector.addGoal(0, new FollowTuningForkGoal((ControllableGolem) golem, 0.9D));
 			golem.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(golem, LivingEntity.class, 5, false, false, (target) -> {
 				return ((ControllableGolem) golem).isTuningForkTarget(target);
