@@ -54,14 +54,10 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 	 * @return The sprite for the deeper
 	 */
 	public static TextureAtlasSprite getSprite(DeeperModel.DeeperSprite sprite) {
-		switch (sprite) {
-			case BASE:
-			default:
-				return uploader.getSprite(DEEPER_SPRITE);
-			case PRIMED:
-				return uploader.getSprite(PRIMED_SPRITE);
-			case EMISSIVE:
-				return uploader.getSprite(EMISSIVE_SPRITE);
-		}
+		return switch (sprite) {
+			case BASE -> uploader.getSprite(DEEPER_SPRITE);
+			case PRIMED -> uploader.getSprite(PRIMED_SPRITE);
+			case EMISSIVE -> uploader.getSprite(EMISSIVE_SPRITE);
+		};
 	}
 }
