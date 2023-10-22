@@ -21,7 +21,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -67,6 +70,10 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 		int level = stack.getOrCreateTag().getInt(NBT_TAG);
 		if (level < 3) stack.getOrCreateTag().putInt(NBT_TAG, level + 1);
 		return stack;
+	}
+
+	public static boolean canBeFilled(ItemStack stack) {
+		return stack.getOrCreateTag().getInt(NBT_TAG) < 2;
 	}
 
 	@Override
