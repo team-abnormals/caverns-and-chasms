@@ -1,10 +1,19 @@
 {
   "modifiers": [
     {
+      "type": "display",
+      "config": {
+        "description": {
+          "translate": "advancements.caverns_and_chasms.husbandry.wax_on.description"
+        },
+        "mode": "modify"
+      }
+    },
+    {
       "type": "criteria",
       "config": {
         "criteria": {
-          "caverns_and_chasms:wax_on": {
+          "caverns_and_chasms:wax_on_blocks": {
             "conditions": {
               "item": {
                 "items": [
@@ -18,6 +27,25 @@
               }
             },
             "trigger": "minecraft:item_used_on_block"
+          },
+          "caverns_and_chasms:wax_on_golem": {
+            "conditions": {
+              "entity": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "caverns_and_chasms:copper_golem"
+                  }
+                }
+              ],
+              "item": {
+                "items": [
+                  "minecraft:honeycomb"
+                ]
+              }
+            },
+            "trigger": "minecraft:player_interacted_with_entity"
           }
         },
         "indexed_requirements": [
@@ -25,7 +53,8 @@
             "index": 0,
             "replace": false,
             "requirements": [
-              "caverns_and_chasms:wax_on"
+              "caverns_and_chasms:wax_on_blocks",
+              "caverns_and_chasms:wax_on_golem"
             ]
           }
         ]
