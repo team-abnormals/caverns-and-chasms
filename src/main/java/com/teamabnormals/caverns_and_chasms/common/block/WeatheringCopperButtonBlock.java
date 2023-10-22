@@ -2,8 +2,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,12 +18,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
-public class WeatheringCopperButtonBlock extends ButtonBlock implements CCWeatheringCopper {
-	protected final WeatherState weatherState;
+public class WeatheringCopperButtonBlock extends CopperButtonBlock implements CCWeatheringCopper {
 
 	public WeatheringCopperButtonBlock(WeatheringCopper.WeatherState weatherState, BlockBehaviour.Properties properties) {
-		super(false, properties);
-		this.weatherState = weatherState;
+		super(weatherState, properties);
 	}
 
 	@Override
@@ -56,20 +51,5 @@ public class WeatheringCopperButtonBlock extends ButtonBlock implements CCWeathe
 	@Override
 	public WeatheringCopper.WeatherState getAge() {
 		return this.weatherState;
-	}
-
-	@Override
-	public int getPressDuration() {
-		return switch (this.weatherState) {
-			default -> 20;
-			case EXPOSED -> 30;
-			case WEATHERED -> 40;
-			case OXIDIZED -> 50;
-		};
-	}
-
-	@Override
-	protected SoundEvent getSound(boolean powered) {
-		return powered ? SoundEvents.STONE_BUTTON_CLICK_ON : SoundEvents.STONE_BUTTON_CLICK_OFF;
 	}
 }

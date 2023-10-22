@@ -7,7 +7,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -26,9 +25,10 @@ public class CopperButtonBlock extends ButtonBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		Item item = player.getItemInHand(hand).getItem();
-		if (item instanceof AxeItem && !state.getValue(POWERED))
-			return InteractionResult.PASS;
+		if (!(this instanceof WeatheringCopperButtonBlock)) {
+			if (player.getItemInHand(hand).getItem() instanceof AxeItem && !state.getValue(POWERED))
+				return InteractionResult.PASS;
+		}
 		return super.use(state, level, pos, player, hand, result);
 	}
 
