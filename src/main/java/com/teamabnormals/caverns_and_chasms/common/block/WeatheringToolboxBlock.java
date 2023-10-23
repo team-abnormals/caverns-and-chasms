@@ -1,9 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
@@ -22,6 +24,18 @@ public class WeatheringToolboxBlock extends ToolboxBlock implements CCWeathering
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		this.onRandomTick(state, level, pos, random);
+	}
+
+	@Override
+	public void applyChangeOverTime(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		BlockEntity toolbox = level.getBlockEntity(pos);
+		if (toolbox != null) {
+			CompoundTag tag = toolbox.serializeNBT();
+			CCWeatheringCopper.super.applyChangeOverTime(state, level, pos, random);
+			toolbox.deserializeNBT(tag);
+		} else {
+			CCWeatheringCopper.super.applyChangeOverTime(state, level, pos, random);
+		}
 	}
 
 	@Override
