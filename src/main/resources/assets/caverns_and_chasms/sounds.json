@@ -52,6 +52,20 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.toolbox.close": {
+    "sounds": [
+      "caverns_and_chasms:block/toolbox/close1",
+      "caverns_and_chasms:block/toolbox/close2",
+      "caverns_and_chasms:block/toolbox/close3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.toolbox.close"
+  },
+  "block.toolbox.open": {
+    "sounds": [
+      "caverns_and_chasms:block/toolbox/open"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.toolbox.open"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"

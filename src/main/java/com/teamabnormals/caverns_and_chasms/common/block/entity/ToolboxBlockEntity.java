@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.inventory.ToolboxMenu;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -113,7 +114,7 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 			this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.openCount);
 			if (this.openCount == 1) {
 				this.level.gameEvent(p_59692_, GameEvent.CONTAINER_OPEN, this.worldPosition);
-				this.level.playSound(null, this.worldPosition, SoundEvents.SHULKER_BOX_OPEN, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+				this.level.playSound(null, this.worldPosition, CCSoundEvents.TOOLBOX_OPEN.get(), SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 			}
 		}
 
@@ -126,7 +127,7 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 			this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.openCount);
 			if (this.openCount <= 0) {
 				this.level.gameEvent(player, GameEvent.CONTAINER_CLOSE, this.worldPosition);
-				this.level.playSound(null, this.worldPosition, SoundEvents.SHULKER_BOX_CLOSE, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+				this.level.playSound(null, this.worldPosition, CCSoundEvents.TOOLBOX_CLOSE.get(), SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 			}
 		}
 

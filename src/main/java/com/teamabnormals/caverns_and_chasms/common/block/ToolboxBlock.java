@@ -97,7 +97,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 			BlockEntity blockEntity = level.getBlockEntity(pos);
 			if (blockEntity instanceof ToolboxBlockEntity toolbox) {
 				player.openMenu(toolbox);
-				player.awardStat(Stats.OPEN_SHULKER_BOX);
+//				player.awardStat(Stats.OPEN_SHULKER_BOX);
 				PiglinAi.angerNearbyPiglins(player, true);
 				return InteractionResult.CONSUME;
 			} else {
