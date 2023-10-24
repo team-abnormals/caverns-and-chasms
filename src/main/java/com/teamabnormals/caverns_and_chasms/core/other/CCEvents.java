@@ -78,6 +78,7 @@ import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
@@ -314,6 +315,13 @@ public class CCEvents {
 					}
 				}
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onBreakSpeed(BreakSpeed event) {
+		if (event.getState().is(Blocks.BUDDING_AMETHYST)) {
+			event.setNewSpeed(event.getOriginalSpeed() / 8.0F);
 		}
 	}
 
