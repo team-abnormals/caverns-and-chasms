@@ -33,7 +33,8 @@ public class CCItems {
 
 	public static final RegistryObject<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TOOLS)));
 	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new InjectedItem(Items.CLOCK, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
-	public static final RegistryObject<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_DECORATIONS)));
+	public static final RegistryObject<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_DECORATIONS), false));
+	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_GOLEM = HELPER.createItem("waxed_oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_DECORATIONS), true));
 	public static final RegistryObject<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 
 	public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties().fireResistant().tab(CreativeModeTab.TAB_MATERIALS)));

@@ -31,6 +31,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 				BEJEWELED_APPLE.get(), BLUNT_ARROW.get(),
 				AZALEA_BOAT.getFirst().get(), AZALEA_BOAT.getSecond().get(), AZALEA_FURNACE_BOAT.get(), LARGE_AZALEA_BOAT.get()
 		);
+		this.item(WAXED_OXIDIZED_COPPER_GOLEM.get(), "oxidized_copper_golem", "generated");
 		this.handheldItem(KUNAI.get());
 		this.spawnEggItem(PEEPER_SPAWN_EGG.get());
 	}
@@ -56,6 +57,11 @@ public class CCItemModelProvider extends ItemModelProvider {
 	private void item(ItemLike item, String type) {
 		ResourceLocation itemName = ForgeRegistries.ITEMS.getKey(item.asItem());
 		withExistingParent(itemName.getPath(), "item/" + type).texture("layer0", new ResourceLocation(this.modid, "item/" + itemName.getPath()));
+	}
+
+	private void item(ItemLike item, String path, String type) {
+		ResourceLocation itemName = ForgeRegistries.ITEMS.getKey(item.asItem());
+		withExistingParent(itemName.getPath(), "item/" + type).texture("layer0", new ResourceLocation(this.modid, "item/" + path));
 	}
 
 	private void blockItem(Block block) {

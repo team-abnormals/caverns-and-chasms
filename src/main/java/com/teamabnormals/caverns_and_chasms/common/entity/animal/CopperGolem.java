@@ -142,6 +142,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		this.entityData.set(WAXED, waxed);
 	}
 
+	@Override
 	public void tick() {
 		super.tick();
 
@@ -196,7 +197,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);
-				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				if (!player.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
@@ -207,13 +208,13 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				this.setWaxed(false);
 				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.WAX_OFF);
-				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
 			} else if (this.getOxidation().getId() > 0) {
 				this.setOxidation(Oxidation.byId(this.getOxidation().getId() - 1));
 				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.SCRAPE);
-				level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
 			}
 
@@ -258,7 +259,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		oxidizedgolem.setYHeadRot(f);
 		oxidizedgolem.setYBodyRot(f);
 
-		oxidizedgolem.setNoAI(this.isNoAi());
+		oxidizedgolem.setNoAi(this.isNoAi());
+		oxidizedgolem.setSilent(this.isSilent());
+		oxidizedgolem.setNoGravity(this.isNoGravity());
+		oxidizedgolem.setGlowingTag(this.hasGlowingTag());
 		oxidizedgolem.setInvulnerable(this.isInvulnerable());
 		oxidizedgolem.setPersistenceRequired(this.isPersistenceRequired());
 

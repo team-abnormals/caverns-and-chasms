@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCop
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -21,9 +22,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class OxidizedCopperGolemItem extends Item {
+	private final boolean waxed;
 
-	public OxidizedCopperGolemItem(Properties properties) {
+	public OxidizedCopperGolemItem(Properties properties, boolean waxed) {
 		super(properties);
+		this.waxed = waxed;
 	}
 
 	public InteractionResult useOn(UseOnContext context) {
@@ -46,14 +49,29 @@ public class OxidizedCopperGolemItem extends Item {
 					}
 
 					float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+
+					coppergolem.setWaxed(waxed);
+
+					CompoundTag compound = itemstack.getOrCreateTag();
+					if (compound.contains("NoAI"))
+						coppergolem.setNoAi(compound.getBoolean("NoAI"));
+					if (compound.contains("Silent"))
+						coppergolem.setSilent(compound.getBoolean("Silent"));
+					if (compound.contains("NoGravity"))
+						coppergolem.setNoGravity(compound.getBoolean("NoGravity"));
+					if (compound.contains("Glowing"))
+						coppergolem.setGlowingTag(compound.getBoolean("Glowing"));
+					if (compound.contains("Invulnerable"))
+						coppergolem.setInvulnerable(compound.getBoolean("Invulnerable"));
+					if (compound.contains("PersistenceRequired"))
+						coppergolem.setPersistenceRequired(compound.getBoolean("PersistenceRequired"));
+
 					coppergolem.moveTo(coppergolem.getX(), coppergolem.getY(), coppergolem.getZ(), f, 0.0F);
 					coppergolem.yHeadRot = f;
 					coppergolem.yBodyRot = f;
 					serverlevel.addFreshEntityWithPassengers(coppergolem);
 					level.playSound(null, coppergolem.getX(), coppergolem.getY(), coppergolem.getZ(), SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
 					coppergolem.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
-					System.out.println(f);
-
 				}
 
 				itemstack.shrink(1);
