@@ -43,35 +43,33 @@ public class OxidizedCopperGolemItem extends Item {
 			if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty()) {
 				if (level instanceof ServerLevel serverlevel) {
 					Component customname = itemstack.hasCustomHoverName() ? itemstack.getHoverName() : null;
-					OxidizedCopperGolem coppergolem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), customname, context.getPlayer(), blockpos, MobSpawnType.SPAWN_EGG, true, true);
-					if (coppergolem == null) {
+					OxidizedCopperGolem golem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), customname, context.getPlayer(), blockpos, MobSpawnType.SPAWN_EGG, true, true);
+					if (golem == null) {
 						return InteractionResult.FAIL;
 					}
 
-					float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
-
-					coppergolem.setWaxed(waxed);
+					golem.setWaxed(waxed);
 
 					CompoundTag compound = itemstack.getOrCreateTag();
 					if (compound.contains("NoAI"))
-						coppergolem.setNoAi(compound.getBoolean("NoAI"));
+						golem.setNoAi(compound.getBoolean("NoAI"));
 					if (compound.contains("Silent"))
-						coppergolem.setSilent(compound.getBoolean("Silent"));
+						golem.setSilent(compound.getBoolean("Silent"));
 					if (compound.contains("NoGravity"))
-						coppergolem.setNoGravity(compound.getBoolean("NoGravity"));
+						golem.setNoGravity(compound.getBoolean("NoGravity"));
 					if (compound.contains("Glowing"))
-						coppergolem.setGlowingTag(compound.getBoolean("Glowing"));
+						golem.setGlowingTag(compound.getBoolean("Glowing"));
 					if (compound.contains("Invulnerable"))
-						coppergolem.setInvulnerable(compound.getBoolean("Invulnerable"));
+						golem.setInvulnerable(compound.getBoolean("Invulnerable"));
 					if (compound.contains("PersistenceRequired"))
-						coppergolem.setPersistenceRequired(compound.getBoolean("PersistenceRequired"));
+						golem.setPersistenceRequired(compound.getBoolean("PersistenceRequired"));
 
-					coppergolem.moveTo(coppergolem.getX(), coppergolem.getY(), coppergolem.getZ(), f, 0.0F);
-					coppergolem.yHeadRot = f;
-					coppergolem.yBodyRot = f;
-					serverlevel.addFreshEntityWithPassengers(coppergolem);
-					level.playSound(null, coppergolem.getX(), coppergolem.getY(), coppergolem.getZ(), SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
-					coppergolem.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
+					float yRot = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+					golem.moveTo(golem.getX(), golem.getY(), golem.getZ(), yRot, 0.0F);
+					golem.setYHeadRot(yRot);
+					serverlevel.addFreshEntityWithPassengers(golem);
+					level.playSound(null, golem.getX(), golem.getY(), golem.getZ(), SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
+					golem.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
 				}
 
 				itemstack.shrink(1);

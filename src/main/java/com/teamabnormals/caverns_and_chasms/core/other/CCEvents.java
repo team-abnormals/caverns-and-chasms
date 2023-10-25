@@ -5,8 +5,6 @@ import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem.Oxidation;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
@@ -26,7 +24,6 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -34,7 +31,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -322,51 +318,6 @@ public class CCEvents {
 	public static void onBreakSpeed(BreakSpeed event) {
 		if (event.getState().is(Blocks.BUDDING_AMETHYST)) {
 			event.setNewSpeed(event.getOriginalSpeed() / 8.0F);
-		}
-	}
-
-	@SubscribeEvent
-	public static void onEntityPlaceBlock(BlockEvent.EntityPlaceEvent event) {
-		if (event.getEntity() != null) {
-			Level level = event.getEntity().getLevel();
-			BlockPos pos = event.getPos();
-			BlockState state = event.getPlacedBlock();
-
-			if (state.getBlock() instanceof LightningRodBlock && state.getValue(LightningRodBlock.FACING) == Direction.UP) {
-				BlockPos belowPos = pos.below();
-				BlockState belowState = level.getBlockState(belowPos);
-				if (belowState.getBlock() instanceof CarvedPumpkinBlock) {
-					float yRot = belowState.getValue(CarvedPumpkinBlock.FACING).toYRot();
-					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-					level.setBlock(belowPos, Blocks.AIR.defaultBlockState(), 2);
-					level.levelEvent(2001, pos, Block.getId(state));
-					level.levelEvent(2001, belowPos, Block.getId(belowState));
-
-					LivingEntity living;
-					if (state.is(CCBlocks.OXIDIZED_LIGHTNING_ROD.get()) || state.is(CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get())) {
-						living = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(level);
-					} else {
-						CopperGolem copperGolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
-						copperGolem.setOxidation(state.is(Blocks.LIGHTNING_ROD) || state.is(CCBlocks.WAXED_LIGHTNING_ROD.get()) ? Oxidation.UNAFFECTED : state.is(CCBlocks.EXPOSED_LIGHTNING_ROD.get()) || state.is(CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get()) ? Oxidation.EXPOSED : Oxidation.WEATHERED);
-						if (state.is(CCBlockTags.WAXED_COPPER_BLOCKS)) {
-							copperGolem.setWaxed(true);
-						}
-						living = copperGolem;
-					}
-
-					living.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D);
-					living.yHeadRot = yRot;
-					living.yBodyRot = yRot;
-
-					level.addFreshEntity(living);
-					for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, living.getBoundingBox().inflate(5.0D))) {
-						CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, living);
-					}
-
-					level.blockUpdated(pos, Blocks.AIR);
-					level.blockUpdated(belowPos, Blocks.AIR);
-				}
-			}
 		}
 	}
 

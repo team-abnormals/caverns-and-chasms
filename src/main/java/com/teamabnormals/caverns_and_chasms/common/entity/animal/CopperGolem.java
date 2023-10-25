@@ -5,8 +5,11 @@ import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -17,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -41,6 +45,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -253,11 +260,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	private void oxidizeIntoStatue() {
 		OxidizedCopperGolem oxidizedgolem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(this.level);
-		oxidizedgolem.copyPosition(this);
 
-		float f = (float) Mth.floor((this.getYRot() + 22.5F) / 45.0F) * 45.0F;
-		oxidizedgolem.setYHeadRot(f);
-		oxidizedgolem.setYBodyRot(f);
+		float yRot = (float) Mth.floor((this.getYRot() + 22.5F) / 45.0F) * 45.0F;
+		oxidizedgolem.moveTo(this.getX(), this.getY(), this.getZ(), yRot, 0.0F);
+		oxidizedgolem.setYHeadRot(yRot);
 
 		oxidizedgolem.setNoAi(this.isNoAi());
 		oxidizedgolem.setSilent(this.isSilent());
@@ -367,6 +373,43 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			this.pressButton();
 		}
 		super.handleEntityEvent(id);
+	}
+
+	public static void createGolem(Level level, BlockPos pos, BlockState state) {
+		float yRot = state.getValue(CarvedPumpkinBlock.FACING).toYRot();
+
+		BlockPos abovepos = pos.above();
+		BlockState abovestate = level.getBlockState(abovepos);
+
+		level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+		level.setBlock(abovepos, Blocks.AIR.defaultBlockState(), 2);
+		level.levelEvent(2001, pos, Block.getId(state));
+		level.levelEvent(2001, abovepos, Block.getId(abovestate));
+
+		LivingEntity golem;
+		if (abovestate.is(CCBlocks.OXIDIZED_LIGHTNING_ROD.get()) || abovestate.is(CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get())) {
+			yRot = (float) Mth.floor((yRot + 22.5F) / 45.0F) * 45.0F;
+			golem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(level);
+		} else {
+			CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(level);
+			coppergolem.setOxidation(abovestate.is(Blocks.LIGHTNING_ROD) || abovestate.is(CCBlocks.WAXED_LIGHTNING_ROD.get()) ? Oxidation.UNAFFECTED : abovestate.is(CCBlocks.EXPOSED_LIGHTNING_ROD.get()) || abovestate.is(CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get()) ? Oxidation.EXPOSED : Oxidation.WEATHERED);
+			if (abovestate.is(CCBlockTags.WAXED_COPPER_BLOCKS)) {
+				coppergolem.setWaxed(true);
+			}
+			golem = coppergolem;
+		}
+
+		golem.moveTo((double) pos.getX() + 0.5D, (double) pos.getY() + 0.05D, (double) pos.getZ() + 0.5D, yRot, 0.0F);
+		golem.setYHeadRot(yRot);
+		golem.setYBodyRot(yRot);
+
+		level.addFreshEntity(golem);
+		for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, golem.getBoundingBox().inflate(5.0D))) {
+			CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, golem);
+		}
+
+		level.blockUpdated(pos, Blocks.AIR);
+		level.blockUpdated(abovepos, Blocks.AIR);
 	}
 
 	class RandomWalkingGoal extends WaterAvoidingRandomStrollGoal {

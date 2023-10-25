@@ -11,6 +11,7 @@
     "BaseFireBlockMixin",
     "BlockItemMixin",
     "BrewingRecipeRegistryMixin",
+	"CarvedPumpkinBlockMixin",
     "CreeperMixin",
     "EnchantmentHelperMixin",
     "ExplosionMixin",
