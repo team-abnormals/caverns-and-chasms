@@ -46,6 +46,25 @@
               }
             },
             "trigger": "minecraft:player_interacted_with_entity"
+          },
+          "caverns_and_chasms:wax_on_oxidized_golem": {
+            "conditions": {
+              "entity": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "caverns_and_chasms:oxidized_copper_golem"
+                  }
+                }
+              ],
+              "item": {
+                "items": [
+                  "minecraft:honeycomb"
+                ]
+              }
+            },
+            "trigger": "minecraft:player_interacted_with_entity"
           }
         },
         "indexed_requirements": [
@@ -54,7 +73,8 @@
             "replace": false,
             "requirements": [
               "caverns_and_chasms:wax_on_blocks",
-              "caverns_and_chasms:wax_on_golem"
+              "caverns_and_chasms:wax_on_golem",
+              "caverns_and_chasms:wax_on_oxidized_golem"
             ]
           }
         ]

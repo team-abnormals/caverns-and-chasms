@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
@@ -26,8 +28,8 @@ public class WeatheringCopperButtonBlock extends CopperButtonBlock implements CC
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		Item item = player.getItemInHand(hand).getItem();
-		if (((item instanceof AxeItem && this.weatherState != WeatherState.UNAFFECTED) || item == Items.HONEYCOMB) && !state.getValue(POWERED))
+		ItemStack stack = player.getItemInHand(hand);
+		if (((stack.is(Tags.Items.TOOLS_AXES) && this.weatherState != WeatherState.UNAFFECTED) || stack.is(Items.HONEYCOMB)) && !state.getValue(POWERED))
 			return InteractionResult.PASS;
 		return super.use(state, level, pos, player, hand, result);
 	}

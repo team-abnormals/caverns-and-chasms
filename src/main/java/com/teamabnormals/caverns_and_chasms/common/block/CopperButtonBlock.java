@@ -6,7 +6,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -14,6 +13,7 @@ import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.Tags;
 
 public class CopperButtonBlock extends ButtonBlock {
 	protected final WeatherState weatherState;
@@ -25,9 +25,8 @@ public class CopperButtonBlock extends ButtonBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if (!(this instanceof WeatheringCopperButtonBlock)) {
-			if (player.getItemInHand(hand).getItem() instanceof AxeItem && !state.getValue(POWERED))
-				return InteractionResult.PASS;
+		if (!(this instanceof WeatheringCopperButtonBlock) && player.getItemInHand(hand).is(Tags.Items.TOOLS_AXES) && !state.getValue(POWERED)) {
+			return InteractionResult.PASS;
 		}
 		return super.use(state, level, pos, player, hand, result);
 	}
