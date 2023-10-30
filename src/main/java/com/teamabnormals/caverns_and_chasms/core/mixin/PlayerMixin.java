@@ -13,7 +13,7 @@ public abstract class PlayerMixin implements MovingPlayer {
 
 	@Inject(method = "checkMovementStatistics", at = @At("HEAD"))
 	private void checkMovementStatistics(double x, double y, double z, CallbackInfo ci) {
-		this.moving = Math.round((float) Math.sqrt(x * x + y * y + z * z) * 100.0F) > 0;
+		this.moving = Math.sqrt(x * x + y * y + z * z) > 0;
 	}
 
 	public boolean isMoving() {

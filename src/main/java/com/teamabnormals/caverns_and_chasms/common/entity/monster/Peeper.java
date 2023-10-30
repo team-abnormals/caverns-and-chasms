@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -30,7 +31,10 @@ import java.util.UUID;
 
 public class Peeper extends Creeper {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("113f0691-d920-423d-acd2-9ca0c577991f");
+	private static final UUID SPEED_UP_MODIFIER_UUID = UUID.fromString("6866925d-f410-42b9-b2f2-7a22c60a6380");
 	private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Peeper frozen", -100.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+
+	private int followingTicks;
 
 	public Peeper(EntityType<? extends Peeper> type, Level worldIn) {
 		super(type, worldIn);
@@ -54,7 +58,7 @@ public class Peeper extends Creeper {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.22D);
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.23D);
 	}
 
 	@Override
@@ -65,6 +69,22 @@ public class Peeper extends Creeper {
 	@Override
 	public void tick() {
 		if (this.isAlive()) {
+			AttributeInstance speedAttribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
+			if (speedAttribute.getModifier(SPEED_MODIFIER_UUID) != null) {
+				speedAttribute.removeModifier(SPEED_MODIFIER_UUID);
+			}
+
+			if (this.getTarget() instanceof MovingPlayer player) {
+				if (!player.isMoving()) {
+					speedAttribute.addTransientModifier(SPEED_MODIFIER);
+					this.getLookControl().setLookAt(this.getTarget().getX(), this.getTarget().getEyeY(), this.getTarget().getZ());
+				} else {
+					this.followingTicks++;
+					speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
+					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER_UUID, "Peeper speed boost", Math.min(this.followingTicks * 0.0002D, 0.23D), Operation.ADDITION));
+				}
+			}
+
 			this.oldSwell = this.swell;
 			if (this.isIgnited()) {
 				this.setSwellDir(1);
@@ -87,21 +107,6 @@ public class Peeper extends Creeper {
 			}
 		}
 		super.tick();
-	}
-
-	@Override
-	public void aiStep() {
-		AttributeInstance speedAttribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
-		if (speedAttribute.getModifier(SPEED_MODIFIER_UUID) != null) {
-			speedAttribute.removeModifier(SPEED_MODIFIER);
-		}
-
-		if (this.getTarget() instanceof MovingPlayer player && !player.isMoving()) {
-			speedAttribute.addTransientModifier(SPEED_MODIFIER);
-			this.getLookControl().setLookAt(this.getTarget().getX(), this.getTarget().getEyeY(), this.getTarget().getZ());
-		}
-
-		super.aiStep();
 	}
 
 	@Override
