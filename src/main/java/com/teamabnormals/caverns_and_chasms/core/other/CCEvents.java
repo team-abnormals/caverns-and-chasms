@@ -547,18 +547,13 @@ public class CCEvents {
 		ItemStack stack = event.getItemStack();
 		EquipmentSlot slot = event.getSlotType();
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-		if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get()) {
-			if (stack.is(Items.CHAINMAIL_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.CHAINMAIL_BOOTS) && slot == EquipmentSlot.FEET)
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
-			else if (stack.is(Items.CHAINMAIL_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.CHAINMAIL_LEGGINGS) && slot == EquipmentSlot.LEGS)
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 2.0D, AttributeModifier.Operation.ADDITION));
+
+		if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get() && (stack.is(Items.CHAINMAIL_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.CHAINMAIL_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.CHAINMAIL_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.CHAINMAIL_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
+			event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
 		}
 
-		if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get()) {
-			if (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET)
-				event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
-			else if (stack.is(Items.GOLDEN_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)
-				event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.15D, AttributeModifier.Operation.MULTIPLY_BASE));
+		if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.GOLDEN_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
+			event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
 		}
 
 		if (slot == EquipmentSlot.MAINHAND) {

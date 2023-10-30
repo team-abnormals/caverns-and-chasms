@@ -30,7 +30,6 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class SanguineArmorItem extends ArmorItem {
-	public static final float[] LIFESTEAL_AMOUNT_PER_SLOT = new float[]{0.03F, 0.06F, 0.07F, 0.04F};
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(CCItems.SILVER_BOOTS);
 
 	public SanguineArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {
@@ -42,7 +41,7 @@ public class SanguineArmorItem extends ArmorItem {
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.putAll(super.getAttributeModifiers(this.getSlot(), stack));
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-		builder.put(CCAttributes.LIFESTEAL.get(), new AttributeModifier(uuid, "Lifesteal", LIFESTEAL_AMOUNT_PER_SLOT[slot.getIndex()], AttributeModifier.Operation.MULTIPLY_BASE));
+		builder.put(CCAttributes.LIFESTEAL.get(), new AttributeModifier(uuid, "Lifesteal", 0.05D, AttributeModifier.Operation.MULTIPLY_BASE));
 		return slot == this.slot ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 

@@ -14,7 +14,6 @@ import net.minecraft.world.item.*;
 import java.util.UUID;
 
 public class SilverArmorItem extends ArmorItem {
-	public static final float[] MAGIC_PROTECTION_PER_ITEM = new float[]{0.1F, 0.15F, 0.15F, 0.1F};
 	private static final TargetedItemCategoryFiller FILLER = new TargetedItemCategoryFiller(() -> Items.GOLDEN_BOOTS);
 
 	public SilverArmorItem(ArmorMaterial material, EquipmentSlot slot, Properties properties) {
@@ -26,7 +25,7 @@ public class SilverArmorItem extends ArmorItem {
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.putAll(super.getAttributeModifiers(slot, stack));
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
-		builder.put(CCAttributes.MAGIC_PROTECTION.get(), new AttributeModifier(uuid, "Magic protection", MAGIC_PROTECTION_PER_ITEM[slot.getIndex()], AttributeModifier.Operation.MULTIPLY_BASE));
+		builder.put(CCAttributes.MAGIC_PROTECTION.get(), new AttributeModifier(uuid, "Magic protection", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
 		return slot == this.slot ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 
