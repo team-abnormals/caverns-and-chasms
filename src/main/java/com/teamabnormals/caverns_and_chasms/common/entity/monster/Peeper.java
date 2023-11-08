@@ -85,6 +85,10 @@ public class Peeper extends Creeper {
 				}
 			}
 
+			if (this.getTarget() == null) {
+				speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
+			}
+
 			this.oldSwell = this.swell;
 			if (this.isIgnited()) {
 				this.setSwellDir(1);
