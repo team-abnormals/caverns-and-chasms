@@ -30,9 +30,9 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.UUID;
 
 public class Peeper extends Creeper {
-	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("113f0691-d920-423d-acd2-9ca0c577991f");
+	private static final UUID FREEZE_MODIFIER_UUID = UUID.fromString("113f0691-d920-423d-acd2-9ca0c577991f");
 	private static final UUID SPEED_UP_MODIFIER_UUID = UUID.fromString("6866925d-f410-42b9-b2f2-7a22c60a6380");
-	private static final AttributeModifier SPEED_MODIFIER = new AttributeModifier(SPEED_MODIFIER_UUID, "Peeper frozen", -100.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+	private static final AttributeModifier FREEZE_MODIFIER = new AttributeModifier(FREEZE_MODIFIER_UUID, "Peeper frozen", -100.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
 	private int followingTicks;
 
@@ -70,18 +70,18 @@ public class Peeper extends Creeper {
 	public void tick() {
 		if (this.isAlive()) {
 			AttributeInstance speedAttribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
-			if (speedAttribute.getModifier(SPEED_MODIFIER_UUID) != null) {
-				speedAttribute.removeModifier(SPEED_MODIFIER_UUID);
+			if (speedAttribute.getModifier(FREEZE_MODIFIER_UUID) != null) {
+				speedAttribute.removeModifier(FREEZE_MODIFIER_UUID);
 			}
 
 			if (this.getTarget() instanceof MovingPlayer player) {
 				if (!player.isMoving()) {
-					speedAttribute.addTransientModifier(SPEED_MODIFIER);
+					speedAttribute.addTransientModifier(FREEZE_MODIFIER);
 					this.getLookControl().setLookAt(this.getTarget().getX(), this.getTarget().getEyeY(), this.getTarget().getZ());
 				} else {
 					this.followingTicks++;
 					speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
-					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER_UUID, "Peeper speed boost", Math.min(this.followingTicks * 0.0002D, 0.23D), Operation.ADDITION));
+					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER_UUID, "Peeper speed boost", Math.min(this.followingTicks * 0.0003D, 0.23D), Operation.ADDITION));
 				}
 			}
 
