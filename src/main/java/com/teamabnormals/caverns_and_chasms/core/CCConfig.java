@@ -17,9 +17,6 @@ public class CCConfig {
 		public final IntValue deeperMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
-//		public final BooleanValue skeletonHealthNerf;
-//		public final DoubleValue skeletonHealth;
-
 		public final BooleanValue chainmailArmorIncreasesDamage;
 		public final BooleanValue goldenArmorIncreasesSpeed;
 
@@ -40,10 +37,6 @@ public class CCConfig {
 			builder.push("peeper");
 			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);
 			builder.pop();
-//			builder.push("skeleton");
-//			skeletonHealthNerf = builder.define("If Skeleton's health should be nerfed from 20", true);
-//			skeletonHealth = builder.comment("Skeleton health").defineInRange("Creeper explosion nerf factor", 10.0D, 1.0D, 1024.0D);
-//			builder.pop();
 			builder.pop();
 
 			builder.push("tweaks");
