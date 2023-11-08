@@ -81,7 +81,7 @@ public class Peeper extends Creeper {
 				} else {
 					this.followingTicks++;
 					speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
-					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER_UUID, "Peeper speed boost", Math.min(this.followingTicks * 0.0003D, 0.23D), Operation.ADDITION));
+					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER_UUID, "Peeper speed boost", Math.min(this.followingTicks * 0.0004D, 0.23D), Operation.ADDITION));
 				}
 			}
 
