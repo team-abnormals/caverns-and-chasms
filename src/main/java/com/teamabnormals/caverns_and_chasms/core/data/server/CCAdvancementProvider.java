@@ -8,13 +8,17 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.critereon.ChangeDimensionTrigger.TriggerInstance;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.function.Consumer;
@@ -52,6 +56,10 @@ public class CCAdvancementProvider extends AdvancementProvider {
 		createAdvancement("summon_copper_golem", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), Items.CARVED_PUMPKIN, FrameType.GOAL, true, true, false)
 				.addCriterion("summoned_golem", SummonedEntityTrigger.TriggerInstance.summonedEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/summon_copper_golem");
+
+		createAdvancement("ride_boat_with_deeper", "nether", new ResourceLocation("nether/root"), CCItems.DEEPER_HEAD.get(), FrameType.TASK, true, true, true)
+				.addCriterion("ride_boat_with_deeper", StartRidingTrigger.TriggerInstance.playerStartsRiding(EntityPredicate.Builder.entity().located(LocationPredicate.inDimension(Level.NETHER)).vehicle(EntityPredicate.Builder.entity().of(EntityType.BOAT).passenger(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get()).build()).build())))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/ride_boat_with_deeper");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
