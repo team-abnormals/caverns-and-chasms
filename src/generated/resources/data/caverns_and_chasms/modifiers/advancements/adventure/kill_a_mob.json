@@ -31,6 +31,20 @@
               ]
             },
             "trigger": "minecraft:player_killed_entity"
+          },
+          "caverns_and_chasms:peeper": {
+            "conditions": {
+              "entity": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "caverns_and_chasms:peeper"
+                  }
+                }
+              ]
+            },
+            "trigger": "minecraft:player_killed_entity"
           }
         },
         "indexed_requirements": [
@@ -39,7 +53,8 @@
             "replace": false,
             "requirements": [
               "caverns_and_chasms:deeper",
-              "caverns_and_chasms:mime"
+              "caverns_and_chasms:mime",
+              "caverns_and_chasms:peeper"
             ]
           }
         ]

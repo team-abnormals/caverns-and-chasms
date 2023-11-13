@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.modifiers;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.blueprint.common.advancement.modification.AdvancementModifierProvider;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.CriteriaModifier;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.DisplayInfoModifier;
@@ -27,7 +28,7 @@ import java.util.Collection;
 
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
-	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get()};
+	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get()};
 
 	public CCAdvancementModifierProvider(DataGenerator dataGenerator) {
 		super(dataGenerator, CavernsAndChasms.MOD_ID);
@@ -36,7 +37,6 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 	@Override
 	protected void registerEntries() {
 		this.entry("story/lava_bucket").selects("story/lava_bucket").addModifier(CriteriaModifier.builder(this.modId).addCriterion("golden_lava_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.GOLDEN_LAVA_BUCKET.get())).addIndexedRequirements(0, false, "golden_lava_bucket").build());
-
 
 		this.entry("nether/all_effects").selects("nether/all_effects").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
 		this.entry("nether/all_potions").selects("nether/all_potions").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
@@ -79,7 +79,7 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 
 		CriteriaModifier.Builder killAMob = CriteriaModifier.builder(this.modId);
 		CriteriaModifier.Builder killAllMobs = CriteriaModifier.builder(this.modId);
-		ArrayList<String> names = org.apache.commons.compress.utils.Lists.newArrayList();
+		ArrayList<String> names = Lists.newArrayList();
 		for (EntityType<?> entityType : MOBS_TO_KILL) {
 			String name = ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath();
 			KilledTrigger.TriggerInstance triggerInstance = KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
