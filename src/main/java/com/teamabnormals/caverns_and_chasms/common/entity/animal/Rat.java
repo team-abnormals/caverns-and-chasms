@@ -502,22 +502,23 @@ public class Rat extends ShoulderRidingEntity {
 
 	@Override
 	public Rat getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		Rat child = CCEntityTypes.RAT.get().create(level);
-		if (child != null) {
-			if (otherParent instanceof Rat) {
-				if (this.random.nextBoolean()) {
-					child.setRatType(((Rat) otherParent).getRatType());
-				} else {
-					child.setRatType(this.getRatType());
-				}
-
-				if (this.trustsPlayers() || ((Rat) otherParent).trustsPlayers()) {
-					child.setTrusting(true);
-				}
-			}
-		}
-
-		return child;
+		return this;
+//		Rat child = CCEntityTypes.RAT.get().create(level);
+//		if (child != null) {
+//			if (otherParent instanceof Rat) {
+//				if (this.random.nextBoolean()) {
+//					child.setRatType(((Rat) otherParent).getRatType());
+//				} else {
+//					child.setRatType(this.getRatType());
+//				}
+//
+//				if (this.trustsPlayers() || ((Rat) otherParent).trustsPlayers()) {
+//					child.setTrusting(true);
+//				}
+//			}
+//		}
+//
+//		return child;
 	}
 
 	public void positionRider(Entity passenger) {

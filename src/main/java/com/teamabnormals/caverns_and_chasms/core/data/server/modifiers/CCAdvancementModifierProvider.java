@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
-	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{CCEntityTypes.RAT.get()};
+	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
 	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get()};
 
 	public CCAdvancementModifierProvider(DataGenerator dataGenerator) {
@@ -50,11 +50,11 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		});
 		this.entry("husbandry/balanced_diet").selects("husbandry/balanced_diet").addModifier(balancedDiet.requirements(RequirementsStrategy.AND).build());
 
-		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
-		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
-			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
-		}
-		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
+//		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
+//		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
+//			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
+//		}
+//		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
 
 		this.entry("husbandry/wax_on").selects("husbandry/wax_on")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build())
