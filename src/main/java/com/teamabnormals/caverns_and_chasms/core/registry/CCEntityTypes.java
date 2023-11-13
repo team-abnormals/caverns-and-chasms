@@ -4,13 +4,11 @@ import com.teamabnormals.blueprint.core.util.registry.EntitySubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.entity.LostGoat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.LargeArrow;
@@ -48,7 +46,6 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.AMBIENT, 0.5F, 0.75F);
 	public static final RegistryObject<EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
 	public static final RegistryObject<EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.register("oxidized_copper_golem", () -> EntityType.Builder.<OxidizedCopperGolem>of(OxidizedCopperGolem::new, MobCategory.MISC).fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidized_copper_golem").toString()));
-	public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = HELPER.createLivingEntity("spiderling", Spiderling::new, MobCategory.MONSTER, 0.35F, 0.25F);
 	public static final RegistryObject<EntityType<Kunai>> KUNAI = HELPER.createEntity("kunai", Kunai::new, Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
 	public static final RegistryObject<EntityType<PrimedTmt>> TMT = ENTITY_TYPES.register("tmt", () -> EntityType.Builder.<PrimedTmt>of(PrimedTmt::new, MobCategory.MISC).fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10).build(new ResourceLocation(CavernsAndChasms.MOD_ID, "tmt").toString()));
 	public static final RegistryObject<EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = HELPER.createEntity("spinel_pearl", ThrownBejeweledPearl::new, ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);
@@ -66,7 +63,6 @@ public class CCEntityTypes {
 		event.put(GLARE.get(), Glare.createAttributes().build());
 		event.put(COPPER_GOLEM.get(), CopperGolem.registerAttributes().build());
 		event.put(OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolem.registerAttributes().build());
-		event.put(SPIDERLING.get(), Spiderling.registerAttributes().build());
 		event.put(LOST_GOAT.get(), LostGoat.createAttributes().build());
 	}
 

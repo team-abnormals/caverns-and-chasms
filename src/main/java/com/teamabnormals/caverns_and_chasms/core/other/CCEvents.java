@@ -10,7 +10,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Spiderling;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.NetheriteHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
@@ -140,28 +139,6 @@ public class CCEvents {
 					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 					event.setCanceled(true);
 				}
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event) {
-		ItemStack stack = event.getItemStack();
-		Entity target = event.getTarget();
-		if (target.getType() == EntityType.SPIDER && stack.getItem() == Items.SPIDER_SPAWN_EGG) {
-			Level world = event.getLevel();
-			Spiderling spiderling = CCEntityTypes.SPIDERLING.get().create(world);
-			if (spiderling != null) {
-				spiderling.copyPosition(target);
-				if (stack.hasCustomHoverName()) {
-					spiderling.setCustomName(stack.getHoverName());
-				}
-				if (!event.getEntity().isCreative()) {
-					stack.shrink(1);
-				}
-				world.addFreshEntity(spiderling);
-				event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
-				event.setCanceled(true);
 			}
 		}
 	}

@@ -173,7 +173,6 @@ public class CavernsAndChasms {
 	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.PEEPER.get(), PeeperRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.SPIDERLING.get(), SpiderlingRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);
 //		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
@@ -182,6 +181,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.LARGE_ARROW.get(), LargeArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);
