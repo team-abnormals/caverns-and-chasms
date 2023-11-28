@@ -38,7 +38,6 @@ public class CCPlugin implements IModPlugin {
 	}
 
 	@Override
-
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
 		registration.registerSubtypeInterpreter(CCItems.TETHER_POTION.get(), (itemStack, context) -> {
 			if (!itemStack.hasTag()) {
