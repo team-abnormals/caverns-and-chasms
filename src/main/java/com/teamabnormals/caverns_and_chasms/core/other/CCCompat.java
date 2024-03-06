@@ -7,6 +7,9 @@ import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.FireworkRocketItem;
@@ -17,6 +20,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.SculkSensorBlock;
 
 import java.util.List;
 
@@ -27,6 +31,7 @@ public class CCCompat {
 		registerDispenserBehaviors();
 		registerWaxables();
 		registerFireworkIngredients();
+		registerVibrationFrequencies();
 		changeLocalization();
 		CCCauldronInteractions.registerCauldronInteractions();
 	}
@@ -114,5 +119,11 @@ public class CCCompat {
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.DEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.PEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
+	}
+
+	private static void registerVibrationFrequencies() {
+		SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT), (map) -> {
+			map.put(CCGameEvents.TUNING_FORK_VIBRATE.get(), 10);
+		}));
 	}
 }

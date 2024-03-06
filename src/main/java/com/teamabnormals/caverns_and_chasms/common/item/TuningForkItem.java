@@ -1,10 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
-import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
+import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -13,12 +13,12 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -29,6 +29,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -64,7 +65,7 @@ public class TuningForkItem extends Item {
 					tag.putInt("Note", state.getValue(NoteBlock.NOTE));
 
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".capture_note", Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-					playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+					playNote(level, player, player.getX(), player.getY(), player.getZ(), note);
 					if (player instanceof ServerPlayer)
 						CCCriteriaTriggers.USE_TUNING_FORK.trigger((ServerPlayer) player);
 				}
@@ -75,7 +76,7 @@ public class TuningForkItem extends Item {
 				int note = tag.getInt("Note");
 
 				player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-				playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+				playNote(level, player, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, note);
 
 				if (level.isClientSide)
 					level.addParticle(ParticleTypes.NOTE, targetpos.getX() + 0.5D, targetpos.getY() + 0.25D, targetpos.getZ() + 0.5D, (double) note / 24.0D, 0.0D, 0.0D);
@@ -99,7 +100,7 @@ public class TuningForkItem extends Item {
 			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 
 			Vec3 vec3 = player.getEyePosition().add(player.getViewVector(1.0F).normalize().scale(1.5D));
-			playNote(level, vec3.x(), vec3.y(), vec3.z(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+			playNote(level, player, vec3.x(), vec3.y(), vec3.z(), note);
 
 			if (level.isClientSide) {
 				level.addParticle(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), (double) note / 24.0D, 0.0D, 0.0D);
@@ -119,7 +120,7 @@ public class TuningForkItem extends Item {
 		int note = tag.getInt("Note");
 
 		if (tag.contains("Note")) {
-			playNote(player.level, target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+			playNote(player.level, player, target.getX(), target.getEyeY(), target.getZ(), note);
 			if (player.level.isClientSide) {
 				player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 			}
@@ -165,9 +166,10 @@ public class TuningForkItem extends Item {
 		}
 	}
 
-	public static void playNote(Level level, double x, double y, double z, SoundEvent soundEvent, int note) {
+	public static void playNote(Level level, Entity entity, double x, double y, double z, int note) {
 		float pitch = (float) Math.pow(2.0D, (double) (note - 12) / 12.0D);
-		level.playSound(null, x, y, z, soundEvent, SoundSource.NEUTRAL, 1.0F, pitch);
+		level.playSound(null, x, y, z, CCSoundEvents.TUNING_FORK_VIBRATE.get(), SoundSource.NEUTRAL, 1.0F, pitch);
+		level.gameEvent(CCGameEvents.TUNING_FORK_VIBRATE.get(), new Vec3(x, y, z), GameEvent.Context.of(entity));
 	}
 
 	public static boolean isTuningForkWithNote(ItemStack stack) {

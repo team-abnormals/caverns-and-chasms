@@ -417,7 +417,7 @@ public class CCEvents {
 			if (TuningForkItem.isTuningForkWithNote(mainHandItem)) {
 				int note = mainHandItem.getTag().getInt("Note");
 
-				TuningForkItem.playNote(target.getLevel(), target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+				TuningForkItem.playNote(target.getLevel(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
 				NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 
 				if (attacker instanceof Player) {

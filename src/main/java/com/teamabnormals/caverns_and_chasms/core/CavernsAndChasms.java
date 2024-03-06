@@ -84,6 +84,7 @@ public class CavernsAndChasms {
 		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
 		CCMenuTypes.MENU_TYPES.register(bus);
 		CCInstruments.INSTRUMENTS.register(bus);
+		CCGameEvents.GAME_EVENTS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -135,6 +136,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
 		generator.addProvider(server, new CCPaintingVariantTagsProvider(generator, helper));
 		generator.addProvider(server, new CCInstrumentTagsProvider(generator, helper));
+		generator.addProvider(server, new CCGameEventTagsProvider(generator, helper));
 		generator.addProvider(server, new CCRecipeProvider(generator));
 		generator.addProvider(server, new CCLootTableProvider(generator));
 		generator.addProvider(server, new CCAdvancementProvider(generator, helper));
