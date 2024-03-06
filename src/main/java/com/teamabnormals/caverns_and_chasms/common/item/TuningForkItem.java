@@ -64,7 +64,7 @@ public class TuningForkItem extends Item {
 					tag.putInt("Note", state.getValue(NoteBlock.NOTE));
 
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".capture_note", Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-					this.playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+					playNote(level, player.getX(), player.getY(), player.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 					if (player instanceof ServerPlayer)
 						CCCriteriaTriggers.USE_TUNING_FORK.trigger((ServerPlayer) player);
 				}
@@ -75,7 +75,7 @@ public class TuningForkItem extends Item {
 				int note = tag.getInt("Note");
 
 				player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-				this.playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+				playNote(level, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 
 				if (level.isClientSide)
 					level.addParticle(ParticleTypes.NOTE, targetpos.getX() + 0.5D, targetpos.getY() + 0.25D, targetpos.getZ() + 0.5D, (double) note / 24.0D, 0.0D, 0.0D);
@@ -99,7 +99,7 @@ public class TuningForkItem extends Item {
 			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 
 			Vec3 vec3 = player.getEyePosition().add(player.getViewVector(1.0F).normalize().scale(1.5D));
-			this.playNote(level, vec3.x(), vec3.y(), vec3.z(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+			playNote(level, vec3.x(), vec3.y(), vec3.z(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 
 			if (level.isClientSide) {
 				level.addParticle(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), (double) note / 24.0D, 0.0D, 0.0D);
@@ -119,7 +119,7 @@ public class TuningForkItem extends Item {
 		int note = tag.getInt("Note");
 
 		if (tag.contains("Note")) {
-			this.playNote(player.level, target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
+			playNote(player.level, target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
 			if (player.level.isClientSide) {
 				player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 			}
@@ -157,27 +157,6 @@ public class TuningForkItem extends Item {
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		CompoundTag tag = stack.getOrCreateTag();
-
-		if (tag.contains("Note")) {
-			int note = tag.getInt("Note");
-
-			this.playNote(target.getLevel(), target.getX(), target.getEyeY(), target.getZ(), CCSoundEvents.TUNING_FORK_VIBRATE.get(), note);
-			NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
-
-			if (attacker instanceof Player) {
-				((Player) attacker).displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-				orderGolemToAttackEntity(target, (Player) attacker);
-			}
-
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		CompoundTag tag = stack.getTag();
 		if (tag != null && tag.contains("Note")) {
@@ -186,7 +165,7 @@ public class TuningForkItem extends Item {
 		}
 	}
 
-	private void playNote(Level level, double x, double y, double z, SoundEvent soundEvent, int note) {
+	public static void playNote(Level level, double x, double y, double z, SoundEvent soundEvent, int note) {
 		float pitch = (float) Math.pow(2.0D, (double) (note - 12) / 12.0D);
 		level.playSound(null, x, y, z, soundEvent, SoundSource.NEUTRAL, 1.0F, pitch);
 	}
@@ -218,7 +197,7 @@ public class TuningForkItem extends Item {
 		return ((IDataManager) player).getValue(CCDataProcessors.FORGET_GOLEM_TIME);
 	}
 
-	private static void attractGolemToPos(BlockPos pos, Player player) {
+	public static void attractGolemToPos(BlockPos pos, Player player) {
 		ControllableGolem golem = findControlledGolem(player);
 		if (golem != null && golem.shouldMoveToTuningForkPos(pos, player)) {
 			golem.setTuningForkPos(pos);
@@ -227,7 +206,7 @@ public class TuningForkItem extends Item {
 		}
 	}
 
-	private static void orderGolemToAttackEntity(LivingEntity target, Player player) {
+	public static void orderGolemToAttackEntity(LivingEntity target, Player player) {
 		ControllableGolem golem = findControlledGolem(player);
 		if (golem != null) {
 			if (golem.shouldAttackTuningForkTarget(target, player)) {
