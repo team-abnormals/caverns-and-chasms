@@ -166,6 +166,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 		super.playerWillDestroy(level, pos, state, player);
 	}
 
+	@Override
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
 		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 		if (blockEntity instanceof ToolboxBlockEntity toolbox) {
@@ -236,7 +237,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public PushReaction getPistonPushReaction(BlockState p_56265_) {
+	public PushReaction getPistonPushReaction(BlockState state) {
 		return PushReaction.DESTROY;
 	}
 
@@ -247,13 +248,13 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public boolean hasAnalogOutputSignal(BlockState p_56221_) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState p_56223_, Level p_56224_, BlockPos p_56225_) {
-		return AbstractContainerMenu.getRedstoneSignalFromContainer((Container) p_56224_.getBlockEntity(p_56225_));
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return AbstractContainerMenu.getRedstoneSignalFromContainer((Container) level.getBlockEntity(pos));
 	}
 
 	@Override
