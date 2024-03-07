@@ -106,10 +106,10 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(Tags.Items.TOOLS_AXES).add(CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
 		this.tag(Tags.Items.TOOLS_SHOVELS).add(CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());
 		this.tag(Tags.Items.TOOLS_HOES).add(CCItems.SILVER_HOE.get(), CCItems.NECROMIUM_HOE.get());
-		this.tag(Tags.Items.ARMORS_HELMETS).add(CCItems.SILVER_HELMET.get(), CCItems.NECROMIUM_HELMET.get());
-		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(CCItems.SILVER_CHESTPLATE.get(), CCItems.NECROMIUM_CHESTPLATE.get());
-		this.tag(Tags.Items.ARMORS_LEGGINGS).add(CCItems.SILVER_LEGGINGS.get(), CCItems.NECROMIUM_LEGGINGS.get());
-		this.tag(Tags.Items.ARMORS_BOOTS).add(CCItems.SILVER_BOOTS.get(), CCItems.NECROMIUM_BOOTS.get());
+		this.tag(Tags.Items.ARMORS_HELMETS).add(CCItems.SILVER_HELMET.get(), CCItems.NECROMIUM_HELMET.get(), CCItems.SANGUINE_HELMET.get());
+		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(CCItems.SILVER_CHESTPLATE.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.SANGUINE_CHESTPLATE.get());
+		this.tag(Tags.Items.ARMORS_LEGGINGS).add(CCItems.SILVER_LEGGINGS.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.SANGUINE_LEGGINGS.get());
+		this.tag(Tags.Items.ARMORS_BOOTS).add(CCItems.SILVER_BOOTS.get(), CCItems.NECROMIUM_BOOTS.get(), CCItems.SANGUINE_BOOTS.get());
 
 		this.copy(BlueprintBlockTags.LADDERS, BlueprintItemTags.LADDERS);
 		this.copy(BlueprintBlockTags.VERTICAL_SLABS, BlueprintItemTags.VERTICAL_SLABS);
