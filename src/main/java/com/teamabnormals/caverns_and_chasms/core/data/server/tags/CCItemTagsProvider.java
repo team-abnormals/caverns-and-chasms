@@ -101,26 +101,6 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);
 		this.tag(Tags.Items.HEADS).add(CCItems.DEEPER_HEAD.get(), CCItems.PEEPER_HEAD.get(), CCItems.MIME_HEAD.get());
 
-		this.tag(CCItemTags.TOOLS_SWORDS_SILVER).add(CCItems.SILVER_SWORD.get());
-		this.tag(CCItemTags.TOOLS_PICKAXES_SILVER).add(CCItems.SILVER_PICKAXE.get());
-		this.tag(CCItemTags.TOOLS_AXES_SILVER).add(CCItems.SILVER_AXE.get());
-		this.tag(CCItemTags.TOOLS_SHOVELS_SILVER).add(CCItems.SILVER_SHOVEL.get());
-		this.tag(CCItemTags.TOOLS_HOES_SILVER).add(CCItems.SILVER_HOE.get());
-		this.tag(CCItemTags.ARMORS_HELMETS_SILVER).add(CCItems.SILVER_HELMET.get());
-		this.tag(CCItemTags.ARMORS_CHESTPLATES_SILVER).add(CCItems.SILVER_CHESTPLATE.get());
-		this.tag(CCItemTags.ARMORS_LEGGINGS_SILVER).add(CCItems.SILVER_LEGGINGS.get());
-		this.tag(CCItemTags.ARMORS_BOOTS_SILVER).add(CCItems.SILVER_BOOTS.get());
-
-		this.tag(CCItemTags.TOOLS_SWORDS_NECROMIUM).add(CCItems.NECROMIUM_SWORD.get());
-		this.tag(CCItemTags.TOOLS_PICKAXES_NECROMIUM).add(CCItems.NECROMIUM_PICKAXE.get());
-		this.tag(CCItemTags.TOOLS_AXES_NECROMIUM).add(CCItems.NECROMIUM_AXE.get());
-		this.tag(CCItemTags.TOOLS_SHOVELS_NECROMIUM).add(CCItems.NECROMIUM_SHOVEL.get());
-		this.tag(CCItemTags.TOOLS_HOES_NECROMIUM).add(CCItems.NECROMIUM_HOE.get());
-		this.tag(CCItemTags.ARMORS_HELMETS_NECROMIUM).add(CCItems.NECROMIUM_HELMET.get());
-		this.tag(CCItemTags.ARMORS_CHESTPLATES_NECROMIUM).add(CCItems.NECROMIUM_CHESTPLATE.get());
-		this.tag(CCItemTags.ARMORS_LEGGINGS_NECROMIUM).add(CCItems.NECROMIUM_LEGGINGS.get());
-		this.tag(CCItemTags.ARMORS_BOOTS_NECROMIUM).add(CCItems.NECROMIUM_BOOTS.get());
-
 		this.tag(Tags.Items.TOOLS_SWORDS).add(CCItems.SILVER_SWORD.get(), CCItems.NECROMIUM_SWORD.get());
 		this.tag(Tags.Items.TOOLS_PICKAXES).add(CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
 		this.tag(Tags.Items.TOOLS_AXES).add(CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());

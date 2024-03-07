@@ -39,26 +39,6 @@ public class CCItemTags {
 	public static final TagKey<Item> STORAGE_BLOCKS_NECROMIUM = TagUtil.itemTag("forge", "storage_blocks/necromium");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.itemTag("forge", "storage_blocks/raw_silver");
 
-	public static final TagKey<Item> TOOLS_SWORDS_SILVER = TagUtil.itemTag("forge", "tools/swords/silver");
-	public static final TagKey<Item> TOOLS_PICKAXES_SILVER = TagUtil.itemTag("forge", "tools/pickaxes/silver");
-	public static final TagKey<Item> TOOLS_AXES_SILVER = TagUtil.itemTag("forge", "tools/axes/silver");
-	public static final TagKey<Item> TOOLS_SHOVELS_SILVER = TagUtil.itemTag("forge", "tools/shovels/silver");
-	public static final TagKey<Item> TOOLS_HOES_SILVER = TagUtil.itemTag("forge", "tools/hoes/silver");
-	public static final TagKey<Item> ARMORS_HELMETS_SILVER = TagUtil.itemTag("forge", "armors/helmets/silver");
-	public static final TagKey<Item> ARMORS_CHESTPLATES_SILVER = TagUtil.itemTag("forge", "armors/chestplates/silver");
-	public static final TagKey<Item> ARMORS_LEGGINGS_SILVER = TagUtil.itemTag("forge", "armors/leggings/silver");
-	public static final TagKey<Item> ARMORS_BOOTS_SILVER = TagUtil.itemTag("forge", "armors/boots/silver");
-
-	public static final TagKey<Item> TOOLS_SWORDS_NECROMIUM = TagUtil.itemTag("forge", "tools/swords/necromium");
-	public static final TagKey<Item> TOOLS_PICKAXES_NECROMIUM = TagUtil.itemTag("forge", "tools/pickaxes/necromium");
-	public static final TagKey<Item> TOOLS_AXES_NECROMIUM = TagUtil.itemTag("forge", "tools/axes/necromium");
-	public static final TagKey<Item> TOOLS_SHOVELS_NECROMIUM = TagUtil.itemTag("forge", "tools/shovels/necromium");
-	public static final TagKey<Item> TOOLS_HOES_NECROMIUM = TagUtil.itemTag("forge", "tools/hoes/necromium");
-	public static final TagKey<Item> ARMORS_HELMETS_NECROMIUM = TagUtil.itemTag("forge", "armors/helmets/necromium");
-	public static final TagKey<Item> ARMORS_CHESTPLATES_NECROMIUM = TagUtil.itemTag("forge", "armors/chestplates/necromium");
-	public static final TagKey<Item> ARMORS_LEGGINGS_NECROMIUM = TagUtil.itemTag("forge", "armors/leggings/necromium");
-	public static final TagKey<Item> ARMORS_BOOTS_NECROMIUM = TagUtil.itemTag("forge", "armors/boots/necromium");
-
 	public static final TagKey<Item> BOTTLES_MILK = TagUtil.itemTag("forge", "bottles/milk");
 
 	public static final TagKey<Item> ENDER_FIRE_BASE_BLOCKS = TagUtil.itemTag("endergetic", "ender_fire_base_blocks");
