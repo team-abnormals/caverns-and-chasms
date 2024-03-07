@@ -99,10 +99,37 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.NUGGETS_SILVER).add(CCItems.SILVER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(CCItems.NECROMIUM_NUGGET.get());
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);
-		this.tag(CCItemTags.TOOLS_PICKAXES).add(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
-		this.tag(CCItemTags.TOOLS_AXES).add(Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE, CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
-		this.tag(CCItemTags.TOOLS_SHOVELS).add(Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.NETHERITE_SHOVEL, CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());
 		this.tag(Tags.Items.HEADS).add(CCItems.DEEPER_HEAD.get(), CCItems.PEEPER_HEAD.get(), CCItems.MIME_HEAD.get());
+
+		this.tag(CCItemTags.TOOLS_SWORDS_SILVER).add(CCItems.SILVER_SWORD.get());
+		this.tag(CCItemTags.TOOLS_PICKAXES_SILVER).add(CCItems.SILVER_PICKAXE.get());
+		this.tag(CCItemTags.TOOLS_AXES_SILVER).add(CCItems.SILVER_AXE.get());
+		this.tag(CCItemTags.TOOLS_SHOVELS_SILVER).add(CCItems.SILVER_SHOVEL.get());
+		this.tag(CCItemTags.TOOLS_HOES_SILVER).add(CCItems.SILVER_HOE.get());
+		this.tag(CCItemTags.ARMORS_HELMETS_SILVER).add(CCItems.SILVER_HELMET.get());
+		this.tag(CCItemTags.ARMORS_CHESTPLATES_SILVER).add(CCItems.SILVER_CHESTPLATE.get());
+		this.tag(CCItemTags.ARMORS_LEGGINGS_SILVER).add(CCItems.SILVER_LEGGINGS.get());
+		this.tag(CCItemTags.ARMORS_BOOTS_SILVER).add(CCItems.SILVER_BOOTS.get());
+
+		this.tag(CCItemTags.TOOLS_SWORDS_NECROMIUM).add(CCItems.NECROMIUM_SWORD.get());
+		this.tag(CCItemTags.TOOLS_PICKAXES_NECROMIUM).add(CCItems.NECROMIUM_PICKAXE.get());
+		this.tag(CCItemTags.TOOLS_AXES_NECROMIUM).add(CCItems.NECROMIUM_AXE.get());
+		this.tag(CCItemTags.TOOLS_SHOVELS_NECROMIUM).add(CCItems.NECROMIUM_SHOVEL.get());
+		this.tag(CCItemTags.TOOLS_HOES_NECROMIUM).add(CCItems.NECROMIUM_HOE.get());
+		this.tag(CCItemTags.ARMORS_HELMETS_NECROMIUM).add(CCItems.NECROMIUM_HELMET.get());
+		this.tag(CCItemTags.ARMORS_CHESTPLATES_NECROMIUM).add(CCItems.NECROMIUM_CHESTPLATE.get());
+		this.tag(CCItemTags.ARMORS_LEGGINGS_NECROMIUM).add(CCItems.NECROMIUM_LEGGINGS.get());
+		this.tag(CCItemTags.ARMORS_BOOTS_NECROMIUM).add(CCItems.NECROMIUM_BOOTS.get());
+
+		this.tag(Tags.Items.TOOLS_SWORDS).add(CCItems.SILVER_SWORD.get(), CCItems.NECROMIUM_SWORD.get());
+		this.tag(Tags.Items.TOOLS_PICKAXES).add(CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
+		this.tag(Tags.Items.TOOLS_AXES).add(CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
+		this.tag(Tags.Items.TOOLS_SHOVELS).add(CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());
+		this.tag(Tags.Items.TOOLS_HOES).add(CCItems.SILVER_HOE.get(), CCItems.NECROMIUM_HOE.get());
+		this.tag(Tags.Items.ARMORS_HELMETS).add(CCItems.SILVER_HELMET.get(), CCItems.NECROMIUM_HELMET.get());
+		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(CCItems.SILVER_CHESTPLATE.get(), CCItems.NECROMIUM_CHESTPLATE.get());
+		this.tag(Tags.Items.ARMORS_LEGGINGS).add(CCItems.SILVER_LEGGINGS.get(), CCItems.NECROMIUM_LEGGINGS.get());
+		this.tag(Tags.Items.ARMORS_BOOTS).add(CCItems.SILVER_BOOTS.get(), CCItems.NECROMIUM_BOOTS.get());
 
 		this.copy(BlueprintBlockTags.LADDERS, BlueprintItemTags.LADDERS);
 		this.copy(BlueprintBlockTags.VERTICAL_SLABS, BlueprintItemTags.VERTICAL_SLABS);
