@@ -1,0 +1,28 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "item/bundle"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "dyed": 0.0,
+        "filled": 0.0000001
+      },
+      "model": "item/bundle_filled"
+    },
+    {
+      "predicate": {
+        "dyed": 1.0
+      },
+      "model": "caverns_and_chasms:item/bundle_dyed"
+    },
+    {
+      "predicate": {
+        "dyed": 1.0,
+        "filled": 0.0000001
+      },
+      "model": "caverns_and_chasms:item/bundle_dyed_filled"
+    }
+  ]
+}
