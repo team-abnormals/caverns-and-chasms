@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.Advancement;
@@ -59,7 +60,7 @@ public class CCAdvancementProvider extends AdvancementProvider {
 				.addCriterion("ride_boat_with_deeper", StartRidingTrigger.TriggerInstance.playerStartsRiding(EntityPredicate.Builder.entity().located(LocationPredicate.inDimension(Level.NETHER)).vehicle(EntityPredicate.Builder.entity().of(EntityType.BOAT).passenger(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get()).build()).build())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/ride_boat_with_deeper");
 
-		createAdvancement("dont_move", "adventure", new ResourceLocation("adventure/kill_a_mob"), Items.ENDER_EYE, FrameType.TASK, true, true, true)
+		createAdvancement("dont_move", "adventure", new ResourceLocation("adventure/kill_a_mob"), CCBlocks.PEEPER_HEAD.get(), FrameType.TASK, true, true, true)
 				.addCriterion("spotted_by_peeper", CCCriteriaTriggers.SPOTTED_BY_PEEPER.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dont_move");
 	}
