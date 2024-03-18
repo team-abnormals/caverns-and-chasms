@@ -122,6 +122,6 @@ public class LostGoat extends Mob {
 	}
 
 	public static boolean checkLostGoatSpawnRules(EntityType<? extends LostGoat> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-		return pos.getY() > 80 && level.getDifficulty() != Difficulty.PEACEFUL && !level.canSeeSky(pos) && level.getBrightness(LightLayer.SKY, pos) == 0;
+		return pos.getY() > 80 && level.getDifficulty() != Difficulty.PEACEFUL && !level.canSeeSky(pos) && level.getRawBrightness(pos, 0) == 0 && random.nextInt(5) == 0;
 	}
 }
