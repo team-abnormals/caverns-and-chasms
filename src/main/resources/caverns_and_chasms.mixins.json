@@ -23,6 +23,7 @@
     "LightningRodBlockMixin",
     "MobMixin",
     "PlayerMixin",
+    "ServerLevelMixin",
     "SolidBucketItemMixin",
     "ThrownPotionMixin",
     "WitherSkeletonMixin"

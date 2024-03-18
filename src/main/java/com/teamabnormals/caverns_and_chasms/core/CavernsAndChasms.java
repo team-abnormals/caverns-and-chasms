@@ -87,6 +87,7 @@ public class CavernsAndChasms {
 		CCMenuTypes.MENU_TYPES.register(bus);
 		CCInstruments.INSTRUMENTS.register(bus);
 		CCGameEvents.GAME_EVENTS.register(bus);
+		CCPoiTypes.POI_TYPES.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
