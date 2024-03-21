@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
+import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
@@ -195,9 +196,9 @@ public class CCEvents {
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
-				level.levelEvent(null, 1009, pos, 0);
 				BlockState extinguishedState = BrazierBlock.extinguish(player, level, pos, state);
 				if (!level.isClientSide()) {
+					level.levelEvent(null, 1009, pos, 0);
 					level.setBlock(pos, extinguishedState, 11);
 					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
 				}
@@ -411,6 +412,20 @@ public class CCEvents {
 		}
 
 		if (source.getEntity() instanceof LivingEntity attacker) {
+			ItemStack mainHandItem = attacker.getMainHandItem();
+
+			if (TuningForkItem.isTuningForkWithNote(mainHandItem)) {
+				int note = mainHandItem.getTag().getInt("Note");
+
+				TuningForkItem.playNote(target.getLevel(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
+				NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+
+				if (attacker instanceof Player) {
+					((Player) attacker).displayClientMessage(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note").append(": ").append(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+					TuningForkItem.orderGolemToAttackEntity(target, (Player) attacker);
+				}
+			}
+
 			float weaknessAmount = 0.0F;
 			float lifeStealAmount = 0.0F;
 

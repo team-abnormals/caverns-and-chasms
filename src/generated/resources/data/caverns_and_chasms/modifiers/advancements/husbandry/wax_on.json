@@ -22,6 +22,9 @@
               },
               "location": {
                 "block": {
+                  "state": {
+                    "powered": "false"
+                  },
                   "tag": "forge:waxable_copper_blocks"
                 }
               }

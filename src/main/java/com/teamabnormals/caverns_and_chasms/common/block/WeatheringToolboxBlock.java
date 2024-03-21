@@ -49,7 +49,7 @@ public class WeatheringToolboxBlock extends ToolboxBlock implements CCWeathering
 		if (toolbox != null) {
 			CompoundTag tag = toolbox.serializeNBT();
 			CCWeatheringCopper.super.applyChangeOverTime(state, level, pos, random);
-			toolbox.deserializeNBT(tag);
+			level.getBlockEntity(pos).deserializeNBT(tag);
 		} else {
 			CCWeatheringCopper.super.applyChangeOverTime(state, level, pos, random);
 		}

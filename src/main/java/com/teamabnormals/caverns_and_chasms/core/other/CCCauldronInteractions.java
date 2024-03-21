@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
@@ -35,6 +36,8 @@ public class CCCauldronInteractions {
 	public static final ResourceLocation MILK_CAULDRON = new ResourceLocation("neapolitan", "milk_cauldron");
 
 	public static void registerCauldronInteractions() {
+		CauldronInteraction.WATER.put(Items.BUNDLE, CauldronInteraction.DYED_ITEM);
+
 		addFillBucketInteractions();
 		BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_LAVA_BUCKET.get(), FILL_LAVA);
 		BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_WATER_BUCKET.get(), FILL_WATER);

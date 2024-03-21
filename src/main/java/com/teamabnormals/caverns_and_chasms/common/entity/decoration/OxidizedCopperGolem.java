@@ -94,18 +94,6 @@ public class OxidizedCopperGolem extends LivingEntity {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
-
-		if (this.level.isClientSide && this.isWaxed() && this.tickCount % 30 == 0) {
-			double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
-			double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
-			double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
-			this.level.addParticle(ParticleTypes.WAX_ON, this.getRandomX(0.8D), this.getY(0.1D), this.getRandomZ(0.8D), d0, d1, d2);
-		}
-	}
-
-	@Override
 	public InteractionResult interactAt(Player player, Vec3 pos, InteractionHand hand) {
 		ItemStack itemstack = player.getItemInHand(hand);
 		Item item = itemstack.getItem();

@@ -33,6 +33,8 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -84,6 +86,8 @@ public class CavernsAndChasms {
 		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
 		CCMenuTypes.MENU_TYPES.register(bus);
 		CCInstruments.INSTRUMENTS.register(bus);
+		CCGameEvents.GAME_EVENTS.register(bus);
+		CCPoiTypes.POI_TYPES.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -135,6 +139,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
 		generator.addProvider(server, new CCPaintingVariantTagsProvider(generator, helper));
 		generator.addProvider(server, new CCInstrumentTagsProvider(generator, helper));
+		generator.addProvider(server, new CCGameEventTagsProvider(generator, helper));
 		generator.addProvider(server, new CCRecipeProvider(generator));
 		generator.addProvider(server, new CCLootTableProvider(generator));
 		generator.addProvider(server, new CCAdvancementProvider(generator, helper));
@@ -211,6 +216,8 @@ public class CavernsAndChasms {
 	public void registerItemColors(RegisterColorHandlersEvent.Item event) {
 		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
 		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
+
 	}
 
 	@OnlyIn(Dist.CLIENT)

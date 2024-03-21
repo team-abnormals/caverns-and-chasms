@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "caverns_and_chasms:item/bundle",
+    "layer1": "caverns_and_chasms:item/bundle_overlay"
+  }
+}

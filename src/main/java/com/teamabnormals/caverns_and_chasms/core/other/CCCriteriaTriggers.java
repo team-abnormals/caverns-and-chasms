@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCCriteriaTriggers {
 	public static final EmptyTrigger USE_TUNING_FORK = CriteriaTriggers.register(new EmptyTrigger(prefix("use_tuning_fork")));
+	public static final EmptyTrigger SPOTTED_BY_PEEPER = CriteriaTriggers.register(new EmptyTrigger(prefix("spotted_by_peeper")));
 
 	private static ResourceLocation prefix(String name) {
 		return new ResourceLocation(CavernsAndChasms.MOD_ID, name);

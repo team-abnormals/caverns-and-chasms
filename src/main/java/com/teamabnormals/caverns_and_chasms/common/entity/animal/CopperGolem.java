@@ -172,7 +172,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		super.aiStep();
 
 		if (this.level.isClientSide) {
-			if (this.isWaxed() && this.tickCount % 30 == 0) {
+			if (this.isWaxed() && this.tickCount % 40 == 0) {
 				double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);

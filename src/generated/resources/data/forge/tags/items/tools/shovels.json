@@ -1,11 +1,5 @@
 {
   "values": [
-    "minecraft:wooden_shovel",
-    "minecraft:stone_shovel",
-    "minecraft:iron_shovel",
-    "minecraft:golden_shovel",
-    "minecraft:diamond_shovel",
-    "minecraft:netherite_shovel",
     "caverns_and_chasms:silver_shovel",
     "caverns_and_chasms:necromium_shovel"
   ]
