@@ -18,6 +18,7 @@
     "ExplosionMixin",
     "FurnaceFuelSlotMixin",
     "IronGolemMixin",
+    "ItemCooldownsMixin",
     "ItemMixin",
     "LightningBoltMixin",
     "LightningRodBlockMixin",
