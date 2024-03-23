@@ -46,7 +46,7 @@ public class LargeArrow extends AbstractArrow {
 	}
 
 	@Override
-	public void shootFromRotation(Entity entity, float xRot, float yRot, float p_37255_, float p_37256_, float p_37257_) {
-		super.shootFromRotation(entity, xRot, yRot, p_37255_, p_37256_ * 0.5F, p_37257_);
+	public void shoot(double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
+		super.shoot(p_37266_, p_37267_, p_37268_, p_37269_ * 0.5F, p_37270_);
 	}
 }
