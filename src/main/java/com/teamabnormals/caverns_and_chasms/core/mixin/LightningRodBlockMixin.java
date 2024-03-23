@@ -4,8 +4,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
@@ -41,16 +39,6 @@ public class LightningRodBlockMixin extends RodBlock implements CCWeatheringCopp
 	@Override
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction action, boolean simulate) {
 		return action == ToolActions.AXE_SCRAPE ? CCWeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
-	}
-
-	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		this.onRandomTick(state, level, pos, random);
-	}
-
-	@Override
-	public boolean isRandomlyTicking(BlockState state) {
-		return CCWeatheringCopper.getNext(state.getBlock()).isPresent();
 	}
 
 	@Override
