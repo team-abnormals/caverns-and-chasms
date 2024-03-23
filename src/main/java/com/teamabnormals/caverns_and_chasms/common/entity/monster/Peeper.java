@@ -113,6 +113,8 @@ public class Peeper extends Creeper {
 				this.swell = this.maxSwell;
 				this.explodeCreeper();
 			}
+		} else if (this.swell > 0) {
+			this.swell--;
 		}
 		super.tick();
 	}
@@ -127,7 +129,7 @@ public class Peeper extends Creeper {
 
 	@Override
 	public void explodeCreeper() {
-		if (!this.level.isClientSide) {
+		if (!this.level.isClientSide && this.isAlive()) {
 			Explosion.BlockInteraction explosion$mode = ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE;
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
