@@ -16,10 +16,12 @@ public class LargeArrow extends AbstractArrow {
 
 	public LargeArrow(EntityType<? extends LargeArrow> type, Level worldIn) {
 		super(type, worldIn);
+		this.setBaseDamage(6.0D);
 	}
 
 	public LargeArrow(Level worldIn, double x, double y, double z) {
 		super(CCEntityTypes.LARGE_ARROW.get(), x, y, z, worldIn);
+		this.setBaseDamage(6.0D);
 	}
 
 	public LargeArrow(PlayMessages.SpawnEntity spawnEntity, Level world) {
@@ -28,6 +30,7 @@ public class LargeArrow extends AbstractArrow {
 
 	public LargeArrow(Level worldIn, LivingEntity shooter) {
 		super(CCEntityTypes.LARGE_ARROW.get(), shooter, worldIn);
+		this.setBaseDamage(6.0D);
 	}
 
 	@Override
@@ -41,12 +44,7 @@ public class LargeArrow extends AbstractArrow {
 	}
 
 	@Override
-	public double getBaseDamage() {
-		return super.getBaseDamage() * 3.0D;
-	}
-
-	@Override
 	public void shoot(double p_37266_, double p_37267_, double p_37268_, float p_37269_, float p_37270_) {
-		super.shoot(p_37266_, p_37267_, p_37268_, p_37269_ * 0.5F, p_37270_);
+		super.shoot(p_37266_, p_37267_, p_37268_, p_37269_ * 0.6F, p_37270_);
 	}
 }
