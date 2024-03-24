@@ -148,7 +148,9 @@ public class Mime extends Monster {
 				}
 			}
 
-			if (mimed) this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_COPY.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+			if (mimed) {
+				this.playSound(CCSoundEvents.ENTITY_MIME_COPY.get(), 1.0F, 1.0F);
+			}
 		}
 		return result;
 	}
@@ -158,14 +160,16 @@ public class Mime extends Monster {
 		super.die(cause);
 		Entity source = cause.getEntity();
 
-		if (source instanceof LivingEntity attacker) {
+		if (!this.level.isClientSide() && source instanceof LivingEntity attacker) {
 			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
 			List<MimingRecipe> recipes = this.level.getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
 
 			for (MimingRecipe recipe : recipes) {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
-						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem());
+						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem().copy());
+						source.playSound(CCSoundEvents.ENTITY_MIME_COPY.get(), 1.0F, 1.0F);
+						return;
 					}
 				}
 			}
