@@ -102,6 +102,7 @@ public class CCRecipeProvider extends RecipeProvider {
 		waxRecipe(consumer, CCItems.OXIDIZED_COPPER_GOLEM.get(), CCItems.WAXED_OXIDIZED_COPPER_GOLEM.get());
 		ShapedRecipeBuilder.shaped(CCItems.DEPTH_GAUGE.get()).define('#', CCItemTags.INGOTS_SILVER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
 		mimingRecipe(consumer, Items.MUSIC_DISC_11, CCItems.MUSIC_DISC_EPILOGUE.get());
+		mimingRecipe(consumer, Items.MOJANG_BANNER_PATTERN, CCItems.ABNORMALS_BANNER_PATTERN.get());
 		ShapedRecipeBuilder.shaped(CCBlocks.ROCKY_DIRT.get(), 4).define('D', Blocks.DIRT).define('C', Blocks.COBBLESTONE).pattern("DC").pattern("CD").unlockedBy("has_dirt", has(Blocks.DIRT)).unlockedBy("has_cobblestone", has(Blocks.COBBLESTONE)).save(consumer);
 		ShapelessRecipeBuilder.shapeless(Blocks.ROOTED_DIRT).requires(Blocks.DIRT).requires(Blocks.HANGING_ROOTS).unlockedBy("has_hanging_roots", has(Blocks.HANGING_ROOTS)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(Blocks.ROOTED_DIRT)));
 

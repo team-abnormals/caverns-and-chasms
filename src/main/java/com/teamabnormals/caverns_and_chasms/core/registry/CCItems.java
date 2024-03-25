@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.blueprint.common.item.BlueprintBannerPatternItem;
 import com.teamabnormals.blueprint.common.item.BlueprintRecordItem;
 import com.teamabnormals.blueprint.common.item.InjectedItem;
 import com.teamabnormals.blueprint.core.util.registry.AbstractSubRegistryHelper;
@@ -11,15 +12,13 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -99,6 +98,7 @@ public class CCItems {
 	public static final RegistryObject<Item> LOST_GOAT_HORN = HELPER.createItem("lost_goat_horn", () -> new LostGoatHornItem((new Item.Properties()).stacksTo(1), CCInstrumentTags.LOST_GOAT_HORNS)); // .tab(CreativeModeTab.TAB_MISC)
 
 	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE), 77));
+	public static final RegistryObject<Item> ABNORMALS_BANNER_PATTERN = HELPER.createItem("abnormals_banner_pattern", () -> new BlueprintBannerPatternItem(CCBannerPatternTags.PATTERN_ITEM_ABNORMALS, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.EPIC)));
 
 	public static final RegistryObject<ForgeSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntityTypes.DEEPER::get, 8355711, 13717260);
 	public static final RegistryObject<ForgeSpawnEggItem> PEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("peeper", CCEntityTypes.PEEPER::get, 0x3E3434, 0x694242);

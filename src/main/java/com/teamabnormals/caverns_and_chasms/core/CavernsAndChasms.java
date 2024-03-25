@@ -16,6 +16,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCBiomeMo
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.*;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
@@ -88,6 +89,7 @@ public class CavernsAndChasms {
 		CCInstruments.INSTRUMENTS.register(bus);
 		CCGameEvents.GAME_EVENTS.register(bus);
 		CCPoiTypes.POI_TYPES.register(bus);
+		CCBannerPatterns.BANNER_PATTERNS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -138,6 +140,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCMobEffectTagsProvider(generator, helper));
 		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
 		generator.addProvider(server, new CCPaintingVariantTagsProvider(generator, helper));
+		generator.addProvider(server, new CCBannerPatternTagsProvider(generator, helper));
 		generator.addProvider(server, new CCInstrumentTagsProvider(generator, helper));
 		generator.addProvider(server, new CCGameEventTagsProvider(generator, helper));
 		generator.addProvider(server, new CCRecipeProvider(generator));

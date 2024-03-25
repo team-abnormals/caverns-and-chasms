@@ -26,6 +26,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 		this.animatedModel(DEPTH_GAUGE.get(), 48);
 		this.animatedModel(BAROMETER.get(), 21);
 		this.generatedItem(
+				ABNORMALS_BANNER_PATTERN.get(),
 				COPPER_NUGGET.get(), OXIDIZED_COPPER_GOLEM.get(),
 				RAW_SILVER.get(), LARGE_ARROW.get(),
 				BEJEWELED_APPLE.get(), BLUNT_ARROW.get(),
