@@ -522,18 +522,6 @@ public class CCEvents {
 		}
 	}
 
-	@SubscribeEvent
-	public static void onExplosion(ExplosionEvent.Detonate event) {
-		if (event.getExplosion().getExploder() instanceof PrimedTmt) {
-			List<BlockPos> toNotBlow = new ArrayList<>();
-			event.getAffectedBlocks().forEach(pos -> {
-				if (!(event.getLevel().getBlockState(pos).getBlock() instanceof TntBlock))
-					toNotBlow.add(pos);
-			});
-			event.getAffectedBlocks().removeAll(toNotBlow);
-		}
-	}
-
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		ItemStack stack = event.getItemStack();

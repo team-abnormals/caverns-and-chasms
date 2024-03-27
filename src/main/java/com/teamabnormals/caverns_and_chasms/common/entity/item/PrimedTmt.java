@@ -1,10 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.item;
 
+import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
+import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 
@@ -26,6 +30,15 @@ public class PrimedTmt extends PrimedTnt {
 		this.yo = y;
 		this.zo = z;
 		this.owner = igniter;
+	}
+
+	@Override
+	protected void explode() {
+		SpinelBoom boom = new SpinelBoom(this.level, this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F);
+		if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level, boom)) return;
+		boom.explode();
+		boom.finalizeExplosion(true);
+		CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level.dimension()), new S2CSpinelBoomMessage((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
 	}
 
 	@Override

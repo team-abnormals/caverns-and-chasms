@@ -18,7 +18,6 @@
     "CarvedPumpkinBlockMixin",
     "CreeperMixin",
     "EnchantmentHelperMixin",
-    "ExplosionMixin",
     "FurnaceFuelSlotMixin",
     "HoneycombItemMixin",
     "IronGolemMixin",
