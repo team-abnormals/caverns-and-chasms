@@ -280,5 +280,38 @@
       "caverns_and_chasms:item/lost_goat_horn/call1"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.lost_goat_horn.play"
+  },
+  "entity.parrot.imitate.deeper": {
+    "sounds": [
+      {
+        "name": "entity.deeper.primed",
+        "pitch": 1.8,
+        "type": "event",
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.parrot.imitate.deeper"
+  },
+  "entity.parrot.imitate.peeper": {
+    "sounds": [
+      {
+        "name": "entity.creeper.primed",
+        "pitch": 1.8,
+        "type": "event",
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.parrot.imitate.peeper"
+  },
+  "entity.parrot.imitate.mime": {
+    "sounds": [
+      {
+        "name": "entity.mime.copy",
+        "pitch": 1.8,
+        "type": "event",
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.parrot.imitate.mime"
   }
 }

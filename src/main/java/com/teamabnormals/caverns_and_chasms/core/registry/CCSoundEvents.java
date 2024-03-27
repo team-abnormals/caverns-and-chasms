@@ -53,6 +53,10 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ENTITY_GLARE_TAME = HELPER.createSoundEvent("entity.glare.tame");
 	public static final RegistryObject<SoundEvent> ENTITY_GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
 
+	public static final RegistryObject<SoundEvent> PARROT_IMITATE_DEEPER = HELPER.createSoundEvent("entity.parrot.imitate.deeper");
+	public static final RegistryObject<SoundEvent> PARROT_IMITATE_PEEPER = HELPER.createSoundEvent("entity.parrot.imitate.peeper");
+	public static final RegistryObject<SoundEvent> PARROT_IMITATE_MIME = HELPER.createSoundEvent("entity.parrot.imitate.mime");
+
 	public static final ImmutableList<RegistryObject<SoundEvent>> LOST_GOAT_HORN_SOUND_VARIANTS = registerGoatHornSoundVariants();
 
 	private static ImmutableList<RegistryObject<SoundEvent>> registerGoatHornSoundVariants() {

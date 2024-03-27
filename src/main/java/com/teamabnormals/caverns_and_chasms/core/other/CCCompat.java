@@ -6,7 +6,9 @@ import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.Util;
@@ -31,6 +33,7 @@ public class CCCompat {
 		registerDispenserBehaviors();
 		registerWaxables();
 		registerFireworkIngredients();
+		registerParrotImitations();
 		registerVibrationFrequencies();
 		changeLocalization();
 		CCCauldronInteractions.registerCauldronInteractions();
@@ -119,6 +122,12 @@ public class CCCompat {
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.DEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.PEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
+	}
+
+	private static void registerParrotImitations() {
+		DataUtil.registerParrotImitation(CCEntityTypes.DEEPER.get(), CCSoundEvents.PARROT_IMITATE_DEEPER.get());
+		DataUtil.registerParrotImitation(CCEntityTypes.PEEPER.get(), CCSoundEvents.PARROT_IMITATE_PEEPER.get());
+		DataUtil.registerParrotImitation(CCEntityTypes.MIME.get(), CCSoundEvents.PARROT_IMITATE_MIME.get());
 	}
 
 	private static void registerVibrationFrequencies() {
