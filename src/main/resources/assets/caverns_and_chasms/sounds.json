@@ -284,7 +284,7 @@
   "entity.parrot.imitate.deeper": {
     "sounds": [
       {
-        "name": "entity.deeper.primed",
+        "name": "caverns_and_chasms:entity.deeper.primed",
         "pitch": 1.8,
         "type": "event",
         "volume": 0.6
@@ -306,7 +306,7 @@
   "entity.parrot.imitate.mime": {
     "sounds": [
       {
-        "name": "entity.mime.copy",
+        "name": "caverns_and_chasms:entity.mime.copy",
         "pitch": 1.8,
         "type": "event",
         "volume": 0.6
