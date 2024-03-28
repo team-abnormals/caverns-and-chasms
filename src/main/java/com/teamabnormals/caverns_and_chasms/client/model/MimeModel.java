@@ -21,14 +21,14 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = PlayerModel.createMesh(CubeDeformation.NONE, false);
 		PartDefinition root = meshdefinition.getRoot();
-		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(8, 60).addBox(-2.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false).texOffs(18, 60).addBox(1.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(8, 60).addBox(-2.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F, false).texOffs(18, 60).addBox(1.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offset(0.0F, -2.0F, 0.0F));
 		root.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offset(0.0F, 2.0F, 0.0F));
 		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-5.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(5.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-1.9F, 13.0F, 0.0F));
-		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(1.9F, 13.0F, 0.0F));
-		root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, -2.0F, 2.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-1.9F, 12.0F, 0.0F));
+		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(1.9F, 12.0F, 0.0F));
+		root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
@@ -72,18 +72,18 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 
 		if (mime.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
 			if (mime.isCrouching()) {
-				this.bipedCape.z = 1.4F;
+				this.bipedCape.z = -1.4F;
 				this.bipedCape.y = 1.85F;
 			} else {
 				this.bipedCape.z = 0.0F;
 				this.bipedCape.y = 0.0F;
 			}
 		} else if (mime.isCrouching()) {
-			this.bipedCape.z = 0.3F;
-			this.bipedCape.y = 0.8F;
+			this.bipedCape.z = -0.3F;
+			this.bipedCape.y = 1.85F;
 		} else {
-			this.bipedCape.z = -1.1F;
-			this.bipedCape.y = -0.85F;
+			this.bipedCape.z = 1.1F;
+			this.bipedCape.y = 0.0F;
 		}
 
 		if (!this.riding && this.swimAmount <= 0.0F) {
@@ -112,8 +112,23 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 			}
 		}
 
+		this.head.y -= 2.0F;
+		this.body.y -= 2.0F;
 		this.rightArm.y -= 2.0F;
 		this.leftArm.y -= 2.0F;
+		this.rightLeg.y -= 1.0F;
+		this.leftLeg.y -= 1.0F;
+		this.bipedCape.y -= 2.0F;
+		this.bipedCape.z += 2.0F;
+
+		/*
+		this.rightArm.xRot = Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
+		this.leftArm.xRot = -Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
+		this.rightLeg.xRot = -Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
+		this.leftLeg.xRot = Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
+
+		this.head.xRot = Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
+		*/
 
 		this.saveAnimationValues(mime);
 	}
