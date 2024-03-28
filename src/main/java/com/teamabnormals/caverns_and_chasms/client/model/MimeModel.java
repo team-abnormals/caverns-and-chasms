@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import net.minecraft.client.model.PlayerModel;
@@ -10,7 +9,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.HumanoidArm;
 
 public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	private final ModelPart bipedCape;
@@ -23,14 +21,14 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = PlayerModel.createMesh(CubeDeformation.NONE, false);
 		PartDefinition root = meshdefinition.getRoot();
-		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(8, 60).addBox(-2.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false).texOffs(18, 60).addBox(1.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -4.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -4.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offsetAndRotation(-1.9F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offsetAndRotation(1.9F, 13.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, -2.0F, 2.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(8, 60).addBox(-2.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false).texOffs(18, 60).addBox(1.0F, -16.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -13.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, -2.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-5.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(5.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-1.9F, 13.0F, 0.0F));
+		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, -1.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(1.9F, 13.0F, 0.0F));
+		root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, -2.0F, 2.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
@@ -40,12 +38,12 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	}
 
 	@Override
-	public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTicks) {
-		super.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
-		double d0 = entity.prevChasingPosX + (entity.chasingPosX - entity.prevChasingPosX) * partialTicks - (entity.xo + (entity.getX() - entity.xo) * partialTicks);
-		double d1 = entity.prevChasingPosY + (entity.chasingPosY - entity.prevChasingPosY) * partialTicks - (entity.yo + (entity.getY() - entity.yo) * partialTicks);
-		double d2 = entity.prevChasingPosZ + (entity.chasingPosZ - entity.prevChasingPosZ) * partialTicks - (entity.zo + (entity.getZ() - entity.zo) * partialTicks);
-		float f = entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks;
+	public void prepareMobModel(T mime, float limbSwing, float limbSwingAmount, float partialTicks) {
+		super.prepareMobModel(mime, limbSwing, limbSwingAmount, partialTicks);
+		double d0 = mime.prevChasingPosX + (mime.chasingPosX - mime.prevChasingPosX) * partialTicks - (mime.xo + (mime.getX() - mime.xo) * partialTicks);
+		double d1 = mime.prevChasingPosY + (mime.chasingPosY - mime.prevChasingPosY) * partialTicks - (mime.yo + (mime.getY() - mime.yo) * partialTicks);
+		double d2 = mime.prevChasingPosZ + (mime.chasingPosZ - mime.prevChasingPosZ) * partialTicks - (mime.zo + (mime.getZ() - mime.zo) * partialTicks);
+		float f = mime.yBodyRotO + (mime.yBodyRot - mime.yBodyRotO) * partialTicks;
 		double d3 = Mth.sin(f * 0.017453292F);
 		double d4 = (-Mth.cos(f * 0.017453292F));
 		float f1 = (float) d1 * 10.0F;
@@ -55,9 +53,9 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		float f3 = (float) (d0 * d4 - d2 * d3) * 100.0F;
 		f3 = Mth.clamp(f3, -20.0F, 20.0F);
 
-		float f4 = entity.prevCameraYaw + (entity.cameraYaw - entity.prevCameraYaw) * partialTicks;
-		f1 = f1 + Mth.sin((entity.walkDistO + (entity.walkDist - entity.walkDistO) * partialTicks) * 6.0F) * 32.0F * f4;
-		if (entity.isShiftKeyDown())
+		float f4 = mime.prevCameraYaw + (mime.cameraYaw - mime.prevCameraYaw) * partialTicks;
+		f1 = f1 + Mth.sin((mime.walkDistO + (mime.walkDist - mime.walkDistO) * partialTicks) * 6.0F) * 32.0F * f4;
+		if (mime.isShiftKeyDown())
 			f1 += 25.0F;
 
 		this.bipedCape.xRot = (float) Math.toRadians(6.0F + f2 / 2.0F + f1);
@@ -66,21 +64,21 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	}
 
 	@Override
-	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.crouching = entityIn.isCrouching();
+	public void setupAnim(T mime, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.crouching = mime.isCrouching();
 		float f = limbSwing * 0.75F;
 
-		super.setupAnim(entityIn, f, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+		super.setupAnim(mime, f, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-		if (entityIn.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
-			if (entityIn.isCrouching()) {
+		if (mime.getItemBySlot(EquipmentSlot.CHEST).isEmpty()) {
+			if (mime.isCrouching()) {
 				this.bipedCape.z = 1.4F;
 				this.bipedCape.y = 1.85F;
 			} else {
 				this.bipedCape.z = 0.0F;
 				this.bipedCape.y = 0.0F;
 			}
-		} else if (entityIn.isCrouching()) {
+		} else if (mime.isCrouching()) {
 			this.bipedCape.z = 0.3F;
 			this.bipedCape.y = 0.8F;
 		} else {
@@ -114,14 +112,17 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 			}
 		}
 
-		this.saveAnimationValues(entityIn);
+		this.rightArm.y -= 2.0F;
+		this.leftArm.y -= 2.0F;
+
+		this.saveAnimationValues(mime);
 	}
 
-	private void saveAnimationValues(T entityIn) {
-		entityIn.armPositions[0] = this.getPositionVector(this.rightArm);
-		entityIn.armPositions[1] = this.getPositionVector(this.leftArm);
-		entityIn.armRotations[0] = this.getRotationVector(this.rightArm);
-		entityIn.armRotations[1] = this.getRotationVector(this.leftArm);
+	private void saveAnimationValues(T mime) {
+		mime.armPositions[0] = this.getPositionVector(this.rightArm);
+		mime.armPositions[1] = this.getPositionVector(this.leftArm);
+		mime.armRotations[0] = this.getRotationVector(this.rightArm);
+		mime.armRotations[1] = this.getRotationVector(this.leftArm);
 	}
 
 	private Vector3f getRotationVector(ModelPart modelPart) {
@@ -136,13 +137,5 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	public void setAllVisible(boolean visible) {
 		super.setAllVisible(visible);
 		this.bipedCape.visible = visible;
-	}
-
-	@Override
-	public void translateToHand(HumanoidArm sideIn, PoseStack matrixStackIn) {
-		ModelPart modelrenderer = this.getArm(sideIn);
-		modelrenderer.y -= 2.0F;
-		modelrenderer.translateAndRotate(matrixStackIn);
-		modelrenderer.y += 2.0F;
 	}
 }

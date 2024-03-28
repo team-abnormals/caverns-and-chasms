@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeType
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -189,12 +188,27 @@ public class Mime extends Monster {
 			if (this.level.isClientSide) {
 				if (this.random.nextInt(5) == 0) {
 					int i = this.random.nextInt(2);
-					float f = (180F - this.yBodyRot) * (Mth.PI / 180F);
-					Vector3f vector3f = this.armRotations[i];
-					Vec3 vec3 = new Vec3(0.0D, -0.5625D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());
-					Vec3 vec31 = new Vec3(i == 0 ? 0.125D : -0.125D, 0.0D, 0.0D).xRot(vector3f.x()).yRot(vector3f.y() + f).zRot(vector3f.z());
-					Vec3 vec32 = new Vec3(this.armPositions[i]).yRot(f).scale(-0.0625D);
-					vec3 = vec3.add(vec31).add(vec32).add(0.0D, 1.5D, 0.0D);
+					float f = -Mth.lerp(this.getSwimAmount(0.0F), 0F, this.isInWater() ? -90F - this.getXRot() : -90F) * Mth.DEG_TO_RAD;
+					float f1 = (180F - this.yBodyRot) * Mth.DEG_TO_RAD;
+
+					float yaw = this.armRotations[i].x();
+					float pitch = this.armRotations[i].y();
+					float roll = this.armRotations[i].z();
+
+					float x = i == 0 ? 0.0625F : -0.0625F;
+					float y = -0.71875F;
+
+					float x1 = Mth.cos(pitch) * Mth.cos(roll) * x + (Mth.sin(yaw) * Mth.sin(pitch) * Mth.cos(roll) - Mth.cos(yaw) * Mth.sin(roll)) * y;
+					float y1 = Mth.cos(pitch) * Mth.sin(roll) * x + (Mth.sin(yaw) * Mth.sin(pitch) * Mth.sin(roll) + Mth.cos(yaw) * Mth.cos(roll)) * y;
+					float z1 = Mth.sin(pitch) * x - Mth.sin(yaw) * Mth.cos(pitch) * y;
+
+					Vec3 vec3 = new Vec3(x1, y1, z1).add(new Vec3(this.armPositions[i]).scale(-0.0625D)).add(0.0D, 1.5D, 0.0D);
+
+					vec3 = vec3.xRot(f);
+					if (this.isVisuallySwimming())
+						vec3 = vec3.add(0.0D, 0.3D, 1.0D);
+					vec3 = vec3.yRot(f1);
+
 					double d0 = this.random.nextFloat() * 0.1D - 0.05D;
 					double d1 = this.random.nextFloat() * 0.1D - 0.05D;
 					double d2 = this.random.nextFloat() * 0.1D - 0.05D;
