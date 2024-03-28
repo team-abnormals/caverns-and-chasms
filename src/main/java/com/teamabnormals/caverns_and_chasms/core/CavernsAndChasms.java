@@ -55,13 +55,11 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Function;
 
 @Mod(CavernsAndChasms.MOD_ID)
@@ -173,8 +171,6 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CCModelLayers.PEEPER_HEAD, PeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.PEEPER_ARMOR, () -> PeeperModel.createBodyLayer(new CubeDeformation(2.0F)));
 		event.registerLayerDefinition(CCModelLayers.MIME, MimeModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_INNER, () -> MimeArmorModel.createBodyLayer(0.5F, true));
-		event.registerLayerDefinition(CCModelLayers.MIME_ARMOR_OUTER, () -> MimeArmorModel.createBodyLayer(1.0F, false));
 		event.registerLayerDefinition(CCModelLayers.MIME_HEAD, MimeHeadModel::createHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createBodyLayer);

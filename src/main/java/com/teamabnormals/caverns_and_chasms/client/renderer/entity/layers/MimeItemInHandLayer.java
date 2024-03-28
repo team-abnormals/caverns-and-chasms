@@ -18,9 +18,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class MimeItemInHandLayer extends RenderLayer<Mime, MimeModel<Mime>> {
 	private final ItemInHandRenderer itemInHandRenderer;
 
-	public MimeItemInHandLayer(RenderLayerParent<Mime, MimeModel<Mime>> p_234846_, ItemInHandRenderer p_234847_) {
-		super(p_234846_);
-		this.itemInHandRenderer = p_234847_;
+	public MimeItemInHandLayer(RenderLayerParent<Mime, MimeModel<Mime>> parent, ItemInHandRenderer itemRenderer) {
+		super(parent);
+		this.itemInHandRenderer = itemRenderer;
 	}
 
 	@Override
