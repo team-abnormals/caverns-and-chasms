@@ -121,15 +121,6 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		this.bipedCape.y -= 2.0F;
 		this.bipedCape.z += 2.0F;
 
-		/*
-		this.rightArm.xRot = Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
-		this.leftArm.xRot = -Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
-		this.rightLeg.xRot = -Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
-		this.leftLeg.xRot = Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
-
-		this.head.xRot = Mth.sin(ageInTicks * Mth.DEG_TO_RAD * 4.0F);
-		*/
-
 		this.saveAnimationValues(mime);
 	}
 
