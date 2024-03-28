@@ -36,8 +36,8 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> ENTITY_MIME_DEATH = HELPER.createSoundEvent("entity.mime.death");
 	public static final RegistryObject<SoundEvent> ENTITY_MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
-	public static final RegistryObject<SoundEvent> ENTITY_MIME_PLAGIARIZE = HELPER.createSoundEvent("entity.mime.plagiarize");
-	public static final RegistryObject<SoundEvent> ENTITY_MIME_COPY = HELPER.createSoundEvent("entity.mime.copy");
+	public static final RegistryObject<SoundEvent> ENTITY_MIME_MIME = HELPER.createSoundEvent("entity.mime.mime");
+	public static final RegistryObject<SoundEvent> ENTITY_MIME_IMPERSONATE = HELPER.createSoundEvent("entity.mime.impersonate");
 
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_DEATH = HELPER.createSoundEvent("entity.copper_golem.death");
 	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_HURT = HELPER.createSoundEvent("entity.copper_golem.hurt");

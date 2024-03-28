@@ -123,18 +123,19 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.mime.hurt"
   },
-  "entity.mime.plagiarize": {
+  "entity.mime.mime": {
     "sounds": [
-      "caverns_and_chasms:mob/mime/plagiarize1",
-      "caverns_and_chasms:mob/mime/plagiarize2"
+      "caverns_and_chasms:mob/mime/mime1",
+      "caverns_and_chasms:mob/mime/mime2",
+      "caverns_and_chasms:mob/mime/mime3"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.entity.mime.plagiarize"
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.mime"
   },
-  "entity.mime.copy": {
+  "entity.mime.impersonate": {
     "sounds": [
-      "caverns_and_chasms:mob/mime/copy"
+      "caverns_and_chasms:mob/mime/impersonate"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.entity.mime.copy"
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.impersonate"
   },
   "entity.copper_golem.death": {
     "sounds": [
@@ -313,7 +314,7 @@
   "entity.parrot.imitate.mime": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:entity.mime.plagiarize",
+        "name": "caverns_and_chasms:entity.mime.mime",
         "pitch": 1.8,
         "type": "event",
         "volume": 0.6
