@@ -224,7 +224,7 @@ public class Mime extends Monster {
 							}
 
 							if (mimed)
-								this.level.playSound(null, this, SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.HOSTILE, 1.0F, 1.0F);
+								this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_PLAGIARIZE.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 						}
 					} else if (this.shouldCopyItem(this.getMainHandItem(), target.getMainHandItem()) || this.shouldCopyItem(this.getOffhandItem(), target.getOffhandItem())) {
 						this.copyTime = this.random.nextInt(3) + 4;

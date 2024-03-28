@@ -123,6 +123,13 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.mime.hurt"
   },
+  "entity.mime.plagiarize": {
+    "sounds": [
+      "caverns_and_chasms:mob/mime/plagiarize1",
+      "caverns_and_chasms:mob/mime/plagiarize2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.plagiarize"
+  },
   "entity.mime.copy": {
     "sounds": [
       "caverns_and_chasms:mob/mime/copy"
@@ -306,7 +313,7 @@
   "entity.parrot.imitate.mime": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:entity.mime.copy",
+        "name": "caverns_and_chasms:entity.mime.plagiarize",
         "pitch": 1.8,
         "type": "event",
         "volume": 0.6
