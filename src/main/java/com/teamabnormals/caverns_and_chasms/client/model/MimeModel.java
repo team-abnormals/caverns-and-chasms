@@ -10,18 +10,24 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 
-public class MimeModel<T extends Mime> extends PlayerModel<T> {
+public class MimeModel extends PlayerModel<Mime> {
+	private final ModelPart rightHorn;
+	private final ModelPart leftHorn;
 	private final ModelPart bipedCape;
 
 	public MimeModel(ModelPart root) {
 		super(root, false);
+		this.rightHorn = this.head.getChild("right_horn");
+		this.leftHorn = this.head.getChild("left_horn");
 		this.bipedCape = root.getChild("biped_cape");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = PlayerModel.createMesh(CubeDeformation.NONE, false);
 		PartDefinition root = meshdefinition.getRoot();
-		root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, false).texOffs(8, 60).addBox(-2.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F, false).texOffs(18, 60).addBox(1.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offset(0.0F, -2.0F, 0.0F));
+		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, false), PartPose.offset(0.0F, -2.0F, 0.0F));
+		head.addOrReplaceChild("right_horn", CubeListBuilder.create().texOffs(8, 60).addBox(-2.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(0, 59).addBox(-4.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
+		head.addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(18, 60).addBox(1.0F, -14.0F, 0.0F, 1.0F, 4.0F, 0.0F, false).texOffs(10, 59).addBox(2.0F, -11.0F, -1.0F, 2.0F, 3.0F, 2.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offset(0.0F, 2.0F, 0.0F));
 		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-5.0F, 0.0F, 0.0F));
@@ -38,7 +44,7 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 	}
 
 	@Override
-	public void prepareMobModel(T mime, float limbSwing, float limbSwingAmount, float partialTicks) {
+	public void prepareMobModel(Mime mime, float limbSwing, float limbSwingAmount, float partialTicks) {
 		super.prepareMobModel(mime, limbSwing, limbSwingAmount, partialTicks);
 		double d0 = mime.prevChasingPosX + (mime.chasingPosX - mime.prevChasingPosX) * partialTicks - (mime.xo + (mime.getX() - mime.xo) * partialTicks);
 		double d1 = mime.prevChasingPosY + (mime.chasingPosY - mime.prevChasingPosY) * partialTicks - (mime.yo + (mime.getY() - mime.yo) * partialTicks);
@@ -58,13 +64,17 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		if (mime.isShiftKeyDown())
 			f1 += 25.0F;
 
+		boolean showhorns = mime.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
+		this.rightHorn.visible = showhorns;
+		this.leftHorn.visible = showhorns;
+
 		this.bipedCape.xRot = (float) Math.toRadians(6.0F + f2 / 2.0F + f1);
 		this.bipedCape.yRot = (float) Math.toRadians(f3 / 2.0F);
 		this.bipedCape.zRot = (float) Math.toRadians(f3 / 2.0F);
 	}
 
 	@Override
-	public void setupAnim(T mime, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Mime mime, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.crouching = mime.isCrouching();
 		float f = limbSwing * 0.75F;
 
@@ -130,7 +140,7 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 		this.saveAnimationValues(mime);
 	}
 
-	private void saveAnimationValues(T mime) {
+	private void saveAnimationValues(Mime mime) {
 		mime.armPositions[0] = this.getPositionVector(this.rightArm);
 		mime.armPositions[1] = this.getPositionVector(this.leftArm);
 		mime.armRotations[0] = this.getRotationVector(this.rightArm);

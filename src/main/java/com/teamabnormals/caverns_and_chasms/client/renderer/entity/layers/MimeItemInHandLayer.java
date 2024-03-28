@@ -15,10 +15,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class MimeItemInHandLayer extends RenderLayer<Mime, MimeModel<Mime>> {
+public class MimeItemInHandLayer extends RenderLayer<Mime, MimeModel> {
 	private final ItemInHandRenderer itemInHandRenderer;
 
-	public MimeItemInHandLayer(RenderLayerParent<Mime, MimeModel<Mime>> parent, ItemInHandRenderer itemRenderer) {
+	public MimeItemInHandLayer(RenderLayerParent<Mime, MimeModel> parent, ItemInHandRenderer itemRenderer) {
 		super(parent);
 		this.itemInHandRenderer = itemRenderer;
 	}

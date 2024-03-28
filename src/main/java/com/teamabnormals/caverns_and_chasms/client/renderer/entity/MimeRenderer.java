@@ -16,11 +16,11 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel<Mime>> {
+public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel> {
 	public static final ResourceLocation MIME_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/mime.png");
 
 	public MimeRenderer(EntityRendererProvider.Context context) {
-		super(context, new MimeModel<>(context.bakeLayer(CCModelLayers.MIME)), 0.5F);
+		super(context, new MimeModel(context.bakeLayer(CCModelLayers.MIME)), 0.5F);
 		this.layers.removeIf(entry -> entry instanceof ItemInHandLayer);
 		this.addLayer(new MimeArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR))));
 		this.addLayer(new MimeItemInHandLayer(this, context.getItemInHandRenderer()));
