@@ -110,6 +110,12 @@ public class MimeModel<T extends Mime> extends PlayerModel<T> {
 				this.leftLeg.yRot += (-1.0F - Mth.cos(f * 0.6662F * 2F)) * limbSwingAmount * 0.4F;
 				this.leftLeg.zRot += this.rightLeg.yRot * 0.25F;
 			}
+		} else {
+			this.head.zRot = 0.0F;
+			this.body.zRot = 0.0F;
+			this.head.x = 0.0F;
+			this.body.x = 0.0F;
+			this.bipedCape.x = 0.0F;
 		}
 
 		this.head.y -= 2.0F;
