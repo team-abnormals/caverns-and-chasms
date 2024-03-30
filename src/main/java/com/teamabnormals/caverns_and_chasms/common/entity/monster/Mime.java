@@ -248,7 +248,7 @@ public class Mime extends Monster {
 				}
 
 				Pose pose = target != null ? target.getPose() : Pose.STANDING;
-				if (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING) {
+				if (!this.isPassenger() && (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING)) {
 					if (!this.canEnterPose(pose)) {
 						if (this.canEnterPose(Pose.CROUCHING)) pose = Pose.CROUCHING;
 						else pose = Pose.SWIMMING;
@@ -298,6 +298,11 @@ public class Mime extends Monster {
 	@Override
 	public boolean isSteppingCarefully() {
 		return this.getPose() == Pose.CROUCHING || super.isSteppingCarefully();
+	}
+
+	@Override
+	public double getMyRidingOffset() {
+		return -0.45D;
 	}
 
 	@Override
