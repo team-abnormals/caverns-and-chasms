@@ -1,8 +1,0 @@
-{
-  "parent": "blueprint:block/vertical_slab",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/azalea_planks",
-    "side": "caverns_and_chasms:block/azalea_planks",
-    "top": "caverns_and_chasms:block/azalea_planks"
-  }
-}

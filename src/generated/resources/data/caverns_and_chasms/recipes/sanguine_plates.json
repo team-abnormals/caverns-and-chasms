@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "#": {
       "item": "caverns_and_chasms:sanguine_plating"
@@ -12,5 +13,6 @@
   "result": {
     "count": 12,
     "item": "caverns_and_chasms:sanguine_plates"
-  }
+  },
+  "show_notification": true
 }

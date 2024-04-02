@@ -19,21 +19,21 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "group": "wooden_boards",
-        "key": {
-          "#": {
-            "item": "caverns_and_chasms:azalea_planks"
-          }
-        },
         "pattern": [
-          "#",
           "#",
           "#"
         ],
+        "key": {
+          "#": {
+            "item": "caverns_and_chasms:azalea_slab"
+          }
+        },
         "result": {
-          "count": 3,
           "item": "caverns_and_chasms:azalea_boards"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Blocks;
@@ -22,7 +23,7 @@ public final class AbstractFurnaceBlockEntityMixin {
 	protected NonNullList<ItemStack> items;
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V", shift = Shift.BEFORE), method = "burn")
-	private void burn(Recipe<?> recipe, NonNullList<ItemStack> items, int time, CallbackInfoReturnable<Boolean> cir) {
+	private void burn(RegistryAccess p_266740_, Recipe<?> p_266780_, NonNullList<ItemStack> p_267073_, int p_267157_, CallbackInfoReturnable<Boolean> cir) {
 		ItemStack stack = items.get(1);
 		if (items.get(0).is(Blocks.WET_SPONGE.asItem()) && !stack.isEmpty()) {
 			if (stack.is(CCItems.GOLDEN_BUCKET.get())) {

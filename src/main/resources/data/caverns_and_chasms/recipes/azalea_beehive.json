@@ -19,7 +19,13 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "group": "wooden_beehive",
+        "pattern": [
+          "###",
+          "HHH",
+          "###"
+        ],
         "key": {
           "#": {
             "item": "caverns_and_chasms:azalea_planks"
@@ -28,14 +34,10 @@
             "item": "minecraft:honeycomb"
           }
         },
-        "pattern": [
-          "###",
-          "HHH",
-          "###"
-        ],
         "result": {
           "item": "caverns_and_chasms:azalea_beehive"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

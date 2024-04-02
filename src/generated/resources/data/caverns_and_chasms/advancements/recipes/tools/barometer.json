@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:barometer"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

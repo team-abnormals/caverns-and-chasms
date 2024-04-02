@@ -1,41 +1,8 @@
 {
   "advancements": [
     {
-      "advancement": {
-        "parent": "minecraft:recipes/root",
-        "criteria": {
-          "has_lots_of_items": {
-            "conditions": {
-              "slots": {
-                "occupied": {
-                  "min": 10
-                }
-              }
-            },
-            "trigger": "minecraft:inventory_changed"
-          },
-          "has_the_recipe": {
-            "conditions": {
-              "recipe": "caverns_and_chasms:azalea_chest"
-            },
-            "trigger": "minecraft:recipe_unlocked"
-          }
-        },
-        "requirements": [
-          [
-            "has_lots_of_items",
-            "has_the_recipe"
-          ]
-        ],
-        "rewards": {
-          "recipes": [
-            "caverns_and_chasms:azalea_chest"
-          ]
-        }
-      },
       "conditions": [
         {
-          "type": "forge:or",
           "values": [
             {
               "type": "blueprint:and",
@@ -51,12 +18,55 @@
               ]
             },
             {
-              "type": "blueprint:quark_flag",
-              "flag": "variant_chests"
+              "type": "blueprint:and",
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "flag": "variant_chests",
+                  "type": "quark:flag"
+                }
+              ]
             }
-          ]
+          ],
+          "type": "forge:or"
         }
-      ]
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "caverns_and_chasms:azalea_chest"
+          ]
+        },
+        "criteria": {
+          "has_lots_of_items": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "slots": {
+                "occupied": {
+                  "min": 10
+                }
+              }
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "caverns_and_chasms:azalea_chest"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_lots_of_items",
+            "has_the_recipe"
+          ]
+        ],
+        "sends_telemetry_event": false
+      }
     }
   ]
 }

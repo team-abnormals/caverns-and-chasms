@@ -32,7 +32,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "tag": "forge:tools/pickaxes"
+                    "tag": "minecraft:pickaxes"
                   }
                 }
               ],
@@ -44,7 +44,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "tag": "forge:tools/shovels"
+                    "tag": "minecraft:shovels"
                   }
                 }
               ],
@@ -64,5 +64,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "caverns_and_chasms:blocks/rocky_dirt"
 }

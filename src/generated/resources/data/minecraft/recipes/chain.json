@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "minecraft:iron_nugget"
@@ -12,5 +13,6 @@
   ],
   "result": {
     "item": "minecraft:chain"
-  }
+  },
+  "show_notification": true
 }

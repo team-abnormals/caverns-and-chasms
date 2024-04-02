@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -51,7 +52,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 
 	public OxidizedCopperGolem(EntityType<? extends OxidizedCopperGolem> entity, Level level) {
 		super(entity, level);
-		this.maxUpStep = 0.0F;
+		this.setMaxUpStep(0.0F);
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);
-				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				if (!player.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
@@ -112,35 +113,35 @@ public class OxidizedCopperGolem extends LivingEntity {
 			if (this.isWaxed()) {
 				this.setWaxed(false);
 				this.spawnSparkParticles(ParticleTypes.WAX_OFF);
-				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
 			} else {
 				this.deoxidize(Oxidation.WEATHERED);
 				this.spawnSparkParticles(ParticleTypes.SCRAPE);
-				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				this.gameEvent(GameEvent.ENTITY_INTERACT);
 				success = true;
 			}
 
-			if (success && !this.level.isClientSide) {
+			if (success && !this.level().isClientSide) {
 				itemstack.hurtAndBreak(1, player, (entity) -> {
 					entity.broadcastBreakEvent(hand);
 				});
 			}
 		}
 
-		return success ? InteractionResult.sidedSuccess(this.level.isClientSide) : InteractionResult.PASS;
+		return success ? InteractionResult.sidedSuccess(this.level().isClientSide) : InteractionResult.PASS;
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (!this.level.isClientSide && !this.isRemoved()) {
+		if (!this.level().isClientSide && !this.isRemoved()) {
 			Entity directentity = source.getDirectEntity();
-			if (DamageSource.OUT_OF_WORLD.equals(source)) {
+			if (this.damageSources().fellOutOfWorld().equals(source)) {
 				this.removeStatue();
 				return false;
 			} else if (!this.isInvulnerableTo(source)) {
-				if (source.isExplosion()) {
+				if (source.is(DamageTypeTags.IS_EXPLOSION)) {
 					this.breakStatue(source, true, false);
 					return false;
 				} else if ("player".equals(source.getMsgId()) && directentity instanceof Player && ((Player) directentity).getAbilities().mayBuild) {
@@ -153,7 +154,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 						} else {
 							this.setDamaged(true);
 							this.gameEvent(GameEvent.ENTITY_DAMAGE, directentity);
-							this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
+							this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
 						}
 						return true;
 					}
@@ -169,7 +170,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 		CopperGolem coppergolem = this.deoxidize(Oxidation.UNAFFECTED);
 		if (coppergolem != null) {
 			coppergolem.spinHead();
-			this.level.broadcastEntityEvent(coppergolem, (byte) 5);
+			this.level().broadcastEntityEvent(coppergolem, (byte) 5);
 		}
 	}
 
@@ -194,14 +195,14 @@ public class OxidizedCopperGolem extends LivingEntity {
 				if (this.isPersistenceRequired())
 					compound.putBoolean("PersistenceRequired", true);
 
-				Block.popResource(this.level, this.blockPosition(), itemstack);
+				Block.popResource(this.level(), this.blockPosition(), itemstack);
 			} else {
 				this.dropAllDeathLoot(source);
 			}
 		}
 
-		((ServerLevel) this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (this.getBbWidth() / 4.0F), (this.getBbHeight() / 4.0F), (this.getBbWidth() / 4.0F), 0.05D);
-		this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
+		((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.OXIDIZED_COPPER.defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), 10, (this.getBbWidth() / 4.0F), (this.getBbHeight() / 4.0F), (this.getBbWidth() / 4.0F), 0.05D);
+		this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.COPPER_BREAK, this.getSoundSource(), 1.0F, 1.0F);
 		this.gameEvent(GameEvent.ENTITY_DIE);
 		this.removeStatue();
 	}
@@ -212,7 +213,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 
 	public CopperGolem deoxidize(Oxidation oxidation) {
 		if (!this.isRemoved()) {
-			CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(this.level);
+			CopperGolem coppergolem = CCEntityTypes.COPPER_GOLEM.get().create(this.level());
 			coppergolem.copyPosition(this);
 			coppergolem.setYHeadRot(this.getYRot());
 			coppergolem.setYBodyRot(this.getYRot());
@@ -236,7 +237,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 				coppergolem.setCustomNameVisible(this.isCustomNameVisible());
 			}
 
-			this.level.addFreshEntity(coppergolem);
+			this.level().addFreshEntity(coppergolem);
 
 			if (this.isPassenger()) {
 				Entity entity = this.getVehicle();
@@ -268,12 +269,12 @@ public class OxidizedCopperGolem extends LivingEntity {
 	}
 
 	private void spawnSparkParticles(ParticleOptions particle) {
-		if (this.level.isClientSide) {
+		if (this.level().isClientSide) {
 			for (int i = 0; i < 7; ++i) {
 				double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
-				this.level.addParticle(particle, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), d0, d1, d2);
+				this.level().addParticle(particle, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), d0, d1, d2);
 			}
 		}
 	}

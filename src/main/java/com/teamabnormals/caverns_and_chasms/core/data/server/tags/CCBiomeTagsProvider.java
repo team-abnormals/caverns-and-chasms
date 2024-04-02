@@ -3,21 +3,24 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.util.concurrent.CompletableFuture;
+
 public class CCBiomeTagsProvider extends BiomeTagsProvider {
 
-	public CCBiomeTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
-		super(generator, CavernsAndChasms.MOD_ID, fileHelper);
+	public CCBiomeTagsProvider(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
+		super(output, provider, CavernsAndChasms.MOD_ID, helper);
 	}
 
 	@Override
-	public void addTags() {
+	public void addTags(Provider provider) {
 		this.tag(CCBiomeTags.HAS_SPINEL_ORE).add(Biomes.LUSH_CAVES);
 		this.tag(CCBiomeTags.HAS_SILVER_ORE).addTag(Tags.Biomes.IS_COLD_OVERWORLD).add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST);
 		this.tag(CCBiomeTags.HAS_EXTRA_SILVER_ORE).add(Biomes.ICE_SPIKES);

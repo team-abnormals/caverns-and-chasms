@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "R": {
       "item": "minecraft:leather"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "minecraft:bundle"
-  }
+  },
+  "show_notification": true
 }

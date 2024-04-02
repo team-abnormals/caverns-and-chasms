@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -20,16 +21,16 @@ import net.minecraft.world.item.ItemStack;
 
 public class MimeArmorLayer<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> extends HumanoidArmorLayer<T, M, A> {
 
-	public MimeArmorLayer(RenderLayerParent<T, M> parent, A innerModel, A outerModel) {
-		super(parent, innerModel, outerModel);
+	public MimeArmorLayer(RenderLayerParent<T, M> parent, A innerModel, A outerModel, ModelManager modelManager) {
+		super(parent, innerModel, outerModel, modelManager);
 	}
 
 	@Override
 	protected void renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, T entity, EquipmentSlot slot, int packedLight, A armorModel) {
 		ItemStack itemstack = entity.getItemBySlot(slot);
 		if (itemstack.getItem() instanceof ArmorItem) {
-			ArmorItem armoritem = (ArmorItem)itemstack.getItem();
-			if (armoritem.getSlot() == slot) {
+			ArmorItem armoritem = (ArmorItem) itemstack.getItem();
+			if (armoritem.getEquipmentSlot() == slot) {
 				this.getParentModel().copyPropertiesTo(armorModel);
 				if (slot == EquipmentSlot.LEGS) {
 					this.verticallyOffsetModelPart(this.getParentModel().body, armorModel.body, 1.0F);
@@ -41,10 +42,10 @@ public class MimeArmorLayer<T extends LivingEntity, M extends HumanoidModel<T>, 
 				net.minecraft.client.model.Model model = getArmorModelHook(entity, itemstack, slot, armorModel);
 				boolean flag = itemstack.hasFoil();
 				if (armoritem instanceof net.minecraft.world.item.DyeableLeatherItem) {
-					int i = ((net.minecraft.world.item.DyeableLeatherItem)armoritem).getColor(itemstack);
-					float f = (float)(i >> 16 & 255) / 255.0F;
-					float f1 = (float)(i >> 8 & 255) / 255.0F;
-					float f2 = (float)(i & 255) / 255.0F;
+					int i = ((net.minecraft.world.item.DyeableLeatherItem) armoritem).getColor(itemstack);
+					float f = (float) (i >> 16 & 255) / 255.0F;
+					float f1 = (float) (i >> 8 & 255) / 255.0F;
+					float f2 = (float) (i & 255) / 255.0F;
 					this.renderModel(poseStack, buffer, packedLight, flag, model, f, f1, f2, this.getArmorResource(entity, itemstack, slot, null));
 					this.renderModel(poseStack, buffer, packedLight, flag, model, 1.0F, 1.0F, 1.0F, this.getArmorResource(entity, itemstack, slot, "overlay"));
 				} else {

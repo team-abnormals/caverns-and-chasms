@@ -15,19 +15,27 @@
         "criteria": {
           "caverns_and_chasms:wax_on_blocks": {
             "conditions": {
-              "item": {
-                "items": [
-                  "minecraft:honeycomb"
-                ]
-              },
-              "location": {
-                "block": {
-                  "state": {
-                    "powered": "false"
-                  },
-                  "tag": "forge:waxable_copper_blocks"
+              "location": [
+                {
+                  "condition": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "state": {
+                        "powered": "false"
+                      },
+                      "tag": "forge:waxable_copper_blocks"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": [
+                      "minecraft:honeycomb"
+                    ]
+                  }
                 }
-              }
+              ]
             },
             "trigger": "minecraft:item_used_on_block"
           },

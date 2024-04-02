@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:tuning_fork"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

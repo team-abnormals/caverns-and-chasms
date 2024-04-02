@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_door",
   "key": {
     "#": {
@@ -14,5 +15,6 @@
   "result": {
     "count": 3,
     "item": "caverns_and_chasms:azalea_door"
-  }
+  },
+  "show_notification": true
 }

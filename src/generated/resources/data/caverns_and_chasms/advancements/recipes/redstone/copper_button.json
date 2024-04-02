@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:copper_button"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

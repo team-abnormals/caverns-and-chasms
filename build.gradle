@@ -85,8 +85,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge-api:${project.jei}")
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge:${project.jei}")
 
-    compileOnly fg.deobf("curse.maven:quark-243121:4463411")
-    compileOnly fg.deobf("curse.maven:autoreglib-250363:4100299")
+    compileOnly fg.deobf("curse.maven:quark-243121:${project.quark}")
+    compileOnly fg.deobf("curse.maven:zeta-968868:${project.zeta}")
 
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }

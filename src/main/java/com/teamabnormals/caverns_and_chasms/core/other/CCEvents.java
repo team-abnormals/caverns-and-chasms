@@ -8,7 +8,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
-import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
@@ -26,18 +25,20 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -60,11 +61,15 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -78,13 +83,12 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -144,12 +148,13 @@ public class CCEvents {
 		}
 	}
 
+	//TODO: Make work properly with Creeper weights and stuff
 	@SubscribeEvent
-	public static void onLivingSpawn(LivingSpawnEvent.CheckSpawn event) {
+	public static void onLivingSpawn(MobSpawnEvent.FinalizeSpawn event) {
 		LivingEntity entity = event.getEntity();
 		LevelAccessor world = event.getLevel();
-		boolean validSpawn = event.getSpawnReason() == MobSpawnType.NATURAL || event.getSpawnReason() == MobSpawnType.CHUNK_GENERATION;
-		if (event.getResult() != Event.Result.DENY) {
+		boolean validSpawn = event.getSpawnType() == MobSpawnType.NATURAL || event.getSpawnType() == MobSpawnType.CHUNK_GENERATION;
+		if (event.getResult() != Result.DENY) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				Creeper creeper = (Creeper) entity;
 				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
@@ -158,16 +163,16 @@ public class CCEvents {
 						if (peeper != null) {
 							peeper.copyPosition(creeper);
 							world.addFreshEntity(peeper);
-							entity.discard();
 						}
 					} else {
 						Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
 						if (deeper != null) {
 							deeper.copyPosition(creeper);
 							world.addFreshEntity(deeper);
-							entity.discard();
 						}
 					}
+					event.setSpawnCancelled(true);
+					event.setResult(Result.DENY);
 				}
 			}
 		}
@@ -384,7 +389,7 @@ public class CCEvents {
 		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
 
-		if (source.isMagic()) {
+		if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
 			float magicProtection = 0.0F;
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
@@ -417,7 +422,7 @@ public class CCEvents {
 			if (TuningForkItem.isTuningForkWithNote(mainHandItem)) {
 				int note = mainHandItem.getTag().getInt("Note");
 
-				TuningForkItem.playNote(target.getLevel(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
+				TuningForkItem.playNote(target.level(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
 				NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 
 				if (attacker instanceof Player) {
@@ -478,10 +483,10 @@ public class CCEvents {
 	public static void onLivingDamage(LivingDamageEvent event) {
 		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
-		Level level = target.getLevel();
+		Level level = target.level();
 		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
 
-		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.isBypassArmor()) {
+		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.is(DamageTypeTags.BYPASSES_ARMOR)) {
 			Player player = target instanceof Player ? (Player) target : null;
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -493,7 +498,7 @@ public class CCEvents {
 			}
 
 			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
-			level.levelEvent(i, new BlockPos(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+			level.levelEvent(i, BlockPos.containing(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
 		}
 	}
 
@@ -526,14 +531,25 @@ public class CCEvents {
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		ItemStack stack = event.getItemStack();
 		EquipmentSlot slot = event.getSlotType();
-		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_SLOT[slot.getIndex()];
 
-		if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get() && (stack.is(Items.CHAINMAIL_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.CHAINMAIL_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.CHAINMAIL_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.CHAINMAIL_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
-			event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
-		}
+		ArmorItem.Type type = switch (slot) {
+			case HEAD -> Type.HELMET;
+			case CHEST -> Type.CHESTPLATE;
+			case LEGS -> Type.LEGGINGS;
+			case FEET -> Type.BOOTS;
+			case MAINHAND, OFFHAND -> null;
+		};
 
-		if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.GOLDEN_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
-			event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
+		if (type != null) {
+			UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
+
+			if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get() && (stack.is(Items.CHAINMAIL_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.CHAINMAIL_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.CHAINMAIL_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.CHAINMAIL_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
+			}
+
+			if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.GOLDEN_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
+				event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
+			}
 		}
 
 		if (slot == EquipmentSlot.MAINHAND) {
@@ -555,7 +571,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingTick(LivingEvent.LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
-		Level level = entity.getLevel();
+		Level level = entity.level();
 
 		if (entity instanceof Player player) {
 			IDataManager data = (IDataManager) entity;
@@ -592,7 +608,7 @@ public class CCEvents {
 
 	private static void rewindTeleport(LivingEntity entity) {
 		IDataManager data = ((IDataManager) entity);
-		ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, data.getValue(CCDataProcessors.REWIND_DIMENSION));
+		ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, data.getValue(CCDataProcessors.REWIND_DIMENSION));
 		ServerLevel dimension = entity.getServer().getLevel(key);
 
 		if (dimension != entity.getCommandSenderWorld()) {

@@ -28,13 +28,13 @@ public class SilverItem {
 		if (defensive) {
 			count += 3 + random.nextInt(2);
 		}
-		if (entity.level.isClientSide()) {
+		if (entity.level().isClientSide()) {
 			ParticleOptions particle = defensive ? CCParticleTypes.SILVER_SPARK.get() : CCParticleTypes.SILVER_HIT.get();
 			for (int i = 0; i < count; ++i) {
 				double d0 = random.nextGaussian() * 0.02D;
 				double d1 = random.nextGaussian() * 0.02D;
 				double d2 = random.nextGaussian() * 0.02D;
-				entity.level.addParticle(particle, entity.getRandomX(0.75D), entity.getRandomY() + (defensive ? 0.3F : 0.0F), entity.getRandomZ(0.75D), d0, d1, d2);
+				entity.level().addParticle(particle, entity.getRandomX(0.75D), entity.getRandomY() + (defensive ? 0.3F : 0.0F), entity.getRandomZ(0.75D), d0, d1, d2);
 			}
 
 		} else {

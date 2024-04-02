@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "#": {
       "tag": "forge:ingots/copper"
@@ -12,5 +13,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:tuning_fork"
-  }
+  },
+  "show_notification": true
 }

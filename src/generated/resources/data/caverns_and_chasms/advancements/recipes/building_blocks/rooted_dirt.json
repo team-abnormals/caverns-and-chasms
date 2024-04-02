@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:rooted_dirt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

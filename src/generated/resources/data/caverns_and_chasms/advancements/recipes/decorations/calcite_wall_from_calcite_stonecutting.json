@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:calcite_wall_from_calcite_stonecutting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

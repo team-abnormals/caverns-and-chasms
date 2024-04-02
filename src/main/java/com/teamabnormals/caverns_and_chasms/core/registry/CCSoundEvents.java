@@ -5,6 +5,7 @@ import com.teamabnormals.blueprint.core.util.registry.SoundSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -65,6 +66,6 @@ public class CCSoundEvents {
 	}
 
 	public static class CCSoundTypes {
-		public static final SoundType ROCKY_DIRT = new SoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK.get(), CCSoundEvents.ROCKY_DIRT_STEP.get(), CCSoundEvents.ROCKY_DIRT_PLACE.get(), CCSoundEvents.ROCKY_DIRT_HIT.get(), CCSoundEvents.ROCKY_DIRT_FALL.get());
+		public static final ForgeSoundType ROCKY_DIRT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK, CCSoundEvents.ROCKY_DIRT_STEP, CCSoundEvents.ROCKY_DIRT_PLACE, CCSoundEvents.ROCKY_DIRT_HIT, CCSoundEvents.ROCKY_DIRT_FALL);
 	}
 }

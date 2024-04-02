@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -39,9 +39,9 @@ public class TmtRenderer extends EntityRenderer<PrimedTmt> {
 			matrixStack.scale(f1, f1, f1);
 		}
 
-		matrixStack.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
+		matrixStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		matrixStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+		matrixStack.mulPose(Axis.YP.rotationDegrees(90.0F));
 		TntMinecartRenderer.renderWhiteSolidBlock(this.blockRenderer, CCBlocks.TMT.get().defaultBlockState(), matrixStack, buffer, packedLight, i / 5 % 2 == 0);
 		matrixStack.popPose();
 		super.render(primedTmt, entityYaw, partialTicks, matrixStack, buffer, packedLight);

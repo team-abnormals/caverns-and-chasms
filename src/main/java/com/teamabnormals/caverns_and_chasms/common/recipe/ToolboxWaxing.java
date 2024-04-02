@@ -3,11 +3,13 @@ package com.teamabnormals.caverns_and_chasms.common.recipe;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WeatheringToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -16,8 +18,8 @@ import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 
 public class ToolboxWaxing extends CustomRecipe {
 
-	public ToolboxWaxing(ResourceLocation id) {
-		super(id);
+	public ToolboxWaxing(ResourceLocation id, CraftingBookCategory category) {
+		super(id, category);
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class ToolboxWaxing extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(CraftingContainer container) {
+	public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
 		ItemStack returnStack = ItemStack.EMPTY;
 		WeatherState weatherState = WeatherState.UNAFFECTED;
 

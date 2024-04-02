@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_three_candles",
-  "textures": {
-    "all": "caverns_and_chasms:block/cupric_candle_lit",
-    "particle": "caverns_and_chasms:block/cupric_candle_lit"
-  }
-}

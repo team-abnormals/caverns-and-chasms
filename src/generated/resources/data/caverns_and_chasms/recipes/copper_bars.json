@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "tag": "forge:ingots/copper"
@@ -12,5 +13,6 @@
   "result": {
     "count": 16,
     "item": "caverns_and_chasms:copper_bars"
-  }
+  },
+  "show_notification": true
 }

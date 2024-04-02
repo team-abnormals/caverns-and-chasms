@@ -179,12 +179,12 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	public void aiStep() {
-		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
+		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
 			++this.eatTicks;
 			ItemStack itemstack = this.getMainHandItem();
 			if (this.canEatItem(itemstack)) {
 				if (this.eatTicks > 600) {
-					ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
+					ItemStack itemstack1 = itemstack.finishUsingItem(this.level(), this);
 					if (!itemstack1.isEmpty()) {
 						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
 					}
@@ -192,11 +192,11 @@ public class Rat extends ShoulderRidingEntity {
 					this.eatTicks = 0;
 				} else if (this.eatTicks > 560 && this.random.nextFloat() < 0.1F) {
 					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-					this.level.broadcastEntityEvent(this, (byte) 45);
+					this.level().broadcastEntityEvent(this, (byte) 45);
 				}
 			}
 
-			List<Rat> rats = this.level.getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS.and(entity -> entity.isTame() == this.isTame()));
+			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS.and(entity -> entity.isTame() == this.isTame()));
 			rats.sort(Comparator.comparing(this::distanceToSqr));
 			this.group = rats.stream().limit(4).collect(Collectors.toList());
 		}
@@ -215,14 +215,14 @@ public class Rat extends ShoulderRidingEntity {
 				this.heal((float) item.getFoodProperties().getNutrition());
 				this.gameEvent(GameEvent.EAT, this);
 
-				return InteractionResult.sidedSuccess(this.level.isClientSide);
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			} else if (item instanceof DyeItem) {
 				DyeColor dyecolor = ((DyeItem) item).getDyeColor();
 				if (dyecolor != this.getCollarColor()) {
 					this.setCollarColor(dyecolor);
 					this.usePlayerItem(player, hand, itemstack);
 
-					return InteractionResult.sidedSuccess(this.level.isClientSide);
+					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
 			} else {
 				InteractionResult interactionresult = super.mobInteract(player, hand);
@@ -232,7 +232,7 @@ public class Rat extends ShoulderRidingEntity {
 					this.setTarget(null);
 					this.setOrderedToSit(!this.isOrderedToSit());
 
-					return InteractionResult.sidedSuccess(this.level.isClientSide);
+					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
 
 				return interactionresult;
@@ -240,19 +240,19 @@ public class Rat extends ShoulderRidingEntity {
 		} else if ((this.isTrusting() || (this.getTarget() != player && !this.isRunningAway())) && itemstack.is(CCItemTags.RAT_TAME_ITEMS)) {
 			this.usePlayerItem(player, hand, itemstack);
 
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
 					this.tame(player);
 					this.navigation.stop();
 					this.setTarget(null);
 					this.setOrderedToSit(true);
-					this.level.broadcastEntityEvent(this, (byte) 7);
+					this.level().broadcastEntityEvent(this, (byte) 7);
 				} else {
-					this.level.broadcastEntityEvent(this, (byte) 6);
+					this.level().broadcastEntityEvent(this, (byte) 6);
 				}
 			}
 
-			return InteractionResult.sidedSuccess(this.level.isClientSide);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
 		}
 
 		return super.mobInteract(player, hand);
@@ -351,7 +351,7 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	private boolean canEatItem(ItemStack itemStackIn) {
-		return itemStackIn.getItem().isEdible() && this.getTarget() == null && this.onGround;
+		return itemStackIn.getItem().isEdible() && this.getTarget() == null && this.onGround();
 	}
 
 	@Override
@@ -372,18 +372,18 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	private void spitOutItem(ItemStack stackIn) {
-		if (!stackIn.isEmpty() && !this.level.isClientSide) {
-			ItemEntity itementity = new ItemEntity(this.level, this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, stackIn);
+		if (!stackIn.isEmpty() && !this.level().isClientSide) {
+			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, stackIn);
 			itementity.setPickUpDelay(40);
 			itementity.setThrower(this.getUUID());
 			this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
-			this.level.addFreshEntity(itementity);
+			this.level().addFreshEntity(itementity);
 		}
 	}
 
 	private void spawnItem(ItemStack stackIn) {
-		ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), stackIn);
-		this.level.addFreshEntity(itementity);
+		ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), stackIn);
+		this.level().addFreshEntity(itementity);
 	}
 
 	@Override
@@ -521,11 +521,12 @@ public class Rat extends ShoulderRidingEntity {
 //		return child;
 	}
 
-	public void positionRider(Entity passenger) {
+	@Override
+	public void positionRider(Entity passenger, Entity.MoveFunction function) {
 		super.positionRider(passenger);
 		float f = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
 		float f1 = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-		passenger.setPos(this.getX() + (double) (0.1F * f), this.getY(0.5D) + passenger.getMyRidingOffset() + 0.0D, this.getZ() - (double) (0.1F * f1));
+		function.accept(passenger, this.getX() + (double) (0.1F * f), this.getY(0.5D) + passenger.getMyRidingOffset() + 0.0D, this.getZ() - (double) (0.1F * f1));
 		if (passenger instanceof LivingEntity) {
 			((LivingEntity) passenger).yBodyRot = this.yBodyRot;
 		}
@@ -737,7 +738,7 @@ public class Rat extends ShoulderRidingEntity {
 				if (Rat.this.getRandom().nextInt(10) != 0) {
 					return false;
 				} else {
-					List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
+					List<ItemEntity> list = Rat.this.level().getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
 					return !list.isEmpty() && Rat.this.getMainHandItem().isEmpty();
 				}
 			} else {
@@ -747,7 +748,7 @@ public class Rat extends ShoulderRidingEntity {
 
 		@Override
 		public void tick() {
-			List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
+			List<ItemEntity> list = Rat.this.level().getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
 			ItemStack itemstack = Rat.this.getMainHandItem();
 			if (itemstack.isEmpty() && !list.isEmpty()) {
 				Rat.this.getNavigation().moveTo(list.get(0), 1.2F);
@@ -756,7 +757,7 @@ public class Rat extends ShoulderRidingEntity {
 
 		@Override
 		public void start() {
-			List<ItemEntity> list = Rat.this.level.getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
+			List<ItemEntity> list = Rat.this.level().getEntitiesOfClass(ItemEntity.class, Rat.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Rat.ALLOWED_ITEMS);
 			if (!list.isEmpty()) {
 				Rat.this.getNavigation().moveTo(list.get(0), 1.2F);
 			}

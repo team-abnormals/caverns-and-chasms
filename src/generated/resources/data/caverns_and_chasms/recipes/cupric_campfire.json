@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "tag": "caverns_and_chasms:cupric_fire_base_blocks"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:cupric_campfire"
-  }
+  },
+  "show_notification": true
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "caverns_and_chasms:cupric_torch"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:cupric_lantern"
-  }
+  },
+  "show_notification": true
 }

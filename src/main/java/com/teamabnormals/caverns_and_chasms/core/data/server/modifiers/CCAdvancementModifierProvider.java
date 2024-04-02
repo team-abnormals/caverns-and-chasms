@@ -13,30 +13,32 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
 	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get()};
 
-	public CCAdvancementModifierProvider(DataGenerator dataGenerator) {
-		super(dataGenerator, CavernsAndChasms.MOD_ID);
+	public CCAdvancementModifierProvider(PackOutput output, CompletableFuture<Provider> provider) {
+		super(CavernsAndChasms.MOD_ID, output, provider);
 	}
 
 	@Override
-	protected void registerEntries() {
+	protected void registerEntries(Provider provider) {
 		this.entry("story/lava_bucket").selects("story/lava_bucket").addModifier(CriteriaModifier.builder(this.modId).addCriterion("golden_lava_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.GOLDEN_LAVA_BUCKET.get())).addIndexedRequirements(0, false, "golden_lava_bucket").build());
 
 		this.entry("nether/all_effects").selects("nether/all_effects").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
@@ -60,16 +62,16 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		this.entry("husbandry/wax_on").selects("husbandry/wax_on")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId)
-						.addCriterion("wax_on_blocks", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB)))
-						.addCriterion("wax_on_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
-						.addCriterion("wax_on_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
+						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB)))
+						.addCriterion("wax_on_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
+						.addCriterion("wax_on_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
 						.addIndexedRequirements(0, false, "wax_on_blocks", "wax_on_golem", "wax_on_oxidized_golem").build());
 		this.entry("husbandry/wax_off").selects("husbandry/wax_off")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_off.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId)
-						.addCriterion("wax_off_blocks", ItemInteractWithBlockTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(Tags.Items.TOOLS_AXES)))
-						.addCriterion("wax_off_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_AXES), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
-						.addCriterion("wax_off_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_AXES), EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
+						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
+						.addCriterion("wax_off_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
+						.addCriterion("wax_off_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
 						.addIndexedRequirements(0, false, "wax_off_blocks", "wax_off_golem", "wax_off_oxidized_golem").build());
 
 		this.entry("husbandry/obtain_netherite_hoe").selects("husbandry/obtain_netherite_hoe")

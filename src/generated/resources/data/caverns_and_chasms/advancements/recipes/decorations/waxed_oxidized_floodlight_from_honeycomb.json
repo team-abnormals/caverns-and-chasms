@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:waxed_oxidized_floodlight_from_honeycomb"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

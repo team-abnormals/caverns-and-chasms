@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -9,6 +8,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
+import org.joml.Vector3f;
 
 public class MimeModel extends PlayerModel<Mime> {
 	private final ModelPart rightHorn;

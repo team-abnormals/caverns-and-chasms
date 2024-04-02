@@ -7,8 +7,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level.ExplosionInteraction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -20,11 +20,8 @@ public abstract class CreeperMixin extends LivingEntity {
 		super(type, level);
 	}
 
-	@Redirect(method = "explodeCreeper", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFLnet/minecraft/world/level/Explosion$BlockInteraction;)Lnet/minecraft/world/level/Explosion;"))
-	private Explosion explodeCreeper(Level level, Entity creeper, double x, double y, double z, float power, BlockInteraction interaction) {
-		if (CCConfig.COMMON.creeperExplosionNerf.get()) {
-			interaction = BlockInteraction.BREAK;
-		}
+	@Redirect(method = "explodeCreeper", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFLnet/minecraft/world/level/Level$ExplosionInteraction;)Lnet/minecraft/world/level/Explosion;"))
+	private Explosion explodeCreeper(Level level, Entity creeper, double x, double y, double z, float power, ExplosionInteraction interaction) {
 		if (CCConfig.COMMON.creeperExplosionNerf.get()) {
 			power *= CCConfig.COMMON.creeperExplosionNerfFactor.get().floatValue();
 		}

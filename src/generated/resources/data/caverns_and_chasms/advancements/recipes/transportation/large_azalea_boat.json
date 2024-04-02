@@ -31,7 +31,8 @@
           "recipes": [
             "caverns_and_chasms:large_azalea_boat"
           ]
-        }
+        },
+        "sends_telemetry_event": false
       },
       "conditions": [
         {

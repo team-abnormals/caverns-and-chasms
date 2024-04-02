@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:music_disc_epilogue"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

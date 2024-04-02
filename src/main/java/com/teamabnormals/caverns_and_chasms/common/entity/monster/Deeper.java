@@ -15,10 +15,9 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.event.ForgeEventFactory;
 
 public class Deeper extends Creeper {
 
@@ -52,12 +51,10 @@ public class Deeper extends Creeper {
 
 	@Override
 	public void explodeCreeper() {
-		if (!this.level.isClientSide) {
-			Explosion.BlockInteraction mode = CCConfig.COMMON.deepersDropAllBlocks.get() ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.DESTROY;
-			Explosion.BlockInteraction explosion$mode = ForgeEventFactory.getMobGriefingEvent(this.level, this) ? mode : Explosion.BlockInteraction.NONE;
+		if (!this.level().isClientSide) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), explosion$mode);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB);
 			this.discard();
 			this.spawnLingeringCloud();
 		}

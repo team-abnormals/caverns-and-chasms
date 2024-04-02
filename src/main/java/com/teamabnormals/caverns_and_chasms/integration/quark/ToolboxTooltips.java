@@ -1,13 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.integration.quark;
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -20,9 +19,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import vazkii.arl.util.ItemNBTHelper;
-import vazkii.quark.content.client.module.ImprovedTooltipsModule;
-import vazkii.quark.content.client.tooltip.ShulkerBoxTooltips.ShulkerComponent;
+import org.jetbrains.annotations.NotNull;
+import org.violetmoon.quark.content.client.module.ImprovedTooltipsModule;
+import org.violetmoon.quark.content.client.tooltip.ShulkerBoxTooltips;
+import org.violetmoon.zeta.util.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -64,8 +64,8 @@ public class ToolboxTooltips {
 	public record ToolboxComponent(ItemStack stack) implements ClientTooltipComponent, TooltipComponent {
 
 		@Override
-		public void renderImage(@Nonnull Font font, int tooltipX, int tooltipY, @Nonnull PoseStack pose, @Nonnull ItemRenderer itemRenderer, int something) {
-			new ShulkerComponent(this.stack).renderImage(font, tooltipX, tooltipY, pose, itemRenderer, something);
+		public void renderImage(@Nonnull Font font, int tooltipX, int tooltipY, @NotNull GuiGraphics guiGraphics) {
+			new ShulkerBoxTooltips.ShulkerComponent(this.stack).renderImage(font, tooltipX, tooltipY, guiGraphics);
 		}
 
 		public int getHeight() {

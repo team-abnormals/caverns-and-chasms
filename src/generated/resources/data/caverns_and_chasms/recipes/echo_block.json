@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "#": {
       "item": "minecraft:echo_shard"
@@ -12,5 +13,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:echo_block"
-  }
+  },
+  "show_notification": true
 }

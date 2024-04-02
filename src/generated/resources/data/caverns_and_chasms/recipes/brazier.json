@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "tag": "minecraft:coals"
@@ -14,5 +15,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:brazier"
-  }
+  },
+  "show_notification": true
 }

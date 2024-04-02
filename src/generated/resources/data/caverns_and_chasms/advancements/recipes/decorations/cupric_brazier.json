@@ -39,5 +39,6 @@
     "recipes": [
       "caverns_and_chasms:cupric_brazier"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

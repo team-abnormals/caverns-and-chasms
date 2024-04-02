@@ -1,31 +1,34 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
-import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.util.concurrent.CompletableFuture;
+
 public class CCItemTagsProvider extends ItemTagsProvider {
 
-	public CCItemTagsProvider(DataGenerator generator, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
-		super(generator, blockTagsProvider, CavernsAndChasms.MOD_ID, existingFileHelper);
+	public CCItemTagsProvider(PackOutput output, CompletableFuture<Provider> provider, CompletableFuture<TagsProvider.TagLookup<Block>> lookup, ExistingFileHelper helper) {
+		super(output, provider, lookup, CavernsAndChasms.MOD_ID, helper);
 	}
 
 	@Override
-	public void addTags() {
+	public void addTags(Provider provider) {
 		this.copy(BlockTags.BUTTONS, ItemTags.BUTTONS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
@@ -41,7 +44,6 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
 		this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
-		this.copy(BlockTags.CANDLES, ItemTags.CANDLES);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(CCItems.SILVER_INGOT.get(), CCItems.NECROMIUM_INGOT.get());
 		this.tag(ItemTags.MUSIC_DISCS).add(CCItems.MUSIC_DISC_EPILOGUE.get());
 		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.get().asItem(), CCBlocks.GOLDEN_BARS.get().asItem(), CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
@@ -101,20 +103,15 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);
 		this.tag(Tags.Items.HEADS).add(CCItems.DEEPER_HEAD.get(), CCItems.PEEPER_HEAD.get(), CCItems.MIME_HEAD.get());
 
-		this.tag(Tags.Items.TOOLS_SWORDS).add(CCItems.SILVER_SWORD.get(), CCItems.NECROMIUM_SWORD.get());
-		this.tag(Tags.Items.TOOLS_PICKAXES).add(CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
-		this.tag(Tags.Items.TOOLS_AXES).add(CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
-		this.tag(Tags.Items.TOOLS_SHOVELS).add(CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());
-		this.tag(Tags.Items.TOOLS_HOES).add(CCItems.SILVER_HOE.get(), CCItems.NECROMIUM_HOE.get());
+		this.tag(ItemTags.SWORDS).add(CCItems.SILVER_SWORD.get(), CCItems.NECROMIUM_SWORD.get());
+		this.tag(ItemTags.PICKAXES).add(CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());
+		this.tag(ItemTags.AXES).add(CCItems.SILVER_AXE.get(), CCItems.NECROMIUM_AXE.get());
+		this.tag(ItemTags.SHOVELS).add(CCItems.SILVER_SHOVEL.get(), CCItems.NECROMIUM_SHOVEL.get());
+		this.tag(ItemTags.HOES).add(CCItems.SILVER_HOE.get(), CCItems.NECROMIUM_HOE.get());
 		this.tag(Tags.Items.ARMORS_HELMETS).add(CCItems.SILVER_HELMET.get(), CCItems.NECROMIUM_HELMET.get(), CCItems.SANGUINE_HELMET.get());
 		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(CCItems.SILVER_CHESTPLATE.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.SANGUINE_CHESTPLATE.get());
 		this.tag(Tags.Items.ARMORS_LEGGINGS).add(CCItems.SILVER_LEGGINGS.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.SANGUINE_LEGGINGS.get());
 		this.tag(Tags.Items.ARMORS_BOOTS).add(CCItems.SILVER_BOOTS.get(), CCItems.NECROMIUM_BOOTS.get(), CCItems.SANGUINE_BOOTS.get());
-
-		this.copy(BlueprintBlockTags.LADDERS, BlueprintItemTags.LADDERS);
-		this.copy(BlueprintBlockTags.VERTICAL_SLABS, BlueprintItemTags.VERTICAL_SLABS);
-		this.copy(BlueprintBlockTags.WOODEN_VERTICAL_SLABS, BlueprintItemTags.WOODEN_VERTICAL_SLABS);
-		this.tag(BlueprintItemTags.BOATABLE_CHESTS).add(CCBlocks.AZALEA_CHEST.getFirst().get().asItem());
 
 		this.tag(CCItemTags.BOTTLES_MILK);
 		this.tag(CCItemTags.ENDER_FIRE_BASE_BLOCKS);

@@ -61,7 +61,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entityIn) {
 		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-			entityIn.hurt(DamageSource.IN_FIRE, this.fireDamage);
+			entityIn.hurt(entityIn.damageSources().inFire(), this.fireDamage);
 		}
 
 		super.entityInside(state, level, pos, entityIn);
@@ -111,7 +111,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 		BlockState extinguishedsstate = state.setValue(LIT, false);
 		if (level.isClientSide()) {
 			for (int i = 0; i < 20; ++i) {
-				spawnSmokeParticles((Level) level, pos.offset(0.5D, 0, 0.5D));
+				spawnSmokeParticles((Level) level, pos);
 			}
 		}
 

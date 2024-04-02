@@ -6,12 +6,12 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -88,14 +88,14 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 	private void doTeleport() {
 		for (int i = 0; i < 32; ++i) {
-			this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+			this.level().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
 		}
 
-		if (!this.level.isClientSide && !this.isRemoved()) {
+		if (!this.level().isClientSide && !this.isRemoved()) {
 			Entity entity = this.getOwner();
 			if (entity instanceof ServerPlayer) {
 				ServerPlayer player = (ServerPlayer) entity;
-				if (player.connection.getConnection().isConnected() && player.level == this.level && !player.isSleeping()) {
+				if (player.connection.connection.isConnected() && player.level() == this.level() && !player.isSleeping()) {
 					if (entity.isPassenger()) {
 						player.dismountTo(this.getX(), this.getY(), this.getZ());
 					} else {
@@ -104,7 +104,7 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 					entity.teleportTo(this.getX(), this.getY(), this.getZ());
 					entity.fallDistance = 0.0F;
-					entity.hurt(DamageSource.MAGIC, 2.0F);
+					entity.hurt(entity.damageSources().magic(), 2.0F);
 				}
 			} else if (entity != null) {
 				entity.teleportTo(this.getX(), this.getY(), this.getZ());
@@ -132,7 +132,7 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	@Override
 	public Entity changeDimension(ServerLevel level, ITeleporter teleporter) {
 		Entity entity = this.getOwner();
-		if (entity != null && entity.level.dimension() != level.dimension()) {
+		if (entity != null && entity.level().dimension() != level.dimension()) {
 			this.setOwner(null);
 		}
 
@@ -140,7 +140,7 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

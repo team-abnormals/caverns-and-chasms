@@ -87,14 +87,14 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 	}
 
 	public boolean doHurtTarget(Entity entityIn) {
-		boolean flag = entityIn.hurt(DamageSource.sting(this), (float) ((int) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
+		boolean flag = entityIn.hurt(this.damageSources().sting(this), (float) ((int) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
 		if (flag) {
 			this.doEnchantDamageEffects(this, entityIn);
 			if (entityIn instanceof LivingEntity) {
 				int i = 0;
-				if (this.level.getDifficulty() == Difficulty.NORMAL) {
+				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					i = 5;
-				} else if (this.level.getDifficulty() == Difficulty.HARD) {
+				} else if (this.level().getDifficulty() == Difficulty.HARD) {
 					i = 9;
 				}
 
@@ -123,7 +123,7 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 		}
 
 		if (this.underWaterTicks > 20) {
-			this.hurt(DamageSource.DROWN, 1.0F);
+			this.hurt(this.damageSources().drown(), 1.0F);
 		}
 	}
 
@@ -196,7 +196,7 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 			return false;
 		} else {
 			Entity entity = source.getEntity();
-			if (!this.level.isClientSide && entity instanceof Player && !((Player) entity).isCreative() && this.isAlive() && !this.isNoAi()) {
+			if (!this.level().isClientSide && entity instanceof Player && !((Player) entity).isCreative() && this.isAlive() && !this.isNoAi()) {
 				this.func_226391_a_(entity);
 			}
 
@@ -238,7 +238,7 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 		public void start() {
 			Vec3 vec3 = this.findPos();
 			if (vec3 != null) {
-				Fly.this.navigation.moveTo(Fly.this.navigation.createPath(new BlockPos(vec3), 1), 1.0D);
+				Fly.this.navigation.moveTo(Fly.this.navigation.createPath(BlockPos.containing(vec3), 1), 1.0D);
 			}
 
 		}

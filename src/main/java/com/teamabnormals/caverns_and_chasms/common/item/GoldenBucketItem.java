@@ -4,7 +4,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,7 +15,10 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DispensibleContainerItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -30,7 +32,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeMod;
@@ -74,13 +75,6 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 
 	public static boolean canBeFilled(ItemStack stack) {
 		return stack.getOrCreateTag().getInt(NBT_TAG) < 2;
-	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-		if (this.allowedIn(group)) {
-			items.add(resetFluidLevel(new ItemStack(this)));
-		}
 	}
 
 	@Override
@@ -191,7 +185,6 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 		} else {
 			BlockState state = level.getBlockState(pos);
 			Block block = state.getBlock();
-			Material material = state.getMaterial();
 			boolean replaceable = state.canBeReplaced(this.getFluid());
 			if (!(state.isAir() || replaceable || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, pos, state, this.getFluid()))) {
 				return result != null && this.emptyContents(player, level, result.getBlockPos().relative(result.getDirection()), null);
@@ -210,7 +203,7 @@ public class GoldenBucketItem extends Item implements DispensibleContainerItem {
 				this.playEmptySound(player, level, pos);
 				return true;
 			} else {
-				if (!level.isClientSide && replaceable && !material.isLiquid()) {
+				if (!level.isClientSide && replaceable && !state.liquid()) {
 					level.destroyBlock(pos, true);
 				}
 

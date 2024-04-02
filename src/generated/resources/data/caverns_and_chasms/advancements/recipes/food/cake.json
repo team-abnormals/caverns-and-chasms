@@ -33,7 +33,8 @@
           "recipes": [
             "caverns_and_chasms:cake"
           ]
-        }
+        },
+        "sends_telemetry_event": false
       },
       "conditions": [
         {

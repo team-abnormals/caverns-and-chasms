@@ -12,6 +12,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.InteractionHand;
@@ -43,12 +44,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -90,7 +90,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if (!(this instanceof WeatheringToolboxBlock) && player.getItemInHand(hand).is(Tags.Items.TOOLS_AXES)) {
+		if (!(this instanceof WeatheringToolboxBlock) && player.getItemInHand(hand).is(ItemTags.AXES)) {
 			return InteractionResult.PASS;
 		}
 
@@ -167,12 +167,12 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 		if (blockEntity instanceof ToolboxBlockEntity toolbox) {
-			builder = builder.withDynamicDrop(CONTENTS, (p_56218_, p_56219_) -> {
+			builder = builder.withDynamicDrop(CONTENTS, (p_56218_) -> {
 				for (int i = 0; i < toolbox.getContainerSize(); ++i) {
-					p_56219_.accept(toolbox.getItem(i));
+					p_56218_.accept(toolbox.getItem(i));
 				}
 
 			});

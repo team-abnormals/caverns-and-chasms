@@ -24,5 +24,6 @@
     [
       "spotted_by_peeper"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -32,15 +32,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class TetherPotionItem extends PotionItem implements Wearable {
+public class TetherPotionItem extends PotionItem implements Equipable {
 
 	public TetherPotionItem(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
-		return EquipmentSlot.HEAD;
 	}
 
 	@Override
@@ -59,6 +54,16 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 		} else {
 			return InteractionResultHolder.fail(itemstack);
 		}
+	}
+
+	@Override
+	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+		return EquipmentSlot.HEAD;
+	}
+
+	@Override
+	public EquipmentSlot getEquipmentSlot() {
+		return this.getEquipmentSlot(new ItemStack(this));
 	}
 
 	@Nullable
@@ -156,12 +161,9 @@ public class TetherPotionItem extends PotionItem implements Wearable {
 	public static void updateTetherPotionEffects(LivingEntity entity, ItemStack stack, boolean infiniteDuration) {
 		for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
 			if (!instance.getEffect().isInstantenous()) {
-				int i = infiniteDuration ? 32767 : getTetherPotionDuration(instance.getDuration());
+				int i = infiniteDuration ? -1 : getTetherPotionDuration(instance.getDuration());
 				MobEffectInstance currentinstance = entity.getEffect(instance.getEffect());
 				MobEffectInstance newinstance = new MobEffectInstance(instance.getEffect(), i, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon());
-
-				if (infiniteDuration)
-					newinstance.setNoCounter(true);
 
 				if (currentinstance == null || currentinstance.getAmplifier() < instance.getAmplifier()) {
 					entity.addEffect(newinstance);

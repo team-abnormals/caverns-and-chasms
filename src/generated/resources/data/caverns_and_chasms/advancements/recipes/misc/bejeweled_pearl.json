@@ -43,5 +43,6 @@
     "recipes": [
       "caverns_and_chasms:bejeweled_pearl"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

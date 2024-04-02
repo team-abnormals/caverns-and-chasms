@@ -1,8 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.mojang.datafixers.util.Pair;
-import com.teamabnormals.blueprint.common.block.VerticalSlabBlock;
-import com.teamabnormals.blueprint.common.block.VerticalSlabBlock.VerticalSlabType;
 import com.teamabnormals.blueprint.common.block.chest.BlueprintChestBlock;
 import com.teamabnormals.blueprint.common.block.chest.BlueprintTrappedChestBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
@@ -12,7 +10,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
@@ -29,11 +27,11 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
 
-
 public class CCBlockStateProvider extends BlockStateProvider {
+	public static final String[] AZALEA_BOOKSHELF_POSITIONS = new String[]{"top_left", "top_right", "mid_left", "mid_right", "bottom_left", "bottom_right"};
 
-	public CCBlockStateProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, CavernsAndChasms.MOD_ID, existingFileHelper);
+	public CCBlockStateProvider(PackOutput output, ExistingFileHelper helper) {
+		super(output, CavernsAndChasms.MOD_ID, helper);
 	}
 
 	@Override
@@ -42,16 +40,16 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SILVER_ORE.get());
 		this.simpleBlockWithItem(CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 
-		this.registerBlockVariants(Blocks.CALCITE, CCBlocks.CALCITE_STAIRS.get(), CCBlocks.CALCITE_SLAB.get(), CCBlocks.CALCITE_VERTICAL_SLAB.get(), CCBlocks.CALCITE_WALL.get());
-		this.registerBlockWithVariants(CCBlocks.POLISHED_CALCITE.get(), CCBlocks.POLISHED_CALCITE_STAIRS.get(), CCBlocks.POLISHED_CALCITE_SLAB.get(), CCBlocks.POLISHED_CALCITE_VERTICAL_SLAB.get());
+		this.registerBlockVariants(Blocks.CALCITE, CCBlocks.CALCITE_STAIRS.get(), CCBlocks.CALCITE_SLAB.get(), CCBlocks.CALCITE_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.POLISHED_CALCITE.get(), CCBlocks.POLISHED_CALCITE_STAIRS.get(), CCBlocks.POLISHED_CALCITE_SLAB.get());
 
-		this.registerBlockVariants(Blocks.TUFF, CCBlocks.TUFF_STAIRS.get(), CCBlocks.TUFF_SLAB.get(), CCBlocks.TUFF_VERTICAL_SLAB.get(), CCBlocks.TUFF_WALL.get());
-		this.registerBlockWithVariants(CCBlocks.POLISHED_TUFF.get(), CCBlocks.POLISHED_TUFF_STAIRS.get(), CCBlocks.POLISHED_TUFF_SLAB.get(), CCBlocks.POLISHED_TUFF_VERTICAL_SLAB.get());
+		this.registerBlockVariants(Blocks.TUFF, CCBlocks.TUFF_STAIRS.get(), CCBlocks.TUFF_SLAB.get(), CCBlocks.TUFF_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.POLISHED_TUFF.get(), CCBlocks.POLISHED_TUFF_STAIRS.get(), CCBlocks.POLISHED_TUFF_SLAB.get());
 
-		this.registerBlockWithVariants(CCBlocks.SUGILITE.get(), CCBlocks.SUGILITE_STAIRS.get(), CCBlocks.SUGILITE_SLAB.get(), CCBlocks.SUGILITE_VERTICAL_SLAB.get(), CCBlocks.SUGILITE_WALL.get());
-		this.registerBlockWithVariants(CCBlocks.POLISHED_SUGILITE.get(), CCBlocks.POLISHED_SUGILITE_STAIRS.get(), CCBlocks.POLISHED_SUGILITE_SLAB.get(), CCBlocks.POLISHED_SUGILITE_VERTICAL_SLAB.get());
+		this.registerBlockWithVariants(CCBlocks.SUGILITE.get(), CCBlocks.SUGILITE_STAIRS.get(), CCBlocks.SUGILITE_SLAB.get(), CCBlocks.SUGILITE_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.POLISHED_SUGILITE.get(), CCBlocks.POLISHED_SUGILITE_STAIRS.get(), CCBlocks.POLISHED_SUGILITE_SLAB.get());
 
-		this.registerBlockWithVariants(CCBlocks.DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_VERTICAL_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get());
+		this.registerBlockWithVariants(CCBlocks.DRIPSTONE_SHINGLES.get(), CCBlocks.DRIPSTONE_SHINGLE_STAIRS.get(), CCBlocks.DRIPSTONE_SHINGLE_SLAB.get(), CCBlocks.DRIPSTONE_SHINGLE_WALL.get());
 		this.simpleBlockWithItem(CCBlocks.CHISELED_DRIPSTONE_SHINGLES.get());
 		this.simpleBlockWithItem(CCBlocks.FLOODED_DRIPSTONE_SHINGLES.get());
 
@@ -99,20 +97,18 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.stoneBlock(CCBlocks.FRAGILE_STONE.get());
 		this.deepslateBlock(CCBlocks.FRAGILE_DEEPSLATE.get());
 
-		this.registerBlockWithVariants(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_STAIRS.get(), CCBlocks.AZALEA_SLAB.get(), CCBlocks.AZALEA_VERTICAL_SLAB.get());
+		this.registerBlockWithVariants(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_STAIRS.get(), CCBlocks.AZALEA_SLAB.get());
 		this.registerLogBlocks(CCBlocks.AZALEA_LOG.get(), CCBlocks.AZALEA_WOOD.get());
 		this.registerLogBlocks(CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.STRIPPED_AZALEA_WOOD.get());
 		this.registerFenceBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_FENCE.get(), CCBlocks.AZALEA_FENCE_GATE.get());
 		this.registerDoorBlocks(CCBlocks.AZALEA_DOOR.get(), CCBlocks.AZALEA_TRAPDOOR.get());
-		this.registerCompatBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BOARDS.get(), CCBlocks.AZALEA_LADDER.get(), CCBlocks.AZALEA_BOOKSHELF.get(), CCBlocks.AZALEA_BEEHIVE.get());
-		this.registerSignBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_SIGN);
-		this.registerChestBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_CHEST);
+		this.registerCompatBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BOARDS.get(), CCBlocks.AZALEA_LADDER.get(), CCBlocks.AZALEA_BEEHIVE.get());
+		this.bookshelfBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BOOKSHELF.get(), CCBlocks.CHISELED_AZALEA_BOOKSHELF.get(), AZALEA_BOOKSHELF_POSITIONS, CavernsAndChasms.MOD_ID + ":block/chiseled_azalea");
+		this.registerSignBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_SIGNS);
+		this.hangingSigns(CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.AZALEA_HANGING_SIGNS.getFirst().get(), CCBlocks.AZALEA_HANGING_SIGNS.getSecond().get());
+		this.registerChestBlocks(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_CHEST, CCBlocks.TRAPPED_AZALEA_CHEST);
 		this.registerButton(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_BUTTON.get());
 		this.registerPressurePlate(CCBlocks.AZALEA_PLANKS.get(), CCBlocks.AZALEA_PRESSURE_PLATE.get());
-		this.registerHedge(Blocks.AZALEA_LEAVES, CCBlocks.AZALEA_LOG.get(), CCBlocks.AZALEA_HEDGE.get());
-		this.registerHedge(Blocks.FLOWERING_AZALEA_LEAVES, CCBlocks.AZALEA_LOG.get(), CCBlocks.FLOWERING_AZALEA_HEDGE.get());
-		this.registerPost(CCBlocks.AZALEA_LOG.get(), CCBlocks.AZALEA_POST.get());
-		this.registerPost(CCBlocks.STRIPPED_AZALEA_LOG.get(), CCBlocks.STRIPPED_AZALEA_POST.get());
 	}
 
 	public void simpleBlockWithItem(Block block) {
@@ -171,16 +167,52 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerItemModel(fenceGate);
 	}
 
-	public void registerCompatBlocks(Block block, Block boards, Block ladder, Block bookshelf, Block beehive) {
+	public void registerCompatBlocks(Block block, Block boards, Block ladder, Block beehive) {
 		this.horizontalBlock(ladder, models().withExistingParent(name(ladder), "block/ladder").texture("particle", blockTexture(ladder)).texture("texture", blockTexture(ladder)));
 		this.registerGeneratedItemModel(ladder, "block");
-		this.simpleBlock(bookshelf, this.models().cubeColumn(name(bookshelf), blockTexture(bookshelf), blockTexture(block)));
-		this.registerItemModel(bookshelf);
 		this.registerBeehive(beehive);
 		ModelFile boardsModel = models().getBuilder(name(boards)).parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/template_boards"))).texture("all", blockTexture(boards));
 		ModelFile boardsHorizontalModel = models().getBuilder(name(boards) + "_horizontal").parent(new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "block/template_boards_horizontal"))).texture("all", blockTexture(boards));
 		this.getVariantBuilder(boards).partialState().with(RotatedPillarBlock.AXIS, Axis.Y).modelForState().modelFile(boardsModel).addModel().partialState().with(RotatedPillarBlock.AXIS, Axis.Z).modelForState().modelFile(boardsHorizontalModel).addModel().partialState().with(RotatedPillarBlock.AXIS, Axis.X).modelForState().modelFile(boardsHorizontalModel).rotationY(270).addModel();
 		this.registerItemModel(boards);
+	}
+
+	public void bookshelfBlocks(Block planks, Block bookshelf, Block chiseledBookshelf, String[] parts, String parent) {
+		this.simpleBlock(bookshelf, this.models().cubeColumn(name(bookshelf), blockTexture(bookshelf), blockTexture(planks)));
+		this.registerItemModel(bookshelf);
+
+		BlockModelBuilder model = this.models().withExistingParent(name(chiseledBookshelf), "block/chiseled_bookshelf").texture("top", blockTexture(chiseledBookshelf) + "_top").texture("side", blockTexture(chiseledBookshelf) + "_side");
+		MultiPartBlockStateBuilder builder = getMultipartBuilder(chiseledBookshelf);
+		for (Direction direction : Direction.Plane.HORIZONTAL) {
+			int rotation = (int) (direction.toYRot() + 180) % 360;
+			builder.part().modelFile(model).rotationY(rotation).uvLock(true).addModel().condition(HorizontalDirectionalBlock.FACING, direction);
+			chiseledBookshelfParts(builder, chiseledBookshelf, parts[0], parent, BlockStateProperties.CHISELED_BOOKSHELF_SLOT_0_OCCUPIED, direction);
+			chiseledBookshelfParts(builder, chiseledBookshelf, parts[1], parent, BlockStateProperties.CHISELED_BOOKSHELF_SLOT_1_OCCUPIED, direction);
+			chiseledBookshelfParts(builder, chiseledBookshelf, parts[2], parent, BlockStateProperties.CHISELED_BOOKSHELF_SLOT_2_OCCUPIED, direction);
+			chiseledBookshelfParts(builder, chiseledBookshelf, parts[3], parent, BlockStateProperties.CHISELED_BOOKSHELF_SLOT_3_OCCUPIED, direction);
+			chiseledBookshelfParts(builder, chiseledBookshelf, parts[4], parent, BlockStateProperties.CHISELED_BOOKSHELF_SLOT_4_OCCUPIED, direction);
+			chiseledBookshelfParts(builder, chiseledBookshelf, parts[5], parent, BlockStateProperties.CHISELED_BOOKSHELF_SLOT_5_OCCUPIED, direction);
+		}
+
+		this.simpleBlockItem(chiseledBookshelf, this.models()
+				.withExistingParent(name(chiseledBookshelf) + "_inventory", "block/chiseled_bookshelf_inventory")
+				.texture("top", blockTexture(chiseledBookshelf) + "_top")
+				.texture("side", blockTexture(chiseledBookshelf) + "_side")
+				.texture("front", blockTexture(chiseledBookshelf) + "_empty"));
+	}
+
+	public void chiseledBookshelfParts(MultiPartBlockStateBuilder builder, Block chiseledBookshelf, String part, String parent, BooleanProperty property, Direction direction) {
+		int rotation = (int) (direction.toYRot() + 180) % 360;
+		builder.part().modelFile(this.models()
+						.withExistingParent(name(chiseledBookshelf) + "_occupied_slot_" + part, parent + "_bookshelf_slot_" + part)
+						.texture("texture", blockTexture(chiseledBookshelf) + "_occupied"))
+				.rotationY(rotation).uvLock(true)
+				.addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(property, true);
+		builder.part().modelFile(this.models()
+						.withExistingParent(name(chiseledBookshelf) + "_empty_slot_" + part, parent + "_bookshelf_slot_" + part)
+						.texture("texture", blockTexture(chiseledBookshelf) + "_empty"))
+				.rotationY(rotation).uvLock(true)
+				.addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(property, false);
 	}
 
 	public void registerBeehive(Block block) {
@@ -238,6 +270,13 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.registerItemModel(pressurePlateBlock);
 	}
 
+	public void hangingSigns(Block strippedLog, Block sign, Block wallSign) {
+		ModelFile model = particle(sign, blockTexture(strippedLog));
+		this.simpleBlock(sign, particle(sign, blockTexture(strippedLog)));
+		this.registerGeneratedItemModel(sign, "item");
+		this.simpleBlock(wallSign, model);
+	}
+
 	public void buttonBlock(Block block, Function<BlockState, ModelFile> modelFunc) {
 		this.getVariantBuilder(block)
 				.forAllStates(state -> ConfiguredModel.builder()
@@ -253,30 +292,28 @@ public class CCBlockStateProvider extends BlockStateProvider {
 		this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(modelFunc.apply(state)).build());
 	}
 
-	public void registerBlockVariants(Block block, Block stairs, Block slab, Block verticalSlab) {
+	public void registerBlockVariants(Block block, Block stairs, Block slab) {
 		this.stairsBlock((StairBlock) stairs, blockTexture(block));
 		this.slabBlock((SlabBlock) slab, blockTexture(block), blockTexture(block));
-		this.verticalSlabBlock(block, (VerticalSlabBlock) verticalSlab);
 
 		this.registerItemModel(stairs);
 		this.registerItemModel(slab);
-		this.registerItemModel(verticalSlab);
 	}
 
-	public void registerBlockVariants(Block block, Block stairs, Block slab, Block verticalSlab, Block wall) {
-		this.registerBlockVariants(block, stairs, slab, verticalSlab);
+	public void registerBlockVariants(Block block, Block stairs, Block slab, Block wall) {
+		this.registerBlockVariants(block, stairs, slab);
 		this.wallBlock((WallBlock) wall, blockTexture(block));
 		this.itemModels().getBuilder(name(wall)).parent(this.models().wallInventory(name(wall) + "_inventory", blockTexture(block)));
 	}
 
-	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block verticalSlab) {
+	public void registerBlockWithVariants(Block block, Block stairs, Block slab) {
 		this.simpleBlock(block);
 		this.registerItemModel(block);
-		this.registerBlockVariants(block, stairs, slab, verticalSlab);
+		this.registerBlockVariants(block, stairs, slab);
 	}
 
-	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block verticalSlab, Block wall) {
-		this.registerBlockWithVariants(block, stairs, slab, verticalSlab);
+	public void registerBlockWithVariants(Block block, Block stairs, Block slab, Block wall) {
+		this.registerBlockWithVariants(block, stairs, slab);
 		this.wallBlock((WallBlock) wall, blockTexture(block));
 		this.itemModels().getBuilder(name(wall)).parent(this.models().wallInventory(name(wall) + "_inventory", blockTexture(block)));
 	}
@@ -388,16 +425,17 @@ public class CCBlockStateProvider extends BlockStateProvider {
 	}
 
 	public void registerSignBlocks(Block planks, Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> pair) {
-		this.simpleBlock(pair.getFirst().get(), particle(pair.getFirst().get(), blockTexture(planks)));
-		this.simpleBlock(pair.getSecond().get(), particle(pair.getFirst().get(), blockTexture(planks)));
+		ModelFile model = particle(pair.getFirst().get(), blockTexture(planks));
+		this.simpleBlock(pair.getFirst().get(), model);
+		this.simpleBlock(pair.getSecond().get(), model);
 		this.registerGeneratedItemModel(pair.getFirst().get(), "item");
 	}
 
-	public void registerChestBlocks(Block planks, Pair<RegistryObject<BlueprintChestBlock>, RegistryObject<BlueprintTrappedChestBlock>> pair) {
-		this.simpleBlock(pair.getFirst().get(), particle(pair.getFirst().get(), blockTexture(planks)));
-		this.simpleBlock(pair.getSecond().get(), particle(pair.getFirst().get(), blockTexture(planks)));
-		this.simpleBlockItem(pair.getFirst().get(), new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "item/template_chest")));
-		this.simpleBlockItem(pair.getSecond().get(), new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "item/template_chest")));
+	public void registerChestBlocks(Block planks, RegistryObject<BlueprintChestBlock> chest, RegistryObject<BlueprintTrappedChestBlock> trappedChest) {
+		this.simpleBlock(chest.get(), particle(chest.get(), blockTexture(planks)));
+		this.simpleBlock(trappedChest.get(), particle(chest.get(), blockTexture(planks)));
+		this.simpleBlockItem(chest.get(), new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "item/template_chest")));
+		this.simpleBlockItem(trappedChest.get(), new UncheckedModelFile(new ResourceLocation(Blueprint.MOD_ID, "item/template_chest")));
 	}
 
 	public ModelFile particle(Block block, ResourceLocation texture) {
@@ -410,17 +448,6 @@ public class CCBlockStateProvider extends BlockStateProvider {
 
 		this.axisBlock((RotatedPillarBlock) wood, blockTexture(log), blockTexture(log));
 		this.registerItemModel(wood);
-	}
-
-	public void verticalSlabBlock(Block planks, VerticalSlabBlock slab) {
-		this.verticalSlab(name(slab), blockTexture(planks));
-		UncheckedModelFile model = new UncheckedModelFile(prefix("block/", ForgeRegistries.BLOCKS.getKey(slab)));
-		this.getVariantBuilder(slab)
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.NORTH).addModels(new ConfiguredModel(model, 0, 0, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.SOUTH).addModels(new ConfiguredModel(model, 0, 180, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.EAST).addModels(new ConfiguredModel(model, 0, 90, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.WEST).addModels(new ConfiguredModel(model, 0, 270, true))
-				.partialState().with(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE).addModels(new ConfiguredModel(models().cubeAll(name(planks), blockTexture(planks))));
 	}
 
 	private String name(Block block) {

@@ -43,5 +43,6 @@
     [
       "ride_boat_with_deeper"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

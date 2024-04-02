@@ -4,7 +4,6 @@
     {
       "conditions": [
         {
-          "type": "forge:or",
           "values": [
             {
               "type": "blueprint:and",
@@ -20,15 +19,31 @@
               ]
             },
             {
-              "type": "blueprint:quark_flag",
-              "flag": "variant_ladders"
+              "type": "blueprint:and",
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "flag": "variant_ladders",
+                  "type": "quark:flag"
+                }
+              ]
             }
-          ]
+          ],
+          "type": "forge:or"
         }
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "group": "wooden_ladder",
+        "pattern": [
+          "S S",
+          "S#S",
+          "S S"
+        ],
         "key": {
           "#": {
             "item": "caverns_and_chasms:azalea_planks"
@@ -37,15 +52,11 @@
             "item": "minecraft:stick"
           }
         },
-        "pattern": [
-          "S S",
-          "S#S",
-          "S S"
-        ],
         "result": {
-          "count": 4,
-          "item": "caverns_and_chasms:azalea_ladder"
-        }
+          "item": "caverns_and_chasms:azalea_ladder",
+          "count": 4
+        },
+        "show_notification": true
       }
     }
   ]

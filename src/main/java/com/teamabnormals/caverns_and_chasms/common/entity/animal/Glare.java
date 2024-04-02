@@ -13,7 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +35,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -147,7 +146,7 @@ public class Glare extends PathfinderMob {
 	}
 
 	public void setGrumpy(boolean grumpy) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.entityData.set(DATA_GRUMPY, grumpy);
 		}
 	}
@@ -188,7 +187,7 @@ public class Glare extends PathfinderMob {
 			}
 		}
 
-		this.calculateEntityAnimation(this, false);
+		this.calculateEntityAnimation(false);
 	}
 
 	@Override
@@ -213,7 +212,7 @@ public class Glare extends PathfinderMob {
 			this.setAngryAtUUID(player.getUUID());
 		}
 
-		if (source.isFire()) {
+		if (source.is(DamageTypeTags.IS_FIRE)) {
 			damage *= 2.0F;
 		}
 
@@ -251,7 +250,7 @@ public class Glare extends PathfinderMob {
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		boolean shouldBeGrumpy = shouldBeGrumpy(this.getLevel(), this.blockPosition());
+		boolean shouldBeGrumpy = shouldBeGrumpy(this.level(), this.blockPosition());
 		if ((this.isGrumpy() && !shouldBeGrumpy) || (!this.isGrumpy() && shouldBeGrumpy)) {
 			this.setGrumpy(!this.isGrumpy());
 			this.playAmbientSound();
@@ -267,7 +266,7 @@ public class Glare extends PathfinderMob {
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.is(CCItemTags.GLARE_FOOD)) {
-			this.level.playSound(player, this, CCSoundEvents.ENTITY_GLARE_EAT.get(), this.getSoundSource(), 1.0F, Mth.randomBetween(this.level.random, 0.8F, 1.2F));
+			this.level().playSound(player, this, CCSoundEvents.ENTITY_GLARE_EAT.get(), this.getSoundSource(), 1.0F, Mth.randomBetween(this.level().random, 0.8F, 1.2F));
 			this.addParticlesAroundSelf(ParticleTypes.HEART);
 			this.removeInteractionItem(player, stack);
 			this.setAngryAtUUID(null);
@@ -288,7 +287,7 @@ public class Glare extends PathfinderMob {
 
 	@Override
 	public boolean isFlapping() {
-		return !this.isOnGround();
+		return !this.onGround();
 	}
 
 	@Override
@@ -304,18 +303,6 @@ public class Glare extends PathfinderMob {
 	@Override
 	protected boolean shouldStayCloseToLeashHolder() {
 		return true;
-	}
-
-	@Override
-	public Iterable<BlockPos> iteratePathfindingStartNodeCandidatePositions() {
-		AABB aabb = this.getBoundingBox();
-		int i = Mth.floor(aabb.minX - 0.5D);
-		int j = Mth.floor(aabb.maxX + 0.5D);
-		int k = Mth.floor(aabb.minZ - 0.5D);
-		int l = Mth.floor(aabb.maxZ + 0.5D);
-		int i1 = Mth.floor(aabb.minY - 0.5D);
-		int j1 = Mth.floor(aabb.maxY + 0.5D);
-		return BlockPos.betweenClosed(i, i1, k, j, j1, l);
 	}
 
 	private void removeInteractionItem(Player player, ItemStack stack) {
@@ -345,7 +332,7 @@ public class Glare extends PathfinderMob {
 			double d0 = this.random.nextGaussian() * 0.02D;
 			double d1 = this.random.nextGaussian() * 0.02D;
 			double d2 = this.random.nextGaussian() * 0.02D;
-			this.level.addParticle(p_35288_, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
+			this.level().addParticle(p_35288_, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other.tags;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Instrument;
@@ -14,6 +14,6 @@ public class CCInstrumentTags {
 	}
 
 	private static TagKey<Instrument> instrumentTag(String modid, String name) {
-		return TagKey.create(Registry.INSTRUMENT_REGISTRY, new ResourceLocation(modid, name));
+		return TagKey.create(Registries.INSTRUMENT, new ResourceLocation(modid, name));
 	}
 }

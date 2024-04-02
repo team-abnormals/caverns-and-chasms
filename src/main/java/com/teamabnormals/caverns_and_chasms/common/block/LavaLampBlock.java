@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -89,7 +89,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 		if (this.isEntityTouchingLava(state, pos, entity)) {
 			if (!entity.fireImmune()) {
 				entity.setSecondsOnFire(15);
-				if (entity.hurt(CCDamageSources.LAVA_LAMP, 2.0F)) {
+				if (entity.hurt(CCDamageTypes.lavaLamp(level), 2.0F)) {
 					entity.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + level.getRandom().nextFloat() * 0.4F);
 				}
 			}

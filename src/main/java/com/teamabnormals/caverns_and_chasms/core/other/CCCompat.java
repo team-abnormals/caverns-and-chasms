@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.Util;
@@ -23,6 +24,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 
 import java.util.List;
 
@@ -50,14 +53,8 @@ public class CCCompat {
 		DataUtil.registerFlammable(CCBlocks.AZALEA_FENCE.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_FENCE_GATE.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BOARDS.get(), 5, 20);
-		DataUtil.registerFlammable(CCBlocks.AZALEA_VERTICAL_SLAB.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BOOKSHELF.get(), 30, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BEEHIVE.get(), 5, 20);
-		DataUtil.registerFlammable(CCBlocks.AZALEA_POST.get(), 5, 20);
-		DataUtil.registerFlammable(CCBlocks.STRIPPED_AZALEA_POST.get(), 5, 20);
-		DataUtil.registerFlammable(CCBlocks.AZALEA_HEDGE.get(), 5, 20);
-		DataUtil.registerFlammable(CCBlocks.FLOWERING_AZALEA_HEDGE.get(), 5, 20);
-		DataUtil.registerFlammable(CCBlocks.VERTICAL_AZALEA_PLANKS.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.TMT.get(), 15, 100);
 	}
 
@@ -131,8 +128,9 @@ public class CCCompat {
 	}
 
 	private static void registerVibrationFrequencies() {
-		SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT), (map) -> {
-			map.put(CCGameEvents.TUNING_FORK_VIBRATE.get(), 10);
-		}));
+		//TODO: Convert to NeoForge's DataMap
+//		VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>((Object2IntMap) VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT), (map) -> {
+//			map.put(CCGameEvents.TUNING_FORK_VIBRATE.get(), 10);
+//		}));
 	}
 }

@@ -15,17 +15,25 @@
         "criteria": {
           "caverns_and_chasms:wax_off_blocks": {
             "conditions": {
-              "item": {
-                "tag": "forge:tools/axes"
-              },
-              "location": {
-                "block": {
-                  "state": {
-                    "powered": "false"
-                  },
-                  "tag": "forge:waxed_copper_blocks"
+              "location": [
+                {
+                  "condition": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "state": {
+                        "powered": "false"
+                      },
+                      "tag": "forge:waxed_copper_blocks"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "tag": "minecraft:axes"
+                  }
                 }
-              }
+              ]
             },
             "trigger": "minecraft:item_used_on_block"
           },
@@ -41,7 +49,7 @@
                 }
               ],
               "item": {
-                "tag": "forge:tools/axes"
+                "tag": "minecraft:axes"
               }
             },
             "trigger": "minecraft:player_interacted_with_entity"
@@ -58,7 +66,7 @@
                 }
               ],
               "item": {
-                "tag": "forge:tools/axes"
+                "tag": "minecraft:axes"
               }
             },
             "trigger": "minecraft:player_interacted_with_entity"

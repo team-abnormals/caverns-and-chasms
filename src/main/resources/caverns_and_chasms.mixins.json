@@ -22,13 +22,11 @@
     "HoneycombItemMixin",
     "IronGolemMixin",
     "ItemCooldownsMixin",
-    "ItemMixin",
     "LightningBoltMixin",
     "LightningRodBlockMixin",
     "MobMixin",
     "PlayerMixin",
     "ServerLevelMixin",
-    "SolidBucketItemMixin",
     "ThrownPotionMixin",
     "WitherSkeletonMixin"
   ],

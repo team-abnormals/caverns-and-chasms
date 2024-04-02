@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:silver_ingot_from_blasting_soul_silver_ore"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

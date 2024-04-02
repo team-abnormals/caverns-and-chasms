@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "caverns_and_chasms:entity/toolbox/toolbox"
+    },
+    {
+      "type": "single",
+      "resource": "caverns_and_chasms:entity/toolbox/exposed_toolbox"
+    },
+    {
+      "type": "single",
+      "resource": "caverns_and_chasms:entity/toolbox/weathered_toolbox"
+    },
+    {
+      "type": "single",
+      "resource": "caverns_and_chasms:entity/toolbox/oxidized_toolbox"
+    }
+  ]
+}

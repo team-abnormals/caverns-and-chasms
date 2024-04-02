@@ -5,7 +5,8 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -29,7 +30,6 @@ import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
@@ -76,7 +76,7 @@ public class LostGoat extends Mob {
 
 	@Override
 	public void aiStep() {
-		if (!this.level.getNearbyPlayers(TARGETING_CONDITIONS, this, this.getBoundingBox().inflate(3.0D, 2.0D, 3.0D)).isEmpty()) {
+		if (!this.level().getNearbyPlayers(TARGETING_CONDITIONS, this, this.getBoundingBox().inflate(3.0D, 2.0D, 3.0D)).isEmpty()) {
 			this.turnIntoSilverfish();
 		}
 		super.aiStep();
@@ -100,28 +100,28 @@ public class LostGoat extends Mob {
 	}
 
 	public void turnIntoSilverfish() {
-		if (this.level.isClientSide()) {
-			this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.AMBIENT_CAVE, SoundSource.NEUTRAL, 20.0F, 20.0F + this.random.nextFloat() * 2.0F, false);
-		} else if (this.level instanceof ServerLevel serverLevel) {
+		if (this.level().isClientSide()) {
+			this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.AMBIENT_CAVE.get(), SoundSource.NEUTRAL, 20.0F, 20.0F + this.random.nextFloat() * 2.0F, false);
+		} else if (this.level() instanceof ServerLevel serverLevel) {
 			MobEffectInstance darkness = new MobEffectInstance(MobEffects.DARKNESS, 260, 0, false, false);
 			MobEffectUtil.addEffectToPlayersAround(serverLevel, this, this.position(), 8, darkness, 200);
 		}
 
 		int count = 12 + random.nextInt(4) + random.nextInt(4) + random.nextInt(4) + random.nextInt(4);
 		for (int i = 0; i < count; i++) {
-			Silverfish silverfish = EntityType.SILVERFISH.create(level);
+			Silverfish silverfish = EntityType.SILVERFISH.create(this.level());
 			silverfish.moveTo(this.getX() + MathUtil.makeNegativeRandomly(random.nextDouble() * 0.5D, random), this.getY(), this.getZ() + MathUtil.makeNegativeRandomly(random.nextDouble() * 0.5D, random), 0.0F, 0.0F);
-			level.addFreshEntity(silverfish);
+			this.level().addFreshEntity(silverfish);
 			silverfish.spawnAnim();
 		}
 		this.convertTo(EntityType.SILVERFISH, true);
 
-		this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(1.0D), this.getZ(), this.createHorn()));
+		this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(1.0D), this.getZ(), this.createHorn()));
 	}
 
 	public ItemStack createHorn() {
 		RandomSource random = RandomSource.create(this.getUUID().hashCode());
-		HolderSet<Instrument> holderSet = Registry.INSTRUMENT.getOrCreateTag(CCInstrumentTags.LOST_GOAT_HORNS);
+		HolderSet<Instrument> holderSet = BuiltInRegistries.INSTRUMENT.getOrCreateTag(CCInstrumentTags.LOST_GOAT_HORNS);
 		return InstrumentItem.create(CCItems.LOST_GOAT_HORN.get(), holderSet.getRandomElement(random).get());
 	}
 

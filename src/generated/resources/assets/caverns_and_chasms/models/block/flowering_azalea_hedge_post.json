@@ -1,7 +1,0 @@
-{
-  "parent": "blueprint:block/hedge_post",
-  "textures": {
-    "leaf": "minecraft:block/flowering_azalea_leaves",
-    "log": "caverns_and_chasms:block/azalea_log"
-  }
-}

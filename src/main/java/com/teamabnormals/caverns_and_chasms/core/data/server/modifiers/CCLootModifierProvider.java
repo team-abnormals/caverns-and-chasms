@@ -6,7 +6,8 @@ import com.teamabnormals.blueprint.common.loot.modification.modifiers.LootPoolsM
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -18,15 +19,16 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class CCLootModifierProvider extends LootModifierProvider {
 
-	public CCLootModifierProvider(DataGenerator dataGenerator) {
-		super(dataGenerator, CavernsAndChasms.MOD_ID);
+	public CCLootModifierProvider(PackOutput output, CompletableFuture<Provider> provider) {
+		super(CavernsAndChasms.MOD_ID, output, provider);
 	}
 
 	@Override
-	protected void registerEntries() {
+	protected void registerEntries(Provider provider) {
 		this.entry("simple_dungeon").selects(BuiltInLootTables.SIMPLE_DUNGEON)
 				.addModifier(new LootPoolEntriesModifier(false, 0, List.of(lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 10))))
 				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 4))));

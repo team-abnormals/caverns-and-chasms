@@ -105,7 +105,7 @@ public class TuningForkItem extends Item {
 			if (level.isClientSide) {
 				level.addParticle(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), (double) note / 24.0D, 0.0D, 0.0D);
 			} else {
-				attractGolemToPos(new BlockPos(vec3.x(), vec3.y(), vec3.z()), player);
+				attractGolemToPos(BlockPos.containing(vec3), player);
 			}
 
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
@@ -120,9 +120,9 @@ public class TuningForkItem extends Item {
 		int note = tag.getInt("Note");
 
 		if (tag.contains("Note")) {
-			playNote(player.level, player, target.getX(), target.getEyeY(), target.getZ(), note);
-			if (player.level.isClientSide) {
-				player.level.addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+			playNote(player.level(), player, target.getX(), target.getEyeY(), target.getZ(), note);
+			if (player.level().isClientSide) {
+				player.level().addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 			}
 
 			if (target instanceof ControllableGolem && ((ControllableGolem) target).canBeTuningForkControlled(player)) {
@@ -147,11 +147,11 @@ public class TuningForkItem extends Item {
 				}
 			} else {
 				player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-				if (!player.level.isClientSide)
+				if (!player.level().isClientSide)
 					attractGolemToPos(target.blockPosition(), player);
 			}
 
-			return InteractionResult.sidedSuccess(player.level.isClientSide);
+			return InteractionResult.sidedSuccess(player.level().isClientSide);
 		}
 
 		return InteractionResult.PASS;
@@ -181,9 +181,8 @@ public class TuningForkItem extends Item {
 	}
 
 	public static ControllableGolem findControlledGolem(Player player) {
-		for (Mob mob : player.level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16.0D))) {
-			if (mob instanceof ControllableGolem) {
-				ControllableGolem golem = (ControllableGolem) mob;
+		for (Mob mob : player.level().getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(16.0D))) {
+			if (mob instanceof ControllableGolem golem) {
 				if (golem.isTuningForkControlledBy(player) && golem.canBeTuningForkControlled(player))
 					return golem;
 			}

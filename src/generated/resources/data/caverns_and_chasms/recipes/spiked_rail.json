@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "minecraft:stick"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:spiked_rail"
-  }
+  },
+  "show_notification": true
 }

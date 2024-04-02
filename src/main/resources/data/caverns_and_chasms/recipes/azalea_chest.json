@@ -4,7 +4,6 @@
     {
       "conditions": [
         {
-          "type": "forge:or",
           "values": [
             {
               "type": "blueprint:and",
@@ -20,28 +19,40 @@
               ]
             },
             {
-              "type": "blueprint:quark_flag",
-              "flag": "variant_chests"
+              "type": "blueprint:and",
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "flag": "variant_chests",
+                  "type": "quark:flag"
+                }
+              ]
             }
-          ]
+          ],
+          "type": "forge:or"
         }
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "group": "wooden_chest",
-        "key": {
-          "#": {
-            "item": "caverns_and_chasms:azalea_planks"
-          }
-        },
         "pattern": [
           "###",
           "# #",
           "###"
         ],
+        "key": {
+          "#": {
+            "item": "caverns_and_chasms:azalea_planks"
+          }
+        },
         "result": {
           "item": "caverns_and_chasms:azalea_chest"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:tuff_wall_from_tuff_stonecutting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

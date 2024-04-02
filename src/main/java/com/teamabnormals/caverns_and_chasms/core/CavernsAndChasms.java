@@ -10,17 +10,15 @@ import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCAdvancementProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.CCDatapackBuiltinEntriesProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCBiomeModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
@@ -31,9 +29,10 @@ import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -42,7 +41,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -59,7 +57,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 @Mod(CavernsAndChasms.MOD_ID)
@@ -86,8 +84,6 @@ public class CavernsAndChasms {
 		CCFeatures.FEATURES.register(bus);
 		CCParticleTypes.PARTICLE_TYPES.register(bus);
 		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
-		CCConfiguredFeatures.CONFIGURED_FEATURES.register(bus);
-		CCPlacedFeatures.PLACED_FEATURES.register(bus);
 		CCRecipeTypes.RECIPE_TYPES.register(bus);
 		CCBiomeModifierTypes.BIOME_MODIFIER_SERIALIZERS.register(bus);
 		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
@@ -102,10 +98,11 @@ public class CavernsAndChasms {
 		bus.addListener(this::dataSetup);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+			CCItems.setupTabEditors();
+			CCBlocks.setupTabEditors();
 			bus.addListener(this::registerLayerDefinitions);
 			bus.addListener(this::registerRenderers);
 			bus.addListener(this::registerLayers);
-			bus.addListener(this::stitchTextures);
 			bus.addListener(this::registerItemColors);
 			bus.addListener(this::createSkullModels);
 			bus.addListener(this::registerClientTooltips);
@@ -136,29 +133,36 @@ public class CavernsAndChasms {
 
 	private void dataSetup(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();
+		PackOutput output = generator.getPackOutput();
+		CompletableFuture<Provider> provider = event.getLookupProvider();
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		boolean server = event.includeServer();
-		CCBlockTagsProvider blockTags = new CCBlockTagsProvider(generator, helper);
+
+		CCDatapackBuiltinEntriesProvider datapackEntries = new CCDatapackBuiltinEntriesProvider(output, provider);
+		generator.addProvider(server, datapackEntries);
+		provider = datapackEntries.getRegistryProvider();
+
+		CCBlockTagsProvider blockTags = new CCBlockTagsProvider(output, provider, helper);
 		generator.addProvider(server, blockTags);
-		generator.addProvider(server, new CCItemTagsProvider(generator, blockTags, helper));
-		generator.addProvider(server, new CCEntityTypeTagsProvider(generator, helper));
-		generator.addProvider(server, new CCMobEffectTagsProvider(generator, helper));
-		generator.addProvider(server, new CCBiomeTagsProvider(generator, helper));
-		generator.addProvider(server, new CCPaintingVariantTagsProvider(generator, helper));
-		generator.addProvider(server, new CCBannerPatternTagsProvider(generator, helper));
-		generator.addProvider(server, new CCInstrumentTagsProvider(generator, helper));
-		generator.addProvider(server, new CCGameEventTagsProvider(generator, helper));
-		generator.addProvider(server, new CCRecipeProvider(generator));
-		generator.addProvider(server, new CCLootTableProvider(generator));
-		generator.addProvider(server, new CCAdvancementProvider(generator, helper));
-		generator.addProvider(server, new CCAdvancementModifierProvider(generator));
-		generator.addProvider(server, new CCLootModifierProvider(generator));
-		generator.addProvider(server, CCBiomeModifierProvider.create(generator, helper));
+		generator.addProvider(server, new CCItemTagsProvider(output, provider, blockTags.contentsGetter(), helper));
+		generator.addProvider(server, new CCEntityTypeTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCMobEffectTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCBiomeTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCPaintingVariantTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCBannerPatternTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCInstrumentTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCGameEventTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCDamageTypeTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCRecipeProvider(output));
+		generator.addProvider(server, new CCLootTableProvider(output));
+		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
+		generator.addProvider(server, new CCAdvancementModifierProvider(output, provider));
+		generator.addProvider(server, new CCLootModifierProvider(output, provider));
 
 		boolean client = event.includeClient();
-		generator.addProvider(client, new CCItemModelProvider(generator, helper));
-		generator.addProvider(client, new CCBlockStateProvider(generator, helper));
+		generator.addProvider(client, new CCItemModelProvider(output, helper));
+		generator.addProvider(client, new CCBlockStateProvider(output, helper));
 		//generator.addProvider(client, new CCLanguageProvider(generator));
 	}
 
@@ -210,13 +214,6 @@ public class CavernsAndChasms {
 			PlayerRenderer renderer = event.getSkin(skin);
 			renderer.addLayer(new RatOnShoulderLayer(renderer, event.getEntityModels()));
 		});
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public void stitchTextures(TextureStitchEvent.Pre event) {
-		if (InventoryMenu.BLOCK_ATLAS.equals(event.getAtlas().location())) {
-			Arrays.stream(ToolboxRenderer.TOOLBOX_TEXTURES).forEach(event::addSprite);
-		}
 	}
 
 	@OnlyIn(Dist.CLIENT)

@@ -24,7 +24,7 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 
 	public <B extends Block> RegistryObject<B> createToolboxBlock(String name, Supplier<? extends B> supplier) {
 		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
-		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_DECORATIONS), () -> () -> toolboxBEWLR()));
+		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(1), () -> () -> toolboxBEWLR()));
 		return block;
 	}
 

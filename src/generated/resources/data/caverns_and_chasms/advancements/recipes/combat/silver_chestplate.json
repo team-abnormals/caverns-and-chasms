@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:silver_chestplate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

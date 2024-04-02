@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "#": {
       "item": "minecraft:rotten_flesh"
@@ -12,5 +13,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:rotten_flesh_block"
-  }
+  },
+  "show_notification": true
 }

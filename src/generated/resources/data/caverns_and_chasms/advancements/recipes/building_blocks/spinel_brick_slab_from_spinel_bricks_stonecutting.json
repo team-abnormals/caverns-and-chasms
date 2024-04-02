@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:spinel_brick_slab_from_spinel_bricks_stonecutting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

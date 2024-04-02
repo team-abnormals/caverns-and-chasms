@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/chiseled_bookshelf",
+  "textures": {
+    "side": "caverns_and_chasms:block/chiseled_azalea_bookshelf_side",
+    "top": "caverns_and_chasms:block/chiseled_azalea_bookshelf_top"
+  }
+}

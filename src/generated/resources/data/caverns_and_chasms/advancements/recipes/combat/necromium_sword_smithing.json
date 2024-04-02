@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:necromium_sword_smithing"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

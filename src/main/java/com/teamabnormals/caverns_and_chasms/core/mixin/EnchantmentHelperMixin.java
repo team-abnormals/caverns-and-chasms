@@ -34,7 +34,7 @@ public abstract class EnchantmentHelperMixin {
 				if (target instanceof WitherBoss)
 					magicDamage *= 3.0F;
 				livingTarget.invulnerableTime = 0;
-				livingTarget.hurt(DamageSource.MAGIC, magicDamage);
+				livingTarget.hurt(livingTarget.damageSources().magic(), magicDamage);
 				SilverItem.causeMagicDamageParticles(livingTarget);
 			}
 

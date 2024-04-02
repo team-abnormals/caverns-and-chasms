@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -16,13 +16,12 @@ import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
 public class CCItemModelProvider extends ItemModelProvider {
 
-	public CCItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, CavernsAndChasms.MOD_ID, existingFileHelper);
+	public CCItemModelProvider(PackOutput output, ExistingFileHelper helper) {
+		super(output, CavernsAndChasms.MOD_ID, helper);
 	}
 
 	@Override
 	protected void registerModels() {
-		this.generatedItem(CCBlocks.CUPRIC_CANDLE.get());
 		this.animatedModel(DEPTH_GAUGE.get(), 48);
 		this.animatedModel(BAROMETER.get(), 21);
 		this.generatedItem(

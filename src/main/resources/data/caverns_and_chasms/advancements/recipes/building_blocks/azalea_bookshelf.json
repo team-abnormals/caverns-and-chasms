@@ -1,43 +1,8 @@
 {
   "advancements": [
     {
-      "advancement": {
-        "parent": "minecraft:recipes/root",
-        "criteria": {
-          "has_book": {
-            "conditions": {
-              "items": [
-                {
-                  "items": [
-                    "minecraft:book"
-                  ]
-                }
-              ]
-            },
-            "trigger": "minecraft:inventory_changed"
-          },
-          "has_the_recipe": {
-            "conditions": {
-              "recipe": "caverns_and_chasms:azalea_bookshelf"
-            },
-            "trigger": "minecraft:recipe_unlocked"
-          }
-        },
-        "requirements": [
-          [
-            "has_book",
-            "has_the_recipe"
-          ]
-        ],
-        "rewards": {
-          "recipes": [
-            "caverns_and_chasms:azalea_bookshelf"
-          ]
-        }
-      },
       "conditions": [
         {
-          "type": "forge:or",
           "values": [
             {
               "type": "blueprint:and",
@@ -53,12 +18,57 @@
               ]
             },
             {
-              "type": "blueprint:quark_flag",
-              "flag": "variant_bookshelves"
+              "type": "blueprint:and",
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "flag": "variant_bookshelves",
+                  "type": "quark:flag"
+                }
+              ]
             }
-          ]
+          ],
+          "type": "forge:or"
         }
-      ]
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "caverns_and_chasms:azalea_bookshelf"
+          ]
+        },
+        "criteria": {
+          "has_book": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "minecraft:book"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "caverns_and_chasms:azalea_bookshelf"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_book",
+            "has_the_recipe"
+          ]
+        ],
+        "sends_telemetry_event": false
+      }
     }
   ]
 }

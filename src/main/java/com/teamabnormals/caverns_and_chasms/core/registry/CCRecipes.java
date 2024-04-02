@@ -16,7 +16,7 @@ public class CCRecipes {
 		public static final RegistryObject<RecipeSerializer<MimingRecipe>> MIMING = RECIPE_SERIALIZERS.register("miming", () -> new SingleItemRecipe.Serializer<>(MimingRecipe::new) {
 		});
 
-		public static final RegistryObject<SimpleRecipeSerializer<ToolboxWaxing>> TOOLBOX_WAXING = RECIPE_SERIALIZERS.register("crafting_special_toolboxwaxing", () -> new SimpleRecipeSerializer<>(ToolboxWaxing::new));
+		public static final RegistryObject<SimpleCraftingRecipeSerializer<ToolboxWaxing>> TOOLBOX_WAXING = RECIPE_SERIALIZERS.register("crafting_special_toolboxwaxing", () -> new SimpleCraftingRecipeSerializer<>(ToolboxWaxing::new));
 	}
 
 	public static class CCRecipeTypes {

@@ -4,7 +4,6 @@
     {
       "conditions": [
         {
-          "type": "forge:or",
           "values": [
             {
               "type": "blueprint:and",
@@ -20,15 +19,31 @@
               ]
             },
             {
-              "type": "blueprint:quark_flag",
-              "flag": "variant_bookshelves"
+              "type": "blueprint:and",
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "flag": "variant_bookshelves",
+                  "type": "quark:flag"
+                }
+              ]
             }
-          ]
+          ],
+          "type": "forge:or"
         }
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "building",
         "group": "wooden_bookshelf",
+        "pattern": [
+          "###",
+          "XXX",
+          "###"
+        ],
         "key": {
           "#": {
             "item": "caverns_and_chasms:azalea_planks"
@@ -37,14 +52,10 @@
             "item": "minecraft:book"
           }
         },
-        "pattern": [
-          "###",
-          "XXX",
-          "###"
-        ],
         "result": {
           "item": "caverns_and_chasms:azalea_bookshelf"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

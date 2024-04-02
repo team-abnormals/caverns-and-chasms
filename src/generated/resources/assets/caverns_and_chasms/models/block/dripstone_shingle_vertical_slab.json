@@ -1,8 +1,0 @@
-{
-  "parent": "blueprint:block/vertical_slab",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/dripstone_shingles",
-    "side": "caverns_and_chasms:block/dripstone_shingles",
-    "top": "caverns_and_chasms:block/dripstone_shingles"
-  }
-}

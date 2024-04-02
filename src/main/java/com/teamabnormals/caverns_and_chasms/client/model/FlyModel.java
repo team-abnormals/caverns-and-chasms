@@ -76,7 +76,7 @@ public class FlyModel<T extends Fly> extends AgeableListModel<T> {
 		this.rightWing.xRot = 0.0f;
 		this.leftAntenna.xRot = 0.0f;
 		this.rightAntenna.xRot = 0.0f;
-		if (fly.isOnGround()) {
+		if (fly.onGround()) {
 			this.rightWing.yRot = -0.2618f;
 			this.rightWing.zRot = 0.0f;
 			this.leftWing.xRot = 0.0f;

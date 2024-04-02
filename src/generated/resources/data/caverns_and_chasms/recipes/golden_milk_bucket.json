@@ -13,6 +13,7 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shapeless",
+        "category": "misc",
         "ingredients": [
           {
             "item": "caverns_and_chasms:golden_bucket"

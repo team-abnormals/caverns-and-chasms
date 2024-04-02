@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "#": {
       "item": "minecraft:stick"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:silver_sword"
-  }
+  },
+  "show_notification": true
 }

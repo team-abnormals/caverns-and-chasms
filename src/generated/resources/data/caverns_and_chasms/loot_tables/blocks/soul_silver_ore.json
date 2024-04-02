@@ -54,5 +54,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "caverns_and_chasms:blocks/soul_silver_ore"
 }

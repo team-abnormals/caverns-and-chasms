@@ -33,5 +33,6 @@
     [
       "copper"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

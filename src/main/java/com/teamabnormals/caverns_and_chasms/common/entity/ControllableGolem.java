@@ -26,9 +26,9 @@ public interface ControllableGolem {
 
 	default void tungingForkControlTick() {
 		Mob mob = (Mob) this;
-		if (mob.level.isClientSide && mob.isAlive() && mob.tickCount % 20 == 0) {
+		if (mob.level().isClientSide() && mob.isAlive() && mob.tickCount % 20 == 0) {
 			RandomSource random = mob.getRandom();
-			mob.level.addParticle(CCParticleTypes.GOLEM_NOTE.get(), mob.getX() + random.nextDouble() * 0.8D - 0.4D, mob.getEyeY() + random.nextDouble() * 0.8D - 0.4D, mob.getZ() + random.nextDouble() * 0.8D - 0.4D, 0.0D, 0.0D, 0.0D);
+			mob.level().addParticle(CCParticleTypes.GOLEM_NOTE.get(), mob.getX() + random.nextDouble() * 0.8D - 0.4D, mob.getEyeY() + random.nextDouble() * 0.8D - 0.4D, mob.getZ() + random.nextDouble() * 0.8D - 0.4D, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -74,7 +74,7 @@ public interface ControllableGolem {
 	}
 
 	default Player getTuningForkController() {
-		for (Player player : ((Mob) this).level.players()) {
+		for (Player player : ((Mob) this).level().players()) {
 			if (this.isTuningForkControlledBy(player)) {
 				return player;
 			}

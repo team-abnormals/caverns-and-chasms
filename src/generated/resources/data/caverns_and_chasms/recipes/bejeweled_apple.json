@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "A": {
       "item": "minecraft:golden_apple"
@@ -16,5 +17,6 @@
   "result": {
     "count": 2,
     "item": "caverns_and_chasms:bejeweled_apple"
-  }
+  },
+  "show_notification": true
 }

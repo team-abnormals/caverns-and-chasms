@@ -13,7 +13,7 @@ public abstract class AbstractMinecartMixin {
 
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;activateMinecart(IIIZ)V"))
 	private void tick(AbstractMinecart cart, int x, int y, int z, boolean powered) {
-		BlockState state = cart.level.getBlockState(new BlockPos(x, y, z));
+		BlockState state = cart.level().getBlockState(new BlockPos(x, y, z));
 		if (!state.is(CCBlocks.SPIKED_RAIL.get())) {
 			cart.activateMinecart(x, y, z, powered);
 		}

@@ -23,7 +23,7 @@ public class FollowLikedPlayerGoal extends Goal {
 		if (this.glare.getOwnerUUID() == null || this.glare.isLeashed()) {
 			return false;
 		} else {
-			this.likedPlayer = glare.level.getPlayerByUUID(glare.getOwnerUUID());
+			this.likedPlayer = glare.level().getPlayerByUUID(glare.getOwnerUUID());
 			return this.likedPlayer != null && this.glare.distanceToSqr(this.likedPlayer) >= followDistance;
 		}
 	}

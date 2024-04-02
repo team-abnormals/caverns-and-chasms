@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "minecraft:gold_block"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:golden_bucket"
-  }
+  },
+  "show_notification": true
 }

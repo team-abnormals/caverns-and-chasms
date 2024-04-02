@@ -42,7 +42,8 @@
           "recipes": [
             "caverns_and_chasms:ender_brazier"
           ]
-        }
+        },
+        "sends_telemetry_event": false
       },
       "conditions": [
         {

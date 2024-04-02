@@ -8,6 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
@@ -31,6 +32,6 @@ public final class ToolboxWaxingRecipeMaker {
 		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(toolbox), Ingredient.of(Items.HONEYCOMB));
 		ItemStack output = ToolboxBlock.getWeatheredItemStack(toolbox.getWeatherState(), false);
 		ResourceLocation id = new ResourceLocation(CavernsAndChasms.MOD_ID, group + "." + output.getDescriptionId());
-		return new ShapelessRecipe(id, group, output, inputs);
+		return new ShapelessRecipe(id, group, CraftingBookCategory.EQUIPMENT, output, inputs);
 	}
 }

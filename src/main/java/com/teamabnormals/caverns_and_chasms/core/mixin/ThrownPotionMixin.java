@@ -21,10 +21,10 @@ public abstract class ThrownPotionMixin extends ThrowableItemProjectile {
 
 	@Inject(method = "dowseFire", at = @At("TAIL"))
 	private void dowseFire(BlockPos pos, CallbackInfo ci) {
-		BlockState state = this.level.getBlockState(pos);
+		BlockState state = this.level().getBlockState(pos);
 		if (BrazierBlock.isLit(state)) {
-			this.level.levelEvent(null, 1009, pos, 0);
-			this.level.setBlockAndUpdate(pos, BrazierBlock.extinguish(this.getOwner(), this.level, pos, state));
+			this.level().levelEvent(null, 1009, pos, 0);
+			this.level().setBlockAndUpdate(pos, BrazierBlock.extinguish(this.getOwner(), this.level(), pos, state));
 		}
 	}
 }

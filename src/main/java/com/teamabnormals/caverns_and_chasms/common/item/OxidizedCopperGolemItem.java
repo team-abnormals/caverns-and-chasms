@@ -11,7 +11,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,6 +22,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.function.Consumer;
 
 public class OxidizedCopperGolemItem extends Item {
 	private final boolean waxed;
@@ -43,7 +47,8 @@ public class OxidizedCopperGolemItem extends Item {
 			if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty()) {
 				if (level instanceof ServerLevel serverlevel) {
 					Component customname = itemstack.hasCustomHoverName() ? itemstack.getHoverName() : null;
-					OxidizedCopperGolem golem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), customname, context.getPlayer(), blockpos, MobSpawnType.SPAWN_EGG, true, true);
+					Consumer<OxidizedCopperGolem> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, context.getPlayer());
+					OxidizedCopperGolem golem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
 					if (golem == null) {
 						return InteractionResult.FAIL;
 					}

@@ -23,8 +23,8 @@ public class GoToDarkSpotGoal extends WaterAvoidingRandomFlyingGoal {
 		for (int i = 0; i < 32; i++) {
 			Vec3 vec3 = this.getModifiedPosition();
 			if (vec3 != null) {
-				BlockPos pos = new BlockPos(vec3);
-				if (!GoalUtils.isSolid(this.mob, pos) && !GoalUtils.isSolid(this.mob, pos.above()) && Glare.shouldBeGrumpy(this.mob.getLevel(), pos)) {
+				BlockPos pos = BlockPos.containing(vec3);
+				if (!GoalUtils.isSolid(this.mob, pos) && !GoalUtils.isSolid(this.mob, pos.above()) && Glare.shouldBeGrumpy(this.mob.level(), pos)) {
 					return vec3;
 				}
 			}

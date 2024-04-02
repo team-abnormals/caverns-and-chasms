@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.math.Vector3f;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +43,7 @@ public class Mime extends Monster {
 	public static final EntityDimensions STANDING_SIZE = EntityDimensions.scalable(0.6F, 2.1F);
 	private static final Map<Pose, EntityDimensions> SIZE_BY_POSE = ImmutableMap.<Pose, EntityDimensions>builder().put(Pose.STANDING, STANDING_SIZE).put(Pose.SWIMMING, EntityDimensions.scalable(0.6F, 0.6F)).put(Pose.CROUCHING, EntityDimensions.scalable(0.6F, 1.8F)).build();
 	public final Vector3f[] armPositions = new Vector3f[]{new Vector3f(-5.0F, 2.0F, 0.0F), new Vector3f(5.0F, 2.0F, 0.0F)};
-	public final Vector3f[] armRotations = new Vector3f[]{Vector3f.ZERO, Vector3f.ZERO};
+	public final Vector3f[] armRotations = new Vector3f[]{new Vector3f(0.0F), new Vector3f(0.0F)};
 	public double prevChasingPosX;
 	public double prevChasingPosY;
 	public double prevChasingPosZ;
@@ -159,14 +159,14 @@ public class Mime extends Monster {
 		super.die(cause);
 		Entity source = cause.getEntity();
 
-		if (!this.level.isClientSide() && source instanceof LivingEntity attacker) {
+		if (!this.level().isClientSide() && source instanceof LivingEntity attacker) {
 			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
-			List<MimingRecipe> recipes = this.level.getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
+			List<MimingRecipe> recipes = this.level().getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
 
 			for (MimingRecipe recipe : recipes) {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
-						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem().copy());
+						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem(this.level().registryAccess()).copy());
 						source.playSound(CCSoundEvents.ENTITY_MIME_MIME.get(), 1.0F, 1.0F);
 						return;
 					}
@@ -185,7 +185,7 @@ public class Mime extends Monster {
 	public void aiStep() {
 		super.aiStep();
 		if (this.isAlive()) {
-			if (this.level.isClientSide) {
+			if (this.level().isClientSide) {
 				if (this.random.nextInt(5) == 0) {
 					int i = this.random.nextInt(2);
 					float f = -Mth.lerp(this.getSwimAmount(0.0F), 0F, this.isInWater() ? -90F - this.getXRot() : -90F) * Mth.DEG_TO_RAD;
@@ -212,7 +212,7 @@ public class Mime extends Monster {
 					double d0 = this.random.nextFloat() * 0.1D - 0.05D;
 					double d1 = this.random.nextFloat() * 0.1D - 0.05D;
 					double d2 = this.random.nextFloat() * 0.1D - 0.05D;
-					this.level.addParticle(CCParticleTypes.MIME_ENERGY.get(), this.getX() + vec3.x() + d0, this.getY() + vec3.y() + d1, this.getZ() + vec3.z() + d2, 0.0D, 0.0D, 0.0D);
+					this.level().addParticle(CCParticleTypes.MIME_ENERGY.get(), this.getX() + vec3.x() + d0, this.getY() + vec3.y() + d1, this.getZ() + vec3.z() + d2, 0.0D, 0.0D, 0.0D);
 				}
 			} else {
 				LivingEntity target = this.getTarget();
@@ -238,7 +238,7 @@ public class Mime extends Monster {
 							}
 
 							if (mimed)
-								this.level.playSound(null, this, CCSoundEvents.ENTITY_MIME_MIME.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+								this.level().playSound(null, this, CCSoundEvents.ENTITY_MIME_MIME.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 						}
 					} else if (this.shouldCopyItem(this.getMainHandItem(), target.getMainHandItem()) || this.shouldCopyItem(this.getOffhandItem(), target.getOffhandItem())) {
 						this.copyTime = this.random.nextInt(3) + 4;
@@ -259,7 +259,7 @@ public class Mime extends Monster {
 				this.setPose(pose);
 
 				this.handleSneakingSpeed();
-				this.setSprinting((this.level.getDifficulty() == Difficulty.NORMAL || this.level.getDifficulty() == Difficulty.HARD) && target != null && target.isSprinting());
+				this.setSprinting((this.level().getDifficulty() == Difficulty.NORMAL || this.level().getDifficulty() == Difficulty.HARD) && target != null && target.isSprinting());
 			}
 		}
 	}

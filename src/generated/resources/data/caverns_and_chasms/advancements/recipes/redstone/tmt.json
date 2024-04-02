@@ -43,5 +43,6 @@
     "recipes": [
       "caverns_and_chasms:tmt"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

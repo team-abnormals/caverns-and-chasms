@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:silver_boots"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

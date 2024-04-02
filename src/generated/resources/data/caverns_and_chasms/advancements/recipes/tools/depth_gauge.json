@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:depth_gauge"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

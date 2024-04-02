@@ -1,16 +1,16 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -36,12 +36,12 @@ public class RatHeldItemLayer extends RenderLayer<Rat, RatModel<Rat>> {
 		}
 
 		poseStack.translate(model.head.x / 16.0F, model.head.y / 16.0F, model.head.z / 16.0F);
-		poseStack.mulPose(Vector3f.YP.rotationDegrees(netHeadYaw));
-		poseStack.mulPose(Vector3f.XP.rotationDegrees(headPitch));
+		poseStack.mulPose(Axis.YP.rotationDegrees(netHeadYaw));
+		poseStack.mulPose(Axis.XP.rotationDegrees(headPitch));
 		poseStack.translate(0.0F, 0.08D, -0.4D);
 
-		poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
-		itemInHandRenderer.renderItem(entity, stack, ItemTransforms.TransformType.GROUND, false, poseStack, bufferIn, packedLightIn);
+		poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+		itemInHandRenderer.renderItem(entity, stack, ItemDisplayContext.GROUND, false, poseStack, bufferIn, packedLightIn);
 		poseStack.popPose();
 	}
 }

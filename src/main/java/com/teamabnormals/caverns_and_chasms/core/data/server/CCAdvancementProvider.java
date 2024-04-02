@@ -10,8 +10,8 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -19,17 +19,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeAdvancementProvider;
+import net.minecraftforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class CCAdvancementProvider extends AdvancementProvider {
+public class CCAdvancementProvider implements AdvancementGenerator {
 
-	public CCAdvancementProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
-		super(generator, fileHelper);
+	public static ForgeAdvancementProvider create(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
+		return new ForgeAdvancementProvider(output, provider, helper, List.of(new CCAdvancementProvider()));
 	}
 
 	@Override
-	protected void registerAdvancements(Consumer<Advancement> consumer, ExistingFileHelper fileHelper) {
+	public void generate(Provider provider, Consumer<Advancement> consumer, ExistingFileHelper helper) {
 		createAdvancement("obtain_ancient_hoes", "husbandry", new ResourceLocation("husbandry/obtain_netherite_hoe"), CCItems.NECROMIUM_HOE.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.addCriterion("ancient_hoes", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_HOE, CCItems.NECROMIUM_HOE.get()))
@@ -49,7 +53,7 @@ public class CCAdvancementProvider extends AdvancementProvider {
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/use_tuning_fork");
 
 		createAdvancement("tune_a_fish", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/use_tuning_fork"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, true)
-				.addCriterion("attack_fish", new PlayerHurtEntityTrigger.TriggerInstance(EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(CCItems.TUNING_FORK.get()).build()).build()).build()), DamagePredicate.ANY, EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(BlueprintEntityTypeTags.FISHES).build())))
+				.addCriterion("attack_fish", new PlayerHurtEntityTrigger.TriggerInstance(EntityPredicate.wrap(EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(CCItems.TUNING_FORK.get()).build()).build()).build()), DamagePredicate.ANY, EntityPredicate.wrap(EntityPredicate.Builder.entity().of(BlueprintEntityTypeTags.FISHES).build())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/tune_a_fish");
 
 		createAdvancement("summon_copper_golem", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), Items.CARVED_PUMPKIN, FrameType.GOAL, true, true, false)

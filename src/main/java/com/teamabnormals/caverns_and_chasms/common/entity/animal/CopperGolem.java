@@ -153,7 +153,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	public void tick() {
 		super.tick();
 
-		if (!this.level.isClientSide && this.isAlive() && !this.isWaxed() && --this.oxidationTime <= 0) {
+		if (!this.level().isClientSide && this.isAlive() && !this.isWaxed() && --this.oxidationTime <= 0) {
 			Oxidation oxidation = this.getOxidation();
 			if (oxidation != Oxidation.WEATHERED) {
 				this.setOxidation(Oxidation.byId(oxidation.getId() + 1));
@@ -171,12 +171,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	public void aiStep() {
 		super.aiStep();
 
-		if (this.level.isClientSide) {
+		if (this.level().isClientSide) {
 			if (this.isWaxed() && this.tickCount % 40 == 0) {
 				double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
-				this.level.addParticle(ParticleTypes.WAX_ON, this.getRandomX(0.8D), this.getY(0.1D), this.getRandomZ(0.8D), d0, d1, d2);
+				this.level().addParticle(ParticleTypes.WAX_ON, this.getRandomX(0.8D), this.getY(0.1D), this.getRandomZ(0.8D), d0, d1, d2);
 			}
 		} else {
 			if (this.ticksSinceButtonPress > 0) {
@@ -204,7 +204,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);
-				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.HONEYCOMB_WAX_ON, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				if (!player.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
@@ -215,24 +215,24 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				this.setWaxed(false);
 				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.WAX_OFF);
-				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_WAX_OFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
 			} else if (this.getOxidation().getId() > 0) {
 				this.setOxidation(Oxidation.byId(this.getOxidation().getId() - 1));
 				this.oxidationTime = this.nextOxidationTime();
 				this.spawnSparkParticles(ParticleTypes.SCRAPE);
-				this.level.playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+				this.level().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.AXE_SCRAPE, SoundSource.NEUTRAL, 1.0F, 1.0F);
 				success = true;
 			}
 
-			if (success && !this.level.isClientSide) {
+			if (success && !this.level().isClientSide) {
 				itemstack.hurtAndBreak(1, player, (entity) -> {
 					entity.broadcastBreakEvent(hand);
 				});
 			}
 		}
 
-		return success ? InteractionResult.sidedSuccess(this.level.isClientSide) : InteractionResult.PASS;
+		return success ? InteractionResult.sidedSuccess(this.level().isClientSide) : InteractionResult.PASS;
 	}
 
 	@Override
@@ -242,7 +242,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		}
 
 		this.spinHead();
-		this.level.broadcastEntityEvent(this, (byte) 5);
+		this.level().broadcastEntityEvent(this, (byte) 5);
 	}
 
 	@Override
@@ -251,7 +251,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		boolean flag = super.hurt(source, amount);
 		if (flag) {
 			this.spinHead();
-			this.level.broadcastEntityEvent(this, (byte) 4);
+			this.level().broadcastEntityEvent(this, (byte) 4);
 			if (this.isDamaged() != damaged)
 				this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_DAMAGE.get(), 1.0F, 1.0F);
 		}
@@ -259,7 +259,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	}
 
 	private void oxidizeIntoStatue() {
-		OxidizedCopperGolem oxidizedgolem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(this.level);
+		OxidizedCopperGolem oxidizedgolem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(this.level());
 
 		float yRot = (float) Mth.floor((this.getYRot() + 22.5F) / 45.0F) * 45.0F;
 		oxidizedgolem.moveTo(this.getX(), this.getY(), this.getZ(), yRot, 0.0F);
@@ -279,7 +279,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			oxidizedgolem.setCustomNameVisible(this.isCustomNameVisible());
 		}
 
-		this.level.addFreshEntity(oxidizedgolem);
+		this.level().addFreshEntity(oxidizedgolem);
 		this.discard();
 	}
 
@@ -353,12 +353,12 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	}
 
 	private void spawnSparkParticles(ParticleOptions particle) {
-		if (this.level.isClientSide) {
+		if (this.level().isClientSide) {
 			for (int i = 0; i < 7; ++i) {
 				double d0 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d1 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
 				double d2 = Mth.nextDouble(this.getRandom(), -1.0D, 1.0D);
-				this.level.addParticle(particle, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), d0, d1, d2);
+				this.level().addParticle(particle, this.getRandomX(1.0D), this.getRandomY(), this.getRandomZ(1.0D), d0, d1, d2);
 			}
 		}
 	}
@@ -433,7 +433,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		public void start() {
 			this.walkDelay = 10;
 			CopperGolem.this.spinHead();
-			CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte) 4);
+			CopperGolem.this.level().broadcastEntityEvent(CopperGolem.this, (byte) 4);
 		}
 
 		@Override
@@ -510,7 +510,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			} else if (this.tryTicks < -this.maxStayTicks || this.tryTicks > 1200) {
 				return false;
 			} else {
-				return this.isUnpressedButton(CopperGolem.this.level, this.blockPos);
+				return this.isUnpressedButton(CopperGolem.this.level(), this.blockPos);
 			}
 		}
 
@@ -538,13 +538,13 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 				if (this.pressWaitTicks == 6) {
 					CopperGolem.this.pressButton();
-					CopperGolem.this.level.broadcastEntityEvent(CopperGolem.this, (byte) 6);
+					CopperGolem.this.level().broadcastEntityEvent(CopperGolem.this, (byte) 6);
 				} else if (this.pressWaitTicks <= 0) {
-					BlockState state = CopperGolem.this.level.getBlockState(this.blockPos);
+					BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
 					if (state.getBlock() instanceof CopperButtonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
-						((CopperButtonBlock) state.getBlock()).press(state, CopperGolem.this.level, this.blockPos);
-						CopperGolem.this.level.playSound(null, this.blockPos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
-						CopperGolem.this.level.gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
+						((CopperButtonBlock) state.getBlock()).press(state, CopperGolem.this.level(), this.blockPos);
+						CopperGolem.this.level().playSound(null, this.blockPos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
+						CopperGolem.this.level().gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
 						CopperGolem.this.ticksSinceButtonPress = 80;
 					}
 				}
@@ -569,14 +569,14 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			List<BlockPos> buttonpositions = Lists.newArrayList();
 
 			for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(CopperGolem.this.getX() - 8.0D), Mth.floor(CopperGolem.this.getY() - 4.0D), Mth.floor(CopperGolem.this.getZ() - 8.0D), Mth.floor(CopperGolem.this.getX() + 8.0D), Mth.floor(CopperGolem.this.getY() + 4.0D), Mth.floor(CopperGolem.this.getZ() + 8.0D))) {
-				if (CopperGolem.this.isWithinRestriction(pos) && this.isUnpressedButton(CopperGolem.this.level, pos)) {
+				if (CopperGolem.this.isWithinRestriction(pos) && this.isUnpressedButton(CopperGolem.this.level(), pos)) {
 					buttonpositions.add(new BlockPos(pos));
 				}
 			}
 
 			if (buttonpositions.size() > 0) {
 				this.blockPos = buttonpositions.get(CopperGolem.this.getRandom().nextInt(buttonpositions.size()));
-				BlockState state = CopperGolem.this.level.getBlockState(this.blockPos);
+				BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
 				AttachFace face = state.getValue(CopperButtonBlock.FACE);
 				Direction direction = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(CopperButtonBlock.FACING).getOpposite();
 				this.buttonNormal = direction.getNormal();

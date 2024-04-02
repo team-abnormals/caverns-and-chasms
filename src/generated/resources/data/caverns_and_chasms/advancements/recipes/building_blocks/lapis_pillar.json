@@ -43,5 +43,6 @@
     "recipes": [
       "caverns_and_chasms:lapis_pillar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

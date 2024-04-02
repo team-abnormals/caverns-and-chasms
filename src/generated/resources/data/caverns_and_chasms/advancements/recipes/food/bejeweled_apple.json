@@ -43,5 +43,6 @@
     "recipes": [
       "caverns_and_chasms:bejeweled_apple"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

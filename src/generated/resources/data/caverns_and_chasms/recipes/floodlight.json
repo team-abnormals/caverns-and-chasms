@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "A": {
       "item": "minecraft:amethyst_shard"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:floodlight"
-  }
+  },
+  "show_notification": true
 }

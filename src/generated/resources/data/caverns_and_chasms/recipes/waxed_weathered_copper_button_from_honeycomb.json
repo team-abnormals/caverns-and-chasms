@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
   "group": "waxed_weathered_copper_button",
   "ingredients": [
     {

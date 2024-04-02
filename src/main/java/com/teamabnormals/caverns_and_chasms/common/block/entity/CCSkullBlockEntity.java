@@ -20,8 +20,8 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 	}
 
 	@Override
-	public float getMouthAnimation(float p_59763_) {
-		if (this.isMovingMouth && this.getLevel() != null) {
+	public float getAnimation(float p_59763_) {
+		if (this.isAnimating && this.getLevel() != null) {
 			double x = this.getBlockPos().getX() + 0.5F;
 			double z = this.getBlockPos().getZ() + 0.5F;
 			Player player = this.getLevel().getNearestPlayer(x, this.getBlockPos().getY(), z, 16.0F, false);

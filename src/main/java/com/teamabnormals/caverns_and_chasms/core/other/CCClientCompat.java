@@ -68,10 +68,6 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LADDER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_DOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_POST.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.STRIPPED_AZALEA_POST.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_HEDGE.get(), RenderType.cutoutMipped());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOWERING_AZALEA_HEDGE.get(), RenderType.cutoutMipped());
 	}
 
 	public static void registerItemProperties() {
@@ -100,8 +96,8 @@ public class CCClientCompat {
 				if (entity == null) {
 					return 0.33333F;
 				} else {
-					if (level == null && entity.level instanceof ClientLevel) {
-						level = (ClientLevel) entity.level;
+					if (level == null && entity.level() instanceof ClientLevel clientLevel) {
+						level = clientLevel;
 					}
 
 					if (level == null) {
@@ -148,15 +144,15 @@ public class CCClientCompat {
 			if (entity == null) {
 				return 0.4F;
 			} else {
-				if (level == null && entity.level instanceof ClientLevel) {
-					level = (ClientLevel) entity.level;
+				if (level == null && entity.level() instanceof ClientLevel clientLevel) {
+					level = clientLevel;
 				}
 
 				if (level == null) {
 					return 0.4F;
 				} else {
 					DecimalFormat format = new DecimalFormat("0.00", DecimalFormatSymbols.getInstance(Locale.ROOT));
-					Precipitation precipitation = level.getBiome(entity.blockPosition()).value().getPrecipitation();
+					Precipitation precipitation = level.getBiome(entity.blockPosition()).value().getPrecipitationAt(entity.blockPosition());
 					float max = (!level.dimensionType().hasSkyLight() || level.dimensionType().hasCeiling()) ? 0.2F : precipitation == Precipitation.NONE ? 0.4F : level.isThundering() ? 0.8F : level.isRaining() ? (precipitation == Precipitation.SNOW ? 1.0F : 0.6F) : 0.4F;
 					return Float.parseFloat(format.format(max));
 				}
@@ -171,7 +167,7 @@ public class CCClientCompat {
 		Player player = event.getEntity();
 
 		if (player != null && player.getInventory().contains(stack)) {
-			Level level = player.level;
+			Level level = player.level();
 
 			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
 				event.getToolTip().add(createTooltip("latitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
@@ -199,7 +195,7 @@ public class CCClientCompat {
 	}
 
 	private static String getWeather(Player player, Level level) {
-		Precipitation precipitation = level.getBiome(player.blockPosition()).value().getPrecipitation();
+		Precipitation precipitation = level.getBiome(player.blockPosition()).value().getPrecipitationAt(player.blockPosition());
 
 		if (precipitation != Precipitation.NONE) {
 			if (level.isThundering())
@@ -239,7 +235,7 @@ public class CCClientCompat {
 	public static void onItemUse(RightClickItem event) {
 		Player player = event.getEntity();
 		Item item = event.getItemStack().getItem();
-		Level level = player.level;
+		Level level = player.level();
 		boolean displayTime = CCConfig.CLIENT.clocksDisplayTime.get();
 		boolean displayDay = CCConfig.CLIENT.clocksDisplayDay.get();
 		if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {

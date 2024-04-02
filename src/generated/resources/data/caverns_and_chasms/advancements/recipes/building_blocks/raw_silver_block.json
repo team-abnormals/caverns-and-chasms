@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:raw_silver_block"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

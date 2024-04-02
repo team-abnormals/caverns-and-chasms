@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:kunai"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "#": {
       "item": "caverns_and_chasms:cut_amethyst"
@@ -12,5 +13,6 @@
   "result": {
     "count": 4,
     "item": "caverns_and_chasms:cut_amethyst_bricks"
-  }
+  },
+  "show_notification": true
 }

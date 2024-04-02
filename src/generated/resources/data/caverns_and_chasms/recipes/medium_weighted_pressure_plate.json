@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "key": {
     "#": {
       "tag": "forge:ingots/silver"
@@ -10,5 +11,6 @@
   ],
   "result": {
     "item": "caverns_and_chasms:medium_weighted_pressure_plate"
-  }
+  },
+  "show_notification": true
 }

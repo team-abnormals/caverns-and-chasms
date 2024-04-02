@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.MimeArmorLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.MimeItemInHandLayer;
@@ -22,7 +22,7 @@ public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel> {
 	public MimeRenderer(EntityRendererProvider.Context context) {
 		super(context, new MimeModel(context.bakeLayer(CCModelLayers.MIME)), 0.5F);
 		this.layers.removeIf(entry -> entry instanceof ItemInHandLayer);
-		this.addLayer(new MimeArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR))));
+		this.addLayer(new MimeArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager()));
 		this.addLayer(new MimeItemInHandLayer(this, context.getItemInHandRenderer()));
 	}
 
@@ -38,7 +38,7 @@ public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel> {
 		if (f > 0.0F) {
 			float f3 = mime.isInWater() ? -90F - mime.getXRot() : -90F;
 			float f4 = Mth.lerp(f, 0.0F, f3);
-			stack.mulPose(Vector3f.XP.rotationDegrees(f4));
+			stack.mulPose(Axis.XP.rotationDegrees(f4));
 			if (mime.isVisuallySwimming())
 				stack.translate(0.0D, -1D, 0.3D);
 		}

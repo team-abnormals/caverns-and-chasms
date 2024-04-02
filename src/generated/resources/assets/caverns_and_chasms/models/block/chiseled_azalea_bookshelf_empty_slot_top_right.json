@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/chiseled_azalea_bookshelf_slot_top_right",
+  "textures": {
+    "texture": "caverns_and_chasms:block/chiseled_azalea_bookshelf_empty"
+  }
+}

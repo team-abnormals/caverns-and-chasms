@@ -87,7 +87,7 @@ public class SpinelBoom extends Explosion {
 						double d8 = this.z;
 
 						for(float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
-							BlockPos blockpos = new BlockPos(d4, d6, d8);
+							BlockPos blockpos = BlockPos.containing(d4, d6, d8);
 							BlockState blockstate = this.level.getBlockState(blockpos);
 							FluidState fluidstate = this.level.getFluidState(blockpos);
 
@@ -166,14 +166,15 @@ public class SpinelBoom extends Explosion {
 		if (this.level.isClientSide)
 			this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
 
+		boolean flag = this.interactsWithBlocks();
 		if (spawnParticles) {
-			if (!(this.radius < 2.0F))
+			if (!(this.radius < 2.0F) && flag)
 				this.level.addParticle(CCParticleTypes.SPINEL_BOOM_EMITTER.get(), this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 			else
 				this.level.addParticle(this.level.random.nextBoolean() ? CCParticleTypes.SPINEL_BOOM_CIRCLE.get() : CCParticleTypes.SPINEL_BOOM_STAR.get(), this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 		}
 
-		if (this.blockInteraction != Explosion.BlockInteraction.NONE) {
+		if (flag) {
 			Util.shuffle(this.toBlow, this.level.random);
 
 			for (BlockPos blockpos : this.toBlow) {

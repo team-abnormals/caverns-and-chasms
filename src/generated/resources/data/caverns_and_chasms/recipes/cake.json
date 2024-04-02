@@ -13,6 +13,7 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "key": {
           "A": {
             "item": "caverns_and_chasms:golden_milk_bucket"
@@ -34,7 +35,8 @@
         ],
         "result": {
           "item": "minecraft:cake"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

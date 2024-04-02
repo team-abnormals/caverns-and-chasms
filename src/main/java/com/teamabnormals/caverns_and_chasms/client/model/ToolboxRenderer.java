@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -80,9 +80,9 @@ public class ToolboxRenderer<T extends ToolboxBlockEntity> implements BlockEntit
 
 			poseStack.pushPose();
 
-			poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
+			poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
 			poseStack.translate(0.5F, !hanging ? -1.5F : -1.8125F, -0.5F);
-			poseStack.mulPose(Vector3f.YP.rotationDegrees(state.getValue(ToolboxBlock.FACING).toYRot()));
+			poseStack.mulPose(Axis.YP.rotationDegrees(state.getValue(ToolboxBlock.FACING).toYRot()));
 
 			float openness = 1.0F - toolbox.getProgress(partialTicks);
 			float xRot = -((1.0F - openness * openness * openness) * ((float) Math.PI / 2F));

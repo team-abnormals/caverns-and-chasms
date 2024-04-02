@@ -23,7 +23,7 @@ public class TmtBlock extends TntBlock {
 	@Override
 	public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
 		if (!level.isClientSide) {
-			PrimedTmt primedtmt = new PrimedTmt(level, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, explosion.getSourceMob());
+			PrimedTmt primedtmt = new PrimedTmt(level, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, explosion.getIndirectSourceEntity());
 			int i = primedtmt.getFuse();
 			primedtmt.setFuse((short) (level.random.nextInt(i / 4) + i / 8));
 			level.addFreshEntity(primedtmt);

@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:azalea_pressure_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

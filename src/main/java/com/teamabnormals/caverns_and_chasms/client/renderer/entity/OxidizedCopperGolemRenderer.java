@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.CopperGolemModel;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -29,10 +29,10 @@ public class OxidizedCopperGolemRenderer extends LivingEntityRenderer<OxidizedCo
 
 	@Override
 	protected void setupRotations(OxidizedCopperGolem copperGolem, PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks) {
-		matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - rotationYaw));
-		float f = (float) (copperGolem.level.getGameTime() - copperGolem.lastHit) + partialTicks;
+		matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
+		float f = (float) (copperGolem.level().getGameTime() - copperGolem.lastHit) + partialTicks;
 		if (f < 5.0F) {
-			matrixStack.mulPose(Vector3f.YP.rotationDegrees(Mth.sin(f / 1.5F * (float) Math.PI) * 3.0F));
+			matrixStack.mulPose(Axis.YP.rotationDegrees(Mth.sin(f / 1.5F * (float) Math.PI) * 3.0F));
 		}
 	}
 

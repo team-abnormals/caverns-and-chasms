@@ -28,5 +28,6 @@
     "recipes": [
       "caverns_and_chasms:medium_weighted_pressure_plate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

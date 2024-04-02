@@ -30,5 +30,6 @@
     "recipes": [
       "caverns_and_chasms:sugilite_slab_from_sugilite_stonecutting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

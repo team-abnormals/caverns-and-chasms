@@ -1,9 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
-import com.teamabnormals.caverns_and_chasms.core.other.CCDamageSources;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -58,14 +59,9 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 		float motion = (float) this.getDeltaMovement().length();
 		int damage = Mth.ceil(Mth.clamp((double) motion * 0.5F * this.getBaseDamage(), 0.0D, 2.147483647E9D));
 
-		DamageSource damagesource;
-		if (shooter == null) {
-			damagesource = CCDamageSources.causeKunaiDamage(this, this);
-		} else {
-			damagesource = CCDamageSources.causeKunaiDamage(this, shooter);
-			if (shooter instanceof LivingEntity) {
-				((LivingEntity) shooter).setLastHurtMob(target);
-			}
+		DamageSource damagesource = CCDamageTypes.kunai(this.level(), this, shooter);
+		if (shooter instanceof LivingEntity living) {
+			living.setLastHurtMob(target);
 		}
 
 		boolean isEnderman = target.getType() == EntityType.ENDERMAN;
@@ -78,7 +74,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 
 			if (target instanceof LivingEntity livingTarget) {
 
-				if (!this.level.isClientSide() && shooter instanceof LivingEntity) {
+				if (!this.level().isClientSide() && shooter instanceof LivingEntity) {
 					EnchantmentHelper.doPostHurtEffects(livingTarget, shooter);
 					EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, livingTarget);
 				}
@@ -99,7 +95,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
 			this.setYRot(this.getYRot() + 180.0F);
 			this.yRotO += 180.0F;
-			if (!this.level.isClientSide() && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+			if (!this.level().isClientSide() && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
 				if (this.pickup == AbstractArrow.Pickup.ALLOWED) {
 					this.spawnAtLocation(this.getPickupItem(), 0.1F);
 				}
@@ -114,7 +110,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
