@@ -127,6 +127,7 @@ public class CCItems {
 	public static final RegistryObject<ForgeSpawnEggItem> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntityTypes.MIME::get, 0x5A5050, 0x969964);
 	// public static final RegistryObject<ForgeSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntityTypes.RAT::get, 0x3B4248, 0xA76E6C);
 	public static final RegistryObject<ForgeSpawnEggItem> GLARE_SPAWN_EGG = HELPER.createSpawnEggItem("glare", CCEntityTypes.GLARE::get, 0x72942F, 0x516F2C);
+	public static final RegistryObject<ForgeSpawnEggItem> COPPER_GOLEM_SPAWN_EGG = HELPER.createSpawnEggItem("copper_golem", CCEntityTypes.COPPER_GOLEM::get, 0xDE7D65, 0x8A4129);
 
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
@@ -173,7 +174,7 @@ public class CCItems {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());
 				}))
 				.tab(SPAWN_EGGS)
-				.addItemsAlphabetically(is(SpawnEggItem.class), DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG);
+				.addItemsAlphabetically(is(SpawnEggItem.class), DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {

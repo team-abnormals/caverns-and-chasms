@@ -33,7 +33,7 @@ public class CCItemModelProvider extends ItemModelProvider {
 		);
 		this.item(WAXED_OXIDIZED_COPPER_GOLEM.get(), "oxidized_copper_golem", "generated");
 		this.handheldItem(KUNAI.get());
-		this.spawnEggItem(PEEPER_SPAWN_EGG.get());
+		this.spawnEggItem(PEEPER_SPAWN_EGG.get(), COPPER_GOLEM_SPAWN_EGG.get());
 	}
 
 	private void generatedItem(ItemLike... items) {
