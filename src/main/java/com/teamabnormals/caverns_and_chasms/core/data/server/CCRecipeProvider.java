@@ -374,6 +374,10 @@ public class CCRecipeProvider extends RecipeProvider {
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(p_176549_), category, p_176548_, p_176550_).unlockedBy(getHasName(p_176549_), has(p_176549_)).save(p_176547_, getModConversionRecipeName(p_176548_, p_176549_) + "_stonecutting");
 	}
 
+	public static void chestBoat(Consumer<FinishedRecipe> consumer, ItemLike chestBoat, ItemLike boat) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, chestBoat).requires(Tags.Items.CHESTS_WOODEN).requires(boat).group("chest_boat").unlockedBy("has_boat", has(ItemTags.BOATS)).save(consumer);
+	}
+
 	public static void foodCookingRecipes(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike output) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), category, output, 0.35F, 200).unlockedBy(getHasName(input), has(input)).save(consumer);
 		SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), category, output, 0.35F, 100).unlockedBy(getHasName(input), has(input)).save(consumer, RecipeBuilder.getDefaultRecipeId(output) + "_from_smoking");
