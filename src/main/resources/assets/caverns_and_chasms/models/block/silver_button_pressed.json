@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "caverns_and_chasms:block/silver_block"
-  }
-}

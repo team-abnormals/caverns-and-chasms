@@ -22,7 +22,7 @@ public class CCLanguageProvider extends LanguageProvider {
 	@Override
 	public void addTranslations() {
 		this.add(CCBlocks.SILVER_ORE.get(), CCBlocks.DEEPSLATE_SILVER_ORE.get(), CCBlocks.SOUL_SILVER_ORE.get());
-		this.add(CCBlocks.SILVER_BARS.get(), CCBlocks.MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), CCBlocks.SILVER_BUTTON.get(), CCBlocks.SPIKED_RAIL.get());
+		this.add(CCBlocks.SILVER_BARS.get(), CCBlocks.MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), CCBlocks.SPIKED_RAIL.get());
 		this.add(CCBlocks.SANGUINE_PLATES.get(), CCBlocks.SANGUINE_SLAB.get(), CCBlocks.SANGUINE_STAIRS.get());
 		this.add(CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 		this.add(CCBlocks.SPINEL_BRICKS.get(), CCBlocks.SPINEL_BRICK_SLAB.get(), CCBlocks.SPINEL_BRICK_STAIRS.get(), CCBlocks.SPINEL_BRICK_WALL.get(), CCBlocks.SPINEL_PILLAR.get(), CCBlocks.SPINEL_LAMP.get());

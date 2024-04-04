@@ -57,8 +57,6 @@ public class CCBlocks {
 	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET));
-	//TODO: Figure out what to do with this + add recipe
-	public static final RegistryObject<Block> SILVER_BUTTON = HELPER.createBlock("silver_button", () -> new ButtonBlock(CCProperties.SILVER_BUTTON, CCProperties.SILVER_BLOCK_SET, 50, false));
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 
 	public static final RegistryObject<Block> SANGUINE_PLATES = HELPER.createBlock("sanguine_plates", () -> new Block(CCProperties.SANGUINE_PLATES));
@@ -247,7 +245,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.BAMBOO_BLOCK), AZALEA_LOG, AZALEA_WOOD, STRIPPED_AZALEA_LOG, STRIPPED_AZALEA_WOOD, AZALEA_PLANKS)
 				.addItemsBefore(modLoaded(Blocks.BAMBOO_BLOCK, "woodworks"), AZALEA_BOARDS)
 				.addItemsBefore(of(Blocks.BAMBOO_BLOCK), AZALEA_STAIRS, AZALEA_SLAB, AZALEA_FENCE, AZALEA_FENCE_GATE, AZALEA_DOOR, AZALEA_TRAPDOOR, AZALEA_PRESSURE_PLATE, AZALEA_BUTTON)
-				.addItemsBefore(of(Blocks.MOSSY_COBBLESTONE), 
+				.addItemsBefore(of(Blocks.MOSSY_COBBLESTONE),
 						COBBLESTONE_BRICKS, COBBLESTONE_BRICK_STAIRS, COBBLESTONE_BRICK_SLAB, COBBLESTONE_BRICK_WALL,
 						COBBLESTONE_TILES, COBBLESTONE_TILE_STAIRS, COBBLESTONE_TILE_SLAB, COBBLESTONE_TILE_WALL
 				)

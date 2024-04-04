@@ -96,7 +96,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SILVER_BLOCK.get());
 			this.dropSelf(RAW_SILVER_BLOCK.get());
 			this.dropSelf(MEDIUM_WEIGHTED_PRESSURE_PLATE.get());
-			this.dropSelf(SILVER_BUTTON.get());
 			this.dropSelf(SPIKED_RAIL.get());
 			this.dropSelf(SILVER_BARS.get());
 			this.dropSelf(BRAZIER.get());

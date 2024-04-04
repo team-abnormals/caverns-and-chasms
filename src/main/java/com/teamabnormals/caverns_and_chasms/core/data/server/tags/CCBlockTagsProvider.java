@@ -23,7 +23,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 	@Override
 	public void addTags(Provider provider) {
 		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), NECROMIUM_BLOCK.get());
-		this.tag(BlockTags.BUTTONS).add(SILVER_BUTTON.get(), COPPER_BUTTON.get(), EXPOSED_COPPER_BUTTON.get(), WEATHERED_COPPER_BUTTON.get(), OXIDIZED_COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
+		this.tag(BlockTags.BUTTONS).add(COPPER_BUTTON.get(), EXPOSED_COPPER_BUTTON.get(), WEATHERED_COPPER_BUTTON.get(), OXIDIZED_COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
 		this.tag(BlockTags.CAMPFIRES).add(CUPRIC_CAMPFIRE.get());
 		this.tag(BlockTags.DIRT).add(ROCKY_DIRT.get());
 		this.tag(BlockTags.FIRE).add(CUPRIC_FIRE.get());
@@ -57,7 +57,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		// INDUCTOR.get()
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				ROCKY_DIRT.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(),
-				SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SILVER_BARS.get(), MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), SILVER_BUTTON.get(), SPIKED_RAIL.get(),
+				SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SILVER_BARS.get(), MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), SPIKED_RAIL.get(),
 				SANGUINE_PLATES.get(), SANGUINE_STAIRS.get(), SANGUINE_SLAB.get(),
 				CUPRIC_LANTERN.get(), BRAZIER.get(), SOUL_BRAZIER.get(), CUPRIC_BRAZIER.get(), ENDER_BRAZIER.get(),
 				LAVA_LAMP.get(), GOLDEN_BARS.get(), SPINEL_BLOCK.get(), SPINEL_LAMP.get(),
