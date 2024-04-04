@@ -11,7 +11,7 @@
   },
   "pattern": [
     " I ",
-    "C C",
+    "I I",
     "CCC"
   ],
   "result": {
