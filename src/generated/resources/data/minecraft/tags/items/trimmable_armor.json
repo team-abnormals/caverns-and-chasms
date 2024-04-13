@@ -7,6 +7,10 @@
     "caverns_and_chasms:necromium_helmet",
     "caverns_and_chasms:necromium_chestplate",
     "caverns_and_chasms:necromium_leggings",
-    "caverns_and_chasms:necromium_boots"
+    "caverns_and_chasms:necromium_boots",
+    "caverns_and_chasms:sanguine_helmet",
+    "caverns_and_chasms:sanguine_chestplate",
+    "caverns_and_chasms:sanguine_leggings",
+    "caverns_and_chasms:sanguine_boots"
   ]
 }

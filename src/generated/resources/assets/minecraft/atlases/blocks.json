@@ -11,6 +11,8 @@
       "permutations": {
         "caverns_and_chasms_necromium": "caverns_and_chasms:trims/color_palettes/necromium",
         "caverns_and_chasms_necromium_darker": "caverns_and_chasms:trims/color_palettes/necromium_darker",
+        "caverns_and_chasms_sanguine": "caverns_and_chasms:trims/color_palettes/sanguine",
+        "caverns_and_chasms_sanguine_darker": "caverns_and_chasms:trims/color_palettes/sanguine_darker",
         "caverns_and_chasms_silver": "caverns_and_chasms:trims/color_palettes/silver",
         "caverns_and_chasms_silver_darker": "caverns_and_chasms:trims/color_palettes/silver_darker",
         "caverns_and_chasms_spinel": "caverns_and_chasms:trims/color_palettes/spinel"

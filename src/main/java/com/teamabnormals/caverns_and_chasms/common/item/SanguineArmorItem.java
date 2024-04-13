@@ -5,12 +5,10 @@ import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.client.model.SanguineArmorModel;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -40,11 +38,6 @@ public class SanguineArmorItem extends ArmorItem {
 		return slot == this.getEquipmentSlot() ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 
-	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return CavernsAndChasms.MOD_ID + ":textures/models/armor/sanguine_armor.png";
-	}
-
 	public static void causeHealParticles(LivingEntity entity, float amount) {
 		RandomSource random = entity.getRandom();
 		int count = 3;
@@ -62,7 +55,7 @@ public class SanguineArmorItem extends ArmorItem {
 		consumer.accept(new IClientItemExtensions() {
 			@Override
 			public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> properties) {
-				return SanguineArmorModel.getModel(slot, entity);
+				return slot == EquipmentSlot.HEAD || slot == EquipmentSlot.CHEST ? SanguineArmorModel.INSTANCE : properties;
 			}
 		});
 	}

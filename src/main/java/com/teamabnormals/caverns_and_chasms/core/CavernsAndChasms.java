@@ -28,6 +28,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegis
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -186,7 +187,6 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.SANGUINE_ARMOR, SanguineArmorModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TOOLBOX, ToolboxRenderer::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.LOST_GOAT, LostGoatModel::createBodyLayer);

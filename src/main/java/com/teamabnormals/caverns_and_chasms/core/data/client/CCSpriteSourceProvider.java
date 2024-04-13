@@ -18,20 +18,24 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 	protected void addSources() {
 		this.atlas(BlueprintTrims.ARMOR_TRIMS_ATLAS)
 				.addSource(BlueprintTrims.materialPatternPermutations(
+						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.SILVER,
 						CCTrimMaterials.SILVER_DARKER,
-						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.NECROMIUM,
-						CCTrimMaterials.NECROMIUM_DARKER
+						CCTrimMaterials.NECROMIUM_DARKER,
+						CCTrimMaterials.SANGUINE,
+						CCTrimMaterials.SANGUINE_DARKER
 				));
 		this.atlas(SpriteSourceProvider.BLOCKS_ATLAS)
 				.addSource(new DirectoryLister("entity/toolbox", "entity/toolbox/"))
 				.addSource(BlueprintTrims.materialPermutationsForItemLayers(
+						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.SILVER,
 						CCTrimMaterials.SILVER_DARKER,
-						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.NECROMIUM,
-						CCTrimMaterials.NECROMIUM_DARKER
+						CCTrimMaterials.NECROMIUM_DARKER,
+						CCTrimMaterials.SANGUINE,
+						CCTrimMaterials.SANGUINE_DARKER
 				));
 	}
 
