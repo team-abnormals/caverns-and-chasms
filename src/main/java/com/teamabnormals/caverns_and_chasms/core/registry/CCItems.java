@@ -27,7 +27,6 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -88,7 +87,7 @@ public class CCItems {
 	public static final RegistryObject<Item> NECROMIUM_BOOTS = HELPER.createItem("necromium_boots", () -> new NecromiumArmorItem(CCArmorMaterials.NECROMIUM, ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> NECROMIUM_HORSE_ARMOR = HELPER.createItem("necromium_horse_armor", () -> new NecromiumHorseArmorItem(12, "necromium", new Item.Properties().stacksTo(1).fireResistant()));
 
-	public static final RegistryObject<Item> SANGUINE_PLATING = HELPER.createItem("sanguine_plating", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> LIVING_FLESH = HELPER.createItem("living_flesh", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SANGUINE_HELMET = HELPER.createItem("sanguine_helmet", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> SANGUINE_CHESTPLATE = HELPER.createItem("sanguine_chestplate", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
 	public static final RegistryObject<Item> SANGUINE_LEGGINGS = HELPER.createItem("sanguine_leggings", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
@@ -141,7 +140,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.GOLD_NUGGET), COPPER_NUGGET, SILVER_NUGGET)
 				.addItemsAfter(of(Items.GOLD_NUGGET), NETHERITE_NUGGET, NECROMIUM_NUGGET)
 				.addItemsAfter(of(Items.GOLD_INGOT), SILVER_INGOT)
-				.addItemsAfter(of(Items.NETHERITE_INGOT), NECROMIUM_INGOT, SANGUINE_PLATING)
+				.addItemsAfter(of(Items.NETHERITE_INGOT), NECROMIUM_INGOT, LIVING_FLESH)
 				.addItemsAfter(of(Items.MOJANG_BANNER_PATTERN), ABNORMALS_BANNER_PATTERN)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
 				.tab(TOOLS_AND_UTILITIES)

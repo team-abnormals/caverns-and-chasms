@@ -21,6 +21,15 @@
     "caverns_and_chasms:waxed_lightning_rod",
     "caverns_and_chasms:waxed_exposed_lightning_rod",
     "caverns_and_chasms:waxed_weathered_lightning_rod",
-    "caverns_and_chasms:waxed_oxidized_lightning_rod"
+    "caverns_and_chasms:waxed_oxidized_lightning_rod",
+    "caverns_and_chasms:sanguine_block",
+    "caverns_and_chasms:sanguine_tiles",
+    "caverns_and_chasms:sanguine_tile_stairs",
+    "caverns_and_chasms:sanguine_tile_slab",
+    "caverns_and_chasms:sanguine_tile_wall",
+    "caverns_and_chasms:fortified_sanguine_tiles",
+    "caverns_and_chasms:fortified_sanguine_tile_stairs",
+    "caverns_and_chasms:fortified_sanguine_tile_slab",
+    "caverns_and_chasms:fortified_sanguine_tile_wall"
   ]
 }

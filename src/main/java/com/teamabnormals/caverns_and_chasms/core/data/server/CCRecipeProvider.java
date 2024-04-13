@@ -53,7 +53,8 @@ public class CCRecipeProvider extends RecipeProvider {
 	public static final BlockFamily MOSSY_COBBLESTONE_TILES = new BlockFamily.Builder(CCBlocks.MOSSY_COBBLESTONE_TILES.get()).slab(CCBlocks.MOSSY_COBBLESTONE_TILE_SLAB.get()).stairs(CCBlocks.MOSSY_COBBLESTONE_TILE_STAIRS.get()).wall(CCBlocks.MOSSY_COBBLESTONE_TILE_WALL.get()).getFamily();
 	public static final BlockFamily LAPIS_LAZULI_BRICKS = new BlockFamily.Builder(CCBlocks.LAPIS_LAZULI_BRICKS.get()).slab(CCBlocks.LAPIS_LAZULI_BRICK_SLAB.get()).stairs(CCBlocks.LAPIS_LAZULI_BRICK_STAIRS.get()).wall(CCBlocks.LAPIS_LAZULI_BRICK_WALL.get()).getFamily();
 	public static final BlockFamily SPINEL_BRICKS = new BlockFamily.Builder(CCBlocks.SPINEL_BRICKS.get()).slab(CCBlocks.SPINEL_BRICK_SLAB.get()).stairs(CCBlocks.SPINEL_BRICK_STAIRS.get()).wall(CCBlocks.SPINEL_BRICK_WALL.get()).getFamily();
-	public static final BlockFamily SANGUINE_PLATES = new BlockFamily.Builder(CCBlocks.SANGUINE_PLATES.get()).slab(CCBlocks.SANGUINE_SLAB.get()).stairs(CCBlocks.SANGUINE_STAIRS.get()).getFamily();
+	public static final BlockFamily SANGUINE_TILES = new BlockFamily.Builder(CCBlocks.SANGUINE_TILES.get()).slab(CCBlocks.SANGUINE_TILE_SLAB.get()).stairs(CCBlocks.SANGUINE_TILE_STAIRS.get()).getFamily();
+	public static final BlockFamily FORTIFIED_SANGUINE_TILES = new BlockFamily.Builder(CCBlocks.FORTIFIED_SANGUINE_TILES.get()).slab(CCBlocks.FORTIFIED_SANGUINE_TILE_SLAB.get()).stairs(CCBlocks.FORTIFIED_SANGUINE_TILE_STAIRS.get()).getFamily();
 	public static final BlockFamily CUT_AMETHYST_BRICKS = new BlockFamily.Builder(CCBlocks.CUT_AMETHYST_BRICKS.get()).slab(CCBlocks.CUT_AMETHYST_BRICK_SLAB.get()).stairs(CCBlocks.CUT_AMETHYST_BRICK_STAIRS.get()).wall(CCBlocks.CUT_AMETHYST_BRICK_WALL.get()).getFamily();
 
 	public CCRecipeProvider(PackOutput output) {
@@ -155,15 +156,22 @@ public class CCRecipeProvider extends RecipeProvider {
 		conditionalRecipe(consumer, new NotCondition(new ModLoadedCondition("environmental")), FOOD, ShapedRecipeBuilder.shaped(FOOD, Blocks.CAKE).define('A', CCItems.GOLDEN_MILK_BUCKET.get()).define('B', Items.SUGAR).define('C', Items.WHEAT).define('E', Items.EGG).pattern("AAA").pattern("BEB").pattern("CCC").unlockedBy("has_egg", has(Items.EGG)), new ResourceLocation(CavernsAndChasms.MOD_ID, getSimpleRecipeName(Blocks.CAKE)));
 		conditionalRecipe(consumer, new NotCondition(new TagEmptyCondition(CCItemTags.BOTTLES_MILK.location())), MISC, ShapelessRecipeBuilder.shapeless(MISC, CCItems.GOLDEN_MILK_BUCKET.get()).requires(CCItems.GOLDEN_BUCKET.get()).requires(Ingredient.of(CCItemTags.BOTTLES_MILK), 3).unlockedBy("has_milk_bottle", has(CCItemTags.BOTTLES_MILK)));
 
-		ShapelessRecipeBuilder.shapeless(MISC, CCItems.SANGUINE_PLATING.get()).requires(Items.ROTTEN_FLESH, 3).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 2).requires(Items.GHAST_TEAR, 2).unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_HELMET.get()).define('X', CCItems.SANGUINE_PLATING.get()).pattern("XXX").pattern("X X").unlockedBy("has_sanguine_plating", has(CCItems.SANGUINE_PLATING.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_CHESTPLATE.get()).define('X', CCItems.SANGUINE_PLATING.get()).pattern("X X").pattern("XXX").pattern("XXX").unlockedBy("has_sanguine_plating", has(CCItems.SANGUINE_PLATING.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_LEGGINGS.get()).define('X', CCItems.SANGUINE_PLATING.get()).pattern("XXX").pattern("X X").pattern("X X").unlockedBy("has_sanguine_plating", has(CCItems.SANGUINE_PLATING.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_BOOTS.get()).define('X', CCItems.SANGUINE_PLATING.get()).pattern("X X").pattern("X X").unlockedBy("has_sanguine_plating", has(CCItems.SANGUINE_PLATING.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CCBlocks.SANGUINE_PLATES.get(), 12).define('#', CCItems.SANGUINE_PLATING.get()).pattern("##").pattern("##").unlockedBy("has_sanguine_plating", has(CCItems.SANGUINE_PLATING.get())).save(consumer);
-		generateRecipes(consumer, SANGUINE_PLATES);
-		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.SANGUINE_SLAB.get(), CCBlocks.SANGUINE_PLATES.get(), 2);
-		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.SANGUINE_STAIRS.get(), CCBlocks.SANGUINE_PLATES.get());
+		ShapelessRecipeBuilder.shapeless(MISC, CCItems.LIVING_FLESH.get()).requires(Items.ROTTEN_FLESH, 3).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 2).requires(Items.GHAST_TEAR, 2).unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_HELMET.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("XXX").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_CHESTPLATE.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("X X").pattern("XXX").pattern("XXX").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_LEGGINGS.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("XXX").pattern("X X").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_BOOTS.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("X X").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
+		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, CCItems.LIVING_FLESH.get(), BUILDING_BLOCKS, CCBlocks.SANGUINE_BLOCK.get(), "living_flesh_from_sanguine_block", "living_flesh");
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CCBlocks.SANGUINE_TILES.get(), 8).define('X', CCItems.LIVING_FLESH.get()).define('#', Blocks.NETHERRACK).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
+		generateRecipes(consumer, SANGUINE_TILES);
+		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.SANGUINE_TILE_SLAB.get(), CCBlocks.SANGUINE_TILES.get(), 2);
+		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.SANGUINE_TILE_STAIRS.get(), CCBlocks.SANGUINE_TILES.get());
+		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.SANGUINE_TILE_WALL.get(), CCBlocks.SANGUINE_TILES.get());
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CCBlocks.FORTIFIED_SANGUINE_TILES.get(), 8).define('X', CCItemTags.INGOTS_SILVER).define('#', CCBlocks.SANGUINE_TILES.get()).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_sanguine_tiles", has(CCBlocks.SANGUINE_TILES.get())).save(consumer);
+		generateRecipes(consumer, FORTIFIED_SANGUINE_TILES);
+		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.FORTIFIED_SANGUINE_TILE_SLAB.get(), CCBlocks.FORTIFIED_SANGUINE_TILES.get(), 2);
+		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.FORTIFIED_SANGUINE_TILE_STAIRS.get(), CCBlocks.FORTIFIED_SANGUINE_TILES.get());
+		stonecutterResultFromBase(consumer, BUILDING_BLOCKS, CCBlocks.FORTIFIED_SANGUINE_TILE_WALL.get(), CCBlocks.FORTIFIED_SANGUINE_TILES.get());
 
 		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, CCItems.NECROMIUM_INGOT.get(), BUILDING_BLOCKS, CCBlocks.NECROMIUM_BLOCK.get(), "necromium_ingot_from_necromium_block", "necromium_ingot");
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.NECROMIUM_INGOT.get()).requires(Items.NETHERITE_SCRAP, 4).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 4).group("necromium_ingot").unlockedBy("has_netherite_scrap", has(Items.NETHERITE_SCRAP)).save(consumer);

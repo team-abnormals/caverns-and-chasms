@@ -127,7 +127,10 @@ public class CavernsAndChasms {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.SILVER, Map.of(CCArmorMaterials.SILVER, CavernsAndChasms.MOD_ID + "_silver_darker"));
 		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.NECROMIUM, Map.of(CCArmorMaterials.NECROMIUM, CavernsAndChasms.MOD_ID + "_necromium_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.SANGUINE, Map.of(CCArmorMaterials.SANGUINE, CavernsAndChasms.MOD_ID + "_sanguine_darker"));
+
 		event.enqueueWork(() -> {
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png"));
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.PEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png"));

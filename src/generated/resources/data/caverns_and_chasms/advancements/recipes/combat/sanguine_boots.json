@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sanguine_plating": {
+    "has_living_flesh": {
       "conditions": {
         "items": [
           {
             "items": [
-              "caverns_and_chasms:sanguine_plating"
+              "caverns_and_chasms:living_flesh"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_sanguine_plating",
+      "has_living_flesh",
       "has_the_recipe"
     ]
   ],

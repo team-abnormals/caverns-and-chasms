@@ -4,6 +4,6 @@
     "color": "#6D353A",
     "translate": "trim_material.caverns_and_chasms.sanguine"
   },
-  "ingredient": "caverns_and_chasms:sanguine_plating",
+  "ingredient": "caverns_and_chasms:living_flesh",
   "item_model_index": -1.0
 }

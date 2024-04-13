@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/sanguine_plates",
-    "top": "caverns_and_chasms:block/sanguine_plates",
-    "side": "caverns_and_chasms:block/sanguine_plates"
-  }
-}

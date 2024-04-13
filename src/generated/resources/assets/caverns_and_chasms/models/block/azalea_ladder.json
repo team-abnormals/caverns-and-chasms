@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/ladder",
+  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "caverns_and_chasms:block/azalea_ladder",
     "texture": "caverns_and_chasms:block/azalea_ladder"

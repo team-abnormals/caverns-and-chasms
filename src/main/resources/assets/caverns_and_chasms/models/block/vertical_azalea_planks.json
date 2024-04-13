@@ -1,6 +1,0 @@
-{
-  "parent": "blueprint:block/vertical_planks",
-  "textures": {
-    "all": "caverns_and_chasms:block/azalea_planks"
-  }
-}

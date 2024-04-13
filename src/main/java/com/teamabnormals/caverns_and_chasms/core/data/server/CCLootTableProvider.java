@@ -41,8 +41,6 @@ import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.violetmoon.quark.content.building.block.VerticalSlabBlock;
-import org.violetmoon.quark.content.building.block.VerticalSlabBlock.VerticalSlabType;
 
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +100,16 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SOUL_BRAZIER.get());
 			this.dropSelf(ENDER_BRAZIER.get());
 			this.dropSelf(CUPRIC_BRAZIER.get());
+
+			this.dropSelf(SANGUINE_BLOCK.get());
+			this.dropSelf(SANGUINE_TILES.get());
+			this.dropSelf(SANGUINE_TILE_STAIRS.get());
+			this.dropSelf(SANGUINE_TILE_WALL.get());
+			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(FORTIFIED_SANGUINE_TILES.get());
+			this.dropSelf(FORTIFIED_SANGUINE_TILE_STAIRS.get());
+			this.dropSelf(FORTIFIED_SANGUINE_TILE_WALL.get());
+			this.add(FORTIFIED_SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
 
 			this.add(CCBlocks.TMT.get(), LootTable.lootTable().withPool(applyExplosionCondition(CCBlocks.TMT.get(), LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCBlocks.TMT.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(CCBlocks.TMT.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TmtBlock.UNSTABLE, false)))))));
 
@@ -225,9 +233,9 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SPINEL_PILLAR.get());
 			this.dropSelf(SPINEL_LAMP.get());
 
-			this.dropSelf(SANGUINE_PLATES.get());
-			this.dropSelf(SANGUINE_STAIRS.get());
-			this.add(SANGUINE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(SANGUINE_TILES.get());
+			this.dropSelf(SANGUINE_TILE_STAIRS.get());
+			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
 
 			this.add(CUPRIC_FIRE.get(), noDrop());
 			this.dropSelf(CUPRIC_LANTERN.get());
@@ -265,10 +273,6 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		protected LootTable.Builder createSpinelOreDrops(Block block) {
 			return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SPINEL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
-		}
-
-		protected LootTable.Builder createVerticalSlabItemTable(Block block) {
-			return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(applyExplosionDecay(block, LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(VerticalSlabBlock.TYPE, VerticalSlabType.DOUBLE)))))));
 		}
 
 		@Override

@@ -59,9 +59,15 @@ public class CCBlocks {
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET));
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 
-	public static final RegistryObject<Block> SANGUINE_PLATES = HELPER.createBlock("sanguine_plates", () -> new Block(CCProperties.SANGUINE_PLATES));
-	public static final RegistryObject<Block> SANGUINE_STAIRS = HELPER.createBlock("sanguine_plate_stairs", () -> new StairBlock(() -> SANGUINE_PLATES.get().defaultBlockState(), CCProperties.SANGUINE_PLATES));
-	public static final RegistryObject<Block> SANGUINE_SLAB = HELPER.createBlock("sanguine_plate_slab", () -> new SlabBlock(CCProperties.SANGUINE_PLATES));
+	public static final RegistryObject<Block> SANGUINE_BLOCK = HELPER.createBlock("sanguine_block", () -> new Block(CCProperties.SANGUINE_TILES));
+	public static final RegistryObject<Block> SANGUINE_TILES = HELPER.createBlock("sanguine_tiles", () -> new Block(CCProperties.SANGUINE_TILES));
+	public static final RegistryObject<Block> SANGUINE_TILE_STAIRS = HELPER.createBlock("sanguine_tile_stairs", () -> new StairBlock(() -> SANGUINE_TILES.get().defaultBlockState(), CCProperties.SANGUINE_TILES));
+	public static final RegistryObject<Block> SANGUINE_TILE_SLAB = HELPER.createBlock("sanguine_tile_slab", () -> new SlabBlock(CCProperties.SANGUINE_TILES));
+	public static final RegistryObject<Block> SANGUINE_TILE_WALL = HELPER.createBlock("sanguine_tile_wall", () -> new WallBlock(CCProperties.SANGUINE_TILES));
+	public static final RegistryObject<Block> FORTIFIED_SANGUINE_TILES = HELPER.createBlock("fortified_sanguine_tiles", () -> new Block(CCProperties.FORTIFIED_SANGUINE_TILES));
+	public static final RegistryObject<Block> FORTIFIED_SANGUINE_TILE_STAIRS = HELPER.createBlock("fortified_sanguine_tile_stairs", () -> new StairBlock(() -> FORTIFIED_SANGUINE_TILES.get().defaultBlockState(), CCProperties.FORTIFIED_SANGUINE_TILES));
+	public static final RegistryObject<Block> FORTIFIED_SANGUINE_TILE_SLAB = HELPER.createBlock("fortified_sanguine_tile_slab", () -> new SlabBlock(CCProperties.FORTIFIED_SANGUINE_TILES));
+	public static final RegistryObject<Block> FORTIFIED_SANGUINE_TILE_WALL = HELPER.createBlock("fortified_sanguine_tile_wall", () -> new WallBlock(CCProperties.FORTIFIED_SANGUINE_TILES));
 
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(CCProperties.NECROMIUM_BLOCK), new Item.Properties().fireResistant());
 
@@ -259,6 +265,7 @@ public class CCBlocks {
 						() -> Blocks.DRIPSTONE_BLOCK, DRIPSTONE_SHINGLES, FLOODED_DRIPSTONE_SHINGLES, DRIPSTONE_SHINGLE_STAIRS, DRIPSTONE_SHINGLE_SLAB, DRIPSTONE_SHINGLE_WALL, CHISELED_DRIPSTONE_SHINGLES,
 						SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL, POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB
 				)
+				.addItemsBefore(of(Blocks.BASALT), SANGUINE_BLOCK, SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL, FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL)
 				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL)
 				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLDEN_BARS)
 				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
@@ -362,7 +369,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties SILVER_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.WOOD);
 		public static final BlockBehaviour.Properties SILVER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.METAL);
 		public static final BlockBehaviour.Properties COPPER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER);
-		public static final BlockBehaviour.Properties SANGUINE_PLATES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(SoundType.METAL);
 
 		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(15)).noOcclusion();
 		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(10)).noOcclusion();

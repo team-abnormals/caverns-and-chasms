@@ -23,7 +23,7 @@ public class CCLanguageProvider extends LanguageProvider {
 	public void addTranslations() {
 		this.add(CCBlocks.SILVER_ORE.get(), CCBlocks.DEEPSLATE_SILVER_ORE.get(), CCBlocks.SOUL_SILVER_ORE.get());
 		this.add(CCBlocks.SILVER_BARS.get(), CCBlocks.MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), CCBlocks.SPIKED_RAIL.get());
-		this.add(CCBlocks.SANGUINE_PLATES.get(), CCBlocks.SANGUINE_SLAB.get(), CCBlocks.SANGUINE_STAIRS.get());
+		this.add(CCBlocks.SANGUINE_TILES.get(), CCBlocks.SANGUINE_TILE_SLAB.get(), CCBlocks.SANGUINE_TILE_STAIRS.get());
 		this.add(CCBlocks.SPINEL_ORE.get(), CCBlocks.DEEPSLATE_SPINEL_ORE.get());
 		this.add(CCBlocks.SPINEL_BRICKS.get(), CCBlocks.SPINEL_BRICK_SLAB.get(), CCBlocks.SPINEL_BRICK_STAIRS.get(), CCBlocks.SPINEL_BRICK_WALL.get(), CCBlocks.SPINEL_PILLAR.get(), CCBlocks.SPINEL_LAMP.get());
 		this.addStorageBlock(CCBlocks.RAW_SILVER_BLOCK.get(), CCBlocks.SILVER_BLOCK.get(), CCBlocks.SPINEL_BLOCK.get(), CCBlocks.NECROMIUM_BLOCK.get());
@@ -50,7 +50,7 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get());
 		this.add(CCItems.COPPER_NUGGET.get(), CCItems.BAROMETER.get(), CCItems.TUNING_FORK.get(), CCItems.OXIDIZED_COPPER_GOLEM.get());
 		this.add(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get());
-		this.add(CCItems.SANGUINE_PLATING.get(), CCItems.SANGUINE_HELMET.get(), CCItems.SANGUINE_CHESTPLATE.get(), CCItems.SANGUINE_LEGGINGS.get(), CCItems.SANGUINE_BOOTS.get());
+		this.add(CCItems.LIVING_FLESH.get(), CCItems.SANGUINE_HELMET.get(), CCItems.SANGUINE_CHESTPLATE.get(), CCItems.SANGUINE_LEGGINGS.get(), CCItems.SANGUINE_BOOTS.get());
 		this.add(CCItems.DEEPER_SPAWN_EGG.get(), CCItems.MIME_SPAWN_EGG.get());//, CCItems.RAT_SPAWN_EGG.get());
 	}
 
