@@ -21,7 +21,10 @@ public class CCTrimMaterialTagsProvider extends TagsProvider<TrimMaterial> {
 	@Override
 	public void addTags(Provider provider) {
 		this.tag(BlueprintTrimMaterialTags.GENERATES_OVERRIDES).add(
-				CCTrimMaterials.SILVER
+				CCTrimMaterials.SANGUINE,
+				CCTrimMaterials.SILVER,
+				CCTrimMaterials.SPINEL,
+				CCTrimMaterials.NECROMIUM
 		);
 	}
 }
