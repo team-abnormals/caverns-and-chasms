@@ -34,6 +34,6 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
 [[dependencies.caverns_and_chasms]]
     modId = "blueprint"
     mandatory = true
-    versionRange = "[7.0.2,)"
+    versionRange = "[7.1.0,)"
     ordering = "AFTER"
     side = "BOTH"

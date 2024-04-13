@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
+import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
@@ -9,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCAdvancementProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCDatapackBuiltinEntriesProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
@@ -17,6 +19,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvance
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.*;
+import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
@@ -57,6 +60,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -122,6 +126,7 @@ public class CavernsAndChasms {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.NECROMIUM, Map.of(CCArmorMaterials.NECROMIUM, CavernsAndChasms.MOD_ID + "_necromium_darker"));
 		event.enqueueWork(() -> {
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png"));
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.PEEPER, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png"));
@@ -154,6 +159,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCInstrumentTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCGameEventTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCDamageTypeTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCTrimMaterialTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCRecipeProvider(output));
 		generator.addProvider(server, new CCLootTableProvider(output));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
@@ -163,6 +169,7 @@ public class CavernsAndChasms {
 		boolean client = event.includeClient();
 		generator.addProvider(client, new CCItemModelProvider(output, helper));
 		generator.addProvider(client, new CCBlockStateProvider(output, helper));
+		generator.addProvider(client, new CCSpriteSourceProvider(output, helper));
 		//generator.addProvider(client, new CCLanguageProvider(generator));
 	}
 

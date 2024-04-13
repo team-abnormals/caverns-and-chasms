@@ -1,0 +1,26 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:directory",
+      "prefix": "entity/toolbox/",
+      "source": "entity/toolbox"
+    },
+    {
+      "type": "blueprint:paletted_permutations",
+      "palette_key": "minecraft:trims/color_palettes/trim_palette",
+      "permutations": {
+        "caverns_and_chasms_necromium": "caverns_and_chasms:trims/color_palettes/necromium",
+        "caverns_and_chasms_necromium_darker": "caverns_and_chasms:trims/color_palettes/necromium_darker",
+        "caverns_and_chasms_silver": "caverns_and_chasms:trims/color_palettes/silver",
+        "caverns_and_chasms_silver_darker": "caverns_and_chasms:trims/color_palettes/silver_darker",
+        "caverns_and_chasms_spinel": "caverns_and_chasms:trims/color_palettes/spinel"
+      },
+      "textures": [
+        "minecraft:trims/items/helmet_trim",
+        "minecraft:trims/items/chestplate_trim",
+        "minecraft:trims/items/leggings_trim",
+        "minecraft:trims/items/boots_trim"
+      ]
+    }
+  ]
+}

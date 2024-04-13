@@ -57,6 +57,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(BlueprintItemTags.LARGE_BOATS).add(CCItems.LARGE_AZALEA_BOAT.get());
 		this.tag(ItemTags.ARROWS).add(CCItems.LARGE_ARROW.get(), CCItems.BLUNT_ARROW.get());
 		this.tag(ItemTags.TRIMMABLE_ARMOR).add(SILVER_HELMET.get(), SILVER_CHESTPLATE.get(), SILVER_LEGGINGS.get(), SILVER_BOOTS.get(), NECROMIUM_HELMET.get(), NECROMIUM_CHESTPLATE.get(), NECROMIUM_LEGGINGS.get(), NECROMIUM_BOOTS.get());
+		this.tag(ItemTags.TRIM_MATERIALS).add(SILVER_INGOT.get(), NECROMIUM_INGOT.get(), SPINEL.get());
 
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);

@@ -348,7 +348,6 @@ public class CCRecipeProvider extends RecipeProvider {
 		ShapelessRecipeBuilder.shapeless(category, result).requires(input).requires(Items.HONEYCOMB).group(getItemName(result)).unlockedBy(getHasName(input), has(input)).save(consumer, getModConversionRecipeName(result, Items.HONEYCOMB));
 	}
 
-
 	public static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike block) {
 		nineBlockStorageRecipes(consumer, itemCategory, item, blockCategory, block, getItemName(block), null, getItemName(item), null);
 	}
@@ -358,12 +357,12 @@ public class CCRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(blockCategory, block).define('#', item).pattern("###").pattern("###").pattern("###").group(shapedGroup).unlockedBy(getHasName(item), has(item)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, shapedName));
 	}
 
-	public static void nineBlockStorageRecipesWithCustomPacking(Consumer<FinishedRecipe> p_176563_, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike block, String p_176566_, String p_176567_) {
-		nineBlockStorageRecipes(p_176563_, itemCategory, item, blockCategory, block, p_176566_, p_176567_, getSimpleRecipeName(item), null);
+	public static void nineBlockStorageRecipesWithCustomPacking(Consumer<FinishedRecipe> p_176563_, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike block, String shapedName, String shapedGroup) {
+		nineBlockStorageRecipes(p_176563_, itemCategory, item, blockCategory, block, shapedName, shapedGroup, getSimpleRecipeName(item), null);
 	}
 
-	public static void nineBlockStorageRecipesRecipesWithCustomUnpacking(Consumer<FinishedRecipe> p_176617_, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike p_176619_, String p_176620_, String p_176621_) {
-		nineBlockStorageRecipes(p_176617_, itemCategory, item, blockCategory, p_176619_, getSimpleRecipeName(p_176619_), null, p_176620_, p_176621_);
+	public static void nineBlockStorageRecipesRecipesWithCustomUnpacking(Consumer<FinishedRecipe> p_176617_, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike p_176619_, String shapelessName, String shapelessGroup) {
+		nineBlockStorageRecipes(p_176617_, itemCategory, item, blockCategory, p_176619_, getSimpleRecipeName(p_176619_), null, shapelessName, shapelessGroup);
 	}
 
 	public static void stonecutterResultFromBase(Consumer<FinishedRecipe> p_176736_, RecipeCategory category, ItemLike p_176737_, ItemLike p_176738_) {

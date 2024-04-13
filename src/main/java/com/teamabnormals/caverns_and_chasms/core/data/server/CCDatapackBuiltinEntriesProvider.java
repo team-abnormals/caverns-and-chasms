@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCBiomeModifiers;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -21,7 +22,8 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(Registries.CONFIGURED_FEATURE, CCConfiguredFeatures::bootstrap)
 			.add(Registries.PLACED_FEATURE, CCPlacedFeatures::bootstrap)
 			.add(ForgeRegistries.Keys.BIOME_MODIFIERS, CCBiomeModifiers::bootstrap)
-			.add(Registries.DAMAGE_TYPE, CCDamageTypes::bootstrap);
+			.add(Registries.DAMAGE_TYPE, CCDamageTypes::bootstrap)
+			.add(Registries.TRIM_MATERIAL, CCTrimMaterials::bootstrap);
 
 	public CCDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<Provider> provider) {
 		super(output, provider, BUILDER, Set.of(CavernsAndChasms.MOD_ID));
