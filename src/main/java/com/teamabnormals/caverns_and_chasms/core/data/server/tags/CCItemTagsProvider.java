@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
+import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
@@ -107,6 +108,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(CCItems.NECROMIUM_NUGGET.get());
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_NECROMIUM);
 		this.tag(Tags.Items.HEADS).add(CCItems.DEEPER_HEAD.get(), CCItems.PEEPER_HEAD.get(), CCItems.MIME_HEAD.get());
+		this.copy(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS, ItemTags.NOTE_BLOCK_TOP_INSTRUMENTS);
 
 		this.tag(ItemTags.SWORDS).add(CCItems.SILVER_SWORD.get(), CCItems.NECROMIUM_SWORD.get());
 		this.tag(ItemTags.PICKAXES).add(CCItems.SILVER_PICKAXE.get(), CCItems.NECROMIUM_PICKAXE.get());

@@ -1,12 +1,40 @@
 {
   "music.record.epilogue": {
-    "category": "master",
     "sounds": [
       {
         "name": "caverns_and_chasms:record/epilogue",
         "stream": true
       }
     ]
+  },
+  "block.note_block.imitate.mime": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:entity.mime.mime",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.mime"
+  },
+  "block.note_block.imitate.deeper": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:entity.deeper.primed",
+        "pitch": 0.5,
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.primed"
+  },
+  "block.note_block.imitate.peeper": {
+    "sounds": [
+      {
+        "name": "entity.creeper.primed",
+        "pitch": 0.5,
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.creeper.primed"
   },
   "block.rocky_dirt.break": {
     "sounds": [

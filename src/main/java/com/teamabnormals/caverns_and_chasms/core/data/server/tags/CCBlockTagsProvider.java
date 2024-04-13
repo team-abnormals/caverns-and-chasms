@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
+import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.HolderLookup.Provider;
@@ -129,6 +130,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				WAXED_LIGHTNING_ROD.get(), WAXED_EXPOSED_LIGHTNING_ROD.get(), WAXED_WEATHERED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get(),
 				WAXED_FLOODLIGHT.get(), WAXED_EXPOSED_FLOODLIGHT.get(), WAXED_WEATHERED_FLOODLIGHT.get(), WAXED_OXIDIZED_FLOODLIGHT.get()
 		);
+		this.tag(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS).add(MIME_HEAD.get(), DEEPER_HEAD.get(), PEEPER_HEAD.get());
+
 		this.tag(CCBlockTags.STORAGE_BLOCKS_SILVER).add(SILVER_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_SPINEL).add(SPINEL_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).add(NECROMIUM_BLOCK.get());

@@ -1,10 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.google.common.collect.ImmutableList;
+import com.teamabnormals.blueprint.core.util.DataUtil;
+import com.teamabnormals.blueprint.core.util.DataUtil.CustomNoteBlockInstrument;
 import com.teamabnormals.blueprint.core.util.registry.SoundSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegistryObject;
@@ -25,6 +27,10 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
+
+	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_MIME = HELPER.createSoundEvent("block.note_block.imitate.mime");
+	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_DEEPER = HELPER.createSoundEvent("block.note_block.imitate.deeper");
+	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_PEEPER = HELPER.createSoundEvent("block.note_block.imitate.peeper");
 
 	public static final RegistryObject<SoundEvent> TUNING_FORK_VIBRATE = HELPER.createSoundEvent("item.tuning_fork.vibrate");
 
@@ -67,5 +73,16 @@ public class CCSoundEvents {
 
 	public static class CCSoundTypes {
 		public static final ForgeSoundType ROCKY_DIRT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK, CCSoundEvents.ROCKY_DIRT_STEP, CCSoundEvents.ROCKY_DIRT_PLACE, CCSoundEvents.ROCKY_DIRT_HIT, CCSoundEvents.ROCKY_DIRT_FALL);
+	}
+
+	public static void registerNoteBlocks() {
+		registerHeadInstrument(CCBlocks.MIME_HEAD, NOTE_BLOCK_IMITATE_MIME);
+		registerHeadInstrument(CCBlocks.DEEPER_HEAD, NOTE_BLOCK_IMITATE_DEEPER);
+		registerHeadInstrument(CCBlocks.PEEPER_HEAD, NOTE_BLOCK_IMITATE_PEEPER);
+	}
+
+	public static void registerHeadInstrument(RegistryObject<Block> block, RegistryObject<SoundEvent> soundEvent) {
+		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(block.get()), soundEvent.get(), true));
+
 	}
 }

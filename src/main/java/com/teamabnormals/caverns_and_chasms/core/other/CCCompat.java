@@ -40,6 +40,7 @@ public class CCCompat {
 		registerVibrationFrequencies();
 		changeLocalization();
 		CCCauldronInteractions.registerCauldronInteractions();
+		CCSoundEvents.registerNoteBlocks();
 	}
 
 	private static void registerFlammables() {
