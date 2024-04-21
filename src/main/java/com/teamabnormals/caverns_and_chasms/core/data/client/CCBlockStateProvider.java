@@ -53,16 +53,16 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.cubeBottomTopBlock(TMT);
 
-		this.ironBarsBlock(COPPER_BARS.get());
-		this.ironBarsBlock(EXPOSED_COPPER_BARS.get());
-		this.ironBarsBlock(WEATHERED_COPPER_BARS.get());
-		this.ironBarsBlock(OXIDIZED_COPPER_BARS.get());
+		this.ironBarsBlock(COPPER_BARS);
+		this.ironBarsBlock(EXPOSED_COPPER_BARS);
+		this.ironBarsBlock(WEATHERED_COPPER_BARS);
+		this.ironBarsBlock(OXIDIZED_COPPER_BARS);
 		this.waxedCopperBarsBlock(WAXED_COPPER_BARS, COPPER_BARS);
 		this.waxedCopperBarsBlock(WAXED_EXPOSED_COPPER_BARS, EXPOSED_COPPER_BARS);
 		this.waxedCopperBarsBlock(WAXED_WEATHERED_COPPER_BARS, WEATHERED_COPPER_BARS);
 		this.waxedCopperBarsBlock(WAXED_OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_BARS);
-		this.ironBarsBlock(GOLDEN_BARS.get());
-		this.ironBarsBlock(SILVER_BARS.get());
+		this.ironBarsBlock(GOLDEN_BARS);
+		this.ironBarsBlock(SILVER_BARS);
 
 		this.buttonBlock(Blocks.COPPER_BLOCK, COPPER_BUTTON.get());
 		this.buttonBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_BUTTON.get());

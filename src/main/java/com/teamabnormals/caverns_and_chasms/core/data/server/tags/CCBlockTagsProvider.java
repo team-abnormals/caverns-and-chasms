@@ -28,7 +28,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.CAMPFIRES).add(CUPRIC_CAMPFIRE.get());
 		this.tag(BlockTags.DIRT).add(ROCKY_DIRT.get());
 		this.tag(BlockTags.FIRE).add(CUPRIC_FIRE.get());
-		this.tag(BlockTags.GUARDED_BY_PIGLINS).add(GOLDEN_BARS.get(), LAVA_LAMP.get(), AZALEA_CHEST.get(), TRAPPED_AZALEA_CHEST.get());
+		this.tag(BlockTags.GUARDED_BY_PIGLINS).add(GOLDEN_BARS.get(), LAVA_LAMP.get());
 		this.tag(BlockTags.PIGLIN_REPELLENTS).add(SOUL_BRAZIER.get());
 		this.tag(BlockTags.PRESSURE_PLATES).add(MEDIUM_WEIGHTED_PRESSURE_PLATE.get());
 		this.tag(BlockTags.RAILS).add(SPIKED_RAIL.get());
@@ -81,10 +81,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get(),
 				ECHO_BLOCK.get()
 		);
-		this.tag(BlockTags.MINEABLE_WITH_AXE).add(
-				CUPRIC_CAMPFIRE.get(),
-				AZALEA_BOARDS.get(), AZALEA_BOOKSHELF.get(), CHISELED_AZALEA_BOOKSHELF.get(), AZALEA_LADDER.get(), AZALEA_BEEHIVE.get(), AZALEA_CHEST.get(), TRAPPED_AZALEA_CHEST.get()
-		);
+		this.tag(BlockTags.MINEABLE_WITH_AXE).add(CUPRIC_CAMPFIRE.get());
 		this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ROCKY_DIRT.get(), SOUL_SILVER_ORE.get());
 		this.tag(BlockTags.MINEABLE_WITH_HOE).add(ROTTEN_FLESH_BLOCK.get());
 		this.tag(BlockTags.NEEDS_STONE_TOOL).add(
@@ -131,6 +128,14 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				WAXED_FLOODLIGHT.get(), WAXED_EXPOSED_FLOODLIGHT.get(), WAXED_WEATHERED_FLOODLIGHT.get(), WAXED_OXIDIZED_FLOODLIGHT.get()
 		);
 		this.tag(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS).add(MIME_HEAD.get(), DEEPER_HEAD.get(), PEEPER_HEAD.get());
+
+		this.tag(BlueprintBlockTags.WOODEN_BOARDS).add(AZALEA_BOARDS.get());
+		this.tag(BlueprintBlockTags.WOODEN_CHESTS).add(AZALEA_CHEST.get());
+		this.tag(BlueprintBlockTags.WOODEN_TRAPPED_CHESTS).add(TRAPPED_AZALEA_CHEST.get());
+		this.tag(BlueprintBlockTags.WOODEN_BEEHIVES).add(AZALEA_BEEHIVE.get());
+		this.tag(BlueprintBlockTags.WOODEN_LADDERS).add(AZALEA_LADDER.get());
+		this.tag(BlueprintBlockTags.WOODEN_BOOKSHELVES).add(AZALEA_BOOKSHELF.get());
+		this.tag(BlueprintBlockTags.WOODEN_CHISELED_BOOKSHELVES).add(CHISELED_AZALEA_BOOKSHELF.get());
 
 		this.tag(CCBlockTags.STORAGE_BLOCKS_SILVER).add(SILVER_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_SPINEL).add(SPINEL_BLOCK.get());

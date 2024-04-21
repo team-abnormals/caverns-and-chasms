@@ -1,8 +1,6 @@
 {
   "values": [
     "caverns_and_chasms:golden_bars",
-    "caverns_and_chasms:lava_lamp",
-    "caverns_and_chasms:azalea_chest",
-    "caverns_and_chasms:trapped_azalea_chest"
+    "caverns_and_chasms:lava_lamp"
   ]
 }
