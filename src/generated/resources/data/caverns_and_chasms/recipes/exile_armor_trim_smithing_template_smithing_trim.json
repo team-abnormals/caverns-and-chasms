@@ -7,6 +7,6 @@
     "tag": "minecraft:trimmable_armor"
   },
   "template": {
-    "item": "caverns_and_chasms:living_flesh"
+    "item": "caverns_and_chasms:exile_armor_trim_smithing_template"
   }
 }

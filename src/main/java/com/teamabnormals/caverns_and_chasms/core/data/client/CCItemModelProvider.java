@@ -23,7 +23,7 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 				COPPER_NUGGET, OXIDIZED_COPPER_GOLEM,
 				RAW_SILVER, LARGE_ARROW,
 				BEJEWELED_APPLE, BLUNT_ARROW,
-				LIVING_FLESH,
+				LIVING_FLESH, EXILE_ARMOR_TRIM_SMITHING_TEMPLATE,
 				AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond(), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT
 		);
 		this.item(WAXED_OXIDIZED_COPPER_GOLEM, "oxidized_copper_golem", "generated");

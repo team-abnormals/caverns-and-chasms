@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_smithing_trim_template": {
+    "has_exile_armor_trim_smithing_template": {
       "conditions": {
         "items": [
           {
             "items": [
-              "caverns_and_chasms:living_flesh"
+              "caverns_and_chasms:exile_armor_trim_smithing_template"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:living_flesh_smithing_trim"
+        "recipe": "caverns_and_chasms:exile_armor_trim_smithing_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_smithing_trim_template",
+      "has_exile_armor_trim_smithing_template",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:living_flesh_smithing_trim"
+      "caverns_and_chasms:exile_armor_trim_smithing_template"
     ]
   },
   "sends_telemetry_event": false

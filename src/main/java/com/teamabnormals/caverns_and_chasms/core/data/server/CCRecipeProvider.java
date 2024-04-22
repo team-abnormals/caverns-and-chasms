@@ -151,7 +151,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		conditionalRecipe(consumer, new NotCondition(new ModLoadedCondition("environmental")), FOOD, ShapedRecipeBuilder.shaped(FOOD, Blocks.CAKE).define('A', CCItems.GOLDEN_MILK_BUCKET.get()).define('B', Items.SUGAR).define('C', Items.WHEAT).define('E', Items.EGG).pattern("AAA").pattern("BEB").pattern("CCC").unlockedBy("has_egg", has(Items.EGG)), new ResourceLocation(CavernsAndChasms.MOD_ID, getSimpleRecipeName(Blocks.CAKE)));
 		conditionalRecipe(consumer, new NotCondition(new TagEmptyCondition(CCItemTags.BOTTLES_MILK.location())), MISC, ShapelessRecipeBuilder.shapeless(MISC, CCItems.GOLDEN_MILK_BUCKET.get()).requires(CCItems.GOLDEN_BUCKET.get()).requires(Ingredient.of(CCItemTags.BOTTLES_MILK), 3).unlockedBy("has_milk_bottle", has(CCItemTags.BOTTLES_MILK)));
 
-		ShapelessRecipeBuilder.shapeless(MISC, CCItems.LIVING_FLESH.get()).requires(Items.ROTTEN_FLESH, 3).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 2).requires(Items.GHAST_TEAR, 2).unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
+		ShapelessRecipeBuilder.shapeless(MISC, CCItems.LIVING_FLESH.get(), 2).requires(Items.ROTTEN_FLESH, 3).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 2).requires(Items.GHAST_TEAR, 2).unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_HELMET.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("XXX").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_CHESTPLATE.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("X X").pattern("XXX").pattern("XXX").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_LEGGINGS.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("XXX").pattern("X X").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
@@ -337,7 +337,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		WoodworksRecipeProvider.baseRecipes(consumer, AZALEA_PLANKS.get(), AZALEA_SLAB.get(), AZALEA_BOARDS.get(), AZALEA_BOOKSHELF.get(), CHISELED_AZALEA_BOOKSHELF.get(), AZALEA_LADDER.get(), AZALEA_BEEHIVE.get(), AZALEA_CHEST.get(), TRAPPED_AZALEA_CHEST.get(), CavernsAndChasms.MOD_ID);
 		WoodworksRecipeProvider.sawmillRecipes(consumer, AZALEA_PLANKS_FAMILY, CCItemTags.AZALEA_LOGS, AZALEA_BOARDS.get(), AZALEA_LADDER.get(), CavernsAndChasms.MOD_ID);
 
-		trimSmithing(consumer, CCItems.LIVING_FLESH.get());
+		trimRecipes(consumer, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.NETHERRACK);
 	}
 
 	protected void necromiumSmithingRecipe(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {

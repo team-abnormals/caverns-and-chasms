@@ -15,7 +15,7 @@ public class CCTrimPatterns {
 	public static final ResourceKey<TrimPattern> EXILE = createKey("exile");
 
 	public static void bootstrap(BootstapContext<TrimPattern> context) {
-		register(context, EXILE, CCItems.LIVING_FLESH.get());
+		register(context, EXILE, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 	}
 
 	public static ResourceKey<TrimPattern> createKey(String name) {

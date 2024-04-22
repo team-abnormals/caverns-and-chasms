@@ -11,11 +11,15 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
@@ -67,8 +71,11 @@ public class CCLootModifierProvider extends LootModifierProvider {
 
 		this.entry("ruined_portal").selects(BuiltInLootTables.RUINED_PORTAL).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16), lootPool(CCBlocks.LAVA_LAMP.get(), 5), lootPool(CCItems.GOLDEN_BUCKET.get(), 1))));
-		this.entry("nether_bridge").selects(BuiltInLootTables.NETHER_BRIDGE).addModifier(new LootPoolEntriesModifier(false, 0,
-				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 5), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 6))));
+		this.entry("nether_bridge").selects(BuiltInLootTables.NETHER_BRIDGE)
+				.addModifier(new LootPoolEntriesModifier(false, 0, List.of(
+						lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 5),
+						lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 6))))
+				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 1))));
 
 		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
@@ -76,6 +83,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "kousa_sanctum")).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
 	}
+
 
 	private static LootPoolEntryContainer lootPool(ItemLike item, int weight) {
 		return LootItem.lootTableItem(item).setWeight(weight).build();
