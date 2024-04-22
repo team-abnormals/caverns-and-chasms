@@ -17,9 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -27,8 +25,6 @@ import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 
-import javax.annotation.Nullable;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
@@ -125,17 +121,15 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		waxRecipe(consumer, DECORATIONS, WEATHERED_LIGHTNING_ROD.get(), WAXED_WEATHERED_LIGHTNING_ROD.get());
 		waxRecipe(consumer, DECORATIONS, OXIDIZED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get());
 
-		nineBlockStorageRecipes(consumer, MISC, CCItems.SPINEL.get(), BUILDING_BLOCKS, SPINEL_BLOCK.get());
-		nineBlockStorageRecipes(consumer, MISC, CCItems.RAW_SILVER.get(), BUILDING_BLOCKS, RAW_SILVER_BLOCK.get());
-		nineBlockStorageRecipes(consumer, FOOD, Items.ROTTEN_FLESH, BUILDING_BLOCKS, ROTTEN_FLESH_BLOCK.get());
-		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, CCItems.SILVER_INGOT.get(), BUILDING_BLOCKS, SILVER_BLOCK.get(), "silver_ingot_from_silver_block", "silver_ingot");
-		nineBlockStorageRecipesWithCustomPacking(consumer, MISC, CCItems.SILVER_NUGGET.get(), MISC, CCItems.SILVER_INGOT.get(), "silver_ingot_from_nuggets", "silver_ingot");
-		nineBlockStorageRecipesWithCustomPacking(consumer, MISC, CCItems.COPPER_NUGGET.get(), MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
+		storageRecipes(consumer, MISC, CCItems.SPINEL.get(), BUILDING_BLOCKS, SPINEL_BLOCK.get());
+		storageRecipes(consumer, MISC, CCItems.RAW_SILVER.get(), BUILDING_BLOCKS, RAW_SILVER_BLOCK.get());
+		storageRecipes(consumer, FOOD, Items.ROTTEN_FLESH, BUILDING_BLOCKS, ROTTEN_FLESH_BLOCK.get());
+		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.SILVER_INGOT.get(), BUILDING_BLOCKS, SILVER_BLOCK.get(), "silver_ingot_from_silver_block", "silver_ingot");
+		storageRecipesWithCustomPacking(consumer, MISC, CCItems.SILVER_NUGGET.get(), MISC, CCItems.SILVER_INGOT.get(), "silver_ingot_from_nuggets", "silver_ingot");
+		storageRecipesWithCustomPacking(consumer, MISC, CCItems.COPPER_NUGGET.get(), MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
 
-		oreSmelting(consumer, SILVER_SMELTABLES, MISC, CCItems.SILVER_INGOT.get(), 1.0F, 200, "silver_ingot");
-		oreSmelting(consumer, SPINEL_SMELTABLES, MISC, CCItems.SPINEL.get(), 0.2F, 200, "spinel");
-		oreBlasting(consumer, SILVER_SMELTABLES, MISC, CCItems.SILVER_INGOT.get(), 1.0F, 100, "silver_ingot");
-		oreBlasting(consumer, SPINEL_SMELTABLES, MISC, CCItems.SPINEL.get(), 0.2F, 100, "spinel");
+		oreRecipes(consumer, SILVER_SMELTABLES, MISC, CCItems.SILVER_INGOT.get(), 1.0F, 200, 1.0F, 100, "silver_ingot");
+		oreRecipes(consumer, SPINEL_SMELTABLES, MISC, CCItems.SPINEL.get(), 0.2F, 200, 0.2F, 100, "spinel");
 
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.SILVER_AXE.get()).define('#', Items.STICK).define('X', CCItemTags.INGOTS_SILVER).pattern("XX").pattern("X#").pattern(" #").unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SILVER_BOOTS.get()).define('X', CCItemTags.INGOTS_SILVER).pattern("X X").pattern("X X").unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
@@ -162,7 +156,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_CHESTPLATE.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("X X").pattern("XXX").pattern("XXX").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_LEGGINGS.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("XXX").pattern("X X").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_BOOTS.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("X X").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
-		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, CCItems.LIVING_FLESH.get(), BUILDING_BLOCKS, SANGUINE_BLOCK.get(), "living_flesh_from_sanguine_block", "living_flesh");
+		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.LIVING_FLESH.get(), BUILDING_BLOCKS, SANGUINE_BLOCK.get(), "living_flesh_from_sanguine_block", "living_flesh");
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SANGUINE_TILES.get(), 8).define('X', CCItems.LIVING_FLESH.get()).define('#', Blocks.NETHERRACK).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);
 		generateRecipes(consumer, SANGUINE_TILES_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SANGUINE_TILE_SLAB.get(), SANGUINE_TILES.get(), 2);
@@ -174,22 +168,22 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, FORTIFIED_SANGUINE_TILE_STAIRS.get(), FORTIFIED_SANGUINE_TILES.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, FORTIFIED_SANGUINE_TILE_WALL.get(), FORTIFIED_SANGUINE_TILES.get());
 
-		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, CCItems.NECROMIUM_INGOT.get(), BUILDING_BLOCKS, NECROMIUM_BLOCK.get(), "necromium_ingot_from_necromium_block", "necromium_ingot");
+		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.NECROMIUM_INGOT.get(), BUILDING_BLOCKS, NECROMIUM_BLOCK.get(), "necromium_ingot_from_necromium_block", "necromium_ingot");
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.NECROMIUM_INGOT.get()).requires(Items.NETHERITE_SCRAP, 4).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 4).group("necromium_ingot").unlockedBy("has_netherite_scrap", has(Items.NETHERITE_SCRAP)).save(consumer);
-		nineBlockStorageRecipesWithCustomPacking(consumer, MISC, CCItems.NECROMIUM_NUGGET.get(), MISC, CCItems.NECROMIUM_INGOT.get(), "necromium_ingot_from_nuggets", "necromium_ingot");
-		necromiumSmithing(consumer, Items.DIAMOND_CHESTPLATE, COMBAT, CCItems.NECROMIUM_CHESTPLATE.get());
-		necromiumSmithing(consumer, Items.DIAMOND_LEGGINGS, COMBAT, CCItems.NECROMIUM_LEGGINGS.get());
-		necromiumSmithing(consumer, Items.DIAMOND_HELMET, COMBAT, CCItems.NECROMIUM_HELMET.get());
-		necromiumSmithing(consumer, Items.DIAMOND_BOOTS, COMBAT, CCItems.NECROMIUM_BOOTS.get());
-		necromiumSmithing(consumer, Items.DIAMOND_SWORD, COMBAT, CCItems.NECROMIUM_SWORD.get());
-		necromiumSmithing(consumer, Items.DIAMOND_AXE, TOOLS, CCItems.NECROMIUM_AXE.get());
-		necromiumSmithing(consumer, Items.DIAMOND_PICKAXE, TOOLS, CCItems.NECROMIUM_PICKAXE.get());
-		necromiumSmithing(consumer, Items.DIAMOND_HOE, TOOLS, CCItems.NECROMIUM_HOE.get());
-		necromiumSmithing(consumer, Items.DIAMOND_SHOVEL, TOOLS, CCItems.NECROMIUM_SHOVEL.get());
-		necromiumSmithing(consumer, Items.DIAMOND_HORSE_ARMOR, COMBAT, CCItems.NECROMIUM_HORSE_ARMOR.get());
-		netheriteSmithing(consumer, Items.DIAMOND_HORSE_ARMOR, COMBAT, CCItems.NETHERITE_HORSE_ARMOR.get());
+		storageRecipesWithCustomPacking(consumer, MISC, CCItems.NECROMIUM_NUGGET.get(), MISC, CCItems.NECROMIUM_INGOT.get(), "necromium_ingot_from_nuggets", "necromium_ingot");
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_CHESTPLATE, COMBAT, CCItems.NECROMIUM_CHESTPLATE.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_LEGGINGS, COMBAT, CCItems.NECROMIUM_LEGGINGS.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_HELMET, COMBAT, CCItems.NECROMIUM_HELMET.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_BOOTS, COMBAT, CCItems.NECROMIUM_BOOTS.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_SWORD, COMBAT, CCItems.NECROMIUM_SWORD.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_AXE, TOOLS, CCItems.NECROMIUM_AXE.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_PICKAXE, TOOLS, CCItems.NECROMIUM_PICKAXE.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_HOE, TOOLS, CCItems.NECROMIUM_HOE.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_SHOVEL, TOOLS, CCItems.NECROMIUM_SHOVEL.get());
+		necromiumSmithingRecipe(consumer, Items.DIAMOND_HORSE_ARMOR, COMBAT, CCItems.NECROMIUM_HORSE_ARMOR.get());
+		netheriteSmithingRecipe(consumer, Items.DIAMOND_HORSE_ARMOR, COMBAT, CCItems.NETHERITE_HORSE_ARMOR.get());
 
-		nineBlockStorageRecipesWithCustomPacking(consumer, MISC, CCItems.NETHERITE_NUGGET.get(), MISC, Items.NETHERITE_INGOT, "netherite_ingot_from_nuggets", "netherite_ingot");
+		storageRecipesWithCustomPacking(consumer, MISC, CCItems.NETHERITE_NUGGET.get(), MISC, Items.NETHERITE_INGOT, "netherite_ingot_from_nuggets", "netherite_ingot");
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, LAPIS_LAZULI_BRICKS.get()).define('#', Items.LAPIS_LAZULI).pattern("##").pattern("##").unlockedBy(getHasName(Items.LAPIS_LAZULI), has(Items.LAPIS_LAZULI)).save(consumer);
 		generateRecipes(consumer, LAPIS_LAZULI_BRICKS_FAMILY);
@@ -261,7 +255,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_DRIPSTONE_SHINGLES.get(), Blocks.DRIPSTONE_BLOCK);
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, FLOODED_DRIPSTONE_SHINGLES.get(), 8).requires(BlueprintItemTags.BUCKETS_WATER).requires(DRIPSTONE_SHINGLES.get(), 8).unlockedBy("has_dripstone_shingles", has(DRIPSTONE_SHINGLES.get())).save(consumer);
 
-		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, Items.AMETHYST_SHARD, BUILDING_BLOCKS, AMETHYST_BLOCK.get(), "amethyst_from_amethyst_block", "amethyst_shard");
+		storageRecipesWithCustomUnpacking(consumer, MISC, Items.AMETHYST_SHARD, BUILDING_BLOCKS, AMETHYST_BLOCK.get(), "amethyst_from_amethyst_block", "amethyst_shard");
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CUT_AMETHYST.get(), 4).define('#', Blocks.AMETHYST_BLOCK).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.AMETHYST_BLOCK), has(Blocks.AMETHYST_BLOCK)).save(consumer);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CUT_AMETHYST_BRICKS.get(), 4).define('#', CUT_AMETHYST.get()).pattern("##").pattern("##").unlockedBy(getHasName(CUT_AMETHYST.get()), has(CUT_AMETHYST.get())).save(consumer);
 		generateRecipes(consumer, CUT_AMETHYST_BRICKS_FAMILY);
@@ -279,7 +273,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CUT_AMETHYST_BRICK_STAIRS.get(), Blocks.AMETHYST_BLOCK);
 		stonecutterRecipe(consumer, DECORATIONS, CUT_AMETHYST_BRICK_WALL.get(), Blocks.AMETHYST_BLOCK);
 
-		nineBlockStorageRecipesRecipesWithCustomUnpacking(consumer, MISC, Items.ECHO_SHARD, BUILDING_BLOCKS, ECHO_BLOCK.get(), "echo_shard_from_echo_block", "echo_shard");
+		storageRecipesWithCustomUnpacking(consumer, MISC, Items.ECHO_SHARD, BUILDING_BLOCKS, ECHO_BLOCK.get(), "echo_shard_from_echo_block", "echo_shard");
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, COBBLESTONE_BRICKS.get(), 4).define('#', Blocks.COBBLESTONE).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.COBBLESTONE), has(Blocks.COBBLESTONE)).save(consumer);
 		generateRecipes(consumer, COBBLESTONE_BRICKS_FAMILY);
@@ -346,56 +340,15 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		trimSmithing(consumer, CCItems.LIVING_FLESH.get());
 	}
 
-	protected static void netheriteSmithing(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(input), Ingredient.of(Items.NETHERITE_INGOT), category, output).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(output) + "_smithing"));
-	}
-
-	protected static void necromiumSmithing(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {
-		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(input), Ingredient.of(CCItemTags.INGOTS_NECROMIUM), category, output).unlocks("has_necromium_ingot", has(CCItemTags.INGOTS_NECROMIUM)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(output) + "_smithing"));
-	}
-
-	private void waxRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike result) {
-		ShapelessRecipeBuilder.shapeless(category, result).requires(input).requires(Items.HONEYCOMB).group(getItemName(result)).unlockedBy(getHasName(input), has(input)).save(consumer, getModConversionRecipeName(result, Items.HONEYCOMB));
-	}
-
-	public static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike block) {
-		nineBlockStorageRecipes(consumer, itemCategory, item, blockCategory, block, getItemName(block), null, getItemName(item), null);
-	}
-
-	public static void nineBlockStorageRecipes(Consumer<FinishedRecipe> consumer, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike block, String shapedName, @Nullable String shapedGroup, String shapelessName, @Nullable String shapelessGroup) {
-		ShapelessRecipeBuilder.shapeless(itemCategory, item, 9).requires(block).group(shapelessGroup).unlockedBy(getHasName(block), has(block)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, shapelessName));
-		ShapedRecipeBuilder.shaped(blockCategory, block).define('#', item).pattern("###").pattern("###").pattern("###").group(shapedGroup).unlockedBy(getHasName(item), has(item)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, shapedName));
-	}
-
-	public static void nineBlockStorageRecipesWithCustomPacking(Consumer<FinishedRecipe> p_176563_, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike block, String shapedName, String shapedGroup) {
-		nineBlockStorageRecipes(p_176563_, itemCategory, item, blockCategory, block, shapedName, shapedGroup, getSimpleRecipeName(item), null);
-	}
-
-	public static void nineBlockStorageRecipesRecipesWithCustomUnpacking(Consumer<FinishedRecipe> p_176617_, RecipeCategory itemCategory, ItemLike item, RecipeCategory blockCategory, ItemLike p_176619_, String shapelessName, String shapelessGroup) {
-		nineBlockStorageRecipes(p_176617_, itemCategory, item, blockCategory, p_176619_, getSimpleRecipeName(p_176619_), null, shapelessName, shapelessGroup);
-	}
-
-	protected static void oreSmelting(Consumer<FinishedRecipe> p_176592_, List<ItemLike> p_176593_, RecipeCategory category, ItemLike p_176594_, float p_176595_, int p_176596_, String p_176597_) {
-		oreCooking(p_176592_, RecipeSerializer.SMELTING_RECIPE, p_176593_, category, p_176594_, p_176595_, p_176596_, p_176597_, "_from_smelting");
-	}
-
-	protected static void oreBlasting(Consumer<FinishedRecipe> p_176626_, List<ItemLike> p_176627_, RecipeCategory category, ItemLike p_176628_, float p_176629_, int p_176630_, String p_176631_) {
-		oreCooking(p_176626_, RecipeSerializer.BLASTING_RECIPE, p_176627_, category, p_176628_, p_176629_, p_176630_, p_176631_, "_from_blasting");
-	}
-
-	protected static void oreCooking(Consumer<FinishedRecipe> p_176534_, RecipeSerializer<? extends AbstractCookingRecipe> p_176535_, List<ItemLike> p_176536_, RecipeCategory category, ItemLike p_176537_, float p_176538_, int p_176539_, String p_176540_, String p_176541_) {
-		for (ItemLike itemlike : p_176536_) {
-			SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), category, p_176537_, p_176538_, p_176539_, p_176535_).group(p_176540_).unlockedBy(getHasName(itemlike), has(itemlike)).save(p_176534_, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(p_176537_) + p_176541_ + "_" + getItemName(itemlike)));
-		}
+	protected void necromiumSmithingRecipe(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(input), Ingredient.of(CCItemTags.INGOTS_NECROMIUM), category, output).unlocks("has_necromium_ingot", has(CCItemTags.INGOTS_NECROMIUM)).save(consumer, new ResourceLocation(this.getModID(), getItemName(output) + "_smithing"));
 	}
 
 	public static void mimingRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike output) {
-		mimingRecipe(category, Ingredient.of(input), output, 1).unlockedBy(getHasName(input), has(input)).save(consumer);
+		mimingRecipeBuilder(category, Ingredient.of(input), output, 1).unlockedBy(getHasName(input), has(input)).save(consumer);
 	}
 
-	public static SingleItemRecipeBuilder mimingRecipe(RecipeCategory category, Ingredient input, ItemLike output, int count) {
+	public static SingleItemRecipeBuilder mimingRecipeBuilder(RecipeCategory category, Ingredient input, ItemLike output, int count) {
 		return new SingleItemRecipeBuilder(category, CCRecipeSerializers.MIMING.get(), input, output, count);
 	}
-
-
 }
