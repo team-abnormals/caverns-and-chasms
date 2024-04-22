@@ -52,6 +52,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(ItemTags.ARROWS).add(CCItems.LARGE_ARROW.get(), CCItems.BLUNT_ARROW.get());
 		this.tag(ItemTags.TRIMMABLE_ARMOR).add(SILVER_HELMET.get(), SILVER_CHESTPLATE.get(), SILVER_LEGGINGS.get(), SILVER_BOOTS.get(), NECROMIUM_HELMET.get(), NECROMIUM_CHESTPLATE.get(), NECROMIUM_LEGGINGS.get(), NECROMIUM_BOOTS.get(), SANGUINE_HELMET.get(), SANGUINE_CHESTPLATE.get(), SANGUINE_LEGGINGS.get(), SANGUINE_BOOTS.get());
 		this.tag(ItemTags.TRIM_MATERIALS).add(SILVER_INGOT.get(), NECROMIUM_INGOT.get(), SPINEL.get(), LIVING_FLESH.get());
+		this.tag(ItemTags.TRIM_TEMPLATES).add(LIVING_FLESH.get());
 
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);

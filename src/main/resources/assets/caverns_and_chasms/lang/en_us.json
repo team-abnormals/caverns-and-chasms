@@ -355,6 +355,8 @@
   "item.minecraft.smithing_template.netherite_upgrade.ingredients": "Netherite & Necromium Ingots",
   "item.minecraft.splash_potion.effect.rewind": "Splash Potion of Rewind",
   "item.minecraft.tipped_arrow.effect.rewind": "Arrow of Rewind",
+  "painting.caverns_and_chasms.exsanguinated.author": "five",
+  "painting.caverns_and_chasms.exsanguinated.title": "Exsanguinated",
   "painting.caverns_and_chasms.isolation.author": "five",
   "painting.caverns_and_chasms.isolation.title": "Isolation",
   "subtitles.caverns_and_chasms.block.toolbox.close": "Toolbox closes",
@@ -401,5 +403,6 @@
   "trim_material.caverns_and_chasms.sanguine": "Sanguine Material",
   "trim_material.caverns_and_chasms.silver": "Silver Material",
   "trim_material.caverns_and_chasms.spinel": "Spinel Material",
+  "trim_pattern.caverns_and_chasms.exile": "Exile Armor Trim",
   "upgrade.minecraft.netherite_upgrade": "Ancient Upgrade"
 }

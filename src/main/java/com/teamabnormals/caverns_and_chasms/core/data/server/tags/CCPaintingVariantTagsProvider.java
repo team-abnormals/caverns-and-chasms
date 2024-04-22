@@ -18,6 +18,6 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(PaintingVariantTags.PLACEABLE).add(CCPaintingVariants.ISOLATION.getKey());
+		this.tag(PaintingVariantTags.PLACEABLE).add(CCPaintingVariants.ISOLATION.getKey(), CCPaintingVariants.EXSANGUINATED.getKey());
 	}
 }
