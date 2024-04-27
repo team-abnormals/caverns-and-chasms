@@ -9,7 +9,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -17,7 +16,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
@@ -40,20 +38,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-		ItemStack itemstack = player.getItemInHand(hand);
-		EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(itemstack);
-		ItemStack itemstack1 = player.getItemBySlot(equipmentslot);
-		if (itemstack1.isEmpty()) {
-			player.setItemSlot(equipmentslot, itemstack.copy());
-			if (!level.isClientSide()) {
-				player.awardStat(Stats.ITEM_USED.get(this));
-			}
-
-			itemstack.setCount(0);
-			return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
-		} else {
-			return InteractionResultHolder.fail(itemstack);
-		}
+		return this.swapWithEquipmentSlot(this, level, player, hand);
 	}
 
 	@Override
