@@ -28,6 +28,6 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(Registries.TRIM_PATTERN, CCTrimPatterns::bootstrap);
 
 	public CCDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<Provider> provider) {
-		super(output, provider, BUILDER, Set.of(CavernsAndChasms.MOD_ID));
+		super(output, provider, BUILDER, Set.of(CavernsAndChasms.MOD_ID, "minecraft"));
 	}
 }
