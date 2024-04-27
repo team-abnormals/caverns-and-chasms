@@ -13,9 +13,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class CCTrimPatterns {
 	public static final ResourceKey<TrimPattern> EXILE = createKey("exile");
+	public static final ResourceKey<TrimPattern> SANGUINE = createKey("sanguine");
 
 	public static void bootstrap(BootstapContext<TrimPattern> context) {
 		register(context, EXILE, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+		register(context, SANGUINE, CCItems.LIVING_FLESH.get());
 	}
 
 	public static ResourceKey<TrimPattern> createKey(String name) {

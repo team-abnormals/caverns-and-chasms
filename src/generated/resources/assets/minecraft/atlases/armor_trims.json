@@ -21,7 +21,9 @@
       },
       "textures": [
         "caverns_and_chasms:trims/models/armor/exile",
-        "caverns_and_chasms:trims/models/armor/exile_leggings"
+        "caverns_and_chasms:trims/models/armor/exile_leggings",
+        "caverns_and_chasms:trims/models/armor/sanguine",
+        "caverns_and_chasms:trims/models/armor/sanguine_leggings"
       ]
     },
     {
