@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeModel;
-import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.MimeArmorLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.MimeItemInHandLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -12,6 +11,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -22,7 +22,7 @@ public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel> {
 	public MimeRenderer(EntityRendererProvider.Context context) {
 		super(context, new MimeModel(context.bakeLayer(CCModelLayers.MIME)), 0.5F);
 		this.layers.removeIf(entry -> entry instanceof ItemInHandLayer);
-		this.addLayer(new MimeArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager()));
+		this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager()));
 		this.addLayer(new MimeItemInHandLayer(this, context.getItemInHandRenderer()));
 	}
 
