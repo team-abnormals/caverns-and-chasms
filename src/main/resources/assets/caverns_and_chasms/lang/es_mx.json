@@ -355,6 +355,8 @@
   "item.minecraft.smithing_template.netherite_upgrade.ingredients": "Lingotes de netherita y necromio",
   "item.minecraft.splash_potion.effect.rewind": "Poción arrojadiza de rebobinar",
   "item.minecraft.tipped_arrow.effect.rewind": "Flecha de rebobinar",
+  "painting.caverns_and_chasms.exsanguinated.author": "five",
+  "painting.caverns_and_chasms.exsanguinated.title": "Exsanguinated",
   "painting.caverns_and_chasms.isolation.author": "five",
   "painting.caverns_and_chasms.isolation.title": "Isolation",
   "subtitles.caverns_and_chasms.block.toolbox.close": "Caja de herramientas cerrándose",
@@ -396,11 +398,11 @@
   "tooltip.caverns_and_chasms.rainy": "Lluvioso",
   "tooltip.caverns_and_chasms.snowy": "Nevado",
   "tooltip.caverns_and_chasms.stormy": "Tormentoso",
-  "tooltip.caverns_and_chasms.weather": "Weather",
+  "tooltip.caverns_and_chasms.weather": "Clima",
   "trim_material.caverns_and_chasms.necromium": "Material de necromio",
   "trim_material.caverns_and_chasms.sanguine": "Material sanguinario",
   "trim_material.caverns_and_chasms.silver": "Material de plata",
   "trim_material.caverns_and_chasms.spinel": "Material de espinela",
-  "tooltip.caverns_and_chasms.weather": "Clima",
+  "trim_pattern.caverns_and_chasms.exile": "Material del exilio",
   "upgrade.minecraft.netherite_upgrade": "Mejora ancestral"
 }
