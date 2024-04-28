@@ -316,7 +316,7 @@ public class CCBlocks {
 				.tab(COMBAT)
 				.addItemsAfter(of(Blocks.TNT), TMT);
 
-		CreativeModeTabContentsPopulator.mod("woodworks_1")
+		CreativeModeTabContentsPopulator.mod("woodworks_" + CavernsAndChasms.MOD_ID)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(ofID(CCConstants.BAMBOO_LADDER), AZALEA_LADDER)
 				.addItemsBefore(ofID(CCConstants.BAMBOO_BEEHIVE), AZALEA_BEEHIVE)
