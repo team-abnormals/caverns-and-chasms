@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration.TreeConfigurationBuilder;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
@@ -36,6 +38,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
+
+import static net.minecraft.data.worldgen.features.TreeFeatures.AZALEA_TREE;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CCFeatures {
@@ -59,8 +63,6 @@ public class CCFeatures {
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ROCKY_DIRT = createKey("ore_rocky_dirt");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE = createKey("ore_fragile_stone");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE_BURIED = createKey("ore_fragile_stone_buried");
-
-		public static final ResourceKey<ConfiguredFeature<?, ?>> AZALEA_TREE = createKey("azalea_tree");
 
 		public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 			HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);

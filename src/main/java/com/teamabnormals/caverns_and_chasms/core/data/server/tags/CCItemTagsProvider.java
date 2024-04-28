@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
+import com.teamabnormals.blueprint.core.data.server.tags.BlueprintItemTagsProvider;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -25,28 +26,20 @@ import java.util.concurrent.CompletableFuture;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.NECROMIUM_BOOTS;
 
-public class CCItemTagsProvider extends ItemTagsProvider {
+public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 
 	public CCItemTagsProvider(PackOutput output, CompletableFuture<Provider> provider, CompletableFuture<TagsProvider.TagLookup<Block>> lookup, ExistingFileHelper helper) {
-		super(output, provider, lookup, CavernsAndChasms.MOD_ID, helper);
+		super(CavernsAndChasms.MOD_ID, output, provider, lookup, helper);
 	}
 
 	@Override
 	public void addTags(Provider provider) {
-		this.copy(BlockTags.BUTTONS, ItemTags.BUTTONS);
+		this.copyWoodenTags();
+		this.copyWoodworksTags();
+
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
-		this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
-		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
-		this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
-		this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
-		this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
-		this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
-		this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
-		this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
-		this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
-		this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(CCItems.SILVER_INGOT.get(), CCItems.NECROMIUM_INGOT.get());
 		this.tag(ItemTags.MUSIC_DISCS).add(CCItems.MUSIC_DISC_EPILOGUE.get());
@@ -59,6 +52,7 @@ public class CCItemTagsProvider extends ItemTagsProvider {
 		this.tag(ItemTags.ARROWS).add(CCItems.LARGE_ARROW.get(), CCItems.BLUNT_ARROW.get());
 		this.tag(ItemTags.TRIMMABLE_ARMOR).add(SILVER_HELMET.get(), SILVER_CHESTPLATE.get(), SILVER_LEGGINGS.get(), SILVER_BOOTS.get(), NECROMIUM_HELMET.get(), NECROMIUM_CHESTPLATE.get(), NECROMIUM_LEGGINGS.get(), NECROMIUM_BOOTS.get(), SANGUINE_HELMET.get(), SANGUINE_CHESTPLATE.get(), SANGUINE_LEGGINGS.get(), SANGUINE_BOOTS.get());
 		this.tag(ItemTags.TRIM_MATERIALS).add(SILVER_INGOT.get(), NECROMIUM_INGOT.get(), SPINEL.get(), LIVING_FLESH.get());
+		this.tag(ItemTags.TRIM_TEMPLATES).add(EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);

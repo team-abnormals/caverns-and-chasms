@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimPatterns;
 import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -17,6 +18,7 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 	@Override
 	protected void addSources() {
 		this.atlas(BlueprintTrims.ARMOR_TRIMS_ATLAS)
+				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.SANGUINE))
 				.addSource(BlueprintTrims.materialPatternPermutations(
 						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.SILVER,

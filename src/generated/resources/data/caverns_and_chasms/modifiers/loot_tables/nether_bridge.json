@@ -29,6 +29,19 @@
         "index": 0,
         "replace": false
       }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:exile_armor_trim_smithing_template"
+          }
+        ],
+        "index": 1,
+        "replace": false
+      }
     }
   ],
   "priority": "normal",

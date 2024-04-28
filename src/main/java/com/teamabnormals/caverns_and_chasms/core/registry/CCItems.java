@@ -117,6 +117,7 @@ public class CCItems {
 
 	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 77));
 	public static final RegistryObject<Item> ABNORMALS_BANNER_PATTERN = HELPER.createItem("abnormals_banner_pattern", () -> new BannerPatternItem(CCBannerPatternTags.PATTERN_ITEM_ABNORMALS, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> EXILE_ARMOR_TRIM_SMITHING_TEMPLATE = HELPER.createItem("exile_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(CCTrimPatterns.EXILE));
 
 	public static final RegistryObject<ForgeSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntityTypes.DEEPER::get, 8355711, 13717260);
 	public static final RegistryObject<ForgeSpawnEggItem> PEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("peeper", CCEntityTypes.PEEPER::get, 0x3E3434, 0x694242);
@@ -137,12 +138,13 @@ public class CCItems {
 				.tab(INGREDIENTS)
 				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER)
 				.addItemsAfter(of(Items.LAPIS_LAZULI), SPINEL)
-				.addItemsAfter(of(Items.GOLD_NUGGET), COPPER_NUGGET, SILVER_NUGGET)
-				.addItemsAfter(of(Items.GOLD_NUGGET), NETHERITE_NUGGET, NECROMIUM_NUGGET)
+				.addItemsBefore(of(Items.GOLD_NUGGET), COPPER_NUGGET)
+				.addItemsAfter(of(Items.GOLD_NUGGET), SILVER_NUGGET, NETHERITE_NUGGET, NECROMIUM_NUGGET)
 				.addItemsAfter(of(Items.GOLD_INGOT), SILVER_INGOT)
 				.addItemsAfter(of(Items.NETHERITE_INGOT), NECROMIUM_INGOT, LIVING_FLESH)
 				.addItemsAfter(of(Items.MOJANG_BANNER_PATTERN), ABNORMALS_BANNER_PATTERN)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
+				.addItemsAfter(of(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE), EXILE_ARMOR_TRIM_SMITHING_TEMPLATE)
 				.tab(TOOLS_AND_UTILITIES)
 				.addItemsAfter(of(Items.GOLDEN_HOE), SILVER_SHOVEL, SILVER_PICKAXE, SILVER_AXE, SILVER_HOE)
 				.addItemsAfter(of(Items.NETHERITE_HOE), NECROMIUM_SHOVEL, NECROMIUM_PICKAXE, NECROMIUM_AXE, NECROMIUM_HOE)

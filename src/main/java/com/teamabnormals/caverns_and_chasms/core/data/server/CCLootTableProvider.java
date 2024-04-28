@@ -300,11 +300,13 @@ public class CCLootTableProvider extends LootTableProvider {
 			// this.add(RAT.get(), LootTable.lootTable());
 			this.add(GLARE.get(), LootTable.lootTable());
 			this.add(LOST_GOAT.get(), LootTable.lootTable());
+
+			this.add(EntityType.SILVERFISH, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
 		}
 
 		@Override
 		public Stream<EntityType<?>> getKnownEntityTypes() {
-			return ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entity -> ForgeRegistries.ENTITY_TYPES.getKey(entity).getNamespace().equals(CavernsAndChasms.MOD_ID));
+			return ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entity -> entity == EntityType.SILVERFISH || ForgeRegistries.ENTITY_TYPES.getKey(entity).getNamespace().equals(CavernsAndChasms.MOD_ID));
 		}
 
 		@Override

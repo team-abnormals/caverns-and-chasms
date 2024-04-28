@@ -284,7 +284,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BUTTON)
 				.tab(NATURAL_BLOCKS)
 				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
-				.addItemsAfter(of(Blocks.CHERRY_LOG), AZALEA_LOG)
+				.addItemsBefore(of(Blocks.MUSHROOM_STEM), AZALEA_LOG)
 				.addItemsBefore(of(Blocks.REDSTONE_ORE), SILVER_ORE, DEEPSLATE_SILVER_ORE)
 				.addItemsBefore(of(Blocks.DIAMOND_ORE), SPINEL_ORE, DEEPSLATE_SPINEL_ORE)
 				.addItemsBefore(of(Blocks.ANCIENT_DEBRIS), SOUL_SILVER_ORE)
@@ -316,7 +316,7 @@ public class CCBlocks {
 				.tab(COMBAT)
 				.addItemsAfter(of(Blocks.TNT), TMT);
 
-		CreativeModeTabContentsPopulator.mod("woodworks_1")
+		CreativeModeTabContentsPopulator.mod("woodworks_" + CavernsAndChasms.MOD_ID)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(ofID(CCConstants.BAMBOO_LADDER), AZALEA_LADDER)
 				.addItemsBefore(ofID(CCConstants.BAMBOO_BEEHIVE), AZALEA_BEEHIVE)

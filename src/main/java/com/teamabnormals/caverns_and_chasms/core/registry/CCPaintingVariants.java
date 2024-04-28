@@ -10,4 +10,5 @@ public final class CCPaintingVariants {
 	public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<PaintingVariant> ISOLATION = PAINTING_VARIANTS.register("isolation", () -> new PaintingVariant(32, 32));
+	public static final RegistryObject<PaintingVariant> EXSANGUINATED = PAINTING_VARIANTS.register("exsanguinated", () -> new PaintingVariant(64, 64));
 }
