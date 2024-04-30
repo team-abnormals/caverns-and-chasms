@@ -322,6 +322,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICK_STAIRS.get(), Blocks.COBBLED_DEEPSLATE);
 		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_BRICK_WALL.get(), Blocks.COBBLED_DEEPSLATE);
 
+		chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, Blocks.CHISELED_DEEPSLATE, Ingredient.of(Blocks.DEEPSLATE_BRICK_SLAB)).unlockedBy("has_deepslate_brick_slab", has(Blocks.DEEPSLATE_BRICK_SLAB)).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS);
+
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILES.get(), 4).define('#', COBBLED_DEEPSLATE_BRICKS.get()).pattern("##").pattern("##").unlockedBy(getHasName(COBBLED_DEEPSLATE_BRICKS.get()), has(COBBLED_DEEPSLATE_BRICKS.get())).save(consumer);
 		generateRecipes(consumer, COBBLED_DEEPSLATE_TILES_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_SLAB.get(), COBBLED_DEEPSLATE_TILES.get(), 2);
