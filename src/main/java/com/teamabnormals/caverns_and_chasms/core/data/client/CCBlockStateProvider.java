@@ -10,10 +10,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightningRodBlock;
+import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
+import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -30,8 +32,30 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		this.block(RAW_SILVER_BLOCK);
+		this.block(SILVER_ORE);
 		this.block(DEEPSLATE_SILVER_ORE);
+		this.block(SOUL_SILVER_ORE);
+		this.block(SILVER_BLOCK);
+		this.weightedPressurePlateBlock(MEDIUM_WEIGHTED_PRESSURE_PLATE, SILVER_BLOCK);
+
+		this.block(SPINEL_ORE);
 		this.block(DEEPSLATE_SPINEL_ORE);
+		this.block(SPINEL_BLOCK);
+		this.cubeColumnBlock(SPINEL_LAMP);
+		this.logBlock(SPINEL_PILLAR);
+		this.blockFamily(SPINEL_BRICKS_FAMILY);
+
+		this.cubeColumnBlock(LAPIS_LAZULI_LAMP);
+		this.logBlock(LAPIS_LAZULI_PILLAR);
+		this.blockFamily(LAPIS_LAZULI_BRICKS_FAMILY);
+
+		this.block(AMETHYST_BLOCK);
+		this.block(CUT_AMETHYST);
+		this.blockFamily(CUT_AMETHYST_BRICKS_FAMILY);
+
+		this.block(NECROMIUM_BLOCK);
+		this.block(ROTTEN_FLESH_BLOCK);
+		this.randomRotationBlock(ROCKY_DIRT);
 
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
 		this.blockFamily(COBBLESTONE_TILES_FAMILY);
@@ -71,6 +95,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.waxedCopperBarsBlock(WAXED_OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_BARS);
 		this.ironBarsBlock(GOLDEN_BARS);
 		this.ironBarsBlock(SILVER_BARS);
+
+		this.toolboxBlocks(TOOLBOX, WAXED_TOOLBOX, Blocks.COPPER_BLOCK);
+		this.toolboxBlocks(EXPOSED_TOOLBOX, WAXED_EXPOSED_TOOLBOX, Blocks.EXPOSED_COPPER);
+		this.toolboxBlocks(WEATHERED_TOOLBOX, WAXED_WEATHERED_TOOLBOX, Blocks.WEATHERED_COPPER);
+		this.toolboxBlocks(OXIDIZED_TOOLBOX, WAXED_OXIDIZED_TOOLBOX, Blocks.OXIDIZED_COPPER);
 
 		this.buttonBlock(Blocks.COPPER_BLOCK, COPPER_BUTTON.get());
 		this.buttonBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_BUTTON.get());
@@ -138,6 +167,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.simpleBlockItem(block, model);
 	}
 
+	public void toolboxBlocks(RegistryObject<Block> toolbox, RegistryObject<Block> waxedToolbox, Block copperBlock) {
+		ModelFile model = this.particle(toolbox.get(), blockTexture(copperBlock));
+		this.simpleBlock(toolbox.get(), model);
+		this.simpleBlock(waxedToolbox.get(), model);
+		this.simpleBlockItem(toolbox.get(), new UncheckedModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "item/template_toolbox")));
+		this.simpleBlockItem(waxedToolbox.get(), new UncheckedModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "item/template_toolbox")));
+	}
+
 	public void stoneBlock(Block block) {
 		ModelFile model = models().cubeAll(name(block), blockTexture(block));
 		ModelFile mirroredModel = models().singleTexture(name(block) + "_mirrored", mcLoc(ModelProvider.BLOCK_FOLDER + "/cube_mirrored_all"), "all", blockTexture(block));
@@ -178,10 +215,23 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockItem(block);
 	}
 
+	public void randomRotationBlock(RegistryObject<Block> block) {
+		ModelFile model = cubeAll(block.get());
+		this.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.allYRotations(model, 0, false));
+		this.blockItem(block);
+	}
+
 	public void baseBlockVariants(Block block, RegistryObject<Block> stairs, RegistryObject<Block> slab, RegistryObject<Block> wall) {
 		this.stairsBlock(block, stairs.get());
 		this.slabBlock(block, slab.get());
 		this.wallBlock(block, wall.get());
+	}
+
+	public void weightedPressurePlateBlock(RegistryObject<Block> block, RegistryObject<Block> base) {
+		ModelFile pressurePlate = models().pressurePlate(name(block.get()), blockTexture(base.get()));
+		ModelFile pressurePlateDown = models().pressurePlateDown(name(block.get()) + "_down", blockTexture(base.get()));
+		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(state.getValue(WeightedPressurePlateBlock.POWER) == 0 ? pressurePlate : pressurePlateDown).build());
+		this.blockItem(block);
 	}
 
 	public void waxedGeneratedItem(Block block, String type) {

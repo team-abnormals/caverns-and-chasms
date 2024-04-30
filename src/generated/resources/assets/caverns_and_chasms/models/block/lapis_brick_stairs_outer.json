@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/lapis_bricks",
+    "side": "caverns_and_chasms:block/lapis_bricks",
+    "top": "caverns_and_chasms:block/lapis_bricks"
+  }
+}

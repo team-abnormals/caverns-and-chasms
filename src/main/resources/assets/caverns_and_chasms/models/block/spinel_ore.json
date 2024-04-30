@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "caverns_and_chasms:block/spinel_ore"
-    }
-}

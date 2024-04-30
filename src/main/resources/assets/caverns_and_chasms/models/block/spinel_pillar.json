@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "caverns_and_chasms:block/spinel_pillar_top",
-    "side": "caverns_and_chasms:block/spinel_pillar_side"
-  }
-}
