@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "caverns_and_chasms:block/cobbled_deepslate_brick_slab"
+    },
+    "type=double": {
+      "model": "caverns_and_chasms:block/cobbled_deepslate_bricks"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/cobbled_deepslate_brick_slab_top"
+    }
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/cobblestone_tiles",
-    "top": "caverns_and_chasms:block/cobblestone_tiles",
-    "side": "caverns_and_chasms:block/cobblestone_tiles"
-  }
-}

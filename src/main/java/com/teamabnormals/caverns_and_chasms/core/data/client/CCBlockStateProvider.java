@@ -18,6 +18,7 @@ import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
+import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
 
 public class CCBlockStateProvider extends BlueprintBlockStateProvider {
@@ -32,22 +33,29 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(DEEPSLATE_SILVER_ORE);
 		this.block(DEEPSLATE_SPINEL_ORE);
 
+		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
+		this.blockFamily(COBBLESTONE_TILES_FAMILY);
+		this.blockFamily(MOSSY_COBBLESTONE_BRICKS_FAMILY);
+		this.blockFamily(MOSSY_COBBLESTONE_TILES_FAMILY);
+		this.blockFamily(COBBLED_DEEPSLATE_BRICKS_FAMILY);
+		this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
+
 		this.baseBlockVariants(Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL);
-		this.baseBlocks(POLISHED_CALCITE, POLISHED_CALCITE_STAIRS, POLISHED_CALCITE_SLAB);
+		this.blockFamily(POLISHED_CALCITE_FAMILY);
 
 		this.baseBlockVariants(Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL);
-		this.baseBlocks(POLISHED_TUFF, POLISHED_TUFF_STAIRS, POLISHED_TUFF_SLAB);
+		this.blockFamily(POLISHED_TUFF_FAMILY);
 
-		this.baseBlocks(SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL);
-		this.baseBlocks(POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB);
+		this.blockFamily(SUGILITE_FAMILY);
+		this.blockFamily(POLISHED_SUGILITE_FAMILY);
 
-		this.baseBlocks(DRIPSTONE_SHINGLES, DRIPSTONE_SHINGLE_STAIRS, DRIPSTONE_SHINGLE_SLAB, DRIPSTONE_SHINGLE_WALL);
+		this.blockFamily(DRIPSTONE_SHINGLES_FAMILY);
 		this.block(CHISELED_DRIPSTONE_SHINGLES);
 		this.block(FLOODED_DRIPSTONE_SHINGLES);
 
 		this.block(SANGUINE_BLOCK);
-		this.baseBlocks(SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL);
-		this.baseBlocks(FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL);
+		this.blockFamily(SANGUINE_TILES_FAMILY);
+		this.blockFamily(FORTIFIED_SANGUINE_TILES_FAMILY);
 
 		this.block(ECHO_BLOCK);
 

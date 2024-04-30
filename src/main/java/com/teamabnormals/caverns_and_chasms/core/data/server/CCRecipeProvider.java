@@ -10,7 +10,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import com.teamabnormals.woodworks.core.data.server.WoodworksRecipeProvider;
-import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -27,6 +26,7 @@ import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 
 import java.util.function.Consumer;
 
+import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
@@ -35,24 +35,6 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 	private static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get(), CCItems.RAW_SILVER.get());
 	private static final ImmutableList<ItemLike> SPINEL_SMELTABLES = ImmutableList.of(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
-
-	public static final BlockFamily AZALEA_PLANKS_FAMILY = new BlockFamily.Builder(AZALEA_PLANKS.get()).button(AZALEA_BUTTON.get()).fence(AZALEA_FENCE.get()).fenceGate(AZALEA_FENCE_GATE.get()).pressurePlate(AZALEA_PRESSURE_PLATE.get()).sign(AZALEA_SIGNS.getFirst().get(), AZALEA_SIGNS.getSecond().get()).slab(AZALEA_SLAB.get()).stairs(AZALEA_STAIRS.get()).door(AZALEA_DOOR.get()).trapdoor(AZALEA_TRAPDOOR.get()).recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
-	public static final BlockFamily DRIPSTONE_SHINGLES_FAMILY = new BlockFamily.Builder(DRIPSTONE_SHINGLES.get()).slab(DRIPSTONE_SHINGLE_SLAB.get()).stairs(DRIPSTONE_SHINGLE_STAIRS.get()).wall(DRIPSTONE_SHINGLE_WALL.get()).chiseled(CHISELED_DRIPSTONE_SHINGLES.get()).getFamily();
-	public static final BlockFamily CALCITE_FAMILY = new BlockFamily.Builder(Blocks.CALCITE).slab(CALCITE_SLAB.get()).stairs(CALCITE_STAIRS.get()).wall(CALCITE_WALL.get()).getFamily();
-	public static final BlockFamily POLISHED_CALCITE_FAMILY = new BlockFamily.Builder(POLISHED_CALCITE.get()).slab(POLISHED_CALCITE_SLAB.get()).stairs(POLISHED_CALCITE_STAIRS.get()).getFamily();
-	public static final BlockFamily TUFF_FAMILY = new BlockFamily.Builder(Blocks.TUFF).slab(TUFF_SLAB.get()).stairs(TUFF_STAIRS.get()).wall(TUFF_WALL.get()).getFamily();
-	public static final BlockFamily POLISHED_TUFF_FAMILY = new BlockFamily.Builder(POLISHED_TUFF.get()).slab(POLISHED_TUFF_SLAB.get()).stairs(POLISHED_TUFF_STAIRS.get()).getFamily();
-	public static final BlockFamily SUGILITE_FAMILY = new BlockFamily.Builder(SUGILITE.get()).slab(SUGILITE_SLAB.get()).stairs(SUGILITE_STAIRS.get()).wall(SUGILITE_WALL.get()).getFamily();
-	public static final BlockFamily POLISHED_SUGILITE_FAMILY = new BlockFamily.Builder(POLISHED_SUGILITE.get()).slab(POLISHED_SUGILITE_SLAB.get()).stairs(POLISHED_SUGILITE_STAIRS.get()).getFamily();
-	public static final BlockFamily COBBLESTONE_BRICKS_FAMILY = new BlockFamily.Builder(COBBLESTONE_BRICKS.get()).slab(COBBLESTONE_BRICK_SLAB.get()).stairs(COBBLESTONE_BRICK_STAIRS.get()).wall(COBBLESTONE_BRICK_WALL.get()).getFamily();
-	public static final BlockFamily COBBLESTONE_TILES_FAMILY = new BlockFamily.Builder(COBBLESTONE_TILES.get()).slab(COBBLESTONE_TILE_SLAB.get()).stairs(COBBLESTONE_TILE_STAIRS.get()).wall(COBBLESTONE_TILE_WALL.get()).getFamily();
-	public static final BlockFamily MOSSY_COBBLESTONE_BRICKS_FAMILY = new BlockFamily.Builder(MOSSY_COBBLESTONE_BRICKS.get()).slab(MOSSY_COBBLESTONE_BRICK_SLAB.get()).stairs(MOSSY_COBBLESTONE_BRICK_STAIRS.get()).wall(MOSSY_COBBLESTONE_BRICK_WALL.get()).getFamily();
-	public static final BlockFamily MOSSY_COBBLESTONE_TILES_FAMILY = new BlockFamily.Builder(MOSSY_COBBLESTONE_TILES.get()).slab(MOSSY_COBBLESTONE_TILE_SLAB.get()).stairs(MOSSY_COBBLESTONE_TILE_STAIRS.get()).wall(MOSSY_COBBLESTONE_TILE_WALL.get()).getFamily();
-	public static final BlockFamily LAPIS_LAZULI_BRICKS_FAMILY = new BlockFamily.Builder(LAPIS_LAZULI_BRICKS.get()).slab(LAPIS_LAZULI_BRICK_SLAB.get()).stairs(LAPIS_LAZULI_BRICK_STAIRS.get()).wall(LAPIS_LAZULI_BRICK_WALL.get()).getFamily();
-	public static final BlockFamily SPINEL_BRICKS_FAMILY = new BlockFamily.Builder(SPINEL_BRICKS.get()).slab(SPINEL_BRICK_SLAB.get()).stairs(SPINEL_BRICK_STAIRS.get()).wall(SPINEL_BRICK_WALL.get()).getFamily();
-	public static final BlockFamily SANGUINE_TILES_FAMILY = new BlockFamily.Builder(SANGUINE_TILES.get()).slab(SANGUINE_TILE_SLAB.get()).stairs(SANGUINE_TILE_STAIRS.get()).getFamily();
-	public static final BlockFamily FORTIFIED_SANGUINE_TILES_FAMILY = new BlockFamily.Builder(FORTIFIED_SANGUINE_TILES.get()).slab(FORTIFIED_SANGUINE_TILE_SLAB.get()).stairs(FORTIFIED_SANGUINE_TILE_STAIRS.get()).getFamily();
-	public static final BlockFamily CUT_AMETHYST_BRICKS_FAMILY = new BlockFamily.Builder(CUT_AMETHYST_BRICKS.get()).slab(CUT_AMETHYST_BRICK_SLAB.get()).stairs(CUT_AMETHYST_BRICK_STAIRS.get()).wall(CUT_AMETHYST_BRICK_WALL.get()).getFamily();
 
 	public CCRecipeProvider(PackOutput output) {
 		super(CavernsAndChasms.MOD_ID, output);
@@ -330,6 +312,30 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_BRICKS.get()).requires(COBBLESTONE_BRICKS.get()).requires(Blocks.MOSS_BLOCK).group("cobblestone_bricks").unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_BRICKS.get(), Blocks.MOSS_BLOCK));
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_TILES.get()).requires(COBBLESTONE_TILES.get()).requires(Blocks.MOSS_BLOCK).group("mossy_cobblestone_tiles").unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_TILES.get(), Blocks.MOSS_BLOCK));
 
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICKS.get(), 4).define('#', Blocks.COBBLED_DEEPSLATE).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.COBBLED_DEEPSLATE), has(Blocks.COBBLED_DEEPSLATE)).save(consumer);
+		generateRecipes(consumer, COBBLED_DEEPSLATE_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICK_SLAB.get(), COBBLED_DEEPSLATE_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICK_STAIRS.get(), COBBLED_DEEPSLATE_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_BRICK_WALL.get(), COBBLED_DEEPSLATE_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICKS.get(), Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICK_SLAB.get(), Blocks.COBBLED_DEEPSLATE, 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICK_STAIRS.get(), Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_BRICK_WALL.get(), Blocks.COBBLED_DEEPSLATE);
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILES.get(), 4).define('#', COBBLED_DEEPSLATE_BRICKS.get()).pattern("##").pattern("##").unlockedBy(getHasName(COBBLED_DEEPSLATE_BRICKS.get()), has(COBBLED_DEEPSLATE_BRICKS.get())).save(consumer);
+		generateRecipes(consumer, COBBLED_DEEPSLATE_TILES_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_SLAB.get(), COBBLED_DEEPSLATE_TILES.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_STAIRS.get(), COBBLED_DEEPSLATE_TILES.get());
+		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_TILE_WALL.get(), COBBLED_DEEPSLATE_TILES.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILES.get(), COBBLED_DEEPSLATE_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_SLAB.get(), COBBLED_DEEPSLATE_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_STAIRS.get(), COBBLED_DEEPSLATE_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_TILE_WALL.get(), COBBLED_DEEPSLATE_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILES.get(), Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_SLAB.get(), Blocks.COBBLED_DEEPSLATE, 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_STAIRS.get(), Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_TILE_WALL.get(), Blocks.COBBLED_DEEPSLATE);
+		
 		generateRecipes(consumer, AZALEA_PLANKS_FAMILY);
 		planksFromLogs(consumer, AZALEA_PLANKS.get(), CCItemTags.AZALEA_LOGS, 4);
 		woodFromLogs(consumer, AZALEA_WOOD.get(), AZALEA_LOG.get());
