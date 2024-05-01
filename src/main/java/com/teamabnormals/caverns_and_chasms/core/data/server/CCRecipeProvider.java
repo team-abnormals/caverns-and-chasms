@@ -307,10 +307,12 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, MOSSY_COBBLESTONE_TILE_STAIRS.get(), Blocks.MOSSY_COBBLESTONE);
 		stonecutterRecipe(consumer, DECORATIONS, MOSSY_COBBLESTONE_TILE_WALL.get(), Blocks.MOSSY_COBBLESTONE);
 
-		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_BRICKS.get()).requires(COBBLESTONE_BRICKS.get()).requires(Blocks.VINE).group("cobblestone_bricks").unlockedBy("has_vine", has(Blocks.VINE)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_BRICKS.get(), Blocks.VINE));
+		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_BRICKS.get()).requires(COBBLESTONE_BRICKS.get()).requires(Blocks.VINE).group("mossy_cobblestone_bricks").unlockedBy("has_vine", has(Blocks.VINE)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_BRICKS.get(), Blocks.VINE));
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_TILES.get()).requires(COBBLESTONE_TILES.get()).requires(Blocks.VINE).group("mossy_cobblestone_tiles").unlockedBy("has_vine", has(Blocks.VINE)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_TILES.get(), Blocks.VINE));
-		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_BRICKS.get()).requires(COBBLESTONE_BRICKS.get()).requires(Blocks.MOSS_BLOCK).group("cobblestone_bricks").unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_BRICKS.get(), Blocks.MOSS_BLOCK));
+		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_BRICKS.get()).requires(COBBLESTONE_BRICKS.get()).requires(Blocks.MOSS_BLOCK).group("mossy_cobblestone_bricks").unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_BRICKS.get(), Blocks.MOSS_BLOCK));
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, MOSSY_COBBLESTONE_TILES.get()).requires(COBBLESTONE_TILES.get()).requires(Blocks.MOSS_BLOCK).group("mossy_cobblestone_tiles").unlockedBy("has_moss_block", has(Blocks.MOSS_BLOCK)).save(consumer, getModConversionRecipeName(MOSSY_COBBLESTONE_TILES.get(), Blocks.MOSS_BLOCK));
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, Blocks.POLISHED_DEEPSLATE, 4).define('#', Blocks.DEEPSLATE).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.DEEPSLATE), has(Blocks.DEEPSLATE)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, COBBLED_DEEPSLATE_BRICKS.get(), 4).define('#', Blocks.COBBLED_DEEPSLATE).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.COBBLED_DEEPSLATE), has(Blocks.COBBLED_DEEPSLATE)).save(consumer);
 		generateRecipes(consumer, COBBLED_DEEPSLATE_BRICKS_FAMILY);
@@ -339,6 +341,20 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_SLAB.get(), Blocks.COBBLED_DEEPSLATE, 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, COBBLED_DEEPSLATE_TILE_STAIRS.get(), Blocks.COBBLED_DEEPSLATE);
 		stonecutterRecipe(consumer, DECORATIONS, COBBLED_DEEPSLATE_TILE_WALL.get(), Blocks.COBBLED_DEEPSLATE);
+
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_DEEPSLATE, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.POLISHED_DEEPSLATE, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.POLISHED_DEEPSLATE_SLAB, Blocks.DEEPSLATE, 2, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.POLISHED_DEEPSLATE_STAIRS, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, DECORATIONS, Blocks.POLISHED_DEEPSLATE_WALL, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.DEEPSLATE_BRICK_SLAB, Blocks.DEEPSLATE, 2, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.DEEPSLATE_BRICK_STAIRS, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, DECORATIONS, Blocks.DEEPSLATE_BRICK_WALL, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.DEEPSLATE_TILES, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.DEEPSLATE_TILE_SLAB, Blocks.DEEPSLATE, 2, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.DEEPSLATE_TILE_STAIRS, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+		stonecutterRecipe(consumer, DECORATIONS, Blocks.DEEPSLATE_TILE_WALL, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
 		
 		generateRecipes(consumer, AZALEA_PLANKS_FAMILY);
 		planksFromLogs(consumer, AZALEA_PLANKS.get(), CCItemTags.AZALEA_LOGS, 4);
@@ -350,6 +366,14 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		WoodworksRecipeProvider.sawmillRecipes(consumer, AZALEA_PLANKS_FAMILY, CCItemTags.AZALEA_LOGS, AZALEA_BOARDS.get(), AZALEA_LADDER.get(), CavernsAndChasms.MOD_ID);
 
 		trimRecipes(consumer, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.NETHERRACK);
+	}
+
+	public void stonecutterRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike output, ItemLike input, ItemLike inputName) {
+		stonecutterRecipe(consumer, category, output, input, 1, inputName);
+	}
+
+	public void stonecutterRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike output, ItemLike input, int count, ItemLike inputName) {
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), category, output, count).unlockedBy(getHasName(input), has(input)).save(consumer, getConversionRecipeName(output, inputName) + "_stonecutting");
 	}
 
 	protected void necromiumSmithingRecipe(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {
