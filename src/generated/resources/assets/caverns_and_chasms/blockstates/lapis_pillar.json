@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "caverns_and_chasms:block/lapis_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "caverns_and_chasms:block/lapis_pillar"
+    },
+    "axis=z": {
+      "model": "caverns_and_chasms:block/lapis_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

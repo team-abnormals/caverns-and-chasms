@@ -1,6 +1,0 @@
-{
-    "parent": "block/template_wall_side",
-    "textures": {
-        "wall": "caverns_and_chasms:block/mossy_cobblestone_tiles"
-    }
-}

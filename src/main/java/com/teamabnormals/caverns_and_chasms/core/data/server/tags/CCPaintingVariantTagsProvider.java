@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCPaintingVariants;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PaintingVariantTagsProvider;
@@ -9,6 +8,8 @@ import net.minecraft.tags.PaintingVariantTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
+
+import static com.teamabnormals.caverns_and_chasms.core.registry.CCPaintingVariants.*;
 
 public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 
@@ -18,6 +19,10 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(PaintingVariantTags.PLACEABLE).add(CCPaintingVariants.ISOLATION.getKey(), CCPaintingVariants.EXSANGUINATED.getKey());
+		this.tag(PaintingVariantTags.PLACEABLE).add(
+				ISOLATION.getKey(),
+				EXSANGUINATED.getKey(),
+				EMBEDDED.getKey()
+		);
 	}
 }

@@ -180,6 +180,15 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(MOSSY_COBBLESTONE_TILE_WALL.get());
 			this.add(MOSSY_COBBLESTONE_TILE_SLAB.get(), this::createSlabItemTable);
 
+			this.dropSelf(COBBLED_DEEPSLATE_BRICKS.get());
+			this.dropSelf(COBBLED_DEEPSLATE_BRICK_STAIRS.get());
+			this.dropSelf(COBBLED_DEEPSLATE_BRICK_WALL.get());
+			this.add(COBBLED_DEEPSLATE_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(COBBLED_DEEPSLATE_TILES.get());
+			this.dropSelf(COBBLED_DEEPSLATE_TILE_STAIRS.get());
+			this.dropSelf(COBBLED_DEEPSLATE_TILE_WALL.get());
+			this.add(COBBLED_DEEPSLATE_TILE_SLAB.get(), this::createSlabItemTable);
+
 			this.dropSelf(CALCITE_STAIRS.get());
 			this.dropSelf(CALCITE_WALL.get());
 			this.add(CALCITE_SLAB.get(), this::createSlabItemTable);
