@@ -26,7 +26,7 @@ public abstract class CreeperMixin extends LivingEntity {
 			power *= CCConfig.COMMON.creeperExplosionNerfFactor.get().floatValue();
 		}
 
-		return level.explode(creeper, x, y, z, power, interaction);
+		return level.explode(creeper, x, y, z, power, CCConfig.COMMON.creepersDropAllBlocks.get() ? ExplosionInteraction.TNT : interaction);
 	}
 
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Creeper;isAlive()Z"))
