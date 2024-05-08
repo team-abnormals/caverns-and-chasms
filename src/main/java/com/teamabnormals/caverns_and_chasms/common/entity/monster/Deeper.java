@@ -54,7 +54,7 @@ public class Deeper extends Creeper {
 		if (!this.level().isClientSide) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), CCConfig.COMMON.creepersDropAllBlocks.get() ? ExplosionInteraction.TNT : ExplosionInteraction.MOB);
 			this.discard();
 			this.spawnLingeringCloud();
 		}

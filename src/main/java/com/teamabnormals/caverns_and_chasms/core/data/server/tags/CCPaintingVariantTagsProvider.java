@@ -22,7 +22,9 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 		this.tag(PaintingVariantTags.PLACEABLE).add(
 				ISOLATION.getKey(),
 				EXSANGUINATED.getKey(),
-				EMBEDDED.getKey()
+				EMBEDDED.getKey(),
+				NOIR.getKey(),
+				STARRY_NIGHT.getKey()
 		);
 	}
 }
