@@ -22,7 +22,7 @@ public class FilledGoldenBucketDispenseBehavior extends DefaultDispenseItemBehav
 		Level level = source.getLevel();
 		BlockState state = level.getBlockState(pos);
 		ItemStack filled = GoldenBucketItem.getFilledBucket(state);
-		if (state.getBlock() instanceof BucketPickup bucketPickup && filled != null && stack.is(filled.getItem()) && stack.getOrCreateTag().getInt("FluidLevel") < 3) {
+		if (state.getBlock() instanceof BucketPickup bucketPickup && filled != null && stack.is(filled.getItem()) && stack.getOrCreateTag().getInt("FluidLevel") < 2) {
 			bucketPickup.pickupBlock(level, pos, state);
 			level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
 			ItemStack returnItem = stack.copy();
