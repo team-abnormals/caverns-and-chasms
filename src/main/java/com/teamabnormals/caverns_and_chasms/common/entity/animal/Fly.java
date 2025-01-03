@@ -169,10 +169,6 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 		return 0.4F;
 	}
 
-	public boolean causeFallDamage(float distance, float damageMultiplier) {
-		return false;
-	}
-
 	protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
 	}
 
