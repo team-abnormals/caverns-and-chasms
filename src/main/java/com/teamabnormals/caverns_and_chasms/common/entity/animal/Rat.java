@@ -406,11 +406,6 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	@Override
-	public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {
-		return false;
-	}
-
-	@Override
 	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
 		return size.height * 0.5F;
 	}

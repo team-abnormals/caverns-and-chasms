@@ -196,11 +196,6 @@ public class Glare extends PathfinderMob {
 	}
 
 	@Override
-	public boolean causeFallDamage(float p_218321_, float p_218322_, DamageSource p_218323_) {
-		return false;
-	}
-
-	@Override
 	public boolean hurt(DamageSource source, float damage) {
 		Entity attacker = source.getEntity();
 		if (attacker instanceof Player player) {
