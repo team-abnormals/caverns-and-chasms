@@ -11,12 +11,9 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
-import com.teamabnormals.caverns_and_chasms.common.item.NetheriteHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
-import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -38,7 +35,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -53,7 +49,6 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
@@ -83,7 +78,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -405,15 +399,6 @@ public class CCEvents {
 				event.setAmount(event.getAmount() - event.getAmount() * magicProtection);
 				SilverItem.causeMagicProtectionParticles(target);
 			}
-
-			if (target instanceof Horse horse) {
-				for (ItemStack stack : horse.getArmorSlots()) {
-					if (stack.getItem() instanceof SilverHorseArmorItem) {
-						event.setAmount(event.getAmount() - event.getAmount() * 0.30F);
-						SilverItem.causeMagicProtectionParticles(horse);
-					}
-				}
-			}
 		}
 
 		if (source.getEntity() instanceof LivingEntity attacker) {
@@ -461,17 +446,6 @@ public class CCEvents {
 						entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
 				}
 			}
-
-			if (target instanceof Horse horse) {
-				for (ItemStack stack : horse.getArmorSlots()) {
-					if (stack.getItem() instanceof NecromiumHorseArmorItem) {
-						for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(2.0D, 0.0D, 2.0D))) {
-							if (entity != target && !target.hasPassenger(entity))
-								entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
-						}
-					}
-				}
-			}
 		}
 
 		if (source.getDirectEntity() instanceof BluntArrow) {
@@ -516,17 +490,6 @@ public class CCEvents {
 		}
 	}
 
-	@SubscribeEvent
-	public static void knockbackEvent(LivingKnockBackEvent event) {
-		if (event.getEntity() instanceof Horse horse) {
-			for (ItemStack stack : horse.getArmorSlots()) {
-				if (stack.getItem() instanceof NetheriteHorseArmorItem horseArmorItem) {
-					event.setStrength(event.getStrength() * (1.0F - horseArmorItem.getKnockbackResistance()));
-				}
-			}
-		}
-	}
-
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		ItemStack stack = event.getItemStack();
@@ -547,7 +510,7 @@ public class CCEvents {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
 			}
 
-			if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.GOLDEN_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
+			if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET || (stack.is(Items.GOLDEN_CHESTPLATE) || stack.is(Items.GOLDEN_HORSE_ARMOR)) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
 				event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
 			}
 		}
