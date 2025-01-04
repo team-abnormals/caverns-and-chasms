@@ -45,6 +45,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.logBlock(SPINEL_PILLAR);
 		this.blockFamily(SPINEL_BRICKS_FAMILY);
 
+		this.dismantlingTableBlock(DISMANTLING_TABLE);
+
 		this.cubeColumnBlock(LAPIS_LAZULI_LAMP);
 		this.logBlock(LAPIS_LAZULI_PILLAR);
 		this.blockFamily(LAPIS_LAZULI_BRICKS_FAMILY);
@@ -212,6 +214,21 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 							.build();
 				}, BlockStateProperties.WATERLOGGED);
 
+		this.blockItem(block);
+	}
+
+	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		ResourceLocation texture = suffix(blockTexture(block), "_");
+		this.simpleBlock(registryObject.get(), models()
+				.cube(name(block),
+						suffix(texture, "bottom"),
+						suffix(texture, "top"),
+						suffix(texture, "front"),
+						suffix(texture, "front"),
+						suffix(texture, "side"),
+						suffix(texture, "side")
+				).texture("particle", suffix(texture, "front")));
 		this.blockItem(block);
 	}
 

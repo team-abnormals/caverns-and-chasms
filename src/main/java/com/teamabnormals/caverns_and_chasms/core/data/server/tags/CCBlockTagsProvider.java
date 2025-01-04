@@ -84,7 +84,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get(),
 				ECHO_BLOCK.get()
 		);
-		this.tag(BlockTags.MINEABLE_WITH_AXE).add(CUPRIC_CAMPFIRE.get());
+		this.tag(BlockTags.MINEABLE_WITH_AXE).add(CUPRIC_CAMPFIRE.get(), DISMANTLING_TABLE.get());
 		this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ROCKY_DIRT.get(), SOUL_SILVER_ORE.get());
 		this.tag(BlockTags.MINEABLE_WITH_HOE).add(ROTTEN_FLESH_BLOCK.get());
 		this.tag(BlockTags.NEEDS_STONE_TOOL).add(
