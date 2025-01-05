@@ -64,8 +64,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		this.shrinkStackInSlot(0);
 		if (firstTake) {
 			this.shrinkStackInSlot(1);
-			this.access.execute((p_40263_, p_40264_) -> p_40263_.levelEvent(1044, p_40264_, 0));
-
+			this.access.execute((level, pos) -> level.levelEvent(1044, pos, 0));
 			if (player instanceof ServerPlayer serverPlayer) {
 				CCCriteriaTriggers.DISMANTLED_ITEM.trigger(serverPlayer);
 			}

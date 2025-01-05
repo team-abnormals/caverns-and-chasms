@@ -32,7 +32,8 @@
   ],
   "client": [
     "client.EntityRenderDispatcherMixin",
-    "client.HumanoidArmorLayerMixin"
+    "client.HumanoidArmorLayerMixin",
+    "client.LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

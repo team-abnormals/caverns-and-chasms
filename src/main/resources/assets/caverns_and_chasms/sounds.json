@@ -94,6 +94,13 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.toolbox.open"
   },
+  "block.dismantling_table.use": {
+    "sounds": [
+      "caverns_and_chasms:block/dismantling_table/dismantling_table1",
+      "caverns_and_chasms:block/dismantling_table/dismantling_table2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.dismantling_table.use"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"
