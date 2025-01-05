@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "caverns_and_chasms:block/dismantling_table_bottom",
+    "east": "caverns_and_chasms:block/dismantling_table_side",
+    "north": "caverns_and_chasms:block/dismantling_table_front",
+    "particle": "caverns_and_chasms:block/dismantling_table_front",
+    "south": "caverns_and_chasms:block/dismantling_table_front",
+    "up": "caverns_and_chasms:block/dismantling_table_top",
+    "west": "caverns_and_chasms:block/dismantling_table_side"
+  }
+}

@@ -10,9 +10,8 @@
     }
   },
   "pattern": [
-    "SRS",
-    "R R",
-    "RRR"
+    "S",
+    "R"
   ],
   "result": {
     "item": "minecraft:bundle"

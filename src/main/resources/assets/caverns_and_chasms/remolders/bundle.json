@@ -1,0 +1,30 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "replace",
+    "target": "overrides",
+    "value": [
+      {
+        "predicate": {
+          "dyed": 0.0,
+          "filled": 0.0000001
+        },
+        "model": "item/bundle_filled"
+      },
+      {
+        "predicate": {
+          "dyed": 1.0
+        },
+        "model": "caverns_and_chasms:item/bundle_dyed"
+      },
+      {
+        "predicate": {
+          "dyed": 1.0,
+          "filled": 0.0000001
+        },
+        "model": "caverns_and_chasms:item/bundle_dyed_filled"
+      }
+    ]
+  },
+  "selector": "minecraft:models/item/bundle"
+}

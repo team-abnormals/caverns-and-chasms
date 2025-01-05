@@ -25,6 +25,7 @@
     "LightningRodBlockMixin",
     "MobMixin",
     "PlayerMixin",
+    "PowderSnowBlockMixin",
     "ServerLevelMixin",
     "ThrownPotionMixin",
     "WitherSkeletonMixin"

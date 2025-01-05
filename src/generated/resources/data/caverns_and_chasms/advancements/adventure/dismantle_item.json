@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:adventure/trim_with_any_armor_pattern",
+  "criteria": {
+    "dismantled_item": {
+      "trigger": "caverns_and_chasms:dismantled_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.dismantle_item.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:dismantling_table"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.dismantle_item.title"
+    }
+  },
+  "requirements": [
+    [
+      "dismantled_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

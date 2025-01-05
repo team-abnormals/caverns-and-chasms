@@ -67,6 +67,10 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		createAdvancement("dont_move", "adventure", new ResourceLocation("adventure/kill_a_mob"), CCBlocks.PEEPER_HEAD.get(), FrameType.TASK, true, true, true)
 				.addCriterion("spotted_by_peeper", CCCriteriaTriggers.SPOTTED_BY_PEEPER.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dont_move");
+
+		createAdvancement("dismantle_item", "adventure", new ResourceLocation("adventure/trim_with_any_armor_pattern"), CCBlocks.DISMANTLING_TABLE.get(), FrameType.TASK, true, true, false)
+				.addCriterion("dismantled_item", CCCriteriaTriggers.DISMANTLED_ITEM.createInstance())
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dismantle_item");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
