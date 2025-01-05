@@ -30,7 +30,6 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 	private static final Component MISSING_SMITHED_ITEM = Component.translatable("container.caverns_and_chasms.dismantle.missing_smithed_item");
 	private static final Component MISSING_SPINEL = Component.translatable("container.caverns_and_chasms.dismantle.missing_spinel");
 	private static final Component RESULT_ERROR_TOOLTIP = Component.translatable("container.caverns_and_chasms.dismantle.result_error_tooltip");
-	private static final Component DURABILITY_ERROR_TOOLTIP = Component.translatable("container.caverns_and_chasms.dismantle.durability_error_tooltip");
 	private static final List<ResourceLocation> EMPTY_SLOT_SMITHING_TEMPLATES = List.of(EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM, EMPTY_SLOT_SMITHING_TEMPLATE_NETHERITE_UPGRADE);
 	public static final Quaternionf ARMOR_STAND_ANGLE = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float) Math.PI);
 	private final CyclingSlotBackground smithingIcon = new CyclingSlotBackground(0);
@@ -110,7 +109,7 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 	private void renderOnboardingTooltips(GuiGraphics p_281668_, int p_267192_, int p_266859_) {
 		Optional<Component> optional = Optional.empty();
 		if (this.hasRecipeError() && this.isHovering(47, 46, 28, 21, p_267192_, p_266859_)) {
-			optional = Optional.of(this.stillHasResults() ? RESULT_ERROR_TOOLTIP : DURABILITY_ERROR_TOOLTIP);
+			optional = Optional.of(RESULT_ERROR_TOOLTIP);
 		}
 
 		if (this.hoveredSlot != null) {
@@ -129,12 +128,6 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 	}
 
 	private boolean hasRecipeError() {
-		return this.stillHasResults() || this.menu.durabilityError();
-	}
-
-	private boolean stillHasResults() {
 		return !this.menu.areResultsFull() && !this.menu.areResultsEmpty();
 	}
-
-
 }

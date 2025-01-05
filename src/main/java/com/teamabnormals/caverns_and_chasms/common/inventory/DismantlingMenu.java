@@ -84,7 +84,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		Container container = this.getResultContainer(this.inputSlots.getItem(0));
 		List<SmithingRecipe> list = this.level.getRecipeManager().getRecipesFor(RecipeType.SMITHING, container, this.level);
 
-		if (this.durabilityError() || ((list.isEmpty() || this.inputSlots.getItem(0).isEmpty() || this.inputSlots.getItem(1).isEmpty()) && this.areResultsFull())) {
+		if ((list.isEmpty() || this.inputSlots.getItem(0).isEmpty() || this.inputSlots.getItem(1).isEmpty()) && this.areResultsFull()) {
 			this.resultSlots.setItem(0, ItemStack.EMPTY);
 			this.resultSlots.setItem(1, ItemStack.EMPTY);
 			this.resultSlots.setItem(2, ItemStack.EMPTY);
@@ -93,11 +93,6 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 			this.resultSlots.setItem(1, container.getItem(1));
 			this.resultSlots.setItem(2, container.getItem(2));
 		}
-	}
-
-	public boolean durabilityError() {
-		ItemStack stack = this.getSlot(0).getItem();
-		return !stack.isEmpty() && stack.getMaxDamage() - stack.getDamageValue() < stack.getMaxDamage() / 2;
 	}
 
 	public Container getResultContainer(ItemStack stack) {

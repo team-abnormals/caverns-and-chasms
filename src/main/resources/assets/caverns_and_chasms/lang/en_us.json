@@ -219,7 +219,6 @@
   "block.minecraft.banner.caverns_and_chasms.abnormals.white": "White Anomaly",
   "block.minecraft.banner.caverns_and_chasms.abnormals.yellow": "Yellow Anomaly",
   "container.caverns_and_chasms.dismantle": "Dismantle Gear",
-  "container.caverns_and_chasms.dismantle.durability_error_tooltip": "Item must have at least 50% durability",
   "container.caverns_and_chasms.dismantle.missing_smithed_item": "Add Upgraded Item",
   "container.caverns_and_chasms.dismantle.missing_spinel": "Add Spinel",
   "container.caverns_and_chasms.dismantle.result_error_tooltip": "Remove all dismantled components",
