@@ -14,13 +14,11 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import static net.minecraft.client.renderer.entity.LivingEntityRenderer.getOverlayCoords;
-
 @OnlyIn(Dist.CLIENT)
-public class DeeperPrimedLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> {
+public class DeeperGlowLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> {
 	private final DeeperModel<Deeper> model;
 
-	public DeeperPrimedLayer(RenderLayerParent<Deeper, DeeperModel<Deeper>> renderer, EntityRendererProvider.Context context) {
+	public DeeperGlowLayer(RenderLayerParent<Deeper, DeeperModel<Deeper>> renderer, EntityRendererProvider.Context context) {
 		super(renderer);
 		this.model = new DeeperModel<>(context.bakeLayer(CCModelLayers.DEEPER));
 	}
