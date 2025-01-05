@@ -18,7 +18,7 @@ public class DeeperPowerLayer extends EnergySwirlLayer<Deeper, DeeperModel<Deepe
 
 	public DeeperPowerLayer(RenderLayerParent<Deeper, DeeperModel<Deeper>> parent, EntityModelSet modelSet) {
 		super(parent);
-		this.model = new DeeperModel<>(null, modelSet.bakeLayer(CCModelLayers.DEEPER_ARMOR));
+		this.model = new DeeperModel<>(modelSet.bakeLayer(CCModelLayers.DEEPER_ARMOR));
 	}
 
 	protected float xOffset(float p_116683_) {
