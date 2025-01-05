@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.CupricCampfireBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;

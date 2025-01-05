@@ -2,8 +2,8 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel;
-import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.DeeperPowerLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.DeeperGlowLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.DeeperPowerLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Deeper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
@@ -43,6 +43,6 @@ public class DeeperRenderer extends MobRenderer<Deeper, DeeperModel<Deeper>> {
 		if (!deeper.isPowered())
 			return 0.0F;
 		float f = deeper.getSwelling(partialTick);
-		return (int)(f * 10.0F) % 2 == 0 ? 0.0F : Mth.clamp(f, 0.5F, 1.0F);
+		return (int) (f * 10.0F) % 2 == 0 ? 0.0F : Mth.clamp(f, 0.5F, 1.0F);
 	}
 }

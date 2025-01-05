@@ -4,7 +4,6 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.world.level.block.Blocks;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
-import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CUT_AMETHYST_BRICK_WALL;
 
 public class CCBlockFamilies {
 	public static final BlockFamily AZALEA_PLANKS_FAMILY = new BlockFamily.Builder(AZALEA_PLANKS.get()).button(AZALEA_BUTTON.get()).fence(AZALEA_FENCE.get()).fenceGate(AZALEA_FENCE_GATE.get()).pressurePlate(AZALEA_PRESSURE_PLATE.get()).sign(AZALEA_SIGNS.getFirst().get(), AZALEA_SIGNS.getSecond().get()).slab(AZALEA_SLAB.get()).stairs(AZALEA_STAIRS.get()).door(AZALEA_DOOR.get()).trapdoor(AZALEA_TRAPDOOR.get()).recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();

@@ -70,9 +70,9 @@ public class SpinelBoom extends Explosion {
 		this.level.gameEvent(this.source, GameEvent.EXPLODE, new Vec3(this.x, this.y, this.z));
 		Set<BlockPos> set = Sets.newHashSet();
 
-		for(int j = 0; j < 16; ++j) {
-			for(int k = 0; k < 16; ++k) {
-				for(int l = 0; l < 16; ++l) {
+		for (int j = 0; j < 16; ++j) {
+			for (int k = 0; k < 16; ++k) {
+				for (int l = 0; l < 16; ++l) {
 					if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
 						double d0 = (float) j / 15.0F * 2.0F - 1.0F;
 						double d1 = (float) k / 15.0F * 2.0F - 1.0F;
@@ -86,7 +86,7 @@ public class SpinelBoom extends Explosion {
 						double d6 = this.y;
 						double d8 = this.z;
 
-						for(float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
+						for (float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
 							BlockPos blockpos = BlockPos.containing(d4, d6, d8);
 							BlockState blockstate = this.level.getBlockState(blockpos);
 							FluidState fluidstate = this.level.getFluidState(blockpos);
@@ -127,10 +127,10 @@ public class SpinelBoom extends Explosion {
 		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f);
 		Vec3 vec3 = new Vec3(this.x, this.y, this.z);
 
-		for(int i = 0; i < list.size(); ++i) {
+		for (int i = 0; i < list.size(); ++i) {
 			Entity entity = list.get(i);
 			if (!entity.ignoreExplosion()) {
-				double d0 = Math.sqrt(entity.distanceToSqr(vec3)) / (double)f;
+				double d0 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f;
 				if (d0 <= 1.0D) {
 					double d1 = entity.getX() - this.x;
 					double d2 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - this.y;
@@ -144,7 +144,7 @@ public class SpinelBoom extends Explosion {
 						double d6 = (1.0D - d0) * d5;
 						double d7 = d6;
 						if (entity instanceof LivingEntity) {
-							d7 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity)entity, d6);
+							d7 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d6);
 						}
 
 						entity.setDeltaMovement(entity.getDeltaMovement().add(d1 * d7, d2 * d7, d3 * d7));

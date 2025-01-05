@@ -14,7 +14,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import java.util.concurrent.CompletableFuture;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
-import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.COBBLED_DEEPSLATE_TILE_WALL;
 
 public class CCBlockTagsProvider extends BlockTagsProvider {
 

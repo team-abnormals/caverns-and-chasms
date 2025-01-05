@@ -3,14 +3,9 @@ package com.teamabnormals.caverns_and_chasms.common.item.silver;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
-import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
-
-import java.rmi.Remote;
 
 public class SilverItem {
 

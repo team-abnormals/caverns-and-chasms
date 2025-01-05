@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.CCSkullBlockEnti
 import com.teamabnormals.caverns_and_chasms.common.block.entity.CupricCampfireBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegistryObject;
