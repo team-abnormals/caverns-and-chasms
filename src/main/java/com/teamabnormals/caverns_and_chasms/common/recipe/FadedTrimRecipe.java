@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -20,11 +21,20 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public class FadedTrimRecipe extends CustomRecipe {
+	private final boolean faded;
+
 	public FadedTrimRecipe(ResourceLocation p_273671_, CraftingBookCategory p_273056_) {
+		this(p_273671_, p_273056_, false);
+	}
+
+	public FadedTrimRecipe(ResourceLocation p_273671_, CraftingBookCategory p_273056_, boolean faded) {
 		super(p_273671_, p_273056_);
+		this.faded = faded;
 	}
 
 	public boolean matches(CraftingContainer container, Level level) {
+		Item item = this.faded ? CCItems.SPINEL.get() : Items.BLAZE_POWDER;
+
 		if (!this.canCraftInDimensions(container.getWidth(), container.getHeight())) {
 			return false;
 		} else {
@@ -33,24 +43,19 @@ public class FadedTrimRecipe extends CustomRecipe {
 				ItemStack stack = container.getItem(i);
 
 				switch (i) {
-					case 0:
-					case 2:
-					case 3:
-					case 5:
-					case 6:
-					case 7:
-					case 8:
-						if (!stack.is(CCItems.SPINEL.get())) {
+					case 0, 2, 3, 5, 6, 7, 8 -> {
+						if (!stack.is(item)) {
 							return false;
 						}
-						break;
-					case 1:
+					}
+					case 1 -> {
 						CompoundTag tag = stack.getOrCreateTag();
-						if (!stack.is(ItemTags.TRIM_TEMPLATES) || tag.getBoolean("FadedTrim") || tag.getBoolean("EmissiveTrim")) {
+						if (!stack.is(ItemTags.TRIM_TEMPLATES) || this.faded ? tag.getBoolean("FadedTrim") : tag.getBoolean("EmissiveTrim")) {
 							return false;
 						}
-						break;
-					default:
+					}
+					default -> {
+					}
 				}
 
 			}
@@ -66,7 +71,7 @@ public class FadedTrimRecipe extends CustomRecipe {
 			}, 3, 3);
 
 			for (int i = 0; i < container.getContainerSize(); ++i) {
-				if (container.getItem(i).is(CCItems.SPINEL.get())) {
+				if (container.getItem(i).is(item)) {
 					checker.setItem(i, Items.DIAMOND.getDefaultInstance());
 				} else {
 					checker.setItem(i, container.getItem(i));
@@ -80,7 +85,7 @@ public class FadedTrimRecipe extends CustomRecipe {
 
 	public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
 		ItemStack stack = new ItemStack(container.getItem(1).getItem());
-		stack.getOrCreateTag().putBoolean("FadedTrim", true);
+		stack.getOrCreateTag().putBoolean(this.faded ? "FadedTrim" : "EmissiveTrim", true);
 		return stack;
 	}
 

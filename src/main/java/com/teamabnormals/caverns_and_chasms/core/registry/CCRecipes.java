@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.common.recipe.EmissiveTrimRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.FadedTrimRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.ToolboxWaxing;
@@ -19,6 +20,7 @@ public class CCRecipes {
 
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<ToolboxWaxing>> TOOLBOX_WAXING = RECIPE_SERIALIZERS.register("crafting_special_toolboxwaxing", () -> new SimpleCraftingRecipeSerializer<>(ToolboxWaxing::new));
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<FadedTrimRecipe>> FADED_TRIM_DUPING = RECIPE_SERIALIZERS.register("crafting_special_fadedtrimduping", () -> new SimpleCraftingRecipeSerializer<>(FadedTrimRecipe::new));
+		public static final RegistryObject<SimpleCraftingRecipeSerializer<EmissiveTrimRecipe>> EMISSIVE_TRIM_DUPING = RECIPE_SERIALIZERS.register("crafting_special_emissivetrimduping", () -> new SimpleCraftingRecipeSerializer<>(EmissiveTrimRecipe::new));
 	}
 
 	public static class CCRecipeTypes {
