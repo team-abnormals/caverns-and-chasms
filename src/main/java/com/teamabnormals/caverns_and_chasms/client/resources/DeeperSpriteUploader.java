@@ -13,8 +13,6 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-import java.util.stream.Stream;
-
 /**
  * @author Ocelot
  */
@@ -24,6 +22,8 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 	public static final ResourceLocation DEEPER_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper");
 	public static final ResourceLocation PRIMED_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_primed");
 	public static final ResourceLocation EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_emissive");
+	public static final ResourceLocation CHARGED_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "charged_deeper");
+	public static final ResourceLocation CHARGED_EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "charged_deeper_emissive");
 
 	private static DeeperSpriteUploader uploader;
 
@@ -51,9 +51,10 @@ public class DeeperSpriteUploader extends TextureAtlasHolder {
 	 */
 	public static TextureAtlasSprite getSprite(DeeperModel.DeeperSprite sprite) {
 		return switch (sprite) {
-			case BASE -> uploader.getSprite(DEEPER_SPRITE);
 			case PRIMED -> uploader.getSprite(PRIMED_SPRITE);
 			case EMISSIVE -> uploader.getSprite(EMISSIVE_SPRITE);
+			case CHARGED -> uploader.getSprite(CHARGED_SPRITE);
+			case CHARGED_EMISSIVE -> uploader.getSprite(CHARGED_EMISSIVE_SPRITE);
 		};
 	}
 }

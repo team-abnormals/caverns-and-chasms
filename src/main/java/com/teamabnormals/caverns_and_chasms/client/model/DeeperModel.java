@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.blueprint.client.BlueprintRenderTypes;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
 import net.minecraft.client.Minecraft;
@@ -18,8 +17,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DeeperModel<T extends Entity> extends ListModel<T> {
-	private final DeeperSprite sprite;
-
 	private final ModelPart head;
 	private final ModelPart body;
 
@@ -28,8 +25,7 @@ public class DeeperModel<T extends Entity> extends ListModel<T> {
 	private final ModelPart leg3;
 	private final ModelPart leg4;
 
-	public DeeperModel(DeeperSprite sprite, ModelPart root) {
-		this.sprite = sprite;
+	public DeeperModel(ModelPart root) {
 		this.head = root.getChild("head");
 		this.body = root.getChild("body");
 		this.leg1 = root.getChild("leg1");
@@ -50,15 +46,10 @@ public class DeeperModel<T extends Entity> extends ListModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		if (this.sprite != null) {
-			TextureAtlasSprite textureatlassprite = DeeperSpriteUploader.getSprite(this.sprite);
-			RenderType render = this.sprite == DeeperSprite.PRIMED ? RenderType.entityTranslucent(DeeperSpriteUploader.ATLAS_LOCATION) : this.sprite == DeeperSprite.EMISSIVE ? BlueprintRenderTypes.getUnshadedTranslucentEntity(DeeperSpriteUploader.ATLAS_LOCATION, false) : RenderType.entityCutout(DeeperSpriteUploader.ATLAS_LOCATION);
-			super.renderToBuffer(matrixStack, textureatlassprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(render)), this.sprite == DeeperSprite.EMISSIVE ? 15728880 : packedLight, packedOverlay, red, green, blue, alpha);
-		} else {
-			super.renderToBuffer(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		}
+	public void renderOverlay(DeeperSprite sprite, boolean emissive, PoseStack matrixStack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		TextureAtlasSprite textureatlassprite = DeeperSpriteUploader.getSprite(sprite);
+		RenderType render = emissive ? BlueprintRenderTypes.getUnshadedTranslucentEntity(DeeperSpriteUploader.ATLAS_LOCATION, false) : RenderType.entityTranslucent(DeeperSpriteUploader.ATLAS_LOCATION);
+		super.renderToBuffer(matrixStack, textureatlassprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(render)), emissive ? 15728880 : packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
@@ -78,8 +69,9 @@ public class DeeperModel<T extends Entity> extends ListModel<T> {
 
 	@OnlyIn(Dist.CLIENT)
 	public static enum DeeperSprite {
-		BASE,
 		PRIMED,
-		EMISSIVE;
+		EMISSIVE,
+		CHARGED,
+		CHARGED_EMISSIVE
 	}
 }
