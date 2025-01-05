@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import com.teamabnormals.caverns_and_chasms.client.CCShaders;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
@@ -110,6 +111,7 @@ public class CavernsAndChasms {
 			bus.addListener(this::registerItemColors);
 			bus.addListener(this::createSkullModels);
 			bus.addListener(this::registerClientTooltips);
+			bus.addListener(CCShaders::registerShaders);
 		});
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));

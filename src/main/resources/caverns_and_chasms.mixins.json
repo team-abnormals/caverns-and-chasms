@@ -7,6 +7,7 @@
   "mixins": [
     "AbstractFurnaceBlockEntityMixin",
     "AbstractMinecartMixin",
+    "ArmorTrimMixin",
     "AxeItemMixin",
     "BaseFireBlockMixin",
     "BlockBehaviourMixin",
@@ -27,6 +28,8 @@
     "PlayerMixin",
     "PowderSnowBlockMixin",
     "ServerLevelMixin",
+    "SmithingTemplateItemMixin",
+    "SmithingTrimRecipeMixin",
     "ThrownPotionMixin",
     "WitherSkeletonMixin"
   ],

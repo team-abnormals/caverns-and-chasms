@@ -1,18 +1,26 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimPatterns;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -50,6 +58,9 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@Shadow
 	protected abstract Model getArmorModelHook(T entity, ItemStack itemStack, EquipmentSlot slot, A model);
 
+	@Shadow
+	@Final
+	public TextureAtlas armorTrimAtlas;
 	@Unique
 	private static final ResourceLocation TETHER_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion.png");
 	@Unique
@@ -85,6 +96,21 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 				ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(CCTrimPatterns.SANGUINE));
 				this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
 			});
+		}
+	}
+
+	@Inject(at = @At("HEAD"), method = "renderTrim(Lnet/minecraft/world/item/ArmorMaterial;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/Model;Z)V", cancellable = true, remap = false)
+	public void renderTrim(ArmorMaterial material, PoseStack stack, MultiBufferSource source, int i, ArmorTrim trim, Model model, boolean inner, CallbackInfo ci) {
+		CCArmorTrim armorTrim = (CCArmorTrim) trim;
+		if (armorTrim.isEmissive() || armorTrim.isFaded()) {
+			boolean emissive = armorTrim.isEmissive();
+			TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(inner ? trim.innerTexture(material) : trim.outerTexture(material));
+			VertexConsumer vertexconsumer = sprite.wrap(source.getBuffer(
+					emissive ? CCRenderTypes.ARMOR_CUTOUT_NO_CULL_EMISSIVE.apply(Sheets.ARMOR_TRIMS_SHEET) :
+							CCRenderTypes.ARMOR_TRANSLUCENT_NO_CULL.apply(Sheets.ARMOR_TRIMS_SHEET)
+			));
+			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
+			ci.cancel();
 		}
 	}
 
