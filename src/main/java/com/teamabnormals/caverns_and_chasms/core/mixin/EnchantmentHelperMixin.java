@@ -41,7 +41,7 @@ public abstract class EnchantmentHelperMixin {
 			Collection<AttributeModifier> slownessModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.SLOWNESS_INFLICTION.get());
 			if (!slownessModifiers.isEmpty()) {
 				int slownessLevel = (int) slownessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-				livingTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, slownessLevel));
+				livingTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, slownessLevel));
 			}
 		}
 	}

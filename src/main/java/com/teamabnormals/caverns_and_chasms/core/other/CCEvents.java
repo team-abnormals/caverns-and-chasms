@@ -416,16 +416,16 @@ public class CCEvents {
 				}
 			}
 
-			float weaknessAmount = 0.0F;
+			float slownessInfliction = 0.0F;
 			float lifeStealAmount = 0.0F;
 
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
 					ItemStack stack = target.getItemBySlot(slot);
 
-					Collection<AttributeModifier> weaknessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.WEAKNESS_AURA.get());
-					if (!weaknessModifiers.isEmpty()) {
-						weaknessAmount += weaknessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+					Collection<AttributeModifier> slownessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.SLOWNESS_INFLICTION.get());
+					if (!slownessModifiers.isEmpty()) {
+						slownessInfliction += slownessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 					}
 
 					Collection<AttributeModifier> lifeStealModifiers = attacker.getItemBySlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
@@ -440,11 +440,11 @@ public class CCEvents {
 				SanguineArmorItem.causeHealParticles(attacker, lifeStealAmount);
 			}
 
-			if (weaknessAmount > 0.0F) {
-				for (LivingEntity entity : target.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(weaknessAmount, 0.0D, weaknessAmount))) {
-					if (entity != target)
-						entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
-				}
+			if (slownessInfliction > 0.0F) {
+				System.out.println("Slowness amount: " + slownessInfliction);
+				System.out.println("Duration: " + ((int) (60 * slownessInfliction) / 20) + " seconds");
+				System.out.println("Level: " + ((int) slownessInfliction - 1));
+				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
 			}
 		}
 
