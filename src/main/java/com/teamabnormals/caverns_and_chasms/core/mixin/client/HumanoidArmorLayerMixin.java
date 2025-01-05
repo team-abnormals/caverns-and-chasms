@@ -93,6 +93,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			RegistryAccess access = entity.level().registryAccess();
 			ArmorTrim.getTrim(access, stack).ifPresent(armorTrim -> {
 				ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(CCTrimPatterns.SANGUINE));
+				((CCArmorTrim) trim).setFaded(((CCArmorTrim) armorTrim).isFaded());
+				((CCArmorTrim) trim).setEmissive(((CCArmorTrim) armorTrim).isEmissive());
 				this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
 			});
 		}
