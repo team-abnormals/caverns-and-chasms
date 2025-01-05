@@ -14,6 +14,8 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import static net.minecraft.client.renderer.entity.LivingEntityRenderer.getOverlayCoords;
+
 @OnlyIn(Dist.CLIENT)
 public class DeeperPrimedLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> {
 	private final DeeperModel<Deeper> model;
@@ -25,15 +27,15 @@ public class DeeperPrimedLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> 
 
 	@Override
 	public void render(PoseStack stack, MultiBufferSource buffer, int packedLightIn, Deeper deeper, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = getExplosionEmissionProgress(deeper, partialTick);
+		boolean charged = deeper.isPowered();
+		float emission = this.getExplosionEmissionProgress(deeper, partialTick);
+		float alpha = charged ? 1.0F : emission;
 		this.model.setupAnim(deeper, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		this.model.renderOverlay(deeper.isPowered() ? DeeperSprite.CHARGED : DeeperSprite.PRIMED, false, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, 0.0F), 1.0F, 1.0F, 1.0F, f);
-		this.model.renderOverlay(deeper.isPowered() ? DeeperSprite.CHARGED_EMISSIVE : DeeperSprite.EMISSIVE, true, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, 0.0F), 1.0F, 1.0F, 1.0F, f);
+		this.model.renderOverlay(charged ? DeeperSprite.CHARGED : DeeperSprite.PRIMED, false, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, charged ? emission : 0.0F), 1.0F, 1.0F, 1.0F, alpha);
+		this.model.renderOverlay(charged ? DeeperSprite.CHARGED_EMISSIVE : DeeperSprite.EMISSIVE, true, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, 0.0F), 1.0F, 1.0F, 1.0F, alpha);
 	}
 
 	private float getExplosionEmissionProgress(Deeper deeper, float partialTick) {
-		if (deeper.isPowered())
-			return 1.0F;
 		float f = deeper.getSwelling(partialTick);
 		return (int) (f * 10.0F) % 2 == 0 ? Mth.clamp(f - 0.25F, 0.0F, 1.0F) : Mth.clamp(f, 0.0F, 1.0F);
 	}
