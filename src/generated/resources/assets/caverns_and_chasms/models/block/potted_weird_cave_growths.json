@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/flower_pot_cross",
+  "textures": {
+    "plant": "caverns_and_chasms:block/potted_weird_cave_growths"
+  }
+}

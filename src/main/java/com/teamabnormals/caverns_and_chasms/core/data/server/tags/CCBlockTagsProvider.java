@@ -53,6 +53,10 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.WALL_SIGNS).add(AZALEA_SIGNS.getSecond().get());
 		this.tag(BlockTags.CEILING_HANGING_SIGNS).add(AZALEA_HANGING_SIGNS.getFirst().get());
 		this.tag(BlockTags.WALL_HANGING_SIGNS).add(AZALEA_HANGING_SIGNS.getSecond().get());
+		this.tag(BlockTags.REPLACEABLE).addTag(CCBlockTags.CAVE_GROWTHS);
+		this.tag(BlockTags.REPLACEABLE_BY_TREES).addTag(CCBlockTags.CAVE_GROWTHS);
+		this.tag(BlockTags.SWORD_EFFICIENT).addTag(CCBlockTags.CAVE_GROWTHS);
+		this.tag(BlockTags.FLOWER_POTS).add(POTTED_CAVE_GROWTHS.get(), POTTED_LURID_CAVE_GROWTHS.get(), POTTED_WISPY_CAVE_GROWTHS.get(), POTTED_CAVE_GROWTHS.get(), POTTED_WEIRD_CAVE_GROWTHS.get(), POTTED_ZESTY_CAVE_GROWTHS.get());
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
 		this.tag(BlockTags.BEEHIVES).add(AZALEA_BEEHIVE.get());
 		// INDUCTOR.get()
@@ -83,7 +87,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get(),
 				ECHO_BLOCK.get()
 		);
-		this.tag(BlockTags.MINEABLE_WITH_AXE).add(CUPRIC_CAMPFIRE.get(), DISMANTLING_TABLE.get());
+		this.tag(BlockTags.MINEABLE_WITH_AXE).add(CUPRIC_CAMPFIRE.get(), DISMANTLING_TABLE.get(), CAVE_GROWTHS.get(), LURID_CAVE_GROWTHS.get(), WISPY_CAVE_GROWTHS.get(), GRAINY_CAVE_GROWTHS.get(), WEIRD_CAVE_GROWTHS.get(), ZESTY_CAVE_GROWTHS.get());
 		this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ROCKY_DIRT.get(), SOUL_SILVER_ORE.get());
 		this.tag(BlockTags.MINEABLE_WITH_HOE).add(ROTTEN_FLESH_BLOCK.get());
 		this.tag(BlockTags.NEEDS_STONE_TOOL).add(
@@ -106,6 +110,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.SILVER_ORES).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get());
 		this.tag(CCBlockTags.SPINEL_ORES).add(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 		this.tag(CCBlockTags.AZALEA_LOGS).add(AZALEA_LOG.get(), STRIPPED_AZALEA_LOG.get(), AZALEA_WOOD.get(), STRIPPED_AZALEA_WOOD.get());
+		this.tag(CCBlockTags.CAVE_GROWTHS).add(CAVE_GROWTHS.get(), LURID_CAVE_GROWTHS.get(), WISPY_CAVE_GROWTHS.get(), GRAINY_CAVE_GROWTHS.get(), WEIRD_CAVE_GROWTHS.get(), ZESTY_CAVE_GROWTHS.get());
 
 		this.tag(CCBlockTags.WAXABLE_COPPER_BLOCKS).add(
 				Blocks.COPPER_BLOCK, Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER,

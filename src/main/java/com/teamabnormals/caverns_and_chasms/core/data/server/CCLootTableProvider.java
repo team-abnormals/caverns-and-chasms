@@ -275,6 +275,20 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(TRAPPED_AZALEA_CHEST.get(), this::createNameableBlockEntityTable);
 			this.add(AZALEA_BOOKSHELF.get(), (block) -> createSingleItemTableWithSilkTouch(block, Items.BOOK, ConstantValue.exactly(3.0F)));
 			this.dropWhenSilkTouch(CHISELED_AZALEA_BOOKSHELF.get());
+
+			this.add(CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
+			this.add(LURID_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
+			this.add(WISPY_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
+			this.add(GRAINY_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
+			this.add(WEIRD_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
+			this.add(ZESTY_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
+
+			this.dropPottedContents(POTTED_CAVE_GROWTHS.get());
+			this.dropPottedContents(POTTED_LURID_CAVE_GROWTHS.get());
+			this.dropPottedContents(POTTED_WISPY_CAVE_GROWTHS.get());
+			this.dropPottedContents(POTTED_GRAINY_CAVE_GROWTHS.get());
+			this.dropPottedContents(POTTED_WEIRD_CAVE_GROWTHS.get());
+			this.dropPottedContents(POTTED_ZESTY_CAVE_GROWTHS.get());
 		}
 
 		protected LootTable.Builder createToolboxDrop(Block p_124295_) {
@@ -290,7 +304,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> ForgeRegistries.BLOCKS.getKey(block).getNamespace().equals(CavernsAndChasms.MOD_ID)).collect(Collectors.toSet());
 		}
 	}
-
 
 	private static class CCEntityLoot extends EntityLootSubProvider {
 		private static final Set<EntityType<?>> SPECIAL_LOOT_TABLE_TYPES = ImmutableSet.of(COPPER_GOLEM.get(), OXIDIZED_COPPER_GOLEM.get());

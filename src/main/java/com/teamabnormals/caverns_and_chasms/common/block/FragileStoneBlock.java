@@ -31,11 +31,11 @@ public class FragileStoneBlock extends Block implements FragileBlock {
 	}
 
 	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockentity, ItemStack stack) {
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack) {
 		if (!level.isClientSide() && this.shouldBreakNeighbors(player, stack)) {
 			this.breakNeighbors(level, pos);
 		}
-		super.playerDestroy(level, player, pos, state, blockentity, stack);
+		super.playerDestroy(level, player, pos, state, blockEntity, stack);
 	}
 
 	@Override

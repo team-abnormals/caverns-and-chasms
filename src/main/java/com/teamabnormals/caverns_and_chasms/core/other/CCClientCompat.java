@@ -68,6 +68,20 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LADDER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_DOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.LURID_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WISPY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.GRAINY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEIRD_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ZESTY_CAVE_GROWTHS.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_LURID_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_WISPY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_GRAINY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_WEIRD_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_ZESTY_CAVE_GROWTHS.get(), RenderType.cutout());
 	}
 
 	public static void registerItemProperties() {

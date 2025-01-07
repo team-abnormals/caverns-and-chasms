@@ -145,6 +145,19 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.woodworksBlocks(AZALEA_PLANKS, AZALEA_BOARDS, AZALEA_LADDER, AZALEA_BOOKSHELF, AZALEA_BEEHIVE, AZALEA_CHEST, TRAPPED_AZALEA_CHEST);
 		this.chiseledBookshelfBlock(CHISELED_AZALEA_BOOKSHELF, ALTERNATE_BOOKSHELF_POSITIONS);
+
+		this.caveGrowthsBlock(CAVE_GROWTHS, POTTED_CAVE_GROWTHS);
+		this.caveGrowthsBlock(LURID_CAVE_GROWTHS, POTTED_LURID_CAVE_GROWTHS);
+		this.caveGrowthsBlock(WISPY_CAVE_GROWTHS, POTTED_WISPY_CAVE_GROWTHS);
+		this.caveGrowthsBlock(GRAINY_CAVE_GROWTHS, POTTED_GRAINY_CAVE_GROWTHS);
+		this.caveGrowthsBlock(WEIRD_CAVE_GROWTHS, POTTED_WEIRD_CAVE_GROWTHS);
+		this.caveGrowthsBlock(ZESTY_CAVE_GROWTHS, POTTED_ZESTY_CAVE_GROWTHS);
+	}
+
+	public void caveGrowthsBlock(RegistryObject<Block> caveGrowths, RegistryObject<Block> flowerPot) {
+		this.directionalBlock(caveGrowths.get(), this.models().cross(name(caveGrowths.get()), this.blockTexture(caveGrowths.get())));
+		this.generatedItem(caveGrowths.get(), "block");
+		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), new ResourceLocation("block/flower_pot_cross"), "plant", new ResourceLocation(CavernsAndChasms.MOD_ID, "block/potted_" + name(caveGrowths.get()))));
 	}
 
 	public void waxedCopperBarsBlock(RegistryObject<Block> waxedCopperBars, RegistryObject<Block> copperBars) {

@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "caverns_and_chasms:block/weird_cave_growths",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "caverns_and_chasms:block/weird_cave_growths",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "caverns_and_chasms:block/weird_cave_growths",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "caverns_and_chasms:block/weird_cave_growths",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "caverns_and_chasms:block/weird_cave_growths"
+    },
+    "facing=west": {
+      "model": "caverns_and_chasms:block/weird_cave_growths",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

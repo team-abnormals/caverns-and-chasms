@@ -10,6 +10,7 @@ import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import com.teamabnormals.blueprint.core.api.WoodTypeRegistryHelper;
+import com.teamabnormals.blueprint.core.util.PropertyUtil;
 import com.teamabnormals.blueprint.core.util.PropertyUtil.WoodSetProperties;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
@@ -20,8 +21,11 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundT
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -38,10 +42,12 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
@@ -258,6 +264,20 @@ public class CCBlocks {
 	public static final RegistryObject<BlueprintChestBlock> AZALEA_CHEST = HELPER.createChestBlock("azalea", CCProperties.AZALEA.chest());
 	public static final RegistryObject<BlueprintTrappedChestBlock> TRAPPED_AZALEA_CHEST = HELPER.createTrappedChestBlockNamed("azalea", CCProperties.AZALEA.chest());
 
+	public static final RegistryObject<Block> CAVE_GROWTHS = HELPER.createBlock("cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.TERRACOTTA_LIGHT_GREEN)));
+	public static final RegistryObject<Block> LURID_CAVE_GROWTHS = HELPER.createBlock("lurid_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.GLOW_LICHEN)));
+	public static final RegistryObject<Block> WISPY_CAVE_GROWTHS = HELPER.createBlock("wispy_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.STONE)));
+	public static final RegistryObject<Block> GRAINY_CAVE_GROWTHS = HELPER.createBlock("grainy_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.TERRACOTTA_PINK)));
+	public static final RegistryObject<Block> WEIRD_CAVE_GROWTHS = HELPER.createBlock("weird_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.TERRACOTTA_MAGENTA)));
+	public static final RegistryObject<Block> ZESTY_CAVE_GROWTHS = HELPER.createBlock("zesty_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.RAW_IRON)));
+
+	public static final RegistryObject<Block> POTTED_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_cave_growths", () -> new FlowerPotBlock(CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> POTTED_LURID_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_lurid_cave_growths", () -> new FlowerPotBlock(LURID_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> POTTED_WISPY_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_wispy_cave_growths", () -> new FlowerPotBlock(WISPY_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> POTTED_GRAINY_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_grainy_cave_growths", () -> new FlowerPotBlock(GRAINY_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> POTTED_WEIRD_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_weird_cave_growths", () -> new FlowerPotBlock(WEIRD_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> POTTED_ZESTY_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_zesty_cave_growths", () -> new FlowerPotBlock(ZESTY_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
+
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
 				.tab(BUILDING_BLOCKS)
@@ -310,6 +330,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.RAW_GOLD_BLOCK), RAW_SILVER_BLOCK)
 				.addItemsAfter(of(Blocks.SCULK_SENSOR), ECHO_BLOCK)
 				.addItemsBefore(of(Blocks.COBWEB), ROTTEN_FLESH_BLOCK)
+				.addItemsAfter(of(Blocks.FERN), CAVE_GROWTHS, LURID_CAVE_GROWTHS, WISPY_CAVE_GROWTHS, WEIRD_CAVE_GROWTHS, GRAINY_CAVE_GROWTHS, ZESTY_CAVE_GROWTHS)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
@@ -413,6 +434,27 @@ public class CCBlocks {
 
 		private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
 			return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+		}
+
+		private static BlockBehaviour.Properties caveGrowths(MapColor mapColor) {
+			BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().mapColor(mapColor).replaceable().noCollission().instabreak().sound(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY);
+			properties.offsetFunction = Optional.of((state, level, pos) -> {
+				Block block = state.getBlock();
+				long i = Mth.getSeed(pos.getX(), pos.getY(), pos.getZ());
+				double d0 = ((double)((float)(i >> 4 & 15L) / 15.0F) - 1.0D) * (double)block.getMaxVerticalOffset();
+				float f = block.getMaxHorizontalOffset();
+				double d1 = Mth.clamp(((double)((float)(i & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
+				double d2 = Mth.clamp(((double)((float)(i >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
+
+				Direction facing = state.getValue(CaveGrowthsBlock.FACING);
+				Axis axis = facing.getAxis();
+				Vec3 vec3 = axis == Axis.X ? new Vec3(d0, d1, d2) : axis == Axis.Y ? new Vec3(d1, d0, d2) : new Vec3(d1, d2, d0);
+				if (facing.getAxisDirection() == AxisDirection.NEGATIVE)
+					vec3 = vec3.reverse();
+
+				return vec3;
+			});
+			return properties;
 		}
 	}
 

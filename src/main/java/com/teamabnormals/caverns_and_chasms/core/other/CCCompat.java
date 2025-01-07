@@ -25,6 +25,7 @@ import java.util.List;
 public class CCCompat {
 
 	public static void registerCompat() {
+		registerCompostables();
 		registerFlammables();
 		registerDispenserBehaviors();
 		registerWaxables();
@@ -34,6 +35,15 @@ public class CCCompat {
 		changeLocalization();
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
+	}
+
+	public static void registerCompostables() {
+		DataUtil.registerCompostable(CCBlocks.CAVE_GROWTHS.get(), 0.30F);
+		DataUtil.registerCompostable(CCBlocks.LURID_CAVE_GROWTHS.get(), 0.30F);
+		DataUtil.registerCompostable(CCBlocks.WISPY_CAVE_GROWTHS.get(), 0.30F);
+		DataUtil.registerCompostable(CCBlocks.GRAINY_CAVE_GROWTHS.get(), 0.30F);
+		DataUtil.registerCompostable(CCBlocks.WEIRD_CAVE_GROWTHS.get(), 0.30F);
+		DataUtil.registerCompostable(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 0.30F);
 	}
 
 	private static void registerFlammables() {
@@ -49,6 +59,14 @@ public class CCCompat {
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BOARDS.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BOOKSHELF.get(), 30, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BEEHIVE.get(), 5, 20);
+
+		DataUtil.registerFlammable(CCBlocks.CAVE_GROWTHS.get(), 60, 100);
+		DataUtil.registerFlammable(CCBlocks.LURID_CAVE_GROWTHS.get(), 60, 100);
+		DataUtil.registerFlammable(CCBlocks.WISPY_CAVE_GROWTHS.get(), 60, 100);
+		DataUtil.registerFlammable(CCBlocks.GRAINY_CAVE_GROWTHS.get(), 60, 100);
+		DataUtil.registerFlammable(CCBlocks.WEIRD_CAVE_GROWTHS.get(), 60, 100);
+		DataUtil.registerFlammable(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 60, 100);
+
 		DataUtil.registerFlammable(CCBlocks.TMT.get(), 15, 100);
 	}
 
