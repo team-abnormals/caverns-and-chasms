@@ -14,4 +14,7 @@ public final class CCPaintingVariants {
 	public static final RegistryObject<PaintingVariant> EMBEDDED = PAINTING_VARIANTS.register("embedded", () -> new PaintingVariant(32, 64));
 	public static final RegistryObject<PaintingVariant> STARRY_NIGHT = PAINTING_VARIANTS.register("starry_night", () -> new PaintingVariant(16, 16));
 	public static final RegistryObject<PaintingVariant> NOIR = PAINTING_VARIANTS.register("noir", () -> new PaintingVariant(16, 32));
+	public static final RegistryObject<PaintingVariant> KNIGHT = PAINTING_VARIANTS.register("knight", () -> new PaintingVariant(48, 32));
+	public static final RegistryObject<PaintingVariant> PROTOTYPE_701 = PAINTING_VARIANTS.register("prototype_701", () -> new PaintingVariant(48, 32));
+	public static final RegistryObject<PaintingVariant> SQUIRMY = PAINTING_VARIANTS.register("squirmy", () -> new PaintingVariant(48, 16));
 }

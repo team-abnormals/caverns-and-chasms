@@ -1,0 +1,86 @@
+{
+  "molding": "json",
+  "remolder": [
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/isolation",
+        "predicate": {
+          "caverns_and_chasms:isolation": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/exsanguinated",
+        "predicate": {
+          "caverns_and_chasms:exsanguinated": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/embedded",
+        "predicate": {
+          "caverns_and_chasms:embedded": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/starry_night",
+        "predicate": {
+          "caverns_and_chasms:starry_night": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/noir",
+        "predicate": {
+          "caverns_and_chasms:noir": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/knight",
+        "predicate": {
+          "caverns_and_chasms:knight": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/prototype_701",
+        "predicate": {
+          "caverns_and_chasms:prototype_701": 1.0
+        }
+      }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/squirmy",
+        "predicate": {
+          "caverns_and_chasms:squirmy": 1.0
+        }
+      }
+    }
+  ],
+  "selector": "minecraft:models/item/painting"
+}
