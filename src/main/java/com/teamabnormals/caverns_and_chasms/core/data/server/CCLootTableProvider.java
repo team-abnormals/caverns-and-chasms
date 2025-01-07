@@ -276,6 +276,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(AZALEA_BOOKSHELF.get(), (block) -> createSingleItemTableWithSilkTouch(block, Items.BOOK, ConstantValue.exactly(3.0F)));
 			this.dropWhenSilkTouch(CHISELED_AZALEA_BOOKSHELF.get());
 
+			this.dropSelf(MOSCHATEL.get());
 			this.add(CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
 			this.add(LURID_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
 			this.add(WISPY_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
@@ -283,6 +284,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(WEIRD_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
 			this.add(ZESTY_CAVE_GROWTHS.get(), BlockLootSubProvider::createShearsOnlyDrop);
 
+			this.dropPottedContents(POTTED_MOSCHATEL.get());
 			this.dropPottedContents(POTTED_CAVE_GROWTHS.get());
 			this.dropPottedContents(POTTED_LURID_CAVE_GROWTHS.get());
 			this.dropPottedContents(POTTED_WISPY_CAVE_GROWTHS.get());

@@ -56,7 +56,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.REPLACEABLE).addTag(CCBlockTags.CAVE_GROWTHS);
 		this.tag(BlockTags.REPLACEABLE_BY_TREES).addTag(CCBlockTags.CAVE_GROWTHS);
 		this.tag(BlockTags.SWORD_EFFICIENT).addTag(CCBlockTags.CAVE_GROWTHS);
-		this.tag(BlockTags.FLOWER_POTS).add(POTTED_CAVE_GROWTHS.get(), POTTED_LURID_CAVE_GROWTHS.get(), POTTED_WISPY_CAVE_GROWTHS.get(), POTTED_CAVE_GROWTHS.get(), POTTED_WEIRD_CAVE_GROWTHS.get(), POTTED_ZESTY_CAVE_GROWTHS.get());
+		this.tag(BlockTags.SMALL_FLOWERS).add(MOSCHATEL.get());
+		this.tag(BlockTags.FLOWER_POTS).add(POTTED_MOSCHATEL.get(), POTTED_CAVE_GROWTHS.get(), POTTED_LURID_CAVE_GROWTHS.get(), POTTED_WISPY_CAVE_GROWTHS.get(), POTTED_CAVE_GROWTHS.get(), POTTED_WEIRD_CAVE_GROWTHS.get(), POTTED_ZESTY_CAVE_GROWTHS.get());
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
 		this.tag(BlockTags.BEEHIVES).add(AZALEA_BEEHIVE.get());
 		// INDUCTOR.get()

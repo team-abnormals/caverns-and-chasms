@@ -366,6 +366,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		WoodworksRecipeProvider.baseRecipes(consumer, AZALEA_PLANKS.get(), AZALEA_SLAB.get(), AZALEA_BOARDS.get(), AZALEA_BOOKSHELF.get(), CHISELED_AZALEA_BOOKSHELF.get(), AZALEA_LADDER.get(), AZALEA_BEEHIVE.get(), AZALEA_CHEST.get(), TRAPPED_AZALEA_CHEST.get(), CavernsAndChasms.MOD_ID);
 		WoodworksRecipeProvider.sawmillRecipes(consumer, AZALEA_PLANKS_FAMILY, CCItemTags.AZALEA_LOGS, AZALEA_BOARDS.get(), AZALEA_LADDER.get(), CavernsAndChasms.MOD_ID);
 
+		conversionRecipe(consumer, Items.GREEN_DYE, MOSCHATEL.get(), "green_dye");
+
 		trimRecipes(consumer, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.NETHERRACK);
 		SpecialRecipeBuilder.special(CCRecipeSerializers.FADED_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":faded_trim_smithing_template_duping");
 		SpecialRecipeBuilder.special(CCRecipeSerializers.EMISSIVE_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":emissive_trim_smithing_template_duping");
