@@ -99,6 +99,8 @@ public class CCItems {
 	public static final RegistryObject<Item> TETHER_POTION = HELPER.createItem("tether_potion", () -> new TetherPotionItem((new Item.Properties()).stacksTo(1)));
 	public static final RegistryObject<Item> BLUNT_ARROW = HELPER.createItem("blunt_arrow", () -> new BluntArrowItem(new Item.Properties()));
 
+	public static final RegistryObject<Item> ZIRCONIA = HELPER.createItem("zirconia", () -> new Item(new Item.Properties()));
+
 	public static final RegistryObject<Item> DEEPER_HEAD = HELPER.createItem("deeper_head", () -> new StandingAndWallBlockItem(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final RegistryObject<Item> PEEPER_HEAD = HELPER.createItem("peeper_head", () -> new StandingAndWallBlockItem(CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final RegistryObject<Item> MIME_HEAD = HELPER.createItem("mime_head", () -> new StandingAndWallBlockItem(CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
@@ -137,7 +139,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
 				.tab(INGREDIENTS)
 				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER)
-				.addItemsAfter(of(Items.LAPIS_LAZULI), SPINEL)
+				.addItemsAfter(of(Items.LAPIS_LAZULI), SPINEL, ZIRCONIA)
 				.addItemsBefore(of(Items.GOLD_NUGGET), COPPER_NUGGET)
 				.addItemsAfter(of(Items.GOLD_NUGGET), SILVER_NUGGET, NETHERITE_NUGGET, NECROMIUM_NUGGET)
 				.addItemsAfter(of(Items.GOLD_INGOT), SILVER_INGOT)

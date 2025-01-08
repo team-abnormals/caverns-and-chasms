@@ -155,6 +155,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SPINEL_LAMP = HELPER.createBlock("spinel_lamp", () -> new Block(CCProperties.LAMP));
 	public static final RegistryObject<Block> DISMANTLING_TABLE = HELPER.createBlock("dismantling_table", () -> new DismantlingTableBlock(CCProperties.DISMANTLING_TABLE));
 
+	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
+
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICKS = HELPER.createBlock("lapis_bricks", () -> new Block(CCProperties.LAPIS_LAZULI));
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_STAIRS = HELPER.createBlock("lapis_brick_stairs", () -> new StairBlock(() -> LAPIS_LAZULI_BRICKS.get().defaultBlockState(), CCProperties.LAPIS_LAZULI));
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_SLAB = HELPER.createBlock("lapis_brick_slab", () -> new SlabBlock(CCProperties.LAPIS_LAZULI));
@@ -290,7 +292,8 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
 						LAPIS_LAZULI_BRICKS, LAPIS_LAZULI_BRICK_STAIRS, LAPIS_LAZULI_BRICK_SLAB, LAPIS_LAZULI_BRICK_WALL, LAPIS_LAZULI_PILLAR, LAPIS_LAZULI_LAMP,
-						SPINEL_BLOCK, SPINEL_BRICKS, SPINEL_BRICK_STAIRS, SPINEL_BRICK_SLAB, SPINEL_BRICK_WALL, SPINEL_PILLAR, SPINEL_LAMP
+						SPINEL_BLOCK, SPINEL_BRICKS, SPINEL_BRICK_STAIRS, SPINEL_BRICK_SLAB, SPINEL_BRICK_WALL, SPINEL_PILLAR, SPINEL_LAMP,
+						ZIRCONIA_BLOCK
 				)
 				.addItemsAfter(of(Blocks.NETHERITE_BLOCK), NECROMIUM_BLOCK)
 				.addItemsAfter(of(Blocks.CUT_COPPER_SLAB), COPPER_BARS, () -> Blocks.LIGHTNING_ROD, COPPER_BUTTON)

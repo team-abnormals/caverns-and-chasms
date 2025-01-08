@@ -21,6 +21,7 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.SANGUINE))
 				.addSource(BlueprintTrims.materialPatternPermutations(
 						CCTrimMaterials.SPINEL,
+						CCTrimMaterials.ZIRCONIA,
 						CCTrimMaterials.SILVER,
 						CCTrimMaterials.SILVER_DARKER,
 						CCTrimMaterials.NECROMIUM,
@@ -32,6 +33,7 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 				.addSource(new DirectoryLister("entity/toolbox", "entity/toolbox/"))
 				.addSource(BlueprintTrims.materialPermutationsForItemLayers(
 						CCTrimMaterials.SPINEL,
+						CCTrimMaterials.ZIRCONIA,
 						CCTrimMaterials.SILVER,
 						CCTrimMaterials.SILVER_DARKER,
 						CCTrimMaterials.NECROMIUM,

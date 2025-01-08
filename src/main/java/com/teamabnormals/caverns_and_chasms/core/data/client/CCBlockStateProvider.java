@@ -47,6 +47,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.dismantlingTableBlock(DISMANTLING_TABLE);
 
+		this.block(ZIRCONIA_BLOCK);
+
 		this.cubeColumnBlock(LAPIS_LAZULI_LAMP);
 		this.logBlock(LAPIS_LAZULI_PILLAR);
 		this.blockFamily(LAPIS_LAZULI_BRICKS_FAMILY);

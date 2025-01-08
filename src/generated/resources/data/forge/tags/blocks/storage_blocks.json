@@ -3,6 +3,7 @@
     "#forge:storage_blocks/silver",
     "#forge:storage_blocks/spinel",
     "#forge:storage_blocks/necromium",
-    "#forge:storage_blocks/raw_silver"
+    "#forge:storage_blocks/raw_silver",
+    "#forge:storage_blocks/zirconia"
   ]
 }
