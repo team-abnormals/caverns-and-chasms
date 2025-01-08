@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.inventory;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;

@@ -99,10 +99,10 @@ public class CaveGrowthsBlock extends BushBlock {
 		ForgeRegistries.ENTITY_TYPES.tags().getTag(CCEntityTypeTags.SPAWNS_FROM_CAVE_GROWTHS).getRandomElement(level.getRandom()).ifPresent((entityType) -> {
 			Entity entity = entityType.create(level);
 			if (entity != null) {
-				entity.moveTo((double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+				entity.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
 				level.addFreshEntity(entity);
 				if (entity instanceof Mob)
-					((Mob)entity).spawnAnim();
+					((Mob) entity).spawnAnim();
 			}
 		});
 	}

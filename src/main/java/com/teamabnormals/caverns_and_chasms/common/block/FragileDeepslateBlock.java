@@ -12,8 +12,6 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
-
 public class FragileDeepslateBlock extends RotatedPillarBlock implements FragileBlock {
 
 	public FragileDeepslateBlock(Properties properties) {

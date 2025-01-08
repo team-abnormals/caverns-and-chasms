@@ -336,8 +336,8 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.RAW_GOLD_BLOCK), RAW_SILVER_BLOCK)
 				.addItemsAfter(of(Blocks.SCULK_SENSOR), ECHO_BLOCK)
 				.addItemsBefore(of(Blocks.COBWEB), ROTTEN_FLESH_BLOCK)
-				.addItemsAfter(of(Blocks.FERN), CAVE_GROWTHS, LURID_CAVE_GROWTHS, WISPY_CAVE_GROWTHS, WEIRD_CAVE_GROWTHS, GRAINY_CAVE_GROWTHS, ZESTY_CAVE_GROWTHS)
-				.addItemsAfter(of(Blocks.TORCHFLOWER), MOSCHATEL)
+				.addItemsBefore(of(Blocks.DEAD_BUSH), CAVE_GROWTHS, LURID_CAVE_GROWTHS, WISPY_CAVE_GROWTHS, WEIRD_CAVE_GROWTHS, GRAINY_CAVE_GROWTHS, ZESTY_CAVE_GROWTHS)
+				.addItemsBefore(of(Blocks.TORCHFLOWER), MOSCHATEL)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
@@ -448,10 +448,10 @@ public class CCBlocks {
 			properties.offsetFunction = Optional.of((state, level, pos) -> {
 				Block block = state.getBlock();
 				long i = Mth.getSeed(pos.getX(), pos.getY(), pos.getZ());
-				double d0 = ((double)((float)(i >> 4 & 15L) / 15.0F) - 1.0D) * (double)block.getMaxVerticalOffset();
+				double d0 = ((double) ((float) (i >> 4 & 15L) / 15.0F) - 1.0D) * (double) block.getMaxVerticalOffset();
 				float f = block.getMaxHorizontalOffset();
-				double d1 = Mth.clamp(((double)((float)(i & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
-				double d2 = Mth.clamp(((double)((float)(i >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
+				double d1 = Mth.clamp(((double) ((float) (i & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
+				double d2 = Mth.clamp(((double) ((float) (i >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
 
 				Direction facing = state.getValue(CaveGrowthsBlock.FACING);
 				Axis axis = facing.getAxis();
