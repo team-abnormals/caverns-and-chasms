@@ -38,7 +38,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
-		this.tag(ItemTags.SMALL_FLOWERS).add(MOSCHATEL.get().asItem());
+		this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(SILVER_INGOT.get(), NECROMIUM_INGOT.get());
 		this.tag(ItemTags.MUSIC_DISCS).add(MUSIC_DISC_EPILOGUE.get());
 		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.get().asItem(), CCBlocks.GOLDEN_BARS.get().asItem(), GOLDEN_BUCKET.get(), GOLDEN_WATER_BUCKET.get(), GOLDEN_LAVA_BUCKET.get(), GOLDEN_MILK_BUCKET.get(), GOLDEN_POWDER_SNOW_BUCKET.get());
