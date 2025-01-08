@@ -6,7 +6,7 @@
       "item": "minecraft:arrow"
     },
     {
-      "item": "caverns_and_chasms:spinel"
+      "tag": "forge:gems/spinel"
     }
   ],
   "result": {

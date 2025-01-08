@@ -1,28 +1,18 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_spinel": {
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:gems/spinel"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:tmt"
+        "recipe": "caverns_and_chasms:zirconia"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_tnt": {
+    "has_zirconia_block": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:tnt"
+              "caverns_and_chasms:zirconia_block"
             ]
           }
         ]
@@ -32,14 +22,13 @@
   },
   "requirements": [
     [
-      "has_spinel",
-      "has_tnt",
+      "has_zirconia_block",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:tmt"
+      "caverns_and_chasms:zirconia"
     ]
   },
   "sends_telemetry_event": false

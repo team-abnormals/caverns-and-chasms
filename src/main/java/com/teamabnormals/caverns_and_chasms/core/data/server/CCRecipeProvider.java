@@ -51,12 +51,12 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, SPIKED_RAIL.get(), 1).define('R', Items.REDSTONE).define('#', Items.STICK).define('X', CCItemTags.NUGGETS_SILVER).pattern("X X").pattern("X#X").pattern("XRX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, Blocks.CHAIN).define('#', Items.IRON_NUGGET).pattern("#").pattern("#").pattern("#").unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET)).save(consumer);
 
-		ShapedRecipeBuilder.shaped(MISC, CCItems.BEJEWELED_PEARL.get(), 2).define('P', Items.ENDER_PEARL).define('S', CCItems.SPINEL.get()).pattern(" S ").pattern("SPS").pattern(" S ").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL)).save(consumer);
-		ShapedRecipeBuilder.shaped(FOOD, CCItems.BEJEWELED_APPLE.get(), 2).define('A', Items.GOLDEN_APPLE).define('S', CCItems.SPINEL.get()).pattern("SSS").pattern("SAS").pattern("SSS").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).unlockedBy("has_golden_apple", has(Items.GOLDEN_APPLE)).save(consumer);
-		ShapedRecipeBuilder.shaped(REDSTONE, TMT.get(), 4).define('T', Items.TNT).define('S', CCItems.SPINEL.get()).pattern(" S ").pattern("STS").pattern(" S ").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).unlockedBy("has_tnt", has(Items.TNT)).save(consumer);
-		ShapelessRecipeBuilder.shapeless(COMBAT, CCItems.BLUNT_ARROW.get(), 4).requires(Items.ARROW).requires(CCItems.SPINEL.get()).unlockedBy("has_spinel", has(CCItems.SPINEL.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(MISC, CCItems.BEJEWELED_PEARL.get(), 2).define('P', Items.ENDER_PEARL).define('S', CCItemTags.GEMS_SPINEL).pattern(" S ").pattern("SPS").pattern(" S ").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL)).save(consumer);
+		ShapedRecipeBuilder.shaped(FOOD, CCItems.BEJEWELED_APPLE.get(), 2).define('A', Items.GOLDEN_APPLE).define('S', CCItemTags.GEMS_SPINEL).pattern("SSS").pattern("SAS").pattern("SSS").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_golden_apple", has(Items.GOLDEN_APPLE)).save(consumer);
+		ShapedRecipeBuilder.shaped(REDSTONE, TMT.get(), 4).define('T', Items.TNT).define('S', CCItemTags.GEMS_SPINEL).pattern(" S ").pattern("STS").pattern(" S ").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_tnt", has(Items.TNT)).save(consumer);
+		ShapelessRecipeBuilder.shapeless(COMBAT, CCItems.BLUNT_ARROW.get(), 4).requires(Items.ARROW).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.LARGE_ARROW.get(), 4).define('#', Items.STICK).define('X', CCItemTags.INGOTS_SILVER).define('Y', Items.FEATHER).pattern("X").pattern("#").pattern("Y").unlockedBy("has_feather", has(Items.FEATHER)).unlockedBy("has_silver", has(CCItemTags.INGOTS_SILVER)).save(consumer);
-		ShapedRecipeBuilder.shaped(DECORATIONS, DISMANTLING_TABLE.get()).define('T', Items.SMITHING_TABLE).define('S', CCItems.SPINEL.get()).pattern("SSS").pattern("STS").pattern("SSS").unlockedBy("has_spinel", has(CCItems.SPINEL.get())).unlockedBy("has_smithing_table", has(Items.SMITHING_TABLE)).save(consumer);
+		ShapedRecipeBuilder.shaped(DECORATIONS, DISMANTLING_TABLE.get()).define('T', Items.SMITHING_TABLE).define('S', CCItemTags.GEMS_SPINEL).pattern("SSS").pattern("STS").pattern("SSS").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_smithing_table", has(Items.SMITHING_TABLE)).save(consumer);
 
 		SpecialRecipeBuilder.special(CCRecipeSerializers.TOOLBOX_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":toolbox_waxing");
 		ShapedRecipeBuilder.shaped(DECORATIONS, TOOLBOX.get()).define('C', Blocks.COPPER_BLOCK).define('I', Tags.Items.INGOTS_COPPER).pattern(" I ").pattern("I I").pattern("CCC").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
@@ -106,6 +106,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 		storageRecipes(consumer, MISC, CCItems.SPINEL.get(), BUILDING_BLOCKS, SPINEL_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.RAW_SILVER.get(), BUILDING_BLOCKS, RAW_SILVER_BLOCK.get());
+		storageRecipes(consumer, MISC, CCItems.ZIRCONIA.get(), BUILDING_BLOCKS, ZIRCONIA_BLOCK.get());
 		storageRecipes(consumer, FOOD, Items.ROTTEN_FLESH, BUILDING_BLOCKS, ROTTEN_FLESH_BLOCK.get());
 		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.SILVER_INGOT.get(), BUILDING_BLOCKS, SILVER_BLOCK.get(), "silver_ingot_from_silver_block", "silver_ingot");
 		storageRecipesWithCustomPacking(consumer, MISC, CCItems.SILVER_NUGGET.get(), MISC, CCItems.SILVER_INGOT.get(), "silver_ingot_from_nuggets", "silver_ingot");
@@ -179,10 +180,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, DECORATIONS, LAPIS_LAZULI_BRICK_WALL.get(), LAPIS_LAZULI_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, LAPIS_LAZULI_PILLAR.get(), LAPIS_LAZULI_BRICKS.get());
 
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_BRICKS.get()).define('#', CCItems.SPINEL.get()).pattern("##").pattern("##").unlockedBy(getHasName(CCItems.SPINEL.get()), has(CCItems.SPINEL.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_BRICKS.get()).define('#', CCItemTags.GEMS_SPINEL).pattern("##").pattern("##").unlockedBy(getHasName(CCItems.SPINEL.get()), has(CCItemTags.GEMS_SPINEL)).save(consumer);
 		generateRecipes(consumer, SPINEL_BRICKS_FAMILY);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_PILLAR.get(), 2).define('#', SPINEL_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(SPINEL_BRICKS.get()), has(SPINEL_BRICKS.get())).unlockedBy(getHasName(SPINEL_PILLAR.get()), has(SPINEL_PILLAR.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_LAMP.get()).define('#', CCItems.SPINEL.get()).define('G', Blocks.GLOWSTONE).pattern(" # ").pattern("#G#").pattern(" # ").unlockedBy("has_glowstone", has(Blocks.GLOWSTONE)).save(consumer);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_LAMP.get()).define('#', CCItemTags.GEMS_SPINEL).define('G', Blocks.GLOWSTONE).pattern(" # ").pattern("#G#").pattern(" # ").unlockedBy("has_glowstone", has(Blocks.GLOWSTONE)).save(consumer);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_BRICK_SLAB.get(), SPINEL_BRICKS.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_BRICK_STAIRS.get(), SPINEL_BRICKS.get());
 		stonecutterRecipe(consumer, DECORATIONS, SPINEL_BRICK_WALL.get(), SPINEL_BRICKS.get());
@@ -215,7 +216,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_TUFF_STAIRS.get(), POLISHED_TUFF.get());
 
 		generateRecipes(consumer, SUGILITE_FAMILY);
-		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE.get()).requires(Blocks.GRANITE).requires(CCItems.SPINEL.get()).unlockedBy("has_spinel", has(CCItems.SPINEL.get())).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(SUGILITE.get()).getPath()));
+		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE.get()).requires(Blocks.GRANITE).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(SUGILITE.get()).getPath()));
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SUGILITE_SLAB.get(), SUGILITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SUGILITE_STAIRS.get(), SUGILITE.get());
 		stonecutterRecipe(consumer, DECORATIONS, SUGILITE_WALL.get(), SUGILITE.get());

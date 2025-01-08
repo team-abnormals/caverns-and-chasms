@@ -10,7 +10,6 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
-import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
@@ -20,8 +19,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.extensions.IForgeItemStack;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @JeiPlugin
@@ -57,15 +58,17 @@ public class CCPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		registration.addRecipes(RecipeTypes.ANVIL, getRepairRecipes(registration.getVanillaRecipeFactory()).toList());
+		registration.addRecipes(RecipeTypes.ANVIL, getRepairRecipes(registration).toList());
 		registration.addRecipes(RecipeTypes.CRAFTING, ToolboxWaxingRecipeMaker.createRecipes());
 		registration.addRecipes(RecipeTypes.CRAFTING, FadedSmithingTemplateDupingRecipeMaker.createRecipes());
-
-
 	}
 
-	private static Stream<RepairData> getRepairData() {
+	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {
+		Stream<ItemStack> items = registration.getIngredientManager().getAllItemStacks().stream().filter(IForgeItemStack::isRepairable);
+		RepairData zirconia = new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), items.collect(Collectors.toList()));
+
 		return Stream.of(
+				zirconia,
 				new RepairData(CCArmorMaterials.SANGUINE.getRepairIngredient(),
 						new ItemStack(CCItems.SANGUINE_HELMET.get()),
 						new ItemStack(CCItems.SANGUINE_CHESTPLATE.get()),
@@ -92,14 +95,15 @@ public class CCPlugin implements IModPlugin {
 						new ItemStack(CCItems.NECROMIUM_BOOTS.get()),
 						new ItemStack(CCItems.NECROMIUM_HELMET.get()),
 						new ItemStack(CCItems.NECROMIUM_LEGGINGS.get()),
-						new ItemStack(CCItems.NECROMIUM_CHESTPLATE.get())));
+						new ItemStack(CCItems.NECROMIUM_CHESTPLATE.get()))
+		);
 	}
 
-	private static Stream<IJeiAnvilRecipe> getRepairRecipes(IVanillaRecipeFactory vanillaRecipeFactory) {
-		return getRepairData().flatMap(repairData -> getRepairRecipes(repairData, vanillaRecipeFactory));
+	private static Stream<IJeiAnvilRecipe> getRepairRecipes(IRecipeRegistration registration) {
+		return getRepairData(registration).flatMap(repairData -> getRepairRecipes(repairData, registration));
 	}
 
-	private static Stream<IJeiAnvilRecipe> getRepairRecipes(RepairData repairData, IVanillaRecipeFactory vanillaRecipeFactory) {
+	private static Stream<IJeiAnvilRecipe> getRepairRecipes(RepairData repairData, IRecipeRegistration registration) {
 		Ingredient repairIngredient = repairData.getRepairIngredient();
 		List<ItemStack> repairables = repairData.getRepairables();
 
@@ -111,13 +115,13 @@ public class CCPlugin implements IModPlugin {
 			ItemStack damagedHalf = itemStack.copy();
 			damagedHalf.setDamageValue(damagedHalf.getMaxDamage() / 2);
 
-			IJeiAnvilRecipe repairWithSame = vanillaRecipeFactory.createAnvilRecipe(List.of(damagedThreeQuarters), List.of(damagedThreeQuarters), List.of(damagedHalf));
+			IJeiAnvilRecipe repairWithSame = registration.getVanillaRecipeFactory().createAnvilRecipe(List.of(damagedThreeQuarters), List.of(damagedThreeQuarters), List.of(damagedHalf));
 			consumer.accept(repairWithSame);
 
 			if (!repairMaterials.isEmpty()) {
 				ItemStack damagedFully = itemStack.copy();
 				damagedFully.setDamageValue(damagedFully.getMaxDamage());
-				IJeiAnvilRecipe repairWithMaterial = vanillaRecipeFactory.createAnvilRecipe(List.of(damagedFully), repairMaterials, List.of(damagedThreeQuarters));
+				IJeiAnvilRecipe repairWithMaterial = registration.getVanillaRecipeFactory().createAnvilRecipe(List.of(damagedFully), repairMaterials, List.of(damagedThreeQuarters));
 				consumer.accept(repairWithMaterial);
 			}
 		});
@@ -128,8 +132,12 @@ public class CCPlugin implements IModPlugin {
 		private final List<ItemStack> repairables;
 
 		public RepairData(Ingredient repairIngredient, ItemStack... repairables) {
+			this(repairIngredient, List.of(repairables));
+		}
+
+		public RepairData(Ingredient repairIngredient, List<ItemStack> repairables) {
 			this.repairIngredient = repairIngredient;
-			this.repairables = List.of(repairables);
+			this.repairables = repairables;
 		}
 
 		public Ingredient getRepairIngredient() {

@@ -27,16 +27,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
-import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -243,6 +237,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SPINEL_PILLAR.get());
 			this.dropSelf(SPINEL_LAMP.get());
 
+			this.dropSelf(ZIRCONIA_BLOCK.get());
+
 			this.dropSelf(SANGUINE_TILES.get());
 			this.dropSelf(SANGUINE_TILE_STAIRS.get());
 			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
@@ -320,7 +316,21 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(OXIDIZED_COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
 			this.add(DEEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))).withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(PEEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))).withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
-			this.add(MIME.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.SPINEL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
+			this.add(MIME.get(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCItems.SPINEL.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+							)
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.when(LootItemKilledByPlayerCondition.killedByPlayer())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.15F, 0.05F))
+							)
+					)
+			);
 //			this.add(FLY.get(), LootTable.lootTable());
 			// this.add(RAT.get(), LootTable.lootTable());
 			this.add(GLARE.get(), LootTable.lootTable());

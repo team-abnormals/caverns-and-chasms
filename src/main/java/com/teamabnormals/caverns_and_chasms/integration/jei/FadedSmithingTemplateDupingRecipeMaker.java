@@ -2,15 +2,15 @@ package com.teamabnormals.caverns_and_chasms.integration.jei;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
@@ -32,7 +32,7 @@ public final class FadedSmithingTemplateDupingRecipeMaker {
 
 			for (String type : new String[]{"faded", "emissive"}) {
 				boolean faded = type.equals("faded");
-				Item item = faded ? CCItems.SPINEL.get() : Items.BLAZE_POWDER;
+				TagKey<Item> item = faded ? CCItemTags.FADED_TRIM_MODIFIERS : CCItemTags.EMISSIVE_TRIM_MODIFIERS;
 				NonNullList<Ingredient> inputs = NonNullList.of(
 						Ingredient.EMPTY,
 						Ingredient.of(item),

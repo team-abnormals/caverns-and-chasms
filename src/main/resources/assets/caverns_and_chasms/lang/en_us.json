@@ -215,6 +215,7 @@
   "block.caverns_and_chasms.weird_cave_growths": "Weird Cave Growths",
   "block.caverns_and_chasms.wispy_cave_growths": "Wispy Cave Growths",
   "block.caverns_and_chasms.zesty_cave_growths": "Zesty Cave Growths",
+  "block.caverns_and_chasms.zirconia_block": "Block of Zirconia",
   "block.minecraft.banner.caverns_and_chasms.abnormals.black": "Black Anomaly",
   "block.minecraft.banner.caverns_and_chasms.abnormals.blue": "Blue Anomaly",
   "block.minecraft.banner.caverns_and_chasms.abnormals.brown": "Brown Anomaly",
@@ -380,6 +381,7 @@
   "item.caverns_and_chasms.tuning_fork.note.8": "D",
   "item.caverns_and_chasms.tuning_fork.note.9": "D♯",
   "item.caverns_and_chasms.waxed_oxidized_copper_golem": "Waxed Oxidized Copper Golem",
+  "item.caverns_and_chasms.zirconia": "Zirconia",
   "item.minecraft.lingering_potion.effect.rewind": "Lingering Potion of Rewind",
   "item.minecraft.potion.effect.rewind": "Potion of Rewind",
   "item.minecraft.smithing_template.netherite_upgrade.additions_slot_description": "Add Netherite or Necromium Ingot",
@@ -449,6 +451,7 @@
   "trim_material.caverns_and_chasms.sanguine": "Sanguine Material",
   "trim_material.caverns_and_chasms.silver": "Silver Material",
   "trim_material.caverns_and_chasms.spinel": "Spinel Material",
+  "trim_material.caverns_and_chasms.zirconia": "Zirconia Material",
   "trim_pattern.caverns_and_chasms.exile": "Exile Armor Trim",
   "upgrade.minecraft.netherite_upgrade": "Ancient Upgrade"
 }

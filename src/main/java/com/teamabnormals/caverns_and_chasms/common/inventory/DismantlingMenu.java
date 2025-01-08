@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
@@ -37,7 +38,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 	protected CCItemCombinerMenuSlotDefinition createSlotDefinitions() {
 		return CCItemCombinerMenuSlotDefinition.create()
 				.withSlot(0, 8, 48, (stack) -> this.areResultsEmpty() && !this.getResultContainer(stack).isEmpty())
-				.withSlot(1, 26, 48, (stack) -> stack.is(CCItems.SPINEL.get()))
+				.withSlot(1, 26, 48, (stack) -> stack.is(CCItemTags.DISMANTLING_FUELS))
 				.withResultSlot(0, 80, 48)
 				.withResultSlot(1, 98, 48)
 				.withResultSlot(2, 116, 48)
@@ -135,7 +136,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 
 	private Optional<Integer> findSlotMatchingIngredient(ItemStack ingredient) {
 		return this.areResultsEmpty() && !this.getResultContainer(ingredient).getItem(1).isEmpty() ? Optional.of(0) :
-				ingredient.is(CCItems.SPINEL.get()) ? Optional.of(1) : Optional.empty();
+				ingredient.is(CCItemTags.DISMANTLING_FUELS) ? Optional.of(1) : Optional.empty();
 	}
 
 	@Override

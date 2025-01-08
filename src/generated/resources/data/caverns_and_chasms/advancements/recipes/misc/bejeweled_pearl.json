@@ -17,9 +17,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "caverns_and_chasms:spinel"
-            ]
+            "tag": "forge:gems/spinel"
           }
         ]
       },

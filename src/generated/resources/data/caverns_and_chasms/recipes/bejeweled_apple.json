@@ -6,7 +6,7 @@
       "item": "minecraft:golden_apple"
     },
     "S": {
-      "item": "caverns_and_chasms:spinel"
+      "tag": "forge:gems/spinel"
     }
   },
   "pattern": [
