@@ -18,7 +18,7 @@ public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
 
 	public PeeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new PeeperModel<>(context.bakeLayer(CCModelLayers.PEEPER)), 0.5F);
-		this.addLayer(new PeeperPrimedLayer(this, context));
+		this.addLayer(new PeeperPrimedLayer(this));
 		this.addLayer(new PeeperPowerLayer(this, context.getModelSet()));
 	}
 
