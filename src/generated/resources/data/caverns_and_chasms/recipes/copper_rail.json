@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "caverns_and_chasms:copper_nugget"
+    }
+  },
+  "pattern": [
+    "X X",
+    "X#X",
+    "X X"
+  ],
+  "result": {
+    "count": 3,
+    "item": "caverns_and_chasms:copper_rail"
+  },
+  "show_notification": true
+}

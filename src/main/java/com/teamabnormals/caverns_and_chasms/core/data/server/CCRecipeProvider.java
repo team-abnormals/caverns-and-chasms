@@ -44,6 +44,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
 		ShapedRecipeBuilder.shaped(TOOLS, Items.BUNDLE).define('R', Items.LEATHER).define('S', Items.STRING).pattern("S").pattern("R").unlockedBy("has_leather", has(Items.LEATHER)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, getItemName(Items.BUNDLE)));
 
+		ShapedRecipeBuilder.shaped(TRANSPORTATION, COPPER_RAIL.get(), 3).define('#', Items.STICK).define('X', CCItems.COPPER_NUGGET.get()).pattern("X X").pattern("X#X").pattern("X X").unlockedBy("has_minecart", has(Items.MINECART)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.RAIL, 3).define('#', Items.STICK).define('X', Items.IRON_NUGGET).pattern("X X").pattern("X#X").pattern("X X").unlockedBy("has_minecart", has(Items.MINECART)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.ACTIVATOR_RAIL, 3).define('#', Blocks.REDSTONE_TORCH).define('S', Items.STICK).define('X', Items.IRON_NUGGET).pattern("XSX").pattern("X#X").pattern("XSX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.DETECTOR_RAIL, 3).define('R', Items.REDSTONE).define('#', Blocks.STONE_PRESSURE_PLATE).define('X', Items.IRON_NUGGET).pattern("X X").pattern("X#X").pattern("XRX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);

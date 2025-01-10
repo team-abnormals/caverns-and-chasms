@@ -66,7 +66,19 @@ public class CCBlocks {
 	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET));
+
+	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> WEATHERED_COPPER_RAIL = HELPER.createBlock("weathered_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_RAIL = HELPER.createBlock("oxidized_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> WAXED_COPPER_RAIL = HELPER.createBlock("waxed_copper_rail", () -> new CopperRailBlock(WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_RAIL = HELPER.createBlock("waxed_exposed_copper_rail", () -> new CopperRailBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_RAIL = HELPER.createBlock("waxed_weathered_copper_rail", () -> new CopperRailBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_RAIL = HELPER.createBlock("waxed_oxidized_copper_rail", () -> new CopperRailBlock(WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+
+	public static final RegistryObject<Block> HALT_RAIL = HELPER.createBlock("halt_rail", () -> new PoweredRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
+	public static final RegistryObject<Block> SLAUGHTER_RAIL = HELPER.createBlock("slaughter_rail", () -> new PoweredRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 
 	public static final RegistryObject<Block> SANGUINE_BLOCK = HELPER.createBlock("sanguine_block", () -> new Block(CCProperties.SANGUINE_TILES));
 	public static final RegistryObject<Block> SANGUINE_TILES = HELPER.createBlock("sanguine_tiles", () -> new Block(CCProperties.SANGUINE_TILES));
@@ -358,9 +370,11 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON, WAXED_OXIDIZED_COPPER_BUTTON)
 				.addItemsAfter(of(Blocks.TNT), TMT)
 				.addItemsAfter(of(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), MEDIUM_WEIGHTED_PRESSURE_PLATE)
-				.addItemsAfter(of(Blocks.POWERED_RAIL), SPIKED_RAIL)
+				.addItemsBefore(of(Blocks.RAIL), COPPER_RAIL, EXPOSED_COPPER_RAIL, WEATHERED_COPPER_RAIL, OXIDIZED_COPPER_RAIL, WAXED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL)
+				.addItemsAfter(of(Blocks.POWERED_RAIL), HALT_RAIL, SPIKED_RAIL, SLAUGHTER_RAIL)
 				.tab(TOOLS_AND_UTILITIES)
-				.addItemsAfter(of(Blocks.POWERED_RAIL), SPIKED_RAIL)
+				.addItemsBefore(of(Blocks.RAIL), COPPER_RAIL, EXPOSED_COPPER_RAIL, WEATHERED_COPPER_RAIL, OXIDIZED_COPPER_RAIL, WAXED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL)
+				.addItemsAfter(of(Blocks.POWERED_RAIL), HALT_RAIL, SPIKED_RAIL, SLAUGHTER_RAIL)
 				.tab(COMBAT)
 				.addItemsAfter(of(Blocks.TNT), TMT);
 

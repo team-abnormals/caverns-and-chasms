@@ -126,6 +126,10 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_FLOODLIGHT.get(), CCBlocks.WAXED_EXPOSED_FLOODLIGHT.get());
 		builder.put(CCBlocks.WEATHERED_FLOODLIGHT.get(), CCBlocks.WAXED_WEATHERED_FLOODLIGHT.get());
 		builder.put(CCBlocks.OXIDIZED_FLOODLIGHT.get(), CCBlocks.WAXED_OXIDIZED_FLOODLIGHT.get());
+		builder.put(CCBlocks.COPPER_RAIL.get(), CCBlocks.WAXED_COPPER_RAIL.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_RAIL.get(), CCBlocks.WAXED_EXPOSED_COPPER_RAIL.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_RAIL.get(), CCBlocks.WAXED_WEATHERED_COPPER_RAIL.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_RAIL.get(), CCBlocks.WAXED_OXIDIZED_COPPER_RAIL.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
@@ -88,6 +89,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(ECHO_BLOCK);
 
 		this.cubeBottomTopBlock(TMT);
+
+		this.poweredRailBlock(HALT_RAIL);
+		this.poweredRailBlock(SLAUGHTER_RAIL);
+
+		this.copperRailBlock(COPPER_RAIL, WAXED_COPPER_RAIL);
+		this.copperRailBlock(EXPOSED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL);
+		this.copperRailBlock(WEATHERED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL);
+		this.copperRailBlock(OXIDIZED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL);
 
 		this.ironBarsBlock(COPPER_BARS);
 		this.ironBarsBlock(EXPOSED_COPPER_BARS);
@@ -198,6 +207,46 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile mirroredModel = models().singleTexture(name(block) + "_mirrored", mcLoc(ModelProvider.BLOCK_FOLDER + "/cube_mirrored_all"), "all", blockTexture(block));
 		this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).nextModel().modelFile(mirroredModel).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(mirroredModel).rotationY(180).build());
 		this.simpleBlockItem(block, model);
+	}
+
+	public void copperRailBlock(RegistryObject<Block> railBlock, RegistryObject<Block> waxedRailBlock) {
+		Block block = railBlock.get();
+
+		ModelFile rail = models().withExistingParent(name(block), "block/rail_flat").texture("rail", blockTexture(block));
+		ModelFile railNE = models().withExistingParent(name(block) + "_raised_ne", "block/template_rail_raised_ne").texture("rail", blockTexture(block));
+		ModelFile railSW = models().withExistingParent(name(block) + "_raised_sw", "block/template_rail_raised_sw").texture("rail", blockTexture(block));
+
+		this.getVariantBuilder(block).forAllStatesExcept(state -> {
+			RailShape shape = state.getValue(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
+			return ConfiguredModel.builder().modelFile(shape.isAscending() ? (shape == RailShape.ASCENDING_NORTH || shape == RailShape.ASCENDING_EAST ? railNE : railSW) : rail).rotationY(shape == RailShape.ASCENDING_WEST || shape == RailShape.ASCENDING_EAST || shape == RailShape.EAST_WEST ? 90 : 0).build();
+		}, BlockStateProperties.WATERLOGGED);
+
+		this.getVariantBuilder(waxedRailBlock.get()).forAllStatesExcept(state -> {
+			RailShape shape = state.getValue(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
+			return ConfiguredModel.builder().modelFile(shape.isAscending() ? (shape == RailShape.ASCENDING_NORTH || shape == RailShape.ASCENDING_EAST ? railNE : railSW) : rail).rotationY(shape == RailShape.ASCENDING_WEST || shape == RailShape.ASCENDING_EAST || shape == RailShape.EAST_WEST ? 90 : 0).build();
+		}, BlockStateProperties.WATERLOGGED);
+
+		this.generatedItem(block, "block");
+		this.waxedGeneratedItem(waxedRailBlock.get(), "block");
+	}
+
+	public void poweredRailBlock(RegistryObject<Block> railBlock) {
+		Block block = railBlock.get();
+		this.getVariantBuilder(block).forAllStatesExcept(state -> {
+			RailShape shape = state.getValue(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
+
+			boolean isRaised = shape.isAscending();
+			boolean ne = shape == RailShape.ASCENDING_NORTH || shape == RailShape.ASCENDING_EAST;
+			boolean y90 = shape == RailShape.ASCENDING_WEST || shape == RailShape.EAST_WEST || shape == RailShape.ASCENDING_EAST;
+
+			String raised = isRaised ? (ne ? "_raised_ne" : "_raised_sw" ) : "";
+			String parent = isRaised ? "template_rail" + raised : "rail_flat";
+			String on = state.getValue(BlockStateProperties.POWERED) ? "_on" : "";
+
+			return ConfiguredModel.builder().modelFile(models().withExistingParent(name(block) + raised + on, "block/" + parent).texture("rail", blockTexture(block) + on)).rotationY(y90 ? 90 : 0).build();
+		}, BlockStateProperties.WATERLOGGED);
+
+		this.generatedItem(block, "block");
 	}
 
 	public void floodlightBlock(Block parent, Block block) {

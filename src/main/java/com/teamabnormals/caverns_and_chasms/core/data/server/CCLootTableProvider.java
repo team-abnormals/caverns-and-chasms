@@ -91,12 +91,24 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SILVER_BLOCK.get());
 			this.dropSelf(RAW_SILVER_BLOCK.get());
 			this.dropSelf(MEDIUM_WEIGHTED_PRESSURE_PLATE.get());
-			this.dropSelf(SPIKED_RAIL.get());
 			this.dropSelf(SILVER_BARS.get());
 			this.dropSelf(BRAZIER.get());
 			this.dropSelf(SOUL_BRAZIER.get());
 			this.dropSelf(ENDER_BRAZIER.get());
 			this.dropSelf(CUPRIC_BRAZIER.get());
+
+			this.dropSelf(COPPER_RAIL.get());
+			this.dropSelf(EXPOSED_COPPER_RAIL.get());
+			this.dropSelf(WEATHERED_COPPER_RAIL.get());
+			this.dropSelf(OXIDIZED_COPPER_RAIL.get());
+			this.dropSelf(WAXED_COPPER_RAIL.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_RAIL.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_RAIL.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_RAIL.get());
+			
+			this.dropSelf(HALT_RAIL.get());
+			this.dropSelf(SPIKED_RAIL.get());
+			this.dropSelf(SLAUGHTER_RAIL.get());
 
 			this.dropSelf(SANGUINE_BLOCK.get());
 			this.dropSelf(SANGUINE_TILES.get());

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_rail_raised_sw",
+  "textures": {
+    "rail": "caverns_and_chasms:block/copper_rail"
+  }
+}
