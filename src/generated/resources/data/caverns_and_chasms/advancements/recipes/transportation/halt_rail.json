@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_nugget": {
+    "has_rail": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/iron"
+            "items": [
+              "minecraft:rail"
+            ]
           }
         ]
       },
@@ -13,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:chain"
+        "recipe": "caverns_and_chasms:halt_rail"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_iron_nugget",
+      "has_rail",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:chain"
+      "caverns_and_chasms:halt_rail"
     ]
   },
   "sends_telemetry_event": false

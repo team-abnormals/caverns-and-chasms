@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "D": {
+      "item": "minecraft:stone"
+    },
+    "G": {
+      "item": "minecraft:gravel"
+    }
+  },
+  "pattern": [
+    "DG",
+    "GD"
+  ],
+  "result": {
+    "count": 4,
+    "item": "caverns_and_chasms:fragile_stone"
+  },
+  "show_notification": true
+}

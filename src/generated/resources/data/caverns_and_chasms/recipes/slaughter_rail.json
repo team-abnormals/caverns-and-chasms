@@ -3,22 +3,25 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:redstone_torch"
-    },
-    "S": {
       "tag": "forge:rods/wooden"
     },
+    "R": {
+      "item": "minecraft:redstone"
+    },
     "X": {
-      "tag": "forge:nuggets/iron"
+      "tag": "forge:nuggets/silver"
+    },
+    "Y": {
+      "tag": "forge:ingots/silver"
     }
   },
   "pattern": [
-    "XSX",
+    "XYX",
     "X#X",
-    "XSX"
+    "XRX"
   ],
   "result": {
-    "item": "minecraft:activator_rail"
+    "item": "caverns_and_chasms:slaughter_rail"
   },
   "show_notification": true
 }

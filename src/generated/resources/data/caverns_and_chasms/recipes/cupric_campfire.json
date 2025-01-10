@@ -9,7 +9,7 @@
       "tag": "minecraft:logs"
     },
     "S": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     }
   },
   "pattern": [

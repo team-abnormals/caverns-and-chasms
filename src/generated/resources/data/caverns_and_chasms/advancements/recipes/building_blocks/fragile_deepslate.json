@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_nugget": {
+    "has_deepslate": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/iron"
+            "items": [
+              "minecraft:deepslate"
+            ]
           }
         ]
       },
@@ -13,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:chain"
+        "recipe": "caverns_and_chasms:fragile_deepslate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_iron_nugget",
+      "has_deepslate",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:chain"
+      "caverns_and_chasms:fragile_deepslate"
     ]
   },
   "sends_telemetry_event": false

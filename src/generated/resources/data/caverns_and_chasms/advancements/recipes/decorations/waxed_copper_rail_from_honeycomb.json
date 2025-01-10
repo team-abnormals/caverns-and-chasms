@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_nugget": {
+    "has_copper_rail": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/iron"
+            "items": [
+              "caverns_and_chasms:copper_rail"
+            ]
           }
         ]
       },
@@ -13,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:chain"
+        "recipe": "caverns_and_chasms:waxed_copper_rail_from_honeycomb"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_iron_nugget",
+      "has_copper_rail",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:chain"
+      "caverns_and_chasms:waxed_copper_rail_from_honeycomb"
     ]
   },
   "sends_telemetry_event": false

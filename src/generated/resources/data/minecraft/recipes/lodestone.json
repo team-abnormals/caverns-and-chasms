@@ -3,20 +3,19 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "tag": "forge:ingots/iron"
     },
-    "X": {
-      "tag": "forge:nuggets/iron"
+    "S": {
+      "item": "minecraft:chiseled_stone_bricks"
     }
   },
   "pattern": [
-    "X X",
-    "X#X",
-    "X X"
+    "SSS",
+    "S#S",
+    "SSS"
   ],
   "result": {
-    "count": 3,
-    "item": "minecraft:rail"
+    "item": "minecraft:lodestone"
   },
   "show_notification": true
 }

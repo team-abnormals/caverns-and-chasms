@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     },
     "X": {
-      "item": "caverns_and_chasms:copper_nugget"
+      "tag": "forge:nuggets/copper"
     }
   },
   "pattern": [

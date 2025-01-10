@@ -11,8 +11,10 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -65,8 +67,10 @@ public class CCLootModifierProvider extends LootModifierProvider {
 		this.entry("village_temple").selects(BuiltInLootTables.VILLAGE_TEMPLE).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SPINEL.get(), 1, 1, 4), lootPool(CCItems.SILVER_INGOT.get(), 1, 1, 4))));
 
-		this.entry("ruined_portal").selects(BuiltInLootTables.RUINED_PORTAL).addModifier(new LootPoolEntriesModifier(false, 0,
-				List.of(lootPool(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16), lootPool(CCBlocks.LAVA_LAMP.get(), 5), lootPool(CCItems.GOLDEN_BUCKET.get(), 1))));
+		this.entry("ruined_portal").selects(BuiltInLootTables.RUINED_PORTAL)
+				.addModifier(new LootPoolEntriesModifier(false, 0,
+						List.of(lootPool(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16), lootPool(CCBlocks.LAVA_LAMP.get(), 5), lootPool(CCItems.GOLDEN_BUCKET.get(), 1))))
+				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":lodestone").add(EmptyLootItem.emptyItem()).add(LootItem.lootTableItem(Blocks.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).build()), false));
 		this.entry("nether_bridge").selects(BuiltInLootTables.NETHER_BRIDGE)
 				.addModifier(new LootPoolEntriesModifier(false, 0, List.of(
 						lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 5),

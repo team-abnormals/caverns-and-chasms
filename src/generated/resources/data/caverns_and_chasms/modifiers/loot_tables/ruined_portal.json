@@ -33,6 +33,40 @@
         "index": 0,
         "replace": false
       }
+    },
+    {
+      "type": "pools",
+      "config": {
+        "pools": [
+          {
+            "bonus_rolls": 0.0,
+            "entries": [
+              {
+                "type": "minecraft:empty"
+              },
+              {
+                "type": "minecraft:item",
+                "functions": [
+                  {
+                    "add": false,
+                    "count": {
+                      "type": "minecraft:uniform",
+                      "max": 2.0,
+                      "min": 1.0
+                    },
+                    "function": "minecraft:set_count"
+                  }
+                ],
+                "name": "minecraft:lodestone",
+                "weight": 2
+              }
+            ],
+            "name": "caverns_and_chasms:lodestone",
+            "rolls": 1.0
+          }
+        ],
+        "replace": false
+      }
     }
   ],
   "priority": "normal",
