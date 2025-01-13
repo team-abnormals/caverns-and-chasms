@@ -33,7 +33,7 @@ public abstract class AbstractMinecartMixin extends Entity {
 	private void getBlockSpeedFactor(CallbackInfoReturnable<Float> cir) {
 		BlockState blockstate = this.level().getBlockState(this.blockPosition());
 		if (blockstate.is(CCBlockTags.COPPER_RAILS)) {
-			cir.setReturnValue(0.95F);
+			cir.setReturnValue(0.985F);
 		}
 	}
 }
