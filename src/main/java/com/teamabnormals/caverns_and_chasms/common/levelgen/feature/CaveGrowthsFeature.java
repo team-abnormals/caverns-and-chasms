@@ -3,33 +3,53 @@ package com.teamabnormals.caverns_and_chasms.common.levelgen.feature;
 import com.mojang.serialization.Codec;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCNoiseParameters;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters;
 import net.minecraftforge.common.Tags;
 import org.apache.commons.compress.utils.Lists;
 
 import java.util.List;
 
 public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
+	private volatile boolean initialized;
+	private NormalNoise moschatelNoise;
 
 	public CaveGrowthsFeature(Codec<NoneFeatureConfiguration> config) {
 		super(config);
 	}
 
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+		if (!this.initialized) {
+			synchronized (this) {
+				if (!this.initialized) {
+					Registry<NoiseParameters> noise = context.level().registryAccess().registryOrThrow(Registries.NOISE);
+					this.moschatelNoise = NormalNoise.create(WorldgenRandom.Algorithm.LEGACY.newInstance(context.level().getSeed()).forkPositional().fromHashOf(CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL.location()), noise.getOrThrow(CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL));
+					this.initialized = true;
+				}
+			}
+		}
+
 		RandomSource random = context.random();
 		BlockPos blockpos = context.origin();
 		WorldGenLevel level = context.level();
 		boolean placed = false;
+
+		double moschatelChance = Mth.clamp(this.moschatelNoise.getValue(blockpos.getX(), 0.0F, blockpos.getZ()) * 0.35F, 0.0F, 0.35F);
 
 		BlockState blockstate = CCBlocks.CAVE_GROWTHS.get().defaultBlockState();
 		boolean isVariant = false;
@@ -70,7 +90,10 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 		for (int i = 0; i < tries; ++i) {
 			mutable.setWithOffset(blockpos, random.nextInt(xzRange) - random.nextInt(xzRange), random.nextInt(yRange) - random.nextInt(yRange), random.nextInt(xzRange) - random.nextInt(xzRange));
 			if (level.isEmptyBlock(mutable) && level.getBlockState(mutable.below()).is(Tags.Blocks.STONE) && !isNextToLava(level, mutable)) {
-				level.setBlock(mutable, blockstate, 2);
+				if (random.nextFloat() < moschatelChance)
+					level.setBlock(mutable, CCBlocks.MOSCHATEL.get().defaultBlockState(), 2);
+				else
+					level.setBlock(mutable, blockstate, 2);
 				placed = true;
 			}
 		}

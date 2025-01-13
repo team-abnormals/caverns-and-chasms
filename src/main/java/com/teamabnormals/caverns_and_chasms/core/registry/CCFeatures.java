@@ -56,9 +56,11 @@ public class CCFeatures {
 
 	public static final class CCNoiseParameters {
 		public static final ResourceKey<NoiseParameters> CAVE_GROWTHS = createKey("cave_growths");
+		public static final ResourceKey<NoiseParameters> CAVE_GROWTHS_MOSCHATEL = createKey("cave_growths_moschatel");
 
 		public static void bootstrap(BootstapContext<NoiseParameters> context) {
 			context.register(CAVE_GROWTHS, new NoiseParameters(-8, 1.0D));
+			context.register(CAVE_GROWTHS_MOSCHATEL, new NoiseParameters(-8, 1.0D));
 		}
 
 		public static ResourceKey<NoiseParameters> createKey(String name) {
