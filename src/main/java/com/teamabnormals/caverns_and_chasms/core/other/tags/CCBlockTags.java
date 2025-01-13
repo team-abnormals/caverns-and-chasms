@@ -15,6 +15,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> SPINEL_ORES = blockTag("spinel_ores");
 	public static final TagKey<Block> AZALEA_LOGS = blockTag("azalea_logs");
 	public static final TagKey<Block> CAVE_GROWTHS = blockTag("cave_growths");
+	public static final TagKey<Block> COPPER_RAILS = blockTag("copper_rails");
 
 	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxable_copper_blocks");
 	public static final TagKey<Block> WAXED_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxed_copper_blocks");
