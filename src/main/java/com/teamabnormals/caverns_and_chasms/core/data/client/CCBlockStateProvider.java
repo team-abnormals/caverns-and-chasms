@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
@@ -90,8 +91,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.cubeBottomTopBlock(TMT);
 
-		this.poweredRailBlock(HALT_RAIL);
-		this.poweredRailBlock(SLAUGHTER_RAIL);
+		this.poweredRailBlock(HALT_RAIL, "rail", false, "");
+		this.poweredRailBlock(SPIKED_RAIL, "spiked_rail", true, "spikes");
+		this.poweredRailBlock(SLAUGHTER_RAIL, "slaughter_rail", true, "axe");
 
 		this.copperRailBlock(COPPER_RAIL, WAXED_COPPER_RAIL);
 		this.copperRailBlock(EXPOSED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL);
@@ -230,7 +232,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.waxedGeneratedItem(waxedRailBlock.get(), "block");
 	}
 
-	public void poweredRailBlock(RegistryObject<Block> railBlock) {
+	public void poweredRailBlock(RegistryObject<Block> railBlock, String parentName, boolean extrude, String extrudeName) {
 		Block block = railBlock.get();
 		this.getVariantBuilder(block).forAllStatesExcept(state -> {
 			RailShape shape = state.getValue(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
@@ -239,11 +241,18 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 			boolean ne = shape == RailShape.ASCENDING_NORTH || shape == RailShape.ASCENDING_EAST;
 			boolean y90 = shape == RailShape.ASCENDING_WEST || shape == RailShape.EAST_WEST || shape == RailShape.ASCENDING_EAST;
 
-			String raised = isRaised ? (ne ? "_raised_ne" : "_raised_sw" ) : "";
-			String parent = isRaised ? "template_rail" + raised : "rail_flat";
+			String raised = isRaised ? (ne ? "_raised_ne" : "_raised_sw") : "";
+			String parent = isRaised ? "template_" + parentName + raised : parentName + "_flat";
 			String on = state.getValue(BlockStateProperties.POWERED) ? "_on" : "";
 
-			return ConfiguredModel.builder().modelFile(models().withExistingParent(name(block) + raised + on, "block/" + parent).texture("rail", blockTexture(block) + on)).rotationY(y90 ? 90 : 0).build();
+			BlockModelBuilder model = models().withExistingParent(name(block) + on + raised, (parentName.equals("rail") ? "" : CavernsAndChasms.MOD_ID + ":") + "block/" + parent)
+					.texture("rail", blockTexture(block) + on);
+
+			if (extrude) {
+				model.texture(extrudeName, blockTexture(block) + "_" + extrudeName + on);
+			}
+
+			return ConfiguredModel.builder().modelFile(model).rotationY(y90 ? 90 : 0).build();
 		}, BlockStateProperties.WATERLOGGED);
 
 		this.generatedItem(block, "block");

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/template_rail_raised_sw",
+  "parent": "caverns_and_chasms:block/template_slaughter_rail_raised_sw",
   "textures": {
+    "axe": "caverns_and_chasms:block/slaughter_rail_axe",
     "rail": "caverns_and_chasms:block/slaughter_rail"
   }
 }

@@ -1,9 +1,5 @@
 {
 	"parent": "minecraft:block/template_rail_raised_sw",
-	"textures": {
-		"rail": "caverns_and_chasms:block/spiked_rail",
-		"spikes": "caverns_and_chasms:block/spiked_rail_spikes"
-	},
 	"elements": [
 		{
 			"from": [0, 9, 0],

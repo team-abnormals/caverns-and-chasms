@@ -1,0 +1,31 @@
+{
+	"parent": "minecraft:block/rail_flat",
+	"elements": [
+		{
+			"from": [0, 1, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#rail"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#rail"}
+			}
+		},
+		{
+			"from": [8, 0, 0.5],
+			"to": [8, 16, 16.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 8, 8.5]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#axe"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#axe"}
+			}
+		},
+		{
+			"from": [0.5, 0, 8],
+			"to": [16.5, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [20.5, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#axe"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#axe"}
+			}
+		}
+	]
+}

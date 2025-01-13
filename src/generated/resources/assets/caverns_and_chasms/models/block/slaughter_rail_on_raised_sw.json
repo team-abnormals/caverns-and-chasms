@@ -1,5 +1,5 @@
 {
-  "parent": "caverns_and_chasms:block/slaughter_rail_flat",
+  "parent": "caverns_and_chasms:block/template_slaughter_rail_raised_sw",
   "textures": {
     "axe": "caverns_and_chasms:block/slaughter_rail_axe_on",
     "rail": "caverns_and_chasms:block/slaughter_rail_on"

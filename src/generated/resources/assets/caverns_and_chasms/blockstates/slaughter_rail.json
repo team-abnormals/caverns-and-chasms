@@ -22,17 +22,17 @@
       "model": "caverns_and_chasms:block/slaughter_rail"
     },
     "powered=true,shape=ascending_east": {
-      "model": "caverns_and_chasms:block/slaughter_rail_raised_ne_on",
+      "model": "caverns_and_chasms:block/slaughter_rail_on_raised_ne",
       "y": 90
     },
     "powered=true,shape=ascending_north": {
-      "model": "caverns_and_chasms:block/slaughter_rail_raised_ne_on"
+      "model": "caverns_and_chasms:block/slaughter_rail_on_raised_ne"
     },
     "powered=true,shape=ascending_south": {
-      "model": "caverns_and_chasms:block/slaughter_rail_raised_sw_on"
+      "model": "caverns_and_chasms:block/slaughter_rail_on_raised_sw"
     },
     "powered=true,shape=ascending_west": {
-      "model": "caverns_and_chasms:block/slaughter_rail_raised_sw_on",
+      "model": "caverns_and_chasms:block/slaughter_rail_on_raised_sw",
       "y": 90
     },
     "powered=true,shape=east_west": {

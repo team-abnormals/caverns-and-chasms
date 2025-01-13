@@ -1,0 +1,32 @@
+{
+	"parent": "minecraft:block/template_rail_raised_ne",
+	"elements": [
+		{
+			"from": [0, 9, 0],
+			"to": [16, 9, 16],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, 9, 8], "rescale": true},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#rail"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#rail"}
+			}
+		},
+		{
+			"from": [8, 5.5, 6.5],
+			"to": [8, 21.5, 22.5],
+			"rotation": {"angle": 45, "axis": "x", "origin": [15, 13.5, 17.5], "rescale": true},
+			"faces": {
+				"east": {"uv": [16, 0, 0, 16], "texture": "#axe"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#axe"}
+			}
+		},
+		{
+			"from": [0.5, 5, 15],
+			"to": [16.5, 21, 15],
+			"rotation": {"angle": 45, "axis": "x", "origin": [20.5, 13, 18], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#axe"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#axe"}
+			}
+		}
+	]
+}
