@@ -36,6 +36,7 @@ public class CaveGrowthsBlock extends BushBlock {
 
 	public CaveGrowthsBlock(Properties properties) {
 		super(properties);
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
 	}
 
 	@Override

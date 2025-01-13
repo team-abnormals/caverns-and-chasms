@@ -92,6 +92,7 @@ public class CavernsAndChasms {
 		CCParticleTypes.PARTICLE_TYPES.register(bus);
 		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
 		CCRecipeTypes.RECIPE_TYPES.register(bus);
+		CCPlacementModifierTypes.PLACEMENT_MODIFIER_TYPES.register(bus);
 		CCBiomeModifierTypes.BIOME_MODIFIER_SERIALIZERS.register(bus);
 		CCPaintingVariants.PAINTING_VARIANTS.register(bus);
 		CCMenuTypes.MENU_TYPES.register(bus);

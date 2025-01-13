@@ -1,0 +1,52 @@
+{
+  "feature": "caverns_and_chasms:patch_cave_growths",
+  "placement": [
+    {
+      "type": "caverns_and_chasms:better_noise_based_count",
+      "noise": "caverns_and_chasms:cave_growths",
+      "noise_offset": 0.75,
+      "noise_to_count_ratio": 2
+    },
+    {
+      "type": "caverns_and_chasms:noise_based_rarity_filter",
+      "noise": "caverns_and_chasms:cave_growths",
+      "noise_offset": 1.0,
+      "noise_to_chance_ratio": 0.5
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": 172
+        },
+        "min_inclusive": {
+          "absolute": -64
+        }
+      }
+    },
+    {
+      "type": "minecraft:surface_relative_threshold_filter",
+      "heightmap": "WORLD_SURFACE_WG",
+      "max_inclusive": -40
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      },
+      "direction_of_search": "down",
+      "max_steps": 12,
+      "target_condition": {
+        "type": "minecraft:solid"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
