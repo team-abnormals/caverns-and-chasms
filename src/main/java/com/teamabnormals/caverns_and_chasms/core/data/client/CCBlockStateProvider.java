@@ -40,6 +40,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(SILVER_BLOCK);
 		this.weightedPressurePlateBlock(MEDIUM_WEIGHTED_PRESSURE_PLATE, SILVER_BLOCK);
 
+		this.block(RAW_TIN_BLOCK);
+		this.block(TIN_ORE);
+		this.block(DEEPSLATE_TIN_ORE);
+		this.block(TIN_BLOCK);
+
 		this.block(SPINEL_ORE);
 		this.block(DEEPSLATE_SPINEL_ORE);
 		this.block(SPINEL_BLOCK);
@@ -111,6 +116,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.waxedCopperBarsBlock(WAXED_OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_BARS);
 		this.ironBarsBlock(GOLDEN_BARS);
 		this.ironBarsBlock(SILVER_BARS);
+		this.ironBarsBlock(TIN_BARS);
 
 		this.toolboxBlocks(TOOLBOX, WAXED_TOOLBOX, Blocks.COPPER_BLOCK);
 		this.toolboxBlocks(EXPOSED_TOOLBOX, WAXED_EXPOSED_TOOLBOX, Blocks.EXPOSED_COPPER);

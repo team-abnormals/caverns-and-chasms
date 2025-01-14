@@ -67,6 +67,12 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET));
 
+	public static final RegistryObject<Block> TIN_BLOCK = HELPER.createBlock("tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
+	public static final RegistryObject<Block> TIN_ORE = HELPER.createBlock("tin_ore", () -> new Block(CCProperties.ORE));
+	public static final RegistryObject<Block> DEEPSLATE_TIN_ORE = HELPER.createBlock("deepslate_tin_ore", () -> new Block(CCProperties.DEEPSLATE_ORE));
+	public static final RegistryObject<Block> RAW_TIN_BLOCK = HELPER.createBlock("raw_tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
+	public static final RegistryObject<Block> TIN_BARS = HELPER.createBlock("tin_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
+
 	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
 	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
 	public static final RegistryObject<Block> WEATHERED_COPPER_RAIL = HELPER.createBlock("weathered_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
@@ -330,7 +336,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.BASALT), SANGUINE_BLOCK, SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL, FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL)
 				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL)
 				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLDEN_BARS)
-				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
+				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE, TIN_BLOCK, TIN_BARS)
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
 						LAPIS_LAZULI_BRICKS, LAPIS_LAZULI_BRICK_STAIRS, LAPIS_LAZULI_BRICK_SLAB, LAPIS_LAZULI_BRICK_WALL, LAPIS_LAZULI_PILLAR, LAPIS_LAZULI_LAMP,
 						SPINEL_BLOCK, SPINEL_BRICKS, SPINEL_BRICK_STAIRS, SPINEL_BRICK_SLAB, SPINEL_BRICK_WALL, SPINEL_PILLAR, SPINEL_LAMP,
@@ -348,10 +354,10 @@ public class CCBlocks {
 				.tab(NATURAL_BLOCKS)
 				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
 				.addItemsBefore(of(Blocks.MUSHROOM_STEM), AZALEA_LOG)
-				.addItemsBefore(of(Blocks.REDSTONE_ORE), SILVER_ORE, DEEPSLATE_SILVER_ORE)
+				.addItemsBefore(of(Blocks.REDSTONE_ORE), SILVER_ORE, DEEPSLATE_SILVER_ORE, TIN_ORE, DEEPSLATE_TIN_ORE)
 				.addItemsBefore(of(Blocks.DIAMOND_ORE), SPINEL_ORE, DEEPSLATE_SPINEL_ORE)
 				.addItemsBefore(of(Blocks.ANCIENT_DEBRIS), SOUL_SILVER_ORE)
-				.addItemsAfter(of(Blocks.RAW_GOLD_BLOCK), RAW_SILVER_BLOCK)
+				.addItemsAfter(of(Blocks.RAW_GOLD_BLOCK), RAW_SILVER_BLOCK, RAW_TIN_BLOCK)
 				.addItemsAfter(of(Blocks.SCULK_SENSOR), ECHO_BLOCK)
 				.addItemsBefore(of(Blocks.COBWEB), ROTTEN_FLESH_BLOCK)
 				.addItemsBefore(of(Blocks.DEAD_BUSH), CAVE_GROWTHS, LURID_CAVE_GROWTHS, WISPY_CAVE_GROWTHS, WEIRD_CAVE_GROWTHS, GRAINY_CAVE_GROWTHS, ZESTY_CAVE_GROWTHS)
@@ -411,6 +417,7 @@ public class CCBlocks {
 		public static final BlockSetType AZALEA_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":azalea"));
 		public static final BlockSetType COPPER_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 		public static final BlockSetType SILVER_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":silver", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
+		public static final BlockSetType TIN_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":tin", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 
 		public static final WoodType AZALEA_WOOD_TYPE = WoodTypeRegistryHelper.registerWoodType(new WoodType(CavernsAndChasms.MOD_ID + ":azalea", AZALEA_BLOCK_SET));
 

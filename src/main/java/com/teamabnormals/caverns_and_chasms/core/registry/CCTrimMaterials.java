@@ -20,6 +20,7 @@ public class CCTrimMaterials {
 	public static final ResourceKey<TrimMaterial> ZIRCONIA = createKey("zirconia");
 	public static final ResourceKey<TrimMaterial> SILVER = createKey("silver");
 	public static final ResourceKey<TrimMaterial> SILVER_DARKER = createKey("silver_darker");
+	public static final ResourceKey<TrimMaterial> TIN = createKey("tin");
 	public static final ResourceKey<TrimMaterial> NECROMIUM = createKey("necromium");
 	public static final ResourceKey<TrimMaterial> NECROMIUM_DARKER = createKey("necromium_darker");
 	public static final ResourceKey<TrimMaterial> SANGUINE = createKey("sanguine");
@@ -29,6 +30,7 @@ public class CCTrimMaterials {
 		register(context, SPINEL, CCItems.SPINEL.get(), Style.EMPTY.withColor(0xD684AC), Map.of());
 		register(context, ZIRCONIA, CCItems.ZIRCONIA.get(), Style.EMPTY.withColor(0xADAFF1), Map.of());
 		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), Map.of());
+		register(context, TIN, CCItems.TIN_INGOT.get(), Style.EMPTY.withColor(0xCEC0A3), Map.of());
 		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of());
 		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of());
 	}

@@ -1,6 +1,7 @@
 {
   "values": [
     "#forge:ingots/silver",
+    "#forge:ingots/tin",
     "#forge:ingots/necromium"
   ]
 }

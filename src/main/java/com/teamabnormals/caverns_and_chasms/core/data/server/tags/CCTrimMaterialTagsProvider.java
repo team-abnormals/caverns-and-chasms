@@ -23,6 +23,7 @@ public class CCTrimMaterialTagsProvider extends TagsProvider<TrimMaterial> {
 		this.tag(BlueprintTrimMaterialTags.GENERATES_OVERRIDES).add(
 				CCTrimMaterials.SANGUINE,
 				CCTrimMaterials.SILVER,
+				CCTrimMaterials.TIN,
 				CCTrimMaterials.SPINEL,
 				CCTrimMaterials.ZIRCONIA,
 				CCTrimMaterials.NECROMIUM

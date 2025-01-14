@@ -52,6 +52,7 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.GOLDEN_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SILVER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.TIN_BARS.get(), RenderType.cutout());
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_RAIL.get(), RenderType.cutout());

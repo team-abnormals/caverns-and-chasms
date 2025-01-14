@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tin_ingot",
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:tin_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:tin_ingot"
+  },
+  "show_notification": true
+}

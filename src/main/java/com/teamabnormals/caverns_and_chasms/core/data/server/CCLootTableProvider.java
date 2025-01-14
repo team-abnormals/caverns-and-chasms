@@ -76,6 +76,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
 			this.add(DEEPSLATE_SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
 			this.add(SOUL_SILVER_ORE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
+			this.add(TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
+			this.add(DEEPSLATE_TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
 			this.add(SPINEL_ORE.get(), this::createSpinelOreDrops);
 			this.add(DEEPSLATE_SPINEL_ORE.get(), this::createSpinelOreDrops);
 
@@ -100,6 +102,10 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SOUL_BRAZIER.get());
 			this.dropSelf(ENDER_BRAZIER.get());
 			this.dropSelf(CUPRIC_BRAZIER.get());
+
+			this.dropSelf(TIN_BLOCK.get());
+			this.dropSelf(RAW_TIN_BLOCK.get());
+			this.dropSelf(TIN_BARS.get());
 
 			this.dropSelf(COPPER_RAIL.get());
 			this.dropSelf(EXPOSED_COPPER_RAIL.get());

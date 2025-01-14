@@ -93,6 +93,10 @@ public class CCItems {
 	public static final RegistryObject<Item> SANGUINE_LEGGINGS = HELPER.createItem("sanguine_leggings", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
 	public static final RegistryObject<Item> SANGUINE_BOOTS = HELPER.createItem("sanguine_boots", () -> new SanguineArmorItem(CCArmorMaterials.SANGUINE, ArmorItem.Type.BOOTS, new Item.Properties()));
 
+	public static final RegistryObject<Item> RAW_TIN = HELPER.createItem("raw_tin", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> TIN_INGOT = HELPER.createItem("tin_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> TIN_NUGGET = HELPER.createItem("tin_nugget", () -> new Item(new Item.Properties()));
+
 	public static final RegistryObject<Item> SPINEL = HELPER.createItem("spinel", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> BEJEWELED_APPLE = HELPER.createItem("bejeweled_apple", () -> new BejeweledAppleItem(new Item.Properties().food(CCFoods.BEJEWELED_APPLE).rarity(Rarity.RARE)));
@@ -138,11 +142,11 @@ public class CCItems {
 				.addItemsAfter(of(Items.ARMOR_STAND), OXIDIZED_COPPER_GOLEM, WAXED_OXIDIZED_COPPER_GOLEM)
 				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
 				.tab(INGREDIENTS)
-				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER)
+				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER, RAW_TIN)
 				.addItemsAfter(of(Items.LAPIS_LAZULI), SPINEL, ZIRCONIA)
 				.addItemsBefore(of(Items.GOLD_NUGGET), COPPER_NUGGET)
-				.addItemsAfter(of(Items.GOLD_NUGGET), SILVER_NUGGET, NETHERITE_NUGGET, NECROMIUM_NUGGET)
-				.addItemsAfter(of(Items.GOLD_INGOT), SILVER_INGOT)
+				.addItemsAfter(of(Items.GOLD_NUGGET), SILVER_NUGGET, TIN_NUGGET, NETHERITE_NUGGET, NECROMIUM_NUGGET)
+				.addItemsAfter(of(Items.GOLD_INGOT), SILVER_INGOT, TIN_INGOT)
 				.addItemsAfter(of(Items.NETHERITE_INGOT), NECROMIUM_INGOT, LIVING_FLESH)
 				.addItemsAfter(of(Items.MOJANG_BANNER_PATTERN), ABNORMALS_BANNER_PATTERN)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)

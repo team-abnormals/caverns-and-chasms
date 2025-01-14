@@ -23,7 +23,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), NECROMIUM_BLOCK.get());
+		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), TIN_BLOCK.get(), NECROMIUM_BLOCK.get());
 		this.tag(BlockTags.BUTTONS).add(COPPER_BUTTON.get(), EXPOSED_COPPER_BUTTON.get(), WEATHERED_COPPER_BUTTON.get(), OXIDIZED_COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
 		this.tag(BlockTags.CAMPFIRES).add(CUPRIC_CAMPFIRE.get());
 		this.tag(BlockTags.DIRT).add(ROCKY_DIRT.get());
@@ -64,6 +64,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				ROCKY_DIRT.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(),
 				SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SILVER_BARS.get(), MEDIUM_WEIGHTED_PRESSURE_PLATE.get(),
+				TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), TIN_BARS.get(),
 				COPPER_RAIL.get(), EXPOSED_COPPER_RAIL.get(), WEATHERED_COPPER_RAIL.get(), OXIDIZED_COPPER_RAIL.get(),
 				WAXED_COPPER_RAIL.get(), WAXED_EXPOSED_COPPER_RAIL.get(), WAXED_WEATHERED_COPPER_RAIL.get(), WAXED_OXIDIZED_COPPER_RAIL.get(),
 				HALT_RAIL.get(), SPIKED_RAIL.get(), SLAUGHTER_RAIL.get(),
@@ -101,7 +102,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				SANGUINE_BLOCK.get(), SANGUINE_TILES.get(), SANGUINE_TILE_STAIRS.get(), SANGUINE_TILE_SLAB.get(), SANGUINE_TILE_WALL.get(), FORTIFIED_SANGUINE_TILES.get(), FORTIFIED_SANGUINE_TILE_STAIRS.get(), FORTIFIED_SANGUINE_TILE_SLAB.get(), FORTIFIED_SANGUINE_TILE_WALL.get()
 		);
 		this.tag(BlockTags.NEEDS_IRON_TOOL).add(SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get());
-		this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(NECROMIUM_BLOCK.get());
+		this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), TIN_BARS.get(), NECROMIUM_BLOCK.get());
 		this.tag(BlockTags.CRYSTAL_SOUND_BLOCKS).add(AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get());
 		this.tag(BlockTags.SCULK_REPLACEABLE).add(FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 
@@ -112,6 +113,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.GLARE_SPAWNABLE_NEAR).add(Blocks.GRASS_BLOCK, Blocks.MOSS_BLOCK, Blocks.MOSS_CARPET, Blocks.SMALL_DRIPLEAF, Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM).addTag(BlockTags.LEAVES).addTag(BlockTags.FLOWERS).addTag(BlockTags.SAPLINGS).addTag(BlockTags.REPLACEABLE_BY_TREES).addTag(BlockTags.CAVE_VINES);
 		this.tag(CCBlockTags.IGNORE_RAIL_PLACEMENT);
 		this.tag(CCBlockTags.SILVER_ORES).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get());
+		this.tag(CCBlockTags.TIN_ORES).add(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get());
 		this.tag(CCBlockTags.SPINEL_ORES).add(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 		this.tag(CCBlockTags.AZALEA_LOGS).add(AZALEA_LOG.get(), STRIPPED_AZALEA_LOG.get(), AZALEA_WOOD.get(), STRIPPED_AZALEA_WOOD.get());
 		this.tag(CCBlockTags.CAVE_GROWTHS).add(CAVE_GROWTHS.get(), LURID_CAVE_GROWTHS.get(), WISPY_CAVE_GROWTHS.get(), GRAINY_CAVE_GROWTHS.get(), WEIRD_CAVE_GROWTHS.get(), ZESTY_CAVE_GROWTHS.get());
@@ -152,20 +154,23 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlueprintBlockTags.WOODEN_CHISELED_BOOKSHELVES).add(CHISELED_AZALEA_BOOKSHELF.get());
 
 		this.tag(CCBlockTags.STORAGE_BLOCKS_SILVER).add(SILVER_BLOCK.get());
+		this.tag(CCBlockTags.STORAGE_BLOCKS_TIN).add(TIN_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_SPINEL).add(SPINEL_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA).add(ZIRCONIA_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).add(NECROMIUM_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).add(RAW_SILVER_BLOCK.get());
-		this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(CCBlockTags.STORAGE_BLOCKS_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_SPINEL).addTag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA);
-		this.tag(Tags.Blocks.ORES).addTag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.ORES_SPINEL);
+		this.tag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).add(RAW_TIN_BLOCK.get());
+		this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(CCBlockTags.STORAGE_BLOCKS_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_SPINEL).addTag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA);
+		this.tag(Tags.Blocks.ORES).addTag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.ORES_TIN).addTag(CCBlockTags.ORES_SPINEL);
 		this.tag(CCBlockTags.ORES_AMETHYST).add(Blocks.AMETHYST_BLOCK, Blocks.AMETHYST_CLUSTER, Blocks.BUDDING_AMETHYST, Blocks.LARGE_AMETHYST_BUD, Blocks.MEDIUM_AMETHYST_BUD, Blocks.SMALL_AMETHYST_BUD);
 		this.tag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.SILVER_ORES);
+		this.tag(CCBlockTags.ORES_TIN).addTag(CCBlockTags.TIN_ORES);
 		this.tag(CCBlockTags.ORES_SPINEL).addTag(CCBlockTags.SPINEL_ORES);
 		this.tag(Tags.Blocks.ORE_RATES_DENSE).add(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
-		this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get());
+		this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get());
 		this.tag(Tags.Blocks.ORE_RATES_SPARSE).add(SOUL_SILVER_ORE.get());
-		this.tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(SILVER_ORE.get(), SPINEL_ORE.get());
-		this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(DEEPSLATE_SILVER_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
+		this.tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(SILVER_ORE.get(), TIN_ORE.get(), SPINEL_ORE.get());
+		this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(DEEPSLATE_SILVER_ORE.get(), DEEPSLATE_TIN_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 		this.tag(Tags.Blocks.CHESTS_WOODEN).add(AZALEA_CHEST.get(), TRAPPED_AZALEA_CHEST.get());
 		this.tag(Tags.Blocks.CHESTS_TRAPPED).add(TRAPPED_AZALEA_CHEST.get());
 		this.tag(Tags.Blocks.FENCES_WOODEN).add(AZALEA_FENCE.get());

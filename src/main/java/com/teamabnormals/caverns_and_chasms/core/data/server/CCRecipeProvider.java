@@ -34,6 +34,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	public static final ModLoadedCondition ENDERGETIC_LOADED = new ModLoadedCondition("endergetic");
 
 	private static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get(), CCItems.RAW_SILVER.get());
+	private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CCItems.RAW_TIN.get());
 	private static final ImmutableList<ItemLike> SPINEL_SMELTABLES = ImmutableList.of(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 
 	public CCRecipeProvider(PackOutput output) {
@@ -120,13 +121,17 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 		storageRecipes(consumer, MISC, CCItems.SPINEL.get(), BUILDING_BLOCKS, SPINEL_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.RAW_SILVER.get(), BUILDING_BLOCKS, RAW_SILVER_BLOCK.get());
+		storageRecipes(consumer, MISC, CCItems.RAW_TIN.get(), BUILDING_BLOCKS, RAW_TIN_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.ZIRCONIA.get(), BUILDING_BLOCKS, ZIRCONIA_BLOCK.get());
 		storageRecipes(consumer, FOOD, Items.ROTTEN_FLESH, BUILDING_BLOCKS, ROTTEN_FLESH_BLOCK.get());
 		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.SILVER_INGOT.get(), BUILDING_BLOCKS, SILVER_BLOCK.get(), "silver_ingot_from_silver_block", "silver_ingot");
+		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.TIN_INGOT.get(), BUILDING_BLOCKS, TIN_BLOCK.get(), "tin_ingot_from_tin_block", "tin_ingot");
 		storageRecipesWithCustomPacking(consumer, MISC, CCItems.SILVER_NUGGET.get(), MISC, CCItems.SILVER_INGOT.get(), "silver_ingot_from_nuggets", "silver_ingot");
+		storageRecipesWithCustomPacking(consumer, MISC, CCItems.TIN_NUGGET.get(), MISC, CCItems.TIN_INGOT.get(), "tin_ingot_from_nuggets", "tin_ingot");
 		storageRecipesWithCustomPacking(consumer, MISC, CCItems.COPPER_NUGGET.get(), MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
 
 		oreRecipes(consumer, SILVER_SMELTABLES, MISC, CCItems.SILVER_INGOT.get(), 1.0F, 200, 1.0F, 100, "silver_ingot");
+		oreRecipes(consumer, TIN_SMELTABLES, MISC, CCItems.TIN_INGOT.get(), 0.0F, 200, 0.0F, 100, "tin_ingot");
 		oreRecipes(consumer, SPINEL_SMELTABLES, MISC, CCItems.SPINEL.get(), 0.2F, 200, 0.2F, 100, "spinel");
 
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.SILVER_AXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', CCItemTags.INGOTS_SILVER).pattern("XX").pattern("X#").pattern(" #").unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
@@ -150,6 +155,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(MISC, CCItems.GOLDEN_BUCKET.get()).define('#', Blocks.GOLD_BLOCK).pattern("# #").pattern(" # ").unlockedBy("has_gold_block", has(Blocks.GOLD_BLOCK)).save(consumer);
 		conditionalRecipe(consumer, new NotCondition(new ModLoadedCondition("environmental")), FOOD, ShapedRecipeBuilder.shaped(FOOD, Blocks.CAKE).define('A', CCItems.GOLDEN_MILK_BUCKET.get()).define('B', Items.SUGAR).define('C', Items.WHEAT).define('E', Items.EGG).pattern("AAA").pattern("BEB").pattern("CCC").unlockedBy("has_egg", has(Items.EGG)), new ResourceLocation(CavernsAndChasms.MOD_ID, getSimpleRecipeName(Blocks.CAKE)));
 		conditionalRecipe(consumer, new NotCondition(new TagEmptyCondition(CCItemTags.BOTTLES_MILK.location())), MISC, ShapelessRecipeBuilder.shapeless(MISC, CCItems.GOLDEN_MILK_BUCKET.get()).requires(CCItems.GOLDEN_BUCKET.get()).requires(Ingredient.of(CCItemTags.BOTTLES_MILK), 3).unlockedBy("has_milk_bottle", has(CCItemTags.BOTTLES_MILK)));
+
+		ShapedRecipeBuilder.shaped(DECORATIONS, TIN_BARS.get(), 16).define('#', CCItemTags.INGOTS_TIN).pattern("###").pattern("###").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.LIVING_FLESH.get(), 2).requires(Items.ROTTEN_FLESH, 3).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 2).requires(Items.GHAST_TEAR, 2).unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).save(consumer);
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.SANGUINE_HELMET.get()).define('X', CCItems.LIVING_FLESH.get()).pattern("XXX").pattern("X X").unlockedBy("has_living_flesh", has(CCItems.LIVING_FLESH.get())).save(consumer);

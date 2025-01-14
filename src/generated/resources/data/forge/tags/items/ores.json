@@ -1,6 +1,7 @@
 {
   "values": [
     "#forge:ores/silver",
+    "#forge:ores/tin",
     "#forge:ores/spinel"
   ]
 }
