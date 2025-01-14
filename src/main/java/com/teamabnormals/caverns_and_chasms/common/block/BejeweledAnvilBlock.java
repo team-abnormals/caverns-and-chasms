@@ -53,19 +53,9 @@ public class BejeweledAnvilBlock extends AnvilBlock {
 		return direction.getAxis() == Direction.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
 	}
 
-	protected void falling(FallingBlockEntity p_48779_) {
-		p_48779_.setHurtsEntities(2.0F, 40);
-	}
-
 	public void onLand(Level p_48793_, BlockPos p_48794_, BlockState p_48795_, BlockState p_48796_, FallingBlockEntity p_48797_) {
-		if (!p_48797_.isSilent()) {
-			p_48793_.levelEvent(1031, p_48794_, 0);
-		}
 	}
 
 	public void onBrokenAfterFall(Level p_152053_, BlockPos p_152054_, FallingBlockEntity p_152055_) {
-		if (!p_152055_.isSilent()) {
-			p_152053_.levelEvent(1029, p_152054_, 0);
-		}
 	}
 }
