@@ -37,10 +37,3 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
     versionRange = "[7.1.0,)"
     ordering = "AFTER"
     side = "BOTH"
-
-[[dependencies.caverns_and_chasms]]
-    modId = "gallery"
-    mandatory = false
-    versionRange = "[0,)"
-    ordering = "AFTER"
-    side = "BOTH"
