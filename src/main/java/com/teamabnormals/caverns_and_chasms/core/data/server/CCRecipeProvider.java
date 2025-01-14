@@ -381,6 +381,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		WoodworksRecipeProvider.baseRecipes(consumer, AZALEA_PLANKS.get(), AZALEA_SLAB.get(), AZALEA_BOARDS.get(), AZALEA_BOOKSHELF.get(), CHISELED_AZALEA_BOOKSHELF.get(), AZALEA_LADDER.get(), AZALEA_BEEHIVE.get(), AZALEA_CHEST.get(), TRAPPED_AZALEA_CHEST.get(), CavernsAndChasms.MOD_ID);
 		WoodworksRecipeProvider.sawmillRecipes(consumer, AZALEA_PLANKS_FAMILY, CCItemTags.AZALEA_LOGS, AZALEA_BOARDS.get(), AZALEA_LADDER.get(), CavernsAndChasms.MOD_ID);
 
+		conversionRecipe(consumer, Items.YELLOW_DYE, FALSE_HOPE.get(), "yellow_dye");
 		conversionRecipe(consumer, Items.GREEN_DYE, MOSCHATEL.get(), "green_dye");
 
 		trimRecipes(consumer, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.NETHERRACK);

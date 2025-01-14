@@ -38,6 +38,8 @@ public class CCCompat {
 	}
 
 	public static void registerCompostables() {
+		DataUtil.registerCompostable(CCBlocks.FALSE_HOPE.get(), 0.65F);
+
 		DataUtil.registerCompostable(CCBlocks.MOSCHATEL.get(), 0.65F);
 		DataUtil.registerCompostable(CCBlocks.CAVE_GROWTHS.get(), 0.30F);
 		DataUtil.registerCompostable(CCBlocks.LURID_CAVE_GROWTHS.get(), 0.30F);
@@ -60,6 +62,8 @@ public class CCCompat {
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BOARDS.get(), 5, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BOOKSHELF.get(), 30, 20);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_BEEHIVE.get(), 5, 20);
+
+		DataUtil.registerFlammable(CCBlocks.FALSE_HOPE.get(), 60, 100);
 
 		DataUtil.registerFlammable(CCBlocks.MOSCHATEL.get(), 60, 100);
 		DataUtil.registerFlammable(CCBlocks.CAVE_GROWTHS.get(), 60, 100);

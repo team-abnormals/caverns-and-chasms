@@ -81,6 +81,8 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_DOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
 
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FALSE_HOPE.get(), RenderType.cutout());
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.MOSCHATEL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CAVE_GROWTHS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.LURID_CAVE_GROWTHS.get(), RenderType.cutout());
@@ -88,6 +90,8 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.GRAINY_CAVE_GROWTHS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEIRD_CAVE_GROWTHS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ZESTY_CAVE_GROWTHS.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_FALSE_HOPE.get(), RenderType.cutout());
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_MOSCHATEL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_CAVE_GROWTHS.get(), RenderType.cutout());

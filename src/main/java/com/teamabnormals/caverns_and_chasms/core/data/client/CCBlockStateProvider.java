@@ -160,6 +160,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.woodworksBlocks(AZALEA_PLANKS, AZALEA_BOARDS, AZALEA_LADDER, AZALEA_BOOKSHELF, AZALEA_BEEHIVE, AZALEA_CHEST, TRAPPED_AZALEA_CHEST);
 		this.chiseledBookshelfBlock(CHISELED_AZALEA_BOOKSHELF, ALTERNATE_BOOKSHELF_POSITIONS);
 
+		this.crossBlockWithPot(FALSE_HOPE, POTTED_FALSE_HOPE);
+
 		this.crossBlockWithPot(MOSCHATEL, POTTED_MOSCHATEL);
 		this.caveGrowthsBlock(CAVE_GROWTHS, POTTED_CAVE_GROWTHS);
 		this.caveGrowthsBlock(LURID_CAVE_GROWTHS, POTTED_LURID_CAVE_GROWTHS);
