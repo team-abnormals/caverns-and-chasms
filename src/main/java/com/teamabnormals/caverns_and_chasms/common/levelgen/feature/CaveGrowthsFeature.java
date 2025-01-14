@@ -49,8 +49,6 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 		WorldGenLevel level = context.level();
 		boolean placed = false;
 
-		double moschatelChance = Mth.clamp(this.moschatelNoise.getValue(blockpos.getX(), 0.0F, blockpos.getZ()) * 0.35F, 0.0F, 0.35F);
-
 		BlockState blockstate = CCBlocks.CAVE_GROWTHS.get().defaultBlockState();
 		boolean isVariant = false;
 		double variantChance = Mth.clamp((62.0D - blockpos.getY()) / 126.0D, 0.1D, 1.0D);
@@ -76,6 +74,10 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 				isVariant = true;
 			}
 		}
+
+		double moschatelChance = Mth.clamp(this.moschatelNoise.getValue(blockpos.getX(), 0.0F, blockpos.getZ()) * 0.35F, 0.0F, 0.35F);
+		if (isVariant)
+			moschatelChance *= 0.5F;
 
 		float sizeMultiplier = 1.0F;
 
