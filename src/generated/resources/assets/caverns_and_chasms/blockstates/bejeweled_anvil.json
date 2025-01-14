@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "caverns_and_chasms:block/bejeweled_anvil",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "caverns_and_chasms:block/bejeweled_anvil"
+    },
+    "facing=south": {
+      "model": "caverns_and_chasms:block/bejeweled_anvil",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "caverns_and_chasms:block/bejeweled_anvil",
+      "y": 270
+    }
+  }
+}

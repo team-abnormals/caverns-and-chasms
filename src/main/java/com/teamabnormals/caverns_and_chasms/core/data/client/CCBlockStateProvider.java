@@ -48,6 +48,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(SPINEL_BRICKS_FAMILY);
 
 		this.dismantlingTableBlock(DISMANTLING_TABLE);
+		this.bejeweledAnvilBlock(BEJEWELED_ANVIL);
 
 		this.block(ZIRCONIA_BLOCK);
 
@@ -303,6 +304,21 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 						suffix(texture, "side"),
 						suffix(texture, "side")
 				).texture("particle", suffix(texture, "front")));
+		this.blockItem(block);
+	}
+
+	public void bejeweledAnvilBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		ResourceLocation texture = suffix(blockTexture(block), "_");
+		this.horizontalBlock(registryObject.get(), this.models()
+				.withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_bejeweled_anvil")
+				.texture("front", suffix(texture, "front"))
+				.texture("side", suffix(texture, "side"))
+				.texture("top", suffix(texture, "top"))
+				.texture("bottom", suffix(texture, "bottom"))
+				.texture("base_top", suffix(texture, "base_top"))
+				.texture("base_bottom", suffix(texture, "base_bottom"))
+		);
 		this.blockItem(block);
 	}
 

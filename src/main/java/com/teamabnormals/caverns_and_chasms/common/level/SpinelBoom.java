@@ -149,8 +149,7 @@ public class SpinelBoom extends Explosion {
 
 						entity.setDeltaMovement(entity.getDeltaMovement().add(d1 * d7, d2 * d7, d3 * d7));
 						entity.hurtMarked = true;
-						if (entity instanceof Player) {
-							Player player = (Player) entity;
+						if (entity instanceof Player player) {
 							if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
 								this.hitPlayers.put(player, new Vec3(d1 * d6, d2 * d6, d3 * d6));
 							}

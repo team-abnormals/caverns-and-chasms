@@ -28,6 +28,7 @@
     "MobMixin",
     "PlayerMixin",
     "PowderSnowBlockMixin",
+    "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
     "SmithingTemplateItemMixin",
     "SmithingTrimRecipeMixin",

@@ -1,13 +1,7 @@
 {
-	"parent": "block/block",
+	"parent": "block/template_anvil",
 	"textures": {
-		"particle": "caverns_and_chasms:block/bejeweled_anvil_base_bottom",
-		"base_bottom": "caverns_and_chasms:block/bejeweled_anvil_base_bottom",
-		"base_top": "caverns_and_chasms:block/bejeweled_anvil_base_top",
-		"bottom": "caverns_and_chasms:block/bejeweled_anvil_bottom",
-		"front": "caverns_and_chasms:block/bejeweled_anvil_front",
-		"side": "caverns_and_chasms:block/bejeweled_anvil_side",
-		"top": "caverns_and_chasms:block/bejeweled_anvil_top"
+		"particle": "#base_bottom"
 	},
 	"elements": [
 		{
@@ -49,11 +43,5 @@
 				"down": {"uv": [2, 2, 14, 14], "texture": "#base_bottom"}
 			}
 		}
-	],
-	"display": {
-		"fixed": {
-			"rotation": [0, 90, 0],
-			"scale": [0.5, 0.5, 0.5]
-		}
-	}
+	]
 }
