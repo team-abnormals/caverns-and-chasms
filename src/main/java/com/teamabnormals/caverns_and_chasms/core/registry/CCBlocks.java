@@ -78,7 +78,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> HALT_RAIL = HELPER.createBlock("halt_rail", () -> new PoweredRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
-	public static final RegistryObject<Block> SLAUGHTER_RAIL = HELPER.createBlock("slaughter_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
+	public static final RegistryObject<Block> SLAUGHTER_RAIL = HELPER.createBlock("slaughter_rail", () -> new SlaughterRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 
 	public static final RegistryObject<Block> SANGUINE_BLOCK = HELPER.createBlock("sanguine_block", () -> new Block(CCProperties.SANGUINE_TILES));
 	public static final RegistryObject<Block> SANGUINE_TILES = HELPER.createBlock("sanguine_tiles", () -> new Block(CCProperties.SANGUINE_TILES));

@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.teamabnormals.caverns_and_chasms.common.block.SpikedRailBlock;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,7 +24,7 @@ public abstract class AbstractMinecartMixin extends Entity {
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;activateMinecart(IIIZ)V"))
 	private void tick(AbstractMinecart cart, int x, int y, int z, boolean powered) {
 		BlockState state = cart.level().getBlockState(new BlockPos(x, y, z));
-		if (!state.is(CCBlocks.SPIKED_RAIL.get())) {
+		if (!(state.getBlock() instanceof SpikedRailBlock)) {
 			cart.activateMinecart(x, y, z, powered);
 		}
 	}

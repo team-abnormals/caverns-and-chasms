@@ -1,30 +1,62 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.level.block.state.properties.*;
 
-public class CopperRailBlock extends BaseRailBlock {
-	private final WeatheringCopper.WeatherState weatherState;
-
+public class SlaughterRailBlock extends BaseRailBlock {
 	public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;
+	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-	public CopperRailBlock(WeatheringCopper.WeatherState weatherState, BlockBehaviour.Properties properties) {
+	public SlaughterRailBlock(Properties properties) {
 		super(true, properties);
-		this.weatherState = weatherState;
-		this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(POWERED, false).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	public void onMinecartPass(BlockState state, Level level, BlockPos pos, AbstractMinecart cart) {
+		cart.getPassengers().forEach((entity) -> {
+			if (state.getValue(POWERED) && entity instanceof LivingEntity target) {
+				if (target.hurt(CCDamageTypes.spikedRail(level), 5.0F)) {
+					SilverItem.causeMagicDamageParticles(target);
+				}
+			}
+		});
 	}
 
 	@Override
 	public Property<RailShape> getShapeProperty() {
 		return SHAPE;
 	}
+
+	@Override
+	protected void updateState(BlockState state, Level level, BlockPos pos, Block block) {
+		boolean isPowered = state.getValue(POWERED);
+		boolean hasNeighborSignal = level.hasNeighborSignal(pos);
+		if (hasNeighborSignal != isPowered) {
+			level.setBlock(pos, state.setValue(POWERED, hasNeighborSignal), 3);
+			level.updateNeighborsAt(pos.below(), this);
+			if (state.getValue(getShapeProperty()).isAscending()) {
+				level.updateNeighborsAt(pos.above(), this);
+			}
+		}
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(getShapeProperty(), POWERED, WATERLOGGED);
+	}
+
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation railShape) {
@@ -106,14 +138,5 @@ public class CopperRailBlock extends BaseRailBlock {
 		}
 
 		return super.mirror(state, mirror);
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> properties) {
-		properties.add(SHAPE, WATERLOGGED);
-	}
-
-	public WeatherState getWeatherState() {
-		return this.weatherState;
 	}
 }
