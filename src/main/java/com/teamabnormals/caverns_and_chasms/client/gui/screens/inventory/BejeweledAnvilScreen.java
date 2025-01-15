@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory;
 
 import com.teamabnormals.caverns_and_chasms.common.inventory.BejeweledAnvilMenu;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -18,13 +19,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BejeweledAnvilScreen extends ItemCombinerScreen<BejeweledAnvilMenu> {
-	private static final ResourceLocation ANVIL_LOCATION = new ResourceLocation("textures/gui/container/anvil.png");
+	private static final ResourceLocation ANVIL_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/bejeweled_anvil.png");
 	private EditBox name;
-	private final Player player;
 
 	public BejeweledAnvilScreen(BejeweledAnvilMenu p_97874_, Inventory p_97875_, Component p_97876_) {
 		super(p_97874_, p_97875_, p_97876_, ANVIL_LOCATION);
-		this.player = p_97875_.player;
 		this.titleLabelX = 60;
 	}
 
