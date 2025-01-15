@@ -55,11 +55,13 @@ public abstract class FallingBlockEntityMixin extends Entity {
 					Level level = this.level();
 					BlockPos pos = this.blockPosition();
 
-					SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
-					if (!ForgeEventFactory.onExplosionStart(level, boom)) {
-						boom.explode();
-						boom.finalizeExplosion(true);
-						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+					if (!level.isClientSide()) {
+						SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
+						if (!ForgeEventFactory.onExplosionStart(level, boom)) {
+							boom.explode();
+							boom.finalizeExplosion(true);
+							CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+						}
 					}
 
 				}

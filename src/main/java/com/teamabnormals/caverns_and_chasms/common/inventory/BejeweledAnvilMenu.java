@@ -72,11 +72,13 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 				level.removeBlock(pos, false);
 				level.levelEvent(1029, pos, 0);
 
-				SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
-				if (!ForgeEventFactory.onExplosionStart(level, boom)) {
-					boom.explode();
-					boom.finalizeExplosion(true);
-					CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+				if (!level.isClientSide()) {
+					SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
+					if (!ForgeEventFactory.onExplosionStart(level, boom)) {
+						boom.explode();
+						boom.finalizeExplosion(true);
+						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+					}
 				}
 			} else {
 				level.levelEvent(1030, pos, 0);

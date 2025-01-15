@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
@@ -35,7 +36,7 @@ public class PrimedTmt extends PrimedTnt {
 	@Override
 	protected void explode() {
 		SpinelBoom boom = new SpinelBoom(this.level(), this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F);
-		if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level(), boom)) return;
+		if (ForgeEventFactory.onExplosionStart(this.level(), boom)) return;
 		boom.explode();
 		boom.finalizeExplosion(true);
 		CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new S2CSpinelBoomMessage((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
