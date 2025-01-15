@@ -200,7 +200,7 @@ public class Glare extends PathfinderMob {
 		Entity attacker = source.getEntity();
 		if (attacker instanceof Player player) {
 			if (this.getOwnerUUID() != null && player.getUUID().equals(this.getOwnerUUID())) {
-				this.playSound(CCSoundEvents.ENTITY_GLARE_UNTAME.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.GLARE_UNTAME.get(), 1.0F, 1.0F);
 				this.addParticlesAroundSelf(ParticleTypes.ANGRY_VILLAGER);
 				this.setOwnerUUID(null);
 			}
@@ -224,17 +224,17 @@ public class Glare extends PathfinderMob {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isGrumpy() ? CCSoundEvents.ENTITY_GLARE_ANGRY.get() : CCSoundEvents.ENTITY_GLARE_AMBIENT.get();
+		return this.isGrumpy() ? CCSoundEvents.GLARE_ANGRY.get() : CCSoundEvents.GLARE_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_218369_) {
-		return CCSoundEvents.ENTITY_GLARE_HURT.get();
+		return CCSoundEvents.GLARE_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_GLARE_DEATH.get();
+		return CCSoundEvents.GLARE_DEATH.get();
 	}
 
 	@Override
@@ -261,19 +261,19 @@ public class Glare extends PathfinderMob {
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.is(CCItemTags.GLARE_FOOD)) {
-			this.level().playSound(player, this, CCSoundEvents.ENTITY_GLARE_EAT.get(), this.getSoundSource(), 1.0F, Mth.randomBetween(this.level().random, 0.8F, 1.2F));
+			this.level().playSound(player, this, CCSoundEvents.GLARE_EAT.get(), this.getSoundSource(), 1.0F, Mth.randomBetween(this.level().random, 0.8F, 1.2F));
 			this.addParticlesAroundSelf(ParticleTypes.HEART);
 			this.removeInteractionItem(player, stack);
 			this.setAngryAtUUID(null);
 			if (this.getOwnerUUID() == null) {
-				this.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.GLARE_TAME.get(), 1.0F, 1.0F);
 				this.setOwnerUUID(player.getUUID());
 			}
 			return InteractionResult.SUCCESS;
 		} else if (this.getOwnerUUID() == null && this.getAngryAtUUID() != player.getUUID()) {
 			this.addParticlesAroundSelf(ParticleTypes.HEART);
 			this.setOwnerUUID(player.getUUID());
-			this.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
+			this.playSound(CCSoundEvents.GLARE_TAME.get(), 1.0F, 1.0F);
 			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);

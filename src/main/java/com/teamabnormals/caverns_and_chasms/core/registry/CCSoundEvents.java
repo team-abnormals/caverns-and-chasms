@@ -28,7 +28,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
 
-	public static final RegistryObject<SoundEvent> DISMANTLING_TABLE_US = HELPER.createSoundEvent("block.dismantling_table.use");
+	public static final RegistryObject<SoundEvent> DISMANTLING_TABLE_USE = HELPER.createSoundEvent("block.dismantling_table.use");
 
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_MIME = HELPER.createSoundEvent("block.note_block.imitate.mime");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_DEEPER = HELPER.createSoundEvent("block.note_block.imitate.deeper");
@@ -39,29 +39,29 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TETHER_POTION_EQUIP = HELPER.createSoundEvent("item.tether_potion.equip");
 	public static final RegistryObject<SoundEvent> TETHER_POTION_BREAK = HELPER.createSoundEvent("item.tether_potion.break");
 
-	public static final RegistryObject<SoundEvent> ENTITY_DEEPER_DEATH = HELPER.createSoundEvent("entity.deeper.death");
-	public static final RegistryObject<SoundEvent> ENTITY_DEEPER_HURT = HELPER.createSoundEvent("entity.deeper.hurt");
-	public static final RegistryObject<SoundEvent> ENTITY_DEEPER_PRIMED = HELPER.createSoundEvent("entity.deeper.primed");
+	public static final RegistryObject<SoundEvent> DEEPER_DEATH = HELPER.createSoundEvent("entity.deeper.death");
+	public static final RegistryObject<SoundEvent> DEEPER_HURT = HELPER.createSoundEvent("entity.deeper.hurt");
+	public static final RegistryObject<SoundEvent> DEEPER_PRIMED = HELPER.createSoundEvent("entity.deeper.primed");
 
-	public static final RegistryObject<SoundEvent> ENTITY_MIME_DEATH = HELPER.createSoundEvent("entity.mime.death");
-	public static final RegistryObject<SoundEvent> ENTITY_MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
-	public static final RegistryObject<SoundEvent> ENTITY_MIME_MIME = HELPER.createSoundEvent("entity.mime.mime");
-	public static final RegistryObject<SoundEvent> ENTITY_MIME_IMPERSONATE = HELPER.createSoundEvent("entity.mime.impersonate");
+	public static final RegistryObject<SoundEvent> MIME_DEATH = HELPER.createSoundEvent("entity.mime.death");
+	public static final RegistryObject<SoundEvent> MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
+	public static final RegistryObject<SoundEvent> MIME_MIME = HELPER.createSoundEvent("entity.mime.mime");
+	public static final RegistryObject<SoundEvent> MIME_IMPERSONATE = HELPER.createSoundEvent("entity.mime.impersonate");
 
-	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_DEATH = HELPER.createSoundEvent("entity.copper_golem.death");
-	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_HURT = HELPER.createSoundEvent("entity.copper_golem.hurt");
-	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_REPAIR = HELPER.createSoundEvent("entity.copper_golem.repair");
-	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_DAMAGE = HELPER.createSoundEvent("entity.copper_golem.damage");
-	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_GEAR = HELPER.createSoundEvent("entity.copper_golem.gear");
-	public static final RegistryObject<SoundEvent> ENTITY_COPPER_GOLEM_STEP = HELPER.createSoundEvent("entity.copper_golem.step");
+	public static final RegistryObject<SoundEvent> COPPER_GOLEM_DEATH = HELPER.createSoundEvent("entity.copper_golem.death");
+	public static final RegistryObject<SoundEvent> COPPER_GOLEM_HURT = HELPER.createSoundEvent("entity.copper_golem.hurt");
+	public static final RegistryObject<SoundEvent> COPPER_GOLEM_REPAIR = HELPER.createSoundEvent("entity.copper_golem.repair");
+	public static final RegistryObject<SoundEvent> COPPER_GOLEM_DAMAGE = HELPER.createSoundEvent("entity.copper_golem.damage");
+	public static final RegistryObject<SoundEvent> COPPER_GOLEM_GEAR = HELPER.createSoundEvent("entity.copper_golem.gear");
+	public static final RegistryObject<SoundEvent> COPPER_GOLEM_STEP = HELPER.createSoundEvent("entity.copper_golem.step");
 
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_DEATH = HELPER.createSoundEvent("entity.glare.death");
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_ANGRY = HELPER.createSoundEvent("entity.glare.angry");
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_EAT = HELPER.createSoundEvent("entity.glare.eat");
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_HURT = HELPER.createSoundEvent("entity.glare.hurt");
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_AMBIENT = HELPER.createSoundEvent("entity.glare.ambient");
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_TAME = HELPER.createSoundEvent("entity.glare.tame");
-	public static final RegistryObject<SoundEvent> ENTITY_GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
+	public static final RegistryObject<SoundEvent> GLARE_DEATH = HELPER.createSoundEvent("entity.glare.death");
+	public static final RegistryObject<SoundEvent> GLARE_ANGRY = HELPER.createSoundEvent("entity.glare.angry");
+	public static final RegistryObject<SoundEvent> GLARE_EAT = HELPER.createSoundEvent("entity.glare.eat");
+	public static final RegistryObject<SoundEvent> GLARE_HURT = HELPER.createSoundEvent("entity.glare.hurt");
+	public static final RegistryObject<SoundEvent> GLARE_AMBIENT = HELPER.createSoundEvent("entity.glare.ambient");
+	public static final RegistryObject<SoundEvent> GLARE_TAME = HELPER.createSoundEvent("entity.glare.tame");
+	public static final RegistryObject<SoundEvent> GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
 
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_DEEPER = HELPER.createSoundEvent("entity.parrot.imitate.deeper");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_PEEPER = HELPER.createSoundEvent("entity.parrot.imitate.peeper");

@@ -68,12 +68,12 @@ public class OxidizedCopperGolem extends LivingEntity {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_HURT.get();
+		return CCSoundEvents.COPPER_GOLEM_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_DEATH.get();
+		return CCSoundEvents.COPPER_GOLEM_DEATH.get();
 	}
 
 	@Override

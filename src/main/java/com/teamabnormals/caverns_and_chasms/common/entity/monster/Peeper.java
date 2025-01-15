@@ -58,7 +58,7 @@ public class Peeper extends Creeper {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSoundEvents.ENTITY_DEEPER_HURT.get();
+		return CCSoundEvents.DEEPER_HURT.get();
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -67,7 +67,7 @@ public class Peeper extends Creeper {
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_DEEPER_DEATH.get();
+		return CCSoundEvents.DEEPER_DEATH.get();
 	}
 
 	@Override

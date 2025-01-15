@@ -58,12 +58,12 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSoundEvents.ENTITY_DEEPER_HURT.get();
+		return CCSoundEvents.DEEPER_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_DEEPER_DEATH.get();
+		return CCSoundEvents.DEEPER_DEATH.get();
 	}
 
 	@Override

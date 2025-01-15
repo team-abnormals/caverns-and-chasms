@@ -95,17 +95,17 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_HURT.get();
+		return CCSoundEvents.COPPER_GOLEM_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_DEATH.get();
+		return CCSoundEvents.COPPER_GOLEM_DEATH.get();
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_STEP.get(), 1.0F, 1.0F);
+		this.playSound(CCSoundEvents.COPPER_GOLEM_STEP.get(), 1.0F, 1.0F);
 	}
 
 	@Override
@@ -194,7 +194,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			float f = this.getHealth();
 			this.heal(15.0F);
 			if (this.getHealth() != f) {
-				this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_REPAIR.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+				this.playSound(CCSoundEvents.COPPER_GOLEM_REPAIR.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
 				if (!player.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
@@ -253,7 +253,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			this.spinHead();
 			this.level().broadcastEntityEvent(this, (byte) 4);
 			if (this.isDamaged() != damaged)
-				this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_DAMAGE.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.COPPER_GOLEM_DAMAGE.get(), 1.0F, 1.0F);
 		}
 		return flag;
 	}
@@ -315,7 +315,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		if (this.headSpinTicks <= 10) {
 			this.headSpinTicks = 24;
 			this.headSpinTicksO = this.headSpinTicks;
-			this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
+			this.playSound(CCSoundEvents.COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
 		}
 	}
 

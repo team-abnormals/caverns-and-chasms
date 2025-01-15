@@ -105,12 +105,12 @@ public class Mime extends Monster {
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_MIME_DEATH.get();
+		return CCSoundEvents.MIME_DEATH.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSoundEvents.ENTITY_MIME_HURT.get();
+		return CCSoundEvents.MIME_HURT.get();
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class Mime extends Monster {
 			}
 
 			if (mimed) {
-				this.playSound(CCSoundEvents.ENTITY_MIME_IMPERSONATE.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.MIME_IMPERSONATE.get(), 1.0F, 1.0F);
 			}
 		}
 		return result;
@@ -167,7 +167,7 @@ public class Mime extends Monster {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
 						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem(this.level().registryAccess()).copy());
-						source.playSound(CCSoundEvents.ENTITY_MIME_MIME.get(), 1.0F, 1.0F);
+						source.playSound(CCSoundEvents.MIME_MIME.get(), 1.0F, 1.0F);
 						return;
 					}
 				}
@@ -238,7 +238,7 @@ public class Mime extends Monster {
 							}
 
 							if (mimed)
-								this.level().playSound(null, this, CCSoundEvents.ENTITY_MIME_MIME.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+								this.level().playSound(null, this, CCSoundEvents.MIME_MIME.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 						}
 					} else if (this.shouldCopyItem(this.getMainHandItem(), target.getMainHandItem()) || this.shouldCopyItem(this.getOffhandItem(), target.getOffhandItem())) {
 						this.copyTime = this.random.nextInt(3) + 4;
