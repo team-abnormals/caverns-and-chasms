@@ -67,10 +67,24 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_PEEPER = HELPER.createSoundEvent("entity.parrot.imitate.peeper");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_MIME = HELPER.createSoundEvent("entity.parrot.imitate.mime");
 
-	public static final ImmutableList<RegistryObject<SoundEvent>> LOST_GOAT_HORN_SOUND_VARIANTS = registerGoatHornSoundVariants();
+	public static final ImmutableList<RegistryObject<SoundEvent>> GOAT_HORN_SOUND_VARIANTS = registerGoatHornSoundVariants();
+
+	public static final ImmutableList<RegistryObject<SoundEvent>> LOST_GOAT_HORN_SOUND_VARIANTS = registerLostGoatHornSoundVariants();
+
+	public static final ImmutableList<RegistryObject<SoundEvent>> COPPER_HORN_HARMONY_SOUND_VARIANTS = registerCopperHornSoundVariants("harmony");
+	public static final ImmutableList<RegistryObject<SoundEvent>> COPPER_HORN_MELODY_SOUND_VARIANTS = registerCopperHornSoundVariants("melody");
+	public static final ImmutableList<RegistryObject<SoundEvent>> COPPER_HORN_BASS_SOUND_VARIANTS = registerCopperHornSoundVariants("bass");
 
 	private static ImmutableList<RegistryObject<SoundEvent>> registerGoatHornSoundVariants() {
+		return IntStream.range(8, 10).mapToObj((suffix) -> HELPER.createSoundEvent("item.goat_horn.sound." + suffix)).collect(ImmutableList.toImmutableList());
+	}
+
+	private static ImmutableList<RegistryObject<SoundEvent>> registerLostGoatHornSoundVariants() {
 		return IntStream.range(0, 2).mapToObj((suffix) -> HELPER.createSoundEvent("item.lost_goat_horn.sound." + suffix)).collect(ImmutableList.toImmutableList());
+	}
+
+	private static ImmutableList<RegistryObject<SoundEvent>> registerCopperHornSoundVariants(String variant) {
+		return IntStream.range(0, 10).mapToObj((suffix) -> HELPER.createSoundEvent("item.copper_horn.sound." + variant + "." + suffix)).collect(ImmutableList.toImmutableList());
 	}
 
 	public static class CCSoundTypes {

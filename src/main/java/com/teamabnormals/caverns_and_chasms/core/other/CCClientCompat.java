@@ -116,6 +116,7 @@ public class CCClientCompat {
 		ItemProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
 		ItemProperties.register(CCItems.LOST_GOAT_HORN.get(), new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+		ItemProperties.register(CCItems.COPPER_HORN.get(), new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
 
 		ItemProperties.register(Items.BUNDLE, new ResourceLocation("dyed"), (stack, level, entity, hash) -> {
 			return ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F;

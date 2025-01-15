@@ -18,8 +18,10 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet.Named;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
@@ -38,6 +40,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import static com.teamabnormals.blueprint.core.util.item.ItemStackUtil.is;
@@ -119,6 +122,7 @@ public class CCItems {
 	public static final RegistryObject<Item> AZALEA_FURNACE_BOAT = HELPER.createItem("azalea_furnace_boat", ModList.get().isLoaded("boatload") ? CCBoatTypes.AZALEA_FURNACE_BOAT : () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> LARGE_AZALEA_BOAT = HELPER.createItem("large_azalea_boat", ModList.get().isLoaded("boatload") ? CCBoatTypes.LARGE_AZALEA_BOAT : () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> COPPER_HORN = HELPER.createItem("copper_horn", () -> new CopperHornItem((new Item.Properties()).stacksTo(1), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS));
 	public static final RegistryObject<Item> LOST_GOAT_HORN = HELPER.createItem("lost_goat_horn", () -> new InstrumentItem((new Item.Properties()).stacksTo(1), CCInstrumentTags.LOST_GOAT_HORNS));
 
 	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 77));
@@ -163,6 +167,10 @@ public class CCItems {
 				.addItemsBefore(of(Items.MUSIC_DISC_PIGSTEP), MUSIC_DISC_EPILOGUE)
 				.addItemsBefore(of(Items.BAMBOO_RAFT), AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond())
 				.addItemsBefore(modLoaded(Items.BAMBOO_RAFT, "boatload"), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT)
+				.addItemsAfter(of(Items.GOAT_HORN))
+				.editor(event -> event.getParameters().holders().lookup(Registries.INSTRUMENT).ifPresent(registry -> {
+					generateInstrumentTypes(event, of(Items.GOAT_HORN), registry, COPPER_HORN.get(), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS);
+				}))
 				.tab(COMBAT)
 				.addItemsAfter(of(Items.GOLDEN_SWORD), SILVER_SWORD)
 				.addItemsAfter(of(Items.GOLDEN_AXE), SILVER_AXE)
@@ -205,6 +213,24 @@ public class CCItems {
 				}
 				return;
 			}
+		}
+	}
+
+	private static void generateInstrumentTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Instrument> lookup, Item item, TagKey<Instrument> harmonyTag, TagKey<Instrument> melodyTag, TagKey<Instrument> bassTag) {
+		TabVisibility visibility = TabVisibility.PARENT_AND_SEARCH_TABS;
+
+		Optional<Named<Instrument>> harmonyOptional = lookup.get(harmonyTag);
+		Optional<Named<Instrument>> melodyOptional = lookup.get(melodyTag);
+		Optional<Named<Instrument>> bassOptional = lookup.get(bassTag);
+
+		MutableHashedLinkedMap<ItemStack, TabVisibility> entries = event.getEntries();
+		if (harmonyOptional.isPresent() && melodyOptional.isPresent() && bassOptional.isPresent()) {
+			lookup.get(harmonyTag).ifPresent(tag -> {
+				for (int i = 0; i < tag.size(); i++) {
+					ItemStack stack = CopperHornItem.create(item, harmonyOptional.get().get(i), melodyOptional.get().get(i), bassOptional.get().get(i));
+					entries.put(stack, visibility);
+				}
+			});
 		}
 	}
 
