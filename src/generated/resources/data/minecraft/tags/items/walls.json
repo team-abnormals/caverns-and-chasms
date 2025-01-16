@@ -14,6 +14,10 @@
     "caverns_and_chasms:calcite_wall",
     "caverns_and_chasms:tuff_wall",
     "caverns_and_chasms:sugilite_wall",
-    "caverns_and_chasms:cut_amethyst_brick_wall"
+    "caverns_and_chasms:cut_amethyst_brick_wall",
+    "caverns_and_chasms:iron_brick_wall",
+    "caverns_and_chasms:tin_brick_wall",
+    "caverns_and_chasms:gold_brick_wall",
+    "caverns_and_chasms:silver_brick_wall"
   ]
 }

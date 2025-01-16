@@ -264,6 +264,30 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ECHO_BLOCK = HELPER.createBlock("echo_block", () -> new Block(CCProperties.ECHO_BLOCK));
 
+	public static final RegistryObject<Block> IRON_BRICKS = HELPER.createBlock("iron_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICK_STAIRS = HELPER.createBlock("iron_brick_stairs", () -> new StairBlock(() -> IRON_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICK_SLAB = HELPER.createBlock("iron_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICK_WALL = HELPER.createBlock("iron_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_IRON_BRICKS = HELPER.createBlock("chiseled_iron_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> TIN_BRICKS = HELPER.createBlock("tin_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICK_STAIRS = HELPER.createBlock("tin_brick_stairs", () -> new StairBlock(() -> TIN_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICK_SLAB = HELPER.createBlock("tin_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICK_WALL = HELPER.createBlock("tin_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_TIN_BRICKS = HELPER.createBlock("chiseled_tin_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> GOLD_BRICKS = HELPER.createBlock("gold_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICK_STAIRS = HELPER.createBlock("gold_brick_stairs", () -> new StairBlock(() -> GOLD_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICK_SLAB = HELPER.createBlock("gold_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICK_WALL = HELPER.createBlock("gold_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_GOLD_BRICKS = HELPER.createBlock("chiseled_gold_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> SILVER_BRICKS = HELPER.createBlock("silver_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICK_STAIRS = HELPER.createBlock("silver_brick_stairs", () -> new StairBlock(() -> SILVER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICK_SLAB = HELPER.createBlock("silver_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICK_WALL = HELPER.createBlock("silver_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_SILVER_BRICKS = HELPER.createBlock("chiseled_silver_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
 	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new RotatedPillarBlock(CCProperties.AZALEA.log()));
 	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new RotatedPillarBlock(CCProperties.AZALEA.log()));
 	public static final RegistryObject<Block> AZALEA_LOG = HELPER.createBlock("azalea_log", () -> new LogBlock(STRIPPED_AZALEA_LOG, CCProperties.AZALEA.log()));
@@ -336,9 +360,10 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.DEEPSLATE_TILES), () -> Blocks.CHISELED_DEEPSLATE)
 				.addItemsBefore(of(Blocks.BASALT), SANGUINE_BLOCK, SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL, FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL)
 				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL)
-				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLDEN_BARS)
-				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BARS)
-				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
+				.addItemsAfter(of(Blocks.IRON_BLOCK), IRON_BRICKS, IRON_BRICK_STAIRS, IRON_BRICK_SLAB, IRON_BRICK_WALL, CHISELED_IRON_BRICKS)
+				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLD_BRICKS, GOLD_BRICK_STAIRS, GOLD_BRICK_SLAB, GOLD_BRICK_WALL, CHISELED_GOLD_BRICKS, GOLDEN_BARS)
+				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS)
+				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BRICKS, SILVER_BRICK_STAIRS, SILVER_BRICK_SLAB, SILVER_BRICK_WALL, CHISELED_SILVER_BRICKS, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
 						LAPIS_LAZULI_BRICKS, LAPIS_LAZULI_BRICK_STAIRS, LAPIS_LAZULI_BRICK_SLAB, LAPIS_LAZULI_BRICK_WALL, LAPIS_LAZULI_PILLAR, LAPIS_LAZULI_LAMP,
 						SPINEL_BLOCK, SPINEL_BRICKS, SPINEL_BRICK_STAIRS, SPINEL_BRICK_SLAB, SPINEL_BRICK_WALL, SPINEL_PILLAR, SPINEL_LAMP,
@@ -454,6 +479,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties COPPER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.METAL);
 		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties PLATED_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLED_DEEPSLATE).sound(SoundType.METAL);
 
 		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(15)).noOcclusion();
 		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(10)).noOcclusion();

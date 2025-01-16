@@ -9,7 +9,7 @@
     "caverns_and_chasms:spinel_brick_stairs",
     "caverns_and_chasms:lapis_brick_stairs",
     "caverns_and_chasms:sanguine_tile_stairs",
-    "caverns_and_chasms:fortified_sanguine_tile_wall",
+    "caverns_and_chasms:fortified_sanguine_tile_stairs",
     "caverns_and_chasms:dripstone_shingle_stairs",
     "caverns_and_chasms:calcite_stairs",
     "caverns_and_chasms:polished_calcite_stairs",
@@ -17,6 +17,10 @@
     "caverns_and_chasms:polished_tuff_stairs",
     "caverns_and_chasms:sugilite_stairs",
     "caverns_and_chasms:polished_sugilite_stairs",
-    "caverns_and_chasms:cut_amethyst_brick_stairs"
+    "caverns_and_chasms:cut_amethyst_brick_stairs",
+    "caverns_and_chasms:iron_brick_stairs",
+    "caverns_and_chasms:tin_brick_stairs",
+    "caverns_and_chasms:gold_brick_stairs",
+    "caverns_and_chasms:silver_brick_stairs"
   ]
 }

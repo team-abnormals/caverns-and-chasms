@@ -25,4 +25,8 @@ public class CCBlockFamilies {
 	public static final BlockFamily SANGUINE_TILES_FAMILY = new BlockFamily.Builder(SANGUINE_TILES.get()).slab(SANGUINE_TILE_SLAB.get()).stairs(SANGUINE_TILE_STAIRS.get()).wall(SANGUINE_TILE_WALL.get()).getFamily();
 	public static final BlockFamily FORTIFIED_SANGUINE_TILES_FAMILY = new BlockFamily.Builder(FORTIFIED_SANGUINE_TILES.get()).slab(FORTIFIED_SANGUINE_TILE_SLAB.get()).stairs(FORTIFIED_SANGUINE_TILE_STAIRS.get()).wall(FORTIFIED_SANGUINE_TILE_WALL.get()).getFamily();
 	public static final BlockFamily CUT_AMETHYST_BRICKS_FAMILY = new BlockFamily.Builder(CUT_AMETHYST_BRICKS.get()).slab(CUT_AMETHYST_BRICK_SLAB.get()).stairs(CUT_AMETHYST_BRICK_STAIRS.get()).wall(CUT_AMETHYST_BRICK_WALL.get()).getFamily();
+	public static final BlockFamily IRON_BRICKS_FAMILY = new BlockFamily.Builder(IRON_BRICKS.get()).slab(IRON_BRICK_SLAB.get()).stairs(IRON_BRICK_STAIRS.get()).wall(IRON_BRICK_WALL.get()).chiseled(CHISELED_IRON_BRICKS.get()).getFamily();
+	public static final BlockFamily TIN_BRICKS_FAMILY = new BlockFamily.Builder(TIN_BRICKS.get()).slab(TIN_BRICK_SLAB.get()).stairs(TIN_BRICK_STAIRS.get()).wall(TIN_BRICK_WALL.get()).chiseled(CHISELED_TIN_BRICKS.get()).getFamily();
+	public static final BlockFamily GOLD_BRICKS_FAMILY = new BlockFamily.Builder(GOLD_BRICKS.get()).slab(GOLD_BRICK_SLAB.get()).stairs(GOLD_BRICK_STAIRS.get()).wall(GOLD_BRICK_WALL.get()).chiseled(CHISELED_GOLD_BRICKS.get()).getFamily();
+	public static final BlockFamily SILVER_BRICKS_FAMILY = new BlockFamily.Builder(SILVER_BRICKS.get()).slab(SILVER_BRICK_SLAB.get()).stairs(SILVER_BRICK_STAIRS.get()).wall(SILVER_BRICK_WALL.get()).chiseled(CHISELED_SILVER_BRICKS.get()).getFamily();
 }

@@ -269,6 +269,30 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SANGUINE_TILES.get());
 			this.dropSelf(SANGUINE_TILE_STAIRS.get());
 			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
+			
+			this.dropSelf(IRON_BRICKS.get());
+			this.dropSelf(IRON_BRICK_STAIRS.get());
+			this.dropSelf(IRON_BRICK_WALL.get());
+			this.add(IRON_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CHISELED_IRON_BRICKS.get());
+			
+			this.dropSelf(TIN_BRICKS.get());
+			this.dropSelf(TIN_BRICK_STAIRS.get());
+			this.dropSelf(TIN_BRICK_WALL.get());
+			this.add(TIN_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CHISELED_TIN_BRICKS.get());
+			
+			this.dropSelf(GOLD_BRICKS.get());
+			this.dropSelf(GOLD_BRICK_STAIRS.get());
+			this.dropSelf(GOLD_BRICK_WALL.get());
+			this.add(GOLD_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CHISELED_GOLD_BRICKS.get());
+			
+			this.dropSelf(SILVER_BRICKS.get());
+			this.dropSelf(SILVER_BRICK_STAIRS.get());
+			this.dropSelf(SILVER_BRICK_WALL.get());
+			this.add(SILVER_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CHISELED_SILVER_BRICKS.get());
 
 			this.add(CUPRIC_FIRE.get(), noDrop());
 			this.dropSelf(CUPRIC_LANTERN.get());

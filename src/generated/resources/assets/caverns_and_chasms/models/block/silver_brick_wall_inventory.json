@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "caverns_and_chasms:block/silver_bricks"
+  }
+}

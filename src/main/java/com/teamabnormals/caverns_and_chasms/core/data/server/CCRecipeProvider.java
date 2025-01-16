@@ -231,6 +231,34 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, DECORATIONS, SPINEL_BRICK_WALL.get(), SPINEL_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_PILLAR.get(), SPINEL_BRICKS.get());
 
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, IRON_BRICKS.get(), 4).define('#', Tags.Items.INGOTS_IRON).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON)).save(consumer);
+		generateRecipes(consumer, IRON_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, IRON_BRICK_SLAB.get(), IRON_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, IRON_BRICK_STAIRS.get(), IRON_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, IRON_BRICK_WALL.get(), IRON_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_IRON_BRICKS.get(), IRON_BRICKS.get());
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TIN_BRICKS.get(), 4).define('#', CCItemTags.INGOTS_TIN).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_tin", has(CCItemTags.INGOTS_TIN)).save(consumer);
+		generateRecipes(consumer, TIN_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TIN_BRICK_SLAB.get(), TIN_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TIN_BRICK_STAIRS.get(), TIN_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, TIN_BRICK_WALL.get(), TIN_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_TIN_BRICKS.get(), TIN_BRICKS.get());
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GOLD_BRICKS.get(), 4).define('#', Tags.Items.INGOTS_GOLD).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD)).save(consumer);
+		generateRecipes(consumer, GOLD_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, GOLD_BRICK_SLAB.get(), GOLD_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, GOLD_BRICK_STAIRS.get(), GOLD_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, GOLD_BRICK_WALL.get(), GOLD_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_GOLD_BRICKS.get(), GOLD_BRICKS.get());
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SILVER_BRICKS.get(), 4).define('#', CCItemTags.INGOTS_SILVER).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_silver", has(CCItemTags.INGOTS_SILVER)).save(consumer);
+		generateRecipes(consumer, SILVER_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SILVER_BRICK_SLAB.get(), SILVER_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SILVER_BRICK_STAIRS.get(), SILVER_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, SILVER_BRICK_WALL.get(), SILVER_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_SILVER_BRICKS.get(), SILVER_BRICKS.get());
+
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.CALCITE).requires(Blocks.DIORITE).requires(Items.AMETHYST_SHARD).unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
 		generateRecipes(consumer, CALCITE_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_SLAB.get(), Blocks.CALCITE, 2);
