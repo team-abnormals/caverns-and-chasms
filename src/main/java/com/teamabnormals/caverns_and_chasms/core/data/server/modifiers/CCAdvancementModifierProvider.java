@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.common.advancement.modification.modifiers.Cri
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.DisplayInfoModifier;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.EffectsChangedModifier;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.ParentModifier;
+import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -32,6 +33,7 @@ import java.util.concurrent.CompletableFuture;
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
 	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get()};
+	private static final Item[] SMITHING_TEMPLATES = new Item[]{CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get()};
 
 	public CCAdvancementModifierProvider(PackOutput output, CompletableFuture<Provider> provider) {
 		super(CavernsAndChasms.MOD_ID, output, provider);
@@ -93,5 +95,16 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 
 		this.entry("adventure/kill_a_mob").selects("adventure/kill_a_mob").addModifier(killAMob.addIndexedRequirements(0, false, names.toArray(new String[0])).build());
 		this.entry("adventure/kill_all_mobs").selects("adventure/kill_all_mobs").addModifier(killAllMobs.requirements(RequirementsStrategy.AND).build());
+
+		CriteriaModifier.Builder trimWithAnyPattern = CriteriaModifier.builder(this.modId);
+		ArrayList<String> smithingModifiers = Lists.newArrayList();
+		for (Item item : SMITHING_TEMPLATES) {
+			ResourceLocation trimName = BlueprintRecipeProvider.suffix(ForgeRegistries.ITEMS.getKey(item), "_smithing_trim");
+			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName, RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
+			smithingModifiers.add("armor_trimmed_" + trimName);
+		}
+
+		this.entry("adventure/trim_with_any_armor_pattern").selects("adventure/trim_with_any_armor_pattern").addModifier(trimWithAnyPattern.addIndexedRequirements(0, false, smithingModifiers.toArray(new String[0])).build());
+
 	}
 }

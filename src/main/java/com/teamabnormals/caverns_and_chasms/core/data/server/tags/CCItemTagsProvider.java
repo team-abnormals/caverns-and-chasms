@@ -112,7 +112,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.NUGGETS_SILVER).add(SILVER_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_TIN).add(TIN_NUGGET.get());
 		this.tag(CCItemTags.NUGGETS_NECROMIUM).add(NECROMIUM_NUGGET.get());
-		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_TIN).addTag(CCItemTags.NUGGETS_NECROMIUM);
+		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_TIN).addTag(CCItemTags.NUGGETS_COPPER).addTag(CCItemTags.NUGGETS_NETHERITE).addTag(CCItemTags.NUGGETS_NECROMIUM);
 		this.tag(Tags.Items.HEADS).add(DEEPER_HEAD.get(), PEEPER_HEAD.get(), MIME_HEAD.get());
 		this.copy(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS, ItemTags.NOTE_BLOCK_TOP_INSTRUMENTS);
 
