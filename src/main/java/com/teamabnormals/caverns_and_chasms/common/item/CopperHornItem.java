@@ -92,7 +92,7 @@ public class CopperHornItem extends Item {
 	private Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack, @Nullable Player player) {
 		if (player != null && player.isCrouching()) {
 			return getInstrument(stack, "bass", this.bassInstruments);
-		} else if (player != null && player.getXRot() <= -60.0F) {
+		} else if (player != null && player.getXRot() < -15.0F) {
 			return getInstrument(stack, "harmony", this.harmonyInstruments);
 		} else {
 			return getInstrument(stack, "melody", this.melodyInstruments);
