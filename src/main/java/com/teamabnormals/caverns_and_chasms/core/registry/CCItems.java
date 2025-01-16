@@ -167,7 +167,6 @@ public class CCItems {
 				.addItemsBefore(of(Items.MUSIC_DISC_PIGSTEP), MUSIC_DISC_EPILOGUE)
 				.addItemsBefore(of(Items.BAMBOO_RAFT), AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond())
 				.addItemsBefore(modLoaded(Items.BAMBOO_RAFT, "boatload"), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT)
-				.addItemsAfter(of(Items.GOAT_HORN))
 				.editor(event -> event.getParameters().holders().lookup(Registries.INSTRUMENT).ifPresent(registry -> {
 					generateInstrumentTypes(event, of(Items.GOAT_HORN), registry, COPPER_HORN.get(), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS);
 				}))
@@ -225,12 +224,16 @@ public class CCItems {
 
 		MutableHashedLinkedMap<ItemStack, TabVisibility> entries = event.getEntries();
 		if (harmonyOptional.isPresent() && melodyOptional.isPresent() && bassOptional.isPresent()) {
-			lookup.get(harmonyTag).ifPresent(tag -> {
-				for (int i = 0; i < tag.size(); i++) {
-					ItemStack stack = CopperHornItem.create(item, harmonyOptional.get().get(i), melodyOptional.get().get(i), bassOptional.get().get(i));
-					entries.put(stack, visibility);
+			for (Entry<ItemStack, TabVisibility> entry : entries) {
+				ItemStack stack = entry.getKey();
+				if (predicate.test(stack) && lookup.get(harmonyTag).isPresent()) {
+					for (int i = 0; i < lookup.get(harmonyTag).get().size(); i++) {
+						ItemStack horn = CopperHornItem.create(item, harmonyOptional.get().get(i), melodyOptional.get().get(i), bassOptional.get().get(i));
+						entries.put(horn, visibility);
+					}
+					return;
 				}
-			});
+			}
 		}
 	}
 
