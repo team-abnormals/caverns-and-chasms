@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 
 public class CCItemTags {
 	public static final TagKey<Item> IGNORE_RAIL_PLACEMENT = itemTag("ignore_rail_placement");
-	public static final TagKey<Item> CUPRIC_FIRE_BASE_BLOCKS = itemTag("cupric_fire_base_blocks");
+	public static final TagKey<Item> CUPRIC_FIRE_BASE_ITEMS = itemTag("cupric_fire_base_items");
 	public static final TagKey<Item> MAGIC_DAMAGE_ITEMS = itemTag("magic_damage_items");
 	public static final TagKey<Item> EXPERIENCE_BOOST_ITEMS = itemTag("experience_boost_items");
 	public static final TagKey<Item> SLOWNESS_INFLICTING_ITEMS = itemTag("slowness_inflicting_items");
