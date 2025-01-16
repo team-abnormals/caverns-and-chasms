@@ -39,6 +39,26 @@
     "caverns_and_chasms:floodlight",
     "caverns_and_chasms:exposed_floodlight",
     "caverns_and_chasms:weathered_floodlight",
-    "caverns_and_chasms:oxidized_floodlight"
+    "caverns_and_chasms:oxidized_floodlight",
+    "caverns_and_chasms:copper_bricks",
+    "caverns_and_chasms:exposed_copper_bricks",
+    "caverns_and_chasms:weathered_copper_bricks",
+    "caverns_and_chasms:oxidized_copper_bricks",
+    "caverns_and_chasms:copper_brick_stairs",
+    "caverns_and_chasms:exposed_copper_brick_stairs",
+    "caverns_and_chasms:weathered_copper_brick_stairs",
+    "caverns_and_chasms:oxidized_copper_brick_stairs",
+    "caverns_and_chasms:copper_brick_slab",
+    "caverns_and_chasms:exposed_copper_brick_slab",
+    "caverns_and_chasms:weathered_copper_brick_slab",
+    "caverns_and_chasms:oxidized_copper_brick_slab",
+    "caverns_and_chasms:copper_brick_wall",
+    "caverns_and_chasms:exposed_copper_brick_wall",
+    "caverns_and_chasms:weathered_copper_brick_wall",
+    "caverns_and_chasms:oxidized_copper_brick_wall",
+    "caverns_and_chasms:chiseled_copper_bricks",
+    "caverns_and_chasms:exposed_chiseled_copper_bricks",
+    "caverns_and_chasms:weathered_chiseled_copper_bricks",
+    "caverns_and_chasms:oxidized_chiseled_copper_bricks"
   ]
 }

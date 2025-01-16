@@ -9,6 +9,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
@@ -44,6 +46,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes.*;
 
@@ -116,7 +119,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_EXPOSED_COPPER_RAIL.get());
 			this.dropSelf(WAXED_WEATHERED_COPPER_RAIL.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_RAIL.get());
-			
+
 			this.dropSelf(HALT_RAIL.get());
 			this.dropSelf(SPIKED_RAIL.get());
 			this.dropSelf(SLAUGHTER_RAIL.get());
@@ -269,30 +272,25 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SANGUINE_TILES.get());
 			this.dropSelf(SANGUINE_TILE_STAIRS.get());
 			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
-			
+
 			this.dropSelf(IRON_BRICKS.get());
 			this.dropSelf(IRON_BRICK_STAIRS.get());
 			this.dropSelf(IRON_BRICK_WALL.get());
 			this.add(IRON_BRICK_SLAB.get(), this::createSlabItemTable);
 			this.dropSelf(CHISELED_IRON_BRICKS.get());
-			
-			this.dropSelf(TIN_BRICKS.get());
-			this.dropSelf(TIN_BRICK_STAIRS.get());
-			this.dropSelf(TIN_BRICK_WALL.get());
-			this.add(TIN_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_TIN_BRICKS.get());
-			
-			this.dropSelf(GOLD_BRICKS.get());
-			this.dropSelf(GOLD_BRICK_STAIRS.get());
-			this.dropSelf(GOLD_BRICK_WALL.get());
-			this.add(GOLD_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_GOLD_BRICKS.get());
-			
-			this.dropSelf(SILVER_BRICKS.get());
-			this.dropSelf(SILVER_BRICK_STAIRS.get());
-			this.dropSelf(SILVER_BRICK_WALL.get());
-			this.add(SILVER_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_SILVER_BRICKS.get());
+
+			this.blockFamily(IRON_BRICKS_FAMILY);
+			this.blockFamily(TIN_BRICKS_FAMILY);
+			this.blockFamily(GOLD_BRICKS_FAMILY);
+			this.blockFamily(SILVER_BRICKS_FAMILY);
+			this.blockFamily(COPPER_BRICKS_FAMILY);
+			this.blockFamily(EXPOSED_COPPER_BRICKS_FAMILY);
+			this.blockFamily(WEATHERED_COPPER_BRICKS_FAMILY);
+			this.blockFamily(OXIDIZED_COPPER_BRICKS_FAMILY);
+			this.blockFamily(WAXED_COPPER_BRICKS_FAMILY);
+			this.blockFamily(WAXED_EXPOSED_COPPER_BRICKS_FAMILY);
+			this.blockFamily(WAXED_WEATHERED_COPPER_BRICKS_FAMILY);
+			this.blockFamily(WAXED_OXIDIZED_COPPER_BRICKS_FAMILY);
 
 			this.add(CUPRIC_FIRE.get(), noDrop());
 			this.dropSelf(CUPRIC_LANTERN.get());
@@ -341,6 +339,16 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropPottedContents(POTTED_GRAINY_CAVE_GROWTHS.get());
 			this.dropPottedContents(POTTED_WEIRD_CAVE_GROWTHS.get());
 			this.dropPottedContents(POTTED_ZESTY_CAVE_GROWTHS.get());
+		}
+
+		public void blockFamily(BlockFamily family) {
+			this.dropSelf(family.getBaseBlock());
+			this.dropSelf(family.get(Variant.STAIRS));
+			this.dropSelf(family.get(Variant.WALL));
+			this.add(family.get(Variant.SLAB), this::createSlabItemTable);
+			if (family.getVariants().containsKey(Variant.CHISELED)) {
+				this.dropSelf(family.get(Variant.CHISELED));
+			}
 		}
 
 		protected LootTable.Builder createToolboxDrop(Block p_124295_) {

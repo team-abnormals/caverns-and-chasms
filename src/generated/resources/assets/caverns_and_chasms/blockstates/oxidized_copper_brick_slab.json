@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "caverns_and_chasms:block/oxidized_copper_brick_slab"
+    },
+    "type=double": {
+      "model": "caverns_and_chasms:block/oxidized_copper_bricks"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/oxidized_copper_brick_slab_top"
+    }
+  }
+}

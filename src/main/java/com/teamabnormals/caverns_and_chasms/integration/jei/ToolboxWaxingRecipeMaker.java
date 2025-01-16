@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.WeatheringToolboxBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.NonNullList;

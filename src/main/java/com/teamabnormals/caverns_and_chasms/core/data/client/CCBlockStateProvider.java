@@ -5,12 +5,11 @@ import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightningRodBlock;
-import net.minecraft.world.level.block.WeightedPressurePlateBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
@@ -46,14 +45,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(TIN_BLOCK);
 		this.block(FLOAT_GLASS);
 
-		this.blockFamily(IRON_BRICKS_FAMILY);
-		this.block(CHISELED_IRON_BRICKS);
-		this.blockFamily(TIN_BRICKS_FAMILY);
-		this.block(CHISELED_TIN_BRICKS);
-		this.blockFamily(GOLD_BRICKS_FAMILY);
-		this.block(CHISELED_GOLD_BRICKS);
-		this.blockFamily(SILVER_BRICKS_FAMILY);
-		this.block(CHISELED_SILVER_BRICKS);
+		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
+		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
+		this.blockFamilyWithChiseled(GOLD_BRICKS_FAMILY);
+		this.blockFamilyWithChiseled(SILVER_BRICKS_FAMILY);
+		this.copperBlocks(COPPER_BRICKS_FAMILY, WAXED_COPPER_BRICKS_FAMILY);
+		this.copperBlocks(EXPOSED_COPPER_BRICKS_FAMILY, WAXED_EXPOSED_COPPER_BRICKS_FAMILY);
+		this.copperBlocks(WEATHERED_COPPER_BRICKS_FAMILY, WAXED_WEATHERED_COPPER_BRICKS_FAMILY);
+		this.copperBlocks(OXIDIZED_COPPER_BRICKS_FAMILY, WAXED_OXIDIZED_COPPER_BRICKS_FAMILY);
 
 		this.block(SPINEL_ORE);
 		this.block(DEEPSLATE_SPINEL_ORE);
@@ -357,6 +356,26 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile pressurePlateDown = models().pressurePlateDown(name(block.get()) + "_down", blockTexture(base.get()));
 		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(state.getValue(WeightedPressurePlateBlock.POWER) == 0 ? pressurePlate : pressurePlateDown).build());
 		this.blockItem(block);
+	}
+
+	public void blockFamilyWithChiseled(BlockFamily family) {
+		this.blockFamily(family);
+		this.block(family.get(Variant.CHISELED));
+	}
+
+	public void block(Block base, Block block) {
+		this.simpleBlock(block, this.models().cubeAll(name(block), blockTexture(base)));
+		this.blockItem(block);
+	}
+
+	public void copperBlocks(BlockFamily base, BlockFamily waxed) {
+		this.blockFamilyWithChiseled(base);
+
+		this.block(base.getBaseBlock(), waxed.getBaseBlock());
+		this.stairsBlock(base.getBaseBlock(), waxed.get(Variant.STAIRS));
+		this.slabBlock(base.getBaseBlock(), waxed.get(Variant.SLAB));
+		this.wallBlock(base.getBaseBlock(), waxed.get(Variant.WALL));
+		this.block(base.get(Variant.CHISELED), waxed.get(Variant.CHISELED));
 	}
 
 	public void waxedGeneratedItem(Block block, String type) {

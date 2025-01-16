@@ -4,28 +4,32 @@ import com.google.common.collect.ImmutableList;
 import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.boatload.core.data.server.BoatloadRecipeProvider;
+import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.CopperHornItem;
 import com.teamabnormals.caverns_and_chasms.common.recipe.CCShapedRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCInstruments;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import com.teamabnormals.woodworks.core.data.server.WoodworksRecipeProvider;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Instruments;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
@@ -56,10 +60,6 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, Blocks.LODESTONE).define('S', Items.CHISELED_STONE_BRICKS).define('#', Tags.Items.INGOTS_IRON).pattern("SSS").pattern("S#S").pattern("SSS").unlockedBy("has_iron_ingot", has(Items.IRON_INGOT)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, COPPER_RAIL.get(), 3).define('#', Tags.Items.RODS_WOODEN).define('X', CCItemTags.NUGGETS_COPPER).pattern("X X").pattern("X#X").pattern("X X").unlockedBy("has_minecart", has(Items.MINECART)).save(consumer);
-		waxRecipe(consumer, DECORATIONS, COPPER_RAIL.get(), WAXED_COPPER_RAIL.get());
-		waxRecipe(consumer, DECORATIONS, EXPOSED_COPPER_RAIL.get(), WAXED_EXPOSED_COPPER_RAIL.get());
-		waxRecipe(consumer, DECORATIONS, WEATHERED_COPPER_RAIL.get(), WAXED_WEATHERED_COPPER_RAIL.get());
-		waxRecipe(consumer, DECORATIONS, OXIDIZED_COPPER_RAIL.get(), WAXED_OXIDIZED_COPPER_RAIL.get());
 
 		copperHornRecipe(consumer, Instruments.PONDER_GOAT_HORN, CCInstruments.GREAT_SKY_FALLING_COPPER_HORN);
 		copperHornRecipe(consumer, Instruments.SING_GOAT_HORN, CCInstruments.OLD_HYMN_RESTING_COPPER_HORN);
@@ -107,10 +107,6 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, LAVA_LAMP.get()).define('G', Tags.Items.INGOTS_GOLD).define('B', BlueprintItemTags.BUCKETS_LAVA).pattern("GGG").pattern("GBG").pattern("GGG").unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, FLOODLIGHT.get()).define('C', Tags.Items.INGOTS_COPPER).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
-		waxRecipe(consumer, DECORATIONS, FLOODLIGHT.get(), WAXED_FLOODLIGHT.get());
-		waxRecipe(consumer, DECORATIONS, EXPOSED_FLOODLIGHT.get(), WAXED_EXPOSED_FLOODLIGHT.get());
-		waxRecipe(consumer, DECORATIONS, WEATHERED_FLOODLIGHT.get(), WAXED_WEATHERED_FLOODLIGHT.get());
-		waxRecipe(consumer, DECORATIONS, OXIDIZED_FLOODLIGHT.get(), WAXED_OXIDIZED_FLOODLIGHT.get());
 //		ShapedRecipeBuilder.shaped(INDUCTOR.get()).define('C', Tags.Items.INGOTS_COPPER).define('I', Items.IRON_BLOCK).define('R', Items.REDSTONE).pattern("CIC").pattern("CRC").pattern("CIC").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_TORCH.get(), 4).define('X', Ingredient.of(Items.COAL, Items.CHARCOAL)).define('#', Tags.Items.RODS_WOODEN).define('C', CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).pattern("X").pattern("#").pattern("C").unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS)).save(consumer);
@@ -123,21 +119,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		conditionalRecipe(consumer, ENDERGETIC_LOADED, DECORATIONS, ShapedRecipeBuilder.shaped(DECORATIONS, ENDER_BRAZIER.get()).define('#', CCItemTags.ENDER_FIRE_BASE_BLOCKS).define('S', CCItemTags.INGOTS_SILVER).pattern("S#S").pattern(" S ").unlockedBy("has_silver_ingot", has(CCItemTags.INGOTS_SILVER)).unlockedBy("has_end_stone", has(CCItemTags.ENDER_FIRE_BASE_BLOCKS)));
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, COPPER_BARS.get(), 16).define('#', Tags.Items.INGOTS_COPPER).pattern("###").pattern("###").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
-		waxRecipe(consumer, DECORATIONS, COPPER_BARS.get(), WAXED_COPPER_BARS.get());
-		waxRecipe(consumer, DECORATIONS, EXPOSED_COPPER_BARS.get(), WAXED_EXPOSED_COPPER_BARS.get());
-		waxRecipe(consumer, DECORATIONS, WEATHERED_COPPER_BARS.get(), WAXED_WEATHERED_COPPER_BARS.get());
-		waxRecipe(consumer, DECORATIONS, OXIDIZED_COPPER_BARS.get(), WAXED_OXIDIZED_COPPER_BARS.get());
-
 		ShapelessRecipeBuilder.shapeless(REDSTONE, COPPER_BUTTON.get()).requires(ItemTags.WOODEN_BUTTONS).requires(Tags.Items.INGOTS_COPPER).unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
-		waxRecipe(consumer, REDSTONE, COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get());
-		waxRecipe(consumer, REDSTONE, EXPOSED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get());
-		waxRecipe(consumer, REDSTONE, WEATHERED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get());
-		waxRecipe(consumer, REDSTONE, OXIDIZED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
-
-		waxRecipe(consumer, DECORATIONS, Blocks.LIGHTNING_ROD, WAXED_LIGHTNING_ROD.get());
-		waxRecipe(consumer, DECORATIONS, EXPOSED_LIGHTNING_ROD.get(), WAXED_EXPOSED_LIGHTNING_ROD.get());
-		waxRecipe(consumer, DECORATIONS, WEATHERED_LIGHTNING_ROD.get(), WAXED_WEATHERED_LIGHTNING_ROD.get());
-		waxRecipe(consumer, DECORATIONS, OXIDIZED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get());
 
 		storageRecipes(consumer, MISC, CCItems.SPINEL.get(), BUILDING_BLOCKS, SPINEL_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.RAW_SILVER.get(), BUILDING_BLOCKS, RAW_SILVER_BLOCK.get());
@@ -231,33 +213,27 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, DECORATIONS, SPINEL_BRICK_WALL.get(), SPINEL_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_PILLAR.get(), SPINEL_BRICKS.get());
 
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, IRON_BRICKS.get(), 4).define('#', Tags.Items.INGOTS_IRON).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON)).save(consumer);
-		generateRecipes(consumer, IRON_BRICKS_FAMILY);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, IRON_BRICK_SLAB.get(), IRON_BRICKS.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, IRON_BRICK_STAIRS.get(), IRON_BRICKS.get());
-		stonecutterRecipe(consumer, DECORATIONS, IRON_BRICK_WALL.get(), IRON_BRICKS.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_IRON_BRICKS.get(), IRON_BRICKS.get());
+		platedBricksRecipe(consumer, IRON_BRICKS.get(), Tags.Items.INGOTS_IRON, "iron");
+		platedBricksRecipes(consumer, IRON_BRICKS_FAMILY);
 
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TIN_BRICKS.get(), 4).define('#', CCItemTags.INGOTS_TIN).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_tin", has(CCItemTags.INGOTS_TIN)).save(consumer);
-		generateRecipes(consumer, TIN_BRICKS_FAMILY);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, TIN_BRICK_SLAB.get(), TIN_BRICKS.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, TIN_BRICK_STAIRS.get(), TIN_BRICKS.get());
-		stonecutterRecipe(consumer, DECORATIONS, TIN_BRICK_WALL.get(), TIN_BRICKS.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_TIN_BRICKS.get(), TIN_BRICKS.get());
+		platedBricksRecipe(consumer, TIN_BRICKS.get(), CCItemTags.INGOTS_TIN, "tin");
+		platedBricksRecipes(consumer, TIN_BRICKS_FAMILY);
 
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GOLD_BRICKS.get(), 4).define('#', Tags.Items.INGOTS_GOLD).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD)).save(consumer);
-		generateRecipes(consumer, GOLD_BRICKS_FAMILY);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, GOLD_BRICK_SLAB.get(), GOLD_BRICKS.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, GOLD_BRICK_STAIRS.get(), GOLD_BRICKS.get());
-		stonecutterRecipe(consumer, DECORATIONS, GOLD_BRICK_WALL.get(), GOLD_BRICKS.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_GOLD_BRICKS.get(), GOLD_BRICKS.get());
+		platedBricksRecipe(consumer, GOLD_BRICKS.get(), Tags.Items.INGOTS_GOLD, "gold");
+		platedBricksRecipes(consumer, GOLD_BRICKS_FAMILY);
 
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SILVER_BRICKS.get(), 4).define('#', CCItemTags.INGOTS_SILVER).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_silver", has(CCItemTags.INGOTS_SILVER)).save(consumer);
-		generateRecipes(consumer, SILVER_BRICKS_FAMILY);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SILVER_BRICK_SLAB.get(), SILVER_BRICKS.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SILVER_BRICK_STAIRS.get(), SILVER_BRICKS.get());
-		stonecutterRecipe(consumer, DECORATIONS, SILVER_BRICK_WALL.get(), SILVER_BRICKS.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_SILVER_BRICKS.get(), SILVER_BRICKS.get());
+		platedBricksRecipe(consumer, SILVER_BRICKS.get(), CCItemTags.INGOTS_SILVER, "silver");
+		platedBricksRecipes(consumer, SILVER_BRICKS_FAMILY);
+
+		platedBricksRecipe(consumer, COPPER_BRICKS.get(), Tags.Items.INGOTS_COPPER, "copper");
+		platedBricksRecipes(consumer, COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, EXPOSED_COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, WEATHERED_COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, OXIDIZED_COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, WAXED_COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, WAXED_EXPOSED_COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, WAXED_WEATHERED_COPPER_BRICKS_FAMILY);
+		platedBricksRecipes(consumer, WAXED_OXIDIZED_COPPER_BRICKS_FAMILY);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.CALCITE).requires(Blocks.DIORITE).requires(Items.AMETHYST_SHARD).unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
 		generateRecipes(consumer, CALCITE_FAMILY);
@@ -444,6 +420,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		SpecialRecipeBuilder.special(CCRecipeSerializers.FADED_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":faded_trim_smithing_template_duping");
 		SpecialRecipeBuilder.special(CCRecipeSerializers.EMISSIVE_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":emissive_trim_smithing_template_duping");
 
+		ccWaxRecipes(consumer);
 	}
 
 	public void stonecutterRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike output, ItemLike input, ItemLike inputName) {
@@ -474,8 +451,30 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		CCShapedRecipeBuilder.shaped(TOOLS, PartialNBTIngredient.of(CCItems.COPPER_HORN.get(), outputTag)).define('#', PartialNBTIngredient.of(Items.GOAT_HORN, inputTag)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, recipeName + "copper_horn"));
 	}
 
+	public void platedBricksRecipe(Consumer<FinishedRecipe> consumer, ItemLike block, TagKey<Item> ingotTag, String hasName) {
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, block, 4).define('#', ingotTag).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_" + hasName, has(ingotTag)).save(consumer);
+	}
+
+	public void platedBricksRecipes(Consumer<FinishedRecipe> consumer, BlockFamily family) {
+		generateRecipes(consumer, family);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, family.get(Variant.SLAB), family.getBaseBlock(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, family.get(Variant.STAIRS), family.getBaseBlock());
+		stonecutterRecipe(consumer, DECORATIONS, family.get(Variant.WALL), family.getBaseBlock());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, family.get(Variant.CHISELED), family.getBaseBlock());
+	}
+
 	public static void mimingRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike output) {
 		mimingRecipeBuilder(category, Ingredient.of(input), output, 1).unlockedBy(getHasName(input), has(input)).save(consumer);
+	}
+
+	protected void ccWaxRecipes(Consumer<FinishedRecipe> consumer) {
+		CCCompat.registerWaxables();
+		HoneycombItem.WAXABLES.get().forEach((base, waxed) -> {
+			if (BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID()) && !(waxed instanceof ToolboxBlock)) {
+				RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock ||waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS : waxed instanceof ButtonBlock ? REDSTONE : BUILDING_BLOCKS;
+				ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(Items.HONEYCOMB).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
+			}
+		});
 	}
 
 	public static SingleItemRecipeBuilder mimingRecipeBuilder(RecipeCategory category, Ingredient input, ItemLike output, int count) {

@@ -108,7 +108,7 @@ public class CCCompat {
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_DEEPSLATE, CavernsAndChasms.MOD_ID, "chiseled_deepslate_bricks");
 	}
 
-	private static void registerWaxables() {
+	public static void registerWaxables() {
 		ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
 		HoneycombItem.WAXABLES.get().forEach(builder::put);
 		builder.put(CCBlocks.COPPER_BARS.get(), CCBlocks.WAXED_COPPER_BARS.get());
@@ -135,6 +135,26 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_COPPER_RAIL.get(), CCBlocks.WAXED_EXPOSED_COPPER_RAIL.get());
 		builder.put(CCBlocks.WEATHERED_COPPER_RAIL.get(), CCBlocks.WAXED_WEATHERED_COPPER_RAIL.get());
 		builder.put(CCBlocks.OXIDIZED_COPPER_RAIL.get(), CCBlocks.WAXED_OXIDIZED_COPPER_RAIL.get());
+		builder.put(CCBlocks.COPPER_BRICKS.get(), CCBlocks.WAXED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_BRICKS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_BRICKS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_BRICKS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_COPPER_BRICK_STAIRS.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICK_STAIRS.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICK_STAIRS.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICK_STAIRS.get());
+		builder.put(CCBlocks.COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_COPPER_BRICK_SLAB.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICK_SLAB.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICK_SLAB.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICK_SLAB.get());
+		builder.put(CCBlocks.COPPER_BRICK_WALL.get(), CCBlocks.WAXED_COPPER_BRICK_WALL.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_BRICK_WALL.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICK_WALL.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_BRICK_WALL.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICK_WALL.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_BRICK_WALL.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICK_WALL.get());
+		builder.put(CCBlocks.CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_CHISELED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.EXPOSED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_EXPOSED_CHISELED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.WEATHERED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_WEATHERED_CHISELED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.OXIDIZED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_OXIDIZED_CHISELED_COPPER_BRICKS.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

@@ -15,6 +15,7 @@ import com.teamabnormals.blueprint.core.util.PropertyUtil.WoodSetProperties;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
+import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
@@ -288,6 +289,54 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SILVER_BRICK_WALL = HELPER.createBlock("silver_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
 	public static final RegistryObject<Block> CHISELED_SILVER_BRICKS = HELPER.createBlock("chiseled_silver_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
 
+	public static final RegistryObject<Block> COPPER_BRICKS = HELPER.createBlock("copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICK_STAIRS = HELPER.createBlock("copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.UNAFFECTED, () -> COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICK_SLAB = HELPER.createBlock("copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICK_WALL = HELPER.createBlock("copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_COPPER_BRICKS = HELPER.createBlock("chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICKS = HELPER.createBlock("exposed_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("exposed_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.EXPOSED, () -> EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("exposed_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("exposed_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("exposed_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICKS = HELPER.createBlock("weathered_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("weathered_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.WEATHERED, () -> WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("weathered_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("weathered_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("weathered_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICKS = HELPER.createBlock("oxidized_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("oxidized_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.OXIDIZED, () -> OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("oxidized_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("oxidized_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("oxidized_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> WAXED_COPPER_BRICKS = HELPER.createBlock("waxed_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_copper_brick_stairs", () -> new StairBlock(() -> WAXED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICKS = HELPER.createBlock("waxed_exposed_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_exposed_copper_brick_stairs", () -> new StairBlock(() -> WAXED_EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_exposed_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_exposed_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_exposed_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICKS = HELPER.createBlock("waxed_weathered_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_weathered_copper_brick_stairs", () -> new StairBlock(() -> WAXED_WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_weathered_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_weathered_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_weathered_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICKS = HELPER.createBlock("waxed_oxidized_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_oxidized_copper_brick_stairs", () -> new StairBlock(() -> WAXED_OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_oxidized_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_oxidized_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_oxidized_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+
 	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new RotatedPillarBlock(CCProperties.AZALEA.log()));
 	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new RotatedPillarBlock(CCProperties.AZALEA.log()));
 	public static final RegistryObject<Block> AZALEA_LOG = HELPER.createBlock("azalea_log", () -> new LogBlock(STRIPPED_AZALEA_LOG, CCProperties.AZALEA.log()));
@@ -370,14 +419,14 @@ public class CCBlocks {
 						ZIRCONIA_BLOCK
 				)
 				.addItemsAfter(of(Blocks.NETHERITE_BLOCK), NECROMIUM_BLOCK)
-				.addItemsAfter(of(Blocks.CUT_COPPER_SLAB), COPPER_BARS, () -> Blocks.LIGHTNING_ROD, COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.EXPOSED_CUT_COPPER_SLAB), EXPOSED_COPPER_BARS, EXPOSED_LIGHTNING_ROD, EXPOSED_COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.WEATHERED_CUT_COPPER_SLAB), WEATHERED_COPPER_BARS, WEATHERED_LIGHTNING_ROD, WEATHERED_COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.OXIDIZED_CUT_COPPER_SLAB), OXIDIZED_COPPER_BARS, OXIDIZED_LIGHTNING_ROD, OXIDIZED_COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.WAXED_CUT_COPPER_SLAB), WAXED_COPPER_BARS, WAXED_LIGHTNING_ROD, WAXED_COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB), WAXED_EXPOSED_COPPER_BARS, WAXED_EXPOSED_LIGHTNING_ROD, WAXED_EXPOSED_COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB), WAXED_WEATHERED_COPPER_BARS, WAXED_WEATHERED_LIGHTNING_ROD, WAXED_WEATHERED_COPPER_BUTTON)
-				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.CUT_COPPER_SLAB), COPPER_BRICKS, COPPER_BRICK_STAIRS, COPPER_BRICK_SLAB, COPPER_BRICK_WALL, CHISELED_COPPER_BRICKS, COPPER_BARS, () -> Blocks.LIGHTNING_ROD, COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.EXPOSED_CUT_COPPER_SLAB), EXPOSED_COPPER_BRICKS, EXPOSED_COPPER_BRICK_STAIRS, EXPOSED_COPPER_BRICK_SLAB, EXPOSED_COPPER_BRICK_WALL, EXPOSED_CHISELED_COPPER_BRICKS, EXPOSED_COPPER_BARS, EXPOSED_LIGHTNING_ROD, EXPOSED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.WEATHERED_CUT_COPPER_SLAB), WEATHERED_COPPER_BRICKS, WEATHERED_COPPER_BRICK_STAIRS, WEATHERED_COPPER_BRICK_SLAB, WEATHERED_COPPER_BRICK_WALL, WEATHERED_CHISELED_COPPER_BRICKS, WEATHERED_COPPER_BARS, WEATHERED_LIGHTNING_ROD, WEATHERED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.OXIDIZED_CUT_COPPER_SLAB), OXIDIZED_COPPER_BRICKS, OXIDIZED_COPPER_BRICK_STAIRS, OXIDIZED_COPPER_BRICK_SLAB, OXIDIZED_COPPER_BRICK_WALL, OXIDIZED_CHISELED_COPPER_BRICKS, OXIDIZED_COPPER_BARS, OXIDIZED_LIGHTNING_ROD, OXIDIZED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.WAXED_CUT_COPPER_SLAB), WAXED_COPPER_BRICKS, WAXED_COPPER_BRICK_STAIRS, WAXED_COPPER_BRICK_SLAB, WAXED_COPPER_BRICK_WALL, WAXED_CHISELED_COPPER_BRICKS, WAXED_COPPER_BARS, WAXED_LIGHTNING_ROD, WAXED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB), WAXED_EXPOSED_COPPER_BRICKS, WAXED_EXPOSED_COPPER_BRICK_STAIRS, WAXED_EXPOSED_COPPER_BRICK_SLAB, WAXED_EXPOSED_COPPER_BRICK_WALL, WAXED_EXPOSED_CHISELED_COPPER_BRICKS, WAXED_EXPOSED_COPPER_BARS, WAXED_EXPOSED_LIGHTNING_ROD, WAXED_EXPOSED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB), WAXED_WEATHERED_COPPER_BRICKS, WAXED_WEATHERED_COPPER_BRICK_STAIRS, WAXED_WEATHERED_COPPER_BRICK_SLAB, WAXED_WEATHERED_COPPER_BRICK_WALL, WAXED_WEATHERED_CHISELED_COPPER_BRICKS, WAXED_WEATHERED_COPPER_BARS, WAXED_WEATHERED_LIGHTNING_ROD, WAXED_WEATHERED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), WAXED_OXIDIZED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_BRICK_STAIRS, WAXED_OXIDIZED_COPPER_BRICK_SLAB, WAXED_OXIDIZED_COPPER_BRICK_WALL, WAXED_OXIDIZED_CHISELED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BUTTON)
 				.tab(COLORED_BLOCKS)
 				.addItemsAfter(of(Blocks.GLASS), FLOAT_GLASS)
 				.tab(NATURAL_BLOCKS)

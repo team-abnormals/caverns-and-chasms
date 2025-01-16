@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_oxidized_copper_brick_wall",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:oxidized_copper_brick_wall"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_oxidized_copper_brick_wall"
+  }
+}
