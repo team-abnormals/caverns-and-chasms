@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.boatload.core.data.server.BoatloadRecipeProvider;
+import com.teamabnormals.caverns_and_chasms.common.item.CopperHornItem;
+import com.teamabnormals.caverns_and_chasms.common.recipe.CCShapedRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCInstruments;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
@@ -12,17 +15,23 @@ import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import com.teamabnormals.woodworks.core.data.server.WoodworksRecipeProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
@@ -51,7 +60,18 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		waxRecipe(consumer, DECORATIONS, EXPOSED_COPPER_RAIL.get(), WAXED_EXPOSED_COPPER_RAIL.get());
 		waxRecipe(consumer, DECORATIONS, WEATHERED_COPPER_RAIL.get(), WAXED_WEATHERED_COPPER_RAIL.get());
 		waxRecipe(consumer, DECORATIONS, OXIDIZED_COPPER_RAIL.get(), WAXED_OXIDIZED_COPPER_RAIL.get());
-		
+
+		copperHornRecipe(consumer, Instruments.PONDER_GOAT_HORN, CCInstruments.GREAT_SKY_FALLING_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.SING_GOAT_HORN, CCInstruments.OLD_HYMN_RESTING_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.SEEK_GOAT_HORN, CCInstruments.PURE_WATER_DESIRE_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.FEEL_GOAT_HORN, CCInstruments.HUMBLE_FIRE_MEMORY_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.ADMIRE_GOAT_HORN, CCInstruments.DRY_URGE_ANGER_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.CALL_GOAT_HORN, CCInstruments.CLEAR_TEMPER_JOURNEY_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.YEARN_GOAT_HORN, CCInstruments.FRESH_NEST_THOUGHT_COPPER_HORN);
+		copperHornRecipe(consumer, Instruments.DREAM_GOAT_HORN, CCInstruments.SECRET_LAKE_TEAR_COPPER_HORN);
+		copperHornRecipe(consumer, CCInstruments.FLY_GOAT_HORN.getKey(), CCInstruments.FEARLESS_RIVER_GIFT_COPPER_HORN);
+		copperHornRecipe(consumer, CCInstruments.RESIST_GOAT_HORN.getKey(), CCInstruments.SWEET_MOON_LOVE_COPPER_HORN);
+
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.RAIL, 3).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.NUGGETS_IRON).pattern("X X").pattern("X#X").pattern("X X").unlockedBy("has_minecart", has(Items.MINECART)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.ACTIVATOR_RAIL).define('#', Blocks.REDSTONE_TORCH).define('S', Tags.Items.RODS_WOODEN).define('X', Tags.Items.NUGGETS_IRON).pattern("XSX").pattern("X#X").pattern("XSX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.DETECTOR_RAIL).define('R', Items.REDSTONE).define('#', Blocks.STONE_PRESSURE_PLATE).define('X', Tags.Items.NUGGETS_IRON).pattern("X X").pattern("X#X").pattern("XRX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);
@@ -407,6 +427,22 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 	protected void necromiumSmithingRecipe(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {
 		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(input), Ingredient.of(CCItemTags.INGOTS_NECROMIUM), category, output).unlocks("has_necromium_ingot", has(CCItemTags.INGOTS_NECROMIUM)).save(consumer, new ResourceLocation(this.getModID(), getItemName(output) + "_smithing"));
+	}
+
+	public static void copperHornRecipe(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> input, ImmutableList<RegistryObject<Instrument>> output) {
+		CompoundTag inputTag = new CompoundTag();
+		inputTag.putString("instrument", input.location().toString());
+
+		CompoundTag outputTag = new CompoundTag();
+		String harmonyID = output.get(0).getId().toString();
+		String melodyID = output.get(1).getId().toString();
+		String bassID = output.get(2).getId().toString();
+		outputTag.putString(CopperHornItem.HARMONY, harmonyID);
+		outputTag.putString(CopperHornItem.MELODY, melodyID);
+		outputTag.putString(CopperHornItem.BASS, bassID);
+
+		String recipeName = (harmonyID + melodyID + bassID).replace("caverns_and_chasms:", "").replace("copper_horn", "");
+		CCShapedRecipeBuilder.shaped(TOOLS, PartialNBTIngredient.of(CCItems.COPPER_HORN.get(), outputTag)).define('#', PartialNBTIngredient.of(Items.GOAT_HORN, inputTag)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).save(consumer, new ResourceLocation(CavernsAndChasms.MOD_ID, recipeName + "copper_horn"));
 	}
 
 	public static void mimingRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike output) {

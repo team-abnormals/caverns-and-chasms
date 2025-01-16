@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "type": "forge:partial_nbt",
+      "item": "minecraft:goat_horn",
+      "nbt": "{instrument:\"caverns_and_chasms:resist_goat_horn\"}"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    "C#C",
+    " C "
+  ],
+  "result": {
+    "type": "forge:partial_nbt",
+    "item": "caverns_and_chasms:copper_horn",
+    "nbt": "{bass_instrument:\"caverns_and_chasms:love_copper_horn\",harmony_instrument:\"caverns_and_chasms:sweet_copper_horn\",melody_instrument:\"caverns_and_chasms:moon_copper_horn\"}"
+  },
+  "show_notification": true
+}

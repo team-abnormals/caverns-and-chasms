@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet.Named;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +14,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -29,9 +27,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class CopperHornItem extends Item {
-	private static final String TAG_HARMONY_INSTRUMENT = "harmony_instrument";
-	private static final String TAG_MELODY_INSTRUMENT = "melody_instrument";
-	private static final String TAG_BASS_INSTRUMENT = "bass_instrument";
+	public static final String HARMONY = "harmony_instrument";
+	public static final String MELODY = "melody_instrument";
+	public static final String BASS = "bass_instrument";
 
 	private final TagKey<Instrument> harmonyInstruments;
 	private final TagKey<Instrument> melodyInstruments;
@@ -63,22 +61,11 @@ public class CopperHornItem extends Item {
 		return stack;
 	}
 
-	public static void setRandom(ItemStack stack, TagKey<Instrument> harmony, TagKey<Instrument> melody, TagKey<Instrument> bass, RandomSource random) {
-		Optional<Named<Instrument>> harmonyOptional = BuiltInRegistries.INSTRUMENT.getTag(harmony);
-		Optional<Named<Instrument>> melodyOptional = BuiltInRegistries.INSTRUMENT.getTag(melody);
-		Optional<Named<Instrument>> bassOptional = BuiltInRegistries.INSTRUMENT.getTag(bass);
-
-		if (harmonyOptional.isPresent() && melodyOptional.isPresent() && bassOptional.isPresent()) {
-			int index = random.nextInt(10);
-			setSoundVariantId(stack, harmonyOptional.get().get(index), melodyOptional.get().get(index), bassOptional.get().get(index));
-		}
-	}
-
 	private static void setSoundVariantId(ItemStack stack, Holder<Instrument> harmony, Holder<Instrument> melody, Holder<Instrument> bass) {
 		CompoundTag tag = stack.getOrCreateTag();
-		tag.putString(TAG_HARMONY_INSTRUMENT, harmony.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
-		tag.putString(TAG_MELODY_INSTRUMENT, melody.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
-		tag.putString(TAG_BASS_INSTRUMENT, bass.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
+		tag.putString(HARMONY, harmony.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
+		tag.putString(MELODY, melody.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
+		tag.putString(BASS, bass.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
 	}
 
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
