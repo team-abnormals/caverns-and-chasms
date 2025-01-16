@@ -168,7 +168,7 @@ public class CCItems {
 				.addItemsBefore(of(Items.BAMBOO_RAFT), AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond())
 				.addItemsBefore(modLoaded(Items.BAMBOO_RAFT, "boatload"), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT)
 				.editor(event -> event.getParameters().holders().lookup(Registries.INSTRUMENT).ifPresent(registry -> {
-					generateInstrumentTypes(event, of(Items.GOAT_HORN), registry, COPPER_HORN.get(), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS);
+					generateInstrumentTypes(event, registry, COPPER_HORN.get(), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS);
 				}))
 				.tab(COMBAT)
 				.addItemsAfter(of(Items.GOLDEN_SWORD), SILVER_SWORD)
@@ -215,7 +215,7 @@ public class CCItems {
 		}
 	}
 
-	private static void generateInstrumentTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Instrument> lookup, Item item, TagKey<Instrument> harmonyTag, TagKey<Instrument> melodyTag, TagKey<Instrument> bassTag) {
+	private static void generateInstrumentTypes(BuildCreativeModeTabContentsEvent event, HolderLookup<Instrument> lookup, Item item, TagKey<Instrument> harmonyTag, TagKey<Instrument> melodyTag, TagKey<Instrument> bassTag) {
 		TabVisibility visibility = TabVisibility.PARENT_AND_SEARCH_TABS;
 
 		Optional<Named<Instrument>> harmonyOptional = lookup.get(harmonyTag);
@@ -226,10 +226,10 @@ public class CCItems {
 		if (harmonyOptional.isPresent() && melodyOptional.isPresent() && bassOptional.isPresent()) {
 			for (Entry<ItemStack, TabVisibility> entry : entries) {
 				ItemStack stack = entry.getKey();
-				if (predicate.test(stack) && lookup.get(harmonyTag).isPresent()) {
+				if (of(Items.GOAT_HORN).test(stack) && lookup.get(harmonyTag).isPresent()) {
 					for (int i = 0; i < lookup.get(harmonyTag).get().size(); i++) {
 						ItemStack horn = CopperHornItem.create(item, harmonyOptional.get().get(i), melodyOptional.get().get(i), bassOptional.get().get(i));
-						entries.put(horn, visibility);
+						entries.putBefore(new ItemStack(Items.MUSIC_DISC_13), horn, visibility);
 					}
 					return;
 				}
