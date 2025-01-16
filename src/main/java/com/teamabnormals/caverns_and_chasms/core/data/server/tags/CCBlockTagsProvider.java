@@ -60,6 +60,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.FLOWER_POTS).add(POTTED_FALSE_HOPE.get(), POTTED_MOSCHATEL.get(), POTTED_CAVE_GROWTHS.get(), POTTED_LURID_CAVE_GROWTHS.get(), POTTED_WISPY_CAVE_GROWTHS.get(), POTTED_CAVE_GROWTHS.get(), POTTED_WEIRD_CAVE_GROWTHS.get(), POTTED_ZESTY_CAVE_GROWTHS.get());
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
 		this.tag(BlockTags.BEEHIVES).add(AZALEA_BEEHIVE.get());
+		this.tag(BlockTags.IMPERMEABLE).add(FLOAT_GLASS.get());
 		// INDUCTOR.get()
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				ROCKY_DIRT.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(),
@@ -177,5 +178,6 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(AZALEA_FENCE_GATE.get());
 		this.tag(Tags.Blocks.BOOKSHELVES).add(AZALEA_BOOKSHELF.get());
 		this.tag(Tags.Blocks.STONE).add(POLISHED_CALCITE.get(), POLISHED_TUFF.get(), SUGILITE.get(), POLISHED_SUGILITE.get());
+		this.tag(Tags.Blocks.GLASS).add(FLOAT_GLASS.get());
 	}
 }
