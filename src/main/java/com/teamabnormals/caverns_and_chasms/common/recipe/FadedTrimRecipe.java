@@ -25,7 +25,7 @@ public class FadedTrimRecipe extends CustomRecipe {
 	private final boolean faded;
 
 	public FadedTrimRecipe(ResourceLocation p_273671_, CraftingBookCategory p_273056_) {
-		this(p_273671_, p_273056_, false);
+		this(p_273671_, p_273056_, true);
 	}
 
 	public FadedTrimRecipe(ResourceLocation p_273671_, CraftingBookCategory p_273056_, boolean faded) {
