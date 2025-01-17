@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Items;
 import org.joml.Vector3f;
 
 public class MimeModel extends PlayerModel<Mime> {
@@ -67,6 +68,8 @@ public class MimeModel extends PlayerModel<Mime> {
 		boolean showhorns = mime.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
 		this.rightHorn.visible = showhorns;
 		this.leftHorn.visible = showhorns;
+
+		this.bipedCape.visible = !mime.getItemBySlot(EquipmentSlot.CHEST).is(Items.ELYTRA);
 
 		this.bipedCape.xRot = (float) Math.toRadians(6.0F + f2 / 2.0F + f1);
 		this.bipedCape.yRot = (float) Math.toRadians(f3 / 2.0F);

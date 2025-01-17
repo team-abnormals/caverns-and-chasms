@@ -37,6 +37,7 @@
     "WitherSkeletonMixin"
   ],
   "client": [
+    "client.ElytraLayerMixin",
     "client.EntityRenderDispatcherMixin",
     "client.HumanoidArmorLayerMixin",
     "client.LevelRendererMixin"
