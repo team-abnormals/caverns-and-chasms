@@ -9,7 +9,10 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightningRodBlock;
+import net.minecraft.world.level.block.WeightedPressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
@@ -63,6 +66,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.dismantlingTableBlock(DISMANTLING_TABLE);
 		this.bejeweledAnvilBlock(BEJEWELED_ANVIL);
+		this.atoningTableBlock(ATONING_TABLE);
 
 		this.block(ZIRCONIA_BLOCK);
 
@@ -335,6 +339,19 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				.texture("bottom", suffix(texture, "bottom"))
 				.texture("base_top", suffix(texture, "base_top"))
 				.texture("base_bottom", suffix(texture, "base_bottom"))
+		);
+		this.blockItem(block);
+	}
+
+	public void atoningTableBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		ResourceLocation texture = suffix(blockTexture(block), "_");
+		this.simpleBlock(registryObject.get(), this.models()
+				.withExistingParent(name(block), "block/enchanting_table")
+				.texture("side", suffix(texture, "side"))
+				.texture("top", suffix(texture, "top"))
+				.texture("bottom", suffix(texture, "bottom"))
+				.texture("particle", suffix(texture, "bottom"))
 		);
 		this.blockItem(block);
 	}

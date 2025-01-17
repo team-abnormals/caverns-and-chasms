@@ -39,23 +39,28 @@ public class BejeweledAnvilBlock extends AnvilBlock {
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 
+	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getClockWise());
 	}
 
 	@Nullable
+	@Override
 	public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
 		return new SimpleMenuProvider((i, inventory, player) -> new BejeweledAnvilMenu(i, inventory, ContainerLevelAccess.create(level, pos)), CONTAINER_TITLE);
 	}
 
+	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		Direction direction = state.getValue(FACING);
 		return direction.getAxis() == Direction.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
 	}
 
+	@Override
 	public void onLand(Level p_48793_, BlockPos p_48794_, BlockState p_48795_, BlockState p_48796_, FallingBlockEntity p_48797_) {
 	}
 
+	@Override
 	public void onBrokenAfterFall(Level p_152053_, BlockPos p_152054_, FallingBlockEntity p_152055_) {
 	}
 }

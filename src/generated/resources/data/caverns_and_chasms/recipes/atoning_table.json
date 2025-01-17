@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:gems/spinel"
+    },
+    "T": {
+      "item": "minecraft:enchanting_table"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "STS",
+    "SSS"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:atoning_table"
+  },
+  "show_notification": true
+}

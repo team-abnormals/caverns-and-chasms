@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.core.util.registry.BlockEntitySubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.AtoningTableBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.CCSkullBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.CupricCampfireBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
@@ -20,4 +21,5 @@ public class CCBlockEntityTypes {
 	//	public static final RegistryObject<BlockEntityType<InductorBlockEntity>> INDUCTOR = HELPER.createBlockEntity("inductor", InductorBlockEntity::new, () -> new Block[]{CCBlocks.INDUCTOR.get()});
 	public static final RegistryObject<BlockEntityType<CCSkullBlockEntity>> SKULL = HELPER.createBlockEntity("skull", CCSkullBlockEntity::new, () -> Set.of(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get(), CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get()));
 	public static final RegistryObject<BlockEntityType<ToolboxBlockEntity>> TOOLBOX = HELPER.createBlockEntity("toolbox", ToolboxBlockEntity::new, () -> Set.of(BlockEntitySubRegistryHelper.collectBlocks(ToolboxBlock.class)));
+	public static final RegistryObject<BlockEntityType<AtoningTableBlockEntity>> ATONING_TABLE = HELPER.createBlockEntity("atoning_table", AtoningTableBlockEntity::new, () -> Set.of(CCBlocks.ATONING_TABLE.get()));
 }

@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.CCShaders;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
+import com.teamabnormals.caverns_and_chasms.client.renderer.block.AtoningTableRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
@@ -223,6 +224,7 @@ public class CavernsAndChasms {
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.ATONING_TABLE.get(), AtoningTableRenderer::new);
 	}
 
 	@OnlyIn(Dist.CLIENT)

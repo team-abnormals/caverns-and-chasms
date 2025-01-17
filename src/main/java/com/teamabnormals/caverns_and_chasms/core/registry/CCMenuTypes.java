@@ -1,8 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.AtoningScreen;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.BejeweledAnvilScreen;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.DismantlingScreen;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.ToolboxScreen;
+import com.teamabnormals.caverns_and_chasms.common.inventory.AtoningMenu;
 import com.teamabnormals.caverns_and_chasms.common.inventory.BejeweledAnvilMenu;
 import com.teamabnormals.caverns_and_chasms.common.inventory.DismantlingMenu;
 import com.teamabnormals.caverns_and_chasms.common.inventory.ToolboxMenu;
@@ -20,11 +22,12 @@ public class CCMenuTypes {
 	public static final RegistryObject<MenuType<ToolboxMenu>> TOOLBOX = MENU_TYPES.register("toolbox", () -> new MenuType<>(ToolboxMenu::new, FeatureFlags.VANILLA_SET));
 	public static final RegistryObject<MenuType<DismantlingMenu>> DISMANTLING = MENU_TYPES.register("dismantling", () -> new MenuType<>(DismantlingMenu::new, FeatureFlags.VANILLA_SET));
 	public static final RegistryObject<MenuType<BejeweledAnvilMenu>> BEJEWELED_ANVIL = MENU_TYPES.register("bejeweled_anvil", () -> new MenuType<>(BejeweledAnvilMenu::new, FeatureFlags.VANILLA_SET));
+	public static final RegistryObject<MenuType<AtoningMenu>> ATONING = MENU_TYPES.register("atoning", () -> new MenuType<>(AtoningMenu::new, FeatureFlags.VANILLA_SET));
 
 	public static void registerScreenFactories() {
-		MenuScreens.register(CCMenuTypes.TOOLBOX.get(), ToolboxScreen::new);
-		MenuScreens.register(CCMenuTypes.DISMANTLING.get(), DismantlingScreen::new);
-		MenuScreens.register(CCMenuTypes.BEJEWELED_ANVIL.get(), BejeweledAnvilScreen::new);
-
+		MenuScreens.register(TOOLBOX.get(), ToolboxScreen::new);
+		MenuScreens.register(DISMANTLING.get(), DismantlingScreen::new);
+		MenuScreens.register(BEJEWELED_ANVIL.get(), BejeweledAnvilScreen::new);
+		MenuScreens.register(ATONING.get(), AtoningScreen::new);
 	}
 }

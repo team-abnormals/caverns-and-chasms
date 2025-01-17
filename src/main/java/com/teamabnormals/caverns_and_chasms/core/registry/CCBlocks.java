@@ -183,6 +183,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> DISMANTLING_TABLE = HELPER.createBlock("dismantling_table", () -> new DismantlingTableBlock(CCProperties.DISMANTLING_TABLE));
 	public static final RegistryObject<Block> BEJEWELED_ANVIL = HELPER.createBlock("bejeweled_anvil", () -> new BejeweledAnvilBlock(BlockBehaviour.Properties.copy(Blocks.ANVIL)));
+	public static final RegistryObject<Block> ATONING_TABLE = HELPER.createBlock("atoning_table", () -> new AtoningTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
@@ -459,6 +460,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.INFESTED_STONE), FRAGILE_STONE, FRAGILE_DEEPSLATE)
 				.addItemsAfter(of(Blocks.SMITHING_TABLE), DISMANTLING_TABLE)
 				.addItemsAfter(of(Blocks.DAMAGED_ANVIL), BEJEWELED_ANVIL)
+				.addItemsAfter(of(Blocks.ENCHANTING_TABLE), ATONING_TABLE)
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON, WAXED_OXIDIZED_COPPER_BUTTON)
 				.addItemsAfter(of(Blocks.TNT), TMT)

@@ -6,6 +6,10 @@
       "source": "entity/toolbox"
     },
     {
+      "type": "minecraft:single",
+      "resource": "caverns_and_chasms:entity/atoning_table_book"
+    },
+    {
       "type": "blueprint:paletted_permutations",
       "palette_key": "minecraft:trims/color_palettes/trim_palette",
       "permutations": {
