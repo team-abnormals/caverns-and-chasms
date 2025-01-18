@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.EnchantmentNames;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -21,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.api.distmarker.Dist;
@@ -79,7 +77,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		int j = (this.height - this.imageHeight) / 2;
 		p_282430_.blit(ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
 		this.renderBook(p_282430_, i, j, p_282530_);
-		EnchantmentNames.getInstance().initSeed((long) this.menu.getEnchantmentSeed());
+		AtonementTableEnchantmentNames.getInstance().initSeed(this.menu.getEnchantmentSeed());
 		int k = this.menu.getGoldCount();
 
 		for (int l = 0; l < 3; ++l) {
@@ -91,12 +89,12 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 			} else {
 				String s = "" + k1;
 				int l1 = 86 - this.font.width(s);
-				FormattedText formattedtext = EnchantmentNames.getInstance().getRandomName(this.font, l1);
+				FormattedText formattedtext = AtonementTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
 				int i2 = 6839882;
 				if (((k < l + 1 || this.minecraft.player.experienceLevel < k1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[l] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
 					p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * l, 0, 185, 108, 19);
 					p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
-					p_282430_.drawWordWrap(this.font, formattedtext, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
+					p_282430_.drawWordWrap(this.font, formattedtext, j1, j + 17 + 19 * l, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
 				} else {
 					int j2 = p_281621_ - (i + 60);
