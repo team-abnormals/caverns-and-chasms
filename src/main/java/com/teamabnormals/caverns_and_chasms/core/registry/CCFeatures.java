@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.CaveGrowthsFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.OreWithDirtFeature;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.TinArrowFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.placement.BetterNoiseBasedCountPlacement;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.placement.NoiseBasedRarityFilter;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -52,6 +53,7 @@ public class CCFeatures {
 	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<Feature<OreConfiguration>> ORE_WITH_DIRT = FEATURES.register("ore_with_dirt", () -> new OreWithDirtFeature(OreConfiguration.CODEC));
+	public static final RegistryObject<Feature<NoneFeatureConfiguration>> TIN_ARROW = FEATURES.register("tin_arrow", () -> new TinArrowFeature(NoneFeatureConfiguration.CODEC));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTHS_PATCH = FEATURES.register("cave_growths_patch", () -> new CaveGrowthsFeature(NoneFeatureConfiguration.CODEC));
 
 	public static final class CCNoiseParameters {
@@ -77,6 +79,8 @@ public class CCFeatures {
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SILVER_BURIED_WITH_GOLD = createKey("ore_silver_buried_with_gold");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_BURIED_WITH_SILVER = createKey("ore_gold_buried_with_silver");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_AND_SILVER_BURIED = createKey("ore_gold_and_silver_buried");
+
+		public static final ResourceKey<ConfiguredFeature<?, ?>> TIN_ARROW = createKey("tin_arrow");
 
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SPINEL = createKey("ore_spinel");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SPINEL_BURIED = createKey("ore_spinel_buried");
@@ -105,6 +109,8 @@ public class CCFeatures {
 			register(context, ORE_SILVER_BURIED_WITH_GOLD, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SILVER_BURIED, 0.80F, placedFeatures)), placedFeatures.get(CCPlacedFeatures.ORE_GOLD_BURIED).get()));
 			register(context, ORE_GOLD_BURIED_WITH_SILVER, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_GOLD_BURIED, 0.80F, placedFeatures)), placedFeatures.get(CCPlacedFeatures.ORE_SILVER_BURIED).get()));
 			register(context, ORE_GOLD_AND_SILVER_BURIED, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SILVER_BURIED, 0.5F, placedFeatures)), placedFeatures.get(CCPlacedFeatures.ORE_GOLD_BURIED).get()));
+
+			register(context, TIN_ARROW, CCFeatures.TIN_ARROW.get(), NoneFeatureConfiguration.NONE);
 
 			register(context, ORE_SPINEL, Feature.ORE, new OreConfiguration(spinelTargets, 6));
 			register(context, ORE_SPINEL_BURIED, Feature.ORE, new OreConfiguration(spinelTargets, 12, 0.5F));
@@ -141,6 +147,8 @@ public class CCFeatures {
 		public static final ResourceKey<PlacedFeature> ORE_SILVER_EXTRA = createKey("ore_silver_extra");
 		public static final ResourceKey<PlacedFeature> ORE_SILVER_SOUL = createKey("ore_silver_soul");
 
+		public static final ResourceKey<PlacedFeature> TIN_ARROW = createKey("tin_arrow");
+
 		public static final ResourceKey<PlacedFeature> ORE_SPINEL = createKey("ore_spinel");
 		public static final ResourceKey<PlacedFeature> ORE_SPINEL_BURIED = createKey("ore_spinel_buried");
 
@@ -163,6 +171,8 @@ public class CCFeatures {
 
 			register(context, ORE_SILVER_EXTRA, CCConfiguredFeatures.ORE_SILVER, commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
 			register(context, ORE_SILVER_SOUL, CCConfiguredFeatures.ORE_SOUL_SILVER, commonOrePlacement(45, PlacementUtils.RANGE_10_10));
+
+			register(context, TIN_ARROW, CCConfiguredFeatures.TIN_ARROW, commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(56))));
 
 			register(context, ORE_SPINEL, CCConfiguredFeatures.ORE_SPINEL, commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(64))));
 			register(context, ORE_SPINEL_BURIED, CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48))));

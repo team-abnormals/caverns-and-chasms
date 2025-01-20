@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 47621501,
+    "separation": 32,
+    "spacing": 96
+  },
+  "structures": [
+    {
+      "structure": "caverns_and_chasms:tin_monolith",
+      "weight": 1
+    }
+  ]
+}

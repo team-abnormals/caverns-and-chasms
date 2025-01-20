@@ -1,0 +1,6 @@
+{
+  "type": "caverns_and_chasms:tin_monolith",
+  "biomes": "#minecraft:is_overworld",
+  "spawn_overrides": {},
+  "step": "raw_generation"
+}

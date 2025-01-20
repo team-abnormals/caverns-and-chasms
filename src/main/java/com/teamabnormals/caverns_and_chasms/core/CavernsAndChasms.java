@@ -26,6 +26,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructurePieceTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
@@ -90,6 +91,8 @@ public class CavernsAndChasms {
 		CCMobEffects.POTIONS.register(bus);
 		CCMobEffects.MOB_EFFECTS.register(bus);
 		CCFeatures.FEATURES.register(bus);
+		CCStructureTypes.STRUCTURE_TYPES.register(bus);
+		CCStructurePieceTypes.STRUCTURE_PIECE_TYPES.register(bus);
 		CCParticleTypes.PARTICLE_TYPES.register(bus);
 		CCRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
 		CCRecipeTypes.RECIPE_TYPES.register(bus);

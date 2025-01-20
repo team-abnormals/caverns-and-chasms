@@ -6,6 +6,8 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCNoiseParameters;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructureSets;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimPatterns;
 import net.minecraft.core.HolderLookup.Provider;
@@ -25,6 +27,8 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(Registries.PLACED_FEATURE, CCPlacedFeatures::bootstrap)
 			.add(Registries.NOISE, CCNoiseParameters::bootstrap)
 			.add(ForgeRegistries.Keys.BIOME_MODIFIERS, CCBiomeModifiers::bootstrap)
+			.add(Registries.STRUCTURE, CCStructures::bootstrap)
+			.add(Registries.STRUCTURE_SET, CCStructureSets::bootstrap)
 			.add(Registries.DAMAGE_TYPE, CCDamageTypes::bootstrap)
 			.add(Registries.TRIM_MATERIAL, CCTrimMaterials::bootstrap)
 			.add(Registries.TRIM_PATTERN, CCTrimPatterns::bootstrap);

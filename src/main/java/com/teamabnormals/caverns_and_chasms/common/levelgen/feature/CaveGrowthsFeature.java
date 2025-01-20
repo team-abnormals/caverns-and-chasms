@@ -23,6 +23,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters;
 import net.minecraftforge.common.Tags;
 import org.apache.commons.compress.utils.Lists;
 
+import java.util.EmptyStackException;
 import java.util.List;
 
 public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
