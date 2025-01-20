@@ -92,7 +92,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 				FormattedText name = AtonementTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
 				int i2 = 6839882;
 				if (((k < slot + 1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[slot] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
-					gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 185, 108, 19);
+					// gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 185, 108, 19);
 					gui.drawWordWrap(this.font, name, j1, j + 17 + 19 * slot, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
 				} else {
@@ -132,7 +132,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		float f5 = Mth.clamp(Mth.frac(f1 + 0.75F) * 1.6F - 0.3F, 0.0F, 1.0F);
 		this.bookModel.setupAnim(0.0F, f4, f5, f);
 		VertexConsumer vertexconsumer = p_289697_.bufferSource().getBuffer(this.bookModel.renderType(ATONING_BOOK_LOCATION));
-		this.bookModel.renderToBuffer(p_289697_.pose(), vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		// this.bookModel.renderToBuffer(p_289697_.pose(), vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		p_289697_.flush();
 		p_289697_.pose().popPose();
 		Lighting.setupFor3DItems();
@@ -169,7 +169,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 
 					list.add(mutablecomponent.withStyle(i >= i1 ? ChatFormatting.GRAY : ChatFormatting.RED));
 					MutableComponent mutablecomponent1;
-					if (i1 == 1) {
+					if (i1 == 3) {
 						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.low");
 					} else if (i1 == 2) {
 						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.medium");

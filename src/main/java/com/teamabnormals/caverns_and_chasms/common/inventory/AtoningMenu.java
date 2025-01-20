@@ -52,7 +52,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 	public AtoningMenu(int p_39457_, Inventory inventory, ContainerLevelAccess access) {
 		super(CCMenuTypes.ATONING.get(), p_39457_);
 		this.access = access;
-		this.addSlot(new Slot(this.enchantSlots, 0, 15, 47) {
+		this.addSlot(new Slot(this.enchantSlots, 0, 25, 26) {
 			public boolean mayPlace(ItemStack stack) {
 				return true;
 			}
@@ -61,7 +61,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 				return 1;
 			}
 		});
-		this.addSlot(new Slot(this.enchantSlots, 1, 35, 47) {
+		this.addSlot(new Slot(this.enchantSlots, 1, 36, 48) {
 			public boolean mayPlace(ItemStack stack) {
 				return stack.is(Tags.Items.ENCHANTING_FUELS);
 			}
@@ -105,13 +105,13 @@ public class AtoningMenu extends AbstractContainerMenu {
 					this.random.setSeed(this.enchantmentSeed.get());
 
 					for (int i = 0; i < 3; ++i) {
-						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, i, (int) enchPower, stack);
+						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, 3 - i, (int) enchPower, stack);
 						this.enchantClue[i] = -1;
 						this.levelClue[i] = -1;
 						if (this.costs[i] < i + 1) {
 							this.costs[i] = 0;
 						}
-						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, i, (int) enchPower, stack, costs[i]);
+						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, 3 - i, (int) enchPower, stack, costs[i]);
 					}
 
 					for (int i = 0; i < 3; ++i) {
@@ -169,7 +169,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 								EnchantedBookItem.addEnchantment(output, enchantment);
 							} else {
 								output.enchant(enchantment.enchantment, enchantment.level);
-								output.hurtAndBreak(i * this.random.nextInt(Math.max(1, (output.getMaxDamage() - output.getDamageValue()) / 2)), player, (entity) -> {
+								output.hurtAndBreak((4 - i) * this.random.nextInt(Math.max(1, (output.getMaxDamage() - output.getDamageValue()) / 2)), player, (entity) -> {
 									entity.broadcastBreakEvent(player.getUsedItemHand());
 								});
 							}
