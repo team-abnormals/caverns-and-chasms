@@ -106,7 +106,7 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 
 	@Override
 	public Component getName() {
-		return this.name != null ? this.name : Component.translatable("container.enchant");
+		return this.name != null ? this.name : Component.translatable("container.caverns_and_chasms.atone");
 	}
 
 	public void setCustomName(@Nullable Component component) {

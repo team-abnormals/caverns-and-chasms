@@ -29,7 +29,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
-	private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation("textures/gui/container/enchanting_table.png");
+	private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/atoning_table.png");
 	private static final ResourceLocation ATONING_BOOK_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/atoning_table_book.png");
 	private final RandomSource random = RandomSource.create();
 	private BookModel bookModel;
@@ -72,46 +72,44 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		return super.mouseClicked(p_98758_, p_98759_, p_98760_);
 	}
 
-	protected void renderBg(GuiGraphics p_282430_, float p_282530_, int p_281621_, int p_283333_) {
+	protected void renderBg(GuiGraphics gui, float p_282530_, int p_281621_, int p_283333_) {
 		int i = (this.width - this.imageWidth) / 2;
 		int j = (this.height - this.imageHeight) / 2;
-		p_282430_.blit(ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
-		this.renderBook(p_282430_, i, j, p_282530_);
+		gui.blit(ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+		this.renderBook(gui, i, j, p_282530_);
 		AtonementTableEnchantmentNames.getInstance().initSeed(this.menu.getEnchantmentSeed());
 		int k = this.menu.getGoldCount();
 
-		for (int l = 0; l < 3; ++l) {
+		for (int slot = 0; slot < 3; ++slot) {
 			int i1 = i + 60;
 			int j1 = i1 + 20;
-			int k1 = (this.menu).costs[l];
+			int k1 = (this.menu).costs[slot];
 			if (k1 == 0) {
-				p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * l, 0, 185, 108, 19);
+				gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 223, 108, 19);
 			} else {
 				String s = "" + k1;
 				int l1 = 86 - this.font.width(s);
-				FormattedText formattedtext = AtonementTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
+				FormattedText name = AtonementTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
 				int i2 = 6839882;
-				if (((k < l + 1 || this.minecraft.player.experienceLevel < k1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[l] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
-					p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * l, 0, 185, 108, 19);
-					p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
-					p_282430_.drawWordWrap(this.font, formattedtext, j1, j + 17 + 19 * l, l1, (i2 & 16711422) >> 1);
+				if (((k < slot + 1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[slot] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
+					gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 185, 108, 19);
+					gui.drawWordWrap(this.font, name, j1, j + 17 + 19 * slot, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
 				} else {
 					int j2 = p_281621_ - (i + 60);
-					int k2 = p_283333_ - (j + 14 + 19 * l);
+					int k2 = p_283333_ - (j + 14 + 19 * slot);
 					if (j2 >= 0 && k2 >= 0 && j2 < 108 && k2 < 19) {
-						p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * l, 0, 204, 108, 19);
+						gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 108, 166 + 19 * slot, 108, 19);
 						i2 = 16777088;
 					} else {
-						p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * l, 0, 166, 108, 19);
+						gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 166 + 19 * slot, 108, 19);
 					}
 
-					p_282430_.blit(ENCHANTING_TABLE_LOCATION, i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
-					p_282430_.drawWordWrap(this.font, formattedtext, j1, j + 16 + 19 * l, l1, i2);
+					gui.drawWordWrap(this.font, name, j1, j + 16 + 19 * slot, l1, i2);
 					i2 = 8453920;
 				}
 
-				p_282430_.drawString(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * l + 7, i2);
+				gui.drawString(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * slot + 7, i2);
 			}
 		}
 
@@ -153,7 +151,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 			Enchantment enchantment = Enchantment.byId((this.menu).enchantClue[j]);
 			int l = (this.menu).levelClue[j];
 			int i1 = j + 1;
-			if (this.isHovering(60, 14 + 19 * j, 108, 17, (double) p_282491_, (double) p_281953_) && k > 0) {
+			if (this.isHovering(60, 14 + 19 * j, 108, 17, p_282491_, p_281953_) && k > 0) {
 				List<Component> list = Lists.newArrayList();
 				list.add((Component.translatable("container.enchant.clue", enchantment == null ? "" : enchantment.getFullname(l))).withStyle(ChatFormatting.WHITE));
 				if (enchantment == null) {
@@ -161,26 +159,25 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 					list.add(Component.translatable("forge.container.enchant.limitedEnchantability").withStyle(ChatFormatting.RED));
 				} else if (!flag) {
 					list.add(CommonComponents.EMPTY);
-					if (this.minecraft.player.experienceLevel < k) {
-						list.add(Component.translatable("container.enchant.level.requirement", (this.menu).costs[j]).withStyle(ChatFormatting.RED));
+
+					MutableComponent mutablecomponent;
+					if (i1 == 1) {
+						mutablecomponent = Component.translatable("container.enchant.lapis.one");
 					} else {
-						MutableComponent mutablecomponent;
-						if (i1 == 1) {
-							mutablecomponent = Component.translatable("container.enchant.lapis.one");
-						} else {
-							mutablecomponent = Component.translatable("container.enchant.lapis.many", i1);
-						}
-
-						list.add(mutablecomponent.withStyle(i >= i1 ? ChatFormatting.GRAY : ChatFormatting.RED));
-						MutableComponent mutablecomponent1;
-						if (i1 == 1) {
-							mutablecomponent1 = Component.translatable("container.enchant.level.one");
-						} else {
-							mutablecomponent1 = Component.translatable("container.enchant.level.many", i1);
-						}
-
-						list.add(mutablecomponent1.withStyle(ChatFormatting.GRAY));
+						mutablecomponent = Component.translatable("container.enchant.lapis.many", i1);
 					}
+
+					list.add(mutablecomponent.withStyle(i >= i1 ? ChatFormatting.GRAY : ChatFormatting.RED));
+					MutableComponent mutablecomponent1;
+					if (i1 == 1) {
+						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.low");
+					} else if (i1 == 2) {
+						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.medium");
+					} else {
+						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.high");
+					}
+
+					list.add(mutablecomponent1.withStyle(ChatFormatting.GRAY));
 				}
 
 				p_283462_.renderComponentTooltip(this.font, list, p_282491_, p_281953_);

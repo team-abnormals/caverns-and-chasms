@@ -16,13 +16,15 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EnchantmentTableBlock;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -89,36 +91,36 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 	public void slotsChanged(Container container) {
 		if (container == this.enchantSlots) {
-			ItemStack itemstack = container.getItem(0);
-			if (!itemstack.isEmpty() && itemstack.isEnchantable()) {
-				this.access.execute((p_39485_, p_39486_) -> {
-					float j = 0;
+			ItemStack stack = container.getItem(0);
+			if (!stack.isEmpty() && stack.isEnchantable()) {
+				this.access.execute((level, pos) -> {
+					float enchPower = 0;
 
-					for (BlockPos blockpos : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
-						if (EnchantmentTableBlock.isValidBookShelf(p_39485_, p_39486_, blockpos)) {
-							j += p_39485_.getBlockState(p_39486_.offset(blockpos)).getEnchantPowerBonus(p_39485_, p_39486_.offset(blockpos));
+					for (BlockPos offset : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
+						if (EnchantmentTableBlock.isValidBookShelf(level, pos, offset)) {
+							enchPower += level.getBlockState(pos.offset(offset)).getEnchantPowerBonus(level, pos.offset(offset));
 						}
 					}
 
-					this.random.setSeed((long) this.enchantmentSeed.get());
+					this.random.setSeed(this.enchantmentSeed.get());
 
-					for (int k = 0; k < 3; ++k) {
-						this.costs[k] = EnchantmentHelper.getEnchantmentCost(this.random, k, (int) j, itemstack);
-						this.enchantClue[k] = -1;
-						this.levelClue[k] = -1;
-						if (this.costs[k] < k + 1) {
-							this.costs[k] = 0;
+					for (int i = 0; i < 3; ++i) {
+						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, i, (int) enchPower, stack);
+						this.enchantClue[i] = -1;
+						this.levelClue[i] = -1;
+						if (this.costs[i] < i + 1) {
+							this.costs[i] = 0;
 						}
-						this.costs[k] = ForgeEventFactory.onEnchantmentLevelSet(p_39485_, p_39486_, k, (int) j, itemstack, costs[k]);
+						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, i, (int) enchPower, stack, costs[i]);
 					}
 
-					for (int l = 0; l < 3; ++l) {
-						if (this.costs[l] > 0) {
-							List<EnchantmentInstance> list = this.getEnchantmentList(itemstack, l, this.costs[l]);
+					for (int i = 0; i < 3; ++i) {
+						if (this.costs[i] > 0) {
+							List<EnchantmentInstance> list = this.getEnchantmentList(stack, i, this.costs[i]);
 							if (list != null && !list.isEmpty()) {
-								EnchantmentInstance enchantmentinstance = list.get(this.random.nextInt(list.size()));
-								this.enchantClue[l] = BuiltInRegistries.ENCHANTMENT.getId(enchantmentinstance.enchantment);
-								this.levelClue[l] = enchantmentinstance.level;
+								EnchantmentInstance enchantment = list.get(this.random.nextInt(list.size()));
+								this.enchantClue[i] = BuiltInRegistries.ENCHANTMENT.getId(enchantment.enchantment);
+								this.levelClue[i] = enchantment.level;
 							}
 						}
 					}
@@ -143,14 +145,14 @@ public class AtoningMenu extends AbstractContainerMenu {
 			int i = slot + 1;
 			if ((fuel.isEmpty() || fuel.getCount() < i) && !player.getAbilities().instabuild) {
 				return false;
-			} else if (this.costs[slot] <= 0 || input.isEmpty() || (player.experienceLevel < i || player.experienceLevel < this.costs[slot]) && !player.getAbilities().instabuild) {
+			} else if (this.costs[slot] <= 0 || input.isEmpty()) {
 				return false;
 			} else {
 				this.access.execute((level, pos) -> {
 					ItemStack output = input;
 					List<EnchantmentInstance> list = this.getEnchantmentList(input, slot, this.costs[slot]);
 					if (!list.isEmpty()) {
-						player.onEnchantmentPerformed(input, i);
+						player.onEnchantmentPerformed(input, 0);
 						boolean flag = input.is(Items.BOOK);
 						if (flag) {
 							output = new ItemStack(Items.ENCHANTED_BOOK);
@@ -167,6 +169,9 @@ public class AtoningMenu extends AbstractContainerMenu {
 								EnchantedBookItem.addEnchantment(output, enchantment);
 							} else {
 								output.enchant(enchantment.enchantment, enchantment.level);
+								output.hurtAndBreak(i * this.random.nextInt(Math.max(1, (output.getMaxDamage() - output.getDamageValue()) / 2)), player, (entity) -> {
+									entity.broadcastBreakEvent(player.getUsedItemHand());
+								});
 							}
 						}
 
@@ -241,7 +246,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 				if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (itemstack1.is(net.minecraftforge.common.Tags.Items.ENCHANTING_FUELS)) {
+			} else if (itemstack1.is(Tags.Items.ENCHANTING_FUELS)) {
 				if (!this.moveItemStackTo(itemstack1, 1, 2, true)) {
 					return ItemStack.EMPTY;
 				}

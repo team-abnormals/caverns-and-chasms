@@ -60,10 +60,10 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 				itemstack.shrink(this.repairItemCountCost);
 				this.inputSlots.setItem(1, itemstack);
 			} else {
-				this.inputSlots.setItem(1, ItemStack.EMPTY);
+				this.inputSlots.getItem(1).shrink(1);
 			}
 		} else {
-			this.inputSlots.setItem(1, ItemStack.EMPTY);
+			this.inputSlots.getItem(1).shrink(1);
 		}
 
 		this.access.execute((level, pos) -> {
