@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
 import net.minecraft.Util;
@@ -32,7 +33,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.List;
 
 public class AtoningMenu extends AbstractContainerMenu {
-	private final Container enchantSlots = new SimpleContainer(2) {
+	private final Container enchantSlots = new SimpleContainer(3) {
 		public void setChanged() {
 			super.setChanged();
 			AtoningMenu.this.slotsChanged(this);
@@ -64,6 +65,12 @@ public class AtoningMenu extends AbstractContainerMenu {
 		this.addSlot(new Slot(this.enchantSlots, 1, 36, 48) {
 			public boolean mayPlace(ItemStack stack) {
 				return stack.is(Tags.Items.ENCHANTING_FUELS);
+			}
+		});
+
+		this.addSlot(new Slot(this.enchantSlots, 2, 14, 48) {
+			public boolean mayPlace(ItemStack stack) {
+				return stack.is(CCItemTags.ATONING_FUELS);
 			}
 		});
 
@@ -142,8 +149,9 @@ public class AtoningMenu extends AbstractContainerMenu {
 		if (slot >= 0 && slot < this.costs.length) {
 			ItemStack input = this.enchantSlots.getItem(0);
 			ItemStack fuel = this.enchantSlots.getItem(1);
+			ItemStack spinel = this.enchantSlots.getItem(2);
 			int i = slot + 1;
-			if ((fuel.isEmpty() || fuel.getCount() < i) && !player.getAbilities().instabuild) {
+			if ((fuel.isEmpty() || fuel.getCount() < i || spinel.isEmpty() || spinel.getCount() < i) && !player.getAbilities().instabuild) {
 				return false;
 			} else if (this.costs[slot] <= 0 || input.isEmpty()) {
 				return false;
@@ -156,9 +164,9 @@ public class AtoningMenu extends AbstractContainerMenu {
 						boolean flag = input.is(Items.BOOK);
 						if (flag) {
 							output = new ItemStack(Items.ENCHANTED_BOOK);
-							CompoundTag compoundtag = input.getTag();
-							if (compoundtag != null) {
-								output.setTag(compoundtag.copy());
+							CompoundTag tag = input.getTag();
+							if (tag != null) {
+								output.setTag(tag.copy());
 							}
 
 							this.enchantSlots.setItem(0, output);
@@ -177,8 +185,12 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 						if (!player.getAbilities().instabuild) {
 							fuel.shrink(i);
+							spinel.shrink(i);
 							if (fuel.isEmpty()) {
 								this.enchantSlots.setItem(1, ItemStack.EMPTY);
+							}
+							if (spinel.isEmpty()) {
+								this.enchantSlots.setItem(2, ItemStack.EMPTY);
 							}
 						}
 
@@ -212,9 +224,14 @@ public class AtoningMenu extends AbstractContainerMenu {
 		return list;
 	}
 
-	public int getGoldCount() {
-		ItemStack itemstack = this.enchantSlots.getItem(1);
-		return itemstack.isEmpty() ? 0 : itemstack.getCount();
+	public int getLapisCount() {
+		ItemStack stack = this.enchantSlots.getItem(1);
+		return stack.isEmpty() ? 0 : stack.getCount();
+	}
+
+	public int getSpinelCount() {
+		ItemStack stack = this.enchantSlots.getItem(2);
+		return stack.isEmpty() ? 0 : stack.getCount();
 	}
 
 	public int getEnchantmentSeed() {
@@ -232,47 +249,47 @@ public class AtoningMenu extends AbstractContainerMenu {
 		return stillValid(this.access, p_39463_, CCBlocks.ATONING_TABLE.get());
 	}
 
-	public ItemStack quickMoveStack(Player player, int p_39491_) {
-		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.slots.get(p_39491_);
+	public ItemStack quickMoveStack(Player player, int index) {
+		ItemStack newStack = ItemStack.EMPTY;
+		Slot slot = this.slots.get(index);
 		if (slot != null && slot.hasItem()) {
-			ItemStack itemstack1 = slot.getItem();
-			itemstack = itemstack1.copy();
-			if (p_39491_ == 0) {
-				if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
+			ItemStack stack = slot.getItem();
+			newStack = stack.copy();
+			if (index == 0 || index == 1 || index == 2) {
+				if (!this.moveItemStackTo(stack, 2, 38, true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (p_39491_ == 1) {
-				if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
+			} else if (stack.is(Tags.Items.ENCHANTING_FUELS)) {
+				if (!this.moveItemStackTo(stack, 1, 2, true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (itemstack1.is(Tags.Items.ENCHANTING_FUELS)) {
-				if (!this.moveItemStackTo(itemstack1, 1, 2, true)) {
+			} else if (stack.is(CCItemTags.ATONING_FUELS)) {
+				if (!this. moveItemStackTo(stack, 2, 3, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
-				if (this.slots.get(0).hasItem() || !this.slots.get(0).mayPlace(itemstack1)) {
+				if (this.slots.get(0).hasItem() || !this.slots.get(0).mayPlace(stack)) {
 					return ItemStack.EMPTY;
 				}
 
-				ItemStack itemstack2 = itemstack1.copyWithCount(1);
-				itemstack1.shrink(1);
+				ItemStack itemstack2 = stack.copyWithCount(1);
+				stack.shrink(1);
 				this.slots.get(0).setByPlayer(itemstack2);
 			}
 
-			if (itemstack1.isEmpty()) {
+			if (stack.isEmpty()) {
 				slot.setByPlayer(ItemStack.EMPTY);
 			} else {
 				slot.setChanged();
 			}
 
-			if (itemstack1.getCount() == itemstack.getCount()) {
+			if (stack.getCount() == newStack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTake(player, itemstack1);
+			slot.onTake(player, stack);
 		}
 
-		return itemstack;
+		return newStack;
 	}
 }

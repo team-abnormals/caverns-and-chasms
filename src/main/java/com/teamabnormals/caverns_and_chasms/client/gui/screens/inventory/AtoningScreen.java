@@ -11,7 +11,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -78,7 +77,8 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		gui.blit(ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
 		this.renderBook(gui, i, j, p_282530_);
 		AtonementTableEnchantmentNames.getInstance().initSeed(this.menu.getEnchantmentSeed());
-		int k = this.menu.getGoldCount();
+		int lapis = this.menu.getLapisCount();
+		int spinel = this.menu.getSpinelCount();
 
 		for (int slot = 0; slot < 3; ++slot) {
 			int i1 = i + 60;
@@ -91,7 +91,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 				int l1 = 86 - this.font.width(s);
 				FormattedText name = AtonementTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
 				int i2 = 6839882;
-				if (((k < slot + 1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[slot] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
+				if (((lapis < slot + 1 || spinel < slot + 1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[slot] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
 					// gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 185, 108, 19);
 					gui.drawWordWrap(this.font, name, j1, j + 17 + 19 * slot, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
@@ -144,13 +144,14 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		super.render(p_283462_, p_282491_, p_281953_, p_282182_);
 		this.renderTooltip(p_283462_, p_282491_, p_281953_);
 		boolean flag = this.minecraft.player.getAbilities().instabuild;
-		int i = this.menu.getGoldCount();
+		int lapis = this.menu.getLapisCount();
+		int spinel = this.menu.getLapisCount();
 
 		for (int j = 0; j < 3; ++j) {
 			int k = (this.menu).costs[j];
 			Enchantment enchantment = Enchantment.byId((this.menu).enchantClue[j]);
 			int l = (this.menu).levelClue[j];
-			int i1 = j + 1;
+			int slot = j + 1;
 			if (this.isHovering(60, 14 + 19 * j, 108, 17, p_282491_, p_281953_) && k > 0) {
 				List<Component> list = Lists.newArrayList();
 				list.add((Component.translatable("container.enchant.clue", enchantment == null ? "" : enchantment.getFullname(l))).withStyle(ChatFormatting.WHITE));
@@ -160,24 +161,30 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 				} else if (!flag) {
 					list.add(CommonComponents.EMPTY);
 
-					MutableComponent mutablecomponent;
-					if (i1 == 1) {
-						mutablecomponent = Component.translatable("container.enchant.lapis.one");
+					MutableComponent spinelText;
+					MutableComponent lapisText;
+
+					if (slot == 1) {
+						spinelText = Component.translatable("container.caverns_and_chasms.atone.spinel.one");
+						lapisText = Component.translatable("container.enchant.lapis.one");
 					} else {
-						mutablecomponent = Component.translatable("container.enchant.lapis.many", i1);
+						spinelText = Component.translatable("container.caverns_and_chasms.atone.spinel.many", slot);
+						lapisText = Component.translatable("container.enchant.lapis.many", slot);
 					}
 
-					list.add(mutablecomponent.withStyle(i >= i1 ? ChatFormatting.GRAY : ChatFormatting.RED));
-					MutableComponent mutablecomponent1;
-					if (i1 == 3) {
-						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.low");
-					} else if (i1 == 2) {
-						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.medium");
+					list.add(spinelText.withStyle(spinel >= slot ? ChatFormatting.GRAY : ChatFormatting.RED));
+					list.add(lapisText.withStyle(lapis >= slot ? ChatFormatting.GRAY : ChatFormatting.RED));
+
+					MutableComponent durabilityText;
+					if (slot == 3) {
+						durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability.low");
+					} else if (slot == 2) {
+						durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability.medium");
 					} else {
-						mutablecomponent1 = Component.translatable("container.caverns_and_chasms.atone.durability.high");
+						durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability.high");
 					}
 
-					list.add(mutablecomponent1.withStyle(ChatFormatting.GRAY));
+					list.add(durabilityText.withStyle(ChatFormatting.GRAY));
 				}
 
 				p_283462_.renderComponentTooltip(this.font, list, p_282491_, p_281953_);

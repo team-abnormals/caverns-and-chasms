@@ -317,6 +317,8 @@
   "container.caverns_and_chasms.atone.durability.high": "High Durability",
   "container.caverns_and_chasms.atone.durability.low": "Low Durability",
   "container.caverns_and_chasms.atone.durability.medium": "Medium Durability",
+  "container.caverns_and_chasms.atone.spinel.many": "%s Spinel",
+  "container.caverns_and_chasms.atone.spinel.one": "1 Spinel",
   "container.caverns_and_chasms.dismantle": "Dismantle Gear",
   "container.caverns_and_chasms.dismantle.missing_smithed_item": "Add Upgraded Item",
   "container.caverns_and_chasms.dismantle.missing_spinel": "Add Spinel",
