@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 import java.util.Locale;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -106,8 +107,9 @@ public class CCClientCompat {
 	}
 
 	public static void registerItemProperties() {
-		ItemProperties.register(CCItems.GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "faded"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("FadedTrim") ? 1.0F : 0.0F);
-
+		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, CCItems.TETHER_POTION.get())) {
+			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
+		}
 
 		ItemProperties.register(CCItems.GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
 		ItemProperties.register(CCItems.GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
