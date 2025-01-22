@@ -15,7 +15,7 @@
       },
       {
         "state": {
-          "Name": "caverns_and_chasms:deepslate_tin_ore"
+          "Name": "caverns_and_chasms:deepslate_spinel_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
