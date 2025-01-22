@@ -101,8 +101,8 @@ public class CCFeatures {
 			RuleTest deepslateOre = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 			List<OreConfiguration.TargetBlockState> goldTargets = List.of(OreConfiguration.target(stoneOre, Blocks.GOLD_ORE.defaultBlockState()), OreConfiguration.target(deepslateOre, Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()));
 			List<OreConfiguration.TargetBlockState> silverTargets = List.of(OreConfiguration.target(stoneOre, CCBlocks.SILVER_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
-			List<OreConfiguration.TargetBlockState> tinTargets = List.of(OreConfiguration.target(stoneOre, CCBlocks.TIN_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState()));
-			List<OreConfiguration.TargetBlockState> spinelTargets = List.of(OreConfiguration.target(stoneOre, CCBlocks.SPINEL_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState()));
+			List<OreConfiguration.TargetBlockState> tinTargets = List.of(OreConfiguration.target(stoneOre, CCBlocks.TIN_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState()));
+			List<OreConfiguration.TargetBlockState> spinelTargets = List.of(OreConfiguration.target(stoneOre, CCBlocks.SPINEL_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.DEEPSLATE_SPINEL_ORE.get().defaultBlockState()));
 
 			register(context, ORE_GOLD_BURIED, Feature.ORE, new OreConfiguration(goldTargets, 9, 0.5F));
 			register(context, ORE_SILVER, Feature.ORE, new OreConfiguration(silverTargets, 9));

@@ -15,7 +15,7 @@
       },
       {
         "state": {
-          "Name": "minecraft:deepslate_gold_ore"
+          "Name": "caverns_and_chasms:deepslate_tin_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
