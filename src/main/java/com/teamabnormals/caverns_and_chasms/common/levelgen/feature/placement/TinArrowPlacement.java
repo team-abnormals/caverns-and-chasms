@@ -73,7 +73,7 @@ public class TinArrowPlacement extends PlacementModifier {
 	public static BlockPos getClosestMonolithPosition(long seed, BlockPos pos) {
 		int chunkX = pos.getX() >> 4;
 		int chunkZ = pos.getZ() >> 4;
-		if (chunkX < -32 || chunkX >= 32 || chunkZ < -32 || chunkZ >= 32) {
+		if (chunkX < -TinMonolithStructure.BLOCK_GEN_RANGE || chunkX >= TinMonolithStructure.BLOCK_GEN_RANGE || chunkZ < -TinMonolithStructure.BLOCK_GEN_RANGE || chunkZ >= TinMonolithStructure.BLOCK_GEN_RANGE) {
 			Triple<Long, Integer, Integer> spacingPos = Triple.of(seed, Math.floorDiv(chunkX, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ, TinMonolithStructure.SPACING));
 			if (!MONOLITH_POSITIONS.containsKey(spacingPos)) {
 				synchronized (TinArrowPlacement.class) {
