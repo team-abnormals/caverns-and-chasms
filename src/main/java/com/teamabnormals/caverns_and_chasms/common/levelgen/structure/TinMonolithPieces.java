@@ -23,7 +23,7 @@ public class TinMonolithPieces {
 	public static class TinMonolithPiece extends StructurePiece {
 
 		public TinMonolithPiece(int x, int z) {
-			super(CCStructurePieceTypes.TIN_MONOLITH.get(), 0, new BoundingBox(x - 16, -63, z - 16, x + 16, 56, z + 16));
+			super(CCStructurePieceTypes.TIN_MONOLITH.get(), 0, new BoundingBox(x - 14, -63, z - 14, x + 14, 32, z + 14));
 		}
 
 		public TinMonolithPiece(CompoundTag tag) {
@@ -44,8 +44,12 @@ public class TinMonolithPieces {
 			int minZ = chunkPos.getMinBlockZ() - origin.getZ();
 			int maxZ = chunkPos.getMaxBlockZ() - origin.getZ();
 
-			for (int y = 0; y > -111; --y) {
-				double radius = (y + 112) / 112.0D * 16;
+			int tuff = 0;
+			int rawTin = 0;
+			int tinOre = 0;
+
+			for (int y = 0; y > -103; --y) {
+				double radius = (y + 104) / 104.0D * 14;
 				int radiusInt = Mth.ceil(radius);
 
 				int minX1 = Math.max(minX, -radiusInt);
@@ -60,7 +64,7 @@ public class TinMonolithPieces {
 						double distance1 = distance / (radius * (1 + noiseAtPos * 0.2D - 0.2D));
 
 						if (distance1 <= 1.0D) {
-							mutable.set(origin.getX() + x, 48 + y, origin.getZ() + z);
+							mutable.set(origin.getX() + x, 32 + y, origin.getZ() + z);
 							BlockState blockstate = level.getBlockState(mutable);
 
 							boolean isstone = blockstate.is(BlockTags.STONE_ORE_REPLACEABLES);
@@ -69,18 +73,22 @@ public class TinMonolithPieces {
 							if (!isstone && !isdeepslate)
 								continue;
 
-							if (random.nextFloat() < 0.05D + distance1 * 0.2D)
+							if (random.nextFloat() < 0.3D + distance1 * 0.4D) {
 								level.setBlock(mutable, isdeepslate ? Blocks.COBBLED_DEEPSLATE.defaultBlockState() : Blocks.COBBLESTONE.defaultBlockState(), 2);
-							else if (random.nextFloat() > Math.max(0.3D + distance1, 0.5D))
+								++tuff;
+							} else if (random.nextFloat() > Math.max(0.4D + distance1, 0.85D)) {
 								level.setBlock(mutable, CCBlocks.RAW_TIN_BLOCK.get().defaultBlockState(), 2);
-							else if (isdeepslate)
-								level.setBlock(mutable, CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState(), 2);
-							else
-								level.setBlock(mutable, CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
+								++rawTin;
+							} else {
+								level.setBlock(mutable, isdeepslate ? CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState() : CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
+								++tinOre;
+							}
 						}
 					}
 				}
 			}
+
+			System.out.println("Tuff: " + tuff + ", Tin Ore: " + tinOre + ", Raw Tin: " + rawTin);
 		}
 	}
 }
