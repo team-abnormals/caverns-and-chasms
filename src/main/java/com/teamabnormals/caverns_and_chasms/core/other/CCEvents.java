@@ -23,6 +23,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -56,6 +57,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -69,10 +71,14 @@ import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -489,6 +495,48 @@ public class CCEvents {
 						(looking == CCEntityTypes.MIME.get() && stack.is(CCItems.MIME_HEAD.get()))
 		) {
 			event.modifyVisibility(0.5F);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onProjectileImpact(ProjectileImpactEvent event) {
+		Projectile projectile = event.getProjectile();
+		Vec3 vec3 = projectile.getDeltaMovement();
+
+		if (vec3.lengthSqr() > 0.04D) {
+			HitResult hitResult = event.getRayTraceResult();
+			if (hitResult.getType() == HitResult.Type.BLOCK) {
+				Level level = event.getEntity().level();
+				BlockHitResult blockHitResult = (BlockHitResult) hitResult;
+				if (level.getBlockState(blockHitResult.getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
+					Entity projectile1 = projectile.getType().create(level);
+					if (projectile1 != null) {
+						Vec3 vec31 = hitResult.getLocation();
+
+						CompoundTag tag = projectile.saveWithoutId(new CompoundTag());
+						Axis axis = blockHitResult.getDirection().getAxis();
+						int i = blockHitResult.getDirection().getAxisDirection().getStep();
+						projectile.discard();
+
+						projectile1.load(tag);
+
+						if (axis == Axis.X) {
+							projectile1.setDeltaMovement(-vec3.x * 0.95D, vec3.y, vec3.z);
+							projectile1.setPosRaw(vec31.x + projectile1.getBbWidth() * 0.5D * i, vec31.y, vec31.z);
+						} else if (axis == Axis.Y) {
+							projectile1.setDeltaMovement(vec3.x, -vec3.y * 0.95D, vec3.z);
+							projectile1.setPosRaw(vec31.x, i == 1 ? vec31.y : vec31.y - projectile.getBbHeight(), vec31.z);
+						} else if (axis == Axis.Z) {
+							projectile1.setDeltaMovement(vec3.x, vec3.y, -vec3.z * 0.95D);
+							projectile1.setPosRaw(vec31.x, vec31.y, vec31.z + projectile1.getBbWidth() * 0.5D * i);
+						}
+
+						level.addFreshEntity(projectile1);
+
+						event.setCanceled(true);
+					}
+				}
+			}
 		}
 	}
 
