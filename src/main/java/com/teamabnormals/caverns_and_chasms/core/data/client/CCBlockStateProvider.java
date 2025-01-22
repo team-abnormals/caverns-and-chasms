@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
+import com.teamabnormals.caverns_and_chasms.common.block.HaltRailBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -265,7 +266,16 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 			String raised = isRaised ? (ne ? "_raised_ne" : "_raised_sw") : "";
 			String parent = isRaised ? "template_" + parentName + raised : parentName + "_flat";
-			String on = state.getValue(BlockStateProperties.POWERED) ? "_on" : "";
+
+			String on;
+
+			if (block instanceof HaltRailBlock) {
+				boolean top = state.getValue(HaltRailBlock.TOP_POWERED);
+				boolean bottom = state.getValue(HaltRailBlock.BOTTOM_POWERED);
+				on = top && bottom ? "_on" : top ? "_top_on" : bottom ? "_bottom_on" : "";
+			} else {
+				on = state.getValue(BlockStateProperties.POWERED) ? "_on" : "";
+			}
 
 			BlockModelBuilder model = models().withExistingParent(name(block) + on + raised, (parentName.equals("rail") ? "" : CavernsAndChasms.MOD_ID + ":") + "block/" + parent)
 					.texture("rail", blockTexture(block) + on);

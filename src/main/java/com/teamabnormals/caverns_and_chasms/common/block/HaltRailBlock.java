@@ -1,9 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
@@ -13,25 +11,16 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.Vec3;
 
-public class SlaughterRailBlock extends BaseRailBlock {
+public class HaltRailBlock extends BaseRailBlock {
 	public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;
-	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+	public static final BooleanProperty TOP_POWERED = BooleanProperty.create("top_powered");
+	public static final BooleanProperty BOTTOM_POWERED = BooleanProperty.create("bottom_powered");
 
-	public SlaughterRailBlock(Properties properties) {
+	public HaltRailBlock(Properties properties) {
 		super(true, properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(POWERED, false).setValue(WATERLOGGED, false));
-	}
-
-	@Override
-	public void onMinecartPass(BlockState state, Level level, BlockPos pos, AbstractMinecart cart) {
-		cart.getPassengers().forEach((entity) -> {
-			if (state.getValue(POWERED) && entity instanceof LivingEntity target) {
-				if (target.hurt(CCDamageTypes.spikedRail(level), 5.0F)) {
-					SilverItem.causeMagicDamageParticles(target);
-				}
-			}
-		});
+		this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(TOP_POWERED, false).setValue(BOTTOM_POWERED, false).setValue(WATERLOGGED, false));
 	}
 
 	@Override
@@ -40,21 +29,47 @@ public class SlaughterRailBlock extends BaseRailBlock {
 	}
 
 	@Override
+	public void onMinecartPass(BlockState state, Level level, BlockPos pos, AbstractMinecart cart) {
+		super.onMinecartPass(state, level, pos, cart);
+		boolean top = state.getValue(TOP_POWERED);
+		boolean bottom = state.getValue(BOTTOM_POWERED);
+
+		Direction direction = switch (state.getValue(SHAPE)) {
+			case EAST_WEST, ASCENDING_WEST, ASCENDING_EAST -> Direction.WEST;
+			default -> Direction.SOUTH;
+		};
+
+		Direction motion = cart.getMotionDirection();
+
+		if (top && motion.equals(direction) || bottom && motion.equals(direction.getOpposite())) {
+			cart.setDeltaMovement(Vec3.ZERO);
+		}
+	}
+
+	@Override
 	protected void updateState(BlockState state, Level level, BlockPos pos, Block block) {
-		boolean isPowered = state.getValue(POWERED);
-		boolean hasNeighborSignal = level.hasNeighborSignal(pos);
-		if (hasNeighborSignal != isPowered) {
-			level.setBlock(pos, state.setValue(POWERED, hasNeighborSignal), 3);
+		boolean top = state.getValue(TOP_POWERED);
+		boolean bottom = state.getValue(BOTTOM_POWERED);
+
+		Direction direction = switch (state.getValue(SHAPE)) {
+			case EAST_WEST, ASCENDING_WEST, ASCENDING_EAST -> Direction.NORTH;
+			default -> Direction.WEST;
+		};
+
+		boolean topSignal = level.getSignal(pos.relative(direction), direction) > 0;
+		boolean bottomSignal = level.getSignal(pos.relative(direction.getOpposite()), direction.getOpposite()) > 0;
+
+		if (top != topSignal || bottom != bottomSignal) {
+
+			if (top != topSignal) level.setBlock(pos, state.setValue(TOP_POWERED, topSignal), 3);
+			if (bottom != bottomSignal) level.setBlock(pos, state.setValue(BOTTOM_POWERED, bottomSignal), 3);
+
 			level.updateNeighborsAt(pos.below(), this);
 			if (state.getValue(getShapeProperty()).isAscending()) {
 				level.updateNeighborsAt(pos.above(), this);
 			}
 		}
-	}
 
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(getShapeProperty(), POWERED, WATERLOGGED);
 	}
 
 	@Override
@@ -137,5 +152,9 @@ public class SlaughterRailBlock extends BaseRailBlock {
 		}
 
 		return super.mirror(state, mirror);
+	}
+
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(getShapeProperty(), TOP_POWERED, BOTTOM_POWERED, WATERLOGGED);
 	}
 }

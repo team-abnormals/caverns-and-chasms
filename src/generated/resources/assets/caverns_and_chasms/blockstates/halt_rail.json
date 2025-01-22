@@ -1,45 +1,87 @@
 {
   "variants": {
-    "powered=false,shape=ascending_east": {
+    "bottom_powered=false,shape=ascending_east,top_powered=false": {
       "model": "caverns_and_chasms:block/halt_rail_raised_ne",
       "y": 90
     },
-    "powered=false,shape=ascending_north": {
+    "bottom_powered=false,shape=ascending_east,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_ne",
+      "y": 90
+    },
+    "bottom_powered=false,shape=ascending_north,top_powered=false": {
       "model": "caverns_and_chasms:block/halt_rail_raised_ne"
     },
-    "powered=false,shape=ascending_south": {
+    "bottom_powered=false,shape=ascending_north,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_ne"
+    },
+    "bottom_powered=false,shape=ascending_south,top_powered=false": {
       "model": "caverns_and_chasms:block/halt_rail_raised_sw"
     },
-    "powered=false,shape=ascending_west": {
+    "bottom_powered=false,shape=ascending_south,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_sw"
+    },
+    "bottom_powered=false,shape=ascending_west,top_powered=false": {
       "model": "caverns_and_chasms:block/halt_rail_raised_sw",
       "y": 90
     },
-    "powered=false,shape=east_west": {
+    "bottom_powered=false,shape=ascending_west,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_sw",
+      "y": 90
+    },
+    "bottom_powered=false,shape=east_west,top_powered=false": {
       "model": "caverns_and_chasms:block/halt_rail",
       "y": 90
     },
-    "powered=false,shape=north_south": {
+    "bottom_powered=false,shape=east_west,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on",
+      "y": 90
+    },
+    "bottom_powered=false,shape=north_south,top_powered=false": {
       "model": "caverns_and_chasms:block/halt_rail"
     },
-    "powered=true,shape=ascending_east": {
+    "bottom_powered=false,shape=north_south,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on"
+    },
+    "bottom_powered=true,shape=ascending_east,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_ne",
+      "y": 90
+    },
+    "bottom_powered=true,shape=ascending_east,top_powered=true": {
       "model": "caverns_and_chasms:block/halt_rail_on_raised_ne",
       "y": 90
     },
-    "powered=true,shape=ascending_north": {
+    "bottom_powered=true,shape=ascending_north,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_ne"
+    },
+    "bottom_powered=true,shape=ascending_north,top_powered=true": {
       "model": "caverns_and_chasms:block/halt_rail_on_raised_ne"
     },
-    "powered=true,shape=ascending_south": {
+    "bottom_powered=true,shape=ascending_south,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_sw"
+    },
+    "bottom_powered=true,shape=ascending_south,top_powered=true": {
       "model": "caverns_and_chasms:block/halt_rail_on_raised_sw"
     },
-    "powered=true,shape=ascending_west": {
+    "bottom_powered=true,shape=ascending_west,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_sw",
+      "y": 90
+    },
+    "bottom_powered=true,shape=ascending_west,top_powered=true": {
       "model": "caverns_and_chasms:block/halt_rail_on_raised_sw",
       "y": 90
     },
-    "powered=true,shape=east_west": {
+    "bottom_powered=true,shape=east_west,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on",
+      "y": 90
+    },
+    "bottom_powered=true,shape=east_west,top_powered=true": {
       "model": "caverns_and_chasms:block/halt_rail_on",
       "y": 90
     },
-    "powered=true,shape=north_south": {
+    "bottom_powered=true,shape=north_south,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on"
+    },
+    "bottom_powered=true,shape=north_south,top_powered=true": {
       "model": "caverns_and_chasms:block/halt_rail_on"
     }
   }

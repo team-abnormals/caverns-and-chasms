@@ -84,7 +84,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_RAIL = HELPER.createBlock("waxed_weathered_copper_rail", () -> new CopperRailBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
 	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_RAIL = HELPER.createBlock("waxed_oxidized_copper_rail", () -> new CopperRailBlock(WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
 
-	public static final RegistryObject<Block> HALT_RAIL = HELPER.createBlock("halt_rail", () -> new PoweredRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
+	public static final RegistryObject<Block> HALT_RAIL = HELPER.createBlock("halt_rail", () -> new HaltRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 	public static final RegistryObject<Block> SLAUGHTER_RAIL = HELPER.createBlock("slaughter_rail", () -> new SlaughterRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 
