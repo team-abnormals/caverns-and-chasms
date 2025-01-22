@@ -6,7 +6,7 @@
         },
         {
             "type": "bitmap",
-            "file": "caverns_and_chasms:font/mimic.png",
+            "file": "caverns_and_chasms:font/mimeic.png",
             "ascent": 7,
             "chars": [
 				"\u0061\u0065\u0069\u006f\u0075\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u0000",
