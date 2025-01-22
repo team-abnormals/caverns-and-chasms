@@ -73,22 +73,16 @@ public class TinMonolithPieces {
 							if (!isstone && !isdeepslate)
 								continue;
 
-							if (random.nextFloat() < 0.3D + distance1 * 0.4D) {
+							if (random.nextFloat() < 0.3D + distance1 * 0.4D)
 								level.setBlock(mutable, isdeepslate ? Blocks.COBBLED_DEEPSLATE.defaultBlockState() : Blocks.COBBLESTONE.defaultBlockState(), 2);
-								++tuff;
-							} else if (random.nextFloat() > Math.max(0.4D + distance1, 0.85D)) {
+							else if (random.nextFloat() > Math.max(0.4D + distance1, 0.85D))
 								level.setBlock(mutable, CCBlocks.RAW_TIN_BLOCK.get().defaultBlockState(), 2);
-								++rawTin;
-							} else {
+							else
 								level.setBlock(mutable, isdeepslate ? CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState() : CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
-								++tinOre;
-							}
 						}
 					}
 				}
 			}
-
-			System.out.println("Tuff: " + tuff + ", Tin Ore: " + tinOre + ", Raw Tin: " + rawTin);
 		}
 	}
 }
