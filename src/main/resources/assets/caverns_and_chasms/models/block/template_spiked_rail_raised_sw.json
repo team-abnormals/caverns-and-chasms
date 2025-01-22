@@ -22,6 +22,7 @@
 		{
 			"from": [13, 8, -7],
 			"to": [13, 24, 9],
+			"shade": false,
 			"rotation": {"angle": -45, "axis": "x", "origin": [21, 16, 1], "rescale": true},
 			"faces": {
 				"east": {"uv": [0, 0, 16, 16], "texture": "#spikes"},
