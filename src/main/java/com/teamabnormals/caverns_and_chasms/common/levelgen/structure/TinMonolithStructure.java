@@ -25,10 +25,14 @@ public class TinMonolithStructure extends Structure {
 	@Override
 	protected Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
 		ChunkPos chunkpos = context.chunkPos();
-		BlockPos blockpos = new BlockPos(chunkpos.getMinBlockX(), 64, chunkpos.getMinBlockZ());
-		return Optional.of(new Structure.GenerationStub(blockpos, (builder) -> {
-			generatePieces(builder, context);
-		}));
+		if (chunkpos.x < -32 || chunkpos.x >= 32 || chunkpos.z < -32 || chunkpos.z >= 32) {
+			BlockPos blockpos = new BlockPos(chunkpos.getMinBlockX(), 64, chunkpos.getMinBlockZ());
+			return Optional.of(new Structure.GenerationStub(blockpos, (builder) -> {
+				generatePieces(builder, context);
+			}));
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	private void generatePieces(StructurePiecesBuilder builder, Structure.GenerationContext context) {

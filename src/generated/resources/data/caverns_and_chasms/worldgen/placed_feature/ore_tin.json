@@ -1,0 +1,28 @@
+{
+  "feature": "caverns_and_chasms:ore_tin",
+  "placement": [
+    {
+      "type": "caverns_and_chasms:tin_arrow",
+      "max_count": 2,
+      "max_distance": 256
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": 56
+        },
+        "min_inclusive": {
+          "absolute": 0
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

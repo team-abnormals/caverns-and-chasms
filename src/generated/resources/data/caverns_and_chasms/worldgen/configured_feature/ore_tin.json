@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:ore",
+  "type": "caverns_and_chasms:tin_arrow",
   "config": {
     "discard_chance_on_air_exposure": 0.0,
-    "size": 6,
+    "size": 9,
     "targets": [
       {
         "state": {
-          "Name": "caverns_and_chasms:spinel_ore"
+          "Name": "caverns_and_chasms:tin_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
@@ -15,7 +15,7 @@
       },
       {
         "state": {
-          "Name": "caverns_and_chasms:deepslate_tin_ore"
+          "Name": "minecraft:deepslate_gold_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

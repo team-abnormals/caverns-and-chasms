@@ -1,7 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.caverns_and_chasms.common.levelgen.placement.BetterNoiseBasedCountPlacement;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.placement.NoiseBasedRarityFilter;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.BetterNoiseBasedCountPlacement;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseBasedRarityFilter;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
@@ -13,4 +14,5 @@ public class CCPlacementModifierTypes {
 
 	public static final RegistryObject<PlacementModifierType<BetterNoiseBasedCountPlacement>> BETTER_NOISE_BASED_COUNT = PLACEMENT_MODIFIER_TYPES.register("better_noise_based_count", () -> () -> BetterNoiseBasedCountPlacement.CODEC);
 	public static final RegistryObject<PlacementModifierType<NoiseBasedRarityFilter>> NOISE_BASED_RARITY_FILTER = PLACEMENT_MODIFIER_TYPES.register("noise_based_rarity_filter", () -> () -> NoiseBasedRarityFilter.CODEC);
+	public static final RegistryObject<PlacementModifierType<TinArrowPlacement>> TIN_ARROW = PLACEMENT_MODIFIER_TYPES.register("tin_arrow", () -> () -> TinArrowPlacement.CODEC);
 }

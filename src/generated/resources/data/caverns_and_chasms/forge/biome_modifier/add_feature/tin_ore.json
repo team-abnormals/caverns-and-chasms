@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "caverns_and_chasms:tin_arrow",
+  "features": [
+    "caverns_and_chasms:ore_tin",
+    "caverns_and_chasms:ore_tin_buried"
+  ],
   "step": "underground_ores"
 }

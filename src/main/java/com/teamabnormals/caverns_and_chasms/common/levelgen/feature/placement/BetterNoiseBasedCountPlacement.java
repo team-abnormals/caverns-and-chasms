@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.levelgen.placement;
+package com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

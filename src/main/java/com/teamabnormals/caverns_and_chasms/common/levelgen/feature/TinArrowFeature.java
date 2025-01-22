@@ -1,94 +1,94 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature;
 
 import com.mojang.serialization.Codec;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.LegacyRandomSource;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.chunk.BulkSectionAccess;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.feature.OreFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector2i;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class TinArrowFeature extends Feature<NoneFeatureConfiguration> {
+public class TinArrowFeature extends Feature<OreConfiguration> {
 	private static final Vec3 X_VECTOR = new Vec3(1.0D, 0.0D, 0.0D);
 	private static final Vec3 Y_VECTOR = new Vec3(0.0D, 1.0D, 0.0D);
 
-	private volatile Map<Vector2i, ChunkPos> monolithPositions = new HashMap<>();
-
-	public TinArrowFeature(Codec<NoneFeatureConfiguration> config) {
+	public TinArrowFeature(Codec<OreConfiguration> config) {
 		super(config);
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+	public boolean place(FeaturePlaceContext<OreConfiguration> context) {
+		OreConfiguration config = context.config();
 		WorldGenLevel level = context.level();
 		BlockPos blockpos = context.origin();
 		RandomSource random = context.random();
 
-		int chunkX = blockpos.getX() >> 4;
-		int chunkZ = blockpos.getZ() >> 4;
+		BlockPos monolithPos = TinArrowPlacement.getClosestMonolithPosition(level.getSeed(), blockpos);
 
-		Vector2i spacingPos = new Vector2i(Math.floorDiv(chunkX, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ, TinMonolithStructure.SPACING));
-		if (!monolithPositions.containsKey(spacingPos)) {
-			synchronized (this) {
-				this.monolithPositions.put(spacingPos, getPotentialStructureChunk(level.getSeed(), spacingPos.x, spacingPos.y));
-			}
-		}
+		if (monolithPos == null)
+			return false;
 
-		ChunkPos monolithChunkPos = monolithPositions.get(spacingPos);
-		// System.out.println("Monolith Pos: " + (monolithChunkPos.x << 4) + ", " + (monolithChunkPos.z << 4));
-
-		int distToMonolithX = (monolithChunkPos.x << 4) - blockpos.getX();
-		int distToMonolithZ = (monolithChunkPos.z << 4) - blockpos.getZ();
-
-		double length = random.nextInt(3) + 10;
-		Vec3 lengthAxis = new Vec3(distToMonolithX, -blockpos.getY(), distToMonolithZ).normalize();
-
+		double length = (1 + random.nextDouble() * 0.25D) * config.size;
+		int size = Mth.ceil(length / 2);
 		float rot = random.nextFloat() * Mth.TWO_PI;
+
+		Vec3 lengthAxis = new Vec3(monolithPos.getX() - blockpos.getX(), -blockpos.getY(), monolithPos.getZ() - blockpos.getZ()).normalize();
 		Vec3 widthAxisUnrotated = (Math.abs(lengthAxis.dot(X_VECTOR)) > Math.abs(lengthAxis.dot(Y_VECTOR)) ? X_VECTOR : Y_VECTOR).cross(lengthAxis);
 		Vec3 widthAxis = widthAxisUnrotated.scale(Mth.cos(rot)).add(lengthAxis.cross(widthAxisUnrotated).scale(Mth.sin(rot))).add(lengthAxis.scale(lengthAxis.dot(widthAxisUnrotated) * (1 - Mth.cos(rot)))).normalize();
 		Vec3 heightAxis = lengthAxis.cross(widthAxis).normalize();
 
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		boolean placed = false;
-		for (int x = -7; x <= 7 ; ++x) {
-			for (int y = -7; y <= 7 ; ++y) {
-				for (int z = -7; z <= 7 ; ++z) {
-					Vec3 offset = new Vec3(x, y ,z);
 
-					double axisX = offset.dot(widthAxis);
-					double axisY = offset.dot(heightAxis);
-					double axisZ = offset.dot(lengthAxis);
+		try (BulkSectionAccess bulksectionaccess = new BulkSectionAccess(level)) {
+			BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-					double pointAlongLength = 0.5D - axisZ / length;
-					double radius = pointAlongLength * length * 0.1D;
+			for (int x = -size; x <= size; ++x) {
+				for (int y = -size; y <= size; ++y) {
+					for (int z = -size; z <= size; ++z) {
+						Vec3 offset = new Vec3(x, y, z);
 
-					double ellipse = (axisX * axisX) / (radius * radius) + (axisY * axisY) / (radius * radius * 4);
+						double axisX = offset.dot(widthAxis);
+						double axisY = offset.dot(heightAxis);
+						double axisZ = offset.dot(lengthAxis);
 
-					if (pointAlongLength > 0.0D && pointAlongLength < 1.0D && ellipse < 1) {
-						mutable.setWithOffset(blockpos, x, y, z);
-						BlockState blockstate = level.getBlockState(mutable);
+						double pointAlongLength = 0.5D - axisZ / length;
+						double radius = pointAlongLength * length * 0.1D;
 
-						// TODO: Check if this needs to be made more generic.
-						if (blockstate.is(BlockTags.STONE_ORE_REPLACEABLES)) {
-							level.setBlock(mutable, CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
-							placed = true;
-						} else if (blockstate.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES)) {
-							level.setBlock(mutable, CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState(), 2);
-							placed = true;
+						double ellipse = (axisX * axisX) / (radius * radius) + (axisY * axisY) / (radius * radius * 4);
+
+						if (pointAlongLength > 0.0D && pointAlongLength < 1.0D && ellipse < 1) {
+							int x1 = blockpos.getX() + x;
+							int y1 = blockpos.getY() + y;
+							int z1 = blockpos.getZ() + z;
+
+							mutable.set(x1, y1, z1);
+
+							if (level.ensureCanWrite(mutable)) {
+								LevelChunkSection levelchunksection = bulksectionaccess.getSection(mutable);
+
+								if (levelchunksection != null) {
+									int x2 = SectionPos.sectionRelative(x1);
+									int y2 = SectionPos.sectionRelative(y1);
+									int z2 = SectionPos.sectionRelative(z1);
+									BlockState blockstate = levelchunksection.getBlockState(x2, y2, z2);
+
+									for (OreConfiguration.TargetBlockState targetblockstate : config.targetStates) {
+										if (OreFeature.canPlaceOre(blockstate, bulksectionaccess::getBlockState, random, config, targetblockstate, mutable)) {
+											levelchunksection.setBlockState(x2, y2, z2, targetblockstate.state, false);
+											placed = true;
+											break;
+										}
+									}
+								}
+							}
 						}
 					}
 				}
@@ -96,14 +96,5 @@ public class TinArrowFeature extends Feature<NoneFeatureConfiguration> {
 		}
 
 		return placed;
-	}
-
-	private static ChunkPos getPotentialStructureChunk(long seed, int spacingX, int spacingZ) {
-		WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
-		worldgenrandom.setLargeFeatureWithSalt(seed, spacingX, spacingZ, TinMonolithStructure.SALT);
-		int k = TinMonolithStructure.SPACING - TinMonolithStructure.SEPARATION;
-		int l = RandomSpreadType.LINEAR.evaluate(worldgenrandom, k);
-		int i1 = RandomSpreadType.LINEAR.evaluate(worldgenrandom, k);
-		return new ChunkPos(spacingX * TinMonolithStructure.SPACING + l, spacingZ * TinMonolithStructure.SPACING + i1);
 	}
 }

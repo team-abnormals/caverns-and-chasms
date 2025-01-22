@@ -55,7 +55,7 @@ public class CCStructureTypes {
 		public static void bootstrap(BootstapContext<StructureSet> context) {
 			HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
-			context.register(TIN_MONOLITHs, new StructureSet(structures.getOrThrow(CCStructures.TIN_MONOLITH), new RandomSpreadStructurePlacement(TinMonolithStructure.SPACING, TinMonolithStructure.SEPARATION, RandomSpreadType.LINEAR, TinMonolithStructure.SALT)));
+			context.register(TIN_MONOLITHs, new StructureSet(structures.getOrThrow(CCStructures.TIN_MONOLITH), new RandomSpreadStructurePlacement(TinMonolithStructure.SPACING, TinMonolithStructure.SEPARATION, RandomSpreadType.TRIANGULAR, TinMonolithStructure.SALT)));
 		}
 
 		public static ResourceKey<StructureSet> createKey(String name) {
