@@ -32,6 +32,7 @@
     "PotionBrewingMixin",
     "PotionUtilsMixin",
     "PowderSnowBlockMixin",
+	"ProjectileMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
     "SmithingTemplateItemMixin",

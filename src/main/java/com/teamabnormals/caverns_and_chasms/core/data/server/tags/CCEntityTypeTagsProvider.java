@@ -28,6 +28,6 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(KUNAI.get());
 
 		this.tag(SPAWNS_FROM_CAVE_GROWTHS).add(EntityType.BAT, EntityType.SILVERFISH);
-		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.FISHING_BOBBER, EntityType.WITHER_SKULL);
+		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.WITHER_SKULL);
 	}
 }

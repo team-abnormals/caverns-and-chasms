@@ -57,6 +57,10 @@ public class CCDataProcessors {
 	public static final TrackedData<Double> REWIND_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> REWIND_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> REWIND_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
+	public static final TrackedData<Boolean> SHOULD_DEFLECT = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
+	public static final TrackedData<Double> DEFLECT_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
+	public static final TrackedData<Double> DEFLECT_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
+	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 
 	public static void registerTrackedData() {
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
@@ -68,5 +72,9 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_x"), REWIND_X);
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_y"), REWIND_Y);
 		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_z"), REWIND_Z);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "should_deflect"), SHOULD_DEFLECT);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "deflect_x"), DEFLECT_X);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "deflect_y"), DEFLECT_Y);
+		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "deflect_z"), DEFLECT_Z);
 	}
 }
