@@ -502,8 +502,9 @@ public class CCEvents {
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
 		Projectile projectile = event.getProjectile();
 		Vec3 vec3 = projectile.getDeltaMovement();
+		double d0 = vec3.lengthSqr();
 
-		if (vec3.lengthSqr() > 0.04D) {
+		if (d0 > 0.04D) {
 			HitResult hitResult = event.getRayTraceResult();
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
 				Level level = event.getEntity().level();
@@ -511,6 +512,7 @@ public class CCEvents {
 				if (level.getBlockState(blockHitResult.getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
 					Entity projectile1 = projectile.getType().create(level);
 					if (projectile1 != null) {
+						RandomSource random = level.getRandom();
 						Vec3 vec31 = hitResult.getLocation();
 
 						CompoundTag tag = projectile.saveWithoutId(new CompoundTag());
@@ -534,6 +536,7 @@ public class CCEvents {
 							projectile1.setPosRaw(vec31.x, vec31.y, vec31.z + projectile1.getBbWidth() * 0.5D * i);
 						}
 
+						level.playSound(null, projectile1.getX(), projectile1.getY(), projectile1.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.4F + 0.5F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
 						level.addFreshEntity(projectile1);
 
 						event.setCanceled(true);

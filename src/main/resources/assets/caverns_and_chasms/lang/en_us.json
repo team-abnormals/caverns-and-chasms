@@ -529,6 +529,7 @@
   "painting.caverns_and_chasms.starry_night.author": "five",
   "painting.caverns_and_chasms.starry_night.title": "Starry Night",
   "subtitles.caverns_and_chasms.block.dismantling_table.use": "Dismantling Table used",
+  "subtitles.caverns_and_chasms.block.tin.deflect": "Projectile ricochets",
   "subtitles.caverns_and_chasms.block.toolbox.close": "Toolbox closes",
   "subtitles.caverns_and_chasms.block.toolbox.open": "Toolbox opens",
   "subtitles.caverns_and_chasms.entity.copper_golem.damage": "Copper Golem breaks",

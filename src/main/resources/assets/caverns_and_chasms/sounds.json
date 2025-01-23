@@ -80,6 +80,14 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.tin.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/deflect1",
+      "caverns_and_chasms:block/tin/deflect2",
+      "caverns_and_chasms:block/tin/deflect3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.toolbox.close": {
     "sounds": [
       "caverns_and_chasms:block/toolbox/close1",
