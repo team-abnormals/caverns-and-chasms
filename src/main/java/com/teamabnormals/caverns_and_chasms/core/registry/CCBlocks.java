@@ -74,6 +74,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> RAW_TIN_BLOCK = HELPER.createBlock("raw_tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 	public static final RegistryObject<Block> TIN_BARS = HELPER.createBlock("tin_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
 	public static final RegistryObject<Block> FLOAT_GLASS = HELPER.createBlock("float_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+	public static final RegistryObject<Block> FLOAT_GLASS_PANE = HELPER.createBlock("float_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
 	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
 	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
@@ -430,6 +431,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), WAXED_OXIDIZED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_BRICK_STAIRS, WAXED_OXIDIZED_COPPER_BRICK_SLAB, WAXED_OXIDIZED_COPPER_BRICK_WALL, WAXED_OXIDIZED_CHISELED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BUTTON)
 				.tab(COLORED_BLOCKS)
 				.addItemsAfter(of(Blocks.GLASS), FLOAT_GLASS)
+				.addItemsAfter(of(Blocks.GLASS_PANE), FLOAT_GLASS_PANE)
 				.tab(NATURAL_BLOCKS)
 				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
 				.addItemsBefore(of(Blocks.MUSHROOM_STEM), AZALEA_LOG)

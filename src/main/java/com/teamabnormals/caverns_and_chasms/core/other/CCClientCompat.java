@@ -104,6 +104,7 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_ZESTY_CAVE_GROWTHS.get(), RenderType.cutout());
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS_PANE.get(), RenderType.translucent());
 	}
 
 	public static void registerItemProperties() {

@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:float_glass"
+          "name": "caverns_and_chasms:float_glass_pane"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "caverns_and_chasms:blocks/float_glass"
+  "random_sequence": "caverns_and_chasms:blocks/float_glass_pane"
 }

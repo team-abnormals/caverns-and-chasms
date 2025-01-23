@@ -10,18 +10,12 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightningRodBlock;
-import net.minecraft.world.level.block.WeightedPressurePlateBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -48,6 +42,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(DEEPSLATE_TIN_ORE);
 		this.block(TIN_BLOCK);
 		this.block(FLOAT_GLASS);
+		this.glassPaneBlock(FLOAT_GLASS_PANE, FLOAT_GLASS);
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
@@ -200,6 +195,52 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void waxedCopperBarsBlock(RegistryObject<Block> waxedCopperBars, RegistryObject<Block> copperBars) {
 		this.ironBarsBlock(waxedCopperBars.get(), blockTexture(copperBars.get()));
 		this.waxedGeneratedItem(waxedCopperBars.get(), "block");
+	}
+
+	@Override
+	public void ironBarsBlock(Block block, ResourceLocation texture) {
+		String name = name(block);
+		ResourceLocation edgeTexture = suffix(texture, "_edge");
+
+		ModelFile post = ironBarsBlock(name, "post", texture).texture("bars", edgeTexture);
+		ModelFile postEnds = ironBarsBlock(name, "post_ends", texture).texture("edge", edgeTexture);
+		ModelFile side = ironBarsBlock(name, "side", texture).texture("bars", texture).texture("edge", edgeTexture);
+		ModelFile sideAlt = ironBarsBlock(name, "side_alt", texture).texture("bars", texture).texture("edge", edgeTexture);
+		ModelFile cap = ironBarsBlock(name, "cap", texture).texture("bars", texture).texture("edge", edgeTexture);
+		ModelFile capAlt = ironBarsBlock(name, "cap_alt", texture).texture("bars", texture).texture("edge", edgeTexture);
+
+		this.paneBlock(block, post, postEnds, side, sideAlt, cap, capAlt);
+	}
+
+	public void glassPaneBlock(RegistryObject<Block> pane, RegistryObject<Block> glass) {
+		Block block = pane.get();
+		String name = name(block);
+
+		ResourceLocation texture = blockTexture(glass.get());
+		ResourceLocation edgeTexture = texture.withSuffix("_pane_top");
+
+		ModelFile post = glassPaneBlock(name, "post").texture("pane", texture).texture("edge", edgeTexture);
+		ModelFile side = glassPaneBlock(name, "side").texture("pane", texture).texture("edge", edgeTexture);
+		ModelFile sideAlt = glassPaneBlock(name, "side_alt").texture("pane", texture).texture("edge", edgeTexture);
+		ModelFile noSide = glassPaneBlock(name, "noside").texture("pane", texture);
+		ModelFile noSideAlt = glassPaneBlock(name, "noside_alt").texture("pane", texture);
+
+		this.glassPaneBlock(block, post, side, sideAlt, noSide, noSideAlt);
+		this.generatedItem(block, prefix("block/", BlueprintItemModelProvider.key(glass.get())));
+	}
+
+	public void glassPaneBlock(Block block, ModelFile post, ModelFile side, ModelFile sideAlt, ModelFile noSide, ModelFile noSideAlt) {
+		MultiPartBlockStateBuilder builder = getMultipartBuilder(block).part().modelFile(post).addModel().end();
+		PipeBlock.PROPERTY_BY_DIRECTION.forEach((dir, value) -> {
+			if (dir.getAxis().isHorizontal()) {
+				builder.part().modelFile(dir == Direction.SOUTH || dir == Direction.WEST ? sideAlt : side).rotationY(dir.getAxis() == Axis.X ? 90 : 0).addModel().condition(value, true).end();
+				builder.part().modelFile(dir == Direction.SOUTH || dir == Direction.EAST ? noSideAlt : noSide).rotationY(dir == Direction.WEST ? 270 : dir == Direction.SOUTH ? 90 : 0).addModel().condition(value, false).end();
+			}
+		});
+	}
+
+	public BlockModelBuilder glassPaneBlock(String name, String suffix) {
+		return models().getBuilder(name + "_" + suffix).parent(new UncheckedModelFile(new ResourceLocation("block/template_glass_pane_" + suffix)));
 	}
 
 	public void deepslateBlock(Block block) {
