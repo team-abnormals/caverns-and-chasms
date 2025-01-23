@@ -19,6 +19,7 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.Ti
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -506,7 +507,7 @@ public class CCEvents {
 			HitResult hitResult = event.getRayTraceResult();
 			Vec3 vec3 = projectile.getDeltaMovement();
 			double d0 = vec3.lengthSqr();
-			if (d0 > 0.04D && hitResult.getType() == HitResult.Type.BLOCK) {
+			if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN) && d0 > 0.04D && hitResult.getType() == HitResult.Type.BLOCK) {
 				BlockHitResult blockHitResult = (BlockHitResult) hitResult;
 				if (level.getBlockState(blockHitResult.getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
 					Entity projectile1 = projectile.getType().create(level);
