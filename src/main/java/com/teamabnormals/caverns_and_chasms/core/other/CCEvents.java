@@ -500,14 +500,13 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
-		Projectile projectile = event.getProjectile();
-		Vec3 vec3 = projectile.getDeltaMovement();
-		double d0 = vec3.lengthSqr();
-
-		if (d0 > 0.04D) {
+		Level level = event.getEntity().level();
+		if (!level.isClientSide()) {
+			Projectile projectile = event.getProjectile();
 			HitResult hitResult = event.getRayTraceResult();
-			if (hitResult.getType() == HitResult.Type.BLOCK) {
-				Level level = event.getEntity().level();
+			Vec3 vec3 = projectile.getDeltaMovement();
+			double d0 = vec3.lengthSqr();
+			if (d0 > 0.04D && hitResult.getType() == HitResult.Type.BLOCK) {
 				BlockHitResult blockHitResult = (BlockHitResult) hitResult;
 				if (level.getBlockState(blockHitResult.getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
 					Entity projectile1 = projectile.getType().create(level);
@@ -516,7 +515,8 @@ public class CCEvents {
 						Vec3 vec31 = hitResult.getLocation();
 
 						CompoundTag tag = projectile.saveWithoutId(new CompoundTag());
-						Axis axis = blockHitResult.getDirection().getAxis();
+						Direction direction = blockHitResult.getDirection();
+						Axis axis = direction.getAxis();
 						int i = blockHitResult.getDirection().getAxisDirection().getStep();
 						projectile.discard();
 
@@ -538,6 +538,14 @@ public class CCEvents {
 
 						level.playSound(null, projectile1.getX(), projectile1.getY(), projectile1.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.4F + 0.5F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
 						level.addFreshEntity(projectile1);
+
+						for (int l = 0; l < 3; ++l) {
+							Vec3 vec32 = vec3.reverse().normalize();
+							double d1 = vec32.x * 0.2D + random.nextGaussian() * 0.05D;
+							double d2 = vec32.y * 0.2D + random.nextGaussian() * 0.05D;
+							double d3 = vec32.z * 0.2D + random.nextGaussian() * 0.05D;
+							NetworkUtil.spawnParticle("caverns_and_chasms:spark", vec31.x, vec31.y, vec31.z, d1, d2, d3);
+						}
 
 						event.setCanceled(true);
 					}
