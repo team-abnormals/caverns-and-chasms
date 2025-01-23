@@ -520,14 +520,17 @@ public class CCEvents {
 
 						projectile1.load(tag);
 
+						double j = 0.65D;
+						double k = 0.75D;
+
 						if (axis == Axis.X) {
-							projectile1.setDeltaMovement(-vec3.x * 0.95D, vec3.y, vec3.z);
+							projectile1.setDeltaMovement(-vec3.x * j, vec3.y * k, vec3.z * k);
 							projectile1.setPosRaw(vec31.x + projectile1.getBbWidth() * 0.5D * i, vec31.y, vec31.z);
 						} else if (axis == Axis.Y) {
-							projectile1.setDeltaMovement(vec3.x, -vec3.y * 0.95D, vec3.z);
+							projectile1.setDeltaMovement(vec3.x * k, -vec3.y * j, vec3.z * k);
 							projectile1.setPosRaw(vec31.x, i == 1 ? vec31.y : vec31.y - projectile.getBbHeight(), vec31.z);
 						} else if (axis == Axis.Z) {
-							projectile1.setDeltaMovement(vec3.x, vec3.y, -vec3.z * 0.95D);
+							projectile1.setDeltaMovement(vec3.x * k, vec3.y * k, -vec3.z * j);
 							projectile1.setPosRaw(vec31.x, vec31.y, vec31.z + projectile1.getBbWidth() * 0.5D * i);
 						}
 
