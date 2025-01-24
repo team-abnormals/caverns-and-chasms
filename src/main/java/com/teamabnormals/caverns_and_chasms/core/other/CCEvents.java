@@ -504,50 +504,53 @@ public class CCEvents {
 		Level level = event.getEntity().level();
 		Projectile projectile = event.getProjectile();
 		HitResult hitResult = event.getRayTraceResult();
-		Vec3 vec3 = projectile.getDeltaMovement();
-		double d0 = vec3.lengthSqr();
-		if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN) && d0 > 0.04D && hitResult.getType() == HitResult.Type.BLOCK) {
+
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			if (level.getBlockState(blockHitResult.getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
-				IDataManager data = (IDataManager) projectile;
-				RandomSource random = level.getRandom();
-				Vec3 vec31 = hitResult.getLocation();
+			if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN) && level.getBlockState((blockHitResult).getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
 				Direction direction = blockHitResult.getDirection();
-				Axis axis = direction.getAxis();
-				int i = blockHitResult.getDirection().getAxisDirection().getStep();
+				Vec3 vec3 = projectile.getDeltaMovement();
+				double d0 = vec3.lengthSqr();
+				if (direction != Direction.UP || d0 > 0.04D) {
+					IDataManager data = (IDataManager) projectile;
+					RandomSource random = level.getRandom();
+					Axis axis = direction.getAxis();
+					Vec3 vec31 = hitResult.getLocation();
+					int i = blockHitResult.getDirection().getAxisDirection().getStep();
 
-				double j = 0.65D;
-				double k = 0.75D;
+					double j = 0.65D;
+					double k = 0.75D;
 
-				if (axis == Axis.X) {
-					data.setValue(CCDataProcessors.DEFLECT_X, -vec3.x * j);
-					data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
-					data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
-					projectile.setPos(vec31.x + projectile.getBbWidth() * 0.5D * i, vec31.y, vec31.z);
-				} else if (axis == Axis.Y) {
-					data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
-					data.setValue(CCDataProcessors.DEFLECT_Y, -vec3.y * j);
-					data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
-					projectile.setPos(vec31.x, i == 1 ? vec31.y : vec31.y - projectile.getBbHeight(), vec31.z);
-				} else if (axis == Axis.Z) {
-					data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
-					data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
-					data.setValue(CCDataProcessors.DEFLECT_Z, -vec3.z * j);
-					projectile.setPos(vec31.x, vec31.y, vec31.z + projectile.getBbWidth() * 0.5D * i);
+					if (axis == Axis.X) {
+						data.setValue(CCDataProcessors.DEFLECT_X, -vec3.x * j);
+						data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
+						data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
+						projectile.setPos(vec31.x + projectile.getBbWidth() * 0.5D * i, vec31.y, vec31.z);
+					} else if (axis == Axis.Y) {
+						data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
+						data.setValue(CCDataProcessors.DEFLECT_Y, -vec3.y * j);
+						data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
+						projectile.setPos(vec31.x, i == 1 ? vec31.y : vec31.y - projectile.getBbHeight(), vec31.z);
+					} else if (axis == Axis.Z) {
+						data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
+						data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
+						data.setValue(CCDataProcessors.DEFLECT_Z, -vec3.z * j);
+						projectile.setPos(vec31.x, vec31.y, vec31.z + projectile.getBbWidth() * 0.5D * i);
+					}
+					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
+					projectile.setDeltaMovement(Vec3.ZERO);
+
+					level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
+					for (int l = 0; l < 3; ++l) {
+						Vec3 vec32 = vec3.reverse().normalize();
+						double d1 = vec32.x * 0.2D + random.nextGaussian() * 0.05D;
+						double d2 = vec32.y * 0.2D + random.nextGaussian() * 0.05D;
+						double d3 = vec32.z * 0.2D + random.nextGaussian() * 0.05D;
+						NetworkUtil.spawnParticle("caverns_and_chasms:spark", vec31.x, vec31.y, vec31.z, d1, d2, d3);
+					}
+
+					event.setCanceled(true);
 				}
-				data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
-				projectile.setDeltaMovement(Vec3.ZERO);
-
-				level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
-				for (int l = 0; l < 3; ++l) {
-					Vec3 vec32 = vec3.reverse().normalize();
-					double d1 = vec32.x * 0.2D + random.nextGaussian() * 0.05D;
-					double d2 = vec32.y * 0.2D + random.nextGaussian() * 0.05D;
-					double d3 = vec32.z * 0.2D + random.nextGaussian() * 0.05D;
-					NetworkUtil.spawnParticle("caverns_and_chasms:spark", vec31.x, vec31.y, vec31.z, d1, d2, d3);
-				}
-
-				event.setCanceled(true);
 			}
 		}
 	}
