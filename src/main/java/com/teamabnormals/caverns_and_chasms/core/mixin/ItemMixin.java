@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +14,7 @@ public abstract class ItemMixin {
 
 	@Inject(at = @At("RETURN"), method = "isValidRepairItem", cancellable = true)
 	private void isValidRepairItem(ItemStack item, ItemStack repairIngredient, CallbackInfoReturnable<Boolean> cir) {
-		if (repairIngredient.is(CCItems.ZIRCONIA.get())) {
+		if (repairIngredient.is(CCItems.ZIRCONIA.get()) && !item.is(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA)) {
 			cir.setReturnValue(true);
 		}
 	}

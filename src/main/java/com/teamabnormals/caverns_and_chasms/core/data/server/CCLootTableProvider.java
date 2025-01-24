@@ -389,7 +389,7 @@ public class CCLootTableProvider extends LootTableProvider {
 					)
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get())
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 									.when(LootItemKilledByPlayerCondition.killedByPlayer())
 									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.15F, 0.05F))
 							)
