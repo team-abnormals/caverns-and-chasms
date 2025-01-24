@@ -109,6 +109,14 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.dismantling_table.use"
   },
+  "block.atoning_table.use": {
+    "sounds": [
+      "caverns_and_chasms:block/atoning_table/atone1",
+      "caverns_and_chasms:block/atoning_table/atone2",
+      "caverns_and_chasms:block/atoning_table/atone3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.atoning_table.use"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"

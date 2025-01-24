@@ -31,6 +31,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
 
 	public static final RegistryObject<SoundEvent> DISMANTLING_TABLE_USE = HELPER.createSoundEvent("block.dismantling_table.use");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_USE = HELPER.createSoundEvent("block.atoning_table.use");
 
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_MIME = HELPER.createSoundEvent("block.note_block.imitate.mime");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_DEEPER = HELPER.createSoundEvent("block.note_block.imitate.deeper");

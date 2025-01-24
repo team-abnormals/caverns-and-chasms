@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.inventory;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -202,7 +203,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 						this.enchantSlots.setChanged();
 						this.enchantmentSeed.set(player.getEnchantmentSeed());
 						this.slotsChanged(this.enchantSlots);
-						level.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F);
+						level.playSound(null, pos, CCSoundEvents.ATONING_TABLE_USE.get(), SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F);
 					}
 
 				});
