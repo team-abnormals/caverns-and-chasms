@@ -538,7 +538,7 @@ public class CCEvents {
 				data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
 				projectile.setDeltaMovement(Vec3.ZERO);
 
-				level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.4F + 0.5F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
+				level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
 				for (int l = 0; l < 3; ++l) {
 					Vec3 vec32 = vec3.reverse().normalize();
 					double d1 = vec32.x * 0.2D + random.nextGaussian() * 0.05D;
