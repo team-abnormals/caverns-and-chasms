@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
+import com.teamabnormals.caverns_and_chasms.common.item.FoilItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
@@ -416,9 +417,9 @@ public class CCEvents {
 				TuningForkItem.playNote(target.level(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
 				NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
 
-				if (attacker instanceof Player) {
-					((Player) attacker).displayClientMessage(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note").append(": ").append(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
-					TuningForkItem.orderGolemToAttackEntity(target, (Player) attacker);
+				if (attacker instanceof Player player) {
+					player.displayClientMessage(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note").append(": ").append(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
+					TuningForkItem.orderGolemToAttackEntity(target, player);
 				}
 			}
 
@@ -451,7 +452,7 @@ public class CCEvents {
 			}
 		}
 
-		if (source.getDirectEntity() instanceof BluntArrow) {
+		if (source.getDirectEntity() instanceof BluntArrow || source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
 			event.setAmount(0.0F);
 		}
 	}

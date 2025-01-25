@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "caverns_and_chasms:item/foil",
+    "layer1": "caverns_and_chasms:item/foil_overlay"
+  }
+}
