@@ -18,6 +18,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> CAVE_GROWTHS = blockTag("cave_growths");
 	public static final TagKey<Block> COPPER_RAILS = blockTag("copper_rails");
 	public static final TagKey<Block> DEFLECTS_PROJECTILES = blockTag("deflects_projectiles");
+	public static final TagKey<Block> MAINTAINS_DEFLECT_VELOCITY = blockTag("maintains_deflect_velocity");
 
 	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxable_copper_blocks");
 	public static final TagKey<Block> WAXED_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxed_copper_blocks");

@@ -65,10 +65,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseRailBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.NoteBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -507,7 +504,8 @@ public class CCEvents {
 
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN) && level.getBlockState((blockHitResult).getBlockPos()).is(CCBlockTags.DEFLECTS_PROJECTILES)) {
+			BlockState state = level.getBlockState((blockHitResult).getBlockPos());
+			if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN) && state.is(CCBlockTags.DEFLECTS_PROJECTILES)) {
 				Direction direction = blockHitResult.getDirection();
 				Vec3 vec3 = projectile.getDeltaMovement();
 				double d0 = vec3.lengthSqr();
@@ -520,6 +518,15 @@ public class CCEvents {
 
 					double j = 0.65D;
 					double k = 0.75D;
+
+					if (state.is(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY)) {
+						j = 0.9D;
+						k = 0.9D;
+					}
+
+					if (state.getBlock() instanceof TargetBlock targetBlock) {
+						targetBlock.onProjectileHit(level, state, blockHitResult, projectile);
+					}
 
 					if (axis == Axis.X) {
 						data.setValue(CCDataProcessors.DEFLECT_X, -vec3.x * j);
