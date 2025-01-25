@@ -453,21 +453,22 @@ public class CCEvents {
 		}
 
 		if (source.getDirectEntity() instanceof BluntArrow || source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
-		if (source.getDirectEntity() instanceof BluntArrow) {
-			event.setAmount(0.0F);
-		}
+			if (source.getDirectEntity() instanceof BluntArrow) {
+				event.setAmount(0.0F);
+			}
 
-		if (source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
-			event.setAmount(0.0F);
-			if (target.isPassenger() && target.level().getRandom().nextInt(3) == 0 && target.getVehicle() != null) {
-				float rot = living.getVisualRotationYInDegrees();
-				float x = Mth.sin(rot * Mth.DEG_TO_RAD);
-				float z = -Mth.cos(rot * Mth.DEG_TO_RAD);
+			if (source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
+				event.setAmount(0.0F);
+				if (target.isPassenger() && target.level().getRandom().nextInt(3) == 0 && target.getVehicle() != null) {
+					float rot = living.getVisualRotationYInDegrees();
+					float x = Mth.sin(rot * Mth.DEG_TO_RAD);
+					float z = -Mth.cos(rot * Mth.DEG_TO_RAD);
 
-				target.removeVehicle();
-				Vec3 vec3 = (new Vec3(x, 0.0D, z)).scale(-0.2F);
-				target.push(vec3.x, 0.8D, vec3.z);
-				target.hurtMarked = true;
+					target.removeVehicle();
+					Vec3 vec3 = (new Vec3(x, 0.0D, z)).scale(-0.2F);
+					target.push(vec3.x, 0.8D, vec3.z);
+					target.hurtMarked = true;
+				}
 			}
 		}
 	}
