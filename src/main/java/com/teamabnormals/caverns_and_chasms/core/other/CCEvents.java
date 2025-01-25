@@ -453,7 +453,22 @@ public class CCEvents {
 		}
 
 		if (source.getDirectEntity() instanceof BluntArrow || source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
+		if (source.getDirectEntity() instanceof BluntArrow) {
 			event.setAmount(0.0F);
+		}
+
+		if (source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
+			event.setAmount(0.0F);
+			if (target.isPassenger() && target.level().getRandom().nextInt(3) == 0 && target.getVehicle() != null) {
+				float rot = living.getVisualRotationYInDegrees();
+				float x = Mth.sin(rot * Mth.DEG_TO_RAD);
+				float z = -Mth.cos(rot * Mth.DEG_TO_RAD);
+
+				target.removeVehicle();
+				Vec3 vec3 = (new Vec3(x, 0.0D, z)).scale(-0.2F);
+				target.push(vec3.x, 0.8D, vec3.z);
+				target.hurtMarked = true;
+			}
 		}
 	}
 
@@ -613,8 +628,7 @@ public class CCEvents {
 				if (golem != null) {
 					int forgettime = TuningForkItem.getForgetGolemTime(player);
 					if (forgettime > 0) {
-						if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem()))
-							TuningForkItem.setForgetGolemTime(player, forgettime - 1);
+						if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem())) TuningForkItem.setForgetGolemTime(player, forgettime - 1);
 					} else {
 						TuningForkItem.setControlledGolem(player, null);
 					}
@@ -662,10 +676,8 @@ public class CCEvents {
 		double y = data.getValue(CCDataProcessors.REWIND_Y);
 		double z = data.getValue(CCDataProcessors.REWIND_Z);
 
-		if (entity.isPassenger())
-			entity.dismountTo(x, y, z);
-		else
-			entity.teleportTo(x, y, z);
+		if (entity.isPassenger()) entity.dismountTo(x, y, z);
+		else entity.teleportTo(x, y, z);
 
 		entity.teleportTo(data.getValue(CCDataProcessors.REWIND_X), data.getValue(CCDataProcessors.REWIND_Y), data.getValue(CCDataProcessors.REWIND_Z));
 		entity.resetFallDistance();

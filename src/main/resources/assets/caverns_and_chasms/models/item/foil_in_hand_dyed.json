@@ -1,7 +1,7 @@
 {
 	"texture_size": [16, 32],
 	"textures": {
-		"foil": "caverns_and_chasms:item/foil_model"
+		"foil": "caverns_and_chasms:item/foil_model_dyed"
 	},
 	"elements": [
 		{
@@ -9,11 +9,11 @@
 			"to": [8.5, 32, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 4, 7.5]},
 			"faces": {
-				"north": {"uv": [15, 0, 16, 13.5], "texture": "#foil"},
-				"east": {"uv": [15, 0, 16, 13.5], "texture": "#foil"},
-				"south": {"uv": [15, 0, 16, 13.5], "texture": "#foil"},
-				"west": {"uv": [15, 0, 16, 13.5], "texture": "#foil"},
-				"up": {"uv": [15, 0, 16, 0.5], "texture": "#foil"}
+				"north": {"uv": [15, 0, 16, 13.5], "texture": "#foil", "tintindex": 0},
+				"east": {"uv": [15, 0, 16, 13.5], "texture": "#foil", "tintindex": 0},
+				"south": {"uv": [15, 0, 16, 13.5], "texture": "#foil", "tintindex": 0},
+				"west": {"uv": [15, 0, 16, 13.5], "texture": "#foil", "tintindex": 0},
+				"up": {"uv": [15, 0, 16, 0.5], "texture": "#foil", "tintindex": 0}
 			}
 		},
 		{
@@ -32,11 +32,11 @@
 			"to": [8.5, -2, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, -23, 7.5]},
 			"faces": {
-				"north": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil"},
-				"east": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil"},
-				"south": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil"},
-				"west": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil"},
-				"down": {"uv": [0, 8, 1, 8.5], "texture": "#foil"}
+				"north": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil", "tintindex": 0},
+				"east": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil", "tintindex": 0},
+				"south": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil", "tintindex": 0},
+				"west": {"uv": [0, 7.5, 1, 8.5], "texture": "#foil", "tintindex": 0},
+				"down": {"uv": [0, 8, 1, 8.5], "texture": "#foil", "tintindex": 0}
 			}
 		},
 		{

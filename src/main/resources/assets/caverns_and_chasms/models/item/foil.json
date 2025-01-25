@@ -17,5 +17,13 @@
     "firstperson_lefthand": {
       "parent": "caverns_and_chasms:item/foil_in_hand"
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "dyed": 1.0
+      },
+      "model": "caverns_and_chasms:item/foil_dyed"
+    }
+  ]
 }

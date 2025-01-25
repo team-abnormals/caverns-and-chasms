@@ -2,14 +2,12 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeMod;
 
 import java.util.UUID;
@@ -24,6 +22,12 @@ public class FoilItem extends SwordItem implements DyeableLeatherItem {
 		builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(ENTITY_REACH_UUID, "Weapon modifier", 3.0F, AttributeModifier.Operation.ADDITION));
 		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", speed, AttributeModifier.Operation.ADDITION));
 		this.defaultModifiers = builder.build();
+	}
+
+	@Override
+	public int getColor(ItemStack stack) {
+		CompoundTag tag = stack.getTagElement("display");
+		return tag != null && tag.contains("color", 99) ? tag.getInt("color") : -1;
 	}
 
 	@Override
