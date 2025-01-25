@@ -447,9 +447,6 @@ public class CCEvents {
 			}
 
 			if (slownessInfliction > 0.0F) {
-				System.out.println("Slowness amount: " + slownessInfliction);
-				System.out.println("Duration: " + ((int) (60 * slownessInfliction) / 20) + " seconds");
-				System.out.println("Level: " + ((int) slownessInfliction - 1));
 				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
 			}
 		}
