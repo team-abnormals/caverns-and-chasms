@@ -1,9 +1,17 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.caverns_and_chasms.client.particle.*;
+import com.teamabnormals.caverns_and_chasms.client.particle.ChipParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.FloodlightDustParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.GolemNoteParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.LavaLampSmokeParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.MimeEnergyParticle;
 import com.teamabnormals.caverns_and_chasms.client.particle.SilverParticle.DamageProvider;
 import com.teamabnormals.caverns_and_chasms.client.particle.SilverParticle.SparkProvider;
+import com.teamabnormals.caverns_and_chasms.client.particle.SparkParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.SpinelBoomParticle;
+import com.teamabnormals.caverns_and_chasms.client.particle.StoneDustParticle;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.particle.PlayerCloudParticle;
@@ -17,11 +25,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Supplier;
+
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CCParticleTypes {
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<SimpleParticleType> CUPRIC_FIRE_FLAME = registerSimpleParticleType(false, "cupric_fire_flame");
+	public static final Supplier<SimpleParticleType> CUPRIC_FIRE_FLAME = FireManager.registerParticle(CCFires.CUPRIC_FIRE);
 	public static final RegistryObject<SimpleParticleType> SMALL_CUPRIC_FIRE_FLAME = registerSimpleParticleType(false, "small_cupric_fire_flame");
 	public static final RegistryObject<SimpleParticleType> MIME_ENERGY = registerSimpleParticleType(true, "mime_energy");
 	public static final RegistryObject<SimpleParticleType> MIME_SPARK = registerSimpleParticleType(true, "mime_spark");
@@ -50,7 +60,6 @@ public class CCParticleTypes {
 	public static class RegisterParticles {
 		@SubscribeEvent
 		public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
-			event.registerSpriteSet(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
 			event.registerSpriteSet(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
 			event.registerSpriteSet(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
 			event.registerSpriteSet(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);

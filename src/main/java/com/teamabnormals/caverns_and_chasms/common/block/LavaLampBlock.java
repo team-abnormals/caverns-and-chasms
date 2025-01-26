@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -16,7 +17,11 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -88,7 +93,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (this.isEntityTouchingLava(state, pos, entity)) {
 			if (!entity.fireImmune()) {
-				entity.setSecondsOnFire(15);
+				FireManager.setOnFire(entity, 15, FireManager.DEFAULT_FIRE_TYPE);
 				if (entity.hurt(CCDamageTypes.lavaLamp(level), 2.0F)) {
 					entity.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + level.getRandom().nextFloat() * 0.4F);
 				}

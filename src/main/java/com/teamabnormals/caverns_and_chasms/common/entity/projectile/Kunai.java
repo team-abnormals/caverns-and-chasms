@@ -3,6 +3,8 @@ package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import it.crystalnest.soul_fire_d.api.FireManager;
+import it.crystalnest.soul_fire_d.api.type.FireTyped;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
@@ -66,7 +68,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 
 		boolean isEnderman = target.getType() == EntityType.ENDERMAN;
 		if (this.isOnFire() && !isEnderman) {
-			target.setSecondsOnFire(5);
+			FireManager.setOnFire(target, 5, ((FireTyped) this).getFireType());
 		}
 
 		if (target.hurt(damagesource, (float) damage)) {

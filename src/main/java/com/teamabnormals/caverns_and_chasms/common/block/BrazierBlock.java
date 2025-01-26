@@ -1,9 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -49,18 +51,18 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	protected static final VoxelShape GROUNDED_SHAPE = Shapes.or(Block.box(1.0D, 4.0D, 1.0D, 15.0D, 9.0D, 15.0D), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D));
 	protected static final VoxelShape HANGING_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 5.0D, 15.0D);
 
-	private final float fireDamage;
+	private final ResourceLocation fireType;
 
-	public BrazierBlock(float fireDamage, BlockBehaviour.Properties properties) {
+	public BrazierBlock(ResourceLocation fireType, BlockBehaviour.Properties properties) {
 		super(properties);
-		this.fireDamage = fireDamage;
+		this.fireType = fireType;
 		this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true).setValue(HANGING, false).setValue(WATERLOGGED, false));
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entityIn) {
 		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-			entityIn.hurt(entityIn.damageSources().inFire(), this.fireDamage);
+			FireManager.damageInFire(entityIn, this.fireType);
 		}
 
 		super.entityInside(state, level, pos, entityIn);

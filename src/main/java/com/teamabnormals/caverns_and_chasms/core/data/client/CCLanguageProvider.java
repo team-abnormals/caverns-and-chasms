@@ -37,7 +37,7 @@ public class CCLanguageProvider extends LanguageProvider {
 		this.add(CCBlocks.LAVA_LAMP.get(), CCBlocks.GOLDEN_BARS.get());
 		this.add(CCBlocks.ROTTEN_FLESH_BLOCK.get());
 		this.add(CCBlocks.BRAZIER.get(), CCBlocks.SOUL_BRAZIER.get(), CCBlocks.ENDER_BRAZIER.get(), CCBlocks.CUPRIC_BRAZIER.get());
-		this.add(CCBlocks.CUPRIC_FIRE.get(), CCBlocks.CUPRIC_TORCH.get(), CCBlocks.CUPRIC_LANTERN.get(), CCBlocks.CUPRIC_CAMPFIRE.get());
+		this.add(CCBlocks.CUPRIC_FIRE.get(), CCBlocks.CUPRIC_TORCHES.getLeft().get(), CCBlocks.CUPRIC_LANTERN.get(), CCBlocks.CUPRIC_CAMPFIRE.get());
 		this.add(CCBlocks.FRAGILE_STONE.get(), CCBlocks.FRAGILE_DEEPSLATE.get(), CCBlocks.ROCKY_DIRT.get());
 		this.add(CCBlocks.COBBLESTONE_BRICKS.get(), CCBlocks.COBBLESTONE_BRICK_SLAB.get(), CCBlocks.COBBLESTONE_BRICK_STAIRS.get(), CCBlocks.COBBLESTONE_BRICK_WALL.get());
 		this.add(CCBlocks.COBBLESTONE_TILES.get(), CCBlocks.COBBLESTONE_TILE_SLAB.get(), CCBlocks.COBBLESTONE_TILE_STAIRS.get(), CCBlocks.COBBLESTONE_TILE_WALL.get());

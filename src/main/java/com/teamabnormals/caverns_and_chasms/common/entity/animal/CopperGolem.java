@@ -8,7 +8,9 @@ import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCop
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFires;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import it.crystalnest.soul_fire_d.api.type.FireTypeChanger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -28,7 +31,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -54,9 +62,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.UUID;
 
-public class CopperGolem extends AbstractGolem implements ControllableGolem {
+public class CopperGolem extends AbstractGolem implements ControllableGolem, FireTypeChanger {
 	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
 	private static final EntityDataAccessor<Integer> OXIDATION = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
@@ -410,6 +422,16 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		level.blockUpdated(pos, Blocks.AIR);
 		level.blockUpdated(abovepos, Blocks.AIR);
+	}
+
+	@Override
+	public void setFireType(ResourceLocation fireType) {
+		// Empty on purpose: Copper Golem only catches Cupric Fire.
+	}
+
+	@Override
+	public ResourceLocation getFireType() {
+		return CCFires.CUPRIC_FIRE;
 	}
 
 	class RandomWalkingGoal extends WaterAvoidingRandomStrollGoal {

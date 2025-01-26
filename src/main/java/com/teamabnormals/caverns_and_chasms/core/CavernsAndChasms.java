@@ -20,7 +20,12 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
-import com.teamabnormals.caverns_and_chasms.core.other.*;
+import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
+import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
+import com.teamabnormals.caverns_and_chasms.core.other.CCInstruments;
+import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
@@ -33,7 +38,6 @@ import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -86,6 +90,7 @@ public class CavernsAndChasms {
 		CCDataProcessors.registerTrackedData();
 
 		REGISTRY_HELPER.register(bus);
+		CCFires.register();
 		CCEntityTypes.ENTITY_TYPES.register(bus);
 		CCAttributes.ATTRIBUTES.register(bus);
 		CCMobEffects.POTIONS.register(bus);
@@ -224,7 +229,6 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.LOST_GOAT.get(), LostGoatRenderer::new);
 
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ATONING_TABLE.get(), AtoningTableRenderer::new);

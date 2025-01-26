@@ -18,8 +18,15 @@ import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
+import it.crystalnest.soul_fire_d.api.FireManager;
+import it.crystalnest.soul_fire_d.api.block.CustomCampfireBlock;
+import it.crystalnest.soul_fire_d.api.block.CustomFireBlock;
+import it.crystalnest.soul_fire_d.api.block.CustomLanternBlock;
+import it.crystalnest.soul_fire_d.api.block.CustomTorchBlock;
+import it.crystalnest.soul_fire_d.api.block.CustomWallTorchBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -51,6 +58,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.item.CreativeModeTabs.*;
@@ -101,16 +109,15 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> NECROMIUM_BLOCK = HELPER.createBlock("necromium_block", () -> new Block(CCProperties.NECROMIUM_BLOCK), new Item.Properties().fireResistant());
 
-	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(1.0F, CCProperties.BRAZIER));
-	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(2.0F, CCProperties.BRAZIER_DIM));
-	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createBlock("ender_brazier", () -> new BrazierBlock(3.0F, CCProperties.BRAZIER));
-	public static final RegistryObject<Block> CUPRIC_BRAZIER = HELPER.createBlock("cupric_brazier", () -> new BrazierBlock(0.5F, CCProperties.BRAZIER_DIM));
+	public static final RegistryObject<Block> BRAZIER = HELPER.createBlock("brazier", () -> new BrazierBlock(FireManager.DEFAULT_FIRE_TYPE, CCProperties.BRAZIER));
+	public static final RegistryObject<Block> SOUL_BRAZIER = HELPER.createBlock("soul_brazier", () -> new BrazierBlock(FireManager.SOUL_FIRE_TYPE, CCProperties.BRAZIER_DIM));
+	public static final RegistryObject<Block> ENDER_BRAZIER = HELPER.createBlock("ender_brazier", () -> new BrazierBlock(CCFires.ENDER_FIRE, CCProperties.BRAZIER));
+	public static final RegistryObject<Block> CUPRIC_BRAZIER = HELPER.createBlock("cupric_brazier", () -> new BrazierBlock(CCFires.CUPRIC_FIRE, CCProperties.BRAZIER_DIM));
 
-	public static final RegistryObject<Block> CUPRIC_FIRE = HELPER.createBlockNoItem("cupric_fire", () -> new CupricFireBlock(Block.Properties.copy(Blocks.SOUL_FIRE)));
-	public static final RegistryObject<Block> CUPRIC_CAMPFIRE = HELPER.createBlock("cupric_campfire", () -> new CupricCampfireBlock(Block.Properties.copy(Blocks.SOUL_CAMPFIRE)));
-	public static final RegistryObject<Block> CUPRIC_LANTERN = HELPER.createBlock("cupric_lantern", () -> new LanternBlock(Block.Properties.copy(Blocks.SOUL_LANTERN)));
-	public static final RegistryObject<Block> CUPRIC_WALL_TORCH = HELPER.createBlockNoItem("cupric_wall_torch", () -> new CupricWallTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)));
-	public static final RegistryObject<Block> CUPRIC_TORCH = HELPER.createStandingAndWallBlock("cupric_torch", () -> new CupricTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)), CUPRIC_WALL_TORCH, Direction.DOWN);
+	public static final Supplier<CustomFireBlock> CUPRIC_FIRE = FireManager.registerFireSource(CCFires.CUPRIC_FIRE, CCBlockTags.CUPRIC_FIRE_BASE_BLOCKS, MapColor.COLOR_LIGHT_GREEN);
+	public static final Supplier<CustomCampfireBlock> CUPRIC_CAMPFIRE = FireManager.registerCampfire(CCFires.CUPRIC_FIRE, false);
+	public static final Supplier<CustomLanternBlock> CUPRIC_LANTERN = FireManager.registerLantern(CCFires.CUPRIC_FIRE);
+	public static final org.apache.commons.lang3.tuple.Pair<Supplier<CustomTorchBlock>, Supplier<CustomWallTorchBlock>> CUPRIC_TORCHES = FireManager.registerTorch(CCFires.CUPRIC_FIRE);
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK));
 
@@ -447,7 +454,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.TORCHFLOWER), MOSCHATEL, FALSE_HOPE)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
-				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
+				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCHES.getLeft())
 				.addItemsBefore(of(Blocks.ANVIL), CUPRIC_CAMPFIRE)
 				.addItemsBefore(of(Blocks.CHAIN), CUPRIC_LANTERN, BRAZIER, SOUL_BRAZIER)
 				.addItemsBefore(modLoaded(Blocks.CHAIN, "endergetic"), ENDER_BRAZIER)

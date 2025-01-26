@@ -16,6 +16,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
+import it.crystalnest.soul_fire_d.api.FireManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet.Named;
@@ -42,6 +43,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static com.teamabnormals.blueprint.core.util.item.ItemStackUtil.is;
 import static net.minecraft.world.item.CreativeModeTabs.*;
@@ -50,6 +52,10 @@ import static net.minecraft.world.item.crafting.Ingredient.of;
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CCItems {
 	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
+
+	public static final Supplier<BlockItem> CUPRIC_CAMPFIRE = FireManager.registerCampfireItem(CCFires.CUPRIC_FIRE);
+	public static final Supplier<BlockItem> CUPRIC_LANTERN = FireManager.registerLanternItem(CCFires.CUPRIC_FIRE);
+	public static final Supplier<StandingAndWallBlockItem> CUPRIC_TORCH = FireManager.registerTorchItem(CCFires.CUPRIC_FIRE);
 
 	public static final RegistryObject<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new Item(new Item.Properties()));

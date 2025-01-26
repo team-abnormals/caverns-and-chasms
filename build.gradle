@@ -83,6 +83,9 @@ dependencies {
     implementation fg.deobf("com.teamabnormals:gallery:${project.minecraft}-${project.gallery}")
     implementation fg.deobf("com.teamabnormals:woodworks:${project.minecraft}-${project.woodworks}")
 
+    implementation fg.deobf("it.crystalnest:cobweb-forge:${project.minecraft}-${project.cobweb}")
+    implementation fg.deobf("it.crystalnest:soul-fire-d-forge:${project.minecraft}-${project.soul_fire_d}")
+
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-common-api:${project.jei}")
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge-api:${project.jei}")
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge:${project.jei}")
@@ -98,6 +101,8 @@ repositories {
     maven { url "https://maven.jaackson.me" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url "https://modmaven.k-4u.nl" }
+    maven { url "https://maven.crystalnest.it" }
+    maven { url "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" }
 }
 
 jar {
