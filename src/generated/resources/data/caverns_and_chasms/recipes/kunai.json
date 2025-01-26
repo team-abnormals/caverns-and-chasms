@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "tag": "forge:nuggets/silver"
     },
     "S": {
-      "tag": "forge:nuggets/silver"
+      "tag": "forge:ingots/silver"
     }
   },
   "pattern": [
@@ -14,6 +14,7 @@
     "# "
   ],
   "result": {
+    "count": 3,
     "item": "caverns_and_chasms:kunai"
   },
   "show_notification": true
