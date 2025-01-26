@@ -11,6 +11,7 @@
     "caverns_and_chasms:tin_brick_wall",
     "caverns_and_chasms:chiseled_tin_bricks",
     "caverns_and_chasms:float_glass",
-    "caverns_and_chasms:float_glass_pane"
+    "caverns_and_chasms:float_glass_pane",
+    "#caverns_and_chasms:maintains_deflect_velocity"
   ]
 }

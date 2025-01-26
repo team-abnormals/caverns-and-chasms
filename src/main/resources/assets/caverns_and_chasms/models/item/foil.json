@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "caverns_and_chasms:item/foil_inventory"
+  },
+  "perspectives": {
+    "thirdperson_righthand": {
+      "parent": "caverns_and_chasms:item/foil_in_hand"
+    },
+    "thirdperson_lefthand": {
+      "parent": "caverns_and_chasms:item/foil_in_hand"
+    },
+    "firstperson_righthand": {
+      "parent": "caverns_and_chasms:item/foil_in_hand"
+    },
+    "firstperson_lefthand": {
+      "parent": "caverns_and_chasms:item/foil_in_hand"
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "dyed": 1.0
+      },
+      "model": "caverns_and_chasms:item/foil_dyed"
+    }
+  ]
+}

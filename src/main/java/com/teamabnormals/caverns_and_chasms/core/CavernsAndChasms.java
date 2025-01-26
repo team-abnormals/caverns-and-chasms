@@ -36,9 +36,11 @@ import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegis
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
+import net.minecraft.client.model.MinecartModel;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.core.HolderLookup.Provider;
@@ -208,6 +210,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TOOLBOX, ToolboxRenderer::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.TMT_MINECART, MinecartModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.LOST_GOAT, LostGoatModel::createBodyLayer);
 	}
 
@@ -223,6 +226,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.TMT_MINECART.get(), TmtMinecartRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.LARGE_ARROW.get(), LargeArrowRenderer::new);
@@ -247,6 +251,7 @@ public class CavernsAndChasms {
 		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
 		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.FOIL.get());
 
 	}
 

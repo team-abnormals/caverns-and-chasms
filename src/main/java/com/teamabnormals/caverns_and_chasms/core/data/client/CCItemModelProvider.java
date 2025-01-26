@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
@@ -26,7 +27,7 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 				RAW_TIN, TIN_INGOT, TIN_NUGGET,
 				NECROMIUM_INGOT, NECROMIUM_NUGGET, NECROMIUM_HORSE_ARMOR,
 				NETHERITE_NUGGET, NETHERITE_HORSE_ARMOR,
-				BEJEWELED_APPLE, BLUNT_ARROW, SPINEL, ZIRCONIA,
+				BEJEWELED_APPLE, BLUNT_ARROW, SPINEL, ZIRCONIA, TMT_MINECART,
 				LIVING_FLESH, EXILE_ARMOR_TRIM_SMITHING_TEMPLATE,
 				AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond(), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT
 		);

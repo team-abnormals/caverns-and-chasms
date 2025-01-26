@@ -6,19 +6,19 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.LargeArrow;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.ThrownBejeweledPearl;
+import com.teamabnormals.caverns_and_chasms.common.entity.vehicle.MinecartTMT;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -52,6 +52,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<BluntArrow>> BLUNT_ARROW = HELPER.createEntity("blunt_arrow", BluntArrow::new, BluntArrow::new, MobCategory.MISC, 0.5F, 0.5F);
 	public static final RegistryObject<EntityType<LargeArrow>> LARGE_ARROW = HELPER.createEntity("large_arrow", LargeArrow::new, LargeArrow::new, MobCategory.MISC, 0.75F, 0.75F);
 	public static final RegistryObject<EntityType<LostGoat>> LOST_GOAT = HELPER.createLivingEntity("lost_goat", LostGoat::new, LOST_GOAT_CATEGORY, 0.9F, 1.3F);
+	public static final RegistryObject<EntityType<MinecartTMT>> TMT_MINECART = HELPER.createEntity("tmt_minecart", MinecartTMT::new, MinecartTMT::new, MobCategory.MISC, 0.98F, 0.7F);
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {
@@ -68,7 +69,7 @@ public class CCEntityTypes {
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeModificationEvent event) {
-		event.add(EntityType.SKELETON, Attributes.MAX_HEALTH, 10.0D);
+//		event.add(EntityType.SKELETON, Attributes.MAX_HEALTH, 10.0D);
 	}
 
 	@SubscribeEvent

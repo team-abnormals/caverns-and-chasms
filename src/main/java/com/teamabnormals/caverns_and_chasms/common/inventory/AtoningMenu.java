@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
@@ -197,7 +198,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 						player.awardStat(Stats.ENCHANT_ITEM);
 						if (player instanceof ServerPlayer) {
-							CriteriaTriggers.ENCHANTED_ITEM.trigger((ServerPlayer) player, output, i);
+							CCCriteriaTriggers.ATONED_ITEM.trigger((ServerPlayer) player, output, i);
 						}
 
 						this.enchantSlots.setChanged();

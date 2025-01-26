@@ -82,8 +82,8 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 				}
 
 				this.doPostHurtEffects(livingTarget);
-				if (livingTarget != shooter && livingTarget instanceof Player && shooter instanceof ServerPlayer && !this.isSilent()) {
-					((ServerPlayer) shooter).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+				if (livingTarget != shooter && livingTarget instanceof Player && shooter instanceof ServerPlayer serverPlayer && !this.isSilent()) {
+					serverPlayer .connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
 				}
 
 				if (!target.isAlive() && this.piercedAndKilledEntities != null) {
@@ -92,6 +92,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 			}
 
 			this.playSound(this.getDefaultHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+			this.discard();
 		} else {
 			target.setRemainingFireTicks(target.getRemainingFireTicks());
 			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));

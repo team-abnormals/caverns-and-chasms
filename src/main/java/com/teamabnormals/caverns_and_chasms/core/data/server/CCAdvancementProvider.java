@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
+import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -71,10 +72,22 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		createAdvancement("dismantle_item", "adventure", new ResourceLocation("adventure/trim_with_any_armor_pattern"), CCBlocks.DISMANTLING_TABLE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("dismantled_item", CCCriteriaTriggers.DISMANTLED_ITEM.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dismantle_item");
+
+		Advancement atoneItem = createAdvancement("atone_item", "adventure", new ResourceLocation("adventure/root"), CCBlocks.ATONING_TABLE.get(), FrameType.TASK, true, true, false)
+				.addCriterion("atoned_item", AtonedItemTrigger.TriggerInstance.atonedItem())
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/atone_item");
+
+		createAdvancement("break_item_atoning", "adventure", atoneItem, CCBlocks.ATONING_TABLE.get(), FrameType.GOAL, true, true, true)
+				.addCriterion("broken_atonement", AtonedItemTrigger.TriggerInstance.brokenAtonement())
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/break_item_atoning");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-		return Advancement.Builder.advancement().parent(Advancement.Builder.advancement().build(parent)).display(icon,
+		return createAdvancement(name, category, Advancement.Builder.advancement().build(parent), icon, frame, showToast, announceToChat, hidden);
+	}
+
+	private static Advancement.Builder createAdvancement(String name, String category, Advancement parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+		return Advancement.Builder.advancement().parent(parent).display(icon,
 				Component.translatable("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".title"),
 				Component.translatable("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".description"),
 				null, frame, showToast, announceToChat, hidden);

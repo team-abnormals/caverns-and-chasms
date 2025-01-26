@@ -67,7 +67,7 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_RAIL.get(), RenderType.cutout());
-		
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.HALT_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SPIKED_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SLAUGHTER_RAIL.get(), RenderType.cutout());
@@ -106,24 +106,23 @@ public class CCClientCompat {
 	}
 
 	public static void registerItemProperties() {
+		ItemProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
+
 		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, CCItems.TETHER_POTION.get())) {
 			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
 		}
 
-		ItemProperties.register(CCItems.GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_LAVA_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		for (Item item : List.of(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get())) {
+			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		}
 
-		ItemProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
+		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get())) {
+			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+		}
 
-		ItemProperties.register(CCItems.LOST_GOAT_HORN.get(), new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
-		ItemProperties.register(CCItems.COPPER_HORN.get(), new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
-
-		ItemProperties.register(Items.BUNDLE, new ResourceLocation("dyed"), (stack, level, entity, hash) -> {
-			return ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F;
-		});
+		for (Item item : List.of(Items.BUNDLE, CCItems.FOIL.get())) {
+			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
+		}
 
 		ItemProperties.register(CCItems.TUNING_FORK.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
 		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "depth"), new ClampedItemPropertyFunction() {

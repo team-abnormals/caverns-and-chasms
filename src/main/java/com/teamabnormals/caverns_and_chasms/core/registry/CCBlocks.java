@@ -84,14 +84,16 @@ public class CCBlocks {
 	public static final RegistryObject<Block> FLOAT_GLASS = HELPER.createBlock("float_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 	public static final RegistryObject<Block> FLOAT_GLASS_PANE = HELPER.createBlock("float_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
-	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> WEATHERED_COPPER_RAIL = HELPER.createBlock("weathered_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> OXIDIZED_COPPER_RAIL = HELPER.createBlock("oxidized_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> WAXED_COPPER_RAIL = HELPER.createBlock("waxed_copper_rail", () -> new CopperRailBlock(WeatherState.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_RAIL = HELPER.createBlock("waxed_exposed_copper_rail", () -> new CopperRailBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_RAIL = HELPER.createBlock("waxed_weathered_copper_rail", () -> new CopperRailBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
-	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_RAIL = HELPER.createBlock("waxed_oxidized_copper_rail", () -> new CopperRailBlock(WeatherState.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.RAIL)));
+	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
+
+	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> WEATHERED_COPPER_RAIL = HELPER.createBlock("weathered_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.WEATHERED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_RAIL = HELPER.createBlock("oxidized_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.OXIDIZED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> WAXED_COPPER_RAIL = HELPER.createBlock("waxed_copper_rail", () -> new CopperRailBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_RAIL = HELPER.createBlock("waxed_exposed_copper_rail", () -> new CopperRailBlock(WeatherState.EXPOSED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_RAIL = HELPER.createBlock("waxed_weathered_copper_rail", () -> new CopperRailBlock(WeatherState.WEATHERED, CCProperties.COPPER_RAIL));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_RAIL = HELPER.createBlock("waxed_oxidized_copper_rail", () -> new CopperRailBlock(WeatherState.OXIDIZED, CCProperties.COPPER_RAIL));
 
 	public static final RegistryObject<Block> HALT_RAIL = HELPER.createBlock("halt_rail", () -> new HaltRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL)));
@@ -274,77 +276,77 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ECHO_BLOCK = HELPER.createBlock("echo_block", () -> new Block(CCProperties.ECHO_BLOCK));
 
-	public static final RegistryObject<Block> IRON_BRICKS = HELPER.createBlock("iron_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> IRON_BRICK_STAIRS = HELPER.createBlock("iron_brick_stairs", () -> new StairBlock(() -> IRON_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> IRON_BRICK_SLAB = HELPER.createBlock("iron_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> IRON_BRICK_WALL = HELPER.createBlock("iron_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> CHISELED_IRON_BRICKS = HELPER.createBlock("chiseled_iron_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICKS = HELPER.createBlock("iron_bricks", () -> new Block(CCProperties.IRON_PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICK_STAIRS = HELPER.createBlock("iron_brick_stairs", () -> new StairBlock(() -> IRON_BRICKS.get().defaultBlockState(), CCProperties.IRON_PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICK_SLAB = HELPER.createBlock("iron_brick_slab", () -> new SlabBlock(CCProperties.IRON_PLATED_BRICKS));
+	public static final RegistryObject<Block> IRON_BRICK_WALL = HELPER.createBlock("iron_brick_wall", () -> new WallBlock(CCProperties.IRON_PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_IRON_BRICKS = HELPER.createBlock("chiseled_iron_bricks", () -> new Block(CCProperties.IRON_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> TIN_BRICKS = HELPER.createBlock("tin_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> TIN_BRICK_STAIRS = HELPER.createBlock("tin_brick_stairs", () -> new StairBlock(() -> TIN_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> TIN_BRICK_SLAB = HELPER.createBlock("tin_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> TIN_BRICK_WALL = HELPER.createBlock("tin_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> CHISELED_TIN_BRICKS = HELPER.createBlock("chiseled_tin_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICKS = HELPER.createBlock("tin_bricks", () -> new Block(CCProperties.TIN_PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICK_STAIRS = HELPER.createBlock("tin_brick_stairs", () -> new StairBlock(() -> TIN_BRICKS.get().defaultBlockState(), CCProperties.TIN_PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICK_SLAB = HELPER.createBlock("tin_brick_slab", () -> new SlabBlock(CCProperties.TIN_PLATED_BRICKS));
+	public static final RegistryObject<Block> TIN_BRICK_WALL = HELPER.createBlock("tin_brick_wall", () -> new WallBlock(CCProperties.TIN_PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_TIN_BRICKS = HELPER.createBlock("chiseled_tin_bricks", () -> new Block(CCProperties.TIN_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> GOLD_BRICKS = HELPER.createBlock("gold_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> GOLD_BRICK_STAIRS = HELPER.createBlock("gold_brick_stairs", () -> new StairBlock(() -> GOLD_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> GOLD_BRICK_SLAB = HELPER.createBlock("gold_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> GOLD_BRICK_WALL = HELPER.createBlock("gold_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> CHISELED_GOLD_BRICKS = HELPER.createBlock("chiseled_gold_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICKS = HELPER.createBlock("gold_bricks", () -> new Block(CCProperties.GOLD_PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICK_STAIRS = HELPER.createBlock("gold_brick_stairs", () -> new StairBlock(() -> GOLD_BRICKS.get().defaultBlockState(), CCProperties.GOLD_PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICK_SLAB = HELPER.createBlock("gold_brick_slab", () -> new SlabBlock(CCProperties.GOLD_PLATED_BRICKS));
+	public static final RegistryObject<Block> GOLD_BRICK_WALL = HELPER.createBlock("gold_brick_wall", () -> new WallBlock(CCProperties.GOLD_PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_GOLD_BRICKS = HELPER.createBlock("chiseled_gold_bricks", () -> new Block(CCProperties.GOLD_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> SILVER_BRICKS = HELPER.createBlock("silver_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> SILVER_BRICK_STAIRS = HELPER.createBlock("silver_brick_stairs", () -> new StairBlock(() -> SILVER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> SILVER_BRICK_SLAB = HELPER.createBlock("silver_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> SILVER_BRICK_WALL = HELPER.createBlock("silver_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> CHISELED_SILVER_BRICKS = HELPER.createBlock("chiseled_silver_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICKS = HELPER.createBlock("silver_bricks", () -> new Block(CCProperties.SILVER_PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICK_STAIRS = HELPER.createBlock("silver_brick_stairs", () -> new StairBlock(() -> SILVER_BRICKS.get().defaultBlockState(), CCProperties.SILVER_PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICK_SLAB = HELPER.createBlock("silver_brick_slab", () -> new SlabBlock(CCProperties.SILVER_PLATED_BRICKS));
+	public static final RegistryObject<Block> SILVER_BRICK_WALL = HELPER.createBlock("silver_brick_wall", () -> new WallBlock(CCProperties.SILVER_PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_SILVER_BRICKS = HELPER.createBlock("chiseled_silver_bricks", () -> new Block(CCProperties.SILVER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> COPPER_BRICKS = HELPER.createBlock("copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> COPPER_BRICK_STAIRS = HELPER.createBlock("copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.UNAFFECTED, () -> COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> COPPER_BRICK_SLAB = HELPER.createBlock("copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> COPPER_BRICK_WALL = HELPER.createBlock("copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> CHISELED_COPPER_BRICKS = HELPER.createBlock("chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICKS = HELPER.createBlock("copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICK_STAIRS = HELPER.createBlock("copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.UNAFFECTED, () -> COPPER_BRICKS.get().defaultBlockState(), CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICK_SLAB = HELPER.createBlock("copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> COPPER_BRICK_WALL = HELPER.createBlock("copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> CHISELED_COPPER_BRICKS = HELPER.createBlock("chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> EXPOSED_COPPER_BRICKS = HELPER.createBlock("exposed_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("exposed_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.EXPOSED, () -> EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("exposed_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("exposed_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("exposed_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICKS = HELPER.createBlock("exposed_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("exposed_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.EXPOSED, () -> EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("exposed_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("exposed_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("exposed_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> WEATHERED_COPPER_BRICKS = HELPER.createBlock("weathered_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("weathered_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.WEATHERED, () -> WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("weathered_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("weathered_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("weathered_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICKS = HELPER.createBlock("weathered_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("weathered_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.WEATHERED, () -> WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("weathered_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("weathered_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("weathered_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICKS = HELPER.createBlock("oxidized_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("oxidized_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.OXIDIZED, () -> OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("oxidized_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("oxidized_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("oxidized_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICKS = HELPER.createBlock("oxidized_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("oxidized_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.OXIDIZED, () -> OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("oxidized_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("oxidized_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("oxidized_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> WAXED_COPPER_BRICKS = HELPER.createBlock("waxed_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_copper_brick_stairs", () -> new StairBlock(() -> WAXED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICKS = HELPER.createBlock("waxed_copper_bricks", () -> new Block(CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_copper_brick_stairs", () -> new StairBlock(() -> WAXED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_copper_brick_slab", () -> new SlabBlock(CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_copper_brick_wall", () -> new WallBlock(CCProperties.COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_chiseled_copper_bricks", () -> new Block(CCProperties.COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICKS = HELPER.createBlock("waxed_exposed_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_exposed_copper_brick_stairs", () -> new StairBlock(() -> WAXED_EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_exposed_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_exposed_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_exposed_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICKS = HELPER.createBlock("waxed_exposed_copper_bricks", () -> new Block(CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_exposed_copper_brick_stairs", () -> new StairBlock(() -> WAXED_EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_exposed_copper_brick_slab", () -> new SlabBlock(CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_exposed_copper_brick_wall", () -> new WallBlock(CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_exposed_chiseled_copper_bricks", () -> new Block(CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICKS = HELPER.createBlock("waxed_weathered_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_weathered_copper_brick_stairs", () -> new StairBlock(() -> WAXED_WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_weathered_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_weathered_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_weathered_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICKS = HELPER.createBlock("waxed_weathered_copper_bricks", () -> new Block(CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_weathered_copper_brick_stairs", () -> new StairBlock(() -> WAXED_WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_weathered_copper_brick_slab", () -> new SlabBlock(CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_weathered_copper_brick_wall", () -> new WallBlock(CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_weathered_chiseled_copper_bricks", () -> new Block(CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
 
-	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICKS = HELPER.createBlock("waxed_oxidized_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_oxidized_copper_brick_stairs", () -> new StairBlock(() -> WAXED_OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_oxidized_copper_brick_slab", () -> new SlabBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_oxidized_copper_brick_wall", () -> new WallBlock(CCProperties.PLATED_BRICKS));
-	public static final RegistryObject<Block> WAXED_OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_oxidized_chiseled_copper_bricks", () -> new Block(CCProperties.PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICKS = HELPER.createBlock("waxed_oxidized_copper_bricks", () -> new Block(CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("waxed_oxidized_copper_brick_stairs", () -> new StairBlock(() -> WAXED_OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("waxed_oxidized_copper_brick_slab", () -> new SlabBlock(CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("waxed_oxidized_copper_brick_wall", () -> new WallBlock(CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("waxed_oxidized_chiseled_copper_bricks", () -> new Block(CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
 
 	public static final RegistryObject<Block> STRIPPED_AZALEA_LOG = HELPER.createBlock("stripped_azalea_log", () -> new RotatedPillarBlock(CCProperties.AZALEA.log()));
 	public static final RegistryObject<Block> STRIPPED_AZALEA_WOOD = HELPER.createBlock("stripped_azalea_wood", () -> new RotatedPillarBlock(CCProperties.AZALEA.log()));
@@ -472,6 +474,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.ENCHANTING_TABLE), ATONING_TABLE)
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON, WAXED_OXIDIZED_COPPER_BUTTON)
+				.addItemsAfter(of(Blocks.TARGET), BOUNCER)
 				.addItemsAfter(of(Blocks.TNT), TMT)
 				.addItemsAfter(of(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsBefore(of(Blocks.RAIL), COPPER_RAIL, EXPOSED_COPPER_RAIL, WEATHERED_COPPER_RAIL, OXIDIZED_COPPER_RAIL, WAXED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL)
@@ -524,12 +527,23 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties AMETHYST = BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK);
 		public static final BlockBehaviour.Properties ECHO_BLOCK = BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.SCULK_CATALYST).requiresCorrectToolForDrops().lightLevel(state -> 6);
 
+		public static final BlockBehaviour.Properties IRON_PLATED_BRICKS = platedBricks(MapColor.RAW_IRON, SoundType.METAL);
+		public static final BlockBehaviour.Properties TIN_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_WHITE, SoundType.METAL);
+		public static final BlockBehaviour.Properties GOLD_PLATED_BRICKS = platedBricks(MapColor.GOLD, SoundType.METAL);
+		public static final BlockBehaviour.Properties SILVER_PLATED_BRICKS = platedBricks(MapColor.COLOR_LIGHT_GRAY, SoundType.METAL);
+		public static final BlockBehaviour.Properties COPPER_PLATED_BRICKS = platedBricks(MapColor.COLOR_ORANGE, SoundType.COPPER);
+		public static final BlockBehaviour.Properties EXPOSED_COPPER_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_LIGHT_GRAY, SoundType.COPPER);
+		public static final BlockBehaviour.Properties WEATHERED_COPPER_PLATED_BRICKS = platedBricks(MapColor.WARPED_STEM, SoundType.COPPER);
+		public static final BlockBehaviour.Properties OXIDIZED_COPPER_PLATED_BRICKS = platedBricks(MapColor.WARPED_NYLIUM, SoundType.COPPER);
+
 		public static final BlockBehaviour.Properties TMT = BlockBehaviour.Properties.copy(Blocks.TNT);
 		public static final BlockBehaviour.Properties TOOLBOX = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.2F, 6.0F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 10);
 		public static final BlockBehaviour.Properties EXPOSED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 9);
 		public static final BlockBehaviour.Properties WEATHERED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_STEM).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 8);
 		public static final BlockBehaviour.Properties OXIDIZED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 7);
+		public static final BlockBehaviour.Properties RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties COPPER_RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties DISMANTLING_TABLE = BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava();
 
 		public static final BlockBehaviour.Properties INDUCTOR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 4.8F).sound(SoundType.COPPER);
@@ -539,7 +553,6 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties COPPER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.METAL);
 		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(SoundType.METAL);
-		public static final BlockBehaviour.Properties PLATED_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLED_DEEPSLATE).sound(SoundType.METAL);
 
 		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(15)).noOcclusion();
 		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(10)).noOcclusion();
@@ -563,6 +576,10 @@ public class CCBlocks {
 
 		private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
 			return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+		}
+
+		public static BlockBehaviour.Properties platedBricks(MapColor color, SoundType soundType) {
+			return BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER);
 		}
 
 		private static BlockBehaviour.Properties caveGrowths(MapColor mapColor) {

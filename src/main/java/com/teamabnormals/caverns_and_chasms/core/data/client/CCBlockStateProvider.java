@@ -44,6 +44,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(FLOAT_GLASS);
 		this.glassPaneBlock(FLOAT_GLASS_PANE, FLOAT_GLASS);
 
+		this.block(BOUNCER);
+
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(GOLD_BRICKS_FAMILY);
