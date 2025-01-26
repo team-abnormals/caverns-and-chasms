@@ -1,0 +1,36 @@
+{
+  "parent": "caverns_and_chasms:adventure/atone_item",
+  "criteria": {
+    "broken_atonement": {
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:air"
+          ]
+        }
+      },
+      "trigger": "caverns_and_chasms:atoned_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.break_item_atoning.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "caverns_and_chasms:atoning_table"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.break_item_atoning.title"
+    }
+  },
+  "requirements": [
+    [
+      "broken_atonement"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

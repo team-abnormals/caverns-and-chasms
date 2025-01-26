@@ -1,4 +1,8 @@
 {
+  "advancements.caverns_and_chasms.adventure.atone_item.description": "Use an Atoning Table to apply enchantments to an item at the cost of its durability",
+  "advancements.caverns_and_chasms.adventure.atone_item.title": "Well-Atoned",
+  "advancements.caverns_and_chasms.adventure.break_item_atoning.description": "Break an item at an Atoning Table",
+  "advancements.caverns_and_chasms.adventure.break_item_atoning.title": "Atone-Deaf",
   "advancements.caverns_and_chasms.adventure.dismantle_item.description": "Use a Dismantling Table to get back a smithing template",
   "advancements.caverns_and_chasms.adventure.dismantle_item.title": "Not An Uncrafting Table",
   "advancements.caverns_and_chasms.adventure.dont_move.description": "It sees you",
