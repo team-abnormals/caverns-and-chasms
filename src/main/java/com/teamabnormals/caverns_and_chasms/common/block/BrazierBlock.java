@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import it.crystalnest.soul_fire_d.api.FireManager;
+import it.crystalnest.soul_fire_d.api.type.FireTyped;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -43,7 +44,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
-public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
+public class BrazierBlock extends Block implements SimpleWaterloggedBlock, FireTyped {
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -209,5 +210,10 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		return state.getValue(LIT) ? 15 : 0;
+	}
+
+	@Override
+	public ResourceLocation getFireType() {
+		return fireType;
 	}
 }
