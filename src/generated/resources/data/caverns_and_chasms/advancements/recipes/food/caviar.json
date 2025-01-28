@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:caviar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_turquoise": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:turquoise"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_turquoise",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:caviar"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "cyan_dye",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:turquoise"
+    }
+  ],
+  "result": {
+    "count": 16,
+    "item": "minecraft:cyan_dye"
+  }
+}

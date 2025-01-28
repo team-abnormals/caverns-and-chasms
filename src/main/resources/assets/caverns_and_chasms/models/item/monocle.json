@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "caverns_and_chasms:item/monocle_inventory"
+  },
+  "perspectives": {
+    "thirdperson_righthand": {
+      "parent": "caverns_and_chasms:item/monocle_in_hand"
+    },
+    "thirdperson_lefthand": {
+      "parent": "caverns_and_chasms:item/monocle_in_hand"
+    },
+    "firstperson_righthand": {
+      "parent": "caverns_and_chasms:item/monocle_in_hand"
+    },
+    "firstperson_lefthand": {
+      "parent": "caverns_and_chasms:item/monocle_in_hand"
+    },
+    "head": {
+      "parent": "caverns_and_chasms:item/monocle_in_hand"
+    }
+  }
+}

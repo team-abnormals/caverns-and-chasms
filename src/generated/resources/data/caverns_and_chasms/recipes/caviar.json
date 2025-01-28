@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:salmon_bucket"
+    },
+    {
+      "item": "caverns_and_chasms:turquoise"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:caviar"
+  }
+}

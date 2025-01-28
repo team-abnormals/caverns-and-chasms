@@ -101,7 +101,9 @@ public class CCItems {
 	public static final RegistryObject<Item> TIN_INGOT = HELPER.createItem("tin_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TIN_NUGGET = HELPER.createItem("tin_nugget", () -> new Item(new Item.Properties()));
 
-	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).food(CCFoods.CAVIAR)));
+	public static final RegistryObject<Item> MONOCLE = HELPER.createItem("monocle", () -> new MonocleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<Item> SPINEL = HELPER.createItem("spinel", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16)));
@@ -145,6 +147,7 @@ public class CCItems {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
 				.tab(FOOD_AND_DRINKS)
 				.addItemsBefore(of(Items.GOLDEN_APPLE), BEJEWELED_APPLE)
+				.addItemsBefore(of(Items.MILK_BUCKET), CAVIAR)
 				.addItemsAfter(of(Items.MILK_BUCKET), GOLDEN_MILK_BUCKET)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsAfter(of(Items.ARMOR_STAND), OXIDIZED_COPPER_GOLEM, WAXED_OXIDIZED_COPPER_GOLEM)
@@ -152,7 +155,7 @@ public class CCItems {
 				.tab(INGREDIENTS)
 				.addItemsAfter(of(Items.RAW_COPPER), RAW_TIN)
 				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER)
-				.addItemsAfter(of(Items.LAPIS_LAZULI), SPINEL, ZIRCONIA)
+				.addItemsAfter(of(Items.LAPIS_LAZULI), SPINEL, TURQUOISE, ZIRCONIA)
 				.addItemsBefore(of(Items.GOLD_NUGGET), COPPER_NUGGET, TIN_NUGGET)
 				.addItemsAfter(of(Items.GOLD_NUGGET), SILVER_NUGGET, NETHERITE_NUGGET, NECROMIUM_NUGGET)
 				.addItemsAfter(of(Items.COPPER_INGOT), TIN_INGOT)
@@ -165,7 +168,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.GOLDEN_HOE), SILVER_SHOVEL, SILVER_PICKAXE, SILVER_AXE, SILVER_HOE)
 				.addItemsAfter(of(Items.NETHERITE_HOE), NECROMIUM_SHOVEL, NECROMIUM_PICKAXE, NECROMIUM_AXE, NECROMIUM_HOE)
 				.addItemsBefore(of(Items.CLOCK), BAROMETER, TUNING_FORK)
-				.addItemsAfter(of(Items.SPYGLASS), DEPTH_GAUGE)
+				.addItemsAfter(of(Items.SPYGLASS), MONOCLE, DEPTH_GAUGE)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET, () -> Items.BUNDLE)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
@@ -247,5 +250,6 @@ public class CCItems {
 
 	public static class CCFoods {
 		public static final FoodProperties BEJEWELED_APPLE = new FoodProperties.Builder().nutrition(4).saturationMod(1.2F).alwaysEat().build();
+		public static final FoodProperties CAVIAR = new FoodProperties.Builder().nutrition(0).saturationMod(0.0F).alwaysEat().build();
 	}
 }

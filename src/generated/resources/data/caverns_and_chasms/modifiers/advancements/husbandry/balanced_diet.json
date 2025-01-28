@@ -13,9 +13,22 @@
               }
             },
             "trigger": "minecraft:consume_item"
+          },
+          "caverns_and_chasms:caviar": {
+            "conditions": {
+              "item": {
+                "items": [
+                  "caverns_and_chasms:caviar"
+                ]
+              }
+            },
+            "trigger": "minecraft:consume_item"
           }
         },
         "requirements": [
+          [
+            "caverns_and_chasms:caviar"
+          ],
           [
             "caverns_and_chasms:bejeweled_apple"
           ]
