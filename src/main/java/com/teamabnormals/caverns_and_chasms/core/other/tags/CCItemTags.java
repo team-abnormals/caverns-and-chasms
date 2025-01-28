@@ -28,6 +28,7 @@ public class CCItemTags {
 	public static final TagKey<Item> RAT_TAME_ITEMS = itemTag("rat_tame_items");
 
 	public static final TagKey<Item> GEMS_SPINEL = TagUtil.itemTag("forge", "gems/spinel");
+	public static final TagKey<Item> GEMS_TURQUOISE = TagUtil.itemTag("forge", "gems/turquoise");
 	public static final TagKey<Item> GEMS_ZIRCONIA = TagUtil.itemTag("forge", "gems/zirconia");
 
 	public static final TagKey<Item> INGOTS_NECROMIUM = TagUtil.itemTag("forge", "ingots/necromium");

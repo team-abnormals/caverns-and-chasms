@@ -102,7 +102,9 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(BlueprintItemTags.BUCKETS_MILK).add(GOLDEN_MILK_BUCKET.get());
 		this.tag(BlueprintItemTags.BUCKETS_POWDER_SNOW).add(GOLDEN_POWDER_SNOW_BUCKET.get());
 		this.tag(CCItemTags.GEMS_SPINEL).add(SPINEL.get());
+		this.tag(CCItemTags.GEMS_TURQUOISE).add(TURQUOISE.get());
 		this.tag(CCItemTags.GEMS_ZIRCONIA).add(ZIRCONIA.get());
+		this.tag(Tags.Items.GEMS).addTag(CCItemTags.GEMS_SPINEL).addTag(CCItemTags.GEMS_TURQUOISE).addTag(CCItemTags.GEMS_ZIRCONIA);
 		this.tag(CCItemTags.INGOTS_SILVER).add(SILVER_INGOT.get());
 		this.tag(CCItemTags.INGOTS_TIN).add(TIN_INGOT.get());
 		this.tag(CCItemTags.INGOTS_NECROMIUM).add(NECROMIUM_INGOT.get());

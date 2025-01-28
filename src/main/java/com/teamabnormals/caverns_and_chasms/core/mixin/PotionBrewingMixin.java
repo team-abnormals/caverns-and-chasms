@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,9 +32,8 @@ public abstract class PotionBrewingMixin {
 			int i = 0;
 			for (int j = CONTAINER_MIXES.size(); i < j; ++i) {
 				PotionBrewing.Mix<Item> mix = CONTAINER_MIXES.get(i);
-				if (mix.from.get() == item && mix.ingredient.test(ingredient) && ingredient.is(Items.PRISMARINE_CRYSTALS)) {
+				if (mix.from.get() == item && mix.ingredient.test(ingredient) && ingredient.is(CCItems.TURQUOISE.get())) {
 					if (!stack.getOrCreateTag().getBoolean("Subtle")) {
-
 						ItemStack newStack = new ItemStack(mix.to.get());
 						newStack.getOrCreateTag().putBoolean("Subtle", true);
 						cir.setReturnValue(PotionUtils.setPotion(newStack, potion));

@@ -31,5 +31,5 @@
     }
   ],
   "priority": "normal",
-  "selector": "atmospheric:kousa_sanctum"
+  "selector": "atmospheric:chests/kousa_sanctum"
 }

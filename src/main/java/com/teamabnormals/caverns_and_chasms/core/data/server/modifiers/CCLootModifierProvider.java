@@ -6,10 +6,15 @@ import com.teamabnormals.blueprint.common.loot.modification.modifiers.LootPoolsM
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -18,6 +23,11 @@ import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
@@ -80,8 +90,26 @@ public class CCLootModifierProvider extends LootModifierProvider {
 		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
 
-		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "kousa_sanctum")).addModifier(new LootPoolEntriesModifier(false, 0,
+		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "chests/kousa_sanctum")).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));
+
+		this.entry("copper_ore").selects(new ResourceLocation("blocks/copper_ore")).addModifier(new LootPoolsModifier(
+				List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":turqouise").setRolls(ConstantValue.exactly(1.0F))
+						.add(LootItem.lootTableItem(CCItems.TURQUOISE.get())
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))).invert())
+								.when(LootItemRandomChanceCondition.randomChance(0.02F))
+						).build()), false
+		));
+
+		this.entry("deepslate_copper_ore").selects(new ResourceLocation("blocks/deepslate_copper_ore")).addModifier(new LootPoolsModifier(
+				List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":turqouise").setRolls(ConstantValue.exactly(1.0F))
+						.add(LootItem.lootTableItem(CCItems.TURQUOISE.get())
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))).invert())
+								.when(LootItemRandomChanceCondition.randomChance(0.04F))
+						).build()), false
+		));
 	}
 
 
