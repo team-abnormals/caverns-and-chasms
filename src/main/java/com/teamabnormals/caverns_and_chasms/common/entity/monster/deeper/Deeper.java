@@ -186,6 +186,10 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 				}
 			}
 		}
+
+		if (this.getHat() != DeeperHat.NONE && random.nextBoolean()) {
+			this.spawnAtLocation(this.getHat().getItem());
+		}
 	}
 
 	@Override
@@ -211,6 +215,9 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 
 				if (biome.is(CCBiomeTags.HAS_LURID_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_LURID_CAVE_GROWTHS))
 					possibleHats.add(DeeperHat.LURID);
+
+				if (level.getLevel().structureManager().hasAnyStructureAt(this.blockPosition()))
+					possibleHats.add(DeeperHat.WEIRD);
 
 				if (!possibleHats.isEmpty())
 					this.setHat(possibleHats.get(level.getRandom().nextInt(possibleHats.size())));
