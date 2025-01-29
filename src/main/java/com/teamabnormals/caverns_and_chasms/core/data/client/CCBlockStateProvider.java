@@ -66,6 +66,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.bejeweledAnvilBlock(BEJEWELED_ANVIL);
 		this.atoningTableBlock(ATONING_TABLE);
 
+		this.block(TURQUOISE_ORE);
+		this.block(DEEPSLATE_TURQUOISE_ORE);
+		this.block(TURQUOISE_BLOCK);
+		this.logBlock(TURQUOISE_PILLAR);
+		this.blockFamily(TURQUOISE_TILES_FAMILY);
+
 		this.block(ZIRCONIA_BLOCK);
 
 		this.cubeColumnBlock(LAPIS_LAZULI_LAMP);

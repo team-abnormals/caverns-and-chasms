@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:turquoise_tile_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_turquoise_tiles": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:turquoise_tiles"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_turquoise_tiles",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:turquoise_tile_stairs"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -55,6 +55,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(CCBlockTags.SILVER_ORES, CCItemTags.SILVER_ORES);
 		this.copy(CCBlockTags.TIN_ORES, CCItemTags.TIN_ORES);
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);
+		this.copy(CCBlockTags.TURQUOISE_ORES, CCItemTags.TURQUOISE_ORES);
 		this.copy(CCBlockTags.AZALEA_LOGS, CCItemTags.AZALEA_LOGS);
 		this.tag(CCItemTags.CUPRIC_FIRE_BASE_ITEMS).addTag(Tags.Items.INGOTS_COPPER).addTag(Tags.Items.RAW_MATERIALS_COPPER);
 		this.tag(CCItemTags.MAGIC_DAMAGE_ITEMS).add(SILVER_SWORD.get(), SILVER_PICKAXE.get(), SILVER_AXE.get(), SILVER_SHOVEL.get(), SILVER_HOE.get()).addOptional(new ResourceLocation("abnormals_delight", "silver_knife"));
@@ -76,6 +77,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(CCBlockTags.ORES_SILVER, CCItemTags.ORES_SILVER);
 		this.copy(CCBlockTags.ORES_TIN, CCItemTags.ORES_TIN);
 		this.copy(CCBlockTags.ORES_SPINEL, CCItemTags.ORES_SPINEL);
+		this.copy(CCBlockTags.ORES_TURQUOISE, CCItemTags.ORES_TURQUOISE);
 		this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
 		this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
 		this.copy(Tags.Blocks.ORE_RATES_DENSE, Tags.Items.ORE_RATES_DENSE);
@@ -85,6 +87,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(CCBlockTags.STORAGE_BLOCKS_SILVER, CCItemTags.STORAGE_BLOCKS_SILVER);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_TIN, CCItemTags.STORAGE_BLOCKS_TIN);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_SPINEL, CCItemTags.STORAGE_BLOCKS_SPINEL);
+		this.copy(CCBlockTags.STORAGE_BLOCKS_TURQUOISE, CCItemTags.STORAGE_BLOCKS_TURQUOISE);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA, CCItemTags.STORAGE_BLOCKS_ZIRCONIA);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_NECROMIUM, CCItemTags.STORAGE_BLOCKS_NECROMIUM);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER, CCItemTags.STORAGE_BLOCKS_RAW_SILVER);

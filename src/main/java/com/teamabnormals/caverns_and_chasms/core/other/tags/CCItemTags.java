@@ -14,6 +14,7 @@ public class CCItemTags {
 	public static final TagKey<Item> SILVER_ORES = itemTag("silver_ores");
 	public static final TagKey<Item> TIN_ORES = itemTag("tin_ores");
 	public static final TagKey<Item> SPINEL_ORES = itemTag("spinel_ores");
+	public static final TagKey<Item> TURQUOISE_ORES = itemTag("turquoise_ores");
 	public static final TagKey<Item> AZALEA_LOGS = itemTag("azalea_logs");
 	public static final TagKey<Item> ADDITIONAL_TOOLBOX_TOOLS = itemTag("additional_toolbox_tools");
 	public static final TagKey<Item> DISMANTLING_FUELS = itemTag("dismantling_fuels");
@@ -48,11 +49,13 @@ public class CCItemTags {
 	public static final TagKey<Item> ORES_SILVER = TagUtil.itemTag("forge", "ores/silver");
 	public static final TagKey<Item> ORES_TIN = TagUtil.itemTag("forge", "ores/tin");
 	public static final TagKey<Item> ORES_SPINEL = TagUtil.itemTag("forge", "ores/spinel");
+	public static final TagKey<Item> ORES_TURQUOISE = TagUtil.itemTag("forge", "ores/turquoise");
 
 	public static final TagKey<Item> STORAGE_BLOCKS_SILVER = TagUtil.itemTag("forge", "storage_blocks/silver");
 	public static final TagKey<Item> STORAGE_BLOCKS_TIN = TagUtil.itemTag("forge", "storage_blocks/tin");
 	public static final TagKey<Item> STORAGE_BLOCKS_SPINEL = TagUtil.itemTag("forge", "storage_blocks/spinel");
 	public static final TagKey<Item> STORAGE_BLOCKS_ZIRCONIA = TagUtil.itemTag("forge", "storage_blocks/zirconia");
+	public static final TagKey<Item> STORAGE_BLOCKS_TURQUOISE = TagUtil.itemTag("forge", "storage_blocks/turquoise");
 	public static final TagKey<Item> STORAGE_BLOCKS_NECROMIUM = TagUtil.itemTag("forge", "storage_blocks/necromium");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.itemTag("forge", "storage_blocks/raw_silver");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_TIN = TagUtil.itemTag("forge", "storage_blocks/raw_tin");

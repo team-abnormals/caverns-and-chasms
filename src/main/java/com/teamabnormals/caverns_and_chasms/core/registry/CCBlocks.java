@@ -190,6 +190,15 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
+	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new DropExperienceBlock(CCProperties.ORE, UniformInt.of(4, 9)));
+	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new DropExperienceBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)));
+	public static final RegistryObject<Block> TURQUOISE_BLOCK = HELPER.createBlock("turquoise_block", () -> new Block(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILES = HELPER.createBlock("turquoise_tiles", () -> new Block(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILE_STAIRS = HELPER.createBlock("turquoise_tile_stairs", () -> new StairBlock(() -> TURQUOISE_TILES.get().defaultBlockState(), CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new SlabBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new WallBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new RotatedPillarBlock(CCProperties.TURQUOISE));
+
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICKS = HELPER.createBlock("lapis_bricks", () -> new Block(CCProperties.LAPIS_LAZULI));
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_STAIRS = HELPER.createBlock("lapis_brick_stairs", () -> new StairBlock(() -> LAPIS_LAZULI_BRICKS.get().defaultBlockState(), CCProperties.LAPIS_LAZULI));
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_SLAB = HELPER.createBlock("lapis_brick_slab", () -> new SlabBlock(CCProperties.LAPIS_LAZULI));
@@ -417,6 +426,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLD_BRICKS, GOLD_BRICK_STAIRS, GOLD_BRICK_SLAB, GOLD_BRICK_WALL, CHISELED_GOLD_BRICKS, GOLDEN_BARS)
 				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS)
 				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BRICKS, SILVER_BRICK_STAIRS, SILVER_BRICK_SLAB, SILVER_BRICK_WALL, CHISELED_SILVER_BRICKS, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
+				.addItemsBefore(of(Blocks.LAPIS_BLOCK), TURQUOISE_BLOCK, TURQUOISE_TILES, TURQUOISE_TILE_STAIRS, TURQUOISE_TILE_SLAB, TURQUOISE_TILE_WALL, TURQUOISE_PILLAR, )
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
 						LAPIS_LAZULI_BRICKS, LAPIS_LAZULI_BRICK_STAIRS, LAPIS_LAZULI_BRICK_SLAB, LAPIS_LAZULI_BRICK_WALL, LAPIS_LAZULI_PILLAR, LAPIS_LAZULI_LAMP,
 						SPINEL_BLOCK, SPINEL_BRICKS, SPINEL_BRICK_STAIRS, SPINEL_BRICK_SLAB, SPINEL_BRICK_WALL, SPINEL_PILLAR, SPINEL_LAMP,
@@ -439,6 +449,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.MUSHROOM_STEM), AZALEA_LOG)
 				.addItemsBefore(of(Blocks.GOLD_ORE), TIN_ORE, DEEPSLATE_TIN_ORE)
 				.addItemsBefore(of(Blocks.REDSTONE_ORE), SILVER_ORE, DEEPSLATE_SILVER_ORE)
+				.addItemsBefore(of(Blocks.LAPIS_ORE), TURQUOISE_ORE, DEEPSLATE_TURQUOISE_ORE)
 				.addItemsBefore(of(Blocks.DIAMOND_ORE), SPINEL_ORE, DEEPSLATE_SPINEL_ORE)
 				.addItemsBefore(of(Blocks.ANCIENT_DEBRIS), SOUL_SILVER_ORE)
 				.addItemsAfter(of(Blocks.RAW_COPPER_BLOCK), RAW_TIN_BLOCK)
@@ -553,6 +564,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F);
 		public static final BlockBehaviour.Properties DEEPSLATE_ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
 		public static final BlockBehaviour.Properties SPINEL = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).mapColor(MapColor.COLOR_PURPLE);
+		public static final BlockBehaviour.Properties TURQUOISE = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).mapColor(MapColor.COLOR_CYAN);
 		public static final BlockBehaviour.Properties LAPIS_LAZULI = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK);
 		public static final BlockBehaviour.Properties LAMP = BlockBehaviour.Properties.of().lightLevel((state) -> 15).strength(0.3F).sound(SoundType.GLASS).isValidSpawn(CCProperties::alwaysAllowSpawn);
 

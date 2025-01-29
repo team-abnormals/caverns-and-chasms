@@ -83,6 +83,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(DEEPSLATE_TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
 			this.add(SPINEL_ORE.get(), this::createSpinelOreDrops);
 			this.add(DEEPSLATE_SPINEL_ORE.get(), this::createSpinelOreDrops);
+			this.add(TURQUOISE_ORE.get(), this::createTurquoiseOreDrops);
+			this.add(DEEPSLATE_TURQUOISE_ORE.get(), this::createTurquoiseOreDrops);
 
 			this.dropWhenSilkTouch(FRAGILE_STONE.get());
 			this.dropWhenSilkTouch(FRAGILE_DEEPSLATE.get());
@@ -271,6 +273,13 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SPINEL_PILLAR.get());
 			this.dropSelf(SPINEL_LAMP.get());
 
+			this.dropSelf(TURQUOISE_BLOCK.get());
+			this.dropSelf(TURQUOISE_TILES.get());
+			this.dropSelf(TURQUOISE_TILE_STAIRS.get());
+			this.dropSelf(TURQUOISE_TILE_WALL.get());
+			this.add(TURQUOISE_TILE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(TURQUOISE_PILLAR.get());
+
 			this.dropSelf(ZIRCONIA_BLOCK.get());
 
 			this.dropSelf(SANGUINE_TILES.get());
@@ -361,6 +370,10 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		protected LootTable.Builder createSpinelOreDrops(Block block) {
 			return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SPINEL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+		}
+
+		protected LootTable.Builder createTurquoiseOreDrops(Block block) {
+			return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.TURQUOISE.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 5.0F)))));
 		}
 
 		@Override

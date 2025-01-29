@@ -133,6 +133,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		storageRecipes(consumer, MISC, CCItems.RAW_SILVER.get(), BUILDING_BLOCKS, RAW_SILVER_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.RAW_TIN.get(), BUILDING_BLOCKS, RAW_TIN_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.ZIRCONIA.get(), BUILDING_BLOCKS, ZIRCONIA_BLOCK.get());
+		storageRecipes(consumer, MISC, CCItems.TURQUOISE.get(), BUILDING_BLOCKS, TURQUOISE_BLOCK.get());
 		storageRecipes(consumer, FOOD, Items.ROTTEN_FLESH, BUILDING_BLOCKS, ROTTEN_FLESH_BLOCK.get());
 		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.SILVER_INGOT.get(), BUILDING_BLOCKS, SILVER_BLOCK.get(), "silver_ingot_from_silver_block", "silver_ingot");
 		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.TIN_INGOT.get(), BUILDING_BLOCKS, TIN_BLOCK.get(), "tin_ingot_from_tin_block", "tin_ingot");
@@ -222,6 +223,14 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_BRICK_STAIRS.get(), SPINEL_BRICKS.get());
 		stonecutterRecipe(consumer, DECORATIONS, SPINEL_BRICK_WALL.get(), SPINEL_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_PILLAR.get(), SPINEL_BRICKS.get());
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TURQUOISE_TILES.get()).define('#', CCItemTags.GEMS_TURQUOISE).pattern("##").pattern("##").unlockedBy(getHasName(CCItems.TURQUOISE.get()), has(CCItemTags.GEMS_TURQUOISE)).save(consumer);
+		generateRecipes(consumer, TURQUOISE_TILES_FAMILY);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TURQUOISE_PILLAR.get(), 2).define('#', TURQUOISE_TILES.get()).pattern("#").pattern("#").unlockedBy(getHasName(TURQUOISE_TILES.get()), has(TURQUOISE_TILES.get())).unlockedBy(getHasName(TURQUOISE_PILLAR.get()), has(TURQUOISE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TURQUOISE_TILE_SLAB.get(), TURQUOISE_TILES.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TURQUOISE_TILE_STAIRS.get(), TURQUOISE_TILES.get());
+		stonecutterRecipe(consumer, DECORATIONS, TURQUOISE_TILE_WALL.get(), TURQUOISE_TILES.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TURQUOISE_PILLAR.get(), TURQUOISE_TILES.get());
 
 		platedBricksRecipe(consumer, IRON_BRICKS.get(), Tags.Items.INGOTS_IRON, "iron");
 		platedBricksRecipes(consumer, IRON_BRICKS_FAMILY);
