@@ -23,6 +23,8 @@ public class CCConfig {
 		public final BooleanValue betterRailPlacement;
 		public final IntValue betterRailPlacementRange;
 
+		public final BooleanValue preventReplacingTrims;
+
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("mobs");
 			builder.push("creeper");
@@ -45,6 +47,12 @@ public class CCConfig {
 			builder.push("rails");
 			betterRailPlacement = builder.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding").define("Better rail placement", true);
 			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").defineInRange("Placement range", 7, 0, Integer.MAX_VALUE);
+			builder.pop();
+			builder.push("trims");
+			preventReplacingTrims = builder
+					.comment("Prevents replacing/applying a Trim Template & Material over a previously trimmed item")
+					.comment("This is to prevent the player from wasting materials that could be returned at a Dismantling Table")
+					.define("Prevent replacing trims", false);
 			builder.pop();
 			builder.pop();
 		}
