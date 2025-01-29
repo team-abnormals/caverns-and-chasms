@@ -24,7 +24,9 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -137,9 +139,12 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (source.getEntity() instanceof LivingEntity entity) {
-			if (entity.getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG))
-				amount *= 3.0F;
+		if (!this.level().isClientSide() && source.getEntity() instanceof LivingEntity entity) {
+			ItemStack stack = entity.getMainHandItem();
+			if (stack.canPerformAction(ToolActions.PICKAXE_DIG)) {
+				amount *= 2.5F;
+				amount += Enchantments.SHARPNESS.getDamageBonus(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack), this.getMobType(), stack);
+			}
 		}
 		return super.hurt(source, amount);
 	}

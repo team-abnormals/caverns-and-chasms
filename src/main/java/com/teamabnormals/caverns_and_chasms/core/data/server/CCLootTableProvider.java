@@ -8,7 +8,10 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.loot.FortuneEnchantFunction;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.EntityEquipmentPredicate.Builder;
+import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
@@ -29,6 +32,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -66,9 +70,9 @@ public class CCLootTableProvider extends LootTableProvider {
 	private static class CCBlockLoot extends BlockLootSubProvider {
 		private static final Set<Item> EXPLOSION_RESISTANT = Stream.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.PIGLIN_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).map(ItemLike::asItem).collect(Collectors.toSet());
 
-		private static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-		private static final LootItemCondition.Builder HAS_PICKAXE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.PICKAXES));
-		private static final LootItemCondition.Builder HAS_SHOVEL = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.SHOVELS));
+		public static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+		public static final LootItemCondition.Builder HAS_PICKAXE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.PICKAXES));
+		public static final LootItemCondition.Builder HAS_SHOVEL = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.SHOVELS));
 
 		protected CCBlockLoot() {
 			super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
@@ -389,11 +393,33 @@ public class CCLootTableProvider extends LootTableProvider {
 			super(FeatureFlags.REGISTRY.allFlags());
 		}
 
+		public static final LootItemCondition.Builder HAS_PICKAXE = LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER,
+				EntityPredicate.Builder.entity().equipment(Builder.equipment()
+						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES).build()).build()));
+
+		public static final LootItemCondition.Builder HAS_SILK_TOUCH = LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER,
+				EntityPredicate.Builder.entity().equipment(Builder.equipment()
+						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES)
+								.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, Ints.ANY)).build()).build()));
+
+
 		@Override
 		public void generate() {
 			this.add(COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
 			this.add(OXIDIZED_COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
-			this.add(DEEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))).withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
+			this.add(DEEPER.get(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+							.apply(FortuneEnchantFunction.fortuneMultiplier(UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
+							.when(HAS_SILK_TOUCH.invert())
+					))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.STONE)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+							.when(HAS_SILK_TOUCH))
+					)
+					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(PEEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))).withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(MIME.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
