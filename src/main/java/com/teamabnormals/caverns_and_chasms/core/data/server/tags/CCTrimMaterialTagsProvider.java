@@ -26,6 +26,7 @@ public class CCTrimMaterialTagsProvider extends TagsProvider<TrimMaterial> {
 				CCTrimMaterials.TIN,
 				CCTrimMaterials.SPINEL,
 				CCTrimMaterials.ZIRCONIA,
+				CCTrimMaterials.TURQUOISE,
 				CCTrimMaterials.NECROMIUM
 		);
 	}

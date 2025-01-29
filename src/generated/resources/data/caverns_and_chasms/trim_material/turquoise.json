@@ -1,0 +1,9 @@
+{
+  "asset_name": "caverns_and_chasms_turquoise",
+  "description": {
+    "color": "#75AD8A",
+    "translate": "trim_material.caverns_and_chasms.turquoise"
+  },
+  "ingredient": "caverns_and_chasms:turquoise",
+  "item_model_index": -1.0
+}
