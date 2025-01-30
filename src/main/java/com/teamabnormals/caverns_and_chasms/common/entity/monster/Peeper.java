@@ -169,4 +169,9 @@ public class Peeper extends Creeper {
 	protected ItemStack getSkull() {
 		return new ItemStack(CCItems.PEEPER_HEAD.get());
 	}
+
+	@Override
+	public boolean canDropMobsSkull() {
+		return this.isPowered();
+	}
 }

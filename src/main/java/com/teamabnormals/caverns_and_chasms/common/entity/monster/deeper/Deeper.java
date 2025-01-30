@@ -232,4 +232,9 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 	protected ItemStack getSkull() {
 		return new ItemStack(CCItems.DEEPER_HEAD.get());
 	}
+
+	@Override
+	public boolean canDropMobsSkull() {
+		return this.isPowered() && (this.droppedSkulls < 1 || this.getRandom().nextBoolean());
+	}
 }
