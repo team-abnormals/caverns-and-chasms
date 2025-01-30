@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "bejeweled_anvil_repair": {
+      "conditions": {},
+      "trigger": "caverns_and_chasms:repaired_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.bejeweled_anvil_repair.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:bejeweled_anvil"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.bejeweled_anvil_repair.title"
+    }
+  },
+  "requirements": [
+    [
+      "bejeweled_anvil_repair"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

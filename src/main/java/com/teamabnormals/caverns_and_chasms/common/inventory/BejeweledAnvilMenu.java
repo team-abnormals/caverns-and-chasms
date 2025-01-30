@@ -3,11 +3,13 @@ package com.teamabnormals.caverns_and_chasms.common.inventory;
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -53,6 +55,9 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 	}
 
 	protected void onTake(Player player, ItemStack p_150475_) {
+		ItemStack input = this.inputSlots.getItem(0);
+		ItemStack ingredient = this.inputSlots.getItem(1);
+		ItemStack output = this.resultSlots.getItem(0);
 		this.inputSlots.setItem(0, ItemStack.EMPTY);
 		if (this.repairItemCountCost > 0) {
 			ItemStack itemstack = this.inputSlots.getItem(1);
@@ -68,6 +73,10 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 
 		this.access.execute((level, pos) -> {
 			BlockState state = level.getBlockState(pos);
+			if (player instanceof ServerPlayer serverPlayer) {
+				CCCriteriaTriggers.REPAIRED_ITEM.trigger(serverPlayer, input, ingredient, output);
+			}
+
 			if (state.is(CCBlocks.BEJEWELED_ANVIL.get())) {
 				level.removeBlock(pos, false);
 				level.levelEvent(1029, pos, 0);

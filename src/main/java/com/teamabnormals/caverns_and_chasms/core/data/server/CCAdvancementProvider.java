@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger;
+import com.teamabnormals.caverns_and_chasms.common.advancement.RepairedItemTrigger;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -80,6 +81,14 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		createAdvancement("break_item_atoning", "adventure", atoneItem, CCBlocks.ATONING_TABLE.get(), FrameType.GOAL, true, true, true)
 				.addCriterion("broken_atonement", AtonedItemTrigger.TriggerInstance.brokenAtonement())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/break_item_atoning");
+
+		Advancement bejeweledAnvilRepair = createAdvancement("bejeweled_anvil_repair", "adventure", new ResourceLocation("adventure/root"), CCBlocks.BEJEWELED_ANVIL.get(), FrameType.TASK, true, true, false)
+				.addCriterion("bejeweled_anvil_repair", RepairedItemTrigger.TriggerInstance.repairedItem())
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/bejeweled_anvil_repair");
+
+		createAdvancement("repair_with_zirconia", "adventure", bejeweledAnvilRepair, CCItems.ZIRCONIA.get(), FrameType.GOAL, true, true, false)
+				.addCriterion("repair_with_zirconia", RepairedItemTrigger.TriggerInstance.repairedItemWith(ItemPredicate.Builder.item().of(CCItems.ZIRCONIA.get()).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/repair_with_zirconia");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
