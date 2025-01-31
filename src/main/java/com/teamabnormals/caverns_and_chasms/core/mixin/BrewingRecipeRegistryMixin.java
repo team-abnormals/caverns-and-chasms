@@ -13,10 +13,7 @@ public final class BrewingRecipeRegistryMixin {
 
 	@Inject(at = @At("HEAD"), method = "isValidInput", cancellable = true, remap = false)
 	private static void isValidInput(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
-			cir.setReturnValue(true);
-		}
-		if (stack.getItem() == CCItems.IMPACT_POTION.get()) {
+		if (stack.getItem() == CCItems.TETHER_POTION.get() || stack.getItem() == CCItems.IMPACT_POTION.get()) {
 			cir.setReturnValue(true);
 		}
 	}

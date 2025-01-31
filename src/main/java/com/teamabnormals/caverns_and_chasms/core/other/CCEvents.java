@@ -487,7 +487,7 @@ public class CCEvents {
 					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
 				}
 				if (!instance.getEffect().isInstantenous()) {
-					ImpactPotionItem.updateImpactPotionEffects(player, headstack);
+					player.addEffect(new MobEffectInstance(instance));
 				}
 			}
 

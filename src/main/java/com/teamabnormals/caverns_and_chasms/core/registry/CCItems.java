@@ -205,8 +205,6 @@ public class CCItems {
 				.addItemsAfter(of(Items.TRIDENT), FOIL)
 				.editor(event -> event.getParameters().holders().lookup(Registries.POTION).ifPresent(registry -> {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());
-				}))
-				.editor(event -> event.getParameters().holders().lookup(Registries.POTION).ifPresent(registry -> {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get());
 				}))
 				.tab(REDSTONE_BLOCKS)
