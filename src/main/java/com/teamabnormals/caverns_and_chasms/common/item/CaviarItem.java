@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -21,5 +23,9 @@ public class CaviarItem extends Item {
 		}
 
 		return copy;
+	}
+
+	public SoundEvent getEatingSound() {
+		return SoundEvents.PLAYER_BURP;
 	}
 }
