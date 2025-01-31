@@ -101,7 +101,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 				if (effect.isInstantenous()) {
 					instanttooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
 				} else {
-					mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(getTetherPotionDuration(mobeffectinstance.getDuration())));
+					mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(shortDuration() ? getTetherPotionDuration(mobeffectinstance.getDuration()) : mobeffectinstance.getDuration()));
 					continuoustooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
 				}
 			}
@@ -110,7 +110,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 		tooltip.addAll(instanttooltip);
 		if (!continuoustooltip.isEmpty()) {
 			tooltip.add(Component.empty());
-			tooltip.add((Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName())).withStyle(ChatFormatting.GRAY));
+			tooltip.add((toolTipHeader()).withStyle(ChatFormatting.GRAY));
 			tooltip.addAll(continuoustooltip);
 		}
 
@@ -136,6 +136,14 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 				}
 			}
 		}
+	}
+
+	public MutableComponent toolTipHeader() {
+		return Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName());
+	}
+
+	public boolean shortDuration() {
+		return true;
 	}
 
 	public static int getTetherPotionDuration(int originalDuration) {

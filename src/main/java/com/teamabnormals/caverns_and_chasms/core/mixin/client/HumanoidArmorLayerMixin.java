@@ -123,7 +123,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@Unique
 	private void renderWornPotion(PoseStack poseStack, MultiBufferSource source, int packedLight, T entity) {
 		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
-		if (stack.getItem() instanceof TetherPotionItem || stack.getItem() instanceof ImpactPotionItem) {
+		if (stack.getItem() instanceof TetherPotionItem) {
 			this.getParentModel().copyPropertiesTo(this.outerModel);
 
 			this.outerModel.setAllVisible(false);
@@ -140,7 +140,6 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, TETHER_POTION_OVERLAY_LOCATION);
 		}
 	}
-
 
 	@Unique
 	private void verticallyOffsetModelPart(ModelPart parentModelPart, ModelPart modelPart, float offset) {

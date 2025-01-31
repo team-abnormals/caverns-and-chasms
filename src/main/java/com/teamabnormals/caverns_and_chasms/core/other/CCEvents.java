@@ -485,9 +485,9 @@ public class CCEvents {
 			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 				if (instance.getEffect().isInstantenous()) {
 					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
-				}
-				if (!instance.getEffect().isInstantenous()) {
+				} else {
 					player.addEffect(new MobEffectInstance(instance));
+
 				}
 			}
 
