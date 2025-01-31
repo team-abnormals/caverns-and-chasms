@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
+import com.teamabnormals.caverns_and_chasms.common.item.ImpactPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
@@ -64,6 +65,10 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	private static final ResourceLocation TETHER_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion.png");
 	@Unique
 	private static final ResourceLocation TETHER_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion_overlay.png");
+	@Unique
+	private static final ResourceLocation IMPACT_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/impact_potion.png");
+	@Unique
+	private static final ResourceLocation IMPACT_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/impact_potion_overlay.png");
 
 	public HumanoidArmorLayerMixin(RenderLayerParent<T, M> entityRenderer) {
 		super(entityRenderer);
@@ -72,6 +77,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@Inject(at = @At("TAIL"), method = "render")
 	public void render(PoseStack stack, MultiBufferSource source, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		this.renderWornTetherPotion(stack, source, packedLight, entity);
+		this.renderWornImpactPotion(stack, source, packedLight, entity);
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = At.Shift.BEFORE), method = "renderArmorPiece")
@@ -133,6 +139,28 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 
 			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, r, g, b, TETHER_POTION_LOCATION);
 			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, TETHER_POTION_OVERLAY_LOCATION);
+		}
+	}
+
+	@Unique
+	private void renderWornImpactPotion(PoseStack poseStack, MultiBufferSource source, int packedLight, T entity) {
+		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
+
+		if (stack.getItem() instanceof ImpactPotionItem) {
+			this.getParentModel().copyPropertiesTo(this.outerModel);
+
+			this.outerModel.setAllVisible(false);
+			this.outerModel.head.visible = true;
+			this.outerModel.hat.visible = true;
+			boolean flag = stack.hasFoil();
+			int i = PotionUtils.getColor(stack);
+
+			float r = (float) (i >> 16 & 255) / 255.0F;
+			float g = (float) (i >> 8 & 255) / 255.0F;
+			float b = (float) (i & 255) / 255.0F;
+
+			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, r, g, b, TETHER_POTION_LOCATION); //If/when adding custom textures replace with IMPACT_POTION_LOCATION
+			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, TETHER_POTION_OVERLAY_LOCATION); //Replace with IMPACT_POTION_OVERLAY_LOCATION
 		}
 	}
 

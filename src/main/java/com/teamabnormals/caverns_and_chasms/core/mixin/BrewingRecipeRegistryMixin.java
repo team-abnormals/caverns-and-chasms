@@ -16,5 +16,8 @@ public final class BrewingRecipeRegistryMixin {
 		if (stack.getItem() == CCItems.TETHER_POTION.get()) {
 			cir.setReturnValue(true);
 		}
+		if (stack.getItem() == CCItems.IMPACT_POTION.get()) {
+			cir.setReturnValue(true);
+		}
 	}
 }
