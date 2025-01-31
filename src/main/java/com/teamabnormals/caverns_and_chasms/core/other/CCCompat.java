@@ -5,10 +5,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.FireworkRocketItem;
@@ -33,6 +30,7 @@ public class CCCompat {
 		registerParrotImitations();
 		registerVibrationFrequencies();
 		changeLocalization();
+		CCDecoratedPotPatterns.registerDecoratedPotPatterns();
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
 	}

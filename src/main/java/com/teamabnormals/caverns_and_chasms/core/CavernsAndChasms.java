@@ -107,6 +107,7 @@ public class CavernsAndChasms {
 		CCPoiTypes.POI_TYPES.register(bus);
 		CCBannerPatterns.BANNER_PATTERNS.register(bus);
 		CCLootItemFunctions.LOOT_FUNCTION_TYPES.register(bus);
+		CCDecoratedPotPatterns.DECORATED_POT_PATTERNS.register(bus);
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);

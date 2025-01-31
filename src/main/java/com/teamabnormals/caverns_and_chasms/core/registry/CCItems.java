@@ -21,6 +21,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet.Named;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -136,6 +137,11 @@ public class CCItems {
 	public static final RegistryObject<Item> EXILE_ARMOR_TRIM_SMITHING_TEMPLATE = HELPER.createItem("exile_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(CCTrimPatterns.EXILE));
 	public static final RegistryObject<Item> FORGER_ARMOR_TRIM_SMITHING_TEMPLATE = HELPER.createItem("forger_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(CCTrimPatterns.FORGER));
 
+	public static final RegistryObject<Item> BOOM_POTTERY_SHERD = HELPER.createItem("boom_pottery_sherd", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> CAST_POTTERY_SHERD = HELPER.createItem("cast_pottery_sherd", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> RIDE_POTTERY_SHERD = HELPER.createItem("ride_pottery_sherd", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> STALKER_POTTERY_SHERD = HELPER.createItem("stalker_pottery_sherd", () -> new Item(new Item.Properties()));
+
 	public static final RegistryObject<ForgeSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntityTypes.DEEPER::get, 8355711, 13717260);
 	public static final RegistryObject<ForgeSpawnEggItem> PEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("peeper", CCEntityTypes.PEEPER::get, 0x3E3434, 0x694242);
 	//	public static final RegistryObject<ForgeSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntityTypes.FLY::get, 920336, 7080720);
@@ -166,6 +172,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
 				.addItemsBefore(of(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE), FORGER_ARMOR_TRIM_SMITHING_TEMPLATE)
 				.addItemsAfter(of(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE), EXILE_ARMOR_TRIM_SMITHING_TEMPLATE)
+				.addItemsAlphabetically(stack -> stack.is(ItemTags.DECORATED_POT_SHERDS), BOOM_POTTERY_SHERD, CAST_POTTERY_SHERD, RIDE_POTTERY_SHERD, STALKER_POTTERY_SHERD)
 				.tab(TOOLS_AND_UTILITIES)
 				.addItemsAfter(of(Items.GOLDEN_HOE), SILVER_SHOVEL, SILVER_PICKAXE, SILVER_AXE, SILVER_HOE)
 				.addItemsAfter(of(Items.NETHERITE_HOE), NECROMIUM_SHOVEL, NECROMIUM_PICKAXE, NECROMIUM_AXE, NECROMIUM_HOE)
