@@ -110,6 +110,7 @@ public class CCItems {
 	public static final RegistryObject<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> BEJEWELED_APPLE = HELPER.createItem("bejeweled_apple", () -> new BejeweledAppleItem(new Item.Properties().food(CCFoods.BEJEWELED_APPLE).rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> TETHER_POTION = HELPER.createItem("tether_potion", () -> new TetherPotionItem((new Item.Properties()).stacksTo(1)));
+	public static final RegistryObject<Item> IMPACT_POTION = HELPER.createItem("impact_potion", () -> new ImpactPotionItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> BLUNT_ARROW = HELPER.createItem("blunt_arrow", () -> new BluntArrowItem(new Item.Properties()));
 	public static final RegistryObject<Item> TMT_MINECART = HELPER.createItem("tmt_minecart", () -> new TmtMinecartItem(new Item.Properties()));
 
@@ -204,6 +205,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.TRIDENT), FOIL)
 				.editor(event -> event.getParameters().holders().lookup(Registries.POTION).ifPresent(registry -> {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());
+					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get());
 				}))
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)

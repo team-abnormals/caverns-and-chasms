@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
+import com.teamabnormals.caverns_and_chasms.common.item.ImpactPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
@@ -64,6 +65,10 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	private static final ResourceLocation TETHER_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion.png");
 	@Unique
 	private static final ResourceLocation TETHER_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion_overlay.png");
+	@Unique
+	private static final ResourceLocation IMPACT_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/impact_potion.png");
+	@Unique
+	private static final ResourceLocation IMPACT_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/impact_potion_overlay.png");
 
 	public HumanoidArmorLayerMixin(RenderLayerParent<T, M> entityRenderer) {
 		super(entityRenderer);
@@ -71,7 +76,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 
 	@Inject(at = @At("TAIL"), method = "render")
 	public void render(PoseStack stack, MultiBufferSource source, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-		this.renderWornTetherPotion(stack, source, packedLight, entity);
+		this.renderWornPotion(stack, source, packedLight, entity);
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = At.Shift.BEFORE), method = "renderArmorPiece")
@@ -116,7 +121,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	}
 
 	@Unique
-	private void renderWornTetherPotion(PoseStack poseStack, MultiBufferSource source, int packedLight, T entity) {
+	private void renderWornPotion(PoseStack poseStack, MultiBufferSource source, int packedLight, T entity) {
 		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (stack.getItem() instanceof TetherPotionItem) {
 			this.getParentModel().copyPropertiesTo(this.outerModel);

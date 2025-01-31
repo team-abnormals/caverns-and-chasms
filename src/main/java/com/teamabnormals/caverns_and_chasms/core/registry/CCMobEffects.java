@@ -29,10 +29,14 @@ public class CCMobEffects {
 		PotionBrewing.addContainer(CCItems.TETHER_POTION.get());
 		PotionBrewing.addContainerRecipe(Items.POTION, CCItems.SPINEL.get(), CCItems.TETHER_POTION.get());
 
-		PotionBrewing.addContainerRecipe(Items.POTION, Items.PRISMARINE_CRYSTALS, Items.POTION);
-		PotionBrewing.addContainerRecipe(Items.SPLASH_POTION, Items.PRISMARINE_CRYSTALS, Items.SPLASH_POTION);
-		PotionBrewing.addContainerRecipe(Items.LINGERING_POTION, Items.PRISMARINE_CRYSTALS, Items.LINGERING_POTION);
-		PotionBrewing.addContainerRecipe(CCItems.TETHER_POTION.get(), Items.PRISMARINE_CRYSTALS, CCItems.TETHER_POTION.get());
+		PotionBrewing.addContainer(CCItems.IMPACT_POTION.get());
+		PotionBrewing.addContainerRecipe(Items.SPLASH_POTION, CCItems.SPINEL.get(), CCItems.IMPACT_POTION.get());
+
+		PotionBrewing.addContainerRecipe(Items.POTION, CCItems.TURQUOISE.get(), Items.POTION);
+		PotionBrewing.addContainerRecipe(Items.SPLASH_POTION, CCItems.TURQUOISE.get(), Items.SPLASH_POTION);
+		PotionBrewing.addContainerRecipe(Items.LINGERING_POTION, CCItems.TURQUOISE.get(), Items.LINGERING_POTION);
+		PotionBrewing.addContainerRecipe(CCItems.TETHER_POTION.get(), CCItems.TURQUOISE.get(), CCItems.TETHER_POTION.get());
+		PotionBrewing.addContainerRecipe(CCItems.IMPACT_POTION.get(), CCItems.TURQUOISE.get(), CCItems.IMPACT_POTION.get());
 
 		DataUtil.addMix(Potions.AWKWARD, CCItems.BEJEWELED_PEARL.get(), REWIND_NORMAL.get());
 		DataUtil.addMix(REWIND_NORMAL.get(), Items.REDSTONE, REWIND_LONG.get());

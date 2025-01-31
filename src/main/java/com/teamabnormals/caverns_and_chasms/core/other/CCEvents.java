@@ -11,10 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
-import com.teamabnormals.caverns_and_chasms.common.item.FoilItem;
-import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
-import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
+import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
@@ -480,7 +477,7 @@ public class CCEvents {
 		Level level = target.level();
 		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
 
-		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.is(DamageTypeTags.BYPASSES_ARMOR)) {
+		if (headstack.getItem() == CCItems.IMPACT_POTION.get() && !source.is(DamageTypeTags.BYPASSES_ARMOR)) {
 			Player player = target instanceof Player ? (Player) target : null;
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -488,8 +485,19 @@ public class CCEvents {
 			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 				if (instance.getEffect().isInstantenous()) {
 					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+				} else {
+					player.addEffect(new MobEffectInstance(instance));
+
 				}
 			}
+
+			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
+			level.levelEvent(i, BlockPos.containing(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+		}
+
+		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.is(DamageTypeTags.BYPASSES_ARMOR)) {
+			target.broadcastBreakEvent(EquipmentSlot.HEAD);
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 
 			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
 			level.levelEvent(i, BlockPos.containing(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));

@@ -110,7 +110,7 @@ public class CCClientCompat {
 	public static void registerItemProperties() {
 		ItemProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
-		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, CCItems.TETHER_POTION.get())) {
+		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, CCItems.TETHER_POTION.get(), CCItems.IMPACT_POTION.get())) {
 			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
 		}
 
