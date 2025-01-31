@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
 	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get()};
-	private static final Item[] SMITHING_TEMPLATES = new Item[]{CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get()};
+	private static final Item[] SMITHING_TEMPLATES = new Item[]{CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get()};
 
 	public CCAdvancementModifierProvider(PackOutput output, CompletableFuture<Provider> provider) {
 		super(CavernsAndChasms.MOD_ID, output, provider);

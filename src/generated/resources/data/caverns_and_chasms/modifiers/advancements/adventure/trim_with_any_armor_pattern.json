@@ -9,6 +9,12 @@
               "recipe_id": "caverns_and_chasms:exile_armor_trim_smithing_template_smithing_trim"
             },
             "trigger": "minecraft:recipe_crafted"
+          },
+          "caverns_and_chasms:armor_trimmed_caverns_and_chasms:forger_armor_trim_smithing_template_smithing_trim": {
+            "conditions": {
+              "recipe_id": "caverns_and_chasms:forger_armor_trim_smithing_template_smithing_trim"
+            },
+            "trigger": "minecraft:recipe_crafted"
           }
         },
         "indexed_requirements": [
@@ -16,7 +22,8 @@
             "index": 0,
             "replace": false,
             "requirements": [
-              "caverns_and_chasms:armor_trimmed_caverns_and_chasms:exile_armor_trim_smithing_template_smithing_trim"
+              "caverns_and_chasms:armor_trimmed_caverns_and_chasms:exile_armor_trim_smithing_template_smithing_trim",
+              "caverns_and_chasms:armor_trimmed_caverns_and_chasms:forger_armor_trim_smithing_template_smithing_trim"
             ]
           }
         ]
