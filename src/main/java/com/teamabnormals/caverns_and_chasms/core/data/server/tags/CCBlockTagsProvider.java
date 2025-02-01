@@ -117,12 +117,12 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.NEEDS_IRON_TOOL).add(SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get());
 		this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), TIN_BARS.get(), NECROMIUM_BLOCK.get());
 		this.tag(BlockTags.CRYSTAL_SOUND_BLOCKS).add(AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get());
-		this.tag(BlockTags.SCULK_REPLACEABLE).add(FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
+		this.tag(BlockTags.BASE_STONE_OVERWORLD).add(FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 
 		this.tag(CCBlockTags.BRAZIERS).add(BRAZIER.get(), SOUL_BRAZIER.get(), ENDER_BRAZIER.get(), CUPRIC_BRAZIER.get());
 		// INDUCTOR.get()
 		this.tag(CCBlockTags.CUPRIC_FIRE_BASE_BLOCKS).addTag(Tags.Blocks.ORES_COPPER).addTag(Tags.Blocks.STORAGE_BLOCKS_RAW_COPPER).addTag(CCBlockTags.WAXABLE_COPPER_BLOCKS).addTag(CCBlockTags.WAXED_COPPER_BLOCKS);
-		this.tag(CCBlockTags.DEEPER_SPAWNABLE_ON).add(Blocks.GRAVEL, FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get()).addTag(BlockTags.BASE_STONE_OVERWORLD).addTag(Tags.Blocks.ORES);
+		this.tag(CCBlockTags.DEEPER_SPAWNABLE_ON).add(Blocks.GRAVEL).addTag(BlockTags.BASE_STONE_OVERWORLD).addTag(Tags.Blocks.ORES);
 		this.tag(CCBlockTags.GLARE_SPAWNABLE_NEAR).add(Blocks.GRASS_BLOCK, Blocks.MOSS_BLOCK, Blocks.MOSS_CARPET, Blocks.SMALL_DRIPLEAF, Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM).addTag(BlockTags.LEAVES).addTag(BlockTags.FLOWERS).addTag(BlockTags.SAPLINGS).addTag(BlockTags.REPLACEABLE_BY_TREES).addTag(BlockTags.CAVE_VINES);
 		this.tag(CCBlockTags.IGNORE_RAIL_PLACEMENT);
 		this.tag(CCBlockTags.SILVER_ORES).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get());
