@@ -60,6 +60,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -108,6 +109,13 @@ public class CavernsAndChasms {
 		CCBannerPatterns.BANNER_PATTERNS.register(bus);
 		CCLootItemFunctions.LOOT_FUNCTION_TYPES.register(bus);
 		CCDecoratedPotPatterns.DECORATED_POT_PATTERNS.register(bus);
+
+		bus.addListener((ModConfigEvent event) -> {
+			final ModConfig config = event.getConfig();
+			if (config.getSpec() == CCConfig.COMMON_SPEC) {
+				CCConfig.COMMON.load();
+			}
+		});
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
