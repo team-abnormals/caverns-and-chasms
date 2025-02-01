@@ -36,6 +36,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = TagUtil.blockTag("forge", "storage_blocks/raw_silver");
 	public static final TagKey<Block> STORAGE_BLOCKS_RAW_TIN = TagUtil.blockTag("forge", "storage_blocks/raw_tin");
 	public static final TagKey<Block> STORAGE_BLOCKS_ZIRCONIA = TagUtil.blockTag("forge", "storage_blocks/zirconia");
+	public static final TagKey<Block> STORAGE_BLOCKS_FLINT = TagUtil.blockTag("forge", "storage_blocks/flint");
 
 	private static TagKey<Block> blockTag(String name) {
 		return TagUtil.blockTag(CavernsAndChasms.MOD_ID, name);

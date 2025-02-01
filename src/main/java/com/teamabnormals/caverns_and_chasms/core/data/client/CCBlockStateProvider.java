@@ -85,6 +85,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(NECROMIUM_BLOCK);
 		this.block(ROTTEN_FLESH_BLOCK);
 		this.randomRotationBlock(ROCKY_DIRT);
+		this.randomRotationBlockBothAxis(FLINT_BLOCK);
 
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
 		this.blockFamily(COBBLESTONE_TILES_FAMILY);
@@ -418,6 +419,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void randomRotationBlock(RegistryObject<Block> block) {
 		ModelFile model = cubeAll(block.get());
 		this.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.allYRotations(model, 0, false));
+		this.blockItem(block);
+	}
+
+	public void randomRotationBlockBothAxis(RegistryObject<Block> block) {
+		ModelFile model = cubeAll(block.get());
+		this.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.allRotations(model, false));
 		this.blockItem(block);
 	}
 

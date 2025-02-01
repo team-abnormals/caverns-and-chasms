@@ -394,6 +394,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POTTED_WEIRD_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_weird_cave_growths", () -> new FlowerPotBlock(WEIRD_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
 	public static final RegistryObject<Block> POTTED_ZESTY_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_zesty_cave_growths", () -> new FlowerPotBlock(ZESTY_CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
 
+	public static final RegistryObject<Block> FLINT_BLOCK = HELPER.createBlock("flint_block", () -> new FlintBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
 				.tab(BUILDING_BLOCKS)
@@ -445,7 +447,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.GLASS), FLOAT_GLASS)
 				.addItemsAfter(of(Blocks.GLASS_PANE), FLOAT_GLASS_PANE)
 				.tab(NATURAL_BLOCKS)
-				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
+				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT, FLINT_BLOCK)
 				.addItemsBefore(of(Blocks.MUSHROOM_STEM), AZALEA_LOG)
 				.addItemsBefore(of(Blocks.GOLD_ORE), TIN_ORE, DEEPSLATE_TIN_ORE)
 				.addItemsBefore(of(Blocks.REDSTONE_ORE), SILVER_ORE, DEEPSLATE_SILVER_ORE)
