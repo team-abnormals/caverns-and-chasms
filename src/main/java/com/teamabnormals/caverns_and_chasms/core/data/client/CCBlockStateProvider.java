@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.HaltRailBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -45,6 +46,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.glassPaneBlock(FLOAT_GLASS_PANE, FLOAT_GLASS);
 
 		this.block(BOUNCER);
+		this.hoopBlock(HOOP.get());
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
@@ -370,6 +372,19 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				}, BlockStateProperties.WATERLOGGED);
 
 		this.blockItem(block);
+	}
+
+	public void hoopBlock(Block block) {
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					Axis axis = state.getValue(HoopBlock.AXIS);
+					return ConfiguredModel.builder()
+							.modelFile(new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_" + state.getValue(HoopBlock.SIZE)), this.models().existingFileHelper))
+							.rotationX(axis.isHorizontal() ? 90 : 0)
+							.rotationY(axis == Axis.X ? 90 : 0)
+							.build();
+				}, BlockStateProperties.WATERLOGGED);
+		this.generatedItem(block, new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"));
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {

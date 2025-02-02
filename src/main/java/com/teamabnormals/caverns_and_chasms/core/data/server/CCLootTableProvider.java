@@ -119,6 +119,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropWhenSilkTouch(FLOAT_GLASS_PANE.get());
 
 			this.dropSelf(BOUNCER.get());
+			this.dropSelf(HOOP.get());
 
 			this.dropSelf(COPPER_RAIL.get());
 			this.dropSelf(EXPOSED_COPPER_RAIL.get());

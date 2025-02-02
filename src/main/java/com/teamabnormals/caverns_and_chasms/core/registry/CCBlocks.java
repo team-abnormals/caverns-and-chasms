@@ -77,6 +77,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> FLOAT_GLASS_PANE = HELPER.createBlock("float_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
 	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
+	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 
 	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_RAIL));
 	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, CCProperties.COPPER_RAIL));
@@ -470,6 +471,7 @@ public class CCBlocks {
 						WAXED_FLOODLIGHT, WAXED_EXPOSED_FLOODLIGHT, WAXED_WEATHERED_FLOODLIGHT, WAXED_OXIDIZED_FLOODLIGHT,
 						LAVA_LAMP
 				)
+				.addItemsAfter(of(Blocks.LIGHTNING_ROD), HOOP)
 				.addItemsAfter(of(Blocks.SEA_LANTERN), LAPIS_LAZULI_LAMP, SPINEL_LAMP)
 				.addItemsBefore(of(Blocks.SHULKER_BOX), TOOLBOX, EXPOSED_TOOLBOX, WEATHERED_TOOLBOX, OXIDIZED_TOOLBOX, WAXED_TOOLBOX, WAXED_EXPOSED_TOOLBOX, WAXED_WEATHERED_TOOLBOX, WAXED_OXIDIZED_TOOLBOX)
 				.addItemsBefore(of(Blocks.INFESTED_STONE), FRAGILE_STONE, FRAGILE_DEEPSLATE)
@@ -479,6 +481,7 @@ public class CCBlocks {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON, WAXED_OXIDIZED_COPPER_BUTTON)
 				.addItemsAfter(of(Blocks.TARGET), BOUNCER)
+				.addItemsAfter(of(Blocks.LIGHTNING_ROD), HOOP)
 				.addItemsAfter(of(Blocks.TNT), TMT)
 				.addItemsAfter(of(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsBefore(of(Blocks.RAIL), COPPER_RAIL, EXPOSED_COPPER_RAIL, WEATHERED_COPPER_RAIL, OXIDIZED_COPPER_RAIL, WAXED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL)
@@ -560,6 +563,8 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(15)).noOcclusion();
 		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(10)).noOcclusion();
+
+		public static final BlockBehaviour.Properties HOOP = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL);
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F);
 		public static final BlockBehaviour.Properties DEEPSLATE_ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
