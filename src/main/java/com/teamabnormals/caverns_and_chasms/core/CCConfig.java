@@ -17,6 +17,9 @@ public class CCConfig {
 		public final IntValue deeperMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
+		public final BooleanValue fragileStoneDropsOres;
+		public boolean fragileStoneDropsOresEnabled;
+
 		public final BooleanValue chainmailArmorIncreasesDamage;
 		public final BooleanValue goldenArmorIncreasesSpeed;
 
@@ -41,6 +44,12 @@ public class CCConfig {
 			builder.pop();
 			builder.pop();
 
+			builder.push("blocks");
+			builder.push("fragile_stone");
+			fragileStoneDropsOres = builder.comment("If ores next to or within Fragile Stone and Deepslate fall when the neighbor blocks crumble").define("Fragile stone collapses ores", true);
+			builder.pop();
+			builder.pop();
+
 			builder.push("tweaks");
 			chainmailArmorIncreasesDamage = builder.comment("Chainmail armor increases the user's attack damage").define("Chainmail armor increases damage", true);
 			goldenArmorIncreasesSpeed = builder.comment("Golden armor increases the user's movement speed").define("Golden armor increases speed", true);
@@ -55,6 +64,10 @@ public class CCConfig {
 					.define("Prevent replacing trims", false);
 			builder.pop();
 			builder.pop();
+		}
+
+		public void load() {
+			this.fragileStoneDropsOresEnabled = this.fragileStoneDropsOres.get();
 		}
 	}
 

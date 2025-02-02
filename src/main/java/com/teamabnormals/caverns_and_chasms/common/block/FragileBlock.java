@@ -1,8 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.google.common.collect.Sets;
+import com.teamabnormals.blueprint.common.entity.BlueprintFallingBlockEntity;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -10,12 +14,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
+import java.util.Comparator;
+import java.util.HashSet;
 
 public interface FragileBlock {
 	@Nonnull
@@ -25,13 +32,86 @@ public interface FragileBlock {
 	String getChipParticle();
 
 	default void breakNeighbors(Level level, BlockPos pos) {
+		HashSet<BlockPos> positions = Sets.newHashSet();
+		boolean dropOres = CCConfig.COMMON.fragileStoneDropsOresEnabled;
+
 		for (Direction direction : Direction.values()) {
-			BlockPos blockpos = pos.relative(direction);
-			Block block = level.getBlockState(blockpos).getBlock();
-			if (block instanceof FragileBlock) {
-				level.scheduleTick(blockpos, block, 4 + level.getRandom().nextInt(4));
+			BlockPos offsetPos = pos.relative(direction);
+			BlockState state = level.getBlockState(offsetPos);
+			if (state.getBlock() instanceof FragileBlock) {
+				level.scheduleTick(offsetPos, state.getBlock(), 4 + level.getRandom().nextInt(4));
+			}
+
+			if (dropOres && canFall(level, offsetPos)) {
+				positions.add(offsetPos);
+				positions.addAll(findNearbyOres(positions, level, offsetPos));
 			}
 		}
+
+		if (dropOres) {
+			for (BlockPos offsetPos : positions.stream().sorted(Comparator.comparingInt(Vec3i::getY)).toList()) {
+				BlockState state = level.getBlockState(offsetPos);
+
+				if (level.getBlockState(offsetPos.below()).canBeReplaced() || offsetPos.below().equals(pos)) {
+					BlueprintFallingBlockEntity fallingOre = BlueprintFallingBlockEntity.fall(level, offsetPos, state);
+					fallingOre.time = -100;
+					level.addFreshEntity(fallingOre);
+
+					this.crack(level, state, offsetPos, level.getRandom());
+				}
+			}
+		}
+	}
+
+	static HashSet<BlockPos> findNearbyOres(HashSet<BlockPos> currentPositions, Level level, BlockPos pos) {
+		if (canFall(level, pos)) {
+			currentPositions.add(pos);
+			for (Direction dir : Direction.values()) {
+				BlockPos offsetPos = pos.relative(dir);
+				if (!currentPositions.contains(offsetPos)) {
+					currentPositions.addAll(findNearbyOres(currentPositions, level, offsetPos));
+				}
+			}
+		}
+
+		return currentPositions;
+	}
+
+	static boolean blockCanFall(Level level, BlockPos pos) {
+		BlockState state = level.getBlockState(pos);
+		return state.canBeReplaced() || state.getBlock() instanceof FragileBlock;
+	}
+
+	static boolean canFall(Level level, BlockPos pos) {
+		if (level.getBlockState(pos).is(Tags.Blocks.ORES)) {
+			boolean canFall = blockCanFall(level, pos.below());
+			if (!canFall) {
+				int i = 0;
+				boolean touchingOre = true;
+				while (touchingOre) {
+					i++;
+					touchingOre = level.getBlockState(pos.below(i)).is(Tags.Blocks.ORES);
+				}
+				if (blockCanFall(level, pos.below(i))) {
+					canFall = true;
+				}
+			}
+
+			if (canFall) {
+				boolean hasSupport = false;
+				for (Direction direction : Direction.values()) {
+					BlockState state = level.getBlockState(pos.relative(direction));
+					if (!state.is(Tags.Blocks.ORES) && !blockCanFall(level, pos.relative(direction)) && !(state.getBlock() instanceof FallingBlock)) {
+						hasSupport = true;
+						break;
+					}
+				}
+				return !hasSupport;
+			}
+
+		}
+
+		return false;
 	}
 
 	default void crack(Level level, BlockState state, BlockPos pos, RandomSource random) {
