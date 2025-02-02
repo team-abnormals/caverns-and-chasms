@@ -54,7 +54,7 @@ public class HoopBlockEntity extends BlockEntity {
 				}
 
 				if (Math.max(Math.abs(d2), Math.abs(d3)) <= d0) {
-					power = Math.min((int) Math.ceil(entity.getDeltaMovement().length() * 5.0D), 15);
+					power = Math.max(Math.min((int) Math.ceil(entity.getDeltaMovement().length() * 5.0D), 15), power);
 				}
 			}
 
