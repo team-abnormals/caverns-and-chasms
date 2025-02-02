@@ -1,9 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
 
 
 public class FlintBlock extends FallingBlock {
@@ -58,11 +59,20 @@ public class FlintBlock extends FallingBlock {
 					BlockState firestate = BaseFireBlock.getState(level, randomPos);
 					Vec3 direction = new Vec3(randomPos.getX() - pos.getX(), randomPos.getY(), randomPos.getZ() - pos.getZ()).normalize();
 					for (int l = 0; l < 10; ++l) {
-						double d1 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
-						double d2 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
-						double d3 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
+						double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
+						double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
+						double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
+						double d3 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
+						double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
+						double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
 						
-						NetworkUtil.spawnParticle("caverns_and_chasms:spark", pos.getX(), pos.getY(), pos.getZ(), d1, d2, d3);
+						NetworkUtil.spawnParticle("caverns_and_chasms:spark", d0, d1, d2, d3, d4, d5);
+					}
+					if (checkHeight) {
+						level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_STRIKE.get(), SoundSource.BLOCKS, 1F, 1F);
+					} else {
+						if (level.random.nextFloat()  < 0.6)
+							level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_STRIKE.get(), SoundSource.BLOCKS, 0.4F, 1F);
 					}
 					if (level.getBlockState(randomPos).isAir() && firestate.canSurvive(level, randomPos)) {
 						level.setBlockAndUpdate(randomPos, firestate);

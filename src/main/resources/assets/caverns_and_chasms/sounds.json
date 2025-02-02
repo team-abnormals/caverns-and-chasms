@@ -80,6 +80,14 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.flint_block.strike": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/strike1",
+      "caverns_and_chasms:block/flint_block/strike2",
+      "caverns_and_chasms:block/flint_block/strike3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.flint_block.strike"
+  },
   "block.tin.deflect": {
     "sounds": [
       "caverns_and_chasms:block/tin/deflect1",

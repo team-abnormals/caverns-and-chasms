@@ -25,6 +25,8 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_PLACE = HELPER.createSoundEvent("block.rocky_dirt.place");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_STEP = HELPER.createSoundEvent("block.rocky_dirt.step");
 
+	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STRIKE = HELPER.createSoundEvent("block.flint_block.strike");
+
 	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
