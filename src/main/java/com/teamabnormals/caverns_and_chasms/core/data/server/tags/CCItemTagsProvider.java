@@ -93,7 +93,6 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(CCBlockTags.STORAGE_BLOCKS_NECROMIUM, CCItemTags.STORAGE_BLOCKS_NECROMIUM);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER, CCItemTags.STORAGE_BLOCKS_RAW_SILVER);
 		this.copy(CCBlockTags.STORAGE_BLOCKS_RAW_TIN, CCItemTags.STORAGE_BLOCKS_RAW_TIN);
-		this.copy(CCBlockTags.STORAGE_BLOCKS_FLINT, CCItemTags.STORAGE_BLOCKS_FLINT);
 		this.copy(Tags.Blocks.CHESTS_WOODEN, Tags.Items.CHESTS_WOODEN);
 		this.copy(Tags.Blocks.CHESTS_TRAPPED, Tags.Items.CHESTS_TRAPPED);
 		this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);

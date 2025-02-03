@@ -59,7 +59,6 @@ public class CCItemTags {
 	public static final TagKey<Item> STORAGE_BLOCKS_NECROMIUM = TagUtil.itemTag("forge", "storage_blocks/necromium");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.itemTag("forge", "storage_blocks/raw_silver");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_TIN = TagUtil.itemTag("forge", "storage_blocks/raw_tin");
-	public static final TagKey<Item> STORAGE_BLOCKS_FLINT = TagUtil.itemTag("forge", "storage_blocks/flint");
 
 	public static final TagKey<Item> BOTTLES_MILK = TagUtil.itemTag("forge", "bottles/milk");
 
