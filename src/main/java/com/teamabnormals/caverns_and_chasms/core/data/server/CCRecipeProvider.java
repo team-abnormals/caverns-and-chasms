@@ -172,6 +172,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, TIN_BARS.get(), 16).define('#', CCItemTags.INGOTS_TIN).pattern("###").pattern("###").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(REDSTONE, BOUNCER.get()).define('T', CCItemTags.STORAGE_BLOCKS_TIN).define('S', Items.SLIME_BALL).define('R', Tags.Items.DUSTS_REDSTONE).pattern("SRS").pattern("STS").pattern("SRS").unlockedBy("has_slime_ball", has(Items.SLIME_BALL)).unlockedBy("has_tin", has(CCItemTags.STORAGE_BLOCKS_TIN)).save(consumer);
+		ShapedRecipeBuilder.shaped(REDSTONE, HOOP.get()).define('T', CCItemTags.INGOTS_TIN).define('Q', Items.QUARTZ).pattern("TTT").pattern("TQT").pattern("TTT").unlockedBy("has_quartz", has(Items.QUARTZ)).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, FLOAT_GLASS.get(), 2).define('G', Blocks.GLASS).define('S', Items.AMETHYST_SHARD).define('T', CCItemTags.INGOTS_TIN).pattern(" T ").pattern("SGS").pattern(" T ").unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).unlockedBy("has_tin", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, FLOAT_GLASS_PANE.get(), 16).define('#', FLOAT_GLASS.get()).pattern("###").pattern("###").unlockedBy("has_float_glass", has(FLOAT_GLASS.get())).save(consumer);
 
