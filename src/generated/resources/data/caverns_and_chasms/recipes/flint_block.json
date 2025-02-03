@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "caverns_and_chasms:flint_block"
+      "item": "minecraft:flint"
     }
   },
   "pattern": [
