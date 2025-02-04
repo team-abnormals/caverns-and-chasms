@@ -41,6 +41,7 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_EMITTER = registerSimpleParticleType(true, "spinel_boom_emitter");
 	public static final RegistryObject<SimpleParticleType> GOLEM_NOTE = registerSimpleParticleType(true, "golem_note");
 	public static final RegistryObject<SimpleParticleType> SPARK = registerSimpleParticleType(false, "spark");
+	public static final RegistryObject<SimpleParticleType> ATONING_DAGGER = registerSimpleParticleType(true, "atoning_table_dagger");
 
 	private static RegistryObject<SimpleParticleType> registerSimpleParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -70,6 +71,7 @@ public class CCParticleTypes {
 			event.registerSpecial(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());
 			event.registerSpriteSet(GOLEM_NOTE.get(), GolemNoteParticle.Provider::new);
 			event.registerSpriteSet(SPARK.get(), SparkParticle.Provider::new);
+			event.registerSpriteSet(ATONING_DAGGER.get(), AtoningDaggerParticle.Provider::new);
 		}
 	}
 }
