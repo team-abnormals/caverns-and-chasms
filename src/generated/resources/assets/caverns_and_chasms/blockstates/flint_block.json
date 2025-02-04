@@ -1,0 +1,152 @@
+{
+  "variants": {
+    "lit=false": [
+      {
+        "model": "caverns_and_chasms:block/flint_block"
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "y": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block",
+        "x": 270,
+        "y": 270
+      }
+    ],
+    "lit=true": [
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit"
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "y": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 270
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/flint_block_lit",
+        "x": 270,
+        "y": 270
+      }
+    ]
+  }
+}

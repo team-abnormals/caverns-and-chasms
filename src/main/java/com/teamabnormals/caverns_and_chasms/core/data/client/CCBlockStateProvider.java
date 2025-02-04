@@ -2,9 +2,11 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
+import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.HaltRailBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import net.minecraft.client.model.Model;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.data.BlockFamily;
@@ -18,6 +20,7 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
@@ -87,6 +90,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(NECROMIUM_BLOCK);
 		this.block(ROTTEN_FLESH_BLOCK);
 		this.randomRotationBlock(ROCKY_DIRT);
+		this.flintBlock(FLINT_BLOCK);
 
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
 		this.blockFamily(COBBLESTONE_TILES_FAMILY);
@@ -433,6 +437,20 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void randomRotationBlock(RegistryObject<Block> block) {
 		ModelFile model = cubeAll(block.get());
 		this.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.allYRotations(model, 0, false));
+		this.blockItem(block);
+	}
+
+	public void randomRotationBlockBothAxis(RegistryObject<Block> block) {
+		ModelFile model = cubeAll(block.get());
+		this.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.allRotations(model, false));
+		this.blockItem(block);
+	}
+
+	public void flintBlock(RegistryObject<Block> block) {
+		ModelFile model = cubeAll(block.get());
+		ModelFile litModel = models().cubeAll("flint_block_lit", modLoc("block/flint_block_lit"));
+
+		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.allRotations(state.getValue(FlintBlock.LIT) ? litModel : model , false));
 		this.blockItem(block);
 	}
 
