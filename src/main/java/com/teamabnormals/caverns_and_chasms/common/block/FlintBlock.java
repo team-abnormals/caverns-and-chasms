@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.blueprint.common.block.BlueprintFallingBlock;
+import com.teamabnormals.blueprint.common.entity.BlueprintFallingBlockEntity;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
@@ -12,7 +14,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -20,7 +23,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
 
 
-public class FlintBlock extends FallingBlock {
+public class FlintBlock extends BlueprintFallingBlock {
 
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
@@ -36,7 +39,7 @@ public class FlintBlock extends FallingBlock {
 
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (!state.hasProperty(LIT))  {
+		if (!state.hasProperty(LIT)) {
 			return;
 		}
 
@@ -46,21 +49,20 @@ public class FlintBlock extends FallingBlock {
 		}
 
 		if (isFree(level.getBlockState(pos.below())) && isFree(level.getBlockState(pos.above())) && pos.getY() >= level.getMinBuildHeight()) {
-			FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, pos, state);
+			BlueprintFallingBlockEntity fallingblockentity = BlueprintFallingBlockEntity.fall(level, pos, state);
 			this.falling(fallingblockentity);
 		}
 	}
 
 	@Override
 	public void onLand(Level level, BlockPos pos, BlockState state, BlockState newState, FallingBlockEntity fallingBlockEntity) {
-		this.spark(level, pos, fallingBlockEntity, true);
+		spark(level, pos, fallingBlockEntity, true);
 	}
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float p_152430_) {
-		if (entity instanceof FallingBlockEntity) {
-			FallingBlockEntity fallingblockentity = (FallingBlockEntity) entity;
-			spark(level, pos, fallingblockentity, true);
+		if (entity instanceof FallingBlockEntity fallingBlock) {
+			spark(level, pos, fallingBlock, true);
 		}
 		super.fallOn(level, state, pos, entity, p_152430_);
 	}
@@ -70,7 +72,7 @@ public class FlintBlock extends FallingBlock {
 			for (int k = 0; k < level.random.nextInt(5); ++k) {
 				int i = level.random.nextIntBetweenInclusive(-1, 1);
 				int j = level.random.nextIntBetweenInclusive(-1, 1);
-				if (i != 0 || j != 0 ) {
+				if (i != 0 || j != 0) {
 					BlockPos randomPos = pos.offset(i, 0, j);
 					BlockState firestate = BaseFireBlock.getState(level, randomPos);
 
@@ -82,8 +84,8 @@ public class FlintBlock extends FallingBlock {
 						double d3 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
 						double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
 						double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
-						
-						NetworkUtil.spawnParticle("caverns_and_chasms:spark", d0, d1, d2, d3, d4, d5);
+
+						NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), d0, d1, d2, d3, d4, d5);
 					}
 					for (int m = 0; m < (checkHeight ? 30 : 15); ++m) {
 						double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
@@ -91,9 +93,9 @@ public class FlintBlock extends FallingBlock {
 						double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
 						double d3 = direction.x + level.random.nextGaussian() * 0.02D;
 						double d4 = direction.y * 0.3D + level.random.nextGaussian() * 0.02D;
-						double d5 = direction.z  + level.random.nextGaussian() * 0.02D;
+						double d5 = direction.z + level.random.nextGaussian() * 0.02D;
 
-						NetworkUtil.spawnParticle("caverns_and_chasms:flint", d0, d1, d2, d3, d4, d5);
+						NetworkUtil.spawnParticle(CCParticleTypes.FLINT.getId().toString(), d0, d1, d2, d3, d4, d5);
 					}
 					if (checkHeight) {
 						level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_STRIKE.get(), SoundSource.BLOCKS, 1F, 1F);
@@ -102,7 +104,7 @@ public class FlintBlock extends FallingBlock {
 							level.setBlock(pos, lit, 3);
 						}
 					} else {
-						if (level.random.nextFloat()  < 0.6) {
+						if (level.random.nextFloat() < 0.6) {
 							level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_STRIKE.get(), SoundSource.BLOCKS, 0.4F, 1F);
 						}
 						if (level.getBlockState(pos).is(CCBlocks.FLINT_BLOCK.get())) {
@@ -120,8 +122,7 @@ public class FlintBlock extends FallingBlock {
 	}
 
 	public static BlockState litState(BlockState state) {
-		BlockState litState = state.setValue(LIT, true);
-		return litState;
+		return state.setValue(LIT, true);
 	}
 
 	@Override
