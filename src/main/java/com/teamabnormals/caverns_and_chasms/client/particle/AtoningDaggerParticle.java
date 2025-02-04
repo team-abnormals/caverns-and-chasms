@@ -27,9 +27,7 @@ public class AtoningDaggerParticle extends TextureSheetParticle {
 	@Override
 	public void tick() {
 		super.tick();
-
-		float f = (float) this.age;
-		this.y += Mth.sin(f * 0.1F) * 0.005F;
+		this.y += Mth.sin(this.age * 0.1F) * 0.005F;
 	}
 
 	@Override

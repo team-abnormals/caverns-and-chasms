@@ -22,7 +22,7 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 	@Override
 	protected void addSources() {
 		this.atlas(BlueprintTrims.ARMOR_TRIMS_ATLAS)
-				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.FORGER, CCTrimPatterns.SANGUINE))
+				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.FORGER, CCTrimPatterns.IMMOLATE, CCTrimPatterns.RIM, CCTrimPatterns.SANGUINE))
 				.addSource(BlueprintTrims.materialPatternPermutations(
 						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.ZIRCONIA,

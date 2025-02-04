@@ -14,11 +14,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class CCTrimPatterns {
 	public static final ResourceKey<TrimPattern> EXILE = createKey("exile");
 	public static final ResourceKey<TrimPattern> FORGER = createKey("forger");
+	public static final ResourceKey<TrimPattern> IMMOLATE = createKey("immolate");
+	public static final ResourceKey<TrimPattern> RIM = createKey("rim");
 	public static final ResourceKey<TrimPattern> SANGUINE = createKey("sanguine");
 
 	public static void bootstrap(BootstapContext<TrimPattern> context) {
 		register(context, EXILE, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 		register(context, FORGER, CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+		register(context, IMMOLATE, CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+		register(context, RIM, CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 		register(context, SANGUINE, CCItems.LIVING_FLESH.get());
 	}
 
