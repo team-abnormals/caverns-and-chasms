@@ -1,0 +1,7 @@
+{
+  "asset_id": "caverns_and_chasms:immolate",
+  "description": {
+    "translate": "trim_pattern.caverns_and_chasms.immolate"
+  },
+  "template_item": "caverns_and_chasms:immolate_armor_trim_smithing_template"
+}

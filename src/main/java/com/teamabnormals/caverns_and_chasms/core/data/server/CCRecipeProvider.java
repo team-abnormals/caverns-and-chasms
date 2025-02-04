@@ -441,6 +441,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 		trimRecipes(consumer, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.NETHERRACK);
 		trimRecipes(consumer, CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
+		trimRecipes(consumer, CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
+		trimRecipes(consumer, CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
 		SpecialRecipeBuilder.special(CCRecipeSerializers.FADED_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":faded_trim_smithing_template_duping");
 		SpecialRecipeBuilder.special(CCRecipeSerializers.EMISSIVE_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":emissive_trim_smithing_template_duping");
 

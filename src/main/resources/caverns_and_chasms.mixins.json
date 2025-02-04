@@ -32,7 +32,7 @@
     "PotionBrewingMixin",
     "PotionUtilsMixin",
     "PowderSnowBlockMixin",
-	"ProjectileMixin",
+    "ProjectileMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
     "SmithingTemplateItemMixin",
@@ -44,6 +44,7 @@
     "client.ElytraLayerMixin",
     "client.EntityRenderDispatcherMixin",
     "client.HumanoidArmorLayerMixin",
+    "client.HumanoidModelMixin",
     "client.LevelRendererMixin"
   ],
   "injectors": {

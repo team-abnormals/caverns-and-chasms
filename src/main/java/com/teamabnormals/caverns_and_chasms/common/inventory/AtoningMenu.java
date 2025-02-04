@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -114,18 +115,21 @@ public class AtoningMenu extends AbstractContainerMenu {
 					this.random.setSeed(this.enchantmentSeed.get());
 
 					for (int i = 0; i < 3; ++i) {
-						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, 3 - i, (int) enchPower, stack);
+						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, 2 - i, (int) enchPower, stack);
 						this.enchantClue[i] = -1;
 						this.levelClue[i] = -1;
 						if (this.costs[i] < i + 1) {
 							this.costs[i] = 0;
 						}
-						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, 3 - i, (int) enchPower, stack, costs[i]);
+						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, 2 - i, (int) enchPower, stack, costs[i]);
+
+						if (stack.is(Items.BOOK))
+							this.costs[i] = 0;
 					}
 
 					for (int i = 0; i < 3; ++i) {
 						if (this.costs[i] > 0) {
-							List<EnchantmentInstance> list = this.getEnchantmentList(stack, i, this.costs[i]);
+							List<EnchantmentInstance> list = this.getEnchantmentList(stack, 2 - i, this.costs[i]);
 							if (list != null && !list.isEmpty()) {
 								EnchantmentInstance enchantment = list.get(this.random.nextInt(list.size()));
 								this.enchantClue[i] = BuiltInRegistries.ENCHANTMENT.getId(enchantment.enchantment);
@@ -164,26 +168,27 @@ public class AtoningMenu extends AbstractContainerMenu {
 					if (!list.isEmpty()) {
 						player.onEnchantmentPerformed(input, 0);
 						boolean flag = input.is(Items.BOOK);
-						if (flag) {
-							output = new ItemStack(Items.ENCHANTED_BOOK);
-							CompoundTag tag = input.getTag();
-							if (tag != null) {
-								output.setTag(tag.copy());
-							}
-
-							this.enchantSlots.setItem(0, output);
-						}
+//						if (flag) {
+//							output = new ItemStack(Items.ENCHANTED_BOOK);
+//							CompoundTag tag = input.getTag();
+//							if (tag != null) {
+//								output.setTag(tag.copy());
+//							}
+//
+//							this.enchantSlots.setItem(0, output);
+//						}
 
 						for (EnchantmentInstance enchantment : list) {
 							if (flag) {
-								EnchantedBookItem.addEnchantment(output, enchantment);
+								// EnchantedBookItem.addEnchantment(output, enchantment);
 							} else {
 								output.enchant(enchantment.enchantment, enchantment.level);
-								output.hurtAndBreak((4 - i) * this.random.nextInt(Math.max(1, (output.getMaxDamage() - output.getDamageValue()) / 2)), player, (entity) -> {
-									entity.broadcastBreakEvent(player.getUsedItemHand());
-								});
 							}
 						}
+
+						output.hurtAndBreak((4 - i) * this.random.nextInt(Math.max(1, (output.getMaxDamage() - output.getDamageValue()) / 2)), player, (entity) -> {
+							entity.broadcastBreakEvent(player.getUsedItemHand());
+						});
 
 						if (!player.getAbilities().instabuild) {
 							fuel.shrink(i);
@@ -219,8 +224,9 @@ public class AtoningMenu extends AbstractContainerMenu {
 	private List<EnchantmentInstance> getEnchantmentList(ItemStack stack, int p_39473_, int p_39474_) {
 		this.random.setSeed(this.enchantmentSeed.get() + p_39473_);
 		List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, stack, p_39474_, false);
-		if (stack.is(Items.BOOK) && list.size() > 1) {
-			list.remove(this.random.nextInt(list.size()));
+		if (stack.is(Items.BOOK)) {// && list.size() > 1) {
+			return Lists.newArrayList();
+			// list.remove(this.random.nextInt(list.size()));
 		}
 
 		return list;

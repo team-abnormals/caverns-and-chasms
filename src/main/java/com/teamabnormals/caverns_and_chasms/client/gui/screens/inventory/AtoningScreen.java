@@ -109,7 +109,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 					i2 = 8453920;
 				}
 
-				gui.drawString(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * slot + 7, i2);
+				// gui.drawString(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * slot + 7, i2);
 			}
 		}
 
