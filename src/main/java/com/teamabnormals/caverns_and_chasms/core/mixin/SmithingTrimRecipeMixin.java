@@ -37,13 +37,9 @@ public class SmithingTrimRecipeMixin {
 
 		if (!cir.getReturnValue().isEmpty()) {
 			CompoundTag tag = cir.getReturnValue().getOrCreateTag();
-			if (container.getItem(0).getOrCreateTag().getBoolean("EmissiveTrim")) {
-				tag.putBoolean("EmissiveTrim", true);
-				tag.putBoolean("FadedTrim", false);
-			} else if (container.getItem(0).getOrCreateTag().getBoolean("FadedTrim")) {
-				tag.putBoolean("FadedTrim", true);
-				tag.putBoolean("EmissiveTrim", false);
-			}
+			CompoundTag inputTag = container.getItem(0).getOrCreateTag();
+			tag.putBoolean("EmissiveTrim", inputTag.getBoolean("EmissiveTrim"));
+			tag.putBoolean("FadedTrim", inputTag.getBoolean("FadedTrim"));
 		}
 	}
 }
