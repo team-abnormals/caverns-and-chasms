@@ -566,17 +566,17 @@ public class CCEvents {
 						data.setValue(CCDataProcessors.DEFLECT_X, -vec3.x * j);
 						data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
 						data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
-						projectile.setPos(vec31.x + projectile.getBbWidth() * 0.5D * i, vec31.y, vec31.z);
+						projectile.setPos(vec31.x + 0.01D * i, vec31.y, vec31.z);
 					} else if (axis == Axis.Y) {
 						data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
 						data.setValue(CCDataProcessors.DEFLECT_Y, -vec3.y * j);
 						data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
-						projectile.setPos(vec31.x, i == 1 ? vec31.y : vec31.y - projectile.getBbHeight(), vec31.z);
+						projectile.setPos(vec31.x, i == 1 ? vec31.y : vec31.y - 0.01D, vec31.z);
 					} else if (axis == Axis.Z) {
 						data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
 						data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
 						data.setValue(CCDataProcessors.DEFLECT_Z, -vec3.z * j);
-						projectile.setPos(vec31.x, vec31.y, vec31.z + projectile.getBbWidth() * 0.5D * i);
+						projectile.setPos(vec31.x, vec31.y, vec31.z + 0.01D * i);
 					}
 					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
 					projectile.setDeltaMovement(Vec3.ZERO);
