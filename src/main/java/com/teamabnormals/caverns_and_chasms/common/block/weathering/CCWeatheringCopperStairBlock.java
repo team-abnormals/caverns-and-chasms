@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.block.weathering;
 
-import com.teamabnormals.caverns_and_chasms.common.block.CCWeatheringCopper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

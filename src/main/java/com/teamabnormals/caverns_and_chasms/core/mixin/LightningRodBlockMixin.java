@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.block.CCWeatheringCopper;
+import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

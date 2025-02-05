@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.weathering;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;

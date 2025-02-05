@@ -1,18 +1,20 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.amethyst;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class AmethystWallBlock extends WallBlock {
+import java.util.function.Supplier;
 
-	public AmethystWallBlock(Properties properties) {
-		super(properties);
+public class AmethystStairBlock extends StairBlock {
+
+	public AmethystStairBlock(Supplier<BlockState> stateSupplier, Properties properties) {
+		super(stateSupplier, properties);
 	}
 
 	@Override

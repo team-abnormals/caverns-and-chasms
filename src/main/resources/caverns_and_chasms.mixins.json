@@ -24,6 +24,8 @@
     "IronGolemMixin",
     "ItemCooldownsMixin",
     "ItemMixin",
+    "JukeboxBlockEntityMixin",
+    "JukeboxBlockMixin",
     "LightningBoltMixin",
     "LightningRodBlockMixin",
     "MobEffectInstanceMixin",
