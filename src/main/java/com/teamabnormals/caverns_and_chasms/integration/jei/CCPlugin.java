@@ -78,6 +78,7 @@ public class CCPlugin implements IModPlugin {
 		registration.addRecipes(RecipeTypes.ANVIL, getRepairRecipes(registration).toList());
 		registration.addRecipes(RecipeTypes.CRAFTING, ToolboxWaxingRecipeMaker.createRecipes());
 		registration.addRecipes(RecipeTypes.CRAFTING, FadedSmithingTemplateDupingRecipeMaker.createRecipes());
+		registration.addRecipes(RecipeTypes.CRAFTING, MusicDiscCopyRecipe.createRecipes());
 	}
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {

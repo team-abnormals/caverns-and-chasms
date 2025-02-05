@@ -40,7 +40,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
 		this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get());
-		this.tag(ItemTags.MUSIC_DISCS).add(MUSIC_DISC_EPILOGUE.get());
+		this.tag(ItemTags.MUSIC_DISCS).add(MUSIC_DISC_EPILOGUE.get(), MUSIC_DISC_COPY.get());
 		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.get().asItem(), CCBlocks.GOLDEN_BARS.get().asItem(), GOLDEN_BUCKET.get(), GOLDEN_WATER_BUCKET.get(), GOLDEN_LAVA_BUCKET.get(), GOLDEN_MILK_BUCKET.get(), GOLDEN_POWDER_SNOW_BUCKET.get());
 		this.tag(ItemTags.PIGLIN_REPELLENTS).add(CCBlocks.SOUL_BRAZIER.get().asItem());
 		this.tag(ItemTags.BOATS).add(AZALEA_BOAT.getFirst().get());
