@@ -11,7 +11,10 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
-import com.teamabnormals.caverns_and_chasms.common.item.*;
+import com.teamabnormals.caverns_and_chasms.common.item.FoilItem;
+import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
@@ -524,11 +527,20 @@ public class CCEvents {
 		Projectile projectile = event.getProjectile();
 		HitResult hitResult = event.getRayTraceResult();
 
-		if (hitResult.getType() == HitResult.Type.BLOCK) {
+		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			BlockState state = level.getBlockState((blockHitResult).getBlockPos());
-			if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN) && state.is(CCBlockTags.DEFLECTS_PROJECTILES)) {
-				Direction direction = blockHitResult.getDirection();
+			BlockPos blockpos = (blockHitResult).getBlockPos();
+			BlockState blockstate = level.getBlockState(blockpos);
+			Direction direction = blockHitResult.getDirection();
+
+			boolean flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+			if (!flag) {
+				blockpos = blockpos.relative(direction.getOpposite());
+				blockstate = level.getBlockState(blockpos);
+				flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+			}
+
+			if (flag) {
 				Vec3 vec3 = projectile.getDeltaMovement();
 				double d0 = vec3.lengthSqr();
 				if (direction != Direction.UP || d0 > 0.04D) {
@@ -541,13 +553,13 @@ public class CCEvents {
 					double j = 0.65D;
 					double k = 0.75D;
 
-					if (state.is(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY)) {
+					if (blockstate.is(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY)) {
 						j = 0.9D;
 						k = 0.9D;
 					}
 
-					if (state.getBlock() instanceof TargetBlock targetBlock) {
-						targetBlock.onProjectileHit(level, state, blockHitResult, projectile);
+					if (blockstate.getBlock() instanceof TargetBlock targetBlock) {
+						targetBlock.onProjectileHit(level, blockstate, blockHitResult.withPosition(blockpos), projectile);
 					}
 
 					if (axis == Axis.X) {
