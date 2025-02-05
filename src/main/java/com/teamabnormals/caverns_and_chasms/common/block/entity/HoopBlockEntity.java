@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -60,6 +61,12 @@ public class HoopBlockEntity extends BlockEntity {
 
 			if (power != state.getValue(HoopBlock.OUTPUT_POWER)) {
 				level.setBlock(pos, state.setValue(HoopBlock.OUTPUT_POWER, power), 3);
+
+				for (Direction direction : Direction.values()) {
+					if (direction.getAxis() != axis) {
+						level.updateNeighborsAt(pos.relative(direction), state.getBlock());
+					}
+				}
 			}
 		}
 	}

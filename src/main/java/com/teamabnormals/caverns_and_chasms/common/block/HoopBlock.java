@@ -67,6 +67,11 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
+	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+		return direction.getAxis() != state.getValue(AXIS) ? state.getValue(OUTPUT_POWER) : 0;
+	}
+
+	@Override
 	public boolean isSignalSource(BlockState state) {
 		return true;
 	}
