@@ -42,6 +42,10 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> GOLEM_NOTE = registerSimpleParticleType(true, "golem_note");
 	public static final RegistryObject<SimpleParticleType> SPARK = registerSimpleParticleType(false, "spark");
 	public static final RegistryObject<SimpleParticleType> FLINT = registerSimpleParticleType(false, "flint");
+	public static final RegistryObject<SimpleParticleType> TURQUOISE_BLUE = registerSimpleParticleType(false, "turquoise_blue");
+	public static final RegistryObject<SimpleParticleType> TURQUOISE_GREEN = registerSimpleParticleType(false, "turquoise_green");
+	public static final RegistryObject<SimpleParticleType> TURQUOISE_BLUE_STEP = registerSimpleParticleType(false, "turquoise_blue_step");
+	public static final RegistryObject<SimpleParticleType> TURQUOISE_GREEN_STEP = registerSimpleParticleType(false, "turquoise_green_step");
 	public static final RegistryObject<SimpleParticleType> ATONING_DAGGER = registerSimpleParticleType(true, "atoning_table_dagger");
 
 	private static RegistryObject<SimpleParticleType> registerSimpleParticleType(boolean alwaysShow, String name) {
@@ -73,6 +77,10 @@ public class CCParticleTypes {
 			event.registerSpriteSet(GOLEM_NOTE.get(), GolemNoteParticle.Provider::new);
 			event.registerSpriteSet(SPARK.get(), SparkParticle.Provider::new);
 			event.registerSpriteSet(FLINT.get(), FlintParticle.Provider::new);
+			event.registerSpriteSet(TURQUOISE_BLUE.get(), TurquoiseParticle.Provider::new);
+			event.registerSpriteSet(TURQUOISE_GREEN.get(), TurquoiseParticle.Provider::new);
+			event.registerSpriteSet(TURQUOISE_BLUE_STEP.get(), TurquoiseParticle.StepProvider::new);
+			event.registerSpriteSet(TURQUOISE_GREEN_STEP.get(), TurquoiseParticle.StepProvider::new);
 			event.registerSpriteSet(ATONING_DAGGER.get(), AtoningDaggerParticle.Provider::new);
 		}
 	}

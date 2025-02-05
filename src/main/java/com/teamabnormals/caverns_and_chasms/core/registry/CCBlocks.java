@@ -15,6 +15,14 @@ import com.teamabnormals.blueprint.core.util.PropertyUtil.WoodSetProperties;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
+import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystSlabBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystStairBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystWallBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricCampfireBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricFireBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricTorchBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricWallTorchBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.turquoise.*;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
@@ -191,14 +199,14 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
-	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new DropExperienceBlock(CCProperties.ORE, UniformInt.of(4, 9)));
-	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new DropExperienceBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)));
-	public static final RegistryObject<Block> TURQUOISE_BLOCK = HELPER.createBlock("turquoise_block", () -> new Block(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILES = HELPER.createBlock("turquoise_tiles", () -> new Block(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILE_STAIRS = HELPER.createBlock("turquoise_tile_stairs", () -> new StairBlock(() -> TURQUOISE_TILES.get().defaultBlockState(), CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new SlabBlock(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new WallBlock(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new RotatedPillarBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)));
+	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)));
+	public static final RegistryObject<Block> TURQUOISE_BLOCK = HELPER.createBlock("turquoise_block", () -> new TurquoiseBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILES = HELPER.createBlock("turquoise_tiles", () -> new TurquoiseBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILE_STAIRS = HELPER.createBlock("turquoise_tile_stairs", () -> new TurquoiseStairBlock(() -> TURQUOISE_TILES.get().defaultBlockState(), CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new TurquoiseSlabBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new TurquoiseWallBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE));
 
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICKS = HELPER.createBlock("lapis_bricks", () -> new Block(CCProperties.LAPIS_LAZULI));
 	public static final RegistryObject<Block> LAPIS_LAZULI_BRICK_STAIRS = HELPER.createBlock("lapis_brick_stairs", () -> new StairBlock(() -> LAPIS_LAZULI_BRICKS.get().defaultBlockState(), CCProperties.LAPIS_LAZULI));
