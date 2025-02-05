@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.HaltRailBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.client.model.Model;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.data.BlockFamily;
@@ -20,7 +19,6 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
@@ -388,7 +386,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 							.rotationY(axis == Axis.X ? 90 : 0)
 							.build();
 				}, BlockStateProperties.WATERLOGGED);
-		this.generatedItem(block, new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"));
+		this.simpleBlockItem(block, new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"), this.models().existingFileHelper));
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {

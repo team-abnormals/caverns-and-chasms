@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "caverns_and_chasms:block/hoop_size_3"
-  }
+  "parent": "caverns_and_chasms:block/hoop_size_3"
 }
