@@ -126,6 +126,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> TMT = HELPER.createBlock("tmt", () -> new TmtBlock(CCProperties.TMT));
 
+	public static final RegistryObject<Block> SPLURTER = HELPER.createBlock("splurter", () -> new SplurterBlock(BlockBehaviour.Properties.copy(Blocks.DISPENSER)));
+
 	public static final RegistryObject<Block> FLOODLIGHT = HELPER.createBlock("floodlight", () -> new WeatheringFloodlightBlock(WeatherState.UNAFFECTED, CCProperties.FLOODLIGHT));
 	public static final RegistryObject<Block> EXPOSED_FLOODLIGHT = HELPER.createBlock("exposed_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_FLOODLIGHT));
 	public static final RegistryObject<Block> WEATHERED_FLOODLIGHT = HELPER.createBlock("weathered_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_FLOODLIGHT));
@@ -499,7 +501,8 @@ public class CCBlocks {
 				.addItemsBefore(ofID(CCConstants.BAMBOO_BOOKSHELF), AZALEA_BOOKSHELF, CHISELED_AZALEA_BOOKSHELF)
 				.addItemsBefore(ofID(CCConstants.BAMBOO_CLOSET), AZALEA_CHEST)
 				.tab(REDSTONE_BLOCKS)
-				.addItemsBefore(ofID(CCConstants.TRAPPED_BAMBOO_CLOSET), TRAPPED_AZALEA_CHEST);
+				.addItemsBefore(ofID(CCConstants.TRAPPED_BAMBOO_CLOSET), TRAPPED_AZALEA_CHEST)
+				.addItemsAfter(of(Blocks.DROPPER), SPLURTER);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "D": {
+      "item": "minecraft:dropper"
+    },
+    "T": {
+      "item": "caverns_and_chasms:tin_ingot"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "TDT",
+    "TTT"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:splurter"
+  },
+  "show_notification": true
+}
