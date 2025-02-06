@@ -1,9 +1,5 @@
 {
 	"parent": "block/block",
-	"textures": {
-		"hoop": "caverns_and_chasms:block/hoop_size_2",
-		"particle": "caverns_and_chasms:block/hoop_size_2"
-	},
 	"elements": [
 		{
 			"from": [2, 7, 2],

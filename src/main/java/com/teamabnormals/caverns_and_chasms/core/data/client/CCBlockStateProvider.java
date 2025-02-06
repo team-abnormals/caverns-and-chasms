@@ -385,13 +385,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void hoopBlock(Block block) {
 		this.getVariantBuilder(block)
 				.forAllStatesExcept(state -> {
+					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_" + state.getValue(HoopBlock.SIZE) + (state.getValue(HoopBlock.OUTPUT_POWER) > 0 ? "_activated" : ""));
 					Axis axis = state.getValue(HoopBlock.AXIS);
 					return ConfiguredModel.builder()
-							.modelFile(new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_" + state.getValue(HoopBlock.SIZE)), this.models().existingFileHelper))
+							.modelFile(models().withExistingParent(location.getPath(), CavernsAndChasms.MOD_ID + ":block/template_hoop_size_" + state.getValue(HoopBlock.SIZE)).texture("hoop", location).texture("particle", location))
 							.rotationX(axis.isHorizontal() ? 90 : 0)
 							.rotationY(axis == Axis.X ? 90 : 0)
 							.build();
-				}, BlockStateProperties.WATERLOGGED, HoopBlock.OUTPUT_POWER);
+				}, BlockStateProperties.WATERLOGGED);
 		this.simpleBlockItem(block, new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"), this.models().existingFileHelper));
 	}
 

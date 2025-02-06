@@ -1,0 +1,7 @@
+{
+  "parent": "caverns_and_chasms:block/template_hoop_size_0",
+  "textures": {
+    "hoop": "caverns_and_chasms:block/hoop_size_0_activated",
+    "particle": "caverns_and_chasms:block/hoop_size_0_activated"
+  }
+}
