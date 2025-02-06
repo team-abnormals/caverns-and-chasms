@@ -23,7 +23,6 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters;
 import net.minecraftforge.common.Tags;
 import org.apache.commons.compress.utils.Lists;
 
-import java.util.EmptyStackException;
 import java.util.List;
 
 public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
@@ -69,6 +68,9 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 
 			if (biome.is(CCBiomeTags.HAS_LURID_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_LURID_CAVE_GROWTHS))
 				possibleVariants.add(CCBlocks.LURID_CAVE_GROWTHS.get().defaultBlockState());
+
+			if (level.getLevel().structureManager().hasAnyStructureAt(blockpos))
+				possibleVariants.add(CCBlocks.WEIRD_CAVE_GROWTHS.get().defaultBlockState());
 
 			if (!possibleVariants.isEmpty()) {
 				blockstate = possibleVariants.get(random.nextInt(possibleVariants.size()));
