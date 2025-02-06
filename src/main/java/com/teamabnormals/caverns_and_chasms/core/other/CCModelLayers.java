@@ -16,11 +16,8 @@ public class CCModelLayers {
 	public static final ModelLayerLocation GLARE = register("glare");
 	public static final ModelLayerLocation LOST_GOAT = register("lost_goat");
 	public static final ModelLayerLocation MIME = register("mime");
-	public static final ModelLayerLocation MIME_ARMOR_INNER = register("mime", "inner_armor");
-	public static final ModelLayerLocation MIME_ARMOR_OUTER = register("mime", "outer_armor");
 	public static final ModelLayerLocation MIME_HEAD = register("mime_head");
 	public static final ModelLayerLocation RAT = register("rat");
-	public static final ModelLayerLocation SANGUINE_ARMOR = register("sanguine_armor");
 	public static final ModelLayerLocation TMT_MINECART = register("tmt_minecart");
 	public static final ModelLayerLocation TOOLBOX = register("toolbox");
 
