@@ -82,6 +82,12 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(OUTPUT_POWER) != 0) {
 			level.setBlock(pos, state.setValue(OUTPUT_POWER, 0), 3);
+
+			for (Direction direction : Direction.values()) {
+				if (direction.getAxis() != state.getValue(AXIS)) {
+					level.updateNeighborsAt(pos.relative(direction), state.getBlock());
+				}
+			}
 		}
 	}
 
