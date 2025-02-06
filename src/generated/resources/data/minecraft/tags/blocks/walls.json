@@ -27,6 +27,8 @@
     "caverns_and_chasms:waxed_copper_brick_wall",
     "caverns_and_chasms:waxed_exposed_copper_brick_wall",
     "caverns_and_chasms:waxed_weathered_copper_brick_wall",
-    "caverns_and_chasms:waxed_oxidized_copper_brick_wall"
+    "caverns_and_chasms:waxed_oxidized_copper_brick_wall",
+    "caverns_and_chasms:cassiterite_wall",
+    "caverns_and_chasms:cassiterite_brick_wall"
   ]
 }

@@ -106,6 +106,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(SUGILITE_FAMILY);
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
 
+		this.blockFamily(CASSITERITE_FAMILY);
+		this.blockFamily(SMOOTH_CASSITERITE_FAMILY);
+		this.blockFamilyWithChiseled(CASSITERITE_BRICKS_FAMILY);
+		this.blockFamily(POLISHED_CASSITERITE_FAMILY);
+		this.logBlock(CASSITERITE_PILLAR);
+
 		this.blockFamily(DRIPSTONE_SHINGLES_FAMILY);
 		this.block(CHISELED_DRIPSTONE_SHINGLES);
 		this.block(FLOODED_DRIPSTONE_SHINGLES);
@@ -446,7 +452,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 	@Override
 	public void slabBlock(Block block, Block slab) {
-		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get())) {
+		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get() || slabBlock == POLISHED_CASSITERITE_SLAB.get())) {
 			ResourceLocation side = blockTexture(slab);
 			ResourceLocation full = blockTexture(block);
 			this.slabBlock(slabBlock, models().slab(name(slab), side, full, full), models().slabTop(name(slab) + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));

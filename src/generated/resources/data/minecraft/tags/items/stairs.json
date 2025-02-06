@@ -30,6 +30,10 @@
     "caverns_and_chasms:waxed_copper_brick_stairs",
     "caverns_and_chasms:waxed_exposed_copper_brick_stairs",
     "caverns_and_chasms:waxed_weathered_copper_brick_stairs",
-    "caverns_and_chasms:waxed_oxidized_copper_brick_stairs"
+    "caverns_and_chasms:waxed_oxidized_copper_brick_stairs",
+    "caverns_and_chasms:cassiterite_stairs",
+    "caverns_and_chasms:polished_cassiterite_stairs",
+    "caverns_and_chasms:cassiterite_brick_stairs",
+    "caverns_and_chasms:smooth_cassiterite_stairs"
   ]
 }

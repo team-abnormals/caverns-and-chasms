@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "caverns_and_chasms:block/smooth_cassiterite_slab"
+    },
+    "type=double": {
+      "model": "caverns_and_chasms:block/smooth_cassiterite"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/smooth_cassiterite_slab_top"
+    }
+  }
+}

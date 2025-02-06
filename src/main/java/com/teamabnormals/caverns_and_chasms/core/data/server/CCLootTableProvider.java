@@ -249,6 +249,23 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(POLISHED_SUGILITE_STAIRS.get());
 			this.add(POLISHED_SUGILITE_SLAB.get(), this::createSlabItemTable);
 
+			this.dropSelf(CASSITERITE.get());
+			this.dropSelf(CASSITERITE_STAIRS.get());
+			this.add(CASSITERITE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CASSITERITE_WALL.get());
+			this.dropSelf(CASSITERITE_BRICKS.get());
+			this.dropSelf(CASSITERITE_BRICK_STAIRS.get());
+			this.add(CASSITERITE_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CASSITERITE_BRICK_WALL.get());
+			this.dropSelf(CHISELED_CASSITERITE_BRICKS.get());
+			this.dropSelf(CASSITERITE_PILLAR.get());
+			this.dropSelf(POLISHED_CASSITERITE.get());
+			this.dropSelf(POLISHED_CASSITERITE_STAIRS.get());
+			this.add(POLISHED_CASSITERITE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(SMOOTH_CASSITERITE.get());
+			this.dropSelf(SMOOTH_CASSITERITE_STAIRS.get());
+			this.add(SMOOTH_CASSITERITE_SLAB.get(), this::createSlabItemTable);
+
 			this.dropSelf(DRIPSTONE_SHINGLES.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_WALL.get());

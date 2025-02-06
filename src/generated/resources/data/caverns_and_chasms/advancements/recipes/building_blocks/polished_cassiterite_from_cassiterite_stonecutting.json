@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cassiterite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:cassiterite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:polished_cassiterite_from_cassiterite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cassiterite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:polished_cassiterite_from_cassiterite_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}
