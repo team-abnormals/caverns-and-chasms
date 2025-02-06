@@ -503,7 +503,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile model = cubeAll(block.get());
 		ModelFile litModel = models().cubeAll("flint_block_lit", modLoc("block/flint_block_lit"));
 
-		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.allRotations(state.getValue(FlintBlock.LIT) ? litModel : model , false));
+		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.allRotations(state.getValue(FlintBlock.LIT) ? litModel : model, false));
 		this.blockItem(block);
 	}
 

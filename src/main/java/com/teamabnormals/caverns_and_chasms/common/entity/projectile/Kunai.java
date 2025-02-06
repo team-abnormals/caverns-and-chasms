@@ -81,7 +81,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 
 				this.doPostHurtEffects(livingTarget);
 				if (livingTarget != shooter && livingTarget instanceof Player && shooter instanceof ServerPlayer serverPlayer && !this.isSilent()) {
-					serverPlayer .connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+					serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
 				}
 
 				if (!target.isAlive() && this.piercedAndKilledEntities != null) {

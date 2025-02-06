@@ -268,7 +268,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 					return ItemStack.EMPTY;
 				}
 			} else if (stack.is(CCItemTags.ATONING_FUELS)) {
-				if (!this. moveItemStackTo(stack, 2, 3, true)) {
+				if (!this.moveItemStackTo(stack, 2, 3, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {

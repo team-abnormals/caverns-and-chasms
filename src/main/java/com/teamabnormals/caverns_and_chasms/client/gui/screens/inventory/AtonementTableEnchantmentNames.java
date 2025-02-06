@@ -30,7 +30,7 @@ public class AtonementTableEnchantmentNames {
 		StringBuilder stringbuilder = new StringBuilder();
 		int i = this.random.nextInt(2) + 3;
 
-		for(int j = 0; j < i; ++j) {
+		for (int j = 0; j < i; ++j) {
 			if (j != 0) {
 				stringbuilder.append(" ");
 			}
