@@ -86,6 +86,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(SOUL_SILVER_ORE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
 			this.add(TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
 			this.add(DEEPSLATE_TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
+			this.add(CASSITERITE_TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
 			this.add(SPINEL_ORE.get(), this::createSpinelOreDrops);
 			this.add(DEEPSLATE_SPINEL_ORE.get(), this::createSpinelOreDrops);
 			this.add(TURQUOISE_ORE.get(), this::createTurquoiseOreDrops);
