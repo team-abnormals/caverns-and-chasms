@@ -15,8 +15,7 @@ public class SplurterDispenseItemBehavior extends DefaultDispenseItemBehavior {
 	protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
 		Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
 		Position position = DispenserBlock.getDispensePosition(blockSource);
-		ItemStack itemstack = stack;
-		spawnItem(blockSource.getLevel(), itemstack, 6, direction, position);
+		spawnItem(blockSource.getLevel(), stack, 6, direction, position);
 		return stack;
 	}
 
@@ -32,7 +31,7 @@ public class SplurterDispenseItemBehavior extends DefaultDispenseItemBehavior {
 
 		ItemEntity itementity = new ItemEntity(p_123379_, d0, d1, d2, p_123380_);
 		double d3 = p_123379_.random.nextDouble() * 0.1D + 0.2D;
-		itementity.setDeltaMovement(p_123379_.random.triangle((double)p_123382_.getStepX() * d3, 0.0172275D * (double)p_123381_), p_123379_.random.triangle(0.2D, 0.0172275D * (double)p_123381_), p_123379_.random.triangle((double)p_123382_.getStepZ() * d3, 0.0172275D * (double)p_123381_));
+		itementity.setDeltaMovement(p_123379_.random.triangle((double) p_123382_.getStepX() * d3, 0.0172275D * (double) p_123381_), p_123379_.random.triangle(0.2D, 0.0172275D * (double) p_123381_), p_123379_.random.triangle((double) p_123382_.getStepZ() * d3, 0.0172275D * (double) p_123381_));
 		p_123379_.addFreshEntity(itementity);
 	}
 

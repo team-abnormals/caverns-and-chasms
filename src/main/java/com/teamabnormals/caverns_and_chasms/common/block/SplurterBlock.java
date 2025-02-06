@@ -29,13 +29,13 @@ import java.util.stream.IntStream;
 
 
 public class SplurterBlock extends DispenserBlock {
-
 	private static final DispenseItemBehavior DISPENSE_BEHAVIOUR = new SplurterDispenseItemBehavior();
 
 	public SplurterBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TRIGGERED, Boolean.valueOf(false)));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TRIGGERED, false));
 	}
+
 	protected DispenseItemBehavior getDispenseMethod(ItemStack p_52947_) {
 		return DISPENSE_BEHAVIOUR;
 	}
@@ -50,11 +50,10 @@ public class SplurterBlock extends DispenserBlock {
 		boolean flag1 = p_52700_.getValue(TRIGGERED);
 		if (flag && !flag1) {
 			p_52701_.scheduleTick(p_52702_, this, 4);
-			p_52701_.setBlock(p_52702_, p_52700_.setValue(TRIGGERED, Boolean.valueOf(true)), 3);
+			p_52701_.setBlock(p_52702_, p_52700_.setValue(TRIGGERED, true), 3);
 		} else if (!flag && flag1) {
-			p_52701_.setBlock(p_52702_, p_52700_.setValue(TRIGGERED, Boolean.valueOf(false)), 3);
+			p_52701_.setBlock(p_52702_, p_52700_.setValue(TRIGGERED, false), 3);
 		}
-
 	}
 
 	protected void dispenseFrom(ServerLevel p_52944_, BlockPos p_52945_) {
@@ -84,9 +83,7 @@ public class SplurterBlock extends DispenserBlock {
 		}
 	}
 
-
-	public static boolean splurterInsertHook(Level level, BlockPos pos, DispenserBlockEntity splurter, int slot, @NotNull ItemStack stack)
-	{
+	public static boolean splurterInsertHook(Level level, BlockPos pos, DispenserBlockEntity splurter, int slot, @NotNull ItemStack stack) {
 		Direction enumfacing = level.getBlockState(pos).getValue(SplurterBlock.FACING);
 		BlockPos blockpos = pos.relative(enumfacing);
 		return VanillaInventoryCodeHooks.getItemHandler(level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), enumfacing.getOpposite())
@@ -108,22 +105,18 @@ public class SplurterBlock extends DispenserBlock {
 				.orElse(true);
 	}
 
-	private static ItemStack putStackInInventoryAllSlots(BlockEntity source, Object destination, IItemHandler destInventory, ItemStack stack)
-	{
-		for (int slot = 0; slot < destInventory.getSlots() && !stack.isEmpty(); slot++)
-		{
+	private static ItemStack putStackInInventoryAllSlots(BlockEntity source, Object destination, IItemHandler destInventory, ItemStack stack) {
+		for (int slot = 0; slot < destInventory.getSlots() && !stack.isEmpty(); slot++) {
 			stack = insertStack(source, destination, destInventory, stack, slot);
 		}
 		return stack;
 	}
 
-	private static ItemStack insertStack(BlockEntity source, Object destination, IItemHandler destInventory, ItemStack stack, int slot)
-	{
+	private static ItemStack insertStack(BlockEntity source, Object destination, IItemHandler destInventory, ItemStack stack, int slot) {
 		ItemStack slotStack = destInventory.getStackInSlot(slot);
 
 		if (slotStack.isEmpty()) {
-			ItemStack remainder = destInventory.insertItem(slot, stack, false);
-			return remainder;
+			return destInventory.insertItem(slot, stack, false);
 		}
 
 		if (ItemHandlerHelper.canItemStacksStack(slotStack, stack)) {
