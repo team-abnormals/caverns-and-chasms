@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
-import com.teamabnormals.blueprint.core.events.FallingBlockEvent;
+import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTickEvent;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
@@ -679,22 +679,14 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onFallingBlock(FallingBlockEvent.FallingBlockTickEvent event) {
+	public static void onFallingBlock(FallingBlockTickEvent event) {
 		FallingBlockEntity entity = event.getEntity();
 		Level level = event.getEntity().level();
-
 		if (!level.isClientSide) {
-			BlockPos pos = entity.blockPosition();
-			BlockPos[] adjacentPositions = {
-					pos.offset(1, 0, 0),
-					pos.offset(-1, 0, 0),
-					pos.offset(0, 0, 1),
-					pos.offset(0, 0, -1)
-			};
-			for (BlockPos adjacentPos : adjacentPositions) {
-				if (level.getBlockState(adjacentPos).is(CCBlocks.FLINT_BLOCK.get())) {
-					FlintBlock flintBlock = (FlintBlock) level.getBlockState(adjacentPos).getBlock();
-					flintBlock.spark(level, adjacentPos, entity, false);
+			for (Direction dir : Direction.Plane.HORIZONTAL) {
+				BlockPos pos = entity.blockPosition().relative(dir);
+				if (level.getBlockState(pos).is(CCBlocks.FLINT_BLOCK.get())) {
+					FlintBlock.spark(level, pos, entity, false);
 				}
 			}
 		}
