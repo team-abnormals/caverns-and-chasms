@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "caverns_and_chasms:block/polished_calcite",
-    "side": "caverns_and_chasms:block/polished_calcite",
+    "side": "caverns_and_chasms:block/polished_calcite_slab",
     "top": "caverns_and_chasms:block/polished_calcite"
   }
 }

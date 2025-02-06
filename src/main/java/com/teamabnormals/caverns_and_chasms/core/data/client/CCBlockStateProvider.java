@@ -444,6 +444,18 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockItem(block);
 	}
 
+	@Override
+	public void slabBlock(Block block, Block slab) {
+		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get())) {
+			ResourceLocation side = blockTexture(slab);
+			ResourceLocation full = blockTexture(block);
+			this.slabBlock(slabBlock, models().slab(name(slab), side, full, full), models().slabTop(name(slab) + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));
+			this.blockItem(slab);
+		} else {
+			super.slabBlock(block, slab);
+		}
+	}
+
 	public void flintBlock(RegistryObject<Block> block) {
 		ModelFile model = cubeAll(block.get());
 		ModelFile litModel = models().cubeAll("flint_block_lit", modLoc("block/flint_block_lit"));
