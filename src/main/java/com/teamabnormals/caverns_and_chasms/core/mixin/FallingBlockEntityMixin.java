@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -19,7 +18,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FallingBlockEntity.class)
@@ -65,29 +63,6 @@ public abstract class FallingBlockEntityMixin extends Entity {
 							CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
 						}
 					}
-
-				}
-			}
-		}
-	}
-
-	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;blockPosition()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER))
-	private void onTick(CallbackInfo ci) {
-		FallingBlockEntity entity = (FallingBlockEntity) (Object) this;
-		if (!level().isClientSide) {
-			BlockPos pos = this.blockPosition();
-			Level level = this.level();
-			
-			BlockPos[] adjacentPositions = {
-					pos.offset(1, 0, 0),
-					pos.offset(-1, 0, 0),
-					pos.offset(0, 0, 1),
-					pos.offset(0, 0, -1)
-			};
-			for (BlockPos adjacentPos : adjacentPositions) {
-				if (level.getBlockState(adjacentPos).is(CCBlocks.FLINT_BLOCK.get())) {
-					FlintBlock flintBlock = (FlintBlock) level.getBlockState(adjacentPos).getBlock();
-					flintBlock.spark(level, adjacentPos, entity, false);
 				}
 			}
 		}

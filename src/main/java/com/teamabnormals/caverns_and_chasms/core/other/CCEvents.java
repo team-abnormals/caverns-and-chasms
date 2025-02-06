@@ -1,9 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
+import com.teamabnormals.blueprint.core.events.FallingBlockEvent;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
@@ -54,6 +56,7 @@ import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
@@ -672,6 +675,28 @@ public class CCEvents {
 		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (!level.isClientSide() && headstack.getItem() == CCItems.TETHER_POTION.get()) {
 			TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onFallingBlock(FallingBlockEvent.FallingBlockTickEvent event) {
+		FallingBlockEntity entity = event.getEntity();
+		Level level = event.getEntity().level();
+
+		if (!level.isClientSide) {
+			BlockPos pos = entity.blockPosition();
+			BlockPos[] adjacentPositions = {
+					pos.offset(1, 0, 0),
+					pos.offset(-1, 0, 0),
+					pos.offset(0, 0, 1),
+					pos.offset(0, 0, -1)
+			};
+			for (BlockPos adjacentPos : adjacentPositions) {
+				if (level.getBlockState(adjacentPos).is(CCBlocks.FLINT_BLOCK.get())) {
+					FlintBlock flintBlock = (FlintBlock) level.getBlockState(adjacentPos).getBlock();
+					flintBlock.spark(level, adjacentPos, entity, false);
+				}
+			}
 		}
 	}
 
