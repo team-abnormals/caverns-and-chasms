@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger.TriggerInstance;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
