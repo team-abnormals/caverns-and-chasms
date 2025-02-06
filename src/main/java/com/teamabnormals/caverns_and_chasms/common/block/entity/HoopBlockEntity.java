@@ -22,7 +22,7 @@ public class HoopBlockEntity extends BlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoopBlockEntity blockEntity) {
-		if (!level.isClientSide()) {
+		if (!level.isClientSide() && state.getValue(HoopBlock.OUTPUT_POWER) == 0) {
 			int power = 0;
 			Vec3 vec3 = pos.getCenter();
 			Axis axis = state.getValue(HoopBlock.AXIS);
@@ -60,8 +60,9 @@ public class HoopBlockEntity extends BlockEntity {
 				}
 			}
 
-			if (power != state.getValue(HoopBlock.OUTPUT_POWER)) {
+			if (power > 0) {
 				level.setBlock(pos, state.setValue(HoopBlock.OUTPUT_POWER, power), 3);
+				level.scheduleTick(pos, state.getBlock(), 8);
 
 				for (Direction direction : Direction.values()) {
 					if (direction.getAxis() != axis) {

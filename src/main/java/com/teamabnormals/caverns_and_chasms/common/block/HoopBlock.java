@@ -5,6 +5,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -74,6 +76,13 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	@Override
 	public boolean isSignalSource(BlockState state) {
 		return true;
+	}
+
+	@Override
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (state.getValue(OUTPUT_POWER) != 0) {
+			level.setBlock(pos, state.setValue(OUTPUT_POWER, 0), 3);
+		}
 	}
 
 	@Override
