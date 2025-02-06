@@ -29,6 +29,8 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
 
+	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
+
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
 

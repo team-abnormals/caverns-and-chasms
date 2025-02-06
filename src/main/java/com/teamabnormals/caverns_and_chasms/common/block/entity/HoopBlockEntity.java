@@ -2,9 +2,11 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -63,6 +65,7 @@ public class HoopBlockEntity extends BlockEntity {
 			if (power > 0) {
 				level.setBlock(pos, state.setValue(HoopBlock.OUTPUT_POWER, power), 3);
 				level.scheduleTick(pos, state.getBlock(), 8);
+				level.playSound(null, pos, CCSoundEvents.HOOP_SCORE.get(), SoundSource.BLOCKS, 0.18F, 0.45F);
 
 				for (Direction direction : Direction.values()) {
 					if (direction.getAxis() != axis) {

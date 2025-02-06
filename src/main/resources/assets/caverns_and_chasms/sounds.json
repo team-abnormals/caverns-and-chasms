@@ -125,6 +125,12 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.atoning_table.use"
   },
+  "block.hoop.score": {
+    "sounds": [
+      "random/successful_hit"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.hoop.score"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"
