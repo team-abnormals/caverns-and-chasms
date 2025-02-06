@@ -1,10 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature;
 
 import com.mojang.serialization.Codec;
+import com.teamabnormals.caverns_and_chasms.common.block.CaveGrowthsBlock;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCNoiseParameters;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -87,6 +89,8 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 		if ((isVariant && random.nextInt(12) == 0) || blockpos.getY() < 0)
 			sizeMultiplier *= 1.5F;
 
+		boolean onlyGensOnGround = random.nextInt(10) > 0;
+
 		int tries = (int) (256 * sizeMultiplier * sizeMultiplier * sizeMultiplier);
 		int xzRange = (int) (5 * sizeMultiplier);
 		int yRange = (int) (3 * sizeMultiplier);
@@ -94,11 +98,27 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < tries; ++i) {
 			mutable.setWithOffset(blockpos, random.nextInt(xzRange) - random.nextInt(xzRange), random.nextInt(yRange) - random.nextInt(yRange), random.nextInt(xzRange) - random.nextInt(xzRange));
-			if (level.isEmptyBlock(mutable) && level.getBlockState(mutable.below()).is(Tags.Blocks.STONE) && !isNextToLava(level, mutable)) {
-				if (random.nextFloat() < moschatelChance)
-					level.setBlock(mutable, CCBlocks.MOSCHATEL.get().defaultBlockState(), 2);
-				else
-					level.setBlock(mutable, blockstate, 2);
+			if (level.isEmptyBlock(mutable) && !isNextToLava(level, mutable)) {
+				if (random.nextFloat() < moschatelChance) {
+					if (level.getBlockState(mutable.below()).is(Tags.Blocks.STONE)) {
+						level.setBlock(mutable, CCBlocks.MOSCHATEL.get().defaultBlockState(), 2);
+					}
+				} else {
+					Direction direction = onlyGensOnGround ? Direction.DOWN : Direction.values()[random.nextInt(6)];
+
+					if (!level.getBlockState(mutable.relative(direction)).is(Tags.Blocks.STONE)) {
+						if (direction == Direction.DOWN) {
+							continue;
+						} else {
+							direction = Direction.DOWN;
+							if (!level.getBlockState(mutable.relative(direction)).is(Tags.Blocks.STONE)) {
+								continue;
+							}
+						}
+					}
+
+					level.setBlock(mutable, blockstate.setValue(CaveGrowthsBlock.FACING, direction.getOpposite()), 2);
+				}
 				placed = true;
 			}
 		}
