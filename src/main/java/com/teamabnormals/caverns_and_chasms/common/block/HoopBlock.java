@@ -41,7 +41,7 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	public HoopBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Axis.Y).setValue(SIZE, 3).setValue(OUTPUT_POWER, 0).setValue(WATERLOGGED, Boolean.valueOf(false)));
+		this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Axis.Y).setValue(SIZE, 3).setValue(OUTPUT_POWER, 0).setValue(WATERLOGGED, false));
 	}
 
 	@Nullable

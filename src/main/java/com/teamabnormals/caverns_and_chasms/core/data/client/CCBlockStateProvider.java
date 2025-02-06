@@ -385,7 +385,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 							.rotationX(axis.isHorizontal() ? 90 : 0)
 							.rotationY(axis == Axis.X ? 90 : 0)
 							.build();
-				}, BlockStateProperties.WATERLOGGED);
+				}, BlockStateProperties.WATERLOGGED, HoopBlock.OUTPUT_POWER);
 		this.simpleBlockItem(block, new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"), this.models().existingFileHelper));
 	}
 
