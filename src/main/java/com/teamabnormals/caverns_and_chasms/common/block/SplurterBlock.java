@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.VanillaInventoryCodeHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,7 +76,7 @@ public class SplurterBlock extends DispenserBlock {
 					} else {
 						itemstack1 = HopperBlockEntity.addItem(dispenserblockentity, container, itemstack.copy(), direction.getOpposite());
 					}
-					dispenserblockentity.setItem(i, ItemStack.EMPTY);
+					dispenserblockentity.setItem(i, itemstack1);
 				}
 			}
 		}
@@ -95,11 +94,13 @@ public class SplurterBlock extends DispenserBlock {
 					ItemStack remainder = putStackInInventoryAllSlots(splurter, destination, itemHandler, originalStack);
 
 					int transferredAmount = stack.getCount() - remainder.getCount();
+
 					if (transferredAmount > 0) {
-						stack.shrink(transferredAmount);
+						remainder = stack.copy();
+						remainder.shrink(transferredAmount);
 					}
 
-					splurter.setItem(slot, stack.isEmpty() ? ItemStack.EMPTY : stack); // Update slot correctly
+					splurter.setItem(slot, remainder);
 					return false;
 				})
 				.orElse(true);
@@ -113,22 +114,21 @@ public class SplurterBlock extends DispenserBlock {
 	}
 
 	private static ItemStack insertStack(BlockEntity source, Object destination, IItemHandler destInventory, ItemStack stack, int slot) {
-		ItemStack slotStack = destInventory.getStackInSlot(slot);
+		ItemStack simulatedStack = destInventory.insertItem(slot, stack, true);
 
-		if (slotStack.isEmpty()) {
-			return destInventory.insertItem(slot, stack, false);
+		if (simulatedStack.getCount() == stack.getCount()) {
+			return stack;
 		}
 
-		if (ItemHandlerHelper.canItemStacksStack(slotStack, stack)) {
-			int spaceAvailable = slotStack.getMaxStackSize() - slotStack.getCount();
+		int insertedAmount = stack.getCount() - simulatedStack.getCount();
 
-			if (spaceAvailable > 0) {
-				int toMove = Math.min(spaceAvailable, stack.getCount());
-				ItemStack tempStack = stack.copy();
-				tempStack.setCount(toMove);
+		if (insertedAmount > 0) {
+			ItemStack toInsert = stack.copy();
+			toInsert.setCount(insertedAmount);
 
-				stack.shrink(toMove);
-			}
+			ItemStack remainder = destInventory.insertItem(slot, toInsert, false);
+
+			stack.shrink(insertedAmount - remainder.getCount());
 		}
 		return stack;
 	}

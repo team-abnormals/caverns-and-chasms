@@ -16,7 +16,7 @@ public class SplurterDispenseItemBehavior extends DefaultDispenseItemBehavior {
 		Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
 		Position position = DispenserBlock.getDispensePosition(blockSource);
 		spawnItem(blockSource.getLevel(), stack, 6, direction, position);
-		return stack;
+		return ItemStack.EMPTY;
 	}
 
 	public static void spawnItem(Level p_123379_, ItemStack p_123380_, int p_123381_, Direction p_123382_, Position p_123383_) {
