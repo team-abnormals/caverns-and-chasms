@@ -21,6 +21,8 @@ import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Map;
+
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
 
@@ -124,6 +126,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(ECHO_BLOCK);
 
 		this.cubeBottomTopBlock(TMT);
+
+		this.splurterBlock(SPLURTER);
 
 		this.poweredRailBlock(HALT_RAIL, "rail", false, "");
 		this.poweredRailBlock(SPIKED_RAIL, "spiked_rail", true, "spikes");
@@ -229,6 +233,37 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile capAlt = ironBarsBlock(name, "cap_alt", texture).texture("bars", texture).texture("edge", edgeTexture);
 
 		this.paneBlock(block, post, postEnds, side, sideAlt, cap, capAlt);
+	}
+
+	public void splurterBlock(RegistryObject<Block> block) {
+		String name = name(block.get());
+
+		this.getVariantBuilder(block.get()).forAllStates(state -> {
+			Direction dir = state.getValue(BlockStateProperties.FACING);
+			boolean triggered = state.getValue(BlockStateProperties.TRIGGERED);
+			ResourceLocation texture = blockTexture(block.get());
+
+			Map<Direction, Integer> yRotations = Map.of(
+					Direction.NORTH, 0,
+					Direction.EAST, 90,
+					Direction.SOUTH, 180,
+					Direction.WEST, 270
+			);
+			ModelFile model = models().withExistingParent(name + (triggered ? "_on" : ""), "caverns_and_chasms:block/template_splurter")
+					.texture("front", texture.withSuffix(triggered ? "_front_activated" : "_front"))
+					.texture("side", texture.withSuffix("_side"))
+					.texture("back", texture.withSuffix("_rear"));
+			ModelFile modelVertical = models().withExistingParent(name + "_vertical" + (triggered ? "_on" : ""), "caverns_and_chasms:block/template_splurter_vertical")
+					.texture("front", texture.withSuffix(triggered ? "_front_vertical_activated" : "_front_vertical"))
+					.texture("side", texture.withSuffix("_side"))
+					.texture("back", texture.withSuffix("_rear"));
+			return ConfiguredModel.builder()
+					.modelFile((dir == Direction.DOWN || dir == Direction.UP) ? modelVertical : model)
+					.rotationX(dir == Direction.DOWN ? 180 : 0)
+					.rotationY(yRotations.getOrDefault(dir, 0))
+					.build();
+		});
+		this.blockItem(block.get());
 	}
 
 	public void glassPaneBlock(RegistryObject<Block> pane, RegistryObject<Block> glass) {

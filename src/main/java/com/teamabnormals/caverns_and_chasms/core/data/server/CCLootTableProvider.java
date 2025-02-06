@@ -148,6 +148,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(FORTIFIED_SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
 
 			this.add(CCBlocks.TMT.get(), LootTable.lootTable().withPool(applyExplosionCondition(CCBlocks.TMT.get(), LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCBlocks.TMT.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(CCBlocks.TMT.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TmtBlock.UNSTABLE, false)))))));
+			this.dropSelf(SPLURTER.get());
 			this.dropSelf(DISMANTLING_TABLE.get());
 			this.dropSelf(BEJEWELED_ANVIL.get());
 			this.add(ATONING_TABLE.get(), this::createNameableBlockEntityTable);
