@@ -58,7 +58,7 @@ public class CCStructureTypes {
 		public static final ResourceKey<StructureTemplatePool> FORGE_ARCHAEOLOGY = createKey("forge/archaeology");
 
 		public static final List<Pair<String, Integer>> ENTRANCES = List.of(Pair.of("gate", 6), Pair.of("broken_gate", 4));
-		public static final List<Pair<String, Integer>> DECORATIONS = List.of(Pair.of("oak_platform", 1), Pair.of("oak_shelf", 1));
+		public static final List<Pair<String, Integer>> DECORATIONS = List.of(Pair.of("oak_platform", 1), Pair.of("oak_shelf", 1),  Pair.of("tnt_pile", 3));
 		public static final List<Pair<String, Integer>> ARCHAEOLOGY = List.of(Pair.of("gravel_pile", 1));
 
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
