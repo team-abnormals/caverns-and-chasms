@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.HoldPlateBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,6 +17,18 @@ public class HoldPlateBlockEntity extends BlockEntity {
 
 	public HoldPlateBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.HOLD_PLATE.get(), pos, state);
+	}
+
+	@Override
+	public void load(CompoundTag compound) {
+		super.load(compound);
+		this.pressed = compound.getBoolean("Pressed");
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag compound) {
+		super.saveAdditional(compound);
+		compound.putBoolean("Pressed", this.pressed);
 	}
 
 	public void setPressed() {

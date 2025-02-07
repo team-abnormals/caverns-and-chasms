@@ -4,7 +4,11 @@ import com.teamabnormals.caverns_and_chasms.common.block.HoldButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,6 +19,18 @@ public class HoldButtonBlockEntity extends BlockEntity {
 
 	public HoldButtonBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.HOLD_BUTTON.get(), pos, state);
+	}
+
+	@Override
+	public void load(CompoundTag compound) {
+		super.load(compound);
+		this.pressTime = compound.getShort("PressTime");
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag compound) {
+		super.saveAdditional(compound);
+		compound.putShort("PressTime", (short)this.pressTime);
 	}
 
 	public void setPressed() {
