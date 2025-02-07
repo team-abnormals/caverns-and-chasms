@@ -6,11 +6,31 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:raw_copper"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_gold"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_iron"
+        },
+        {
+          "type": "minecraft:item",
           "name": "caverns_and_chasms:raw_tin"
         },
         {
           "type": "minecraft:item",
+          "name": "caverns_and_chasms:raw_silver"
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:scaffolding"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bamboo"
         },
         {
           "type": "minecraft:item",

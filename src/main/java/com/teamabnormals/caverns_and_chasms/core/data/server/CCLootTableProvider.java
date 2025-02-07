@@ -61,8 +61,8 @@ public class CCLootTableProvider extends LootTableProvider {
 		super(output, BuiltInLootTables.all(), ImmutableList.of(
 				new LootTableProvider.SubProviderEntry(CCBlockLoot::new, LootContextParamSets.BLOCK),
 				new LootTableProvider.SubProviderEntry(CCEntityLoot::new, LootContextParamSets.ENTITY),
-				new LootTableProvider.SubProviderEntry(AtmosphericChestLoot::new, LootContextParamSets.CHEST),
-				new LootTableProvider.SubProviderEntry(AtmosphericArchaeologyLoot::new, LootContextParamSets.ARCHAEOLOGY)
+				new LootTableProvider.SubProviderEntry(CCChestLoot::new, LootContextParamSets.CHEST),
+				new LootTableProvider.SubProviderEntry(CCArchaeologyLoot::new, LootContextParamSets.ARCHAEOLOGY)
 		));
 	}
 
@@ -479,7 +479,7 @@ public class CCLootTableProvider extends LootTableProvider {
 		}
 	}
 
-	private static class AtmosphericChestLoot implements LootTableSubProvider {
+	private static class CCChestLoot implements LootTableSubProvider {
 
 		@Override
 		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
@@ -503,7 +503,7 @@ public class CCLootTableProvider extends LootTableProvider {
 	}
 
 
-	public static class AtmosphericArchaeologyLoot implements LootTableSubProvider {
+	public static class CCArchaeologyLoot implements LootTableSubProvider {
 		public static final ResourceLocation FORGE_COMMON = CavernsAndChasms.location("archaeology/forge_common");
 		public static final ResourceLocation FORGE_RARE = CavernsAndChasms.location("archaeology/forge_rare");
 
@@ -511,8 +511,13 @@ public class CCLootTableProvider extends LootTableProvider {
 		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
 			consumer.accept(FORGE_COMMON, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.RAW_COPPER))
+							.add(LootItem.lootTableItem(Items.RAW_GOLD))
+							.add(LootItem.lootTableItem(Items.RAW_IRON))
 							.add(LootItem.lootTableItem(CCItems.RAW_TIN.get()))
+							.add(LootItem.lootTableItem(CCItems.RAW_SILVER.get()))
 							.add(LootItem.lootTableItem(Items.SCAFFOLDING))
+							.add(LootItem.lootTableItem(Items.BAMBOO))
 							.add(LootItem.lootTableItem(Items.BUCKET))
 							.add(LootItem.lootTableItem(Items.FEATHER))
 					));

@@ -5,7 +5,9 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithPieces.TinMonolithPiece;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCArchaeologyLoot;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -13,7 +15,10 @@ import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -32,6 +37,8 @@ import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.*;
+import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.compress.utils.Lists;
@@ -49,6 +56,59 @@ public class CCStructureTypes {
 		public static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE_TYPES = DeferredRegister.create(Registries.STRUCTURE_PIECE, CavernsAndChasms.MOD_ID);
 
 		public static final RegistryObject<ContextlessType> TIN_MONOLITH = STRUCTURE_PIECE_TYPES.register("tin_monolith", () -> TinMonolithPiece::new);
+	}
+
+	public static class CCProcessorLists {
+		public static final ResourceKey<StructureProcessorList> FORGE_ARCHAEOLOGY = createKey("forge_archaeology");
+
+		private static ResourceKey<StructureProcessorList> createKey(String name) {
+			return ResourceKey.create(Registries.PROCESSOR_LIST, CavernsAndChasms.location(name));
+		}
+
+		private static void register(BootstapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> processors) {
+			context.register(key, new StructureProcessorList(processors));
+		}
+
+		public static void bootstrap(BootstapContext<StructureProcessorList> context) {
+			register(context, FORGE_ARCHAEOLOGY, ImmutableList.of(
+					replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), 0.001F),
+					replaceGravelWith(CCBlocks.DEEPSLATE_TURQUOISE_ORE.get(), 0.001F),
+
+					replaceGravelWith(Blocks.IRON_BLOCK, 0.01F),
+					replaceGravelWith(Blocks.RAW_IRON_BLOCK, 0.01F),
+					replaceGravelWith(Blocks.COAL_BLOCK, 0.01F),
+					replaceGravelWith(Blocks.FURNACE, 0.01F),
+					replaceGravelWith(Blocks.BLAST_FURNACE, 0.01F),
+
+					replaceGravelWith(CCBlocks.FLINT_BLOCK.get(), 0.02F),
+
+					replaceGravelWith(Blocks.COAL_ORE, 0.03F),
+					replaceGravelWith(Blocks.IRON_ORE, 0.03F),
+					replaceGravelWith(Blocks.LIGHT_GRAY_CONCRETE_POWDER, 0.03F),
+					replaceGravelWith(Blocks.COBBLESTONE, 0.03F),
+					replaceGravelWith(Blocks.STONE, 0.03F),
+					replaceGravelWith(Blocks.INFESTED_STONE, 0.03F),
+					replaceGravelWith(CCBlocks.FRAGILE_STONE.get(), 0.03F),
+
+					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 0.03F),
+					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 0.01F),
+
+					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 3),
+					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1)
+			));
+		}
+
+		private static RuleProcessor replaceGravelWith(Block block, float chance) {
+			return new RuleProcessor(ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, block.defaultBlockState())));
+		}
+
+		private static RuleProcessor archyLootProcessor(ResourceLocation lootTable, float chance) {
+			return new RuleProcessor(ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable))));
+		}
+
+		private static CappedProcessor archyLootProcessor(ResourceLocation lootTable, int max) {
+			return new CappedProcessor(new RuleProcessor(ImmutableList.of(new ProcessorRule(new BlockMatchTest(Blocks.GRAVEL), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable)))), ConstantInt.of(max));
+		}
 	}
 
 	public static class CCTemplatePools {
@@ -72,10 +132,14 @@ public class CCStructureTypes {
 		}
 
 		public static void createPool(BootstapContext<StructureTemplatePool> context, ResourceKey<StructureTemplatePool> key, Holder<StructureTemplatePool> empty, List<Pair<String, Integer>> strs) {
+			boolean processor = FORGE_ARCHAEOLOGY.equals(key);
+			Reference<StructureProcessorList> archyProcessor = context.lookup(Registries.PROCESSOR_LIST).getOrThrow(CCProcessorLists.FORGE_ARCHAEOLOGY);
+
 			List<Pair<Function<Projection, ? extends StructurePoolElement>, Integer>> list = Lists.newArrayList();
 			for (Pair<String, Integer> str : strs) {
 				for (int i = 1; i <= str.getSecond(); i++) {
-					list.add(Pair.of(LegacySinglePoolElement.single(key.location() + "/" + str.getFirst() + "_" + i), 1));
+					String name = key.location() + "/" + str.getFirst() + "_" + i;
+					list.add(Pair.of(processor ? LegacySinglePoolElement.single(name, archyProcessor) : LegacySinglePoolElement.single(name), 1));
 				}
 			}
 
