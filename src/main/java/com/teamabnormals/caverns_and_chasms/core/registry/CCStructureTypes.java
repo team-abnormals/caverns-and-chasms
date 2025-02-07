@@ -57,9 +57,9 @@ public class CCStructureTypes {
 		public static final ResourceKey<StructureTemplatePool> FORGE_DECORATIONS = createKey("forge/decorations");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ARCHAEOLOGY = createKey("forge/archaeology");
 
-		public static final String[] ENTRANCES = new String[]{"gate_1", "gate_2"};
-		public static final String[] DECORATIONS = new String[]{"oak_platform_1", "oak_shelf_1"};
-		public static final String[] ARCHAEOLOGY = new String[]{"gravel_pile_1"};
+		public static final List<Pair<String, Integer>> ENTRANCES = List.of(Pair.of("gate", 6), Pair.of("broken_gate", 4));
+		public static final List<Pair<String, Integer>> DECORATIONS = List.of(Pair.of("oak_platform", 1), Pair.of("oak_shelf", 1));
+		public static final List<Pair<String, Integer>> ARCHAEOLOGY = List.of(Pair.of("gravel_pile", 1));
 
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
@@ -71,10 +71,12 @@ public class CCStructureTypes {
 			createPool(context, FORGE_ARCHAEOLOGY, empty, ARCHAEOLOGY);
 		}
 
-		public static void createPool(BootstapContext<StructureTemplatePool> context, ResourceKey<StructureTemplatePool> key, Holder<StructureTemplatePool> empty, String... strs) {
+		public static void createPool(BootstapContext<StructureTemplatePool> context, ResourceKey<StructureTemplatePool> key, Holder<StructureTemplatePool> empty, List<Pair<String, Integer>> strs) {
 			List<Pair<Function<Projection, ? extends StructurePoolElement>, Integer>> list = Lists.newArrayList();
-			for (String str : strs) {
-				list.add(Pair.of(LegacySinglePoolElement.single(key.location() + "/" + str), 1));
+			for (Pair<String, Integer> str : strs) {
+				for (int i = 1; i <= str.getSecond(); i++) {
+					list.add(Pair.of(LegacySinglePoolElement.single(key.location() + "/" + str.getFirst() + "_" + i), 1));
+				}
 			}
 
 			context.register(key, new StructureTemplatePool(empty, ImmutableList.copyOf(list), StructureTemplatePool.Projection.RIGID));
