@@ -679,14 +679,14 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onFallingBlock(FallingBlockTickEvent event) {
+	public static void onFallingBlockTick(FallingBlockTickEvent event) {
 		FallingBlockEntity entity = event.getEntity();
 		Level level = event.getEntity().level();
 		if (!level.isClientSide) {
 			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = entity.blockPosition().relative(dir);
 				if (level.getBlockState(pos).is(CCBlocks.FLINT_BLOCK.get())) {
-					FlintBlock.spark(level, pos, entity, false);
+					FlintBlock.spark(level, pos, true);
 				}
 			}
 		}
