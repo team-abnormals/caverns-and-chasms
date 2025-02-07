@@ -89,7 +89,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 
 					NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), d0, d1, d2, d3, d4, d5);
 				}
-				for (int m = 0; m < (!grazing ? 30 : 15); ++m) {
+				for (int m = 0; m < (!grazing ? 25 : 10); ++m) {
 					double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
 					double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
 					double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
@@ -145,7 +145,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (level.getBlockState(pos.below()).isAir()) {
+		if (level.random.nextFloat() < 0.4) {
 			double d0 = pos.getX() + random.nextDouble();
 			double d1 = pos.getY() + 0.7;
 			double d2 = pos.getZ() + random.nextDouble();

@@ -14,6 +14,13 @@ public class FlintParticle extends TextureSheetParticle {
 		this.zd = zSpeed;
 		this.gravity = 0.8F;
 		this.quadSize *= 2.5F;
+		this.lifetime = 40;
+	}
+
+	@Override
+	public void tick() {
+		this.hasPhysics = this.age >= 10;
+		super.tick();
 	}
 
 	@Override
