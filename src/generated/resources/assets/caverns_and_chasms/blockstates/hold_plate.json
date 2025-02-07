@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "powered=false,pressed=false": {
+      "model": "caverns_and_chasms:block/hold_plate"
+    },
+    "powered=false,pressed=true": {
+      "model": "caverns_and_chasms:block/hold_plate_down"
+    },
+    "powered=true,pressed=false": {
+      "model": "caverns_and_chasms:block/hold_plate"
+    },
+    "powered=true,pressed=true": {
+      "model": "caverns_and_chasms:block/hold_plate_down"
+    }
+  }
+}

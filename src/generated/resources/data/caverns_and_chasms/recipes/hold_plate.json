@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:hold_plate"
+  },
+  "show_notification": true
+}

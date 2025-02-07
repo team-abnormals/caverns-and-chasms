@@ -2,9 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
-import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.HaltRailBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -13,6 +11,7 @@ import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.client.model.generators.*;
@@ -49,6 +48,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(FLOAT_GLASS);
 		this.glassPaneBlock(FLOAT_GLASS_PANE, FLOAT_GLASS);
 
+		this.holdPlateBlock(HOLD_PLATE, TIN_BLOCK);
+		this.holdButtonBlock(TIN_BLOCK.get(), HOLD_BUTTON.get());
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP.get());
 
@@ -416,6 +417,37 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				}, BlockStateProperties.WATERLOGGED);
 
 		this.blockItem(block);
+	}
+
+	public void holdPlateBlock(RegistryObject<Block> block, RegistryObject<Block> base) {
+		ModelFile pressurePlate = models().pressurePlate(name(block.get()), blockTexture(base.get()));
+		ModelFile pressurePlateDown = models().pressurePlateDown(name(block.get()) + "_down", blockTexture(base.get()));
+		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(!state.getValue(HoldPlateBlock.PRESSED) ? pressurePlate : pressurePlateDown).build());
+		this.blockItem(block);
+	}
+
+	public void holdButtonBlock(Block textureBlock, Block block) {
+		ResourceLocation texture = blockTexture(textureBlock);
+		ModelFile button = models().button(name(block), texture);
+		ModelFile buttonPressed = models().buttonPressed(name(block) + "_pressed", texture);
+		ModelFile buttonInventoryModel = models().buttonInventory(name(block) + "_inventory", texture);
+
+		if (block instanceof HoldButtonBlock buttonBlock) {
+			getVariantBuilder(buttonBlock).forAllStatesExcept(state -> {
+				Direction facing = state.getValue(HoldButtonBlock.FACING);
+				AttachFace face = state.getValue(HoldButtonBlock.FACE);
+				boolean pressed = state.getValue(HoldButtonBlock.PRESSED);
+
+				return ConfiguredModel.builder()
+						.modelFile(pressed ? buttonPressed : button)
+						.rotationX(face == AttachFace.FLOOR ? 0 : (face == AttachFace.WALL ? 90 : 180))
+						.rotationY((int) (face == AttachFace.CEILING ? facing : facing.getOpposite()).toYRot())
+						.uvLock(face == AttachFace.WALL)
+						.build();
+			}, HoldButtonBlock.POWERED);
+		}
+
+		this.itemModels().getBuilder(name(block)).parent(buttonInventoryModel);
 	}
 
 	public void hoopBlock(Block block) {
