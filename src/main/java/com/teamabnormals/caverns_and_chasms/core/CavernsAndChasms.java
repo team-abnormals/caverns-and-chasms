@@ -278,4 +278,8 @@ public class CavernsAndChasms {
 	private void setupMessages() {
 		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle);
 	}
+
+	public static ResourceLocation location(String path) {
+		return new ResourceLocation(MOD_ID, path);
+	}
 }

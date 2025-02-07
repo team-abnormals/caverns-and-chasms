@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:boom_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:cast_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:ride_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:stalker_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:forger_armor_trim_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:immolate_armor_trim_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:rim_armor_trim_smithing_template"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "caverns_and_chasms:archaeology/forge_rare"
+}

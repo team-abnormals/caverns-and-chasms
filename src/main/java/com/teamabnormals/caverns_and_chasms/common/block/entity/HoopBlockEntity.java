@@ -1,6 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
+import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -8,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,7 +62,15 @@ public class HoopBlockEntity extends BlockEntity {
 				}
 
 				if (Math.max(Math.abs(d2), Math.abs(d3)) <= d0) {
-					power = Math.max(Math.min((int) Math.ceil(entity.getDeltaMovement().length() * 5.0D), 15), power);
+					Vec3 vec31;
+					if (entity instanceof Projectile && ((IDataManager) entity).getValue(CCDataProcessors.SHOULD_DEFLECT)) {
+						IDataManager data = (IDataManager) entity;
+						vec31 = new Vec3(data.getValue(CCDataProcessors.DEFLECT_X), data.getValue(CCDataProcessors.DEFLECT_Y), data.getValue(CCDataProcessors.DEFLECT_Z));
+					} else {
+						vec31 = entity.getDeltaMovement();
+					}
+
+					power = Math.max(Math.min((int) Math.ceil(vec31.length() * 5.0D), 15), power);
 				}
 			}
 

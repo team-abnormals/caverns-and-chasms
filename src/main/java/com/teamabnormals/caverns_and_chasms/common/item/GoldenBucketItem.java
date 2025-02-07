@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class GoldenBucketItem extends Item implements DispensibleContainerItem {
-	private static final String NBT_TAG = "FluidLevel";
+	public static final String NBT_TAG = "FluidLevel";
 	private final Supplier<? extends Fluid> fluidSupplier;
 
 	public GoldenBucketItem(Supplier<? extends Fluid> supplier, Item.Properties builder) {
