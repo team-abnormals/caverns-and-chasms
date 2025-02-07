@@ -71,8 +71,8 @@ public class CCStructureTypes {
 
 		public static void bootstrap(BootstapContext<StructureProcessorList> context) {
 			register(context, FORGE_ARCHAEOLOGY, ImmutableList.of(
-					replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), 0.001F),
-					replaceGravelWith(CCBlocks.DEEPSLATE_TURQUOISE_ORE.get(), 0.001F),
+					replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), 0.005F),
+					replaceGravelWith(CCBlocks.DEEPSLATE_TURQUOISE_ORE.get(), 0.005F),
 
 					replaceGravelWith(Blocks.IRON_BLOCK, 0.01F),
 					replaceGravelWith(Blocks.RAW_IRON_BLOCK, 0.01F),
@@ -90,8 +90,8 @@ public class CCStructureTypes {
 					replaceGravelWith(Blocks.INFESTED_STONE, 0.03F),
 					replaceGravelWith(CCBlocks.FRAGILE_STONE.get(), 0.03F),
 
-					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 0.03F),
-					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 0.01F),
+					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 0.05F),
+					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 0.03F),
 
 					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 3),
 					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1)

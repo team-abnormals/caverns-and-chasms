@@ -519,7 +519,7 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(Items.SCAFFOLDING))
 							.add(LootItem.lootTableItem(Items.BAMBOO))
 							.add(LootItem.lootTableItem(Items.BUCKET))
-							.add(LootItem.lootTableItem(Items.FEATHER))
+							.add(LootItem.lootTableItem(Items.FLINT))
 					));
 
 			consumer.accept(FORGE_RARE, LootTable.lootTable()

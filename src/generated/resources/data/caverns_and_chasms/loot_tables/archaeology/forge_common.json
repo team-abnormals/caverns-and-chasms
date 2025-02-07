@@ -38,7 +38,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:feather"
+          "name": "minecraft:flint"
         }
       ],
       "rolls": 1.0
