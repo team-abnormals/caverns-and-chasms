@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:raw_tin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:scaffolding"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:feather"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "caverns_and_chasms:archaeology/forge_common"
+}

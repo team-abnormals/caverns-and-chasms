@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
+import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -18,7 +19,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -33,10 +36,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
-import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
-import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.*;
@@ -47,6 +47,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,7 +60,9 @@ public class CCLootTableProvider extends LootTableProvider {
 	public CCLootTableProvider(PackOutput output) {
 		super(output, BuiltInLootTables.all(), ImmutableList.of(
 				new LootTableProvider.SubProviderEntry(CCBlockLoot::new, LootContextParamSets.BLOCK),
-				new LootTableProvider.SubProviderEntry(CCEntityLoot::new, LootContextParamSets.ENTITY)
+				new LootTableProvider.SubProviderEntry(CCEntityLoot::new, LootContextParamSets.ENTITY),
+				new LootTableProvider.SubProviderEntry(AtmosphericChestLoot::new, LootContextParamSets.CHEST),
+				new LootTableProvider.SubProviderEntry(AtmosphericArchaeologyLoot::new, LootContextParamSets.ARCHAEOLOGY)
 		));
 	}
 
@@ -473,6 +476,57 @@ public class CCLootTableProvider extends LootTableProvider {
 		@Override
 		protected boolean canHaveLootTable(EntityType<?> entityType) {
 			return SPECIAL_LOOT_TABLE_TYPES.contains(entityType) || entityType.getCategory() != MobCategory.MISC;
+		}
+	}
+
+	private static class AtmosphericChestLoot implements LootTableSubProvider {
+
+		@Override
+		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+			consumer.accept(CavernsAndChasms.location("chests/forge_dispenser"), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(EmptyLootItem.emptyItem().setWeight(25))
+							.add(LootItem.lootTableItem(Items.BUCKET).setWeight(10))
+							.add(LootItem.lootTableItem(Items.LAVA_BUCKET).setWeight(15))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_BUCKET.get()).setWeight(4))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(3))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(2).apply(fluidLevelTag(1)))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(1).apply(fluidLevelTag(2)))
+					));
+		}
+
+		public static LootItemConditionalFunction.Builder<?> fluidLevelTag(int level) {
+			CompoundTag tag = new CompoundTag();
+			tag.putInt(GoldenBucketItem.NBT_TAG, level);
+			return SetNbtFunction.setTag(tag);
+		}
+	}
+
+
+	public static class AtmosphericArchaeologyLoot implements LootTableSubProvider {
+		public static final ResourceLocation FORGE_COMMON = CavernsAndChasms.location("archaeology/forge_common");
+		public static final ResourceLocation FORGE_RARE = CavernsAndChasms.location("archaeology/forge_rare");
+
+		@Override
+		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+			consumer.accept(FORGE_COMMON, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCItems.RAW_TIN.get()))
+							.add(LootItem.lootTableItem(Items.SCAFFOLDING))
+							.add(LootItem.lootTableItem(Items.BUCKET))
+							.add(LootItem.lootTableItem(Items.FEATHER))
+					));
+
+			consumer.accept(FORGE_RARE, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCItems.BOOM_POTTERY_SHERD.get()))
+							.add(LootItem.lootTableItem(CCItems.CAST_POTTERY_SHERD.get()))
+							.add(LootItem.lootTableItem(CCItems.RIDE_POTTERY_SHERD.get()))
+							.add(LootItem.lootTableItem(CCItems.STALKER_POTTERY_SHERD.get()))
+							.add(LootItem.lootTableItem(CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+							.add(LootItem.lootTableItem(CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+							.add(LootItem.lootTableItem(CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+					));
 		}
 	}
 }
