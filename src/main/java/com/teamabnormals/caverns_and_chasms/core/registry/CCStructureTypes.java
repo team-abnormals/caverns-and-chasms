@@ -66,7 +66,7 @@ public class CCStructureTypes {
 			float epic = 0.002F;
 			float rare = 0.01F;
 			float uncommon = 0.02F;
-			float common = 0.04F;
+			float common = 0.08F;
 
 			register(context, FORGE_ARCHAEOLOGY, ImmutableList.of(
 					new RuleProcessor(ImmutableList.of(
