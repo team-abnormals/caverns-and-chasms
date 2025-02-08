@@ -15,17 +15,12 @@
           "output_state": {
             "Name": "caverns_and_chasms:turquoise_ore"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -33,17 +28,12 @@
           "output_state": {
             "Name": "minecraft:iron_block"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -51,17 +41,12 @@
           "output_state": {
             "Name": "minecraft:raw_iron_block"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -69,17 +54,12 @@
           "output_state": {
             "Name": "minecraft:coal_block"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -91,17 +71,12 @@
               "lit": "false"
             }
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -113,17 +88,12 @@
               "lit": "false"
             }
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -134,12 +104,7 @@
               "lit": "false"
             }
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
@@ -148,7 +113,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -159,35 +124,12 @@
               "dusted": "0"
             }
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:coal_ore"
-          }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
-        {
-          "input_predicate": {
-            "block": "minecraft:gravel",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
+            "probability": 0.02
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -195,35 +137,12 @@
           "output_state": {
             "Name": "minecraft:iron_ore"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:light_gray_concrete_powder"
-          }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
-        {
-          "input_predicate": {
-            "block": "minecraft:gravel",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
+            "probability": 0.02
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -231,17 +150,12 @@
           "output_state": {
             "Name": "minecraft:cobblestone"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
+            "probability": 0.02
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -249,17 +163,12 @@
           "output_state": {
             "Name": "minecraft:stone"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
+            "probability": 0.02
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -267,17 +176,25 @@
           "output_state": {
             "Name": "minecraft:infested_stone"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
+            "probability": 0.04
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:coal_ore"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:gravel",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -285,12 +202,7 @@
           "output_state": {
             "Name": "caverns_and_chasms:fragile_stone"
           }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
+        },
         {
           "block_entity_modifier": {
             "type": "minecraft:append_loot",
@@ -299,7 +211,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.06
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"

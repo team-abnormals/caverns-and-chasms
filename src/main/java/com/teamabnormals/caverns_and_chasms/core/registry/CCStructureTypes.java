@@ -61,57 +61,59 @@ public class CCStructureTypes {
 	public static class CCProcessorLists {
 		public static final ResourceKey<StructureProcessorList> FORGE_ARCHAEOLOGY = createKey("forge_archaeology");
 
-		private static ResourceKey<StructureProcessorList> createKey(String name) {
-			return ResourceKey.create(Registries.PROCESSOR_LIST, CavernsAndChasms.location(name));
-		}
-
-		private static void register(BootstapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> processors) {
-			context.register(key, new StructureProcessorList(processors));
-		}
-
 		public static void bootstrap(BootstapContext<StructureProcessorList> context) {
-			float veryRare = 0.001F;
+			float legendary = 0.001F;
+			float epic = 0.002F;
 			float rare = 0.005F;
-			float uncommon = 0.03F;
-			float common = 0.06F;
+			float uncommon = 0.02F;
+			float common = 0.04F;
 
 			register(context, FORGE_ARCHAEOLOGY, ImmutableList.of(
-					replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), veryRare),
+					new RuleProcessor(ImmutableList.of(
+							replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), legendary),
 
-					replaceGravelWith(Blocks.IRON_BLOCK, rare),
-					replaceGravelWith(Blocks.RAW_IRON_BLOCK, rare),
-					replaceGravelWith(Blocks.COAL_BLOCK, rare),
-					replaceGravelWith(Blocks.FURNACE, rare),
-					replaceGravelWith(Blocks.BLAST_FURNACE, rare),
+							replaceGravelWith(Blocks.IRON_BLOCK, epic),
+							replaceGravelWith(Blocks.RAW_IRON_BLOCK, epic),
+							replaceGravelWith(Blocks.COAL_BLOCK, epic),
+							replaceGravelWith(Blocks.FURNACE, epic),
+							replaceGravelWith(Blocks.BLAST_FURNACE, epic),
 
-					replaceGravelWith(CCBlocks.FLINT_BLOCK.get(), uncommon),
-					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, uncommon),
+							replaceGravelWith(CCBlocks.FLINT_BLOCK.get(), rare),
+							archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, rare),
 
-					replaceGravelWith(Blocks.COAL_ORE, common),
-					replaceGravelWith(Blocks.IRON_ORE, common),
-					replaceGravelWith(Blocks.LIGHT_GRAY_CONCRETE_POWDER, common),
-					replaceGravelWith(Blocks.COBBLESTONE, common),
-					replaceGravelWith(Blocks.STONE, common),
-					replaceGravelWith(Blocks.INFESTED_STONE, common),
-					replaceGravelWith(CCBlocks.FRAGILE_STONE.get(), common),
-					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, common),
+							replaceGravelWith(Blocks.IRON_ORE, uncommon),
+							replaceGravelWith(Blocks.COBBLESTONE, uncommon),
+							replaceGravelWith(Blocks.STONE, uncommon),
+							replaceGravelWith(Blocks.INFESTED_STONE, uncommon),
 
+							replaceGravelWith(Blocks.COAL_ORE, common),
+							replaceGravelWith(CCBlocks.FRAGILE_STONE.get(), common),
+							archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, common)
+					)),
 
 					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 3),
 					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1)
 			));
 		}
 
-		private static RuleProcessor replaceGravelWith(Block block, float chance) {
-			return new RuleProcessor(ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, block.defaultBlockState())));
+		private static ProcessorRule replaceGravelWith(Block block, float chance) {
+			return new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, block.defaultBlockState());
 		}
 
-		private static RuleProcessor archyLootProcessor(ResourceLocation lootTable, float chance) {
-			return new RuleProcessor(ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable))));
+		private static ProcessorRule archyLootProcessor(ResourceLocation lootTable, float chance) {
+			return new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable));
 		}
 
 		private static CappedProcessor archyLootProcessor(ResourceLocation lootTable, int max) {
 			return new CappedProcessor(new RuleProcessor(ImmutableList.of(new ProcessorRule(new BlockMatchTest(Blocks.GRAVEL), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable)))), ConstantInt.of(max));
+		}
+
+		private static ResourceKey<StructureProcessorList> createKey(String name) {
+			return ResourceKey.create(Registries.PROCESSOR_LIST, CavernsAndChasms.location(name));
+		}
+
+		private static void register(BootstapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> processors) {
+			context.register(key, new StructureProcessorList(processors));
 		}
 	}
 
