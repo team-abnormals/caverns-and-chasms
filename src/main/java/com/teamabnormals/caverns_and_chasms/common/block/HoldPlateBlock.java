@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -87,19 +86,21 @@ public class HoldPlateBlock extends BaseEntityBlock {
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(POWERED)) {
-			level.setBlock(pos, state.setValue(POWERED, false), 3);
+			level.setBlock(pos, state.setValue(POWERED, false), 2);
 			this.updateNeighbours(level, pos);
 		}
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (getEntityCount(level, TOUCH_AABB.move(pos)) > 0) {
+		if (!level.isClientSide && getEntityCount(level, TOUCH_AABB.move(pos)) > 0) {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
 			if (blockEntity instanceof HoldPlateBlockEntity holdPlateBlockEntity) {
 				holdPlateBlockEntity.setPressed();
 				if (!state.getValue(PRESSED)) {
-					level.setBlock(pos, state.setValue(PRESSED, true), 3);
+					BlockState blockState = state.setValue(PRESSED, true);
+					level.setBlock(pos, state.setValue(PRESSED, true), 2);
+					level.setBlocksDirty(pos, state, blockState);
 					level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOn(), SoundSource.BLOCKS);
 					level.gameEvent(entity, GameEvent.BLOCK_ACTIVATE, pos);
 				}

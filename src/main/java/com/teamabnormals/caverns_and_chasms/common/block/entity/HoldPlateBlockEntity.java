@@ -36,15 +36,18 @@ public class HoldPlateBlockEntity extends BlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldPlateBlockEntity blockEntity) {
-		if (blockEntity.pressed) {
-			blockEntity.pressed = false;
-		} else if (state.getValue(HoldButtonBlock.PRESSED)) {
-			HoldPlateBlock holdPlateBlock = (HoldPlateBlock) state.getBlock();
-			level.setBlock(pos, state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true), 3);
-			holdPlateBlock.updateNeighbours(level, pos);
-			level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
-			level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOff(), SoundSource.BLOCKS);
-			level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+		if (!level.isClientSide) {
+			if (blockEntity.pressed) {
+				blockEntity.pressed = false;
+			} else if (state.getValue(HoldButtonBlock.PRESSED)) {
+				BlockState blockState = state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true);
+				level.setBlock(pos, blockState, 2);
+				level.setBlocksDirty(pos, state, blockState);
+				((HoldPlateBlock) state.getBlock()).updateNeighbours(level, pos);
+				level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
+				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOff(), SoundSource.BLOCKS);
+				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+			}
 		}
 	}
 }

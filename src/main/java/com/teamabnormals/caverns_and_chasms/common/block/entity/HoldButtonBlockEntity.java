@@ -38,15 +38,17 @@ public class HoldButtonBlockEntity extends BlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {
-		if (blockEntity.pressTime > 0) {
-			--blockEntity.pressTime;
-		} else if (state.getValue(HoldButtonBlock.PRESSED)) {
-			HoldButtonBlock holdButtonBlock = (HoldButtonBlock) state.getBlock();
-			level.setBlock(pos, state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true), 3);
-			holdButtonBlock.updateNeighbours(state, level, pos);
-			level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
-			level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.buttonClickOff(), SoundSource.BLOCKS);
-			level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+		if (!level.isClientSide) {
+			if (blockEntity.pressTime > 0) {
+				--blockEntity.pressTime;
+			} else if (state.getValue(HoldButtonBlock.PRESSED)) {
+				HoldButtonBlock holdButtonBlock = (HoldButtonBlock) state.getBlock();
+				level.setBlock(pos, state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true), 3);
+				holdButtonBlock.updateNeighbours(state, level, pos);
+				level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
+				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.buttonClickOff(), SoundSource.BLOCKS);
+				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+			}
 		}
 	}
 }
