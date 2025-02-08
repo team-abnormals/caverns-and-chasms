@@ -143,6 +143,150 @@
         "projection": "rigid"
       },
       "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_17",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_18",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_19",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_20",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_21",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_22",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_23",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_24",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_25",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_26",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_27",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_28",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_29",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_30",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_31",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/archaeology/gravel_pile_32",
+        "processors": "caverns_and_chasms:forge_archaeology",
+        "projection": "rigid"
+      },
+      "weight": 1
     }
   ],
   "fallback": "minecraft:empty"
