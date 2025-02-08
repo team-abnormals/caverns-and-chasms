@@ -6,27 +6,58 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_copper"
+          "name": "minecraft:raw_copper",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold"
+          "name": "minecraft:raw_gold",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_iron"
+          "name": "minecraft:raw_iron",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:raw_tin"
+          "name": "caverns_and_chasms:raw_tin",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:raw_silver"
+          "name": "caverns_and_chasms:raw_silver",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:scaffolding"
+          "name": "minecraft:copper_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:tin_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:silver_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:scaffolding",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -38,7 +69,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:flint"
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:zirconia"
         }
       ],
       "rolls": 1.0
