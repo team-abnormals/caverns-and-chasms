@@ -91,8 +91,8 @@ public class CCStructureTypes {
 							archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, common)
 					)),
 
-					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 3),
-					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1)
+					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1),
+					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 5)
 			));
 		}
 

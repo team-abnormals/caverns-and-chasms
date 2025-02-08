@@ -232,34 +232,6 @@
           {
             "block_entity_modifier": {
               "type": "minecraft:append_loot",
-              "loot_table": "caverns_and_chasms:archaeology/forge_common"
-            },
-            "input_predicate": {
-              "block": "minecraft:gravel",
-              "predicate_type": "minecraft:block_match"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_gravel",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
-      },
-      "limit": 3,
-      "processor_type": "minecraft:capped"
-    },
-    {
-      "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
               "loot_table": "caverns_and_chasms:archaeology/forge_rare"
             },
             "input_predicate": {
@@ -279,6 +251,34 @@
         ]
       },
       "limit": 1,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "minecraft:rule",
+        "rules": [
+          {
+            "block_entity_modifier": {
+              "type": "minecraft:append_loot",
+              "loot_table": "caverns_and_chasms:archaeology/forge_common"
+            },
+            "input_predicate": {
+              "block": "minecraft:gravel",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "Name": "minecraft:suspicious_gravel",
+              "Properties": {
+                "dusted": "0"
+              }
+            }
+          }
+        ]
+      },
+      "limit": 5,
       "processor_type": "minecraft:capped"
     }
   ]
