@@ -42,7 +42,7 @@ public class HoldPlateBlockEntity extends BlockEntity {
 			HoldPlateBlock holdPlateBlock = (HoldPlateBlock) state.getBlock();
 			level.setBlock(pos, state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true), 3);
 			holdPlateBlock.updateNeighbours(level, pos);
-			level.scheduleTick(new BlockPos(pos), state.getBlock(), 4);
+			level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
 			level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOff(), SoundSource.BLOCKS);
 			level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
 		}
