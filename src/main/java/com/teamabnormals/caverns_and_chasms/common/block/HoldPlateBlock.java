@@ -99,7 +99,7 @@ public class HoldPlateBlock extends BaseEntityBlock {
 				holdPlateBlockEntity.setPressed();
 				if (!state.getValue(PRESSED)) {
 					BlockState blockState = state.setValue(PRESSED, true);
-					level.setBlock(pos, state.setValue(PRESSED, true), 2);
+					level.setBlock(pos, blockState, 2);
 					level.setBlocksDirty(pos, state, blockState);
 					level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOn(), SoundSource.BLOCKS);
 					level.gameEvent(entity, GameEvent.BLOCK_ACTIVATE, pos);
