@@ -15,5 +15,6 @@
   },
   "start_pool": "caverns_and_chasms:forge/forge",
   "step": "underground_structures",
+  "terrain_adaptation": "beard_thin",
   "use_expansion_hack": false
 }

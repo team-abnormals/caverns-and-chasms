@@ -7,7 +7,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
+            "probability": 0.001
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -25,25 +25,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.005
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "caverns_and_chasms:deepslate_turquoise_ore"
-          }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
-        {
-          "input_predicate": {
-            "block": "minecraft:gravel",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.01
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -61,7 +43,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.01
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -79,7 +61,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.01
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -97,7 +79,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.01
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -119,7 +101,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.01
+            "probability": 0.002
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -159,10 +141,35 @@
       "processor_type": "minecraft:rule",
       "rules": [
         {
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "caverns_and_chasms:archaeology/forge_rare"
+          },
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.02
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:suspicious_gravel",
+            "Properties": {
+              "dusted": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "minecraft:gravel",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -180,7 +187,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -198,7 +205,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -216,7 +223,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -234,7 +241,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -252,7 +259,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -270,7 +277,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -292,32 +299,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:suspicious_gravel",
-            "Properties": {
-              "dusted": "0"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "processor_type": "minecraft:rule",
-      "rules": [
-        {
-          "block_entity_modifier": {
-            "type": "minecraft:append_loot",
-            "loot_table": "caverns_and_chasms:archaeology/forge_rare"
-          },
-          "input_predicate": {
-            "block": "minecraft:gravel",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.03
+            "probability": 0.04
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
