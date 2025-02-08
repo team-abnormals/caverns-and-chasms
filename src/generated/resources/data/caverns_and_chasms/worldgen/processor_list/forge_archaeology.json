@@ -25,7 +25,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.002
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -43,7 +43,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.002
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -61,7 +61,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.002
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -79,7 +79,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.002
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -101,7 +101,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.002
+            "probability": 0.005
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -123,7 +123,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.02
+            "probability": 0.03
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -148,7 +148,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.02
+            "probability": 0.03
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -169,7 +169,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -187,7 +187,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -205,7 +205,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -223,7 +223,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -241,7 +241,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -259,7 +259,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -277,7 +277,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -299,7 +299,7 @@
           "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.04
+            "probability": 0.06
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"

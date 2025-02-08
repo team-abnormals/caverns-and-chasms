@@ -7,10 +7,10 @@
   "start_height": {
     "type": "minecraft:uniform",
     "max_inclusive": {
-      "absolute": 32
+      "absolute": 16
     },
     "min_inclusive": {
-      "above_bottom": 16
+      "absolute": -48
     }
   },
   "start_pool": "caverns_and_chasms:forge/forge",

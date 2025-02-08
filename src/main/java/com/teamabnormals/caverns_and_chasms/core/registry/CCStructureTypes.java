@@ -71,9 +71,9 @@ public class CCStructureTypes {
 
 		public static void bootstrap(BootstapContext<StructureProcessorList> context) {
 			float veryRare = 0.001F;
-			float rare = 0.002F;
-			float uncommon = 0.02F;
-			float common = 0.04F;
+			float rare = 0.005F;
+			float uncommon = 0.03F;
+			float common = 0.06F;
 
 			register(context, FORGE_ARCHAEOLOGY, ImmutableList.of(
 					replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), veryRare),
@@ -103,10 +103,6 @@ public class CCStructureTypes {
 		}
 
 		private static RuleProcessor replaceGravelWith(Block block, float chance) {
-			return new RuleProcessor(ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, block.defaultBlockState())));
-		}
-
-		private static RuleProcessor noAirReplaceGravelWith(Block block, float chance) {
 			return new RuleProcessor(ImmutableList.of(new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, block.defaultBlockState())));
 		}
 
@@ -168,12 +164,8 @@ public class CCStructureTypes {
 			HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
 
 			context.register(FORGE, new JigsawStructure(
-					new StructureSettings(
-							biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
-							Map.of(),
-							Decoration.UNDERGROUND_STRUCTURES,
-							TerrainAdjustment.BEARD_THIN),
-					pools.getOrThrow(CCTemplatePools.FORGE), 6, UniformHeight.of(VerticalAnchor.aboveBottom(16), VerticalAnchor.absolute(32)), false));
+					new StructureSettings(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BEARD_THIN),
+					pools.getOrThrow(CCTemplatePools.FORGE), 6, UniformHeight.of(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(16)), false));
 
 			context.register(TIN_MONOLITH, new TinMonolithStructure(new StructureSettings(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), Map.of(), GenerationStep.Decoration.RAW_GENERATION, TerrainAdjustment.NONE)));
 		}
@@ -190,7 +182,7 @@ public class CCStructureTypes {
 		public static void bootstrap(BootstapContext<StructureSet> context) {
 			HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
-			context.register(FORGES, new StructureSet(structures.getOrThrow(CCStructures.FORGE), new RandomSpreadStructurePlacement(24, 4, RandomSpreadType.LINEAR, 294502589)));
+			context.register(FORGES, new StructureSet(structures.getOrThrow(CCStructures.FORGE), new RandomSpreadStructurePlacement(16, 4, RandomSpreadType.LINEAR, 294502589)));
 			context.register(TIN_MONOLITHS, new StructureSet(structures.getOrThrow(CCStructures.TIN_MONOLITH), new RandomSpreadStructurePlacement(TinMonolithStructure.SPACING, TinMonolithStructure.SEPARATION, RandomSpreadType.TRIANGULAR, TinMonolithStructure.SALT)));
 		}
 
