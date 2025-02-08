@@ -127,7 +127,7 @@ public class CCStructureTypes {
 
 		public static final List<Pair<String, Integer>> ENTRANCES = List.of(Pair.of("gate", 6), Pair.of("broken_gate", 4));
 		public static final List<Pair<String, Integer>> DECORATIONS = List.of(Pair.of("oak_platform", 1), Pair.of("oak_shelf", 1), Pair.of("tnt_pile", 3));
-		public static final List<Pair<String, Integer>> ARCHAEOLOGY = List.of(Pair.of("gravel_pile", 8));
+		public static final List<Pair<String, Integer>> ARCHAEOLOGY = List.of(Pair.of("gravel_pile", 16));
 
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
