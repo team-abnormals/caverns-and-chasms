@@ -50,6 +50,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.holdPlateBlock(HOLD_PLATE, TIN_BLOCK);
 		this.holdButtonBlock(TIN_BLOCK.get(), HOLD_BUTTON.get());
+		this.dimmerBlock(DIMMER.get(), WALL_DIMMER.get());
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP.get());
 
@@ -432,22 +433,44 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile buttonPressed = models().buttonPressed(name(block) + "_pressed", texture);
 		ModelFile buttonInventoryModel = models().buttonInventory(name(block) + "_inventory", texture);
 
-		if (block instanceof HoldButtonBlock buttonBlock) {
-			getVariantBuilder(buttonBlock).forAllStatesExcept(state -> {
-				Direction facing = state.getValue(HoldButtonBlock.FACING);
-				AttachFace face = state.getValue(HoldButtonBlock.FACE);
-				boolean pressed = state.getValue(HoldButtonBlock.PRESSED);
+		getVariantBuilder(block).forAllStatesExcept(state -> {
+			Direction facing = state.getValue(HoldButtonBlock.FACING);
+			AttachFace face = state.getValue(HoldButtonBlock.FACE);
+			boolean pressed = state.getValue(HoldButtonBlock.PRESSED);
 
-				return ConfiguredModel.builder()
-						.modelFile(pressed ? buttonPressed : button)
-						.rotationX(face == AttachFace.FLOOR ? 0 : (face == AttachFace.WALL ? 90 : 180))
-						.rotationY((int) (face == AttachFace.CEILING ? facing : facing.getOpposite()).toYRot())
-						.uvLock(face == AttachFace.WALL)
-						.build();
-			}, HoldButtonBlock.POWERED);
-		}
+			return ConfiguredModel.builder()
+					.modelFile(pressed ? buttonPressed : button)
+					.rotationX(face == AttachFace.FLOOR ? 0 : (face == AttachFace.WALL ? 90 : 180))
+					.rotationY((int) (face == AttachFace.CEILING ? facing : facing.getOpposite()).toYRot())
+					.uvLock(face == AttachFace.WALL)
+					.build();
+		}, HoldButtonBlock.POWERED);
 
 		this.itemModels().getBuilder(name(block)).parent(buttonInventoryModel);
+	}
+
+	public void dimmerBlock(Block block, Block wallBlock) {
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					int power = state.getValue(AbstractDimmerBlock.POWER);
+					String hanging = state.getValue(DimmerBlock.HANGING) ? "_hanging" : "";
+					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/dimmer_power_" + power);
+					return ConfiguredModel.builder()
+							.modelFile(models().withExistingParent(name(block) + hanging + "_power_" + power, CavernsAndChasms.MOD_ID + ":block/template_dimmer" + hanging).texture("dimmer", location))
+							.build();
+				}, BlockStateProperties.WATERLOGGED);
+
+		this.getVariantBuilder(wallBlock)
+				.forAllStatesExcept(state -> {
+					int power = state.getValue(AbstractDimmerBlock.POWER);
+					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/dimmer_power_" + power);
+					return ConfiguredModel.builder()
+							.modelFile(models().withExistingParent(name(wallBlock) + "_power_" + power, CavernsAndChasms.MOD_ID + ":block/template_dimmer_wall").texture("dimmer", location))
+							.rotationY((int) state.getValue(WallDimmerBlock.FACING).getOpposite().toYRot())
+							.build();
+				}, BlockStateProperties.WATERLOGGED);
+
+		this.generatedItem(block, "item");
 	}
 
 	public void hoopBlock(Block block) {
@@ -456,7 +479,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_" + state.getValue(HoopBlock.SIZE) + (state.getValue(HoopBlock.OUTPUT_POWER) > 0 ? "_activated" : ""));
 					Axis axis = state.getValue(HoopBlock.AXIS);
 					return ConfiguredModel.builder()
-							.modelFile(models().withExistingParent(location.getPath(), CavernsAndChasms.MOD_ID + ":block/template_hoop_size_" + state.getValue(HoopBlock.SIZE)).texture("hoop", location).texture("particle", location))
+							.modelFile(models().withExistingParent(location.getPath(), CavernsAndChasms.MOD_ID + ":block/template_hoop_size_" + state.getValue(HoopBlock.SIZE)).texture("hoop", location))
 							.rotationX(axis.isHorizontal() ? 90 : 0)
 							.rotationY(axis == Axis.X ? 90 : 0)
 							.build();

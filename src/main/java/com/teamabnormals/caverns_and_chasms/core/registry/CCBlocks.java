@@ -87,6 +87,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> HOLD_PLATE = HELPER.createBlock("hold_plate", () -> new HoldPlateBlock(CCProperties.HOLD_PLATE));
 	public static final RegistryObject<Block> HOLD_BUTTON = HELPER.createBlock("hold_button", () -> new HoldButtonBlock(CCProperties.HOLD_BUTTON));
+	public static final RegistryObject<Block> WALL_DIMMER = HELPER.createBlockNoItem("wall_dimmer", () -> new WallDimmerBlock(CCProperties.DIMMER));
+	public static final RegistryObject<Block> DIMMER = HELPER.createBlockNoItem("dimmer", () -> new DimmerBlock(CCProperties.DIMMER));
 	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
 	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 
@@ -505,7 +507,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.CHAIN),
 						FLOODLIGHT, EXPOSED_FLOODLIGHT, WEATHERED_FLOODLIGHT, OXIDIZED_FLOODLIGHT,
 						WAXED_FLOODLIGHT, WAXED_EXPOSED_FLOODLIGHT, WAXED_WEATHERED_FLOODLIGHT, WAXED_OXIDIZED_FLOODLIGHT,
-						LAVA_LAMP
+						DIMMER, LAVA_LAMP
 				)
 				.addItemsAfter(of(Blocks.LIGHTNING_ROD), HOOP)
 				.addItemsAfter(of(Blocks.SEA_LANTERN), LAPIS_LAZULI_LAMP, SPINEL_LAMP)
@@ -517,7 +519,7 @@ public class CCBlocks {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON, WAXED_OXIDIZED_COPPER_BUTTON, HOLD_BUTTON)
 				.addItemsAfter(of(Blocks.TARGET), BOUNCER)
-				.addItemsAfter(of(Blocks.LIGHTNING_ROD), HOOP)
+				.addItemsAfter(of(Blocks.LIGHTNING_ROD), DIMMER, HOOP)
 				.addItemsAfter(of(Blocks.TNT), TMT)
 				.addItemsAfter(of(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsAfter(of(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), HOLD_PLATE)
@@ -605,6 +607,7 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties HOLD_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties HOLD_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties DIMMER = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> state.getValue(AbstractDimmerBlock.POWER));
 		public static final BlockBehaviour.Properties HOOP = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL);
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F);

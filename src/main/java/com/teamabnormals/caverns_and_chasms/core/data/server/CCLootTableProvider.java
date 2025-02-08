@@ -125,6 +125,8 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(HOLD_PLATE.get());
 			this.dropSelf(HOLD_BUTTON.get());
+			this.dropSelf(DIMMER.get());
+			this.dropOther(WALL_DIMMER.get(), DIMMER.get());
 			this.dropSelf(BOUNCER.get());
 			this.dropSelf(HOOP.get());
 

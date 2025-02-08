@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_dimmer",
+  "textures": {
+    "dimmer": "caverns_and_chasms:block/dimmer_power_10"
+  }
+}

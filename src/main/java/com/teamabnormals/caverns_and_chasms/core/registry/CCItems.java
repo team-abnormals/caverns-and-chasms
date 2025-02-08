@@ -147,6 +147,8 @@ public class CCItems {
 	public static final RegistryObject<Item> RIDE_POTTERY_SHERD = HELPER.createItem("ride_pottery_sherd", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> STALKER_POTTERY_SHERD = HELPER.createItem("stalker_pottery_sherd", () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> DIMMER = HELPER.createItem("dimmer", () -> new DimmerBlockItem(CCBlocks.DIMMER.get(), CCBlocks.WALL_DIMMER.get(), new Item.Properties()));
+
 	public static final RegistryObject<ForgeSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntityTypes.DEEPER::get, 8355711, 13717260);
 	public static final RegistryObject<ForgeSpawnEggItem> PEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("peeper", CCEntityTypes.PEEPER::get, 0x3E3434, 0x694242);
 	//	public static final RegistryObject<ForgeSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntityTypes.FLY::get, 920336, 7080720);

@@ -1,5 +1,8 @@
 {
 	"parent": "block/block",
+    "textures": {
+        "particle": "#hoop"
+    },
 	"elements": [
 		{
 			"from": [4, 7, 4],
