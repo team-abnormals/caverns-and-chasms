@@ -64,7 +64,7 @@ public class CCStructureTypes {
 		public static void bootstrap(BootstapContext<StructureProcessorList> context) {
 			float legendary = 0.001F;
 			float epic = 0.002F;
-			float rare = 0.005F;
+			float rare = 0.01F;
 			float uncommon = 0.02F;
 			float common = 0.04F;
 
@@ -78,13 +78,13 @@ public class CCStructureTypes {
 							replaceGravelWith(Blocks.FURNACE, epic),
 							replaceGravelWith(Blocks.BLAST_FURNACE, epic),
 
+							replaceGravelWith(Blocks.INFESTED_STONE, rare),
 							replaceGravelWith(CCBlocks.FLINT_BLOCK.get(), rare),
 							archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, rare),
 
 							replaceGravelWith(Blocks.IRON_ORE, uncommon),
 							replaceGravelWith(Blocks.COBBLESTONE, uncommon),
 							replaceGravelWith(Blocks.STONE, uncommon),
-							replaceGravelWith(Blocks.INFESTED_STONE, uncommon),
 
 							replaceGravelWith(Blocks.COAL_ORE, common),
 							replaceGravelWith(CCBlocks.FRAGILE_STONE.get(), common),
