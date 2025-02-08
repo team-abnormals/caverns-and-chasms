@@ -34,7 +34,7 @@ public class HoldButtonBlockEntity extends BlockEntity {
 	}
 
 	public void setPressed() {
-		this.pressTime = 4;
+		this.pressTime = 5;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {
