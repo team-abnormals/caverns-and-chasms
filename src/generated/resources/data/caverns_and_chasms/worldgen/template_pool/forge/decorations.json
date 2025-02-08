@@ -69,6 +69,28 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/decorations/oak_platform_7",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/decorations/oak_platform_8",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "caverns_and_chasms:forge/decorations/oak_shelf_1",
         "processors": {
           "processors": []
