@@ -1,16 +1,26 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.DimmerBlockEntity;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
-public abstract class AbstractDimmerBlock extends Block {
+import javax.annotation.Nullable;
+
+public abstract class AbstractDimmerBlock extends BaseEntityBlock {
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -18,41 +28,31 @@ public abstract class AbstractDimmerBlock extends Block {
 		super(properties);
 	}
 
+	@Nullable
 	@Override
-	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-		int i = level.getBestNeighborSignal(pos);
-		if (i > 0)
-			level.scheduleTick(pos, this, 1);
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new DimmerBlockEntity(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+		return createTickerHelper(entityType, CCBlockEntityTypes.DIMMER.get(), DimmerBlockEntity::tick);
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		if (!level.isClientSide) {
-			int i = level.getBestNeighborSignal(pos);
-			int j = state.getValue(POWER);
-			if (i > j) {
-				level.scheduleTick(pos, this, 1);
-			} else if (i < j) {
-				level.scheduleTick(pos, this, 2);
-			}
-		}
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.MODEL;
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		int i = level.getBestNeighborSignal(pos);
-		int j = state.getValue(POWER);
-		if (i > j) {
-			int k = j + 1;
-			level.setBlock(pos, state.setValue(POWER, k), 3);
-			if (i > k)
-				level.scheduleTick(pos, this, 1);
-		} else if (i < j) {
-			int k = j - 1;
-			level.setBlock(pos, state.setValue(POWER, k), 3);
-			if (i < k)
-				level.scheduleTick(pos, this, 2);
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof DimmerBlockEntity dimmerBlockEntity) {
+			dimmerBlockEntity.setPressed();
+			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
+		return InteractionResult.PASS;
 	}
 
 	@Override

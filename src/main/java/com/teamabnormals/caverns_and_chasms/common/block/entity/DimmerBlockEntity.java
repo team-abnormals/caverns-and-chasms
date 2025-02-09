@@ -1,0 +1,60 @@
+package com.teamabnormals.caverns_and_chasms.common.block.entity;
+
+import com.teamabnormals.caverns_and_chasms.common.block.AbstractDimmerBlock;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class DimmerBlockEntity extends BlockEntity {
+	private int pressTime;
+	private boolean unpowerTick;
+
+	public DimmerBlockEntity(BlockPos pos, BlockState state) {
+		super(CCBlockEntityTypes.DIMMER.get(), pos, state);
+	}
+
+	@Override
+	public void load(CompoundTag compound) {
+		super.load(compound);
+		this.pressTime = compound.getShort("PressTime");
+		this.unpowerTick = compound.getBoolean("UnpowerTick");
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag compound) {
+		super.saveAdditional(compound);
+		compound.putShort("PressTime", (short)this.pressTime);
+		compound.putBoolean("UnpowerTick", this.unpowerTick);
+	}
+
+	public void setPressed() {
+		this.pressTime = 5;
+	}
+
+	public static void tick(Level level, BlockPos pos, BlockState state, DimmerBlockEntity blockEntity) {
+		if (!level.isClientSide) {
+			int i = blockEntity.pressTime > 0 ? 15 : level.getBestNeighborSignal(pos);
+			int j = state.getValue(AbstractDimmerBlock.POWER);
+			if (i < j) {
+				if (!blockEntity.unpowerTick) {
+					blockEntity.unpowerTick = true;
+				} else {
+					level.setBlock(pos, state.setValue(AbstractDimmerBlock.POWER, j - 1), 3);
+					blockEntity.unpowerTick = false;
+				}
+			} else {
+				if (i > j) {
+					level.setBlock(pos, state.setValue(AbstractDimmerBlock.POWER, j + 1), 3);
+				}
+				blockEntity.unpowerTick = false;
+			}
+
+			if (blockEntity.pressTime > 0) {
+				--blockEntity.pressTime;
+			}
+		}
+	}
+}
