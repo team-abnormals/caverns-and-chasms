@@ -19,7 +19,7 @@ public class CopperButtonBlock extends ButtonBlock {
 	protected final WeatherState weatherState;
 
 	public CopperButtonBlock(WeatheringCopper.WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
-		super(properties, CCProperties.COPPER_BLOCK_SET, ticks, false);
+		super(properties, CCProperties.COPPER_BLOCK_SET.get(), ticks, false);
 		this.weatherState = weatherState;
 	}
 

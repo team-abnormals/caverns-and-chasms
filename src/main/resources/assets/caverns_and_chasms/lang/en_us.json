@@ -608,6 +608,8 @@
   "painting.caverns_and_chasms.starry_night.title": "Starry Night",
   "potion.whenSmashed": "When smashed:",
   "subtitles.caverns_and_chasms.block.atoning_table.use": "Atoning Table used",
+  "subtitles.caverns_and_chasms.block.atoning_table.whispers": "Mysterious whispers",
+  "subtitles.caverns_and_chasms.block.dimmer.buzz": "Dimmer buzzes",
   "subtitles.caverns_and_chasms.block.dismantling_table.use": "Dismantling Table used",
   "subtitles.caverns_and_chasms.block.flint_block.strike": "Flint Block sparks",
   "subtitles.caverns_and_chasms.block.hoop.score": "Goal scored",

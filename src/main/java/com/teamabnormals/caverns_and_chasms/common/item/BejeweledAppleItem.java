@@ -1,6 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCMobEffectTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -41,5 +43,15 @@ public class BejeweledAppleItem extends Item {
 		while (ForgeRegistries.MOB_EFFECTS.tags().getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).contains(effect) || effect.isInstantenous())
 			effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
 		return effect;
+	}
+
+	@Override
+	public SoundEvent getDrinkingSound() {
+		return CCSoundEvents.BEJEWELED_APPLE_EAT.get();
+	}
+
+	@Override
+	public SoundEvent getEatingSound() {
+		return CCSoundEvents.BEJEWELED_APPLE_BURP.get();
 	}
 }

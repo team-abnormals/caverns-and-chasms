@@ -59,6 +59,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 import static net.minecraft.world.item.CreativeModeTabs.*;
@@ -71,7 +72,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
 	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new Block(CCProperties.ORE));
 	public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = HELPER.createBlock("deepslate_silver_ore", () -> new Block(CCProperties.DEEPSLATE_ORE));
-	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new DropExperienceBlock(Block.Properties.copy(Blocks.SOUL_SOIL), UniformInt.of(0, 1)));
+	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new DropExperienceBlock(CCProperties.SOUL_SILVER_ORE, UniformInt.of(0, 1)));
 	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET));
@@ -198,13 +199,13 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SPINEL_BRICK_SLAB = HELPER.createBlock("spinel_brick_slab", () -> new SlabBlock(CCProperties.SPINEL));
 	public static final RegistryObject<Block> SPINEL_BRICK_WALL = HELPER.createBlock("spinel_brick_wall", () -> new WallBlock(CCProperties.SPINEL));
 	public static final RegistryObject<Block> SPINEL_PILLAR = HELPER.createBlock("spinel_pillar", () -> new RotatedPillarBlock(CCProperties.SPINEL));
-	public static final RegistryObject<Block> SPINEL_LAMP = HELPER.createBlock("spinel_lamp", () -> new Block(CCProperties.LAMP));
+	public static final RegistryObject<Block> SPINEL_LAMP = HELPER.createBlock("spinel_lamp", () -> new Block(CCProperties.LAMP.sound(CCSoundTypes.SPINEL)));
 
 	public static final RegistryObject<Block> DISMANTLING_TABLE = HELPER.createBlock("dismantling_table", () -> new DismantlingTableBlock(CCProperties.DISMANTLING_TABLE));
 	public static final RegistryObject<Block> BEJEWELED_ANVIL = HELPER.createBlock("bejeweled_anvil", () -> new BejeweledAnvilBlock(BlockBehaviour.Properties.copy(Blocks.ANVIL)));
 	public static final RegistryObject<Block> ATONING_TABLE = HELPER.createBlock("atoning_table", () -> new AtoningTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
 
-	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
+	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.ZIRCONIA)));
 
 	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)));
 	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)));
@@ -409,7 +410,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> FALSE_HOPE = HELPER.createBlock("false_hope", () -> new FalseHopeBlock(() -> MobEffects.BLINDNESS, 8, CCProperties.FALSE_HOPE));
 
-	public static final RegistryObject<Block> MOSCHATEL = HELPER.createBlock("moschatel", () -> new MoschatelBlock(() -> MobEffects.NIGHT_VISION, 5, PropertyUtil.flower()));
+	public static final RegistryObject<Block> MOSCHATEL = HELPER.createBlock("moschatel", () -> new MoschatelBlock(() -> MobEffects.NIGHT_VISION, 5, PropertyUtil.flower().sound(CCSoundTypes.MOSCHATEL)));
 	public static final RegistryObject<Block> CAVE_GROWTHS = HELPER.createBlock("cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.TERRACOTTA_LIGHT_GREEN)));
 	public static final RegistryObject<Block> LURID_CAVE_GROWTHS = HELPER.createBlock("lurid_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.GLOW_LICHEN)));
 	public static final RegistryObject<Block> WISPY_CAVE_GROWTHS = HELPER.createBlock("wispy_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.STONE)));
@@ -556,7 +557,7 @@ public class CCBlocks {
 
 	public static class CCProperties {
 		public static final BlockSetType AZALEA_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":azalea"));
-		public static final BlockSetType COPPER_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
+		public static final Supplier<BlockSetType> COPPER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, CCSoundEvents.COPPER_BUTTON_CLICK_OFF.get(), CCSoundEvents.COPPER_BUTTON_CLICK_ON.get()));
 		public static final BlockSetType SILVER_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":silver", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 		public static final BlockSetType TIN_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":tin", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 
@@ -567,7 +568,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties FRAGILE_DEEPSLATE = BlockBehaviour.Properties.copy(Blocks.DEEPSLATE);
 		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.copy(Blocks.CALCITE);
 		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.copy(Blocks.TUFF);
-		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLESTONE);
 		public static final BlockBehaviour.Properties COBBLED_DEEPSLATE_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLED_DEEPSLATE);
@@ -612,7 +613,8 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F);
 		public static final BlockBehaviour.Properties DEEPSLATE_ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
-		public static final BlockBehaviour.Properties SPINEL = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).mapColor(MapColor.COLOR_PURPLE);
+		public static final BlockBehaviour.Properties SOUL_SILVER_ORE = Block.Properties.copy(Blocks.SOUL_SOIL).sound(CCSoundTypes.SOUL_SILVER_ORE);
+		public static final BlockBehaviour.Properties SPINEL = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).sound(CCSoundTypes.SPINEL).mapColor(MapColor.COLOR_PURPLE);
 		public static final BlockBehaviour.Properties TURQUOISE = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).mapColor(MapColor.COLOR_CYAN);
 		public static final BlockBehaviour.Properties LAPIS_LAZULI = BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK);
 		public static final BlockBehaviour.Properties LAMP = BlockBehaviour.Properties.of().lightLevel((state) -> 15).strength(0.3F).sound(SoundType.GLASS).isValidSpawn(CCProperties::alwaysAllowSpawn);
@@ -620,7 +622,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ROTTEN_FLESH_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.8F).sound(SoundType.CORAL_BLOCK);
 		public static final BlockBehaviour.Properties NECROMIUM_BLOCK = BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).mapColor(MapColor.TERRACOTTA_GREEN);
 
-		public static final BlockBehaviour.Properties FALSE_HOPE = PropertyUtil.flower().lightLevel((state) -> 15);
+		public static final BlockBehaviour.Properties FALSE_HOPE = PropertyUtil.flower().sound(CCSoundTypes.FALSE_HOPE).lightLevel((state) -> 15);
 
 		public static final WoodSetProperties AZALEA = WoodSetProperties.builder(MapColor.TERRACOTTA_PURPLE).leavesSound(SoundType.AZALEA_LEAVES).build();
 
@@ -637,7 +639,7 @@ public class CCBlocks {
 		}
 
 		private static BlockBehaviour.Properties caveGrowths(MapColor mapColor) {
-			BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().mapColor(mapColor).replaceable().noCollission().instabreak().sound(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY);
+			BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().mapColor(mapColor).replaceable().noCollission().instabreak().sound(CCSoundTypes.CAVE_GROWTHS).ignitedByLava().pushReaction(PushReaction.DESTROY);
 			properties.offsetFunction = Optional.of((state, level, pos) -> {
 				Block block = state.getBlock();
 				long i = Mth.getSeed(pos.getX(), pos.getY(), pos.getZ());

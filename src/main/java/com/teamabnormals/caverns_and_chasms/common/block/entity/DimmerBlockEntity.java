@@ -2,8 +2,10 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.block.AbstractDimmerBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +37,7 @@ public class DimmerBlockEntity extends BlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, DimmerBlockEntity blockEntity) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			int i = blockEntity.pressTime > 0 ? 15 : level.getBestNeighborSignal(pos);
 			int j = state.getValue(AbstractDimmerBlock.POWER);
 			if (i < j) {
@@ -43,11 +45,13 @@ public class DimmerBlockEntity extends BlockEntity {
 					blockEntity.unpowerTick = true;
 				} else {
 					level.setBlock(pos, state.setValue(AbstractDimmerBlock.POWER, j - 1), 3);
+					level.playSound(null, pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.75F + (j - 1) / 15F * 0.5F, 0.8F);
 					blockEntity.unpowerTick = false;
 				}
 			} else {
 				if (i > j) {
 					level.setBlock(pos, state.setValue(AbstractDimmerBlock.POWER, j + 1), 3);
+					level.playSound(null, pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.75F + (j + 1) / 15F * 0.5F, 0.8F);
 				}
 				blockEntity.unpowerTick = false;
 			}
