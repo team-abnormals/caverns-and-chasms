@@ -44,14 +44,24 @@ public abstract class AbstractDimmerBlock extends Block {
 		int j = state.getValue(POWER);
 		if (i > j) {
 			int k = j + 1;
-			level.setBlock(pos, state.setValue(POWER, k), 2);
+			level.setBlock(pos, state.setValue(POWER, k), 3);
 			if (i > k)
 				level.scheduleTick(pos, this, 1);
 		} else if (i < j) {
 			int k = j - 1;
-			level.setBlock(pos, state.setValue(POWER, k), 2);
+			level.setBlock(pos, state.setValue(POWER, k), 3);
 			if (i < k)
 				level.scheduleTick(pos, this, 2);
 		}
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		return state.getValue(POWER);
 	}
 }
