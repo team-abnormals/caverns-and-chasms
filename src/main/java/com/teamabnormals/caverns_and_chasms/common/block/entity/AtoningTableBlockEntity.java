@@ -2,11 +2,9 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Nameable;
@@ -54,10 +52,6 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	public static void bookAnimationTick(Level level, BlockPos pos, BlockState state, AtoningTableBlockEntity entity) {
 		if (level.getGameTime() % 60 == 0) {
 			level.addParticle(CCParticleTypes.ATONING_DAGGER.get(), pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-		}
-
-		if (level.getGameTime() % 80 == 0) {
-			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.ATONING_TABLE_WHISPERS.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
 		}
 
 		entity.oOpen = entity.open;

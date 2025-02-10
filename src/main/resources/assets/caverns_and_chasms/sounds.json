@@ -537,6 +537,50 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.necromium.break": {
+    "sounds": [
+      "caverns_and_chasms:block/necromium/break1",
+      "caverns_and_chasms:block/necromium/break2",
+      "caverns_and_chasms:block/necromium/break3",
+      "caverns_and_chasms:block/necromium/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.necromium.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/necromium/step1",
+      "caverns_and_chasms:block/necromium/step2",
+      "caverns_and_chasms:block/necromium/step3",
+      "caverns_and_chasms:block/necromium/step4"
+    ]
+  },
+  "block.necromium.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/necromium/step1",
+      "caverns_and_chasms:block/necromium/step2",
+      "caverns_and_chasms:block/necromium/step3",
+      "caverns_and_chasms:block/necromium/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.necromium.place": {
+    "sounds": [
+      "caverns_and_chasms:block/necromium/break1",
+      "caverns_and_chasms:block/necromium/break2",
+      "caverns_and_chasms:block/necromium/break3",
+      "caverns_and_chasms:block/necromium/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.necromium.step": {
+    "sounds": [
+      "caverns_and_chasms:block/necromium/step1",
+      "caverns_and_chasms:block/necromium/step2",
+      "caverns_and_chasms:block/necromium/step3",
+      "caverns_and_chasms:block/necromium/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.copper_button.click_off": {
     "sounds": [
       {
@@ -562,6 +606,20 @@
       "caverns_and_chasms:block/dimmer/buzz"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.dimmer.buzz"
+  },
+  "block.bejeweled_anvil.use": {
+    "sounds": [
+      "caverns_and_chasms:block/bejeweled_anvil/use1",
+      "caverns_and_chasms:block/bejeweled_anvil/use2",
+      "caverns_and_chasms:block/bejeweled_anvil/use3"
+    ],
+    "subtitle": "subtitles.block.anvil.use"
+  },
+  "block.bejeweled_anvil.land": {
+    "sounds": [
+      "caverns_and_chasms:block/bejeweled_anvil/land"
+    ],
+    "subtitle": "subtitles.block.anvil.land"
   },
   "item.tuning_fork.vibrate": {
     "sounds": [
@@ -826,6 +884,14 @@
       "caverns_and_chasms:item/zirconia/anvil_use1",
       "caverns_and_chasms:item/zirconia/anvil_use2",
       "caverns_and_chasms:item/zirconia/anvil_use3"
+    ]
+  },
+  "item.armor.equip_necromium": {
+    "sounds": [
+      "caverns_and_chasms:item/necromium_armor/equip1",
+      "caverns_and_chasms:item/necromium_armor/equip2",
+      "caverns_and_chasms:item/necromium_armor/equip3",
+      "caverns_and_chasms:item/necromium_armor/equip4"
     ]
   },
   "entity.parrot.imitate.deeper": {

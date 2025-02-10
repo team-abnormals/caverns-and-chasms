@@ -46,12 +46,7 @@ public class BejeweledAppleItem extends Item {
 	}
 
 	@Override
-	public SoundEvent getDrinkingSound() {
-		return CCSoundEvents.BEJEWELED_APPLE_EAT.get();
-	}
-
-	@Override
 	public SoundEvent getEatingSound() {
-		return CCSoundEvents.BEJEWELED_APPLE_BURP.get();
+		return CCSoundEvents.BEJEWELED_APPLE_EAT.get();
 	}
 }

@@ -49,6 +49,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ZIRCONIA_PLACE = HELPER.createSoundEvent("block.zirconia.place");
 	public static final RegistryObject<SoundEvent> ZIRCONIA_STEP = HELPER.createSoundEvent("block.zirconia.step");
 
+	public static final RegistryObject<SoundEvent> NECROMIUM_BREAK = HELPER.createSoundEvent("block.necromium.break");
+	public static final RegistryObject<SoundEvent> NECROMIUM_FALL = HELPER.createSoundEvent("block.necromium.fall");
+	public static final RegistryObject<SoundEvent> NECROMIUM_HIT = HELPER.createSoundEvent("block.necromium.hit");
+	public static final RegistryObject<SoundEvent> NECROMIUM_PLACE = HELPER.createSoundEvent("block.necromium.place");
+	public static final RegistryObject<SoundEvent> NECROMIUM_STEP = HELPER.createSoundEvent("block.necromium.step");
+
 	public static final RegistryObject<SoundEvent> FALSE_HOPE_BREAK = HELPER.createSoundEvent("block.false_hope.break");
 	public static final RegistryObject<SoundEvent> FALSE_HOPE_FALL = HELPER.createSoundEvent("block.false_hope.fall");
 	public static final RegistryObject<SoundEvent> FALSE_HOPE_HIT = HELPER.createSoundEvent("block.false_hope.hit");
@@ -79,6 +85,9 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
 
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_USE = HELPER.createSoundEvent("block.bejeweled_anvil.use");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_LAND = HELPER.createSoundEvent("block.bejeweled_anvil.land");
+
 	public static final RegistryObject<SoundEvent> DISMANTLING_TABLE_USE = HELPER.createSoundEvent("block.dismantling_table.use");
 
 	public static final RegistryObject<SoundEvent> ATONING_TABLE_USE = HELPER.createSoundEvent("block.atoning_table.use");
@@ -92,6 +101,8 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> TETHER_POTION_EQUIP = HELPER.createSoundEvent("item.tether_potion.equip");
 	public static final RegistryObject<SoundEvent> TETHER_POTION_BREAK = HELPER.createSoundEvent("item.tether_potion.break");
+
+	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_NECROMIUM = HELPER.createSoundEvent("item.armor.equip_necromium");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_EAT = HELPER.createSoundEvent("item.bejeweled_apple.eat");
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_BURP = HELPER.createSoundEvent("item.bejeweled_apple.burp");
@@ -154,6 +165,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType SPINEL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SPINEL_BREAK, CCSoundEvents.SPINEL_STEP, CCSoundEvents.SPINEL_PLACE, CCSoundEvents.SPINEL_HIT, CCSoundEvents.SPINEL_FALL);
 		public static final ForgeSoundType SUGILITE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SUGILITE_BREAK, CCSoundEvents.SUGILITE_STEP, CCSoundEvents.SUGILITE_PLACE, CCSoundEvents.SUGILITE_HIT, CCSoundEvents.SUGILITE_FALL);
 		public static final ForgeSoundType ZIRCONIA = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ZIRCONIA_BREAK, CCSoundEvents.ZIRCONIA_STEP, CCSoundEvents.ZIRCONIA_PLACE, CCSoundEvents.ZIRCONIA_HIT, CCSoundEvents.ZIRCONIA_FALL);
+		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.NECROMIUM_BREAK, CCSoundEvents.NECROMIUM_STEP, CCSoundEvents.NECROMIUM_PLACE, CCSoundEvents.NECROMIUM_HIT, CCSoundEvents.NECROMIUM_FALL);
 		public static final ForgeSoundType FALSE_HOPE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.FALSE_HOPE_BREAK, CCSoundEvents.FALSE_HOPE_STEP, CCSoundEvents.FALSE_HOPE_PLACE, CCSoundEvents.FALSE_HOPE_HIT, CCSoundEvents.FALSE_HOPE_FALL);
 		public static final ForgeSoundType CAVE_GROWTHS = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.CAVE_GROWTHS_BREAK, CCSoundEvents.CAVE_GROWTHS_STEP, CCSoundEvents.CAVE_GROWTHS_PLACE, CCSoundEvents.CAVE_GROWTHS_HIT, CCSoundEvents.CAVE_GROWTHS_FALL);
 		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.MOSCHATEL_BREAK, CCSoundEvents.MOSCHATEL_STEP, CCSoundEvents.MOSCHATEL_PLACE, CCSoundEvents.MOSCHATEL_HIT, CCSoundEvents.MOSCHATEL_FALL);
