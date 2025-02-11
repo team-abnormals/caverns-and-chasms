@@ -25,9 +25,9 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 
 	protected AtoningLetterParticle(ClientLevel level, double x, double y, double z, float rotation) {
 		super(level, x, y, z);
-		this.rCol = 0.9F;
-		this.gCol = 0.6F;
-		this.bCol = 0.78F;
+		this.rCol = 0.85F;
+		this.gCol = 0.55F;
+		this.bCol = 0.72F;
 		this.rot = rotation;
 		this.lifetime = 110;
 		this.quadSize = 0.15F;
@@ -45,18 +45,7 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 
 	@Override
 	public int getLightColor(float partialTick) {
-		int i = super.getLightColor(partialTick);
-		float f = (float)this.age / (float)this.lifetime;
-		f *= f;
-		f *= f;
-		int j = i & 255;
-		int k = i >> 16 & 255;
-		k += (int)(f * 15.0F * 16.0F);
-		if (k > 240) {
-			k = 240;
-		}
-
-		return j | k << 16;
+		return 15728880;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -75,11 +64,11 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 	}
 
 	@Override
-	public void render(VertexConsumer vertexConsumer, Camera camera, float partialTicks) {
+	public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
 		Vec3 vec3 = camera.getPosition();
-		float f = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
-		float f1 = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
-		float f2 = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+		float f = (float) (Mth.lerp(partialTick, this.xo, this.x) - vec3.x());
+		float f1 = (float) (Mth.lerp(partialTick, this.yo, this.y) - vec3.y());
+		float f2 = (float) (Mth.lerp(partialTick, this.zo, this.z) - vec3.z());
 
 		Vector3f[] avector3f = new Vector3f[]{
 				new Vector3f(-1.0F, -1.0F, 0.0F),
@@ -88,7 +77,7 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 				new Vector3f(1.0F, -1.0F, 0.0F)
 		};
 
-		float f3 = this.getQuadSize(partialTicks);
+		float f3 = this.getQuadSize(partialTick);
 		for (int i = 0; i < 4; ++i) {
 			Vector3f vertex = avector3f[i];
 			vertex.rotateZ(this.rot);
@@ -101,7 +90,7 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 		float f7 = this.getU1();
 		float f4 = this.getV0();
 		float f5 = this.getV1();
-		int light = this.getLightColor(partialTicks);
+		int light = this.getLightColor(partialTick);
 
 		vertexConsumer.vertex(avector3f[0].x(), avector3f[0].y(), avector3f[0].z()).uv(f7, f5).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
 		vertexConsumer.vertex(avector3f[1].x(), avector3f[1].y(), avector3f[1].z()).uv(f7, f4).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
