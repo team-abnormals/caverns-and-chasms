@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -122,6 +123,9 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 				level.addParticle(CCParticleTypes.LAVA_LAMP_SMOKE.get(), pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0.0D, 0.0D, 0.0D);
 			}
 		}
+
+		if (random.nextInt(30) == 0)
+			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.LAVA_LAMP_GLUG.get(), SoundSource.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
 	}
 
 	@Override

@@ -724,7 +724,7 @@
       "caverns_and_chasms:block/lava_lamp/glug9",
       "caverns_and_chasms:block/lava_lamp/glug10"
     ],
-    "subtitle": "subtitles.block.generic.footsteps"
+    "subtitle": "subtitles.caverns_and_chasms.block.lava_lamp.glug"
   },
   "block.silver.break": {
     "sounds": [
