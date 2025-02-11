@@ -4,8 +4,6 @@ import com.teamabnormals.caverns_and_chasms.client.particle.AtoningLetterParticl
 import net.minecraft.util.RandomSource;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Arrays;
-
 public class AtoningTableSentences {
 	public static final int[][] SENTENCES = {
 			lettersToIntegers(new String[]{"o", "n", "e", "r", "i", "ng", "t", "o", "r", "u", "l", "e", "th", "e", "m", "a", "ll"}),

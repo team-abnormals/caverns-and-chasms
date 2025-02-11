@@ -84,8 +84,8 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 			}
 		}
 
-		if (RANDOM.nextInt(100) == 0)
-			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.ATONING_TABLE_WHISPERS.get(), SoundSource.BLOCKS, Math.min(enchPower, 15) / 15.0F + 1.0F, 1.0F, false);
+		if (level.getGameTime() % 240 == 0)
+			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.ATONING_TABLE_WHISPERS.get(), SoundSource.BLOCKS, Math.min(enchPower, 15) / 15.0F * 0.5F + 0.8F, 1.0F, false);
 
 		entity.oOpen = entity.open;
 		entity.oRot = entity.rot;
