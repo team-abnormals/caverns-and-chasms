@@ -132,10 +132,12 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 		} else {
 			this.setLife(this.getLife() + 1);
 			int i = this.getLife();
-			if (i >= BejeweledPearlItem.getMaxLifetime())
+			if (i >= BejeweledPearlItem.getMaxLifetime()) {
 				this.doTeleport();
-			else if (i % BejeweledPearlItem.getChargeStageDuration() == 0)
-				this.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 0.75F + i * 0.25F, 0.25F + i * 0.75F);
+			} else if (i % BejeweledPearlItem.getChargeStageDuration() == 0) {
+				int j = i / BejeweledPearlItem.getMaxLifetime();
+				this.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 1.0F + j * 0.5F, 0.2F + j * 0.8F);
+			}
 			super.tick();
 		}
 	}
