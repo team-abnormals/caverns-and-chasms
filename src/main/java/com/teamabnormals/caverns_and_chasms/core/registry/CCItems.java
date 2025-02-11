@@ -153,7 +153,7 @@ public class CCItems {
 	public static final RegistryObject<ForgeSpawnEggItem> PEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("peeper", CCEntityTypes.PEEPER::get, 0x3E3434, 0x694242);
 	//	public static final RegistryObject<ForgeSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntityTypes.FLY::get, 920336, 7080720);
 	public static final RegistryObject<ForgeSpawnEggItem> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntityTypes.MIME::get, 0x5A5050, 0x969964);
-	// public static final RegistryObject<ForgeSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntityTypes.RAT::get, 0x3B4248, 0xA76E6C);
+	public static final RegistryObject<ForgeSpawnEggItem> RAT_SPAWN_EGG = HELPER.createSpawnEggItem("rat", CCEntityTypes.RAT::get, 0x3B4248, 0xA76E6C);
 	public static final RegistryObject<ForgeSpawnEggItem> GLARE_SPAWN_EGG = HELPER.createSpawnEggItem("glare", CCEntityTypes.GLARE::get, 0x72942F, 0x516F2C);
 	public static final RegistryObject<ForgeSpawnEggItem> COPPER_GOLEM_SPAWN_EGG = HELPER.createSpawnEggItem("copper_golem", CCEntityTypes.COPPER_GOLEM::get, 0xDE7D65, 0x8A4129);
 
@@ -216,7 +216,7 @@ public class CCItems {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.tab(SPAWN_EGGS)
-				.addItemsAlphabetically(is(SpawnEggItem.class), DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG);
+				.addItemsAlphabetically(is(SpawnEggItem.class), DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {

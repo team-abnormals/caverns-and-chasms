@@ -31,7 +31,7 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
-	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
+	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{CCEntityTypes.RAT.get()};
 	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get()};
 	private static final Item[] SMITHING_TEMPLATES = new Item[]{CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get()};
 
@@ -55,11 +55,11 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		});
 		this.entry("husbandry/balanced_diet").selects("husbandry/balanced_diet").addModifier(balancedDiet.requirements(RequirementsStrategy.AND).build());
 
-//		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
-//		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
-//			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
-//		}
-//		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
+		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
+		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
+			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
+		}
+		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
 
 		this.entry("husbandry/wax_on").selects("husbandry/wax_on")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build())

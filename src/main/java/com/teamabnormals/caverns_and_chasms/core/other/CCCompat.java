@@ -2,12 +2,15 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
+import com.google.common.collect.ImmutableMap;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.sensing.VillagerHostilesSensor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Items;
@@ -30,6 +33,7 @@ public class CCCompat {
 		registerParrotImitations();
 		registerVibrationFrequencies();
 		changeLocalization();
+		makeVillagersScaredOfRats();
 		CCDecoratedPotPatterns.registerDecoratedPotPatterns();
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
@@ -175,5 +179,12 @@ public class CCCompat {
 //		VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>((Object2IntMap) VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT), (map) -> {
 //			map.put(CCGameEvents.TUNING_FORK_VIBRATE.get(), 10);
 //		}));
+	}
+
+	private static void makeVillagersScaredOfRats() {
+		ImmutableMap.Builder<EntityType<?>, Float> builder = ImmutableMap.builder();
+		VillagerHostilesSensor.ACCEPTABLE_DISTANCE_FROM_HOSTILES.forEach(builder::put);
+		builder.put(CCEntityTypes.RAT.get(), 5.0F);
+		VillagerHostilesSensor.ACCEPTABLE_DISTANCE_FROM_HOSTILES = builder.build();
 	}
 }
