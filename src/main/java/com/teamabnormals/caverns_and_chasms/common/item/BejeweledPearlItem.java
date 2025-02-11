@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.ThrownBejeweledPearl;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -25,6 +26,13 @@ public class BejeweledPearlItem extends Item {
 		ItemStack stack = player.getItemInHand(hand);
 		player.startUsingItem(hand);
 		return InteractionResultHolder.consume(stack);
+	}
+
+	@Override
+	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int useItemRemainingTicks) {
+		float i = stack.getUseDuration() - useItemRemainingTicks;
+		if (i % getChargeStageDuration() == 0)
+			entity.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 0.75F + i * 0.25F, 0.25F + i * 0.75F);
 	}
 
 	@Override
@@ -69,7 +77,7 @@ public class BejeweledPearlItem extends Item {
 	}
 
 	public static int getChargeStage(int useTime) {
-		return Mth.floor(useTime / getChargeStageDuration());
+		return Mth.floor((float) useTime / getChargeStageDuration());
 	}
 
 	public static int getChargeStageDuration() {

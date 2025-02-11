@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -93,6 +95,10 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 		if (!this.level().isClientSide && !this.isRemoved()) {
 			Entity entity = this.getOwner();
+			double d0 = entity.getX();
+			double d1 = entity.getY();
+			double d2 = entity.getZ();
+
 			if (entity instanceof ServerPlayer) {
 				ServerPlayer player = (ServerPlayer) entity;
 				if (player.connection.connection.isConnected() && player.level() == this.level() && !player.isSleeping()) {
@@ -111,6 +117,9 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 				entity.fallDistance = 0.0F;
 			}
 
+			this.level().playSound(null, d0, d1, d2, CCSoundEvents.BEJEWELED_PEARL_TELEPORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+			entity.playSound(CCSoundEvents.BEJEWELED_PEARL_TELEPORT.get(), 1.0F, 1.0F);
+
 			this.discard();
 		}
 	}
@@ -122,8 +131,11 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 			this.discard();
 		} else {
 			this.setLife(this.getLife() + 1);
-			if (this.getLife() >= BejeweledPearlItem.getMaxLifetime())
+			int i = this.getLife();
+			if (i >= BejeweledPearlItem.getMaxLifetime())
 				this.doTeleport();
+			else if (i % BejeweledPearlItem.getChargeStageDuration() == 0)
+				this.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 0.75F + i * 0.25F, 0.25F + i * 0.75F);
 			super.tick();
 		}
 	}

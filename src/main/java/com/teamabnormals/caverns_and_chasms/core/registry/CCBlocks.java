@@ -69,12 +69,12 @@ import static net.minecraft.world.item.crafting.Ingredient.of;
 public class CCBlocks {
 	public static final CCBlockSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getBlockSubHelper();
 
-	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
+	public static final RegistryObject<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(CCSoundTypes.SILVER)));
 	public static final RegistryObject<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new Block(CCProperties.ORE));
 	public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = HELPER.createBlock("deepslate_silver_ore", () -> new Block(CCProperties.DEEPSLATE_ORE));
 	public static final RegistryObject<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new DropExperienceBlock(CCProperties.SOUL_SILVER_ORE, UniformInt.of(0, 1)));
-	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
-	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
+	public static final RegistryObject<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.SILVER)));
+	public static final RegistryObject<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS.sound(CCSoundTypes.SILVER)));
 	public static final RegistryObject<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET));
 
 	public static final RegistryObject<Block> TIN_BLOCK = HELPER.createBlock("tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
@@ -202,7 +202,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SPINEL_LAMP = HELPER.createBlock("spinel_lamp", () -> new Block(CCProperties.LAMP.sound(CCSoundTypes.SPINEL)));
 
 	public static final RegistryObject<Block> DISMANTLING_TABLE = HELPER.createBlock("dismantling_table", () -> new DismantlingTableBlock(CCProperties.DISMANTLING_TABLE));
-	public static final RegistryObject<Block> BEJEWELED_ANVIL = HELPER.createBlock("bejeweled_anvil", () -> new BejeweledAnvilBlock(BlockBehaviour.Properties.copy(Blocks.ANVIL)));
+	public static final RegistryObject<Block> BEJEWELED_ANVIL = HELPER.createBlock("bejeweled_anvil", () -> new BejeweledAnvilBlock(BlockBehaviour.Properties.copy(Blocks.ANVIL).sound(CCSoundTypes.BEJEWELED_ANVIL)));
 	public static final RegistryObject<Block> ATONING_TABLE = HELPER.createBlock("atoning_table", () -> new AtoningTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE)));
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.ZIRCONIA)));
@@ -579,13 +579,13 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties IRON_PLATED_BRICKS = platedBricks(MapColor.RAW_IRON, SoundType.METAL);
 		public static final BlockBehaviour.Properties TIN_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_WHITE, SoundType.METAL);
 		public static final BlockBehaviour.Properties GOLD_PLATED_BRICKS = platedBricks(MapColor.GOLD, SoundType.METAL);
-		public static final BlockBehaviour.Properties SILVER_PLATED_BRICKS = platedBricks(MapColor.COLOR_LIGHT_GRAY, SoundType.METAL);
+		public static final BlockBehaviour.Properties SILVER_PLATED_BRICKS = platedBricks(MapColor.COLOR_LIGHT_GRAY, CCSoundTypes.SILVER);
 		public static final BlockBehaviour.Properties COPPER_PLATED_BRICKS = platedBricks(MapColor.COLOR_ORANGE, SoundType.COPPER);
 		public static final BlockBehaviour.Properties EXPOSED_COPPER_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_LIGHT_GRAY, SoundType.COPPER);
 		public static final BlockBehaviour.Properties WEATHERED_COPPER_PLATED_BRICKS = platedBricks(MapColor.WARPED_STEM, SoundType.COPPER);
 		public static final BlockBehaviour.Properties OXIDIZED_COPPER_PLATED_BRICKS = platedBricks(MapColor.WARPED_NYLIUM, SoundType.COPPER);
 
-		public static final BlockBehaviour.Properties TMT = BlockBehaviour.Properties.copy(Blocks.TNT);
+		public static final BlockBehaviour.Properties TMT = BlockBehaviour.Properties.copy(Blocks.TNT).sound(CCSoundTypes.TMT);
 		public static final BlockBehaviour.Properties TOOLBOX = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.2F, 6.0F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 10);
 		public static final BlockBehaviour.Properties EXPOSED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 9);
@@ -596,12 +596,12 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties DISMANTLING_TABLE = BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava();
 
 		public static final BlockBehaviour.Properties INDUCTOR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 4.8F).sound(SoundType.COPPER);
-		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15);
+		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.LAVA_LAMP).lightLevel((state) -> 15);
 		public static final BlockBehaviour.Properties METAL_BARS = BlockBehaviour.Properties.of().mapColor(MapColor.NONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion();
-		public static final BlockBehaviour.Properties SILVER_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties SILVER_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(CCSoundTypes.SILVER).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties COPPER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
-		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(SoundType.METAL);
-		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(CCSoundTypes.SANGUINE);
+		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(CCSoundTypes.SANGUINE);
 
 		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(15)).noOcclusion();
 		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel(getLightValueLit(10)).noOcclusion();
@@ -635,7 +635,7 @@ public class CCBlocks {
 		}
 
 		public static BlockBehaviour.Properties platedBricks(MapColor color, SoundType soundType) {
-			return BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER);
+			return BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(soundType);
 		}
 
 		private static BlockBehaviour.Properties caveGrowths(MapColor mapColor) {

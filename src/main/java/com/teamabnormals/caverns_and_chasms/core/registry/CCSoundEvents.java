@@ -73,6 +73,39 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> MOSCHATEL_PLACE = HELPER.createSoundEvent("block.moschatel.place");
 	public static final RegistryObject<SoundEvent> MOSCHATEL_STEP = HELPER.createSoundEvent("block.moschatel.step");
 
+	public static final RegistryObject<SoundEvent> TMT_BREAK = HELPER.createSoundEvent("block.tmt.break");
+	public static final RegistryObject<SoundEvent> TMT_FALL = HELPER.createSoundEvent("block.tmt.fall");
+	public static final RegistryObject<SoundEvent> TMT_HIT = HELPER.createSoundEvent("block.tmt.hit");
+	public static final RegistryObject<SoundEvent> TMT_PLACE = HELPER.createSoundEvent("block.tmt.place");
+	public static final RegistryObject<SoundEvent> TMT_STEP = HELPER.createSoundEvent("block.tmt.step");
+
+	public static final RegistryObject<SoundEvent> SANGUINE_BREAK = HELPER.createSoundEvent("block.sanguine.break");
+	public static final RegistryObject<SoundEvent> SANGUINE_FALL = HELPER.createSoundEvent("block.sanguine.fall");
+	public static final RegistryObject<SoundEvent> SANGUINE_HIT = HELPER.createSoundEvent("block.sanguine.hit");
+	public static final RegistryObject<SoundEvent> SANGUINE_PLACE = HELPER.createSoundEvent("block.sanguine.place");
+	public static final RegistryObject<SoundEvent> SANGUINE_STEP = HELPER.createSoundEvent("block.sanguine.step");
+
+	public static final RegistryObject<SoundEvent> LAVA_LAMP_BREAK = HELPER.createSoundEvent("block.lava_lamp.break");
+	public static final RegistryObject<SoundEvent> LAVA_LAMP_FALL = HELPER.createSoundEvent("block.lava_lamp.fall");
+	public static final RegistryObject<SoundEvent> LAVA_LAMP_HIT = HELPER.createSoundEvent("block.lava_lamp.hit");
+	public static final RegistryObject<SoundEvent> LAVA_LAMP_PLACE = HELPER.createSoundEvent("block.lava_lamp.place");
+	public static final RegistryObject<SoundEvent> LAVA_LAMP_STEP = HELPER.createSoundEvent("block.lava_lamp.step");
+	public static final RegistryObject<SoundEvent> LAVA_LAMP_GLUG = HELPER.createSoundEvent("block.lava_lamp.glug");
+
+	public static final RegistryObject<SoundEvent> SILVER_BREAK = HELPER.createSoundEvent("block.silver.break");
+	public static final RegistryObject<SoundEvent> SILVER_FALL = HELPER.createSoundEvent("block.silver.fall");
+	public static final RegistryObject<SoundEvent> SILVER_HIT = HELPER.createSoundEvent("block.silver.hit");
+	public static final RegistryObject<SoundEvent> SILVER_PLACE = HELPER.createSoundEvent("block.silver.place");
+	public static final RegistryObject<SoundEvent> SILVER_STEP = HELPER.createSoundEvent("block.silver.step");
+
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_BREAK = HELPER.createSoundEvent("block.bejeweled_anvil.break");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_FALL = HELPER.createSoundEvent("block.bejeweled_anvil.fall");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_HIT = HELPER.createSoundEvent("block.bejeweled_anvil.hit");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_PLACE = HELPER.createSoundEvent("block.bejeweled_anvil.place");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_STEP = HELPER.createSoundEvent("block.bejeweled_anvil.step");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_USE = HELPER.createSoundEvent("block.bejeweled_anvil.use");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_LAND = HELPER.createSoundEvent("block.bejeweled_anvil.land");
+
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.copper_button.click_off");
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.copper_button.click_on");
 
@@ -84,9 +117,6 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
-
-	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_USE = HELPER.createSoundEvent("block.bejeweled_anvil.use");
-	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_LAND = HELPER.createSoundEvent("block.bejeweled_anvil.land");
 
 	public static final RegistryObject<SoundEvent> DISMANTLING_TABLE_USE = HELPER.createSoundEvent("block.dismantling_table.use");
 
@@ -102,10 +132,16 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TETHER_POTION_EQUIP = HELPER.createSoundEvent("item.tether_potion.equip");
 	public static final RegistryObject<SoundEvent> TETHER_POTION_BREAK = HELPER.createSoundEvent("item.tether_potion.break");
 
+	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SILVER = HELPER.createSoundEvent("item.armor.equip_silver");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_NECROMIUM = HELPER.createSoundEvent("item.armor.equip_necromium");
+	public static final RegistryObject<SoundEvent> ARMOR_NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
+	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SANGUINE = HELPER.createSoundEvent("item.armor.equip_sanguine");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_EAT = HELPER.createSoundEvent("item.bejeweled_apple.eat");
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_BURP = HELPER.createSoundEvent("item.bejeweled_apple.burp");
+
+	public static final RegistryObject<SoundEvent> BEJEWELED_PEARL_TELEPORT = HELPER.createSoundEvent("item.bejeweled_pearl.teleport");
+	public static final RegistryObject<SoundEvent> BEJEWELED_PEARL_CRUMBLE = HELPER.createSoundEvent("item.bejeweled_pearl.crumble");
 
 	public static final RegistryObject<SoundEvent> ZIRCONIA_ANVIL_USE = HELPER.createSoundEvent("item.zirconia.anvil_use");
 
@@ -169,6 +205,11 @@ public class CCSoundEvents {
 		public static final ForgeSoundType FALSE_HOPE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.FALSE_HOPE_BREAK, CCSoundEvents.FALSE_HOPE_STEP, CCSoundEvents.FALSE_HOPE_PLACE, CCSoundEvents.FALSE_HOPE_HIT, CCSoundEvents.FALSE_HOPE_FALL);
 		public static final ForgeSoundType CAVE_GROWTHS = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.CAVE_GROWTHS_BREAK, CCSoundEvents.CAVE_GROWTHS_STEP, CCSoundEvents.CAVE_GROWTHS_PLACE, CCSoundEvents.CAVE_GROWTHS_HIT, CCSoundEvents.CAVE_GROWTHS_FALL);
 		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.MOSCHATEL_BREAK, CCSoundEvents.MOSCHATEL_STEP, CCSoundEvents.MOSCHATEL_PLACE, CCSoundEvents.MOSCHATEL_HIT, CCSoundEvents.MOSCHATEL_FALL);
+		public static final ForgeSoundType TMT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.TMT_BREAK, CCSoundEvents.TMT_STEP, CCSoundEvents.TMT_PLACE, CCSoundEvents.TMT_HIT, CCSoundEvents.TMT_FALL);
+		public static final ForgeSoundType SANGUINE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SANGUINE_BREAK, CCSoundEvents.SANGUINE_STEP, CCSoundEvents.SANGUINE_PLACE, CCSoundEvents.SANGUINE_HIT, CCSoundEvents.SANGUINE_FALL);
+		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.LAVA_LAMP_BREAK, CCSoundEvents.LAVA_LAMP_STEP, CCSoundEvents.LAVA_LAMP_PLACE, CCSoundEvents.LAVA_LAMP_HIT, CCSoundEvents.LAVA_LAMP_FALL);
+		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SILVER_BREAK, CCSoundEvents.SILVER_STEP, CCSoundEvents.SILVER_PLACE, CCSoundEvents.SILVER_HIT, CCSoundEvents.SILVER_FALL);
+		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.BEJEWELED_ANVIL_BREAK, CCSoundEvents.BEJEWELED_ANVIL_STEP, CCSoundEvents.BEJEWELED_ANVIL_PLACE, CCSoundEvents.BEJEWELED_ANVIL_HIT, CCSoundEvents.BEJEWELED_ANVIL_FALL);
 	}
 
 	public static void registerNoteBlocks() {

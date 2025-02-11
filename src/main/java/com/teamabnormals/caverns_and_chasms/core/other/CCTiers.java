@@ -15,9 +15,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class CCTiers {
 
 	public static class CCArmorMaterials {
-		public static final ArmorMaterial SILVER = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "silver"), 11, new int[]{2, 4, 5, 2}, 17, () -> SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+		public static final ArmorMaterial SILVER = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "silver"), 11, new int[]{2, 4, 5, 2}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SILVER.get(), 0.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
 		public static final ArmorMaterial NECROMIUM = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "necromium"), 37, new int[]{3, 6, 8, 3}, 15, () -> CCSoundEvents.ARMOR_EQUIP_NECROMIUM.get(), 2.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
-		public static final ArmorMaterial SANGUINE = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "sanguine"), 23, new int[]{2, 5, 7, 3}, 17, () -> SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
+		public static final ArmorMaterial SANGUINE = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "sanguine"), 23, new int[]{2, 5, 7, 3}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SANGUINE.get(), 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
 	}
 
 	public static class CCItemTiers {
