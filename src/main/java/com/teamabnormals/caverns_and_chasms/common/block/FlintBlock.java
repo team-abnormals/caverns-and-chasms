@@ -59,7 +59,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 
 	@Override
 	public void onLand(Level level, BlockPos pos, BlockState state, BlockState newState, FallingBlockEntity fallingBlockEntity) {
-		spark(level, pos,false);
+		spark(level, pos, false);
 	}
 
 	@Override

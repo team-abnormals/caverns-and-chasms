@@ -28,7 +28,7 @@ public class DimmerBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag compound) {
 		super.saveAdditional(compound);
-		compound.putShort("PressTime", (short)this.pressTime);
+		compound.putShort("PressTime", (short) this.pressTime);
 		compound.putBoolean("UnpowerTick", this.unpowerTick);
 	}
 
