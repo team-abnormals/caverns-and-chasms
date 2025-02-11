@@ -47,6 +47,7 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> TURQUOISE_BLUE_STEP = registerSimpleParticleType(false, "turquoise_blue_step");
 	public static final RegistryObject<SimpleParticleType> TURQUOISE_GREEN_STEP = registerSimpleParticleType(false, "turquoise_green_step");
 	public static final RegistryObject<SimpleParticleType> ATONING_DAGGER = registerSimpleParticleType(true, "atoning_table_dagger");
+	public static final RegistryObject<SimpleParticleType> ATONING_LETTER = registerSimpleParticleType(true, "atoning_table_letter");
 
 	private static RegistryObject<SimpleParticleType> registerSimpleParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -82,6 +83,7 @@ public class CCParticleTypes {
 			event.registerSpriteSet(TURQUOISE_BLUE_STEP.get(), TurquoiseParticle.StepProvider::new);
 			event.registerSpriteSet(TURQUOISE_GREEN_STEP.get(), TurquoiseParticle.StepProvider::new);
 			event.registerSpriteSet(ATONING_DAGGER.get(), AtoningDaggerParticle.Provider::new);
+			event.registerSpriteSet(ATONING_LETTER.get(), AtoningLetterParticle.Provider::new);
 		}
 	}
 }

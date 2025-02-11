@@ -2,14 +2,17 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EnchantmentTableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -26,11 +29,15 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	public float rot;
 	public float oRot;
 	public float tRot;
+	private int[] sentence;
+	private int letterInSentence;
+	private int letter;
 	private static final RandomSource RANDOM = RandomSource.create();
 	private Component name;
 
 	public AtoningTableBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.ATONING_TABLE.get(), pos, state);
+		this.sentence = AtoningTableSentences.pickRandomSentence(RANDOM);
 	}
 
 	@Override
@@ -50,9 +57,35 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	}
 
 	public static void bookAnimationTick(Level level, BlockPos pos, BlockState state, AtoningTableBlockEntity entity) {
-		if (level.getGameTime() % 60 == 0) {
+		if (level.getGameTime() % 60 == 0)
 			level.addParticle(CCParticleTypes.ATONING_DAGGER.get(), pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+
+		float enchPower = 0;
+		for (BlockPos offset : EnchantmentTableBlock.BOOKSHELF_OFFSETS)
+			if (EnchantmentTableBlock.isValidBookShelf(level, pos, offset))
+				enchPower += level.getBlockState(pos.offset(offset)).getEnchantPowerBonus(level, pos.offset(offset));
+
+		if (enchPower > 0) {
+			int letters = Math.min((int) enchPower, 15) + 2;
+
+			if (level.getGameTime() % (128 / letters) == 0) {
+				double d0 = Math.PI * 2.0D * entity.letter / letters;
+				level.addParticle(CCParticleTypes.ATONING_LETTER.get(), pos.getX() + 0.5D + Math.cos(d0) * 1.1D, pos.getY() + 0.01D, pos.getZ() + 0.5D + Math.sin(d0) * 1.1D, d0 - Math.PI / 2.0F, entity.sentence[entity.letterInSentence], 0.0D);
+
+				++entity.letter;
+				if (entity.letter >= letters)
+					entity.letter = 0;
+
+				++entity.letterInSentence;
+				if (entity.letterInSentence >= entity.sentence.length) {
+					entity.letterInSentence = 0;
+					entity.sentence = AtoningTableSentences.pickRandomSentence(RANDOM);
+				}
+			}
 		}
+
+		if (RANDOM.nextInt(100) == 0)
+			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.ATONING_TABLE_WHISPERS.get(), SoundSource.BLOCKS, Math.min(enchPower, 15) / 15.0F + 1.0F, 1.0F, false);
 
 		entity.oOpen = entity.open;
 		entity.oRot = entity.rot;
