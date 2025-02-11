@@ -61,6 +61,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
@@ -120,6 +121,8 @@ public class CCEvents {
 			cat.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(cat, Rat.class, false, target -> target instanceof Rat rat && !rat.isTame()));
 		} else if (entity instanceof Ocelot ocelot) {
 			ocelot.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(ocelot, Rat.class, false));
+		} else if (entity instanceof WanderingTrader trader) {
+			trader.goalSelector.addGoal(1, new AvoidEntityGoal<>(trader, Rat.class, 5.0F, 0.5D, 0.5D));
 		}
 	}
 

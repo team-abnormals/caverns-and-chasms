@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.RatDevourRottenFleshGoal;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -93,7 +94,6 @@ public class Rat extends ShoulderRidingEntity {
 		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
 		this.targetSelector.addGoal(3, new Rat.RatStopAttackingGoal());
 		this.targetSelector.addGoal(4, (new Rat.RatHurtByTargetGoal()).setAlertOthers());
-		this.targetSelector.addGoal(5, new Rat.RatRandomTargetGoal<>(Player.class, true, null));
 	}
 
 	@Override
@@ -496,23 +496,22 @@ public class Rat extends ShoulderRidingEntity {
 
 	@Override
 	public Rat getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return this;
-//		Rat child = CCEntityTypes.RAT.get().create(level);
-//		if (child != null) {
-//			if (otherParent instanceof Rat) {
-//				if (this.random.nextBoolean()) {
-//					child.setRatType(((Rat) otherParent).getRatType());
-//				} else {
-//					child.setRatType(this.getRatType());
-//				}
-//
-//				if (this.trustsPlayers() || ((Rat) otherParent).trustsPlayers()) {
-//					child.setTrusting(true);
-//				}
-//			}
-//		}
-//
-//		return child;
+		Rat child = CCEntityTypes.RAT.get().create(level);
+		if (child != null) {
+			if (otherParent instanceof Rat) {
+				if (this.random.nextBoolean()) {
+					child.setRatType(((Rat) otherParent).getRatType());
+				} else {
+					child.setRatType(this.getRatType());
+				}
+
+				if (this.trustsPlayers() || ((Rat) otherParent).trustsPlayers()) {
+					child.setTrusting(true);
+				}
+			}
+		}
+
+		return child;
 	}
 
 	@Override
