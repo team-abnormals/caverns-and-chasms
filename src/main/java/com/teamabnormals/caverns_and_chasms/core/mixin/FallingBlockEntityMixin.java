@@ -57,7 +57,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
 					Level level = this.level();
 					BlockPos pos = this.blockPosition();
 
-					level.playSound(null, pos, CCSoundEvents.BEJEWELED_ANVIL_SHATTER.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+					level.playSound(null, pos, CCSoundEvents.BEJEWELED_ANVIL_SHATTER.get(), SoundSource.BLOCKS, 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
 
 					if (!level.isClientSide()) {
 						SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
