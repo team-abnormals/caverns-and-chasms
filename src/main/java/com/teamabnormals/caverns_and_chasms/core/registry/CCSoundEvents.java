@@ -150,6 +150,11 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPER_HURT = HELPER.createSoundEvent("entity.deeper.hurt");
 	public static final RegistryObject<SoundEvent> DEEPER_PRIMED = HELPER.createSoundEvent("entity.deeper.primed");
 
+	public static final RegistryObject<SoundEvent> PEEPER_DEATH = HELPER.createSoundEvent("entity.peeper.death");
+	public static final RegistryObject<SoundEvent> PEEPER_HURT = HELPER.createSoundEvent("entity.peeper.hurt");
+	public static final RegistryObject<SoundEvent> PEEPER_PRIMED = HELPER.createSoundEvent("entity.peeper.primed");
+	public static final RegistryObject<SoundEvent> PEEPER_EXPLODE = HELPER.createSoundEvent("entity.peeper.explode");
+
 	public static final RegistryObject<SoundEvent> MIME_DEATH = HELPER.createSoundEvent("entity.mime.death");
 	public static final RegistryObject<SoundEvent> MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
 	public static final RegistryObject<SoundEvent> MIME_MIME = HELPER.createSoundEvent("entity.mime.mime");

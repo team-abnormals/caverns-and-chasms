@@ -868,6 +868,36 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.deeper.hurt"
   },
+  "entity.peeper.primed": {
+    "sounds": [
+      "caverns_and_chasms:mob/peeper/fuse"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.peeper.primed"
+  },
+  "entity.peeper.death": {
+    "sounds": [
+      "caverns_and_chasms:mob/peeper/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.peeper.death"
+  },
+  "entity.peeper.hurt": {
+    "sounds": [
+      "caverns_and_chasms:mob/peeper/hurt1",
+      "caverns_and_chasms:mob/peeper/hurt2",
+      "caverns_and_chasms:mob/peeper/hurt3",
+      "caverns_and_chasms:mob/peeper/hurt4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.peeper.hurt"
+  },
+  "entity.peeper.explode": {
+    "sounds": [
+      "caverns_and_chasms:mob/peeper/explode1",
+      "caverns_and_chasms:mob/peeper/explode2",
+      "caverns_and_chasms:mob/peeper/explode3",
+      "caverns_and_chasms:mob/peeper/explode4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.peeper.explode"
+  },
   "entity.deeper.primed": {
     "sounds": [
       "random/fuse"

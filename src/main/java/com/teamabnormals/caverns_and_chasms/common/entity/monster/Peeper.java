@@ -7,7 +7,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -58,16 +57,16 @@ public class Peeper extends Creeper {
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSoundEvents.DEEPER_HURT.get();
-	}
-
-	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.23D).add(Attributes.FOLLOW_RANGE, 50.0D);
+		return CCSoundEvents.PEEPER_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.DEEPER_DEATH.get();
+		return CCSoundEvents.PEEPER_DEATH.get();
+	}
+
+	public static AttributeSupplier.Builder createAttributes() {
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.23D).add(Attributes.FOLLOW_RANGE, 50.0D);
 	}
 
 	@Override
@@ -100,7 +99,7 @@ public class Peeper extends Creeper {
 
 			int i = this.getSwellDir();
 			if (i > 0 && this.swell == 0) {
-				this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
+				this.playSound(CCSoundEvents.PEEPER_PRIMED.get(), 1.0F, 0.5F);
 				this.gameEvent(GameEvent.PRIME_FUSE);
 			}
 
