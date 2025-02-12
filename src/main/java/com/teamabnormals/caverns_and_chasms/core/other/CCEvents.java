@@ -721,10 +721,10 @@ public class CCEvents {
 	private static void rewindTeleport(LivingEntity entity) {
 		IDataManager data = ((IDataManager) entity);
 		ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, data.getValue(CCDataProcessors.REWIND_DIMENSION));
-		ServerLevel dimension = entity.getServer().getLevel(key);
+		ServerLevel level = entity.getServer().getLevel(key);
 
-		if (dimension != entity.getCommandSenderWorld()) {
-			entity.changeDimension(dimension, new ITeleporter() {
+		if (level != entity.getCommandSenderWorld()) {
+			entity.changeDimension(level, new ITeleporter() {
 				@Override
 				public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
 					return repositionEntity.apply(false);
@@ -736,10 +736,11 @@ public class CCEvents {
 		double y = data.getValue(CCDataProcessors.REWIND_Y);
 		double z = data.getValue(CCDataProcessors.REWIND_Z);
 
-		if (entity.isPassenger()) entity.dismountTo(x, y, z);
-		else entity.teleportTo(x, y, z);
+		if (entity.isPassenger())
+			entity.dismountTo(x, y, z);
+		else
+			entity.teleportTo(x, y, z);
 
-		entity.teleportTo(data.getValue(CCDataProcessors.REWIND_X), data.getValue(CCDataProcessors.REWIND_Y), data.getValue(CCDataProcessors.REWIND_Z));
 		entity.resetFallDistance();
 		entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 	}

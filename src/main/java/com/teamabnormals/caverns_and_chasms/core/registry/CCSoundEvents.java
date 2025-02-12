@@ -92,11 +92,25 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> LAVA_LAMP_STEP = HELPER.createSoundEvent("block.lava_lamp.step");
 	public static final RegistryObject<SoundEvent> LAVA_LAMP_GLUG = HELPER.createSoundEvent("block.lava_lamp.glug");
 
+	public static final RegistryObject<SoundEvent> FLOODLIGHT_BREAK = HELPER.createSoundEvent("block.floodlight.break");
+	public static final RegistryObject<SoundEvent> FLOODLIGHT_FALL = HELPER.createSoundEvent("block.floodlight.fall");
+	public static final RegistryObject<SoundEvent> FLOODLIGHT_HIT = HELPER.createSoundEvent("block.floodlight.hit");
+	public static final RegistryObject<SoundEvent> FLOODLIGHT_PLACE = HELPER.createSoundEvent("block.floodlight.place");
+	public static final RegistryObject<SoundEvent> FLOODLIGHT_STEP = HELPER.createSoundEvent("block.floodlight.step");
+
 	public static final RegistryObject<SoundEvent> SILVER_BREAK = HELPER.createSoundEvent("block.silver.break");
 	public static final RegistryObject<SoundEvent> SILVER_FALL = HELPER.createSoundEvent("block.silver.fall");
 	public static final RegistryObject<SoundEvent> SILVER_HIT = HELPER.createSoundEvent("block.silver.hit");
 	public static final RegistryObject<SoundEvent> SILVER_PLACE = HELPER.createSoundEvent("block.silver.place");
 	public static final RegistryObject<SoundEvent> SILVER_STEP = HELPER.createSoundEvent("block.silver.step");
+
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_BREAK = HELPER.createSoundEvent("block.atoning_table.break");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_FALL = HELPER.createSoundEvent("block.atoning_table.fall");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_HIT = HELPER.createSoundEvent("block.atoning_table.hit");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_PLACE = HELPER.createSoundEvent("block.atoning_table.place");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_STEP = HELPER.createSoundEvent("block.atoning_table.step");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_USE = HELPER.createSoundEvent("block.atoning_table.use");
+	public static final RegistryObject<SoundEvent> ATONING_TABLE_WHISPERS = HELPER.createSoundEvent("block.atoning_table.whispers");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_BREAK = HELPER.createSoundEvent("block.bejeweled_anvil.break");
 	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_FALL = HELPER.createSoundEvent("block.bejeweled_anvil.fall");
@@ -110,6 +124,9 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.copper_button.click_off");
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.copper_button.click_on");
 
+	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
+	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
+
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STRIKE = HELPER.createSoundEvent("block.flint_block.strike");
 
 	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
@@ -120,9 +137,6 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
 
 	public static final RegistryObject<SoundEvent> DISMANTLING_TABLE_USE = HELPER.createSoundEvent("block.dismantling_table.use");
-
-	public static final RegistryObject<SoundEvent> ATONING_TABLE_USE = HELPER.createSoundEvent("block.atoning_table.use");
-	public static final RegistryObject<SoundEvent> ATONING_TABLE_WHISPERS = HELPER.createSoundEvent("block.atoning_table.whispers");
 
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_MIME = HELPER.createSoundEvent("block.note_block.imitate.mime");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_DEEPER = HELPER.createSoundEvent("block.note_block.imitate.deeper");
@@ -150,6 +164,11 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPER_HURT = HELPER.createSoundEvent("entity.deeper.hurt");
 	public static final RegistryObject<SoundEvent> DEEPER_PRIMED = HELPER.createSoundEvent("entity.deeper.primed");
 
+	public static final RegistryObject<SoundEvent> PEEPER_DEATH = HELPER.createSoundEvent("entity.peeper.death");
+	public static final RegistryObject<SoundEvent> PEEPER_HURT = HELPER.createSoundEvent("entity.peeper.hurt");
+	public static final RegistryObject<SoundEvent> PEEPER_PRIMED = HELPER.createSoundEvent("entity.peeper.primed");
+	public static final RegistryObject<SoundEvent> PEEPER_EXPLODE = HELPER.createSoundEvent("entity.peeper.explode");
+
 	public static final RegistryObject<SoundEvent> MIME_DEATH = HELPER.createSoundEvent("entity.mime.death");
 	public static final RegistryObject<SoundEvent> MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
 	public static final RegistryObject<SoundEvent> MIME_MIME = HELPER.createSoundEvent("entity.mime.mime");
@@ -171,6 +190,8 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
 
 	public static final RegistryObject<SoundEvent> BLUNT_ARROW_HIT = HELPER.createSoundEvent("entity.blunt_arrow.hit");
+
+	public static final RegistryObject<SoundEvent> REWIND = HELPER.createSoundEvent("effect.rewind.rewind");
 
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_DEEPER = HELPER.createSoundEvent("entity.parrot.imitate.deeper");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_PEEPER = HELPER.createSoundEvent("entity.parrot.imitate.peeper");
@@ -209,7 +230,9 @@ public class CCSoundEvents {
 		public static final ForgeSoundType TMT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.TMT_BREAK, CCSoundEvents.TMT_STEP, CCSoundEvents.TMT_PLACE, CCSoundEvents.TMT_HIT, CCSoundEvents.TMT_FALL);
 		public static final ForgeSoundType SANGUINE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SANGUINE_BREAK, CCSoundEvents.SANGUINE_STEP, CCSoundEvents.SANGUINE_PLACE, CCSoundEvents.SANGUINE_HIT, CCSoundEvents.SANGUINE_FALL);
 		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.LAVA_LAMP_BREAK, CCSoundEvents.LAVA_LAMP_STEP, CCSoundEvents.LAVA_LAMP_PLACE, CCSoundEvents.LAVA_LAMP_HIT, CCSoundEvents.LAVA_LAMP_FALL);
+		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.FLOODLIGHT_BREAK, CCSoundEvents.FLOODLIGHT_STEP, CCSoundEvents.FLOODLIGHT_PLACE, CCSoundEvents.FLOODLIGHT_HIT, CCSoundEvents.FLOODLIGHT_FALL);
 		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SILVER_BREAK, CCSoundEvents.SILVER_STEP, CCSoundEvents.SILVER_PLACE, CCSoundEvents.SILVER_HIT, CCSoundEvents.SILVER_FALL);
+		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ATONING_TABLE_BREAK, CCSoundEvents.ATONING_TABLE_STEP, CCSoundEvents.ATONING_TABLE_PLACE, CCSoundEvents.ATONING_TABLE_HIT, CCSoundEvents.ATONING_TABLE_FALL);
 		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.BEJEWELED_ANVIL_BREAK, CCSoundEvents.BEJEWELED_ANVIL_STEP, CCSoundEvents.BEJEWELED_ANVIL_PLACE, CCSoundEvents.BEJEWELED_ANVIL_HIT, CCSoundEvents.BEJEWELED_ANVIL_FALL);
 	}
 
