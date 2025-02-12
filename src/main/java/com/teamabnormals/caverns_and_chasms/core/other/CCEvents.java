@@ -353,6 +353,7 @@ public class CCEvents {
 			ItemStack stack = event.getFrom();
 			if (stack.getItem() == CCItems.TETHER_POTION.get()) {
 				TetherPotionItem.updateTetherPotionEffects(event.getEntity(), stack, false);
+				stack.getOrCreateTag().putInt("cooldown", 600);
 			}
 		}
 	}
@@ -496,7 +497,6 @@ public class CCEvents {
 					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
 				} else {
 					player.addEffect(new MobEffectInstance(instance));
-
 				}
 			}
 
@@ -505,9 +505,15 @@ public class CCEvents {
 		}
 
 		if (headstack.getItem() == CCItems.TETHER_POTION.get() && !source.is(DamageTypeTags.BYPASSES_ARMOR)) {
+			Player player = target instanceof Player ? (Player) target : null;
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 
+			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
+				if (instance.getEffect().isInstantenous()) {
+					instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+				}
+			}
 			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
 			level.levelEvent(i, BlockPos.containing(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
 		}
@@ -678,6 +684,18 @@ public class CCEvents {
 		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (!level.isClientSide() && headstack.getItem() == CCItems.TETHER_POTION.get()) {
 			TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
+
+			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
+				if (instance.getEffect().isInstantenous()) {
+					if (headstack.getTag().getInt("cooldown") > 0 ) {
+						headstack.getTag().putInt("cooldown", headstack.getTag().getInt("cooldown") - 1);
+					} else {
+						instance.getEffect().applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
+						TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+						headstack.getTag().putInt("cooldown", 600);
+					}
+				}
+			}
 		}
 	}
 
