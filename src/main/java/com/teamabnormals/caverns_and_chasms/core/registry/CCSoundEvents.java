@@ -105,6 +105,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_STEP = HELPER.createSoundEvent("block.bejeweled_anvil.step");
 	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_USE = HELPER.createSoundEvent("block.bejeweled_anvil.use");
 	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_LAND = HELPER.createSoundEvent("block.bejeweled_anvil.land");
+	public static final RegistryObject<SoundEvent> BEJEWELED_ANVIL_SHATTER = HELPER.createSoundEvent("block.bejeweled_anvil.shatter");
 
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.copper_button.click_off");
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.copper_button.click_on");

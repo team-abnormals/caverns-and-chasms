@@ -1,9 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.inventory.BejeweledAnvilMenu;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -57,7 +60,10 @@ public class BejeweledAnvilBlock extends AnvilBlock {
 	}
 
 	@Override
-	public void onLand(Level p_48793_, BlockPos p_48794_, BlockState p_48795_, BlockState p_48796_, FallingBlockEntity p_48797_) {
+	public void onLand(Level level, BlockPos pos, BlockState state, BlockState newState, FallingBlockEntity fallingBlockEntity) {
+		if (!fallingBlockEntity.isSilent()) {
+			level.playSound(null, pos, CCSoundEvents.BEJEWELED_ANVIL_LAND.get(), SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.1F + 0.9F);
+		}
 	}
 
 	@Override

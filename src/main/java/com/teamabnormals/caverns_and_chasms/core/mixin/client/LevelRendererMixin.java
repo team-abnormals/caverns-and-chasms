@@ -6,6 +6,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,9 +16,19 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class LevelRendererMixin {
 
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 30), method = "levelEvent")
-	private void playLocalSound(ClientLevel level, BlockPos pos, SoundEvent soundEvent, SoundSource source, float x, float y, boolean b) {
+	private void playDismantlingTableUseSound(ClientLevel level, BlockPos pos, SoundEvent soundEvent, SoundSource source, float x, float y, boolean b) {
 		if (level.getBlockState(pos).is(CCBlocks.DISMANTLING_TABLE.get())) {
 			level.playLocalSound(pos, CCSoundEvents.DISMANTLING_TABLE_USE.get(), source, x, y, b);
+		} else {
+			level.playLocalSound(pos, soundEvent, source, x, y, b);
+		}
+	}
+
+	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;playLocalSound(Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", ordinal = 19), method = "levelEvent")
+	private void playBejeweledAnvilUseSound(ClientLevel level, BlockPos pos, SoundEvent soundEvent, SoundSource source, float x, float y, boolean b) {
+		if (level.getBlockState(pos).is(CCBlocks.BEJEWELED_ANVIL.get())) {
+			level.playLocalSound(pos, CCSoundEvents.BEJEWELED_ANVIL_USE.get(), SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F, false);
+			level.playLocalSound(pos, CCSoundEvents.BEJEWELED_ANVIL_SHATTER.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F, false);
 		} else {
 			level.playLocalSound(pos, soundEvent, source, x, y, b);
 		}

@@ -821,9 +821,7 @@
   },
   "block.bejeweled_anvil.place": {
     "sounds": [
-      "caverns_and_chasms:block/bejeweled_anvil/break1",
-      "caverns_and_chasms:block/bejeweled_anvil/break2",
-      "caverns_and_chasms:block/bejeweled_anvil/break3"
+      "caverns_and_chasms:block/bejeweled_anvil/land"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -848,6 +846,12 @@
       "caverns_and_chasms:block/bejeweled_anvil/land"
     ],
     "subtitle": "subtitles.block.anvil.land"
+  },
+  "block.bejeweled_anvil.shatter": {
+    "sounds": [
+      "caverns_and_chasms:block/bejeweled_anvil/shatter"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.bejeweled_anvil.shatter"
   },
   "entity.deeper.death": {
     "sounds": [
