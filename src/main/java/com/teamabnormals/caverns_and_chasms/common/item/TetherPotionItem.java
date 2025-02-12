@@ -4,11 +4,17 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -22,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -167,5 +174,32 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 				}
 			}
 		}
+	}
+
+	public static void instantEffectParticlesAndSound(Level level, BlockPos pos, int color) {
+		Vec3 vec3 = Vec3.atBottomCenterOf(pos);
+
+		for(int i = 0; i < 8; ++i) {
+			level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), vec3.x, vec3.y, vec3.z, level.random.nextGaussian() * 0.15D, level.random.nextDouble() * 0.2D, level.random.nextGaussian() * 0.15D);
+		}
+
+		float f3 = (float)(color >> 16 & 255) / 255.0F;
+		float f4 = (float)(color >> 8 & 255) / 255.0F;
+		float f6 = (float)(color >> 0 & 255) / 255.0F;
+
+		for(int k2 = 0; k2 < 100; ++k2) {
+			double d13 = level.random.nextDouble() * 4.0D;
+			double d19 = level.random.nextDouble() * Math.PI * 2.0D;
+			double d25 = Math.cos(d19) * d13;
+			double d30 = 0.01D + level.random.nextDouble() * 0.5D;
+			double d31 = Math.sin(d19) * d13;
+			Particle particle1 = Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.INSTANT_EFFECT, vec3.x + d25 * 0.1D, vec3.y + 0.3D, vec3.z + d31 * 0.1D, d25, d30, d31);
+			if (particle1 != null) {
+				float f2 = 0.75F + level.random.nextFloat() * 0.25F;
+				particle1.setColor(f3 * f2, f4 * f2, f6 * f2);
+				particle1.setPower((float)d13);
+			}
+		}
+		level.playSound(null, pos, CCSoundEvents.TETHER_POTION_EQUIP.get(), SoundSource.NEUTRAL, 1.0F, level.random.nextFloat() * 0.1F + 0.9F);
 	}
 }
