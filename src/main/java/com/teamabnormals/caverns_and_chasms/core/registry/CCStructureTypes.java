@@ -101,27 +101,27 @@ public class CCStructureTypes {
 					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 5),
 
 					new RuleProcessor(ImmutableList.of(
-							addDecor(Blocks.AIR, 0.80F),
+							addDecor(Blocks.AIR, 0.75F),
 							addDecor(Blocks.BROWN_MUSHROOM, 0.02F),
 							addDecor(Blocks.RED_MUSHROOM, 0.02F),
-							addDecor(CCBlocks.CAVE_GROWTHS.get(), 0.01F),
-							addDecor(CCBlocks.LURID_CAVE_GROWTHS.get(), 0.01F),
-							addDecor(CCBlocks.WISPY_CAVE_GROWTHS.get(), 0.01F),
-							addDecor(CCBlocks.GRAINY_CAVE_GROWTHS.get(), 0.01F),
-							addDecor(CCBlocks.WEIRD_CAVE_GROWTHS.get(), 0.01F),
-							addDecor(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 0.01F),
-							addDecor(toolbox, Direction.NORTH, 0.01F),
-							addDecor(toolbox, Direction.SOUTH, 0.01F),
-							addDecor(toolbox, Direction.EAST, 0.01F),
-							addDecor(toolbox, Direction.WEST, 0.01F),
+							addDecor(CCBlocks.CAVE_GROWTHS.get(), 0.005F),
+							addDecor(CCBlocks.LURID_CAVE_GROWTHS.get(), 0.005F),
+							addDecor(CCBlocks.WISPY_CAVE_GROWTHS.get(), 0.005F),
+							addDecor(CCBlocks.GRAINY_CAVE_GROWTHS.get(), 0.005F),
+							addDecor(CCBlocks.WEIRD_CAVE_GROWTHS.get(), 0.005F),
+							addDecor(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 0.005F),
+							addDecor(toolbox, Direction.NORTH, 0.015F),
+							addDecor(toolbox, Direction.SOUTH, 0.015F),
+							addDecor(toolbox, Direction.EAST, 0.015F),
+							addDecor(toolbox, Direction.WEST, 0.015F),
 							addDecor(button, Direction.NORTH, 0.075F),
 							addDecor(button, Direction.SOUTH, 0.075F),
 							addDecor(button, Direction.EAST, 0.075F),
 							addDecor(button, Direction.WEST, 0.075F),
-							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 1), 0.025F),
-							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 2), 0.025F),
-							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 3), 0.025F),
-							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 4), 0.025F)
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 1), 0.02F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 2), 0.02F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 3), 0.02F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 4), 0.02F)
 					))
 			));
 		}
