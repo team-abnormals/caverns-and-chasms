@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolit
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCArchaeologyLoot;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.HolderGetter;
@@ -17,8 +18,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -69,6 +71,9 @@ public class CCStructureTypes {
 			float uncommon = 0.02F;
 			float common = 0.04F;
 
+			BlockState toolbox = CCBlocks.WAXED_TOOLBOX.get().defaultBlockState();
+			BlockState button = Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR);
+
 			register(context, FORGE_ARCHAEOLOGY, ImmutableList.of(
 					new RuleProcessor(ImmutableList.of(
 							replaceGravelWith(CCBlocks.TURQUOISE_ORE.get(), legendary),
@@ -93,8 +98,44 @@ public class CCStructureTypes {
 					)),
 
 					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1),
-					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 5)
+					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 5),
+
+					new RuleProcessor(ImmutableList.of(
+							addDecor(Blocks.AIR, 0.80F),
+							addDecor(Blocks.BROWN_MUSHROOM, 0.02F),
+							addDecor(Blocks.RED_MUSHROOM, 0.02F),
+							addDecor(CCBlocks.CAVE_GROWTHS.get(), 0.01F),
+							addDecor(CCBlocks.LURID_CAVE_GROWTHS.get(), 0.01F),
+							addDecor(CCBlocks.WISPY_CAVE_GROWTHS.get(), 0.01F),
+							addDecor(CCBlocks.GRAINY_CAVE_GROWTHS.get(), 0.01F),
+							addDecor(CCBlocks.WEIRD_CAVE_GROWTHS.get(), 0.01F),
+							addDecor(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 0.01F),
+							addDecor(toolbox, Direction.NORTH, 0.01F),
+							addDecor(toolbox, Direction.SOUTH, 0.01F),
+							addDecor(toolbox, Direction.EAST, 0.01F),
+							addDecor(toolbox, Direction.WEST, 0.01F),
+							addDecor(button, Direction.NORTH, 0.075F),
+							addDecor(button, Direction.SOUTH, 0.075F),
+							addDecor(button, Direction.EAST, 0.075F),
+							addDecor(button, Direction.WEST, 0.075F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 1), 0.025F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 2), 0.025F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 3), 0.025F),
+							addDecor(Blocks.CANDLE.defaultBlockState().setValue(CandleBlock.CANDLES, 4), 0.025F)
+					))
 			));
+		}
+
+		private static ProcessorRule addDecor(BlockState block, Direction direction, float chance) {
+			return addDecor(block.setValue(HorizontalDirectionalBlock.FACING, direction), chance);
+		}
+
+		private static ProcessorRule addDecor(Block block, float chance) {
+			return addDecor(block.defaultBlockState(), chance);
+		}
+
+		private static ProcessorRule addDecor(BlockState block, float chance) {
+			return new ProcessorRule(new RandomBlockMatchTest(Blocks.STONE_PRESSURE_PLATE, chance), AlwaysTrueTest.INSTANCE, block);
 		}
 
 		private static ProcessorRule replaceGravelWith(Block block, float chance) {
