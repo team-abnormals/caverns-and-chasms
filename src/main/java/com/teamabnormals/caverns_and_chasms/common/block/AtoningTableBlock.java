@@ -47,6 +47,7 @@ public class AtoningTableBlock extends EnchantmentTableBlock {
 		}
 	}
 
+	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 	}
 
