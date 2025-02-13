@@ -32,6 +32,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType.ContextlessType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.structure.pools.EmptyPoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.LegacySinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
@@ -150,6 +151,10 @@ public class CCStructureTypes {
 					String name = key.location() + "/" + str.getFirst() + "_" + i;
 					list.add(Pair.of(processor ? LegacySinglePoolElement.single(name, archyProcessor) : LegacySinglePoolElement.single(name), 1));
 				}
+			}
+
+			if (FORGE_SMALL_DECORATIONS.equals(key)) {
+				list.add(Pair.of(EmptyPoolElement.empty(), 17));
 			}
 
 			context.register(key, new StructureTemplatePool(empty, ImmutableList.copyOf(list), StructureTemplatePool.Projection.RIGID));
