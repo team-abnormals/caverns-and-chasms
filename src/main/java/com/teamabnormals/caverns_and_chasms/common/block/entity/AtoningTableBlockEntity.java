@@ -68,7 +68,7 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 		if (enchPower > 0) {
 			int letters = Math.min((int) enchPower, 15) + 2;
 
-			if (level.getGameTime() % (128 / letters) == 0) {
+			if (level.getGameTime() % (160 / letters) == 0) {
 				double d0 = Math.PI * 2.0D * entity.letter / letters;
 				level.addParticle(CCParticleTypes.ATONING_LETTER.get(), pos.getX() + 0.5D + Math.cos(d0) * 1.1D, pos.getY() + 0.01D, pos.getZ() + 0.5D + Math.sin(d0) * 1.1D, d0 - Math.PI / 2.0F, entity.sentence[entity.letterInSentence], 0.0D);
 
