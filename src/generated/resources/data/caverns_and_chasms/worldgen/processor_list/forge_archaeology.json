@@ -288,7 +288,7 @@
           "input_predicate": {
             "block": "minecraft:stone_pressure_plate",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.85
+            "probability": 0.8
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -495,7 +495,7 @@
           "input_predicate": {
             "block": "minecraft:stone_pressure_plate",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -513,7 +513,7 @@
           "input_predicate": {
             "block": "minecraft:stone_pressure_plate",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -531,7 +531,7 @@
           "input_predicate": {
             "block": "minecraft:stone_pressure_plate",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
@@ -549,7 +549,7 @@
           "input_predicate": {
             "block": "minecraft:stone_pressure_plate",
             "predicate_type": "minecraft:random_block_match",
-            "probability": 0.05
+            "probability": 0.075
           },
           "location_predicate": {
             "predicate_type": "minecraft:always_true"
