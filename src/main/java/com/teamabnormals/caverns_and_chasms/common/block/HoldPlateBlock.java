@@ -93,18 +93,13 @@ public class HoldPlateBlock extends BaseEntityBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (!level.isClientSide && getEntityCount(level, TOUCH_AABB.move(pos)) > 0) {
-			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof HoldPlateBlockEntity holdPlateBlockEntity) {
-				holdPlateBlockEntity.setPressed();
-				if (!state.getValue(PRESSED)) {
-					BlockState blockState = state.setValue(PRESSED, true);
-					level.setBlock(pos, blockState, 2);
-					level.setBlocksDirty(pos, state, blockState);
-					level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOn(), SoundSource.BLOCKS);
-					level.gameEvent(entity, GameEvent.BLOCK_ACTIVATE, pos);
-				}
-			}
+		if (!level.isClientSide && !state.getValue(PRESSED) && getEntityCount(level, pos) > 0) {
+			BlockState blockState = state.setValue(PRESSED, true);
+			level.setBlock(pos, blockState, 2);
+			level.setBlocksDirty(pos, state, blockState);
+			this.updateNeighbours(level, pos);
+			level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOn(), SoundSource.BLOCKS);
+			level.gameEvent(entity, GameEvent.BLOCK_ACTIVATE, pos);
 		}
 	}
 
@@ -142,8 +137,8 @@ public class HoldPlateBlock extends BaseEntityBlock {
 		builder.add(POWERED, PRESSED);
 	}
 
-	private static int getEntityCount(Level level, AABB aabb) {
-		return level.getEntitiesOfClass(Entity.class, aabb, EntitySelector.NO_SPECTATORS.and((p_289691_) -> {
+	public static int getEntityCount(Level level, BlockPos pos) {
+		return level.getEntitiesOfClass(Entity.class, TOUCH_AABB.move(pos), EntitySelector.NO_SPECTATORS.and((p_289691_) -> {
 			return !p_289691_.isIgnoringBlockTriggers();
 		})).size();
 	}
