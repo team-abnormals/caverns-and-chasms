@@ -121,10 +121,12 @@ public class CCStructureTypes {
 		public static final ResourceKey<StructureTemplatePool> FORGE = createKey("forge/forge");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ENTRANCES = createKey("forge/entrances");
 		public static final ResourceKey<StructureTemplatePool> FORGE_DECORATIONS = createKey("forge/decorations");
+		public static final ResourceKey<StructureTemplatePool> FORGE_SMALL_DECORATIONS = createKey("forge/small_decorations");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ARCHAEOLOGY = createKey("forge/archaeology");
 
 		public static final List<Pair<String, Integer>> ENTRANCES = List.of(Pair.of("gate", 6), Pair.of("broken_gate", 4));
 		public static final List<Pair<String, Integer>> DECORATIONS = List.of(Pair.of("oak_platform", 8), Pair.of("oak_shelf", 2), Pair.of("tnt_pile", 3));
+		public static final List<Pair<String, Integer>> SMALL_DECORATIONS = List.of(Pair.of("cauldron", 1), Pair.of("furnace", 1), Pair.of("blast_furnace", 1), Pair.of("cauldron", 1), Pair.of("dimmer", 1), Pair.of("dimmer_scaffolding", 1), Pair.of("anvil", 1), Pair.of("tnt", 2), Pair.of("tnt_scaffolding", 2), Pair.of("water_cauldron", 3), Pair.of("scaffolding", 4));
 		public static final List<Pair<String, Integer>> ARCHAEOLOGY = List.of(Pair.of("gravel_pile", 32));
 
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
@@ -134,6 +136,7 @@ public class CCStructureTypes {
 
 			createPool(context, FORGE_ENTRANCES, empty, ENTRANCES);
 			createPool(context, FORGE_DECORATIONS, empty, DECORATIONS);
+			createPool(context, FORGE_SMALL_DECORATIONS, empty, SMALL_DECORATIONS);
 			createPool(context, FORGE_ARCHAEOLOGY, empty, ARCHAEOLOGY);
 		}
 
