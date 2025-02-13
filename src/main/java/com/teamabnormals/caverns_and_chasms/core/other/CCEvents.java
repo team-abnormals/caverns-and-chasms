@@ -541,15 +541,29 @@ public class CCEvents {
 
 		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			BlockPos blockpos = (blockHitResult).getBlockPos();
+			BlockPos blockpos = blockHitResult.getBlockPos();
 			BlockState blockstate = level.getBlockState(blockpos);
 			Direction direction = blockHitResult.getDirection();
 
 			boolean flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+
 			if (!flag) {
-				blockpos = blockpos.relative(direction.getOpposite());
-				blockstate = level.getBlockState(blockpos);
-				flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+				BlockPos blockpos1 = blockpos.relative(direction.getOpposite());
+				blockstate = level.getBlockState(blockpos1);
+				if (blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate.isFaceSturdy(level, blockpos1, direction)) {
+					flag = true;
+					blockpos = blockpos1;
+				}
+			}
+
+			if (!flag) {
+				BlockPos blockpos1 = blockpos.relative(direction);
+				blockstate = level.getBlockState(blockpos1);
+				System.out.println("Byeah");
+				if (blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate.getShape(level, blockpos1).bounds().inflate(0.01D).move(blockpos1).contains(blockHitResult.getLocation())) {
+					flag = true;
+					blockpos = blockpos1;
+				}
 			}
 
 			if (flag) {
