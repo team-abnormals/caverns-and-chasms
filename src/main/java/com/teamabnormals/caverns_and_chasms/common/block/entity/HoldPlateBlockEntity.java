@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
-import com.teamabnormals.caverns_and_chasms.common.block.HoldButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.HoldPlateBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
@@ -18,8 +17,8 @@ public class HoldPlateBlockEntity extends BlockEntity {
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldPlateBlockEntity blockEntity) {
 		if (!level.isClientSide) {
-			if (state.getValue(HoldButtonBlock.PRESSED) && HoldPlateBlock.getEntityCount(level, pos) == 0) {
-				BlockState blockState = state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true);
+			if (state.getValue(HoldPlateBlock.PRESSED) && HoldPlateBlock.getEntityCount(level, pos) == 0) {
+				BlockState blockState = state.setValue(HoldPlateBlock.PRESSED, false).setValue(HoldPlateBlock.POWERED, true);
 				level.setBlock(pos, blockState, 2);
 				level.setBlocksDirty(pos, state, blockState);
 				((HoldPlateBlock) state.getBlock()).updateNeighbours(level, pos);
