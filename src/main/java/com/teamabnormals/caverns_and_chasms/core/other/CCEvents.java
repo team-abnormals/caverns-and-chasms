@@ -554,7 +554,7 @@ public class CCEvents {
 			if (!flag) {
 				BlockPos blockpos1 = blockpos.relative(direction);
 				BlockState blockstate1 = level.getBlockState(blockpos1);
-				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(0.01D).move(blockpos1).contains(blockHitResult.getLocation())) {
+				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(1.0E-7D).move(blockpos1).contains(blockHitResult.getLocation())) {
 					flag = true;
 					blockpos = blockpos1;
 					blockstate = blockstate1;
