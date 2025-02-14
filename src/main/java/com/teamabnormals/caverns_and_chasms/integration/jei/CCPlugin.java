@@ -71,6 +71,20 @@ public class CCPlugin implements IModPlugin {
 			}
 			return stringBuilder.toString();
 		});
+
+		registration.registerSubtypeInterpreter(CCItems.TRAIL_POTION.get(), (itemstack, context) -> {
+			if (!itemstack.hasTag()) {
+				return IIngredientSubtypeInterpreter.NONE;
+			}
+			Potion potionType = PotionUtils.getPotion(itemstack);
+			String potionTypeString = potionType.getName("");
+			StringBuilder stringBuilder = new StringBuilder(potionTypeString);
+			List<MobEffectInstance> effects = PotionUtils.getMobEffects(itemstack);
+			for (MobEffectInstance effect : effects) {
+				stringBuilder.append(";").append(effect);
+			}
+			return stringBuilder.toString();
+		});
 	}
 
 	@Override
