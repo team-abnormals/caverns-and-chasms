@@ -418,7 +418,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WEIRD_CAVE_GROWTHS = HELPER.createBlock("weird_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.TERRACOTTA_MAGENTA)));
 	public static final RegistryObject<Block> ZESTY_CAVE_GROWTHS = HELPER.createBlock("zesty_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.RAW_IRON)));
 
-	public static final RegistryObject<Block> POTTED_FALSE_HOPE = HELPER.createBlockNoItem("potted_false_hope", () -> new FlowerPotBlock(FALSE_HOPE.get(), PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> POTTED_FALSE_HOPE = HELPER.createBlockNoItem("potted_false_hope", () -> new FlowerPotBlock(FALSE_HOPE.get(), PropertyUtil.flowerPot().lightLevel((state) -> 15)));
 
 	public static final RegistryObject<Block> POTTED_MOSCHATEL = HELPER.createBlockNoItem("potted_moschatel", () -> new FlowerPotBlock(MOSCHATEL.get(), PropertyUtil.flowerPot()));
 	public static final RegistryObject<Block> POTTED_CAVE_GROWTHS = HELPER.createBlockNoItem("potted_cave_growths", () -> new FlowerPotBlock(CAVE_GROWTHS.get(), PropertyUtil.flowerPot()));
