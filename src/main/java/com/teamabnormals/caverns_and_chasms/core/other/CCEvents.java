@@ -74,6 +74,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
@@ -534,15 +535,30 @@ public class CCEvents {
 
 		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			BlockPos blockpos = (blockHitResult).getBlockPos();
+			BlockPos blockpos = blockHitResult.getBlockPos();
 			BlockState blockstate = level.getBlockState(blockpos);
 			Direction direction = blockHitResult.getDirection();
 
 			boolean flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+
 			if (!flag) {
-				blockpos = blockpos.relative(direction.getOpposite());
-				blockstate = level.getBlockState(blockpos);
-				flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+				BlockPos blockpos1 = blockpos.relative(direction.getOpposite());
+				BlockState blockstate1 = level.getBlockState(blockpos1);
+				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.isFaceSturdy(level, blockpos1, direction)) {
+					flag = true;
+					blockpos = blockpos1;
+					blockstate = blockstate1;
+				}
+			}
+
+			if (!flag) {
+				BlockPos blockpos1 = blockpos.relative(direction);
+				BlockState blockstate1 = level.getBlockState(blockpos1);
+				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(0.01D).move(blockpos1).contains(blockHitResult.getLocation())) {
+					flag = true;
+					blockpos = blockpos1;
+					blockstate = blockstate1;
+				}
 			}
 
 			if (flag) {

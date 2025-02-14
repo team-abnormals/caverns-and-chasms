@@ -29,13 +29,17 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 		this.gCol = 0.55F;
 		this.bCol = 0.72F;
 		this.rot = rotation;
-		this.lifetime = 110;
+		this.lifetime = 150;
 		this.quadSize = 0.15F;
 	}
 
 	public void tick() {
 		super.tick();
-		this.alpha = Math.min(1.0F - 2.0F * this.age / this.lifetime + 1.0F, 1.0F);
+		float f = Math.max(1.0F - this.age / 4.0F, 0.0F);
+		this.rCol = 0.85F + f * 0.08F;
+		this.gCol = 0.55F + f * 0.15F;
+		this.bCol = 0.72F + f * 0.08F;
+		this.alpha = Math.min(1.0F - 1.5F * this.age / this.lifetime + 0.5F, 1.0F);
 	}
 
 	@Override
