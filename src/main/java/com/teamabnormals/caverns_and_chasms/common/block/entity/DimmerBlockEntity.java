@@ -60,7 +60,7 @@ public class DimmerBlockEntity extends BlockEntity {
 				--blockEntity.pressTime;
 			}
 		} else if (state.getValue(AbstractDimmerBlock.POWER) > 0 && level.getGameTime() % 2 == 0) {
-			level.playLocalSound(pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.7F, 0.8F, false);
+			level.playLocalSound(pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.2F, 0.2F, false);
 		}
 	}
 }
