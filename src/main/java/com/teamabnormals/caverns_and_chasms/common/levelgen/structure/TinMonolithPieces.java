@@ -23,7 +23,7 @@ public class TinMonolithPieces {
 	public static class TinMonolithPiece extends StructurePiece {
 
 		public TinMonolithPiece(int x, int z) {
-			super(CCStructurePieceTypes.TIN_MONOLITH.get(), 0, new BoundingBox(x - 14, -63, z - 14, x + 14, 32, z + 14));
+			super(CCStructurePieceTypes.TIN_MONOLITH.get(), 0, new BoundingBox(x - 16, -63, z - 16, x + 16, 48, z + 16));
 		}
 
 		public TinMonolithPiece(CompoundTag tag) {
@@ -36,7 +36,8 @@ public class TinMonolithPieces {
 
 		@Override
 		public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator chunkGenerator, RandomSource random, BoundingBox bounds, ChunkPos chunkPos, BlockPos origin) {
-			NormalNoise noise = NormalNoise.create(new XoroshiroRandomSource(level.getSeed()), new NormalNoise.NoiseParameters(1, 1.0D, 0.8D));
+			NormalNoise shapeNoise = NormalNoise.create(new XoroshiroRandomSource(random.nextLong()), new NormalNoise.NoiseParameters(1, 1.0D, 0.8D));
+			NormalNoise veinNoise = NormalNoise.create(new XoroshiroRandomSource(random.nextLong()), new NormalNoise.NoiseParameters(-4, 1.0D));
 			BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 			int minX = chunkPos.getMinBlockX() - origin.getX();
@@ -44,12 +45,8 @@ public class TinMonolithPieces {
 			int minZ = chunkPos.getMinBlockZ() - origin.getZ();
 			int maxZ = chunkPos.getMaxBlockZ() - origin.getZ();
 
-			int tuff = 0;
-			int rawTin = 0;
-			int tinOre = 0;
-
-			for (int y = 0; y > -103; --y) {
-				double radius = (y + 104) / 104.0D * 14;
+			for (int y = 0; y <= 111; ++y) {
+				double radius = y / 111.0D * 16;
 				int radiusInt = Mth.ceil(radius);
 
 				int minX1 = Math.max(minX, -radiusInt);
@@ -59,29 +56,46 @@ public class TinMonolithPieces {
 
 				for (int x = minX1; x <= maxX1; ++x) {
 					for (int z = minZ1; z <= maxZ1; ++z) {
-						double distance = y > -8 ? Math.sqrt(x * x + 256 + 64 * y + 4 * y * y + z * z) : Math.sqrt(x * x + z * z);
-						double noiseAtPos = distance == 0 ? 1.0D : noise.getValue(origin.getX() + x / distance, y * 0.025D, origin.getZ() + z / distance);
-						double distance1 = distance / (radius * (1 + noiseAtPos * 0.2D - 0.2D));
+
+						double distance = Math.sqrt(x * x + z * z);
+						double shapeNoiseAtPos = distance == 0 ? 1.0D : shapeNoise.getValue(origin.getX() + x / distance, y * 0.025D, origin.getZ() + z / distance);
+						double distance1 = distance / (radius * (1 + shapeNoiseAtPos * 0.2D - 0.2D));
 
 						if (distance1 <= 1.0D) {
-							mutable.set(origin.getX() + x, 32 + y, origin.getZ() + z);
+							int levelX = origin.getX() + x;
+							int levelY = 48 - y;
+							int levelZ = origin.getZ() + z;
+
+							mutable.set(levelX, levelY, levelZ);
 							BlockState blockstate = level.getBlockState(mutable);
 
-							boolean isstone = blockstate.is(BlockTags.STONE_ORE_REPLACEABLES);
-							boolean isdeepslate = blockstate.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-
-							if (!isstone && !isdeepslate)
+							if (blockstate.is(BlockTags.FEATURES_CANNOT_REPLACE))
 								continue;
 
-							if (random.nextFloat() < 0.3D + distance1 * 0.4D)
-								level.setBlock(mutable, isdeepslate ? Blocks.COBBLED_DEEPSLATE.defaultBlockState() : Blocks.COBBLESTONE.defaultBlockState(), 2);
-							else if (random.nextFloat() > Math.max(0.4D + distance1, 0.85D))
+							boolean isInside = levelY <= 32 && distance1 < (1.0D - (111 - y) / 111.0D) * 0.8D;
+							double veinNoiseAtPos = Math.abs(veinNoise.getValue(levelX, levelY, levelZ));
+							double oreDensity = veinNoiseAtPos > 0.3D ? 0.0D : (0.3D - veinNoiseAtPos) * 3.5D;
+
+							if (random.nextFloat() * oreDensity > Math.max(0.4D + distance1, 0.6D))
 								level.setBlock(mutable, CCBlocks.RAW_TIN_BLOCK.get().defaultBlockState(), 2);
+							else if (random.nextFloat() * oreDensity > Math.min(0.3D + distance1 * 0.3D, 0.5D))
+								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE_TIN_ORE.get().defaultBlockState() : computeDeepslateGradient(levelY, random) ? CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState() : CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
 							else
-								level.setBlock(mutable, isdeepslate ? CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState() : CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
+								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE.get().defaultBlockState() : computeDeepslateGradient(levelY, random) ? Blocks.COBBLED_DEEPSLATE.defaultBlockState() : Blocks.COBBLESTONE.defaultBlockState(), 2);
 						}
 					}
 				}
+			}
+		}
+
+		private static boolean computeDeepslateGradient(int y, RandomSource random) {
+			if (y <= -8) {
+				return true;
+			} else if (y >= 8) {
+				return false;
+			} else {
+				double d0 = Mth.map(y, -8, 8, 1.0D, 0.0D);
+				return random.nextFloat() < d0;
 			}
 		}
 	}
