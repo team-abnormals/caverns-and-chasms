@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
@@ -495,11 +496,11 @@ public class CCEvents {
 					if (instance.getEffect().isInstantenous()) {
 						instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
 					} else {
-						player.addEffect(new MobEffectInstance(instance));
+						target.addEffect(new MobEffectInstance(instance));
 					}
 				}
 			} else if (headstack.getItem() == CCItems.TRAIL_POTION.get()) {
-				TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), player, level, true);
+				TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), target, level, true);
 			} else {
 				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 					if (instance.getEffect().isInstantenous()) {
@@ -707,8 +708,12 @@ public class CCEvents {
 			}
 		}
 		if (!level.isClientSide && headstack.getItem() == CCItems.TRAIL_POTION.get()) {
-			if (entity.isSprinting() && entity.tickCount % 5 == 0) {
-				TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, false);
+			MovingPlayer player = entity instanceof MovingPlayer ? (MovingPlayer) entity : null;
+			boolean moving = player == null && (!entity.getDeltaMovement().equals(new Vec3(0, -0.0784000015258789, 0)) && !entity.getDeltaMovement().equals(Vec3.ZERO));
+			if (entity.tickCount % 5 == 0) {
+				if (player != null && player.isMoving() || moving) {
+					TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, false);
+				}
 			}
 		}
 	}

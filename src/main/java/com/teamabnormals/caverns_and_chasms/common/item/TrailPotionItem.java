@@ -32,7 +32,7 @@ public class TrailPotionItem extends TetherPotionItem {
 		}
 
 		areaeffectcloud.setRadius(shatter ? 3F : 1F);
-		areaeffectcloud.setRadiusOnUse(-0.5F);
+		areaeffectcloud.setRadiusOnUse(-0.25F);
 		areaeffectcloud.setWaitTime(5);
 		areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float)(areaeffectcloud.getDuration() / (shatter ? 1 : 2)));
 		areaeffectcloud.setPotion(p_37539_);
