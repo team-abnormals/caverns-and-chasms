@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.PeeperSwellGoal;
-import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -131,7 +130,7 @@ public class Peeper extends Creeper {
 		if (!this.level().isClientSide && this.isAlive()) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), CCConfig.COMMON.deepersDropAllBlocks.get() ? ExplosionInteraction.TNT : ExplosionInteraction.MOB);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB);
 			this.discard();
 			this.spawnLingeringCloud();
 		}

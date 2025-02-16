@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper;
 
-import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -153,7 +152,7 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 		if (!this.level().isClientSide) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), CCConfig.COMMON.deepersDropAllBlocks.get() ? ExplosionInteraction.TNT : ExplosionInteraction.MOB);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB);
 			this.discard();
 			this.spawnLingeringCloud();
 		}

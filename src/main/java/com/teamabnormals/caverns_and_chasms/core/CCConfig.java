@@ -9,11 +9,9 @@ import org.apache.commons.lang3.tuple.Pair;
 public class CCConfig {
 
 	public static class Common {
-		public final BooleanValue creepersDropAllBlocks;
 		public final BooleanValue creeperExplosionNerf;
 		public final DoubleValue creeperExplosionNerfFactor;
 
-		public final BooleanValue deepersDropAllBlocks;
 		public final IntValue deeperMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
@@ -31,12 +29,10 @@ public class CCConfig {
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("mobs");
 			builder.push("creeper");
-			creepersDropAllBlocks = builder.define("Creeper explosions drop all blocks", true);
 			creeperExplosionNerf = builder.comment("Creeper explosions have a weaker power").define("Creeper explosion nerf", true);
 			creeperExplosionNerfFactor = builder.comment("How much weaker Creeper explosions are").defineInRange("Creeper explosion nerf factor", 0.5D, 0, Double.MAX_VALUE);
 			builder.pop();
 			builder.push("deeper");
-			deepersDropAllBlocks = builder.define("Deeper explosions drop all blocks", true);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
 			builder.pop();
 			builder.push("peeper");
