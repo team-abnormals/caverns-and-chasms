@@ -20,6 +20,7 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.Ti
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
@@ -486,7 +487,7 @@ public class CCEvents {
 		Level level = target.level();
 		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
 
-		if (headstack.getItem() instanceof TetherPotionItem) {
+		if (headstack.getItem() instanceof TetherPotionItem && !source.is(DamageTypeTags.BYPASSES_ARMOR) && !source.is(CCDamageTypeTags.BYPASSES_TETHER_POTIONS)) {
 			Player player = target instanceof Player ? (Player) target : null;
 			target.broadcastBreakEvent(EquipmentSlot.HEAD);
 			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -697,7 +698,7 @@ public class CCEvents {
 
 			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 				if (instance.getEffect().isInstantenous()) {
-					if (headstack.getTag().getInt("cooldown") > 0 ) {
+					if (headstack.getTag().getInt("cooldown") > 0) {
 						headstack.getTag().putInt("cooldown", headstack.getTag().getInt("cooldown") - 1);
 					} else {
 						instance.getEffect().applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
