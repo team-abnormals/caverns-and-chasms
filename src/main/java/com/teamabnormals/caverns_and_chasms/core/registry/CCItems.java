@@ -164,6 +164,11 @@ public class CCItems {
 				.addItemsBefore(of(Items.GOLDEN_APPLE), BEJEWELED_APPLE)
 				.addItemsBefore(of(Items.MILK_BUCKET), CAVIAR)
 				.addItemsAfter(of(Items.MILK_BUCKET), GOLDEN_MILK_BUCKET)
+				.editor(event -> event.getParameters().holders().lookup(Registries.POTION).ifPresent(registry -> {
+					generatePotionEffectTypes(event, of(Items.LINGERING_POTION), registry, Items.POTION, true);
+					generatePotionEffectTypes(event, of(Items.LINGERING_POTION), registry, Items.SPLASH_POTION, true);
+					generatePotionEffectTypes(event, of(Items.LINGERING_POTION), registry, Items.LINGERING_POTION, true);
+				}))
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsAfter(of(Items.ARMOR_STAND), OXIDIZED_COPPER_GOLEM, WAXED_OXIDIZED_COPPER_GOLEM)
 				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
@@ -214,6 +219,9 @@ public class CCItems {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get());
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TRAIL_POTION.get());
+					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get(), true);
+					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get(), true);
+					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TRAIL_POTION.get(), true);
 				}))
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
@@ -226,10 +234,12 @@ public class CCItems {
 	}
 
 	private static void generatePotionEffectTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Potion> potion, Item potionItem) {
+		generatePotionEffectTypes(event, predicate, potion, potionItem, false);
+	}
+
+	private static void generatePotionEffectTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Potion> potion, Item potionItem, boolean subtle) {
 		TabVisibility visibility = TabVisibility.PARENT_AND_SEARCH_TABS;
-		List<ItemStack> items = potion.listElements().filter((p_270012_) -> {
-			return !p_270012_.is(Potions.EMPTY_ID);
-		}).map((p_269986_) -> {
+		List<ItemStack> items = potion.listElements().filter((potions) -> !potions.is(Potions.EMPTY_ID)).map((p_269986_) -> {
 			return PotionUtils.setPotion(new ItemStack(potionItem), p_269986_.value());
 		}).toList();
 
@@ -238,6 +248,8 @@ public class CCItems {
 			ItemStack stack = entry.getKey();
 			if (predicate.test(stack)) {
 				for (ItemStack itemValue : items) {
+					if (subtle)
+						itemValue.getOrCreateTag().putBoolean("Subtle", true);
 					entries.put(itemValue, visibility);
 				}
 				return;
