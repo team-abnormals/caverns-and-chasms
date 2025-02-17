@@ -100,7 +100,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 			ItemStack stack = container.getItem(0);
 			if (!stack.isEmpty() && stack.isEnchantable()) {
 				this.access.execute((level, pos) -> {
-					float enchPower = 0;
+					float enchPower = 5;
 
 					for (BlockPos offset : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
 						if (EnchantmentTableBlock.isValidBookShelf(level, pos, offset)) {
@@ -111,13 +111,13 @@ public class AtoningMenu extends AbstractContainerMenu {
 					this.random.setSeed(this.enchantmentSeed.get());
 
 					for (int i = 0; i < 3; ++i) {
-						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, 2 - i, (int) enchPower, stack);
+						this.costs[i] = EnchantmentHelper.getEnchantmentCost(this.random, i, (int) enchPower, stack);
 						this.enchantClue[i] = -1;
 						this.levelClue[i] = -1;
 						if (this.costs[i] < i + 1) {
 							this.costs[i] = 0;
 						}
-						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, 2 - i, (int) enchPower, stack, costs[i]);
+						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, i, (int) enchPower, stack, costs[i]);
 
 						if (stack.is(Items.BOOK))
 							this.costs[i] = 0;
@@ -125,7 +125,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 					for (int i = 0; i < 3; ++i) {
 						if (this.costs[i] > 0) {
-							List<EnchantmentInstance> list = this.getEnchantmentList(stack, 2 - i, this.costs[i]);
+							List<EnchantmentInstance> list = this.getEnchantmentList(stack, i, this.costs[i]);
 							if (list != null && !list.isEmpty()) {
 								EnchantmentInstance enchantment = list.get(this.random.nextInt(list.size()));
 								this.enchantClue[i] = BuiltInRegistries.ENCHANTMENT.getId(enchantment.enchantment);
@@ -162,6 +162,12 @@ public class AtoningMenu extends AbstractContainerMenu {
 					ItemStack output = input;
 					List<EnchantmentInstance> list = this.getEnchantmentList(input, slot, this.costs[slot]);
 					if (!list.isEmpty()) {
+						float durabilityPercent = 0.25F * i + this.random.nextFloat() * 0.2F;
+						float durabilityAmount = durabilityPercent * (output.getMaxDamage() - output.getDamageValue());
+						output.hurtAndBreak((int) durabilityAmount, player, (entity) -> {
+							entity.broadcastBreakEvent(player.getUsedItemHand());
+						});
+
 						player.onEnchantmentPerformed(input, 0);
 						boolean flag = input.is(Items.BOOK);
 //						if (flag) {
@@ -181,10 +187,6 @@ public class AtoningMenu extends AbstractContainerMenu {
 								output.enchant(enchantment.enchantment, enchantment.level);
 							}
 						}
-
-						output.hurtAndBreak((4 - i) * this.random.nextInt(Math.max(1, (output.getMaxDamage() - output.getDamageValue()) / 2)), player, (entity) -> {
-							entity.broadcastBreakEvent(player.getUsedItemHand());
-						});
 
 						if (!player.getAbilities().instabuild) {
 							fuel.shrink(i);

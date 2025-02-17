@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent.Chat;
 
 import java.util.List;
 
@@ -175,16 +176,9 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 					list.add(spinelText.withStyle(spinel >= slot ? ChatFormatting.GRAY : ChatFormatting.RED));
 					list.add(lapisText.withStyle(lapis >= slot ? ChatFormatting.GRAY : ChatFormatting.RED));
 
-					MutableComponent durabilityText;
-					if (slot == 3) {
-						durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability.low");
-					} else if (slot == 2) {
-						durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability.medium");
-					} else {
-						durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability.high");
-					}
-
-					list.add(durabilityText.withStyle(ChatFormatting.GRAY));
+					ChatFormatting color = slot == 3 ? ChatFormatting.RED : slot == 2 ? ChatFormatting.GOLD : ChatFormatting.GREEN;
+					MutableComponent durabilityText = Component.translatable("container.caverns_and_chasms.atone.durability", slot * 25, (slot + 1) * 25);
+					list.add(durabilityText.withStyle(color));
 				}
 
 				p_283462_.renderComponentTooltip(this.font, list, p_282491_, p_281953_);
