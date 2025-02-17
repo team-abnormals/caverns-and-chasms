@@ -67,7 +67,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	@Override
 	public Component getName(ItemStack stack) {
 		Component component = super.getName(stack);
-		if (component.toString().contains("item.")) {
+		if (component.getString().contains("item.")) {
 			MutableComponent intro = Component.translatable(this.getDescriptionId() + ".null");
 			ItemStack regularPotion = PotionUtils.setPotion(new ItemStack(Items.POTION), PotionUtils.getPotion(stack.getTag()));
 			String newComponent = regularPotion.getDescriptionId();
