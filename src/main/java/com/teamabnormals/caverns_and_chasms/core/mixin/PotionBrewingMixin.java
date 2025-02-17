@@ -23,22 +23,44 @@ public abstract class PotionBrewingMixin {
 	@Final
 	private static List<Mix<Item>> CONTAINER_MIXES;
 
+	@Shadow
+	@Final
+	private static List<Mix<Potion>> POTION_MIXES;
+
 	@Inject(at = @At("RETURN"), method = "mix", cancellable = true)
-	private static void isValidRepairItem(ItemStack ingredient, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+	private static void mix(ItemStack ingredient, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if (!stack.isEmpty()) {
 			Potion potion = PotionUtils.getPotion(stack);
 			Item item = stack.getItem();
 			int i = 0;
 			for (int j = CONTAINER_MIXES.size(); i < j; ++i) {
 				PotionBrewing.Mix<Item> mix = CONTAINER_MIXES.get(i);
-				if (mix.from.get() == item && mix.ingredient.test(ingredient) && ingredient.is(CCItems.TURQUOISE.get())) {
-					if (!stack.getOrCreateTag().getBoolean("Subtle")) {
+				if (mix.from.get() == item && mix.ingredient.test(ingredient)) {
+					if (ingredient.is(CCItems.TURQUOISE.get())) {
+						if (!stack.getOrCreateTag().getBoolean("Subtle")) {
+							ItemStack newStack = new ItemStack(mix.to.get());
+							newStack.getOrCreateTag().putBoolean("Subtle", true);
+							cir.setReturnValue(PotionUtils.setPotion(newStack, potion));
+						} else {
+							cir.setReturnValue(stack);
+						}
+					} else if (stack.getOrCreateTag().getBoolean("Subtle")) {
 						ItemStack newStack = new ItemStack(mix.to.get());
 						newStack.getOrCreateTag().putBoolean("Subtle", true);
 						cir.setReturnValue(PotionUtils.setPotion(newStack, potion));
-					} else {
-						cir.setReturnValue(stack);
 					}
+
+				}
+			}
+
+			i = 0;
+
+			for (int k = POTION_MIXES.size(); i < k; ++i) {
+				PotionBrewing.Mix<Potion> mix = POTION_MIXES.get(i);
+				if (mix.from.get() == potion && mix.ingredient.test(ingredient) && stack.getOrCreateTag().getBoolean("Subtle")) {
+					ItemStack newStack = new ItemStack(item);
+					newStack.getOrCreateTag().putBoolean("Subtle", true);
+					cir.setReturnValue(PotionUtils.setPotion(newStack, mix.to.get()));
 				}
 			}
 		}
