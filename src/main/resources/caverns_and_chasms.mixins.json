@@ -33,6 +33,7 @@
     "MobMixin",
     "PlayerMixin",
     "PotionBrewingMixin",
+    "PotionItemMixin",
     "PotionUtilsMixin",
     "PowderSnowBlockMixin",
     "ProjectileMixin",
