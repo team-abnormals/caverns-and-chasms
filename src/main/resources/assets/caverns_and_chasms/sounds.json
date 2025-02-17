@@ -36,6 +36,12 @@
     ],
     "subtitle": "subtitles.entity.creeper.primed"
   },
+  "block.note_block.static": {
+    "sounds": [
+      "caverns_and_chasms:note/static"
+    ],
+    "subtitle": "subtitles.block.note_block.note"
+  },
   "block.rocky_dirt.break": {
     "sounds": [
       "caverns_and_chasms:block/rocky_dirt/place1",
