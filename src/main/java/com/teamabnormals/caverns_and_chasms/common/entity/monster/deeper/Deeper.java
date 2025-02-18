@@ -88,16 +88,16 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 
 	@Override
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-		if (player.isCreative() && this.getHat() == DeeperHat.NONE) {
-			ItemStack itemstack = player.getItemInHand(hand);
-			DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
+		ItemStack itemstack = player.getItemInHand(hand);
+		DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
 
-			if (hat != DeeperHat.NONE) {
-				this.level().playSound(null, this, SoundEvents.GRASS_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
-				if (!this.level().isClientSide)
-					this.setHat(hat);
-				return InteractionResult.sidedSuccess(this.level().isClientSide);
-			}
+		if (hat != DeeperHat.NONE && hat != this.getHat()) {
+			this.level().playSound(null, this, SoundEvents.GRASS_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
+			if (!this.level().isClientSide)
+				this.setHat(hat);
+			if (!player.getAbilities().instabuild)
+				itemstack.shrink(1);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
 		}
 
 		return super.mobInteract(player, hand);
