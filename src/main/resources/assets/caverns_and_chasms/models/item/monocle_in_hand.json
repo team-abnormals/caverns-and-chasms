@@ -40,8 +40,8 @@
 			"translation": [0, 1, 0]
 		},
 		"head": {
-			"translation": [-4.75, 0, -6.5],
-			"scale": [1.6, 1.6, 1.6]
+			"translation": [-5, 0, -6.5],
+			"scale": [1.66, 1.66, 1.66]
 		}
 	}
 }
