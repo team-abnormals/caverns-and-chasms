@@ -84,6 +84,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
+import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
@@ -727,7 +728,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onFallingBlockTick(FallingBlockTickEvent event) {
 		FallingBlockEntity entity = event.getEntity();
-		Level level = event.getEntity().level();
+		Level level = entity.level();
 		if (!level.isClientSide) {
 			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = entity.blockPosition().relative(dir);
@@ -736,6 +737,14 @@ public class CCEvents {
 				}
 			}
 		}
+	}
+
+	@SubscribeEvent
+	public static void onAnvilRepair(AnvilRepairEvent event) {
+		Player player = event.getEntity();
+		Level level = player.level();
+		if (event.getRight().is(CCItems.ZIRCONIA.get()))
+			player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), CCSoundEvents.ZIRCONIA_ANVIL_USE.get(), SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F, false);
 	}
 
 	@SubscribeEvent

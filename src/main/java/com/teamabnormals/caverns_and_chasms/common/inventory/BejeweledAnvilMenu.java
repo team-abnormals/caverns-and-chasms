@@ -21,6 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -54,10 +55,13 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 		return true;
 	}
 
-	protected void onTake(Player player, ItemStack p_150475_) {
+	protected void onTake(Player player, ItemStack stack) {
 		ItemStack input = this.inputSlots.getItem(0);
 		ItemStack ingredient = this.inputSlots.getItem(1);
 		ItemStack output = this.resultSlots.getItem(0);
+
+		ForgeHooks.onAnvilRepair(player, stack, BejeweledAnvilMenu.this.inputSlots.getItem(0), BejeweledAnvilMenu.this.inputSlots.getItem(1));
+
 		this.inputSlots.setItem(0, ItemStack.EMPTY);
 		if (this.repairItemCountCost > 0) {
 			ItemStack itemstack = this.inputSlots.getItem(1);
