@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "item/tipped_arrow_head",
+    "layer1": "caverns_and_chasms:item/subtle_tipped_arrow_base"
+  }
+}

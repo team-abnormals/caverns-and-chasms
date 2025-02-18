@@ -42,6 +42,7 @@
     "SmithingTemplateItemMixin",
     "SmithingTrimRecipeMixin",
     "ThrownPotionMixin",
+    "TippedArrowRecipeMixin",
     "WitherSkeletonMixin"
   ],
   "client": [

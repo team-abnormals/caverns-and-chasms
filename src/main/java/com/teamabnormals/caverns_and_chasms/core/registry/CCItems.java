@@ -219,6 +219,7 @@ public class CCItems {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get());
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TRAIL_POTION.get());
+					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, Items.TIPPED_ARROW, true);
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get(), true);
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get(), true);
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TRAIL_POTION.get(), true);
