@@ -49,6 +49,8 @@
     "client.AbstractClientPlayerMixin",
     "client.ElytraLayerMixin",
     "client.EntityRenderDispatcherMixin",
+    "client.ForgeGuiMixin",
+    "client.GuiMixin",
     "client.HumanoidArmorLayerMixin",
     "client.HumanoidModelMixin",
     "client.LevelRendererMixin"

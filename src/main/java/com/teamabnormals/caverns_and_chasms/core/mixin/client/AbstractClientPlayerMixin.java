@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +22,9 @@ public abstract class AbstractClientPlayerMixin extends Player {
 
 	@Inject(method = "getFieldOfViewModifier", at = @At("RETURN"), cancellable = true)
 	private void getFieldOfViewModifier(CallbackInfoReturnable<Float> cir) {
-		if (this.isUsingItem() && Minecraft.getInstance().options.getCameraType().isFirstPerson() && this.getUseItem().is(CCItems.MONOCLE.get())) {
+		if (Minecraft.getInstance().options.getCameraType().isFirstPerson() &&
+				(this.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MONOCLE.get()) ||
+						(this.isUsingItem() && this.getUseItem().is(CCItems.MONOCLE.get())))) {
 			cir.setReturnValue(1.5F);
 		}
 	}
