@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -137,7 +138,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.AZALEA_LOGS).add(AZALEA_LOG.get(), STRIPPED_AZALEA_LOG.get(), AZALEA_WOOD.get(), STRIPPED_AZALEA_WOOD.get());
 		this.tag(CCBlockTags.CAVE_GROWTHS).add(CAVE_GROWTHS.get(), LURID_CAVE_GROWTHS.get(), WISPY_CAVE_GROWTHS.get(), GRAINY_CAVE_GROWTHS.get(), WEIRD_CAVE_GROWTHS.get(), ZESTY_CAVE_GROWTHS.get());
 		this.tag(CCBlockTags.COPPER_RAILS).add(COPPER_RAIL.get(), EXPOSED_COPPER_RAIL.get(), WEATHERED_COPPER_RAIL.get(), OXIDIZED_COPPER_RAIL.get(), WAXED_COPPER_RAIL.get(), WAXED_EXPOSED_COPPER_RAIL.get(), WAXED_WEATHERED_COPPER_RAIL.get(), WAXED_OXIDIZED_COPPER_RAIL.get());
-		this.tag(CCBlockTags.DEFLECTS_PROJECTILES).add(TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), TIN_BARS.get(), TIN_BRICKS.get(), TIN_BRICK_STAIRS.get(), TIN_BRICK_SLAB.get(), TIN_BRICK_WALL.get(), CHISELED_TIN_BRICKS.get(), FLOAT_GLASS.get(), FLOAT_GLASS_PANE.get(), HOLD_PLATE.get(), HOLD_BUTTON.get(), DIMMER.get(), WALL_DIMMER.get(), HOOP.get(), SPLURTER.get()).addTag(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY);
+		this.tag(CCBlockTags.DEFLECTS_PROJECTILES).add(TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), TIN_BARS.get(), TIN_BRICKS.get(), TIN_BRICK_STAIRS.get(), TIN_BRICK_SLAB.get(), TIN_BRICK_WALL.get(), CHISELED_TIN_BRICKS.get(), FLOAT_GLASS.get(), FLOAT_GLASS_PANE.get(), HOLD_PLATE.get(), HOLD_BUTTON.get(), DIMMER.get(), WALL_DIMMER.get(), HOOP.get(), SPLURTER.get()).addTag(CCBlockTags.WEAKER_DEFLECT_VELOCITY).addTag(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY);
+		this.tag(CCBlockTags.WEAKER_DEFLECT_VELOCITY).add(CASSITERITE_TIN_ORE.get(), CASSITERITE.get(), CASSITERITE_STAIRS.get(), CASSITERITE_SLAB.get(), CASSITERITE_WALL.get(), SMOOTH_CASSITERITE.get(), SMOOTH_CASSITERITE_STAIRS.get(), SMOOTH_CASSITERITE_SLAB.get(), CASSITERITE_BRICKS.get(), CASSITERITE_BRICK_STAIRS.get(), CASSITERITE_BRICK_SLAB.get(), CASSITERITE_BRICK_WALL.get(), CASSITERITE_PILLAR.get(), CHISELED_CASSITERITE_BRICKS.get(), POLISHED_CASSITERITE.get(), POLISHED_CASSITERITE_STAIRS.get(), POLISHED_CASSITERITE_SLAB.get());
 		this.tag(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY).add(BOUNCER.get());
 		this.tag(CCBlockTags.STATIC_NOTE_BLOCKS).add(SPINEL_BLOCK.get(), SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get(), SPINEL_PILLAR.get(), SPINEL_BRICKS.get(), SPINEL_BRICK_STAIRS.get(), SPINEL_BRICK_SLAB.get(), SPINEL_BRICK_WALL.get(), SUGILITE.get(), SUGILITE_STAIRS.get(), SUGILITE_SLAB.get(), SUGILITE_WALL.get(), POLISHED_SUGILITE.get(), POLISHED_SUGILITE_STAIRS.get(), POLISHED_SUGILITE_SLAB.get(), SPINEL_LAMP.get(), TMT.get(), ATONING_TABLE.get(), BEJEWELED_ANVIL.get(), DISMANTLING_TABLE.get());
 

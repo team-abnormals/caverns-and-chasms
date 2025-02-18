@@ -570,7 +570,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.copy(Blocks.CALCITE);
 		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.copy(Blocks.TUFF);
 		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLESTONE);
 		public static final BlockBehaviour.Properties COBBLED_DEEPSLATE_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLED_DEEPSLATE);
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);

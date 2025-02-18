@@ -6,7 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 
 public class CCDamageTypeTags {
-	public static final TagKey<DamageType> BYPASSES_TETHER_POTIONS = damageTypeTag("does_not_break_tether_potions");
+	public static final TagKey<DamageType> BYPASSES_TETHER_POTIONS = damageTypeTag("bypasses_tether_potions");
 
 	private static TagKey<DamageType> damageTypeTag(String tagName) {
 		return TagUtil.damageTypeTag(CavernsAndChasms.MOD_ID, tagName);

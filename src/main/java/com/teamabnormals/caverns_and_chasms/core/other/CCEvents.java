@@ -537,29 +537,29 @@ public class CCEvents {
 
 		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			BlockPos blockpos = blockHitResult.getBlockPos();
-			BlockState blockstate = level.getBlockState(blockpos);
+			BlockPos pos = blockHitResult.getBlockPos();
+			BlockState state = level.getBlockState(pos);
 			Direction direction = blockHitResult.getDirection();
 
-			boolean flag = blockstate.is(CCBlockTags.DEFLECTS_PROJECTILES);
+			boolean flag = state.is(CCBlockTags.DEFLECTS_PROJECTILES);
 
 			if (!flag) {
-				BlockPos blockpos1 = blockpos.relative(direction.getOpposite());
+				BlockPos blockpos1 = pos.relative(direction.getOpposite());
 				BlockState blockstate1 = level.getBlockState(blockpos1);
 				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.isFaceSturdy(level, blockpos1, direction)) {
 					flag = true;
-					blockpos = blockpos1;
-					blockstate = blockstate1;
+					pos = blockpos1;
+					state = blockstate1;
 				}
 			}
 
 			if (!flag) {
-				BlockPos blockpos1 = blockpos.relative(direction);
+				BlockPos blockpos1 = pos.relative(direction);
 				BlockState blockstate1 = level.getBlockState(blockpos1);
 				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(1.0E-7D).move(blockpos1).contains(blockHitResult.getLocation())) {
 					flag = true;
-					blockpos = blockpos1;
-					blockstate = blockstate1;
+					pos = blockpos1;
+					state = blockstate1;
 				}
 			}
 
@@ -576,13 +576,18 @@ public class CCEvents {
 					double j = 0.65D;
 					double k = 0.75D;
 
-					if (blockstate.is(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY)) {
+					if (state.is(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY)) {
 						j = 0.9D;
 						k = 0.9D;
 					}
 
-					if (blockstate.getBlock() instanceof TargetBlock targetBlock) {
-						targetBlock.onProjectileHit(level, blockstate, blockHitResult.withPosition(blockpos), projectile);
+					if (state.is(CCBlockTags.WEAKER_DEFLECT_VELOCITY)) {
+						j -= 0.25D;
+						k -= 0.25D;
+					}
+
+					if (state.getBlock() instanceof TargetBlock targetBlock) {
+						targetBlock.onProjectileHit(level, state, blockHitResult.withPosition(pos), projectile);
 					}
 
 					if (axis == Axis.X) {
