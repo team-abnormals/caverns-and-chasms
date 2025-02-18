@@ -65,9 +65,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@Unique
 	private static final ResourceLocation TETHER_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion_overlay.png");
 	@Unique
-	private static final ResourceLocation IMPACT_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/impact_potion.png");
-	@Unique
-	private static final ResourceLocation IMPACT_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/impact_potion_overlay.png");
+	private static final ResourceLocation SUBTLE_TETHER_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion_overlay_subtle.png");
 
 	public HumanoidArmorLayerMixin(RenderLayerParent<T, M> entityRenderer) {
 		super(entityRenderer);
@@ -136,7 +134,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			float b = (float) (i & 255) / 255.0F;
 
 			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, r, g, b, TETHER_POTION_LOCATION);
-			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, TETHER_POTION_OVERLAY_LOCATION);
+			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, stack.getOrCreateTag().getBoolean("Subtle") ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
 		}
 	}
 
