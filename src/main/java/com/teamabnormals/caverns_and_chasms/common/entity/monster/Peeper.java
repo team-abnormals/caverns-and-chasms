@@ -74,6 +74,9 @@ public class Peeper extends Creeper {
 
 	@Override
 	public void tick() {
+		int realSwell = this.swell;
+		int realOldSwell = this.oldSwell;
+
 		if (this.isAlive()) {
 			AttributeInstance speedAttribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
 			if (speedAttribute.getModifier(FREEZE_MODIFIER_UUID) != null) {
@@ -95,30 +98,36 @@ public class Peeper extends Creeper {
 				speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
 			}
 
-			this.oldSwell = this.swell;
+			realOldSwell = realSwell;
 			if (this.isIgnited()) {
 				this.setSwellDir(1);
 			}
 
 			int i = this.getSwellDir();
-			if (i > 0 && this.swell == 0) {
+			if (i > 0 && realSwell == 0) {
 				this.playSound(CCSoundEvents.PEEPER_PRIMED.get(), 1.0F, 0.5F);
 				this.gameEvent(GameEvent.PRIME_FUSE);
 			}
 
-			this.swell += i;
-			if (this.swell < 0) {
-				this.swell = 0;
+			realSwell += 2 * i;
+			if (realSwell < 0) {
+				realSwell = 0;
 			}
 
-			if (this.swell >= this.maxSwell) {
-				this.swell = this.maxSwell;
+			if (realSwell >= this.maxSwell) {
+				realSwell = this.maxSwell;
 				this.explodeCreeper();
 			}
-		} else if (this.swell > 0) {
-			this.swell--;
+		} else if (realSwell > 0) {
+			realSwell--;
 		}
+
+		this.swell = -1;
+
 		super.tick();
+
+		this.swell = realSwell;
+		this.oldSwell = realOldSwell;
 	}
 
 	@Override
