@@ -3,9 +3,11 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 import com.teamabnormals.caverns_and_chasms.common.block.CaveGrowthsBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.DeeperHat;
+import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Explosion;
@@ -16,6 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Explosion.class)
@@ -61,5 +64,10 @@ public abstract class ExplosionMixin {
 				}
 			}
 		}
+	}
+
+	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), index = 3)
+	public SoundEvent setCustomExplosionSound(SoundEvent soundEvent) {
+		return ((Object) this) instanceof CustomSoundExplosion customSoundExplosion ? customSoundExplosion.getSound() : soundEvent;
 	}
 }

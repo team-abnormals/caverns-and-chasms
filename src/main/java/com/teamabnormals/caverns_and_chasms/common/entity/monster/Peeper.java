@@ -1,6 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.PeeperSwellGoal;
+import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
+import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -25,8 +28,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -130,7 +134,11 @@ public class Peeper extends Creeper {
 		if (!this.level().isClientSide && this.isAlive()) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB);
+			CustomSoundExplosion explosion = new CustomSoundExplosion(this.level(), this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F, CCSoundEvents.PEEPER_EXPLODE.get());
+			if (ForgeEventFactory.onExplosionStart(this.level(), explosion)) return;
+			explosion.explode();
+			explosion.finalizeExplosion(true);
+			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new S2CCustomSoundExplosionMessage((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, explosion.getToBlow(), CCSoundEvents.PEEPER_EXPLODE.get()));
 			this.discard();
 			this.spawnLingeringCloud();
 		}

@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
+import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
@@ -278,6 +279,7 @@ public class CavernsAndChasms {
 
 	private void setupMessages() {
 		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle);
+		CHANNEL.registerMessage(1, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle);
 	}
 
 	public static ResourceLocation location(String path) {
