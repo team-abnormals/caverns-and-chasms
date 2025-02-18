@@ -10,6 +10,10 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.Ocelot;
 
 public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 	private final ModelPart root;
@@ -61,6 +65,20 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 		this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 
 		Entity target = Minecraft.getInstance().getCameraEntity();
+		Cat  cat = toAvoid(peeper, Cat.class);
+		Ocelot ocelot = toAvoid(peeper, Ocelot.class);
+		LivingEntity scaredOf = null;
+
+		if (cat != null) {
+			scaredOf = cat;
+		}
+		if (ocelot != null) {
+			scaredOf = ocelot;
+		}
+		if (cat != null && ocelot != null) {
+			scaredOf = (peeper.distanceTo(cat) < peeper.distanceTo(ocelot)) ? cat : ocelot;
+		}
+
 		if (peeper.getTarget() != null) {
 			target = peeper.getTarget();
 		}
@@ -69,19 +87,25 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 			this.pupil.xScale = 1.0F;
 			this.pupil.yScale = 1.0F;
 
-			float scale = Math.min(1.5F, 2.0F / peeper.distanceTo(target));
+			float scale = Math.min(1.5F, 2.0F / (scaredOf != null ? Math.min(peeper.distanceTo(scaredOf), peeper.distanceTo(target)) : peeper.distanceTo(target)));
 			this.pupil.xScale += scale;
 			this.pupil.yScale += scale;
 
 			RandomSource random = peeper.getRandom();
 			this.pupil.x = 0.0F;
 			this.pupil.y = -7.0F;
-			if (peeper.distanceTo(target) <= 3.0F) {
+			if ((scaredOf != null ? Math.min(peeper.distanceTo(scaredOf), peeper.distanceTo(target)) : peeper.distanceTo(target)) <= 3.0F) {
 				this.pupil.x += (float) MathUtil.makeNegativeRandomly(random.nextFloat() * 0.25F, random);
 				this.pupil.y += (float) MathUtil.makeNegativeRandomly(random.nextFloat() * 0.25F, random);
 			}
 		}
 
 		this.pupil.visible = true;
+	}
+
+	public <T extends LivingEntity> T toAvoid(Peeper peeper, Class<T> entity) {
+		return peeper.level().getNearestEntity(peeper.level().getEntitiesOfClass(entity, peeper.getBoundingBox().inflate(6.0F, 3.0D, 6.0F), (p_148078_) -> {
+			return true;
+		}), TargetingConditions.forCombat().range(6.0F), peeper, peeper.getX(), peeper.getY(), peeper.getZ());
 	}
 }
