@@ -52,6 +52,8 @@ import static net.minecraft.world.item.crafting.Ingredient.of;
 public class CCItems {
 	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
 
+	public static final Rarity FANCY = Rarity.create(CavernsAndChasms.MOD_ID + ":fancy", style -> style.withColor(0x2BFF75));
+
 	public static final RegistryObject<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> BAROMETER = HELPER.createItem("barometer", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), false));
@@ -102,9 +104,9 @@ public class CCItems {
 	public static final RegistryObject<Item> TIN_INGOT = HELPER.createItem("tin_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TIN_NUGGET = HELPER.createItem("tin_nugget", () -> new Item(new Item.Properties()));
 
-	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
-	public static final RegistryObject<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).food(CCFoods.CAVIAR)));
-	public static final RegistryObject<Item> MONOCLE = HELPER.createItem("monocle", () -> new MonocleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(FANCY)));
+	public static final RegistryObject<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(FANCY).food(CCFoods.CAVIAR)));
+	public static final RegistryObject<Item> MONOCLE = HELPER.createItem("monocle", () -> new MonocleItem(new Item.Properties().stacksTo(1).rarity(FANCY)));
 
 	public static final RegistryObject<Item> SPINEL = HELPER.createItem("spinel", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16)));

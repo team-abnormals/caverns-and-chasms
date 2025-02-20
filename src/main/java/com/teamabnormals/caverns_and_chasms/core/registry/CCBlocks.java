@@ -215,14 +215,14 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.ZIRCONIA)));
 
-	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)));
-	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)));
-	public static final RegistryObject<Block> TURQUOISE_BLOCK = HELPER.createBlock("turquoise_block", () -> new TurquoiseBlock(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILES = HELPER.createBlock("turquoise_tiles", () -> new TurquoiseBlock(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILE_STAIRS = HELPER.createBlock("turquoise_tile_stairs", () -> new TurquoiseStairBlock(() -> TURQUOISE_TILES.get().defaultBlockState(), CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new TurquoiseSlabBlock(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new TurquoiseWallBlock(CCProperties.TURQUOISE));
-	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE));
+	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
+	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_BLOCK = HELPER.createBlock("turquoise_block", () -> new TurquoiseBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_TILES = HELPER.createBlock("turquoise_tiles", () -> new TurquoiseBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_TILE_STAIRS = HELPER.createBlock("turquoise_tile_stairs", () -> new TurquoiseStairBlock(() -> TURQUOISE_TILES.get().defaultBlockState(), CCProperties.TURQUOISE), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new TurquoiseSlabBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new TurquoiseWallBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 
 	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot()));
 
@@ -626,6 +626,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties NECROMIUM_BLOCK = BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).sound(CCSoundTypes.NECROMIUM).mapColor(MapColor.TERRACOTTA_GREEN);
 
 		public static final BlockBehaviour.Properties FALSE_HOPE = PropertyUtil.flower().sound(CCSoundTypes.FALSE_HOPE).lightLevel((state) -> 15);
+
+		public static final Item.Properties FANCY = new Item.Properties().rarity(CCItems.FANCY);
 
 		public static final WoodSetProperties AZALEA = WoodSetProperties.builder(MapColor.TERRACOTTA_PURPLE).leavesSound(SoundType.AZALEA_LEAVES).build();
 

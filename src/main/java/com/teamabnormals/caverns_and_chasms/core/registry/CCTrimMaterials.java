@@ -32,7 +32,7 @@ public class CCTrimMaterials {
 		register(context, ZIRCONIA, CCItems.ZIRCONIA.get(), Style.EMPTY.withColor(0xADAFF1), Map.of());
 		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), Map.of());
 		register(context, TIN, CCItems.TIN_INGOT.get(), Style.EMPTY.withColor(0xCEC0A3), Map.of());
-		register(context, TURQUOISE, CCItems.TURQUOISE.get(), Style.EMPTY.withColor(0x75AD8A), Map.of());
+		register(context, TURQUOISE, CCItems.TURQUOISE.get(), Style.EMPTY.withColor(0x2BFF75), Map.of());
 		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of());
 		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of());
 	}
