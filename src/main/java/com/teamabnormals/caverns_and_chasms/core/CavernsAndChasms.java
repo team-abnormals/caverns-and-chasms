@@ -3,6 +3,8 @@ package com.teamabnormals.caverns_and_chasms.core;
 import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.CCShaders;
+import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
+import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.AtoningTableRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
@@ -56,7 +58,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -284,6 +285,7 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	private void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
 		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
+		event.registerAbove(location("monocle"), "monocle_head", new MonocleHeadGuiOverlay());
 	}
 
 	private void setupMessages() {

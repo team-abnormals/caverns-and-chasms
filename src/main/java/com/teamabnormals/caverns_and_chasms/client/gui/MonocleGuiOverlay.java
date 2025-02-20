@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.core.other;
+package com.teamabnormals.caverns_and_chasms.client.gui;
 
 import com.teamabnormals.caverns_and_chasms.common.item.MonocleItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -6,12 +6,18 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class MonocleGuiOverlay implements IGuiOverlay {
 	private static final ResourceLocation MONOCLE_SCOPE_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/misc/monocle_scope.png");
+
 	public float overlayScopeScale;
+
+	public boolean shouldRender(Player player) {
+		return MonocleItem.isScopingMonocle(player);
+	}
 
 	@Override
 	public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
@@ -19,7 +25,7 @@ public class MonocleGuiOverlay implements IGuiOverlay {
 		float deltaFrame = gui.getMinecraft().getDeltaFrameTime();
 		this.overlayScopeScale = Mth.lerp(0.5F * deltaFrame, this.overlayScopeScale, 1.125F);
 		if (gui.getMinecraft().options.getCameraType().isFirstPerson()) {
-			if (MonocleItem.isUsingMonocle(gui.getMinecraft().player)) {
+			if (shouldRender(gui.getMinecraft().player)) {
 				renderMonocleOverlay(guiGraphics, this.overlayScopeScale);
 			} else {
 				this.overlayScopeScale = 0.5F;
@@ -44,5 +50,11 @@ public class MonocleGuiOverlay implements IGuiOverlay {
 		graphics.fill(RenderType.guiOverlay(), 0, 0, screenWidth, l, -90, -16777216);
 		graphics.fill(RenderType.guiOverlay(), 0, l, k, j1, -90, -16777216);
 		graphics.fill(RenderType.guiOverlay(), i1, l, screenWidth, j1, -90, -16777216);
+	}
+
+	public static class MonocleHeadGuiOverlay extends MonocleGuiOverlay {
+		public boolean shouldRender(Player player) {
+			return MonocleItem.isWearingMonocle(player);
+		}
 	}
 }
