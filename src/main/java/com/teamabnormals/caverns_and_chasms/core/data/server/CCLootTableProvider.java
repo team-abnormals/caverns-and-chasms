@@ -311,6 +311,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(TURQUOISE_TILE_WALL.get());
 			this.add(TURQUOISE_TILE_SLAB.get(), this::createSlabItemTable);
 			this.dropSelf(TURQUOISE_PILLAR.get());
+			this.dropSelf(CAVIAR.get());
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
 

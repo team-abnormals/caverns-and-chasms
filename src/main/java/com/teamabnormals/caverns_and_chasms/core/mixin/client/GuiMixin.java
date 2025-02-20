@@ -1,15 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGui;
+import com.teamabnormals.caverns_and_chasms.common.item.MonocleItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,7 +50,7 @@ public class GuiMixin implements MonocleGui {
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSpyglassOverlay(Lnet/minecraft/client/gui/GuiGraphics;F)V"), method = "render")
 	private void renderSpyglassOverlay(Gui gui, GuiGraphics graphics, float scopeSize) {
 		Player player = this.minecraft.player;
-		if (player != null && (player.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MONOCLE.get()) || (player.isUsingItem() && player.getUseItem().is(CCItems.MONOCLE.get())))) {
+		if (player != null && MonocleItem.isUsingMonocle(player)) {
 			((MonocleGui) gui).renderMonocleOverlay(graphics, scopeSize);
 		} else {
 			gui.renderSpyglassOverlay(graphics, scopeSize);

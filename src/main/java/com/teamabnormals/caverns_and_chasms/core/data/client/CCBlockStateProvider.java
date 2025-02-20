@@ -79,6 +79,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(TURQUOISE_BLOCK);
 		this.logBlock(TURQUOISE_PILLAR);
 		this.blockFamily(TURQUOISE_TILES_FAMILY);
+		this.caviarBlock(CAVIAR);
 
 		this.block(ZIRCONIA_BLOCK);
 
@@ -528,6 +529,18 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				.texture("particle", suffix(texture, "bottom"))
 		);
 		this.blockItem(block);
+	}
+
+	public void caviarBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		ResourceLocation texture = suffix(blockTexture(block), "_");
+		this.simpleBlock(registryObject.get(), this.models()
+				.withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_caviar")
+				.texture("side", suffix(texture, "side"))
+				.texture("top", suffix(texture, "top"))
+				.texture("bottom", suffix(texture, "bottom"))
+		);
+		this.generatedItem(block, "item");
 	}
 
 	public void randomRotationBlock(RegistryObject<Block> block) {

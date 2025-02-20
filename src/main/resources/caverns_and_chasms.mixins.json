@@ -53,7 +53,9 @@
     "client.GuiMixin",
     "client.HumanoidArmorLayerMixin",
     "client.HumanoidModelMixin",
-    "client.LevelRendererMixin"
+    "client.ItemInHandRendererMixin",
+    "client.LevelRendererMixin",
+    "client.MouseHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

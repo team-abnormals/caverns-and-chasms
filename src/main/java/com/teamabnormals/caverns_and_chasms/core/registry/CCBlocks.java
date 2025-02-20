@@ -224,6 +224,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new TurquoiseWallBlock(CCProperties.TURQUOISE));
 	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE));
 
+	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot()));
+
 	public static final RegistryObject<Block> ROCKY_DIRT = HELPER.createBlock("rocky_dirt", () -> new Block(CCProperties.ROCKY_DIRT));
 	public static final RegistryObject<Block> FRAGILE_STONE = HELPER.createBlock("fragile_stone", () -> new FragileStoneBlock(CCProperties.FRAGILE_STONE));
 	public static final RegistryObject<Block> FRAGILE_DEEPSLATE = HELPER.createBlock("fragile_deepslate", () -> new FragileDeepslateBlock(CCProperties.FRAGILE_DEEPSLATE));
