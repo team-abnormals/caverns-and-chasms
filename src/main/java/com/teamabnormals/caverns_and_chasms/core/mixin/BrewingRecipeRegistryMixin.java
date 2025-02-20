@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +13,7 @@ public final class BrewingRecipeRegistryMixin {
 
 	@Inject(at = @At("HEAD"), method = "isValidInput", cancellable = true, remap = false)
 	private static void isValidInput(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (stack.getItem() == CCItems.TETHER_POTION.get() || stack.getItem() == CCItems.IMPACT_POTION.get() || stack.getItem() == CCItems.TRAIL_POTION.get()) {
+		if (stack.getItem() instanceof TetherPotionItem) {
 			cir.setReturnValue(true);
 		}
 	}

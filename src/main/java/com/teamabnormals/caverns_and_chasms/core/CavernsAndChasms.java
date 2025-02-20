@@ -51,10 +51,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -130,6 +132,7 @@ public class CavernsAndChasms {
 			bus.addListener(this::registerItemColors);
 			bus.addListener(this::createSkullModels);
 			bus.addListener(this::registerClientTooltips);
+			bus.addListener(this::registerGuiOverlays);
 			bus.addListener(CCShaders::registerShaders);
 		});
 
@@ -275,6 +278,12 @@ public class CavernsAndChasms {
 		if (ModList.get().isLoaded("quark")) {
 			event.register(ToolboxComponent.class, Function.identity());
 		}
+	}
+
+
+	@OnlyIn(Dist.CLIENT)
+	private void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
 	}
 
 	private void setupMessages() {

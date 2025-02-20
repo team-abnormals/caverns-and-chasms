@@ -8,12 +8,10 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractClientPlayer.class)
@@ -21,11 +19,6 @@ public abstract class AbstractClientPlayerMixin extends Player {
 
 	public AbstractClientPlayerMixin(Level level, BlockPos pos, float f, GameProfile profile) {
 		super(level, pos, f, profile);
-	}
-
-	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;isScoping()Z"), method = "getFieldOfViewModifier", remap = false)
-	private boolean isScoping(AbstractClientPlayer player) {
-		return player.isScoping() && player.getUseItem().is(Items.SPYGLASS);
 	}
 
 	@Inject(method = "getFieldOfViewModifier", at = @At("RETURN"), cancellable = true)

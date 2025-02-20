@@ -49,13 +49,10 @@
     "client.AbstractClientPlayerMixin",
     "client.ElytraLayerMixin",
     "client.EntityRenderDispatcherMixin",
-    "client.ForgeGuiMixin",
-    "client.GuiMixin",
     "client.HumanoidArmorLayerMixin",
     "client.HumanoidModelMixin",
     "client.ItemInHandRendererMixin",
-    "client.LevelRendererMixin",
-    "client.MouseHandlerMixin"
+    "client.LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

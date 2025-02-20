@@ -17,7 +17,11 @@ public class MonocleItem extends SpyglassItem {
 		return EquipmentSlot.HEAD;
 	}
 
+	public static boolean isScopingMonocle(LivingEntity entity) {
+		return (entity.isUsingItem() && entity.getUseItem().is(CCItems.MONOCLE.get()));
+	}
+
 	public static boolean isUsingMonocle(LivingEntity entity) {
-		return (entity.isUsingItem() && entity.getUseItem().is(CCItems.MONOCLE.get())) || entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MONOCLE.get());
+		return isScopingMonocle(entity) || entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MONOCLE.get());
 	}
 }

@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
-import com.teamabnormals.caverns_and_chasms.common.item.MonocleItem;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -10,11 +9,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity implements MovingPlayer {
-
 	private boolean moving;
 
 	protected PlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
@@ -27,13 +24,6 @@ public abstract class PlayerMixin extends LivingEntity implements MovingPlayer {
 	}
 
 	public boolean isMoving() {
-		return moving;
-	}
-
-	@Inject(method = "isScoping", at = @At("RETURN"), cancellable = true)
-	private void isScoping(CallbackInfoReturnable<Boolean> cir) {
-		if (MonocleItem.isUsingMonocle(this)) {
-			cir.setReturnValue(true);
-		}
+		return this.moving;
 	}
 }
