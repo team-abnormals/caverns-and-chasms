@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -33,9 +34,9 @@ public class HoopBlockEntity extends BlockEntity {
 			Vec3 vec3 = pos.getCenter();
 			Axis axis = state.getValue(HoopBlock.AXIS);
 			int size = state.getValue(HoopBlock.SIZE);
-			double d0 = 1.0D / 16.0D * (size == 0 ? 1.0D : size * 2.0D);
+			double radius = 1.0D / 16.0D * (size == 0 ? 1.0D : size * 2.0D);
 
-			List<Entity> entities = level.getEntities(null, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(pos)).inflate(8.0D));
+			List<Entity> entities = level.getEntities((Entity) null, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(pos)).inflate(8.0D), entity -> entity instanceof Projectile || entity instanceof ItemEntity);
 
 			for (Entity entity : entities) {
 				double d2;
@@ -61,7 +62,7 @@ public class HoopBlockEntity extends BlockEntity {
 					d3 = entity.getY() - vec3.y + (entity.getY() - entity.yOld) * d1;
 				}
 
-				if (Math.max(Math.abs(d2), Math.abs(d3)) <= d0) {
+				if (Math.max(Math.abs(d2), Math.abs(d3)) <= radius) {
 					Vec3 vec31;
 					if (entity instanceof Projectile && ((IDataManager) entity).getValue(CCDataProcessors.SHOULD_DEFLECT)) {
 						IDataManager data = (IDataManager) entity;
