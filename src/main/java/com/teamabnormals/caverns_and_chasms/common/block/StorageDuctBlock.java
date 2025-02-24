@@ -44,19 +44,23 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		return RenderShape.MODEL;
 	}
 
+	/*
+	public static Container getContainer(ChestBlock p_51512_, BlockState p_51513_, Level p_51514_, BlockPos p_51515_, boolean p_51516_) {
+		return ;
+	}
+	*/
+
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if (level.isClientSide) {
-			return InteractionResult.SUCCESS;
-		} else {
-			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof StorageDuctBlockEntity storageDuct) {
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof StorageDuctBlockEntity storageDuct && canOpen(level, pos, state)) {
+			if (!level.isClientSide) {
 				player.openMenu(storageDuct);
 				PiglinAi.angerNearbyPiglins(player, true);
-				return InteractionResult.CONSUME;
-			} else {
-				return InteractionResult.PASS;
 			}
+			return InteractionResult.sidedSuccess(level.isClientSide);
+		} else {
+			return InteractionResult.PASS;
 		}
 	}
 
@@ -114,6 +118,14 @@ public class StorageDuctBlock extends BaseEntityBlock {
 
 	public static boolean hasFace(Direction face, BlockState state) {
 		return state.getValue(START_FACE) == face || state.getValue(END_FACE) == face;
+	}
+
+	public static boolean canOpen(Level level, BlockPos pos, BlockState state) {
+		Direction startFace = state.getValue(START_FACE);
+		Direction endFace = state.getValue(END_FACE);
+		BlockPos startFacePos = pos.relative(startFace);
+		BlockPos endFacePos = pos.relative(endFace);
+		return !level.getBlockState(startFacePos).isFaceSturdy(level, startFacePos, startFace.getOpposite()) || !level.getBlockState(endFacePos).isFaceSturdy(level, endFacePos, endFace.getOpposite());
 	}
 
 	@Override

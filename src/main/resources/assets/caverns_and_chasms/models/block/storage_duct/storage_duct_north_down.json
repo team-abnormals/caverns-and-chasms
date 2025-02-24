@@ -5,7 +5,8 @@
 		"end": "caverns_and_chasms:block/storage_duct_end",
 		"particle": "caverns_and_chasms:block/storage_duct_side",
 		"side": "caverns_and_chasms:block/storage_duct_side",
-		"corner": "caverns_and_chasms:block/storage_duct_corner"
+		"corner_top_left": "caverns_and_chasms:block/storage_duct_corner_top_left",
+		"corner_top_right": "caverns_and_chasms:block/storage_duct_corner_top_right"
 	},
 	"elements": [
 		{
@@ -13,9 +14,9 @@
 			"to": [16, 16, 16],
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#end"},
-				"east": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#corner"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#side"},
-				"west": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#corner"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#corner_top_right"},
 				"up": {"uv": [0, 0, 16, 16], "texture": "#side"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#end"}
 			}

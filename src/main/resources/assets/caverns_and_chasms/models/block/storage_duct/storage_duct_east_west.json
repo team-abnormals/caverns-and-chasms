@@ -19,5 +19,6 @@
 				"down": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#side"}
 			}
 		}
-	]
+	],
+	"display": {}
 }
