@@ -366,6 +366,7 @@
   "container.caverns_and_chasms.dismantle.missing_spinel": "Add Spinel",
   "container.caverns_and_chasms.dismantle.result_error_tooltip": "Remove all dismantled components",
   "container.caverns_and_chasms.splurter": "Splurter",
+  "container.caverns_and_chasms.storage_duct": "Storage Duct",
   "container.caverns_and_chasms.toolbox": "Toolbox",
   "container.caverns_and_chasms.toolbox.more": "and %s more...",
   "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
