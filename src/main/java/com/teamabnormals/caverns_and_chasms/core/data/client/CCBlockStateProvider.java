@@ -49,10 +49,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.glassPaneBlock(FLOAT_GLASS_PANE, FLOAT_GLASS);
 
 		this.holdPlateBlock(HOLD_PLATE, TIN_BLOCK);
-		this.holdButtonBlock(TIN_BLOCK.get(), HOLD_BUTTON.get());
-		this.dimmerBlock(DIMMER.get(), WALL_DIMMER.get());
+		this.holdButtonBlock(TIN_BLOCK, HOLD_BUTTON);
+		this.dimmerBlock(DIMMER, WALL_DIMMER);
 		this.block(BOUNCER);
-		this.hoopBlock(HOOP.get());
+		this.hoopBlock(HOOP);
+		this.storageDuctBlock(STORAGE_DUCT);
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
@@ -428,8 +429,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockItem(block);
 	}
 
-	public void holdButtonBlock(Block textureBlock, Block block) {
-		ResourceLocation texture = blockTexture(textureBlock);
+	public void holdButtonBlock(RegistryObject<Block> textureBlock, RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+
+		ResourceLocation texture = blockTexture(textureBlock.get());
 		ModelFile button = models().button(name(block), texture);
 		ModelFile buttonPressed = models().buttonPressed(name(block) + "_pressed", texture);
 		ModelFile buttonInventoryModel = models().buttonInventory(name(block) + "_inventory", texture);
@@ -450,7 +453,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.itemModels().getBuilder(name(block)).parent(buttonInventoryModel);
 	}
 
-	public void dimmerBlock(Block block, Block wallBlock) {
+	public void dimmerBlock(RegistryObject<Block> registryObject, RegistryObject<Block> wall) {
+		Block block = registryObject.get();
+		Block wallBlock = wall.get();
 		this.getVariantBuilder(block)
 				.forAllStatesExcept(state -> {
 					int power = state.getValue(AbstractDimmerBlock.POWER);
@@ -474,7 +479,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.generatedItem(block, "item");
 	}
 
-	public void hoopBlock(Block block) {
+	public void hoopBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
 		this.getVariantBuilder(block)
 				.forAllStatesExcept(state -> {
 					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_" + state.getValue(HoopBlock.SIZE) + (state.getValue(HoopBlock.OUTPUT_POWER) > 0 ? "_activated" : ""));
@@ -486,6 +492,47 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 							.build();
 				}, BlockStateProperties.WATERLOGGED);
 		this.simpleBlockItem(block, new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"), this.models().existingFileHelper));
+	}
+
+	public void storageDuctBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					Direction startFace = state.getValue(StorageDuctBlock.START_FACE);
+					Direction endFace = state.getValue(StorageDuctBlock.END_FACE);
+
+					if (startFace != endFace) {
+						Direction face1 = startFace;
+						Direction face2 = endFace;
+
+						boolean swap = false;
+
+						if (startFace == Direction.SOUTH && endFace == Direction.NORTH)
+							swap = true;
+						else if (startFace == Direction.EAST && (endFace == Direction.NORTH || endFace == Direction.SOUTH))
+							swap = true;
+						else if (startFace == Direction.WEST && endFace != Direction.UP && endFace != Direction.DOWN)
+							swap = true;
+						else if (startFace == Direction.UP && endFace != Direction.DOWN)
+							swap = true;
+						else if (startFace == Direction.DOWN)
+							swap = true;
+
+						if (swap) {
+							face1 = endFace;
+							face2 = startFace;
+						}
+
+						return ConfiguredModel.builder()
+								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_" + face1 + "_" + face2)))
+								.build();
+					} else {
+						return ConfiguredModel.builder()
+								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_invalid")))
+								.build();
+					}
+				}, StorageDuctBlock.OPEN);
+		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_up_down")));
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {

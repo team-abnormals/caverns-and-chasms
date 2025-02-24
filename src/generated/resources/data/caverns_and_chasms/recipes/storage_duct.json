@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/tin"
+    },
+    "I": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "BIB",
+    "I I",
+    "BIB"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:storage_duct"
+  },
+  "show_notification": true
+}
