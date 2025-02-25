@@ -68,6 +68,9 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SPIKED_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SLAUGHTER_RAIL.get(), RenderType.cutout());
 
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.REFRACTOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.RESISTOR.get(), RenderType.cutout());
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.BRAZIER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SOUL_BRAZIER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ENDER_BRAZIER.get(), RenderType.cutout());

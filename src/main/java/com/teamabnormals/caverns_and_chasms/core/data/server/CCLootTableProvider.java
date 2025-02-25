@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
@@ -143,6 +144,9 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(HALT_RAIL.get());
 			this.dropSelf(SPIKED_RAIL.get());
 			this.dropSelf(SLAUGHTER_RAIL.get());
+
+			this.dropSelf(RESISTOR.get());
+			this.dropSelf(REFRACTOR.get());
 
 			this.dropSelf(SANGUINE_BLOCK.get());
 			this.dropSelf(SANGUINE_TILES.get());
