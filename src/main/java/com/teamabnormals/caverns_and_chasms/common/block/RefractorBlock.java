@@ -56,13 +56,17 @@ public class RefractorBlock extends DiodeBlock {
 			return InteractionResult.PASS;
 		} else {
 			Optional<IntegerProperty> prop = getHitProperty(getRelativeCoordinates(result, state.getValue(FACING)));
-			if (prop.isPresent()) {
+			if (prop.isPresent() && state.getValue(POWERED) != getStateFromProperty(prop.get())) {
 				level.setBlock(pos, state.cycle(prop.get()), 3);
 				return InteractionResult.sidedSuccess(level.isClientSide);
 			} else {
 				return InteractionResult.PASS;
 			}
 		}
+	}
+
+	public static RefractorState getStateFromProperty(IntegerProperty property) {
+		return property == LEFT ? RefractorState.LEFT : property == CENTER ? RefractorState.CENTER : property == RIGHT ? RefractorState.RIGHT : RefractorState.NONE;
 	}
 
 	private static Optional<Vec2> getRelativeCoordinates(BlockHitResult result, Direction facing) {
@@ -170,7 +174,6 @@ public class RefractorBlock extends DiodeBlock {
 		for (int i = 0; i < state.getValue(RIGHT); i++) {
 			states.add(RefractorState.RIGHT);
 		}
-
 
 		if (states.isEmpty()) {
 			return RefractorState.NONE;

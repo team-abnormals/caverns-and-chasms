@@ -52,8 +52,7 @@
       },
       "when": {
         "facing": "north",
-        "left": "0",
-        "powered": "off|none|center|right"
+        "left": "0"
       }
     },
     {
@@ -129,8 +128,7 @@
       },
       "when": {
         "center": "0",
-        "facing": "north",
-        "powered": "off|none|left|right"
+        "facing": "north"
       }
     },
     {
@@ -206,7 +204,6 @@
       },
       "when": {
         "facing": "north",
-        "powered": "off|none|left|center",
         "right": "0"
       }
     },
@@ -333,8 +330,7 @@
       },
       "when": {
         "facing": "east",
-        "left": "0",
-        "powered": "off|none|center|right"
+        "left": "0"
       }
     },
     {
@@ -410,8 +406,7 @@
       },
       "when": {
         "center": "0",
-        "facing": "east",
-        "powered": "off|none|left|right"
+        "facing": "east"
       }
     },
     {
@@ -486,7 +481,6 @@
       },
       "when": {
         "facing": "east",
-        "powered": "off|none|left|center",
         "right": "0"
       }
     },
@@ -607,8 +601,7 @@
       },
       "when": {
         "facing": "south",
-        "left": "0",
-        "powered": "off|none|center|right"
+        "left": "0"
       }
     },
     {
@@ -683,8 +676,7 @@
       },
       "when": {
         "center": "0",
-        "facing": "south",
-        "powered": "off|none|left|right"
+        "facing": "south"
       }
     },
     {
@@ -754,7 +746,6 @@
       },
       "when": {
         "facing": "south",
-        "powered": "off|none|left|center",
         "right": "0"
       }
     },
@@ -880,8 +871,7 @@
       },
       "when": {
         "facing": "west",
-        "left": "0",
-        "powered": "off|none|center|right"
+        "left": "0"
       }
     },
     {
@@ -951,8 +941,7 @@
       },
       "when": {
         "center": "0",
-        "facing": "west",
-        "powered": "off|none|left|right"
+        "facing": "west"
       }
     },
     {
@@ -1028,7 +1017,6 @@
       },
       "when": {
         "facing": "west",
-        "powered": "off|none|left|center",
         "right": "0"
       }
     },

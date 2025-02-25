@@ -636,7 +636,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 						IntegerProperty intProp = getPropertyForDirection(torchDirection);
 						if (i == 0) {
 							ExistingModelFile lock = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_lock"));
-							builder.part().modelFile(lock).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(intProp, i).condition(RefractorBlock.POWERED, getStatesForDirection(torchDirection));
+							builder.part().modelFile(lock).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(intProp, i);
 						} else {
 							String weight = getStringForWeight(i);
 							ExistingModelFile torch = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_torch" + weight));
