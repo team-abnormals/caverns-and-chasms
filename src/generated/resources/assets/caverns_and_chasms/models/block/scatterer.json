@@ -1,0 +1,9 @@
+{
+  "parent": "caverns_and_chasms:block/template_scatterer",
+  "textures": {
+    "back": "caverns_and_chasms:block/scatterer_rear",
+    "front": "caverns_and_chasms:block/scatterer_front",
+    "side": "caverns_and_chasms:block/scatterer_side",
+    "top": "caverns_and_chasms:block/scatterer_top"
+  }
+}

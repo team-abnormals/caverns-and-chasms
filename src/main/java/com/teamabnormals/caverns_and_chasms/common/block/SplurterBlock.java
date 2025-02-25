@@ -10,13 +10,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.VanillaInventoryCodeHooks;
 import org.jetbrains.annotations.NotNull;
@@ -27,12 +24,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class SplurterBlock extends DispenserBlock {
+public class SplurterBlock extends ScattererBlock {
 	private static final DispenseItemBehavior DISPENSE_BEHAVIOUR = new SplurterDispenseItemBehavior();
 
 	public SplurterBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TRIGGERED, false));
 	}
 
 	protected DispenseItemBehavior getDispenseMethod(ItemStack p_52947_) {
@@ -43,17 +39,6 @@ public class SplurterBlock extends DispenserBlock {
 		return new SplurterBlockEntity(pos, state);
 	}
 
-	@Override
-	public void neighborChanged(BlockState p_52700_, Level p_52701_, BlockPos p_52702_, Block p_52703_, BlockPos p_52704_, boolean p_52705_) {
-		boolean flag = p_52701_.hasNeighborSignal(p_52702_) || p_52701_.hasNeighborSignal(p_52702_.above());
-		boolean flag1 = p_52700_.getValue(TRIGGERED);
-		if (flag && !flag1) {
-			p_52701_.scheduleTick(p_52702_, this, 4);
-			p_52701_.setBlock(p_52702_, p_52700_.setValue(TRIGGERED, true), 3);
-		} else if (!flag && flag1) {
-			p_52701_.setBlock(p_52702_, p_52700_.setValue(TRIGGERED, false), 3);
-		}
-	}
 
 	protected void dispenseFrom(ServerLevel p_52944_, BlockPos p_52945_) {
 		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(p_52944_, p_52945_);
@@ -131,10 +116,5 @@ public class SplurterBlock extends DispenserBlock {
 			stack.shrink(insertedAmount - remainder.getCount());
 		}
 		return stack;
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(TRIGGERED, FACING);
 	}
 }

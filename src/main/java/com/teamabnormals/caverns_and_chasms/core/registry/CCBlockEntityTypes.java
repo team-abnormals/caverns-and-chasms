@@ -24,5 +24,6 @@ public class CCBlockEntityTypes {
 	public static final RegistryObject<BlockEntityType<DimmerBlockEntity>> DIMMER = HELPER.createBlockEntity("dimmer", DimmerBlockEntity::new, () -> Set.of(CCBlocks.DIMMER.get(), CCBlocks.WALL_DIMMER.get()));
 	public static final RegistryObject<BlockEntityType<HoopBlockEntity>> HOOP = HELPER.createBlockEntity("hoop", HoopBlockEntity::new, () -> Set.of(CCBlocks.HOOP.get()));
 	public static final RegistryObject<BlockEntityType<SplurterBlockEntity>> SPLURTER = HELPER.createBlockEntity("splurter", SplurterBlockEntity::new, () -> Set.of(CCBlocks.SPLURTER.get()));
+	public static final RegistryObject<BlockEntityType<ScattererBlockEntity>> SCATTERER = HELPER.createBlockEntity("scatterer", ScattererBlockEntity::new, () -> Set.of(CCBlocks.SCATTERER.get()));
 	public static final RegistryObject<BlockEntityType<StorageDuctBlockEntity>> STORAGE_DUCT = HELPER.createBlockEntity("storage_duct", StorageDuctBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT.get()));
 }

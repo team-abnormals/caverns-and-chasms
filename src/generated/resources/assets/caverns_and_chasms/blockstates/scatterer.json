@@ -1,0 +1,708 @@
+{
+  "variants": {
+    "facing=down,power=0,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=0,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=1,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=1,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=10,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=10,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=11,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=11,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=12,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=12,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=13,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=13,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=14,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=14,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=15,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=15,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=2,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=2,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=3,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=3,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=4,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=4,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=5,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=5,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=6,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=6,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=7,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=7,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=8,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=8,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=down,power=9,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical",
+      "x": 180
+    },
+    "facing=down,power=9,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on",
+      "x": 180
+    },
+    "facing=east,power=0,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=0,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=1,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=1,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=10,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=10,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=11,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=11,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=12,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=12,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=13,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=13,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=14,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=14,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=15,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=15,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=2,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=2,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=3,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=3,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=4,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=4,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=5,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=5,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=6,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=6,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=7,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=7,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=8,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=8,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=east,power=9,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 90
+    },
+    "facing=east,power=9,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 90
+    },
+    "facing=north,power=0,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=0,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=1,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=1,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=10,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=10,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=11,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=11,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=12,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=12,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=13,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=13,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=14,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=14,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=15,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=15,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=2,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=2,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=3,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=3,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=4,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=4,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=5,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=5,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=6,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=6,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=7,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=7,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=8,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=8,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=north,power=9,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer"
+    },
+    "facing=north,power=9,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on"
+    },
+    "facing=south,power=0,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=0,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=1,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=1,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=10,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=10,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=11,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=11,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=12,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=12,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=13,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=13,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=14,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=14,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=15,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=15,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=2,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=2,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=3,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=3,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=4,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=4,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=5,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=5,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=6,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=6,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=7,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=7,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=8,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=8,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=south,power=9,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 180
+    },
+    "facing=south,power=9,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 180
+    },
+    "facing=up,power=0,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=0,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=1,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=1,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=10,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=10,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=11,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=11,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=12,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=12,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=13,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=13,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=14,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=14,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=15,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=15,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=2,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=2,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=3,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=3,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=4,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=4,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=5,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=5,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=6,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=6,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=7,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=7,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=8,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=8,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=up,power=9,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer_vertical"
+    },
+    "facing=up,power=9,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_vertical_on"
+    },
+    "facing=west,power=0,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=0,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=1,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=1,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=10,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=10,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=11,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=11,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=12,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=12,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=13,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=13,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=14,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=14,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=15,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=15,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=2,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=2,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=3,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=3,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=4,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=4,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=5,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=5,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=6,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=6,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=7,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=7,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=8,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=8,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    },
+    "facing=west,power=9,triggered=false": {
+      "model": "caverns_and_chasms:block/scatterer",
+      "y": 270
+    },
+    "facing=west,power=9,triggered=true": {
+      "model": "caverns_and_chasms:block/scatterer_on",
+      "y": 270
+    }
+  }
+}
