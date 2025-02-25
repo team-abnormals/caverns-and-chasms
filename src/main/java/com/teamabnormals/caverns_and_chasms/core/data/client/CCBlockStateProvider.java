@@ -631,10 +631,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 			builder.part().modelFile(modelOn).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, true);
 
 			for (Direction torchDirection : Plane.HORIZONTAL) {
-				if (torchDirection == Direction.NORTH) {
-					builder.part().modelFile(torch).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, false);
-					builder.part().modelFile(torchOn).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, true);
-				} else {
+				if (torchDirection != Direction.NORTH) {
 					int torchRotation = (int) (rotation + torchDirection.toYRot() + 180) % 360;
 					int value = torchDirection.getOpposite().get2DDataValue();
 					BooleanProperty prop = PipeBlock.PROPERTY_BY_DIRECTION.get(torchDirection);

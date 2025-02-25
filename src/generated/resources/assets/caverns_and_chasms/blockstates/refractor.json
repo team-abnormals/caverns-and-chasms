@@ -20,24 +20,6 @@
     },
     {
       "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch"
-      },
-      "when": {
-        "facing": "north",
-        "powered": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch_on"
-      },
-      "when": {
-        "facing": "north",
-        "powered": "true"
-      }
-    },
-    {
-      "apply": {
         "model": "caverns_and_chasms:block/refractor_torch",
         "y": 90
       },
@@ -115,26 +97,6 @@
     {
       "apply": {
         "model": "caverns_and_chasms:block/refractor_on",
-        "y": 90
-      },
-      "when": {
-        "facing": "east",
-        "powered": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch",
-        "y": 90
-      },
-      "when": {
-        "facing": "east",
-        "powered": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch_on",
         "y": 90
       },
       "when": {
@@ -229,26 +191,6 @@
     {
       "apply": {
         "model": "caverns_and_chasms:block/refractor_torch",
-        "y": 180
-      },
-      "when": {
-        "facing": "south",
-        "powered": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch_on",
-        "y": 180
-      },
-      "when": {
-        "facing": "south",
-        "powered": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch",
         "y": 270
       },
       "when": {
@@ -323,26 +265,6 @@
     {
       "apply": {
         "model": "caverns_and_chasms:block/refractor_on",
-        "y": 270
-      },
-      "when": {
-        "facing": "west",
-        "powered": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch",
-        "y": 270
-      },
-      "when": {
-        "facing": "west",
-        "powered": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "caverns_and_chasms:block/refractor_torch_on",
         "y": 270
       },
       "when": {
