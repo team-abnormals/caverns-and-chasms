@@ -1,21 +1,30 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
+import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctBlock;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
-	private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+	private LazyOptional<IItemHandlerModifiable> ductHandler;
+	private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
 
 	public StorageDuctBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.STORAGE_DUCT.get(), pos, state);
@@ -38,7 +47,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	public int getContainerSize() {
-		return 27;
+		return 9;
 	}
 
 	@Override
@@ -58,6 +67,44 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-		return new StorageDuctMenu(containerId, inventory, this);
+		return new StorageDuctMenu(containerId, inventory, StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos()));
+	}
+
+	@Override
+	public void setBlockState(BlockState state) {
+		super.setBlockState(state);
+		if (this.ductHandler != null) {
+			LazyOptional<?> oldHandler = this.ductHandler;
+			this.ductHandler = null;
+			oldHandler.invalidate();
+		}
+	}
+
+	@Override
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
+			if (this.ductHandler == null)
+				this.ductHandler = LazyOptional.of(this::createHandler);
+			return this.ductHandler.cast();
+		}
+		return super.getCapability(cap, side);
+	}
+
+	private net.minecraftforge.items.IItemHandlerModifiable createHandler() {
+		BlockState state = this.getBlockState();
+		if (!(state.getBlock() instanceof StorageDuctBlock)) {
+			return new InvWrapper(this);
+		}
+		Container inv = StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos());
+		return new InvWrapper(inv == null ? this : inv);
+	}
+
+	@Override
+	public void invalidateCaps() {
+		super.invalidateCaps();
+		if (ductHandler != null) {
+			ductHandler.invalidate();
+			ductHandler = null;
+		}
 	}
 }

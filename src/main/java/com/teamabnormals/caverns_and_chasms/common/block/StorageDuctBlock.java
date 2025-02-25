@@ -1,8 +1,16 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctContainer;
+import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
+import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -21,7 +29,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class StorageDuctBlock extends BaseEntityBlock {
 	public static final DirectionProperty START_FACE = DirectionProperty.create("start_face", Direction.values());
@@ -44,23 +57,83 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		return RenderShape.MODEL;
 	}
 
-	/*
-	public static Container getContainer(ChestBlock p_51512_, BlockState p_51513_, Level p_51514_, BlockPos p_51515_, boolean p_51516_) {
-		return ;
+	@Nullable
+	public static Container getContainer(Level level, BlockPos pos) {
+		List<StorageDuctBlockEntity> list = getConnectedStorageDucts(level, pos);
+		return list.isEmpty() ? null : new StorageDuctContainer<>(list);
 	}
-	*/
+
+	public static List<StorageDuctBlockEntity> getConnectedStorageDucts(Level level, BlockPos pos) {
+		List<StorageDuctBlockEntity> list = Lists.newArrayList();
+		list.add((StorageDuctBlockEntity) level.getBlockEntity(pos));
+
+		for (StorageDuctFace face : StorageDuctFace.values()) {
+			MutableBlockPos mutable = pos.mutable();
+			BlockState blockState = level.getBlockState(mutable);
+			StorageDuctFace face1 = face;
+
+			while (true) {
+				Direction direction = blockState.getValue(face1.getDirectionProperty());
+				mutable.move(direction);
+
+				if (mutable.equals(pos))
+					break;
+
+				blockState = level.getBlockState(mutable);
+
+				if (blockState.getBlock() instanceof StorageDuctBlock) {
+					boolean flag = false;
+
+					for (StorageDuctFace face2 : StorageDuctFace.values()) {
+						Direction direction1 = blockState.getValue(face2.getDirectionProperty());
+						if (direction1 == direction.getOpposite()) {
+							BlockEntity blockEntity = level.getBlockEntity(mutable);
+							if (blockEntity instanceof StorageDuctBlockEntity storageDuct)
+								list.add(storageDuct);
+
+							face1 = face2.getOpposite();
+							flag = true;
+							break;
+						}
+					}
+
+					if (!flag)
+						break;
+				} else {
+					break;
+				}
+			}
+		}
+
+		return list;
+	}
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof StorageDuctBlockEntity storageDuct && canOpen(level, pos, state)) {
+		if (!player.getItemInHand(hand).is(CCBlocks.STORAGE_DUCT.get().asItem()) && blockEntity instanceof StorageDuctBlockEntity storageDuct && canOpen(level, pos, state)) {
 			if (!level.isClientSide) {
-				player.openMenu(storageDuct);
+				getConnectedStorageDucts(level, pos);
+				openMenu((ServerPlayer) player, level, pos);
 				PiglinAi.angerNearbyPiglins(player, true);
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return InteractionResult.PASS;
+		}
+	}
+
+	public static void openMenu(ServerPlayer player, Level level, BlockPos pos) {
+		Container container = getContainer(level, pos);
+		if (container != null) {
+			if (player.containerMenu != player.inventoryMenu)
+				player.closeContainer();
+
+			player.nextContainerCounter();
+			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2COpenStorageDuctMessage(player.containerCounter, container.getContainerSize(), pos));
+			player.containerMenu = new StorageDuctMenu(player.containerCounter, player.getInventory(), container);
+			player.initMenu(player.containerMenu);
+			MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));
 		}
 	}
 
@@ -151,5 +224,24 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(START_FACE, END_FACE, OPEN);
+	}
+
+	public enum StorageDuctFace {
+		START(START_FACE),
+		END(END_FACE);
+
+		private final DirectionProperty directionProperty;
+
+		StorageDuctFace(DirectionProperty directionProperty) {
+			this.directionProperty = directionProperty;
+		}
+
+		public DirectionProperty getDirectionProperty() {
+			return this.directionProperty;
+		}
+
+		public StorageDuctFace getOpposite() {
+			return this == START ? END : START;
+		}
 	}
 }

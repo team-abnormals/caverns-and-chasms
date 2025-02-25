@@ -21,7 +21,6 @@ public class CCMenuTypes {
 
 	public static void registerScreenFactories() {
 		MenuScreens.register(TOOLBOX.get(), ToolboxScreen::new);
-		MenuScreens.register(STORAGE_DUCT.get(), StorageDuctScreen::new);
 		MenuScreens.register(DISMANTLING.get(), DismantlingScreen::new);
 		MenuScreens.register(BEJEWELED_ANVIL.get(), BejeweledAnvilScreen::new);
 		MenuScreens.register(ATONING.get(), AtoningScreen::new);
