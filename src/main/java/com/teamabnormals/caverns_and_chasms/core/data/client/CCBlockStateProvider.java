@@ -609,7 +609,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 			for (int i = 1; i < 15; i++) {
 				builder.part().modelFile(this.models().getExistingFile(CavernsAndChasms.location("block/resistor_button_" + i))).rotationY(rotation).addModel()
-						.condition(HorizontalDirectionalBlock.FACING, direction).condition(ResistorBlock.POWER, 15 - i);
+						.condition(HorizontalDirectionalBlock.FACING, direction).condition(ResistorBlock.RESISTANCE, i);
 			}
 		}
 
