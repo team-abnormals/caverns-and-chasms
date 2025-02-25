@@ -1,0 +1,7 @@
+{
+	"parent": "caverns_and_chasms:block/refractor",
+	"textures": {
+		"particle": "caverns_and_chasms:block/refractor_left_on",
+		"top": "caverns_and_chasms:block/refractor_left_on"
+	}
+}

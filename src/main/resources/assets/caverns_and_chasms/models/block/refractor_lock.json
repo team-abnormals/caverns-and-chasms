@@ -1,0 +1,21 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "block/bedrock",
+		"texture": "block/bedrock"
+	},
+	"elements": [
+		{
+			"from": [4, 2, 1],
+			"to": [12, 4, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, -5]},
+			"faces": {
+				"north": {"uv": [4, 7, 12, 9], "texture": "#texture"},
+				"east": {"uv": [6, 7, 8, 9], "texture": "#texture"},
+				"south": {"uv": [4, 7, 12, 9], "texture": "#texture"},
+				"west": {"uv": [6, 7, 8, 9], "texture": "#texture"},
+				"up": {"uv": [7, 4, 9, 12], "rotation": 90, "texture": "#texture"}
+			}
+		}
+	]
+}

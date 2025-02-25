@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
+import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -14,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
@@ -604,8 +605,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block);
 		for (Direction direction : Plane.HORIZONTAL) {
 			int rotation = (int) (direction.toYRot() + 180) % 360;
-			builder.part().modelFile(model).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, false);
-			builder.part().modelFile(modelOn).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, true);
+			builder.part().modelFile(model).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(ResistorBlock.POWERED, false);
+			builder.part().modelFile(modelOn).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(ResistorBlock.POWERED, true);
 
 			for (int i = 1; i < 15; i++) {
 				builder.part().modelFile(this.models().getExistingFile(CavernsAndChasms.location("block/resistor_button_" + i))).rotationY(rotation).addModel()
@@ -619,30 +620,70 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void refractorBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
 
-		ExistingModelFile model = this.models().getExistingFile(CavernsAndChasms.location("block/refractor"));
-		ExistingModelFile modelOn = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_on"));
-		ExistingModelFile torch = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_torch"));
-		ExistingModelFile torchOn = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_torch_on"));
 
 		MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block);
 		for (Direction direction : Plane.HORIZONTAL) {
 			int rotation = (int) (direction.toYRot() + 180) % 360;
-			builder.part().modelFile(model).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, false);
-			builder.part().modelFile(modelOn).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, true);
+
+			for (RefractorState state : RefractorState.values()) {
+				ExistingModelFile model = this.models().getExistingFile(CavernsAndChasms.location("block/refractor" + getStringForState(state)));
+				builder.part().modelFile(model).rotationY(rotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(RefractorBlock.POWERED, state);
+			}
 
 			for (Direction torchDirection : Plane.HORIZONTAL) {
 				if (torchDirection != Direction.NORTH) {
-					int torchRotation = (int) (rotation + torchDirection.toYRot() + 180) % 360;
-					int value = torchDirection.getOpposite().get2DDataValue();
-					BooleanProperty prop = PipeBlock.PROPERTY_BY_DIRECTION.get(torchDirection);
-					Integer[][] list = new Integer[][]{{0, 2, 3}, {0, 1, 3}, {0, 1, 2}};
-					builder.part().modelFile(torch).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(prop, true).condition(RefractorBlock.OUTPUT, list[value - 1]);
-					builder.part().modelFile(torchOn).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(prop, true).condition(RefractorBlock.OUTPUT, value);
+					for (int i = 0; i < 4; i++) {
+						int torchRotation = (int) (rotation + torchDirection.toYRot() + 180) % 360;
+						IntegerProperty intProp = getPropertyForDirection(torchDirection);
+						if (i == 0) {
+							ExistingModelFile lock = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_lock"));
+							builder.part().modelFile(lock).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(intProp, i).condition(RefractorBlock.POWERED, getStatesForDirection(torchDirection));
+						} else {
+							String weight = getStringForWeight(i);
+							ExistingModelFile torch = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_torch" + weight));
+							ExistingModelFile torchOn = this.models().getExistingFile(CavernsAndChasms.location("block/refractor_torch" + weight + "_on"));
+
+							builder.part().modelFile(torch).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(intProp, i).condition(RefractorBlock.POWERED, getStatesForDirection(torchDirection));
+							builder.part().modelFile(torchOn).rotationY(torchRotation).addModel().condition(HorizontalDirectionalBlock.FACING, direction).condition(intProp, i).condition(RefractorBlock.POWERED, getUnpoweredState(torchDirection));
+						}
+					}
 				}
 			}
 		}
 
 		this.generatedItem(block, "item");
+	}
+
+	public static String getStringForState(RefractorState state) {
+		return state == RefractorState.OFF ? "" : ((state == RefractorState.NONE ? "" : "_" + state.getSerializedName()) + "_on");
+	}
+
+	public static String getStringForWeight(int weight) {
+		return weight == 1 ? "_left" : weight == 2 ? "_center" : weight == 3 ? "_right" : "";
+	}
+
+	public static IntegerProperty getPropertyForDirection(Direction direction) {
+		return switch (direction) {
+			case EAST -> RefractorBlock.LEFT;
+			default -> RefractorBlock.CENTER;
+			case WEST -> RefractorBlock.RIGHT;
+		};
+	}
+
+	public static RefractorState[] getStatesForDirection(Direction direction) {
+		return switch (direction) {
+			case EAST -> new RefractorState[]{RefractorState.OFF, RefractorState.NONE, RefractorState.CENTER, RefractorState.RIGHT};
+			default -> new RefractorState[]{RefractorState.OFF, RefractorState.NONE, RefractorState.LEFT, RefractorState.RIGHT};
+			case WEST -> new RefractorState[]{RefractorState.OFF, RefractorState.NONE, RefractorState.LEFT, RefractorState.CENTER};
+		};
+	}
+
+	public static RefractorState getUnpoweredState(Direction direction) {
+		return switch (direction) {
+			case EAST -> RefractorState.LEFT;
+			default -> RefractorState.CENTER;
+			case WEST -> RefractorState.RIGHT;
+		};
 	}
 
 	public void randomRotationBlock(RegistryObject<Block> block) {
