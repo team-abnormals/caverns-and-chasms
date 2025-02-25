@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"particle": "caverns_and_chasms:block/storage_duct_side",
+		"corner_top_left": "caverns_and_chasms:block/storage_duct_corner_top_left"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#corner_top_left"}
+			}
+		}
+	],
+	"display": {}
+}
