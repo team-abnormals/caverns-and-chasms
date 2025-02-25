@@ -29,8 +29,6 @@ public class PeeperHeadModel extends SkullModel {
 	@Override
 	public void setupAnim(float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(ageInTicks, netHeadYaw, headPitch);
-		if (ageInTicks < 0) {
-			this.head.yRot = ageInTicks;
-		}
+		this.head.yRot = ageInTicks;
 	}
 }
