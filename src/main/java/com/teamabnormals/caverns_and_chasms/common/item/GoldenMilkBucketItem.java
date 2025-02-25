@@ -15,10 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 public class GoldenMilkBucketItem extends Item {
 	public GoldenMilkBucketItem(Item.Properties builder) {
 		super(builder);
