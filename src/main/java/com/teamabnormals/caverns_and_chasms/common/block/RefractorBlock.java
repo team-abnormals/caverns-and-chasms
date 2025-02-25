@@ -7,6 +7,9 @@ import net.minecraft.core.Direction.Plane;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -15,11 +18,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.ticks.TickPriority;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class RefractorBlock extends DiodeBlock {
 	public static final IntegerProperty LEFT = IntegerProperty.create("left", 0, 3);
@@ -41,6 +48,61 @@ public class RefractorBlock extends DiodeBlock {
 	@Override
 	protected int getDelay(BlockState state) {
 		return 2;
+	}
+
+	@Override
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+		if (!player.getAbilities().mayBuild) {
+			return InteractionResult.PASS;
+		} else {
+			Optional<IntegerProperty> prop = getHitProperty(getRelativeCoordinates(result, state.getValue(FACING)));
+			if (prop.isPresent()) {
+				level.setBlock(pos, state.cycle(prop.get()), 3);
+				return InteractionResult.sidedSuccess(level.isClientSide);
+			} else {
+				return InteractionResult.PASS;
+			}
+		}
+	}
+
+	private static Optional<Vec2> getRelativeCoordinates(BlockHitResult result, Direction facing) {
+		Direction direction = result.getDirection();
+		if (direction != Direction.UP) {
+			return Optional.empty();
+		} else {
+			BlockPos pos = result.getBlockPos();
+			Vec3 vec3 = result.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
+			double x = vec3.x();
+			double z = vec3.z();
+			return switch (facing) {
+				case NORTH -> Optional.of(new Vec2((float) (1.0D - x), (float) z));
+				case SOUTH -> Optional.of(new Vec2((float) x, (float) (1.0D - z)));
+				case WEST -> Optional.of(new Vec2((float) z, (float) x));
+				case EAST -> Optional.of(new Vec2((float) (1.0D - z), (float) (1.0D - x)));
+				case DOWN, UP -> Optional.empty();
+			};
+		}
+	}
+
+	private static Optional<IntegerProperty> getHitProperty(Optional<Vec2> optional) {
+		if (optional.isPresent()) {
+			Vec2 vec2 = optional.get();
+			float x = vec2.x;
+			float y = vec2.y;
+
+			if (x >= div(12) && y >= div(4) && y <= div(12))
+				return Optional.of(RIGHT);
+			if (x >= 0 && x <= div(4) && y >= div(4) && y <= div(12))
+				return Optional.of(LEFT);
+			if (x >= div(4) && x <= div(12) && y >= div(12))
+				return Optional.of(CENTER);
+		}
+
+		return Optional.empty();
+	}
+
+	private static float div(int pos) {
+		return pos / 16.0F;
 	}
 
 	@Override

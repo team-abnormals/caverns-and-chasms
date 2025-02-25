@@ -620,7 +620,6 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void refractorBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
 
-
 		MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block);
 		for (Direction direction : Plane.HORIZONTAL) {
 			int rotation = (int) (direction.toYRot() + 180) % 360;
