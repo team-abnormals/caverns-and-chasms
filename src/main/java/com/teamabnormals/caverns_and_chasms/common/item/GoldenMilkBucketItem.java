@@ -10,13 +10,14 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GoldenMilkBucketItem extends Item {
 	public GoldenMilkBucketItem(Item.Properties builder) {
@@ -27,9 +28,15 @@ public class GoldenMilkBucketItem extends Item {
 	public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
 		if (!worldIn.isClientSide) {
 			ImmutableList<MobEffectInstance> effects = ImmutableList.copyOf(entityLiving.getActiveEffects());
-			for (int i = 0; i < effects.size(); ++i) {
-				entityLiving.removeEffect(effects.get(i).getEffect());
-			}
+
+			effects.forEach(instance -> {
+				for (ItemStack cureStack : instance.getCurativeItems()) {
+					if (cureStack.is(this) || cureStack.is(Items.MILK_BUCKET)) {
+						entityLiving.removeEffect(instance.getEffect());
+						return;
+					}
+				}
+			});
 		}
 
 		int level = stack.getOrCreateTag().getInt("FluidLevel");
