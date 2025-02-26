@@ -179,15 +179,15 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	public static void instantEffectParticlesAndSound(Level level, BlockPos pos, int color) {
 		Vec3 vec3 = Vec3.atBottomCenterOf(pos);
 
-		for(int i = 0; i < 8; ++i) {
+		for (int i = 0; i < 8; ++i) {
 			level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), vec3.x, vec3.y, vec3.z, level.random.nextGaussian() * 0.15D, level.random.nextDouble() * 0.2D, level.random.nextGaussian() * 0.15D);
 		}
 
-		float f3 = (float)(color >> 16 & 255) / 255.0F;
-		float f4 = (float)(color >> 8 & 255) / 255.0F;
-		float f6 = (float)(color >> 0 & 255) / 255.0F;
+		float f3 = (float) (color >> 16 & 255) / 255.0F;
+		float f4 = (float) (color >> 8 & 255) / 255.0F;
+		float f6 = (float) (color >> 0 & 255) / 255.0F;
 
-		for(int k2 = 0; k2 < 100; ++k2) {
+		for (int k2 = 0; k2 < 100; ++k2) {
 			double d13 = level.random.nextDouble() * 4.0D;
 			double d19 = level.random.nextDouble() * Math.PI * 2.0D;
 			double d25 = Math.cos(d19) * d13;
@@ -197,7 +197,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 			if (particle1 != null) {
 				float f2 = 0.75F + level.random.nextFloat() * 0.25F;
 				particle1.setColor(f3 * f2, f4 * f2, f6 * f2);
-				particle1.setPower((float)d13);
+				particle1.setPower((float) d13);
 			}
 		}
 		level.playSound(null, pos, CCSoundEvents.TETHER_POTION_EQUIP.get(), SoundSource.NEUTRAL, 1.0F, level.random.nextFloat() * 0.1F + 0.9F);

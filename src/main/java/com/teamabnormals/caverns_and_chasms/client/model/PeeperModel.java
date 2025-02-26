@@ -65,7 +65,7 @@ public class PeeperModel<T extends Peeper> extends HierarchicalModel<T> {
 		this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 
 		Entity target = Minecraft.getInstance().getCameraEntity();
-		Cat  cat = toAvoid(peeper, Cat.class);
+		Cat cat = toAvoid(peeper, Cat.class);
 		Ocelot ocelot = toAvoid(peeper, Ocelot.class);
 		LivingEntity scaredOf = null;
 
