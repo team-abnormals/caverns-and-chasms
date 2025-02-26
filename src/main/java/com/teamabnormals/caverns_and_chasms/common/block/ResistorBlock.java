@@ -27,9 +27,19 @@ public class ResistorBlock extends DiodeBlock {
 		if (!player.getAbilities().mayBuild) {
 			return InteractionResult.PASS;
 		} else {
-			level.setBlock(pos, state.cycle(RESISTANCE), 3);
+			level.setBlock(pos, cycleOrReverse(state, player, RESISTANCE, 1, 14), 3);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
+	}
+
+	public static BlockState cycleOrReverse(BlockState state, Player player, IntegerProperty property, int min, int max) {
+		BlockState newState = state.cycle(property);
+		if (player.isSecondaryUseActive()) {
+			int val = state.getValue(property) - 1;
+			if (val < min) val = max;
+			newState = state.setValue(property, val);
+		}
+		return newState;
 	}
 
 	@Override
