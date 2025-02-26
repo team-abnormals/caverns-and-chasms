@@ -12,8 +12,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -61,6 +63,19 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
+	public boolean stillValid(Player player) {
+		Level level = this.getLevel();
+		BlockPos blockpos = this.getBlockPos();
+		if (level == null) {
+			return false;
+		} else if (level.getBlockEntity(blockpos) != this) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
 	protected Component getDefaultName() {
 		return Component.translatable("container." + CavernsAndChasms.MOD_ID + ".storage_duct");
 	}
@@ -73,11 +88,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 	@Override
 	public void setBlockState(BlockState state) {
 		super.setBlockState(state);
-		if (this.ductHandler != null) {
-			LazyOptional<?> oldHandler = this.ductHandler;
-			this.ductHandler = null;
-			oldHandler.invalidate();
-		}
+		this.resetHandler();
 	}
 
 	@Override
@@ -99,12 +110,16 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 		return new InvWrapper(inv == null ? this : inv);
 	}
 
-	@Override
-	public void invalidateCaps() {
-		super.invalidateCaps();
+	public void resetHandler() {
 		if (ductHandler != null) {
 			ductHandler.invalidate();
 			ductHandler = null;
 		}
+	}
+
+	@Override
+	public void invalidateCaps() {
+		super.invalidateCaps();
+		this.resetHandler();
 	}
 }

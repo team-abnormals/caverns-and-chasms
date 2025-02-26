@@ -59,17 +59,21 @@ public class StorageDuctBlock extends BaseEntityBlock {
 
 	@Nullable
 	public static Container getContainer(Level level, BlockPos pos) {
-		List<StorageDuctBlockEntity> list = getConnectedStorageDucts(level, pos);
+		List<StorageDuctBlockEntity> list = getConnectedStorageDucts(level, pos, level.getBlockState(pos));
 		return list.isEmpty() ? null : new StorageDuctContainer<>(list);
 	}
 
-	public static List<StorageDuctBlockEntity> getConnectedStorageDucts(Level level, BlockPos pos) {
+	public static List<StorageDuctBlockEntity> getConnectedStorageDucts(Level level, BlockPos pos, BlockState state) {
 		List<StorageDuctBlockEntity> list = Lists.newArrayList();
-		list.add((StorageDuctBlockEntity) level.getBlockEntity(pos));
 
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if (blockEntity instanceof StorageDuctBlockEntity storageDuct)
+			list.add(storageDuct);
+
+		label:
 		for (StorageDuctFace face : StorageDuctFace.values()) {
 			MutableBlockPos mutable = pos.mutable();
-			BlockState blockState = level.getBlockState(mutable);
+			BlockState blockState = state;
 			StorageDuctFace face1 = face;
 
 			while (true) {
@@ -77,7 +81,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 				mutable.move(direction);
 
 				if (mutable.equals(pos))
-					break;
+					break label;
 
 				blockState = level.getBlockState(mutable);
 
@@ -87,9 +91,9 @@ public class StorageDuctBlock extends BaseEntityBlock {
 					for (StorageDuctFace face2 : StorageDuctFace.values()) {
 						Direction direction1 = blockState.getValue(face2.getDirectionProperty());
 						if (direction1 == direction.getOpposite()) {
-							BlockEntity blockEntity = level.getBlockEntity(mutable);
-							if (blockEntity instanceof StorageDuctBlockEntity storageDuct)
-								list.add(storageDuct);
+							BlockEntity blockEntity1 = level.getBlockEntity(mutable);
+							if (blockEntity1 instanceof StorageDuctBlockEntity storageDuct1)
+								list.add(storageDuct1);
 
 							face1 = face2.getOpposite();
 							flag = true;
@@ -113,7 +117,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (!player.getItemInHand(hand).is(CCBlocks.STORAGE_DUCT.get().asItem()) && blockEntity instanceof StorageDuctBlockEntity storageDuct && canOpen(level, pos, state)) {
 			if (!level.isClientSide) {
-				getConnectedStorageDucts(level, pos);
+				getConnectedStorageDucts(level, pos, state);
 				openMenu((ServerPlayer) player, level, pos);
 				PiglinAi.angerNearbyPiglins(player, true);
 			}
@@ -146,7 +150,20 @@ public class StorageDuctBlock extends BaseEntityBlock {
 				level.updateNeighbourForOutputSignal(pos, this);
 			}
 
+			for (StorageDuctBlockEntity storageDuct : getConnectedStorageDucts(level, pos, state))
+				storageDuct.resetHandler();
+
 			super.onRemove(state, level, pos, newState, isMoving);
+		}
+	}
+
+	@Override
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+		if (!state.is(oldState.getBlock())) {
+			for (StorageDuctBlockEntity storageDuct : getConnectedStorageDucts(level, pos, state))
+				storageDuct.resetHandler();
+
+			super.onPlace(state, level, pos, oldState, isMoving);
 		}
 	}
 

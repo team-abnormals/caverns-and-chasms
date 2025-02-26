@@ -92,7 +92,7 @@ public class StorageDuctScreen extends AbstractContainerScreen<StorageDuctMenu> 
 
 	@Override
 	public void resize(Minecraft p_98595_, int p_98596_, int p_98597_) {
-		int i = this.menu.getRowIndexForScroll(this.scrollOffset);
+		int i = this.menu.scrollRow;
 		this.init(p_98595_, p_98596_, p_98597_);
 		this.scrollOffset = this.menu.getScrollForRowIndex(i);
 		this.menu.scrollTo(this.scrollOffset);

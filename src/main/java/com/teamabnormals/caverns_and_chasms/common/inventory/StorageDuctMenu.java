@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
-import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -13,7 +12,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class StorageDuctMenu extends AbstractContainerMenu {
 	private final Container container;
-	private final int rows;
+	private final int containerRows;
+	public int scrollRow;
 
 	public StorageDuctMenu(int id, Inventory inventory) {
 		this(id, inventory, new SimpleContainer(54));
@@ -22,12 +22,12 @@ public class StorageDuctMenu extends AbstractContainerMenu {
 	public StorageDuctMenu(int id, Inventory inventory, Container container) {
 		super(CCMenuTypes.STORAGE_DUCT.get(), id);
 		this.container = container;
-		this.rows = container.getContainerSize() / 9;
+		this.containerRows = container.getContainerSize() / 9;
 		container.startOpen(inventory.player);
 
-		for (int i = 0; i < this.rows; ++i) {
+		for (int i = 0; i < this.containerRows; ++i) {
 			for (int j = 0; j < 9; ++j) {
-				this.addSlot(new Slot(container, i * 9 + j, 8 + j * 18, 18 + i * 18));
+				this.addSlot(new StorageDuctSlot(container, this, i * 9 + j, 8 + j * 18, 18 + i * 18));
 			}
 		}
 
@@ -42,32 +42,56 @@ public class StorageDuctMenu extends AbstractContainerMenu {
 		}
 	}
 
+	private int calculateRowCount() {
+		return this.containerRows - 6;
+	}
+
 	public int getRowIndexForScroll(float scroll) {
-		return Math.max((int)(scroll * this.rows + 0.5D), 0);
+		return Math.max((int)(scroll * this.calculateRowCount() + 0.5D), 0);
 	}
 
 	public float getScrollForRowIndex(int scroll) {
-		return Mth.clamp((float)scroll / this.rows, 0.0F, 1.0F);
+		return Mth.clamp((float)scroll / this.calculateRowCount(), 0.0F, 1.0F);
 	}
 
 	public float subtractInputFromScroll(float scroll, double p_260358_) {
-		return Mth.clamp(scroll - (float)(p_260358_ / this.rows), 0.0F, 1.0F);
+		return Mth.clamp(scroll - (float)(p_260358_ / this.calculateRowCount()), 0.0F, 1.0F);
 	}
 
 	public void scrollTo(float scroll) {
-		int i = this.getRowIndexForScroll(scroll);
-
-		// Do stuff here.
+		this.scrollRow = this.getRowIndexForScroll(scroll);
+		for (Slot slot : this.slots)
+			if (slot instanceof StorageDuctSlot storageDuctSlot)
+				storageDuctSlot.y = storageDuctSlot.initialY - this.scrollRow * 18;
 	}
 
 	public boolean canScroll() {
-		return this.rows > 6;
+		return this.containerRows > 6;
 	}
 
-	// TODO: This.
 	@Override
-	public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
-		return null;
+	public ItemStack quickMoveStack(Player player, int index) {
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = this.slots.get(index);
+		if (slot.hasItem()) {
+			ItemStack itemstack1 = slot.getItem();
+			itemstack = itemstack1.copy();
+			if (index < this.containerRows * 9) {
+				if (!this.moveItemStackTo(itemstack1, this.containerRows * 9, this.slots.size(), true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!this.moveItemStackTo(itemstack1, 0, this.containerRows * 9, false)) {
+				return ItemStack.EMPTY;
+			}
+
+			if (itemstack1.isEmpty()) {
+				slot.setByPlayer(ItemStack.EMPTY);
+			} else {
+				slot.setChanged();
+			}
+		}
+
+		return itemstack;
 	}
 
 	@Override

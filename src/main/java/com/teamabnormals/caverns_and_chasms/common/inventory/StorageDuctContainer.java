@@ -1,8 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
 
@@ -59,7 +61,8 @@ public class StorageDuctContainer<C extends Container> implements Container {
 
 	@Override
 	public boolean stillValid(Player player) {
-		return this.containers.stream().allMatch(container -> container.stillValid(player));
+		BlockPos blockpos = ((BlockEntity) this.containers.get(0)).getBlockPos();
+		return player.distanceToSqr(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) <= (double)(8 * 8) && this.containers.stream().allMatch(container -> container.stillValid(player));
 	}
 
 	@Override
