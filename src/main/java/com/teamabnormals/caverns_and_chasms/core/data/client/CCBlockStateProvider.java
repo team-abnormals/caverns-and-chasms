@@ -536,7 +536,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void storageDuctBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
 		this.getVariantBuilder(block)
-				.forAllStatesExcept(state -> {
+				.forAllStates(state -> {
 					Direction startFace = state.getValue(StorageDuctBlock.START_FACE);
 					Direction endFace = state.getValue(StorageDuctBlock.END_FACE);
 
@@ -570,7 +570,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_invalid")))
 								.build();
 					}
-				}, StorageDuctBlock.OPEN);
+				});
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_up_down")));
 	}
 

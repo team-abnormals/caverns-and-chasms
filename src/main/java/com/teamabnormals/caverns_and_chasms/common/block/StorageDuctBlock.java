@@ -39,11 +39,10 @@ import java.util.List;
 public class StorageDuctBlock extends BaseEntityBlock {
 	public static final DirectionProperty START_FACE = DirectionProperty.create("start_face", Direction.values());
 	public static final DirectionProperty END_FACE = DirectionProperty.create("end_face", Direction.values());
-	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
 	public StorageDuctBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(START_FACE, Direction.UP).setValue(END_FACE, Direction.DOWN).setValue(OPEN, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(START_FACE, Direction.UP).setValue(END_FACE, Direction.DOWN));
 	}
 
 	@Nullable
@@ -240,7 +239,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(START_FACE, END_FACE, OPEN);
+		builder.add(START_FACE, END_FACE);
 	}
 
 	public enum StorageDuctFace {
