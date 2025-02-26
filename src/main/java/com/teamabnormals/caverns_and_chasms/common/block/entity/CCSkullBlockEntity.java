@@ -36,7 +36,7 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 			if (player != null) {
 				double xDist = player.getX() - x;
 				double zDist = player.getZ() - z;
-				blockEntity.rot = (float) (Mth.atan2(zDist, xDist) + ((float) Math.PI / 2.0F)) - ((float) Math.PI * 2.0F);
+				blockEntity.rot = (float) (Mth.atan2(zDist, xDist) + ((float) Math.PI / 2.0F)) - ((float) Math.PI * 2.0F) - Mth.PI;
 			}
 		} else {
 			blockEntity.rotateToNormalPosition(state);
@@ -47,7 +47,7 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 		boolean flag = state.getBlock() instanceof WallSkullBlock;
 		Direction direction = flag ? state.getValue(WallSkullBlock.FACING) : null;
 		int i = flag ? RotationSegment.convertToSegment(direction.getOpposite()) : state.getValue(SkullBlock.ROTATION);
-		this.rot = RotationSegment.convertToDegrees(i) * Mth.DEG_TO_RAD;
+		this.rot = RotationSegment.convertToDegrees(i) * Mth.DEG_TO_RAD - Mth.PI;
 	}
 
 	@Override
