@@ -39,9 +39,7 @@ public class RefractorBlock extends DiodeBlock {
 		this.registerDefaultState(this.stateDefinition.any()
 				.setValue(FACING, Direction.NORTH)
 				.setValue(POWERED, RefractorState.OFF)
-				.setValue(LEFT, 2)
-				.setValue(RIGHT, 2)
-				.setValue(CENTER, 2)
+				.setValue(LEFT, 2).setValue(CENTER, 2).setValue(RIGHT, 2)
 		);
 	}
 
@@ -57,7 +55,7 @@ public class RefractorBlock extends DiodeBlock {
 		} else {
 			Optional<IntegerProperty> prop = getHitProperty(getRelativeCoordinates(result, state.getValue(FACING)));
 			if (prop.isPresent() && state.getValue(POWERED) != getStateFromProperty(prop.get())) {
-				level.setBlock(pos, state.cycle(prop.get()), 3);
+				level.setBlock(pos, ResistorBlock.cycleOrReverse(state, player, prop.get(), 0, 3), 3);
 				return InteractionResult.sidedSuccess(level.isClientSide);
 			} else {
 				return InteractionResult.PASS;
