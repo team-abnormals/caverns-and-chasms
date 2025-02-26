@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Direction.Plane;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -161,17 +160,9 @@ public class RefractorBlock extends DiodeBlock {
 	public RefractorState getRandomOutput(BlockState state, RandomSource random) {
 		ArrayList<RefractorState> states = Lists.newArrayList();
 
-		for (int i = 0; i < state.getValue(LEFT); i++) {
-			states.add(RefractorState.LEFT);
-		}
-
-		for (int i = 0; i < state.getValue(CENTER); i++) {
-			states.add(RefractorState.CENTER);
-		}
-
-		for (int i = 0; i < state.getValue(RIGHT); i++) {
-			states.add(RefractorState.RIGHT);
-		}
+		for (int i = 0; i < state.getValue(LEFT); i++) states.add(RefractorState.LEFT);
+		for (int i = 0; i < state.getValue(CENTER); i++) states.add(RefractorState.CENTER);
+		for (int i = 0; i < state.getValue(RIGHT); i++) states.add(RefractorState.RIGHT);
 
 		if (states.isEmpty()) {
 			return RefractorState.NONE;
@@ -182,14 +173,17 @@ public class RefractorBlock extends DiodeBlock {
 
 	@Override
 	protected void updateNeighborsInFront(Level level, BlockPos pos, BlockState state) {
-		for (Direction direction : Plane.HORIZONTAL) {
-			if (direction != state.getValue(FACING)) {
-				BlockPos offsetPos = pos.relative(direction);
-				if (ForgeEventFactory.onNeighborNotify(level, pos, level.getBlockState(pos), EnumSet.of(direction), false).isCanceled())
-					return;
-				level.neighborChanged(offsetPos, this, pos);
-				level.updateNeighborsAtExceptFromFacing(offsetPos, this, state.getValue(FACING));
-			}
+		Direction dir = state.getValue(FACING);
+		this.updateNeighborInDirection(level, pos, dir, dir.getClockWise(), dir.getCounterClockWise());
+	}
+
+	public void updateNeighborInDirection(Level level, BlockPos pos, Direction... directions) {
+		for (Direction direction : directions) {
+			BlockPos blockpos = pos.relative(direction.getOpposite());
+			if (ForgeEventFactory.onNeighborNotify(level, pos, level.getBlockState(pos), EnumSet.of(direction.getOpposite()), false).isCanceled())
+				return;
+			level.neighborChanged(blockpos, this, pos);
+			level.updateNeighborsAtExceptFromFacing(blockpos, this, direction);
 		}
 	}
 
