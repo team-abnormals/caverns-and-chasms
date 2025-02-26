@@ -2,11 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.DimmerBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

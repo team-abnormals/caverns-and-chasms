@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;

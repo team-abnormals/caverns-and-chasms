@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class ScattererBlock extends DispenserBlock {
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
+
 	public ScattererBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(POWER, 0).setValue(FACING, Direction.NORTH).setValue(TRIGGERED, false));
@@ -72,6 +73,7 @@ public class ScattererBlock extends DispenserBlock {
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		return state.getValue(POWER);
 	}
+
 	@Override
 	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;

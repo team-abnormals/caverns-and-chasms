@@ -28,16 +28,16 @@ public class TrailPotionItem extends TetherPotionItem {
 	public static void makeAreaOfEffectCloud(ItemStack p_37538_, Potion p_37539_, Entity entity, Level level, boolean shatter) {
 		AreaEffectCloud areaeffectcloud = new AreaEffectCloud(level, entity.getX(), entity.getY(), entity.getZ());
 		if (entity instanceof LivingEntity) {
-			areaeffectcloud.setOwner((LivingEntity)entity);
+			areaeffectcloud.setOwner((LivingEntity) entity);
 		}
 
 		areaeffectcloud.setRadius(shatter ? 3F : 1F);
 		areaeffectcloud.setRadiusOnUse(-0.25F);
 		areaeffectcloud.setWaitTime(5);
-		areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float)(areaeffectcloud.getDuration() / (shatter ? 1 : 2)));
+		areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) (areaeffectcloud.getDuration() / (shatter ? 1 : 2)));
 		areaeffectcloud.setPotion(p_37539_);
 
-		for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(p_37538_)) {
+		for (MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(p_37538_)) {
 			areaeffectcloud.addEffect(new MobEffectInstance(mobeffectinstance));
 		}
 

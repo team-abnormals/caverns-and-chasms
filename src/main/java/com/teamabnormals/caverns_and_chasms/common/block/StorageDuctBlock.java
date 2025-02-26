@@ -146,7 +146,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity blockentity = level.getBlockEntity(pos);
 			if (blockentity instanceof Container) {
-				Containers.dropContents(level, pos, (Container)blockentity);
+				Containers.dropContents(level, pos, (Container) blockentity);
 				level.updateNeighbourForOutputSignal(pos, this);
 			}
 
