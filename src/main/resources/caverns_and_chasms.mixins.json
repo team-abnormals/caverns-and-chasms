@@ -18,6 +18,7 @@
     "BundleItemMixin",
     "CarvedPumpkinBlockMixin",
     "CreeperMixin",
+	"DefaultDispenseItemBehaviorMixin",
     "EnchantmentHelperMixin",
     "ExplosionMixin",
     "FallingBlockEntityMixin",
