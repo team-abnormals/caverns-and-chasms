@@ -292,7 +292,7 @@ public class CavernsAndChasms {
 	private void setupMessages() {
 		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle);
 		CHANNEL.registerMessage(1, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle);
-		CHANNEL.registerMessage(1, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle);
+		CHANNEL.registerMessage(2, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle);
 	}
 
 	public static ResourceLocation location(String path) {
