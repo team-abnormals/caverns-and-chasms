@@ -7,12 +7,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DiodeBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
 public class ResistorBlock extends DiodeBlock {
 	public static final IntegerProperty RESISTANCE = IntegerProperty.create("resistance", 1, 14);
@@ -69,5 +69,11 @@ public class ResistorBlock extends DiodeBlock {
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, RESISTANCE, POWERED);
+	}
+
+	@Override
+	public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+		Direction facing = state.getValue(RepeaterBlock.FACING);
+		return direction != facing.getCounterClockWise();
 	}
 }

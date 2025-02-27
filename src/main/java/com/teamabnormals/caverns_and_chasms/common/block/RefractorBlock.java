@@ -22,6 +22,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.ticks.TickPriority;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -45,6 +46,21 @@ public class RefractorBlock extends DiodeBlock {
 	@Override
 	protected int getDelay(BlockState state) {
 		return 2;
+	}
+
+
+	@Override
+	public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+		Direction facing = state.getValue(FACING);
+		if (facing.getCounterClockWise() == direction && state.getValue(LEFT) == 0) {
+			return false;
+		} else if (facing == direction && state.getValue(CENTER) == 0) {
+			return false;
+		} else if (facing.getClockWise() == direction && state.getValue(RIGHT) == 0) {
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
