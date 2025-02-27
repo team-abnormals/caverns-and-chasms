@@ -10,9 +10,9 @@
     }
   },
   "pattern": [
-    "BIB",
     "I I",
-    "BIB"
+    "B B",
+    "I I"
   ],
   "result": {
     "item": "caverns_and_chasms:storage_duct"
