@@ -249,7 +249,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void splurterBlock(RegistryObject<Block> block) {
 		String name = name(block.get());
 
-		this.getVariantBuilder(block.get()).forAllStates(state -> {
+		this.getVariantBuilder(block.get()).forAllStatesExcept(state -> {
 			Direction dir = state.getValue(BlockStateProperties.FACING);
 			boolean triggered = state.getValue(BlockStateProperties.TRIGGERED);
 			ResourceLocation texture = blockTexture(block.get());
@@ -273,14 +273,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					.rotationX(dir == Direction.DOWN ? 180 : 0)
 					.rotationY(yRotations.getOrDefault(dir, 0))
 					.build();
-		});
+		}, BlockStateProperties.POWER);
 		this.blockItem(block.get());
 	}
 
 	public void scattererBlock(RegistryObject<Block> block) {
 		String name = name(block.get());
 
-		this.getVariantBuilder(block.get()).forAllStates(state -> {
+		this.getVariantBuilder(block.get()).forAllStatesExcept(state -> {
 			Direction dir = state.getValue(BlockStateProperties.FACING);
 			boolean triggered = state.getValue(BlockStateProperties.TRIGGERED);
 			ResourceLocation texture = blockTexture(block.get());
@@ -305,7 +305,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					.rotationX(dir == Direction.DOWN ? 180 : 0)
 					.rotationY(yRotations.getOrDefault(dir, 0))
 					.build();
-		});
+		}, BlockStateProperties.POWER);
 		this.blockItem(block.get());
 	}
 
