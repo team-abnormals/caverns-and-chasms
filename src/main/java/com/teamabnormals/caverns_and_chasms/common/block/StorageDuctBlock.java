@@ -15,9 +15,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -25,8 +27,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.MinecraftForge;
@@ -183,6 +183,17 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		}
 
 		return this.defaultBlockState().setValue(START_FACE, startFace).setValue(END_FACE, endFace);
+	}
+
+
+	@Override
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+		if (stack.hasCustomHoverName()) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof StorageDuctBlockEntity storageDuctBlockEntity) {
+				storageDuctBlockEntity.setCustomName(stack.getHoverName());
+			}
+		}
 	}
 
 	@Override
