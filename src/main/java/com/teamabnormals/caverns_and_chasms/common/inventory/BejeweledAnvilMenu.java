@@ -6,15 +6,13 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
-import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.ItemCombinerMenu;
-import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -25,24 +23,17 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.PacketDistributor;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
-public class BejeweledAnvilMenu extends ItemCombinerMenu {
-	public int repairItemCountCost;
-	@Nullable
-	private String itemName;
+public class BejeweledAnvilMenu extends AnvilMenu {
 
 	public BejeweledAnvilMenu(int p_39005_, Inventory p_39006_) {
 		this(p_39005_, p_39006_, ContainerLevelAccess.NULL);
 	}
 
 	public BejeweledAnvilMenu(int p_39008_, Inventory p_39009_, ContainerLevelAccess p_39010_) {
-		super(CCMenuTypes.BEJEWELED_ANVIL.get(), p_39008_, p_39009_, p_39010_);
-	}
-
-	protected ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
-		return ItemCombinerMenuSlotDefinition.create().withSlot(0, 27, 47, (p_266635_) -> true).withSlot(1, 76, 47, (p_266634_) -> true).withResultSlot(2, 134, 47).build();
+		super(p_39008_, p_39009_, p_39010_);
+		this.menuType = CCMenuTypes.BEJEWELED_ANVIL.get();
 	}
 
 	@Override
@@ -55,12 +46,13 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 		return true;
 	}
 
+	@Override
 	protected void onTake(Player player, ItemStack stack) {
 		ItemStack input = this.inputSlots.getItem(0);
 		ItemStack ingredient = this.inputSlots.getItem(1);
 		ItemStack output = this.resultSlots.getItem(0);
 
-		ForgeHooks.onAnvilRepair(player, stack, BejeweledAnvilMenu.this.inputSlots.getItem(0), BejeweledAnvilMenu.this.inputSlots.getItem(1));
+		ForgeHooks.onAnvilRepair(player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
 
 		this.inputSlots.setItem(0, ItemStack.EMPTY);
 		if (this.repairItemCountCost > 0) {
@@ -69,10 +61,10 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 				itemstack.shrink(this.repairItemCountCost);
 				this.inputSlots.setItem(1, itemstack);
 			} else {
-				this.inputSlots.getItem(1).shrink(1);
+				this.inputSlots.setItem(1, ItemStack.EMPTY);
 			}
 		} else {
-			this.inputSlots.getItem(1).shrink(1);
+			this.inputSlots.setItem(1, ItemStack.EMPTY);
 		}
 
 		this.access.execute((level, pos) -> {
@@ -99,6 +91,7 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 		});
 	}
 
+	@Override
 	public void createResult() {
 		ItemStack item1 = this.inputSlots.getItem(0);
 		int i = 0;
@@ -113,7 +106,7 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 			this.repairItemCountCost = 0;
 			boolean flag = false;
 
-			//TODO: if (!ForgeHooks.onAnvilChange(this, item1, item2, resultSlots, itemName, j, this.player)) return;
+			if (!ForgeHooks.onAnvilChange(this, item1, item2, resultSlots, itemName, j, this.player)) return;
 			if (!item2.isEmpty()) {
 				flag = item2.getItem() == Items.ENCHANTED_BOOK && !EnchantedBookItem.getEnchantments(item2).isEmpty();
 				if (item1Copy.isDamageableItem() && item1Copy.getItem().isValidRepairItem(item1, item2)) {
@@ -244,35 +237,5 @@ public class BejeweledAnvilMenu extends ItemCombinerMenu {
 			this.resultSlots.setItem(0, item1Copy);
 			this.broadcastChanges();
 		}
-	}
-
-	public static int calculateIncreasedRepairCost(int p_39026_) {
-		return p_39026_ * 2 + 1;
-	}
-
-	public boolean setItemName(String p_288970_) {
-		String s = validateName(p_288970_);
-		if (s != null && !s.equals(this.itemName)) {
-			this.itemName = s;
-			if (this.getSlot(2).hasItem()) {
-				ItemStack itemstack = this.getSlot(2).getItem();
-				if (Util.isBlank(s)) {
-					itemstack.resetHoverName();
-				} else {
-					itemstack.setHoverName(Component.literal(s));
-				}
-			}
-
-			this.createResult();
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Nullable
-	private static String validateName(String p_288995_) {
-		String s = SharedConstants.filterText(p_288995_);
-		return s.length() <= 50 ? s : null;
 	}
 }
