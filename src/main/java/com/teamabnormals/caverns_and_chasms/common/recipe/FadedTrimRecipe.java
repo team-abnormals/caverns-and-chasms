@@ -51,7 +51,7 @@ public class FadedTrimRecipe extends CustomRecipe {
 					}
 					case 1 -> {
 						CompoundTag tag = stack.getOrCreateTag();
-						if (!stack.is(ItemTags.TRIM_TEMPLATES) || this.faded ? tag.getBoolean("FadedTrim") : tag.getBoolean("EmissiveTrim")) {
+						if (!stack.is(ItemTags.TRIM_TEMPLATES) || tag.getBoolean(this.faded ? "FadedTrim" : "EmissiveTrim")) {
 							return false;
 						}
 					}
