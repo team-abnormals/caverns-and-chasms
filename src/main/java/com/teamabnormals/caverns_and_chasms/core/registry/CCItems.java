@@ -115,7 +115,7 @@ public class CCItems {
 	public static final RegistryObject<Item> IMPACT_POTION = HELPER.createItem("impact_potion", () -> new ImpactPotionItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> TRAIL_POTION = HELPER.createItem("trail_potion", () -> new TrailPotionItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> BLUNT_ARROW = HELPER.createItem("blunt_arrow", () -> new BluntArrowItem(new Item.Properties()));
-	public static final RegistryObject<Item> TMT_MINECART = HELPER.createItem("tmt_minecart", () -> new TmtMinecartItem(new Item.Properties()));
+	public static final RegistryObject<Item> TMT_MINECART = HELPER.createItem("tmt_minecart", () -> new TmtMinecartItem(new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> ZIRCONIA = HELPER.createItem("zirconia", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> MUSIC_DISC_COPY = HELPER.createItem("music_disc_copy", () -> new CopyRecordItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
