@@ -70,10 +70,10 @@ public class StorageDuctBlock extends BaseEntityBlock {
 			list.add(storageDuct);
 
 		label:
-		for (StorageDuctFace face : StorageDuctFace.values()) {
+		for (Face face : Face.values()) {
 			MutableBlockPos mutable = pos.mutable();
 			BlockState blockState = state;
-			StorageDuctFace face1 = face;
+			Face face1 = face;
 
 			while (true) {
 				Direction direction = blockState.getValue(face1.getDirectionProperty());
@@ -87,7 +87,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 				if (blockState.getBlock() instanceof StorageDuctBlock) {
 					boolean flag = false;
 
-					for (StorageDuctFace face2 : StorageDuctFace.values()) {
+					for (Face face2 : Face.values()) {
 						Direction direction1 = blockState.getValue(face2.getDirectionProperty());
 						if (direction1 == direction.getOpposite()) {
 							BlockEntity blockEntity1 = level.getBlockEntity(mutable);
@@ -173,10 +173,10 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		Direction startFace = context.getClickedFace().getOpposite();
 		Direction endFace = startFace.getOpposite();
 
-		if (hasNeighborConnectedToFace(startFace, level, blockPos)) {
-			for (Direction face : Direction.values()) {
-				if (face != startFace && hasNeighborConnectedToFace(face, level, blockPos)) {
-					endFace = face;
+		if (hasNeighborFaceAt(startFace, level, blockPos) && !hasNeighborFaceAt(endFace, level, blockPos)) {
+			for (Direction direction : Direction.values()) {
+				if (direction != startFace && hasNeighborFaceAt(direction, level, blockPos)) {
+					endFace = direction;
 					break;
 				}
 			}
@@ -197,35 +197,37 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
-		if (facing != state.getValue(START_FACE) && !hasEndConnection(level, pos, state) && facingState.getBlock() instanceof StorageDuctBlock && hasFace(facing.getOpposite(), facingState))
-			return state.setValue(END_FACE, facing);
-		return super.updateShape(state, facing, facingState, level, pos, facingPos);
+	public BlockState updateShape(BlockState state, Direction direction, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
+		if (facingState.getBlock() instanceof StorageDuctBlock && hasFaceAt(direction.getOpposite(), facingState)) {
+			for (Face face : Face.values()) {
+				if (direction != state.getValue(face.getDirectionProperty()) && !hasNeighborFaceAt(face.getOpposite(), level, pos, state))
+					return state.setValue(face.getOpposite().getDirectionProperty(), direction);
+			}
+		}
+		return super.updateShape(state, direction, facingState, level, pos, facingPos);
 	}
 
-	public static boolean hasStartConnection(LevelAccessor level, BlockPos pos, BlockState state) {
-		return hasNeighborConnectedToFace(state.getValue(START_FACE), level, pos);
+	public static boolean hasNeighborFaceAt(Face face, LevelAccessor level, BlockPos pos, BlockState state) {
+		return hasNeighborFaceAt(state.getValue(face.getDirectionProperty()), level, pos);
 	}
 
-	public static boolean hasEndConnection(LevelAccessor level, BlockPos pos, BlockState state) {
-		return hasNeighborConnectedToFace(state.getValue(END_FACE), level, pos);
+	public static boolean hasNeighborFaceAt(Direction direction, LevelAccessor level, BlockPos pos) {
+		BlockState neighborState = level.getBlockState(pos.relative(direction));
+		return neighborState.getBlock() instanceof StorageDuctBlock && hasFaceAt(direction.getOpposite(), neighborState);
 	}
 
-	public static boolean hasNeighborConnectedToFace(Direction face, LevelAccessor level, BlockPos pos) {
-		BlockState neighborState = level.getBlockState(pos.relative(face));
-		return neighborState.getBlock() instanceof StorageDuctBlock && hasFace(face.getOpposite(), neighborState);
-	}
-
-	public static boolean hasFace(Direction face, BlockState state) {
-		return state.getValue(START_FACE) == face || state.getValue(END_FACE) == face;
+	public static boolean hasFaceAt(Direction direction, BlockState state) {
+		return state.getValue(START_FACE) == direction || state.getValue(END_FACE) == direction;
 	}
 
 	public static boolean canOpen(Level level, BlockPos pos, BlockState state) {
-		Direction startFace = state.getValue(START_FACE);
-		Direction endFace = state.getValue(END_FACE);
-		BlockPos startFacePos = pos.relative(startFace);
-		BlockPos endFacePos = pos.relative(endFace);
-		return !level.getBlockState(startFacePos).isFaceSturdy(level, startFacePos, startFace.getOpposite()) || !level.getBlockState(endFacePos).isFaceSturdy(level, endFacePos, endFace.getOpposite());
+		for (Face face : Face.values()) {
+			Direction direction = state.getValue(face.getDirectionProperty());
+			BlockPos blockPos = pos.relative(direction);
+			if (!level.getBlockState(blockPos).isFaceSturdy(level, blockPos, direction.getOpposite()))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -253,13 +255,13 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		builder.add(START_FACE, END_FACE);
 	}
 
-	public enum StorageDuctFace {
+	public enum Face {
 		START(START_FACE),
 		END(END_FACE);
 
 		private final DirectionProperty directionProperty;
 
-		StorageDuctFace(DirectionProperty directionProperty) {
+		Face(DirectionProperty directionProperty) {
 			this.directionProperty = directionProperty;
 		}
 
@@ -267,7 +269,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 			return this.directionProperty;
 		}
 
-		public StorageDuctFace getOpposite() {
+		public Face getOpposite() {
 			return this == START ? END : START;
 		}
 	}
