@@ -118,12 +118,20 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 			List<SmithingRecipe> list = this.level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING);
 			for (SmithingRecipe recipe : list) {
 				if (recipe instanceof SmithingTransformRecipe transform && transform.getResultItem(level.registryAccess()).is(armor.getItem())) {
-					ItemStack base = transform.base.getItems()[0].copy();
-					base.setTag(armor.getOrCreateTag().copy());
+					if (transform.template.getItems().length > 0) {
+						container.setItem(0, transform.template.getItems()[0].copy());
+					}
 
-					container.setItem(0, transform.template.getItems()[0].copy());
-					container.setItem(1, base);
-					container.setItem(2, transform.addition.getItems()[0].copy());
+					if (transform.base.getItems().length > 0) {
+						ItemStack base = transform.base.getItems()[0].copy();
+						base.setTag(armor.getOrCreateTag().copy());
+						container.setItem(1, base);
+					}
+
+					if (transform.addition.getItems().length > 0) {
+						container.setItem(2, transform.addition.getItems()[0].copy());
+					}
+
 					break;
 				}
 			}
