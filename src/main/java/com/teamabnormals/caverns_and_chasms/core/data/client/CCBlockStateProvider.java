@@ -563,15 +563,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 						}
 
 						return ConfiguredModel.builder()
-								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_" + face1 + "_" + face2)))
+								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_" + face1 + "_" + face2)))
 								.build();
 					} else {
 						return ConfiguredModel.builder()
-								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_invalid")))
+								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_invalid")))
 								.build();
 					}
 				});
-		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct/storage_duct_up_down")));
+		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {
