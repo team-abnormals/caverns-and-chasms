@@ -64,14 +64,14 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		this.entry("husbandry/wax_on").selects("husbandry/wax_on")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId)
-						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB)))
+						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB)))
 						.addCriterion("wax_on_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
 						.addCriterion("wax_on_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
 						.addIndexedRequirements(0, false, "wax_on_blocks", "wax_on_golem", "wax_on_oxidized_golem").build());
 		this.entry("husbandry/wax_off").selects("husbandry/wax_off")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_off.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId)
-						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
+						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
 						.addCriterion("wax_off_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
 						.addCriterion("wax_off_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
 						.addIndexedRequirements(0, false, "wax_off_blocks", "wax_off_golem", "wax_off_oxidized_golem").build());
