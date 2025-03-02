@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimPatterns;
+import com.teamabnormals.clayworks.core.api.ClayworksTrims;
 import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister;
 import net.minecraft.client.renderer.texture.atlas.sources.SingleFile;
 import net.minecraft.data.PackOutput;
@@ -49,6 +50,16 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 						CCTrimMaterials.NECROMIUM_DARKER,
 						CCTrimMaterials.SANGUINE,
 						CCTrimMaterials.SANGUINE_DARKER
+				));
+		this.atlas(ClayworksTrims.DECORATED_POT_ATLAS)
+				.addSource(ClayworksTrims.materialPatternPermutations(
+						CCTrimMaterials.SPINEL,
+						CCTrimMaterials.ZIRCONIA,
+						CCTrimMaterials.SILVER,
+						CCTrimMaterials.TIN,
+						CCTrimMaterials.TURQUOISE,
+						CCTrimMaterials.NECROMIUM,
+						CCTrimMaterials.SANGUINE
 				));
 	}
 
