@@ -322,7 +322,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_CASSITERITE_STAIRS.get(), POLISHED_CASSITERITE.get());
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(CASSITERITE.get()), RecipeCategory.BUILDING_BLOCKS, SMOOTH_CASSITERITE.get(), 0.1F, 200).unlockedBy("has_cassiterite", has(CASSITERITE.get())).save(consumer);
-		ClayworksRecipeProvider.bakingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CASSITERITE.get(), SMOOTH_CASSITERITE.get(), 0.2F, 200, CavernsAndChasms.MOD_ID);
+		ClayworksRecipeProvider.bakingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CASSITERITE.get(), SMOOTH_CASSITERITE.get(), 0.1F, 200, CavernsAndChasms.MOD_ID);
 		generateRecipes(consumer, SMOOTH_CASSITERITE_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SMOOTH_CASSITERITE_SLAB.get(), SMOOTH_CASSITERITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SMOOTH_CASSITERITE_STAIRS.get(), SMOOTH_CASSITERITE.get());

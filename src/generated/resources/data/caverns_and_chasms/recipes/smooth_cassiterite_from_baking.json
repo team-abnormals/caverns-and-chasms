@@ -21,7 +21,7 @@
         "type": "clayworks:baking",
         "category": "blocks",
         "cookingtime": 200,
-        "experience": 0.2,
+        "experience": 0.1,
         "ingredient": {
           "item": "caverns_and_chasms:cassiterite"
         },
