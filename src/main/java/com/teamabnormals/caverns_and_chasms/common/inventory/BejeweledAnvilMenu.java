@@ -55,8 +55,8 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 		ForgeHooks.onAnvilRepair(player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
 
 		this.inputSlots.setItem(0, ItemStack.EMPTY);
+		ItemStack itemstack = this.inputSlots.getItem(1);
 		if (this.repairItemCountCost > 0) {
-			ItemStack itemstack = this.inputSlots.getItem(1);
 			if (!itemstack.isEmpty() && itemstack.getCount() > this.repairItemCountCost) {
 				itemstack.shrink(this.repairItemCountCost);
 				this.inputSlots.setItem(1, itemstack);
@@ -64,7 +64,8 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 				this.inputSlots.setItem(1, ItemStack.EMPTY);
 			}
 		} else {
-			this.inputSlots.setItem(1, ItemStack.EMPTY);
+			itemstack.shrink(1);
+			this.inputSlots.setItem(1, itemstack);
 		}
 
 		this.access.execute((level, pos) -> {
