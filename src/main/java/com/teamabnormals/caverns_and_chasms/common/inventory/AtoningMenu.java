@@ -262,7 +262,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 			ItemStack stack = slot.getItem();
 			newStack = stack.copy();
 			if (index == 0 || index == 1 || index == 2) {
-				if (!this.moveItemStackTo(stack, 2, 38, true)) {
+				if (!this.moveItemStackTo(stack, 3, 39, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else if (stack.is(Tags.Items.ENCHANTING_FUELS)) {
