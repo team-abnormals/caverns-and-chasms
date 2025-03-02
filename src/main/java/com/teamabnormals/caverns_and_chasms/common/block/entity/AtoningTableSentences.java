@@ -31,6 +31,6 @@ public class AtoningTableSentences {
 	}
 
 	public static int[] pickRandomSentence(RandomSource random) {
-		return SENTENCES[random.nextInt(AtoningTableSentences.SENTENCES.length)];
+		return SENTENCES[random.nextInt(SENTENCES.length)];
 	}
 }
