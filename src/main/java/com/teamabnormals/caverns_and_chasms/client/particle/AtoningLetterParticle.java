@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.AtoningTableSentences;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -12,14 +13,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 public class AtoningLetterParticle extends TextureSheetParticle {
-	public static final String[] LETTERS = {
-			"a", "e", "i", "o", "u", "ee", "oo", "ea", "oa",
-			"ay", "ey", "oy", "uy", "aw", "ew", "iw", "ow", "ae", "ie", "oe", "ue", "ao", "eo", "io", "uo",
-			"ts", "tts", "dz", "ddz", "ch", "cch", "j", "jj", "f", "ff", "h", "hh", "k", "kk", "g", "gg",
-			"kh", "kkh", "gh", "ggh", "l", "ll", "m", "mm", "n", "nn", "ng", "nng", "p", "pp", "b", "bb",
-			"r", "rr", "s", "ss", "z", "zz", "sh", "ssh", "zh", "zzh", "t", "tt", "d", "dd", "th", "tth",
-			"dh", "ddh", "v", "vv", "big_v", "wh", "wwh", "w", "ww", "y", "yy", "q", "qq"
-	};
 
 	private float rot;
 
@@ -62,7 +55,7 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 
 		public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double rotation, double letter, double zSpeed) {
 			AtoningLetterParticle particle = new AtoningLetterParticle(level, x, y, z, (float) rotation);
-			particle.setSprite(this.sprites.get((int) letter, LETTERS.length - 1));
+			particle.setSprite(this.sprites.get((int) letter, AtoningTableSentences.LETTERS.length - 1));
 			return particle;
 		}
 	}
