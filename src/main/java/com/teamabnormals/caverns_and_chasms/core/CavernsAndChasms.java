@@ -68,11 +68,13 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -290,9 +292,9 @@ public class CavernsAndChasms {
 	}
 
 	private void setupMessages() {
-		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle);
-		CHANNEL.registerMessage(1, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle);
-		CHANNEL.registerMessage(2, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle);
+		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(1, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(2, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 	}
 
 	public static ResourceLocation location(String path) {
