@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -104,8 +105,13 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 			ItemStack item = trim.get().material().get().ingredient().get().getDefaultInstance();
 			ItemStack template = trim.get().pattern().get().templateItem().get().getDefaultInstance();
 
-			template.getOrCreateTag().putBoolean("EmissiveTrim", armor.getOrCreateTag().getBoolean("EmissiveTrim"));
-			template.getOrCreateTag().putBoolean("FadedTrim", armor.getOrCreateTag().getBoolean("FadedTrim"));
+			CompoundTag tag = armor.getOrCreateTag();
+			if (tag.getBoolean("EmissiveTrim")) {
+				template.getOrCreateTag().putBoolean("EmissiveTrim", true);
+			}
+			if (tag.getBoolean("FadedTrim")) {
+				template.getOrCreateTag().putBoolean("FadedTrim", true);
+			}
 
 			armor.getOrCreateTag().remove("Trim");
 			armor.getOrCreateTag().remove("EmissiveTrim");

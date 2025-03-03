@@ -617,7 +617,7 @@ public class CCEvents {
 						double d1 = vec32.x * 0.2D + random.nextGaussian() * 0.05D;
 						double d2 = vec32.y * 0.2D + random.nextGaussian() * 0.05D;
 						double d3 = vec32.z * 0.2D + random.nextGaussian() * 0.05D;
-						NetworkUtil.spawnParticle("caverns_and_chasms:spark", vec31.x, vec31.y, vec31.z, d1, d2, d3);
+						level.addParticle(CCParticleTypes.SPARK.get(), vec31.x, vec31.y, vec31.z, d1, d2, d3);
 					}
 
 					event.setCanceled(true);
