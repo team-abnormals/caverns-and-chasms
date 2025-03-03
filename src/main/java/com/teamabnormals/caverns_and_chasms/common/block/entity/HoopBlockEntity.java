@@ -21,7 +21,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-// TODO: Make detect players
 public class HoopBlockEntity extends BlockEntity {
 
 	public HoopBlockEntity(BlockPos pos, BlockState state) {
