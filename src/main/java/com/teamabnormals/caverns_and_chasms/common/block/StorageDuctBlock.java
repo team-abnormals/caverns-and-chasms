@@ -175,7 +175,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		BlockState clickedState = level.getBlockState(clickedPos);
 
 		boolean flag = clickedState.getBlock() instanceof StorageDuctBlock && (!hasNeighborFaceAt(Face.START, level, clickedPos, clickedState) || !hasNeighborFaceAt(Face.END, level, clickedPos, clickedState));
-		Direction startFace = flag ? clickedDirection.getOpposite() : context.getNearestLookingDirection().getOpposite();
+		Direction startFace = flag ? clickedDirection : context.getNearestLookingDirection().getOpposite();
 		Direction endFace = startFace.getOpposite();
 
 		if (!hasNeighborFaceAt(endFace, level, blockPos)) {
