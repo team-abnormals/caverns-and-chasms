@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=east,openness=0": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_0",
+      "y": 90
+    },
+    "facing=east,openness=1": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_1",
+      "y": 90
+    },
+    "facing=east,openness=10": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_10",
+      "y": 90
+    },
+    "facing=east,openness=11": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_11",
+      "y": 90
+    },
+    "facing=east,openness=12": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_12",
+      "y": 90
+    },
+    "facing=east,openness=13": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_13",
+      "y": 90
+    },
+    "facing=east,openness=14": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_14",
+      "y": 90
+    },
+    "facing=east,openness=15": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_15",
+      "y": 90
+    },
+    "facing=east,openness=2": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_2",
+      "y": 90
+    },
+    "facing=east,openness=3": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_3",
+      "y": 90
+    },
+    "facing=east,openness=4": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_4",
+      "y": 90
+    },
+    "facing=east,openness=5": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_5",
+      "y": 90
+    },
+    "facing=east,openness=6": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_6",
+      "y": 90
+    },
+    "facing=east,openness=7": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_7",
+      "y": 90
+    },
+    "facing=east,openness=8": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_8",
+      "y": 90
+    },
+    "facing=east,openness=9": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_9",
+      "y": 90
+    },
+    "facing=north,openness=0": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_0"
+    },
+    "facing=north,openness=1": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_1"
+    },
+    "facing=north,openness=10": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_10"
+    },
+    "facing=north,openness=11": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_11"
+    },
+    "facing=north,openness=12": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_12"
+    },
+    "facing=north,openness=13": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_13"
+    },
+    "facing=north,openness=14": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_14"
+    },
+    "facing=north,openness=15": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_15"
+    },
+    "facing=north,openness=2": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_2"
+    },
+    "facing=north,openness=3": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_3"
+    },
+    "facing=north,openness=4": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_4"
+    },
+    "facing=north,openness=5": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_5"
+    },
+    "facing=north,openness=6": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_6"
+    },
+    "facing=north,openness=7": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_7"
+    },
+    "facing=north,openness=8": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_8"
+    },
+    "facing=north,openness=9": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_9"
+    },
+    "facing=south,openness=0": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_0",
+      "y": 180
+    },
+    "facing=south,openness=1": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_1",
+      "y": 180
+    },
+    "facing=south,openness=10": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_10",
+      "y": 180
+    },
+    "facing=south,openness=11": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_11",
+      "y": 180
+    },
+    "facing=south,openness=12": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_12",
+      "y": 180
+    },
+    "facing=south,openness=13": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_13",
+      "y": 180
+    },
+    "facing=south,openness=14": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_14",
+      "y": 180
+    },
+    "facing=south,openness=15": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_15",
+      "y": 180
+    },
+    "facing=south,openness=2": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_2",
+      "y": 180
+    },
+    "facing=south,openness=3": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_3",
+      "y": 180
+    },
+    "facing=south,openness=4": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_4",
+      "y": 180
+    },
+    "facing=south,openness=5": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_5",
+      "y": 180
+    },
+    "facing=south,openness=6": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_6",
+      "y": 180
+    },
+    "facing=south,openness=7": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_7",
+      "y": 180
+    },
+    "facing=south,openness=8": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_8",
+      "y": 180
+    },
+    "facing=south,openness=9": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_9",
+      "y": 180
+    },
+    "facing=west,openness=0": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_0",
+      "y": 270
+    },
+    "facing=west,openness=1": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_1",
+      "y": 270
+    },
+    "facing=west,openness=10": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_10",
+      "y": 270
+    },
+    "facing=west,openness=11": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_11",
+      "y": 270
+    },
+    "facing=west,openness=12": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_12",
+      "y": 270
+    },
+    "facing=west,openness=13": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_13",
+      "y": 270
+    },
+    "facing=west,openness=14": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_14",
+      "y": 270
+    },
+    "facing=west,openness=15": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_15",
+      "y": 270
+    },
+    "facing=west,openness=2": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_2",
+      "y": 270
+    },
+    "facing=west,openness=3": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_3",
+      "y": 270
+    },
+    "facing=west,openness=4": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_4",
+      "y": 270
+    },
+    "facing=west,openness=5": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_5",
+      "y": 270
+    },
+    "facing=west,openness=6": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_6",
+      "y": 270
+    },
+    "facing=west,openness=7": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_7",
+      "y": 270
+    },
+    "facing=west,openness=8": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_8",
+      "y": 270
+    },
+    "facing=west,openness=9": {
+      "model": "caverns_and_chasms:block/roller_door_header_bottom_9",
+      "y": 270
+    }
+  }
+}

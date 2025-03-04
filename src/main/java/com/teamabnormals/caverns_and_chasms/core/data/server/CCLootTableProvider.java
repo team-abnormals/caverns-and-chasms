@@ -131,6 +131,11 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(HOOP.get());
 			this.add(STORAGE_DUCT.get(), this::createNameableBlockEntityTable);
 
+			this.dropSelf(ROLLER_DOOR.get());
+			this.dropOther(ROLLER_DOOR_BOTTOM.get(), ROLLER_DOOR.get());
+			this.dropOther(ROLLER_DOOR_HEADER.get(), ROLLER_DOOR.get());
+			this.dropOther(ROLLER_DOOR_HEADER_BOTTOM.get(), ROLLER_DOOR.get());
+
 			this.dropSelf(COPPER_RAIL.get());
 			this.dropSelf(EXPOSED_COPPER_RAIL.get());
 			this.dropSelf(WEATHERED_COPPER_RAIL.get());

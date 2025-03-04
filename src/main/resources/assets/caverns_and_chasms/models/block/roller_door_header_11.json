@@ -1,0 +1,50 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"particle": "caverns_and_chasms:block/roller_door_front",
+		"front": "caverns_and_chasms:block/roller_door_front",
+		"side": "caverns_and_chasms:block/roller_door_side",
+		"bottom": "caverns_and_chasms:block/roller_door_bottom",
+		"header": "caverns_and_chasms:block/roller_door_header"
+	},
+	"elements": [
+		{
+			"from": [0, 11, 1],
+			"to": [16, 12, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 1]},
+			"faces": {
+				"north": {"uv": [0, 15, 16, 16], "texture": "#front"},
+				"east": {"uv": [7, 15, 9, 16], "texture": "#side"},
+				"south": {"uv": [0, 15, 16, 16], "texture": "#front"},
+				"west": {"uv": [7, 15, 9, 16], "texture": "#side"},
+				"up": {"uv": [0, 7, 16, 9], "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [0, 0, 1],
+			"to": [16, 11, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 1]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 11], "texture": "#front"},
+				"east": {"uv": [7, 0, 9, 11], "texture": "#side"},
+				"south": {"uv": [0, 0, 16, 11], "texture": "#front"},
+				"west": {"uv": [7, 0, 9, 11], "texture": "#side"},
+				"down": {"uv": [0, 7, 16, 9], "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [0, 12, 0],
+			"to": [16, 16, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 12, 0]},
+			"faces": {
+				"north": {"uv": [0, 4, 16, 8], "texture": "#header"},
+				"east": {"uv": [0, 12, 4, 16], "texture": "#header"},
+				"south": {"uv": [0, 4, 16, 8], "texture": "#header"},
+				"west": {"uv": [0, 12, 4, 16], "texture": "#header"},
+				"up": {"uv": [0, 0, 16, 4], "texture": "#header"},
+				"down": {"uv": [0, 8, 16, 12], "texture": "#header"}
+			}
+		}
+	]
+}

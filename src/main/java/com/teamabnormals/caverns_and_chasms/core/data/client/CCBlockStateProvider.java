@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
+import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -57,6 +58,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP);
 		this.storageDuctBlock(STORAGE_DUCT);
+		this.rollerDoorBlock(ROLLER_DOOR, ROLLER_DOOR_BOTTOM, ROLLER_DOOR_HEADER, ROLLER_DOOR_HEADER_BOTTOM);
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
@@ -572,6 +574,27 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					}
 				});
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
+	}
+
+	public void rollerDoorBlock(RegistryObject<Block> door, RegistryObject<Block> doorBottom, RegistryObject<Block> doorHeader, RegistryObject<Block> doorHeaderBottom) {
+		this.rollerDoorBlock(door);
+		this.rollerDoorBlock(doorBottom);
+		this.rollerDoorBlock(doorHeader);
+		this.rollerDoorBlock(doorHeaderBottom);
+		Block block = door.get();
+		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_inventory")));
+	}
+
+	public void rollerDoorBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					Direction direction = state.getValue(RollerDoorBlock.FACING);
+					return ConfiguredModel.builder()
+							.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_" + state.getValue(RollerDoorBlock.OPENNESS))))
+							.rotationY(((int) direction.toYRot() + 180) % 360)
+							.build();
+				}, BlockStateProperties.WATERLOGGED);
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {

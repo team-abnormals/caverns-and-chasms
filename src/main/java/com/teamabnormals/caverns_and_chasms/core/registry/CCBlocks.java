@@ -22,6 +22,10 @@ import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricCampfireBl
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricFireBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricTorchBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricWallTorchBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBottomBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBottomBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.turquoise.*;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -94,6 +98,11 @@ public class CCBlocks {
 	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
 	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 	public static final RegistryObject<Block> STORAGE_DUCT = HELPER.createBlock("storage_duct", () -> new StorageDuctBlock(CCProperties.STORAGE_DUCT));
+
+	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createBlock("roller_door", () -> new RollerDoorBlock(CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_DOOR_BOTTOM = HELPER.createBlockNoItem("roller_door_bottom", () -> new RollerDoorBottomBlock(CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorHeaderBlock(CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_DOOR_HEADER_BOTTOM = HELPER.createBlockNoItem("roller_door_header_bottom", () -> new RollerDoorHeaderBottomBlock(CCProperties.ROLLER_DOOR));
 
 	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_RAIL));
 	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, CCProperties.COPPER_RAIL));
@@ -472,7 +481,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL)
 				.addItemsAfter(of(Blocks.IRON_BLOCK), IRON_BRICKS, IRON_BRICK_STAIRS, IRON_BRICK_SLAB, IRON_BRICK_WALL, CHISELED_IRON_BRICKS)
 				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLD_BRICKS, GOLD_BRICK_STAIRS, GOLD_BRICK_SLAB, GOLD_BRICK_WALL, CHISELED_GOLD_BRICKS, GOLDEN_BARS)
-				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS, HOLD_PLATE, HOLD_BUTTON)
+				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS, ROLLER_DOOR, HOLD_PLATE, HOLD_BUTTON)
 				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BRICKS, SILVER_BRICK_STAIRS, SILVER_BRICK_SLAB, SILVER_BRICK_WALL, CHISELED_SILVER_BRICKS, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsBefore(of(Blocks.LAPIS_BLOCK), TURQUOISE_BLOCK, TURQUOISE_TILES, TURQUOISE_TILE_STAIRS, TURQUOISE_TILE_SLAB, TURQUOISE_TILE_WALL, TURQUOISE_PILLAR)
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
@@ -537,6 +546,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.POWERED_RAIL), HALT_RAIL, SPIKED_RAIL, SLAUGHTER_RAIL)
 				.addItemsAfter(of(Blocks.DROPPER), SCATTERER, SPLURTER)
 				.addItemsAfter(of(Blocks.HOPPER), STORAGE_DUCT)
+				.addItemsBefore(of(Blocks.OAK_FENCE_GATE), ROLLER_DOOR)
 				.tab(TOOLS_AND_UTILITIES)
 				.addItemsBefore(of(Blocks.RAIL), COPPER_RAIL, EXPOSED_COPPER_RAIL, WEATHERED_COPPER_RAIL, OXIDIZED_COPPER_RAIL, WAXED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL)
 				.addItemsAfter(of(Blocks.POWERED_RAIL), HALT_RAIL, SPIKED_RAIL, SLAUGHTER_RAIL)
@@ -618,11 +628,12 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.SILVER).lightLevel(getLightValueLit(15)).noOcclusion();
 		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.SILVER).lightLevel(getLightValueLit(10)).noOcclusion();
 
-		public static final BlockBehaviour.Properties HOLD_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties HOLD_PLATE = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties HOLD_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties DIMMER = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).pushReaction(PushReaction.DESTROY).lightLevel((state) -> state.getValue(AbstractDimmerBlock.POWER));
 		public static final BlockBehaviour.Properties HOOP = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL);
-		public static final BlockBehaviour.Properties STORAGE_DUCT = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties STORAGE_DUCT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties ROLLER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL);
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F);
 		public static final BlockBehaviour.Properties DEEPSLATE_ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
