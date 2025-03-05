@@ -541,9 +541,9 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 					CopperGolem.this.level().broadcastEntityEvent(CopperGolem.this, (byte) 6);
 				} else if (this.pressWaitTicks <= 0) {
 					BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
-					if (state.getBlock() instanceof CopperButtonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
-						((CopperButtonBlock) state.getBlock()).press(state, CopperGolem.this.level(), this.blockPos);
-						CopperGolem.this.level().playSound(null, this.blockPos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
+					if (state.getBlock() instanceof CopperButtonBlock buttonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
+						buttonBlock.press(state, CopperGolem.this.level(), this.blockPos);
+						CopperGolem.this.level().playSound(null, this.blockPos, CCSoundEvents.COPPER_BUTTON_CLICK_ON.get(), SoundSource.BLOCKS, 0.3F, 0.6F);
 						CopperGolem.this.level().gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
 						CopperGolem.this.ticksSinceButtonPress = 80;
 					}
