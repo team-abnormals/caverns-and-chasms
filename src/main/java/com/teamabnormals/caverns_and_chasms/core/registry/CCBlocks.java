@@ -447,6 +447,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> FLINT_BLOCK = HELPER.createBlock("flint_block", () -> new FlintBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
 
+	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createBlock("charcoal_block", () -> new CharcoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> state.getValue(CharcoalBlock.LIT) ? 15 : 0).hasPostProcess((state, level, pos) -> state.getValue(CharcoalBlock.LIT)).emissiveRendering((state, level, pos) -> state.getValue(CharcoalBlock.LIT))));
+
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
 				.tab(BUILDING_BLOCKS)

@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.teamabnormals.caverns_and_chasms.common.block.CharcoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
@@ -102,6 +103,7 @@ public class CCLootTableProvider extends LootTableProvider {
 					LootItem.lootTableItem(Items.FLINT).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).otherwise(LootItem.lootTableItem(Items.DIRT)).when(HAS_SHOVEL),
 					applyExplosionCondition(ROCKY_DIRT.get(), LootItem.lootTableItem(ROCKY_DIRT.get()))))));
 			this.add(FLINT_BLOCK.get(), (block -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(Items.FLINT)).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))))));
+			this.dropSelf(CHARCOAL_BLOCK.get());
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 			this.dropSelf(NECROMIUM_BLOCK.get());
 			this.dropSelf(DEEPER_HEAD.get());

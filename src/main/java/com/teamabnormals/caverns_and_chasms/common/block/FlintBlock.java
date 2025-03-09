@@ -27,7 +27,6 @@ import net.minecraft.world.phys.Vec3;
 
 
 public class FlintBlock extends BlueprintFallingBlock {
-
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
 	public FlintBlock(Properties properties) {

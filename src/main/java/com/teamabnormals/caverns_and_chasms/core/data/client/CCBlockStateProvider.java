@@ -104,6 +104,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(ROTTEN_FLESH_BLOCK);
 		this.randomRotationBlock(ROCKY_DIRT);
 		this.flintBlock(FLINT_BLOCK);
+		this.charcoalBlock(CHARCOAL_BLOCK);
 
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
 		this.blockFamily(COBBLESTONE_TILES_FAMILY);
@@ -771,6 +772,25 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.allRotations(state.getValue(FlintBlock.LIT) ? litModel : model, false));
 		this.blockItem(block);
+	}
+
+	public void charcoalBlock(RegistryObject<Block> registryObject) {
+		RotatedPillarBlock block = (RotatedPillarBlock) registryObject.get();
+
+		ModelFile vertical = models().cubeColumn(name(block), blockTexture(block), blockTexture(block).withSuffix("_top"));
+		ModelFile horizontal = models().cubeColumnHorizontal(name(block) + "_horizontal", blockTexture(block), blockTexture(block).withSuffix("_top"));
+		ModelFile verticalLit = models().cubeColumn(name(block) + "_lit", blockTexture(block).withSuffix("_lit"), blockTexture(block).withSuffix("_top_lit"));
+		ModelFile horizontalLit = models().cubeColumnHorizontal(name(block) + "_horizontal_lit", blockTexture(block).withSuffix("_lit"), blockTexture(block).withSuffix("_top_lit"));
+
+		this.getVariantBuilder(block)
+				.partialState().with(CharcoalBlock.LIT, false).with(RotatedPillarBlock.AXIS, Axis.Y).modelForState().modelFile(vertical).addModel()
+				.partialState().with(CharcoalBlock.LIT, false).with(RotatedPillarBlock.AXIS, Axis.Z).modelForState().modelFile(horizontal).rotationX(90).addModel()
+				.partialState().with(CharcoalBlock.LIT, false).with(RotatedPillarBlock.AXIS, Axis.X).modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel()
+				.partialState().with(CharcoalBlock.LIT, true).with(RotatedPillarBlock.AXIS, Axis.Y).modelForState().modelFile(verticalLit).addModel()
+				.partialState().with(CharcoalBlock.LIT, true).with(RotatedPillarBlock.AXIS, Axis.Z).modelForState().modelFile(horizontalLit).rotationX(90).addModel()
+				.partialState().with(CharcoalBlock.LIT, true).with(RotatedPillarBlock.AXIS, Axis.X).modelForState().modelFile(horizontalLit).rotationX(90).rotationY(90).addModel();
+
+		this.blockItem(registryObject);
 	}
 
 	public void baseBlockVariants(Block block, RegistryObject<Block> stairs, RegistryObject<Block> slab, RegistryObject<Block> wall) {
