@@ -2,7 +2,7 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 200,
-  "experience": 0.0,
+  "experience": 0.7,
   "group": "tin_ingot",
   "ingredient": {
     "item": "caverns_and_chasms:deepslate_tin_ore"

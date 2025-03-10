@@ -148,7 +148,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		storageRecipesWithCustomPacking(consumer, MISC, CCItems.COPPER_NUGGET.get(), MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
 
 		oreRecipes(consumer, SILVER_SMELTABLES, MISC, CCItems.SILVER_INGOT.get(), 1.0F, 200, 1.0F, 100, "silver_ingot");
-		oreRecipes(consumer, TIN_SMELTABLES, MISC, CCItems.TIN_INGOT.get(), 0.0F, 200, 0.0F, 100, "tin_ingot");
+		oreRecipes(consumer, TIN_SMELTABLES, MISC, CCItems.TIN_INGOT.get(), 0.7F, 200, 0.7F, 100, "tin_ingot");
 		oreRecipes(consumer, SPINEL_SMELTABLES, MISC, CCItems.SPINEL.get(), 0.2F, 200, 0.2F, 100, "spinel");
 		oreRecipes(consumer, TURQUOISE_SMELTABLES, MISC, CCItems.TURQUOISE.get(), 1.0F, 200, 1.0F, 100, "turquoise");
 
