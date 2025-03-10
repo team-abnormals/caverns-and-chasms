@@ -1,70 +1,38 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 
-public class GoldenMilkBucketItem extends Item {
+public class GoldenMilkBucketItem extends MilkBucketItem {
+
 	public GoldenMilkBucketItem(Item.Properties builder) {
 		super(builder);
 	}
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-		entity.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
-
-		int fluidLevel = stack.getOrCreateTag().getInt("FluidLevel");
+		if (!level.isClientSide()) {
+			entity.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+		}
 
 		if (entity instanceof ServerPlayer player) {
 			CriteriaTriggers.CONSUME_ITEM.trigger(player, stack);
 			player.awardStat(Stats.ITEM_USED.get(this));
 		}
 
-		if (entity instanceof Player && !((Player) entity).getAbilities().instabuild) {
-			if (fluidLevel > 0) stack.getOrCreateTag().putInt("FluidLevel", fluidLevel - 1);
-			else stack.shrink(1);
-		}
-
-		return stack.isEmpty() ? GoldenBucketItem.getEmptyBucket() : stack;
-	}
-
-	@Override
-	public int getUseDuration(ItemStack stack) {
-		return 32;
-	}
-
-	@Override
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.DRINK;
-	}
-
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-		return ItemUtils.startUsingInstantly(worldIn, playerIn, handIn);
-	}
-
-	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable net.minecraft.nbt.CompoundTag nbt) {
-		return new FluidBucketWrapper(stack);
+		return GoldenBucketItem.getEmptySuccessItem(stack, entity instanceof Player player ? player : null);
 	}
 
 	@Override
 	public ItemStack getCraftingRemainingItem(ItemStack stack) {
-		int level = stack.getOrCreateTag().getInt("FluidLevel");
-		if (level > 0) {
-			ItemStack newStack = new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
-			newStack.getOrCreateTag().putInt("FluidLevel", level - 1);
-			return newStack;
-		}
-		return GoldenBucketItem.getEmptyBucket();
+		return GoldenBucketItem.decreaseFluidLevel(stack);
 	}
 }

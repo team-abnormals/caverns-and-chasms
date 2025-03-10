@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
+import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -118,7 +119,7 @@ public class CCClientCompat {
 		}
 
 		for (Item item : List.of(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get())) {
-			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
+			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> GoldenBucketItem.getFluidLevel(stack));
 		}
 
 		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get())) {

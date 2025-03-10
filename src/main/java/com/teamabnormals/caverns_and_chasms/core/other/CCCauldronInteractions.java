@@ -70,7 +70,7 @@ public class CCCauldronInteractions {
 		} else {
 			if (!level.isClientSide) {
 				Item item = stack.getItem();
-				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, output));
+				player.setItemInHand(hand, GoldenBucketItem.createFilledResult(stack, player, output));
 				player.awardStat(Stats.USE_CAULDRON);
 				player.awardStat(Stats.ITEM_USED.get(item));
 				level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
@@ -83,7 +83,7 @@ public class CCCauldronInteractions {
 	}
 
 	public static InteractionResult fillFilledBucket(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, Predicate<BlockState> statePredicate, SoundEvent soundEvent) {
-		if (stack.getOrCreateTag().getInt("FluidLevel") == 3 || !statePredicate.test(state)) {
+		if (!GoldenBucketItem.canBeFilled(stack) || !statePredicate.test(state)) {
 			return InteractionResult.PASS;
 		} else {
 			if (!level.isClientSide) {
@@ -101,7 +101,7 @@ public class CCCauldronInteractions {
 	}
 
 	public static InteractionResult emptyBucket(Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, BlockState state, Predicate<BlockState> statePredicate, SoundEvent soundEvent, SoundEvent fillSoundEvent) {
-		if (state.equals(level.getBlockState(pos)) && stack.getOrCreateTag().getInt("FluidLevel") < 2 && statePredicate.test(state)) {
+		if (state.equals(level.getBlockState(pos)) && GoldenBucketItem.canBeFilled(stack) && statePredicate.test(state)) {
 			return fillFilledBucket(state, level, pos, player, hand, stack, statePredicate, fillSoundEvent);
 		} else {
 			if (!level.isClientSide) {

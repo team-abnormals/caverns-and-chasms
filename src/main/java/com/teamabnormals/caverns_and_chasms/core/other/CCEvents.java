@@ -87,6 +87,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -128,30 +129,25 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void rightClickEntity(PlayerInteractEvent.EntityInteractSpecific event) {
+	public static void rightClickEntity(EntityInteract event) {
 		Player player = event.getEntity();
 		Entity target = event.getTarget();
 		ItemStack stack = player.getItemInHand(event.getHand());
 		Level level = event.getLevel();
 		InteractionHand hand = event.getHand();
 		if (target instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE)) {
-			if (!entity.isBaby() && (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get())) {
-				CompoundTag tag = stack.getOrCreateTag();
-				ItemStack milkBucket = ItemUtils.createFilledResult(stack.copy(), player, CCItems.GOLDEN_MILK_BUCKET.get().getDefaultInstance());
-				boolean fullBucket = false;
-				if (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get()) {
-					fullBucket = tag.getInt("FluidLevel") >= 2;
-					if (!fullBucket && !player.isCreative()) {
-						milkBucket.getOrCreateTag().putInt("FluidLevel", tag.getInt("FluidLevel") + 1);
-					}
+			if (!entity.isBaby() && (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get()) && GoldenBucketItem.canBeFilled(stack)) {
+				ItemStack milkBucket = new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
+				if (!GoldenBucketItem.isEmpty(stack)) {
+					GoldenBucketItem.setFluidLevel(milkBucket, GoldenBucketItem.getFluidLevel(stack) + 1);
 				}
-				if (!fullBucket) {
-					player.playSound(entity instanceof Goat goat ? goat.isScreamingGoat() ? SoundEvents.GOAT_SCREAMING_MILK : SoundEvents.GOAT_MILK : SoundEvents.COW_MILK, 1.0F, 1.0F);
-					target.gameEvent(GameEvent.ENTITY_INTERACT);
-					player.setItemInHand(hand, milkBucket);
-					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-					event.setCanceled(true);
-				}
+				milkBucket = GoldenBucketItem.createFilledResult(stack, player, milkBucket);
+
+				player.playSound(entity instanceof Goat goat ? goat.isScreamingGoat() ? SoundEvents.GOAT_SCREAMING_MILK : SoundEvents.GOAT_MILK : SoundEvents.COW_MILK, 1.0F, 1.0F);
+				target.gameEvent(GameEvent.ENTITY_INTERACT);
+				player.setItemInHand(hand, milkBucket);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+				event.setCanceled(true);
 			}
 		}
 	}
