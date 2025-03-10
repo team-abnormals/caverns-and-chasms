@@ -591,9 +591,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.getVariantBuilder(block)
 				.forAllStatesExcept(state -> {
 					Direction direction = state.getValue(RollerDoorBlock.FACING);
+					AttachFace face = state.getValue(RollerDoorBlock.FACE);
 					return ConfiguredModel.builder()
 							.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_" + state.getValue(RollerDoorBlock.OPENNESS))))
-							.rotationY(((int) direction.toYRot() + 180) % 360)
+							.rotationX(face == AttachFace.CEILING ? 90 : face == AttachFace.FLOOR ? 270 : 0)
+							.rotationY(((int) direction.toYRot() + (face == AttachFace.FLOOR ? 0 : 180)) % 360)
 							.build();
 				}, BlockStateProperties.WATERLOGGED);
 	}
