@@ -163,7 +163,7 @@ public class GoldenBucketItem extends BucketItem {
 
 	@Override
 	public ItemStack getCraftingRemainingItem(ItemStack stack) {
-		return decreaseFluidLevel(stack);
+		return decreaseFluidLevel(stack.copy());
 	}
 
 	@Override

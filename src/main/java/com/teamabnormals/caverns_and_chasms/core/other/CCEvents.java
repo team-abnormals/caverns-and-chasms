@@ -95,13 +95,14 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
-@Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
 
 	@SubscribeEvent
@@ -125,30 +126,6 @@ public class CCEvents {
 			ocelot.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(ocelot, Rat.class, false));
 		} else if (entity instanceof WanderingTrader trader) {
 			trader.goalSelector.addGoal(1, new AvoidEntityGoal<>(trader, Rat.class, 5.0F, 0.5D, 0.5D));
-		}
-	}
-
-	@SubscribeEvent
-	public static void rightClickEntity(EntityInteract event) {
-		Player player = event.getEntity();
-		Entity target = event.getTarget();
-		ItemStack stack = player.getItemInHand(event.getHand());
-		Level level = event.getLevel();
-		InteractionHand hand = event.getHand();
-		if (target instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE)) {
-			if (!entity.isBaby() && (stack.getItem() == CCItems.GOLDEN_MILK_BUCKET.get() || stack.getItem() == CCItems.GOLDEN_BUCKET.get()) && GoldenBucketItem.canBeFilled(stack)) {
-				ItemStack milkBucket = new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
-				if (!GoldenBucketItem.isEmpty(stack)) {
-					GoldenBucketItem.setFluidLevel(milkBucket, GoldenBucketItem.getFluidLevel(stack) + 1);
-				}
-				milkBucket = GoldenBucketItem.createFilledResult(stack, player, milkBucket);
-
-				player.playSound(entity instanceof Goat goat ? goat.isScreamingGoat() ? SoundEvents.GOAT_SCREAMING_MILK : SoundEvents.GOAT_MILK : SoundEvents.COW_MILK, 1.0F, 1.0F);
-				target.gameEvent(GameEvent.ENTITY_INTERACT);
-				player.setItemInHand(hand, milkBucket);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-				event.setCanceled(true);
-			}
 		}
 	}
 

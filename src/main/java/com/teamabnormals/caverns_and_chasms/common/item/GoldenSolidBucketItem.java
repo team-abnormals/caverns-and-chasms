@@ -44,6 +44,6 @@ public class GoldenSolidBucketItem extends SolidBucketItem {
 
 	@Override
 	public ItemStack getCraftingRemainingItem(ItemStack stack) {
-		return GoldenBucketItem.decreaseFluidLevel(stack);
+		return GoldenBucketItem.decreaseFluidLevel(stack.copy());
 	}
 }
