@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
 
 public class RollerDoorHeaderBlockEntity extends BlockEntity {
 	private int blocks;
@@ -75,11 +76,17 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 					AttachFace face = state.getValue(RollerDoorBlock.FACE);
 
 					BlockPos offsetpos = pos.relative(RollerDoor.getBelowDirection(facing, face), columnlength);
-					FluidState fluidstate = level.getFluidState(offsetpos);
-					level.setBlock(offsetpos, CCBlocks.ROLLER_DOOR.get().defaultBlockState().setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.OPENNESS, 15).setValue(RollerDoorBlock.BOTTOM, true).setValue(RollerDoorBlock.WATERLOGGED, fluidstate.getType() == Fluids.WATER), 3);
+					if (offsetpos.getY() >= level.getMinBuildHeight()) {
+						BlockState offsetstate = level.getBlockState(offsetpos);
+						if (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY) {
+							FluidState fluidstate = level.getFluidState(offsetpos);
+							level.destroyBlock(offsetpos, true);
+							level.setBlock(offsetpos, CCBlocks.ROLLER_DOOR.get().defaultBlockState().setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.OPENNESS, 15).setValue(RollerDoorBlock.BOTTOM, true).setValue(RollerDoorBlock.WATERLOGGED, fluidstate.getType() == Fluids.WATER), 3);
 
-					level.setBlock(pos, state.setValue(RollerDoorBlock.OPENNESS, 15).setValue(RollerDoorBlock.BOTTOM, false), 3);
-					--blockEntity.blocks;
+							level.setBlock(pos, state.setValue(RollerDoorBlock.OPENNESS, 15).setValue(RollerDoorBlock.BOTTOM, false), 3);
+							--blockEntity.blocks;
+						}
+					}
 				}
 			}
 		}

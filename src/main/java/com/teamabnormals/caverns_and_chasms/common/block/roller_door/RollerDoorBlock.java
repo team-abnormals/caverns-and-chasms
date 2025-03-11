@@ -65,6 +65,8 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 		return map.get(state.getValue(FACING))[state.getValue(BOTTOM) ? state.getValue(OPENNESS) : 0];
 	}
 
+	// TODO: Make not break from water
+
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Level level = context.getLevel();
