@@ -26,6 +26,7 @@ import java.util.Map;
 public class RollerDoorBlock extends HorizontalDirectionalBlock implements RollerDoor {
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 	public static final IntegerProperty OPENNESS = IntegerProperty.create("openness", 0, 15);
+	public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	protected static final Map<Direction, VoxelShape[]> WALL_SHAPES = Maps.newEnumMap(ImmutableMap.of(
@@ -54,14 +55,14 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 
 	public RollerDoorBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPENNESS, 0).setValue(WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPENNESS, 0).setValue(BOTTOM, false).setValue(WATERLOGGED, false));
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		AttachFace face = state.getValue(FACE);
 		Map<Direction, VoxelShape[]> map = face == AttachFace.WALL ? WALL_SHAPES : face == AttachFace.CEILING ? CEILING_SHAPES : FLOOR_SHAPES;
-		return map.get(state.getValue(FACING))[0];
+		return map.get(state.getValue(FACING))[state.getValue(BOTTOM) ? state.getValue(OPENNESS) : 0];
 	}
 
 	@Override
@@ -108,7 +109,7 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, FACE, OPENNESS, WATERLOGGED);
+		builder.add(FACING, FACE, OPENNESS, BOTTOM, WATERLOGGED);
 	}
 
 	@Override

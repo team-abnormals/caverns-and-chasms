@@ -22,9 +22,7 @@
     "caverns_and_chasms:scatterer",
     "caverns_and_chasms:storage_duct",
     "caverns_and_chasms:roller_door",
-    "caverns_and_chasms:roller_door_bottom",
     "caverns_and_chasms:roller_door_header",
-    "caverns_and_chasms:roller_door_header_bottom",
     "#caverns_and_chasms:weaker_deflect_velocity",
     "#caverns_and_chasms:maintains_deflect_velocity"
   ]

@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"header": "caverns_and_chasms:block/roller_door_header"
+		"header": "caverns_and_chasms:block/roller_door_header",
+		"particle": "caverns_and_chasms:block/roller_door_front_bottom"
 	},
 	"elements": [
 		{

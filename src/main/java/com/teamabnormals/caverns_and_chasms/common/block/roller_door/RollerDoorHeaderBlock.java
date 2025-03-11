@@ -2,8 +2,8 @@ package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.DimmerBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
@@ -23,7 +23,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
@@ -33,6 +32,7 @@ public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 	public static final IntegerProperty OPENNESS = IntegerProperty.create("openness", 0, 15);
+	public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	protected static final Map<Direction, VoxelShape[]> WALL_SHAPES = Maps.newEnumMap(ImmutableMap.of(
@@ -53,13 +53,13 @@ public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor
 
 	public RollerDoorHeaderBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPENNESS, 0).setValue(WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPENNESS, 0).setValue(BOTTOM, false).setValue(WATERLOGGED, false));
 	}
 
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new DimmerBlockEntity(pos, state);
+		return new RollerDoorHeaderBlockEntity(pos, state);
 	}
 
 	@Nullable
@@ -82,7 +82,7 @@ public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		AttachFace face = state.getValue(FACE);
 		Map<Direction, VoxelShape[]> map = face == AttachFace.WALL ? WALL_SHAPES : face == AttachFace.CEILING ? CEILING_SHAPES : FLOOR_SHAPES;
-		return map.get(state.getValue(FACING))[0];
+		return map.get(state.getValue(FACING))[state.getValue(BOTTOM) ? state.getValue(OPENNESS) : 0];
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, FACE, OPENNESS, WATERLOGGED);
+		builder.add(FACING, FACE, OPENNESS, BOTTOM, WATERLOGGED);
 	}
 
 	@Override

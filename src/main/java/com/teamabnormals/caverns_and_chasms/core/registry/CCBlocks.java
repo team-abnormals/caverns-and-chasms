@@ -23,9 +23,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricFireBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricTorchBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricWallTorchBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBottomBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBottomBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.turquoise.*;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -100,9 +98,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> STORAGE_DUCT = HELPER.createBlock("storage_duct", () -> new StorageDuctBlock(CCProperties.STORAGE_DUCT));
 
 	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createBlock("roller_door", () -> new RollerDoorBlock(CCProperties.ROLLER_DOOR));
-	public static final RegistryObject<Block> ROLLER_DOOR_BOTTOM = HELPER.createBlockNoItem("roller_door_bottom", () -> new RollerDoorBottomBlock(CCProperties.ROLLER_DOOR));
 	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorHeaderBlock(CCProperties.ROLLER_DOOR));
-	public static final RegistryObject<Block> ROLLER_DOOR_HEADER_BOTTOM = HELPER.createBlockNoItem("roller_door_header_bottom", () -> new RollerDoorHeaderBottomBlock(CCProperties.ROLLER_DOOR));
 
 	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_RAIL));
 	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, CCProperties.COPPER_RAIL));

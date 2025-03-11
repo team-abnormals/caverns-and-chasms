@@ -26,5 +26,5 @@ public class CCBlockEntityTypes {
 	public static final RegistryObject<BlockEntityType<SplurterBlockEntity>> SPLURTER = HELPER.createBlockEntity("splurter", SplurterBlockEntity::new, () -> Set.of(CCBlocks.SPLURTER.get()));
 	public static final RegistryObject<BlockEntityType<ScattererBlockEntity>> SCATTERER = HELPER.createBlockEntity("scatterer", ScattererBlockEntity::new, () -> Set.of(CCBlocks.SCATTERER.get()));
 	public static final RegistryObject<BlockEntityType<StorageDuctBlockEntity>> STORAGE_DUCT = HELPER.createBlockEntity("storage_duct", StorageDuctBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT.get()));
-	public static final RegistryObject<BlockEntityType<RollerDoorHeaderBlockEntity>> ROLLER_DOOR_HEADER = HELPER.createBlockEntity("roller_door_header", RollerDoorHeaderBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR_HEADER.get(), CCBlocks.ROLLER_DOOR_HEADER_BOTTOM.get()));
+	public static final RegistryObject<BlockEntityType<RollerDoorHeaderBlockEntity>> ROLLER_DOOR_HEADER = HELPER.createBlockEntity("roller_door_header", RollerDoorHeaderBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR_HEADER.get()));
 }

@@ -33,32 +33,22 @@ public interface RollerDoor {
 	}
 
 	default BlockState getUpdatedState(LevelAccessor level, BlockPos pos, Direction facing, AttachFace face, int openness, boolean waterlogged) {
-		BlockState abovestate = level.getBlockState(pos.relative(this.getAboveDirection(facing, face)));
-		BlockState belowstate = level.getBlockState(pos.relative(this.getBelowDirection(facing, face)));
+		BlockState abovestate = level.getBlockState(pos.relative(getAboveDirection(facing, face)));
+		BlockState belowstate = level.getBlockState(pos.relative(getBelowDirection(facing, face)));
 		boolean connectsabove = abovestate.getBlock() instanceof RollerDoor && abovestate.getValue(RollerDoorBlock.FACING) == facing && abovestate.getValue(RollerDoorBlock.FACE) == face;
 		boolean connectsbelow = belowstate.getBlock() instanceof RollerDoor && belowstate.getValue(RollerDoorBlock.FACING) == facing && belowstate.getValue(RollerDoorBlock.FACE) == face;
 
-		BlockState returnstate;
-		if (connectsabove) {
-			if (connectsbelow)
-				returnstate = CCBlocks.ROLLER_DOOR.get().defaultBlockState();
-			else
-				returnstate = CCBlocks.ROLLER_DOOR_BOTTOM.get().defaultBlockState();
-		} else {
-			if (connectsbelow)
-				returnstate = CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
-			else
-				returnstate = CCBlocks.ROLLER_DOOR_HEADER_BOTTOM.get().defaultBlockState();
-		}
+		BlockState newstate = connectsabove ? CCBlocks.ROLLER_DOOR.get().defaultBlockState() : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
+		int newopenness = connectsabove ? abovestate.getValue(RollerDoorBlock.OPENNESS) : connectsbelow ? belowstate.getValue(RollerDoorBlock.OPENNESS) : openness;
 
-		return returnstate.setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.OPENNESS, connectsabove ? abovestate.getValue(RollerDoorBlock.OPENNESS) : connectsbelow ? belowstate.getValue(RollerDoorBlock.OPENNESS) : openness).setValue(RollerDoorBlock.WATERLOGGED, waterlogged);
+		return newstate.setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.OPENNESS, newopenness).setValue(RollerDoorBlock.BOTTOM, !connectsbelow).setValue(RollerDoorBlock.WATERLOGGED, waterlogged);
 	}
 
-	default Direction getAboveDirection(Direction facing, AttachFace face) {
+	static Direction getAboveDirection(Direction facing, AttachFace face) {
 		return face == AttachFace.WALL ? Direction.UP : facing;
 	}
 
-	default Direction getBelowDirection(Direction facing, AttachFace face) {
+	static Direction getBelowDirection(Direction facing, AttachFace face) {
 		return face == AttachFace.WALL ? Direction.DOWN : facing.getOpposite();
 	}
 

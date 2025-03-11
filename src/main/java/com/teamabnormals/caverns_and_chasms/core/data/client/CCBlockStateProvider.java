@@ -58,7 +58,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP);
 		this.storageDuctBlock(STORAGE_DUCT);
-		this.rollerDoorBlock(ROLLER_DOOR, ROLLER_DOOR_BOTTOM, ROLLER_DOOR_HEADER, ROLLER_DOOR_HEADER_BOTTOM);
+		this.rollerDoorBlock(ROLLER_DOOR, ROLLER_DOOR_HEADER);
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
@@ -577,11 +577,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
 	}
 
-	public void rollerDoorBlock(RegistryObject<Block> door, RegistryObject<Block> doorBottom, RegistryObject<Block> doorHeader, RegistryObject<Block> doorHeaderBottom) {
+	public void rollerDoorBlock(RegistryObject<Block> door, RegistryObject<Block> doorHeader) {
 		this.rollerDoorBlock(door);
-		this.rollerDoorBlock(doorBottom);
 		this.rollerDoorBlock(doorHeader);
-		this.rollerDoorBlock(doorHeaderBottom);
 		Block block = door.get();
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_inventory")));
 	}
@@ -592,8 +590,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				.forAllStatesExcept(state -> {
 					Direction direction = state.getValue(RollerDoorBlock.FACING);
 					AttachFace face = state.getValue(RollerDoorBlock.FACE);
+					String bottom = state.getValue(RollerDoorBlock.BOTTOM) ? "_bottom" : "";
 					return ConfiguredModel.builder()
-							.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_" + state.getValue(RollerDoorBlock.OPENNESS))))
+							.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + bottom + "_" + state.getValue(RollerDoorBlock.OPENNESS))))
 							.rotationX(face == AttachFace.CEILING ? 90 : face == AttachFace.FLOOR ? 270 : 0)
 							.rotationY(((int) direction.toYRot() + (face == AttachFace.FLOOR ? 0 : 180)) % 360)
 							.build();
