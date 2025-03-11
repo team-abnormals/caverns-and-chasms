@@ -635,7 +635,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties DIMMER = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).pushReaction(PushReaction.DESTROY).lightLevel((state) -> state.getValue(AbstractDimmerBlock.POWER));
 		public static final BlockBehaviour.Properties HOOP = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.METAL);
 		public static final BlockBehaviour.Properties STORAGE_DUCT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL);
-		public static final BlockBehaviour.Properties ROLLER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties ROLLER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL).pushReaction(PushReaction.DESTROY);
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F);
 		public static final BlockBehaviour.Properties DEEPSLATE_ORE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);

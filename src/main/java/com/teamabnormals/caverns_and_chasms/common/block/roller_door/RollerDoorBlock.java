@@ -64,16 +64,29 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 		return map.get(state.getValue(FACING))[0];
 	}
 
+	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Level level = context.getLevel();
 		BlockPos blockpos = context.getClickedPos();
-		BlockPos clickedpos = blockpos.relative(context.getClickedFace().getOpposite());
-		BlockState clickedstate = level.getBlockState(clickedpos);
-		boolean flag = clickedstate.getBlock() instanceof RollerDoor;
-
-		AttachFace face = flag ? clickedstate.getValue(FACE) : context.getClickedFace().getAxis() == Axis.Y ? AttachFace.WALL : context.getClickLocation().y - context.getClickedPos().getY() > 0.5D ? AttachFace.FLOOR : AttachFace.CEILING;
-		Direction facing = flag ? clickedstate.getValue(FACING) : face == AttachFace.WALL ? context.getHorizontalDirection().getOpposite() : context.getClickedFace().getOpposite();
 		FluidState fluidstate = level.getFluidState(blockpos);
+		Direction clickedface = context.getClickedFace();
+		BlockPos clickedpos = blockpos.relative(clickedface.getOpposite());
+		BlockState clickedstate = level.getBlockState(clickedpos);
+
+		boolean flag = false;
+		if (clickedstate.getBlock() instanceof RollerDoor) {
+			AttachFace face = clickedstate.getValue(FACE);
+			Direction facing = clickedstate.getValue(FACING);
+			if (face == AttachFace.WALL) {
+				if (facing.getAxis() != clickedface.getAxis())
+					flag = true;
+			} else if (clickedface.getAxis() != Axis.Y) {
+				flag = true;
+			}
+		}
+
+		AttachFace face = flag ? clickedstate.getValue(FACE) : clickedface.getAxis() == Axis.Y ? AttachFace.WALL : context.getClickLocation().y - context.getClickedPos().getY() > 0.5D ? AttachFace.FLOOR : AttachFace.CEILING;
+		Direction facing = flag ? clickedstate.getValue(FACING) : face == AttachFace.WALL ? context.getHorizontalDirection().getOpposite() : clickedface.getOpposite();
 
 		return this.getUpdatedState(level, blockpos, facing, face, 0, fluidstate.getType() == Fluids.WATER);
 	}
