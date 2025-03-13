@@ -1,0 +1,63 @@
+{
+	"textures": {
+		"particle": "#coal"
+	},
+	"elements": [
+		{
+			"name": "charcoal1",
+			"from": [5, 0, 5],
+			"to": [10, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"east": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"south": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"west": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"up": {"uv": [0, 0, 5, 5], "texture": "#coal"},
+				"down": {"uv": [5, 0, 10, 5], "texture": "#coal"}
+			}
+		},
+		{
+			"name": "charcoal2",
+			"from": [2, 0, 4],
+			"to": [5, 3, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 5]},
+			"faces": {
+				"north": {"uv": [8, 9, 11, 12], "texture": "#coal"},
+				"east": {"uv": [8, 9, 11, 12], "texture": "#coal"},
+				"south": {"uv": [8, 9, 11, 12], "texture": "#coal"},
+				"west": {"uv": [8, 9, 11, 12], "texture": "#coal"},
+				"up": {"uv": [8, 6, 11, 9], "texture": "#coal"},
+				"down": {"uv": [8, 12, 11, 15], "texture": "#coal"}
+			}
+		},
+		{
+			"name": "charcoal3",
+			"from": [6, 0, 10],
+			"to": [9, 5, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 11]},
+			"faces": {
+				"north": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"east": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"south": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"west": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"up": {"uv": [13, 0, 16, 3], "texture": "#coal"},
+				"down": {"uv": [13, 8, 16, 11], "texture": "#coal"}
+			}
+		},
+		{
+			"name": "charcoal4",
+			"from": [9, 0, 2],
+			"to": [12, 5, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 0, 3]},
+			"faces": {
+				"north": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"east": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"south": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"west": {"uv": [13, 3, 16, 8], "texture": "#coal"},
+				"up": {"uv": [13, 0, 16, 3], "texture": "#coal"},
+				"down": {"uv": [13, 8, 16, 11], "texture": "#coal"}
+			}
+		}
+	]
+}

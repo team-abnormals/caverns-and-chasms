@@ -1,0 +1,140 @@
+{
+  "variants": {
+    "coal=1,lit=false": [
+      {
+        "model": "caverns_and_chasms:block/coal_one"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_one",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_one",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_one",
+        "y": 270
+      }
+    ],
+    "coal=1,lit=true": [
+      {
+        "model": "caverns_and_chasms:block/coal_one_lit"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_one_lit",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_one_lit",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_one_lit",
+        "y": 270
+      }
+    ],
+    "coal=2,lit=false": [
+      {
+        "model": "caverns_and_chasms:block/coal_two"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_two",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_two",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_two",
+        "y": 270
+      }
+    ],
+    "coal=2,lit=true": [
+      {
+        "model": "caverns_and_chasms:block/coal_two_lit"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_two_lit",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_two_lit",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_two_lit",
+        "y": 270
+      }
+    ],
+    "coal=3,lit=false": [
+      {
+        "model": "caverns_and_chasms:block/coal_three"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_three",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_three",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_three",
+        "y": 270
+      }
+    ],
+    "coal=3,lit=true": [
+      {
+        "model": "caverns_and_chasms:block/coal_three_lit"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_three_lit",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_three_lit",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_three_lit",
+        "y": 270
+      }
+    ],
+    "coal=4,lit=false": [
+      {
+        "model": "caverns_and_chasms:block/coal_four"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_four",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_four",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_four",
+        "y": 270
+      }
+    ],
+    "coal=4,lit=true": [
+      {
+        "model": "caverns_and_chasms:block/coal_four_lit"
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_four_lit",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_four_lit",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/coal_four_lit",
+        "y": 270
+      }
+    ]
+  }
+}

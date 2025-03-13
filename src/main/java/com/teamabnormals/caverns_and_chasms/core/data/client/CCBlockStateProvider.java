@@ -104,6 +104,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(ROTTEN_FLESH_BLOCK);
 		this.randomRotationBlock(ROCKY_DIRT);
 		this.flintBlock(FLINT_BLOCK);
+		this.coalBlock(COAL);
+		this.coalBlock(CHARCOAL);
 		this.charcoalBlock(CHARCOAL_BLOCK);
 
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
@@ -792,6 +794,34 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				.partialState().with(CharcoalBlock.LIT, true).with(RotatedPillarBlock.AXIS, Axis.X).modelForState().modelFile(horizontalLit).rotationX(90).rotationY(90).addModel();
 
 		this.blockItem(registryObject);
+	}
+
+	public void coalBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+
+		this.getVariantBuilder(block).forAllStatesExcept(state -> {
+			String count = switch (state.getValue(CoalBlock.COAL)) {
+				case 1 -> "_one";
+				case 2 -> "_two";
+				case 3 -> "_three";
+				default -> "_four";
+			};
+
+			boolean isLit = state.getValue(CoalBlock.LIT);
+			String lit = isLit ? "_lit" : "";
+			String name = name(block) + count + lit;
+			BlockModelBuilder model = models().withExistingParent(name, CavernsAndChasms.location("block/template_" + name))
+					.texture("coal", blockTexture(block).withSuffix(lit));
+			if (isLit) {
+				model.texture("fire", blockTexture(block).withSuffix("_fire"));
+			}
+			return ConfiguredModel.builder()
+					.modelFile(model).nextModel()
+					.modelFile(model).rotationY(90).nextModel()
+					.modelFile(model).rotationY(180).nextModel()
+					.modelFile(model).rotationY(270)
+					.build();
+		}, CoalBlock.WATERLOGGED);
 	}
 
 	public void baseBlockVariants(Block block, RegistryObject<Block> stairs, RegistryObject<Block> slab, RegistryObject<Block> wall) {
