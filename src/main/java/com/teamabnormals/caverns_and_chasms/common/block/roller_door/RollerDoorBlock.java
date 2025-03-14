@@ -72,8 +72,6 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 		return this.handleLifting(state, level, pos, player, hand, hitResult);
 	}
 
-	// TODO: Make not break from water
-
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Level level = context.getLevel();

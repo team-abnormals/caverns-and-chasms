@@ -58,7 +58,7 @@ public interface RollerDoor {
 	}
 
 	default InteractionResult handleLifting(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (state.getValue(RollerDoorBlock.BOTTOM) || isHitResultInLiftArea(state, level, pos, hitResult)) {
+		if (!player.getItemInHand(hand).is(CCBlocks.ROLLER_DOOR.get().asItem()) && (state.getValue(RollerDoorBlock.BOTTOM) || isHitResultInLiftArea(state, level, pos, hitResult))) {
 			if (!level.isClientSide) {
 				RollerDoorHeaderBlockEntity blockEntity = findHeaderBlockEntity(level, state, pos);
 				if (blockEntity != null)
