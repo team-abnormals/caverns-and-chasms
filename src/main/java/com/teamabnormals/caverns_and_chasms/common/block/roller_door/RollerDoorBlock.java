@@ -2,21 +2,31 @@ package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldButtonBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -55,6 +65,11 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 		AttachFace face = state.getValue(FACE);
 		Map<Direction, VoxelShape[]> map = face == AttachFace.WALL ? WALL_SHAPES : face == AttachFace.CEILING ? CEILING_SHAPES : FLOOR_SHAPES;
 		return map.get(state.getValue(FACING))[state.getValue(BOTTOM) ? state.getValue(OPENNESS) : 0];
+	}
+
+	@Override
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		return this.handleLifting(state, level, pos, player, hand, hitResult);
 	}
 
 	// TODO: Make not break from water

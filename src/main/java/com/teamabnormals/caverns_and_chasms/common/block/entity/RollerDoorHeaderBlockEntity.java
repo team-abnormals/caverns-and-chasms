@@ -42,11 +42,11 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 		return this.blocks;
 	}
 
-	public void setLifted() {
-		this.liftTime = 5;
+	public void setBeingLifted() {
+		this.liftTime = 7;
 	}
 
-	public boolean isLifted() {
+	public boolean isBeingLifted() {
 		return this.liftTime > 0;
 	}
 
@@ -97,7 +97,7 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 	}
 
 	public boolean shouldOpen() {
-		return this.isLifted() || this.level.hasNeighborSignal(this.getBlockPos());
+		return this.isBeingLifted() || this.level.hasNeighborSignal(this.getBlockPos());
 	}
 
 	public int getColumnLength() {
