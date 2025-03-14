@@ -822,6 +822,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					.modelFile(model).rotationY(270)
 					.build();
 		}, CoalBlock.WATERLOGGED);
+
+		this.generatedItem(block, new ResourceLocation("item/" + registryObject.getId().getPath()));
 	}
 
 	public void baseBlockVariants(Block block, RegistryObject<Block> stairs, RegistryObject<Block> slab, RegistryObject<Block> wall) {

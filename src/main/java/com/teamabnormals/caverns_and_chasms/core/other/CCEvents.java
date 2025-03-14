@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
+import com.teamabnormals.blueprint.core.Blueprint;
 import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTickEvent;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
@@ -67,6 +68,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
@@ -96,6 +98,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -179,6 +182,21 @@ public class CCEvents {
 		BlockState state = level.getBlockState(pos);
 		Direction face = event.getFace();
 		RandomSource random = level.getRandom();
+
+		if (stack.is(Items.COAL) || stack.is(Items.CHARCOAL)) {
+			UseOnContext context = new UseOnContext(level, player, event.getHand(), stack, event.getHitVec());
+			Collection<RegistryObject<Item>> items = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper().getDeferredRegister().getEntries();
+			for (RegistryObject<Item> reg : items) {
+				if (reg.get() instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
+					InteractionResult result = reg.get().useOn(context);
+					if (result.consumesAction()) {
+						event.setCanceled(true);
+						event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+					}
+					break;
+				}
+			}
+		}
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {

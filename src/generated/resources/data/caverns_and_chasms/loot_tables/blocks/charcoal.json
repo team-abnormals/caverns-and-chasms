@@ -14,7 +14,7 @@
                   "block": "caverns_and_chasms:charcoal",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "pickles": "2"
+                    "coal": "2"
                   }
                 }
               ],
@@ -28,7 +28,7 @@
                   "block": "caverns_and_chasms:charcoal",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "pickles": "3"
+                    "coal": "3"
                   }
                 }
               ],
@@ -42,7 +42,7 @@
                   "block": "caverns_and_chasms:charcoal",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "pickles": "4"
+                    "coal": "4"
                   }
                 }
               ],
@@ -53,7 +53,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "caverns_and_chasms:charcoal"
+          "name": "minecraft:charcoal"
         }
       ],
       "rolls": 1.0

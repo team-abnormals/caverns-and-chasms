@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
@@ -107,12 +108,12 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CHARCOAL_BLOCK.get());
 			this.add(COAL.get(), block -> {
 				return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(Items.COAL, LootItem.lootTableItem(block).apply(List.of(2, 3, 4), (i) -> {
-					return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SeaPickleBlock.PICKLES, i)));
+					return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoalBlock.COAL, i)));
 				}))));
 			});
 			this.add(CHARCOAL.get(), block -> {
 				return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(Items.CHARCOAL, LootItem.lootTableItem(block).apply(List.of(2, 3, 4), (i) -> {
-					return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SeaPickleBlock.PICKLES, i)));
+					return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoalBlock.COAL, i)));
 				}))));
 			});
 

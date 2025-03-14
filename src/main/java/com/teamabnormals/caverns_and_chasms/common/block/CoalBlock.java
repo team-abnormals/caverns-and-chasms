@@ -1,7 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -98,7 +104,18 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 		p_56120_.add(COAL, WATERLOGGED, LIT);
 	}
 
+	@Override
 	public boolean isPathfindable(BlockState p_56104_, BlockGetter p_56105_, BlockPos p_56106_, PathComputationType p_56107_) {
 		return false;
+	}
+
+	@Override
+	public Item asItem() {
+		return this == CCBlocks.CHARCOAL.get() ? Items.CHARCOAL : Items.COAL;
+	}
+
+	@Override
+	public String getDescriptionId() {
+		return Util.makeDescriptionId("item", new ResourceLocation(BuiltInRegistries.BLOCK.getKey(this).getPath()));
 	}
 }
