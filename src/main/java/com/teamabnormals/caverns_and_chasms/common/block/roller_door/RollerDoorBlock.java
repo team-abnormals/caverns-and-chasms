@@ -45,14 +45,6 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 			Direction.WEST, RollerDoor.makeShapes(0, 13, 0, 16, 15, 16, Shapes.empty(), Direction.WEST),
 			Direction.EAST, RollerDoor.makeShapes(0, 13, 0, 16, 15, 16, Shapes.empty(), Direction.EAST)));
 
-	private static VoxelShape[] makeShapes(double x1, double z1, double x2, double z2) {
-		VoxelShape[] shapes = new VoxelShape[16];
-		for (int i = 0; i < 16; i++) {
-			shapes[i] = box(x1, i, z1, x2, 16.0D, z2);
-		}
-		return shapes;
-	}
-
 	public RollerDoorBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPENNESS, 0).setValue(BOTTOM, false).setValue(WATERLOGGED, false));

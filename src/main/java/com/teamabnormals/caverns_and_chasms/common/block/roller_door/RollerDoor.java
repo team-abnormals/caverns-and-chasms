@@ -1,9 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -33,13 +36,19 @@ public interface RollerDoor {
 	}
 
 	default BlockState getUpdatedState(LevelAccessor level, BlockPos pos, Direction facing, AttachFace face, int openness, boolean waterlogged) {
-		BlockState abovestate = level.getBlockState(pos.relative(getAboveDirection(facing, face)));
-		BlockState belowstate = level.getBlockState(pos.relative(getBelowDirection(facing, face)));
+		BlockPos abovepos = pos.relative(getAboveDirection(facing, face));
+		BlockPos belowpos = pos.relative(getBelowDirection(facing, face));
+		BlockState abovestate = level.getBlockState(abovepos);
+		BlockState belowstate = level.getBlockState(belowpos);
 		boolean connectsabove = abovestate.getBlock() instanceof RollerDoor && abovestate.getValue(RollerDoorBlock.FACING) == facing && abovestate.getValue(RollerDoorBlock.FACE) == face;
 		boolean connectsbelow = belowstate.getBlock() instanceof RollerDoor && belowstate.getValue(RollerDoorBlock.FACING) == facing && belowstate.getValue(RollerDoorBlock.FACE) == face;
 
 		BlockState newstate = connectsabove ? CCBlocks.ROLLER_DOOR.get().defaultBlockState() : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
 		int newopenness = connectsabove ? abovestate.getValue(RollerDoorBlock.OPENNESS) : connectsbelow ? belowstate.getValue(RollerDoorBlock.OPENNESS) : openness;
+
+		if (connectsabove && this instanceof RollerDoorHeaderBlock && abovestate.getBlock() instanceof RollerDoorHeaderBlock)
+			if (level.getBlockEntity(pos) instanceof RollerDoorHeaderBlockEntity door && level.getBlockEntity(abovepos) instanceof RollerDoorHeaderBlockEntity aboveDoor)
+				aboveDoor.deserializeNBT(door.serializeNBT());
 
 		return newstate.setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.OPENNESS, newopenness).setValue(RollerDoorBlock.BOTTOM, !connectsbelow).setValue(RollerDoorBlock.WATERLOGGED, waterlogged);
 	}
@@ -50,9 +59,5 @@ public interface RollerDoor {
 
 	static Direction getBelowDirection(Direction facing, AttachFace face) {
 		return face == AttachFace.WALL ? Direction.DOWN : facing.getOpposite();
-	}
-
-	default boolean isHeader() {
-		return false;
 	}
 }

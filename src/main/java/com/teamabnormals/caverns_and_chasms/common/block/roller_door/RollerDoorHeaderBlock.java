@@ -3,9 +3,9 @@ package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -22,10 +22,13 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 
 public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor {
@@ -74,11 +77,6 @@ public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor
 	}
 
 	@Override
-	public boolean isHeader() {
-		return true;
-	}
-
-	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		AttachFace face = state.getValue(FACE);
 		Map<Direction, VoxelShape[]> map = face == AttachFace.WALL ? WALL_SHAPES : face == AttachFace.CEILING ? CEILING_SHAPES : FLOOR_SHAPES;
@@ -88,6 +86,22 @@ public class RollerDoorHeaderBlock extends BaseEntityBlock implements RollerDoor
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
 		return new ItemStack(CCBlocks.ROLLER_DOOR.get());
+	}
+
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+		if (blockEntity instanceof RollerDoorHeaderBlockEntity rollerDoor) {
+			ObjectArrayList<ItemStack> list = new ObjectArrayList<>();
+			int itemcount = rollerDoor.getBlockCount() + 1;
+			int stackcount = itemcount / 64;
+			for (int i = 0; i < stackcount; i++) {
+				list.add(new ItemStack(CCBlocks.ROLLER_DOOR.get(), 64));
+			}
+			list.add(new ItemStack(CCBlocks.ROLLER_DOOR.get(), itemcount % 64));
+			return list;
+		}
+		return super.getDrops(state, builder);
 	}
 
 	@Override

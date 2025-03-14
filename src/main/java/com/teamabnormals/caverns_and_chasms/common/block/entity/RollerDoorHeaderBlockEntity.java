@@ -38,6 +38,10 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 		compound.putShort("LiftTime", (short) this.liftTime);
 	}
 
+	public int getBlockCount() {
+		return this.blocks;
+	}
+
 	public void setLifted() {
 		this.liftTime = 5;
 	}
