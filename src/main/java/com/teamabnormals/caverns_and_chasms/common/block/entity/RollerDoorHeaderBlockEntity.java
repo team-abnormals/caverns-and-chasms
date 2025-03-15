@@ -43,7 +43,7 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 	}
 
 	public void setBeingLifted() {
-		this.liftTime = 7;
+		this.liftTime = 5;
 	}
 
 	public boolean isBeingLifted() {
