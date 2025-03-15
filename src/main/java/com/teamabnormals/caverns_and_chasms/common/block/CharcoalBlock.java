@@ -39,11 +39,9 @@ public class CharcoalBlock extends RotatedPillarBlock {
 	}
 
 	public static boolean shouldBeLit(Level level, BlockPos pos) {
-		for (Direction direction : Direction.values()) {
-			BlockState state = level.getBlockState(pos.relative(direction));
-			if (state.is(Blocks.FIRE) || state.is(Blocks.LAVA)) {
-				return true;
-			}
+		BlockState state = level.getBlockState(pos.above());
+		if (state.is(Blocks.FIRE) || state.is(Blocks.LAVA)) {
+			return true;
 		}
 		return false;
 	}

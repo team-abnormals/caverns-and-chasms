@@ -7,6 +7,7 @@
     "#forge:storage_blocks/raw_silver",
     "#forge:storage_blocks/raw_tin",
     "#forge:storage_blocks/zirconia",
-    "#forge:storage_blocks/turquoise"
+    "#forge:storage_blocks/turquoise",
+    "#forge:storage_blocks/charcoal"
   ]
 }

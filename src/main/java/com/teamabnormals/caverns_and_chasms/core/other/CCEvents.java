@@ -1,11 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
-import com.teamabnormals.blueprint.core.Blueprint;
 import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTickEvent;
-import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
@@ -38,7 +37,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -53,7 +51,6 @@ import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Ocelot;
-import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -88,15 +85,12 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -197,6 +191,31 @@ public class CCEvents {
 				}
 			}
 		}
+
+		boolean fireCharge = stack.getItem() instanceof FireChargeItem;
+		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
+		if (fireCharge || flintAndSteel) {
+			boolean valid = state.getBlock() instanceof CoalBlock && !state.getValue(CoalBlock.LIT) && !state.getValue(CoalBlock.WATERLOGGED);
+			if (valid) {
+				BlockState returnState = state.setValue(CoalBlock.LIT, true);
+				if (flintAndSteel) {
+					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					level.setBlock(pos, returnState, 11);
+					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
+				} else {
+					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+					level.setBlockAndUpdate(pos, returnState);
+					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+					if (!player.getAbilities().instabuild)
+						stack.shrink(1);
+				}
+
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+				event.setCanceled(true);
+			}
+		}
+
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {

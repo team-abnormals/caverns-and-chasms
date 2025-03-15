@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -64,6 +65,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		// INDUCTOR.get()
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				ROCKY_DIRT.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(),
+				CHARCOAL_BLOCK.get(), COAL.get(), CHARCOAL.get(),
 				SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SILVER_BARS.get(), MEDIUM_WEIGHTED_PRESSURE_PLATE.get(),
 				TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), TIN_BARS.get(),
 				HOLD_PLATE.get(), HOLD_BUTTON.get(), DIMMER.get(), WALL_DIMMER.get(), BOUNCER.get(), HOOP.get(), STORAGE_DUCT.get(),
@@ -195,7 +197,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).add(NECROMIUM_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).add(RAW_SILVER_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).add(RAW_TIN_BLOCK.get());
-		this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(CCBlockTags.STORAGE_BLOCKS_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_SPINEL).addTag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA).addTag(CCBlockTags.STORAGE_BLOCKS_TURQUOISE);
+		this.tag(CCBlockTags.STORAGE_BLOCKS_CHARCOAL).add(CHARCOAL.get());
+		this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(CCBlockTags.STORAGE_BLOCKS_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_SPINEL).addTag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA).addTag(CCBlockTags.STORAGE_BLOCKS_TURQUOISE).addTag(CCBlockTags.STORAGE_BLOCKS_CHARCOAL);
 		this.tag(Tags.Blocks.ORES).addTag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.ORES_TIN).addTag(CCBlockTags.ORES_SPINEL).addTag(CCBlockTags.ORES_TURQUOISE);
 		this.tag(CCBlockTags.ORES_AMETHYST).add(Blocks.AMETHYST_BLOCK, Blocks.AMETHYST_CLUSTER, Blocks.BUDDING_AMETHYST, Blocks.LARGE_AMETHYST_BUD, Blocks.MEDIUM_AMETHYST_BUD, Blocks.SMALL_AMETHYST_BUD);
 		this.tag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.SILVER_ORES);

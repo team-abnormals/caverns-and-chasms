@@ -444,8 +444,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> FLINT_BLOCK = HELPER.createBlock("flint_block", () -> new FlintBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
 
-	public static final RegistryObject<Block> COAL = HELPER.createBlock("coal", () -> new CoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 11 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY).offsetType(OffsetType.XZ).dynamicShape()));
-	public static final RegistryObject<Block> CHARCOAL = HELPER.createBlock("charcoal", () -> new CoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 11 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY).offsetType(OffsetType.XZ).dynamicShape()));
+	public static final RegistryObject<Block> COAL = HELPER.createBlock("coal", () -> new CoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 9 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY)));
+	public static final RegistryObject<Block> CHARCOAL = HELPER.createBlock("charcoal", () -> new CoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 7 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createBlock("charcoal_block", () -> new CharcoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> state.getValue(CharcoalBlock.LIT) ? 15 : 0).hasPostProcess((state, level, pos) -> state.getValue(CharcoalBlock.LIT)).emissiveRendering((state, level, pos) -> state.getValue(CharcoalBlock.LIT))));
 
 	public static void setupTabEditors() {

@@ -52,6 +52,8 @@ public class CCCompat {
 	}
 
 	private static void registerFlammables() {
+		DataUtil.registerFlammable(CCBlocks.CHARCOAL_BLOCK.get(), 5, 5);
+
 		DataUtil.registerFlammable(CCBlocks.AZALEA_LOG.get(), 5, 5);
 		DataUtil.registerFlammable(CCBlocks.AZALEA_WOOD.get(), 5, 5);
 		DataUtil.registerFlammable(CCBlocks.STRIPPED_AZALEA_LOG.get(), 5, 5);
