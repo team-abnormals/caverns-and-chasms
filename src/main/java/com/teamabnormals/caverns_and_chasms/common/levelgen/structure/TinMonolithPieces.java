@@ -13,6 +13,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
@@ -45,8 +46,11 @@ public class TinMonolithPieces {
 			int minZ = chunkPos.getMinBlockZ() - origin.getZ();
 			int maxZ = chunkPos.getMaxBlockZ() - origin.getZ();
 
-			for (int y = 0; y <= 111; ++y) {
-				double radius = y / 111.0D * 16;
+			int tipheight = Mth.clamp(level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, origin.getX(), origin.getZ()) - 4, 0, 48);
+			int height = 63 + tipheight;
+
+			for (int y = 0; y <= height; ++y) {
+				double radius = (double) y / height * 16;
 				int radiusInt = Mth.ceil(radius);
 
 				int minX1 = Math.max(minX, -radiusInt);
@@ -63,7 +67,7 @@ public class TinMonolithPieces {
 
 						if (distance1 <= 1.0D) {
 							int levelX = origin.getX() + x;
-							int levelY = 48 - y;
+							int levelY = tipheight - y;
 							int levelZ = origin.getZ() + z;
 
 							mutable.set(levelX, levelY, levelZ);

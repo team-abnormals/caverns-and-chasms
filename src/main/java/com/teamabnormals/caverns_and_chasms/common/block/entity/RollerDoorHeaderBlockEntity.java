@@ -91,7 +91,7 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 			} else if (columnlength > 1) {
 				BlockPos offsetpos = pos.relative(RollerDoor.getBelowDirection(facing, face), columnlength - 1);
 
-				moveCollidedEntities(level, pos, 15, columnlength, columnlength - 1, facing, face, true);
+				moveCollidedEntities(level, pos, 0, columnlength, columnlength - 1, facing, face, true);
 
 				if (!level.isClientSide) {
 					level.setBlock(offsetpos, level.getBlockState(offsetpos).getFluidState().createLegacyBlock(), 3);
