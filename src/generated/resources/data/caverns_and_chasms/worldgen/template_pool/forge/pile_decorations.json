@@ -4,12 +4,45 @@
       "element": {
         "element_type": "minecraft:empty_pool_element"
       },
-      "weight": 17
+      "weight": 150
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/cauldron_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/stone_button_1",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 60
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/pile_decorations/mushroom_1",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/pile_decorations/mushroom_2",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/pile_decorations/cave_growths_1",
         "processors": {
           "processors": []
         },
@@ -20,7 +53,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/furnace_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/cave_growths_2",
         "processors": {
           "processors": []
         },
@@ -31,7 +64,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/blast_furnace_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/cave_growths_3",
         "processors": {
           "processors": []
         },
@@ -42,7 +75,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/damaged_anvil_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/cave_growths_4",
         "processors": {
           "processors": []
         },
@@ -53,7 +86,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/dimmer_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/cave_growths_5",
         "processors": {
           "processors": []
         },
@@ -64,7 +97,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/dimmer_scaffolding_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/cave_growths_6",
         "processors": {
           "processors": []
         },
@@ -75,134 +108,145 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/anvil_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/candle_1",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/tnt_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/candle_2",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/tnt_2",
+        "location": "caverns_and_chasms:forge/pile_decorations/candle_3",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/tnt_scaffolding_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/candle_4",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/tnt_scaffolding_2",
+        "location": "caverns_and_chasms:forge/pile_decorations/coal_1",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 5
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/water_cauldron_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/coal_2",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 5
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/water_cauldron_2",
+        "location": "caverns_and_chasms:forge/pile_decorations/coal_3",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 5
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/water_cauldron_3",
+        "location": "caverns_and_chasms:forge/pile_decorations/coal_4",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 5
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/scaffolding_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/charcoal_1",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/scaffolding_2",
+        "location": "caverns_and_chasms:forge/pile_decorations/charcoal_2",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/scaffolding_3",
+        "location": "caverns_and_chasms:forge/pile_decorations/charcoal_3",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/small_decorations/scaffolding_4",
+        "location": "caverns_and_chasms:forge/pile_decorations/charcoal_4",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "caverns_and_chasms:forge/pile_decorations/toolbox_1",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 8
     }
   ],
   "fallback": "minecraft:empty"
