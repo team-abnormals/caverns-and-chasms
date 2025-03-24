@@ -60,6 +60,6 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 		while (f < -Mth.PI)
 			f += Mth.TWO_PI;
 
-		return this.oldRot + f * partialTick;
+		return this.oldRot + f * partialTick - Mth.PI;
 	}
 }
