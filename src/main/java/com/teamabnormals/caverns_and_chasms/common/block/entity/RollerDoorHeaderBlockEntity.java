@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoor;
 import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
@@ -197,7 +198,35 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 	}
 
 	private boolean shouldOpen() {
-		return this.isBeingLifted() || this.level.hasNeighborSignal(this.getBlockPos());
+		return this.isBeingLifted() || this.level.hasNeighborSignal(this.getBlockPos()) || this.isConnectedHeaderBeingOpened();
+	}
+
+	private boolean isConnectedHeaderBeingOpened() {
+		MutableBlockPos mutable = this.getBlockPos().mutable();
+		boolean right = false;
+		Direction facing = this.getBlockState().getValue(RollerDoorBlock.FACING);
+		AttachFace face = this.getBlockState().getValue(RollerDoorBlock.FACE);
+		Direction direction = RollerDoor.getLeftDirection(facing, face);
+		while (true) {
+			mutable.move(direction);
+			BlockState blockstate = this.level.getBlockState(mutable);
+			if (blockstate.getBlock() instanceof RollerDoorHeaderBlock && RollerDoor.isParallelDoor(blockstate, facing, face)) {
+				if (this.level.hasNeighborSignal(mutable))
+					return true;
+				else if (this.level.getBlockEntity(mutable) instanceof RollerDoorHeaderBlockEntity blockentity) {
+					if (blockentity.isBeingLifted())
+						return true;
+				}
+			} else {
+				if (!right) {
+					right = true;
+					mutable.set(this.getBlockPos());
+					direction = direction.getOpposite();
+				} else {
+					return false;
+				}
+			}
+		}
 	}
 
 	private int getColumnLength() {

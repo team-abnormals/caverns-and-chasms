@@ -99,6 +99,14 @@ public interface RollerDoor {
 		return face == AttachFace.WALL ? Direction.DOWN : facing.getOpposite();
 	}
 
+	static Direction getLeftDirection(Direction facing, AttachFace face) {
+		return face == AttachFace.WALL ? facing.getClockWise() : facing.getCounterClockWise();
+	}
+
+	static Direction getRightDirection(Direction facing, AttachFace face) {
+		return face == AttachFace.WALL ? facing.getCounterClockWise() : facing.getClockWise();
+	}
+
 	static boolean isParallelDoor(BlockState neighborState, Direction facing, AttachFace face) {
 		return neighborState.getBlock() instanceof RollerDoor && neighborState.getValue(RollerDoorBlock.FACING) == facing && neighborState.getValue(RollerDoorBlock.FACE) == face;
 	}
