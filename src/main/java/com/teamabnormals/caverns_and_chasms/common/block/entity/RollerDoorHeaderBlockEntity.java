@@ -28,7 +28,9 @@ import java.util.List;
 public class RollerDoorHeaderBlockEntity extends BlockEntity {
 	private int blocks;
 	private int liftTime;
-	private boolean isBeingLifted;
+	private boolean beingLifted;
+	private boolean prevBeingLifted;
+	private long liftUpdateTime;
 
 	public RollerDoorHeaderBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.ROLLER_DOOR_HEADER.get(), pos, state);
@@ -39,6 +41,8 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 		super.load(compound);
 		this.blocks = compound.getInt("Blocks");
 		this.liftTime = compound.getShort("LiftTime");
+		this.beingLifted = this.isBeingLifted();
+		this.prevBeingLifted = this.beingLifted;
 	}
 
 	@Override
@@ -48,35 +52,21 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 		compound.putShort("LiftTime", (short) this.liftTime);
 	}
 
-	@Override
-	public boolean triggerEvent(int p_58837_, int p_58838_) {
-		if (p_58837_ == 1) {
-			this.isBeingLifted = p_58838_ == 1;
-			return true;
-		} else {
-			return super.triggerEvent(p_58837_, p_58838_);
-		}
-	}
-
 	public int getBlockCount() {
 		return this.blocks;
 	}
 
 	public void setBeingLifted() {
 		this.liftTime = 5;
-		this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, 1);
+		this.beingLifted = true;
 	}
 
 	public boolean isBeingLifted() {
-		return this.liftTime > 0;
+		return this.beingLifted;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, RollerDoorHeaderBlockEntity blockEntity) {
-		if (blockEntity.liftTime > 0) {
-			--blockEntity.liftTime;
-			if (blockEntity.liftTime == 0)
-				level.blockEvent(pos, state.getBlock(), 1, 0);
-		}
+		blockEntity.prevBeingLifted = blockEntity.beingLifted;
 
 		Direction facing = state.getValue(RollerDoorBlock.FACING);
 		AttachFace face = state.getValue(RollerDoorBlock.FACE);
@@ -127,6 +117,13 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 					}
 				}
 			}
+		}
+
+		blockEntity.liftUpdateTime = level.getGameTime();
+		if (blockEntity.liftTime > 0) {
+			--blockEntity.liftTime;
+			if (blockEntity.liftTime == 0)
+				blockEntity.beingLifted = false;
 		}
 	}
 
@@ -214,7 +211,9 @@ public class RollerDoorHeaderBlockEntity extends BlockEntity {
 				if (this.level.hasNeighborSignal(mutable))
 					return true;
 				else if (this.level.getBlockEntity(mutable) instanceof RollerDoorHeaderBlockEntity blockentity) {
-					if (blockentity.isBeingLifted())
+					if (blockentity.liftUpdateTime == level.getGameTime() && blockentity.prevBeingLifted)
+						return true;
+					else if (blockentity.liftUpdateTime < level.getGameTime() && blockentity.beingLifted)
 						return true;
 				}
 			} else {
