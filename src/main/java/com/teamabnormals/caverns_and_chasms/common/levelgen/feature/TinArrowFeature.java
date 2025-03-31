@@ -31,7 +31,7 @@ public class TinArrowFeature extends Feature<OreConfiguration> {
 		BlockPos blockpos = context.origin();
 		RandomSource random = context.random();
 
-		BlockPos monolithPos = TinArrowPlacement.getClosestMonolithPosition(level.getSeed(), blockpos);
+		BlockPos monolithPos = TinArrowPlacement.getClosestMonolithPosition(level, blockpos);
 
 		if (monolithPos == null)
 			return false;

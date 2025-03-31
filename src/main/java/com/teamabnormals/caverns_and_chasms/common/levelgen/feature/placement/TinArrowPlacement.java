@@ -1,8 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPlacementModifierTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -14,9 +16,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import org.apache.commons.lang3.tuple.Triple;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -28,7 +28,6 @@ public class TinArrowPlacement extends PlacementModifier {
 				Codec.INT.fieldOf("max_distance").forGetter((placement) -> placement.maxDistance)
 		).apply(instance, TinArrowPlacement::new);
 	});
-	private static volatile Map<Triple<Long, Integer, Integer>, BlockPos> MONOLITH_POSITIONS = new HashMap<>();
 	private final int maxCount;
 	private final int maxDistance;
 
@@ -47,7 +46,7 @@ public class TinArrowPlacement extends PlacementModifier {
 	}
 
 	private int count(WorldGenLevel level, RandomSource random, BlockPos pos) {
-		BlockPos blockpos = getClosestMonolithPosition(level.getSeed(), pos);
+		BlockPos blockpos = getClosestMonolithPosition(level, pos);
 
 		if (blockpos == null)
 			return 0;
@@ -70,18 +69,15 @@ public class TinArrowPlacement extends PlacementModifier {
 		return CCPlacementModifierTypes.TIN_ARROW.get();
 	}
 
-	public static BlockPos getClosestMonolithPosition(long seed, BlockPos pos) {
+	public static BlockPos getClosestMonolithPosition(WorldGenLevel level, BlockPos pos) {
 		int chunkX = pos.getX() >> 4;
 		int chunkZ = pos.getZ() >> 4;
 		if (chunkX < -TinMonolithStructure.BLOCK_GEN_RANGE || chunkX >= TinMonolithStructure.BLOCK_GEN_RANGE || chunkZ < -TinMonolithStructure.BLOCK_GEN_RANGE || chunkZ >= TinMonolithStructure.BLOCK_GEN_RANGE) {
-			Triple<Long, Integer, Integer> spacingPos = Triple.of(seed, Math.floorDiv(chunkX, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ, TinMonolithStructure.SPACING));
-			if (!MONOLITH_POSITIONS.containsKey(spacingPos)) {
-				synchronized (TinArrowPlacement.class) {
-					MONOLITH_POSITIONS.put(spacingPos, getPotentialStructureChunk(seed, spacingPos.getMiddle(), spacingPos.getRight()).getWorldPosition());
-				}
-			}
-
-			return MONOLITH_POSITIONS.get(spacingPos);
+			Pair<Integer, Integer> spacingPos = Pair.of(Math.floorDiv(chunkX, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ, TinMonolithStructure.SPACING));
+			Map<Pair<Integer, Integer>, BlockPos> map = CCFeatures.MONOLITH_POSITIONS.get(level.getLevel());
+			if (!map.containsKey(spacingPos))
+				map.put(spacingPos, getPotentialStructureChunk(level.getSeed(), spacingPos.getFirst(), spacingPos.getSecond()).getWorldPosition());
+			return map.get(spacingPos);
 		} else {
 			return null;
 		}
@@ -94,9 +90,5 @@ public class TinArrowPlacement extends PlacementModifier {
 		int l = RandomSpreadType.TRIANGULAR.evaluate(worldgenrandom, k);
 		int i1 = RandomSpreadType.TRIANGULAR.evaluate(worldgenrandom, k);
 		return new ChunkPos(spacingX * TinMonolithStructure.SPACING + l, spacingZ * TinMonolithStructure.SPACING + i1);
-	}
-
-	public static void clearCache() {
-		MONOLITH_POSITIONS.clear();
 	}
 }

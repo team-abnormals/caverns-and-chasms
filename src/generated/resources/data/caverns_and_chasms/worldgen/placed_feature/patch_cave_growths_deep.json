@@ -2,7 +2,7 @@
   "feature": "caverns_and_chasms:patch_cave_growths",
   "placement": [
     {
-      "type": "caverns_and_chasms:better_noise_based_count",
+      "type": "blueprint:better_noise_based_count",
       "noise": "caverns_and_chasms:cave_growths",
       "noise_offset": 0.75,
       "noise_to_count_ratio": 2

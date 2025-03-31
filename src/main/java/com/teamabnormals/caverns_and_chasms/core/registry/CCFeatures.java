@@ -1,12 +1,18 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.blueprint.common.levelgen.placement.BetterNoiseBasedCountPlacement;
+import com.teamabnormals.blueprint.common.world.storage.receiver.LevelConcurrentHashMapReceiver;
+import com.teamabnormals.blueprint.common.world.storage.receiver.LevelNoiseReceiver;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.CaveGrowthsFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.OreWithDirtFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.TinArrowFeature;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.BetterNoiseBasedCountPlacement;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseBasedRarityFilter;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import it.unimi.dsi.fastutil.ints.IntIntImmutablePair;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -40,6 +47,7 @@ import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters;
+import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -56,6 +64,9 @@ public class CCFeatures {
 	public static final RegistryObject<Feature<OreConfiguration>> ORE_WITH_DIRT = FEATURES.register("ore_with_dirt", () -> new OreWithDirtFeature(OreConfiguration.CODEC));
 	public static final RegistryObject<Feature<OreConfiguration>> TIN_ARROW = FEATURES.register("tin_arrow", () -> new TinArrowFeature(OreConfiguration.CODEC));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTHS_PATCH = FEATURES.register("cave_growths_patch", () -> new CaveGrowthsFeature(NoneFeatureConfiguration.CODEC));
+
+	public static final LevelConcurrentHashMapReceiver<Pair<Integer, Integer>, BlockPos> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
+	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
 
 	public static final class CCNoiseParameters {
 		public static final ResourceKey<NoiseParameters> CAVE_GROWTHS = createKey("cave_growths");

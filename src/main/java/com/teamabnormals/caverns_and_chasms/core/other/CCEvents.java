@@ -16,7 +16,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
@@ -87,7 +86,6 @@ import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -755,11 +753,6 @@ public class CCEvents {
 		Level level = player.level();
 		if (event.getRight().is(CCItems.ZIRCONIA.get()))
 			player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), CCSoundEvents.ZIRCONIA_ANVIL_USE.get(), SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F, false);
-	}
-
-	@SubscribeEvent
-	public static void onServerStopping(ServerStoppingEvent event) {
-		TinArrowPlacement.clearCache();
 	}
 
 	private static void rewindTeleport(LivingEntity entity) {
