@@ -24,7 +24,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), TIN_BLOCK.get(), NECROMIUM_BLOCK.get());
+		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), TIN_BLOCK.get(), NECROMIUM_BLOCK.get(), TURQUOISE_BLOCK.get(), ZIRCONIA_BLOCK.get());
 		this.tag(BlockTags.BUTTONS).add(HOLD_BUTTON.get(), COPPER_BUTTON.get(), EXPOSED_COPPER_BUTTON.get(), WEATHERED_COPPER_BUTTON.get(), OXIDIZED_COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
 		this.tag(BlockTags.CAMPFIRES).add(CUPRIC_CAMPFIRE.get());
 		this.tag(BlockTags.DIRT).add(ROCKY_DIRT.get());
