@@ -4,14 +4,13 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.levelgen.placement.BetterNoiseBasedCountPlacement;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelConcurrentHashMapReceiver;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelNoiseReceiver;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.CaveGrowthGroveFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.CaveGrowthsFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.OreWithDirtFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.TinArrowFeature;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseBasedRarityFilter;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import it.unimi.dsi.fastutil.ints.IntIntImmutablePair;
-import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -47,7 +46,6 @@ import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters;
-import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -64,17 +62,21 @@ public class CCFeatures {
 	public static final RegistryObject<Feature<OreConfiguration>> ORE_WITH_DIRT = FEATURES.register("ore_with_dirt", () -> new OreWithDirtFeature(OreConfiguration.CODEC));
 	public static final RegistryObject<Feature<OreConfiguration>> TIN_ARROW = FEATURES.register("tin_arrow", () -> new TinArrowFeature(OreConfiguration.CODEC));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTHS_PATCH = FEATURES.register("cave_growths_patch", () -> new CaveGrowthsFeature(NoneFeatureConfiguration.CODEC));
+	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTH_GROVE = FEATURES.register("cave_growth_grove", () -> new CaveGrowthGroveFeature(NoneFeatureConfiguration.CODEC));
 
 	public static final LevelConcurrentHashMapReceiver<Pair<Integer, Integer>, BlockPos> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
 	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
+	public static final LevelNoiseReceiver CAVE_GROWTH_GRADIENT = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTH_GRADIENT);
 
 	public static final class CCNoiseParameters {
 		public static final ResourceKey<NoiseParameters> CAVE_GROWTHS = createKey("cave_growths");
 		public static final ResourceKey<NoiseParameters> CAVE_GROWTHS_MOSCHATEL = createKey("cave_growths_moschatel");
+		public static final ResourceKey<NoiseParameters> CAVE_GROWTH_GRADIENT = createKey("cave_growth_gradient");
 
 		public static void bootstrap(BootstapContext<NoiseParameters> context) {
 			context.register(CAVE_GROWTHS, new NoiseParameters(-8, 1.0D));
 			context.register(CAVE_GROWTHS_MOSCHATEL, new NoiseParameters(-8, 1.0D));
+			context.register(CAVE_GROWTH_GRADIENT, new NoiseParameters(-2, 1.0D));
 		}
 
 		public static ResourceKey<NoiseParameters> createKey(String name) {
@@ -103,6 +105,7 @@ public class CCFeatures {
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE_BURIED = createKey("ore_fragile_stone_buried");
 
 		public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CAVE_GROWTHS = createKey("patch_cave_growths");
+		public static final ResourceKey<ConfiguredFeature<?, ?>> CAVE_GROWTH_GROVE = createKey("cave_growth_grove");
 
 		public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 			HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -136,6 +139,7 @@ public class CCFeatures {
 
 			register(context, AZALEA_TREE, Feature.TREE, (new TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build());
 			register(context, PATCH_CAVE_GROWTHS, CCFeatures.CAVE_GROWTHS_PATCH.get(), NoneFeatureConfiguration.NONE);
+			register(context, CAVE_GROWTH_GROVE, CCFeatures.CAVE_GROWTH_GROVE.get(), NoneFeatureConfiguration.NONE);
 		}
 
 		private static WeightedPlacedFeature weighted(ResourceKey<PlacedFeature> feature, float weight, HolderGetter<PlacedFeature> placedFeatures) {
@@ -174,6 +178,7 @@ public class CCFeatures {
 
 		public static final ResourceKey<PlacedFeature> PATCH_CAVE_GROWTHS = createKey("patch_cave_growths");
 		public static final ResourceKey<PlacedFeature> PATCH_CAVE_GROWTHS_DEEP = createKey("patch_cave_growths_deep");
+		public static final ResourceKey<PlacedFeature> CAVE_GROWTH_GROVE = createKey("cave_growth_grove");
 
 		public static void bootstrap(BootstapContext<PlacedFeature> context) {
 			HolderGetter<NoiseParameters> noise = context.lookup(Registries.NOISE);
@@ -200,6 +205,7 @@ public class CCFeatures {
 
 			register(context, PATCH_CAVE_GROWTHS, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new BetterNoiseBasedCountPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 12, 0.8F), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, -40, -2), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
 			register(context, PATCH_CAVE_GROWTHS_DEEP, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new BetterNoiseBasedCountPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 2, 0.75F), new NoiseBasedRarityFilter(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 0.5F, 1.0F), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(172)), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -40), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
+			register(context, CAVE_GROWTH_GROVE, CCConfiguredFeatures.CAVE_GROWTH_GROVE, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -6), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
 		}
 
 		private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {

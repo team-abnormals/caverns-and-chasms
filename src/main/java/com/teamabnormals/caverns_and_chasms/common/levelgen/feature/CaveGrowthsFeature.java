@@ -109,7 +109,7 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 		return placed;
 	}
 
-	private static boolean isNextToLava(WorldGenLevel level, BlockPos pos) {
+	public static boolean isNextToLava(WorldGenLevel level, BlockPos pos) {
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		for (int x = -1; x <= 1; ++x) {

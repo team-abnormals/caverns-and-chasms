@@ -19,6 +19,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraftforge.common.Tags.Biomes;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;
@@ -53,6 +54,7 @@ public class CCBiomeModifiers {
 		addFeature(context, "fragile_stone", CCBiomeTags.HAS_FRAGILE_STONE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE, CCPlacedFeatures.ORE_FRAGILE_STONE_BURIED);
 
 		addFeature(context, "cave_growths", BiomeTags.IS_OVERWORLD, Decoration.VEGETAL_DECORATION, CCPlacedFeatures.PATCH_CAVE_GROWTHS, CCPlacedFeatures.PATCH_CAVE_GROWTHS_DEEP);
+		addFeatureBlacklisted(context, "cave_growth_grove", Biomes.IS_CAVE, BiomeTags.IS_OVERWORLD, Decoration.VEGETAL_DECORATION, CCPlacedFeatures.CAVE_GROWTH_GROVE);
 
 		removeFeature(context, "gold_ore", BiomeTags.IS_OVERWORLD, Decoration.UNDERGROUND_ORES, OrePlacements.ORE_GOLD, OrePlacements.ORE_GOLD_LOWER);
 		removeFeature(context, "dirt_ore", CCBiomeTags.HAS_ROCKY_DIRT, Decoration.UNDERGROUND_ORES, OrePlacements.ORE_DIRT);
@@ -69,8 +71,8 @@ public class CCBiomeModifiers {
 	}
 
 	@SafeVarargs
-	private static void addFeatureBlacklisted(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, TagKey<Biome> blacklistedBiomes, Decoration step, ResourceKey<PlacedFeature>... features) {
-		register(context, "add_feature/" + name, () -> new BlacklistedAddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), context.lookup(Registries.BIOME).getOrThrow(blacklistedBiomes), featureSet(context, features), step));
+	private static void addFeatureBlacklisted(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> blacklistedBiomes, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
+		register(context, "add_feature/" + name, () -> new BlacklistedAddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(blacklistedBiomes), context.lookup(Registries.BIOME).getOrThrow(biomes), featureSet(context, features), step));
 	}
 
 	private static void addSpawn(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, MobSpawnSettings.SpawnerData... spawns) {
