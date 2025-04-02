@@ -29,12 +29,12 @@
   "block.note_block.imitate.peeper": {
     "sounds": [
       {
-        "name": "entity.creeper.primed",
+        "name": "caverns_and_chasms:entity.peeper.primed",
         "pitch": 0.5,
         "type": "event"
       }
     ],
-    "subtitle": "subtitles.entity.creeper.primed"
+    "subtitle": "subtitles.caverns_and_chasms.entity.peeper.primed"
   },
   "block.note_block.static": {
     "sounds": [
@@ -1188,7 +1188,7 @@
   "entity.parrot.imitate.peeper": {
     "sounds": [
       {
-        "name": "entity.creeper.primed",
+        "name": "caverns_and_chasms:entity.peeper.primed",
         "pitch": 1.8,
         "type": "event",
         "volume": 0.6
