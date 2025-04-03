@@ -8,6 +8,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,16 +36,14 @@ public class DimmerBlock extends AbstractDimmerBlock {
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-
 		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction.getAxis() == Direction.Axis.Y) {
-				BlockState blockstate = this.defaultBlockState().setValue(HANGING, Boolean.valueOf(direction == Direction.UP));
+				BlockState blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
 				if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
 					return blockstate.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
 				}
 			}
 		}
-
 		return null;
 	}
 
