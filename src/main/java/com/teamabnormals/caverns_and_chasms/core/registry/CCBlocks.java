@@ -163,8 +163,6 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WAXED_WEATHERED_FLOODLIGHT = HELPER.createBlock("waxed_weathered_floodlight", () -> new FloodlightBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_FLOODLIGHT));
 	public static final RegistryObject<Block> WAXED_OXIDIZED_FLOODLIGHT = HELPER.createBlock("waxed_oxidized_floodlight", () -> new FloodlightBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_FLOODLIGHT));
 
-	//	public static final RegistryObject<Block> INDUCTOR = HELPER.createBlock("inductor", () -> new InductorBlock(CCProperties.INDUCTOR));
-
 	public static final RegistryObject<Block> TOOLBOX = HELPER.createToolboxBlock("toolbox", () -> new WeatheringToolboxBlock(WeatherState.UNAFFECTED, CCProperties.TOOLBOX));
 	public static final RegistryObject<Block> EXPOSED_TOOLBOX = HELPER.createToolboxBlock("exposed_toolbox", () -> new WeatheringToolboxBlock(WeatherState.EXPOSED, CCProperties.TOOLBOX));
 	public static final RegistryObject<Block> WEATHERED_TOOLBOX = HELPER.createToolboxBlock("weathered_toolbox", () -> new WeatheringToolboxBlock(WeatherState.WEATHERED, CCProperties.TOOLBOX));
@@ -625,7 +623,6 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties COPPER_RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties DISMANTLING_TABLE = BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava();
 
-		public static final BlockBehaviour.Properties INDUCTOR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 4.8F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.LAVA_LAMP).lightLevel((state) -> 15);
 		public static final BlockBehaviour.Properties COPPER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.COPPER).noOcclusion();
 		public static final BlockBehaviour.Properties SILVER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.SILVER).noOcclusion();

@@ -62,7 +62,6 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
 		this.tag(BlockTags.BEEHIVES).add(AZALEA_BEEHIVE.get());
 		this.tag(BlockTags.IMPERMEABLE).add(FLOAT_GLASS.get());
-		// INDUCTOR.get()
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				ROCKY_DIRT.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(),
 				CHARCOAL_BLOCK.get(), COAL.get(), CHARCOAL.get(),
@@ -130,7 +129,6 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.BASE_STONE_OVERWORLD).add(FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 
 		this.tag(CCBlockTags.BRAZIERS).add(BRAZIER.get(), SOUL_BRAZIER.get(), ENDER_BRAZIER.get(), CUPRIC_BRAZIER.get());
-		// INDUCTOR.get()
 		this.tag(CCBlockTags.CUPRIC_FIRE_BASE_BLOCKS).addTag(Tags.Blocks.ORES_COPPER).addTag(Tags.Blocks.STORAGE_BLOCKS_RAW_COPPER).addTag(CCBlockTags.WAXABLE_COPPER_BLOCKS).addTag(CCBlockTags.WAXED_COPPER_BLOCKS);
 		this.tag(CCBlockTags.DEEPER_SPAWNABLE_ON).add(Blocks.GRAVEL).addTag(BlockTags.BASE_STONE_OVERWORLD).addTag(Tags.Blocks.ORES);
 		this.tag(CCBlockTags.GLARE_SPAWNABLE_NEAR).add(Blocks.GRASS_BLOCK, Blocks.MOSS_BLOCK, Blocks.MOSS_CARPET, Blocks.SMALL_DRIPLEAF, Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM).addTag(BlockTags.LEAVES).addTag(BlockTags.FLOWERS).addTag(BlockTags.SAPLINGS).addTag(BlockTags.REPLACEABLE_BY_TREES).addTag(BlockTags.CAVE_VINES);

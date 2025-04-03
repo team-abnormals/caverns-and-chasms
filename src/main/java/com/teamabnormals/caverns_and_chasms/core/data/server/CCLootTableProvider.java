@@ -191,8 +191,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_FLOODLIGHT.get());
 			this.dropSelf(WAXED_OXIDIZED_FLOODLIGHT.get());
 
-//			this.dropSelf(INDUCTOR.get());
-
 			this.add(TOOLBOX.get(), this::createToolboxDrop);
 			this.add(EXPOSED_TOOLBOX.get(), this::createToolboxDrop);
 			this.add(WEATHERED_TOOLBOX.get(), this::createToolboxDrop);
