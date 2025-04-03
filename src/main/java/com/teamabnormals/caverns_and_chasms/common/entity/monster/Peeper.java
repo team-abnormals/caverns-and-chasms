@@ -29,6 +29,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Explosion.BlockInteraction;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -147,11 +150,13 @@ public class Peeper extends Creeper {
 		if (!this.level().isClientSide && this.isAlive()) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			CustomSoundExplosion explosion = new CustomSoundExplosion(this.level(), this, this.getX(), this.getY(0.0625D), this.getZ(), 4.0F, CCSoundEvents.PEEPER_EXPLODE.get());
-			if (ForgeEventFactory.onExplosionStart(this.level(), explosion)) return;
+			BlockInteraction blockinteraction = !ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Explosion.BlockInteraction.KEEP : this.level().getGameRules().getBoolean(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY) ? Explosion.BlockInteraction.DESTROY_WITH_DECAY : Explosion.BlockInteraction.DESTROY;
+			CustomSoundExplosion explosion = new CustomSoundExplosion(this.level(), this, this.getX(), this.getY(), this.getZ(), this.explosionRadius * f, this.isOnFire(), blockinteraction, CCSoundEvents.PEEPER_EXPLODE.get());
+			if (ForgeEventFactory.onExplosionStart(this.level(), explosion))
+				return;
 			explosion.explode();
 			explosion.finalizeExplosion(true);
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new S2CCustomSoundExplosionMessage((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, explosion.getToBlow(), CCSoundEvents.PEEPER_EXPLODE.get()));
+			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new S2CCustomSoundExplosionMessage((float) this.getX(), (float) this.getY(), (float) this.getZ(), this.explosionRadius * f, explosion.getToBlow(), CCSoundEvents.PEEPER_EXPLODE.get()));
 			this.discard();
 			this.spawnLingeringCloud();
 		}

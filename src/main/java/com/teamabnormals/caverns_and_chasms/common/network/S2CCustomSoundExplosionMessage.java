@@ -9,6 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -75,8 +76,8 @@ public class S2CCustomSoundExplosionMessage {
 		NetworkEvent.Context context = ctx.get();
 		LocalPlayer player = Minecraft.getInstance().player;
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-			CustomSoundExplosion boom = new CustomSoundExplosion(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength, message.sound);
-			boom.finalizeExplosion(true);
+			CustomSoundExplosion explosion = new CustomSoundExplosion(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength, false, BlockInteraction.DESTROY, message.sound);
+			explosion.finalizeExplosion(true);
 			context.setPacketHandled(true);
 		}
 	}
