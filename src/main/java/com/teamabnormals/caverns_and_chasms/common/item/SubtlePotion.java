@@ -15,6 +15,10 @@ public class SubtlePotion extends Potion {
 		this.potion = potion;
 	}
 
+	public Potion getPotion() {
+		return this.potion;
+	}
+
 	@Override
 	public List<MobEffectInstance> getEffects() {
 		return setSubtleEffects(this.potion.getEffects());

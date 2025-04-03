@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +32,10 @@ public abstract class PotionBrewingMixin {
 	private static void mix(ItemStack ingredient, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if (!stack.isEmpty()) {
 			Potion potion = PotionUtils.getPotion(stack);
+			if (potion instanceof SubtlePotion subtlePotion) {
+				potion = subtlePotion.getPotion();
+			}
+
 			Item item = stack.getItem();
 			int i = 0;
 			for (int j = CONTAINER_MIXES.size(); i < j; ++i) {
