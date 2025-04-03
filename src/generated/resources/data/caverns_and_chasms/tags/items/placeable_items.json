@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:coal",
+    "minecraft:charcoal",
+    "minecraft:copper_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:netherite_ingot",
+    "caverns_and_chasms:silver_ingot",
+    "caverns_and_chasms:tin_ingot",
+    "caverns_and_chasms:necromium_ingot"
+  ]
+}

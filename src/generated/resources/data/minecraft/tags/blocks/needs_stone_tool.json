@@ -38,6 +38,8 @@
     "caverns_and_chasms:fortified_sanguine_tiles",
     "caverns_and_chasms:fortified_sanguine_tile_stairs",
     "caverns_and_chasms:fortified_sanguine_tile_slab",
-    "caverns_and_chasms:fortified_sanguine_tile_wall"
+    "caverns_and_chasms:fortified_sanguine_tile_wall",
+    "caverns_and_chasms:copper_ingot",
+    "caverns_and_chasms:iron_ingot"
   ]
 }

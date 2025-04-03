@@ -175,15 +175,28 @@ public class CCEvents {
 		Direction face = event.getFace();
 		RandomSource random = level.getRandom();
 
-		if (stack.is(Items.COAL) || stack.is(Items.CHARCOAL)) {
+		placeableItems:
+		if (stack.is(CCItemTags.PLACEABLE_ITEMS)) {
+			boolean sneakBypassesUse = !player.getMainHandItem().doesSneakBypassUse(player.level(), pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
+			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
+
+			if (event.getUseBlock() == Result.ALLOW || (event.getUseBlock() != Result.DENY && !isSneaking)) {
+				InteractionResult blockResult = state.use(level, player, event.getHand(), event.getHitVec());
+				if (blockResult.consumesAction()) {
+					event.setCanceled(true);
+					event.setCancellationResult(blockResult);
+					break placeableItems;
+				}
+			}
+
 			UseOnContext context = new UseOnContext(level, player, event.getHand(), stack, event.getHitVec());
 			Collection<RegistryObject<Item>> items = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper().getDeferredRegister().getEntries();
 			for (RegistryObject<Item> reg : items) {
 				if (reg.get() instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
-					InteractionResult result = reg.get().useOn(context);
-					if (result.consumesAction()) {
+					InteractionResult itemResult = reg.get().useOn(context);
+					if (itemResult.consumesAction()) {
 						event.setCanceled(true);
-						event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+						event.setCancellationResult(itemResult);
 					}
 					break;
 				}
@@ -213,7 +226,6 @@ public class CCEvents {
 				event.setCanceled(true);
 			}
 		}
-
 
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {

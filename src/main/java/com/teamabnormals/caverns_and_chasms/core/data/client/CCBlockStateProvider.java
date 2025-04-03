@@ -22,6 +22,7 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
@@ -107,6 +108,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.coalBlock(COAL);
 		this.coalBlock(CHARCOAL);
 		this.charcoalBlock(CHARCOAL_BLOCK);
+
+		this.ingotBlock(COPPER_INGOT);
+		this.ingotBlock(IRON_INGOT);
+		this.ingotBlock(GOLD_INGOT);
+		this.ingotBlock(NETHERITE_INGOT);
+		this.ingotBlock(SILVER_INGOT);
+		this.ingotBlock(TIN_INGOT);
+		this.ingotBlock(NECROMIUM_INGOT);
 
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
 		this.blockFamily(COBBLESTONE_TILES_FAMILY);
@@ -823,7 +832,45 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					.build();
 		}, CoalBlock.WATERLOGGED);
 
-		this.generatedItem(block, new ResourceLocation("item/" + registryObject.getId().getPath()));
+		this.placedItemModel(block);
+	}
+
+	public void ingotBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+
+		MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block);
+		this.addIngotLayer(builder, block, 1, 1, 2, 3);
+		this.addIngotLayer(builder, block, 2, 2, 3);
+		this.addIngotLayer(builder, block, 3, 3);
+		this.addIngotLayer(builder, block, 4);
+
+		this.placedItemModel(block);
+	}
+
+	public void placedItemModel(Block block) {
+		this.itemModels().withExistingParent(ForgeRegistries.BLOCKS.getKey(block).withSuffix("_placed").getPath(), "item/generated").texture("layer0", ForgeRegistries.ITEMS.getKey(block.asItem()).withPrefix("item/"));
+	}
+
+	public void addIngotLayer(MultiPartBlockStateBuilder builder, Block block, int i, Integer... nums) {
+		this.addIngotModel(builder, block, IngotLayer.LEFT, Axis.X, i, nums);
+		this.addIngotModel(builder, block, IngotLayer.RIGHT, Axis.X, i, nums);
+		this.addIngotModel(builder, block, IngotLayer.LEFT, Axis.Z, i, nums);
+		this.addIngotModel(builder, block, IngotLayer.RIGHT, Axis.Z, i, nums);
+	}
+
+	public void addIngotModel(MultiPartBlockStateBuilder builder, Block block, IngotLayer ingotLayer, Axis axis, int layer, Integer... nums) {
+		Axis visualAxis = IngotBlock.getAxisForLayer(layer, axis);
+		String name = "_" + ingotLayer.getSerializedName() + "_" + visualAxis.getSerializedName() + "_layer" + layer;
+		BlockModelBuilder model = models().withExistingParent(name(block) + name, CavernsAndChasms.location("block/template_ingot" + name)).texture("ingot", blockTexture(block));
+
+		if (nums.length > 0) {
+			builder.part().modelFile(model).addModel().useOr()
+					.nestedGroup().condition(IngotBlock.AXIS, axis).condition(IngotBlock.LAYERS, layer - 1).condition(IngotBlock.TOP_INGOT, ingotLayer, IngotLayer.BOTH).end()
+					.nestedGroup().condition(IngotBlock.AXIS, axis).condition(IngotBlock.LAYERS, nums).end();
+		} else {
+			builder.part().modelFile(model).addModel()
+					.condition(IngotBlock.AXIS, axis).condition(IngotBlock.LAYERS, layer - 1).condition(IngotBlock.TOP_INGOT, ingotLayer, IngotLayer.BOTH);
+		}
 	}
 
 	public void baseBlockVariants(Block block, RegistryObject<Block> stairs, RegistryObject<Block> slab, RegistryObject<Block> wall) {

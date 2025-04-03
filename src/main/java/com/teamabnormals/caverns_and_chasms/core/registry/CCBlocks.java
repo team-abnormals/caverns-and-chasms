@@ -42,6 +42,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
@@ -446,6 +447,14 @@ public class CCBlocks {
 	public static final RegistryObject<Block> COAL = HELPER.createBlock("coal", () -> new CoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 9 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> CHARCOAL = HELPER.createBlock("charcoal", () -> new CoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 7 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createBlock("charcoal_block", () -> new CharcoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> state.getValue(CharcoalBlock.LIT) ? 15 : 0).hasPostProcess((state, level, pos) -> state.getValue(CharcoalBlock.LIT)).emissiveRendering((state, level, pos) -> state.getValue(CharcoalBlock.LIT))));
+
+	public static final RegistryObject<Block> COPPER_INGOT = HELPER.createPlacedItem("copper_ingot", () -> new IngotBlock(() -> Items.COPPER_INGOT, BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
+	public static final RegistryObject<Block> IRON_INGOT = HELPER.createPlacedItem("iron_ingot", () -> new IngotBlock(() -> Items.IRON_INGOT, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+	public static final RegistryObject<Block> GOLD_INGOT = HELPER.createPlacedItem("gold_ingot", () -> new IngotBlock(() -> Items.GOLD_INGOT, BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK)));
+	public static final RegistryObject<Block> NETHERITE_INGOT = HELPER.createPlacedItem("netherite_ingot", () -> new IngotBlock(() -> Items.NETHERITE_INGOT, BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK)));
+	public static final RegistryObject<Block> SILVER_INGOT = HELPER.createPlacedItem("silver_ingot", () -> new IngotBlock(CCItems.SILVER_INGOT, BlockBehaviour.Properties.copy(SILVER_BLOCK.get())));
+	public static final RegistryObject<Block> TIN_INGOT = HELPER.createPlacedItem("tin_ingot", () -> new IngotBlock(CCItems.TIN_INGOT, BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
+	public static final RegistryObject<Block> NECROMIUM_INGOT = HELPER.createPlacedItem("necromium_ingot", () -> new IngotBlock(CCItems.NECROMIUM_INGOT, BlockBehaviour.Properties.copy(NECROMIUM_BLOCK.get())));
 
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)

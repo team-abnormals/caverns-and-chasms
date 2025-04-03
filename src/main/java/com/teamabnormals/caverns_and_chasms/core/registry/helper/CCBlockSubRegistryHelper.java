@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.block.ToolboxBlockEn
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,6 +25,12 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 	public <B extends Block> RegistryObject<B> createToolboxBlock(String name, Supplier<? extends B> supplier) {
 		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
 		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(1), () -> () -> toolboxBEWLR()));
+		return block;
+	}
+
+	public <B extends Block> RegistryObject<B> createPlacedItem(String name, Supplier<? extends B> supplier) {
+		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
+		this.itemRegister.register(name + "_placed", () -> new BlockItem(block.get(), new Item.Properties()));
 		return block;
 	}
 

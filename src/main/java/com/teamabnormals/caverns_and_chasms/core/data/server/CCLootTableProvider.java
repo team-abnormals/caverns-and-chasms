@@ -2,9 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
@@ -35,7 +33,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.entries.*;
@@ -106,17 +103,16 @@ public class CCLootTableProvider extends LootTableProvider {
 					applyExplosionCondition(ROCKY_DIRT.get(), LootItem.lootTableItem(ROCKY_DIRT.get()))))));
 			this.add(FLINT_BLOCK.get(), (block -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(Items.FLINT)).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))))));
 			this.dropSelf(CHARCOAL_BLOCK.get());
-			this.add(COAL.get(), block -> {
-				return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(Items.COAL, LootItem.lootTableItem(block).apply(List.of(2, 3, 4), (i) -> {
-					return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoalBlock.COAL, i)));
-				}))));
-			});
-			this.add(CHARCOAL.get(), block -> {
-				return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(Items.CHARCOAL, LootItem.lootTableItem(block).apply(List.of(2, 3, 4), (i) -> {
-					return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoalBlock.COAL, i)));
-				}))));
-			});
+			this.add(COAL.get(), this::createCoalDrops);
+			this.add(CHARCOAL.get(), this::createCoalDrops);
 
+			this.add(COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(IRON_INGOT.get(), this::createIngotDrops);
+			this.add(GOLD_INGOT.get(), this::createIngotDrops);
+			this.add(NETHERITE_INGOT.get(), this::createIngotDrops);
+			this.add(SILVER_INGOT.get(), this::createIngotDrops);
+			this.add(TIN_INGOT.get(), this::createIngotDrops);
+			this.add(NECROMIUM_INGOT.get(), this::createIngotDrops);
 
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 			this.dropSelf(NECROMIUM_BLOCK.get());
@@ -419,6 +415,43 @@ public class CCLootTableProvider extends LootTableProvider {
 			if (family.getVariants().containsKey(Variant.CHISELED)) {
 				this.dropSelf(family.get(Variant.CHISELED));
 			}
+		}
+
+		protected LootTable.Builder createCoalDrops(Block block) {
+			return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(block.asItem(), LootItem.lootTableItem(block).apply(List.of(2, 3, 4), i -> {
+				return SetItemCountFunction.setCount(ConstantValue.exactly((float) i.intValue())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoalBlock.COAL, i)));
+			}))));
+		}
+
+		protected LootTable.Builder createIngotDrops(Block block) {
+			return LootTable.lootTable()
+					.withPool(LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1.0F))
+							.add(this.applyExplosionDecay(block.asItem(), LootItem.lootTableItem(block)
+									.apply(List.of(1, 2, 3), i -> {
+										return SetItemCountFunction.setCount(ConstantValue.exactly(i * 2))
+												.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+														.setProperties(StatePropertiesPredicate.Builder.properties()
+																.hasProperty(IngotBlock.LAYERS, i)
+														)
+												);
+									})
+							)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(IngotBlock.LAYERS, 0)).invert())
+					)
+					.withPool(LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1.0F))
+							.add(this.applyExplosionDecay(block.asItem(), LootItem.lootTableItem(block)
+									.apply(List.of(IngotLayer.BOTH), layer -> {
+										return SetItemCountFunction.setCount(ConstantValue.exactly(2))
+												.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+														.setProperties(StatePropertiesPredicate.Builder.properties()
+																.hasProperty(IngotBlock.TOP_INGOT, layer)
+														)
+												);
+									})
+							))
+					)
+					;
 		}
 
 		protected LootTable.Builder createToolboxDrop(Block p_124295_) {

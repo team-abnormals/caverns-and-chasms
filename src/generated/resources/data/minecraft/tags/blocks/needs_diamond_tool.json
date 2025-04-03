@@ -1,6 +1,7 @@
 {
   "values": [
     "caverns_and_chasms:tin_block",
+    "caverns_and_chasms:tin_ingot",
     "caverns_and_chasms:raw_tin_block",
     "caverns_and_chasms:tin_ore",
     "caverns_and_chasms:deepslate_tin_ore",
@@ -15,6 +16,8 @@
     "caverns_and_chasms:splurter",
     "caverns_and_chasms:roller_door",
     "caverns_and_chasms:roller_door_header",
-    "caverns_and_chasms:necromium_block"
+    "caverns_and_chasms:necromium_block",
+    "caverns_and_chasms:necromium_ingot",
+    "caverns_and_chasms:netherite_ingot"
   ]
 }
