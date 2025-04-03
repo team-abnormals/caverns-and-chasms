@@ -1,14 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.item.CCSubtleMobEffectInstance;
+import com.teamabnormals.caverns_and_chasms.common.item.SubtleMobEffectInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(MobEffectInstance.class)
-public class MobEffectInstanceMixin implements CCSubtleMobEffectInstance {
+public class MobEffectInstanceMixin implements SubtleMobEffectInstance {
 	@Unique
-	private boolean subtle;
+	private boolean subtle = false;
 
 	@Override
 	public boolean isSubtle() {
