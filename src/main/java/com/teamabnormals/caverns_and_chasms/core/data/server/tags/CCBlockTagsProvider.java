@@ -197,7 +197,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).add(NECROMIUM_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).add(RAW_SILVER_BLOCK.get());
 		this.tag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).add(RAW_TIN_BLOCK.get());
-		this.tag(CCBlockTags.STORAGE_BLOCKS_CHARCOAL).add(CHARCOAL.get());
+		this.tag(CCBlockTags.STORAGE_BLOCKS_CHARCOAL).add(CHARCOAL_BLOCK.get());
 		this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(CCBlockTags.STORAGE_BLOCKS_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_SPINEL).addTag(CCBlockTags.STORAGE_BLOCKS_NECROMIUM).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_SILVER).addTag(CCBlockTags.STORAGE_BLOCKS_RAW_TIN).addTag(CCBlockTags.STORAGE_BLOCKS_ZIRCONIA).addTag(CCBlockTags.STORAGE_BLOCKS_TURQUOISE).addTag(CCBlockTags.STORAGE_BLOCKS_CHARCOAL);
 		this.tag(Tags.Blocks.ORES).addTag(CCBlockTags.ORES_SILVER).addTag(CCBlockTags.ORES_TIN).addTag(CCBlockTags.ORES_SPINEL).addTag(CCBlockTags.ORES_TURQUOISE);
 		this.tag(CCBlockTags.ORES_AMETHYST).add(Blocks.AMETHYST_BLOCK, Blocks.AMETHYST_CLUSTER, Blocks.BUDDING_AMETHYST, Blocks.LARGE_AMETHYST_BUD, Blocks.MEDIUM_AMETHYST_BUD, Blocks.SMALL_AMETHYST_BUD);
