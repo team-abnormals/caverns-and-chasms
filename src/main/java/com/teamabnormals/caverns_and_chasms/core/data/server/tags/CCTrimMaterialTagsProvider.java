@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintTrimMaterialTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

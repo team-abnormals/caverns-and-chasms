@@ -1,6 +1,7 @@
-package com.teamabnormals.caverns_and_chasms.core.registry;
+package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;

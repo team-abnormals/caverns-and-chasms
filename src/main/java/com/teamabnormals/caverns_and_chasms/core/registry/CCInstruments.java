@@ -1,8 +1,7 @@
-package com.teamabnormals.caverns_and_chasms.core.other;
+package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Instrument;
 import net.minecraftforge.registries.DeferredRegister;

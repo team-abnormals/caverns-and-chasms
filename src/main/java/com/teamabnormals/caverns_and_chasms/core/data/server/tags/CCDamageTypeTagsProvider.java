@@ -12,7 +12,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes.*;
+import static com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes.*;
 
 public class CCDamageTypeTagsProvider extends TagsProvider<DamageType> {
 

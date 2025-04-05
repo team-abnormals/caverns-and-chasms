@@ -15,6 +15,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

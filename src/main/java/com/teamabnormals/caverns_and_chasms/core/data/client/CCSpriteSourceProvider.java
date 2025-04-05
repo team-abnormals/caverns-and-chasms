@@ -2,8 +2,8 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimPatterns;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
 import com.teamabnormals.clayworks.core.api.ClayworksTrims;
 import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister;
 import net.minecraft.client.renderer.texture.atlas.sources.SingleFile;
