@@ -28,6 +28,10 @@
         "caverns_and_chasms:trims/models/armor/immolate_leggings",
         "caverns_and_chasms:trims/models/armor/rim",
         "caverns_and_chasms:trims/models/armor/rim_leggings",
+        "caverns_and_chasms:trims/models/armor/plate",
+        "caverns_and_chasms:trims/models/armor/plate_leggings",
+        "caverns_and_chasms:trims/models/armor/core",
+        "caverns_and_chasms:trims/models/armor/core_leggings",
         "caverns_and_chasms:trims/models/armor/sanguine",
         "caverns_and_chasms:trims/models/armor/sanguine_leggings"
       ]

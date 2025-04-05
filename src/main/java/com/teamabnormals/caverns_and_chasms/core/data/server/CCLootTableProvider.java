@@ -592,6 +592,8 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
 							.add(LootItem.lootTableItem(CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
 							.add(LootItem.lootTableItem(CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+							.add(LootItem.lootTableItem(CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+							.add(LootItem.lootTableItem(CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
 					));
 		}
 	}
