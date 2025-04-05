@@ -21,7 +21,7 @@ public class CCTiers {
 
 	public static class CCItemTiers {
 		public static final Tier FOIL = new BlueprintItemTier(1, 1822, 12.0F, 0.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
-		public static final Tier SILVER = new BlueprintItemTier(1, 157, 9.0F, 1.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+		public static final Tier SILVER = new BlueprintItemTier(2, 157, 9.0F, 1.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
 		public static final Tier NECROMIUM = new BlueprintItemTier(4, 2031, 9.0F, 3.0F, 15, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
 	}
 }

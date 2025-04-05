@@ -677,7 +677,7 @@ public class CCEvents {
 			}
 
 			if (stack.is(CCItemTags.MAGIC_DAMAGE_ITEMS)) {
-				float damage = stack.getItem() instanceof AxeItem || stack.getItem() instanceof SwordItem ? 3.0F : 1.0F;
+				float damage = stack.getItem() instanceof AxeItem || stack.getItem() instanceof SwordItem ? 4.0F : 2.0F;
 				event.addModifier(CCAttributes.MAGIC_DAMAGE.get(), new AttributeModifier(UUID.fromString("b3406524-886c-49c3-94e6-88edd0e8e63b"), "Magic damage", damage, AttributeModifier.Operation.ADDITION));
 			}
 
