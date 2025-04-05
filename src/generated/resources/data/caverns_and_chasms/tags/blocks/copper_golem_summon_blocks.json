@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:lightning_rod",
+    "caverns_and_chasms:exposed_lightning_rod",
+    "caverns_and_chasms:weathered_lightning_rod",
+    "caverns_and_chasms:oxidized_lightning_rod",
+    "caverns_and_chasms:waxed_lightning_rod",
+    "caverns_and_chasms:waxed_exposed_lightning_rod",
+    "caverns_and_chasms:waxed_weathered_lightning_rod",
+    "caverns_and_chasms:waxed_oxidized_lightning_rod"
+  ]
+}

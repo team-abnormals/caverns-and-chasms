@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.Block;
 
 public class CCBlockTags {
 	public static final TagKey<Block> DEEPER_SPAWNABLE_ON = blockTag("deeper_spawnable_on");
-	public static final TagKey<Block> GLARE_SPAWNABLE_NEAR = blockTag("glare_spawnable_near");
 	public static final TagKey<Block> CUPRIC_FIRE_BASE_BLOCKS = blockTag("cupric_fire_base_blocks");
 	public static final TagKey<Block> BRAZIERS = blockTag("braziers");
 	public static final TagKey<Block> IGNORE_RAIL_PLACEMENT = blockTag("ignore_rail_placement");
@@ -22,6 +21,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> WEAKER_DEFLECT_VELOCITY = blockTag("weaker_deflect_velocity");
 	public static final TagKey<Block> MAINTAINS_DEFLECT_VELOCITY = blockTag("maintains_deflect_velocity");
 	public static final TagKey<Block> STATIC_NOTE_BLOCKS = blockTag("static_note_blocks");
+	public static final TagKey<Block> COPPER_GOLEM_SUMMON_BLOCKS = blockTag("copper_golem_summon_blocks");
 
 	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxable_copper_blocks");
 	public static final TagKey<Block> WAXED_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxed_copper_blocks");

@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -131,7 +130,6 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.BRAZIERS).add(BRAZIER.get(), SOUL_BRAZIER.get(), ENDER_BRAZIER.get(), CUPRIC_BRAZIER.get());
 		this.tag(CCBlockTags.CUPRIC_FIRE_BASE_BLOCKS).addTag(Tags.Blocks.ORES_COPPER).addTag(Tags.Blocks.STORAGE_BLOCKS_RAW_COPPER).addTag(CCBlockTags.WAXABLE_COPPER_BLOCKS).addTag(CCBlockTags.WAXED_COPPER_BLOCKS);
 		this.tag(CCBlockTags.DEEPER_SPAWNABLE_ON).add(Blocks.GRAVEL).addTag(BlockTags.BASE_STONE_OVERWORLD).addTag(Tags.Blocks.ORES);
-		this.tag(CCBlockTags.GLARE_SPAWNABLE_NEAR).add(Blocks.GRASS_BLOCK, Blocks.MOSS_BLOCK, Blocks.MOSS_CARPET, Blocks.SMALL_DRIPLEAF, Blocks.BIG_DRIPLEAF, Blocks.BIG_DRIPLEAF_STEM).addTag(BlockTags.LEAVES).addTag(BlockTags.FLOWERS).addTag(BlockTags.SAPLINGS).addTag(BlockTags.REPLACEABLE_BY_TREES).addTag(BlockTags.CAVE_VINES);
 		this.tag(CCBlockTags.IGNORE_RAIL_PLACEMENT);
 		this.tag(CCBlockTags.SILVER_ORES).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get());
 		this.tag(CCBlockTags.TIN_ORES).add(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get());
@@ -144,6 +142,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.WEAKER_DEFLECT_VELOCITY).add(CASSITERITE_TIN_ORE.get(), CASSITERITE.get(), CASSITERITE_STAIRS.get(), CASSITERITE_SLAB.get(), CASSITERITE_WALL.get(), SMOOTH_CASSITERITE.get(), SMOOTH_CASSITERITE_STAIRS.get(), SMOOTH_CASSITERITE_SLAB.get(), CASSITERITE_BRICKS.get(), CASSITERITE_BRICK_STAIRS.get(), CASSITERITE_BRICK_SLAB.get(), CASSITERITE_BRICK_WALL.get(), CASSITERITE_PILLAR.get(), CHISELED_CASSITERITE_BRICKS.get(), POLISHED_CASSITERITE.get(), POLISHED_CASSITERITE_STAIRS.get(), POLISHED_CASSITERITE_SLAB.get());
 		this.tag(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY).add(BOUNCER.get());
 		this.tag(CCBlockTags.STATIC_NOTE_BLOCKS).add(SPINEL_BLOCK.get(), SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get(), SPINEL_PILLAR.get(), SPINEL_BRICKS.get(), SPINEL_BRICK_STAIRS.get(), SPINEL_BRICK_SLAB.get(), SPINEL_BRICK_WALL.get(), SUGILITE.get(), SUGILITE_STAIRS.get(), SUGILITE_SLAB.get(), SUGILITE_WALL.get(), POLISHED_SUGILITE.get(), POLISHED_SUGILITE_STAIRS.get(), POLISHED_SUGILITE_SLAB.get(), SPINEL_LAMP.get(), TMT.get(), ATONING_TABLE.get(), BEJEWELED_ANVIL.get(), DISMANTLING_TABLE.get());
+		this.tag(CCBlockTags.COPPER_GOLEM_SUMMON_BLOCKS).add(Blocks.LIGHTNING_ROD, EXPOSED_LIGHTNING_ROD.get(), WEATHERED_LIGHTNING_ROD.get(), OXIDIZED_LIGHTNING_ROD.get(), WAXED_LIGHTNING_ROD.get(), WAXED_EXPOSED_LIGHTNING_ROD.get(), WAXED_WEATHERED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get());
 
 		this.tag(CCBlockTags.WAXABLE_COPPER_BLOCKS).add(
 				Blocks.COPPER_BLOCK, Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER,

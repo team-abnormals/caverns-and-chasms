@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.UseOnContext;
@@ -26,7 +27,7 @@ public class LightningRodBlockMixin extends RodBlock implements CCWeatheringCopp
 
 	@Inject(method = "onPlace", at = @At("TAIL"), cancellable = true)
 	private void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean p_51391_, CallbackInfo ci) {
-		if (!oldState.is(state.getBlock())) {
+		if (!oldState.is(state.getBlock()) && state.is(CCBlockTags.COPPER_GOLEM_SUMMON_BLOCKS)) {
 			BlockPos belowpos = pos.below();
 			BlockState belowstate = level.getBlockState(belowpos);
 			if (belowstate.getBlock() instanceof CarvedPumpkinBlock && state.getValue(LightningRodBlock.FACING) == Direction.UP) {
