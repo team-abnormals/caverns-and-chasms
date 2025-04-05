@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -69,7 +70,12 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 		Component component = super.getName(stack);
 		if (component.getString().contains("item.")) {
 			MutableComponent intro = Component.translatable(this.getDescriptionId() + ".null");
-			ItemStack regularPotion = PotionUtils.setPotion(new ItemStack(Items.POTION), PotionUtils.getPotion(stack.getTag()));
+			Potion potion = PotionUtils.getPotion(stack.getTag());
+			if (potion instanceof SubtlePotion subtlePotion) {
+				potion = subtlePotion.getPotion();
+				intro = Component.translatable("item.caverns_and_chasms.potion.subtle").append(" ").append(intro);
+			}
+			ItemStack regularPotion = PotionUtils.setPotion(new ItemStack(Items.POTION), potion);
 			String newComponent = regularPotion.getDescriptionId();
 			return intro.append(Component.translatable(newComponent));
 		} else {
