@@ -29,6 +29,12 @@
     "caverns_and_chasms:waxed_weathered_copper_brick_wall",
     "caverns_and_chasms:waxed_oxidized_copper_brick_wall",
     "caverns_and_chasms:cassiterite_wall",
-    "caverns_and_chasms:cassiterite_brick_wall"
+    "caverns_and_chasms:cassiterite_brick_wall",
+    "caverns_and_chasms:rhyolite_wall",
+    "caverns_and_chasms:polished_rhyolite_wall",
+    "caverns_and_chasms:rhyolite_brick_wall",
+    "caverns_and_chasms:magmatic_rhyolite_wall",
+    "caverns_and_chasms:polished_magmatic_rhyolite_wall",
+    "caverns_and_chasms:magmatic_rhyolite_brick_wall"
   ]
 }

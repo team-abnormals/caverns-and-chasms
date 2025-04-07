@@ -308,6 +308,34 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_CASSITERITE_STAIRS = HELPER.createBlock("polished_cassiterite_stairs", () -> new StairBlock(() -> POLISHED_CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
 	public static final RegistryObject<Block> POLISHED_CASSITERITE_SLAB = HELPER.createBlock("polished_cassiterite_slab", () -> new SlabBlock(CCProperties.CASSITERITE));
 
+	public static final RegistryObject<Block> RHYOLITE = HELPER.createBlock("rhyolite", () -> new Block(CCProperties.RHYOLITE));
+	public static final RegistryObject<Block> RHYOLITE_STAIRS = HELPER.createBlock("rhyolite_stairs", () -> new StairBlock(() -> RHYOLITE.get().defaultBlockState(), CCProperties.RHYOLITE));
+	public static final RegistryObject<Block> RHYOLITE_SLAB = HELPER.createBlock("rhyolite_slab", () -> new SlabBlock(CCProperties.RHYOLITE));
+	public static final RegistryObject<Block> RHYOLITE_WALL = HELPER.createBlock("rhyolite_wall", () -> new WallBlock(CCProperties.RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_RHYOLITE = HELPER.createBlock("polished_rhyolite", () -> new Block(CCProperties.POLISHED_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_RHYOLITE_STAIRS = HELPER.createBlock("polished_rhyolite_stairs", () -> new StairBlock(() -> POLISHED_RHYOLITE.get().defaultBlockState(), CCProperties.POLISHED_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_RHYOLITE_SLAB = HELPER.createBlock("polished_rhyolite_slab", () -> new SlabBlock(CCProperties.POLISHED_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_RHYOLITE_WALL = HELPER.createBlock("polished_rhyolite_wall", () -> new WallBlock(CCProperties.POLISHED_RHYOLITE));
+	public static final RegistryObject<Block> RHYOLITE_BRICKS = HELPER.createBlock("rhyolite_bricks", () -> new Block(CCProperties.RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> RHYOLITE_BRICK_STAIRS = HELPER.createBlock("rhyolite_brick_stairs", () -> new StairBlock(() -> RHYOLITE_BRICKS.get().defaultBlockState(), CCProperties.RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> RHYOLITE_BRICK_SLAB = HELPER.createBlock("rhyolite_brick_slab", () -> new SlabBlock(CCProperties.RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> RHYOLITE_BRICK_WALL = HELPER.createBlock("rhyolite_brick_wall", () -> new WallBlock(CCProperties.RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> CHISELED_RHYOLITE_BRICKS = HELPER.createBlock("chiseled_rhyolite_bricks", () -> new Block(CCProperties.RHYOLITE_BRICKS));
+
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE = HELPER.createBlock("magmatic_rhyolite", () -> new Block(CCProperties.MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_STAIRS = HELPER.createBlock("magmatic_rhyolite_stairs", () -> new StairBlock(() -> MAGMATIC_RHYOLITE.get().defaultBlockState(), CCProperties.MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_SLAB = HELPER.createBlock("magmatic_rhyolite_slab", () -> new SlabBlock(CCProperties.MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_WALL = HELPER.createBlock("magmatic_rhyolite_wall", () -> new WallBlock(CCProperties.MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_MAGMATIC_RHYOLITE = HELPER.createBlock("polished_magmatic_rhyolite", () -> new Block(CCProperties.POLISHED_MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_MAGMATIC_RHYOLITE_STAIRS = HELPER.createBlock("polished_magmatic_rhyolite_stairs", () -> new StairBlock(() -> POLISHED_MAGMATIC_RHYOLITE.get().defaultBlockState(), CCProperties.POLISHED_MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_MAGMATIC_RHYOLITE_SLAB = HELPER.createBlock("polished_magmatic_rhyolite_slab", () -> new SlabBlock(CCProperties.POLISHED_MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> POLISHED_MAGMATIC_RHYOLITE_WALL = HELPER.createBlock("polished_magmatic_rhyolite_wall", () -> new WallBlock(CCProperties.POLISHED_MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_BRICKS = HELPER.createBlock("magmatic_rhyolite_bricks", () -> new Block(CCProperties.MAGMATIC_RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_BRICK_STAIRS = HELPER.createBlock("magmatic_rhyolite_brick_stairs", () -> new StairBlock(() -> MAGMATIC_RHYOLITE_BRICKS.get().defaultBlockState(), CCProperties.MAGMATIC_RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_BRICK_SLAB = HELPER.createBlock("magmatic_rhyolite_brick_slab", () -> new SlabBlock(CCProperties.MAGMATIC_RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_BRICK_WALL = HELPER.createBlock("magmatic_rhyolite_brick_wall", () -> new WallBlock(CCProperties.MAGMATIC_RHYOLITE_BRICKS));
+	public static final RegistryObject<Block> CHISELED_MAGMATIC_RHYOLITE_BRICKS = HELPER.createBlock("chiseled_magmatic_rhyolite_bricks", () -> new Block(CCProperties.MAGMATIC_RHYOLITE_BRICKS));
+
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES));
@@ -476,7 +504,13 @@ public class CCBlocks {
 						CASSITERITE, CASSITERITE_STAIRS, CASSITERITE_SLAB, CASSITERITE_WALL,
 						SMOOTH_CASSITERITE, SMOOTH_CASSITERITE_STAIRS, SMOOTH_CASSITERITE_SLAB,
 						POLISHED_CASSITERITE, POLISHED_CASSITERITE_STAIRS, POLISHED_CASSITERITE_SLAB,
-						CASSITERITE_BRICKS, CASSITERITE_BRICK_STAIRS, CASSITERITE_BRICK_SLAB, CASSITERITE_BRICK_WALL, CHISELED_CASSITERITE_BRICKS, CASSITERITE_PILLAR
+						CASSITERITE_BRICKS, CASSITERITE_BRICK_STAIRS, CASSITERITE_BRICK_SLAB, CASSITERITE_BRICK_WALL, CHISELED_CASSITERITE_BRICKS, CASSITERITE_PILLAR,
+						RHYOLITE, RHYOLITE_STAIRS, RHYOLITE_SLAB, RHYOLITE_WALL,
+						POLISHED_RHYOLITE, POLISHED_RHYOLITE_STAIRS, POLISHED_RHYOLITE_SLAB, POLISHED_RHYOLITE_WALL,
+						RHYOLITE_BRICKS, RHYOLITE_BRICK_STAIRS, RHYOLITE_BRICK_SLAB, RHYOLITE_BRICK_WALL, CHISELED_RHYOLITE_BRICKS,
+						MAGMATIC_RHYOLITE, MAGMATIC_RHYOLITE_STAIRS, MAGMATIC_RHYOLITE_SLAB, MAGMATIC_RHYOLITE_WALL,
+						POLISHED_MAGMATIC_RHYOLITE, POLISHED_MAGMATIC_RHYOLITE_STAIRS, POLISHED_MAGMATIC_RHYOLITE_SLAB, POLISHED_MAGMATIC_RHYOLITE_WALL,
+						MAGMATIC_RHYOLITE_BRICKS, MAGMATIC_RHYOLITE_BRICK_STAIRS, MAGMATIC_RHYOLITE_BRICK_SLAB, MAGMATIC_RHYOLITE_BRICK_WALL, CHISELED_MAGMATIC_RHYOLITE_BRICKS
 				)
 				.addItemsBefore(of(Blocks.CHISELED_DEEPSLATE),
 						COBBLED_DEEPSLATE_BRICKS, COBBLED_DEEPSLATE_BRICK_STAIRS, COBBLED_DEEPSLATE_BRICK_SLAB, COBBLED_DEEPSLATE_BRICK_WALL,
@@ -604,6 +638,12 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);
 		public static final BlockBehaviour.Properties AMETHYST = BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK);
 		public static final BlockBehaviour.Properties ECHO_BLOCK = BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.SCULK_CATALYST).requiresCorrectToolForDrops().lightLevel(state -> 6);
+		public static final BlockBehaviour.Properties RHYOLITE = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE);
+		public static final BlockBehaviour.Properties POLISHED_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE);
+		public static final BlockBehaviour.Properties RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS);
+		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).lightLevel(state -> 3).strength(0.5F).isValidSpawn((state, level, pos, entity) -> entity.fireImmune()).hasPostProcess(PropertyUtil::always).emissiveRendering(PropertyUtil::always);
+		public static final BlockBehaviour.Properties POLISHED_MAGMATIC_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).lightLevel(state -> 3).strength(0.5F).isValidSpawn((state, level, pos, entity) -> entity.fireImmune()).hasPostProcess(PropertyUtil::always).emissiveRendering(PropertyUtil::always);
+		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).lightLevel(state -> 3).strength(0.5F).isValidSpawn((state, level, pos, entity) -> entity.fireImmune()).hasPostProcess(PropertyUtil::always).emissiveRendering(PropertyUtil::always);
 
 		public static final BlockBehaviour.Properties IRON_PLATED_BRICKS = platedBricks(MapColor.RAW_IRON, SoundType.METAL);
 		public static final BlockBehaviour.Properties TIN_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_WHITE, SoundType.METAL);

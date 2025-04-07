@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/magmatic_rhyolite",
+    "side": "caverns_and_chasms:block/magmatic_rhyolite",
+    "top": "caverns_and_chasms:block/magmatic_rhyolite"
+  }
+}

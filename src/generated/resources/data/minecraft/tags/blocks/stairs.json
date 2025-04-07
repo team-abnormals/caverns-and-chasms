@@ -34,6 +34,12 @@
     "caverns_and_chasms:cassiterite_stairs",
     "caverns_and_chasms:polished_cassiterite_stairs",
     "caverns_and_chasms:cassiterite_brick_stairs",
-    "caverns_and_chasms:smooth_cassiterite_stairs"
+    "caverns_and_chasms:smooth_cassiterite_stairs",
+    "caverns_and_chasms:rhyolite_stairs",
+    "caverns_and_chasms:polished_rhyolite_stairs",
+    "caverns_and_chasms:rhyolite_brick_stairs",
+    "caverns_and_chasms:magmatic_rhyolite_stairs",
+    "caverns_and_chasms:polished_magmatic_rhyolite_stairs",
+    "caverns_and_chasms:magmatic_rhyolite_brick_stairs"
   ]
 }

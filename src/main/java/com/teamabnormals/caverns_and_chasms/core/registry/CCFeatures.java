@@ -144,7 +144,7 @@ public class CCFeatures {
 
 			register(context, MiscOverworldFeatures.LAKE_LAVA, CCFeatures.MAGMA_LAKE.get(), new LakeFeature.Configuration(
 					BlockStateProvider.simple(Blocks.LAVA),
-					BlockStateProvider.simple(Blocks.ANDESITE))
+					BlockStateProvider.simple(CCBlocks.RHYOLITE.get()))
 			);
 		}
 

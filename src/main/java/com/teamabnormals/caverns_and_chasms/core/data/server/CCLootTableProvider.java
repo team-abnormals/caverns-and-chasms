@@ -291,6 +291,34 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SMOOTH_CASSITERITE.get());
 			this.dropSelf(SMOOTH_CASSITERITE_STAIRS.get());
 			this.add(SMOOTH_CASSITERITE_SLAB.get(), this::createSlabItemTable);
+			
+			this.dropSelf(MAGMATIC_RHYOLITE.get());
+			this.dropSelf(MAGMATIC_RHYOLITE_BRICKS.get());
+			this.dropSelf(MAGMATIC_RHYOLITE_BRICK_STAIRS.get());
+			this.dropSelf(MAGMATIC_RHYOLITE_STAIRS.get());
+			this.dropSelf(MAGMATIC_RHYOLITE_WALL.get());
+			this.dropSelf(MAGMATIC_RHYOLITE_BRICK_WALL.get());
+			this.dropSelf(CHISELED_MAGMATIC_RHYOLITE_BRICKS.get());
+			this.dropSelf(POLISHED_MAGMATIC_RHYOLITE.get());
+			this.dropSelf(POLISHED_MAGMATIC_RHYOLITE_STAIRS.get());
+			this.dropSelf(POLISHED_MAGMATIC_RHYOLITE_WALL.get());
+			this.add(MAGMATIC_RHYOLITE_SLAB.get(), this::createSlabItemTable);
+			this.add(MAGMATIC_RHYOLITE_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.add(POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), this::createSlabItemTable);
+			
+			this.dropSelf(RHYOLITE.get());
+			this.dropSelf(RHYOLITE_BRICKS.get());
+			this.dropSelf(RHYOLITE_BRICK_STAIRS.get());
+			this.dropSelf(RHYOLITE_STAIRS.get());
+			this.dropSelf(RHYOLITE_WALL.get());
+			this.dropSelf(RHYOLITE_BRICK_WALL.get());
+			this.dropSelf(CHISELED_RHYOLITE_BRICKS.get());
+			this.dropSelf(POLISHED_RHYOLITE.get());
+			this.dropSelf(POLISHED_RHYOLITE_STAIRS.get());
+			this.dropSelf(POLISHED_RHYOLITE_WALL.get());
+			this.add(RHYOLITE_SLAB.get(), this::createSlabItemTable);
+			this.add(RHYOLITE_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.add(POLISHED_RHYOLITE_SLAB.get(), this::createSlabItemTable);
 
 			this.dropSelf(DRIPSTONE_SHINGLES.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());

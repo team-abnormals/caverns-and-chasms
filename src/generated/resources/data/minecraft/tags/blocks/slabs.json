@@ -34,6 +34,12 @@
     "caverns_and_chasms:cassiterite_slab",
     "caverns_and_chasms:polished_cassiterite_slab",
     "caverns_and_chasms:cassiterite_brick_slab",
-    "caverns_and_chasms:smooth_cassiterite_slab"
+    "caverns_and_chasms:smooth_cassiterite_slab",
+    "caverns_and_chasms:rhyolite_slab",
+    "caverns_and_chasms:polished_rhyolite_slab",
+    "caverns_and_chasms:rhyolite_brick_slab",
+    "caverns_and_chasms:magmatic_rhyolite_slab",
+    "caverns_and_chasms:polished_magmatic_rhyolite_slab",
+    "caverns_and_chasms:magmatic_rhyolite_brick_slab"
   ]
 }

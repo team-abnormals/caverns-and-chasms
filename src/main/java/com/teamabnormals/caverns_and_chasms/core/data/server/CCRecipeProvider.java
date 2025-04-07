@@ -197,12 +197,12 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, SANGUINE_TILES_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SANGUINE_TILE_SLAB.get(), SANGUINE_TILES.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SANGUINE_TILE_STAIRS.get(), SANGUINE_TILES.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SANGUINE_TILE_WALL.get(), SANGUINE_TILES.get());
+		stonecutterRecipe(consumer, DECORATIONS, SANGUINE_TILE_WALL.get(), SANGUINE_TILES.get());
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, FORTIFIED_SANGUINE_TILES.get(), 8).define('X', CCItemTags.INGOTS_SILVER).define('#', SANGUINE_TILES.get()).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_sanguine_tiles", has(SANGUINE_TILES.get())).save(consumer);
 		generateRecipes(consumer, FORTIFIED_SANGUINE_TILES_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, FORTIFIED_SANGUINE_TILE_SLAB.get(), FORTIFIED_SANGUINE_TILES.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, FORTIFIED_SANGUINE_TILE_STAIRS.get(), FORTIFIED_SANGUINE_TILES.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, FORTIFIED_SANGUINE_TILE_WALL.get(), FORTIFIED_SANGUINE_TILES.get());
+		stonecutterRecipe(consumer, DECORATIONS, FORTIFIED_SANGUINE_TILE_WALL.get(), FORTIFIED_SANGUINE_TILES.get());
 
 		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.NECROMIUM_INGOT.get(), BUILDING_BLOCKS, NECROMIUM_BLOCK.get(), "necromium_ingot_from_necromium_block", "necromium_ingot");
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.NECROMIUM_INGOT.get()).requires(Items.NETHERITE_SCRAP, 4).requires(Ingredient.of(CCItemTags.INGOTS_SILVER), 4).group("necromium_ingot").unlockedBy("has_netherite_scrap", has(Items.NETHERITE_SCRAP)).save(consumer);
@@ -333,22 +333,85 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICKS.get(), CASSITERITE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_SLAB.get(), CASSITERITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_STAIRS.get(), CASSITERITE.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_WALL.get(), CASSITERITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, CASSITERITE_BRICK_WALL.get(), CASSITERITE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_CASSITERITE_BRICKS.get(), CASSITERITE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICKS.get(), POLISHED_CASSITERITE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_SLAB.get(), POLISHED_CASSITERITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_STAIRS.get(), POLISHED_CASSITERITE.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_WALL.get(), POLISHED_CASSITERITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, CASSITERITE_BRICK_WALL.get(), POLISHED_CASSITERITE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_CASSITERITE_BRICKS.get(), POLISHED_CASSITERITE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_SLAB.get(), CASSITERITE_BRICKS.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_STAIRS.get(), CASSITERITE_BRICKS.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_BRICK_WALL.get(), CASSITERITE_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, CASSITERITE_BRICK_WALL.get(), CASSITERITE_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_CASSITERITE_BRICKS.get(), CASSITERITE_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), 2).define('#', CASSITERITE_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(CASSITERITE_BRICKS.get()), has(CASSITERITE_BRICKS.get())).unlockedBy(getHasName(CASSITERITE_PILLAR.get()), has(CASSITERITE_PILLAR.get())).save(consumer);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), CASSITERITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), POLISHED_CASSITERITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), CASSITERITE_BRICKS.get(), 2);
+
+		generateRecipes(consumer, RHYOLITE_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_SLAB.get(), RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_STAIRS.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, RHYOLITE_WALL.get(), RHYOLITE.get());
+
+		generateRecipes(consumer, POLISHED_RHYOLITE_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_RHYOLITE.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_RHYOLITE_SLAB.get(), RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_RHYOLITE_STAIRS.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_RHYOLITE_WALL.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_RHYOLITE_SLAB.get(), POLISHED_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_RHYOLITE_STAIRS.get(), POLISHED_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_RHYOLITE_WALL.get(), POLISHED_RHYOLITE.get());
+
+		generateRecipes(consumer, RHYOLITE_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICKS.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICK_SLAB.get(), RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICK_STAIRS.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, RHYOLITE_BRICK_WALL.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_RHYOLITE_BRICKS.get(), RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICKS.get(), POLISHED_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICK_SLAB.get(), POLISHED_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICK_STAIRS.get(), POLISHED_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, RHYOLITE_BRICK_WALL.get(), POLISHED_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_RHYOLITE_BRICKS.get(), POLISHED_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICK_SLAB.get(), RHYOLITE_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, RHYOLITE_BRICK_STAIRS.get(), RHYOLITE_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, RHYOLITE_BRICK_WALL.get(), RHYOLITE_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_RHYOLITE_BRICKS.get(), RHYOLITE_BRICKS.get());
+
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MAGMATIC_RHYOLITE.get(), 4).define('#', RHYOLITE.get()).define('X', Blocks.MAGMA_BLOCK).pattern("#X").pattern("X#").unlockedBy("has_magma_block", has(Blocks.MAGMA_BLOCK)).save(consumer);
+
+		generateRecipes(consumer, MAGMATIC_RHYOLITE_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_SLAB.get(), MAGMATIC_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_STAIRS.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, MAGMATIC_RHYOLITE_WALL.get(), MAGMATIC_RHYOLITE.get());
+
+		generateRecipes(consumer, POLISHED_MAGMATIC_RHYOLITE_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_MAGMATIC_RHYOLITE.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), MAGMATIC_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_MAGMATIC_RHYOLITE_STAIRS.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_MAGMATIC_RHYOLITE_WALL.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), POLISHED_MAGMATIC_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_MAGMATIC_RHYOLITE_STAIRS.get(), POLISHED_MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_MAGMATIC_RHYOLITE_WALL.get(), POLISHED_MAGMATIC_RHYOLITE.get());
+
+		generateRecipes(consumer, MAGMATIC_RHYOLITE_BRICKS_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICKS.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_SLAB.get(), MAGMATIC_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_STAIRS.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, MAGMATIC_RHYOLITE_BRICK_WALL.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_MAGMATIC_RHYOLITE_BRICKS.get(), MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICKS.get(), POLISHED_MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_SLAB.get(), POLISHED_MAGMATIC_RHYOLITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_STAIRS.get(), POLISHED_MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, DECORATIONS, MAGMATIC_RHYOLITE_BRICK_WALL.get(), POLISHED_MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_MAGMATIC_RHYOLITE_BRICKS.get(), POLISHED_MAGMATIC_RHYOLITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_SLAB.get(), MAGMATIC_RHYOLITE_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_STAIRS.get(), MAGMATIC_RHYOLITE_BRICKS.get());
+		stonecutterRecipe(consumer, DECORATIONS, MAGMATIC_RHYOLITE_BRICK_WALL.get(), MAGMATIC_RHYOLITE_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_MAGMATIC_RHYOLITE_BRICKS.get(), MAGMATIC_RHYOLITE_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, DRIPSTONE_SHINGLES.get(), 4).define('#', Blocks.DRIPSTONE_BLOCK).pattern("##").pattern("##").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		generateRecipes(consumer, DRIPSTONE_SHINGLES_FAMILY);

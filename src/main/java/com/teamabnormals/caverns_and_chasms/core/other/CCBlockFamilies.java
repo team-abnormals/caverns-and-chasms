@@ -42,4 +42,11 @@ public class CCBlockFamilies {
 	public static final BlockFamily CASSITERITE_BRICKS_FAMILY = new BlockFamily.Builder(CASSITERITE_BRICKS.get()).slab(CASSITERITE_BRICK_SLAB.get()).stairs(CASSITERITE_BRICK_STAIRS.get()).wall(CASSITERITE_BRICK_WALL.get()).chiseled(CHISELED_CASSITERITE_BRICKS.get()).getFamily();
 	public static final BlockFamily POLISHED_CASSITERITE_FAMILY = new BlockFamily.Builder(POLISHED_CASSITERITE.get()).slab(POLISHED_CASSITERITE_SLAB.get()).stairs(POLISHED_CASSITERITE_STAIRS.get()).getFamily();
 	public static final BlockFamily SMOOTH_CASSITERITE_FAMILY = new BlockFamily.Builder(SMOOTH_CASSITERITE.get()).slab(SMOOTH_CASSITERITE_SLAB.get()).stairs(SMOOTH_CASSITERITE_STAIRS.get()).getFamily();
+	public static final BlockFamily RHYOLITE_FAMILY = new BlockFamily.Builder(RHYOLITE.get()).wall(RHYOLITE_WALL.get()).stairs(RHYOLITE_STAIRS.get()).slab(RHYOLITE_SLAB.get()).polished(POLISHED_RHYOLITE.get()).getFamily();
+	public static final BlockFamily POLISHED_RHYOLITE_FAMILY = new BlockFamily.Builder(POLISHED_RHYOLITE.get()).wall(POLISHED_RHYOLITE_WALL.get()).stairs(POLISHED_RHYOLITE_STAIRS.get()).slab(POLISHED_RHYOLITE_SLAB.get()).polished(RHYOLITE_BRICKS.get()).getFamily();
+	public static final BlockFamily RHYOLITE_BRICKS_FAMILY = new BlockFamily.Builder(RHYOLITE_BRICKS.get()).wall(RHYOLITE_BRICK_WALL.get()).stairs(RHYOLITE_BRICK_STAIRS.get()).slab(RHYOLITE_BRICK_SLAB.get()).chiseled(CHISELED_RHYOLITE_BRICKS.get()).getFamily();
+	public static final BlockFamily MAGMATIC_RHYOLITE_FAMILY = new BlockFamily.Builder(MAGMATIC_RHYOLITE.get()).wall(MAGMATIC_RHYOLITE_WALL.get()).stairs(MAGMATIC_RHYOLITE_STAIRS.get()).slab(MAGMATIC_RHYOLITE_SLAB.get()).polished(POLISHED_MAGMATIC_RHYOLITE.get()).getFamily();
+	public static final BlockFamily POLISHED_MAGMATIC_RHYOLITE_FAMILY = new BlockFamily.Builder(POLISHED_MAGMATIC_RHYOLITE.get()).wall(POLISHED_MAGMATIC_RHYOLITE_WALL.get()).stairs(POLISHED_MAGMATIC_RHYOLITE_STAIRS.get()).slab(POLISHED_MAGMATIC_RHYOLITE_SLAB.get()).polished(MAGMATIC_RHYOLITE_BRICKS.get()).getFamily();
+	public static final BlockFamily MAGMATIC_RHYOLITE_BRICKS_FAMILY = new BlockFamily.Builder(MAGMATIC_RHYOLITE_BRICKS.get()).wall(MAGMATIC_RHYOLITE_BRICK_WALL.get()).stairs(MAGMATIC_RHYOLITE_BRICK_STAIRS.get()).slab(MAGMATIC_RHYOLITE_BRICK_SLAB.get()).chiseled(CHISELED_MAGMATIC_RHYOLITE_BRICKS.get()).getFamily();
 }
+
