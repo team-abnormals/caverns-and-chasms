@@ -21,7 +21,9 @@ public class AtoningTableSentences {
 			lettersToIntegers(new String[]{"th", "i", "s", "p", "ea", "s", "e", "i", "s", "wh", "a", "t", "a", "ll", "t", "r", "ue", "w", "a", "rr", "i", "o", "r", "s", "s", "t", "r", "i", "v", "e", "f", "o", "r"}),
 			lettersToIntegers(new String[]{"s", "o", "m", "e", "th", "i", "ng", "s", "e", "k", "r", "e", "t", "s", "t", "ee", "r", "s", "u", "s", "b", "o", "th", "w", "e", "sh", "a", "ll", "n", "o", "t", "n", "a", "m", "e", "i", "t"}),
 			lettersToIntegers(new String[]{"b", "i", "g", "ch", "u", "ng", "g", "u", "s", "oo", "h", "n", "a", "n", "a"}),
-			lettersToIntegers(new String[]{"ch", "a", "n", "t", "ch", "a", "n", "t", "ch", "a", "n", "t"})
+			lettersToIntegers(new String[]{"ch", "i", "kk", "e", "n", "j", "o", "kk", "ey"}),
+			lettersToIntegers(new String[]{"f", "l", "i", "n", "t", "a", "n", "d", "s", "t", "ee", "l"}),
+			lettersToIntegers(new String[]{"i", "a", "m", "s", "t", "e", "v", "e"})
 	};
 
 	private static int[] lettersToIntegers(String[] array) {
