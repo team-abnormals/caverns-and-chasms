@@ -4,10 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.levelgen.placement.BetterNoiseBasedCountPlacement;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelConcurrentHashMapReceiver;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelNoiseReceiver;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.CaveGrowthGroveFeature;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.CaveGrowthsFeature;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.OreWithDirtFeature;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.TinArrowFeature;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.*;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseBasedRarityFilter;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -16,6 +13,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -63,6 +63,7 @@ public class CCFeatures {
 	public static final RegistryObject<Feature<OreConfiguration>> TIN_ARROW = FEATURES.register("tin_arrow", () -> new TinArrowFeature(OreConfiguration.CODEC));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTHS_PATCH = FEATURES.register("cave_growths_patch", () -> new CaveGrowthsFeature(NoneFeatureConfiguration.CODEC));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTH_GROVE = FEATURES.register("cave_growth_grove", () -> new CaveGrowthGroveFeature(NoneFeatureConfiguration.CODEC));
+	public static final RegistryObject<Feature<LakeFeature.Configuration>> MAGMA_LAKE = FEATURES.register("magma_lake", () -> new MagmaLakeFeature(LakeFeature.Configuration.CODEC));
 
 	public static final LevelConcurrentHashMapReceiver<Pair<Integer, Integer>, BlockPos> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
 	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
@@ -140,6 +141,11 @@ public class CCFeatures {
 			register(context, AZALEA_TREE, Feature.TREE, (new TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build());
 			register(context, PATCH_CAVE_GROWTHS, CCFeatures.CAVE_GROWTHS_PATCH.get(), NoneFeatureConfiguration.NONE);
 			register(context, CAVE_GROWTH_GROVE, CCFeatures.CAVE_GROWTH_GROVE.get(), NoneFeatureConfiguration.NONE);
+
+			register(context, MiscOverworldFeatures.LAKE_LAVA, CCFeatures.MAGMA_LAKE.get(), new LakeFeature.Configuration(
+					BlockStateProvider.simple(Blocks.LAVA),
+					BlockStateProvider.simple(Blocks.ANDESITE))
+			);
 		}
 
 		private static WeightedPlacedFeature weighted(ResourceKey<PlacedFeature> feature, float weight, HolderGetter<PlacedFeature> placedFeatures) {
