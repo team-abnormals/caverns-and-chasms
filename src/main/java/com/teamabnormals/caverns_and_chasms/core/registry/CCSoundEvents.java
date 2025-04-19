@@ -221,22 +221,22 @@ public class CCSoundEvents {
 	}
 
 	public static class CCSoundTypes {
-		public static final ForgeSoundType ROCKY_DIRT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ROCKY_DIRT_BREAK, CCSoundEvents.ROCKY_DIRT_STEP, CCSoundEvents.ROCKY_DIRT_PLACE, CCSoundEvents.ROCKY_DIRT_HIT, CCSoundEvents.ROCKY_DIRT_FALL);
-		public static final ForgeSoundType SOUL_SILVER_ORE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SOUL_SILVER_ORE_BREAK, CCSoundEvents.SOUL_SILVER_ORE_STEP, CCSoundEvents.SOUL_SILVER_ORE_PLACE, CCSoundEvents.SOUL_SILVER_ORE_HIT, CCSoundEvents.SOUL_SILVER_ORE_FALL);
-		public static final ForgeSoundType SPINEL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SPINEL_BREAK, CCSoundEvents.SPINEL_STEP, CCSoundEvents.SPINEL_PLACE, CCSoundEvents.SPINEL_HIT, CCSoundEvents.SPINEL_FALL);
-		public static final ForgeSoundType SUGILITE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SUGILITE_BREAK, CCSoundEvents.SUGILITE_STEP, CCSoundEvents.SUGILITE_PLACE, CCSoundEvents.SUGILITE_HIT, CCSoundEvents.SUGILITE_FALL);
-		public static final ForgeSoundType ZIRCONIA = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ZIRCONIA_BREAK, CCSoundEvents.ZIRCONIA_STEP, CCSoundEvents.ZIRCONIA_PLACE, CCSoundEvents.ZIRCONIA_HIT, CCSoundEvents.ZIRCONIA_FALL);
-		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.NECROMIUM_BREAK, CCSoundEvents.NECROMIUM_STEP, CCSoundEvents.NECROMIUM_PLACE, CCSoundEvents.NECROMIUM_HIT, CCSoundEvents.NECROMIUM_FALL);
-		public static final ForgeSoundType FALSE_HOPE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.FALSE_HOPE_BREAK, CCSoundEvents.FALSE_HOPE_STEP, CCSoundEvents.FALSE_HOPE_PLACE, CCSoundEvents.FALSE_HOPE_HIT, CCSoundEvents.FALSE_HOPE_FALL);
-		public static final ForgeSoundType CAVE_GROWTHS = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.CAVE_GROWTHS_BREAK, CCSoundEvents.CAVE_GROWTHS_STEP, CCSoundEvents.CAVE_GROWTHS_PLACE, CCSoundEvents.CAVE_GROWTHS_HIT, CCSoundEvents.CAVE_GROWTHS_FALL);
-		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.MOSCHATEL_BREAK, CCSoundEvents.MOSCHATEL_STEP, CCSoundEvents.MOSCHATEL_PLACE, CCSoundEvents.MOSCHATEL_HIT, CCSoundEvents.MOSCHATEL_FALL);
-		public static final ForgeSoundType TMT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.TMT_BREAK, CCSoundEvents.TMT_STEP, CCSoundEvents.TMT_PLACE, CCSoundEvents.TMT_HIT, CCSoundEvents.TMT_FALL);
-		public static final ForgeSoundType SANGUINE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SANGUINE_BREAK, CCSoundEvents.SANGUINE_STEP, CCSoundEvents.SANGUINE_PLACE, CCSoundEvents.SANGUINE_HIT, CCSoundEvents.SANGUINE_FALL);
-		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.LAVA_LAMP_BREAK, CCSoundEvents.LAVA_LAMP_STEP, CCSoundEvents.LAVA_LAMP_PLACE, CCSoundEvents.LAVA_LAMP_HIT, CCSoundEvents.LAVA_LAMP_FALL);
-		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.FLOODLIGHT_BREAK, CCSoundEvents.FLOODLIGHT_STEP, CCSoundEvents.FLOODLIGHT_PLACE, CCSoundEvents.FLOODLIGHT_HIT, CCSoundEvents.FLOODLIGHT_FALL);
-		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.SILVER_BREAK, CCSoundEvents.SILVER_STEP, CCSoundEvents.SILVER_PLACE, CCSoundEvents.SILVER_HIT, CCSoundEvents.SILVER_FALL);
-		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.ATONING_TABLE_BREAK, CCSoundEvents.ATONING_TABLE_STEP, CCSoundEvents.ATONING_TABLE_PLACE, CCSoundEvents.ATONING_TABLE_HIT, CCSoundEvents.ATONING_TABLE_FALL);
-		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, CCSoundEvents.BEJEWELED_ANVIL_BREAK, CCSoundEvents.BEJEWELED_ANVIL_STEP, CCSoundEvents.BEJEWELED_ANVIL_PLACE, CCSoundEvents.BEJEWELED_ANVIL_HIT, CCSoundEvents.BEJEWELED_ANVIL_FALL);
+		public static final ForgeSoundType ROCKY_DIRT = new ForgeSoundType(1.0F, 1.0F, ROCKY_DIRT_BREAK, ROCKY_DIRT_STEP, ROCKY_DIRT_PLACE, ROCKY_DIRT_HIT, ROCKY_DIRT_FALL);
+		public static final ForgeSoundType SOUL_SILVER_ORE = new ForgeSoundType(1.0F, 1.0F, SOUL_SILVER_ORE_BREAK, SOUL_SILVER_ORE_STEP, SOUL_SILVER_ORE_PLACE, SOUL_SILVER_ORE_HIT, SOUL_SILVER_ORE_FALL);
+		public static final ForgeSoundType SPINEL = new ForgeSoundType(1.0F, 1.0F, SPINEL_BREAK, SPINEL_STEP, SPINEL_PLACE, SPINEL_HIT, SPINEL_FALL);
+		public static final ForgeSoundType SUGILITE = new ForgeSoundType(1.0F, 1.0F, SUGILITE_BREAK, SUGILITE_STEP, SUGILITE_PLACE, SUGILITE_HIT, SUGILITE_FALL);
+		public static final ForgeSoundType ZIRCONIA = new ForgeSoundType(1.0F, 1.0F, ZIRCONIA_BREAK, ZIRCONIA_STEP, ZIRCONIA_PLACE, ZIRCONIA_HIT, ZIRCONIA_FALL);
+		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, NECROMIUM_BREAK, NECROMIUM_STEP, NECROMIUM_PLACE, NECROMIUM_HIT, NECROMIUM_FALL);
+		public static final ForgeSoundType FALSE_HOPE = new ForgeSoundType(1.0F, 1.0F, FALSE_HOPE_BREAK, FALSE_HOPE_STEP, FALSE_HOPE_PLACE, FALSE_HOPE_HIT, FALSE_HOPE_FALL);
+		public static final ForgeSoundType CAVE_GROWTHS = new ForgeSoundType(1.0F, 1.0F, CAVE_GROWTHS_BREAK, CAVE_GROWTHS_STEP, CAVE_GROWTHS_PLACE, CAVE_GROWTHS_HIT, CAVE_GROWTHS_FALL);
+		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, MOSCHATEL_BREAK, MOSCHATEL_STEP, MOSCHATEL_PLACE, MOSCHATEL_HIT, MOSCHATEL_FALL);
+		public static final ForgeSoundType TMT = new ForgeSoundType(1.0F, 1.0F, TMT_BREAK, TMT_STEP, TMT_PLACE, TMT_HIT, TMT_FALL);
+		public static final ForgeSoundType SANGUINE = new ForgeSoundType(1.0F, 1.0F, SANGUINE_BREAK, SANGUINE_STEP, SANGUINE_PLACE, SANGUINE_HIT, SANGUINE_FALL);
+		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, LAVA_LAMP_BREAK, LAVA_LAMP_STEP, LAVA_LAMP_PLACE, LAVA_LAMP_HIT, LAVA_LAMP_FALL);
+		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);
+		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);
+		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, ATONING_TABLE_BREAK, ATONING_TABLE_STEP, ATONING_TABLE_PLACE, ATONING_TABLE_HIT, ATONING_TABLE_FALL);
+		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, BEJEWELED_ANVIL_BREAK, BEJEWELED_ANVIL_STEP, BEJEWELED_ANVIL_PLACE, BEJEWELED_ANVIL_HIT, BEJEWELED_ANVIL_FALL);
 	}
 
 	public static void registerNoteBlocks() {
