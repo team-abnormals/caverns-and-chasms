@@ -19,6 +19,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fluids.FluidInteractionRegistry;
+import net.minecraftforge.fluids.FluidInteractionRegistry.InteractionInformation;
 
 import java.util.List;
 
@@ -37,6 +41,13 @@ public class CCCompat {
 		CCDecoratedPotPatterns.registerDecoratedPotPatterns();
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
+
+		FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new InteractionInformation(
+				(level, currentPos, relativePos, currentState) -> {
+					return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);
+				},
+				CCBlocks.RHYOLITE.get().defaultBlockState()
+		));
 	}
 
 	public static void registerCompostables() {

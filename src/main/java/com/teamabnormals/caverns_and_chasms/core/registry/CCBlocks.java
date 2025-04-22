@@ -322,7 +322,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> RHYOLITE_BRICK_WALL = HELPER.createBlock("rhyolite_brick_wall", () -> new WallBlock(CCProperties.RHYOLITE_BRICKS));
 	public static final RegistryObject<Block> CHISELED_RHYOLITE_BRICKS = HELPER.createBlock("chiseled_rhyolite_bricks", () -> new Block(CCProperties.RHYOLITE_BRICKS));
 
-	public static final RegistryObject<Block> MAGMATIC_RHYOLITE = HELPER.createBlock("magmatic_rhyolite", () -> new Block(CCProperties.MAGMATIC_RHYOLITE));
+	public static final RegistryObject<Block> MAGMATIC_RHYOLITE = HELPER.createBlock("magmatic_rhyolite", () -> new MagmaBlock(CCProperties.MAGMATIC_RHYOLITE));
 	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_STAIRS = HELPER.createBlock("magmatic_rhyolite_stairs", () -> new StairBlock(() -> MAGMATIC_RHYOLITE.get().defaultBlockState(), CCProperties.MAGMATIC_RHYOLITE));
 	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_SLAB = HELPER.createBlock("magmatic_rhyolite_slab", () -> new SlabBlock(CCProperties.MAGMATIC_RHYOLITE));
 	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_WALL = HELPER.createBlock("magmatic_rhyolite_wall", () -> new WallBlock(CCProperties.MAGMATIC_RHYOLITE));
