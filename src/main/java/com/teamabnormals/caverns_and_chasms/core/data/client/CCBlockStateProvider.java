@@ -4,7 +4,6 @@ import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -60,7 +59,6 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP);
 		this.storageDuctBlock(STORAGE_DUCT);
-		this.rollerDoorBlock(ROLLER_DOOR, ROLLER_DOOR_HEADER);
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
@@ -594,28 +592,6 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					}
 				});
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
-	}
-
-	public void rollerDoorBlock(RegistryObject<Block> door, RegistryObject<Block> doorHeader) {
-		this.rollerDoorBlock(door);
-		this.rollerDoorBlock(doorHeader);
-		Block block = door.get();
-		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_inventory")));
-	}
-
-	public void rollerDoorBlock(RegistryObject<Block> registryObject) {
-		Block block = registryObject.get();
-		this.getVariantBuilder(block)
-				.forAllStatesExcept(state -> {
-					Direction direction = state.getValue(RollerDoorBlock.FACING);
-					AttachFace face = state.getValue(RollerDoorBlock.FACE);
-					String bottom = state.getValue(RollerDoorBlock.BOTTOM) ? "_bottom" : "";
-					return ConfiguredModel.builder()
-							.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + bottom + "_" + state.getValue(RollerDoorBlock.OPENNESS))))
-							.rotationX(face == AttachFace.CEILING ? 90 : face == AttachFace.FLOOR ? 270 : 0)
-							.rotationY(((int) direction.toYRot() + (face == AttachFace.FLOOR ? 0 : 180)) % 360)
-							.build();
-				}, BlockStateProperties.WATERLOGGED);
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {

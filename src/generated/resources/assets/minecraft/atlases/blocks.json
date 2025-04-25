@@ -6,6 +6,11 @@
       "source": "entity/toolbox"
     },
     {
+      "type": "minecraft:directory",
+      "prefix": "entity/roller_door/",
+      "source": "entity/roller_door"
+    },
+    {
       "type": "minecraft:single",
       "resource": "caverns_and_chasms:entity/atoning_table_book"
     },

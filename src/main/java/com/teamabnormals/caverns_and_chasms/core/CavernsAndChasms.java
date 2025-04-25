@@ -223,6 +223,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TOOLBOX, ToolboxRenderer::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.ROLLER_DOOR, RollerDoorRenderer::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TMT_MINECART, MinecartModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.LOST_GOAT, LostGoatModel::createBodyLayer);
 	}
@@ -249,6 +250,8 @@ public class CavernsAndChasms {
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR.get(), RollerDoorRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR_HEADER.get(), RollerDoorRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ATONING_TABLE.get(), AtoningTableRenderer::new);
 	}
 

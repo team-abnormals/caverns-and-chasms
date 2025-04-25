@@ -20,6 +20,7 @@ public class CCModelLayers {
 	public static final ModelLayerLocation RAT = register("rat");
 	public static final ModelLayerLocation TMT_MINECART = register("tmt_minecart");
 	public static final ModelLayerLocation TOOLBOX = register("toolbox");
+	public static final ModelLayerLocation ROLLER_DOOR = register("roller_door");
 
 	public static ModelLayerLocation register(String name) {
 		return register(name, "main");

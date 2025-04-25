@@ -1,14 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldButtonBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,13 +16,13 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -31,45 +31,51 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Map;
+import javax.annotation.Nullable;
 
-public class RollerDoorBlock extends HorizontalDirectionalBlock implements RollerDoor {
+public class RollerDoorBlock extends BaseEntityBlock {
+	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
-	public static final IntegerProperty OPENNESS = IntegerProperty.create("openness", 0, 15);
-	public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
-	protected static final Map<Direction, VoxelShape[]> WALL_SHAPES = Maps.newEnumMap(ImmutableMap.of(
-			Direction.NORTH, RollerDoor.makeShapes(0, 0, 1, 16, 16, 3, Shapes.empty(), Direction.UP),
-			Direction.SOUTH, RollerDoor.makeShapes(0, 0, 13, 16, 16, 15, Shapes.empty(), Direction.UP),
-			Direction.WEST, RollerDoor.makeShapes(1, 0, 0, 3, 16, 16, Shapes.empty(), Direction.UP),
-			Direction.EAST, RollerDoor.makeShapes(13, 0, 0, 15, 16, 16, Shapes.empty(), Direction.UP)));
-	protected static final Map<Direction, VoxelShape[]> CEILING_SHAPES = Maps.newEnumMap(ImmutableMap.of(
-			Direction.NORTH, RollerDoor.makeShapes(0, 1, 0, 16, 3, 16, Shapes.empty(), Direction.NORTH),
-			Direction.SOUTH, RollerDoor.makeShapes(0, 1, 0, 16, 3, 16, Shapes.empty(), Direction.SOUTH),
-			Direction.WEST, RollerDoor.makeShapes(0, 1, 0, 16, 3, 16, Shapes.empty(), Direction.WEST),
-			Direction.EAST, RollerDoor.makeShapes(0, 1, 0, 16, 3, 16, Shapes.empty(), Direction.EAST)));
-	protected static final Map<Direction, VoxelShape[]> FLOOR_SHAPES = Maps.newEnumMap(ImmutableMap.of(
-			Direction.NORTH, RollerDoor.makeShapes(0, 13, 0, 16, 15, 16, Shapes.empty(), Direction.NORTH),
-			Direction.SOUTH, RollerDoor.makeShapes(0, 13, 0, 16, 15, 16, Shapes.empty(), Direction.SOUTH),
-			Direction.WEST, RollerDoor.makeShapes(0, 13, 0, 16, 15, 16, Shapes.empty(), Direction.WEST),
-			Direction.EAST, RollerDoor.makeShapes(0, 13, 0, 16, 15, 16, Shapes.empty(), Direction.EAST)));
 
 	public RollerDoorBlock(Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPENNESS, 0).setValue(BOTTOM, false).setValue(WATERLOGGED, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(WATERLOGGED, false));
+	}
+
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new RollerDoorBlockEntity(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+		return createTickerHelper(entityType, CCBlockEntityTypes.ROLLER_DOOR.get(), RollerDoorBlockEntity::tick);
+	}
+
+	@Override
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		AttachFace face = state.getValue(FACE);
-		Map<Direction, VoxelShape[]> map = face == AttachFace.WALL ? WALL_SHAPES : face == AttachFace.CEILING ? CEILING_SHAPES : FLOOR_SHAPES;
-		return map.get(state.getValue(FACING))[state.getValue(BOTTOM) ? state.getValue(OPENNESS) : 0];
+		BlockEntity blockentity = level.getBlockEntity(pos);
+		return blockentity instanceof RollerDoorBlockEntity rollerdoorentity ? rollerdoorentity.getDoorShape(state) : Shapes.empty();
 	}
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		return this.handleLifting(state, level, pos, player, hand, hitResult);
+		RollerDoorHeaderBlockEntity headerentity = findHeaderBlockEntity(level, state, pos);
+		if (headerentity != null && level.getBlockEntity(pos) instanceof RollerDoorBlockEntity rollerdoorentity && !player.getItemInHand(hand).is(CCBlocks.ROLLER_DOOR.get().asItem()) && (rollerdoorentity.isBottom() || isHitResultInLiftArea(state, rollerdoorentity, level, pos, hitResult))) {
+			if (!level.isClientSide)
+				headerentity.setBeingLifted();
+			return InteractionResult.sidedSuccess(level.isClientSide);
+		}
+
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -82,7 +88,7 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 		BlockState clickedstate = level.getBlockState(clickedpos);
 
 		boolean flag = false;
-		if (clickedstate.getBlock() instanceof RollerDoor) {
+		if (clickedstate.getBlock() instanceof RollerDoorBlock) {
 			AttachFace face = clickedstate.getValue(FACE);
 			Direction facing = clickedstate.getValue(FACING);
 			if (face == AttachFace.WALL) {
@@ -96,7 +102,7 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 		AttachFace face = flag ? clickedstate.getValue(FACE) : clickedface.getAxis() == Axis.Y ? AttachFace.WALL : context.getClickLocation().y - context.getClickedPos().getY() > 0.5D ? AttachFace.FLOOR : AttachFace.CEILING;
 		Direction facing = flag ? clickedstate.getValue(FACING) : face == AttachFace.WALL ? context.getHorizontalDirection().getOpposite() : clickedface.getOpposite();
 
-		return this.getUpdatedState(level, blockpos, facing, face, 0, fluidstate.getType() == Fluids.WATER);
+		return this.defaultBlockState().setValue(FACING, facing).setValue(FACE, face).setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
 	}
 
 	@Override
@@ -105,8 +111,8 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 
 		if (waterlogged)
 			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-
-		return this.getUpdatedState(level, pos, state.getValue(FACING), state.getValue(FACE), state.getValue(OPENNESS), waterlogged);
+		return state;
+		// return this.getUpdatedState(level, pos, state.getValue(FACING), state.getValue(FACE), state.getValue(OPENNESS), waterlogged);
 	}
 
 	@Override
@@ -115,12 +121,73 @@ public class RollerDoorBlock extends HorizontalDirectionalBlock implements Rolle
 	}
 
 	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+	}
+
+	@Override
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.rotate(mirror.getRotation(state.getValue(FACING)));
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(FACING, FACE, OPENNESS, BOTTOM, WATERLOGGED);
+		builder.add(FACING, FACE, WATERLOGGED);
 	}
 
 	@Override
 	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
 		return false;
+	}
+
+	// TODO: Update to work for all orientations
+	private static boolean isHitResultInLiftArea(BlockState state, RollerDoorBlockEntity rollerDoorEntity, LevelAccessor level, BlockPos pos, BlockHitResult hitResult) {
+		Direction facing = state.getValue(RollerDoorBlock.FACING);
+		AttachFace face = state.getValue(RollerDoorBlock.FACE);
+		Direction direction = getBelowDirection(facing, face);
+		Axis axis = direction.getAxis();
+		BlockPos belowpos = pos.relative(direction);
+		BlockState belowstate = level.getBlockState(belowpos);
+		if (level.getBlockEntity(belowpos) instanceof RollerDoorBlockEntity belowentity) {
+			double d0 = hitResult.getLocation().get(axis) - pos.get(axis);
+			if (direction.getAxisDirection() == AxisDirection.POSITIVE)
+				d0 = 1.0D - d0;
+			return d0 < rollerDoorEntity.getOpenness(1.0F) && belowentity.isBottom() && isParallelDoor(belowstate, facing, face);
+		}
+		return false;
+	}
+
+	public static RollerDoorHeaderBlockEntity findHeaderBlockEntity(LevelAccessor level, BlockState state, BlockPos pos) {
+		Direction facing = state.getValue(RollerDoorBlock.FACING);
+		AttachFace face = state.getValue(RollerDoorBlock.FACE);
+		Direction direction = getAboveDirection(facing, face);
+		MutableBlockPos mutable = pos.mutable();
+		while (true) {
+			if (level.getBlockEntity(mutable) instanceof RollerDoorHeaderBlockEntity rollerDoor)
+				return rollerDoor;
+			else if (!isParallelDoor(level.getBlockState(mutable), facing, face))
+				return null;
+			mutable.move(direction);
+		}
+	}
+
+	public static Direction getAboveDirection(Direction facing, AttachFace face) {
+		return face == AttachFace.WALL ? Direction.UP : facing;
+	}
+
+	public static Direction getBelowDirection(Direction facing, AttachFace face) {
+		return face == AttachFace.WALL ? Direction.DOWN : facing.getOpposite();
+	}
+
+	public static Direction getLeftDirection(Direction facing, AttachFace face) {
+		return face == AttachFace.WALL ? facing.getClockWise() : facing.getCounterClockWise();
+	}
+
+	public static Direction getRightDirection(Direction facing, AttachFace face) {
+		return face == AttachFace.WALL ? facing.getCounterClockWise() : facing.getClockWise();
+	}
+
+	public static boolean isParallelDoor(BlockState neighborState, Direction facing, AttachFace face) {
+		return neighborState.getBlock() instanceof RollerDoorBlock && neighborState.getValue(RollerDoorBlock.FACING) == facing && neighborState.getValue(RollerDoorBlock.FACE) == face;
 	}
 }

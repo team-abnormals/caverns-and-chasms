@@ -38,6 +38,7 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 				));
 		this.atlas(SpriteSourceProvider.BLOCKS_ATLAS)
 				.addSource(new DirectoryLister("entity/toolbox", "entity/toolbox/"))
+				.addSource(new DirectoryLister("entity/roller_door", "entity/roller_door/"))
 				.addSource(new SingleFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/atoning_table_book"), Optional.empty()))
 				.addSource(BlueprintTrims.materialPermutationsForItemLayers(
 						CCTrimMaterials.SPINEL,
