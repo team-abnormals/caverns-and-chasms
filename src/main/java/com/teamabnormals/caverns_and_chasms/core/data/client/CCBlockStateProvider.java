@@ -60,6 +60,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.hoopBlock(HOOP);
 		this.storageDuctBlock(STORAGE_DUCT);
 
+		this.rollerDoorBlocks(ROLLER_DOOR, ROLLER_DOOR_HEADER);
+
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(GOLD_BRICKS_FAMILY);
@@ -592,6 +594,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					}
 				});
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
+	}
+
+	public void rollerDoorBlocks(RegistryObject<Block> rollerDoor, RegistryObject<Block> header) {
+		ModelFile model = this.models().getBuilder(name(rollerDoor.get())).texture("particle", new ResourceLocation(CavernsAndChasms.MOD_ID, "block/roller_door_particle"));
+		this.simpleBlock(rollerDoor.get(), model);
+		this.simpleBlock(header.get(), model);
 	}
 
 	public void dismantlingTableBlock(RegistryObject<Block> registryObject) {

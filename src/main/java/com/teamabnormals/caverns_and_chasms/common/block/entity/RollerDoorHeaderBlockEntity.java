@@ -48,6 +48,10 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		compound.putShort("LiftTime", (short) this.liftTime);
 	}
 
+	public void setBlockCount(int count) {
+		this.blocks = count;
+	}
+
 	public int getBlockCount() {
 		return this.blocks;
 	}
@@ -63,107 +67,126 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 
 	// TODO: Check the setblock flags
 	public static void tick(Level level, BlockPos pos, BlockState state, RollerDoorHeaderBlockEntity blockEntity) {
-		if (!level.isClientSide) {
-		blockEntity.prevBeingLifted = blockEntity.beingLifted;
-
-		double speed = 0.0625D;
-
-		Direction facing = state.getValue(RollerDoorBlock.FACING);
-		AttachFace face = state.getValue(RollerDoorBlock.FACE);
-
-		Direction belowdirection = RollerDoorBlock.getBelowDirection(facing, face);
-		int columnlength = blockEntity.getColumnLength();
-		boolean addblock = false;
-		boolean removeblock = false;
-
-		if (blockEntity.shouldOpen()) {
-			blockEntity.openness += speed;
-			if (blockEntity.openness > 1.0D) {
-				if (columnlength > 0) {
-					blockEntity.openness -= 1.0D;
-					blockEntity.blocks++;
-					columnlength--;
-					removeblock = true;
-				} else {
-					blockEntity.openness = 1.0F;
-				}
-			}
+		if (level.isClientSide) {
+			if (blockEntity.opennessUpdateTime < level.getGameTime())
+				blockEntity.opennessOld = blockEntity.openness;
 		} else {
-			blockEntity.openness -= speed;
-			if (blockEntity.openness < 0.0D) {
-				if (blockEntity.blocks > 0) {
-					BlockPos offsetpos = pos.relative(belowdirection, columnlength + 1);
-					BlockState offsetstate = level.getBlockState(offsetpos);
+			blockEntity.opennessOld = blockEntity.openness;
+			blockEntity.prevBeingLifted = blockEntity.beingLifted;
 
-					if (offsetpos.getY() >= level.getMinBuildHeight() && (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY)) {
-						blockEntity.openness += 1.0D;
-						blockEntity.blocks--;
-						columnlength++;
-						addblock = true;
+			double speed = 0.0625D;
+
+			Direction facing = state.getValue(RollerDoorBlock.FACING);
+			AttachFace face = state.getValue(RollerDoorBlock.FACE);
+
+			Direction belowdirection = RollerDoorBlock.getBelowDirection(facing, face);
+			int columnlength = RollerDoorBlock.getColumnLength(level, pos, facing, face);
+			int oldcolumnlength = columnlength;
+			boolean addblock = false;
+			boolean removeblock = false;
+
+			boolean opening = blockEntity.shouldOpen();
+			boolean updatedoor = true;
+
+			if (opening) {
+				blockEntity.openness += speed;
+				if (blockEntity.openness > 1.0D) {
+					if (columnlength > 0) {
+						blockEntity.openness -= 1.0D;
+						blockEntity.opennessOld = blockEntity.openness;
+						blockEntity.blocks++;
+						columnlength--;
+						removeblock = true;
+					} else {
+						blockEntity.openness = 1.0F;
+						updatedoor = false;
+					}
+				}
+			} else {
+				blockEntity.openness -= speed;
+				if (blockEntity.openness < 0.0D) {
+					if (blockEntity.blocks > 0) {
+						BlockPos offsetpos = pos.relative(belowdirection, columnlength + 1);
+						BlockState offsetstate = level.getBlockState(offsetpos);
+
+						if (offsetpos.getY() >= level.getMinBuildHeight() && (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY)) {
+							blockEntity.openness += 1.0D;
+							blockEntity.opennessOld = blockEntity.openness;
+							blockEntity.blocks--;
+							columnlength++;
+							addblock = true;
+						} else {
+							blockEntity.openness = 0.0D;
+							updatedoor = false;
+						}
 					} else {
 						blockEntity.openness = 0.0D;
+						updatedoor = false;
 					}
-				} else {
-					blockEntity.openness = 0.0D;
 				}
 			}
-		}
 
-		blockEntity.bottom = columnlength == 0;
+			if (updatedoor) {
+				moveCollidedEntities(level, pos, opening, blockEntity.openness, speed, columnlength, oldcolumnlength, facing, face);
 
-		MutableBlockPos mutable = pos.mutable();
-		int j = addblock ? columnlength - 1 : columnlength;
-		for (int i = 0; i < j; i++) {
-			mutable.move(belowdirection);
-			if (level.getBlockEntity(mutable) instanceof RollerDoorBlockEntity offsetentity) {
-				offsetentity.openness = blockEntity.openness;
-				offsetentity.bottom = i == j - 1 && !addblock;
-				BlockState offsetstate = level.getBlockState(mutable);
-				level.sendBlockUpdated(mutable, offsetstate, offsetstate, 3);
+				blockEntity.bottom = columnlength == 0;
+				blockEntity.bottomBelow = columnlength == 1;
+				blockEntity.opennessUpdateTime = level.getGameTime();
+
+				MutableBlockPos mutable = pos.mutable();
+				for (int i = 0; i < columnlength; i++) {
+					mutable.move(belowdirection);
+
+					boolean bottom = i == columnlength - 1;
+					if (bottom && addblock) {
+						FluidState fluidstate = level.getFluidState(mutable);
+						level.destroyBlock(mutable, false);
+						level.setBlock(mutable, CCBlocks.ROLLER_DOOR.get().defaultBlockState().setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.WATERLOGGED, fluidstate.getType() == Fluids.WATER), 2);
+						BlockState offsetstate = level.getBlockState(mutable);
+						level.sendBlockUpdated(mutable, offsetstate, offsetstate, 3);
+					}
+
+					if (level.getBlockEntity(mutable) instanceof RollerDoorBlockEntity offsetentity) {
+						offsetentity.openness = blockEntity.openness;
+						offsetentity.opennessOld = blockEntity.opennessOld;
+						offsetentity.opennessUpdateTime = blockEntity.opennessUpdateTime;
+						offsetentity.bottom = bottom;
+						offsetentity.bottomBelow = i == columnlength - 2;
+						BlockState offsetstate = level.getBlockState(mutable);
+						level.sendBlockUpdated(mutable, offsetstate, offsetstate, 3);
+					}
+				}
+
+				if (removeblock) {
+					mutable.move(belowdirection);
+					level.setBlock(mutable, level.getBlockState(mutable).getFluidState().createLegacyBlock(), 2);
+				}
+
+				level.sendBlockUpdated(pos, state, state, 3);
 			}
-		}
-
-		if (addblock) {
-			mutable.move(belowdirection);
-			FluidState fluidstate = level.getFluidState(mutable);
-			level.destroyBlock(mutable, false);
-			level.setBlock(mutable, CCBlocks.ROLLER_DOOR.get().defaultBlockState().setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.WATERLOGGED, fluidstate.getType() == Fluids.WATER), 2);
-			if (level.getBlockEntity(mutable) instanceof RollerDoorBlockEntity offsetentity) {
-				offsetentity.openness = blockEntity.openness;
-				offsetentity.bottom = true;
-				BlockState offsetstate = level.getBlockState(mutable);
-				level.sendBlockUpdated(mutable, offsetstate, offsetstate, 3);
-			}
-		} else if (removeblock) {
-			mutable.move(belowdirection);
-			level.setBlock(mutable, level.getBlockState(mutable).getFluidState().createLegacyBlock(), 2);
 		}
 
 		blockEntity.liftUpdateTime = level.getGameTime();
 		if (blockEntity.liftTime > 0) {
 			--blockEntity.liftTime;
-			if (blockEntity.liftTime == 0) {
+			if (blockEntity.liftTime == 0)
 				blockEntity.beingLifted = false;
-				if (!level.isClientSide)
-					level.blockEvent(pos, state.getBlock(), 1, 0);
-			}
-		}
-
-		level.sendBlockUpdated(pos, state, state, 3);
 		}
 	}
 
 	// TODO: Fix pushing jank
-	private static void moveCollidedEntities(Level level, BlockPos pos, float openness, int oldColumnLength, int columnLength, Direction facing, AttachFace face, boolean opening) {
+	private static void moveCollidedEntities(Level level, BlockPos pos, boolean opening, double openness, double moveSpeed, int columnLength, int oldColumnLength, Direction facing, AttachFace face) {
 		Direction belowdirection = RollerDoorBlock.getBelowDirection(facing, face);
 		Vec3i pushvector = belowdirection.getNormal();
 		AABB aabb = calculatePushAABB(openness, columnLength, facing, face, pushvector).move(pos);
-
+		double openingchange = opening ? moveSpeed : -moveSpeed;
 		List<Entity> standingentities = new ArrayList<>();
+
 		if (face != AttachFace.WALL) {
 			Vec3i carryvector = opening ? RollerDoorBlock.getAboveDirection(facing, face).getNormal() : pushvector;
 			MutableBlockPos mutable = pos.mutable();
 			AABB standaabb = aabb.expandTowards(0.0D, 0.05D, 0.0D);
+
 			for (int i = 0; i < oldColumnLength; i++) {
 				standingentities.addAll(level.getEntities((Entity) null, standaabb, entity -> entity.onGround() && entity.getOnPos().equals(mutable)));
 				mutable.move(belowdirection);
@@ -172,7 +195,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 			if (!standingentities.isEmpty()) {
 				for (Entity entity : standingentities) {
 					if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-						entity.move(MoverType.PISTON, new Vec3(0.0625D * carryvector.getX(), 0.0625D * carryvector.getY(), 0.0625D * carryvector.getZ()));
+						entity.move(MoverType.PISTON, new Vec3(openingchange * carryvector.getX(), openingchange * carryvector.getY(), openingchange * carryvector.getZ()));
 						entity.setOnGround(true);
 					}
 				}
@@ -184,16 +207,17 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 			insideentities.removeAll(standingentities);
 
 			if (!insideentities.isEmpty()) {
+				double d0 = openingchange + 0.01D;
 				for (Entity entity : insideentities) {
 					if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-						entity.move(MoverType.SELF, new Vec3(0.0725D * pushvector.getX(), 0.0725D * pushvector.getY(), 0.0725D * pushvector.getZ()));
+						entity.move(MoverType.SELF, new Vec3(d0 * pushvector.getX(), d0 * pushvector.getY(), d0 * pushvector.getZ()));
 					}
 				}
 			}
 		}
 	}
 
-	private static AABB calculatePushAABB(float openness, int columnLength, Direction facing, AttachFace face, Vec3i pushNormal) {
+	private static AABB calculatePushAABB(double openness, int columnLength, Direction facing, AttachFace face, Vec3i pushNormal) {
 		AABB aabb;
 		if (face == AttachFace.WALL) {
 			if (facing == Direction.EAST)
@@ -213,10 +237,10 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		Vec3 vec3 = Vec3.atLowerCornerOf(pushNormal);
 
 		if (columnLength == 1) {
-			Vec3 vec31 = vec3.scale(openness * 0.0625D);
+			Vec3 vec31 = vec3.scale(openness);
 			return aabb.contract(vec31.x, vec31.y, vec31.z);
 		} else {
-			return aabb.expandTowards(vec3.scale(columnLength - 1.0D - openness * 0.0625D));
+			return aabb.expandTowards(vec3.scale(columnLength - 1.0D - openness));
 		}
 	}
 
@@ -233,7 +257,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		while (true) {
 			mutable.move(direction);
 			BlockState blockstate = this.level.getBlockState(mutable);
-			if (blockstate.getBlock() instanceof RollerDoorHeaderBlock && RollerDoorBlock.isParallelDoor(blockstate, facing, face)) {
+			if (blockstate.getBlock() instanceof RollerDoorHeaderBlock && RollerDoorBlock.isDoorParallel(blockstate, facing, face)) {
 				if (this.level.hasNeighborSignal(mutable))
 					return true;
 				else if (this.level.getBlockEntity(mutable) instanceof RollerDoorHeaderBlockEntity blockentity) {
@@ -253,45 +277,4 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 			}
 		}
 	}
-
-	private int getColumnLength() {
-		int length = 0;
-
-		Direction facing = this.getBlockState().getValue(RollerDoorBlock.FACING);
-		AttachFace face = this.getBlockState().getValue(RollerDoorBlock.FACE);
-		MutableBlockPos mutable = this.getBlockPos().mutable();
-
-		while (true) {
-			mutable.move(RollerDoorBlock.getBelowDirection(facing, face));
-			BlockState offsetstate = this.level.getBlockState(mutable);
-
-			if (offsetstate.getBlock() instanceof RollerDoorBlock && offsetstate.getValue(RollerDoorBlock.FACING) == facing && offsetstate.getValue(RollerDoorBlock.FACE) == face)
-				++length;
-			else
-				break;
-		}
-
-		return length;
-	}
-
-	/*
-	private BlockState getUpdatedState(LevelAccessor level, BlockPos pos, Direction facing, AttachFace face, int openness, boolean waterlogged) {
-		BlockPos abovepos = pos.relative(RollerDoorBlock.getAboveDirection(facing, face));
-		BlockPos belowpos = pos.relative(RollerDoorBlock.getBelowDirection(facing, face));
-		BlockState abovestate = level.getBlockState(abovepos);
-		BlockState belowstate = level.getBlockState(belowpos);
-		boolean connectsabove = RollerDoorBlock.isParallelDoor(abovestate, facing, face);
-		boolean connectsbelow = RollerDoorBlock.isParallelDoor(belowstate, facing, face);
-
-		BlockState newstate = connectsabove ? CCBlocks.ROLLER_DOOR.get().defaultBlockState() : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
-		int newopenness = connectsabove ? abovestate.getValue(RollerDoorBlock.OPENNESS) : connectsbelow ? belowstate.getValue(RollerDoorBlock.OPENNESS) : openness;
-
-		if (connectsabove && this instanceof RollerDoorHeaderBlock && abovestate.getBlock() instanceof RollerDoorHeaderBlock)
-			if (level.getBlockEntity(pos) instanceof RollerDoorBlockEntity door && level.getBlockEntity(abovepos) instanceof RollerDoorBlockEntity aboveDoor)
-				aboveDoor.deserializeNBT(door.serializeNBT());
-
-		return newstate.setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.BOTTOM, !connectsbelow).setValue(RollerDoorBlock.WATERLOGGED, waterlogged);
-	}
-
-	 */
 }

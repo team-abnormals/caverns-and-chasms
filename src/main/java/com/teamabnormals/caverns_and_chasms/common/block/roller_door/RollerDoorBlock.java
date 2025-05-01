@@ -69,7 +69,7 @@ public class RollerDoorBlock extends BaseEntityBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		RollerDoorHeaderBlockEntity headerentity = findHeaderBlockEntity(level, state, pos);
-		if (headerentity != null && level.getBlockEntity(pos) instanceof RollerDoorBlockEntity rollerdoorentity && !player.getItemInHand(hand).is(CCBlocks.ROLLER_DOOR.get().asItem()) && (rollerdoorentity.isBottom() || isHitResultInLiftArea(state, rollerdoorentity, level, pos, hitResult))) {
+		if (headerentity != null && level.getBlockEntity(pos) instanceof RollerDoorBlockEntity rollerdoorentity && !player.getItemInHand(hand).is(CCBlocks.ROLLER_DOOR.get().asItem()) && (rollerdoorentity.isBottom() || (rollerdoorentity.hasBottomBelow() && isHitResultInLiftArea(state, rollerdoorentity, pos, hitResult)))) {
 			if (!level.isClientSide)
 				headerentity.setBeingLifted();
 			return InteractionResult.sidedSuccess(level.isClientSide);
@@ -102,17 +102,30 @@ public class RollerDoorBlock extends BaseEntityBlock {
 		AttachFace face = flag ? clickedstate.getValue(FACE) : clickedface.getAxis() == Axis.Y ? AttachFace.WALL : context.getClickLocation().y - context.getClickedPos().getY() > 0.5D ? AttachFace.FLOOR : AttachFace.CEILING;
 		Direction facing = flag ? clickedstate.getValue(FACING) : face == AttachFace.WALL ? context.getHorizontalDirection().getOpposite() : clickedface.getOpposite();
 
-		return this.defaultBlockState().setValue(FACING, facing).setValue(FACE, face).setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
+		BlockPos abovepos = blockpos.relative(getAboveDirection(facing, face));
+		BlockState abovestate = level.getBlockState(abovepos);
+
+		BlockState placestate = abovestate.getBlock() instanceof RollerDoorBlock && isDoorParallel(abovestate, facing, face) ? CCBlocks.ROLLER_DOOR.get().defaultBlockState() : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
+
+		return placestate.setValue(FACING, facing).setValue(FACE, face).setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState offsetShape, LevelAccessor level, BlockPos pos, BlockPos offsetPos) {
+	public BlockState updateShape(BlockState state, Direction direction, BlockState offsetState, LevelAccessor level, BlockPos pos, BlockPos offsetPos) {
 		boolean waterlogged = state.getValue(WATERLOGGED);
 
 		if (waterlogged)
 			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+
 		return state;
-		// return this.getUpdatedState(level, pos, state.getValue(FACING), state.getValue(FACE), state.getValue(OPENNESS), waterlogged);
+	}
+
+	@Override
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (!level.isClientSide && level.getBlockEntity(pos) instanceof RollerDoorBlockEntity blockentity)
+			blockentity.onRemove(newState);
+
+		super.onRemove(state, level, pos, newState, isMoving);
 	}
 
 	@Override
@@ -140,21 +153,15 @@ public class RollerDoorBlock extends BaseEntityBlock {
 		return false;
 	}
 
-	// TODO: Update to work for all orientations
-	private static boolean isHitResultInLiftArea(BlockState state, RollerDoorBlockEntity rollerDoorEntity, LevelAccessor level, BlockPos pos, BlockHitResult hitResult) {
+	private static boolean isHitResultInLiftArea(BlockState state, RollerDoorBlockEntity rollerDoorEntity, BlockPos pos, BlockHitResult hitResult) {
 		Direction facing = state.getValue(RollerDoorBlock.FACING);
 		AttachFace face = state.getValue(RollerDoorBlock.FACE);
 		Direction direction = getBelowDirection(facing, face);
 		Axis axis = direction.getAxis();
-		BlockPos belowpos = pos.relative(direction);
-		BlockState belowstate = level.getBlockState(belowpos);
-		if (level.getBlockEntity(belowpos) instanceof RollerDoorBlockEntity belowentity) {
-			double d0 = hitResult.getLocation().get(axis) - pos.get(axis);
-			if (direction.getAxisDirection() == AxisDirection.POSITIVE)
-				d0 = 1.0D - d0;
-			return d0 < rollerDoorEntity.getOpenness(1.0F) && belowentity.isBottom() && isParallelDoor(belowstate, facing, face);
-		}
-		return false;
+		double d0 = hitResult.getLocation().get(axis) - pos.get(axis);
+		if (direction.getAxisDirection() == AxisDirection.POSITIVE)
+			d0 = 1.0D - d0;
+		return d0 < rollerDoorEntity.getOpenness(1.0F) ;
 	}
 
 	public static RollerDoorHeaderBlockEntity findHeaderBlockEntity(LevelAccessor level, BlockState state, BlockPos pos) {
@@ -163,10 +170,11 @@ public class RollerDoorBlock extends BaseEntityBlock {
 		Direction direction = getAboveDirection(facing, face);
 		MutableBlockPos mutable = pos.mutable();
 		while (true) {
-			if (level.getBlockEntity(mutable) instanceof RollerDoorHeaderBlockEntity rollerDoor)
-				return rollerDoor;
-			else if (!isParallelDoor(level.getBlockState(mutable), facing, face))
+			BlockState offsetstate = level.getBlockState(mutable);
+			if (!(offsetstate.getBlock() instanceof RollerDoorBlock) || !isDoorParallel(offsetstate, facing, face))
 				return null;
+			else if (level.getBlockEntity(mutable) instanceof RollerDoorHeaderBlockEntity rollerDoor)
+				return rollerDoor;
 			mutable.move(direction);
 		}
 	}
@@ -187,7 +195,25 @@ public class RollerDoorBlock extends BaseEntityBlock {
 		return face == AttachFace.WALL ? facing.getCounterClockWise() : facing.getClockWise();
 	}
 
-	public static boolean isParallelDoor(BlockState neighborState, Direction facing, AttachFace face) {
-		return neighborState.getBlock() instanceof RollerDoorBlock && neighborState.getValue(RollerDoorBlock.FACING) == facing && neighborState.getValue(RollerDoorBlock.FACE) == face;
+	public static boolean isDoorParallel(BlockState neighborState, Direction facing, AttachFace face) {
+		return neighborState.getValue(RollerDoorBlock.FACING) == facing && neighborState.getValue(RollerDoorBlock.FACE) == face;
+	}
+
+	public static int getColumnLength(Level level, BlockPos pos, Direction facing, AttachFace face) {
+		int length = 0;
+
+		MutableBlockPos mutable = pos.mutable();
+
+		while (true) {
+			mutable.move(RollerDoorBlock.getBelowDirection(facing, face));
+			BlockState offsetstate = level.getBlockState(mutable);
+
+			if (offsetstate.is(CCBlocks.ROLLER_DOOR.get()) && offsetstate.getValue(RollerDoorBlock.FACING) == facing && offsetstate.getValue(RollerDoorBlock.FACE) == face)
+				++length;
+			else
+				break;
+		}
+
+		return length;
 	}
 }

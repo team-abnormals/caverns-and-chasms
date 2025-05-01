@@ -1,5 +1,6 @@
 {
-	"parent": "caverns_and_chasms:block/roller_door_header_bottom_0",
+    "parent": "builtin/entity",
+    "gui_light": "side",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [75, 45, 0],

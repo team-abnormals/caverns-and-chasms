@@ -3,8 +3,11 @@ package com.teamabnormals.caverns_and_chasms.core.registry.helper;
 import com.teamabnormals.blueprint.common.item.BEWLRBlockItem;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import com.teamabnormals.caverns_and_chasms.client.renderer.block.RollerDoorBlockEntityWithoutLevelRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.ToolboxBlockEntityWithoutLevelRenderer;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.item.RollerDoorBlockItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
@@ -28,6 +31,12 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 		return block;
 	}
 
+	public <B extends Block> RegistryObject<B> createRollerDoorBlock(String name, Supplier<? extends B> supplier) {
+		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
+		this.itemRegister.register(name, () -> new RollerDoorBlockItem(block.get(), new Item.Properties().stacksTo(64), () -> () -> rollerDoorBEWLR()));
+		return block;
+	}
+
 	public <B extends Block> RegistryObject<B> createPlacedItem(String name, Supplier<? extends B> supplier) {
 		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
 		this.itemRegister.register(name + "_placed", () -> new BlockItem(block.get(), new Item.Properties()));
@@ -37,5 +46,10 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 	@OnlyIn(Dist.CLIENT)
 	private static BEWLRBlockItem.LazyBEWLR toolboxBEWLR() {
 		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> new ToolboxBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new ToolboxBlockEntity(BlockPos.ZERO, CCBlocks.TOOLBOX.get().defaultBlockState())));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static BEWLRBlockItem.LazyBEWLR rollerDoorBEWLR() {
+		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new RollerDoorBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState())));
 	}
 }

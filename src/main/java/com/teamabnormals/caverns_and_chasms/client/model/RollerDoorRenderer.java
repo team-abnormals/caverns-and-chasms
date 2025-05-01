@@ -1,13 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -27,6 +27,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements BlockEntityRenderer<T> {
+	public static boolean renderAsItem;
+
 	public static final Material ROLLER_DOOR_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/roller_door/roller_door"));
 	public static final Material ROLLER_DOOR_BOTTOM_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/roller_door/roller_door_bottom"));
 
@@ -53,17 +55,19 @@ public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements Bloc
 	}
 
 	@Override
-	public void render(T rollerDoor, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-		BlockState blockstate = rollerDoor.getLevel().getBlockState(rollerDoor.getBlockPos());
+	public void render(T rollerDoor, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+		BlockState blockstate = rollerDoor.getLevel() != null ? rollerDoor.getLevel().getBlockState(rollerDoor.getBlockPos()) : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
 		Block block = blockstate.getBlock();
 		if (block instanceof RollerDoorBlock) {
 			Direction facing = blockstate.getValue(RollerDoorBlock.FACING);
 			AttachFace face = blockstate.getValue(RollerDoorBlock.FACE);
-			float openness = (float) rollerDoor.getOpenness(1.0F);
-			boolean isheader = block instanceof RollerDoorHeaderBlock;
+			float openness = (float) rollerDoor.getOpenness(partialTick);
+			boolean header = block instanceof RollerDoorHeaderBlock;
+			boolean bottom = rollerDoor.isBottom() || renderAsItem;
 
 			poseStack.pushPose();
 			poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+
 			poseStack.translate(0.5F, -1.5F, -0.5F);
 
 			poseStack.mulPose(Axis.YP.rotationDegrees(face == AttachFace.WALL ? facing.toYRot() : facing.getOpposite().toYRot()));
@@ -72,24 +76,23 @@ public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements Bloc
 				poseStack.translate(0.0D, -1.0D, face == AttachFace.CEILING ? 1.75D : 1.0D);
 			}
 
-			Material material = rollerDoor.isBottom() ? ROLLER_DOOR_BOTTOM_MATERIAL : ROLLER_DOOR_MATERIAL;
-			VertexConsumer vertexConsumer = material.buffer(buffer, RenderType::entitySolid);
-
-			if (isheader)
-				this.header.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
+			if (header)
+				this.header.render(poseStack, ROLLER_DOOR_MATERIAL.buffer(buffer, RenderType::entitySolid), combinedLight, combinedOverlay);
 
 			for (int i = 0; i < this.slats.length; i++) {
 				ModelPart slat = this.slats[i];
+				Material material = bottom ? ROLLER_DOOR_BOTTOM_MATERIAL : ROLLER_DOOR_MATERIAL;
 				slat.y = 4.0F + (i + 1) * 4.0F - openness * 16.0F;
-				if (slat.y < 4.0F) {
-					if (rollerDoor.isBottom())
+				if (slat.y < 8.0F) {
+					if (bottom) {
 						continue;
-					else
+					} else {
 						slat.y += 16.0F;
-				} else if (isheader && slat.y < 8.0F) {
-					continue;
+						if (rollerDoor.hasBottomBelow() && slat.y >= 12.0F)
+							material = ROLLER_DOOR_BOTTOM_MATERIAL;
+					}
 				}
-				slat.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
+				slat.render(poseStack, material.buffer(buffer, RenderType::entitySolid), combinedLight, combinedOverlay);
 			}
 
 			poseStack.popPose();
