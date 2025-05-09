@@ -222,6 +222,7 @@ public class CavernsAndChasms {
 		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
+		event.registerLayerDefinition(CCModelLayers.GRAZER, GrazerModel::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TOOLBOX, ToolboxRenderer::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.ROLLER_DOOR, RollerDoorRenderer::createBodyLayer);
 		event.registerLayerDefinition(CCModelLayers.TMT_MINECART, MinecartModel::createBodyLayer);
@@ -238,6 +239,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.GRAZER.get(), GrazerRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT_MINECART.get(), TmtMinecartRenderer::new);

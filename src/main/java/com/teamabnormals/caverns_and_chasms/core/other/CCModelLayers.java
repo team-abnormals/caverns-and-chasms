@@ -17,6 +17,7 @@ public class CCModelLayers {
 	public static final ModelLayerLocation LOST_GOAT = register("lost_goat");
 	public static final ModelLayerLocation MIME = register("mime");
 	public static final ModelLayerLocation MIME_HEAD = register("mime_head");
+	public static final ModelLayerLocation GRAZER = register("grazer");
 	public static final ModelLayerLocation RAT = register("rat");
 	public static final ModelLayerLocation TMT_MINECART = register("tmt_minecart");
 	public static final ModelLayerLocation TOOLBOX = register("toolbox");

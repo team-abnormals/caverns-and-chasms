@@ -13,6 +13,8 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
@@ -70,10 +72,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
@@ -553,8 +552,11 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
 		Level level = event.getEntity().level();
+		RandomSource random = level.getRandom();
 		Projectile projectile = event.getProjectile();
+		IDataManager data = (IDataManager) projectile;
 		HitResult hitResult = event.getRayTraceResult();
+		Vec3 movement = projectile.getDeltaMovement();
 
 		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
@@ -585,13 +587,10 @@ public class CCEvents {
 			}
 
 			if (flag) {
-				Vec3 vec3 = projectile.getDeltaMovement();
-				double d0 = vec3.lengthSqr();
-				if (direction != Direction.UP || d0 > 0.04D) {
-					IDataManager data = (IDataManager) projectile;
-					RandomSource random = level.getRandom();
+				double speed = movement.lengthSqr();
+				if (direction != Direction.UP || speed > 0.04D) {
+					Vec3 location = hitResult.getLocation();
 					Axis axis = direction.getAxis();
-					Vec3 vec31 = hitResult.getLocation();
 					int i = blockHitResult.getDirection().getAxisDirection().getStep();
 
 					double j = 0.65D;
@@ -612,36 +611,72 @@ public class CCEvents {
 					}
 
 					if (axis == Axis.X) {
-						data.setValue(CCDataProcessors.DEFLECT_X, -vec3.x * j);
-						data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
-						data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
-						projectile.setPos(vec31.x + 0.01D * i, vec31.y, vec31.z);
+						data.setValue(CCDataProcessors.DEFLECT_X, -movement.x * j);
+						data.setValue(CCDataProcessors.DEFLECT_Y, movement.y * k);
+						data.setValue(CCDataProcessors.DEFLECT_Z, movement.z * k);
+						projectile.setPos(location.x + 0.01D * i, location.y, location.z);
 					} else if (axis == Axis.Y) {
-						data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
-						data.setValue(CCDataProcessors.DEFLECT_Y, -vec3.y * j);
-						data.setValue(CCDataProcessors.DEFLECT_Z, vec3.z * k);
-						projectile.setPos(vec31.x, i == 1 ? vec31.y : vec31.y - 0.01D, vec31.z);
+						data.setValue(CCDataProcessors.DEFLECT_X, movement.x * k);
+						data.setValue(CCDataProcessors.DEFLECT_Y, -movement.y * j);
+						data.setValue(CCDataProcessors.DEFLECT_Z, movement.z * k);
+						projectile.setPos(location.x, i == 1 ? location.y : location.y - 0.01D, location.z);
 					} else if (axis == Axis.Z) {
-						data.setValue(CCDataProcessors.DEFLECT_X, vec3.x * k);
-						data.setValue(CCDataProcessors.DEFLECT_Y, vec3.y * k);
-						data.setValue(CCDataProcessors.DEFLECT_Z, -vec3.z * j);
-						projectile.setPos(vec31.x, vec31.y, vec31.z + 0.01D * i);
+						data.setValue(CCDataProcessors.DEFLECT_X, movement.x * k);
+						data.setValue(CCDataProcessors.DEFLECT_Y, movement.y * k);
+						data.setValue(CCDataProcessors.DEFLECT_Z, -movement.z * j);
+						projectile.setPos(location.x, location.y, location.z + 0.01D * i);
 					}
 					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					level.playSound(null, projectile.getX(), projectile.getY(), projectile.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
+					level.playSound(null, location.x, location.y, location.z, CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min(0.2F + (float) speed * 0.7F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
+
 					for (int l = 0; l < 3; ++l) {
-						Vec3 vec32 = vec3.reverse().normalize();
-						double d1 = vec32.x * 0.2D + random.nextGaussian() * 0.05D;
-						double d2 = vec32.y * 0.2D + random.nextGaussian() * 0.05D;
-						double d3 = vec32.z * 0.2D + random.nextGaussian() * 0.05D;
-						level.addParticle(CCParticleTypes.SPARK.get(), vec31.x, vec31.y, vec31.z, d1, d2, d3);
+						Vec3 vec3 = movement.reverse().normalize();
+						double d1 = vec3.x * 0.2D + random.nextGaussian() * 0.05D;
+						double d2 = vec3.y * 0.2D + random.nextGaussian() * 0.05D;
+						double d3 = vec3.z * 0.2D + random.nextGaussian() * 0.05D;
+						level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
 					}
 
 					event.setCanceled(true);
 				}
+			}
+		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
+			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+			if (entityHitResult.getEntity() instanceof GrazerPart grazerPart && grazerPart.isShell()) {
+				Grazer grazer = grazerPart.getParent();
+
+				if (!grazer.projectileJustDeflected(projectile)) {
+					AABB aabb = grazerPart.getBoundingBox().inflate(0.3D);
+					Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerPart.getX(), grazerPart.getY(0.5D), grazerPart.getZ()))).orElse(projectile.position());
+					Vec3 normal = grazer.calculateDeflectionNormal(location);
+					Vec3 reflect = movement.subtract(normal.scale(movement.dot(normal) * 2.0D));
+
+					data.setValue(CCDataProcessors.DEFLECT_X, reflect.x * 0.65D);
+					data.setValue(CCDataProcessors.DEFLECT_Y, reflect.y * 0.65D);
+					data.setValue(CCDataProcessors.DEFLECT_Z, reflect.z * 0.65D);
+					projectile.setPos(location.x + normal.x * 0.01D, location.y + normal.y * 0.01D, location.z + normal.z * 0.01D);
+
+					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
+					projectile.setDeltaMovement(Vec3.ZERO);
+					projectile.checkInsideBlocks();
+
+					double speed = movement.lengthSqr();
+					level.playSound(null, location.x, location.y, location.z, CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
+
+					for (int i = 0; i < 3; ++i) {
+						Vec3 vec3 = reflect.reverse().normalize();
+						double d1 = vec3.x * 0.2D + random.nextGaussian() * 0.05D;
+						double d2 = vec3.y * 0.2D + random.nextGaussian() * 0.05D;
+						double d3 = vec3.z * 0.2D + random.nextGaussian() * 0.05D;
+						level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
+					}
+				}
+
+				grazer.addDeflectedProjectile(projectile);
+				event.setCanceled(true);
 			}
 		}
 	}
