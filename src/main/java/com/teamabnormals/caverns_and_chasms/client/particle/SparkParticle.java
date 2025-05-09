@@ -9,7 +9,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class SparkParticle extends SimpleAnimatedParticle {
@@ -62,38 +61,28 @@ public class SparkParticle extends SimpleAnimatedParticle {
 	@Override
 	public void render(VertexConsumer vertexConsumer, Camera camera, float partialTicks) {
 		Vec3 vec3 = camera.getPosition();
-		float f = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
-		float f1 = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
-		float f2 = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+		float x = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
+		float y = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
+		float z = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
 
 		Vec3 velocity = new Vec3(this.x - this.xo, this.y - this.yo, this.z - this.zo);
-		if (velocity.lengthSqr() > 0.0001) {
-			velocity = velocity.normalize();
-		} else {
-			velocity = new Vec3(0, 1, 0);
-		}
 
-		Vector3f up = new Vector3f(0.0F, 1.0F, 0.0F);
-		Vector3f forward = new Vector3f((float) velocity.x, (float) velocity.y, (float) velocity.z);
-
-		Quaternionf quaternionf = new Quaternionf();
-		if (!forward.equals(up)) {
-			quaternionf.rotationTo(up, forward);
-		}
+		Vec3 forward = velocity.lengthSqr() > 0.0001D ? velocity.normalize() : new Vec3(0.0D, -1.0D, 0.0D);
+		Vec3 towardscamera = new Vec3(-x, -y, -z);
+		Vec3 side = towardscamera.subtract(forward.scale(towardscamera.dot(forward) / forward.dot(forward))).normalize().cross(forward);
 
 		Vector3f[] avector3f = new Vector3f[]{
-				new Vector3f(-1.0F, -1.0F, 0.0F),
-				new Vector3f(-1.0F, 1.0F, 0.0F),
-				new Vector3f(1.0F, 1.0F, 0.0F),
-				new Vector3f(1.0F, -1.0F, 0.0F)
+				side.reverse().subtract(forward).toVector3f(),
+				side.reverse().add(forward).toVector3f(),
+				side.add(forward).toVector3f(),
+				side.subtract(forward).toVector3f()
 		};
 
 		float f3 = this.getQuadSize(partialTicks);
 		for (int i = 0; i < 4; ++i) {
 			Vector3f vertex = avector3f[i];
-			vertex.rotate(quaternionf);
 			vertex.mul(f3);
-			vertex.add(f, f1, f2);
+			vertex.add(x, y, z);
 		}
 
 		float f6 = this.getU0();
