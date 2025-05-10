@@ -55,6 +55,11 @@ public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements Bloc
 	}
 
 	@Override
+	public int getViewDistance() {
+		return 256;
+	}
+
+	@Override
 	public void render(T rollerDoor, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
 		BlockState blockstate = rollerDoor.getLevel() != null ? rollerDoor.getLevel().getBlockState(rollerDoor.getBlockPos()) : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
 		Block block = blockstate.getBlock();
