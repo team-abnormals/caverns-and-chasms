@@ -57,7 +57,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 	public void updatePosition() {
 		Grazer grazer = this.getParent();
 
-		Vec3 oldpos = calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.getRollAnim(0.0F), grazer.yRotO);
+		Vec3 oldpos = this.calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.getRollAnim(0.0F), grazer.yRotO);
 		this.xo = oldpos.x;
 		this.yo = oldpos.y;
 		this.zo = oldpos.z;
@@ -65,7 +65,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 		this.yOld = oldpos.y;
 		this.zOld = oldpos.z;
 
-		Vec3 newpos = calculatePosition(grazer.getX(), grazer.getY(), grazer.getZ(), grazer.getRollAngle(), grazer.getYRot());
+		Vec3 newpos = this.calculatePosition(grazer.getX(), grazer.getY(), grazer.getZ(), grazer.getRollAngle(), grazer.getYRot());
 		this.setPos(newpos.x, newpos.y, newpos.z);
 	}
 
@@ -103,30 +103,28 @@ public class GrazerPart extends PartEntity<Grazer> {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (this.shell) {
-			Entity attacker = source.getDirectEntity();
-			if (attacker != null) {
-				Grazer grazer = this.getParent();
-				AABB aabb = this.getBoundingBox().inflate(0.3D);
-				Vec3 attackerpos = attacker.getEyePosition();
-				Vec3 partpos = new Vec3(this.getX(), this.getY(0.5D), this.getZ());
+		Grazer grazer = this.getParent();
+		Entity attacker = source.getDirectEntity();
+		if (this.shell && attacker != null) {
+			AABB aabb = this.getBoundingBox().inflate(0.3D);
+			Vec3 attackerpos = attacker.getEyePosition();
+			Vec3 partpos = new Vec3(this.getX(), this.getY(0.5D), this.getZ());
 
-				Vec3 location = aabb.clip(attackerpos, attackerpos.add(attacker.getViewVector(1.0F).scale(partpos.subtract(attackerpos).length() + this.halfSize + 0.3D))).or(() -> aabb.clip(attackerpos, partpos)).orElse(partpos);
-				Vec3 normal = grazer.calculateDeflectionNormal(location);
+			Vec3 location = aabb.clip(attackerpos, attackerpos.add(attacker.getViewVector(1.0F).scale(partpos.subtract(attackerpos).length() + this.halfSize + 0.3D))).or(() -> aabb.clip(attackerpos, partpos)).orElse(partpos);
+			Vec3 normal = grazer.calculateDeflectionNormal(location);
 
-				float pitch = 0.8F;
-				this.level().playSound(null, location.x, location.y, location.z, CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min(0.2F + pitch * 0.7F, 1.0F), Math.min(0.5F + pitch * 0.8F, 1.8F));
+			float pitch = 0.8F;
+			this.level().playSound(null, location.x, location.y, location.z, CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min(0.2F + pitch * 0.7F, 1.0F), Math.min(0.5F + pitch * 0.8F, 1.8F));
 
-				for (int i = 0; i < 3; ++i) {
-					double d1 = normal.x * 0.1D + this.random.nextGaussian() * 0.05D;
-					double d2 = normal.y * 0.1D + this.random.nextGaussian() * 0.05D;
-					double d3 = normal.z * 0.1D + this.random.nextGaussian() * 0.05D;
-					this.level().addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
-				}
+			for (int i = 0; i < 3; ++i) {
+				double d1 = normal.x * 0.1D + this.random.nextGaussian() * 0.05D;
+				double d2 = normal.y * 0.1D + this.random.nextGaussian() * 0.05D;
+				double d3 = normal.z * 0.1D + this.random.nextGaussian() * 0.05D;
+				this.level().addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
 			}
 			return false;
 		} else {
-			return !this.isInvulnerableTo(source) && this.getParent().hurt(source, amount);
+			return grazer.hurt(source, amount);
 		}
 	}
 
