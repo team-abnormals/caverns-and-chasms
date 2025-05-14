@@ -140,7 +140,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 					boolean bottom = i == columnlength - 1;
 					if (bottom && addblock) {
 						FluidState fluidstate = level.getFluidState(mutable);
-						level.destroyBlock(mutable, false);
+						level.destroyBlock(mutable, true);
 						level.setBlock(mutable, CCBlocks.ROLLER_DOOR.get().defaultBlockState().setValue(RollerDoorBlock.FACING, facing).setValue(RollerDoorBlock.FACE, face).setValue(RollerDoorBlock.WATERLOGGED, fluidstate.getType() == Fluids.WATER), 2);
 						BlockState offsetstate = level.getBlockState(mutable);
 						level.sendBlockUpdated(mutable, offsetstate, offsetstate, 3);
