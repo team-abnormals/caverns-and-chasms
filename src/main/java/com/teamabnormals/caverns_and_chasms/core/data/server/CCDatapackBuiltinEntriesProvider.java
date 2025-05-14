@@ -1,8 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCBiomeModifiers;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCNoiseParameters;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
@@ -10,6 +8,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCPro
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructureSets;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCTemplatePools;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCBiomeModifiers;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
 import net.minecraft.core.HolderLookup.Provider;

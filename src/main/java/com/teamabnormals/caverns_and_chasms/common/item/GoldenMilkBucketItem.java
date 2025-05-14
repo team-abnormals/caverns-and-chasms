@@ -56,7 +56,7 @@ public class GoldenMilkBucketItem extends MilkBucketItem {
 		InteractionHand hand = event.getHand();
 
 		if (event.getTarget() instanceof LivingEntity entity && entity.getType().is(BlueprintEntityTypeTags.MILKABLE) && !entity.isBaby()) {
-			if (GoldenBucketItem.isEmpty(stack) || (stack.is(CCItems.GOLDEN_MILK_BUCKET.get()) && GoldenBucketItem.canBeFilled(stack))){
+			if (GoldenBucketItem.isEmpty(stack) || (stack.is(CCItems.GOLDEN_MILK_BUCKET.get()) && GoldenBucketItem.canBeFilled(stack))) {
 				ItemStack milkBucket = new ItemStack(CCItems.GOLDEN_MILK_BUCKET.get());
 				if (!GoldenBucketItem.isEmpty(stack)) {
 					GoldenBucketItem.setFluidLevel(milkBucket, GoldenBucketItem.getFluidLevel(stack) + 1);

@@ -68,9 +68,8 @@ public class ScattererBlock extends DispenserBlock {
 		}
 		if (stack.getItem() == Items.FIRE_CHARGE) {
 			return new FireChargeScattererBehavior();
-		}
-		else {
-			return 	this.getDispenseMethod(stack);
+		} else {
+			return this.getDispenseMethod(stack);
 		}
 	}
 }

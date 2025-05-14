@@ -161,7 +161,7 @@ public class RollerDoorBlock extends BaseEntityBlock {
 		double d0 = hitResult.getLocation().get(axis) - pos.get(axis);
 		if (direction.getAxisDirection() == AxisDirection.POSITIVE)
 			d0 = 1.0D - d0;
-		return d0 < rollerDoorEntity.getOpenness(1.0F) ;
+		return d0 < rollerDoorEntity.getOpenness(1.0F);
 	}
 
 	public static RollerDoorHeaderBlockEntity findHeaderBlockEntity(LevelAccessor level, BlockState state, BlockPos pos) {

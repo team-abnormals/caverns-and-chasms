@@ -47,15 +47,15 @@ public class StorageDuctMenu extends AbstractContainerMenu {
 	}
 
 	public int getRowIndexForScroll(float scroll) {
-		return Math.max((int)(scroll * this.calculateRowCount() + 0.5D), 0);
+		return Math.max((int) (scroll * this.calculateRowCount() + 0.5D), 0);
 	}
 
 	public float getScrollForRowIndex(int scroll) {
-		return Mth.clamp((float)scroll / this.calculateRowCount(), 0.0F, 1.0F);
+		return Mth.clamp((float) scroll / this.calculateRowCount(), 0.0F, 1.0F);
 	}
 
 	public float subtractInputFromScroll(float scroll, double p_260358_) {
-		return Mth.clamp(scroll - (float)(p_260358_ / this.calculateRowCount()), 0.0F, 1.0F);
+		return Mth.clamp(scroll - (float) (p_260358_ / this.calculateRowCount()), 0.0F, 1.0F);
 	}
 
 	public void scrollTo(float scroll) {

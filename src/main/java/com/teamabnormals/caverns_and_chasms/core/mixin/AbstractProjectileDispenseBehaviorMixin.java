@@ -31,8 +31,8 @@ public abstract class AbstractProjectileDispenseBehaviorMixin {
 				x += (random.nextGaussian() * 0.1D * (random.nextBoolean() ? 1 : -1));
 			}
 			if (dir.getAxis().getPlane() == Direction.Plane.VERTICAL) {
-				x += random.nextGaussian() * scatterer.powerLevel/50 * 0.1D * (random.nextBoolean() ? 1 : -1);
-				z += random.nextGaussian() * scatterer.powerLevel/50 * 0.1D * (random.nextBoolean() ? 1 : -1);
+				x += random.nextGaussian() * scatterer.powerLevel / 50 * 0.1D * (random.nextBoolean() ? 1 : -1);
+				z += random.nextGaussian() * scatterer.powerLevel / 50 * 0.1D * (random.nextBoolean() ? 1 : -1);
 			}
 			power *= (float) scatterer.powerLevel / 10;
 			uncertainty -= (float) scatterer.powerLevel / 10;
