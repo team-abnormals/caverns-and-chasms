@@ -57,9 +57,9 @@ public class SplurterDispenseItemBehavior extends DefaultDispenseItemBehavior {
 		}
 
 		itementity.setDeltaMovement(
-				level.random.triangle(xOffset, 0.0172275D * (double)p_123381_),
-				level.random.triangle(yOffset, 0.0172275D * (double)p_123381_),
-				level.random.triangle(zOffset, 0.0172275D * (double)p_123381_)
+				level.random.triangle(xOffset, 0.0172275D * (double) p_123381_),
+				level.random.triangle(yOffset, 0.0172275D * (double) p_123381_),
+				level.random.triangle(zOffset, 0.0172275D * (double) p_123381_)
 		);
 		level.addFreshEntity(itementity);
 	}

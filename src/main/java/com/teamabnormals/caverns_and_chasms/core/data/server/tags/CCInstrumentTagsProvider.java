@@ -2,8 +2,8 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.google.common.collect.ImmutableList;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCInstruments;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCInstruments;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.InstrumentTagsProvider;

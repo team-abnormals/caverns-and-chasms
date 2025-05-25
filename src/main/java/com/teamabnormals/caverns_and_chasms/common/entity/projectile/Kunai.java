@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;

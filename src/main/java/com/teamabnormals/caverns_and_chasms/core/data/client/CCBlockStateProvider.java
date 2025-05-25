@@ -139,7 +139,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamilyWithChiseled(CASSITERITE_BRICKS_FAMILY);
 		this.blockFamily(POLISHED_CASSITERITE_FAMILY);
 		this.logBlock(CASSITERITE_PILLAR);
-		
+
 		this.blockFamily(RHYOLITE_FAMILY);
 		this.blockFamily(POLISHED_RHYOLITE_FAMILY);
 		this.blockFamilyWithChiseled(RHYOLITE_BRICKS_FAMILY);

@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.integration.jei;
 
 import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
 import mezz.jei.api.constants.ModIds;
-import mezz.jei.api.helpers.IStackHelper;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;

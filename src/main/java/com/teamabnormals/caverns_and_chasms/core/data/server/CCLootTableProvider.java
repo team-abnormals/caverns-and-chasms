@@ -291,7 +291,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(SMOOTH_CASSITERITE.get());
 			this.dropSelf(SMOOTH_CASSITERITE_STAIRS.get());
 			this.add(SMOOTH_CASSITERITE_SLAB.get(), this::createSlabItemTable);
-			
+
 			this.dropSelf(MAGMATIC_RHYOLITE.get());
 			this.dropSelf(MAGMATIC_RHYOLITE_BRICKS.get());
 			this.dropSelf(MAGMATIC_RHYOLITE_BRICK_STAIRS.get());
@@ -305,7 +305,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(MAGMATIC_RHYOLITE_SLAB.get(), this::createSlabItemTable);
 			this.add(MAGMATIC_RHYOLITE_BRICK_SLAB.get(), this::createSlabItemTable);
 			this.add(POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), this::createSlabItemTable);
-			
+
 			this.dropSelf(RHYOLITE.get());
 			this.dropSelf(RHYOLITE_BRICKS.get());
 			this.dropSelf(RHYOLITE_BRICK_STAIRS.get());

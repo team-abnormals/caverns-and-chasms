@@ -62,7 +62,7 @@ public class StorageDuctContainer<C extends Container> implements Container {
 	@Override
 	public boolean stillValid(Player player) {
 		BlockPos blockpos = ((BlockEntity) this.containers.get(0)).getBlockPos();
-		return player.distanceToSqr(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) <= (double)(8 * 8) && this.containers.stream().allMatch(container -> container.stillValid(player));
+		return player.distanceToSqr(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) <= (double) (8 * 8) && this.containers.stream().allMatch(container -> container.stillValid(player));
 	}
 
 	@Override

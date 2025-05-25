@@ -60,7 +60,7 @@ public class StorageDuctScreen extends AbstractContainerScreen<StorageDuctMenu> 
 		if (this.scrolling) {
 			int i = this.topPos + 18;
 			int j = i + 108;
-			this.scrollOffset = ((float)p_98536_ - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
+			this.scrollOffset = ((float) p_98536_ - (float) i - 7.5F) / ((float) (j - i) - 15.0F);
 			this.scrollOffset = Mth.clamp(this.scrollOffset, 0.0F, 1.0F);
 			this.menu.scrollTo(this.scrollOffset);
 			return true;

@@ -1,6 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.*;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.AtoningScreen;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.BejeweledAnvilScreen;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.DismantlingScreen;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.ToolboxScreen;
 import com.teamabnormals.caverns_and_chasms.common.inventory.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.gui.screens.MenuScreens;
