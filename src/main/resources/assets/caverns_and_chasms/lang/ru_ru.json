@@ -71,9 +71,8 @@
   "item.caverns_and_chasms.sanguine_leggings": "Сангвинические поножи",
   "item.caverns_and_chasms.sanguine_boots": "Сангвинические ботинки",
 
-  "item.caverns_and_chasms.necromium_nugget": "Кусочек некромия",
-
   "item.caverns_and_chasms.necromium_ingot": "Некромиевый слиток",
+  "item.caverns_and_chasms.necromium_nugget": "Кусочек некромия",
   "block.caverns_and_chasms.necromium_block": "Некромиевый блок",
   "item.caverns_and_chasms.necromium_sword": "Некромиевый меч",
   "item.caverns_and_chasms.necromium_pickaxe": "Некромиевая кирка",
@@ -99,7 +98,6 @@
   "item.caverns_and_chasms.depth_gauge": "Глубиномер",
   "item.caverns_and_chasms.barometer": "Барометр",
   "item.caverns_and_chasms.tuning_fork": "Камертон",
-
 
   "block.caverns_and_chasms.dimmer": "Светорегулятор",
   "block.caverns_and_chasms.wall_dimmer": "Настенный светорегулятор",
