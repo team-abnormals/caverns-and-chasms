@@ -745,7 +745,7 @@
   "painting.caverns_and_chasms.starry_night.title": "Звёздная ночь",
 
   "death.attack.caverns_and_chasms.spiked_rail": "%1$s был проткнут рельсами",
-  "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s был проткнут рельсами, борясь с %2$s",
+  "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s был проткнут рельсами, спасаясь от %2$s",
   "death.attack.caverns_and_chasms.lava_lamp": "%1$s засмотрелся на лавовую лампу",
   "death.attack.caverns_and_chasms.lava_lamp.player": "%1$s засмотрелся на лавовую лампу, борясь с %2$s",
   "death.attack.caverns_and_chasms.kunai": "%1$s был заколот до смерти %2$s",
