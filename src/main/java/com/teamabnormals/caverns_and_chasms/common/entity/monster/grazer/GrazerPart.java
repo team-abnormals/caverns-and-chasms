@@ -57,7 +57,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 	public void updatePosition() {
 		Grazer grazer = this.getParent();
 
-		Vec3 oldpos = this.calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.getRollAnim(0.0F), grazer.yRotO);
+		Vec3 oldpos = this.calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.xRotO, grazer.yRotO);
 		this.xo = oldpos.x;
 		this.yo = oldpos.y;
 		this.zo = oldpos.z;
@@ -65,7 +65,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 		this.yOld = oldpos.y;
 		this.zOld = oldpos.z;
 
-		Vec3 newpos = this.calculatePosition(grazer.getX(), grazer.getY(), grazer.getZ(), grazer.getRollAngle(), grazer.getYRot());
+		Vec3 newpos = this.calculatePosition(grazer.getX(), grazer.getY(), grazer.getZ(), grazer.getXRot(), grazer.getYRot());
 		this.setPos(newpos.x, newpos.y, newpos.z);
 	}
 
@@ -85,20 +85,9 @@ public class GrazerPart extends PartEntity<Grazer> {
 	private Vec3 calculatePosition(double x, double y, double z, float xRot, float yRot) {
 		float f = xRot * Mth.DEG_TO_RAD;
 		float f1 = yRot * Mth.DEG_TO_RAD;
-		Vec3 vec3 = new Vec3(0.0D, this.yOffset, this.zOffset).xRot(f).yRot(-f1);
+		Vec3 vec3 = new Vec3(0.0D, this.yOffset, this.zOffset).xRot(-f).yRot(-f1);
 		Vec3 vec31 = new Vec3(0.0D, this.getParent().shellCenterY() - this.halfSize, this.getParent().shellCenterZ()).yRot(-f1);
 		return vec3.add(vec31).add(x, y, z);
-	}
-
-	@Override
-	public boolean isPickable() {
-		return true;
-	}
-
-	@Nullable
-	@Override
-	public ItemStack getPickResult() {
-		return this.getParent().getPickResult();
 	}
 
 	@Override
@@ -126,6 +115,17 @@ public class GrazerPart extends PartEntity<Grazer> {
 		} else {
 			return grazer.hurt(source, amount);
 		}
+	}
+
+	@Override
+	public boolean isPickable() {
+		return true;
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getPickResult() {
+		return this.getParent().getPickResult();
 	}
 
 	@Override

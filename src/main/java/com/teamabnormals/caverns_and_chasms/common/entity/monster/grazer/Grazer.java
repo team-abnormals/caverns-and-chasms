@@ -1,9 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer;
 
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GrazerRollGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GrazerRunGoal;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -13,7 +18,9 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -21,85 +28,80 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+// TODO: Make sure when you get to saddled grazers that they dont despawn on peaceful
 public class Grazer extends Monster {
 	private static final EntityDataAccessor<Integer> RUN_PHASE = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Float> ROLL_ANGLE = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.FLOAT);
+	private static final TargetingConditions HIT_TARGETING = TargetingConditions.forCombat().selector(livingentity -> {
+		return !livingentity.getType().equals(CCEntityTypes.GRAZER) && livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
+	});
 
 	private final GrazerPart[] parts = new GrazerPart[7];
 	private final Set<Entity> pushedThisTick = new HashSet<>();
 	private Set<Projectile> deflectedThisTick = new HashSet<>();
 	private Set<Projectile> deflectedPrevTick = new HashSet<>();
 	private long lastDeflectTick;
-	private float rollAngleO;
+	private boolean bouncingBackwards;
+	private double bounceHeight;
 
 	public Grazer(EntityType<? extends Monster> type, Level level) {
 		super(type, level);
 		this.lookControl = new GrazerLookControl();
 		this.moveControl = new GrazerMoveControl();
-		this.parts[0] = new GrazerPart(this, true, 12F, 6D, 7D);
-		this.parts[1] = new GrazerPart(this, true, 12F, -1D, 7D);
-		this.parts[2] = new GrazerPart(this, true, 12F, -8D, 7D);
-		this.parts[3] = new GrazerPart(this, false, 15F, 5D, -5.5D);
-		this.parts[4] = new GrazerPart(this, true, 12F, -8D, 0D);
-		this.parts[5] = new GrazerPart(this, true, 12F, -8D, -7D);
-		this.parts[6] = new GrazerPart(this, false, 12F, -8D, -15D);
+		this.parts[0] = new GrazerPart(this, true, 12F, 7D, 7D);
+		this.parts[1] = new GrazerPart(this, true, 12F, 0D, 7D);
+		this.parts[2] = new GrazerPart(this, true, 12F, -7D, 7D);
+		this.parts[3] = new GrazerPart(this, false, 15F, 6D, -5.5D);
+		this.parts[4] = new GrazerPart(this, true, 12F, -7D, 0D);
+		this.parts[5] = new GrazerPart(this, true, 12F, -7D, -7D);
+		this.parts[6] = new GrazerPart(this, false, 12F, -7D, -15D);
 	}
 
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new FloatGoal(this));
-		// this.goalSelector.addGoal(1, new GrazerRunGoal(this, entity -> entity instanceof Player, 8.0D, 0.5F));
-		this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(0, new GrazerRollGoal(this));
+		this.goalSelector.addGoal(1, new FloatGoal(this));
+		this.goalSelector.addGoal(2, new GrazerRunGoal(this, entity -> entity instanceof Player, 8.0D));
+		this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(RUN_PHASE, 0);
-		this.entityData.define(ROLL_ANGLE, 0.0F);
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F);
+		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F).add(Attributes.ATTACK_DAMAGE, 3.0D);
 	}
 
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt("RunPhase", this.getRunPhase().getId());
-		compound.putFloat("RollAngle", this.getRollAngle());
+		compound.putInt("State", this.getState().getId());
+		compound.putBoolean("BouncingBackwards", this.bouncingBackwards);
+		compound.putDouble("BounceHeight", this.bounceHeight);
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.setRunPhase(GrazerRunPhase.byId(compound.getInt("RunPhase")));
-		this.setRollAngle(compound.getFloat("RollAngle"));
-		this.rollAngleO = this.getRollAngle();
+		this.setState(GrazerState.byId(compound.getInt("State")));
+		this.bouncingBackwards = compound.getBoolean("BouncingBackwards");
+		this.bounceHeight = compound.getDouble("BounceHeight");
 	}
 
-	public GrazerRunPhase getRunPhase() {
-		return GrazerRunPhase.byId(this.entityData.get(RUN_PHASE));
+	public GrazerState getState() {
+		return GrazerState.byId(this.entityData.get(RUN_PHASE));
 	}
 
-	public void setRunPhase(GrazerRunPhase phase) {
-		this.entityData.set(RUN_PHASE, phase.getId());
-		this.setSprinting(phase == GrazerRunPhase.RUNNING);
-	}
-
-	public float getRollAngle() {
-		return this.entityData.get(ROLL_ANGLE);
-	}
-
-	public void setRollAngle(float angle) {
-		this.entityData.set(ROLL_ANGLE, angle);
-	}
-
-	public float getRollAnim(float partialTick) {
-		return Mth.rotLerp(partialTick, this.rollAngleO, this.getRollAngle());
+	public void setState(GrazerState state) {
+		this.entityData.set(RUN_PHASE, state.getId());
+		this.setSprinting(state == GrazerState.RUNNING);
+		this.setDiscardFriction(state == GrazerState.ROLLING);
 	}
 
 	@Override
@@ -119,8 +121,13 @@ public class Grazer extends Monster {
 
 	@Override
 	public float getStepHeight() {
-		GrazerRunPhase runphase = this.getRunPhase();
-		return (runphase == GrazerRunPhase.RUNNING || runphase == GrazerRunPhase.ROLLING) ? 1.0F : super.getStepHeight();
+		GrazerState state = this.getState();
+		return state == GrazerState.RUNNING ? 1.0F : super.getStepHeight();
+	}
+
+	@Override
+	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+		return this.getState() == GrazerState.ROLLING ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
 	}
 
 	@Override
@@ -137,18 +144,20 @@ public class Grazer extends Monster {
 	}
 
 	public double shellCenterZ() {
-		return 8D / 16D;
+		GrazerState state = this.getState();
+		return state == GrazerState.ROLLING || state == GrazerState.WIGGLING ? 0D : 7D / 16D;
 	}
 
 	public double shellCenterY() {
-		return 21D / 16D;
+		GrazerState state = this.getState();
+		return state == GrazerState.ROLLING || state == GrazerState.WIGGLING ? this.shellRadius() : 21D / 16D;
 	}
 
 	public Vec3 calculateDeflectionNormal(Vec3 location) {
-		float f = this.getRollAngle() * Mth.DEG_TO_RAD;
+		float f = this.getXRot() * Mth.DEG_TO_RAD;
 		float f1 = this.getYRot() * Mth.DEG_TO_RAD;
 		Vec3 vec3 = new Vec3(0.0D, this.shellCenterY(), this.shellCenterZ()).yRot(-f1);
-		Vec3 vec31 = location.subtract(this.position()).subtract(vec3).yRot(f1).xRot(-f).multiply(2D / this.shellWidth(), 1D / this.shellRadius(), 1D / this.shellRadius());
+		Vec3 vec31 = location.subtract(this.position()).subtract(vec3).yRot(f1).xRot(f).multiply(2D / this.shellWidth(), 1D / this.shellRadius(), 1D / this.shellRadius());
 
 		Vec3 normal;
 		double d0 = Math.abs(vec31.x);
@@ -210,6 +219,14 @@ public class Grazer extends Monster {
 	}
 
 	@Override
+	public void calculateEntityAnimation(boolean isFlying) {
+		if (this.getState() == GrazerState.RUNNING_STILL)
+			this.updateWalkAnimation(0.2F);
+		else
+			super.calculateEntityAnimation(isFlying);
+	}
+
+	@Override
 	public void tick() {
 		super.tick();
 
@@ -229,19 +246,26 @@ public class Grazer extends Monster {
 	@Override
 	public void aiStep() {
 		this.pushedThisTick.clear();
+		int lerpstepsold = this.lerpSteps;
+		float xrotold = this.getXRot();
 
 		super.aiStep();
 
-		float currentangle = this.getRollAngle();
-		this.rollAngleO = currentangle;
+		if (this.level().isClientSide) {
+			if (lerpstepsold > 0)
+				this.setXRot((xrotold + (float) Mth.wrapDegrees(this.lerpXRot - (double) xrotold) / (float) lerpstepsold) % 360.0F);
+		} else if (this.getState() == GrazerState.ROLLING && this.isAlive()) {
+			Vec3 movement = this.getDeltaMovement();
+			this.setXRot(Mth.wrapDegrees(this.getXRot() - 15.0F));
+			if (this.bouncingBackwards)
+				this.setYRot((float) (Mth.atan2(movement.x, -movement.z) * Mth.RAD_TO_DEG));
+			else
+				this.setYRot((float) (Mth.atan2(-movement.x, movement.z) * Mth.RAD_TO_DEG));
 
-		/*
-		if (this.getRunPhase() == GrazerRunPhase.ROLLING)
-			this.setRollAngle(currentangle - (float) Mth.length(this.getX() - this.xo, this.getZ() - this.zo) * 40.0F);
-
-		 */
-		if (this.getRunPhase() == GrazerRunPhase.RUNNING || this.getRunPhase() == GrazerRunPhase.ROLLING)
-			this.setRollAngle(currentangle - 10.0F);
+			List<LivingEntity> hitentities = this.level().getNearbyEntities(LivingEntity.class, HIT_TARGETING, this, this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
+			for (LivingEntity livingentity : hitentities)
+				livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+		}
 
 		for (GrazerPart part : this.parts)
 			part.pushEntities();
@@ -249,24 +273,68 @@ public class Grazer extends Monster {
 
 	@Override
 	public void move(MoverType moverType, Vec3 movement) {
-		double xOriginal = this.getX();
-		double zOriginal = this.getZ();
+		double xold = this.getX();
+		double yold = this.getY();
+		double zold = this.getZ();
+		Vec3 oldmotion = this.getDeltaMovement();
+
 		super.move(moverType, movement);
-		GrazerRunPhase runphase = this.getRunPhase();
-		if (!this.noPhysics && (runphase == GrazerRunPhase.RUNNING || runphase == GrazerRunPhase.ROLLING)) {
+
+		GrazerState state = this.getState();
+		if (!this.level().isClientSide && this.isAlive() && !this.noPhysics && (state == GrazerState.RUNNING || state == GrazerState.ROLLING)) {
+			Vec3 newmotion = oldmotion;
 			boolean ricocheted = false;
+			boolean horizontal = false;
 
-			if (xOriginal + movement.x != this.getX()) {
-				this.setYRot(-this.getYRot() + (this.random.nextFloat() - this.random.nextFloat()) * 40.0F);
+			if (xold + movement.x != this.getX()) {
+				newmotion = new Vec3(-oldmotion.x, oldmotion.y, oldmotion.z);
 				ricocheted = true;
+				horizontal = true;
 			}
-			if (zOriginal + movement.z != this.getZ()) {
-				this.setYRot(180.0F - this.getYRot() + (this.random.nextFloat() - this.random.nextFloat()) * 40.0F);
+			if (this.getState() == GrazerState.ROLLING) {
+				double d0 = yold + movement.y;
+				if (d0 > this.getY()) {
+					newmotion = new Vec3(oldmotion.x, -oldmotion.y, oldmotion.z);
+					ricocheted = true;
+				} else if (d0 < this.getY()) {
+					if (this.bounceHeight < 0.4D) {
+						this.setState(GrazerState.WIGGLING);
+					} else {
+						this.bounceHeight *= 0.94D;
+						newmotion = new Vec3(oldmotion.x, this.bounceHeight, oldmotion.z);
+						ricocheted = true;
+					}
+				}
+			}
+			if (zold + movement.z != this.getZ()) {
+				newmotion = new Vec3(oldmotion.x, oldmotion.y, -oldmotion.z);
 				ricocheted = true;
+				horizontal = true;
 			}
 
-			if (ricocheted)
-				this.setRunPhase(GrazerRunPhase.ROLLING);
+			if (ricocheted) {
+				if (horizontal) {
+					// double randomangle = (this.random.nextDouble() - this.random.nextDouble()) * 0.7D;
+					double randomangle = this.random.nextDouble() * 1.4D - 0.7D;
+					newmotion = new Vec3(newmotion.x * Math.cos(randomangle) - newmotion.z * Math.sin(randomangle), newmotion.y, newmotion.x * Math.sin(randomangle) + newmotion.z * Math.cos(randomangle));
+				}
+
+				if (this.getState() != GrazerState.ROLLING) {
+					this.setState(GrazerState.ROLLING);
+					this.bounceHeight = 0.8D;
+					this.bouncingBackwards = true;
+					newmotion = newmotion.normalize().multiply(0.55D, 0.0D, 0.55D).add(0.0D, this.bounceHeight, 0.0D);
+				} else {
+					if (oldmotion.x * newmotion.x + oldmotion.z * newmotion.z < 0.0D)
+						this.bouncingBackwards = !this.bouncingBackwards;
+					// newmotion = newmotion.multiply(0.98D, 1.0D, 0.98D);
+				}
+
+				this.setDeltaMovement(newmotion);
+
+				double speed = newmotion.lengthSqr();
+				this.level().playSound(null, this.getX(), this.getY(), this.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
+			}
 		}
 	}
 
@@ -281,18 +349,13 @@ public class Grazer extends Monster {
 		}
 
 		public void tick() {
-			if (this.resetXRotOnTick()) {
-				Grazer.this.setXRot(0.0F);
-			}
-
 			if (this.lookAtCooldown > 0) {
 				--this.lookAtCooldown;
-				this.getYRotD().ifPresent((p_287447_) -> {
-					Grazer.this.setYRot(this.rotateTowards(Grazer.this.getYRot(), p_287447_, this.yMaxRotSpeed));
-				});
-				this.getXRotD().ifPresent((p_289400_) -> {
-					Grazer.this.setXRot(this.rotateTowards(Grazer.this.getXRot(), p_289400_, this.xMaxRotAngle));
-				});
+				if (Grazer.this.getState() != GrazerState.ROLLING) {
+					this.getYRotD().ifPresent((rot) -> {
+						Grazer.this.setYRot(this.rotateTowards(Grazer.this.getYRot(), rot, this.yMaxRotSpeed));
+					});
+				}
 			}
 
 			Grazer.this.yHeadRot = Grazer.this.getYRot();
@@ -307,9 +370,8 @@ public class Grazer extends Monster {
 
 		@Override
 		public void tick() {
-			if (Grazer.this.getRunPhase() == GrazerRunPhase.RUNNING || Grazer.this.getRunPhase() == GrazerRunPhase.ROLLING) {
-				// Grazer.this.setSpeed(0.5F);
-				Grazer.this.setSpeed(0.0F);
+			if (Grazer.this.getState() == GrazerState.RUNNING) {
+				Grazer.this.setSpeed(0.5F);
 			} else {
 				super.tick();
 			}

@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerRunPhase;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerState;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -66,9 +66,9 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 		this.rightFrontLeg.xRot = this.leftHindLeg.xRot;
 		this.leftFrontLeg.xRot = this.rightHindLeg.xRot;
 
-		GrazerRunPhase runphase = grazer.getRunPhase();
+		GrazerState state = grazer.getState();
 
-		if (runphase == GrazerRunPhase.RUNNING) {
+		if (state == GrazerState.RUNNING_STILL || state == GrazerState.RUNNING) {
 			this.body.xRot = (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount;
 			this.jaw.xRot = (0.15F - Mth.cos(limbSwing - 0.5F) * 0.15F) * limbSwingAmount;
 			this.rightWing.yRot = (-0.6F - Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount;
