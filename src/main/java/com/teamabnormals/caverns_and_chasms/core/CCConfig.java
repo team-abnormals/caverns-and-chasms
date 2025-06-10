@@ -13,6 +13,7 @@ public class CCConfig {
 		public final DoubleValue creeperExplosionNerfFactor;
 
 		public final IntValue deeperMaxSpawnHeight;
+		public final IntValue grazerMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
 		public final BooleanValue fragileStoneDropsOres;
@@ -34,6 +35,9 @@ public class CCConfig {
 			builder.pop();
 			builder.push("deeper");
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
+			builder.pop();
+			builder.push("grazer");
+			grazerMaxSpawnHeight = builder.defineInRange("Grazer max spawn height", -4, -64, 320);
 			builder.pop();
 			builder.push("peeper");
 			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);

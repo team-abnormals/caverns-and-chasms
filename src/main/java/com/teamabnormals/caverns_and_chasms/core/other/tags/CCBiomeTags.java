@@ -24,6 +24,7 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> WITHOUT_GRAINY_CAVE_GROWTHS = biomeTag("without_feature/grainy_cave_growths");
 
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
+	public static final TagKey<Biome> HAS_GRAZER = biomeTag("has_monster/grazer");
 	public static final TagKey<Biome> HAS_LOST_GOAT = biomeTag("has_monster/lost_goat");
 	public static final TagKey<Biome> HAS_GLARE = biomeTag("has_animal/glare");
 

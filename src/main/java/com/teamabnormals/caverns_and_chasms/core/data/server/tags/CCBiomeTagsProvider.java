@@ -38,6 +38,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(CCBiomeTags.WITHOUT_GRAINY_CAVE_GROWTHS).addTag(BiomeTags.IS_OCEAN);
 
 		this.tag(CCBiomeTags.HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
+		this.tag(CCBiomeTags.HAS_GRAZER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(CCBiomeTags.HAS_GLARE).add(Biomes.LUSH_CAVES);
 		this.tag(CCBiomeTags.HAS_LOST_GOAT).addTag(Tags.Biomes.IS_PEAK).add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.SNOWY_SLOPES, Biomes.GROVE);
 	}
