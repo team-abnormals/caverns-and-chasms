@@ -199,13 +199,14 @@ public class RollerDoorBlock extends BaseEntityBlock {
 		return neighborState.getValue(RollerDoorBlock.FACING) == facing && neighborState.getValue(RollerDoorBlock.FACE) == face;
 	}
 
-	public static int getColumnLength(Level level, BlockPos pos, Direction facing, AttachFace face) {
+	public static int calculateColumnLength(Level level, BlockPos pos, Direction facing, AttachFace face) {
 		int length = 0;
 
 		MutableBlockPos mutable = pos.mutable();
+		Direction belowdir = RollerDoorBlock.getBelowDirection(facing, face);
 
 		while (true) {
-			mutable.move(RollerDoorBlock.getBelowDirection(facing, face));
+			mutable.move(belowdir);
 			BlockState offsetstate = level.getBlockState(mutable);
 
 			if (offsetstate.is(CCBlocks.ROLLER_DOOR.get()) && offsetstate.getValue(RollerDoorBlock.FACING) == facing && offsetstate.getValue(RollerDoorBlock.FACE) == face)

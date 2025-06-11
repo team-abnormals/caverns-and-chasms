@@ -91,7 +91,7 @@ public class RollerDoorBlockEntity extends BlockEntity {
 			}
 		}
 
-		int columnlength = RollerDoorBlock.getColumnLength(this.level, blockpos, facing, face);
+		int columnlength = RollerDoorBlock.calculateColumnLength(this.level, blockpos, facing, face);
 		MutableBlockPos mutable = blockpos.relative(belowdirection, columnlength).mutable();
 
 		for (int i = 0; i <= columnlength + 2; i++) {

@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Level;
@@ -22,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 	private int blocks;
@@ -70,65 +72,76 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		if (level.isClientSide) {
 			if (blockEntity.opennessUpdateTime < level.getGameTime())
 				blockEntity.opennessOld = blockEntity.openness;
-		} else {
-			blockEntity.opennessOld = blockEntity.openness;
-			blockEntity.prevBeingLifted = blockEntity.beingLifted;
+		}
 
-			double speed = 0.0625D;
+		blockEntity.opennessOld = blockEntity.openness;
+		blockEntity.prevBeingLifted = blockEntity.beingLifted;
 
-			Direction facing = state.getValue(RollerDoorBlock.FACING);
-			AttachFace face = state.getValue(RollerDoorBlock.FACE);
+		double speed = 0.0625D;
 
-			Direction belowdirection = RollerDoorBlock.getBelowDirection(facing, face);
-			int columnlength = RollerDoorBlock.getColumnLength(level, pos, facing, face);
-			int oldcolumnlength = columnlength;
-			boolean addblock = false;
-			boolean removeblock = false;
+		Direction facing = state.getValue(RollerDoorBlock.FACING);
+		AttachFace face = state.getValue(RollerDoorBlock.FACE);
+		Direction belowdirection = RollerDoorBlock.getBelowDirection(facing, face);
 
-			boolean opening = blockEntity.shouldOpen();
-			boolean updatedoor = true;
+		int columnlength = RollerDoorBlock.calculateColumnLength(level, pos, facing, face);
+		double newopenness = blockEntity.openness;
+		boolean addblock = false;
+		boolean removeblock = false;
 
-			if (opening) {
-				blockEntity.openness += speed;
-				if (blockEntity.openness > 1.0D) {
-					if (columnlength > 0) {
-						blockEntity.openness -= 1.0D;
-						blockEntity.opennessOld = blockEntity.openness;
+		boolean opening = blockEntity.shouldOpen();
+		boolean updatedoor = true;
+
+		if (opening) {
+			newopenness += speed;
+
+			if (newopenness > 1.0D) {
+				if (columnlength > 0) {
+					newopenness -= 1.0D;
+					columnlength--;
+					if (!level.isClientSide) {
+						blockEntity.opennessOld = newopenness;
 						blockEntity.blocks++;
-						columnlength--;
 						removeblock = true;
-					} else {
-						blockEntity.openness = 1.0F;
-						updatedoor = false;
 					}
-				}
-			} else {
-				blockEntity.openness -= speed;
-				if (blockEntity.openness < 0.0D) {
-					if (blockEntity.blocks > 0) {
-						BlockPos offsetpos = pos.relative(belowdirection, columnlength + 1);
-						BlockState offsetstate = level.getBlockState(offsetpos);
-
-						if (offsetpos.getY() >= level.getMinBuildHeight() && (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY)) {
-							blockEntity.openness += 1.0D;
-							blockEntity.opennessOld = blockEntity.openness;
-							blockEntity.blocks--;
-							columnlength++;
-							addblock = true;
-						} else {
-							blockEntity.openness = 0.0D;
-							updatedoor = false;
-						}
-					} else {
-						blockEntity.openness = 0.0D;
-						updatedoor = false;
-					}
+				} else {
+					newopenness = 1.0F;
+					updatedoor = false;
 				}
 			}
+		} else {
+			newopenness -= speed;
 
-			if (updatedoor) {
-				moveCollidedEntities(level, pos, opening, blockEntity.openness, speed, columnlength, oldcolumnlength, facing, face);
+			if (newopenness < 0.0D) {
+				if (blockEntity.blocks > 0) {
+					BlockPos offsetpos = pos.relative(belowdirection, columnlength + 1);
+					BlockState offsetstate = level.getBlockState(offsetpos);
 
+					if (offsetpos.getY() >= level.getMinBuildHeight() && (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY)) {
+						newopenness += 1.0D;
+						columnlength++;
+						if (!level.isClientSide) {
+							blockEntity.opennessOld = newopenness;
+							blockEntity.blocks--;
+							addblock = true;
+						}
+					} else {
+						newopenness = 0.0D;
+						updatedoor = false;
+					}
+				} else {
+					newopenness = 0.0D;
+					updatedoor = false;
+				}
+			}
+		}
+
+		if (!level.isClientSide)
+			blockEntity.openness = newopenness;
+
+		if (updatedoor) {
+			moveCollidedEntities(level, pos, opening, blockEntity.openness, speed, columnlength, facing, face);
+
+			if (!level.isClientSide) {
 				blockEntity.bottom = columnlength == 0;
 				blockEntity.bottomBelow = columnlength == 1;
 				blockEntity.opennessUpdateTime = level.getGameTime();
@@ -175,49 +188,51 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 	}
 
 	// TODO: Fix pushing jank
-	private static void moveCollidedEntities(Level level, BlockPos pos, boolean opening, double openness, double moveSpeed, int columnLength, int oldColumnLength, Direction facing, AttachFace face) {
-		Direction belowdirection = RollerDoorBlock.getBelowDirection(facing, face);
-		Vec3i pushvector = belowdirection.getNormal();
-		AABB aabb = calculatePushAABB(openness, columnLength, facing, face, pushvector).move(pos);
-		double openingchange = opening ? moveSpeed : -moveSpeed;
-		List<Entity> standingentities = new ArrayList<>();
+	private static void moveCollidedEntities(Level level, BlockPos pos, boolean opening, double openness, double moveSpeed, int columnLength, Direction facing, AttachFace face) {
+		Direction belowdir = RollerDoorBlock.getBelowDirection(facing, face);
+		Vec3i movevector = belowdir.getNormal();
+		AABB aabb = calculatePushAABB(openness, columnLength, facing, face, movevector).move(pos);
+		double pushamount = opening ? -moveSpeed : moveSpeed;
 
 		if (face != AttachFace.WALL) {
-			Vec3i carryvector = opening ? RollerDoorBlock.getAboveDirection(facing, face).getNormal() : pushvector;
-			MutableBlockPos mutable = pos.mutable();
 			AABB standaabb = aabb.expandTowards(0.0D, 0.05D, 0.0D);
 
-			for (int i = 0; i < oldColumnLength; i++) {
-				standingentities.addAll(level.getEntities((Entity) null, standaabb, entity -> entity.onGround() && entity.getOnPos().equals(mutable)));
-				mutable.move(belowdirection);
-			}
+			List<Entity> standingentities;
+			if (!level.isClientSide)
+				standingentities = level.getEntities((Entity) null, standaabb, entity -> entity.onGround() && entity.getY() >= aabb.maxY && !(entity instanceof ServerPlayer));
+			else
+				standingentities = level.players().stream().filter(player -> player.onGround() && player.getY() >= aabb.maxY && player.getBoundingBox().intersects(standaabb)).collect(Collectors.toList());
 
 			if (!standingentities.isEmpty()) {
 				for (Entity entity : standingentities) {
 					if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-						entity.move(MoverType.PISTON, new Vec3(openingchange * carryvector.getX(), openingchange * carryvector.getY(), openingchange * carryvector.getZ()));
+						entity.move(MoverType.PISTON, new Vec3(pushamount * movevector.getX(), pushamount * movevector.getY(), pushamount * movevector.getZ()));
 						entity.setOnGround(true);
 					}
 				}
 			}
-		}
 
-		if (!opening) {
-			List<Entity> insideentities = level.getEntities(null, aabb);
-			insideentities.removeAll(standingentities);
+			if (!opening) {
+				List<Entity> insideentities;
+				if (!level.isClientSide)
+					insideentities = level.getEntities((Entity) null, aabb, entity -> !(entity instanceof ServerPlayer));
+				else
+					insideentities = level.players().stream().filter(player -> player.onGround() && player.getY() >= aabb.maxY && player.getBoundingBox().intersects(aabb)).collect(Collectors.toList());
+				insideentities.removeAll(standingentities);
 
-			if (!insideentities.isEmpty()) {
-				double d0 = openingchange + 0.01D;
-				for (Entity entity : insideentities) {
-					if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-						entity.move(MoverType.SELF, new Vec3(d0 * pushvector.getX(), d0 * pushvector.getY(), d0 * pushvector.getZ()));
+				if (!insideentities.isEmpty()) {
+					double d0 = pushamount + 0.01D;
+					for (Entity entity : insideentities) {
+						if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
+							entity.move(MoverType.SELF, new Vec3(d0 * movevector.getX(), d0 * movevector.getY(), d0 * movevector.getZ()));
+						}
 					}
 				}
 			}
 		}
 	}
 
-	private static AABB calculatePushAABB(double openness, int columnLength, Direction facing, AttachFace face, Vec3i pushNormal) {
+	private static AABB calculatePushAABB(double openness, int columnLength, Direction facing, AttachFace face, Vec3i moveVector) {
 		AABB aabb;
 		if (face == AttachFace.WALL) {
 			if (facing == Direction.EAST)
@@ -234,13 +249,13 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 			aabb = new AABB(0.0D, 0.0625D, 0.0D, 1.0D, 0.1875D, 1.0D);
 		}
 
-		Vec3 vec3 = Vec3.atLowerCornerOf(pushNormal);
+		Vec3 vec3 = Vec3.atLowerCornerOf(moveVector);
 
-		if (columnLength == 1) {
+		if (columnLength == 0) {
 			Vec3 vec31 = vec3.scale(openness);
 			return aabb.contract(vec31.x, vec31.y, vec31.z);
 		} else {
-			return aabb.expandTowards(vec3.scale(columnLength - 1.0D - openness));
+			return aabb.expandTowards(vec3.scale(columnLength - openness));
 		}
 	}
 
