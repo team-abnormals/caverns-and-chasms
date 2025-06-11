@@ -323,8 +323,7 @@ public class Grazer extends Monster {
 
 			if (ricocheted) {
 				if (horizontal) {
-					// double randomangle = (this.random.nextDouble() - this.random.nextDouble()) * 0.7D;
-					double randomangle = this.random.nextDouble() * 1.4D - 0.7D;
+					double randomangle = this.random.nextDouble() - 0.5D;
 					newmotion = new Vec3(newmotion.x * Math.cos(randomangle) - newmotion.z * Math.sin(randomangle), newmotion.y, newmotion.x * Math.sin(randomangle) + newmotion.z * Math.cos(randomangle));
 				}
 
@@ -336,7 +335,6 @@ public class Grazer extends Monster {
 				} else {
 					if (oldmotion.x * newmotion.x + oldmotion.z * newmotion.z < 0.0D)
 						this.bouncingBackwards = !this.bouncingBackwards;
-					// newmotion = newmotion.multiply(0.98D, 1.0D, 0.98D);
 				}
 
 				this.setDeltaMovement(newmotion);
