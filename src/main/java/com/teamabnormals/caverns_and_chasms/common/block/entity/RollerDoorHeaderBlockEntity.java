@@ -21,7 +21,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +40,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		super.load(compound);
 		this.blocks = compound.getInt("Blocks");
 		this.liftTime = compound.getShort("LiftTime");
+		this.beingLifted = compound.getBoolean("BeingLifted");
 	}
 
 	@Override
@@ -48,6 +48,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		super.saveAdditional(compound);
 		compound.putInt("Blocks", this.blocks);
 		compound.putShort("LiftTime", (short) this.liftTime);
+		compound.putBoolean("BeingLifted", this.beingLifted);
 	}
 
 	public void setBlockCount(int count) {
@@ -67,15 +68,14 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		return this.beingLifted;
 	}
 
-	// TODO: Check the setblock flags
 	public static void tick(Level level, BlockPos pos, BlockState state, RollerDoorHeaderBlockEntity blockEntity) {
 		if (level.isClientSide) {
 			if (blockEntity.opennessUpdateTime < level.getGameTime())
 				blockEntity.opennessOld = blockEntity.openness;
+		} else {
+			blockEntity.opennessOld = blockEntity.openness;
+			blockEntity.prevBeingLifted = blockEntity.beingLifted;
 		}
-
-		blockEntity.opennessOld = blockEntity.openness;
-		blockEntity.prevBeingLifted = blockEntity.beingLifted;
 
 		double speed = 0.0625D;
 
@@ -139,6 +139,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 			blockEntity.openness = newopenness;
 
 		if (updatedoor) {
+			System.out.println(level.isClientSide + ": " + opening);
 			moveCollidedEntities(level, pos, opening, blockEntity.openness, speed, columnlength, facing, face);
 
 			if (!level.isClientSide) {
@@ -187,7 +188,6 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 		}
 	}
 
-	// TODO: Fix pushing jank
 	private static void moveCollidedEntities(Level level, BlockPos pos, boolean opening, double openness, double moveSpeed, int columnLength, Direction facing, AttachFace face) {
 		Direction belowdir = RollerDoorBlock.getBelowDirection(facing, face);
 		Vec3i movevector = belowdir.getNormal();
