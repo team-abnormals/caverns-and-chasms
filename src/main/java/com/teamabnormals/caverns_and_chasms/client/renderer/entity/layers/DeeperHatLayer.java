@@ -19,11 +19,11 @@ public class DeeperHatLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> {
 	}
 
 	@Override
-	public void render(PoseStack stack, MultiBufferSource buffer, int packedLightIn, Deeper deeper, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack stack, MultiBufferSource buffer, int packedLight, Deeper deeper, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 		DeeperHat hat = deeper.getHat();
 		if (hat == DeeperHat.NONE)
 			return;
 		VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(hat.getTexture()));
-		this.getParentModel().renderToBuffer(stack, vertexconsumer, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, deeper.isPowered() ? DeeperRenderer.getExplosionEmissionProgress(deeper, partialTick, true) : 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+		this.getParentModel().renderToBuffer(stack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(deeper, deeper.isPowered() ? DeeperRenderer.getExplosionEmissionProgress(deeper, partialTick, true) : 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

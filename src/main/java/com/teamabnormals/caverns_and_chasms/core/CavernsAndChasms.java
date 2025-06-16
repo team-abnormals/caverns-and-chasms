@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.AtoningTableRenderer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperSkullBlockRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
@@ -37,7 +38,6 @@ import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.To
 import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
 import net.minecraft.client.model.MinecartModel;
-import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.blockentity.CampfireRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
@@ -211,7 +211,7 @@ public class CavernsAndChasms {
 	@OnlyIn(Dist.CLIENT)
 	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(CCModelLayers.DEEPER, () -> DeeperModel.createBodyLayer(CubeDeformation.NONE, true));
-		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, SkullModel::createHumanoidHeadLayer);
+		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, DeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(CCModelLayers.DEEPER_ARMOR, () -> DeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));
 		event.registerLayerDefinition(CCModelLayers.PEEPER, () -> PeeperModel.createBodyLayer(CubeDeformation.NONE));
 		event.registerLayerDefinition(CCModelLayers.PEEPER_HEAD, PeeperHeadModel::createHeadLayer);
@@ -251,6 +251,7 @@ public class CavernsAndChasms {
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperSkullBlockRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR.get(), RollerDoorRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR_HEADER.get(), RollerDoorRenderer::new);
@@ -278,7 +279,7 @@ public class CavernsAndChasms {
 
 	@OnlyIn(Dist.CLIENT)
 	private void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
-		event.registerSkullModel(CCSkullTypes.DEEPER, new SkullModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
+		event.registerSkullModel(CCSkullTypes.DEEPER, new DeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
 		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
 		event.registerSkullModel(CCSkullTypes.PEEPER, new PeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.PEEPER_HEAD)));
 	}

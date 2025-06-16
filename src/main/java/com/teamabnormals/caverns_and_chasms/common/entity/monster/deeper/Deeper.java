@@ -92,7 +92,7 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 		DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
 
 		if (hat != DeeperHat.NONE && hat != this.getHat()) {
-			this.level().playSound(null, this, SoundEvents.GRASS_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
+			this.level().playSound(null, this, CCSoundEvents.CAVE_GROWTHS_PLACE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 			if (!this.level().isClientSide)
 				this.setHat(hat);
 			if (!player.getAbilities().instabuild)

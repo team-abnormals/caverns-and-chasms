@@ -15,7 +15,8 @@ public class CCBlockEntityTypes {
 	public static final BlockEntitySubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getBlockEntitySubHelper();
 
 	public static final RegistryObject<BlockEntityType<CupricCampfireBlockEntity>> CUPRIC_CAMPFIRE = HELPER.createBlockEntity("cupric_campfire", CupricCampfireBlockEntity::new, () -> Set.of(CCBlocks.CUPRIC_CAMPFIRE.get()));
-	public static final RegistryObject<BlockEntityType<CCSkullBlockEntity>> SKULL = HELPER.createBlockEntity("skull", CCSkullBlockEntity::new, () -> Set.of(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get(), CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get()));
+	public static final RegistryObject<BlockEntityType<CCSkullBlockEntity>> SKULL = HELPER.createBlockEntity("skull", CCSkullBlockEntity::new, () -> Set.of(CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get()));
+	public static final RegistryObject<BlockEntityType<DeeperSkullBlockEntity>> DEEPER_HEAD = HELPER.createBlockEntity("deeper_head", DeeperSkullBlockEntity::new, () -> Set.of(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get()));
 	public static final RegistryObject<BlockEntityType<ToolboxBlockEntity>> TOOLBOX = HELPER.createBlockEntity("toolbox", ToolboxBlockEntity::new, () -> Set.of(BlockEntitySubRegistryHelper.collectBlocks(ToolboxBlock.class)));
 	public static final RegistryObject<BlockEntityType<AtoningTableBlockEntity>> ATONING_TABLE = HELPER.createBlockEntity("atoning_table", AtoningTableBlockEntity::new, () -> Set.of(CCBlocks.ATONING_TABLE.get()));
 	public static final RegistryObject<BlockEntityType<HoldPlateBlockEntity>> HOLD_PLATE = HELPER.createBlockEntity("hold_plate", HoldPlateBlockEntity::new, () -> Set.of(CCBlocks.HOLD_PLATE.get()));

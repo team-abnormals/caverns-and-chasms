@@ -36,7 +36,7 @@ public class CCSkullBlockEntity extends SkullBlockEntity {
 			if (player != null) {
 				double xDist = player.getX() - x;
 				double zDist = player.getZ() - z;
-				blockEntity.rot = (float) (Mth.atan2(zDist, xDist) + ((float) Math.PI / 2.0F)) - ((float) Math.PI * 2.0F) - Mth.PI;
+				blockEntity.rot = (float) (Mth.atan2(zDist, xDist) + Mth.HALF_PI) - Mth.PI * 3.0F;
 			}
 		} else {
 			blockEntity.rotateToNormalPosition(state);
