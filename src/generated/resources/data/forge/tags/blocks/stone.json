@@ -3,6 +3,13 @@
     "caverns_and_chasms:polished_calcite",
     "caverns_and_chasms:polished_tuff",
     "caverns_and_chasms:sugilite",
-    "caverns_and_chasms:polished_sugilite"
+    "caverns_and_chasms:polished_sugilite",
+    "caverns_and_chasms:cassiterite",
+    "caverns_and_chasms:smooth_cassiterite",
+    "caverns_and_chasms:polished_cassiterite",
+    "caverns_and_chasms:rhyolite",
+    "caverns_and_chasms:polished_rhyolite",
+    "caverns_and_chasms:fragile_stone",
+    "caverns_and_chasms:fragile_deepslate"
   ]
 }
