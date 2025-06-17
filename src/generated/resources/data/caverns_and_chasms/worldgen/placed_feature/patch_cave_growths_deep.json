@@ -2,16 +2,10 @@
   "feature": "caverns_and_chasms:patch_cave_growths",
   "placement": [
     {
-      "type": "blueprint:better_noise_based_count",
+      "type": "caverns_and_chasms:noise_density",
+      "density": 0.3499999940395355,
       "noise": "caverns_and_chasms:cave_growths",
-      "noise_offset": 0.75,
-      "noise_to_count_ratio": 2
-    },
-    {
-      "type": "caverns_and_chasms:noise_based_rarity_filter",
-      "noise": "caverns_and_chasms:cave_growths",
-      "noise_offset": 1.0,
-      "noise_to_chance_ratio": 0.5
+      "noise_offset": 0.75
     },
     {
       "type": "minecraft:in_square"

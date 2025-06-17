@@ -1,11 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.mojang.datafixers.util.Pair;
-import com.teamabnormals.blueprint.common.levelgen.placement.BetterNoiseBasedCountPlacement;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelConcurrentHashMapReceiver;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelNoiseReceiver;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.*;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseBasedRarityFilter;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.HeightmapRandomOffsetPlacement;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseDensityPlacement;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.BlockPos;
@@ -216,8 +216,8 @@ public class CCFeatures {
 			register(context, ORE_FRAGILE_STONE, CCConfiguredFeatures.ORE_FRAGILE_STONE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
 			register(context, ORE_FRAGILE_STONE_BURIED, CCConfiguredFeatures.ORE_FRAGILE_STONE_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
 
-			register(context, PATCH_CAVE_GROWTHS, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new BetterNoiseBasedCountPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 12, 0.8F), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, -40, -2), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
-			register(context, PATCH_CAVE_GROWTHS_DEEP, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new BetterNoiseBasedCountPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 2, 0.75F), new NoiseBasedRarityFilter(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 0.5F, 1.0F), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(172)), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -40), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
+			register(context, PATCH_CAVE_GROWTHS, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new NoiseDensityPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 2.5F, 0.8F), InSquarePlacement.spread(), HeightmapRandomOffsetPlacement.of(Heightmap.Types.WORLD_SURFACE_WG, -40, -2), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
+			register(context, PATCH_CAVE_GROWTHS_DEEP, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new NoiseDensityPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 0.35F, 0.75F), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(172)), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -40), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
 			register(context, CAVE_GROWTH_GROVE, CCConfiguredFeatures.CAVE_GROWTH_GROVE, RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -6), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
 
 			register(context, FALSE_HOPE, CCConfiguredFeatures.FALSE_HOPE, CountPlacement.of(8), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -8), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());

@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
@@ -30,19 +31,22 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
 		RandomSource random = context.random();
-		BlockPos blockpos = context.origin();
+		BlockPos origin = context.origin();
 		WorldGenLevel level = context.level();
-		boolean placed = false;
 
+		if (!hasCeilingAbove(level, origin) && random.nextInt(3) > 0)
+			return false;
+
+		boolean placed = false;
 		BlockState blockstate = CCBlocks.CAVE_GROWTHS.get().defaultBlockState();
 		boolean isVariant = false;
-		double variantChance = Mth.clamp((62.0D - blockpos.getY()) / 126.0D, 0.1D, 1.0D);
+		double variantChance = Mth.clamp((62.0D - origin.getY()) / 126.0D, 0.1D, 1.0D);
 
 		if (random.nextFloat() < variantChance) {
 			List<BlockState> possibleVariants = Lists.newArrayList();
-			Holder<Biome> biome = level.getBiome(blockpos);
+			Holder<Biome> biome = level.getBiome(origin);
 
-			if (blockpos.getY() < 0 || (biome.is(CCBiomeTags.HAS_GRAINY_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_GRAINY_CAVE_GROWTHS)))
+			if (origin.getY() < 0 || (biome.is(CCBiomeTags.HAS_GRAINY_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_GRAINY_CAVE_GROWTHS)))
 				possibleVariants.add(CCBlocks.GRAINY_CAVE_GROWTHS.get().defaultBlockState());
 
 			if (biome.is(CCBiomeTags.HAS_ZESTY_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_ZESTY_CAVE_GROWTHS))
@@ -54,7 +58,7 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 			if (biome.is(CCBiomeTags.HAS_LURID_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_LURID_CAVE_GROWTHS))
 				possibleVariants.add(CCBlocks.LURID_CAVE_GROWTHS.get().defaultBlockState());
 
-			if (level.getLevel().structureManager().hasAnyStructureAt(blockpos))
+			if (level.getLevel().structureManager().hasAnyStructureAt(origin))
 				possibleVariants.add(CCBlocks.WEIRD_CAVE_GROWTHS.get().defaultBlockState());
 
 			if (!possibleVariants.isEmpty()) {
@@ -63,13 +67,13 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 			}
 		}
 
-		double moschatelChance = Mth.clamp(CCFeatures.MOSCHATEL_NOISE.get(level.getLevel()).getValue(blockpos.getX(), 0.0F, blockpos.getZ()) * 0.35F, 0.0F, 0.35F);
+		double moschatelChance = Mth.clamp(CCFeatures.MOSCHATEL_NOISE.get(level.getLevel()).getValue(origin.getX(), 0.0F, origin.getZ()) * 0.35F, 0.0F, 0.35F);
 		if (isVariant)
 			moschatelChance *= 0.5F;
 
 		float sizeMultiplier = 1.0F;
 
-		if ((isVariant && random.nextInt(12) == 0) || blockpos.getY() < 0)
+		if ((isVariant && random.nextInt(12) == 0) || origin.getY() < 0)
 			sizeMultiplier *= 1.5F;
 
 		boolean onlyGensOnGround = random.nextInt(10) > 0;
@@ -80,7 +84,7 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for (int i = 0; i < tries; ++i) {
-			mutable.setWithOffset(blockpos, random.nextInt(xzRange) - random.nextInt(xzRange), random.nextInt(yRange) - random.nextInt(yRange), random.nextInt(xzRange) - random.nextInt(xzRange));
+			mutable.setWithOffset(origin, random.nextInt(xzRange) - random.nextInt(xzRange), random.nextInt(yRange) - random.nextInt(yRange), random.nextInt(xzRange) - random.nextInt(xzRange));
 			if (level.isEmptyBlock(mutable) && !isNextToLava(level, mutable)) {
 				if (random.nextFloat() < moschatelChance) {
 					if (level.getBlockState(mutable.below()).is(Tags.Blocks.STONE)) {
@@ -107,6 +111,16 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 		}
 
 		return placed;
+	}
+
+	private static boolean hasCeilingAbove(WorldGenLevel level, BlockPos pos) {
+		MutableBlockPos mutable = pos.mutable();
+		for (int y = 0; y < 10; ++y) {
+			mutable.move(Direction.UP);
+			if (level.getBlockState(mutable).isSolid())
+				return true;
+		}
+		return false;
 	}
 
 	public static boolean isNextToLava(WorldGenLevel level, BlockPos pos) {
