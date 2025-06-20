@@ -1,8 +1,0 @@
-{
-  "parent": "caverns_and_chasms:block/template_duct_door",
-  "textures": {
-    "back": "caverns_and_chasms:block/duct_door_back",
-    "front": "caverns_and_chasms:block/duct_door_front",
-    "side": "caverns_and_chasms:block/duct_door_side"
-  }
-}

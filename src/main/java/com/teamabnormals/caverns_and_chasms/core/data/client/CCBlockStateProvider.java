@@ -59,7 +59,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP);
 		this.storageDuctBlock(STORAGE_DUCT);
-		this.ductDoorBlock(DUCT_DOOR);
+		this.storageDuctHatchBlock(STORAGE_DUCT_HATCH);
 
 		this.rollerDoorBlocks(ROLLER_DOOR, ROLLER_DOOR_HEADER);
 
@@ -597,23 +597,23 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
 	}
 
-	public void ductDoorBlock(RegistryObject<Block> registryObject) {
+	public void storageDuctHatchBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
 		ResourceLocation texture = suffix(blockTexture(block), "_");
 		ModelFile model = this.models()
-				.withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_duct_door")
+				.withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_storage_duct_hatch")
 				.texture("front", suffix(texture, "front"))
 				.texture("side", suffix(texture, "side"))
 				.texture("back", suffix(texture, "back"));
 		ModelFile modelOpen = this.models()
-				.withExistingParent(name(block) + "_open", CavernsAndChasms.MOD_ID + ":block/template_duct_door")
+				.withExistingParent(name(block) + "_open", CavernsAndChasms.MOD_ID + ":block/template_storage_duct_hatch")
 				.texture("front", suffix(texture, "front_open"))
 				.texture("side", suffix(texture, "side"))
 				.texture("back", suffix(texture, "back"));
 		this.getVariantBuilder(block).forAllStatesExcept(state -> {
-			Direction facing = state.getValue(DuctDoorBlock.FACING);
-			AttachFace face = state.getValue(DuctDoorBlock.FACE);
-			boolean open = state.getValue(DuctDoorBlock.OPEN);
+			Direction facing = state.getValue(StorageDuctHatchBlock.FACING);
+			AttachFace face = state.getValue(StorageDuctHatchBlock.FACE);
+			boolean open = state.getValue(StorageDuctHatchBlock.OPEN);
 			return ConfiguredModel.builder()
 					.modelFile(open ? modelOpen : model)
 					.rotationX(face == AttachFace.CEILING ? 90 : face == AttachFace.FLOOR ? 270 : 0)

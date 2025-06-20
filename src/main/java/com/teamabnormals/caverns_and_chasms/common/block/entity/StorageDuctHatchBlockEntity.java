@@ -5,8 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DuctDoorBlockEntity extends BlockEntity {
-	public DuctDoorBlockEntity(BlockPos pos, BlockState state) {
-		super(CCBlockEntityTypes.DUCT_DOOR.get(), pos, state);
+public class StorageDuctHatchBlockEntity extends BlockEntity {
+	public StorageDuctHatchBlockEntity(BlockPos pos, BlockState state) {
+		super(CCBlockEntityTypes.STORAGE_DUCT_HATCH.get(), pos, state);
 	}
 }

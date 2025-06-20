@@ -26,7 +26,7 @@ public class CCBlockEntityTypes {
 	public static final RegistryObject<BlockEntityType<SplurterBlockEntity>> SPLURTER = HELPER.createBlockEntity("splurter", SplurterBlockEntity::new, () -> Set.of(CCBlocks.SPLURTER.get()));
 	public static final RegistryObject<BlockEntityType<ScattererBlockEntity>> SCATTERER = HELPER.createBlockEntity("scatterer", ScattererBlockEntity::new, () -> Set.of(CCBlocks.SCATTERER.get()));
 	public static final RegistryObject<BlockEntityType<StorageDuctBlockEntity>> STORAGE_DUCT = HELPER.createBlockEntity("storage_duct", StorageDuctBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT.get()));
-	public static final RegistryObject<BlockEntityType<DuctDoorBlockEntity>> DUCT_DOOR = HELPER.createBlockEntity("duct_door", DuctDoorBlockEntity::new, () -> Set.of(CCBlocks.DUCT_DOOR.get()));
+	public static final RegistryObject<BlockEntityType<StorageDuctHatchBlockEntity>> STORAGE_DUCT_HATCH = HELPER.createBlockEntity("storage_duct_hatch", StorageDuctHatchBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT_HATCH.get()));
 	public static final RegistryObject<BlockEntityType<RollerDoorBlockEntity>> ROLLER_DOOR = HELPER.createBlockEntity("roller_door", RollerDoorBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR.get()));
 	public static final RegistryObject<BlockEntityType<RollerDoorHeaderBlockEntity>> ROLLER_DOOR_HEADER = HELPER.createBlockEntity("roller_door_header", RollerDoorHeaderBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR_HEADER.get()));
 }

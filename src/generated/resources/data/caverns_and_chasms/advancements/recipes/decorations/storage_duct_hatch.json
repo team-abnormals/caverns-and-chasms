@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:duct_door"
+        "recipe": "caverns_and_chasms:storage_duct_hatch"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:duct_door"
+      "caverns_and_chasms:storage_duct_hatch"
     ]
   },
   "sends_telemetry_event": false

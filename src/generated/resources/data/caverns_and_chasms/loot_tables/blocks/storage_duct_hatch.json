@@ -17,11 +17,11 @@
               "source": "block_entity"
             }
           ],
-          "name": "caverns_and_chasms:duct_door"
+          "name": "caverns_and_chasms:storage_duct_hatch"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "caverns_and_chasms:blocks/duct_door"
+  "random_sequence": "caverns_and_chasms:blocks/storage_duct_hatch"
 }

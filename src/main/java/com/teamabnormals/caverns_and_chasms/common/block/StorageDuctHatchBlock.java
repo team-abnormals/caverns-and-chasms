@@ -1,19 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.DuctDoorBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctHatchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.monster.piglin.PiglinAi;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,11 +13,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DuctDoorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class StorageDuctHatchBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -39,14 +29,14 @@ public class DuctDoorBlock extends BaseEntityBlock implements SimpleWaterloggedB
 	private static final VoxelShape WEST_SHAPE = box(14.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 	private static final VoxelShape EAST_SHAPE = box(0.0D, 0.0D, 0.0D, 2.0D, 16.0D, 16.0D);
 
-	public DuctDoorBlock(Properties properties) {
+	public StorageDuctHatchBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(OPEN, false).setValue(WATERLOGGED, false));
 	}
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new DuctDoorBlockEntity(pos, state);
+		return new StorageDuctHatchBlockEntity(pos, state);
 	}
 
 	@Override
@@ -96,7 +86,7 @@ public class DuctDoorBlock extends BaseEntityBlock implements SimpleWaterloggedB
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof DuctDoorBlockEntity) {
+		if (blockEntity instanceof StorageDuctHatchBlockEntity) {
 			if (!level.isClientSide) {
 				openMenu((ServerPlayer) player, level, pos);
 				PiglinAi.angerNearbyPiglins(player, true);
