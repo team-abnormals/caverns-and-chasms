@@ -14,7 +14,7 @@ public class ClientNetworkHandler {
 		if (player != null) {
 			BlockEntity blockEntity = player.level().getBlockEntity(packet.getBlockPos());
 			if (blockEntity instanceof StorageDuctBlockEntity storageDuct) {
-				StorageDuctMenu container = new StorageDuctMenu(packet.getWindowId(), player.getInventory(), new SimpleContainer(packet.getContainerSize()));
+				StorageDuctMenu container = new StorageDuctMenu(packet.getWindowId(), player.getInventory(), new SimpleContainer(packet.getContainerSize()), null);
 				player.containerMenu = container;
 				Minecraft.getInstance().setScreen(new StorageDuctScreen(container, player.getInventory(), storageDuct.getDisplayName(), Math.min(packet.getContainerSize(), 54)));
 			}

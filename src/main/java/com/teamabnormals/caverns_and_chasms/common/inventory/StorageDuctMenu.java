@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctHatchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
@@ -13,17 +14,21 @@ import net.minecraft.world.item.ItemStack;
 public class StorageDuctMenu extends AbstractContainerMenu {
 	private final Container container;
 	private final int containerRows;
+	private final StorageDuctHatchBlockEntity hatch;
 	public int scrollRow;
 
 	public StorageDuctMenu(int id, Inventory inventory) {
-		this(id, inventory, new SimpleContainer(54));
+		this(id, inventory, new SimpleContainer(54), null);
 	}
 
-	public StorageDuctMenu(int id, Inventory inventory, Container container) {
+	public StorageDuctMenu(int id, Inventory inventory, Container container, StorageDuctHatchBlockEntity hatch) {
 		super(CCMenuTypes.STORAGE_DUCT.get(), id);
 		this.container = container;
 		this.containerRows = container.getContainerSize() / 9;
+		this.hatch = hatch;
 		container.startOpen(inventory.player);
+		if (hatch != null)
+			hatch.startOpen(inventory.player);
 
 		for (int i = 0; i < this.containerRows; ++i) {
 			for (int j = 0; j < 9; ++j) {
@@ -96,12 +101,25 @@ public class StorageDuctMenu extends AbstractContainerMenu {
 
 	@Override
 	public boolean stillValid(Player player) {
-		return this.container.stillValid(player);
+		if (this.hatch != null && !this.hatch.stillValid())
+			return false;
+		else
+			return this.container.stillValid(player);
 	}
 
 	@Override
 	public void removed(Player player) {
 		super.removed(player);
 		this.container.stopOpen(player);
+		if (this.hatch != null)
+			this.hatch.stopOpen(player);
+	}
+
+	public Container getContainer() {
+		return this.container;
+	}
+
+	public StorageDuctHatchBlockEntity getHatch() {
+		return this.hatch;
 	}
 }

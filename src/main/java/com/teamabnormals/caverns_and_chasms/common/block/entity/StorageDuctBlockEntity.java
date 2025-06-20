@@ -65,14 +65,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 	@Override
 	public boolean stillValid(Player player) {
 		Level level = this.getLevel();
-		BlockPos blockpos = this.getBlockPos();
-		if (level == null) {
-			return false;
-		} else if (level.getBlockEntity(blockpos) != this) {
-			return false;
-		} else {
-			return true;
-		}
+		return level != null && level.getBlockEntity(this.getBlockPos()) == this;
 	}
 
 	@Override
@@ -82,7 +75,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-		return new StorageDuctMenu(containerId, inventory, StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos()));
+		return new StorageDuctMenu(containerId, inventory, StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos()), null);
 	}
 
 	@Override
@@ -101,7 +94,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 		return super.getCapability(cap, side);
 	}
 
-	private net.minecraftforge.items.IItemHandlerModifiable createHandler() {
+	private IItemHandlerModifiable createHandler() {
 		BlockState state = this.getBlockState();
 		if (!(state.getBlock() instanceof StorageDuctBlock)) {
 			return new InvWrapper(this);

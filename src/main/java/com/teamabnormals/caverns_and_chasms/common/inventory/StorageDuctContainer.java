@@ -1,18 +1,20 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
 
-public class StorageDuctContainer<C extends Container> implements Container {
-	private final List<C> containers;
+public class StorageDuctContainer implements Container {
+	private final List<StorageDuctBlockEntity> containers;
+	private final BlockPos openedAtPos;
 
-	public StorageDuctContainer(List<C> containers) {
+	public StorageDuctContainer(List<StorageDuctBlockEntity> containers, BlockPos openedAtPos) {
 		this.containers = containers;
+		this.openedAtPos = openedAtPos;
 	}
 
 	@Override
@@ -61,8 +63,7 @@ public class StorageDuctContainer<C extends Container> implements Container {
 
 	@Override
 	public boolean stillValid(Player player) {
-		BlockPos blockpos = ((BlockEntity) this.containers.get(0)).getBlockPos();
-		return player.distanceToSqr(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D) <= (double) (8 * 8) && this.containers.stream().allMatch(container -> container.stillValid(player));
+		return player.distanceToSqr(this.openedAtPos.getX() + 0.5D, this.openedAtPos.getY() + 0.5D, this.openedAtPos.getZ() + 0.5D) <= (double) (8 * 8) && this.containers.stream().allMatch(container -> container.stillValid(player));
 	}
 
 	@Override

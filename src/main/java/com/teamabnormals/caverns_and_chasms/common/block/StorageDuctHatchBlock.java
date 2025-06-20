@@ -1,10 +1,19 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctHatchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.monster.piglin.PiglinAi;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -13,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -82,27 +92,41 @@ public class StorageDuctHatchBlock extends BaseEntityBlock implements SimpleWate
 		return state;
 	}
 
-	/*
+	@Override
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		BlockEntity blockentity = level.getBlockEntity(pos);
+		if (blockentity instanceof StorageDuctHatchBlockEntity)
+			((StorageDuctHatchBlockEntity) blockentity).recheckOpen();
+	}
+
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof StorageDuctHatchBlockEntity) {
-			if (!level.isClientSide) {
-				openMenu((ServerPlayer) player, level, pos);
-				PiglinAi.angerNearbyPiglins(player, true);
+		if (level.getBlockEntity(pos) instanceof StorageDuctHatchBlockEntity hatch) {
+			BlockPos offsetpos = pos.relative(getAttachDirection(state));
+			if (level.getBlockEntity(offsetpos) instanceof StorageDuctBlockEntity) {
+				if (!level.isClientSide) {
+					StorageDuctBlock.openMenu((ServerPlayer) player, level, offsetpos, hatch);
+					PiglinAi.angerNearbyPiglins(player, true);
+				}
+				return InteractionResult.sidedSuccess(level.isClientSide);
 			}
-			return InteractionResult.sidedSuccess(level.isClientSide);
-		} else {
-			return InteractionResult.PASS;
 		}
+		return InteractionResult.PASS;
 	}
-	*/
 
-	private static Direction getConnectedDirection(BlockState state) {
+	public static StorageDuctBlock getAttachedStorageDuct(Level level, BlockPos pos, BlockState state) {
+		BlockPos offsetpos = pos.relative(getAttachDirection(state));
+		if (level.getBlockState(offsetpos).getBlock() instanceof StorageDuctBlock storageduct)
+			return storageduct;
+		else
+			return null;
+	}
+
+	public static Direction getAttachDirection(BlockState state) {
 		return switch (state.getValue(FACE)) {
-			case CEILING -> Direction.DOWN;
-			case FLOOR -> Direction.UP;
-			default -> state.getValue(FACING);
+			case CEILING -> Direction.UP;
+			case FLOOR -> Direction.DOWN;
+			default -> state.getValue(FACING).getOpposite();
 		};
 	}
 

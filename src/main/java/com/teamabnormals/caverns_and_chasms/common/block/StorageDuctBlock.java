@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctHatchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctContainer;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
 import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
@@ -34,6 +35,7 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 
 public class StorageDuctBlock extends BaseEntityBlock {
@@ -57,50 +59,51 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	}
 
 	@Nullable
-	public static Container getContainer(Level level, BlockPos pos) {
-		List<StorageDuctBlockEntity> list = getConnectedStorageDucts(level, pos, level.getBlockState(pos));
-		return list.isEmpty() ? null : new StorageDuctContainer<>(list);
+	public static StorageDuctContainer getContainer(Level level, BlockPos pos) {
+		List<StorageDuctBlockEntity> list = getConnectedStorageDucts(level, pos, level.getBlockState(pos), true);
+		return list.isEmpty() ? null : new StorageDuctContainer(list, pos);
 	}
 
-	public static List<StorageDuctBlockEntity> getConnectedStorageDucts(Level level, BlockPos pos, BlockState state) {
-		List<StorageDuctBlockEntity> list = Lists.newArrayList();
+	private static List<StorageDuctBlockEntity> getConnectedStorageDucts(Level level, BlockPos pos, BlockState state, boolean organize) {
+		List<StorageDuctBlockEntity> startlist = Lists.newArrayList();
+		List<StorageDuctBlockEntity> endlist = Lists.newArrayList();
 
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof StorageDuctBlockEntity storageDuct)
-			list.add(storageDuct);
+		BlockEntity blockentity = level.getBlockEntity(pos);
+		if (blockentity instanceof StorageDuctBlockEntity duct)
+			startlist.add(duct);
 
-		label:
-		for (Face face : Face.values()) {
+		for (Face initialface : Face.values()) {
+			List<StorageDuctBlockEntity> list = initialface == Face.START ? startlist : endlist;
 			MutableBlockPos mutable = pos.mutable();
-			BlockState blockState = state;
-			Face face1 = face;
+			BlockState blockstate = state;
+			Face face = initialface;
 
 			while (true) {
-				Direction direction = blockState.getValue(face1.getDirectionProperty());
+				Direction direction = blockstate.getValue(face.getDirectionProperty());
 				mutable.move(direction);
 
 				if (mutable.equals(pos))
-					break label;
+					return startlist;
 
-				blockState = level.getBlockState(mutable);
+				blockstate = level.getBlockState(mutable);
 
-				if (blockState.getBlock() instanceof StorageDuctBlock) {
-					boolean flag = false;
+				if (blockstate.getBlock() instanceof StorageDuctBlock) {
+					boolean continuesearch = false;
 
-					for (Face face2 : Face.values()) {
-						Direction direction1 = blockState.getValue(face2.getDirectionProperty());
+					for (Face face1 : Face.values()) {
+						Direction direction1 = blockstate.getValue(face1.getDirectionProperty());
 						if (direction1 == direction.getOpposite()) {
 							BlockEntity blockEntity1 = level.getBlockEntity(mutable);
-							if (blockEntity1 instanceof StorageDuctBlockEntity storageDuct1)
-								list.add(storageDuct1);
+							if (blockEntity1 instanceof StorageDuctBlockEntity duct)
+								list.add(duct);
 
-							face1 = face2.getOpposite();
-							flag = true;
+							face = face1.getOpposite();
+							continuesearch = true;
 							break;
 						}
 					}
 
-					if (!flag)
+					if (!continuesearch)
 						break;
 				} else {
 					break;
@@ -108,7 +111,20 @@ public class StorageDuctBlock extends BaseEntityBlock {
 			}
 		}
 
-		return list;
+		if (organize) {
+			if (startlist.size() <= endlist.size()) {
+				Collections.reverse(startlist);
+				startlist.addAll(endlist);
+				return startlist;
+			} else {
+				Collections.reverse(endlist);
+				endlist.addAll(startlist);
+				return endlist;
+			}
+		} else {
+			startlist.addAll(endlist);
+			return startlist;
+		}
 	}
 
 	@Override
@@ -117,7 +133,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (!itemstack.is(CCBlocks.STORAGE_DUCT.get().asItem()) && !itemstack.is((CCBlocks.STORAGE_DUCT_HATCH).get().asItem()) && blockEntity instanceof StorageDuctBlockEntity && canOpen(level, pos, state)) {
 			if (!level.isClientSide) {
-				openMenu((ServerPlayer) player, level, pos);
+				openMenu((ServerPlayer) player, level, pos, null);
 				PiglinAi.angerNearbyPiglins(player, true);
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
@@ -126,7 +142,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		}
 	}
 
-	public static void openMenu(ServerPlayer player, Level level, BlockPos pos) {
+	public static void openMenu(ServerPlayer player, Level level, BlockPos pos, StorageDuctHatchBlockEntity hatch) {
 		Container container = getContainer(level, pos);
 		if (container != null) {
 			if (player.containerMenu != player.inventoryMenu)
@@ -134,7 +150,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 
 			player.nextContainerCounter();
 			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2COpenStorageDuctMessage(player.containerCounter, container.getContainerSize(), pos));
-			player.containerMenu = new StorageDuctMenu(player.containerCounter, player.getInventory(), container);
+			player.containerMenu = new StorageDuctMenu(player.containerCounter, player.getInventory(), container, hatch);
 			player.initMenu(player.containerMenu);
 			MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));
 		}
@@ -149,7 +165,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 				level.updateNeighbourForOutputSignal(pos, this);
 			}
 
-			for (StorageDuctBlockEntity storageDuct : getConnectedStorageDucts(level, pos, state))
+			for (StorageDuctBlockEntity storageDuct : getConnectedStorageDucts(level, pos, state, false))
 				storageDuct.resetHandler();
 
 			super.onRemove(state, level, pos, newState, isMoving);
@@ -159,7 +175,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	@Override
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
 		if (!state.is(oldState.getBlock())) {
-			for (StorageDuctBlockEntity storageDuct : getConnectedStorageDucts(level, pos, state))
+			for (StorageDuctBlockEntity storageDuct : getConnectedStorageDucts(level, pos, state, false))
 				storageDuct.resetHandler();
 
 			super.onPlace(state, level, pos, oldState, isMoving);
