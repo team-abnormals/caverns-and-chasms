@@ -136,9 +136,8 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	@Override
 	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-		if (state.getValue(WATERLOGGED)) {
+		if (state.getValue(WATERLOGGED))
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		}
 
 		return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
 	}

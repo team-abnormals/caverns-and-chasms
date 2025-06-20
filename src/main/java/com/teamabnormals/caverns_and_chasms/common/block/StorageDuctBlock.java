@@ -114,9 +114,9 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (!player.getItemInHand(hand).is(CCBlocks.STORAGE_DUCT.get().asItem()) && blockEntity instanceof StorageDuctBlockEntity storageDuct && canOpen(level, pos, state)) {
+		ItemStack itemstack = player.getItemInHand(hand);
+		if (!itemstack.is(CCBlocks.STORAGE_DUCT.get().asItem()) && !itemstack.is((CCBlocks.DUCT_DOOR).get().asItem()) && blockEntity instanceof StorageDuctBlockEntity && canOpen(level, pos, state)) {
 			if (!level.isClientSide) {
-				getConnectedStorageDucts(level, pos, state);
 				openMenu((ServerPlayer) player, level, pos);
 				PiglinAi.angerNearbyPiglins(player, true);
 			}
