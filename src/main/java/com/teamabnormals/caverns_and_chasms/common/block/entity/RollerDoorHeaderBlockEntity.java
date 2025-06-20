@@ -139,7 +139,6 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 			blockEntity.openness = newopenness;
 
 		if (updatedoor) {
-			System.out.println(level.isClientSide + ": " + opening);
 			moveCollidedEntities(level, pos, opening, blockEntity.openness, speed, columnlength, facing, face);
 
 			if (!level.isClientSide) {
