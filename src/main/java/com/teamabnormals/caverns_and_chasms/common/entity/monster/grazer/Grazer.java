@@ -52,7 +52,6 @@ public class Grazer extends Monster {
 	private long lastDeflectTick;
 	private boolean bouncingBackwards;
 	private double bounceHeight;
-	private float rotationSpeed;
 	private float bodyLowerAmountO;
 
 	private float runAmount;
@@ -61,6 +60,8 @@ public class Grazer extends Monster {
 	private float bounceAmountO;
 	private float wiggleAmount;
 	private float wiggleAmountO;
+	private float onBackAmount;
+	private float onBackAmountO;
 
 	public Grazer(EntityType<? extends Monster> type, Level level) {
 		super(type, level);
@@ -106,7 +107,6 @@ public class Grazer extends Monster {
 		compound.putFloat("BodyLowerAmount", this.getBodyLowerAmount());
 		compound.putBoolean("BouncingBackwards", this.bouncingBackwards);
 		compound.putDouble("BounceHeight", this.bounceHeight);
-		compound.putFloat("RotationSpeed", this.rotationSpeed);
 	}
 
 	@Override
@@ -116,7 +116,6 @@ public class Grazer extends Monster {
 		this.setBodyLowerAmount(compound.getFloat("BodyLowerAmount"));
 		this.bouncingBackwards = compound.getBoolean("BouncingBackwards");
 		this.bounceHeight = compound.getDouble("BounceHeight");
-		this.rotationSpeed = compound.getFloat("RotationSpeed");
 	}
 
 	public GrazerState getState() {
@@ -274,6 +273,10 @@ public class Grazer extends Monster {
 		return Mth.lerp(partialTick, this.wiggleAmountO, this.wiggleAmount);
 	}
 
+	public float getOnBackAmount(float partialTick) {
+		return Mth.lerp(partialTick, this.onBackAmountO, this.onBackAmount);
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -298,10 +301,17 @@ public class Grazer extends Monster {
 			}
 
 			this.wiggleAmountO = this.wiggleAmount;
-			if (state == GrazerState.WIGGLING) {
+			if (state == GrazerState.WIGGLING || state == GrazerState.FLIPPING_OVER) {
 				this.wiggleAmount = Math.min(1.0F, this.wiggleAmount + 0.1F);
 			} else {
 				this.wiggleAmount = Math.max(0.0F, this.wiggleAmount - 0.1F);
+			}
+
+			this.onBackAmountO = this.onBackAmount;
+			if (state == GrazerState.WIGGLING && this.getXRot() == -90.0F) {
+				this.onBackAmount = Math.min(1.0F, this.onBackAmount + 0.1F);
+			} else {
+				this.onBackAmount = Math.max(0.0F, this.onBackAmount - 0.1F);
 			}
 		}
 
@@ -309,9 +319,9 @@ public class Grazer extends Monster {
 		if (this.level().isClientSide)
 			this.bodyLowerAmountO = bodyLowerAmount;
 		if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING) {
-			this.setBodyLowerAmount(Math.min(1.0F, bodyLowerAmount + 0.2F));
+			this.setBodyLowerAmount(Math.min(1.0F, bodyLowerAmount + 0.1F));
 		} else {
-			this.setBodyLowerAmount(Math.max(0.0F, bodyLowerAmount - 0.2F));
+			this.setBodyLowerAmount(Math.max(0.0F, bodyLowerAmount - 0.1F));
 		}
 
 		double d0 = this.shellRadius();
@@ -366,7 +376,7 @@ public class Grazer extends Monster {
 					this.setState(GrazerState.DEFAULT);
 			}
 
-			if (this.getState() == GrazerState.RUNNING || this.getState() == GrazerState.BOUNCING) {
+			if (this.getState() == GrazerState.RUNNING || this.getState() == GrazerState.BOUNCING || this.getState() == GrazerState.LANDING) {
 				List<LivingEntity> hitentities = this.level().getNearbyEntities(LivingEntity.class, HIT_TARGETING, this, this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
 				for (LivingEntity livingentity : hitentities)
 					livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
@@ -426,7 +436,6 @@ public class Grazer extends Monster {
 					this.setState(GrazerState.BOUNCING);
 					this.bounceHeight = 0.8D;
 					this.bouncingBackwards = true;
-					this.rotationSpeed = 15.0F;
 					newmotion = newmotion.normalize().multiply(0.55D, 0.0D, 0.55D).add(0.0D, this.bounceHeight, 0.0D);
 				} else {
 					if (oldmotion.x * newmotion.x + oldmotion.z * newmotion.z < 0.0D)

@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerState;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -64,6 +63,7 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 		float runamount = grazer.getRunAmount(partialtick);
 		float bounceamount = grazer.getBounceAmount(partialtick);
 		float wiggleamount = grazer.getWiggleAmount(partialtick);
+		float onbackamount = grazer.getOnBackAmount(partialtick);
 		float walkamount = 1.0F - Math.max(bounceamount, wiggleamount);
 
 		this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * walkamount;
@@ -82,14 +82,14 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 		this.leftFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
 
 		this.jaw.xRot += (0.15F - Mth.sin(ageInTicks * 0.6F - 0.5F) * 0.15F) * wiggleamount;
-		float f = -0.6F - Mth.cos(ageInTicks) * 0.6F;
-		if (grazer.getXRot() == -90.0F)
-			f = f * 0.5F - Mth.HALF_PI;
-		this.rightWing.yRot += f * wiggleamount;
-		this.leftWing.yRot += -f * wiggleamount;
+		this.rightWing.yRot += (-0.6F - Mth.cos(ageInTicks) * 0.6F) * wiggleamount * (1.0F - onbackamount * 0.5F);
+		this.leftWing.yRot += (0.6F + Mth.cos(ageInTicks) * 0.6F) * wiggleamount * (1.0F - onbackamount * 0.5F);
 		this.rightHindLeg.xRot += Mth.cos(ageInTicks * 0.7F) * 0.5F * wiggleamount;
 		this.leftHindLeg.xRot += Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F * wiggleamount;
 		this.rightFrontLeg.xRot += Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F * wiggleamount;
 		this.leftFrontLeg.xRot += Mth.cos(ageInTicks * 0.7F) * 0.5F * wiggleamount;
+
+		this.rightWing.yRot += -Mth.HALF_PI * onbackamount;
+		this.leftWing.yRot += Mth.HALF_PI * onbackamount;
 	}
 }
