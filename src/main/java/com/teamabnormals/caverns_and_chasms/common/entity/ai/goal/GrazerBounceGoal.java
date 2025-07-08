@@ -6,10 +6,11 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
-public class GrazerRollGoal extends Goal {
+public class GrazerBounceGoal extends Goal {
 	private final Grazer grazer;
+	private int wiggleTime;
 
-	public GrazerRollGoal(Grazer grazer) {
+	public GrazerBounceGoal(Grazer grazer) {
 		this.grazer = grazer;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
 	}
@@ -21,25 +22,27 @@ public class GrazerRollGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return this.grazer.getState() == GrazerState.ROLLING || this.grazer.getState() == GrazerState.WIGGLING;
+		return this.grazer.getState() == GrazerState.BOUNCING || this.grazer.getState() == GrazerState.LANDING || this.grazer.getState() == GrazerState.WIGGLING || this.grazer.getState() == GrazerState.FLIPPING_OVER;
 	}
 
 	@Override
 	public void start() {
 		this.grazer.getNavigation().stop();
 		this.grazer.setSpeed(0.0F);
+		this.wiggleTime = 0;
+	}
+
+	@Override
+	public void stop() {
+		this.grazer.setTarget(null);
 	}
 
 	@Override
 	public void tick() {
-		if (this.grazer.getState() == GrazerState.WIGGLING) {
-			float xrot = this.grazer.getXRot();
-			if (xrot < 0F)
-				this.grazer.setXRot(Math.min(xrot + 5F, 0F));
-			else if (xrot > 0F)
-				this.grazer.setXRot(Math.max(xrot - 5F, 0F));
-			else
-				this.grazer.setState(GrazerState.DEFAULT);
+		if (this.grazer.getState() == GrazerState.WIGGLING && ++this.wiggleTime >= 80) {
+			this.grazer.setState(GrazerState.FLIPPING_OVER);
+			if (this.grazer.onGround())
+				this.grazer.getJumpControl().jump();
 		}
 	}
 }

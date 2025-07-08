@@ -82,11 +82,17 @@ public class GrazerPart extends PartEntity<Grazer> {
 		}
 	}
 
+	@Override
+	public void push(double x, double y, double z) {
+		Grazer grazer = this.getParent();
+		grazer.push(x, y, z);
+	}
+
 	private Vec3 calculatePosition(double x, double y, double z, float xRot, float yRot) {
 		float f = xRot * Mth.DEG_TO_RAD;
 		float f1 = yRot * Mth.DEG_TO_RAD;
 		Vec3 vec3 = new Vec3(0.0D, this.yOffset, this.zOffset).xRot(-f).yRot(-f1);
-		Vec3 vec31 = new Vec3(0.0D, this.getParent().shellCenterY() - this.halfSize, this.getParent().shellCenterZ()).yRot(-f1);
+		Vec3 vec31 = new Vec3(0.0D, this.getParent().shellCenterY(1.0F) - this.halfSize, this.getParent().shellCenterZ(1.0F)).yRot(-f1);
 		return vec3.add(vec31).add(x, y, z);
 	}
 

@@ -8,8 +8,10 @@ public enum GrazerState {
 	DEFAULT(0),
 	RUNNING_STILL(1),
 	RUNNING(2),
-	ROLLING(3),
-	WIGGLING(4);
+	BOUNCING(3),
+	LANDING(4),
+	WIGGLING(5),
+	FLIPPING_OVER(6);
 
 	private static final IntFunction<GrazerState> BY_ID = ByIdMap.continuous(GrazerState::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
 	private final int id;

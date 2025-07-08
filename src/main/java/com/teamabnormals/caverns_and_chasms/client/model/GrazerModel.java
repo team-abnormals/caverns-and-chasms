@@ -10,7 +10,6 @@ import net.minecraft.util.Mth;
 
 // TODO: Maybe the legs should be barely able to move because they're so close to each other. Would fix z-fighting too.
 // TODO: Hurt animation where it leans back, opens its jaw and its head shakes.
-// TODO: Charge animation where it leans back and opens its jaw like stupid.
 public class GrazerModel extends HierarchicalModel<Grazer> {
 	private final ModelPart root;
 	private final ModelPart body;
@@ -61,23 +60,36 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 
 	@Override
 	public void setupAnim(Grazer grazer, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
+		float partialtick = ageInTicks - (float) grazer.tickCount;
+		float runamount = grazer.getRunAmount(partialtick);
+		float bounceamount = grazer.getBounceAmount(partialtick);
+		float wiggleamount = grazer.getWiggleAmount(partialtick);
+		float walkamount = 1.0F - Math.max(bounceamount, wiggleamount);
+
+		this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * walkamount;
+		this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount * walkamount;
 		this.rightFrontLeg.xRot = this.leftHindLeg.xRot;
 		this.leftFrontLeg.xRot = this.rightHindLeg.xRot;
 
-		GrazerState state = grazer.getState();
+		this.body.xRot = (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount * runamount;
+		this.jaw.xRot = (0.15F - Mth.cos(limbSwing - 0.5F) * 0.15F) * limbSwingAmount * runamount;
+		this.rightWing.yRot = (-0.6F - Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
+		this.leftWing.yRot = -this.rightWing.yRot;
 
-		if (state == GrazerState.RUNNING_STILL || state == GrazerState.RUNNING) {
-			this.body.xRot = (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount;
-			this.jaw.xRot = (0.15F - Mth.cos(limbSwing - 0.5F) * 0.15F) * limbSwingAmount;
-			this.rightWing.yRot = (-0.6F - Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount;
-			this.leftWing.yRot = -this.rightWing.yRot;
-		} else {
-			this.body.xRot = 0.0F;
-			this.jaw.xRot = 0.0F;
-			this.rightWing.yRot = 0.0F;
-			this.leftWing.yRot = 0.0F;
-		}
+		this.rightHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
+		this.leftHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;
+		this.rightFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;
+		this.leftFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
+
+		this.jaw.xRot += (0.15F - Mth.sin(ageInTicks * 0.6F - 0.5F) * 0.15F) * wiggleamount;
+		float f = -0.6F - Mth.cos(ageInTicks) * 0.6F;
+		if (grazer.getXRot() == -90.0F)
+			f = f * 0.5F - Mth.HALF_PI;
+		this.rightWing.yRot += f * wiggleamount;
+		this.leftWing.yRot += -f * wiggleamount;
+		this.rightHindLeg.xRot += Mth.cos(ageInTicks * 0.7F) * 0.5F * wiggleamount;
+		this.leftHindLeg.xRot += Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F * wiggleamount;
+		this.rightFrontLeg.xRot += Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F * wiggleamount;
+		this.leftFrontLeg.xRot += Mth.cos(ageInTicks * 0.7F) * 0.5F * wiggleamount;
 	}
 }

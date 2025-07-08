@@ -32,7 +32,15 @@ public class GrazerRunGoal extends Goal {
 			return false;
 		} else if (this.cooldown-- > 0) {
 			return false;
-		} else if (this.grazer.getLastHurtByMob() != null || this.grazer.isFreezing() || this.grazer.isOnFire() || this.isNearEntityToAvoid()) {
+		}
+
+		LivingEntity target = this.grazer.getLastHurtByMob();
+		if (target == null)
+			target = findNearestScaryEntity();
+
+		if (target != null || this.grazer.isFreezing() || this.grazer.isOnFire()) {
+			if (target != null)
+				this.grazer.setTarget(target);
 			this.grazer.setState(GrazerState.RUNNING_STILL);
 			this.runStillTime = 10;
 			return true;
@@ -41,8 +49,8 @@ public class GrazerRunGoal extends Goal {
 		return false;
 	}
 
-	private boolean isNearEntityToAvoid() {
-		return this.grazer.level().getNearestEntity(LivingEntity.class, this.avoidEntityTargeting, this.grazer, this.grazer.getX(), this.grazer.getY(), this.grazer.getZ(), this.grazer.getBoundingBox().inflate(this.range, 4.0D, this.range)) != null;
+	private LivingEntity findNearestScaryEntity() {
+		return this.grazer.level().getNearestEntity(LivingEntity.class, this.avoidEntityTargeting, this.grazer, this.grazer.getX(), this.grazer.getY(), this.grazer.getZ(), this.grazer.getBoundingBox().inflate(this.range, 4.0D, this.range));
 	}
 
 	@Override
