@@ -65,16 +65,21 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 		float wiggleamount = grazer.getWiggleAmount(partialtick);
 		float onbackamount = grazer.getOnBackAmount(partialtick);
 		float walkamount = 1.0F - Math.max(bounceamount, wiggleamount);
+		float noanimamount = 1.0F - Math.max(Math.max(runamount, bounceamount), wiggleamount);
 
+		this.body.xRot = 0.0F;
+		this.jaw.xRot = 0.0F;
+		this.rightWing.yRot = 0.0F;
+		this.leftWing.yRot = 0.0F;
 		this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * walkamount;
 		this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount * walkamount;
 		this.rightFrontLeg.xRot = this.leftHindLeg.xRot;
 		this.leftFrontLeg.xRot = this.rightHindLeg.xRot;
 
-		this.body.xRot = (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount * runamount;
-		this.jaw.xRot = (0.15F - Mth.cos(limbSwing - 0.5F) * 0.15F) * limbSwingAmount * runamount;
-		this.rightWing.yRot = (-0.6F - Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
-		this.leftWing.yRot = -this.rightWing.yRot;
+		this.body.xRot += (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount * runamount;
+		this.jaw.xRot += (0.15F - Mth.cos(limbSwing - 0.5F) * 0.15F) * limbSwingAmount * runamount;
+		this.rightWing.yRot += (-0.6F - Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
+		this.leftWing.yRot += (0.6F + Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
 
 		this.rightHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
 		this.leftHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;

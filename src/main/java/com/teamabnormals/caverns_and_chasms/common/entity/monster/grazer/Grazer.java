@@ -33,17 +33,18 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 // TODO: Make sure when you get to saddled grazers that they dont despawn on peaceful
 public class Grazer extends Monster {
-	private static final EntityDataAccessor<Integer> RUN_PHASE = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Float> BODY_LOWER_AMOUNT = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.FLOAT);
+	private static final EntityDimensions BOUNCING_DIMENSIONS = EntityDimensions.scalable(0.9F, 1.625F);
 
 	private static final TargetingConditions HIT_TARGETING = TargetingConditions.forCombat().selector(livingentity -> {
 		return !livingentity.getType().equals(CCEntityTypes.GRAZER) && livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
 	});
+
+	private static final EntityDataAccessor<Integer> RUN_PHASE = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> BODY_LOWER_AMOUNT = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.FLOAT);
 
 	private final GrazerPart[] parts = new GrazerPart[7];
 	private final Set<Entity> pushedThisTick = new HashSet<>();
@@ -137,8 +138,25 @@ public class Grazer extends Monster {
 	}
 
 	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+		if (RUN_PHASE.equals(key))
+			this.refreshDimensions();
+		super.onSyncedDataUpdated(key);
+	}
+
+	@Override
 	protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
 		return dimensions.height * 0.55F;
+	}
+
+	@Override
+	public EntityDimensions getDimensions(Pose pose) {
+		GrazerState state = this.getState();
+		if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING) {
+			return BOUNCING_DIMENSIONS.scale(this.getScale());
+		} else {
+			return super.getDimensions(pose);
+		}
 	}
 
 	@Override
@@ -159,7 +177,7 @@ public class Grazer extends Monster {
 
 	@Override
 	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-		return this.getState() == GrazerState.BOUNCING ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
+		return this.getState() == GrazerState.BOUNCING || this.getState() == GrazerState.LANDING ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
 	}
 
 	@Override
@@ -221,6 +239,12 @@ public class Grazer extends Monster {
 	@Override
 	public PartEntity<?>[] getParts() {
 		return this.parts;
+	}
+
+	@Override
+	public boolean isPushable() {
+		GrazerState state = this.getState();
+		return state != GrazerState.BOUNCING && state != GrazerState.LANDING && super.isPushable();
 	}
 
 	@Override
@@ -377,9 +401,44 @@ public class Grazer extends Monster {
 			}
 
 			if (this.getState() == GrazerState.RUNNING || this.getState() == GrazerState.BOUNCING || this.getState() == GrazerState.LANDING) {
-				List<LivingEntity> hitentities = this.level().getNearbyEntities(LivingEntity.class, HIT_TARGETING, this, this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
-				for (LivingEntity livingentity : hitentities)
-					livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+				LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
+				if (livingentity != null) {
+					if (livingentity instanceof Grazer other) {
+						GrazerState otherstate = other.getState();
+						double d0 = this.position().distanceTo(other.position()) - this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement()));
+
+						if (d0 > 0.0D) {
+							Vec3 deltapos = other.position().subtract(this.position());
+							Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
+
+							Vec3 collvector = deltapos.scale(motion.dot(deltapos) / deltapos.dot(deltapos));
+							Vec3 othercollvector = deltapos.scale(other.getDeltaMovement().dot(deltapos) / deltapos.dot(deltapos));
+
+							Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
+							Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
+
+							if (this.getState() == GrazerState.RUNNING) {
+								this.setState(GrazerState.BOUNCING);
+								this.bounceHeight = 0.8D;
+								this.bouncingBackwards = true;
+								newmotion.add(0.0D, this.bounceHeight, 0.0D);
+							}
+
+							if (otherstate != GrazerState.BOUNCING && otherstate != GrazerState.LANDING) {
+								other.setState(GrazerState.BOUNCING);
+								other.bounceHeight = this.bounceHeight;
+								othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
+							}
+
+							this.setDeltaMovement(newmotion);
+							other.setDeltaMovement(othernewmotion);
+
+							this.level().playSound(null, this.getX(), this.getY(), this.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
+						}
+					} else {
+						livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+					}
+				}
 			}
 		}
 
@@ -436,7 +495,7 @@ public class Grazer extends Monster {
 					this.setState(GrazerState.BOUNCING);
 					this.bounceHeight = 0.8D;
 					this.bouncingBackwards = true;
-					newmotion = newmotion.normalize().multiply(0.55D, 0.0D, 0.55D).add(0.0D, this.bounceHeight, 0.0D);
+					newmotion = newmotion.multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D).add(0.0D, this.bounceHeight, 0.0D);
 				} else {
 					if (oldmotion.x * newmotion.x + oldmotion.z * newmotion.z < 0.0D)
 						this.bouncingBackwards = !this.bouncingBackwards;
