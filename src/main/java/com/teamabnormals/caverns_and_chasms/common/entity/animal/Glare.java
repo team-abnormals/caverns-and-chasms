@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowLikedPlayerGoal;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GoToDarkSpotGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.glare.FollowLikedPlayerGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.glare.GoToDarkSpotGoal;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;

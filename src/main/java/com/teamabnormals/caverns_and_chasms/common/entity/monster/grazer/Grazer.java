@@ -1,7 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GrazerBounceGoal;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GrazerRunGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBeStupidGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -54,6 +55,7 @@ public class Grazer extends Monster {
 	private boolean bouncingBackwards;
 	private double bounceHeight;
 	private float bodyLowerAmountO;
+	private boolean beingStupid;
 
 	private float runAmount;
 	private float runAmountO;
@@ -63,6 +65,11 @@ public class Grazer extends Monster {
 	private float wiggleAmountO;
 	private float onBackAmount;
 	private float onBackAmountO;
+	private float beStupidAmount;
+	private float beStupidAmountO;
+
+	private int wingFlapAnim;
+	private int wingFlapAnimO;
 
 	public Grazer(EntityType<? extends Monster> type, Level level) {
 		super(type, level);
@@ -82,8 +89,9 @@ public class Grazer extends Monster {
 		this.goalSelector.addGoal(0, new GrazerBounceGoal(this));
 		this.goalSelector.addGoal(1, new FloatGoal(this));
 		this.goalSelector.addGoal(2, new GrazerRunGoal(this, entity -> entity instanceof Player, 8.0D));
-		this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(3, new GrazerBeStupidGoal(this));
+		this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 	}
 
 	@Override
@@ -301,6 +309,27 @@ public class Grazer extends Monster {
 		return Mth.lerp(partialTick, this.onBackAmountO, this.onBackAmount);
 	}
 
+	public float getBeStupidAmount(float partialTick) {
+		return Mth.lerp(partialTick, this.beStupidAmountO, this.beStupidAmount);
+	}
+
+	public float getWingFlapAnim(float partialTick) {
+		return Mth.lerp(partialTick, this.wingFlapAnimO, this.wingFlapAnim);
+	}
+
+	@Override
+	public void handleEntityEvent(byte id) {
+		if (id == 4) {
+			this.beingStupid = true;
+		} else if (id == 5) {
+			this.beingStupid = false;
+		} else if (id == 6) {
+			this.wingFlapAnim = 20;
+			this.wingFlapAnimO = this.wingFlapAnim;
+		}
+		super.handleEntityEvent(id);
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -337,6 +366,18 @@ public class Grazer extends Monster {
 			} else {
 				this.onBackAmount = Math.max(0.0F, this.onBackAmount - 0.1F);
 			}
+
+			this.beStupidAmountO = this.beStupidAmount;
+			if (this.beingStupid) {
+				this.beStupidAmount = Math.min(1.0F, this.beStupidAmount + 0.003F);
+			} else {
+				this.beStupidAmount = Math.max(0.0F, this.beStupidAmount - 0.2F);
+			}
+
+			this.wingFlapAnimO = this.wingFlapAnim;
+			if (this.wingFlapAnim > 0) {
+				this.wingFlapAnim--;
+			}
 		}
 
 		float bodyLowerAmount = this.getBodyLowerAmount();
@@ -371,6 +412,9 @@ public class Grazer extends Monster {
 			if (lerpstepsold > 0)
 				this.setXRot((xrotold + (float) Mth.wrapDegrees(this.lerpXRot - (double) xrotold) / (float) lerpstepsold) % 360.0F);
 		} else if (this.isAlive()) {
+			if (this.getState() == GrazerState.DEFAULT && this.random.nextInt(200) == 0)
+				this.level().broadcastEntityEvent(this, (byte) 6);
+
 			if (this.getState() == GrazerState.BOUNCING) {
 				Vec3 movement = this.getDeltaMovement();
 				this.setXRot(Mth.wrapDegrees(this.getXRot() - 15.0F));

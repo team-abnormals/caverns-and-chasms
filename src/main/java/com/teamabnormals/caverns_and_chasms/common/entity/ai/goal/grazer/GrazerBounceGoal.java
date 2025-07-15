@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
+package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerState;

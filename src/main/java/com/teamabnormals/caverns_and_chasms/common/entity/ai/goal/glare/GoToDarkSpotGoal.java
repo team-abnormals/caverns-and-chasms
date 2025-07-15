@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
+package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.glare;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
 import net.minecraft.core.BlockPos;

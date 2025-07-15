@@ -60,12 +60,16 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 	@Override
 	public void setupAnim(Grazer grazer, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float partialtick = ageInTicks - (float) grazer.tickCount;
+
 		float runamount = grazer.getRunAmount(partialtick);
 		float bounceamount = grazer.getBounceAmount(partialtick);
 		float wiggleamount = grazer.getWiggleAmount(partialtick);
 		float onbackamount = grazer.getOnBackAmount(partialtick);
+		float bestupidamount = grazer.getBeStupidAmount(partialtick);
 		float walkamount = 1.0F - Math.max(bounceamount, wiggleamount);
-		float noanimamount = 1.0F - Math.max(Math.max(runamount, bounceamount), wiggleamount);
+		float idleanimamount = 1.0F - Math.max(Math.max(runamount, bounceamount), wiggleamount);
+
+		float wingflapanim = grazer.getWingFlapAnim(partialtick);
 
 		this.body.xRot = 0.0F;
 		this.jaw.xRot = 0.0F;
@@ -76,16 +80,28 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 		this.rightFrontLeg.xRot = this.leftHindLeg.xRot;
 		this.leftFrontLeg.xRot = this.rightHindLeg.xRot;
 
+		// Wing flapping idle animation
+		this.rightWing.yRot += (-0.5F + Mth.cos(wingflapanim * Mth.PI * 0.2F) * 0.5F) * idleanimamount;
+		this.leftWing.yRot += (0.5F - Mth.cos(wingflapanim * Mth.PI * 0.2F) * 0.5F) * idleanimamount;
+
+		// Being stupid animation
+		float f = -bestupidamount * bestupidamount + 2.0F * bestupidamount;
+		this.body.xRot += -0.2F * f;
+		this.jaw.xRot += 0.6F * f;
+
+		// Running animation
 		this.body.xRot += (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount * runamount;
 		this.jaw.xRot += (0.15F - Mth.cos(limbSwing - 0.5F) * 0.15F) * limbSwingAmount * runamount;
 		this.rightWing.yRot += (-0.6F - Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
 		this.leftWing.yRot += (0.6F + Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
 
+		// Bouncing animation
 		this.rightHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
 		this.leftHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;
 		this.rightFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;
 		this.leftFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
 
+		// Wiggling animation
 		this.jaw.xRot += (0.15F - Mth.sin(ageInTicks * 0.6F - 0.5F) * 0.15F) * wiggleamount;
 		this.rightWing.yRot += (-0.6F - Mth.cos(ageInTicks) * 0.6F) * wiggleamount * (1.0F - onbackamount * 0.5F);
 		this.leftWing.yRot += (0.6F + Mth.cos(ageInTicks) * 0.6F) * wiggleamount * (1.0F - onbackamount * 0.5F);
@@ -94,6 +110,7 @@ public class GrazerModel extends HierarchicalModel<Grazer> {
 		this.rightFrontLeg.xRot += Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F * wiggleamount;
 		this.leftFrontLeg.xRot += Mth.cos(ageInTicks * 0.7F) * 0.5F * wiggleamount;
 
+		// Adjust wings when wiggling and stuck on back
 		this.rightWing.yRot += -Mth.HALF_PI * onbackamount;
 		this.leftWing.yRot += Mth.HALF_PI * onbackamount;
 	}
