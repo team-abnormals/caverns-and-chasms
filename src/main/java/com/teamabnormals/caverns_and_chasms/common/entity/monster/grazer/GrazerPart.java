@@ -84,8 +84,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 
 	@Override
 	public void push(double x, double y, double z) {
-		Grazer grazer = this.getParent();
-		grazer.push(x, y, z);
+		this.getParent().push(x, y, z);
 	}
 
 	private Vec3 calculatePosition(double x, double y, double z, float xRot, float yRot) {

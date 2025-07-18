@@ -412,8 +412,10 @@ public class Grazer extends Monster {
 			if (lerpstepsold > 0)
 				this.setXRot((xrotold + (float) Mth.wrapDegrees(this.lerpXRot - (double) xrotold) / (float) lerpstepsold) % 360.0F);
 		} else if (this.isAlive()) {
-			if (this.getState() == GrazerState.DEFAULT && this.random.nextInt(200) == 0)
+			if (this.getState() == GrazerState.DEFAULT && this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
+				this.wingFlapAnim = 20;
 				this.level().broadcastEntityEvent(this, (byte) 6);
+			}
 
 			if (this.getState() == GrazerState.BOUNCING) {
 				Vec3 movement = this.getDeltaMovement();

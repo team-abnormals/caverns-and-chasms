@@ -17,7 +17,7 @@ public class GrazerBeStupidGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return this.grazer.getState() == GrazerState.DEFAULT && this.grazer.getNavigation().isDone() && this.grazer.getRandom().nextInt(300) == 0;
+		return this.grazer.getState() == GrazerState.DEFAULT && this.grazer.getNavigation().isDone() && this.grazer.getRandom().nextInt(500) == 0;
 	}
 
 	@Override
