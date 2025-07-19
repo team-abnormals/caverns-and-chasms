@@ -23,7 +23,7 @@ public class AtoningLetterParticle extends TextureSheetParticle {
 		this.bCol = 0.72F;
 		this.rot = rotation;
 		this.lifetime = 150;
-		this.quadSize = 0.15F;
+		this.quadSize = 0.17F;
 	}
 
 	public void tick() {

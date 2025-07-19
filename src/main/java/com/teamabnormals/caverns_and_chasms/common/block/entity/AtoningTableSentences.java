@@ -7,10 +7,10 @@ public class AtoningTableSentences {
 	public static final String[] LETTERS = {
 			"a", "e", "i", "o", "u", "ee", "oo", "ea", "oa",
 			"ay", "ey", "oy", "uy", "aw", "ew", "iw", "ow", "ae", "ie", "oe", "ue", "ao", "eo", "io", "uo",
-			"ts", "tts", "dz", "ddz", "ch", "cch", "j", "jj", "f", "ff", "h", "hh", "k", "kk", "g", "gg",
+			"th", "tth", "dz", "ddz", "ch", "cch", "j", "jj", "f", "ff", "h", "hh", "k", "kk", "g", "gg",
 			"kh", "kkh", "gh", "ggh", "l", "ll", "m", "mm", "n", "nn", "ng", "nng", "p", "pp", "b", "bb",
-			"r", "rr", "s", "ss", "z", "zz", "sh", "ssh", "zh", "zzh", "t", "tt", "d", "dd", "th", "tth",
-			"dh", "ddh", "v", "vv", "big_v", "wh", "wwh", "w", "ww", "y", "yy", "'", "''"
+			"r", "rr", "s", "ss", "z", "zz", "sh", "ssh", "zh", "zzh", "t", "tt", "d", "dd", "v", "vv",
+			"big_v", "wh", "wwh", "w", "ww", "y", "yy", "q", "qq"
 	};
 
 	public static final int[][] SENTENCES = {
