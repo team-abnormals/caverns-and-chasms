@@ -39,7 +39,7 @@ public class GrazerBounceGoal extends Goal {
 
 	@Override
 	public void tick() {
-		if (this.grazer.getState() == GrazerState.WIGGLING && ++this.wiggleTime >= 80) {
+		if (this.grazer.getState() == GrazerState.WIGGLING && ++this.wiggleTime >= this.adjustedTickDelay(80)) {
 			this.grazer.setState(GrazerState.FLIPPING_OVER);
 			if (this.grazer.onGround())
 				this.grazer.getJumpControl().jump();

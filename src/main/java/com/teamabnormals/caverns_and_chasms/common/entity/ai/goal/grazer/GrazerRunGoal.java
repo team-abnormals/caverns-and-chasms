@@ -34,13 +34,13 @@ public class GrazerRunGoal extends Goal {
 			return false;
 		}
 
-		LivingEntity target = this.grazer.getLastHurtByMob();
-		if (target == null)
-			target = findNearestScaryEntity();
+		LivingEntity attacker = this.grazer.getLastHurtByMob();
+		if (attacker == null && !this.grazer.hasSaddle())
+			attacker = findNearestScaryEntity();
 
-		if (target != null || this.grazer.isFreezing() || this.grazer.isOnFire()) {
-			if (target != null)
-				this.grazer.setTarget(target);
+		if (attacker != null || this.grazer.isFreezing() || this.grazer.isOnFire()) {
+			if (attacker != null && !this.grazer.hasSaddle())
+				this.grazer.setTarget(attacker);
 			this.grazer.setState(GrazerState.RUNNING_STILL);
 			this.runStillTime = 10;
 			return true;
@@ -65,8 +65,10 @@ public class GrazerRunGoal extends Goal {
 
 	@Override
 	public void stop() {
-		if (this.grazer.getState() == GrazerState.RUNNING)
+		if (this.grazer.getState() == GrazerState.RUNNING) {
 			this.grazer.setState(GrazerState.DEFAULT);
+			this.grazer.setTarget(null);
+		}
 	}
 
 	@Override

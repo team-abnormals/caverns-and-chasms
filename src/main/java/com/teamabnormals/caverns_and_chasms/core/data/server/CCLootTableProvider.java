@@ -432,6 +432,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropPottedContents(POTTED_GRAINY_CAVE_GROWTHS.get());
 			this.dropPottedContents(POTTED_WEIRD_CAVE_GROWTHS.get());
 			this.dropPottedContents(POTTED_ZESTY_CAVE_GROWTHS.get());
+
+			this.dropSelf(SADDLED_EGG.get());
 		}
 
 		public void blockFamily(BlockFamily family) {

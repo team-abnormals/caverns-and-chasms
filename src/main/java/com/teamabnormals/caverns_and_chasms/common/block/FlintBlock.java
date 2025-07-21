@@ -63,7 +63,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float p_152430_) {
-		if (entity instanceof FallingBlockEntity fallingBlock) {
+		if (entity instanceof FallingBlockEntity) {
 			spark(level, pos, false);
 		}
 		super.fallOn(level, state, pos, entity, p_152430_);

@@ -241,6 +241,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.caveGrowthsBlock(GRAINY_CAVE_GROWTHS, POTTED_GRAINY_CAVE_GROWTHS);
 		this.caveGrowthsBlock(WEIRD_CAVE_GROWTHS, POTTED_WEIRD_CAVE_GROWTHS);
 		this.caveGrowthsBlock(ZESTY_CAVE_GROWTHS, POTTED_ZESTY_CAVE_GROWTHS);
+
+		this.saddledEggBlock(SADDLED_EGG);
 	}
 
 	public void caveGrowthsBlock(RegistryObject<Block> caveGrowths, RegistryObject<Block> flowerPot) {
@@ -738,6 +740,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 			}
 		}
 
+		this.generatedItem(block, "item");
+	}
+
+	public void saddledEggBlock(RegistryObject<Block> registryObject) {
+		Block block = registryObject.get();
+		this.horizontalBlock(block, new ModelFile.UncheckedModelFile(CavernsAndChasms.location("block/saddled_egg")));
 		this.generatedItem(block, "item");
 	}
 

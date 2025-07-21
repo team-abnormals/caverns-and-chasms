@@ -14,7 +14,6 @@ import com.teamabnormals.blueprint.core.util.PropertyUtil;
 import com.teamabnormals.blueprint.core.util.PropertyUtil.WoodSetProperties;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
-import com.teamabnormals.caverns_and_chasms.common.block.DeeperWallSkullBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystSlabBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystStairBlock;
@@ -484,6 +483,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TIN_INGOT = HELPER.createPlacedItem("tin_ingot", () -> new IngotBlock(CCItems.TIN_INGOT, BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
 	public static final RegistryObject<Block> NECROMIUM_INGOT = HELPER.createPlacedItem("necromium_ingot", () -> new IngotBlock(CCItems.NECROMIUM_INGOT, BlockBehaviour.Properties.copy(NECROMIUM_BLOCK.get())));
 
+	public static final RegistryObject<Block> SADDLED_EGG = HELPER.createBlock("saddled_egg", () -> new SaddledEggBlock(CCProperties.SADDLED_EGG));
+
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
 				.tab(BUILDING_BLOCKS)
@@ -561,6 +562,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.DEAD_BUSH), CAVE_GROWTHS, LURID_CAVE_GROWTHS, WISPY_CAVE_GROWTHS, WEIRD_CAVE_GROWTHS, GRAINY_CAVE_GROWTHS, ZESTY_CAVE_GROWTHS)
 				.addItemsBefore(of(Blocks.TORCHFLOWER), MOSCHATEL, FALSE_HOPE)
 				.addItemsBefore(of(Blocks.PRISMARINE), SUGILITE, CASSITERITE, RHYOLITE, MAGMATIC_RHYOLITE)
+				.addItemsAfter(of(Blocks.SNIFFER_EGG), SADDLED_EGG)
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
@@ -699,6 +701,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties NECROMIUM_BLOCK = BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).sound(CCSoundTypes.NECROMIUM).mapColor(MapColor.TERRACOTTA_GREEN);
 
 		public static final BlockBehaviour.Properties FALSE_HOPE = PropertyUtil.flower().sound(CCSoundTypes.FALSE_HOPE).lightLevel((state) -> 15);
+
+		public static final BlockBehaviour.Properties SADDLED_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
 
 		public static final Item.Properties FANCY = new Item.Properties().rarity(CCItems.FANCY);
 

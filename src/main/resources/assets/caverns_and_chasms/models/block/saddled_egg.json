@@ -1,0 +1,48 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"egg": "caverns_and_chasms:block/saddled_egg_block",
+		"particle": "caverns_and_chasms:block/saddled_egg_block"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 5],
+			"to": [11, 8, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 0, 9]},
+			"faces": {
+				"north": {"uv": [3, 3, 6, 7], "texture": "#egg"},
+				"east": {"uv": [6, 3, 9, 7], "texture": "#egg"},
+				"south": {"uv": [9, 3, 12, 7], "texture": "#egg"},
+				"west": {"uv": [0, 3, 3, 7], "texture": "#egg"},
+				"up": {"uv": [3, 0, 6, 3], "texture": "#egg"},
+				"down": {"uv": [3, 0, 6, 3], "texture": "#egg"}
+			}
+		},
+		{
+			"from": [11, 1, 8],
+			"to": [15, 7, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 0, 9]},
+			"faces": {
+				"north": {"uv": [6.5, 7, 8.5, 10], "texture": "#egg"},
+				"east": {"uv": [6.5, 7, 8.5, 10], "texture": "#egg"},
+				"south": {"uv": [8.5, 7, 6.5, 10], "texture": "#egg"},
+				"west": {"uv": [6.5, 7, 8.5, 10], "texture": "#egg"},
+				"up": {"uv": [6.5, 7, 8.5, 10], "texture": "#egg"},
+				"down": {"uv": [6.5, 7, 8.5, 10], "texture": "#egg"}
+			}
+		},
+		{
+			"from": [1, 1, 8],
+			"to": [5, 7, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 9]},
+			"faces": {
+				"north": {"uv": [0.5, 7, 2.5, 10], "texture": "#egg"},
+				"east": {"uv": [0.5, 7, 2.5, 10], "texture": "#egg"},
+				"south": {"uv": [2.5, 7, 0.5, 10], "texture": "#egg"},
+				"west": {"uv": [0.5, 7, 2.5, 10], "texture": "#egg"},
+				"up": {"uv": [0.5, 7, 2.5, 10], "texture": "#egg"},
+				"down": {"uv": [0.5, 7, 2.5, 10], "texture": "#egg"}
+			}
+		}
+	]
+}

@@ -12,7 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class GrazerRenderer extends MobRenderer<Grazer, GrazerModel> {
-	public static final ResourceLocation GRAZER = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/grazer.png");
+	public static final ResourceLocation LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/grazer.png");
+	public static final ResourceLocation SADDLED_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/saddled_grazer.png");
+	public static final ResourceLocation BABY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/baby_grazer.png");
 
 	public GrazerRenderer(EntityRendererProvider.Context context) {
 		super(context, new GrazerModel(context.bakeLayer(CCModelLayers.GRAZER)), 0.5F);
@@ -22,12 +24,21 @@ public class GrazerRenderer extends MobRenderer<Grazer, GrazerModel> {
 	protected void setupRotations(Grazer grazer, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
 		super.setupRotations(grazer, poseStack, ageInTicks, rotationYaw, partialTick);
 		float rot = -Mth.rotLerp(partialTick, grazer.xRotO, grazer.getXRot()) + Mth.sin(ageInTicks * 0.6F) * 3.5F * grazer.getWiggleAmount(partialTick);
-		poseStack.translate(0.0D, grazer.shellCenterY(partialTick) - 21D / 16D, -grazer.shellCenterZ(partialTick) + 7D / 16D);
-		poseStack.rotateAround(Axis.XP.rotationDegrees(rot), 0.0F, 21F / 16F, -7F / 16F);
+		double ycenter = 21D / 16D * grazer.getScale();
+		double zcenter = 7D / 16D * grazer.getScale();
+		poseStack.translate(0.0D, grazer.shellCenterY(partialTick) - ycenter, -grazer.shellCenterZ(partialTick) + zcenter);
+		poseStack.rotateAround(Axis.XP.rotationDegrees(rot), 0.0F, (float) ycenter, (float) -zcenter);
 	}
 
 	@Override
 	public ResourceLocation getTextureLocation(Grazer grazer) {
-		return GRAZER;
+		if (grazer.hasSaddle()) {
+			if (grazer.isBaby())
+				return BABY_LOCATION;
+			else
+				return SADDLED_LOCATION;
+		} else {
+			return LOCATION;
+		}
 	}
 }

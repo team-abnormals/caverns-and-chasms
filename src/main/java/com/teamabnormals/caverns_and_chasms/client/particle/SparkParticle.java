@@ -71,19 +71,13 @@ public class SparkParticle extends SimpleAnimatedParticle {
 		Vec3 towardscamera = new Vec3(-x, -y, -z);
 		Vec3 side = towardscamera.subtract(forward.scale(towardscamera.dot(forward) / forward.dot(forward))).normalize().cross(forward);
 
-		Vector3f[] avector3f = new Vector3f[]{
-				side.reverse().subtract(forward).toVector3f(),
-				side.reverse().add(forward).toVector3f(),
-				side.add(forward).toVector3f(),
-				side.subtract(forward).toVector3f()
-		};
-
 		float f3 = this.getQuadSize(partialTicks);
-		for (int i = 0; i < 4; ++i) {
-			Vector3f vertex = avector3f[i];
-			vertex.mul(f3);
-			vertex.add(x, y, z);
-		}
+		Vector3f[] avector3f = new Vector3f[]{
+				side.reverse().subtract(forward).toVector3f().mul(f3).add(x, y, z),
+				side.reverse().add(forward).toVector3f().mul(f3).add(x, y, z),
+				side.add(forward).toVector3f().mul(f3).add(x, y, z),
+				side.subtract(forward).toVector3f().mul(f3).add(x, y, z)
+		};
 
 		float f6 = this.getU0();
 		float f7 = this.getU1();

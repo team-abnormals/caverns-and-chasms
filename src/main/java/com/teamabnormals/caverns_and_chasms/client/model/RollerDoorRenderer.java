@@ -88,14 +88,10 @@ public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements Bloc
 				ModelPart slat = this.slats[i];
 				Material material = bottom ? ROLLER_DOOR_BOTTOM_MATERIAL : ROLLER_DOOR_MATERIAL;
 				slat.y = 4.0F + (i + 1) * 4.0F - openness * 16.0F;
-				if (slat.y < 8.0F) {
-					if (bottom) {
-						continue;
-					} else {
-						slat.y += 16.0F;
-						if (rollerDoor.hasBottomBelow() && slat.y >= 12.0F)
-							material = ROLLER_DOOR_BOTTOM_MATERIAL;
-					}
+				if (slat.y < 8.0F && !bottom) {
+					slat.y += 16.0F;
+					if (rollerDoor.hasBottomBelow() && slat.y >= 12.0F)
+						material = ROLLER_DOOR_BOTTOM_MATERIAL;
 				}
 				slat.render(poseStack, material.buffer(buffer, RenderType::entitySolid), combinedLight, combinedOverlay);
 			}

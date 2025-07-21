@@ -112,6 +112,8 @@ public class CCClientCompat {
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS_PANE.get(), RenderType.translucent());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SADDLED_EGG.get(), RenderType.cutout());
 	}
 
 	public static void registerItemProperties() {
