@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerR
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -42,6 +43,7 @@ import java.util.Set;
 // TODO: Probably change to an Animal
 public class Grazer extends Monster {
 	private static final EntityDimensions BOUNCING_DIMENSIONS = EntityDimensions.scalable(0.9F, 1.625F);
+	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(1.8F, 1.98F);
 
 	private static final TargetingConditions HIT_TARGETING = TargetingConditions.forCombat().selector(livingentity -> {
 		return !livingentity.getType().equals(CCEntityTypes.GRAZER) && livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
@@ -89,7 +91,7 @@ public class Grazer extends Monster {
 		this.parts[0] = new GrazerShellPart(this, 12F, 7D, 7D);
 		this.parts[1] = new GrazerShellPart(this, 12F, 0D, 7D);
 		this.parts[2] = new GrazerShellPart(this, 12F, -7D, 7D);
-		this.parts[3] = new GrazerHeadPart(this, 15F, 22F, 6D, -5.5D, 10D, -11D);
+		this.parts[3] = new GrazerHeadPart(this, 15F, 22F, 6D, -5.5D, 10D, -10D);
 		this.parts[4] = new GrazerShellPart(this, 12F, -7D, 0D);
 		this.parts[5] = new GrazerShellPart(this, 12F, -7D, -7D);
 		this.parts[6] = new GrazerPart(this, 12F, -7D, -15D);
@@ -226,11 +228,15 @@ public class Grazer extends Monster {
 
 	@Override
 	public EntityDimensions getDimensions(Pose pose) {
-		GrazerState state = this.getState();
-		if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING) {
-			return BOUNCING_DIMENSIONS.scale(this.getScale());
+		if (this.isBaby()) {
+			return BABY_DIMENSIONS.scale(this.getScale());
 		} else {
-			return super.getDimensions(pose);
+			GrazerState state = this.getState();
+			if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING) {
+				return BOUNCING_DIMENSIONS.scale(this.getScale());
+			} else {
+				return super.getDimensions(pose);
+			}
 		}
 	}
 
@@ -304,7 +310,10 @@ public class Grazer extends Monster {
 	}
 
 	public double shellCenterZ(float partialTick) {
-		return 7D / 16D * (1.0F - this.getBodyLowerAmount(partialTick)) * this.getScale();
+		if (this.isBaby())
+			return 0D;
+		else
+			return 7D / 16D * (1.0F - this.getBodyLowerAmount(partialTick)) * this.getScale();
 	}
 
 	public double shellCenterY(float partialTick) {
@@ -523,6 +532,11 @@ public class Grazer extends Monster {
 				if (this.forcedAgeTimer % 4 == 0)
 					this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
 				--this.forcedAgeTimer;
+			}
+
+			if (this.isBaby() && this.tickCount % 100 == 0) {
+				float rot = this.getYRot() * Mth.DEG_TO_RAD;
+				this.level().addParticle(CCParticleTypes.BABY_GRAZER_DROOL.get(), this.getX() + 0.45D * Math.sin(-rot), this.getY() + 0.01D, this.getZ() + 0.45D * Math.cos(-rot), this.random.nextInt(4) * Mth.HALF_PI, 0.0D, 0.0D);
 			}
 		} else if (this.isAlive()) {
 			// Aging
