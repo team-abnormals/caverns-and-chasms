@@ -88,13 +88,13 @@ public class Grazer extends Monster {
 		super(type, level);
 		this.lookControl = new GrazerLookControl();
 		this.moveControl = new GrazerMoveControl();
-		this.parts[0] = new GrazerShellPart(this, 12F, 7D, 7D);
-		this.parts[1] = new GrazerShellPart(this, 12F, 0D, 7D);
-		this.parts[2] = new GrazerShellPart(this, 12F, -7D, 7D);
+		this.parts[0] = new GrazerPart(this, 12F, 7D, 7D);
+		this.parts[1] = new GrazerPart(this, 12F, 0D, 7D);
+		this.parts[2] = new GrazerPart(this, 12F, -7D, 7D);
 		this.parts[3] = new GrazerHeadPart(this, 15F, 22F, 6D, -5.5D, 10D, -10D);
-		this.parts[4] = new GrazerShellPart(this, 12F, -7D, 0D);
-		this.parts[5] = new GrazerShellPart(this, 12F, -7D, -7D);
-		this.parts[6] = new GrazerPart(this, 12F, -7D, -15D);
+		this.parts[4] = new GrazerPart(this, 12F, -7D, 0D);
+		this.parts[5] = new GrazerPart(this, 12F, -7D, -7D);
+		this.parts[6] = new GrazerLegsPart(this, 12F, -7D, -15D, -9D);
 	}
 
 	@Override
@@ -195,12 +195,16 @@ public class Grazer extends Monster {
 	public void setState(GrazerState state) {
 		this.entityData.set(RUN_PHASE, state.getId());
 		this.setSprinting(state == GrazerState.RUNNING);
-		this.setDiscardFriction(state == GrazerState.BOUNCING || state == GrazerState.LANDING);
+		this.setDiscardFriction(this.isBouncingState(state));
+	}
+
+	public boolean isBouncingState(GrazerState state) {
+		return state == GrazerState.BOUNCING || state == GrazerState.LANDING;
 	}
 
 	public boolean canMove() {
 		GrazerState state = this.getState();
-		return !this.isBaby() && state != GrazerState.BOUNCING && state != GrazerState.LANDING && state != GrazerState.WIGGLING && state != GrazerState.FLIPPING_OVER;
+		return !this.isBaby() && !this.isBouncingState(state) && state != GrazerState.WIGGLING && state != GrazerState.FLIPPING_OVER;
 	}
 
 	public float getBodyLowerAmount() {
@@ -232,7 +236,7 @@ public class Grazer extends Monster {
 			return BABY_DIMENSIONS.scale(this.getScale());
 		} else {
 			GrazerState state = this.getState();
-			if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING) {
+			if (this.isBouncingState(state) || state == GrazerState.WIGGLING) {
 				return BOUNCING_DIMENSIONS.scale(this.getScale());
 			} else {
 				return super.getDimensions(pose);
@@ -258,7 +262,7 @@ public class Grazer extends Monster {
 
 	@Override
 	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-		return this.getState() == GrazerState.BOUNCING || this.getState() == GrazerState.LANDING ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
+		return this.isBouncingState(this.getState()) ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
 	}
 
 	@Override
@@ -362,8 +366,7 @@ public class Grazer extends Monster {
 
 	@Override
 	public boolean isPushable() {
-		GrazerState state = this.getState();
-		return state != GrazerState.BOUNCING && state != GrazerState.LANDING && super.isPushable();
+		return !this.isBouncingState(this.getState()) && super.isPushable();
 	}
 
 	@Override
@@ -456,54 +459,47 @@ public class Grazer extends Monster {
 
 		if (this.level().isClientSide) {
 			this.runAmountO = this.runAmount;
-			if (state == GrazerState.RUNNING_STILL || state == GrazerState.RUNNING) {
+			if (state == GrazerState.RUNNING_STILL || state == GrazerState.RUNNING)
 				this.runAmount = Math.min(1.0F, this.runAmount + 0.2F);
-			} else {
+			else
 				this.runAmount = Math.max(0.0F, this.runAmount - 0.2F);
-			}
 
 			this.bounceAmountO = this.bounceAmount;
-			if (state == GrazerState.BOUNCING) {
-				this.bounceAmount = Math.min(1.0F, this.bounceAmount + 0.1F);
-			} else {
-				this.bounceAmount = Math.max(0.0F, this.bounceAmount - 0.1F);
-			}
+			if (this.isBouncingState(state))
+				this.bounceAmount = Math.min(1.0F, this.bounceAmount + 0.2F);
+			else
+				this.bounceAmount = Math.max(0.0F, this.bounceAmount - 0.2F);
 
 			this.wiggleAmountO = this.wiggleAmount;
-			if (state == GrazerState.WIGGLING || state == GrazerState.FLIPPING_OVER) {
+			if (state == GrazerState.WIGGLING || state == GrazerState.FLIPPING_OVER)
 				this.wiggleAmount = Math.min(1.0F, this.wiggleAmount + 0.1F);
-			} else {
+			else
 				this.wiggleAmount = Math.max(0.0F, this.wiggleAmount - 0.1F);
-			}
 
 			this.onBackAmountO = this.onBackAmount;
-			if (state == GrazerState.WIGGLING && this.getXRot() == -90.0F) {
+			if (state == GrazerState.WIGGLING && this.getXRot() == -90.0F)
 				this.onBackAmount = Math.min(1.0F, this.onBackAmount + 0.1F);
-			} else {
+			else
 				this.onBackAmount = Math.max(0.0F, this.onBackAmount - 0.1F);
-			}
 
 			this.beStupidAmountO = this.beStupidAmount;
-			if (this.beingStupid) {
+			if (this.beingStupid)
 				this.beStupidAmount = Math.min(1.0F, this.beStupidAmount + 0.003F);
-			} else {
+			else
 				this.beStupidAmount = Math.max(0.0F, this.beStupidAmount - 0.2F);
-			}
 
 			this.wingFlapAnimO = this.wingFlapAnim;
-			if (this.wingFlapAnim > 0) {
-				this.wingFlapAnim--;
-			}
+			this.bodyLowerAmountO = this.getBodyLowerAmount();
+		} else {
+			float bodyLowerAmount = this.getBodyLowerAmount();
+			if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING)
+				this.setBodyLowerAmount(Math.min(1.0F, bodyLowerAmount + 0.1F));
+			else
+				this.setBodyLowerAmount(Math.max(0.0F, bodyLowerAmount - 0.1F));
 		}
 
-		float bodyLowerAmount = this.getBodyLowerAmount();
-		if (this.level().isClientSide)
-			this.bodyLowerAmountO = bodyLowerAmount;
-		if (state == GrazerState.BOUNCING || state == GrazerState.LANDING || state == GrazerState.WIGGLING) {
-			this.setBodyLowerAmount(Math.min(1.0F, bodyLowerAmount + 0.1F));
-		} else {
-			this.setBodyLowerAmount(Math.max(0.0F, bodyLowerAmount - 0.1F));
-		}
+		if (this.wingFlapAnim > 0)
+			this.wingFlapAnim--;
 
 		double d0 = this.shellRadius();
 		Vec3 vec3 = new Vec3(0.0D, this.shellCenterY(1.0F), this.shellCenterZ(1.0F)).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
@@ -588,7 +584,7 @@ public class Grazer extends Monster {
 			}
 
 			// Colliding with entities while running or bouncing
-			if (this.getState() == GrazerState.RUNNING || this.getState() == GrazerState.BOUNCING || this.getState() == GrazerState.LANDING) {
+			if (this.getState() == GrazerState.RUNNING || this.isBouncingState(this.getState())) {
 				LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
 				if (livingentity != null) {
 					if (livingentity instanceof Grazer other) {
@@ -613,7 +609,7 @@ public class Grazer extends Monster {
 									newmotion.add(0.0D, this.bounceHeight, 0.0D);
 								}
 
-								if (otherstate != GrazerState.BOUNCING && otherstate != GrazerState.LANDING) {
+								if (!this.isBouncingState(otherstate)) {
 									other.setState(GrazerState.BOUNCING);
 									other.bounceHeight = this.bounceHeight;
 									othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
@@ -657,7 +653,7 @@ public class Grazer extends Monster {
 				ricocheted = true;
 				horizontal = true;
 			}
-			if (this.getState() == GrazerState.BOUNCING || this.getState() == GrazerState.LANDING) {
+			if (this.isBouncingState(this.getState())) {
 				double d0 = yold + movement.y;
 				if (d0 > this.getY()) {
 					newmotion = new Vec3(oldmotion.x, -oldmotion.y, oldmotion.z);
@@ -725,7 +721,7 @@ public class Grazer extends Monster {
 			if (Grazer.this.canMove()) {
 				if (this.lookAtCooldown > 0) {
 					--this.lookAtCooldown;
-					if (Grazer.this.getState() != GrazerState.BOUNCING) {
+					if (!Grazer.this.isBouncingState(Grazer.this.getState())) {
 						this.getYRotD().ifPresent((rot) -> {
 							Grazer.this.setYRot(this.rotateTowards(Grazer.this.getYRot(), rot, this.yMaxRotSpeed));
 						});

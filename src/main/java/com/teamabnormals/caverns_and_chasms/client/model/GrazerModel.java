@@ -85,6 +85,10 @@ public class GrazerModel extends AgeableListModel<Grazer> {
 			this.jaw.xRot = 0.0F;
 			this.rightWing.yRot = 0.0F;
 			this.leftWing.yRot = 0.0F;
+			this.rightHindLeg.y = 15.0F;
+			this.leftHindLeg.y = 15.0F;
+			this.rightFrontLeg.y = 15.0F;
+			this.leftFrontLeg.y = 15.0F;
 			this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * walkamount;
 			this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount * walkamount;
 			this.rightFrontLeg.xRot = this.leftHindLeg.xRot;
@@ -106,10 +110,12 @@ public class GrazerModel extends AgeableListModel<Grazer> {
 			this.leftWing.yRot += (0.6F + Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
 
 			// Bouncing animation
-			this.rightHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
-			this.leftHindLeg.xRot += (1.2F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;
-			this.rightFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F + Mth.PI) * 0.3F) * bounceamount;
-			this.leftFrontLeg.xRot += (1.0F + Mth.cos(ageInTicks * 0.5F) * 0.3F) * bounceamount;
+			this.rightWing.yRot += (-0.8F - Mth.cos(ageInTicks* 0.4F) * 0.6F) * bounceamount;
+			this.leftWing.yRot += (0.8F + Mth.cos(ageInTicks* 0.4F) * 0.6F) * bounceamount;
+			this.rightHindLeg.y += -6.0F * bounceamount;
+			this.leftHindLeg.y += -6.0F * bounceamount;
+			this.rightFrontLeg.y += -6.0F * bounceamount;
+			this.leftFrontLeg.y += -6.0F * bounceamount;
 
 			// Wiggling animation
 			this.jaw.xRot += (0.15F - Mth.sin(ageInTicks * 0.6F - 0.5F) * 0.15F) * wiggleamount;

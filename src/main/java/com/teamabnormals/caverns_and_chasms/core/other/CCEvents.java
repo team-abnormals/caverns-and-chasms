@@ -14,7 +14,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerShellPart;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
@@ -645,12 +645,12 @@ public class CCEvents {
 			}
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
-			if (entityHitResult.getEntity() instanceof GrazerShellPart grazerShellPart) {
-				Grazer grazer = grazerShellPart.getParent();
+			if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsDamage()) {
+				Grazer grazer = grazerpart.getParent();
 
 				if (!grazer.projectileJustDeflected(projectile)) {
-					AABB aabb = grazerShellPart.getBoundingBox().inflate(0.3D);
-					Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerShellPart.getX(), grazerShellPart.getY(0.5D), grazerShellPart.getZ()))).orElse(projectile.position());
+					AABB aabb = grazerpart.getBoundingBox().inflate(0.3D);
+					Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerpart.getX(), grazerpart.getY(0.5D), grazerpart.getZ()))).orElse(projectile.position());
 					Vec3 normal = grazer.calculateDeflectionNormal(location);
 					Vec3 reflect = movement.subtract(normal.scale(movement.dot(normal) * 2.0D));
 

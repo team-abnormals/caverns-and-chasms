@@ -22,7 +22,8 @@ public class GrazerBounceGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return this.grazer.getState() == GrazerState.BOUNCING || this.grazer.getState() == GrazerState.LANDING || this.grazer.getState() == GrazerState.WIGGLING || this.grazer.getState() == GrazerState.FLIPPING_OVER;
+		GrazerState state = this.grazer.getState();
+		return this.grazer.isBouncingState(state) || state == GrazerState.WIGGLING || state == GrazerState.FLIPPING_OVER;
 	}
 
 	@Override

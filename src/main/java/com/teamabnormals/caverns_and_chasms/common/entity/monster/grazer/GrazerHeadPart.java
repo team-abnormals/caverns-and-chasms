@@ -26,6 +26,10 @@ public class GrazerHeadPart extends GrazerPart {
 		return this.getParent().isBaby() ? this.zOffsetBaby : this.zOffset;
 	}
 
+	public boolean deflectsDamage() {
+		return false;
+	}
+
 	@Override
 	public EntityDimensions getDimensions(Pose pose) {
 		EntityDimensions dimensions = this.getParent().isBaby() ? this.babyDimensions : this.dimensions;
