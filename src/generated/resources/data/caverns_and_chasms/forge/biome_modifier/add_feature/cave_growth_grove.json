@@ -1,7 +1,0 @@
-{
-  "type": "caverns_and_chasms:add_features_blacklisted",
-  "biomes": "#minecraft:is_overworld",
-  "blacklisted_biomes": "#forge:is_cave",
-  "features": "caverns_and_chasms:cave_growth_grove",
-  "step": "vegetal_decoration"
-}

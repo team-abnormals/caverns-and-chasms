@@ -56,7 +56,7 @@ public class CCBiomeModifiers {
 		addFeature(context, "fragile_stone", CCBiomeTags.HAS_FRAGILE_STONE, Decoration.UNDERGROUND_ORES, CCPlacedFeatures.ORE_FRAGILE_STONE, CCPlacedFeatures.ORE_FRAGILE_STONE_BURIED);
 
 		addFeature(context, "cave_growths", BiomeTags.IS_OVERWORLD, Decoration.VEGETAL_DECORATION, CCPlacedFeatures.PATCH_CAVE_GROWTHS, CCPlacedFeatures.PATCH_CAVE_GROWTHS_DEEP);
-		addFeatureBlacklisted(context, "cave_growth_grove", Biomes.IS_CAVE, BiomeTags.IS_OVERWORLD, Decoration.VEGETAL_DECORATION, CCPlacedFeatures.CAVE_GROWTH_GROVE);
+		// addFeatureBlacklisted(context, "cave_growth_grove", Biomes.IS_CAVE, BiomeTags.IS_OVERWORLD, Decoration.VEGETAL_DECORATION, CCPlacedFeatures.CAVE_GROWTH_GROVE);
 
 		// addFeature(context, "false_hope", BiomeTags.IS_OVERWORLD, Decoration.VEGETAL_DECORATION, CCPlacedFeatures.FALSE_HOPE);
 
