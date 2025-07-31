@@ -145,10 +145,13 @@ public class FlintBlock extends BlueprintFallingBlock {
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (level.random.nextFloat() < 0.4) {
-			double d0 = pos.getX() + random.nextDouble();
-			double d1 = pos.getY() + 0.7;
-			double d2 = pos.getZ() + random.nextDouble();
-			level.addParticle(CCParticleTypes.FLINT.get(), d0, d1, d2, 0.0, 0.0, 0.0);
+			BlockPos blockpos = pos.below();
+			if (isFree(level.getBlockState(blockpos))) {
+				double d0 = pos.getX() + random.nextDouble();
+				double d1 = pos.getY() + 0.7;
+				double d2 = pos.getZ() + random.nextDouble();
+				level.addParticle(CCParticleTypes.FLINT.get(), d0, d1, d2, 0.0, 0.0, 0.0);
+			}
 		}
 	}
 }
