@@ -11,7 +11,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningFo
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerPart;
@@ -133,18 +132,10 @@ public class CCEvents {
 			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
 				Creeper creeper = (Creeper) entity;
 				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
-					if (event.getY() < CCConfig.COMMON.peeperMaxSpawnHeight.get() && entity.getRandom().nextFloat() < 0.7F) {
-						Peeper peeper = CCEntityTypes.PEEPER.get().create((Level) world);
-						if (peeper != null) {
-							peeper.copyPosition(creeper);
-							world.addFreshEntity(peeper);
-						}
-					} else {
-						Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
-						if (deeper != null) {
-							deeper.copyPosition(creeper);
-							world.addFreshEntity(deeper);
-						}
+					Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
+					if (deeper != null) {
+						deeper.copyPosition(creeper);
+						world.addFreshEntity(deeper);
 					}
 					event.setSpawnCancelled(true);
 					event.setResult(Result.DENY);

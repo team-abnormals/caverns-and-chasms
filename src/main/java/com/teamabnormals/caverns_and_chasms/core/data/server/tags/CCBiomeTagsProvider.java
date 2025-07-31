@@ -37,6 +37,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(CCBiomeTags.WITHOUT_ZESTY_CAVE_GROWTHS).addTag(Tags.Biomes.IS_DESERT).addTag(BiomeTags.IS_OCEAN);
 		this.tag(CCBiomeTags.WITHOUT_GRAINY_CAVE_GROWTHS).addTag(BiomeTags.IS_OCEAN);
 
+		this.tag(CCBiomeTags.HAS_PEEPER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(CCBiomeTags.HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(CCBiomeTags.HAS_GRAZER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(CCBiomeTags.HAS_GLARE).add(Biomes.LUSH_CAVES);
