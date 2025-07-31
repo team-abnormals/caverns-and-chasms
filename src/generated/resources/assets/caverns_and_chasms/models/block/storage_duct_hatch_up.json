@@ -2,7 +2,7 @@
   "parent": "caverns_and_chasms:block/template_storage_duct_hatch",
   "textures": {
     "back": "caverns_and_chasms:block/storage_duct_hatch_back",
-    "front": "caverns_and_chasms:block/storage_duct_hatch_front",
+    "front": "caverns_and_chasms:block/storage_duct_hatch_front_up",
     "side": "caverns_and_chasms:block/storage_duct_hatch_side"
   }
 }

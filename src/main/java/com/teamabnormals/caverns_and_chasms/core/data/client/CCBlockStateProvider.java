@@ -562,33 +562,33 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		Block block = registryObject.get();
 		this.getVariantBuilder(block)
 				.forAllStates(state -> {
-					Direction startFace = state.getValue(StorageDuctBlock.START_FACE);
-					Direction endFace = state.getValue(StorageDuctBlock.END_FACE);
+					Direction firstend = state.getValue(StorageDuctBlock.FIRST_END);
+					Direction secondend = state.getValue(StorageDuctBlock.SECOND_END);
 
-					if (startFace != endFace) {
-						Direction face1 = startFace;
-						Direction face2 = endFace;
+					if (firstend != secondend) {
+						Direction end1 = firstend;
+						Direction end2 = secondend;
 
 						boolean swap = false;
 
-						if (startFace == Direction.SOUTH && endFace == Direction.NORTH)
+						if (firstend == Direction.SOUTH && secondend == Direction.NORTH)
 							swap = true;
-						else if (startFace == Direction.EAST && (endFace == Direction.NORTH || endFace == Direction.SOUTH))
+						else if (firstend == Direction.EAST && (secondend == Direction.NORTH || secondend == Direction.SOUTH))
 							swap = true;
-						else if (startFace == Direction.WEST && endFace != Direction.UP && endFace != Direction.DOWN)
+						else if (firstend == Direction.WEST && secondend != Direction.UP && secondend != Direction.DOWN)
 							swap = true;
-						else if (startFace == Direction.UP && endFace != Direction.DOWN)
+						else if (firstend == Direction.UP && secondend != Direction.DOWN)
 							swap = true;
-						else if (startFace == Direction.DOWN)
+						else if (firstend == Direction.DOWN)
 							swap = true;
 
 						if (swap) {
-							face1 = endFace;
-							face2 = startFace;
+							end1 = secondend;
+							end2 = firstend;
 						}
 
 						return ConfiguredModel.builder()
-								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_" + face1 + "_" + face2)))
+								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_" + end1 + "_" + end2)))
 								.build();
 					} else {
 						return ConfiguredModel.builder()
@@ -602,27 +602,31 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void storageDuctHatchBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
 		ResourceLocation texture = suffix(blockTexture(block), "_");
-		ModelFile model = this.models()
-				.withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_storage_duct_hatch")
-				.texture("front", suffix(texture, "front"))
-				.texture("side", suffix(texture, "side"))
-				.texture("back", suffix(texture, "back"));
-		ModelFile modelOpen = this.models()
-				.withExistingParent(name(block) + "_open", CavernsAndChasms.MOD_ID + ":block/template_storage_duct_hatch")
-				.texture("front", suffix(texture, "front_open"))
-				.texture("side", suffix(texture, "side"))
-				.texture("back", suffix(texture, "back"));
 		this.getVariantBuilder(block).forAllStatesExcept(state -> {
 			Direction facing = state.getValue(StorageDuctHatchBlock.FACING);
-			AttachFace face = state.getValue(StorageDuctHatchBlock.FACE);
+			RelativeDirection direction = state.getValue(StorageDuctHatchBlock.HANDLE);
 			boolean open = state.getValue(StorageDuctHatchBlock.OPEN);
+
+			String directionsuffix = "_open";
+			if (!open) {
+				if (facing.getAxis() != Axis.Y)
+					directionsuffix = "_" + direction.getSerializedName();
+				else
+					directionsuffix = "_down";
+			}
+
+			ModelFile model = this.models()
+					.withExistingParent(name(block) + directionsuffix, CavernsAndChasms.MOD_ID + ":block/template_storage_duct_hatch")
+					.texture("front", suffix(texture, "front" + directionsuffix))
+					.texture("side", suffix(texture, "side"))
+					.texture("back", suffix(texture, "back"));
 			return ConfiguredModel.builder()
-					.modelFile(open ? modelOpen : model)
-					.rotationX(face == AttachFace.CEILING ? 90 : face == AttachFace.FLOOR ? 270 : 0)
-					.rotationY(((int) facing.toYRot() + (face == AttachFace.FLOOR ? 0 : 180)) % 360)
+					.modelFile(model)
+					.rotationX(facing == Direction.DOWN ? 90 : facing == Direction.UP ? 270 : 0)
+					.rotationY(facing.getAxis() != Axis.Y ? (int) facing.getOpposite().toYRot() : ((int) direction.getCardinalDirection(Direction.DOWN).getOpposite().toYRot() + (facing == Direction.UP ? 0 : 180)) % 360)
 					.build();
 		}, BlockStateProperties.WATERLOGGED);
-		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block))));
+		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_down")));
 	}
 
 	public void rollerDoorBlocks(RegistryObject<Block> rollerDoor, RegistryObject<Block> header) {

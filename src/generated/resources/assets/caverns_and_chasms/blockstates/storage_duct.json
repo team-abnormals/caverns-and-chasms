@@ -1,111 +1,111 @@
 {
   "variants": {
-    "end_face=down,start_face=down": {
+    "first_end=down,second_end=down": {
       "model": "caverns_and_chasms:block/storage_duct_invalid"
     },
-    "end_face=down,start_face=east": {
+    "first_end=down,second_end=east": {
       "model": "caverns_and_chasms:block/storage_duct_east_down"
     },
-    "end_face=down,start_face=north": {
+    "first_end=down,second_end=north": {
       "model": "caverns_and_chasms:block/storage_duct_north_down"
     },
-    "end_face=down,start_face=south": {
+    "first_end=down,second_end=south": {
       "model": "caverns_and_chasms:block/storage_duct_south_down"
     },
-    "end_face=down,start_face=up": {
+    "first_end=down,second_end=up": {
       "model": "caverns_and_chasms:block/storage_duct_up_down"
     },
-    "end_face=down,start_face=west": {
+    "first_end=down,second_end=west": {
       "model": "caverns_and_chasms:block/storage_duct_west_down"
     },
-    "end_face=east,start_face=down": {
+    "first_end=east,second_end=down": {
       "model": "caverns_and_chasms:block/storage_duct_east_down"
     },
-    "end_face=east,start_face=east": {
+    "first_end=east,second_end=east": {
       "model": "caverns_and_chasms:block/storage_duct_invalid"
     },
-    "end_face=east,start_face=north": {
+    "first_end=east,second_end=north": {
       "model": "caverns_and_chasms:block/storage_duct_north_east"
     },
-    "end_face=east,start_face=south": {
+    "first_end=east,second_end=south": {
       "model": "caverns_and_chasms:block/storage_duct_south_east"
     },
-    "end_face=east,start_face=up": {
+    "first_end=east,second_end=up": {
       "model": "caverns_and_chasms:block/storage_duct_east_up"
     },
-    "end_face=east,start_face=west": {
+    "first_end=east,second_end=west": {
       "model": "caverns_and_chasms:block/storage_duct_east_west"
     },
-    "end_face=north,start_face=down": {
+    "first_end=north,second_end=down": {
       "model": "caverns_and_chasms:block/storage_duct_north_down"
     },
-    "end_face=north,start_face=east": {
+    "first_end=north,second_end=east": {
       "model": "caverns_and_chasms:block/storage_duct_north_east"
     },
-    "end_face=north,start_face=north": {
+    "first_end=north,second_end=north": {
       "model": "caverns_and_chasms:block/storage_duct_invalid"
     },
-    "end_face=north,start_face=south": {
+    "first_end=north,second_end=south": {
       "model": "caverns_and_chasms:block/storage_duct_north_south"
     },
-    "end_face=north,start_face=up": {
+    "first_end=north,second_end=up": {
       "model": "caverns_and_chasms:block/storage_duct_north_up"
     },
-    "end_face=north,start_face=west": {
+    "first_end=north,second_end=west": {
       "model": "caverns_and_chasms:block/storage_duct_north_west"
     },
-    "end_face=south,start_face=down": {
+    "first_end=south,second_end=down": {
       "model": "caverns_and_chasms:block/storage_duct_south_down"
     },
-    "end_face=south,start_face=east": {
+    "first_end=south,second_end=east": {
       "model": "caverns_and_chasms:block/storage_duct_south_east"
     },
-    "end_face=south,start_face=north": {
+    "first_end=south,second_end=north": {
       "model": "caverns_and_chasms:block/storage_duct_north_south"
     },
-    "end_face=south,start_face=south": {
+    "first_end=south,second_end=south": {
       "model": "caverns_and_chasms:block/storage_duct_invalid"
     },
-    "end_face=south,start_face=up": {
+    "first_end=south,second_end=up": {
       "model": "caverns_and_chasms:block/storage_duct_south_up"
     },
-    "end_face=south,start_face=west": {
+    "first_end=south,second_end=west": {
       "model": "caverns_and_chasms:block/storage_duct_south_west"
     },
-    "end_face=up,start_face=down": {
+    "first_end=up,second_end=down": {
       "model": "caverns_and_chasms:block/storage_duct_up_down"
     },
-    "end_face=up,start_face=east": {
+    "first_end=up,second_end=east": {
       "model": "caverns_and_chasms:block/storage_duct_east_up"
     },
-    "end_face=up,start_face=north": {
+    "first_end=up,second_end=north": {
       "model": "caverns_and_chasms:block/storage_duct_north_up"
     },
-    "end_face=up,start_face=south": {
+    "first_end=up,second_end=south": {
       "model": "caverns_and_chasms:block/storage_duct_south_up"
     },
-    "end_face=up,start_face=up": {
+    "first_end=up,second_end=up": {
       "model": "caverns_and_chasms:block/storage_duct_invalid"
     },
-    "end_face=up,start_face=west": {
+    "first_end=up,second_end=west": {
       "model": "caverns_and_chasms:block/storage_duct_west_up"
     },
-    "end_face=west,start_face=down": {
+    "first_end=west,second_end=down": {
       "model": "caverns_and_chasms:block/storage_duct_west_down"
     },
-    "end_face=west,start_face=east": {
+    "first_end=west,second_end=east": {
       "model": "caverns_and_chasms:block/storage_duct_east_west"
     },
-    "end_face=west,start_face=north": {
+    "first_end=west,second_end=north": {
       "model": "caverns_and_chasms:block/storage_duct_north_west"
     },
-    "end_face=west,start_face=south": {
+    "first_end=west,second_end=south": {
       "model": "caverns_and_chasms:block/storage_duct_south_west"
     },
-    "end_face=west,start_face=up": {
+    "first_end=west,second_end=up": {
       "model": "caverns_and_chasms:block/storage_duct_west_up"
     },
-    "end_face=west,start_face=west": {
+    "first_end=west,second_end=west": {
       "model": "caverns_and_chasms:block/storage_duct_invalid"
     }
   }

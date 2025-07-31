@@ -40,7 +40,7 @@ public class StorageDuctHatchBlockEntity extends BlockEntity {
 				Level level = StorageDuctHatchBlockEntity.this.getLevel();
 				BlockPos blockpos = StorageDuctHatchBlockEntity.this.getBlockPos();
 				BlockState blockstate = StorageDuctHatchBlockEntity.this.getBlockState();
-				BlockPos offsetpos = blockpos.relative(StorageDuctHatchBlock.getAttachDirection(blockstate));
+				BlockPos offsetpos = blockpos.relative(blockstate.getValue(StorageDuctHatchBlock.FACING).getOpposite());
 
 				if (level.getBlockEntity(offsetpos) instanceof StorageDuctBlockEntity blockentity)
 					return container.contains(blockentity);

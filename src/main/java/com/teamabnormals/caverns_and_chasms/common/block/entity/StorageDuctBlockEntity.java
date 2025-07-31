@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctBlock.DuctEnd;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
@@ -75,7 +76,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-		return new StorageDuctMenu(containerId, inventory, StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos()), null);
+		return new StorageDuctMenu(containerId, inventory, StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos(), DuctEnd.FIRST), null);
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 		if (!(state.getBlock() instanceof StorageDuctBlock)) {
 			return new InvWrapper(this);
 		}
-		Container inv = StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos());
+		Container inv = StorageDuctBlock.getContainer(this.getLevel(), this.getBlockPos(), DuctEnd.FIRST);
 		return new InvWrapper(inv == null ? this : inv);
 	}
 
