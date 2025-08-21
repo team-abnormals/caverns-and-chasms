@@ -94,6 +94,47 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.flint_block.strike"
   },
+  "block.tin.break": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/break1",
+      "caverns_and_chasms:block/tin/break2",
+      "caverns_and_chasms:block/tin/break3",
+      "caverns_and_chasms:block/tin/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.tin.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3"
+    ]
+  },
+  "block.tin.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.tin.place": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/break1",
+      "caverns_and_chasms:block/tin/break2",
+      "caverns_and_chasms:block/tin/break3",
+      "caverns_and_chasms:block/tin/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.tin.step": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.tin.deflect": {
     "sounds": [
       "caverns_and_chasms:block/tin/deflect1",
