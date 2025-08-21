@@ -95,30 +95,32 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 		if (!this.level().isClientSide && !this.isRemoved()) {
 			Entity entity = this.getOwner();
-			double d0 = entity.getX();
-			double d1 = entity.getY();
-			double d2 = entity.getZ();
+			if (entity != null) {
+				double d0 = entity.getX();
+				double d1 = entity.getY();
+				double d2 = entity.getZ();
 
-			if (entity instanceof ServerPlayer) {
-				ServerPlayer player = (ServerPlayer) entity;
-				if (player.connection.connection.isConnected() && player.level() == this.level() && !player.isSleeping()) {
-					if (entity.isPassenger()) {
-						player.dismountTo(this.getX(), this.getY(), this.getZ());
-					} else {
+				if (entity instanceof ServerPlayer) {
+					ServerPlayer player = (ServerPlayer) entity;
+					if (player.connection.connection.isConnected() && player.level() == this.level() && !player.isSleeping()) {
+						if (entity.isPassenger()) {
+							player.dismountTo(this.getX(), this.getY(), this.getZ());
+						} else {
+							entity.teleportTo(this.getX(), this.getY(), this.getZ());
+						}
+
 						entity.teleportTo(this.getX(), this.getY(), this.getZ());
+						entity.fallDistance = 0.0F;
+						entity.hurt(entity.damageSources().magic(), 2.0F);
 					}
-
+				} else {
 					entity.teleportTo(this.getX(), this.getY(), this.getZ());
 					entity.fallDistance = 0.0F;
-					entity.hurt(entity.damageSources().magic(), 2.0F);
 				}
-			} else if (entity != null) {
-				entity.teleportTo(this.getX(), this.getY(), this.getZ());
-				entity.fallDistance = 0.0F;
-			}
 
-			this.level().playSound(null, d0, d1, d2, CCSoundEvents.BEJEWELED_PEARL_TELEPORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-			entity.playSound(CCSoundEvents.BEJEWELED_PEARL_TELEPORT.get(), 1.0F, 1.0F);
+				this.level().playSound(null, d0, d1, d2, CCSoundEvents.BEJEWELED_PEARL_TELEPORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+				entity.playSound(CCSoundEvents.BEJEWELED_PEARL_TELEPORT.get(), 1.0F, 1.0F);
+			}
 
 			this.discard();
 		}
