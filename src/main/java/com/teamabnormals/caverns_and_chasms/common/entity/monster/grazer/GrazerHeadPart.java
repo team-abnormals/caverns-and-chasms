@@ -26,7 +26,7 @@ public class GrazerHeadPart extends GrazerPart {
 		return this.getParent().isBaby() ? this.zOffsetBaby : this.zOffset;
 	}
 
-	public boolean deflectsDamage() {
+	public boolean deflectsAttacks() {
 		return false;
 	}
 

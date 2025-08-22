@@ -41,8 +41,8 @@ public class TinArrowFeature extends Feature<OreConfiguration> {
 		float rot = random.nextFloat() * Mth.TWO_PI;
 
 		Vec3 lengthAxis = new Vec3(monolithPos.getX() - blockpos.getX(), -blockpos.getY(), monolithPos.getZ() - blockpos.getZ()).normalize();
-		Vec3 widthAxisUnrotated = (Math.abs(lengthAxis.dot(X_VECTOR)) > Math.abs(lengthAxis.dot(Y_VECTOR)) ? X_VECTOR : Y_VECTOR).cross(lengthAxis);
-		Vec3 widthAxis = widthAxisUnrotated.scale(Mth.cos(rot)).add(lengthAxis.cross(widthAxisUnrotated).scale(Mth.sin(rot))).add(lengthAxis.scale(lengthAxis.dot(widthAxisUnrotated) * (1 - Mth.cos(rot)))).normalize();
+		Vec3 widthAxis = (Math.abs(lengthAxis.dot(X_VECTOR)) > Math.abs(lengthAxis.dot(Y_VECTOR)) ? X_VECTOR : Y_VECTOR).cross(lengthAxis);
+		widthAxis = widthAxis.scale(Mth.cos(rot)).add(lengthAxis.cross(widthAxis).scale(Mth.sin(rot))).add(lengthAxis.scale(lengthAxis.dot(widthAxis) * (1 - Mth.cos(rot)))).normalize();
 		Vec3 heightAxis = lengthAxis.cross(widthAxis).normalize();
 
 		boolean placed = false;

@@ -6,21 +6,22 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerB
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -46,7 +47,7 @@ public class Grazer extends Monster {
 	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(1.8F, 1.98F);
 
 	private static final TargetingConditions HIT_TARGETING = TargetingConditions.forCombat().selector(livingentity -> {
-		return !livingentity.getType().equals(CCEntityTypes.GRAZER) && livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
+		return livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox()) && !livingentity.isPassenger();
 	});
 
 	private static final EntityDataAccessor<Boolean> IS_BABY = SynchedEntityData.defineId(Grazer.class, EntityDataSerializers.BOOLEAN);
@@ -291,6 +292,19 @@ public class Grazer extends Monster {
 	}
 
 	@Override
+	public double getPassengersRidingOffset() {
+		return this.shellCenterY(1.0F) + this.shellRadius() - 0.3D;
+	}
+
+	@Override
+	protected void positionRider(Entity rider, Entity.MoveFunction function) {
+		if (this.hasPassenger(rider)) {
+			Vec3 vec3 = new Vec3(0.0D, this.getPassengersRidingOffset() + rider.getMyRidingOffset(), this.shellCenterZ(1.0F)).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
+			function.accept(rider, this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
+		}
+	}
+
+	@Override
 	public boolean isBaby() {
 		return this.getAge() < 0;
 	}
@@ -325,11 +339,11 @@ public class Grazer extends Monster {
 		return 21D / 16D * (1.0F - f) * this.getScale() + this.shellRadius() * f;
 	}
 
-	public Vec3 calculateDeflectionNormal(Vec3 location) {
+	public Vec3 calculateDeflectionNormal(Vec3 hitLocation) {
 		float f = this.getXRot() * Mth.DEG_TO_RAD;
 		float f1 = this.getYRot() * Mth.DEG_TO_RAD;
 		Vec3 vec3 = new Vec3(0.0D, this.shellCenterY(1.0F), this.shellCenterZ(1.0F)).yRot(-f1);
-		Vec3 vec31 = location.subtract(this.position()).subtract(vec3).yRot(f1).xRot(f).multiply(2D / this.shellWidth(), 1D / this.shellRadius(), 1D / this.shellRadius());
+		Vec3 vec31 = hitLocation.subtract(this.position()).subtract(vec3).yRot(f1).xRot(f).multiply(2D / this.shellWidth(), 1D / this.shellRadius(), 1D / this.shellRadius());
 
 		Vec3 normal;
 		double d0 = Math.abs(vec31.x);
@@ -447,6 +461,17 @@ public class Grazer extends Monster {
 	@Override
 	protected void onOffspringSpawnedFromEgg(Player player, Mob baby) {
 		((Grazer) baby).setSaddle(true);
+	}
+
+	@Override
+	public InteractionResult mobInteract(Player player, InteractionHand hand) {
+		if (this.hasSaddle() && !this.isVehicle() && !player.isSecondaryUseActive()) {
+			if (!this.level().isClientSide)
+				player.startRiding(this);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
+		} else {
+			return InteractionResult.PASS;
+		}
 	}
 
 	@Override
@@ -587,41 +612,40 @@ public class Grazer extends Monster {
 			if (this.getState() == GrazerState.RUNNING || this.isBouncingState(this.getState())) {
 				LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
 				if (livingentity != null) {
-					if (livingentity instanceof Grazer other) {
-						if (!other.isBaby()) {
-							GrazerState otherstate = other.getState();
-							double d0 = this.position().distanceTo(other.position()) - this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement()));
+					if (livingentity instanceof Grazer other && !other.isBaby()) {
+						GrazerState otherstate = other.getState();
+						double d0 = this.position().distanceTo(other.position()) - this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement()));
 
-							if (d0 > 0.0D) {
-								Vec3 deltapos = other.position().subtract(this.position());
-								Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
+						if (d0 > 0.0D) {
+							Vec3 deltapos = other.position().subtract(this.position());
+							Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
 
-								Vec3 collvector = deltapos.scale(motion.dot(deltapos) / deltapos.dot(deltapos));
-								Vec3 othercollvector = deltapos.scale(other.getDeltaMovement().dot(deltapos) / deltapos.dot(deltapos));
+							Vec3 collvector = deltapos.scale(motion.dot(deltapos) / deltapos.dot(deltapos));
+							Vec3 othercollvector = deltapos.scale(other.getDeltaMovement().dot(deltapos) / deltapos.dot(deltapos));
 
-								Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
-								Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
+							Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
+							Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
 
-								if (this.getState() == GrazerState.RUNNING) {
-									this.setState(GrazerState.BOUNCING);
-									this.bounceHeight = 0.8D;
-									this.bouncingBackwards = true;
-									newmotion.add(0.0D, this.bounceHeight, 0.0D);
-								}
-
-								if (!this.isBouncingState(otherstate)) {
-									other.setState(GrazerState.BOUNCING);
-									other.bounceHeight = this.bounceHeight;
-									othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
-								}
-
-								this.setDeltaMovement(newmotion);
-								other.setDeltaMovement(othernewmotion);
-
-								this.level().playSound(null, this.getX(), this.getY(), this.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) d0 * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) d0 * 0.8F, 1.8F));
+							if (this.getState() == GrazerState.RUNNING) {
+								this.setState(GrazerState.BOUNCING);
+								this.bounceHeight = 0.8D;
+								this.bouncingBackwards = true;
+								newmotion.add(0.0D, this.bounceHeight, 0.0D);
 							}
+
+							if (!this.isBouncingState(otherstate)) {
+								other.setState(GrazerState.BOUNCING);
+								other.bounceHeight = this.bounceHeight;
+								othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
+							}
+
+							this.setDeltaMovement(newmotion);
+							other.setDeltaMovement(othernewmotion);
+
+							CCEvents.playTinDeflectSound(this.level(), this.position(), d0);
 						}
 					} else {
+						// TODO: Add knockback
 						livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
 					}
 				}
@@ -690,8 +714,7 @@ public class Grazer extends Monster {
 
 				this.setDeltaMovement(newmotion);
 
-				double speed = newmotion.lengthSqr();
-				this.level().playSound(null, this.getX(), this.getY(), this.getZ(), CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
+				CCEvents.playTinDeflectSound(this.level(), this.position(), newmotion.lengthSqr());
 			}
 		}
 	}
@@ -712,6 +735,11 @@ public class Grazer extends Monster {
 		return this.moveControl;
 	}
 
+	@Override
+	protected BodyRotationControl createBodyControl() {
+		return new GrazerBodyRotationControl();
+	}
+
 	private class GrazerLookControl extends LookControl {
 		public GrazerLookControl() {
 			super(Grazer.this);
@@ -727,10 +755,19 @@ public class Grazer extends Monster {
 						});
 					}
 				}
-
-				Grazer.this.yHeadRot = Grazer.this.getYRot();
-				Grazer.this.yBodyRot = Grazer.this.getYRot();
 			}
+		}
+	}
+
+	private class GrazerBodyRotationControl extends BodyRotationControl {
+		public GrazerBodyRotationControl() {
+			super(Grazer.this);
+		}
+
+		@Override
+		public void clientTick() {
+			Grazer.this.yHeadRot = Grazer.this.getYRot();
+			Grazer.this.yBodyRot = Grazer.this.getYRot();
 		}
 	}
 

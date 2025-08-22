@@ -21,7 +21,7 @@ public abstract class EntityHitResultMixin {
 
 	@Inject(method = "<init>(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;)V", at = @At("TAIL"))
 	private void init(Entity entity, Vec3 vec3, CallbackInfo ci) {
-		if (entity instanceof GrazerPart grazerpart && !grazerpart.deflectsDamage())
+		if (entity instanceof GrazerPart grazerpart && !grazerpart.deflectsAttacks())
 			this.entity = grazerpart.getParent();
 	}
 }

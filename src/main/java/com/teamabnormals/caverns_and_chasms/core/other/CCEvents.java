@@ -622,8 +622,11 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					SoundEvent soundevent = state.is(CCBlocks.STORAGE_DUCT.get()) ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
-					level.playSound(null, location.x, location.y, location.z, soundevent, SoundSource.BLOCKS, Math.min(0.2F + (float) speed * 0.7F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
+					boolean isstorageduct = state.is(CCBlocks.STORAGE_DUCT.get());
+					SoundEvent soundevent = isstorageduct ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					float pitchmultiplier = isstorageduct ? 0.5F : 1.0F;
+
+					playTinDeflectEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
 
 					for (int l = 0; l < 3; ++l) {
 						Vec3 vec3 = movement.reverse().normalize();
@@ -638,7 +641,7 @@ public class CCEvents {
 			}
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
-			if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsDamage()) {
+			if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
 				Grazer grazer = grazerpart.getParent();
 
 				if (!grazer.projectileJustDeflected(projectile)) {
@@ -656,16 +659,7 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					double speed = movement.lengthSqr();
-					level.playSound(null, location.x, location.y, location.z, CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
-
-					for (int i = 0; i < 3; ++i) {
-						Vec3 vec3 = reflect.reverse().normalize();
-						double d1 = vec3.x * 0.2D + random.nextGaussian() * 0.05D;
-						double d2 = vec3.y * 0.2D + random.nextGaussian() * 0.05D;
-						double d3 = vec3.z * 0.2D + random.nextGaussian() * 0.05D;
-						level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
-					}
+					CCEvents.playTinDeflectEffects(level, location, reflect.reverse().normalize(), movement.lengthSqr(), random);
 				}
 
 				grazer.addDeflectedProjectile(projectile);
@@ -793,6 +787,29 @@ public class CCEvents {
 		Level level = player.level();
 		if (event.getRight().is(CCItems.ZIRCONIA.get()))
 			player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), CCSoundEvents.ZIRCONIA_ANVIL_USE.get(), SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F, false);
+	}
+
+	public static void playTinDeflectEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random) {
+		playTinDeflectSound(level, location, speed, soundEvent, pitchMultiplier);
+
+		for (int i = 0; i < 3; ++i) {;
+			double d1 = normal.x * 0.2D + random.nextGaussian() * 0.05D;
+			double d2 = normal.y * 0.2D + random.nextGaussian() * 0.05D;
+			double d3 = normal.z * 0.2D + random.nextGaussian() * 0.05D;
+			level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
+		}
+	}
+
+	public static void playTinDeflectEffects(Level level, Vec3 location, Vec3 normal, double speed, RandomSource random) {
+		playTinDeflectEffects(level, location, normal, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F, random);
+	}
+
+	public static void playTinDeflectSound(Level level, Vec3 location, double speed, SoundEvent soundEvent, float pitchMultiplier) {
+		level.playSound(null, location.x, location.y, location.z, soundEvent, SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F * pitchMultiplier, 1.8F));
+	}
+
+	public static void playTinDeflectSound(Level level, Vec3 location, double speed) {
+		playTinDeflectSound(level, location, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F);
 	}
 
 	private static void rewindTeleport(LivingEntity entity) {
