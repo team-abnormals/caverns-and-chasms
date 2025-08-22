@@ -86,7 +86,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DEEPSLATE_TIN_ORE = HELPER.createBlock("deepslate_tin_ore", () -> new Block(CCProperties.DEEPSLATE_ORE));
 	public static final RegistryObject<Block> CASSITERITE_TIN_ORE = HELPER.createBlock("cassiterite_tin_ore", () -> new Block(CCProperties.CASSITERITE_ORE));
 	public static final RegistryObject<Block> RAW_TIN_BLOCK = HELPER.createBlock("raw_tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
-	public static final RegistryObject<Block> TIN_BARS = HELPER.createBlock("tin_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
+	public static final RegistryObject<Block> TIN_BARS = HELPER.createBlock("tin_bars", () -> new IronBarsBlock(CCProperties.TIN_BARS));
 	public static final RegistryObject<Block> FLOAT_GLASS = HELPER.createBlock("float_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 	public static final RegistryObject<Block> FLOAT_GLASS_PANE = HELPER.createBlock("float_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
@@ -97,7 +97,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
 	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 	public static final RegistryObject<Block> STORAGE_DUCT = HELPER.createBlock("storage_duct", () -> new StorageDuctBlock(CCProperties.STORAGE_DUCT));
-	public static final RegistryObject<Block> STORAGE_DUCT_HATCH = HELPER.createBlock("storage_duct_hatch", () -> new StorageDuctHatchBlock(CCProperties.STORAGE_DUCT));
+	public static final RegistryObject<Block> STORAGE_DUCT_HATCH = HELPER.createBlock("storage_duct_hatch", () -> new StorageDuctHatchBlock(CCProperties.STORAGE_DUCT_HATCH));
 
 	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createRollerDoorBlock("roller_door", () -> new RollerDoorBlock(CCProperties.ROLLER_DOOR));
 	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorHeaderBlock(CCProperties.ROLLER_DOOR));
@@ -672,6 +672,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.LAVA_LAMP).lightLevel((state) -> 15);
 		public static final BlockBehaviour.Properties COPPER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.COPPER).noOcclusion();
 		public static final BlockBehaviour.Properties SILVER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.SILVER).noOcclusion();
+		public static final BlockBehaviour.Properties TIN_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.TIN).noOcclusion();
 		public static final BlockBehaviour.Properties METAL_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion();
 		public static final BlockBehaviour.Properties SILVER_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(CCSoundTypes.SILVER).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties COPPER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
@@ -685,7 +686,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties HOLD_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(CCSoundTypes.TIN).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties DIMMER = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).noOcclusion().sound(CCSoundTypes.TIN).pushReaction(PushReaction.DESTROY).lightLevel((state) -> state.getValue(AbstractDimmerBlock.POWER));
 		public static final BlockBehaviour.Properties HOOP = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.TIN);
-		public static final BlockBehaviour.Properties STORAGE_DUCT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.TIN);
+		public static final BlockBehaviour.Properties STORAGE_DUCT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.STORAGE_DUCT);
+		public static final BlockBehaviour.Properties STORAGE_DUCT_HATCH = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.TIN);
 		public static final BlockBehaviour.Properties ROLLER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.TIN).pushReaction(PushReaction.BLOCK).forceSolidOn();
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F);

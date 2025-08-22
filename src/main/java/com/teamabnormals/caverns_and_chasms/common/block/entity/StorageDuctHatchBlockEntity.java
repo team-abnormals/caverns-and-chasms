@@ -4,9 +4,9 @@ import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctHatchBlock;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctContainer;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -18,13 +18,13 @@ public class StorageDuctHatchBlockEntity extends BlockEntity {
 	private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
 		@Override
 		protected void onOpen(Level level, BlockPos pos, BlockState state) {
-			StorageDuctHatchBlockEntity.this.playSound(SoundEvents.BARREL_OPEN);
+			StorageDuctHatchBlockEntity.this.playSound(CCSoundEvents.STORAGE_DUCT_HATCH_OPEN.get());
 			StorageDuctHatchBlockEntity.this.updateBlockState(state, true);
 		}
 
 		@Override
 		protected void onClose(Level level, BlockPos pos, BlockState state) {
-			StorageDuctHatchBlockEntity.this.playSound(SoundEvents.BARREL_CLOSE);
+			StorageDuctHatchBlockEntity.this.playSound(CCSoundEvents.STORAGE_DUCT_HATCH_CLOSE.get());
 			StorageDuctHatchBlockEntity.this.updateBlockState(state, false);
 		}
 

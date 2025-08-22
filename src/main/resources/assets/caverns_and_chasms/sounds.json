@@ -143,6 +143,80 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.storage_duct.break": {
+    "sounds": [
+      "caverns_and_chasms:block/storage_duct/break1",
+      "caverns_and_chasms:block/storage_duct/break2",
+      "caverns_and_chasms:block/storage_duct/break3",
+      "caverns_and_chasms:block/storage_duct/break4",
+      "caverns_and_chasms:block/storage_duct/break5",
+      "caverns_and_chasms:block/storage_duct/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.storage_duct.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6"
+    ]
+  },
+  "block.storage_duct.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.storage_duct.place": {
+    "sounds": [
+      "caverns_and_chasms:block/storage_duct/break1",
+      "caverns_and_chasms:block/storage_duct/break2",
+      "caverns_and_chasms:block/storage_duct/break3",
+      "caverns_and_chasms:block/storage_duct/break4",
+      "caverns_and_chasms:block/storage_duct/break5",
+      "caverns_and_chasms:block/storage_duct/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.storage_duct.step": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.storage_duct.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/storage_duct/deflect1",
+      "caverns_and_chasms:block/storage_duct/deflect2",
+      "caverns_and_chasms:block/storage_duct/deflect3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
+  "block.storage_duct_hatch.close": {
+    "sounds": [
+      "caverns_and_chasms:block/storage_duct_hatch/close"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.storage_duct_hatch.close"
+  },
+  "block.storage_duct_hatch.open": {
+    "sounds": [
+      "caverns_and_chasms:block/storage_duct_hatch/open"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.storage_duct_hatch.open"
+  },
   "block.toolbox.close": {
     "sounds": [
       "caverns_and_chasms:block/toolbox/close1",
