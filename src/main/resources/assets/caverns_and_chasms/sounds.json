@@ -156,22 +156,22 @@
   },
   "block.storage_duct.fall": {
     "sounds": [
-      "caverns_and_chasms:block/tin/step1",
-      "caverns_and_chasms:block/tin/step2",
-      "caverns_and_chasms:block/tin/step3",
-      "caverns_and_chasms:block/tin/step4",
-      "caverns_and_chasms:block/tin/step5",
-      "caverns_and_chasms:block/tin/step6"
+      "caverns_and_chasms:block/storage_duct/step1",
+      "caverns_and_chasms:block/storage_duct/step2",
+      "caverns_and_chasms:block/storage_duct/step3",
+      "caverns_and_chasms:block/storage_duct/step4",
+      "caverns_and_chasms:block/storage_duct/step5",
+      "caverns_and_chasms:block/storage_duct/step6"
     ]
   },
   "block.storage_duct.hit": {
     "sounds": [
-      "caverns_and_chasms:block/tin/step1",
-      "caverns_and_chasms:block/tin/step2",
-      "caverns_and_chasms:block/tin/step3",
-      "caverns_and_chasms:block/tin/step4",
-      "caverns_and_chasms:block/tin/step5",
-      "caverns_and_chasms:block/tin/step6"
+      "caverns_and_chasms:block/storage_duct/step1",
+      "caverns_and_chasms:block/storage_duct/step2",
+      "caverns_and_chasms:block/storage_duct/step3",
+      "caverns_and_chasms:block/storage_duct/step4",
+      "caverns_and_chasms:block/storage_duct/step5",
+      "caverns_and_chasms:block/storage_duct/step6"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -188,12 +188,12 @@
   },
   "block.storage_duct.step": {
     "sounds": [
-      "caverns_and_chasms:block/tin/step1",
-      "caverns_and_chasms:block/tin/step2",
-      "caverns_and_chasms:block/tin/step3",
-      "caverns_and_chasms:block/tin/step4",
-      "caverns_and_chasms:block/tin/step5",
-      "caverns_and_chasms:block/tin/step6"
+      "caverns_and_chasms:block/storage_duct/step1",
+      "caverns_and_chasms:block/storage_duct/step2",
+      "caverns_and_chasms:block/storage_duct/step3",
+      "caverns_and_chasms:block/storage_duct/step4",
+      "caverns_and_chasms:block/storage_duct/step5",
+      "caverns_and_chasms:block/storage_duct/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
