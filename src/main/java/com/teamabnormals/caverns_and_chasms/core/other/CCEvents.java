@@ -32,6 +32,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
@@ -621,7 +622,8 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					level.playSound(null, location.x, location.y, location.z, CCSoundEvents.TIN_DEFLECT.get(), SoundSource.BLOCKS, Math.min(0.2F + (float) speed * 0.7F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
+					SoundEvent soundevent = state.is(CCBlocks.STORAGE_DUCT.get()) ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					level.playSound(null, location.x, location.y, location.z, soundevent, SoundSource.BLOCKS, Math.min(0.2F + (float) speed * 0.7F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
 
 					for (int l = 0; l < 3; ++l) {
 						Vec3 vec3 = movement.reverse().normalize();
