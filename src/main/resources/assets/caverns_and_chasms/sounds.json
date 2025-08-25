@@ -99,7 +99,10 @@
       "caverns_and_chasms:block/tin/break1",
       "caverns_and_chasms:block/tin/break2",
       "caverns_and_chasms:block/tin/break3",
-      "caverns_and_chasms:block/tin/break4"
+      "caverns_and_chasms:block/tin/break4",
+      "caverns_and_chasms:block/tin/break5",
+      "caverns_and_chasms:block/tin/break6",
+      "caverns_and_chasms:block/tin/break7"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -107,14 +110,22 @@
     "sounds": [
       "caverns_and_chasms:block/tin/step1",
       "caverns_and_chasms:block/tin/step2",
-      "caverns_and_chasms:block/tin/step3"
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6",
+      "caverns_and_chasms:block/tin/step7"	   
     ]
   },
   "block.tin.hit": {
     "sounds": [
       "caverns_and_chasms:block/tin/step1",
       "caverns_and_chasms:block/tin/step2",
-      "caverns_and_chasms:block/tin/step3"
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6",
+      "caverns_and_chasms:block/tin/step7"	    
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -123,7 +134,10 @@
       "caverns_and_chasms:block/tin/break1",
       "caverns_and_chasms:block/tin/break2",
       "caverns_and_chasms:block/tin/break3",
-      "caverns_and_chasms:block/tin/break4"
+      "caverns_and_chasms:block/tin/break4",
+      "caverns_and_chasms:block/tin/break5",
+      "caverns_and_chasms:block/tin/break6",
+      "caverns_and_chasms:block/tin/break7"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -131,7 +145,11 @@
     "sounds": [
       "caverns_and_chasms:block/tin/step1",
       "caverns_and_chasms:block/tin/step2",
-      "caverns_and_chasms:block/tin/step3"
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6",
+      "caverns_and_chasms:block/tin/step7"	  
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -260,22 +278,16 @@
   },
   "block.cave_growths.fall": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/cave_growths/step1",
+      "caverns_and_chasms:block/cave_growths/step2",
+      "caverns_and_chasms:block/cave_growths/step3"
     ]
   },
   "block.cave_growths.hit": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/cave_growths/step1",
+      "caverns_and_chasms:block/cave_growths/step2",
+      "caverns_and_chasms:block/cave_growths/step3"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -302,12 +314,9 @@
   },
   "block.cave_growths.step": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/cave_growths/step1",
+      "caverns_and_chasms:block/cave_growths/step2",
+      "caverns_and_chasms:block/cave_growths/step3"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -334,22 +343,16 @@
   },
   "block.moschatel.fall": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/moschatel/step1",
+      "caverns_and_chasms:block/moschatel/step2",
+      "caverns_and_chasms:block/moschatel/step3"
     ]
   },
   "block.moschatel.hit": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/moschatel/step1",
+      "caverns_and_chasms:block/moschatel/step2",
+      "caverns_and_chasms:block/moschatel/step3"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -376,12 +379,9 @@
   },
   "block.moschatel.step": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/moschatel/step1",
+      "caverns_and_chasms:block/moschatel/step2",
+      "caverns_and_chasms:block/moschatel/step3"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -408,22 +408,18 @@
   },
   "block.false_hope.fall": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/false_hope/step1",
+      "caverns_and_chasms:block/false_hope/step2",
+      "caverns_and_chasms:block/false_hope/step3",
+      "caverns_and_chasms:block/false_hope/step4"
     ]
   },
   "block.false_hope.hit": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/false_hope/step1",
+      "caverns_and_chasms:block/false_hope/step2",
+      "caverns_and_chasms:block/false_hope/step3",
+      "caverns_and_chasms:block/false_hope/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -450,12 +446,10 @@
   },
   "block.false_hope.step": {
     "sounds": [
-      "step/grass1",
-      "step/grass2",
-      "step/grass3",
-      "step/grass4",
-      "step/grass5",
-      "step/grass6"
+      "caverns_and_chasms:block/false_hope/step1",
+      "caverns_and_chasms:block/false_hope/step2",
+      "caverns_and_chasms:block/false_hope/step3",
+      "caverns_and_chasms:block/false_hope/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
