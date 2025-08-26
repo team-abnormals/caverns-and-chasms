@@ -734,7 +734,8 @@
       "caverns_and_chasms:block/sanguine/step2",
       "caverns_and_chasms:block/sanguine/step3",
       "caverns_and_chasms:block/sanguine/step4",
-      "caverns_and_chasms:block/sanguine/step5"
+      "caverns_and_chasms:block/sanguine/step5",
+      "caverns_and_chasms:block/sanguine/step6"
     ]
   },
   "block.sanguine.hit": {
@@ -743,7 +744,8 @@
       "caverns_and_chasms:block/sanguine/step2",
       "caverns_and_chasms:block/sanguine/step3",
       "caverns_and_chasms:block/sanguine/step4",
-      "caverns_and_chasms:block/sanguine/step5"
+      "caverns_and_chasms:block/sanguine/step5",
+      "caverns_and_chasms:block/sanguine/step6"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -762,7 +764,64 @@
       "caverns_and_chasms:block/sanguine/step2",
       "caverns_and_chasms:block/sanguine/step3",
       "caverns_and_chasms:block/sanguine/step4",
-      "caverns_and_chasms:block/sanguine/step5"
+      "caverns_and_chasms:block/sanguine/step5",
+      "caverns_and_chasms:block/sanguine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.rotten_flesh.break": {
+    "sounds": [
+      "caverns_and_chasms:block/rotten_flesh/break1",
+      "caverns_and_chasms:block/rotten_flesh/break2",
+      "caverns_and_chasms:block/rotten_flesh/break3",
+      "caverns_and_chasms:block/rotten_flesh/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rotten_flesh.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/rotten_flesh/step1",
+      "caverns_and_chasms:block/rotten_flesh/step2",
+      "caverns_and_chasms:block/rotten_flesh/step3",
+      "caverns_and_chasms:block/rotten_flesh/step4",
+      "caverns_and_chasms:block/rotten_flesh/step5",
+      "caverns_and_chasms:block/rotten_flesh/step6",
+      "caverns_and_chasms:block/rotten_flesh/step7",
+      "caverns_and_chasms:block/rotten_flesh/step8"
+    ]
+  },
+  "block.rotten_flesh.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/rotten_flesh/step1",
+      "caverns_and_chasms:block/rotten_flesh/step2",
+      "caverns_and_chasms:block/rotten_flesh/step3",
+      "caverns_and_chasms:block/rotten_flesh/step4",
+      "caverns_and_chasms:block/rotten_flesh/step5",
+      "caverns_and_chasms:block/rotten_flesh/step6",
+      "caverns_and_chasms:block/rotten_flesh/step7",
+      "caverns_and_chasms:block/rotten_flesh/step8"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.rotten_flesh.place": {
+    "sounds": [
+      "caverns_and_chasms:block/rotten_flesh/break1",
+      "caverns_and_chasms:block/rotten_flesh/break2",
+      "caverns_and_chasms:block/rotten_flesh/break3",
+      "caverns_and_chasms:block/rotten_flesh/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.rotten_flesh.step": {
+    "sounds": [
+      "caverns_and_chasms:block/rotten_flesh/step1",
+      "caverns_and_chasms:block/rotten_flesh/step2",
+      "caverns_and_chasms:block/rotten_flesh/step3",
+      "caverns_and_chasms:block/rotten_flesh/step4",
+      "caverns_and_chasms:block/rotten_flesh/step5",
+      "caverns_and_chasms:block/rotten_flesh/step6",
+      "caverns_and_chasms:block/rotten_flesh/step7",
+      "caverns_and_chasms:block/rotten_flesh/step8"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

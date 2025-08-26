@@ -85,6 +85,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SANGUINE_HIT = HELPER.createSoundEvent("block.sanguine.hit");
 	public static final RegistryObject<SoundEvent> SANGUINE_PLACE = HELPER.createSoundEvent("block.sanguine.place");
 	public static final RegistryObject<SoundEvent> SANGUINE_STEP = HELPER.createSoundEvent("block.sanguine.step");
+	
+	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_BREAK = HELPER.createSoundEvent("block.rotten_flesh.break");
+	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_FALL = HELPER.createSoundEvent("block.rotten_flesh.fall");
+	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_HIT = HELPER.createSoundEvent("block.rotten_flesh.hit");
+	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_PLACE = HELPER.createSoundEvent("block.rotten_flesh.place");
+	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_STEP = HELPER.createSoundEvent("block.rotten_flesh.step");
 
 	public static final RegistryObject<SoundEvent> LAVA_LAMP_BREAK = HELPER.createSoundEvent("block.lava_lamp.break");
 	public static final RegistryObject<SoundEvent> LAVA_LAMP_FALL = HELPER.createSoundEvent("block.lava_lamp.fall");
@@ -248,6 +254,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, MOSCHATEL_BREAK, MOSCHATEL_STEP, MOSCHATEL_PLACE, MOSCHATEL_HIT, MOSCHATEL_FALL);
 		public static final ForgeSoundType TMT = new ForgeSoundType(1.0F, 1.0F, TMT_BREAK, TMT_STEP, TMT_PLACE, TMT_HIT, TMT_FALL);
 		public static final ForgeSoundType SANGUINE = new ForgeSoundType(1.0F, 1.0F, SANGUINE_BREAK, SANGUINE_STEP, SANGUINE_PLACE, SANGUINE_HIT, SANGUINE_FALL);
+		public static final ForgeSoundType ROTTEN_FLESH = new ForgeSoundType(1.0F, 1.0F, ROTTEN_FLESH_BREAK, ROTTEN_FLESH_STEP, ROTTEN_FLESH_PLACE, ROTTEN_FLESH_HIT, ROTTEN_FLESH_FALL);
 		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, LAVA_LAMP_BREAK, LAVA_LAMP_STEP, LAVA_LAMP_PLACE, LAVA_LAMP_HIT, LAVA_LAMP_FALL);
 		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);
 		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);
