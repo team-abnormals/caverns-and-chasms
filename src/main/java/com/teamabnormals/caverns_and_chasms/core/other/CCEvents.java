@@ -24,6 +24,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -622,9 +623,9 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					boolean isstorageduct = state.is(CCBlocks.STORAGE_DUCT.get());
-					SoundEvent soundevent = isstorageduct ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
-					float pitchmultiplier = isstorageduct ? 0.5F : 1.0F;
+					SoundType soundtype = state.getBlock().getSoundType(state, level, pos, null);
+					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
 
 					playTinDeflectEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
 

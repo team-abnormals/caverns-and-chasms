@@ -210,6 +210,13 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.tin_ore.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/tin_ore/deflect1",
+      "caverns_and_chasms:block/tin_ore/deflect2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.storage_duct.break": {
     "sounds": [
       "caverns_and_chasms:block/storage_duct/break1",

@@ -116,12 +116,14 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_HIT = HELPER.createSoundEvent("block.tin.hit");
 	public static final RegistryObject<SoundEvent> TIN_PLACE = HELPER.createSoundEvent("block.tin.place");
 	public static final RegistryObject<SoundEvent> TIN_STEP = HELPER.createSoundEvent("block.tin.step");
+	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
 
 	public static final RegistryObject<SoundEvent> TIN_ORE_BREAK = HELPER.createSoundEvent("block.tin_ore.break");
 	public static final RegistryObject<SoundEvent> TIN_ORE_FALL = HELPER.createSoundEvent("block.tin_ore.fall");
 	public static final RegistryObject<SoundEvent> TIN_ORE_HIT = HELPER.createSoundEvent("block.tin_ore.hit");
 	public static final RegistryObject<SoundEvent> TIN_ORE_PLACE = HELPER.createSoundEvent("block.tin_ore.place");
 	public static final RegistryObject<SoundEvent> TIN_ORE_STEP = HELPER.createSoundEvent("block.tin_ore.step");
+	public static final RegistryObject<SoundEvent> TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.tin_ore.deflect");
 
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_BREAK = HELPER.createSoundEvent("block.storage_duct.break");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_FALL = HELPER.createSoundEvent("block.storage_duct.fall");
@@ -158,7 +160,6 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STRIKE = HELPER.createSoundEvent("block.flint_block.strike");
 
-	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
 	public static final RegistryObject<SoundEvent> DIMMER_BUZZ = HELPER.createSoundEvent("block.dimmer.buzz");
 	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
 
