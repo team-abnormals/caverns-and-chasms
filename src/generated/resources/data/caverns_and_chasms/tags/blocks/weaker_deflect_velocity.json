@@ -1,6 +1,5 @@
 {
   "values": [
-    "caverns_and_chasms:cassiterite_tin_ore",
     "caverns_and_chasms:cassiterite",
     "caverns_and_chasms:cassiterite_stairs",
     "caverns_and_chasms:cassiterite_slab",
@@ -16,6 +15,7 @@
     "caverns_and_chasms:chiseled_cassiterite_bricks",
     "caverns_and_chasms:polished_cassiterite",
     "caverns_and_chasms:polished_cassiterite_stairs",
-    "caverns_and_chasms:polished_cassiterite_slab"
+    "caverns_and_chasms:polished_cassiterite_slab",
+    "#caverns_and_chasms:tin_ores"
   ]
 }
