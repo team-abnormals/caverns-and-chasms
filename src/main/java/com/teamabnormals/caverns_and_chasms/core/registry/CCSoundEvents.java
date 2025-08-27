@@ -117,6 +117,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_PLACE = HELPER.createSoundEvent("block.tin.place");
 	public static final RegistryObject<SoundEvent> TIN_STEP = HELPER.createSoundEvent("block.tin.step");
 
+	public static final RegistryObject<SoundEvent> TIN_ORE_BREAK = HELPER.createSoundEvent("block.tin_ore.break");
+	public static final RegistryObject<SoundEvent> TIN_ORE_FALL = HELPER.createSoundEvent("block.tin_ore.fall");
+	public static final RegistryObject<SoundEvent> TIN_ORE_HIT = HELPER.createSoundEvent("block.tin_ore.hit");
+	public static final RegistryObject<SoundEvent> TIN_ORE_PLACE = HELPER.createSoundEvent("block.tin_ore.place");
+	public static final RegistryObject<SoundEvent> TIN_ORE_STEP = HELPER.createSoundEvent("block.tin_ore.step");
+
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_BREAK = HELPER.createSoundEvent("block.storage_duct.break");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_FALL = HELPER.createSoundEvent("block.storage_duct.fall");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_HIT = HELPER.createSoundEvent("block.storage_duct.hit");
@@ -259,6 +265,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);
 		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);
 		public static final ForgeSoundType TIN = new ForgeSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL);
+		public static final ForgeSoundType TIN_ORE = new ForgeSoundType(1.0F, 1.0F, TIN_ORE_BREAK, TIN_ORE_STEP, TIN_ORE_PLACE, TIN_ORE_HIT, TIN_ORE_FALL);
 		public static final ForgeSoundType STORAGE_DUCT = new ForgeSoundType(1.0F, 1.0F, STORAGE_DUCT_BREAK, STORAGE_DUCT_STEP, STORAGE_DUCT_PLACE, STORAGE_DUCT_HIT, STORAGE_DUCT_FALL);
 		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, ATONING_TABLE_BREAK, ATONING_TABLE_STEP, ATONING_TABLE_PLACE, ATONING_TABLE_HIT, ATONING_TABLE_FALL);
 		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, BEJEWELED_ANVIL_BREAK, BEJEWELED_ANVIL_STEP, BEJEWELED_ANVIL_PLACE, BEJEWELED_ANVIL_HIT, BEJEWELED_ANVIL_FALL);
