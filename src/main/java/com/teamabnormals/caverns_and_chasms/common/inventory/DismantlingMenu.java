@@ -104,6 +104,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		if (trim.isPresent()) {
 			ItemStack item = trim.get().material().get().ingredient().get().getDefaultInstance();
 			ItemStack template = trim.get().pattern().get().templateItem().get().getDefaultInstance();
+			template.getOrCreateTag();
 
 			CompoundTag tag = armor.getOrCreateTag();
 			if (tag.getBoolean("EmissiveTrim")) {
