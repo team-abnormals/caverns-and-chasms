@@ -86,6 +86,70 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.flint_block.break": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/break1",
+      "caverns_and_chasms:block/flint_block/break2",
+      "caverns_and_chasms:block/flint_block/break3",
+      "caverns_and_chasms:block/flint_block/break4",
+      "caverns_and_chasms:block/flint_block/break5",
+      "caverns_and_chasms:block/flint_block/break6",
+      "caverns_and_chasms:block/flint_block/break7",
+      "caverns_and_chasms:block/flint_block/break8"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.flint_block.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/break1",
+      "caverns_and_chasms:block/flint_block/break2",
+      "caverns_and_chasms:block/flint_block/break3",
+      "caverns_and_chasms:block/flint_block/break4",
+      "caverns_and_chasms:block/flint_block/break5",
+      "caverns_and_chasms:block/flint_block/break6",
+      "caverns_and_chasms:block/flint_block/break7",
+      "caverns_and_chasms:block/flint_block/break8"
+    ]
+  },
+  "block.flint_block.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/break1",
+      "caverns_and_chasms:block/flint_block/break2",
+      "caverns_and_chasms:block/flint_block/break3",
+      "caverns_and_chasms:block/flint_block/break4",
+      "caverns_and_chasms:block/flint_block/break5",
+      "caverns_and_chasms:block/flint_block/break6",
+      "caverns_and_chasms:block/flint_block/break7",
+      "caverns_and_chasms:block/flint_block/break8"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.flint_block.place": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/break1",
+      "caverns_and_chasms:block/flint_block/break2",
+      "caverns_and_chasms:block/flint_block/break3",
+      "caverns_and_chasms:block/flint_block/break4",
+      "caverns_and_chasms:block/flint_block/break5",
+      "caverns_and_chasms:block/flint_block/break6",
+      "caverns_and_chasms:block/flint_block/break7",
+      "caverns_and_chasms:block/flint_block/break8"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.flint_block.step": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/break1",
+      "caverns_and_chasms:block/flint_block/break2",
+      "caverns_and_chasms:block/flint_block/break3",
+      "caverns_and_chasms:block/flint_block/break4",
+      "caverns_and_chasms:block/flint_block/break5",
+      "caverns_and_chasms:block/flint_block/break6",
+      "caverns_and_chasms:block/flint_block/break7",
+      "caverns_and_chasms:block/flint_block/break8"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.flint_block.strike": {
     "sounds": [
       "caverns_and_chasms:block/flint_block/strike1",
