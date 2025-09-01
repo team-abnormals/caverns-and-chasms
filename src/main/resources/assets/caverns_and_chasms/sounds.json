@@ -214,6 +214,55 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.deepslate_tin_ore.break": {
+    "sounds": [
+      "caverns_and_chasms:block/deepslate_tin_ore/break1",
+      "caverns_and_chasms:block/deepslate_tin_ore/break2",
+      "caverns_and_chasms:block/deepslate_tin_ore/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.deepslate_tin_ore.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/deepslate_tin_ore/step1",
+      "caverns_and_chasms:block/deepslate_tin_ore/step2",
+      "caverns_and_chasms:block/deepslate_tin_ore/step3",
+      "caverns_and_chasms:block/deepslate_tin_ore/step4"  
+    ]
+  },
+  "block.deepslate_tin_ore.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/deepslate_tin_ore/hit1",
+      "caverns_and_chasms:block/deepslate_tin_ore/hit2",
+      "caverns_and_chasms:block/deepslate_tin_ore/hit3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.deepslate_tin_ore.place": {
+    "sounds": [
+      "caverns_and_chasms:block/deepslate_tin_ore/place1",
+      "caverns_and_chasms:block/deepslate_tin_ore/place2",
+      "caverns_and_chasms:block/deepslate_tin_ore/place3",
+      "caverns_and_chasms:block/deepslate_tin_ore/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.deepslate_tin_ore.step": {
+    "sounds": [
+      "caverns_and_chasms:block/deepslate_tin_ore/step1",
+      "caverns_and_chasms:block/deepslate_tin_ore/step2",
+      "caverns_and_chasms:block/deepslate_tin_ore/step3",
+      "caverns_and_chasms:block/deepslate_tin_ore/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.deepslate_tin_ore.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/deepslate_tin_ore/deflect1",
+      "caverns_and_chasms:block/deepslate_tin_ore/deflect2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.storage_duct.break": {
     "sounds": [
       "caverns_and_chasms:block/storage_duct/break1",
