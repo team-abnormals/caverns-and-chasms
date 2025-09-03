@@ -86,6 +86,50 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.rhyolite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite/break1",
+      "caverns_and_chasms:block/rhyolite/break2",
+      "caverns_and_chasms:block/rhyolite/break3",
+      "caverns_and_chasms:block/rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rhyolite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite/step1",
+      "caverns_and_chasms:block/rhyolite/step2",
+      "caverns_and_chasms:block/rhyolite/step3",
+      "caverns_and_chasms:block/rhyolite/step4"
+    ]
+  },
+  "block.rhyolite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite/step1",
+      "caverns_and_chasms:block/rhyolite/step2",
+      "caverns_and_chasms:block/rhyolite/step3",
+      "caverns_and_chasms:block/rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.rhyolite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite/break1",
+      "caverns_and_chasms:block/rhyolite/break2",
+      "caverns_and_chasms:block/rhyolite/break3",
+      "caverns_and_chasms:block/rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.rhyolite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite/step1",
+      "caverns_and_chasms:block/rhyolite/step2",
+      "caverns_and_chasms:block/rhyolite/step3",
+      "caverns_and_chasms:block/rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.flint_block.break": {
     "sounds": [
       "caverns_and_chasms:block/flint_block/break1",
