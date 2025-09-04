@@ -132,14 +132,15 @@ public class CCStructureTypes {
 		public static final List<Entry> SMALL_DECORATIONS = List.of(of("empty", 1, 22), of("cauldron", 1), of("furnace", 1), of("blast_furnace", 1), of("damaged_anvil", 1), of("dimmer", 1), of("dimmer_scaffolding", 1), of("anvil", 1), of("tnt", 2), of("tnt_scaffolding", 2), of("water_cauldron", 3), of("scaffolding", 4));
 		public static final List<Entry> PILE_DECORATIONS = List.of(of("empty", 1, 150), of("empty", 1, 150), of("empty", 1, 150), of("empty", 1, 150), of("stone_button", 1, 60), of("mushroom", 2, 3), of("cave_growths", 6, 1), of("candle", 4, 4), of("coal", 4, 5), of("charcoal", 4, 4), of("toolbox", 1, 8));
 
-		public static final ResourceKey<StructureTemplatePool> VAULT = createKey("vault/vault");
+		public static final ResourceKey<StructureTemplatePool> VAULT = createKey("vault");
 		public static final ResourceKey<StructureTemplatePool> VAULT_PILES = createKey("vault/piles");
 		public static final ResourceKey<StructureTemplatePool> VAULT_CHESTS = createKey("vault/chests");
 		public static final ResourceKey<StructureTemplatePool> VAULT_LIGHTS = createKey("vault/lights");
 
-		public static final List<Entry> PILES = List.of(of("pile", 4));
-		public static final List<Entry> CHESTS = List.of(of("empty", 1, 2), of("chest", 1));
-		public static final List<Entry> LIGHTS = List.of(of("candle", 2));
+		public static final List<Entry> VAULTS = List.of(of("vault", 5));
+		public static final List<Entry> PILES = List.of(of("pile", 48));
+		public static final List<Entry> CHESTS = List.of(of("empty", 1), of("chest", 1));
+		public static final List<Entry> LIGHTS = List.of(of("candle", 8));
 
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
@@ -152,8 +153,7 @@ public class CCStructureTypes {
 			createPool(context, FORGE_SMALL_DECORATIONS, empty, SMALL_DECORATIONS);
 			createPool(context, FORGE_PILE_DECORATIONS, empty, PILE_DECORATIONS);
 
-			context.register(VAULT, new StructureTemplatePool(empty, ImmutableList.of(Pair.of(LegacySinglePoolElement.single(VAULT.location().toString()), 1)), StructureTemplatePool.Projection.RIGID));
-
+			createPool(context, VAULT, empty, VAULTS);
 			createPool(context, VAULT_PILES, empty, PILES);
 			createPool(context, VAULT_CHESTS, empty, CHESTS);
 			createPool(context, VAULT_LIGHTS, empty, LIGHTS);

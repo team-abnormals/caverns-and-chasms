@@ -13,7 +13,7 @@
       "absolute": -60
     }
   },
-  "start_pool": "caverns_and_chasms:vault/vault",
+  "start_pool": "caverns_and_chasms:vault",
   "step": "underground_structures",
   "terrain_adaptation": "bury",
   "use_expansion_hack": false
