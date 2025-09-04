@@ -10,9 +10,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -199,5 +197,36 @@ public class IngotBlock extends Block implements SimpleWaterloggedBlock {
 	@Override
 	public String getDescriptionId() {
 		return Util.makeDescriptionId("item", BuiltInRegistries.ITEM.getKey(this.asItem()));
+	}
+
+	@Override
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		return rotatePillar(state, rotation);
+	}
+
+	public static BlockState rotatePillar(BlockState state, Rotation rotation) {
+		IngotLayer layer = swapIngotLayer(state.getValue(TOP_INGOT));
+		return switch (rotation) {
+			case CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
+				case X -> state.setValue(AXIS, Axis.Z).setValue(TOP_INGOT, layer);
+				case Z -> state.setValue(AXIS, Axis.X);
+				default -> state;
+			};
+			case COUNTERCLOCKWISE_90 -> switch (state.getValue(AXIS)) {
+				case X -> state.setValue(AXIS, Axis.Z);
+				case Z -> state.setValue(AXIS, Axis.X).setValue(TOP_INGOT, layer);
+				default -> state;
+			};
+			case CLOCKWISE_180 -> state;
+			default -> state.setValue(TOP_INGOT, layer);
+		};
+	}
+
+	public BlockState mirror(BlockState state, Mirror mirror) {
+		return state.setValue(TOP_INGOT, swapIngotLayer(state.getValue(TOP_INGOT)));
+	}
+
+	public static IngotLayer swapIngotLayer(IngotLayer layer) {
+		return layer == IngotLayer.LEFT ? IngotLayer.RIGHT : layer == IngotLayer.RIGHT ? IngotLayer.LEFT : IngotLayer.BOTH;
 	}
 }
