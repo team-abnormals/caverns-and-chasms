@@ -631,15 +631,15 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			consumer.accept(FORGE_RARE, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(CCItems.BOOM_POTTERY_SHERD.get()))
-							.add(LootItem.lootTableItem(CCItems.CAST_POTTERY_SHERD.get()))
-							.add(LootItem.lootTableItem(CCItems.RIDE_POTTERY_SHERD.get()))
-							.add(LootItem.lootTableItem(CCItems.STALKER_POTTERY_SHERD.get()))
-							.add(LootItem.lootTableItem(CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-							.add(LootItem.lootTableItem(CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-							.add(LootItem.lootTableItem(CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-							.add(LootItem.lootTableItem(CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
-							.add(LootItem.lootTableItem(CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get()))
+							.add(LootItem.lootTableItem(CCItems.BOOM_POTTERY_SHERD.get()).setWeight(3))
+							.add(LootItem.lootTableItem(CCItems.CAST_POTTERY_SHERD.get()).setWeight(3))
+							.add(LootItem.lootTableItem(CCItems.RIDE_POTTERY_SHERD.get()).setWeight(3))
+							.add(LootItem.lootTableItem(CCItems.STALKER_POTTERY_SHERD.get()).setWeight(3))
+							.add(LootItem.lootTableItem(CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
+							.add(LootItem.lootTableItem(CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
+							.add(LootItem.lootTableItem(CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
+							.add(LootItem.lootTableItem(CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
+							.add(LootItem.lootTableItem(CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
 					));
 		}
 	}
