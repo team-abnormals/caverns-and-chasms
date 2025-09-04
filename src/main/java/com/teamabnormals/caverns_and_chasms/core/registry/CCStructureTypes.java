@@ -139,7 +139,7 @@ public class CCStructureTypes {
 
 		public static final List<Entry> VAULTS = List.of(of("vault", 5));
 		public static final List<Entry> PILES = List.of(of("pile", 48));
-		public static final List<Entry> CHESTS = List.of(of("empty", 1), of("chest", 1));
+		public static final List<Entry> CHESTS = List.of(of("empty", 1), of("chest", 1, 2));
 		public static final List<Entry> LIGHTS = List.of(of("candle", 8));
 
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
@@ -232,7 +232,7 @@ public class CCStructureTypes {
 			HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
 			context.register(FORGES, new StructureSet(structures.getOrThrow(CCStructures.FORGE), new RandomSpreadStructurePlacement(16, 4, RandomSpreadType.LINEAR, 294502589)));
-			context.register(VAULTS, new StructureSet(structures.getOrThrow(CCStructures.VAULT), new RandomSpreadStructurePlacement(12, 6, RandomSpreadType.LINEAR, 1241532)));
+			context.register(VAULTS, new StructureSet(structures.getOrThrow(CCStructures.VAULT), new RandomSpreadStructurePlacement(24, 6, RandomSpreadType.LINEAR, 5123513)));
 			context.register(TIN_MONOLITHS, new StructureSet(structures.getOrThrow(CCStructures.TIN_MONOLITH), new RandomSpreadStructurePlacement(TinMonolithStructure.SPACING, TinMonolithStructure.SEPARATION, RandomSpreadType.TRIANGULAR, TinMonolithStructure.SALT)));
 		}
 

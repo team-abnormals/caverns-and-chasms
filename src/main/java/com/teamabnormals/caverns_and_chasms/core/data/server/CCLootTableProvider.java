@@ -517,7 +517,6 @@ public class CCLootTableProvider extends LootTableProvider {
 						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES)
 								.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, Ints.ANY)).build()).build()));
 
-
 		@Override
 		public void generate() {
 			this.add(COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
@@ -599,12 +598,64 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(2).apply(fluidLevelTag(1)))
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(1).apply(fluidLevelTag(2)))
 					));
+
+			consumer.accept(CavernsAndChasms.location("chests/vault"), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3.0F, 5.0F))
+							.add(lootEntry(Items.MUSIC_DISC_MELLOHI, 4))
+							.add(lootEntry(Items.MUSIC_DISC_WAIT, 4))
+							.add(lootEntry(Items.GOLDEN_HORSE_ARMOR, 7))
+							.add(lootEntry(CCItems.SILVER_HORSE_ARMOR.get(), 5))
+							.add(lootEntry(Items.DIAMOND_HORSE_ARMOR, 3))
+							.add(lootEntry(DEEPSLATE_TURQUOISE_ORE.get(), 1))
+							.add(lootEntry(Items.CLOCK, 6))
+							.add(lootEntry(CCItems.DEPTH_GAUGE.get(), 5))
+							.add(lootEntry(Items.BELL, 7))
+							.add(lootEntry(CCItems.GOLDEN_BUCKET.get(), 6))
+					)
+
+					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 3.0F))
+							.add(lootEntry(Items.COOKIE, 3.0F, 5.0F, 15))
+							.add(lootEntry(Items.GOLDEN_APPLE, 10))
+							.add(lootEntry(Items.ENCHANTED_GOLDEN_APPLE, 1))
+							.add(lootEntry(CCItems.BEJEWELED_APPLE.get(), 9))
+					)
+
+					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(5.0F, 9.0F))
+							.add(lootEntry(Items.PAINTING, 1.0F, 3.0F, 6))
+							.add(lootEntry(Items.ENDER_PEARL, 1.0F, 3.0F, 4))
+							.add(lootEntry(CCItems.BEJEWELED_PEARL.get(), 1.0F, 2.0F, 2))
+
+							.add(lootEntry(Items.IRON_INGOT, 2.0F, 3.0F, 6))
+							.add(lootEntry(Items.GOLD_INGOT, 3.0F, 4.0F, 5))
+							.add(lootEntry(CCItems.SILVER_INGOT.get(), 2.0F, 4.0F, 4))
+							.add(lootEntry(CCItems.TIN_INGOT.get(), 1.0F, 3.0F, 3))
+
+							.add(lootEntry(Items.DIAMOND, 2.0F, 4.0F, 5))
+							.add(lootEntry(Items.EMERALD, 1.0F, 3.0F, 6))
+							.add(lootEntry(Items.LAPIS_LAZULI, 3.0F, 5.0F, 3))
+							.add(lootEntry(CCItems.SPINEL.get(), 3.0F, 4.0F, 5))
+							.add(lootEntry(CCItems.ZIRCONIA.get(), 1.0F, 3.0F, 4))
+							.add(lootEntry(CCItems.TURQUOISE.get(), 2))
+					)
+			);
 		}
 
 		public static LootItemConditionalFunction.Builder<?> fluidLevelTag(int level) {
 			CompoundTag tag = new CompoundTag();
 			tag.putInt(GoldenBucketItem.NBT_TAG, level);
 			return SetNbtFunction.setTag(tag);
+		}
+
+		public static LootPoolSingletonContainer.Builder<?> lootEntry(ItemLike item, float min, float max, int weight) {
+			return LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))).setWeight(weight);
+		}
+
+		public static LootPoolSingletonContainer.Builder<?> lootEntry(ItemLike item, float count, int weight) {
+			return LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(ConstantValue.exactly(count))).setWeight(weight);
+		}
+
+		public static LootPoolSingletonContainer.Builder<?> lootEntry(ItemLike item, int weight) {
+			return LootItem.lootTableItem(item).setWeight(weight);
 		}
 	}
 
