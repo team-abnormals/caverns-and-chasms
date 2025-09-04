@@ -8,6 +8,24 @@
     },
     {
       "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 150
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 150
+    },
+    {
+      "element": {
+        "element_type": "minecraft:empty_pool_element"
+      },
+      "weight": 150
+    },
+    {
+      "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "caverns_and_chasms:forge/pile_decorations/stone_button_1",
         "processors": {
