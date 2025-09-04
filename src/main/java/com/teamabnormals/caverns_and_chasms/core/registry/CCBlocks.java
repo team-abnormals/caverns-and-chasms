@@ -483,6 +483,9 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TIN_INGOT = HELPER.createPlacedItem("tin_ingot", () -> new IngotBlock(CCItems.TIN_INGOT, BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
 	public static final RegistryObject<Block> NECROMIUM_INGOT = HELPER.createPlacedItem("necromium_ingot", () -> new IngotBlock(CCItems.NECROMIUM_INGOT, BlockBehaviour.Properties.copy(NECROMIUM_BLOCK.get())));
 
+	public static final RegistryObject<Block> BRICK = HELPER.createPlacedItem("brick", () -> new IngotBlock(() -> Items.BRICK, BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+	public static final RegistryObject<Block> NETHER_BRICK = HELPER.createPlacedItem("nether_brick", () -> new IngotBlock(() -> Items.NETHER_BRICK, BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS)));
+
 	public static final RegistryObject<Block> SADDLED_EGG = HELPER.createBlock("saddled_egg", () -> new SaddledEggBlock(CCProperties.SADDLED_EGG));
 
 	public static void setupTabEditors() {

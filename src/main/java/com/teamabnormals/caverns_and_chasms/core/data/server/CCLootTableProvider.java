@@ -114,6 +114,9 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(TIN_INGOT.get(), this::createIngotDrops);
 			this.add(NECROMIUM_INGOT.get(), this::createIngotDrops);
 
+			this.add(BRICK.get(), this::createIngotDrops);
+			this.add(NETHER_BRICK.get(), this::createIngotDrops);
+
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 			this.dropSelf(NECROMIUM_BLOCK.get());
 			this.dropSelf(DEEPER_HEAD.get());

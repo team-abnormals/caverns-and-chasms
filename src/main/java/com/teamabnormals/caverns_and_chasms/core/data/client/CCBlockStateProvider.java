@@ -119,6 +119,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.ingotBlock(TIN_INGOT);
 		this.ingotBlock(NECROMIUM_INGOT);
 
+		this.ingotBlock(BRICK);
+		this.ingotBlock(NETHER_BRICK);
+
 		this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
 		this.blockFamily(COBBLESTONE_TILES_FAMILY);
 		this.blockFamily(MOSSY_COBBLESTONE_BRICKS_FAMILY);

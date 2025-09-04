@@ -71,7 +71,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.FADED_TRIM_MODIFIERS).addTag(CCItemTags.GEMS_SPINEL);
 		this.tag(CCItemTags.EMISSIVE_TRIM_MODIFIERS).add(Items.BLAZE_POWDER);
 		this.tag(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA);
-		this.tag(CCItemTags.PLACEABLE_ITEMS).add(Items.COAL, Items.CHARCOAL, Items.COPPER_INGOT, Items.IRON_INGOT, Items.GOLD_INGOT, Items.NETHERITE_INGOT, SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get());
+		this.tag(CCItemTags.PLACEABLE_ITEMS).add(Items.COAL, Items.CHARCOAL, Items.COPPER_INGOT, Items.IRON_INGOT, Items.GOLD_INGOT, Items.NETHERITE_INGOT, SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get(), Items.BRICK, Items.NETHER_BRICK);
 
 		this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 		this.copy(CCBlockTags.ORES_AMETHYST, CCItemTags.ORES_AMETHYST);
