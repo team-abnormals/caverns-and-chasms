@@ -40,6 +40,13 @@
     "caverns_and_chasms:fortified_sanguine_tile_slab",
     "caverns_and_chasms:fortified_sanguine_tile_wall",
     "caverns_and_chasms:copper_ingot",
+    "caverns_and_chasms:exposed_copper_ingot",
+    "caverns_and_chasms:weathered_copper_ingot",
+    "caverns_and_chasms:oxidized_copper_ingot",
+    "caverns_and_chasms:waxed_copper_ingot",
+    "caverns_and_chasms:waxed_exposed_copper_ingot",
+    "caverns_and_chasms:waxed_weathered_copper_ingot",
+    "caverns_and_chasms:waxed_oxidized_copper_ingot",
     "caverns_and_chasms:iron_ingot"
   ]
 }

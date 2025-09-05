@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
@@ -21,6 +22,7 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.generatedItem(
 				ABNORMALS_BANNER_PATTERN, MUSIC_DISC_EPILOGUE, MUSIC_DISC_COPY,
 				COPPER_NUGGET, OXIDIZED_COPPER_GOLEM,
+				EXPOSED_COPPER_INGOT, WEATHERED_COPPER_INGOT, OXIDIZED_COPPER_INGOT,
 				RAW_SILVER, LARGE_ARROW,
 				SILVER_INGOT, SILVER_NUGGET, SILVER_HORSE_ARMOR,
 				RAW_TIN, TIN_INGOT, TIN_NUGGET,
@@ -32,6 +34,11 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 				BOOM_POTTERY_SHERD, CAST_POTTERY_SHERD, RIDE_POTTERY_SHERD, STALKER_POTTERY_SHERD,
 				AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond(), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT
 		);
+
+		this.withExistingParent(name(WAXED_COPPER_INGOT.get()), "item/generated").texture("layer0", new ResourceLocation("item/copper_ingot"));
+		this.item(WAXED_EXPOSED_COPPER_INGOT, "exposed_copper_ingot", "generated");
+		this.item(WAXED_WEATHERED_COPPER_INGOT, "weathered_copper_ingot", "generated");
+		this.item(WAXED_OXIDIZED_COPPER_INGOT, "oxidized_copper_ingot", "generated");
 
 		this.handheldItem(
 				SILVER_SWORD, SILVER_PICKAXE, SILVER_AXE, SILVER_SHOVEL, SILVER_HOE,

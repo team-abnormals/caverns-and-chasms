@@ -107,6 +107,14 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(CHARCOAL.get(), this::createCoalDrops);
 
 			this.add(COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(EXPOSED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(WEATHERED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(OXIDIZED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(WAXED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(WAXED_EXPOSED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(WAXED_WEATHERED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(WAXED_OXIDIZED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+
 			this.add(IRON_INGOT.get(), this::createIngotDrops);
 			this.add(GOLD_INGOT.get(), this::createIngotDrops);
 			this.add(NETHERITE_INGOT.get(), this::createIngotDrops);
@@ -456,10 +464,14 @@ public class CCLootTableProvider extends LootTableProvider {
 		}
 
 		protected LootTable.Builder createIngotDrops(Block block) {
+			return createIngotDrops(block, block.asItem());
+		}
+
+		protected LootTable.Builder createIngotDrops(Block block, Item ingot) {
 			return LootTable.lootTable()
 					.withPool(LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1.0F))
-							.add(this.applyExplosionDecay(block.asItem(), LootItem.lootTableItem(block)
+							.add(this.applyExplosionDecay(ingot, LootItem.lootTableItem(ingot)
 									.apply(List.of(1, 2, 3), i -> {
 										return SetItemCountFunction.setCount(ConstantValue.exactly(i * 2))
 												.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
@@ -472,7 +484,7 @@ public class CCLootTableProvider extends LootTableProvider {
 					)
 					.withPool(LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1.0F))
-							.add(this.applyExplosionDecay(block.asItem(), LootItem.lootTableItem(block)
+							.add(this.applyExplosionDecay(ingot, LootItem.lootTableItem(ingot)
 									.apply(List.of(IngotLayer.BOTH), layer -> {
 										return SetItemCountFunction.setCount(ConstantValue.exactly(2))
 												.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
@@ -604,16 +616,16 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			consumer.accept(CavernsAndChasms.location("chests/vault"), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3.0F, 5.0F))
-							.add(lootEntry(Items.MUSIC_DISC_MELLOHI, 4))
-							.add(lootEntry(Items.MUSIC_DISC_WAIT, 4))
-							.add(lootEntry(Items.GOLDEN_HORSE_ARMOR, 7))
-							.add(lootEntry(CCItems.SILVER_HORSE_ARMOR.get(), 5))
-							.add(lootEntry(Items.DIAMOND_HORSE_ARMOR, 3))
+							.add(lootEntry(Items.MUSIC_DISC_MELLOHI, 5))
+							.add(lootEntry(Items.MUSIC_DISC_WAIT, 5))
+							.add(lootEntry(Items.GOLDEN_HORSE_ARMOR, 8))
+							.add(lootEntry(CCItems.SILVER_HORSE_ARMOR.get(), 6))
+							.add(lootEntry(Items.DIAMOND_HORSE_ARMOR, 4))
 							.add(lootEntry(DEEPSLATE_TURQUOISE_ORE.get(), 1))
-							.add(lootEntry(Items.CLOCK, 6))
+							.add(lootEntry(Items.CLOCK, 7))
 							.add(lootEntry(CCItems.DEPTH_GAUGE.get(), 5))
-							.add(lootEntry(Items.BELL, 7))
-							.add(lootEntry(CCItems.GOLDEN_BUCKET.get(), 6))
+							.add(lootEntry(Items.BELL, 8))
+							.add(lootEntry(CCItems.GOLDEN_BUCKET.get(), 7))
 					)
 
 					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 3.0F))

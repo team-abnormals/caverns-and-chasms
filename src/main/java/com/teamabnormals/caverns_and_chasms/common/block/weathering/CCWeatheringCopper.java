@@ -48,6 +48,9 @@ public interface CCWeatheringCopper extends WeatheringCopper {
 			.put(CCBlocks.CHISELED_COPPER_BRICKS.get(), CCBlocks.EXPOSED_CHISELED_COPPER_BRICKS.get())
 			.put(CCBlocks.EXPOSED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WEATHERED_CHISELED_COPPER_BRICKS.get())
 			.put(CCBlocks.WEATHERED_CHISELED_COPPER_BRICKS.get(), CCBlocks.OXIDIZED_CHISELED_COPPER_BRICKS.get())
+			.put(CCBlocks.COPPER_INGOT.get(), CCBlocks.EXPOSED_COPPER_INGOT.get())
+			.put(CCBlocks.EXPOSED_COPPER_INGOT.get(), CCBlocks.WEATHERED_COPPER_INGOT.get())
+			.put(CCBlocks.WEATHERED_COPPER_INGOT.get(), CCBlocks.OXIDIZED_COPPER_INGOT.get())
 			.build()));
 	Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
 

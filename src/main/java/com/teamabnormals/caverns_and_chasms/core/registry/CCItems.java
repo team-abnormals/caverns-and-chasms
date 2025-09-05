@@ -61,6 +61,14 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_GOLEM = HELPER.createItem("waxed_oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), true));
 	public static final RegistryObject<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> EXPOSED_COPPER_INGOT = HELPER.createItem("exposed_copper_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WEATHERED_COPPER_INGOT = HELPER.createItem("weathered_copper_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> OXIDIZED_COPPER_INGOT = HELPER.createItem("oxidized_copper_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_COPPER_INGOT = HELPER.createItem("waxed_copper_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_INGOT = HELPER.createItem("waxed_exposed_copper_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_INGOT = HELPER.createItem("waxed_weathered_copper_ingot", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_INGOT = HELPER.createItem("waxed_oxidized_copper_ingot", () -> new Item(new Item.Properties()));
+
 	public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> NETHERITE_HORSE_ARMOR = HELPER.createItem("netherite_horse_armor", () -> new NetheriteHorseArmorItem(12, "netherite", new Item.Properties().fireResistant().stacksTo(1)));
 

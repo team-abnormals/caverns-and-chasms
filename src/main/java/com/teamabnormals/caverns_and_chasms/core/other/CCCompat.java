@@ -171,6 +171,10 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_EXPOSED_CHISELED_COPPER_BRICKS.get());
 		builder.put(CCBlocks.WEATHERED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_WEATHERED_CHISELED_COPPER_BRICKS.get());
 		builder.put(CCBlocks.OXIDIZED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_OXIDIZED_CHISELED_COPPER_BRICKS.get());
+		builder.put(CCBlocks.COPPER_INGOT.get(), CCBlocks.WAXED_COPPER_INGOT.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_INGOT.get(), CCBlocks.WAXED_EXPOSED_COPPER_INGOT.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_INGOT.get(), CCBlocks.WAXED_WEATHERED_COPPER_INGOT.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_INGOT.get(), CCBlocks.WAXED_OXIDIZED_COPPER_INGOT.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

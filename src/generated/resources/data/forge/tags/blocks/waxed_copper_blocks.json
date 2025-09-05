@@ -59,6 +59,10 @@
     "caverns_and_chasms:waxed_chiseled_copper_bricks",
     "caverns_and_chasms:waxed_exposed_chiseled_copper_bricks",
     "caverns_and_chasms:waxed_weathered_chiseled_copper_bricks",
-    "caverns_and_chasms:waxed_oxidized_chiseled_copper_bricks"
+    "caverns_and_chasms:waxed_oxidized_chiseled_copper_bricks",
+    "caverns_and_chasms:waxed_copper_ingot",
+    "caverns_and_chasms:waxed_exposed_copper_ingot",
+    "caverns_and_chasms:waxed_weathered_copper_ingot",
+    "caverns_and_chasms:waxed_oxidized_copper_ingot"
   ]
 }

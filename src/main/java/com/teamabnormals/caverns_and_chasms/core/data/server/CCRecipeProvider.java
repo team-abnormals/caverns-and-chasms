@@ -5,6 +5,7 @@ import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.boatload.core.data.server.BoatloadRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.CopperHornItem;
 import com.teamabnormals.caverns_and_chasms.common.recipe.CCShapedRecipeBuilder;
@@ -615,7 +616,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	protected void ccWaxRecipes(Consumer<FinishedRecipe> consumer) {
 		CCCompat.registerWaxables();
 		HoneycombItem.WAXABLES.get().forEach((base, waxed) -> {
-			if (BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID()) && !(waxed instanceof ToolboxBlock)) {
+			if (BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID()) && !(waxed instanceof ToolboxBlock) && !(waxed instanceof IngotBlock)) {
 				RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS : waxed instanceof ButtonBlock ? REDSTONE : BUILDING_BLOCKS;
 				ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(Items.HONEYCOMB).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
 			}

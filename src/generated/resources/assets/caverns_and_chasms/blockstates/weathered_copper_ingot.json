@@ -1,0 +1,260 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_z_layer1"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "layers": "0",
+            "top_ingot": "left|both"
+          },
+          {
+            "axis": "x",
+            "layers": "1|2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_z_layer1"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "layers": "0",
+            "top_ingot": "right|both"
+          },
+          {
+            "axis": "x",
+            "layers": "1|2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_x_layer1"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "z",
+            "layers": "0",
+            "top_ingot": "left|both"
+          },
+          {
+            "axis": "z",
+            "layers": "1|2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_x_layer1"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "z",
+            "layers": "0",
+            "top_ingot": "right|both"
+          },
+          {
+            "axis": "z",
+            "layers": "1|2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_x_layer2"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "layers": "1",
+            "top_ingot": "left|both"
+          },
+          {
+            "axis": "x",
+            "layers": "2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_x_layer2"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "layers": "1",
+            "top_ingot": "right|both"
+          },
+          {
+            "axis": "x",
+            "layers": "2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_z_layer2"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "z",
+            "layers": "1",
+            "top_ingot": "left|both"
+          },
+          {
+            "axis": "z",
+            "layers": "2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_z_layer2"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "z",
+            "layers": "1",
+            "top_ingot": "right|both"
+          },
+          {
+            "axis": "z",
+            "layers": "2|3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_z_layer3"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "layers": "2",
+            "top_ingot": "left|both"
+          },
+          {
+            "axis": "x",
+            "layers": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_z_layer3"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "layers": "2",
+            "top_ingot": "right|both"
+          },
+          {
+            "axis": "x",
+            "layers": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_x_layer3"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "z",
+            "layers": "2",
+            "top_ingot": "left|both"
+          },
+          {
+            "axis": "z",
+            "layers": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_x_layer3"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "z",
+            "layers": "2",
+            "top_ingot": "right|both"
+          },
+          {
+            "axis": "z",
+            "layers": "3"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_x_layer4"
+      },
+      "when": {
+        "axis": "x",
+        "layers": "3",
+        "top_ingot": "left|both"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_x_layer4"
+      },
+      "when": {
+        "axis": "x",
+        "layers": "3",
+        "top_ingot": "right|both"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_left_z_layer4"
+      },
+      "when": {
+        "axis": "z",
+        "layers": "3",
+        "top_ingot": "left|both"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/weathered_copper_ingot_right_z_layer4"
+      },
+      "when": {
+        "axis": "z",
+        "layers": "3",
+        "top_ingot": "right|both"
+      }
+    }
+  ]
+}

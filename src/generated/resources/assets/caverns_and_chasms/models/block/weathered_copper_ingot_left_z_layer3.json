@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_ingot_left_z_layer3",
+  "textures": {
+    "ingot": "caverns_and_chasms:block/weathered_copper_ingot"
+  }
+}

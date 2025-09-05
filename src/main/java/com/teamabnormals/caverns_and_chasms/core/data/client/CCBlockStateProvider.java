@@ -112,6 +112,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.charcoalBlock(CHARCOAL_BLOCK);
 
 		this.ingotBlock(COPPER_INGOT);
+		this.ingotBlock(EXPOSED_COPPER_INGOT);
+		this.ingotBlock(WEATHERED_COPPER_INGOT);
+		this.ingotBlock(OXIDIZED_COPPER_INGOT);
+		this.ingotBlock(WAXED_COPPER_INGOT);
+		this.ingotBlock(WAXED_EXPOSED_COPPER_INGOT);
+		this.ingotBlock(WAXED_WEATHERED_COPPER_INGOT);
+		this.ingotBlock(WAXED_OXIDIZED_COPPER_INGOT);
+
 		this.ingotBlock(IRON_INGOT);
 		this.ingotBlock(GOLD_INGOT);
 		this.ingotBlock(NETHERITE_INGOT);
@@ -895,7 +903,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void addIngotModel(MultiPartBlockStateBuilder builder, Block block, IngotLayer ingotLayer, Axis axis, int layer, Integer... nums) {
 		Axis visualAxis = IngotBlock.getAxisForLayer(layer, axis);
 		String name = "_" + ingotLayer.getSerializedName() + "_" + visualAxis.getSerializedName() + "_layer" + layer;
-		BlockModelBuilder model = models().withExistingParent(name(block) + name, CavernsAndChasms.location("block/template_ingot" + name)).texture("ingot", blockTexture(block));
+		BlockModelBuilder model = models().withExistingParent(name(block) + name, CavernsAndChasms.location("block/template_ingot" + name)).texture("ingot", blockTexture(block).toString().replace("waxed_",""));
 
 		if (nums.length > 0) {
 			builder.part().modelFile(model).addModel().useOr()
