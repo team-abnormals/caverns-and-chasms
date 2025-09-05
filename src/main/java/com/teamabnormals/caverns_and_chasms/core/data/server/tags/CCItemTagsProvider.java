@@ -76,7 +76,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 				Items.COPPER_INGOT, EXPOSED_COPPER_INGOT.get(), WEATHERED_COPPER_INGOT.get(), OXIDIZED_COPPER_INGOT.get(),
 				WAXED_COPPER_INGOT.get(), WAXED_EXPOSED_COPPER_INGOT.get(), WAXED_WEATHERED_COPPER_INGOT.get(), WAXED_OXIDIZED_COPPER_INGOT.get(),
 				Items.IRON_INGOT, Items.GOLD_INGOT, Items.NETHERITE_INGOT, SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get()
-		);
+		).addOptional(new ResourceLocation("endergetic", "eumus_brick"));
 
 		this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 		this.copy(CCBlockTags.ORES_AMETHYST, CCItemTags.ORES_AMETHYST);

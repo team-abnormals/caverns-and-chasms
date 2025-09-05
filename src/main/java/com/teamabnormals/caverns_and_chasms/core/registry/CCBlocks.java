@@ -493,6 +493,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> BRICK = HELPER.createPlacedItem("brick", () -> new IngotBlock(() -> Items.BRICK, BlockBehaviour.Properties.copy(Blocks.BRICKS)));
 	public static final RegistryObject<Block> NETHER_BRICK = HELPER.createPlacedItem("nether_brick", () -> new IngotBlock(() -> Items.NETHER_BRICK, BlockBehaviour.Properties.copy(Blocks.NETHER_BRICKS)));
+	public static final RegistryObject<Block> EUMUS_BRICK = HELPER.createPlacedItem("eumus_brick", () -> new IngotBlock(() -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("endergetic", "eumus_brick")), Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).sound(SoundType.STONE).strength(2, 30)));
 
 	public static final RegistryObject<Block> SADDLED_EGG = HELPER.createBlock("saddled_egg", () -> new SaddledEggBlock(CCProperties.SADDLED_EGG));
 

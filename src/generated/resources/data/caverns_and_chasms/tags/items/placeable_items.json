@@ -17,6 +17,10 @@
     "minecraft:netherite_ingot",
     "caverns_and_chasms:silver_ingot",
     "caverns_and_chasms:tin_ingot",
-    "caverns_and_chasms:necromium_ingot"
+    "caverns_and_chasms:necromium_ingot",
+    {
+      "id": "endergetic:eumus_brick",
+      "required": false
+    }
   ]
 }
