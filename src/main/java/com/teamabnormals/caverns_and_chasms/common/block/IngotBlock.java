@@ -10,7 +10,10 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -105,27 +108,18 @@ public class IngotBlock extends Block implements SimpleWaterloggedBlock {
 		return axis == Axis.X ? Axis.Z : Axis.X;
 	}
 
-	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-		return (!state.getCollisionShape(level, pos).getFaceShape(Direction.UP).isEmpty() || state.isFaceSturdy(level, pos, Direction.UP)) && (!(state.getBlock() instanceof IngotBlock) || countIngots(state) == 8);
-	}
-
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		BlockPos belowPos = pos.below();
-		return this.mayPlaceOn(level.getBlockState(belowPos), level, belowPos);
+		return Block.canSupportCenter(level, pos.below(), Direction.UP);
 	}
 
 	@Override
 	public BlockState updateShape(BlockState p_56113_, Direction p_56114_, BlockState p_56115_, LevelAccessor p_56116_, BlockPos p_56117_, BlockPos p_56118_) {
-		if (!p_56113_.canSurvive(p_56116_, p_56117_)) {
-			return Blocks.AIR.defaultBlockState();
-		} else {
-			if (p_56113_.getValue(WATERLOGGED)) {
-				p_56116_.scheduleTick(p_56117_, Fluids.WATER, Fluids.WATER.getTickDelay(p_56116_));
-			}
-
-			return super.updateShape(p_56113_, p_56114_, p_56115_, p_56116_, p_56117_, p_56118_);
+		if (p_56113_.getValue(WATERLOGGED)) {
+			p_56116_.scheduleTick(p_56117_, Fluids.WATER, Fluids.WATER.getTickDelay(p_56116_));
 		}
+
+		return super.updateShape(p_56113_, p_56114_, p_56115_, p_56116_, p_56117_, p_56118_);
 	}
 
 	@Override
