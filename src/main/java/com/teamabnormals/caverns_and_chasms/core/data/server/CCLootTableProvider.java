@@ -333,6 +333,27 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(RHYOLITE_BRICK_SLAB.get(), this::createSlabItemTable);
 			this.add(POLISHED_RHYOLITE_SLAB.get(), this::createSlabItemTable);
 
+			this.dropSelf(DRIPSTONE_STAIRS.get());
+			this.dropSelf(DRIPSTONE_WALL.get());
+			this.add(DRIPSTONE_SLAB.get(), this::createSlabItemTable);
+		
+			this.dropSelf(SMOOTH_DRIPSTONE.get());
+			this.dropSelf(SMOOTH_DRIPSTONE_STAIRS.get());
+			this.dropSelf(SMOOTH_DRIPSTONE_WALL.get());
+			this.add(SMOOTH_DRIPSTONE_SLAB.get(), this::createSlabItemTable);
+			
+			this.dropSelf(POLISHED_DRIPSTONE.get());
+			this.dropSelf(POLISHED_DRIPSTONE_STAIRS.get());
+			this.dropSelf(POLISHED_DRIPSTONE_WALL.get());
+			this.add(POLISHED_DRIPSTONE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CHISELED_POLISHED_DRIPSTONE.get());
+			
+			this.dropSelf(DRIPSTONE_BRICKS.get());
+			this.dropSelf(DRIPSTONE_BRICK_STAIRS.get());
+			this.dropSelf(DRIPSTONE_BRICK_WALL.get());
+			this.add(DRIPSTONE_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CRACKED_DRIPSTONE_BRICKS.get());
+
 			this.dropSelf(DRIPSTONE_SHINGLES.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());
 			this.dropSelf(DRIPSTONE_SHINGLE_WALL.get());

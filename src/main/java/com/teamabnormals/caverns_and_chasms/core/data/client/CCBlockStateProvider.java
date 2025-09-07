@@ -159,10 +159,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(MAGMATIC_RHYOLITE_FAMILY);
 		this.blockFamily(POLISHED_MAGMATIC_RHYOLITE_FAMILY);
 		this.blockFamilyWithChiseled(MAGMATIC_RHYOLITE_BRICKS_FAMILY);
-
+		
+		this.baseBlockVariants(Blocks.DRIPSTONE_BLOCK, DRIPSTONE_STAIRS, DRIPSTONE_SLAB, DRIPSTONE_WALL);
 		this.blockFamily(DRIPSTONE_SHINGLES_FAMILY);
 		this.block(CHISELED_DRIPSTONE_SHINGLES);
 		this.block(FLOODED_DRIPSTONE_SHINGLES);
+		this.blockFamily(SMOOTH_DRIPSTONE_FAMILY);
+		this.blockFamilyWithChiseled(POLISHED_DRIPSTONE_FAMILY);
+		this.blockFamily(DRIPSTONE_BRICKS_FAMILY);
+		this.block(CRACKED_DRIPSTONE_BRICKS);
 
 		this.block(SANGUINE_BLOCK);
 		this.blockFamily(SANGUINE_TILES_FAMILY);
@@ -811,7 +816,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 	@Override
 	public void slabBlock(Block block, Block slab) {
-		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get() || slabBlock == POLISHED_CASSITERITE_SLAB.get() || slabBlock == POLISHED_RHYOLITE_SLAB.get() || slabBlock == POLISHED_MAGMATIC_RHYOLITE_SLAB.get())) {
+		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get() || slabBlock == POLISHED_CASSITERITE_SLAB.get() || slabBlock == POLISHED_DRIPSTONE_SLAB.get() || slabBlock == POLISHED_RHYOLITE_SLAB.get() || slabBlock == POLISHED_MAGMATIC_RHYOLITE_SLAB.get())) {
 			ResourceLocation side = blockTexture(slab);
 			ResourceLocation full = blockTexture(block);
 			this.slabBlock(slabBlock, models().slab(name(slab), side, full, full), models().slabTop(name(slab) + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));
