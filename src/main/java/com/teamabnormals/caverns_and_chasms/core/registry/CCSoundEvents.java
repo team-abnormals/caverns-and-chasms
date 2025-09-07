@@ -25,13 +25,13 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_HIT = HELPER.createSoundEvent("block.rocky_dirt.hit");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_PLACE = HELPER.createSoundEvent("block.rocky_dirt.place");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_STEP = HELPER.createSoundEvent("block.rocky_dirt.step");
-	
+
 	public static final RegistryObject<SoundEvent> RHYOLITE_BREAK = HELPER.createSoundEvent("block.rhyolite.break");
 	public static final RegistryObject<SoundEvent> RHYOLITE_FALL = HELPER.createSoundEvent("block.rhyolite.fall");
 	public static final RegistryObject<SoundEvent> RHYOLITE_HIT = HELPER.createSoundEvent("block.rhyolite.hit");
 	public static final RegistryObject<SoundEvent> RHYOLITE_PLACE = HELPER.createSoundEvent("block.rhyolite.place");
 	public static final RegistryObject<SoundEvent> RHYOLITE_STEP = HELPER.createSoundEvent("block.rhyolite.step");
-	
+
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_BREAK = HELPER.createSoundEvent("block.flint_block.break");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_FALL = HELPER.createSoundEvent("block.flint_block.fall");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_HIT = HELPER.createSoundEvent("block.flint_block.hit");
@@ -98,7 +98,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SANGUINE_HIT = HELPER.createSoundEvent("block.sanguine.hit");
 	public static final RegistryObject<SoundEvent> SANGUINE_PLACE = HELPER.createSoundEvent("block.sanguine.place");
 	public static final RegistryObject<SoundEvent> SANGUINE_STEP = HELPER.createSoundEvent("block.sanguine.step");
-	
+
 	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_BREAK = HELPER.createSoundEvent("block.rotten_flesh.break");
 	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_FALL = HELPER.createSoundEvent("block.rotten_flesh.fall");
 	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_HIT = HELPER.createSoundEvent("block.rotten_flesh.hit");
@@ -137,7 +137,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_ORE_PLACE = HELPER.createSoundEvent("block.tin_ore.place");
 	public static final RegistryObject<SoundEvent> TIN_ORE_STEP = HELPER.createSoundEvent("block.tin_ore.step");
 	public static final RegistryObject<SoundEvent> TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.tin_ore.deflect");
-	
+
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_BREAK = HELPER.createSoundEvent("block.deepslate_tin_ore.break");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_FALL = HELPER.createSoundEvent("block.deepslate_tin_ore.fall");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_HIT = HELPER.createSoundEvent("block.deepslate_tin_ore.hit");

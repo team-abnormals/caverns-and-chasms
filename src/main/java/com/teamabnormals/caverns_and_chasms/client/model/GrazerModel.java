@@ -110,8 +110,8 @@ public class GrazerModel extends AgeableListModel<Grazer> {
 			this.leftWing.yRot += (0.6F + Mth.cos(limbSwing * 0.6662F) * 0.6F) * limbSwingAmount * runamount;
 
 			// Bouncing animation
-			this.rightWing.yRot += (-0.8F - Mth.cos(ageInTicks* 0.4F) * 0.6F) * bounceamount;
-			this.leftWing.yRot += (0.8F + Mth.cos(ageInTicks* 0.4F) * 0.6F) * bounceamount;
+			this.rightWing.yRot += (-0.8F - Mth.cos(ageInTicks * 0.4F) * 0.6F) * bounceamount;
+			this.leftWing.yRot += (0.8F + Mth.cos(ageInTicks * 0.4F) * 0.6F) * bounceamount;
 			this.rightHindLeg.y += -6.0F * bounceamount;
 			this.leftHindLeg.y += -6.0F * bounceamount;
 			this.rightFrontLeg.y += -6.0F * bounceamount;

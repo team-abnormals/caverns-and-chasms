@@ -115,7 +115,8 @@ public class FalseHopeFeature extends Feature<NoneFeatureConfiguration> {
 		MutableBlockPos offsetpos = new MutableBlockPos();
 
 		for (int y = 0; y > -6; y--) {
-			label: {
+			label:
+			{
 				for (int[] offset : OFFSETS) {
 					offsetpos.setWithOffset(mutable, offset[0], -1, offset[1]);
 					if (!level.getBlockState(offsetpos).isSolid()) {

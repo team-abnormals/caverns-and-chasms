@@ -414,42 +414,40 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, MAGMATIC_RHYOLITE_BRICK_STAIRS.get(), MAGMATIC_RHYOLITE_BRICKS.get());
 		stonecutterRecipe(consumer, DECORATIONS, MAGMATIC_RHYOLITE_BRICK_WALL.get(), MAGMATIC_RHYOLITE_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_MAGMATIC_RHYOLITE_BRICKS.get(), MAGMATIC_RHYOLITE_BRICKS.get());
-		
+
 		generateRecipes(consumer, DRIPSTONE_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterRecipe(consumer, DECORATIONS, DRIPSTONE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
-		
+
 		generateRecipes(consumer, POLISHED_DRIPSTONE_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_DRIPSTONE_SLAB.get(), POLISHED_DRIPSTONE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_DRIPSTONE_STAIRS.get(), POLISHED_DRIPSTONE.get());
-		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DRIPSTONE_WALL.get(), POLISHED_DRIPSTONE.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_POLISHED_DRIPSTONE.get(), POLISHED_DRIPSTONE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_DRIPSTONE.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_DRIPSTONE_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_DRIPSTONE_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
-		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DRIPSTONE_WALL.get(), Blocks.DRIPSTONE_BLOCK);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_POLISHED_DRIPSTONE.get(), Blocks.DRIPSTONE_BLOCK);
-		
+
 		generateRecipes(consumer, DRIPSTONE_BRICKS_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICK_SLAB.get(), DRIPSTONE_BRICKS.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICK_STAIRS.get(), DRIPSTONE_BRICKS.get());
 		stonecutterRecipe(consumer, DECORATIONS, DRIPSTONE_BRICK_WALL.get(), DRIPSTONE_BRICKS.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_DRIPSTONE_BRICKS.get(), DRIPSTONE_BRICKS.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICKS.get(), POLISHED_DRIPSTONE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICK_SLAB.get(), POLISHED_DRIPSTONE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICK_STAIRS.get(), POLISHED_DRIPSTONE.get());
 		stonecutterRecipe(consumer, DECORATIONS, DRIPSTONE_BRICK_WALL.get(), POLISHED_DRIPSTONE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_DRIPSTONE_BRICKS.get(), POLISHED_DRIPSTONE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICKS.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICK_SLAB.get(), Blocks.DRIPSTONE_BLOCK, 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_BRICK_STAIRS.get(), Blocks.DRIPSTONE_BLOCK);
 		stonecutterRecipe(consumer, DECORATIONS, DRIPSTONE_BRICK_WALL.get(), Blocks.DRIPSTONE_BLOCK);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_DRIPSTONE_BRICKS.get(), Blocks.DRIPSTONE_BLOCK);
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(DRIPSTONE_BRICKS.get()), RecipeCategory.BUILDING_BLOCKS, CRACKED_DRIPSTONE_BRICKS.get(), 0.1F, 200).unlockedBy("has_dripstone_bricks", has(DRIPSTONE_BRICKS.get())).save(consumer);
-		
+
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.DRIPSTONE_BLOCK), RecipeCategory.BUILDING_BLOCKS, SMOOTH_DRIPSTONE.get(), 0.1F, 200).unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SMOOTH_DRIPSTONE_SLAB.get(), SMOOTH_DRIPSTONE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SMOOTH_DRIPSTONE_STAIRS.get(), SMOOTH_DRIPSTONE.get());
-		stonecutterRecipe(consumer, DECORATIONS, SMOOTH_DRIPSTONE_WALL.get(), SMOOTH_DRIPSTONE.get());
-		
+
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, DRIPSTONE_SHINGLES.get()).define('#', DRIPSTONE_SLAB.get()).pattern("#").pattern("#").unlockedBy("has_dripstone", has(Blocks.DRIPSTONE_BLOCK)).save(consumer);
 		generateRecipes(consumer, DRIPSTONE_SHINGLES_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, DRIPSTONE_SHINGLE_SLAB.get(), DRIPSTONE_SHINGLES.get(), 2);

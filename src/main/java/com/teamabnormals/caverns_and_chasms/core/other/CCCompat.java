@@ -120,6 +120,7 @@ public class CCCompat {
 		DataUtil.changeItemLocalization(Items.NETHERITE_SCRAP, CavernsAndChasms.MOD_ID, "ancient_scrap");
 		DataUtil.changeBlockLocalization(Blocks.RAIL, CavernsAndChasms.MOD_ID, "iron_rail");
 		DataUtil.changeBlockLocalization(Blocks.AMETHYST_BLOCK, CavernsAndChasms.MOD_ID, "amethyst");
+		DataUtil.changeBlockLocalization(Blocks.DRIPSTONE_BLOCK, CavernsAndChasms.MOD_ID, "dripstone");
 		DataUtil.changeBlockLocalization(CCBlocks.AMETHYST_BLOCK.get(), "minecraft", "amethyst_block");
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_DEEPSLATE, CavernsAndChasms.MOD_ID, "chiseled_deepslate_bricks");
 	}

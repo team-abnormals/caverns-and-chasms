@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_smooth_dripstone": {
+    "has_dripstone_brick_slab": {
       "conditions": {
         "items": [
           {
             "items": [
-              "caverns_and_chasms:smooth_dripstone"
+              "caverns_and_chasms:dripstone_brick_slab"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:smooth_dripstone_wall_from_smooth_dripstone_stonecutting"
+        "recipe": "caverns_and_chasms:chiseled_dripstone_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_smooth_dripstone",
+      "has_dripstone_brick_slab",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:smooth_dripstone_wall_from_smooth_dripstone_stonecutting"
+      "caverns_and_chasms:chiseled_dripstone_bricks"
     ]
   },
   "sends_telemetry_event": false

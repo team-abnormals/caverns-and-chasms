@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "caverns_and_chasms:polished_dripstone_slab"
+      "item": "caverns_and_chasms:dripstone_brick_slab"
     }
   },
   "pattern": [
@@ -11,7 +11,7 @@
     "#"
   ],
   "result": {
-    "item": "caverns_and_chasms:chiseled_polished_dripstone"
+    "item": "caverns_and_chasms:chiseled_dripstone_bricks"
   },
   "show_notification": true
 }

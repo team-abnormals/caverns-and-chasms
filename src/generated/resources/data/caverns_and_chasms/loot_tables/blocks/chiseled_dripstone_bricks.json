@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:polished_dripstone_wall"
+          "name": "caverns_and_chasms:chiseled_dripstone_bricks"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "caverns_and_chasms:blocks/polished_dripstone_wall"
+  "random_sequence": "caverns_and_chasms:blocks/chiseled_dripstone_bricks"
 }

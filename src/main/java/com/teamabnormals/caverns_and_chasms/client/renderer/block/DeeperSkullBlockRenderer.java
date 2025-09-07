@@ -51,7 +51,7 @@ public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
 			poseStack.translate(0.5F, 0.0F, 0.5F);
 		} else {
 			float f = 0.25F;
-			poseStack.translate(0.5F - (float)direction.getStepX() * 0.25F, 0.25F, 0.5F - (float)direction.getStepZ() * 0.25F);
+			poseStack.translate(0.5F - (float) direction.getStepX() * 0.25F, 0.25F, 0.5F - (float) direction.getStepZ() * 0.25F);
 		}
 
 		poseStack.scale(-1.0F, -1.0F, 1.0F);

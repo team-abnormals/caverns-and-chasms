@@ -36,7 +36,7 @@ public class NoiseDensityPlacement extends PlacementModifier {
 
 	public Stream<BlockPos> getPositions(PlacementContext context, RandomSource random, BlockPos pos) {
 		if (!this.initialized) {
-			synchronized(this) {
+			synchronized (this) {
 				if (!this.initialized) {
 					this.noise = NormalNoise.create(Algorithm.LEGACY.newInstance(context.getLevel().getSeed()).forkPositional().fromHashOf((this.noiseParameters.unwrapKey().orElseThrow()).location()), this.noiseParameters.value());
 					this.initialized = true;

@@ -19,7 +19,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.Tags.Biomes;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;

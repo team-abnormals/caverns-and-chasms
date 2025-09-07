@@ -159,14 +159,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(MAGMATIC_RHYOLITE_FAMILY);
 		this.blockFamily(POLISHED_MAGMATIC_RHYOLITE_FAMILY);
 		this.blockFamilyWithChiseled(MAGMATIC_RHYOLITE_BRICKS_FAMILY);
-		
+
 		this.baseBlockVariants(Blocks.DRIPSTONE_BLOCK, DRIPSTONE_STAIRS, DRIPSTONE_SLAB, DRIPSTONE_WALL);
 		this.blockFamily(DRIPSTONE_SHINGLES_FAMILY);
 		this.block(CHISELED_DRIPSTONE_SHINGLES);
 		this.block(FLOODED_DRIPSTONE_SHINGLES);
 		this.blockFamily(SMOOTH_DRIPSTONE_FAMILY);
-		this.blockFamilyWithChiseled(POLISHED_DRIPSTONE_FAMILY);
-		this.blockFamily(DRIPSTONE_BRICKS_FAMILY);
+		this.blockFamily(POLISHED_DRIPSTONE_FAMILY);
+		this.blockFamilyWithChiseled(DRIPSTONE_BRICKS_FAMILY);
 		this.block(CRACKED_DRIPSTONE_BRICKS);
 
 		this.block(SANGUINE_BLOCK);
@@ -909,7 +909,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void addIngotModel(MultiPartBlockStateBuilder builder, Block block, IngotLayer ingotLayer, Axis axis, int layer, Integer... nums) {
 		Axis visualAxis = IngotBlock.getAxisForLayer(layer, axis);
 		String name = "_" + ingotLayer.getSerializedName() + "_" + visualAxis.getSerializedName() + "_layer" + layer;
-		BlockModelBuilder model = models().withExistingParent(name(block) + name, CavernsAndChasms.location("block/template_ingot" + name)).texture("ingot", blockTexture(block).toString().replace("waxed_",""));
+		BlockModelBuilder model = models().withExistingParent(name(block) + name, CavernsAndChasms.location("block/template_ingot" + name)).texture("ingot", blockTexture(block).toString().replace("waxed_", ""));
 
 		if (nums.length > 0) {
 			builder.part().modelFile(model).addModel().useOr()

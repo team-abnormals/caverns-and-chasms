@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_polished_dripstone": {
+    "has_dripstone_bricks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "caverns_and_chasms:polished_dripstone"
+              "caverns_and_chasms:dripstone_bricks"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:polished_dripstone_wall"
+        "recipe": "caverns_and_chasms:chiseled_dripstone_bricks_from_dripstone_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_polished_dripstone",
+      "has_dripstone_bricks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:polished_dripstone_wall"
+      "caverns_and_chasms:chiseled_dripstone_bricks_from_dripstone_bricks_stonecutting"
     ]
   },
   "sends_telemetry_event": false
