@@ -350,7 +350,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_DRIPSTONE_STAIRS = HELPER.createBlock("polished_dripstone_stairs", () -> new StairBlock(() -> POLISHED_DRIPSTONE.get().defaultBlockState(), CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> POLISHED_DRIPSTONE_SLAB = HELPER.createBlock("polished_dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> POLISHED_DRIPSTONE_WALL = HELPER.createBlock("polished_dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> CHISELED_POLISHED_DRIPSTONE = HELPER.createBlock("chiseled_polished_dripstone", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE));
+	public static final RegistryObject<Block> CHISELED_POLISHED_DRIPSTONE = HELPER.createBlock("chiseled_polished_dripstone", () -> new Block(CCProperties.DRIPSTONE));
 
 	public static final RegistryObject<Block> DRIPSTONE_BRICKS = HELPER.createBlock("dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_BRICK_STAIRS = HELPER.createBlock("dripstone_brick_stairs", () -> new StairBlock(() -> DRIPSTONE_BRICKS.get().defaultBlockState(), CCProperties.DRIPSTONE));
