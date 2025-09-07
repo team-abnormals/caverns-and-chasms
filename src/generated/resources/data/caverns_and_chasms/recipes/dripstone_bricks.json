@@ -2,16 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "caverns_and_chasms:dripstone_slab"
+    "S": {
+      "item": "caverns_and_chasms:polished_dripstone"
     }
   },
   "pattern": [
-    "#",
-    "#"
+    "SS",
+    "SS"
   ],
   "result": {
-    "item": "caverns_and_chasms:dripstone_shingles"
+    "count": 4,
+    "item": "caverns_and_chasms:dripstone_bricks"
   },
   "show_notification": true
 }

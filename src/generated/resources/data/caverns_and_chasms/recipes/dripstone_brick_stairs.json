@@ -3,15 +3,17 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "caverns_and_chasms:dripstone_slab"
+      "item": "caverns_and_chasms:dripstone_bricks"
     }
   },
   "pattern": [
-    "#",
-    "#"
+    "#  ",
+    "## ",
+    "###"
   ],
   "result": {
-    "item": "caverns_and_chasms:dripstone_shingles"
+    "count": 4,
+    "item": "caverns_and_chasms:dripstone_brick_stairs"
   },
   "show_notification": true
 }
