@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class CCAttributes {
 	public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, CavernsAndChasms.MOD_ID);
 
+	public static final RegistryObject<Attribute> STEALTH = register("stealth", 0.0D, 0.0D, 1.0D);
 	public static final RegistryObject<Attribute> MAGIC_DAMAGE = register("magic_damage", 0.0D, 0.0D, 30.0D);
 	public static final RegistryObject<Attribute> MAGIC_PROTECTION = register("magic_protection", 0.0D, 0.0D, 30.0D);
 	public static final RegistryObject<Attribute> EXPERIENCE_BOOST = register("experience_boost", 0.0D, 0.0D, 30.0D);

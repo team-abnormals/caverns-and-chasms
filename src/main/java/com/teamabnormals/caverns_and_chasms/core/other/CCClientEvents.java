@@ -1,12 +1,17 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderNameTagEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -18,6 +23,15 @@ public class CCClientEvents {
 	public static void makeTooltip(RenderTooltipEvent.GatherComponents event) {
 		if (ModList.get().isLoaded("quark")) {
 			ToolboxTooltips.makeTooltip(event);
+		}
+	}
+
+	@SubscribeEvent
+	public static void renderNameplate(RenderNameTagEvent event) {
+		if (event.getEntity() instanceof LivingEntity entity) {
+			if (entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.COWL.get())) {
+				event.setResult(Result.DENY);
+			}
 		}
 	}
 
