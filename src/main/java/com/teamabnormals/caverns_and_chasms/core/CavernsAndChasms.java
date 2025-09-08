@@ -18,10 +18,7 @@ import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCAdvancementProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCDatapackBuiltinEntriesProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCRecipeProvider;
+import com.teamabnormals.caverns_and_chasms.core.data.server.*;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
@@ -192,11 +189,13 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCGameEventTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCDamageTypeTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCTrimMaterialTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCStructureTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCRecipeProvider(output));
 		generator.addProvider(server, new CCLootTableProvider(output));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
 		generator.addProvider(server, new CCAdvancementModifierProvider(output, provider));
 		generator.addProvider(server, new CCLootModifierProvider(output, provider));
+		generator.addProvider(server, new CCDataRemolderProvider(output, provider));
 
 		boolean client = event.includeClient();
 		generator.addProvider(client, new CCItemModelProvider(output, helper));

@@ -42,6 +42,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(HAS_FORGE).addTag(BiomeTags.IS_OVERWORLD);
 		this.tag(HAS_VAULT).addTag(BiomeTags.IS_OVERWORLD);
 		this.tag(HAS_TIN_MONOLITH).addTag(BiomeTags.IS_OVERWORLD);
+		this.tag(HAS_MINESHAFT_LUSH).add(Biomes.LUSH_CAVES);
 
 		this.tag(HAS_PEEPER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);

@@ -199,6 +199,7 @@ public class CCStructureTypes {
 	}
 
 	public static class CCStructures {
+		public static final ResourceKey<Structure> MINESHAFT_LUSH = createKey("mineshaft_lush");
 		public static final ResourceKey<Structure> TIN_MONOLITH = createKey("tin_monolith");
 		public static final ResourceKey<Structure> FORGE = createKey("forge");
 		public static final ResourceKey<Structure> VAULT = createKey("vault");
@@ -206,6 +207,8 @@ public class CCStructureTypes {
 		public static void bootstrap(BootstapContext<Structure> context) {
 			HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 			HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
+
+//			context.register(MINESHAFT_LUSH, new MineshaftStructure(new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_MINESHAFT_LUSH), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.NONE), Type.NORMAL));
 
 			context.register(FORGE, new JigsawStructure(
 					new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_FORGE), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BEARD_THIN),

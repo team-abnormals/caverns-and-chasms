@@ -26,6 +26,7 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> HAS_FORGE = biomeTag("has_structure/forge");
 	public static final TagKey<Biome> HAS_VAULT = biomeTag("has_structure/vault");
 	public static final TagKey<Biome> HAS_TIN_MONOLITH = biomeTag("has_structure/tin_monolith");
+	public static final TagKey<Biome> HAS_MINESHAFT_LUSH = biomeTag("has_structure/mineshaft_lush");
 
 	public static final TagKey<Biome> HAS_PEEPER = biomeTag("has_monster/has_peeper");
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
