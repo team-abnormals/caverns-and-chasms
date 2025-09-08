@@ -51,6 +51,7 @@
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
+    "client.CapeLayerMixin",
     "client.ElytraLayerMixin",
     "client.EntityRenderDispatcherMixin",
     "client.GameRendererMixin",

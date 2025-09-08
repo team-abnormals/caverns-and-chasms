@@ -7,7 +7,9 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -17,6 +19,8 @@ public class CCTiers {
 		public static final ArmorMaterial SILVER = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "silver"), 11, new int[]{2, 4, 5, 2}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SILVER.get(), 0.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
 		public static final ArmorMaterial NECROMIUM = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "necromium"), 37, new int[]{3, 6, 8, 3}, 15, () -> CCSoundEvents.ARMOR_EQUIP_NECROMIUM.get(), 2.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
 		public static final ArmorMaterial SANGUINE = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "sanguine"), 23, new int[]{2, 5, 7, 3}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SANGUINE.get(), 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
+
+		public static final ArmorMaterial COWL = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "cowl"), 5, new int[]{1, 2, 3, 1}, 15, () -> SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
 	}
 
 	public static class CCItemTiers {

@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
@@ -8,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
@@ -36,6 +39,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -60,6 +64,13 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@Shadow
 	@Final
 	public TextureAtlas armorTrimAtlas;
+	@Shadow
+	@Final
+	private A innerModel;
+
+	@Shadow
+	protected abstract void renderArmorPiece(PoseStack p_117119_, MultiBufferSource p_117120_, T p_117121_, EquipmentSlot p_117122_, int p_117123_, A p_117124_);
+
 	@Unique
 	private static final ResourceLocation TETHER_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion.png");
 	@Unique
@@ -85,6 +96,25 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 				this.verticallyOffsetModelPart(this.getParentModel().rightLeg, model.rightLeg, 1.0F);
 				this.verticallyOffsetModelPart(this.getParentModel().leftLeg, model.leftLeg, 1.0F);
 			}
+		}
+	}
+
+	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;getArmorModel(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/client/model/HumanoidModel;", ordinal = 3), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V")
+	public A renderArmorPieceForCowl(HumanoidArmorLayer layer, EquipmentSlot slot, Operation<A> original, PoseStack poseStack, MultiBufferSource source, int p_117098_, T entity) {
+		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
+		if (stack.is(CCItems.COWL.get())) {
+			return this.innerModel;
+		}
+		return original.call(layer, slot);
+	}
+
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = Shift.AFTER), method = "renderArmorPiece")
+	public void renderArmorPieceForCowl(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, CallbackInfo ci) {
+		ItemStack stack = entity.getItemBySlot(slot);
+		if (stack.is(CCItems.COWL.get())) {
+			model.body.visible = true;
+			model.rightArm.visible = true;
+			model.leftArm.visible = true;
 		}
 	}
 
