@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolit
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCArchaeologyLoot;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.HolderGetter;
@@ -15,7 +16,6 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -208,14 +208,14 @@ public class CCStructureTypes {
 			HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
 
 			context.register(FORGE, new JigsawStructure(
-					new StructureSettings(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BEARD_THIN),
+					new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_FORGE), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BEARD_THIN),
 					pools.getOrThrow(CCTemplatePools.FORGE), 6, UniformHeight.of(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(16)), false));
 
 			context.register(VAULT, new JigsawStructure(
-					new StructureSettings(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BURY),
+					new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_VAULT), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BURY),
 					pools.getOrThrow(CCTemplatePools.VAULT), 6, UniformHeight.of(VerticalAnchor.absolute(-60), VerticalAnchor.absolute(-16)), false));
 
-			context.register(TIN_MONOLITH, new TinMonolithStructure(new StructureSettings(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), Map.of(), GenerationStep.Decoration.RAW_GENERATION, TerrainAdjustment.NONE)));
+			context.register(TIN_MONOLITH, new TinMonolithStructure(new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_TIN_MONOLITH), Map.of(), GenerationStep.Decoration.RAW_GENERATION, TerrainAdjustment.NONE)));
 		}
 
 		public static ResourceKey<Structure> createKey(String name) {

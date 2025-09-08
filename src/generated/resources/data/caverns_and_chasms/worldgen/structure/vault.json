@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#minecraft:is_overworld",
+  "biomes": "#caverns_and_chasms:has_structure/vault",
   "max_distance_from_center": 80,
   "size": 6,
   "spawn_overrides": {},

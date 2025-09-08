@@ -274,7 +274,6 @@ public class CavernsAndChasms {
 		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TRAIL_POTION.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.FOIL.get());
-
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -290,7 +289,6 @@ public class CavernsAndChasms {
 			event.register(ToolboxComponent.class, Function.identity());
 		}
 	}
-
 
 	@OnlyIn(Dist.CLIENT)
 	private void registerGuiOverlays(RegisterGuiOverlaysEvent event) {

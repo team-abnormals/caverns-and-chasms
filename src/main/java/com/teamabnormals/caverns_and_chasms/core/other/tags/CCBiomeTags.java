@@ -23,6 +23,10 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> WITHOUT_ZESTY_CAVE_GROWTHS = biomeTag("without_feature/zesty_cave_growths");
 	public static final TagKey<Biome> WITHOUT_GRAINY_CAVE_GROWTHS = biomeTag("without_feature/grainy_cave_growths");
 
+	public static final TagKey<Biome> HAS_FORGE = biomeTag("has_structure/forge");
+	public static final TagKey<Biome> HAS_VAULT = biomeTag("has_structure/vault");
+	public static final TagKey<Biome> HAS_TIN_MONOLITH = biomeTag("has_structure/tin_monolith");
+
 	public static final TagKey<Biome> HAS_PEEPER = biomeTag("has_monster/has_peeper");
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
 	public static final TagKey<Biome> HAS_GRAZER = biomeTag("has_monster/grazer");
