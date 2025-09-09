@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.common.enchantment.ObscurityEnchantment;
 import com.teamabnormals.caverns_and_chasms.common.enchantment.ThievingEnchantment;
 import com.teamabnormals.caverns_and_chasms.common.item.CowlItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -16,4 +17,5 @@ public class CCEnchantments {
 	public static EnchantmentCategory COWL = EnchantmentCategory.create("COWL", item -> item instanceof CowlItem);
 
 	public static final RegistryObject<Enchantment> THIEVING = ENCHANTMENTS.register("thieving", () -> new ThievingEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.HEAD));
+	public static final RegistryObject<Enchantment> OBSCURITY = ENCHANTMENTS.register("obscurity", () -> new ObscurityEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.HEAD));
 }

@@ -766,6 +766,14 @@ public class CCEvents {
 				}
 			}
 		}
+
+		ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
+		if (headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
+			entity.setInvisible(entity.isCrouching());
+			if (!entity.isCrouching()) {
+				entity.updateInvisibilityStatus();
+			}
+		}
 	}
 
 	@SubscribeEvent
