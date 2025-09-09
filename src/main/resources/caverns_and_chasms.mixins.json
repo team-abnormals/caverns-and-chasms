@@ -32,6 +32,7 @@
     "JukeboxBlockMixin",
     "LightningBoltMixin",
     "LightningRodBlockMixin",
+    "LivingEntityAccessor",
     "MineshaftStructureTypeMixin",
     "MobEffectInstanceMixin",
     "MobMixin",

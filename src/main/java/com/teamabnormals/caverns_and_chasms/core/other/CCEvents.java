@@ -19,6 +19,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.mixin.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
@@ -770,8 +771,8 @@ public class CCEvents {
 		ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
 			entity.setInvisible(entity.isCrouching());
-			if (!entity.isCrouching()) {
-				entity.updateInvisibilityStatus();
+			if (!entity.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
+				accessor.invokeUpdateInvisibilityStatus();
 			}
 		}
 	}
