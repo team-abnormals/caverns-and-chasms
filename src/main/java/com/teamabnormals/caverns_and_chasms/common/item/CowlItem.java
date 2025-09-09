@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +38,8 @@ public class CowlItem extends DyeableArmorItem {
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.putAll(super.getAttributeModifiers(slot, stack));
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(this.type);
-		builder.put(CCAttributes.STEALTH.get(), new AttributeModifier(uuid, "Stealth", 0.5D, Operation.ADDITION));
+		double amount = 0.4D + 0.1D * stack.getEnchantmentLevel(CCEnchantments.THIEVING.get());
+		builder.put(CCAttributes.STEALTH.get(), new AttributeModifier(uuid, "Stealth", amount, Operation.ADDITION));
 		return slot == this.getEquipmentSlot() ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 

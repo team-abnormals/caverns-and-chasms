@@ -113,6 +113,7 @@ public class CavernsAndChasms {
 		CCBannerPatterns.BANNER_PATTERNS.register(bus);
 		CCLootItemFunctions.LOOT_FUNCTION_TYPES.register(bus);
 		CCDecoratedPotPatterns.DECORATED_POT_PATTERNS.register(bus);
+		CCEnchantments.ENCHANTMENTS.register(bus);
 
 		bus.addListener((ModConfigEvent event) -> {
 			final ModConfig config = event.getConfig();

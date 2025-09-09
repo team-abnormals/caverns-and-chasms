@@ -58,6 +58,7 @@ public class CCPlugin implements IModPlugin {
 
 		return Stream.of(
 				zirconia,
+				new RepairData(CCArmorMaterials.COWL.getRepairIngredient(), new ItemStack(CCItems.COWL.get())),
 				new RepairData(CCArmorMaterials.SANGUINE.getRepairIngredient(),
 						new ItemStack(CCItems.SANGUINE_HELMET.get()),
 						new ItemStack(CCItems.SANGUINE_CHESTPLATE.get()),

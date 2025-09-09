@@ -427,6 +427,7 @@
   "death.attack.caverns_and_chasms.spiked_rail": "%1$s got railed",
   "death.attack.caverns_and_chasms.spiked_rail.player": "%1$s got railed whilst trying to escape %2$s",
   "effect.caverns_and_chasms.rewind": "Rewind",
+  "enchantment.caverns_and_chasms.thieving": "Thieving",
   "entity.caverns_and_chasms.blunt_arrow": "Blunt Arrow",
   "entity.caverns_and_chasms.copper_golem": "Copper Golem",
   "entity.caverns_and_chasms.deeper": "Deeper",
