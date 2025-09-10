@@ -18,6 +18,7 @@
       "type": "blueprint:paletted_permutations",
       "palette_key": "minecraft:trims/color_palettes/trim_palette",
       "permutations": {
+        "caverns_and_chasms_copper_darker": "caverns_and_chasms:trims/color_palettes/copper_darker",
         "caverns_and_chasms_necromium": "caverns_and_chasms:trims/color_palettes/necromium",
         "caverns_and_chasms_necromium_darker": "caverns_and_chasms:trims/color_palettes/necromium_darker",
         "caverns_and_chasms_sanguine": "caverns_and_chasms:trims/color_palettes/sanguine",

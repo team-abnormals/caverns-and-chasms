@@ -1,0 +1,7 @@
+{
+  "asset_id": "caverns_and_chasms:copper",
+  "description": {
+    "translate": "trim_pattern.caverns_and_chasms.copper"
+  },
+  "template_item": "minecraft:copper_ingot"
+}

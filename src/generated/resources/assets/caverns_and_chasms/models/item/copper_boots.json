@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "model": "caverns_and_chasms:item/exposed_copper_boots",
+      "predicate": {
+        "caverns_and_chasms:oxidation": 1.0
+      }
+    },
+    {
+      "model": "caverns_and_chasms:item/weathered_copper_boots",
+      "predicate": {
+        "caverns_and_chasms:oxidation": 2.0
+      }
+    },
+    {
+      "model": "caverns_and_chasms:item/oxidized_copper_boots",
+      "predicate": {
+        "caverns_and_chasms:oxidation": 3.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "caverns_and_chasms:item/copper_boots"
+  }
+}

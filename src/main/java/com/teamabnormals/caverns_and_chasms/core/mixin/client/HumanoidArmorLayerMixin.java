@@ -121,14 +121,18 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hasFoil()Z", shift = At.Shift.BEFORE), method = "renderArmorPiece")
 	public void renderSanguineTrim(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, CallbackInfo ci) {
 		ItemStack stack = entity.getItemBySlot(slot);
-		if (stack.getItem() instanceof ArmorItem armorItem && armorItem.getMaterial() == CCArmorMaterials.SANGUINE) {
-			RegistryAccess access = entity.level().registryAccess();
-			ArmorTrim.getTrim(access, stack).ifPresent(armorTrim -> {
-				ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(CCTrimPatterns.SANGUINE));
-				((CCArmorTrim) trim).setFaded(((CCArmorTrim) armorTrim).isFaded());
-				((CCArmorTrim) trim).setEmissive(((CCArmorTrim) armorTrim).isEmissive());
-				this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
-			});
+		if (stack.getItem() instanceof ArmorItem armorItem) {
+			boolean copper = armorItem.getMaterial() == CCArmorMaterials.COPPER;
+			boolean sanguine = armorItem.getMaterial() == CCArmorMaterials.SANGUINE;
+			if (copper || sanguine) {
+				RegistryAccess access = entity.level().registryAccess();
+				ArmorTrim.getTrim(access, stack).ifPresent(armorTrim -> {
+					ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(copper ? CCTrimPatterns.COPPER : CCTrimPatterns.SANGUINE));
+					((CCArmorTrim) trim).setFaded(((CCArmorTrim) armorTrim).isFaded());
+					((CCArmorTrim) trim).setEmissive(((CCArmorTrim) armorTrim).isEmissive());
+					this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
+				});
+			}
 		}
 	}
 

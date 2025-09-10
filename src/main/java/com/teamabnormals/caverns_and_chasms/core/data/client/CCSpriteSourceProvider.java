@@ -23,7 +23,7 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 	@Override
 	protected void addSources() {
 		this.atlas(BlueprintTrims.ARMOR_TRIMS_ATLAS)
-				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.FORGER, CCTrimPatterns.IMMOLATE, CCTrimPatterns.RIM, CCTrimPatterns.PLATE, CCTrimPatterns.CORE, CCTrimPatterns.SANGUINE))
+				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.FORGER, CCTrimPatterns.IMMOLATE, CCTrimPatterns.RIM, CCTrimPatterns.PLATE, CCTrimPatterns.CORE, CCTrimPatterns.SANGUINE, CCTrimPatterns.COPPER))
 				.addSource(BlueprintTrims.materialPatternPermutations(
 						CCTrimMaterials.SPINEL,
 						CCTrimMaterials.ZIRCONIA,
@@ -34,7 +34,8 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 						CCTrimMaterials.NECROMIUM,
 						CCTrimMaterials.NECROMIUM_DARKER,
 						CCTrimMaterials.SANGUINE,
-						CCTrimMaterials.SANGUINE_DARKER
+						CCTrimMaterials.SANGUINE_DARKER,
+						CCTrimMaterials.COPPER_DARKER
 				));
 		this.atlas(SpriteSourceProvider.BLOCKS_ATLAS)
 				.addSource(new DirectoryLister("entity/toolbox", "entity/toolbox/"))
@@ -50,7 +51,8 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 						CCTrimMaterials.NECROMIUM,
 						CCTrimMaterials.NECROMIUM_DARKER,
 						CCTrimMaterials.SANGUINE,
-						CCTrimMaterials.SANGUINE_DARKER
+						CCTrimMaterials.SANGUINE_DARKER,
+						CCTrimMaterials.COPPER_DARKER
 				));
 		this.atlas(ClayworksTrims.DECORATED_POT_ATLAS)
 				.addSource(ClayworksTrims.materialPatternPermutations(

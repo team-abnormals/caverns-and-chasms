@@ -27,6 +27,7 @@ public class CCTrimMaterials {
 	public static final ResourceKey<TrimMaterial> NECROMIUM_DARKER = createKey("necromium_darker");
 	public static final ResourceKey<TrimMaterial> SANGUINE = createKey("sanguine");
 	public static final ResourceKey<TrimMaterial> SANGUINE_DARKER = createKey("sanguine_darker");
+	public static final ResourceKey<TrimMaterial> COPPER_DARKER = createKey("copper_darker");
 
 	public static void bootstrap(BootstapContext<TrimMaterial> context) {
 		register(context, SPINEL, CCItems.SPINEL.get(), Style.EMPTY.withColor(0xD684AC), Map.of());

@@ -1,0 +1,37 @@
+package com.teamabnormals.caverns_and_chasms.client.model;
+
+import net.minecraft.client.model.HumanoidArmorModel;
+import net.minecraft.client.model.geom.LayerDefinitions;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+@OnlyIn(Dist.CLIENT)
+public class CopperArmorModel<T extends LivingEntity> extends HumanoidArmorModel<T> {
+	public static final CopperArmorModel<?> INSTANCE = new CopperArmorModel<>(createLayerDefinition(LayerDefinitions.OUTER_ARMOR_DEFORMATION).bakeRoot());
+
+	public CopperArmorModel(ModelPart modelPart) {
+		super(modelPart);
+	}
+
+	public static MeshDefinition createBodyLayer(CubeDeformation deformation) {
+		MeshDefinition meshDefinition = HumanoidArmorModel.createBodyLayer(deformation);
+		PartDefinition partDefinition = meshDefinition.getRoot();
+
+		CubeDeformation halved = new CubeDeformation(deformation.growX / 2.0F, deformation.growY / 2.0F, deformation.growZ / 2.0F);
+
+		float hornX = deformation.growX * 1.5F;
+		float hornY = deformation.growY * -1.0F;
+
+		partDefinition.getChild("head").addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(0.5F - hornX, -9.5F + hornY, -1.0F, 2.0F, 1.0F, 2.0F, halved), PartPose.ZERO);
+		partDefinition.getChild("head").addOrReplaceChild("lightning_rod", CubeListBuilder.create().texOffs(24, 0).addBox(-3.5F + hornX, -13.0F + hornY, -2.0F, 4.0F, 3.0F, 4.0F, halved), PartPose.ZERO);
+		return meshDefinition;
+	}
+
+	public static LayerDefinition createLayerDefinition(CubeDeformation deformation) {
+		return LayerDefinition.create(createBodyLayer(deformation), 64, 32);
+	}
+}

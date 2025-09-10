@@ -57,6 +57,10 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.trimmableArmorItem(NECROMIUM_HELMET, NECROMIUM_CHESTPLATE, NECROMIUM_LEGGINGS, NECROMIUM_BOOTS);
 		this.trimmableArmorItem(SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS);
 
+		this.copperTool(COPPER_HELMET);
+		this.copperTool(COPPER_CHESTPLATE);
+		this.copperTool(COPPER_LEGGINGS);
+		this.copperTool(COPPER_BOOTS);
 		this.copperTool(COPPER_SWORD);
 		this.copperTool(COPPER_PICKAXE);
 		this.copperTool(COPPER_AXE);

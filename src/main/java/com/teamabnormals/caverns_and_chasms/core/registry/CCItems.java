@@ -70,6 +70,11 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_INGOT = HELPER.createItem("waxed_weathered_copper_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_INGOT = HELPER.createItem("waxed_oxidized_copper_ingot", () -> new Item(new Item.Properties()));
 
+	public static final RegistryObject<Item> COPPER_HELMET = HELPER.createItem("copper_helmet", () -> new CopperArmorItem(CCArmorMaterials.COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_CHESTPLATE = HELPER.createItem("copper_chestplate", () -> new CopperArmorItem(CCArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_LEGGINGS = HELPER.createItem("copper_leggings", () -> new CopperArmorItem(CCArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_BOOTS = HELPER.createItem("copper_boots", () -> new CopperArmorItem(CCArmorMaterials.COPPER, ArmorItem.Type.BOOTS, new Item.Properties()));
+
 	public static final RegistryObject<Item> COPPER_SWORD = HELPER.createItem("copper_sword", () -> new CopperSwordItem(CCItemTiers.COPPER, 3, -2.4F, new Item.Properties()));
 	public static final RegistryObject<Item> COPPER_SHOVEL = HELPER.createItem("copper_shovel", () -> new CopperShovelItem(CCItemTiers.COPPER, 1.5F, -3.0F, new Item.Properties()));
 	public static final RegistryObject<Item> COPPER_PICKAXE = HELPER.createItem("copper_pickaxe", () -> new CopperPickaxeItem(CCItemTiers.COPPER, 1, -2.8F, new Item.Properties()));
@@ -227,6 +232,7 @@ public class CCItems {
 				.tab(COMBAT)
 				.addItemsAfter(of(Items.STONE_SWORD), COPPER_SWORD)
 				.addItemsAfter(of(Items.STONE_AXE), COPPER_AXE)
+				.addItemsAfter(of(Items.LEATHER_BOOTS), COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS)
 				.addItemsAfter(of(Items.GOLDEN_SWORD), SILVER_SWORD)
 				.addItemsAfter(of(Items.GOLDEN_AXE), SILVER_AXE)
 				.addItemsAfter(of(Items.GOLDEN_BOOTS), SILVER_HELMET, SILVER_CHESTPLATE, SILVER_LEGGINGS, SILVER_BOOTS)

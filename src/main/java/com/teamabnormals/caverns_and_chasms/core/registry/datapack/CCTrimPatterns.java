@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.armortrim.TrimPattern;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -20,6 +21,7 @@ public class CCTrimPatterns {
 	public static final ResourceKey<TrimPattern> PLATE = createKey("plate");
 	public static final ResourceKey<TrimPattern> CORE = createKey("core");
 	public static final ResourceKey<TrimPattern> SANGUINE = createKey("sanguine");
+	public static final ResourceKey<TrimPattern> COPPER = createKey("copper");
 
 	public static void bootstrap(BootstapContext<TrimPattern> context) {
 		register(context, EXILE, CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
@@ -29,6 +31,7 @@ public class CCTrimPatterns {
 		register(context, PLATE, CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 		register(context, CORE, CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 		register(context, SANGUINE, CCItems.LIVING_FLESH.get());
+		register(context, COPPER, Items.COPPER_INGOT);
 	}
 
 	public static ResourceKey<TrimPattern> createKey(String name) {
