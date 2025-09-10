@@ -12,6 +12,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 
 public class CCTiers {
 
@@ -26,6 +27,7 @@ public class CCTiers {
 	public static class CCItemTiers {
 		public static final Tier FOIL = new BlueprintItemTier(1, 1822, 12.0F, 0.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
 		public static final Tier SILVER = new BlueprintItemTier(2, 157, 9.0F, 1.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+		public static final Tier COPPER = new BlueprintItemTier(1, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(Tags.Items.INGOTS_COPPER));
 		public static final Tier NECROMIUM = new BlueprintItemTier(4, 2031, 9.0F, 3.0F, 15, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
 	}
 }

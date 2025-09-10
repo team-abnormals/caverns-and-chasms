@@ -131,11 +131,11 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(Tags.Items.HEADS).add(DEEPER_HEAD.get(), PEEPER_HEAD.get(), MIME_HEAD.get());
 		this.copy(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS, ItemTags.NOTE_BLOCK_TOP_INSTRUMENTS);
 
-		this.tag(ItemTags.SWORDS).add(SILVER_SWORD.get(), NECROMIUM_SWORD.get());
-		this.tag(ItemTags.PICKAXES).add(SILVER_PICKAXE.get(), NECROMIUM_PICKAXE.get());
-		this.tag(ItemTags.AXES).add(SILVER_AXE.get(), NECROMIUM_AXE.get());
-		this.tag(ItemTags.SHOVELS).add(SILVER_SHOVEL.get(), NECROMIUM_SHOVEL.get());
-		this.tag(ItemTags.HOES).add(SILVER_HOE.get(), NECROMIUM_HOE.get());
+		this.tag(ItemTags.SWORDS).add(COPPER_SWORD.get(), SILVER_SWORD.get(), NECROMIUM_SWORD.get());
+		this.tag(ItemTags.PICKAXES).add(COPPER_PICKAXE.get(), SILVER_PICKAXE.get(), NECROMIUM_PICKAXE.get());
+		this.tag(ItemTags.AXES).add(COPPER_AXE.get(), SILVER_AXE.get(), NECROMIUM_AXE.get());
+		this.tag(ItemTags.SHOVELS).add(COPPER_SHOVEL.get(), SILVER_SHOVEL.get(), NECROMIUM_SHOVEL.get());
+		this.tag(ItemTags.HOES).add(COPPER_HOE.get(), SILVER_HOE.get(), NECROMIUM_HOE.get());
 		this.tag(Tags.Items.ARMORS_HELMETS).add(SILVER_HELMET.get(), NECROMIUM_HELMET.get(), SANGUINE_HELMET.get());
 		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(SILVER_CHESTPLATE.get(), NECROMIUM_CHESTPLATE.get(), SANGUINE_CHESTPLATE.get());
 		this.tag(Tags.Items.ARMORS_LEGGINGS).add(SILVER_LEGGINGS.get(), NECROMIUM_LEGGINGS.get(), SANGUINE_LEGGINGS.get());

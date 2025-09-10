@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.item;
+package com.teamabnormals.caverns_and_chasms.common.item.silver;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import net.minecraft.sounds.SoundEvents;

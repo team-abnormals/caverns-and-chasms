@@ -4,7 +4,10 @@ import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
@@ -53,5 +56,24 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.trimmableArmorItem(SILVER_HELMET, SILVER_CHESTPLATE, SILVER_LEGGINGS, SILVER_BOOTS);
 		this.trimmableArmorItem(NECROMIUM_HELMET, NECROMIUM_CHESTPLATE, NECROMIUM_LEGGINGS, NECROMIUM_BOOTS);
 		this.trimmableArmorItem(SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS);
+
+		this.copperTool(COPPER_SWORD);
+		this.copperTool(COPPER_PICKAXE);
+		this.copperTool(COPPER_AXE);
+		this.copperTool(COPPER_SHOVEL);
+		this.copperTool(COPPER_HOE);
+	}
+
+	public ItemModelBuilder handheldItem(String location) {
+		return this.withExistingParent(location, "item/handheld").texture("layer0", new ResourceLocation(this.modid, "item/" + location));
+	}
+
+	public void copperTool(RegistryObject<? extends ItemLike> item) {
+		String name = name(item.get());
+		ResourceLocation oxidation = new ResourceLocation(this.modid, "oxidation");
+		this.withExistingParent(name, "item/handheld").texture("layer0", new ResourceLocation(this.modid, "item/" + name))
+				.override().model(handheldItem("exposed_" + name)).predicate(oxidation, 1.0F).end()
+				.override().model(handheldItem("weathered_" + name)).predicate(oxidation, 2.0F).end()
+				.override().model(handheldItem("oxidized_" + name)).predicate(oxidation, 3.0F).end();
 	}
 }

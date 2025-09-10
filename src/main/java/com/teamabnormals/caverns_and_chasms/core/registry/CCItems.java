@@ -3,13 +3,14 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.item.BlueprintRecordItem;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
+import com.teamabnormals.blueprint.core.util.item.ItemStackUtil;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.item.*;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.*;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.necromium.NecromiumHorseArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.silver.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
@@ -68,6 +69,12 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_INGOT = HELPER.createItem("waxed_exposed_copper_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_INGOT = HELPER.createItem("waxed_weathered_copper_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_INGOT = HELPER.createItem("waxed_oxidized_copper_ingot", () -> new Item(new Item.Properties()));
+
+	public static final RegistryObject<Item> COPPER_SWORD = HELPER.createItem("copper_sword", () -> new CopperSwordItem(CCItemTiers.COPPER, 3, -2.4F, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_SHOVEL = HELPER.createItem("copper_shovel", () -> new CopperShovelItem(CCItemTiers.COPPER, 1.5F, -3.0F, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_PICKAXE = HELPER.createItem("copper_pickaxe", () -> new CopperPickaxeItem(CCItemTiers.COPPER, 1, -2.8F, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_AXE = HELPER.createItem("copper_axe", () -> new CopperAxeItem(CCItemTiers.COPPER, 7.0F, -3.2F, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_HOE = HELPER.createItem("copper_hoe", () -> new CopperHoeItem(CCItemTiers.COPPER, -1, -2.0F, new Item.Properties()));
 
 	public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> NETHERITE_HORSE_ARMOR = HELPER.createItem("netherite_horse_armor", () -> new NetheriteHorseArmorItem(12, "netherite", new Item.Properties().fireResistant().stacksTo(1)));
@@ -201,8 +208,9 @@ public class CCItems {
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
 				.addItemsBefore(of(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE), CORE_ARMOR_TRIM_SMITHING_TEMPLATE, FORGER_ARMOR_TRIM_SMITHING_TEMPLATE, IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE, PLATE_ARMOR_TRIM_SMITHING_TEMPLATE, RIM_ARMOR_TRIM_SMITHING_TEMPLATE)
 				.addItemsAfter(of(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE), EXILE_ARMOR_TRIM_SMITHING_TEMPLATE)
-				.addItemsAlphabetically(stack -> stack.is(ItemTags.DECORATED_POT_SHERDS), BOOM_POTTERY_SHERD, CAST_POTTERY_SHERD, RIDE_POTTERY_SHERD, STALKER_POTTERY_SHERD)
+				.addItemsAlphabetically(stack -> stack.is(ItemTags.DECORATED_POT_SHERDS), "pottery_sherd|_", BOOM_POTTERY_SHERD, CAST_POTTERY_SHERD, RIDE_POTTERY_SHERD, STALKER_POTTERY_SHERD)
 				.tab(TOOLS_AND_UTILITIES)
+				.addItemsAfter(of(Items.STONE_HOE), COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE)
 				.addItemsAfter(of(Items.GOLDEN_HOE), SILVER_SHOVEL, SILVER_PICKAXE, SILVER_AXE, SILVER_HOE)
 				.addItemsAfter(of(Items.NETHERITE_HOE), NECROMIUM_SHOVEL, NECROMIUM_PICKAXE, NECROMIUM_AXE, NECROMIUM_HOE)
 				.addItemsBefore(of(Items.CLOCK), BAROMETER, TUNING_FORK)
@@ -217,6 +225,8 @@ public class CCItems {
 					generateInstrumentTypes(event, registry, COPPER_HORN.get(), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS);
 				}))
 				.tab(COMBAT)
+				.addItemsAfter(of(Items.STONE_SWORD), COPPER_SWORD)
+				.addItemsAfter(of(Items.STONE_AXE), COPPER_AXE)
 				.addItemsAfter(of(Items.GOLDEN_SWORD), SILVER_SWORD)
 				.addItemsAfter(of(Items.GOLDEN_AXE), SILVER_AXE)
 				.addItemsAfter(of(Items.GOLDEN_BOOTS), SILVER_HELMET, SILVER_CHESTPLATE, SILVER_LEGGINGS, SILVER_BOOTS)
@@ -244,7 +254,7 @@ public class CCItems {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.tab(SPAWN_EGGS)
-				.addItemsAlphabetically(is(SpawnEggItem.class), DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, GRAZER_SPAWN_EGG);
+				.addItemsAlphabetically(ItemStackUtil.is(SpawnEggItem.class), "spawn_egg|_", DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, GRAZER_SPAWN_EGG);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {

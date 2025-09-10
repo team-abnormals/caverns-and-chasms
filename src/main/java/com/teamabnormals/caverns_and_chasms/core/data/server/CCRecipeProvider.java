@@ -7,7 +7,7 @@ import com.teamabnormals.boatload.core.data.server.BoatloadRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
-import com.teamabnormals.caverns_and_chasms.common.item.CopperHornItem;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.CopperHornItem;
 import com.teamabnormals.caverns_and_chasms.common.recipe.CCShapedRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
@@ -105,8 +105,15 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(TOOLS, CCItems.MONOCLE.get()).requires(Items.SPYGLASS).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
 		conversionRecipe(consumer, Items.CYAN_DYE, CCItems.TURQUOISE.get(), "cyan_dye", 16);
 
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_AXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("XX").pattern("X#").pattern(" #").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_HOE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_PICKAXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_SHOVEL.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("X").pattern("#").pattern("#").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, CCItems.COPPER_SWORD.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("X").pattern("X").pattern("#").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
+
 		SpecialRecipeBuilder.special(CCRecipeSerializers.MUSIC_DISC_COPYING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":music_disc_copying");
 		SpecialRecipeBuilder.special(CCRecipeSerializers.TOOLBOX_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":toolbox_waxing");
+		SpecialRecipeBuilder.special(CCRecipeSerializers.COPPER_TOOL_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":copper_tool_waxing");
 		ShapedRecipeBuilder.shaped(DECORATIONS, TOOLBOX.get()).define('C', Blocks.COPPER_BLOCK).define('I', Tags.Items.INGOTS_COPPER).pattern(" I ").pattern("I I").pattern("CCC").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.TUNING_FORK.get()).define('#', Tags.Items.INGOTS_COPPER).pattern(" # ").pattern(" ##").pattern("#  ").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.BAROMETER.get()).define('#', Tags.Items.INGOTS_COPPER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);

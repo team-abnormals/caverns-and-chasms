@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.item;
+package com.teamabnormals.caverns_and_chasms.common.item.copper;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;

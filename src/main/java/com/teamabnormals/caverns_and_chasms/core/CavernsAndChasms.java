@@ -11,7 +11,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperSkullBlo
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.item.TuningForkItem;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;

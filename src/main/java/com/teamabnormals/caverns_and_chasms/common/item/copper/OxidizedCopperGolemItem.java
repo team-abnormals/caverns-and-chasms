@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.item;
+package com.teamabnormals.caverns_and_chasms.common.item.copper;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;

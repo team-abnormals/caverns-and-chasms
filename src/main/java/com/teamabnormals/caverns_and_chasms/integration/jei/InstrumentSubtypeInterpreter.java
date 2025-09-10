@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
-import com.teamabnormals.caverns_and_chasms.common.item.CopperHornItem;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.CopperHornItem;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.core.registries.BuiltInRegistries;

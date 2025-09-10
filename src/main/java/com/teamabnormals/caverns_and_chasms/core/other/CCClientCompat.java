@@ -135,6 +135,12 @@ public class CCClientCompat {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 
+		ItemProperties.register(CCItems.COPPER_SWORD.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidation"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("oxidation"));
+		ItemProperties.register(CCItems.COPPER_PICKAXE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidation"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("oxidation"));
+		ItemProperties.register(CCItems.COPPER_AXE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidation"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("oxidation"));
+		ItemProperties.register(CCItems.COPPER_SHOVEL.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidation"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("oxidation"));
+		ItemProperties.register(CCItems.COPPER_HOE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "oxidation"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("oxidation"));
+
 		ItemProperties.register(CCItems.TUNING_FORK.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
 		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "depth"), new ClampedItemPropertyFunction() {
 			private double rotation;
