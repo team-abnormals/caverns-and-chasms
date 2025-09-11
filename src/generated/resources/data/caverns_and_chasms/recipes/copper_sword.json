@@ -6,7 +6,7 @@
       "tag": "forge:rods/wooden"
     },
     "X": {
-      "tag": "forge:storage_blocks/copper"
+      "item": "minecraft:copper_block"
     }
   },
   "pattern": [

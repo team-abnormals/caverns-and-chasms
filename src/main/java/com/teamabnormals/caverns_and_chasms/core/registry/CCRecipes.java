@@ -15,7 +15,6 @@ public class CCRecipes {
 		public static final RegistryObject<RecipeSerializer<MimingRecipe>> MIMING = RECIPE_SERIALIZERS.register("miming", () -> new SingleItemRecipe.Serializer<>(MimingRecipe::new) {
 		});
 
-		public static final RegistryObject<SimpleCraftingRecipeSerializer<CopperToolWaxing>> COPPER_TOOL_WAXING = RECIPE_SERIALIZERS.register("crafting_special_coppertoolwaxing", () -> new SimpleCraftingRecipeSerializer<>(CopperToolWaxing::new));
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<ToolboxWaxing>> TOOLBOX_WAXING = RECIPE_SERIALIZERS.register("crafting_special_toolboxwaxing", () -> new SimpleCraftingRecipeSerializer<>(ToolboxWaxing::new));
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<MusicDiscCopying>> MUSIC_DISC_COPYING = RECIPE_SERIALIZERS.register("crafting_special_musicdisccopying", () -> new SimpleCraftingRecipeSerializer<>(MusicDiscCopying::new));
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<FadedTrimRecipe>> FADED_TRIM_DUPING = RECIPE_SERIALIZERS.register("crafting_special_fadedtrimduping", () -> new SimpleCraftingRecipeSerializer<>(FadedTrimRecipe::new));

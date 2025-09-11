@@ -1,6 +1,13 @@
 {
   "values": [
     "caverns_and_chasms:copper_shovel",
+    "caverns_and_chasms:exposed_copper_shovel",
+    "caverns_and_chasms:weathered_copper_shovel",
+    "caverns_and_chasms:oxidized_copper_shovel",
+    "caverns_and_chasms:waxed_copper_shovel",
+    "caverns_and_chasms:waxed_exposed_copper_shovel",
+    "caverns_and_chasms:waxed_weathered_copper_shovel",
+    "caverns_and_chasms:waxed_oxidized_copper_shovel",
     "caverns_and_chasms:silver_shovel",
     "caverns_and_chasms:necromium_shovel"
   ]

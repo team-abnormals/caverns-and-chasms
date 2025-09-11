@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.CopperHornItem;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.recipe.CCShapedRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
@@ -105,15 +106,17 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(TOOLS, CCItems.MONOCLE.get()).requires(Items.SPYGLASS).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
 		conversionRecipe(consumer, Items.CYAN_DYE, CCItems.TURQUOISE.get(), "cyan_dye", 16);
 
-		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_AXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("XX").pattern("X#").pattern(" #").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_HOE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_PICKAXE.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, CCItems.COPPER_SHOVEL.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("X").pattern("#").pattern("#").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, CCItems.COPPER_SWORD.get()).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.STORAGE_BLOCKS_COPPER).pattern("X").pattern("X").pattern("#").unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER)).save(consumer);
+		copperGearRecipes(consumer, Blocks.COPPER_BLOCK, CCItems.COPPER_HELMET.get(), CCItems.COPPER_CHESTPLATE.get(), CCItems.COPPER_LEGGINGS.get(), CCItems.COPPER_BOOTS.get(), CCItems.COPPER_SWORD.get(), CCItems.COPPER_PICKAXE.get(), CCItems.COPPER_AXE.get(), CCItems.COPPER_SHOVEL.get(), CCItems.COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.EXPOSED_COPPER, CCItems.EXPOSED_COPPER_HELMET.get(), CCItems.EXPOSED_COPPER_CHESTPLATE.get(), CCItems.EXPOSED_COPPER_LEGGINGS.get(), CCItems.EXPOSED_COPPER_BOOTS.get(), CCItems.EXPOSED_COPPER_SWORD.get(), CCItems.EXPOSED_COPPER_PICKAXE.get(), CCItems.EXPOSED_COPPER_AXE.get(), CCItems.EXPOSED_COPPER_SHOVEL.get(), CCItems.EXPOSED_COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.WEATHERED_COPPER, CCItems.WEATHERED_COPPER_HELMET.get(), CCItems.WEATHERED_COPPER_CHESTPLATE.get(), CCItems.WEATHERED_COPPER_LEGGINGS.get(), CCItems.WEATHERED_COPPER_BOOTS.get(), CCItems.WEATHERED_COPPER_SWORD.get(), CCItems.WEATHERED_COPPER_PICKAXE.get(), CCItems.WEATHERED_COPPER_AXE.get(), CCItems.WEATHERED_COPPER_SHOVEL.get(), CCItems.WEATHERED_COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.OXIDIZED_COPPER, CCItems.OXIDIZED_COPPER_HELMET.get(), CCItems.OXIDIZED_COPPER_CHESTPLATE.get(), CCItems.OXIDIZED_COPPER_LEGGINGS.get(), CCItems.OXIDIZED_COPPER_BOOTS.get(), CCItems.OXIDIZED_COPPER_SWORD.get(), CCItems.OXIDIZED_COPPER_PICKAXE.get(), CCItems.OXIDIZED_COPPER_AXE.get(), CCItems.OXIDIZED_COPPER_SHOVEL.get(), CCItems.OXIDIZED_COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.WAXED_COPPER_BLOCK, CCItems.WAXED_COPPER_HELMET.get(), CCItems.WAXED_COPPER_CHESTPLATE.get(), CCItems.WAXED_COPPER_LEGGINGS.get(), CCItems.WAXED_COPPER_BOOTS.get(), CCItems.WAXED_COPPER_SWORD.get(), CCItems.WAXED_COPPER_PICKAXE.get(), CCItems.WAXED_COPPER_AXE.get(), CCItems.WAXED_COPPER_SHOVEL.get(), CCItems.WAXED_COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.WAXED_EXPOSED_COPPER, CCItems.WAXED_EXPOSED_COPPER_HELMET.get(), CCItems.WAXED_EXPOSED_COPPER_CHESTPLATE.get(), CCItems.WAXED_EXPOSED_COPPER_LEGGINGS.get(), CCItems.WAXED_EXPOSED_COPPER_BOOTS.get(), CCItems.WAXED_EXPOSED_COPPER_SWORD.get(), CCItems.WAXED_EXPOSED_COPPER_PICKAXE.get(), CCItems.WAXED_EXPOSED_COPPER_AXE.get(), CCItems.WAXED_EXPOSED_COPPER_SHOVEL.get(), CCItems.WAXED_EXPOSED_COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_HELMET.get(), CCItems.WAXED_WEATHERED_COPPER_CHESTPLATE.get(), CCItems.WAXED_WEATHERED_COPPER_LEGGINGS.get(), CCItems.WAXED_WEATHERED_COPPER_BOOTS.get(), CCItems.WAXED_WEATHERED_COPPER_SWORD.get(), CCItems.WAXED_WEATHERED_COPPER_PICKAXE.get(), CCItems.WAXED_WEATHERED_COPPER_AXE.get(), CCItems.WAXED_WEATHERED_COPPER_SHOVEL.get(), CCItems.WAXED_WEATHERED_COPPER_HOE.get());
+		copperGearRecipes(consumer, Blocks.WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_HELMET.get(), CCItems.WAXED_OXIDIZED_COPPER_CHESTPLATE.get(), CCItems.WAXED_OXIDIZED_COPPER_LEGGINGS.get(), CCItems.WAXED_OXIDIZED_COPPER_BOOTS.get(), CCItems.WAXED_OXIDIZED_COPPER_SWORD.get(), CCItems.WAXED_OXIDIZED_COPPER_PICKAXE.get(), CCItems.WAXED_OXIDIZED_COPPER_AXE.get(), CCItems.WAXED_OXIDIZED_COPPER_SHOVEL.get(), CCItems.WAXED_OXIDIZED_COPPER_HOE.get());
 
 		SpecialRecipeBuilder.special(CCRecipeSerializers.MUSIC_DISC_COPYING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":music_disc_copying");
 		SpecialRecipeBuilder.special(CCRecipeSerializers.TOOLBOX_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":toolbox_waxing");
-		SpecialRecipeBuilder.special(CCRecipeSerializers.COPPER_TOOL_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":copper_tool_waxing");
 		ShapedRecipeBuilder.shaped(DECORATIONS, TOOLBOX.get()).define('C', Blocks.COPPER_BLOCK).define('I', Tags.Items.INGOTS_COPPER).pattern(" I ").pattern("I I").pattern("CCC").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.TUNING_FORK.get()).define('#', Tags.Items.INGOTS_COPPER).pattern(" # ").pattern(" ##").pattern("#  ").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.BAROMETER.get()).define('#', Tags.Items.INGOTS_COPPER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
@@ -609,6 +612,19 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ccWaxRecipes(consumer);
 	}
 
+	public static void copperGearRecipes(Consumer<FinishedRecipe> consumer, ItemLike copperBlock, Item helmet, Item chestplate, Item leggings, Item boots, Item sword, Item pickaxe, Item axe, Item shovel, Item hoe) {
+		ShapedRecipeBuilder.shaped(COMBAT, boots).define('X', copperBlock).pattern("X X").pattern("X X").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, chestplate).define('X', copperBlock).pattern("X X").pattern("XXX").pattern("XXX").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, helmet).define('X', copperBlock).pattern("XXX").pattern("X X").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, leggings).define('X', copperBlock).pattern("XXX").pattern("X X").pattern("X X").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+
+		ShapedRecipeBuilder.shaped(TOOLS, axe).define('#', Tags.Items.RODS_WOODEN).define('X', copperBlock).pattern("XX").pattern("X#").pattern(" #").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, hoe).define('#', Tags.Items.RODS_WOODEN).define('X', copperBlock).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, pickaxe).define('#', Tags.Items.RODS_WOODEN).define('X', copperBlock).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, shovel).define('#', Tags.Items.RODS_WOODEN).define('X', copperBlock).pattern("X").pattern("#").pattern("#").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, sword).define('#', Tags.Items.RODS_WOODEN).define('X', copperBlock).pattern("X").pattern("X").pattern("#").unlockedBy("has_copper_block", has(copperBlock)).save(consumer);
+	}
+
 	public void stonecutterRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike output, ItemLike input, ItemLike inputName) {
 		stonecutterRecipe(consumer, category, output, input, 1, inputName);
 	}
@@ -658,6 +674,13 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		HoneycombItem.WAXABLES.get().forEach((base, waxed) -> {
 			if (BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID()) && !(waxed instanceof ToolboxBlock) && !(waxed instanceof IngotBlock)) {
 				RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS : waxed instanceof ButtonBlock ? REDSTONE : BUILDING_BLOCKS;
+				ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(Items.HONEYCOMB).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
+			}
+		});
+
+		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
+			if (BuiltInRegistries.ITEM.getKey(waxed).getNamespace().equals(this.getModID())) {
+				RecipeCategory category = (waxed instanceof ArmorItem || waxed instanceof SwordItem) ? COMBAT : TOOLS;
 				ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(Items.HONEYCOMB).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
 			}
 		});

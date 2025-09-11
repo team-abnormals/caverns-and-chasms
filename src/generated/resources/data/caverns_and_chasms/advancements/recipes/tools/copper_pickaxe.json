@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:storage_blocks/copper"
+            "items": [
+              "minecraft:copper_block"
+            ]
           }
         ]
       },

@@ -24,7 +24,6 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.FoilItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.mixin.ItemStackAccessor;
 import com.teamabnormals.caverns_and_chasms.core.mixin.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
@@ -227,23 +226,21 @@ public class CCEvents {
 		}
 
 		if (state.getBlock() instanceof GrindstoneBlock && player.isSecondaryUseActive()) {
-			CompoundTag tag = stack.getOrCreateTag();
-			if (item instanceof WeatheringCopperItem) {
-				boolean waxed = tag.getBoolean("waxed");
-				boolean oxidized = WeatheringCopperItem.getPrevious(stack).isPresent();
-				if (waxed || oxidized) {
-					if (waxed) {
-						tag.putBoolean("waxed", false);
-						level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-						level.levelEvent(player, 3004, pos, 0);
-					} else {
-						((ItemStackAccessor) (Object) stack).setDelegate(((ItemStackAccessor) (Object) WeatheringCopperItem.getPrevious(stack).get()).getDelegate());
-						level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-						level.levelEvent(player, 3005, pos, 0);
-					}
-					event.setCanceled(true);
-					event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-				}
+			if (WeatheringCopperItem.getUnwaxed(stack).isPresent()) {
+				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getUnwaxed(stack).get());
+				level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.levelEvent(player, 3004, pos, 0);
+
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+
+			} else if (item instanceof WeatheringCopperItem && WeatheringCopperItem.getPrevious(stack).isPresent()) {
+				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getPrevious(stack).get());
+				level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.levelEvent(player, 3005, pos, 0);
+
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}
 		}
 

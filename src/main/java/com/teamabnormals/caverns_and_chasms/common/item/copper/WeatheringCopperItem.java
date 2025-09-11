@@ -4,10 +4,6 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.caverns_and_chasms.core.mixin.ItemStackAccessor;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.Util;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,46 +14,73 @@ import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
+
 public interface WeatheringCopperItem {
 	Supplier<BiMap<Item, Item>> NEXT_BY_ITEM = Suppliers.memoize(() -> {
 		return ImmutableBiMap.<Item, Item>builder()
-				.put(CCItems.COPPER_HELMET.get(), CCItems.EXPOSED_COPPER_HELMET.get())
-				.put(CCItems.EXPOSED_COPPER_HELMET.get(), CCItems.WEATHERED_COPPER_HELMET.get())
-				.put(CCItems.WEATHERED_COPPER_HELMET.get(), CCItems.OXIDIZED_COPPER_HELMET.get())
-				.put(CCItems.COPPER_CHESTPLATE.get(), CCItems.EXPOSED_COPPER_CHESTPLATE.get())
-				.put(CCItems.EXPOSED_COPPER_CHESTPLATE.get(), CCItems.WEATHERED_COPPER_CHESTPLATE.get())
-				.put(CCItems.WEATHERED_COPPER_CHESTPLATE.get(), CCItems.OXIDIZED_COPPER_CHESTPLATE.get())
-				.put(CCItems.COPPER_LEGGINGS.get(), CCItems.EXPOSED_COPPER_LEGGINGS.get())
-				.put(CCItems.EXPOSED_COPPER_LEGGINGS.get(), CCItems.WEATHERED_COPPER_LEGGINGS.get())
-				.put(CCItems.WEATHERED_COPPER_LEGGINGS.get(), CCItems.OXIDIZED_COPPER_LEGGINGS.get())
-				.put(CCItems.COPPER_BOOTS.get(), CCItems.EXPOSED_COPPER_BOOTS.get())
-				.put(CCItems.EXPOSED_COPPER_BOOTS.get(), CCItems.WEATHERED_COPPER_BOOTS.get())
-				.put(CCItems.WEATHERED_COPPER_BOOTS.get(), CCItems.OXIDIZED_COPPER_BOOTS.get())
-				.put(CCItems.COPPER_SWORD.get(), CCItems.EXPOSED_COPPER_SWORD.get())
-				.put(CCItems.EXPOSED_COPPER_SWORD.get(), CCItems.WEATHERED_COPPER_SWORD.get())
-				.put(CCItems.WEATHERED_COPPER_SWORD.get(), CCItems.OXIDIZED_COPPER_SWORD.get())
-				.put(CCItems.COPPER_PICKAXE.get(), CCItems.EXPOSED_COPPER_PICKAXE.get())
-				.put(CCItems.EXPOSED_COPPER_PICKAXE.get(), CCItems.WEATHERED_COPPER_PICKAXE.get())
-				.put(CCItems.WEATHERED_COPPER_PICKAXE.get(), CCItems.OXIDIZED_COPPER_PICKAXE.get())
-				.put(CCItems.COPPER_AXE.get(), CCItems.EXPOSED_COPPER_AXE.get())
-				.put(CCItems.EXPOSED_COPPER_AXE.get(), CCItems.WEATHERED_COPPER_AXE.get())
-				.put(CCItems.WEATHERED_COPPER_AXE.get(), CCItems.OXIDIZED_COPPER_AXE.get())
-				.put(CCItems.COPPER_SHOVEL.get(), CCItems.EXPOSED_COPPER_SHOVEL.get())
-				.put(CCItems.EXPOSED_COPPER_SHOVEL.get(), CCItems.WEATHERED_COPPER_SHOVEL.get())
-				.put(CCItems.WEATHERED_COPPER_SHOVEL.get(), CCItems.OXIDIZED_COPPER_SHOVEL.get())
-				.put(CCItems.COPPER_HOE.get(), CCItems.EXPOSED_COPPER_HOE.get())
-				.put(CCItems.EXPOSED_COPPER_HOE.get(), CCItems.WEATHERED_COPPER_HOE.get())
-				.put(CCItems.WEATHERED_COPPER_HOE.get(), CCItems.OXIDIZED_COPPER_HOE.get())
+				.put(COPPER_HELMET.get(), EXPOSED_COPPER_HELMET.get())
+				.put(EXPOSED_COPPER_HELMET.get(), WEATHERED_COPPER_HELMET.get())
+				.put(WEATHERED_COPPER_HELMET.get(), OXIDIZED_COPPER_HELMET.get())
+				.put(COPPER_CHESTPLATE.get(), EXPOSED_COPPER_CHESTPLATE.get())
+				.put(EXPOSED_COPPER_CHESTPLATE.get(), WEATHERED_COPPER_CHESTPLATE.get())
+				.put(WEATHERED_COPPER_CHESTPLATE.get(), OXIDIZED_COPPER_CHESTPLATE.get())
+				.put(COPPER_LEGGINGS.get(), EXPOSED_COPPER_LEGGINGS.get())
+				.put(EXPOSED_COPPER_LEGGINGS.get(), WEATHERED_COPPER_LEGGINGS.get())
+				.put(WEATHERED_COPPER_LEGGINGS.get(), OXIDIZED_COPPER_LEGGINGS.get())
+				.put(COPPER_BOOTS.get(), EXPOSED_COPPER_BOOTS.get())
+				.put(EXPOSED_COPPER_BOOTS.get(), WEATHERED_COPPER_BOOTS.get())
+				.put(WEATHERED_COPPER_BOOTS.get(), OXIDIZED_COPPER_BOOTS.get())
+				.put(COPPER_SWORD.get(), EXPOSED_COPPER_SWORD.get())
+				.put(EXPOSED_COPPER_SWORD.get(), WEATHERED_COPPER_SWORD.get())
+				.put(WEATHERED_COPPER_SWORD.get(), OXIDIZED_COPPER_SWORD.get())
+				.put(COPPER_PICKAXE.get(), EXPOSED_COPPER_PICKAXE.get())
+				.put(EXPOSED_COPPER_PICKAXE.get(), WEATHERED_COPPER_PICKAXE.get())
+				.put(WEATHERED_COPPER_PICKAXE.get(), OXIDIZED_COPPER_PICKAXE.get())
+				.put(COPPER_AXE.get(), EXPOSED_COPPER_AXE.get())
+				.put(EXPOSED_COPPER_AXE.get(), WEATHERED_COPPER_AXE.get())
+				.put(WEATHERED_COPPER_AXE.get(), OXIDIZED_COPPER_AXE.get())
+				.put(COPPER_SHOVEL.get(), EXPOSED_COPPER_SHOVEL.get())
+				.put(EXPOSED_COPPER_SHOVEL.get(), WEATHERED_COPPER_SHOVEL.get())
+				.put(WEATHERED_COPPER_SHOVEL.get(), OXIDIZED_COPPER_SHOVEL.get())
+				.put(COPPER_HOE.get(), EXPOSED_COPPER_HOE.get())
+				.put(EXPOSED_COPPER_HOE.get(), WEATHERED_COPPER_HOE.get())
+				.put(WEATHERED_COPPER_HOE.get(), OXIDIZED_COPPER_HOE.get())
 				.build();
 	});
 
 	Supplier<BiMap<Item, Item>> PREVIOUS_BY_ITEM = Suppliers.memoize(() -> NEXT_BY_ITEM.get().inverse());
 
+	public static Supplier<BiMap<Item, Item>> WAXABLES = Suppliers.memoize(() -> {
+		return ImmutableBiMap.<Item, Item>builder()
+				.put(COPPER_HELMET.get(), WAXED_COPPER_HELMET.get()).put(EXPOSED_COPPER_HELMET.get(), WAXED_EXPOSED_COPPER_HELMET.get()).put(WEATHERED_COPPER_HELMET.get(), WAXED_WEATHERED_COPPER_HELMET.get()).put(OXIDIZED_COPPER_HELMET.get(), WAXED_OXIDIZED_COPPER_HELMET.get())
+				.put(COPPER_CHESTPLATE.get(), WAXED_COPPER_CHESTPLATE.get()).put(EXPOSED_COPPER_CHESTPLATE.get(), WAXED_EXPOSED_COPPER_CHESTPLATE.get()).put(WEATHERED_COPPER_CHESTPLATE.get(), WAXED_WEATHERED_COPPER_CHESTPLATE.get()).put(OXIDIZED_COPPER_CHESTPLATE.get(), WAXED_OXIDIZED_COPPER_CHESTPLATE.get())
+				.put(COPPER_LEGGINGS.get(), WAXED_COPPER_LEGGINGS.get()).put(EXPOSED_COPPER_LEGGINGS.get(), WAXED_EXPOSED_COPPER_LEGGINGS.get()).put(WEATHERED_COPPER_LEGGINGS.get(), WAXED_WEATHERED_COPPER_LEGGINGS.get()).put(OXIDIZED_COPPER_LEGGINGS.get(), WAXED_OXIDIZED_COPPER_LEGGINGS.get())
+				.put(COPPER_BOOTS.get(), WAXED_COPPER_BOOTS.get()).put(EXPOSED_COPPER_BOOTS.get(), WAXED_EXPOSED_COPPER_BOOTS.get()).put(WEATHERED_COPPER_BOOTS.get(), WAXED_WEATHERED_COPPER_BOOTS.get()).put(OXIDIZED_COPPER_BOOTS.get(), WAXED_OXIDIZED_COPPER_BOOTS.get())
+
+				.put(COPPER_SWORD.get(), WAXED_COPPER_SWORD.get()).put(EXPOSED_COPPER_SWORD.get(), WAXED_EXPOSED_COPPER_SWORD.get()).put(WEATHERED_COPPER_SWORD.get(), WAXED_WEATHERED_COPPER_SWORD.get()).put(OXIDIZED_COPPER_SWORD.get(), WAXED_OXIDIZED_COPPER_SWORD.get())
+				.put(COPPER_PICKAXE.get(), WAXED_COPPER_PICKAXE.get()).put(EXPOSED_COPPER_PICKAXE.get(), WAXED_EXPOSED_COPPER_PICKAXE.get()).put(WEATHERED_COPPER_PICKAXE.get(), WAXED_WEATHERED_COPPER_PICKAXE.get()).put(OXIDIZED_COPPER_PICKAXE.get(), WAXED_OXIDIZED_COPPER_PICKAXE.get())
+				.put(COPPER_AXE.get(), WAXED_COPPER_AXE.get()).put(EXPOSED_COPPER_AXE.get(), WAXED_EXPOSED_COPPER_AXE.get()).put(WEATHERED_COPPER_AXE.get(), WAXED_WEATHERED_COPPER_AXE.get()).put(OXIDIZED_COPPER_AXE.get(), WAXED_OXIDIZED_COPPER_AXE.get())
+				.put(COPPER_SHOVEL.get(), WAXED_COPPER_SHOVEL.get()).put(EXPOSED_COPPER_SHOVEL.get(), WAXED_EXPOSED_COPPER_SHOVEL.get()).put(WEATHERED_COPPER_SHOVEL.get(), WAXED_WEATHERED_COPPER_SHOVEL.get()).put(OXIDIZED_COPPER_SHOVEL.get(), WAXED_OXIDIZED_COPPER_SHOVEL.get())
+				.put(COPPER_HOE.get(), WAXED_COPPER_HOE.get()).put(EXPOSED_COPPER_HOE.get(), WAXED_EXPOSED_COPPER_HOE.get()).put(WEATHERED_COPPER_HOE.get(), WAXED_WEATHERED_COPPER_HOE.get()).put(OXIDIZED_COPPER_HOE.get(), WAXED_OXIDIZED_COPPER_HOE.get())
+				.build();
+	});
+	public static final Supplier<BiMap<Item, Item>> WAX_OFF_BY_ITEM = Suppliers.memoize(() -> {
+		return WAXABLES.get().inverse();
+	});
+
+	public static Optional<ItemStack> getWaxed(ItemStack stack) {
+		return Optional.ofNullable(WAXABLES.get().get(stack.getItem())).map(ItemStack::new);
+	}
+
+	public static Optional<ItemStack> getUnwaxed(ItemStack stack) {
+		return Optional.ofNullable(WAX_OFF_BY_ITEM.get().get(stack.getItem())).map(ItemStack::new);
+	}
+
 	WeatherState getAge();
 
 	default void updateOxidation(ItemStack stack, Level level) {
-		CompoundTag tag = stack.getOrCreateTag();
-		if (!tag.getBoolean("waxed") && this.getNext(stack).isPresent() && level.getGameTime() % 20 == 0) {
+		if (this.getNext(stack).isPresent() && level.getGameTime() % 20 == 0) {
 			for (int i = 0; i < level.getGameRules().getRule(GameRules.RULE_RANDOMTICKING).get(); i++) {
 				Optional<ItemStack> next = this.getNext(stack);
 				if (next.isPresent()) {
@@ -68,15 +91,15 @@ public interface WeatheringCopperItem {
 					}
 
 					if (random.nextFloat() < chance) {
-						((ItemStackAccessor) (Object) stack).setDelegate(((ItemStackAccessor) (Object) next.get()).getDelegate());
+						copyStackToNewItem(stack, next.get());
 					}
 				}
 			}
 		}
 	}
 
-	default String getOrCreateDescriptionId(ItemStack stack) {
-		return Util.makeDescriptionId("item", BuiltInRegistries.ITEM.getKey(stack.getItem()).withPrefix(stack.getOrCreateTag().getBoolean("waxed") ? "waxed_" : ""));
+	static void copyStackToNewItem(ItemStack original, ItemStack newItem) {
+		((ItemStackAccessor) (Object) original).setDelegate(((ItemStackAccessor) (Object) newItem).getDelegate());
 	}
 
 	default Optional<ItemStack> getNext(ItemStack stack) {
