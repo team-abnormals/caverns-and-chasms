@@ -5,20 +5,28 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 
 public class CopperShovelItem extends ShovelItem implements WeatheringCopperItem {
+	private final WeatherState weatherState;
 
-	public CopperShovelItem(Tier tier, float damage, float speed, Properties properties) {
+	public CopperShovelItem(WeatherState weatherState, Tier tier, float damage, float speed, Properties properties) {
 		super(tier, damage, speed, properties);
+		this.weatherState = weatherState;
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean b) {
-		WeatheringCopperItem.updateOxidation(stack, level);
+		this.updateOxidation(stack, level);
 	}
 
 	@Override
 	public String getDescriptionId(ItemStack stack) {
 		return this.getOrCreateDescriptionId(stack);
+	}
+
+	@Override
+	public WeatherState getAge() {
+		return this.weatherState;
 	}
 }

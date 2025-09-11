@@ -24,6 +24,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.FoilItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.mixin.ItemStackAccessor;
 import com.teamabnormals.caverns_and_chasms.core.mixin.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
@@ -229,14 +230,14 @@ public class CCEvents {
 			CompoundTag tag = stack.getOrCreateTag();
 			if (item instanceof WeatheringCopperItem) {
 				boolean waxed = tag.getBoolean("waxed");
-				boolean oxidized = tag.getInt("oxidation") > 0;
+				boolean oxidized = WeatheringCopperItem.getPrevious(stack).isPresent();
 				if (waxed || oxidized) {
 					if (waxed) {
 						tag.putBoolean("waxed", false);
 						level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
 						level.levelEvent(player, 3004, pos, 0);
 					} else {
-						tag.putInt("oxidation", tag.getInt("oxidation") - 1);
+						((ItemStackAccessor) (Object) stack).setDelegate(((ItemStackAccessor) (Object) WeatheringCopperItem.getPrevious(stack).get()).getDelegate());
 						level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
 						level.levelEvent(player, 3005, pos, 0);
 					}

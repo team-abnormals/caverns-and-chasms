@@ -45,6 +45,10 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.item(WAXED_OXIDIZED_COPPER_INGOT, "oxidized_copper_ingot", "generated");
 
 		this.handheldItem(
+				COPPER_SWORD, COPPER_PICKAXE, COPPER_AXE, COPPER_SHOVEL, COPPER_HOE,
+				EXPOSED_COPPER_SWORD, EXPOSED_COPPER_PICKAXE, EXPOSED_COPPER_AXE, EXPOSED_COPPER_SHOVEL, EXPOSED_COPPER_HOE,
+				WEATHERED_COPPER_SWORD, WEATHERED_COPPER_PICKAXE, WEATHERED_COPPER_AXE, WEATHERED_COPPER_SHOVEL, WEATHERED_COPPER_HOE,
+				OXIDIZED_COPPER_SWORD, OXIDIZED_COPPER_PICKAXE, OXIDIZED_COPPER_AXE, OXIDIZED_COPPER_SHOVEL, OXIDIZED_COPPER_HOE,
 				SILVER_SWORD, SILVER_PICKAXE, SILVER_AXE, SILVER_SHOVEL, SILVER_HOE,
 				NECROMIUM_SWORD, NECROMIUM_PICKAXE, NECROMIUM_AXE, NECROMIUM_SHOVEL, NECROMIUM_HOE
 		);
@@ -53,31 +57,13 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.handheldItem(KUNAI);
 		this.spawnEggItem(PEEPER_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, DEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, RAT_SPAWN_EGG, GRAZER_SPAWN_EGG);
 
+		this.trimmableArmorItem(COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS);
+		this.trimmableArmorItem(EXPOSED_COPPER_HELMET, EXPOSED_COPPER_CHESTPLATE, EXPOSED_COPPER_LEGGINGS, EXPOSED_COPPER_BOOTS);
+		this.trimmableArmorItem(WEATHERED_COPPER_HELMET, WEATHERED_COPPER_CHESTPLATE, WEATHERED_COPPER_LEGGINGS, WEATHERED_COPPER_BOOTS);
+		this.trimmableArmorItem(OXIDIZED_COPPER_HELMET, OXIDIZED_COPPER_CHESTPLATE, OXIDIZED_COPPER_LEGGINGS, OXIDIZED_COPPER_BOOTS);
+		
 		this.trimmableArmorItem(SILVER_HELMET, SILVER_CHESTPLATE, SILVER_LEGGINGS, SILVER_BOOTS);
 		this.trimmableArmorItem(NECROMIUM_HELMET, NECROMIUM_CHESTPLATE, NECROMIUM_LEGGINGS, NECROMIUM_BOOTS);
 		this.trimmableArmorItem(SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS);
-
-		this.copperTool(COPPER_HELMET);
-		this.copperTool(COPPER_CHESTPLATE);
-		this.copperTool(COPPER_LEGGINGS);
-		this.copperTool(COPPER_BOOTS);
-		this.copperTool(COPPER_SWORD);
-		this.copperTool(COPPER_PICKAXE);
-		this.copperTool(COPPER_AXE);
-		this.copperTool(COPPER_SHOVEL);
-		this.copperTool(COPPER_HOE);
-	}
-
-	public ItemModelBuilder handheldItem(String location) {
-		return this.withExistingParent(location, "item/handheld").texture("layer0", new ResourceLocation(this.modid, "item/" + location));
-	}
-
-	public void copperTool(RegistryObject<? extends ItemLike> item) {
-		String name = name(item.get());
-		ResourceLocation oxidation = new ResourceLocation(this.modid, "oxidation");
-		this.withExistingParent(name, "item/handheld").texture("layer0", new ResourceLocation(this.modid, "item/" + name))
-				.override().model(handheldItem("exposed_" + name)).predicate(oxidation, 1.0F).end()
-				.override().model(handheldItem("weathered_" + name)).predicate(oxidation, 2.0F).end()
-				.override().model(handheldItem("oxidized_" + name)).predicate(oxidation, 3.0F).end();
 	}
 }

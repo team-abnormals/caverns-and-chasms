@@ -28,6 +28,7 @@
     "IronGolemMixin",
     "ItemCooldownsMixin",
     "ItemMixin",
+    "ItemStackAccessor",
     "JukeboxBlockEntityMixin",
     "JukeboxBlockMixin",
     "LightningBoltMixin",
