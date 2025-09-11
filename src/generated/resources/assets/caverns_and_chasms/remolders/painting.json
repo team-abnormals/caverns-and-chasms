@@ -85,6 +85,16 @@
           "caverns_and_chasms:squirmy": 1.0
         }
       }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/the_enigma",
+        "predicate": {
+          "caverns_and_chasms:the_enigma": 1.0
+        }
+      }
     }
   ],
   "selector": "minecraft:models/item/painting"
