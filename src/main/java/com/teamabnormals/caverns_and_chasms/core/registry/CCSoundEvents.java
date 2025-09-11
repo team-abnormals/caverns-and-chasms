@@ -195,6 +195,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TETHER_POTION_EQUIP = HELPER.createSoundEvent("item.tether_potion.equip");
 	public static final RegistryObject<SoundEvent> TETHER_POTION_BREAK = HELPER.createSoundEvent("item.tether_potion.break");
 
+	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COPPER = HELPER.createSoundEvent("item.armor.equip_copper");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SILVER = HELPER.createSoundEvent("item.armor.equip_silver");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_NECROMIUM = HELPER.createSoundEvent("item.armor.equip_necromium");
 	public static final RegistryObject<SoundEvent> ARMOR_NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");

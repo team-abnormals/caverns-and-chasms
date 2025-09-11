@@ -1645,6 +1645,17 @@
       "caverns_and_chasms:item/zirconia/anvil_use3"
     ]
   },
+  "item.armor.equip_copper": {
+    "sounds": [
+      "caverns_and_chasms:item/copper_armor/equip1",
+      "caverns_and_chasms:item/copper_armor/equip2",
+      "caverns_and_chasms:item/copper_armor/equip3",
+      "caverns_and_chasms:item/copper_armor/equip4",
+      "caverns_and_chasms:item/copper_armor/equip5",
+      "caverns_and_chasms:item/copper_armor/equip6"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_copper"
+  },
   "item.armor.equip_silver": {
     "sounds": [
       "caverns_and_chasms:item/silver_armor/equip1",
