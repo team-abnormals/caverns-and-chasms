@@ -29,6 +29,17 @@ public class CCItemTags {
 	public static final TagKey<Item> RAT_FOOD = itemTag("rat_food");
 	public static final TagKey<Item> RAT_TAME_ITEMS = itemTag("rat_tame_items");
 
+	public static final TagKey<Item> SMELTS_TO_COPPER_INGOT = itemTag("smelts_to_copper_ingot");
+	public static final TagKey<Item> COPPER_HELMETS = itemTag("copper_helmets");
+	public static final TagKey<Item> COPPER_CHESTPLATES = itemTag("copper_chestplates");
+	public static final TagKey<Item> COPPER_LEGGINGS = itemTag("copper_leggings");
+	public static final TagKey<Item> COPPER_BOOTS = itemTag("copper_boots");
+	public static final TagKey<Item> COPPER_SWORDS = itemTag("copper_swords");
+	public static final TagKey<Item> COPPER_PICKAXES = itemTag("copper_pickaxes");
+	public static final TagKey<Item> COPPER_SHOVELS = itemTag("copper_shovels");
+	public static final TagKey<Item> COPPER_AXES = itemTag("copper_axes");
+	public static final TagKey<Item> COPPER_HOES = itemTag("copper_hoes");
+
 	public static final TagKey<Item> GEMS_SPINEL = TagUtil.itemTag("forge", "gems/spinel");
 	public static final TagKey<Item> GEMS_TURQUOISE = TagUtil.itemTag("forge", "gems/turquoise");
 	public static final TagKey<Item> GEMS_ZIRCONIA = TagUtil.itemTag("forge", "gems/zirconia");

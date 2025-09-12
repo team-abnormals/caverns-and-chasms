@@ -85,6 +85,7 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
@@ -101,6 +102,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -362,6 +364,26 @@ public class CCEvents {
 				if (stack.getItem() instanceof WeatheringCopperItem item) {
 					item.updateOxidation(stack, level);
 				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLightningStrike(EntityStruckByLightningEvent event) {
+		if (event.getEntity() instanceof LivingEntity entity && !entity.level().isClientSide()) {
+			ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
+			if (helmet.getItem() instanceof WeatheringCopperItem) {
+				WeatheringCopperItem.copyStackToNewItem(helmet, WeatheringCopperItem.getFirst(helmet));
+			}
+
+			Level level = entity.level();
+			RandomSource random = level.getRandom();
+			int k = random.nextInt(3) + 1;
+			for (int z = 0; z < k; z++) {
+				EquipmentSlot slot = EquipmentSlot.values()[random.nextInt(EquipmentSlot.values().length)];
+				ItemStack stack = entity.getItemBySlot(slot);
+				Optional<ItemStack> previous = WeatheringCopperItem.getPrevious(stack);
+				previous.ifPresent(itemStack -> WeatheringCopperItem.copyStackToNewItem(stack, itemStack));
 			}
 		}
 	}
