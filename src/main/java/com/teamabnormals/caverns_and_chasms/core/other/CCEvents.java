@@ -87,6 +87,7 @@ import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -337,6 +338,29 @@ public class CCEvents {
 							currentPos.set(nextPos);
 						}
 					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLivingUpdate(LivingTickEvent event) {
+		LivingEntity entity = event.getEntity();
+		Level level = entity.getCommandSenderWorld();
+		for (EquipmentSlot slot : EquipmentSlot.values()) {
+			if (slot != EquipmentSlot.MAINHAND) {
+				ItemStack stack = entity.getItemBySlot(slot);
+				if (stack.getItem() instanceof WeatheringCopperItem item) {
+					item.updateOxidation(stack, level);
+				}
+			}
+		}
+
+		if (entity instanceof Player player) {
+			for (int i = 0; i < 9; i++) {
+				ItemStack stack = player.getSlot(i).get();
+				if (stack.getItem() instanceof WeatheringCopperItem item) {
+					item.updateOxidation(stack, level);
 				}
 			}
 		}

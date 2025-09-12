@@ -1,10 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item.copper;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 
 public class WeatheringCopperArmorItem extends CopperArmorItem implements WeatheringCopperItem {
@@ -13,11 +10,6 @@ public class WeatheringCopperArmorItem extends CopperArmorItem implements Weathe
 	public WeatheringCopperArmorItem(WeatherState weatherState, ArmorMaterial material, ArmorItem.Type slot, Properties properties) {
 		super(material, slot, properties);
 		this.weatherState = weatherState;
-	}
-
-	@Override
-	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
-		this.updateOxidation(stack, level);
 	}
 
 	@Override
