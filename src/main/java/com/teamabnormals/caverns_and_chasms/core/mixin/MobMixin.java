@@ -39,25 +39,14 @@ public abstract class MobMixin extends LivingEntity {
 	}
 
 	private Item replaceSilverWithGold(ItemStack goldItem) {
-		if (goldItem.is(Items.GOLDEN_HELMET))
-			return CCItems.SILVER_HELMET.get();
-		if (goldItem.is(Items.GOLDEN_CHESTPLATE))
-			return CCItems.SILVER_CHESTPLATE.get();
-		if (goldItem.is(Items.GOLDEN_LEGGINGS))
-			return CCItems.SILVER_LEGGINGS.get();
-		if (goldItem.is(Items.GOLDEN_BOOTS))
-			return CCItems.SILVER_BOOTS.get();
-
-		if (goldItem.is(Items.GOLDEN_SWORD))
-			return CCItems.SILVER_SWORD.get();
-		if (goldItem.is(Items.GOLDEN_PICKAXE))
-			return CCItems.SILVER_PICKAXE.get();
-		if (goldItem.is(Items.GOLDEN_HOE))
-			return CCItems.SILVER_HOE.get();
-		if (goldItem.is(Items.GOLDEN_AXE))
-			return CCItems.SILVER_AXE.get();
-		if (goldItem.is(Items.GOLDEN_SHOVEL))
-			return CCItems.SILVER_SHOVEL.get();
+		if (goldItem.is(Items.CHAINMAIL_HELMET)) return CCItems.COPPER_HELMET.get();
+		if (goldItem.is(Items.CHAINMAIL_CHESTPLATE)) return CCItems.COPPER_CHESTPLATE.get();
+		if (goldItem.is(Items.CHAINMAIL_LEGGINGS)) return CCItems.COPPER_LEGGINGS.get();
+		if (goldItem.is(Items.CHAINMAIL_BOOTS)) return CCItems.COPPER_BOOTS.get();
+		if (goldItem.is(Items.GOLDEN_HELMET)) return CCItems.SILVER_HELMET.get();
+		if (goldItem.is(Items.GOLDEN_CHESTPLATE)) return CCItems.SILVER_CHESTPLATE.get();
+		if (goldItem.is(Items.GOLDEN_LEGGINGS)) return CCItems.SILVER_LEGGINGS.get();
+		if (goldItem.is(Items.GOLDEN_BOOTS)) return CCItems.SILVER_BOOTS.get();
 
 		return null;
 	}
