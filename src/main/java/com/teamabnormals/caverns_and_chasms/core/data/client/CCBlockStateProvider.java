@@ -13,6 +13,7 @@ import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -189,14 +190,50 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.copperRailBlock(WEATHERED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL);
 		this.copperRailBlock(OXIDIZED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL);
 
+		this.block(CHISELED_COPPER.get());
+		this.block(EXPOSED_CHISELED_COPPER.get());
+		this.block(WEATHERED_CHISELED_COPPER.get());
+		this.block(OXIDIZED_CHISELED_COPPER.get());
+		this.block(WAXED_CHISELED_COPPER.get());
+		this.block(WAXED_EXPOSED_CHISELED_COPPER.get());
+		this.block(WAXED_WEATHERED_CHISELED_COPPER.get());
+		this.block(WAXED_OXIDIZED_CHISELED_COPPER.get());
+
+		this.block(COPPER_GRATE.get());
+		this.block(EXPOSED_COPPER_GRATE.get());
+		this.block(WEATHERED_COPPER_GRATE.get());
+		this.block(OXIDIZED_COPPER_GRATE.get());
+		this.block(WAXED_COPPER_GRATE.get());
+		this.block(WAXED_EXPOSED_COPPER_GRATE.get());
+		this.block(WAXED_WEATHERED_COPPER_GRATE.get());
+		this.block(WAXED_OXIDIZED_COPPER_GRATE.get());
+
+		this.block(COPPER_BULB.get());
+		this.block(EXPOSED_COPPER_BULB.get());
+		this.block(WEATHERED_COPPER_BULB.get());
+		this.block(OXIDIZED_COPPER_BULB.get());
+		this.block(WAXED_COPPER_BULB.get());
+		this.block(WAXED_EXPOSED_COPPER_BULB.get());
+		this.block(WAXED_WEATHERED_COPPER_BULB.get());
+		this.block(WAXED_OXIDIZED_COPPER_BULB.get());
+
+		this.doorBlocks(COPPER_DOOR.get(), COPPER_TRAPDOOR.get());
+		this.doorBlocks(EXPOSED_COPPER_DOOR.get(), EXPOSED_COPPER_TRAPDOOR.get());
+		this.doorBlocks(WEATHERED_COPPER_DOOR.get(), WEATHERED_COPPER_TRAPDOOR.get());
+		this.doorBlocks(OXIDIZED_COPPER_DOOR.get(), OXIDIZED_COPPER_TRAPDOOR.get());
+		this.doorBlocks(WAXED_COPPER_DOOR.get(), WAXED_COPPER_TRAPDOOR.get());
+		this.doorBlocks(WAXED_EXPOSED_COPPER_DOOR.get(), WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+		this.doorBlocks(WAXED_WEATHERED_COPPER_DOOR.get(), WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+		this.doorBlocks(WAXED_OXIDIZED_COPPER_DOOR.get(), WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+
 		this.ironBarsBlock(COPPER_BARS);
 		this.ironBarsBlock(EXPOSED_COPPER_BARS);
 		this.ironBarsBlock(WEATHERED_COPPER_BARS);
 		this.ironBarsBlock(OXIDIZED_COPPER_BARS);
-		this.waxedCopperBarsBlock(WAXED_COPPER_BARS, COPPER_BARS);
-		this.waxedCopperBarsBlock(WAXED_EXPOSED_COPPER_BARS, EXPOSED_COPPER_BARS);
-		this.waxedCopperBarsBlock(WAXED_WEATHERED_COPPER_BARS, WEATHERED_COPPER_BARS);
-		this.waxedCopperBarsBlock(WAXED_OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_BARS);
+		this.ironBarsBlock(WAXED_COPPER_BARS);
+		this.ironBarsBlock(WAXED_EXPOSED_COPPER_BARS);
+		this.ironBarsBlock(WAXED_WEATHERED_COPPER_BARS);
+		this.ironBarsBlock(WAXED_OXIDIZED_COPPER_BARS);
 		this.ironBarsBlock(GOLDEN_BARS);
 		this.ironBarsBlock(SILVER_BARS);
 		this.ironBarsBlock(TIN_BARS);
@@ -228,7 +265,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.copperLanternBlocks(EXPOSED_COPPER_LANTERN.get(), WAXED_EXPOSED_COPPER_LANTERN.get(), EXPOSED_COPPER_CHAIN.get(), WAXED_EXPOSED_COPPER_CHAIN.get());
 		this.copperLanternBlocks(WEATHERED_COPPER_LANTERN.get(), WAXED_WEATHERED_COPPER_LANTERN.get(), WEATHERED_COPPER_CHAIN.get(), WAXED_WEATHERED_COPPER_CHAIN.get());
 		this.copperLanternBlocks(OXIDIZED_COPPER_LANTERN.get(), WAXED_OXIDIZED_COPPER_LANTERN.get(), OXIDIZED_COPPER_CHAIN.get(), WAXED_OXIDIZED_COPPER_CHAIN.get());
-		
+
 		this.lightningRodBlock(EXPOSED_LIGHTNING_ROD.get(), EXPOSED_LIGHTNING_ROD.get());
 		this.lightningRodBlock(WEATHERED_LIGHTNING_ROD.get(), WEATHERED_LIGHTNING_ROD.get());
 		this.lightningRodBlock(OXIDIZED_LIGHTNING_ROD.get(), OXIDIZED_LIGHTNING_ROD.get());
@@ -271,11 +308,6 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.directionalBlock(caveGrowths.get(), this.models().cross(name(caveGrowths.get()), this.blockTexture(caveGrowths.get())));
 		this.generatedItem(caveGrowths.get(), "block");
 		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), new ResourceLocation("block/flower_pot_cross"), "plant", new ResourceLocation(CavernsAndChasms.MOD_ID, "block/potted_" + name(caveGrowths.get()))));
-	}
-
-	public void waxedCopperBarsBlock(RegistryObject<Block> waxedCopperBars, RegistryObject<Block> copperBars) {
-		this.ironBarsBlock(waxedCopperBars.get(), blockTexture(copperBars.get()));
-		this.waxedGeneratedItem(waxedCopperBars.get(), "block");
 	}
 
 	@Override
@@ -437,7 +469,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		}, BlockStateProperties.WATERLOGGED);
 
 		this.generatedItem(block, "block");
-		this.waxedGeneratedItem(waxedRailBlock.get(), "block");
+		this.generatedItem(waxedRailBlock.get(), "block");
 	}
 
 	public void poweredRailBlock(RegistryObject<Block> railBlock, String parentName, boolean extrude, String extrudeName) {
@@ -488,7 +520,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 							.build();
 				}, BlockStateProperties.WATERLOGGED);
 
-		this.waxedGeneratedItem(block, "item");
+		this.generatedItem(block, "item");
 	}
 
 	public void copperLanternBlocks(Block lantern, Block waxedLantern, Block chain, Block waxedChain) {
@@ -517,8 +549,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 			return ConfiguredModel.builder().modelFile(chain).rotationX(axis.isHorizontal() ? 90 : 0).rotationY(axis == Axis.X ? 90 : 0).build();
 		}, BlockStateProperties.WATERLOGGED);
 
-		this.waxedGeneratedItem(block, "item");
-		this.waxedGeneratedItem(chainBlock, "item");
+		this.generatedItem(block, "item");
+		this.generatedItem(chainBlock, "item");
 	}
 
 	public void lightningRodBlock(Block parent, Block block) {
@@ -989,7 +1021,23 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(base.get(Variant.CHISELED), waxed.get(Variant.CHISELED));
 	}
 
-	public void waxedGeneratedItem(Block block, String type) {
-		this.generatedItem(block, remove(prefix(type + "/", BlueprintItemModelProvider.key(block)), "waxed_"));
+	@Override
+	public void generatedItem(ItemLike item, ItemLike texture, String type) {
+		this.generatedItem(item, remove(prefix(type + "/", BlueprintItemModelProvider.key(texture)), "waxed_"));
+	}
+
+	@Override
+	public ResourceLocation blockTexture(Block block) {
+		ResourceLocation name = remove(ForgeRegistries.BLOCKS.getKey(block), "waxed_");
+		return new ResourceLocation(name.getNamespace(), ModelProvider.BLOCK_FOLDER + "/" + name.getPath());
+	}
+
+	@Override
+	public void blockItem(Block block) {
+		this.simpleBlockItem(block, new ExistingModelFile(blockModel(block), this.models().existingFileHelper));
+	}
+	public ResourceLocation blockModel(Block block) {
+		ResourceLocation name = ForgeRegistries.BLOCKS.getKey(block);
+		return new ResourceLocation(name.getNamespace(), ModelProvider.BLOCK_FOLDER + "/" + name.getPath());
 	}
 }

@@ -45,6 +45,33 @@ public class CCClientCompat {
 	}
 
 	public static void registerRenderLayers() {
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
+		
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_DOOR.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_BARS.get(), RenderType.cutout());

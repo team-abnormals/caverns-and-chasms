@@ -173,6 +173,51 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WAXED_WEATHERED_TOOLBOX = HELPER.createToolboxBlock("waxed_weathered_toolbox", () -> new ToolboxBlock(WeatherState.WEATHERED, CCProperties.TOOLBOX));
 	public static final RegistryObject<Block> WAXED_OXIDIZED_TOOLBOX = HELPER.createToolboxBlock("waxed_oxidized_toolbox", () -> new ToolboxBlock(WeatherState.OXIDIZED, CCProperties.TOOLBOX));
 
+	public static final RegistryObject<Block> CHISELED_COPPER = HELPER.createBlock("chiseled_copper", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.COPPER));
+	public static final RegistryObject<Block> EXPOSED_CHISELED_COPPER = HELPER.createBlock("exposed_chiseled_copper", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.COPPER));
+	public static final RegistryObject<Block> WEATHERED_CHISELED_COPPER = HELPER.createBlock("weathered_chiseled_copper", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.COPPER));
+	public static final RegistryObject<Block> OXIDIZED_CHISELED_COPPER = HELPER.createBlock("oxidized_chiseled_copper", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.COPPER));
+	public static final RegistryObject<Block> WAXED_CHISELED_COPPER = HELPER.createBlock("waxed_chiseled_copper", () -> new Block(CCProperties.COPPER));
+	public static final RegistryObject<Block> WAXED_EXPOSED_CHISELED_COPPER = HELPER.createBlock("waxed_exposed_chiseled_copper", () -> new Block(CCProperties.COPPER));
+	public static final RegistryObject<Block> WAXED_WEATHERED_CHISELED_COPPER = HELPER.createBlock("waxed_weathered_chiseled_copper", () -> new Block(CCProperties.COPPER));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_CHISELED_COPPER = HELPER.createBlock("waxed_oxidized_chiseled_copper", () -> new Block(CCProperties.COPPER));
+
+	public static final RegistryObject<Block> COPPER_GRATE = HELPER.createBlock("copper_grate", () -> new WeatheringCopperGrateBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> EXPOSED_COPPER_GRATE = HELPER.createBlock("exposed_copper_grate", () -> new WeatheringCopperGrateBlock(WeatherState.EXPOSED, CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> WEATHERED_COPPER_GRATE = HELPER.createBlock("weathered_copper_grate", () -> new WeatheringCopperGrateBlock(WeatherState.WEATHERED, CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_GRATE = HELPER.createBlock("oxidized_copper_grate", () -> new WeatheringCopperGrateBlock(WeatherState.OXIDIZED, CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> WAXED_COPPER_GRATE = HELPER.createBlock("waxed_copper_grate", () -> new WaterloggedTransparentBlock(CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_GRATE = HELPER.createBlock("waxed_exposed_copper_grate", () -> new WaterloggedTransparentBlock(CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_GRATE = HELPER.createBlock("waxed_weathered_copper_grate", () -> new WaterloggedTransparentBlock(CCProperties.COPPER_GRATE));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_GRATE = HELPER.createBlock("waxed_oxidized_copper_grate", () -> new WaterloggedTransparentBlock(CCProperties.COPPER_GRATE));
+
+	public static final RegistryObject<Block> COPPER_BULB = HELPER.createBlock("copper_bulb", () -> new WeatheringCopperBulbBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> EXPOSED_COPPER_BULB = HELPER.createBlock("exposed_copper_bulb", () -> new WeatheringCopperBulbBlock(WeatherState.EXPOSED, CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> WEATHERED_COPPER_BULB = HELPER.createBlock("weathered_copper_bulb", () -> new WeatheringCopperBulbBlock(WeatherState.WEATHERED, CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_BULB = HELPER.createBlock("oxidized_copper_bulb", () -> new WeatheringCopperBulbBlock(WeatherState.OXIDIZED, CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> WAXED_COPPER_BULB = HELPER.createBlock("waxed_copper_bulb", () -> new CopperBulbBlock(CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BULB = HELPER.createBlock("waxed_exposed_copper_bulb", () -> new CopperBulbBlock(CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BULB = HELPER.createBlock("waxed_weathered_copper_bulb", () -> new CopperBulbBlock(CCProperties.COPPER_BULB));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BULB = HELPER.createBlock("waxed_oxidized_copper_bulb", () -> new CopperBulbBlock(CCProperties.COPPER_BULB));
+
+	public static final RegistryObject<Block> COPPER_DOOR = HELPER.createBlock("copper_door", () -> new WeatheringCopperDoorBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> EXPOSED_COPPER_DOOR = HELPER.createBlock("exposed_copper_door", () -> new WeatheringCopperDoorBlock(WeatherState.EXPOSED, CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WEATHERED_COPPER_DOOR = HELPER.createBlock("weathered_copper_door", () -> new WeatheringCopperDoorBlock(WeatherState.WEATHERED, CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_DOOR = HELPER.createBlock("oxidized_copper_door", () -> new WeatheringCopperDoorBlock(WeatherState.OXIDIZED, CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_COPPER_DOOR = HELPER.createBlock("waxed_copper_door", () -> new DoorBlock(CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_DOOR = HELPER.createBlock("waxed_exposed_copper_door", () -> new DoorBlock(CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_DOOR = HELPER.createBlock("waxed_weathered_copper_door", () -> new DoorBlock(CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_DOOR = HELPER.createBlock("waxed_oxidized_copper_door", () -> new DoorBlock(CCProperties.COPPER_DOOR, CCProperties.COPPER_BLOCK_SET.get()));
+
+	public static final RegistryObject<Block> COPPER_TRAPDOOR = HELPER.createBlock("copper_trapdoor", () -> new WeatheringCopperTrapDoorBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = HELPER.createBlock("exposed_copper_trapdoor", () -> new WeatheringCopperTrapDoorBlock(WeatherState.EXPOSED, CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = HELPER.createBlock("weathered_copper_trapdoor", () -> new WeatheringCopperTrapDoorBlock(WeatherState.WEATHERED, CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = HELPER.createBlock("oxidized_copper_trapdoor", () -> new WeatheringCopperTrapDoorBlock(WeatherState.OXIDIZED, CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = HELPER.createBlock("waxed_copper_trapdoor", () -> new TrapDoorBlock(CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = HELPER.createBlock("waxed_exposed_copper_trapdoor", () -> new TrapDoorBlock(CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = HELPER.createBlock("waxed_weathered_copper_trapdoor", () -> new TrapDoorBlock(CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = HELPER.createBlock("waxed_oxidized_copper_trapdoor", () -> new TrapDoorBlock(CCProperties.COPPER_TRAPDOOR, CCProperties.COPPER_BLOCK_SET.get()));
+
 	public static final RegistryObject<Block> COPPER_BARS = HELPER.createBlock("copper_bars", () -> new WeatheringCopperBarsBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_BARS));
 	public static final RegistryObject<Block> EXPOSED_COPPER_BARS = HELPER.createBlock("exposed_copper_bars", () -> new WeatheringCopperBarsBlock(WeatherState.EXPOSED, CCProperties.COPPER_BARS));
 	public static final RegistryObject<Block> WEATHERED_COPPER_BARS = HELPER.createBlock("weathered_copper_bars", () -> new WeatheringCopperBarsBlock(WeatherState.WEATHERED, CCProperties.COPPER_BARS));
@@ -682,7 +727,7 @@ public class CCBlocks {
 
 	public static class CCProperties {
 		public static final BlockSetType AZALEA_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":azalea"));
-		public static final Supplier<BlockSetType> COPPER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", false, SoundType.COPPER, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, CCSoundEvents.COPPER_BUTTON_CLICK_OFF.get(), CCSoundEvents.COPPER_BUTTON_CLICK_ON.get()));
+		public static final Supplier<BlockSetType> COPPER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", true, SoundType.COPPER, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, CCSoundEvents.COPPER_BUTTON_CLICK_OFF.get(), CCSoundEvents.COPPER_BUTTON_CLICK_ON.get()));
 		public static final Supplier<BlockSetType> SILVER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":silver", false, CCSoundTypes.SILVER, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, CCSoundEvents.MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF.get(), CCSoundEvents.MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON.get(), SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 		public static final BlockSetType TIN_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":tin", false, SoundType.METAL, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 
@@ -718,16 +763,26 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties OXIDIZED_COPPER_PLATED_BRICKS = platedBricks(MapColor.WARPED_NYLIUM, SoundType.COPPER);
 
 		public static final BlockBehaviour.Properties TMT = BlockBehaviour.Properties.copy(Blocks.TNT).sound(CCSoundTypes.TMT);
+		public static final BlockBehaviour.Properties RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.METAL);
+		public static final BlockBehaviour.Properties DISMANTLING_TABLE = BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava();
+
+		public static final BlockBehaviour.Properties COPPER = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER);
+		public static final BlockBehaviour.Properties COPPER_RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.COPPER);
+		public static final BlockBehaviour.Properties COPPER_CHAIN = BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion();
+		public static final BlockBehaviour.Properties COPPER_LANTERN = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties COPPER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(3.0F, 6.0F).noOcclusion().requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties COPPER_TRAPDOOR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion().isValidSpawn(PropertyUtil::never);
+		public static final BlockBehaviour.Properties COPPER_GRATE = BlockBehaviour.Properties.of().strength(3.0F, 6.0F)
+				//.sound(SoundType.COPPER_GRATE)
+				.mapColor(MapColor.COLOR_ORANGE).noOcclusion().requiresCorrectToolForDrops().isValidSpawn(PropertyUtil::never).isRedstoneConductor(PropertyUtil::never).isSuffocating(PropertyUtil::never).isViewBlocking(PropertyUtil::never);
+		public static final BlockBehaviour.Properties COPPER_BULB = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(3.0F, 6.0F)
+				//.sound(SoundType.COPPER_BULB)
+				.requiresCorrectToolForDrops().isRedstoneConductor(PropertyUtil::never).lightLevel(litBlockEmission(15));
 		public static final BlockBehaviour.Properties TOOLBOX = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.2F, 6.0F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.FLOODLIGHT).lightLevel((state) -> 10);
 		public static final BlockBehaviour.Properties EXPOSED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.FLOODLIGHT).lightLevel((state) -> 9);
 		public static final BlockBehaviour.Properties WEATHERED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_STEM).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.FLOODLIGHT).lightLevel((state) -> 8);
 		public static final BlockBehaviour.Properties OXIDIZED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.FLOODLIGHT).lightLevel((state) -> 7);
-		public static final BlockBehaviour.Properties RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.METAL);
-		public static final BlockBehaviour.Properties COPPER_RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.COPPER);
-		public static final BlockBehaviour.Properties DISMANTLING_TABLE = BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava();
-		public static final BlockBehaviour.Properties COPPER_CHAIN = BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion();
-		public static final BlockBehaviour.Properties COPPER_LANTERN = BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY);
 
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.LAVA_LAMP).lightLevel((state) -> 15);
 		public static final BlockBehaviour.Properties COPPER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.COPPER).noOcclusion();
@@ -739,8 +794,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(CCSoundTypes.SANGUINE);
 		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(CCSoundTypes.SANGUINE);
 
-		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.SILVER).lightLevel(getLightValueLit(15)).noOcclusion();
-		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.SILVER).lightLevel(getLightValueLit(10)).noOcclusion();
+		public static final BlockBehaviour.Properties BRAZIER = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.SILVER).lightLevel(litBlockEmission(15)).noOcclusion();
+		public static final BlockBehaviour.Properties BRAZIER_DIM = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.SILVER).lightLevel(litBlockEmission(10)).noOcclusion();
 
 		public static final BlockBehaviour.Properties HOLD_PLATE = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(CCSoundTypes.TIN).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties HOLD_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(CCSoundTypes.TIN).pushReaction(PushReaction.DESTROY);
@@ -777,7 +832,7 @@ public class CCBlocks {
 			return true;
 		}
 
-		private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
+		private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
 			return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
 		}
 

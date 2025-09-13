@@ -213,6 +213,51 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(WAXED_WEATHERED_TOOLBOX.get(), this::createToolboxDrop);
 			this.add(WAXED_OXIDIZED_TOOLBOX.get(), this::createToolboxDrop);
 
+			this.dropSelf(CHISELED_COPPER.get());
+			this.dropSelf(EXPOSED_CHISELED_COPPER.get());
+			this.dropSelf(WEATHERED_CHISELED_COPPER.get());
+			this.dropSelf(OXIDIZED_CHISELED_COPPER.get());
+			this.dropSelf(WAXED_CHISELED_COPPER.get());
+			this.dropSelf(WAXED_EXPOSED_CHISELED_COPPER.get());
+			this.dropSelf(WAXED_WEATHERED_CHISELED_COPPER.get());
+			this.dropSelf(WAXED_OXIDIZED_CHISELED_COPPER.get());
+
+			this.dropSelf(COPPER_GRATE.get());
+			this.dropSelf(EXPOSED_COPPER_GRATE.get());
+			this.dropSelf(WEATHERED_COPPER_GRATE.get());
+			this.dropSelf(OXIDIZED_COPPER_GRATE.get());
+			this.dropSelf(WAXED_COPPER_GRATE.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_GRATE.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_GRATE.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_GRATE.get());
+
+			this.dropSelf(COPPER_BULB.get());
+			this.dropSelf(EXPOSED_COPPER_BULB.get());
+			this.dropSelf(WEATHERED_COPPER_BULB.get());
+			this.dropSelf(OXIDIZED_COPPER_BULB.get());
+			this.dropSelf(WAXED_COPPER_BULB.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_BULB.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_BULB.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_BULB.get());
+			
+			this.add(COPPER_DOOR.get(), this::createDoorTable);
+			this.add(EXPOSED_COPPER_DOOR.get(), this::createDoorTable);
+			this.add(WEATHERED_COPPER_DOOR.get(), this::createDoorTable);
+			this.add(OXIDIZED_COPPER_DOOR.get(), this::createDoorTable);
+			this.add(WAXED_COPPER_DOOR.get(), this::createDoorTable);
+			this.add(WAXED_EXPOSED_COPPER_DOOR.get(), this::createDoorTable);
+			this.add(WAXED_WEATHERED_COPPER_DOOR.get(), this::createDoorTable);
+			this.add(WAXED_OXIDIZED_COPPER_DOOR.get(), this::createDoorTable);
+
+			this.dropSelf(COPPER_TRAPDOOR.get());
+			this.dropSelf(EXPOSED_COPPER_TRAPDOOR.get());
+			this.dropSelf(WEATHERED_COPPER_TRAPDOOR.get());
+			this.dropSelf(OXIDIZED_COPPER_TRAPDOOR.get());
+			this.dropSelf(WAXED_COPPER_TRAPDOOR.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+
 			this.dropSelf(COPPER_BARS.get());
 			this.dropSelf(EXPOSED_COPPER_BARS.get());
 			this.dropSelf(WEATHERED_COPPER_BARS.get());
