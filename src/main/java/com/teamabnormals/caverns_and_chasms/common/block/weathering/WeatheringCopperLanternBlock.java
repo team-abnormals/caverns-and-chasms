@@ -9,10 +9,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
-public class WeatheringLanternBlock extends LanternBlock implements CCWeatheringCopper {
+public class WeatheringCopperLanternBlock extends CopperLanternBlock implements CCWeatheringCopper {
 	private final WeatherState weatherState;
 
-	public WeatheringLanternBlock(WeatherState weatherState, Properties properties) {
+	public WeatheringCopperLanternBlock(WeatherState weatherState, Properties properties) {
 		super(properties);
 		this.weatherState = weatherState;
 	}

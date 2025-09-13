@@ -208,14 +208,14 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CHAIN = HELPER.createBlock("waxed_weathered_copper_chain", () -> new ChainBlock(CCProperties.COPPER_CHAIN));
 	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CHAIN = HELPER.createBlock("waxed_oxidized_copper_chain", () -> new ChainBlock(CCProperties.COPPER_CHAIN));
 
-	public static final RegistryObject<Block> COPPER_LANTERN = HELPER.createBlock("copper_lantern", () -> new WeatheringLanternBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = HELPER.createBlock("exposed_copper_lantern", () -> new WeatheringLanternBlock(WeatherState.EXPOSED, CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = HELPER.createBlock("weathered_copper_lantern", () -> new WeatheringLanternBlock(WeatherState.WEATHERED, CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = HELPER.createBlock("oxidized_copper_lantern", () -> new WeatheringLanternBlock(WeatherState.OXIDIZED, CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> WAXED_COPPER_LANTERN = HELPER.createBlock("waxed_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = HELPER.createBlock("waxed_exposed_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = HELPER.createBlock("waxed_weathered_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
-	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = HELPER.createBlock("waxed_oxidized_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> COPPER_LANTERN = HELPER.createBlock("copper_lantern", () -> new WeatheringCopperLanternBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = HELPER.createBlock("exposed_copper_lantern", () -> new WeatheringCopperLanternBlock(WeatherState.EXPOSED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = HELPER.createBlock("weathered_copper_lantern", () -> new WeatheringCopperLanternBlock(WeatherState.WEATHERED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = HELPER.createBlock("oxidized_copper_lantern", () -> new WeatheringCopperLanternBlock(WeatherState.OXIDIZED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_COPPER_LANTERN = HELPER.createBlock("waxed_copper_lantern", () -> new CopperLanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = HELPER.createBlock("waxed_exposed_copper_lantern", () -> new CopperLanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = HELPER.createBlock("waxed_weathered_copper_lantern", () -> new CopperLanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = HELPER.createBlock("waxed_oxidized_copper_lantern", () -> new CopperLanternBlock(CCProperties.COPPER_LANTERN));
 
 	public static final RegistryObject<Block> LAVA_LAMP = HELPER.createBlock("lava_lamp", () -> new LavaLampBlock(CCProperties.LAVA_LAMP));
 	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
