@@ -10,7 +10,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CopperLanternBlock extends LanternBlock {
 	protected static final VoxelShape AABB = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
-	protected static final VoxelShape HANGING_AABB = Block.box(4.0D, 3.0D, 4.0D, 12.0D, 11.0D, 12.0D);
+	protected static final VoxelShape HANGING_AABB = Block.box(4.0D, 1.0D, 4.0D, 12.0D, 9.0D, 12.0D);
 
 	public CopperLanternBlock(Properties properties) {
 		super(properties);
