@@ -239,6 +239,24 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_LIGHTNING_ROD.get());
 			this.dropSelf(WAXED_OXIDIZED_LIGHTNING_ROD.get());
 
+			this.dropSelf(COPPER_CHAIN.get());
+			this.dropSelf(EXPOSED_COPPER_CHAIN.get());
+			this.dropSelf(WEATHERED_COPPER_CHAIN.get());
+			this.dropSelf(OXIDIZED_COPPER_CHAIN.get());
+			this.dropSelf(WAXED_COPPER_CHAIN.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_CHAIN.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_CHAIN.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_CHAIN.get());
+
+			this.dropSelf(COPPER_LANTERN.get());
+			this.dropSelf(EXPOSED_COPPER_LANTERN.get());
+			this.dropSelf(WEATHERED_COPPER_LANTERN.get());
+			this.dropSelf(OXIDIZED_COPPER_LANTERN.get());
+			this.dropSelf(WAXED_COPPER_LANTERN.get());
+			this.dropSelf(WAXED_EXPOSED_COPPER_LANTERN.get());
+			this.dropSelf(WAXED_WEATHERED_COPPER_LANTERN.get());
+			this.dropSelf(WAXED_OXIDIZED_COPPER_LANTERN.get());
+
 			this.dropSelf(COBBLESTONE_BRICKS.get());
 			this.dropSelf(COBBLESTONE_BRICK_STAIRS.get());
 			this.dropSelf(COBBLESTONE_BRICK_WALL.get());

@@ -176,6 +176,14 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_COPPER_INGOT.get(), CCBlocks.WAXED_EXPOSED_COPPER_INGOT.get());
 		builder.put(CCBlocks.WEATHERED_COPPER_INGOT.get(), CCBlocks.WAXED_WEATHERED_COPPER_INGOT.get());
 		builder.put(CCBlocks.OXIDIZED_COPPER_INGOT.get(), CCBlocks.WAXED_OXIDIZED_COPPER_INGOT.get());
+		builder.put(CCBlocks.COPPER_CHAIN.get(), CCBlocks.WAXED_COPPER_CHAIN.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_CHAIN.get(), CCBlocks.WAXED_EXPOSED_COPPER_CHAIN.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_CHAIN.get(), CCBlocks.WAXED_WEATHERED_COPPER_CHAIN.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_CHAIN.get(), CCBlocks.WAXED_OXIDIZED_COPPER_CHAIN.get());
+		builder.put(CCBlocks.COPPER_LANTERN.get(), CCBlocks.WAXED_COPPER_LANTERN.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_LANTERN.get(), CCBlocks.WAXED_EXPOSED_COPPER_LANTERN.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_LANTERN.get(), CCBlocks.WAXED_WEATHERED_COPPER_LANTERN.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_LANTERN.get(), CCBlocks.WAXED_OXIDIZED_COPPER_LANTERN.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

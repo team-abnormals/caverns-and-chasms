@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "caverns_and_chasms:block/waxed_weathered_copper_lantern"
+    },
+    "hanging=true": {
+      "model": "caverns_and_chasms:block/hanging_waxed_weathered_copper_lantern"
+    }
+  }
+}

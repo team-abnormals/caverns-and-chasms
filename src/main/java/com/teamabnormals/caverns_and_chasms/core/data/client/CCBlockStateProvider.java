@@ -224,6 +224,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.floodlightBlock(WEATHERED_FLOODLIGHT.get(), WAXED_WEATHERED_FLOODLIGHT.get());
 		this.floodlightBlock(OXIDIZED_FLOODLIGHT.get(), WAXED_OXIDIZED_FLOODLIGHT.get());
 
+		this.copperLanternBlocks(COPPER_LANTERN.get(), WAXED_COPPER_LANTERN.get(), COPPER_CHAIN.get(), WAXED_COPPER_CHAIN.get());
+		this.copperLanternBlocks(EXPOSED_COPPER_LANTERN.get(), WAXED_EXPOSED_COPPER_LANTERN.get(), EXPOSED_COPPER_CHAIN.get(), WAXED_EXPOSED_COPPER_CHAIN.get());
+		this.copperLanternBlocks(WEATHERED_COPPER_LANTERN.get(), WAXED_WEATHERED_COPPER_LANTERN.get(), WEATHERED_COPPER_CHAIN.get(), WAXED_WEATHERED_COPPER_CHAIN.get());
+		this.copperLanternBlocks(OXIDIZED_COPPER_LANTERN.get(), WAXED_OXIDIZED_COPPER_LANTERN.get(), OXIDIZED_COPPER_CHAIN.get(), WAXED_OXIDIZED_COPPER_CHAIN.get());
+		
 		this.lightningRodBlock(EXPOSED_LIGHTNING_ROD.get(), EXPOSED_LIGHTNING_ROD.get());
 		this.lightningRodBlock(WEATHERED_LIGHTNING_ROD.get(), WEATHERED_LIGHTNING_ROD.get());
 		this.lightningRodBlock(OXIDIZED_LIGHTNING_ROD.get(), OXIDIZED_LIGHTNING_ROD.get());
@@ -484,6 +489,36 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				}, BlockStateProperties.WATERLOGGED);
 
 		this.waxedGeneratedItem(block, "item");
+	}
+
+	public void copperLanternBlocks(Block lantern, Block waxedLantern, Block chain, Block waxedChain) {
+		this.copperLanternBlock(lantern, lantern, chain, chain);
+		this.copperLanternBlock(lantern, waxedLantern, chain, waxedChain);
+	}
+
+	public void copperLanternBlock(Block parent, Block block, Block chainParent, Block chainBlock) {
+		ModelFile lantern = models().withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_copper_lantern")
+				.texture("lantern", blockTexture(parent)).renderType("cutout");
+
+		ModelFile hangingLantern = models().withExistingParent("hanging_" + name(block), CavernsAndChasms.MOD_ID + ":block/template_hanging_copper_lantern")
+				.texture("lantern", blockTexture(parent))
+				.texture("chain", blockTexture(chainParent)).renderType("cutout");
+
+		ModelFile chain = models().withExistingParent(name(chainBlock), CavernsAndChasms.MOD_ID + ":block/template_copper_chain")
+				.texture("all", blockTexture(chainParent)).renderType("cutout");
+
+		this.getVariantBuilder(block).forAllStatesExcept(state -> {
+			boolean hanging = state.getValue(BlockStateProperties.HANGING);
+			return ConfiguredModel.builder().modelFile(hanging ? hangingLantern : lantern).build();
+		}, BlockStateProperties.WATERLOGGED);
+
+		this.getVariantBuilder(chainBlock).forAllStatesExcept(state -> {
+			Axis axis = state.getValue(BlockStateProperties.AXIS);
+			return ConfiguredModel.builder().modelFile(chain).rotationX(axis.isHorizontal() ? 90 : 0).rotationY(axis == Axis.X ? 90 : 0).build();
+		}, BlockStateProperties.WATERLOGGED);
+
+		this.waxedGeneratedItem(block, "item");
+		this.waxedGeneratedItem(chainBlock, "item");
 	}
 
 	public void lightningRodBlock(Block parent, Block block) {

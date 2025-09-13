@@ -199,6 +199,24 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WAXED_WEATHERED_LIGHTNING_ROD = HELPER.createBlock("waxed_weathered_lightning_rod", () -> new LightningRodBlock(BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)));
 	public static final RegistryObject<Block> WAXED_OXIDIZED_LIGHTNING_ROD = HELPER.createBlock("waxed_oxidized_lightning_rod", () -> new LightningRodBlock(BlockBehaviour.Properties.copy(Blocks.LIGHTNING_ROD)));
 
+	public static final RegistryObject<Block> COPPER_CHAIN = HELPER.createBlock("copper_chain", () -> new WeatheringChainBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> EXPOSED_COPPER_CHAIN = HELPER.createBlock("exposed_copper_chain", () -> new WeatheringChainBlock(WeatherState.EXPOSED, CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> WEATHERED_COPPER_CHAIN = HELPER.createBlock("weathered_copper_chain", () -> new WeatheringChainBlock(WeatherState.WEATHERED, CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_CHAIN = HELPER.createBlock("oxidized_copper_chain", () -> new WeatheringChainBlock(WeatherState.OXIDIZED, CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> WAXED_COPPER_CHAIN = HELPER.createBlock("waxed_copper_chain", () -> new ChainBlock(CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_CHAIN = HELPER.createBlock("waxed_exposed_copper_chain", () -> new ChainBlock(CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_CHAIN = HELPER.createBlock("waxed_weathered_copper_chain", () -> new ChainBlock(CCProperties.COPPER_CHAIN));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_CHAIN = HELPER.createBlock("waxed_oxidized_copper_chain", () -> new ChainBlock(CCProperties.COPPER_CHAIN));
+
+	public static final RegistryObject<Block> COPPER_LANTERN = HELPER.createBlock("copper_lantern", () -> new WeatheringLanternBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> EXPOSED_COPPER_LANTERN = HELPER.createBlock("exposed_copper_lantern", () -> new WeatheringLanternBlock(WeatherState.EXPOSED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WEATHERED_COPPER_LANTERN = HELPER.createBlock("weathered_copper_lantern", () -> new WeatheringLanternBlock(WeatherState.WEATHERED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> OXIDIZED_COPPER_LANTERN = HELPER.createBlock("oxidized_copper_lantern", () -> new WeatheringLanternBlock(WeatherState.OXIDIZED, CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_COPPER_LANTERN = HELPER.createBlock("waxed_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_LANTERN = HELPER.createBlock("waxed_exposed_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_LANTERN = HELPER.createBlock("waxed_weathered_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
+	public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_LANTERN = HELPER.createBlock("waxed_oxidized_copper_lantern", () -> new LanternBlock(CCProperties.COPPER_LANTERN));
+
 	public static final RegistryObject<Block> LAVA_LAMP = HELPER.createBlock("lava_lamp", () -> new LavaLampBlock(CCProperties.LAVA_LAMP));
 	public static final RegistryObject<Block> GOLDEN_BARS = HELPER.createBlock("golden_bars", () -> new IronBarsBlock(CCProperties.METAL_BARS));
 
@@ -602,12 +620,16 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
 				.addItemsBefore(of(Blocks.ANVIL), CUPRIC_CAMPFIRE)
-				.addItemsBefore(of(Blocks.CHAIN), CUPRIC_LANTERN, BRAZIER, SOUL_BRAZIER)
+				.addItemsBefore(of(Blocks.CHAIN), 
+						CUPRIC_LANTERN,
+						COPPER_LANTERN, EXPOSED_COPPER_LANTERN, WEATHERED_COPPER_LANTERN, OXIDIZED_COPPER_LANTERN, WAXED_COPPER_LANTERN, WAXED_EXPOSED_COPPER_LANTERN, WAXED_WEATHERED_COPPER_LANTERN, WAXED_OXIDIZED_COPPER_LANTERN,
+						BRAZIER, SOUL_BRAZIER
+				)
 				.addItemsBefore(modLoaded(Blocks.CHAIN, "endergetic"), ENDER_BRAZIER)
 				.addItemsBefore(of(Blocks.CHAIN), CUPRIC_BRAZIER)
 				.addItemsAfter(of(Blocks.CHAIN),
-						FLOODLIGHT, EXPOSED_FLOODLIGHT, WEATHERED_FLOODLIGHT, OXIDIZED_FLOODLIGHT,
-						WAXED_FLOODLIGHT, WAXED_EXPOSED_FLOODLIGHT, WAXED_WEATHERED_FLOODLIGHT, WAXED_OXIDIZED_FLOODLIGHT,
+						COPPER_CHAIN, EXPOSED_COPPER_CHAIN, WEATHERED_COPPER_CHAIN, OXIDIZED_COPPER_CHAIN, WAXED_COPPER_CHAIN, WAXED_EXPOSED_COPPER_CHAIN, WAXED_WEATHERED_COPPER_CHAIN, WAXED_OXIDIZED_COPPER_CHAIN,
+						FLOODLIGHT, EXPOSED_FLOODLIGHT, WEATHERED_FLOODLIGHT, OXIDIZED_FLOODLIGHT, WAXED_FLOODLIGHT, WAXED_EXPOSED_FLOODLIGHT, WAXED_WEATHERED_FLOODLIGHT, WAXED_OXIDIZED_FLOODLIGHT,
 						DIMMER, LAVA_LAMP
 				)
 				.addItemsAfter(of(Blocks.LIGHTNING_ROD), HOOP)
@@ -704,6 +726,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.METAL);
 		public static final BlockBehaviour.Properties COPPER_RAIL = BlockBehaviour.Properties.of().noCollission().strength(0.7F).sound(SoundType.COPPER);
 		public static final BlockBehaviour.Properties DISMANTLING_TABLE = BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava();
+		public static final BlockBehaviour.Properties COPPER_CHAIN = BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion();
+		public static final BlockBehaviour.Properties COPPER_LANTERN = BlockBehaviour.Properties.of().mapColor(MapColor.METAL).forceSolidOn().requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY);
 
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.LAVA_LAMP).lightLevel((state) -> 15);
 		public static final BlockBehaviour.Properties COPPER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.COPPER).noOcclusion();

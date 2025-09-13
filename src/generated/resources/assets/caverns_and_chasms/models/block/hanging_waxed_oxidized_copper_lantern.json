@@ -1,0 +1,8 @@
+{
+  "parent": "caverns_and_chasms:block/template_hanging_copper_lantern",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "chain": "caverns_and_chasms:block/oxidized_copper_chain",
+    "lantern": "caverns_and_chasms:block/oxidized_copper_lantern"
+  }
+}
