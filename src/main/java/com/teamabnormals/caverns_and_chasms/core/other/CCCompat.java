@@ -184,6 +184,26 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_COPPER_LANTERN.get(), CCBlocks.WAXED_EXPOSED_COPPER_LANTERN.get());
 		builder.put(CCBlocks.WEATHERED_COPPER_LANTERN.get(), CCBlocks.WAXED_WEATHERED_COPPER_LANTERN.get());
 		builder.put(CCBlocks.OXIDIZED_COPPER_LANTERN.get(), CCBlocks.WAXED_OXIDIZED_COPPER_LANTERN.get());
+		builder.put(CCBlocks.CHISELED_COPPER.get(), CCBlocks.WAXED_CHISELED_COPPER.get());
+		builder.put(CCBlocks.EXPOSED_CHISELED_COPPER.get(), CCBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+		builder.put(CCBlocks.WEATHERED_CHISELED_COPPER.get(), CCBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+		builder.put(CCBlocks.OXIDIZED_CHISELED_COPPER.get(), CCBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+		builder.put(CCBlocks.COPPER_GRATE.get(), CCBlocks.WAXED_COPPER_GRATE.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_GRATE.get(), CCBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_GRATE.get(), CCBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_GRATE.get(), CCBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+		builder.put(CCBlocks.COPPER_BULB.get(), CCBlocks.WAXED_COPPER_BULB.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_BULB.get(), CCBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_BULB.get(), CCBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_BULB.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+		builder.put(CCBlocks.COPPER_DOOR.get(), CCBlocks.WAXED_COPPER_DOOR.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_DOOR.get(), CCBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_DOOR.get(), CCBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_DOOR.get(), CCBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+		builder.put(CCBlocks.COPPER_TRAPDOOR.get(), CCBlocks.WAXED_COPPER_TRAPDOOR.get());
+		builder.put(CCBlocks.EXPOSED_COPPER_TRAPDOOR.get(), CCBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+		builder.put(CCBlocks.WEATHERED_COPPER_TRAPDOOR.get(), CCBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+		builder.put(CCBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), CCBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 

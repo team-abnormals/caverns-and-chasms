@@ -136,7 +136,49 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, LAVA_LAMP.get()).define('G', Tags.Items.INGOTS_GOLD).define('B', BlueprintItemTags.BUCKETS_LAVA).pattern("GGG").pattern(" B ").pattern("GGG").unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, FLOODLIGHT.get()).define('C', Tags.Items.INGOTS_COPPER).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
-
+		doorBuilder(COPPER_DOOR.get(), Ingredient.of(Items.COPPER_INGOT)).unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer);
+		trapdoorBuilder(COPPER_TRAPDOOR.get(), Ingredient.of(Items.COPPER_INGOT)).unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(consumer);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CHISELED_COPPER.get(), Blocks.COPPER_BLOCK, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_CHISELED_COPPER.get(), Blocks.WAXED_COPPER_BLOCK, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CHISELED_COPPER.get(), Blocks.CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_CHISELED_COPPER.get(), Blocks.WAXED_CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER, 1);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER, 1);
+		grate(consumer, COPPER_GRATE.get(), Blocks.COPPER_BLOCK);
+		grate(consumer, EXPOSED_COPPER_GRATE.get(), Blocks.EXPOSED_COPPER);
+		grate(consumer, WEATHERED_COPPER_GRATE.get(), Blocks.WEATHERED_COPPER);
+		grate(consumer, OXIDIZED_COPPER_GRATE.get(), Blocks.OXIDIZED_COPPER);
+		grate(consumer, WAXED_COPPER_GRATE.get(), Blocks.WAXED_COPPER_BLOCK);
+		grate(consumer, WAXED_EXPOSED_COPPER_GRATE.get(), Blocks.WAXED_EXPOSED_COPPER);
+		grate(consumer, WAXED_WEATHERED_COPPER_GRATE.get(), Blocks.WAXED_WEATHERED_COPPER);
+		grate(consumer, WAXED_OXIDIZED_COPPER_GRATE.get(), Blocks.WAXED_OXIDIZED_COPPER);
+		copperBulb(consumer, COPPER_BULB.get(), Blocks.COPPER_BLOCK);
+		copperBulb(consumer, EXPOSED_COPPER_BULB.get(), Blocks.EXPOSED_COPPER);
+		copperBulb(consumer, WEATHERED_COPPER_BULB.get(), Blocks.WEATHERED_COPPER);
+		copperBulb(consumer, OXIDIZED_COPPER_BULB.get(), Blocks.OXIDIZED_COPPER);
+		copperBulb(consumer, WAXED_COPPER_BULB.get(), Blocks.WAXED_COPPER_BLOCK);
+		copperBulb(consumer, WAXED_EXPOSED_COPPER_BULB.get(), Blocks.WAXED_EXPOSED_COPPER);
+		copperBulb(consumer, WAXED_WEATHERED_COPPER_BULB.get(), Blocks.WAXED_WEATHERED_COPPER);
+		copperBulb(consumer, WAXED_OXIDIZED_COPPER_BULB.get(), Blocks.WAXED_OXIDIZED_COPPER);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, COPPER_GRATE.get(), Blocks.COPPER_BLOCK, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, EXPOSED_COPPER_GRATE.get(), Blocks.EXPOSED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WEATHERED_COPPER_GRATE.get(), Blocks.WEATHERED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, OXIDIZED_COPPER_GRATE.get(), Blocks.OXIDIZED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_COPPER_GRATE.get(), Blocks.WAXED_COPPER_BLOCK, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_EXPOSED_COPPER_GRATE.get(), Blocks.WAXED_EXPOSED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_WEATHERED_COPPER_GRATE.get(), Blocks.WAXED_WEATHERED_COPPER, 4);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, WAXED_OXIDIZED_COPPER_GRATE.get(), Blocks.WAXED_OXIDIZED_COPPER, 4);
+		
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_TORCH.get(), 4).define('X', Ingredient.of(Items.COAL, Items.CHARCOAL)).define('#', Tags.Items.RODS_WOODEN).define('C', CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).pattern("X").pattern("#").pattern("C").unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_CAMPFIRE.get()).define('L', ItemTags.LOGS).define('S', Tags.Items.RODS_WOODEN).define('#', CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).pattern(" S ").pattern("S#S").pattern("LLL").unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN)).unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_LANTERN.get()).define('#', CUPRIC_TORCH.get()).define('X', Tags.Items.NUGGETS_IRON).pattern("XXX").pattern("X#X").pattern("XXX").unlockedBy("has_copper", has(CUPRIC_TORCH.get())).save(consumer);
@@ -668,6 +710,14 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, family.get(Variant.STAIRS), family.getBaseBlock());
 		stonecutterRecipe(consumer, DECORATIONS, family.get(Variant.WALL), family.getBaseBlock());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, family.get(Variant.CHISELED), family.getBaseBlock());
+	}
+
+	protected static void grate(Consumer<FinishedRecipe> consumer, Block grateBlock, Block material) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, grateBlock, 4).define('M', material).pattern(" M ").pattern("M M").pattern(" M ").unlockedBy(getHasName(material), has(material)).save(consumer);
+	}
+
+	protected static void copperBulb(Consumer<FinishedRecipe> consumer, Block bulbBlock, Block material) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, bulbBlock, 4).define('C', material).define('R', Items.REDSTONE).define('B', Items.BLAZE_ROD).pattern(" C ").pattern("CBC").pattern(" R ").unlockedBy(getHasName(material), has(material)).save(consumer);
 	}
 
 	public static void mimingRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike output) {

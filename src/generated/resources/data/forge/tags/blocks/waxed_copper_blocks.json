@@ -71,6 +71,26 @@
     "caverns_and_chasms:waxed_copper_ingot",
     "caverns_and_chasms:waxed_exposed_copper_ingot",
     "caverns_and_chasms:waxed_weathered_copper_ingot",
-    "caverns_and_chasms:waxed_oxidized_copper_ingot"
+    "caverns_and_chasms:waxed_oxidized_copper_ingot",
+    "caverns_and_chasms:waxed_chiseled_copper",
+    "caverns_and_chasms:waxed_exposed_chiseled_copper",
+    "caverns_and_chasms:waxed_weathered_chiseled_copper",
+    "caverns_and_chasms:waxed_oxidized_chiseled_copper",
+    "caverns_and_chasms:waxed_copper_grate",
+    "caverns_and_chasms:waxed_exposed_copper_grate",
+    "caverns_and_chasms:waxed_weathered_copper_grate",
+    "caverns_and_chasms:waxed_oxidized_copper_grate",
+    "caverns_and_chasms:waxed_copper_bulb",
+    "caverns_and_chasms:waxed_exposed_copper_bulb",
+    "caverns_and_chasms:waxed_weathered_copper_bulb",
+    "caverns_and_chasms:waxed_oxidized_copper_bulb",
+    "caverns_and_chasms:waxed_copper_door",
+    "caverns_and_chasms:waxed_exposed_copper_door",
+    "caverns_and_chasms:waxed_weathered_copper_door",
+    "caverns_and_chasms:waxed_oxidized_copper_door",
+    "caverns_and_chasms:waxed_copper_trapdoor",
+    "caverns_and_chasms:waxed_exposed_copper_trapdoor",
+    "caverns_and_chasms:waxed_weathered_copper_trapdoor",
+    "caverns_and_chasms:waxed_oxidized_copper_trapdoor"
   ]
 }
