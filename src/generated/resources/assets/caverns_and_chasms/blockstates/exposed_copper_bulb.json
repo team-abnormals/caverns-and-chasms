@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "lit=false,powered=false": {
       "model": "caverns_and_chasms:block/exposed_copper_bulb"
+    },
+    "lit=false,powered=true": {
+      "model": "caverns_and_chasms:block/exposed_copper_bulb_powered"
+    },
+    "lit=true,powered=false": {
+      "model": "caverns_and_chasms:block/exposed_copper_bulb_lit"
+    },
+    "lit=true,powered=true": {
+      "model": "caverns_and_chasms:block/exposed_copper_bulb_lit_powered"
     }
   }
 }

@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,9 +41,7 @@ public class CopperBulbBlock extends Block {
 			BlockState blockstate = state;
 			if (!state.getValue(POWERED)) {
 				blockstate = state.cycle(LIT);
-//				level.playSound(
-//						null, pos, blockstate.getValue(LIT) ? SoundEvents.COPPER_BULB_TURN_ON : SoundEvents.COPPER_BULB_TURN_OFF, SoundSource.BLOCKS
-//				);
+				level.playSound(null, pos, blockstate.getValue(LIT) ? CCSoundEvents.COPPER_BULB_TURN_ON.get() : CCSoundEvents.COPPER_BULB_TURN_OFF.get(), SoundSource.BLOCKS);
 			}
 
 			level.setBlock(pos, blockstate.setValue(POWERED, Boolean.valueOf(flag)), 3);

@@ -208,14 +208,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(WAXED_WEATHERED_COPPER_GRATE.get());
 		this.block(WAXED_OXIDIZED_COPPER_GRATE.get());
 
-		this.block(COPPER_BULB.get());
-		this.block(EXPOSED_COPPER_BULB.get());
-		this.block(WEATHERED_COPPER_BULB.get());
-		this.block(OXIDIZED_COPPER_BULB.get());
-		this.block(WAXED_COPPER_BULB.get());
-		this.block(WAXED_EXPOSED_COPPER_BULB.get());
-		this.block(WAXED_WEATHERED_COPPER_BULB.get());
-		this.block(WAXED_OXIDIZED_COPPER_BULB.get());
+		this.copperBulbBlock(COPPER_BULB.get());
+		this.copperBulbBlock(EXPOSED_COPPER_BULB.get());
+		this.copperBulbBlock(WEATHERED_COPPER_BULB.get());
+		this.copperBulbBlock(OXIDIZED_COPPER_BULB.get());
+		this.copperBulbBlock(WAXED_COPPER_BULB.get());
+		this.copperBulbBlock(WAXED_EXPOSED_COPPER_BULB.get());
+		this.copperBulbBlock(WAXED_WEATHERED_COPPER_BULB.get());
+		this.copperBulbBlock(WAXED_OXIDIZED_COPPER_BULB.get());
 
 		this.doorBlocks(COPPER_DOOR.get(), COPPER_TRAPDOOR.get());
 		this.doorBlocks(EXPOSED_COPPER_DOOR.get(), EXPOSED_COPPER_TRAPDOOR.get());
@@ -551,6 +551,18 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.generatedItem(block, "item");
 		this.generatedItem(chainBlock, "item");
+	}
+
+	public void copperBulbBlock(Block block) {
+		this.getVariantBuilder(block)
+				.forAllStates(state -> {
+					boolean lit = state.getValue(CopperBulbBlock.LIT);
+					boolean powered = state.getValue(CopperBulbBlock.POWERED);
+					String suffix = (lit ? "_lit" : "") + (powered ? "_powered" : "");
+					return ConfiguredModel.builder().modelFile(this.models().cubeAll(name(block) + suffix, blockTexture(block).withSuffix(suffix))).build();
+				});
+
+		this.blockItem(block);
 	}
 
 	public void lightningRodBlock(Block parent, Block block) {
@@ -1036,6 +1048,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void blockItem(Block block) {
 		this.simpleBlockItem(block, new ExistingModelFile(blockModel(block), this.models().existingFileHelper));
 	}
+
 	public ResourceLocation blockModel(Block block) {
 		ResourceLocation name = ForgeRegistries.BLOCKS.getKey(block);
 		return new ResourceLocation(name.getNamespace(), ModelProvider.BLOCK_FOLDER + "/" + name.getPath());
