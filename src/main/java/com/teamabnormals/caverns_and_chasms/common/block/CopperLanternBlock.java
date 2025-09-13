@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.block.weathering;
+package com.teamabnormals.caverns_and_chasms.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

@@ -1,10 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.block.weathering;
 
+import com.teamabnormals.caverns_and_chasms.common.block.CopperLanternBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
