@@ -6,25 +6,25 @@ import com.teamabnormals.caverns_and_chasms.common.advancement.RepairedItemTrigg
 import com.teamabnormals.caverns_and_chasms.common.block.CopperBulbBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.*;
 import net.minecraft.advancements.critereon.BlockPredicate.Builder;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.advancements.packs.VanillaHusbandryAdvancements;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import net.minecraftforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
@@ -70,6 +70,10 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		createAdvancement("lighten_up", "adventure", smeltCopper, CCBlocks.COPPER_BULB.get(), FrameType.TASK, true, true, false)
 				.addCriterion("lighten_up", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(Builder.block().of(CCBlocks.OXIDIZED_COPPER_BULB.get(), CCBlocks.WEATHERED_COPPER_BULB.get(), CCBlocks.EXPOSED_COPPER_BULB.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CopperBulbBlock.LIT, true).build()).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/lighten_up");
+
+		createAdvancement("thunderstruck", "adventure", smeltCopper, CCItems.COPPER_HELMET.get(), FrameType.TASK, true, true, false)
+				.addCriterion("thunderstruck", new EntityHurtPlayerTrigger.TriggerInstance(EntityPredicate.wrap(EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().head(ItemPredicate.Builder.item().of(CCItemTags.COPPER_HELMETS).build()).build()).build()), DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTags.IS_LIGHTNING))).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/thunderstruck");
 
 		createAdvancement("ride_boat_with_deeper", "nether", new ResourceLocation("nether/root"), CCItems.DEEPER_HEAD.get(), FrameType.TASK, true, true, true)
 				.addCriterion("ride_boat_with_deeper", StartRidingTrigger.TriggerInstance.playerStartsRiding(EntityPredicate.Builder.entity().located(LocationPredicate.inDimension(Level.NETHER)).vehicle(EntityPredicate.Builder.entity().of(EntityType.BOAT).passenger(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get()).build()).build())))
