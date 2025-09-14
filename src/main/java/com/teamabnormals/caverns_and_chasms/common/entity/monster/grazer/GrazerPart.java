@@ -20,12 +20,12 @@ import net.minecraftforge.entity.PartEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class GrazerPart extends PartEntity<Grazer> {
+public class GrazerPart extends PartEntity<AbstractGrazer> {
 	protected final EntityDimensions dimensions;
 	protected final double zOffset;
 	protected final double yOffset;
 
-	public GrazerPart(Grazer parent, float size, double zOffset, double yOffset) {
+	public GrazerPart(AbstractGrazer parent, float size, double zOffset, double yOffset) {
 		super(parent);
 		float f = size / 16F;
 		this.dimensions = EntityDimensions.scalable(f, f);
@@ -47,7 +47,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 	}
 
 	public void updatePosition() {
-		Grazer grazer = this.getParent();
+		AbstractGrazer grazer = this.getParent();
 
 		Vec3 oldpos = this.calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.xRotO, grazer.yRotO);
 		this.xo = oldpos.x;
@@ -62,7 +62,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 	}
 
 	public void pushEntities() {
-		Grazer grazer = this.getParent();
+		AbstractGrazer grazer = this.getParent();
 
 		if (this.level().isClientSide()) {
 			this.level().getEntities(EntityTypeTest.forClass(Player.class), this.getBoundingBox(), EntitySelector.pushableBy(grazer)).forEach(grazer::push);
@@ -106,7 +106,7 @@ public class GrazerPart extends PartEntity<Grazer> {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		Grazer grazer = this.getParent();
+		AbstractGrazer grazer = this.getParent();
 		if (this.deflectsAttacks()) {
 			Entity directentity = source.getDirectEntity();
 			if (directentity != null) {

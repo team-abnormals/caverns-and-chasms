@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class GrazerModel extends AgeableListModel<Grazer> {
+public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 	private final ModelPart body;
 	private final ModelPart head;
 	private final ModelPart jaw;
@@ -58,7 +58,7 @@ public class GrazerModel extends AgeableListModel<Grazer> {
 	}
 
 	@Override
-	public void setupAnim(Grazer grazer, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(AbstractGrazer grazer, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float partialtick = ageInTicks - (float) grazer.tickCount;
 
 		if (grazer.isBaby()) {

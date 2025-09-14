@@ -1,7 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerState;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.SaddledGrazer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -10,14 +11,14 @@ import java.util.EnumSet;
 import java.util.function.Predicate;
 
 public class GrazerRunGoal extends Goal {
-	private final Grazer grazer;
+	private final AbstractGrazer grazer;
 	private final double range;
 	private final TargetingConditions avoidEntityTargeting;
 	private int runStillTime;
 
 	private int cooldown;
 
-	public GrazerRunGoal(Grazer grazer, Predicate<LivingEntity> avoidPredicate, double range) {
+	public GrazerRunGoal(AbstractGrazer grazer, Predicate<LivingEntity> avoidPredicate, double range) {
 		this.grazer = grazer;
 		this.range = range;
 		this.avoidEntityTargeting = TargetingConditions.forCombat().range(range).selector(avoidPredicate);
@@ -35,11 +36,11 @@ public class GrazerRunGoal extends Goal {
 		}
 
 		LivingEntity attacker = this.grazer.getLastHurtByMob();
-		if (attacker == null && !this.grazer.hasSaddle())
+		if (attacker == null && !(this.grazer instanceof SaddledGrazer))
 			attacker = findNearestScaryEntity();
 
 		if (attacker != null || this.grazer.isFreezing() || this.grazer.isOnFire()) {
-			if (attacker != null && !this.grazer.hasSaddle())
+			if (attacker != null && !(this.grazer instanceof SaddledGrazer))
 				this.grazer.setTarget(attacker);
 			this.grazer.setState(GrazerState.RUNNING_STILL);
 			this.runStillTime = 10;

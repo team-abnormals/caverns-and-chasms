@@ -254,6 +254,7 @@ public class CCItems {
 	public static final RegistryObject<ForgeSpawnEggItem> GLARE_SPAWN_EGG = HELPER.createSpawnEggItem("glare", CCEntityTypes.GLARE::get, 0x72942F, 0x516F2C);
 	public static final RegistryObject<ForgeSpawnEggItem> COPPER_GOLEM_SPAWN_EGG = HELPER.createSpawnEggItem("copper_golem", CCEntityTypes.COPPER_GOLEM::get, 0xDE7D65, 0x8A4129);
 	public static final RegistryObject<ForgeSpawnEggItem> GRAZER_SPAWN_EGG = HELPER.createSpawnEggItem("grazer", CCEntityTypes.GRAZER::get, 0x838C8B, 0xE0B455);
+	public static final RegistryObject<ForgeSpawnEggItem> SADDLED_GRAZER_SPAWN_EGG = HELPER.createSpawnEggItem("saddled_grazer", CCEntityTypes.SADDLED_GRAZER::get, 0x838C8B, 0xB73B37);
 
 	public static void setupTabEditors() {
 		CreativeModeTabContentsPopulator.mod(CavernsAndChasms.MOD_ID)
@@ -329,7 +330,7 @@ public class CCItems {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.tab(SPAWN_EGGS)
-				.addItemsAlphabetically(ItemStackUtil.is(SpawnEggItem.class), "spawn_egg|_", DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, GRAZER_SPAWN_EGG);
+				.addItemsAlphabetically(ItemStackUtil.is(SpawnEggItem.class), "spawn_egg|_", DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, GRAZER_SPAWN_EGG, SADDLED_GRAZER_SPAWN_EGG);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {

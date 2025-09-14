@@ -12,7 +12,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
@@ -714,7 +714,7 @@ public class CCEvents {
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
 			if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
-				Grazer grazer = grazerpart.getParent();
+				AbstractGrazer grazer = grazerpart.getParent();
 
 				if (!grazer.projectileJustDeflected(projectile)) {
 					AABB aabb = grazerpart.getBoundingBox().inflate(0.3D);

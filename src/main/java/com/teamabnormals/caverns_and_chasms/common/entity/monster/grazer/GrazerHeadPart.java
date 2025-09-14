@@ -8,7 +8,7 @@ public class GrazerHeadPart extends GrazerPart {
 	private final double zOffsetBaby;
 	private final double yOffsetBaby;
 
-	public GrazerHeadPart(Grazer parent, float size, float babySize, double zOffset, double yOffset, double zOffsetBaby, double yOffsetBaby) {
+	public GrazerHeadPart(AbstractGrazer parent, float size, float babySize, double zOffset, double yOffset, double zOffsetBaby, double yOffsetBaby) {
 		super(parent, size, zOffset, yOffset);
 		float f = babySize / 16F;
 		this.babyDimensions = EntityDimensions.scalable(f, f);

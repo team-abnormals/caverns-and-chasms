@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.SaddledGrazer;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -61,15 +61,14 @@ public class SaddledEggBlock extends HorizontalDirectionalBlock {
 			level.levelEvent(2001, pos, Block.getId(state));
 			level.removeBlock(pos, false);
 
-			Grazer grazer = CCEntityTypes.GRAZER.get().create(level);
-			if (grazer != null) {
-				grazer.setBaby(true);
-				grazer.setSaddle(true);
-				grazer.setPersistenceRequired();
-				grazer.moveTo(pos, state.getValue(FACING).toYRot() + level.getRandom().nextFloat() * 90.0F - 45.0F, 0.0F);
-				grazer.setYHeadRot(grazer.getYRot());
-				grazer.setYBodyRot(grazer.getYRot());
-				level.addFreshEntity(grazer);
+			SaddledGrazer saddledgrazer = CCEntityTypes.SADDLED_GRAZER.get().create(level);
+			if (saddledgrazer != null) {
+				saddledgrazer.setBaby(true);
+				saddledgrazer.setPersistenceRequired();
+				saddledgrazer.moveTo(pos, state.getValue(FACING).toYRot() + level.getRandom().nextFloat() * 90.0F - 45.0F, 0.0F);
+				saddledgrazer.setYHeadRot(saddledgrazer.getYRot());
+				saddledgrazer.setYBodyRot(saddledgrazer.getYRot());
+				level.addFreshEntity(saddledgrazer);
 			}
 		}
 	}

@@ -47,7 +47,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -241,6 +240,7 @@ public class CavernsAndChasms {
 		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.GRAZER.get(), GrazerRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.SADDLED_GRAZER.get(), SaddledGrazerRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT_MINECART.get(), TmtMinecartRenderer::new);

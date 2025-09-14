@@ -674,6 +674,21 @@ public class CCLootTableProvider extends LootTableProvider {
 							)
 					)
 			);
+			this.add(SADDLED_GRAZER.get(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCItems.RAW_TIN.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+							)
+					)
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCBlocks.SADDLED_EGG.get())
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+									.when(LootItemKilledByPlayerCondition.killedByPlayer())
+									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.1F, 0.03F))
+							)
+					)
+			);
 //			this.add(FLY.get(), LootTable.lootTable());
 			this.add(RAT.get(), LootTable.lootTable());
 			this.add(GLARE.get(), LootTable.lootTable());

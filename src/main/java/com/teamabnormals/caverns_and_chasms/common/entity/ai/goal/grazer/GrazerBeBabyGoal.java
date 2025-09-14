@@ -1,14 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.Grazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
 public class GrazerBeBabyGoal extends Goal {
-	private final Grazer grazer;
+	private final AbstractGrazer grazer;
 
-	public GrazerBeBabyGoal(Grazer grazer) {
+	public GrazerBeBabyGoal(AbstractGrazer grazer) {
 		this.grazer = grazer;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
 	}
