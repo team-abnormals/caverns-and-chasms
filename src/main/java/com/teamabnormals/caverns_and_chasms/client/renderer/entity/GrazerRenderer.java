@@ -12,9 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class GrazerRenderer extends MobRenderer<Grazer, GrazerModel> {
-	public static final ResourceLocation LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/grazer.png");
-	public static final ResourceLocation SADDLED_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/saddled_grazer.png");
-	public static final ResourceLocation BABY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/grazer/baby_grazer.png");
+	public static final ResourceLocation LOCATION = CavernsAndChasms.location("textures/entity/grazer/grazer.png");
+	public static final ResourceLocation SADDLED_LOCATION = CavernsAndChasms.location("textures/entity/grazer/saddled_grazer.png");
+	public static final ResourceLocation BABY_LOCATION = CavernsAndChasms.location("textures/entity/grazer/baby_grazer.png");
 
 	public GrazerRenderer(EntityRendererProvider.Context context) {
 		super(context, new GrazerModel(context.bakeLayer(CCModelLayers.GRAZER)), 0.5F);

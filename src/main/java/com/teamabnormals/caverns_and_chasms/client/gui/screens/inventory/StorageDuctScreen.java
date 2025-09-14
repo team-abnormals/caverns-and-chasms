@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class StorageDuctScreen extends AbstractContainerScreen<StorageDuctMenu> {
-	private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/storage_duct.png");
+	private static final ResourceLocation CONTAINER_LOCATION = CavernsAndChasms.location("textures/gui/container/storage_duct.png");
 	private final int containerSize;
 
 	private boolean scrolling;

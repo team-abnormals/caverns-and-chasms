@@ -36,10 +36,10 @@ public class ToolboxRenderer<T extends ToolboxBlockEntity> implements BlockEntit
 	public static Block itemBlock = null;
 
 	public static final ResourceLocation[] TOOLBOX_TEXTURES = {
-			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/toolbox"),
-			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/exposed_toolbox"),
-			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/weathered_toolbox"),
-			new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/toolbox/oxidized_toolbox")
+			CavernsAndChasms.location("entity/toolbox/toolbox"),
+			CavernsAndChasms.location("entity/toolbox/exposed_toolbox"),
+			CavernsAndChasms.location("entity/toolbox/weathered_toolbox"),
+			CavernsAndChasms.location("entity/toolbox/oxidized_toolbox")
 	};
 
 	public static final Map<WeatherState, Material> TOOLBOX_MATERIALS = Map.of(

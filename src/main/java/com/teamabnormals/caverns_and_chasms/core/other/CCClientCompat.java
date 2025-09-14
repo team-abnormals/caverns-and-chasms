@@ -145,14 +145,14 @@ public class CCClientCompat {
 	}
 
 	public static void registerItemProperties() {
-		ItemProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
+		ItemProperties.register(Items.CROSSBOW, CavernsAndChasms.location("blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
 		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW, CCItems.TETHER_POTION.get(), CCItems.IMPACT_POTION.get(), CCItems.TRAIL_POTION.get())) {
-			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
+			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
 		}
 
 		for (Item item : List.of(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get())) {
-			ItemProperties.register(item, new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> GoldenBucketItem.getFluidLevel(stack));
+			ItemProperties.register(item, CavernsAndChasms.location("level"), (stack, level, entity, hash) -> GoldenBucketItem.getFluidLevel(stack));
 		}
 
 		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get())) {
@@ -163,8 +163,8 @@ public class CCClientCompat {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 
-		ItemProperties.register(CCItems.TUNING_FORK.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
-		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "depth"), new ClampedItemPropertyFunction() {
+		ItemProperties.register(CCItems.TUNING_FORK.get(), CavernsAndChasms.location("holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
+		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), CavernsAndChasms.location("depth"), new ClampedItemPropertyFunction() {
 			private double rotation;
 			private double rota;
 			private long lastUpdateTick;
@@ -209,7 +209,7 @@ public class CCClientCompat {
 				return this.rotation;
 			}
 		});
-		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "charge"), (stack, level, entity, hash) -> {
+		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), CavernsAndChasms.location("charge"), (stack, level, entity, hash) -> {
 			if (entity != null && entity.getUseItem() == stack)
 				return (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
 			else if (stack.getOrCreateTag().contains("Life"))
@@ -217,7 +217,7 @@ public class CCClientCompat {
 			else
 				return 0.0F;
 		});
-		ItemProperties.register(CCItems.BAROMETER.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "weather"), (ClampedItemPropertyFunction) (stack, level, livingEntity, seed) -> {
+		ItemProperties.register(CCItems.BAROMETER.get(), CavernsAndChasms.location("weather"), (ClampedItemPropertyFunction) (stack, level, livingEntity, seed) -> {
 			Entity entity = livingEntity != null ? livingEntity : stack.getEntityRepresentation();
 			if (entity == null) {
 				return 0.4F;

@@ -40,7 +40,7 @@ public class CCTrimMaterials {
 	}
 
 	private static ResourceKey<TrimMaterial> createKey(String name) {
-		return ResourceKey.create(Registries.TRIM_MATERIAL, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+		return ResourceKey.create(Registries.TRIM_MATERIAL, CavernsAndChasms.location(name));
 	}
 
 	private static void register(BootstapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Item item, Style style, Map<ArmorMaterials, String> overrides) {

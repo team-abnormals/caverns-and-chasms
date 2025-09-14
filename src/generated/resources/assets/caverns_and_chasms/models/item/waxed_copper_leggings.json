@@ -26,7 +26,7 @@
       }
     },
     {
-      "model": "caverns_and_chasms:item/waxed_copper_leggings_copper_trim",
+      "model": "caverns_and_chasms:item/waxed_copper_leggings_caverns_and_chasms_copper_darker_trim",
       "predicate": {
         "minecraft:trim_type": 0.5
       }

@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AtoningTableRenderer implements BlockEntityRenderer<AtoningTableBlockEntity> {
-	public static final Material BOOK_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/atoning_table_book"));
+	public static final Material BOOK_LOCATION = new Material(TextureAtlas.LOCATION_BLOCKS, CavernsAndChasms.location("entity/atoning_table_book"));
 	private final BookModel bookModel;
 
 	public AtoningTableRenderer(BlockEntityRendererProvider.Context context) {

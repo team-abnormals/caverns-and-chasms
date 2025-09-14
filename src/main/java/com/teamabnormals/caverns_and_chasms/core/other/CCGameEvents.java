@@ -13,6 +13,6 @@ public class CCGameEvents {
 	public static final RegistryObject<GameEvent> TUNING_FORK_VIBRATE = register("tuning_fork_vibrate", 16);
 
 	public static RegistryObject<GameEvent> register(String name, int radius) {
-		return GAME_EVENTS.register(name, () -> new GameEvent(new ResourceLocation(CavernsAndChasms.MOD_ID, name).toString(), radius));
+		return GAME_EVENTS.register(name, () -> new GameEvent(CavernsAndChasms.location(name).toString(), radius));
 	}
 }

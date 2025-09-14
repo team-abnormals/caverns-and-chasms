@@ -17,13 +17,13 @@ import net.minecraftforge.eventbus.api.IEventBus;
  * @author Ocelot
  */
 public class DeeperSpriteUploader extends TextureAtlasHolder {
-	public static final ResourceLocation ATLAS_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/atlas/deeper.png");
+	public static final ResourceLocation ATLAS_LOCATION = CavernsAndChasms.location("textures/atlas/deeper.png");
 
-	public static final ResourceLocation DEEPER_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper");
-	public static final ResourceLocation PRIMED_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_primed");
-	public static final ResourceLocation EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "deeper_emissive");
-	public static final ResourceLocation CHARGED_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "charged_deeper");
-	public static final ResourceLocation CHARGED_EMISSIVE_SPRITE = new ResourceLocation(CavernsAndChasms.MOD_ID, "charged_deeper_emissive");
+	public static final ResourceLocation DEEPER_SPRITE = CavernsAndChasms.location("deeper");
+	public static final ResourceLocation PRIMED_SPRITE = CavernsAndChasms.location("deeper_primed");
+	public static final ResourceLocation EMISSIVE_SPRITE = CavernsAndChasms.location("deeper_emissive");
+	public static final ResourceLocation CHARGED_SPRITE = CavernsAndChasms.location("charged_deeper");
+	public static final ResourceLocation CHARGED_EMISSIVE_SPRITE = CavernsAndChasms.location("charged_deeper_emissive");
 
 	private static DeeperSpriteUploader uploader;
 

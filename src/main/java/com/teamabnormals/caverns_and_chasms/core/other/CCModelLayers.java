@@ -28,6 +28,6 @@ public class CCModelLayers {
 	}
 
 	public static ModelLayerLocation register(String name, String layer) {
-		return new ModelLayerLocation(new ResourceLocation(CavernsAndChasms.MOD_ID, name), layer);
+		return new ModelLayerLocation(CavernsAndChasms.location(name), layer);
 	}
 }

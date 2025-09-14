@@ -63,18 +63,18 @@ public class CCDataProcessors {
 	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 
 	public static void registerTrackedData() {
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "is_being_controlled"), IS_BEING_CONTROLLED);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "forget_golem_time"), FORGET_GOLEM_TIME);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "tuning_fork_pos"), TUNING_FORK_POS);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "tuning_fork_target_uuid"), TUNING_FORK_TARGET_UUID);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_dimension"), REWIND_DIMENSION);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_x"), REWIND_X);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_y"), REWIND_Y);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "rewind_z"), REWIND_Z);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "should_deflect"), SHOULD_DEFLECT);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "deflect_x"), DEFLECT_X);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "deflect_y"), DEFLECT_Y);
-		TrackedDataManager.INSTANCE.registerData(new ResourceLocation(CavernsAndChasms.MOD_ID, "deflect_z"), DEFLECT_Z);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("is_being_controlled"), IS_BEING_CONTROLLED);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("forget_golem_time"), FORGET_GOLEM_TIME);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("tuning_fork_pos"), TUNING_FORK_POS);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("tuning_fork_target_uuid"), TUNING_FORK_TARGET_UUID);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_dimension"), REWIND_DIMENSION);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_x"), REWIND_X);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_y"), REWIND_Y);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_z"), REWIND_Z);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("should_deflect"), SHOULD_DEFLECT);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_x"), DEFLECT_X);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_y"), DEFLECT_Y);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_z"), DEFLECT_Z);
 	}
 }

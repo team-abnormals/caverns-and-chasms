@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public class RepairedItemTrigger extends SimpleCriterionTrigger<TriggerInstance> {
-	static final ResourceLocation ID = new ResourceLocation(CavernsAndChasms.MOD_ID, "repaired_item");
+	static final ResourceLocation ID = CavernsAndChasms.location("repaired_item");
 
 	public ResourceLocation getId() {
 		return ID;

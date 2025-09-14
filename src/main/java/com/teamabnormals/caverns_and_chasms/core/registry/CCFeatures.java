@@ -81,7 +81,7 @@ public class CCFeatures {
 		}
 
 		public static ResourceKey<NoiseParameters> createKey(String name) {
-			return ResourceKey.create(Registries.NOISE, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+			return ResourceKey.create(Registries.NOISE, CavernsAndChasms.location(name));
 		}
 	}
 
@@ -158,7 +158,7 @@ public class CCFeatures {
 		}
 
 		public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
-			return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+			return ResourceKey.create(Registries.CONFIGURED_FEATURE, CavernsAndChasms.location(name));
 		}
 
 		public static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
@@ -232,7 +232,7 @@ public class CCFeatures {
 		}
 
 		public static ResourceKey<PlacedFeature> createKey(String name) {
-			return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+			return ResourceKey.create(Registries.PLACED_FEATURE, CavernsAndChasms.location(name));
 		}
 
 		public static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> feature, List<PlacementModifier> modifiers) {

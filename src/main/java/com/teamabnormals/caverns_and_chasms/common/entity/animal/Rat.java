@@ -547,7 +547,7 @@ public class Rat extends ShoulderRidingEntity {
 		private static final RatType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(RatType::getId)).toArray(RatType[]::new);
 
 		private final int id;
-		private final LazyLoadedValue<ResourceLocation> textureLocation = new LazyLoadedValue<>(() -> new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/rat/rat_" + this.name().toLowerCase(Locale.ROOT) + ".png"));
+		private final LazyLoadedValue<ResourceLocation> textureLocation = new LazyLoadedValue<>(() -> CavernsAndChasms.location("textures/entity/rat/rat_" + this.name().toLowerCase(Locale.ROOT) + ".png"));
 
 		RatType(int id) {
 			this.id = id;

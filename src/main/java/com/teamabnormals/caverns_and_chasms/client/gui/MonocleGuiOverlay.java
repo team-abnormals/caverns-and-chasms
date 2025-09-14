@@ -11,7 +11,7 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 public class MonocleGuiOverlay implements IGuiOverlay {
-	private static final ResourceLocation MONOCLE_SCOPE_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/misc/monocle_scope.png");
+	private static final ResourceLocation MONOCLE_SCOPE_LOCATION = CavernsAndChasms.location("textures/misc/monocle_scope.png");
 
 	public float overlayScopeScale;
 

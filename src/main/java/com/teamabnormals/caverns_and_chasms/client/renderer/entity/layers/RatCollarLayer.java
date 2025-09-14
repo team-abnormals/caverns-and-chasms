@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RatCollarLayer extends RenderLayer<Rat, RatModel<Rat>> {
-	private static final ResourceLocation RAT_COLLAR_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/rat/rat_collar.png");
+	private static final ResourceLocation RAT_COLLAR_LOCATION = CavernsAndChasms.location("textures/entity/rat/rat_collar.png");
 
 	public RatCollarLayer(RenderLayerParent<Rat, RatModel<Rat>> renderer) {
 		super(renderer);

@@ -34,7 +34,7 @@ public final class MusicDiscCopyRecipe {
 		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(record), Ingredient.of(CCItems.ZIRCONIA.get()));
 		ItemStack output = new ItemStack(CCItems.MUSIC_DISC_COPY.get());
 		output.getOrCreateTag().putString("music_disc", ForgeRegistries.ITEMS.getKey(record).toString());
-		ResourceLocation id = new ResourceLocation(CavernsAndChasms.MOD_ID, group + "." + output.getDescriptionId());
+		ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
 		return new ShapelessRecipe(id, group, CraftingBookCategory.MISC, output, inputs);
 	}
 }

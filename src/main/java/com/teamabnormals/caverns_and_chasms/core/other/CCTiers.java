@@ -17,12 +17,20 @@ import net.minecraftforge.common.Tags;
 public class CCTiers {
 
 	public static class CCArmorMaterials {
-		public static final ArmorMaterial COPPER = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "copper"), 11 + 45, new int[]{2, 4, 5, 2}, 8, () -> CCSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Tags.Items.INGOTS_COPPER));
-		public static final ArmorMaterial SILVER = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "silver"), 11, new int[]{2, 4, 6, 2}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SILVER.get(), 0.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
-		public static final ArmorMaterial NECROMIUM = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "necromium"), 37, new int[]{3, 6, 8, 3}, 15, () -> CCSoundEvents.ARMOR_EQUIP_NECROMIUM.get(), 2.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
-		public static final ArmorMaterial SANGUINE = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "sanguine"), 23, new int[]{2, 5, 7, 3}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SANGUINE.get(), 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
+		public static final ArmorMaterial COPPER = createCopperMaterial("copper");
+		public static final ArmorMaterial EXPOSED_COPPER = createCopperMaterial("exposed_copper");
+		public static final ArmorMaterial WEATHERED_COPPER = createCopperMaterial("weathered_copper");
+		public static final ArmorMaterial OXIDIZED_COPPER = createCopperMaterial("oxidized_copper");
 
-		public static final ArmorMaterial COWL = new BlueprintArmorMaterial(new ResourceLocation(CavernsAndChasms.MOD_ID, "cowl"), 5, new int[]{1, 2, 3, 1}, 15, () -> CCSoundEvents.ARMOR_EQUIP_COWL.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+		public static final ArmorMaterial SILVER = new BlueprintArmorMaterial(CavernsAndChasms.location("silver"), 11, new int[]{2, 4, 6, 2}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SILVER.get(), 0.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+		public static final ArmorMaterial NECROMIUM = new BlueprintArmorMaterial(CavernsAndChasms.location("necromium"), 37, new int[]{3, 6, 8, 3}, 15, () -> CCSoundEvents.ARMOR_EQUIP_NECROMIUM.get(), 2.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
+		public static final ArmorMaterial SANGUINE = new BlueprintArmorMaterial(CavernsAndChasms.location("sanguine"), 23, new int[]{2, 5, 7, 3}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SANGUINE.get(), 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
+
+		public static final ArmorMaterial COWL = new BlueprintArmorMaterial(CavernsAndChasms.location("cowl"), 5, new int[]{1, 2, 3, 1}, 15, () -> CCSoundEvents.ARMOR_EQUIP_COWL.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+
+		public static BlueprintArmorMaterial createCopperMaterial(String name) {
+			return new BlueprintArmorMaterial(CavernsAndChasms.location(name), 11 + 45, new int[]{2, 4, 5, 2}, 8, () -> CCSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Tags.Items.INGOTS_COPPER));
+		}
 	}
 
 	public static class CCItemTiers {

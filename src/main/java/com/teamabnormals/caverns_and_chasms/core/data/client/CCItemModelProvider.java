@@ -63,14 +63,14 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.handheldItem(KUNAI);
 		this.spawnEggItem(PEEPER_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, DEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, RAT_SPAWN_EGG, GRAZER_SPAWN_EGG);
 
-		this.trimmableArmorItem(COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS);
-		this.trimmableArmorItem(EXPOSED_COPPER_HELMET, EXPOSED_COPPER_CHESTPLATE, EXPOSED_COPPER_LEGGINGS, EXPOSED_COPPER_BOOTS);
-		this.trimmableArmorItem(WEATHERED_COPPER_HELMET, WEATHERED_COPPER_CHESTPLATE, WEATHERED_COPPER_LEGGINGS, WEATHERED_COPPER_BOOTS);
-		this.trimmableArmorItem(OXIDIZED_COPPER_HELMET, OXIDIZED_COPPER_CHESTPLATE, OXIDIZED_COPPER_LEGGINGS, OXIDIZED_COPPER_BOOTS);
-		this.trimmableWaxedArmorItem(WAXED_COPPER_HELMET, WAXED_COPPER_CHESTPLATE, WAXED_COPPER_LEGGINGS, WAXED_COPPER_BOOTS);
-		this.trimmableWaxedArmorItem(WAXED_EXPOSED_COPPER_HELMET, WAXED_EXPOSED_COPPER_CHESTPLATE, WAXED_EXPOSED_COPPER_LEGGINGS, WAXED_EXPOSED_COPPER_BOOTS);
-		this.trimmableWaxedArmorItem(WAXED_WEATHERED_COPPER_HELMET, WAXED_WEATHERED_COPPER_CHESTPLATE, WAXED_WEATHERED_COPPER_LEGGINGS, WAXED_WEATHERED_COPPER_BOOTS);
-		this.trimmableWaxedArmorItem(WAXED_OXIDIZED_COPPER_HELMET, WAXED_OXIDIZED_COPPER_CHESTPLATE, WAXED_OXIDIZED_COPPER_LEGGINGS, WAXED_OXIDIZED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(true, COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS);
+		this.trimmableCopperArmorItem(EXPOSED_COPPER_HELMET, EXPOSED_COPPER_CHESTPLATE, EXPOSED_COPPER_LEGGINGS, EXPOSED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(WEATHERED_COPPER_HELMET, WEATHERED_COPPER_CHESTPLATE, WEATHERED_COPPER_LEGGINGS, WEATHERED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(OXIDIZED_COPPER_HELMET, OXIDIZED_COPPER_CHESTPLATE, OXIDIZED_COPPER_LEGGINGS, OXIDIZED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(true, WAXED_COPPER_HELMET, WAXED_COPPER_CHESTPLATE, WAXED_COPPER_LEGGINGS, WAXED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(WAXED_EXPOSED_COPPER_HELMET, WAXED_EXPOSED_COPPER_CHESTPLATE, WAXED_EXPOSED_COPPER_LEGGINGS, WAXED_EXPOSED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(WAXED_WEATHERED_COPPER_HELMET, WAXED_WEATHERED_COPPER_CHESTPLATE, WAXED_WEATHERED_COPPER_LEGGINGS, WAXED_WEATHERED_COPPER_BOOTS);
+		this.trimmableCopperArmorItem(WAXED_OXIDIZED_COPPER_HELMET, WAXED_OXIDIZED_COPPER_CHESTPLATE, WAXED_OXIDIZED_COPPER_LEGGINGS, WAXED_OXIDIZED_COPPER_BOOTS);
 		
 		this.trimmableArmorItem(SILVER_HELMET, SILVER_CHESTPLATE, SILVER_LEGGINGS, SILVER_BOOTS);
 		this.trimmableArmorItem(NECROMIUM_HELMET, NECROMIUM_CHESTPLATE, NECROMIUM_LEGGINGS, NECROMIUM_BOOTS);
@@ -82,13 +82,18 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 	}
 
 	@SafeVarargs
-	public final void trimmableWaxedArmorItem(RegistryObject<? extends ItemLike>... items) {
+	public final void trimmableCopperArmorItem(RegistryObject<? extends ItemLike>... items) {
+		this.trimmableCopperArmorItem(false, items);
+	}
+
+	@SafeVarargs
+	public final void trimmableCopperArmorItem(boolean darker, RegistryObject<? extends ItemLike>... items) {
 		for (RegistryObject<? extends ItemLike> item : items) {
 			if (item.get().asItem() instanceof ArmorItem armor) {
 				ResourceLocation location = ForgeRegistries.ITEMS.getKey(armor);
 				ItemModelBuilder itemModel = this.item(item, "generated");
 				int trimType = 1;
-				for (String trim : new String[]{"quartz", "iron", "netherite", "redstone", "copper", "gold", "emerald", "diamond", "lapis", "amethyst"}) {
+				for (String trim : new String[]{"quartz", "iron", "netherite", "redstone", darker ? "caverns_and_chasms_copper_darker" : "copper", "gold", "emerald", "diamond", "lapis", "amethyst"}) {
 					ResourceLocation name = new ResourceLocation(location.getNamespace(), "item/" + location.getPath() + "_" + trim + "_trim");
 					itemModel.override().model(new UncheckedModelFile(name)).predicate(new ResourceLocation("trim_type"), (float) (trimType / 10.0));
 					ResourceLocation texture = new ResourceLocation("trims/items/" + armor.getType().getName() + "_trim_" + trim);

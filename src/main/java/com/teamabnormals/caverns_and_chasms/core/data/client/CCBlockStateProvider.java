@@ -307,7 +307,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void caveGrowthsBlock(RegistryObject<Block> caveGrowths, RegistryObject<Block> flowerPot) {
 		this.directionalBlock(caveGrowths.get(), this.models().cross(name(caveGrowths.get()), this.blockTexture(caveGrowths.get())));
 		this.generatedItem(caveGrowths.get(), "block");
-		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), new ResourceLocation("block/flower_pot_cross"), "plant", new ResourceLocation(CavernsAndChasms.MOD_ID, "block/potted_" + name(caveGrowths.get()))));
+		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), new ResourceLocation("block/flower_pot_cross"), "plant", CavernsAndChasms.location("block/potted_" + name(caveGrowths.get()))));
 	}
 
 	@Override
@@ -440,8 +440,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile model = this.particle(toolbox.get(), blockTexture(copperBlock));
 		this.simpleBlock(toolbox.get(), model);
 		this.simpleBlock(waxedToolbox.get(), model);
-		this.simpleBlockItem(toolbox.get(), new UncheckedModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "item/template_toolbox")));
-		this.simpleBlockItem(waxedToolbox.get(), new UncheckedModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "item/template_toolbox")));
+		this.simpleBlockItem(toolbox.get(), new UncheckedModelFile(CavernsAndChasms.location("item/template_toolbox")));
+		this.simpleBlockItem(waxedToolbox.get(), new UncheckedModelFile(CavernsAndChasms.location("item/template_toolbox")));
 	}
 
 	public void stoneBlock(Block block) {
@@ -620,7 +620,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				.forAllStatesExcept(state -> {
 					int power = state.getValue(AbstractDimmerBlock.POWER);
 					String hanging = state.getValue(DimmerBlock.HANGING) ? "_hanging" : "";
-					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/dimmer_power_" + power);
+					ResourceLocation location = CavernsAndChasms.location("block/dimmer_power_" + power);
 					return ConfiguredModel.builder()
 							.modelFile(models().withExistingParent(name(block) + hanging + "_power_" + power, CavernsAndChasms.MOD_ID + ":block/template_dimmer" + hanging).texture("dimmer", location))
 							.build();
@@ -629,7 +629,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.getVariantBuilder(wallBlock)
 				.forAllStatesExcept(state -> {
 					int power = state.getValue(AbstractDimmerBlock.POWER);
-					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/dimmer_power_" + power);
+					ResourceLocation location = CavernsAndChasms.location("block/dimmer_power_" + power);
 					return ConfiguredModel.builder()
 							.modelFile(models().withExistingParent(name(wallBlock) + "_power_" + power, CavernsAndChasms.MOD_ID + ":block/template_dimmer_wall").texture("dimmer", location))
 							.rotationY((int) state.getValue(WallDimmerBlock.FACING).getOpposite().toYRot())
@@ -643,7 +643,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		Block block = registryObject.get();
 		this.getVariantBuilder(block)
 				.forAllStatesExcept(state -> {
-					ResourceLocation location = new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_" + state.getValue(HoopBlock.SIZE) + (state.getValue(HoopBlock.OUTPUT_POWER) > 0 ? "_activated" : ""));
+					ResourceLocation location = CavernsAndChasms.location("block/hoop_size_" + state.getValue(HoopBlock.SIZE) + (state.getValue(HoopBlock.OUTPUT_POWER) > 0 ? "_activated" : ""));
 					Axis axis = state.getValue(HoopBlock.AXIS);
 					return ConfiguredModel.builder()
 							.modelFile(models().withExistingParent(location.getPath(), CavernsAndChasms.MOD_ID + ":block/template_hoop_size_" + state.getValue(HoopBlock.SIZE)).texture("hoop", location))
@@ -651,7 +651,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 							.rotationY(axis == Axis.X ? 90 : 0)
 							.build();
 				}, BlockStateProperties.WATERLOGGED);
-		this.simpleBlockItem(block, new ExistingModelFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/hoop_size_3"), this.models().existingFileHelper));
+		this.simpleBlockItem(block, new ExistingModelFile(CavernsAndChasms.location("block/hoop_size_3"), this.models().existingFileHelper));
 	}
 
 	public void storageDuctBlock(RegistryObject<Block> registryObject) {
@@ -684,15 +684,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 						}
 
 						return ConfiguredModel.builder()
-								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_" + end1 + "_" + end2)))
+								.modelFile(models().getExistingFile(CavernsAndChasms.location("block/storage_duct_" + end1 + "_" + end2)))
 								.build();
 					} else {
 						return ConfiguredModel.builder()
-								.modelFile(models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_invalid")))
+								.modelFile(models().getExistingFile(CavernsAndChasms.location("block/storage_duct_invalid")))
 								.build();
 					}
 				});
-		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, "block/storage_duct_up_down")));
+		this.simpleBlockItem(block, models().getExistingFile(CavernsAndChasms.location("block/storage_duct_up_down")));
 	}
 
 	public void storageDuctHatchBlock(RegistryObject<Block> registryObject) {
@@ -722,11 +722,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					.rotationY(facing.getAxis() != Axis.Y ? (int) facing.getOpposite().toYRot() : ((int) direction.getCardinalDirection(Direction.DOWN).getOpposite().toYRot() + (facing == Direction.UP ? 0 : 180)) % 360)
 					.build();
 		}, BlockStateProperties.WATERLOGGED);
-		this.simpleBlockItem(block, models().getExistingFile(new ResourceLocation(CavernsAndChasms.MOD_ID, name(block) + "_down")));
+		this.simpleBlockItem(block, models().getExistingFile(CavernsAndChasms.location(name(block) + "_down")));
 	}
 
 	public void rollerDoorBlocks(RegistryObject<Block> rollerDoor, RegistryObject<Block> header) {
-		ModelFile model = this.models().getBuilder(name(rollerDoor.get())).texture("particle", new ResourceLocation(CavernsAndChasms.MOD_ID, "block/roller_door_particle"));
+		ModelFile model = this.models().getBuilder(name(rollerDoor.get())).texture("particle", CavernsAndChasms.location("block/roller_door_particle"));
 		this.simpleBlock(rollerDoor.get(), model);
 		this.simpleBlock(header.get(), model);
 	}

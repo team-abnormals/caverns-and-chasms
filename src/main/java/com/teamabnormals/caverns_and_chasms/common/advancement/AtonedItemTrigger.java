@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public class AtonedItemTrigger extends SimpleCriterionTrigger<TriggerInstance> {
-	static final ResourceLocation ID = new ResourceLocation(CavernsAndChasms.MOD_ID, "atoned_item");
+	static final ResourceLocation ID = CavernsAndChasms.location("atoned_item");
 
 	public ResourceLocation getId() {
 		return ID;

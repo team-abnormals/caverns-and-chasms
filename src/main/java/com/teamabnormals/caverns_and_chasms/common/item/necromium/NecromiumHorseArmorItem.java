@@ -19,7 +19,7 @@ import java.util.UUID;
 public class NecromiumHorseArmorItem extends HorseArmorItem {
 
 	public NecromiumHorseArmorItem(int armorValue, String tierArmor, Item.Properties builder) {
-		super(armorValue, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_" + tierArmor + ".png"), builder);
+		super(armorValue, CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_" + tierArmor + ".png"), builder);
 	}
 
 	@Override

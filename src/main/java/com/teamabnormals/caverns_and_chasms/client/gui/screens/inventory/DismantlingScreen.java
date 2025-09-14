@@ -22,10 +22,10 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
-	private static final ResourceLocation SMITHING_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/dismantling.png");
+	private static final ResourceLocation SMITHING_LOCATION = CavernsAndChasms.location("textures/gui/container/dismantling.png");
 	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = new ResourceLocation("item/empty_slot_smithing_template_armor_trim");
 	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_NETHERITE_UPGRADE = new ResourceLocation("item/empty_slot_smithing_template_netherite_upgrade");
-	private static final ResourceLocation EMPTY_SLOT_SPINEL = new ResourceLocation(CavernsAndChasms.MOD_ID, "item/empty_slot_spinel");
+	private static final ResourceLocation EMPTY_SLOT_SPINEL = CavernsAndChasms.location("item/empty_slot_spinel");
 
 	private static final Component MISSING_SMITHED_ITEM = Component.translatable("container.caverns_and_chasms.dismantle.missing_smithed_item");
 	private static final Component MISSING_SPINEL = Component.translatable("container.caverns_and_chasms.dismantle.missing_spinel");

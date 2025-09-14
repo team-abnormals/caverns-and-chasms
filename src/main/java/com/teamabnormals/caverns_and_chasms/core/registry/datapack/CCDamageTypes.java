@@ -37,7 +37,7 @@ public class CCDamageTypes {
 	}
 
 	public static ResourceKey<DamageType> createKey(String name) {
-		return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+		return ResourceKey.create(Registries.DAMAGE_TYPE, CavernsAndChasms.location(name));
 	}
 
 }

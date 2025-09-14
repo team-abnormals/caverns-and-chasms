@@ -18,7 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BejeweledAnvilScreen extends ItemCombinerScreen<BejeweledAnvilMenu> {
-	private static final ResourceLocation ANVIL_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/bejeweled_anvil.png");
+	private static final ResourceLocation ANVIL_LOCATION = CavernsAndChasms.location("textures/gui/container/bejeweled_anvil.png");
 	private EditBox name;
 
 	public BejeweledAnvilScreen(BejeweledAnvilMenu p_97874_, Inventory p_97875_, Component p_97876_) {

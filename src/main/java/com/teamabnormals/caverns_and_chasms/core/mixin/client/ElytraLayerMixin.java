@@ -30,7 +30,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity> {
 	@Final
 	private ElytraModel<T> elytraModel;
 	@Unique
-	private static final ResourceLocation MIME_WINGS_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/mime_elytra.png");
+	private static final ResourceLocation MIME_WINGS_LOCATION = CavernsAndChasms.location("textures/entity/mime_elytra.png");
 
 	@Inject(method = "getElytraTexture", at = @At("RETURN"), cancellable = true, remap = false)
 	public void getElytraTexture(ItemStack stack, T entity, CallbackInfoReturnable<ResourceLocation> cir) {

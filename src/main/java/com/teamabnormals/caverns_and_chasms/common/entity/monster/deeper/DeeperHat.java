@@ -26,7 +26,7 @@ public enum DeeperHat implements StringRepresentable {
 	private final int id;
 	private final String name;
 	private final Block block;
-	private final LazyLoadedValue<ResourceLocation> texture = new LazyLoadedValue<>(() -> new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/hat/" + this.getSerializedName() + ".png"));
+	private final LazyLoadedValue<ResourceLocation> texture = new LazyLoadedValue<>(() -> CavernsAndChasms.location("textures/entity/deeper/hat/" + this.getSerializedName() + ".png"));
 
 	DeeperHat(int id, String name, Block block) {
 		this.id = id;

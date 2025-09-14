@@ -23,6 +23,6 @@ public class CopperGolemRenderer extends MobRenderer<CopperGolem, CopperGolemMod
 	public ResourceLocation getTextureLocation(CopperGolem copperGolem) {
 		CopperGolem.Oxidation oxidation = copperGolem.getOxidation();
 		String damaged = copperGolem.isDamaged() ? "_damaged" : "";
-		return new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/copper_golem/copper_golem_" + oxidation.name().toLowerCase(Locale.ROOT) + damaged + ".png");
+		return CavernsAndChasms.location("textures/entity/copper_golem/copper_golem_" + oxidation.name().toLowerCase(Locale.ROOT) + damaged + ".png");
 	}
 }

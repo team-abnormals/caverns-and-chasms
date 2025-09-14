@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AtonementTableEnchantmentNames {
-	private static final ResourceLocation KOUKERI_FONT = new ResourceLocation(CavernsAndChasms.MOD_ID, "koukeri");
+	private static final ResourceLocation KOUKERI_FONT = CavernsAndChasms.location("koukeri");
 	private static final Style ROOT_STYLE = Style.EMPTY.withFont(KOUKERI_FONT);
 	private static final AtonementTableEnchantmentNames INSTANCE = new AtonementTableEnchantmentNames();
 	private final RandomSource random = RandomSource.create();

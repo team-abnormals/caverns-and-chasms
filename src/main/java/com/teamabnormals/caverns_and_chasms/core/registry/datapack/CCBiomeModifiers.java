@@ -91,7 +91,7 @@ public class CCBiomeModifiers {
 	}
 
 	private static void register(BootstapContext<BiomeModifier> context, String name, Supplier<? extends BiomeModifier> modifier) {
-		context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(CavernsAndChasms.MOD_ID, name)), modifier.get());
+		context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, CavernsAndChasms.location(name)), modifier.get());
 	}
 
 	@SafeVarargs

@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
-	private static final ResourceLocation DEEPER_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/deeper/deeper.png");
+	private static final ResourceLocation DEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/deeper/deeper.png");
 	private DeeperHeadModel model;
 
 	public DeeperSkullBlockRenderer(Context context) {

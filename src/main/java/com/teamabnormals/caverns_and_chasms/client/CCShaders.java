@@ -19,11 +19,11 @@ public final class CCShaders {
 	public static void registerShaders(RegisterShadersEvent event) {
 		try {
 			ResourceProvider resourceProvider = event.getResourceProvider();
-			event.registerShader(new ShaderInstance(resourceProvider, new ResourceLocation(CavernsAndChasms.MOD_ID, "rendertype_armor_translucent_no_cull"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
+			event.registerShader(new ShaderInstance(resourceProvider, CavernsAndChasms.location("rendertype_armor_translucent_no_cull"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
 				rendertypeArmorTranslucentNoCullShader = shaderInstance;
 			});
 
-			event.registerShader(new ShaderInstance(resourceProvider, new ResourceLocation(CavernsAndChasms.MOD_ID, "rendertype_armor_cutout_no_cull_emissive"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
+			event.registerShader(new ShaderInstance(resourceProvider, CavernsAndChasms.location("rendertype_armor_cutout_no_cull_emissive"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
 				rendertypeArmorCutoutNoCullEmissiveShader = shaderInstance;
 			});
 		} catch (IOException e) {

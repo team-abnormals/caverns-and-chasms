@@ -31,7 +31,7 @@ public final class ToolboxWaxingRecipeMaker {
 	private static CraftingRecipe createRecipe(WeatheringToolboxBlock toolbox) {
 		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(toolbox), Ingredient.of(Items.HONEYCOMB));
 		ItemStack output = ToolboxBlock.getWeatheredItemStack(toolbox.getWeatherState(), false);
-		ResourceLocation id = new ResourceLocation(CavernsAndChasms.MOD_ID, group + "." + output.getDescriptionId());
+		ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
 		return new ShapelessRecipe(id, group, CraftingBookCategory.EQUIPMENT, output, inputs);
 	}
 }

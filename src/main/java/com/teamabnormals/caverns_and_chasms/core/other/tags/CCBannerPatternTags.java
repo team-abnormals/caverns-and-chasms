@@ -10,6 +10,6 @@ public class CCBannerPatternTags {
 	public static final TagKey<BannerPattern> PATTERN_ITEM_ABNORMALS = bannerPatternTag("pattern_item/abnormals");
 
 	private static TagKey<BannerPattern> bannerPatternTag(String name) {
-		return TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+		return TagKey.create(Registries.BANNER_PATTERN, CavernsAndChasms.location(name));
 	}
 }

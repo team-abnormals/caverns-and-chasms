@@ -72,11 +72,11 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	protected abstract void renderArmorPiece(PoseStack p_117119_, MultiBufferSource p_117120_, T p_117121_, EquipmentSlot p_117122_, int p_117123_, A p_117124_);
 
 	@Unique
-	private static final ResourceLocation TETHER_POTION_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion.png");
+	private static final ResourceLocation TETHER_POTION_LOCATION = CavernsAndChasms.location("textures/models/armor/tether_potion.png");
 	@Unique
-	private static final ResourceLocation TETHER_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion_overlay.png");
+	private static final ResourceLocation TETHER_POTION_OVERLAY_LOCATION = CavernsAndChasms.location("textures/models/armor/tether_potion_overlay.png");
 	@Unique
-	private static final ResourceLocation SUBTLE_TETHER_POTION_OVERLAY_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/tether_potion_overlay_subtle.png");
+	private static final ResourceLocation SUBTLE_TETHER_POTION_OVERLAY_LOCATION = CavernsAndChasms.location("textures/models/armor/tether_potion_overlay_subtle.png");
 
 	public HumanoidArmorLayerMixin(RenderLayerParent<T, M> entityRenderer) {
 		super(entityRenderer);
@@ -122,7 +122,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	public void renderSanguineTrim(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, CallbackInfo ci) {
 		ItemStack stack = entity.getItemBySlot(slot);
 		if (stack.getItem() instanceof ArmorItem armorItem) {
-			boolean copper = armorItem.getMaterial() == CCArmorMaterials.COPPER;
+			boolean copper = armorItem.getMaterial() == CCArmorMaterials.COPPER || armorItem.getMaterial() == CCArmorMaterials.EXPOSED_COPPER
+					|| armorItem.getMaterial() == CCArmorMaterials.WEATHERED_COPPER || armorItem.getMaterial() == CCArmorMaterials.OXIDIZED_COPPER;
 			boolean sanguine = armorItem.getMaterial() == CCArmorMaterials.SANGUINE;
 			if (copper || sanguine) {
 				RegistryAccess access = entity.level().registryAccess();

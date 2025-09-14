@@ -29,8 +29,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements BlockEntityRenderer<T> {
 	public static boolean renderAsItem;
 
-	public static final Material ROLLER_DOOR_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/roller_door/roller_door"));
-	public static final Material ROLLER_DOOR_BOTTOM_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(CavernsAndChasms.MOD_ID, "entity/roller_door/roller_door_bottom"));
+	public static final Material ROLLER_DOOR_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, CavernsAndChasms.location("entity/roller_door/roller_door"));
+	public static final Material ROLLER_DOOR_BOTTOM_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, CavernsAndChasms.location("entity/roller_door/roller_door_bottom"));
 
 	private final ModelPart header;
 	private final ModelPart[] slats;

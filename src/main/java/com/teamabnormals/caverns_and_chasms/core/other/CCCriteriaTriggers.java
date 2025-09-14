@@ -17,6 +17,6 @@ public class CCCriteriaTriggers {
 	public static final RepairedItemTrigger REPAIRED_ITEM = CriteriaTriggers.register(new RepairedItemTrigger());
 
 	private static ResourceLocation prefix(String name) {
-		return new ResourceLocation(CavernsAndChasms.MOD_ID, name);
+		return CavernsAndChasms.location(name);
 	}
 }

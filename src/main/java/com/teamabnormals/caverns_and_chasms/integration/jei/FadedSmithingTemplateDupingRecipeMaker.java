@@ -48,7 +48,7 @@ public final class FadedSmithingTemplateDupingRecipeMaker {
 
 				ItemStack output = ingredients.get(1).getItems()[0].copy();
 				output.getOrCreateTag().putBoolean(faded ? "FadedTrim" : "EmissiveTrim", true);
-				ResourceLocation id = new ResourceLocation(CavernsAndChasms.MOD_ID, BuiltInRegistries.ITEM.getKey(output.getItem()).getPath() + ".dupe." + type);
+				ResourceLocation id = CavernsAndChasms.location(BuiltInRegistries.ITEM.getKey(output.getItem()).getPath() + ".dupe." + type);
 				recipes.add(new ShapedRecipe(id, faded ? fadedGroup : emissiveGroup, CraftingBookCategory.EQUIPMENT, 3, 3, inputs, output));
 			}
 		}

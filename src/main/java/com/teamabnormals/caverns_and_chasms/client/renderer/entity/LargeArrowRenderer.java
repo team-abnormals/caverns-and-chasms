@@ -16,7 +16,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class LargeArrowRenderer extends EntityRenderer<LargeArrow> {
-	private static final ResourceLocation LARGE_ARROW = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/projectiles/large_arrow.png");
+	private static final ResourceLocation LARGE_ARROW = CavernsAndChasms.location("textures/entity/projectiles/large_arrow.png");
 
 	public LargeArrowRenderer(EntityRendererProvider.Context context) {
 		super(context);

@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(EntityRenderDispatcher.class)
 public class EntityRenderDispatcherMixin {
-	private static final Material CUPRIC_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(CavernsAndChasms.MOD_ID, "block/cupric_fire_0"));
-	private static final Material CUPRIC_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(CavernsAndChasms.MOD_ID, "block/cupric_fire_1"));
+	private static final Material CUPRIC_FIRE_0 = new Material(TextureAtlas.LOCATION_BLOCKS, CavernsAndChasms.location("block/cupric_fire_0"));
+	private static final Material CUPRIC_FIRE_1 = new Material(TextureAtlas.LOCATION_BLOCKS, CavernsAndChasms.location("block/cupric_fire_1"));
 
 	@ModifyVariable(method = "renderFlame", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/resources/model/Material;sprite()Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;", ordinal = 0), ordinal = 0)
 	private TextureAtlasSprite renderFlame0(TextureAtlasSprite sprite, PoseStack poseStack, MultiBufferSource source, Entity entity) {

@@ -24,10 +24,10 @@ public abstract class SmithingTemplateItemMixin extends Item {
 	public abstract String getDescriptionId();
 
 	@Unique
-	private static final String EMISSIVE_DESCRIPTION_ID = Util.makeDescriptionId("item", new ResourceLocation(CavernsAndChasms.MOD_ID, "emissive_smithing_template"));
+	private static final String EMISSIVE_DESCRIPTION_ID = Util.makeDescriptionId("item", CavernsAndChasms.location("emissive_smithing_template"));
 
 	@Unique
-	private static final String FADED_DESCRIPTION_ID = Util.makeDescriptionId("item", new ResourceLocation(CavernsAndChasms.MOD_ID, "faded_smithing_template"));
+	private static final String FADED_DESCRIPTION_ID = Util.makeDescriptionId("item", CavernsAndChasms.location("faded_smithing_template"));
 
 	public SmithingTemplateItemMixin(Properties properties) {
 		super(properties);

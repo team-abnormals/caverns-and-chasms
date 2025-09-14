@@ -26,7 +26,7 @@ public class CCPlugin implements IModPlugin {
 
 	@Override
 	public ResourceLocation getPluginUid() {
-		return new ResourceLocation(CavernsAndChasms.MOD_ID, CavernsAndChasms.MOD_ID);
+		return CavernsAndChasms.location(CavernsAndChasms.MOD_ID);
 	}
 
 	@Override

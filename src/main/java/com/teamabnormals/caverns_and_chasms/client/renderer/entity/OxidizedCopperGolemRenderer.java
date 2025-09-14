@@ -15,8 +15,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class OxidizedCopperGolemRenderer extends LivingEntityRenderer<OxidizedCopperGolem, CopperGolemModel<OxidizedCopperGolem>> {
-	private static final ResourceLocation OXIDIZED_GOLEM_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/copper_golem/copper_golem_oxidized.png");
-	private static final ResourceLocation DAMAGED_OXIDIZED_GOLEM_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/copper_golem/copper_golem_oxidized_damaged.png");
+	private static final ResourceLocation OXIDIZED_GOLEM_TEXTURE = CavernsAndChasms.location("textures/entity/copper_golem/copper_golem_oxidized.png");
+	private static final ResourceLocation DAMAGED_OXIDIZED_GOLEM_TEXTURE = CavernsAndChasms.location("textures/entity/copper_golem/copper_golem_oxidized_damaged.png");
 
 	public OxidizedCopperGolemRenderer(EntityRendererProvider.Context context) {
 		super(context, new CopperGolemModel<>(context.bakeLayer(CCModelLayers.COPPER_GOLEM)), 0.0F);

@@ -35,7 +35,7 @@ public class CCTrimPatterns {
 	}
 
 	public static ResourceKey<TrimPattern> createKey(String name) {
-		return ResourceKey.create(Registries.TRIM_PATTERN, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+		return ResourceKey.create(Registries.TRIM_PATTERN, CavernsAndChasms.location(name));
 	}
 
 	private static void register(BootstapContext<TrimPattern> context, ResourceKey<TrimPattern> key, Item item) {

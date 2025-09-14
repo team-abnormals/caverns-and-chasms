@@ -194,7 +194,7 @@ public class CCStructureTypes {
 		}
 
 		public static ResourceKey<StructureTemplatePool> createKey(String name) {
-			return ResourceKey.create(Registries.TEMPLATE_POOL, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+			return ResourceKey.create(Registries.TEMPLATE_POOL, CavernsAndChasms.location(name));
 		}
 	}
 
@@ -222,7 +222,7 @@ public class CCStructureTypes {
 		}
 
 		public static ResourceKey<Structure> createKey(String name) {
-			return ResourceKey.create(Registries.STRUCTURE, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+			return ResourceKey.create(Registries.STRUCTURE, CavernsAndChasms.location(name));
 		}
 	}
 
@@ -240,7 +240,7 @@ public class CCStructureTypes {
 		}
 
 		public static ResourceKey<StructureSet> createKey(String name) {
-			return ResourceKey.create(Registries.STRUCTURE_SET, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+			return ResourceKey.create(Registries.STRUCTURE_SET, CavernsAndChasms.location(name));
 		}
 	}
 }

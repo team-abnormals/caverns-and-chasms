@@ -28,8 +28,8 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
-	private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/atoning_table.png");
-	private static final ResourceLocation ATONING_BOOK_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/atoning_table_book.png");
+	private static final ResourceLocation ENCHANTING_TABLE_LOCATION = CavernsAndChasms.location("textures/gui/container/atoning_table.png");
+	private static final ResourceLocation ATONING_BOOK_LOCATION = CavernsAndChasms.location("textures/entity/atoning_table_book.png");
 	private final RandomSource random = RandomSource.create();
 	private BookModel bookModel;
 	public int time;

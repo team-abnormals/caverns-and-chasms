@@ -37,7 +37,7 @@ public abstract class AbstractClientPlayerMixin extends Player {
 	@Inject(method = "getCloakTextureLocation", at = @At("RETURN"), cancellable = true)
 	private void getCloakTextureLocation(CallbackInfoReturnable<ResourceLocation> cir) {
 		if (this.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.COWL.get())) {
-			cir.setReturnValue(new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/models/armor/cowl_cloak.png"));
+			cir.setReturnValue(CavernsAndChasms.location("textures/models/armor/cowl_cloak.png"));
 		}
 	}
 }

@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SilverHorseArmorItem extends HorseArmorItem {
 
 	public SilverHorseArmorItem(Item.Properties builder) {
-		super(7, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_silver.png"), builder);
+		super(7, CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_silver.png"), builder);
 	}
 
 	@Override
