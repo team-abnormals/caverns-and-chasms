@@ -44,7 +44,7 @@ public class CopperBulbBlock extends Block {
 				level.playSound(null, pos, blockstate.getValue(LIT) ? CCSoundEvents.COPPER_BULB_TURN_ON.get() : CCSoundEvents.COPPER_BULB_TURN_OFF.get(), SoundSource.BLOCKS);
 			}
 
-			level.setBlock(pos, blockstate.setValue(POWERED, Boolean.valueOf(flag)), 3);
+			level.setBlock(pos, blockstate.setValue(POWERED, flag), 3);
 		}
 	}
 

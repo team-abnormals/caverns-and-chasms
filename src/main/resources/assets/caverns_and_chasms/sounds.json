@@ -216,7 +216,7 @@
       "caverns_and_chasms:block/tin/step4",
       "caverns_and_chasms:block/tin/step5",
       "caverns_and_chasms:block/tin/step6",
-      "caverns_and_chasms:block/tin/step7"	   
+      "caverns_and_chasms:block/tin/step7"
     ]
   },
   "block.tin.hit": {
@@ -227,7 +227,7 @@
       "caverns_and_chasms:block/tin/step4",
       "caverns_and_chasms:block/tin/step5",
       "caverns_and_chasms:block/tin/step6",
-      "caverns_and_chasms:block/tin/step7"	    
+      "caverns_and_chasms:block/tin/step7"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -251,7 +251,7 @@
       "caverns_and_chasms:block/tin/step4",
       "caverns_and_chasms:block/tin/step5",
       "caverns_and_chasms:block/tin/step6",
-      "caverns_and_chasms:block/tin/step7"	  
+      "caverns_and_chasms:block/tin/step7"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -276,7 +276,7 @@
       "caverns_and_chasms:block/tin_ore/step1",
       "caverns_and_chasms:block/tin_ore/step2",
       "caverns_and_chasms:block/tin_ore/step3",
-      "caverns_and_chasms:block/tin_ore/step4"  
+      "caverns_and_chasms:block/tin_ore/step4"
     ]
   },
   "block.tin_ore.hit": {
@@ -329,7 +329,7 @@
       "caverns_and_chasms:block/deepslate_tin_ore/step1",
       "caverns_and_chasms:block/deepslate_tin_ore/step2",
       "caverns_and_chasms:block/deepslate_tin_ore/step3",
-      "caverns_and_chasms:block/deepslate_tin_ore/step4"  
+      "caverns_and_chasms:block/deepslate_tin_ore/step4"
     ]
   },
   "block.deepslate_tin_ore.hit": {
@@ -1127,7 +1127,6 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-
   "block.copper_grate.break": {
     "sounds": [
       "caverns_and_chasms:block/copper_grate/break1",
@@ -1342,6 +1341,14 @@
       "caverns_and_chasms:block/copper_chain/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.copper_door.close": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_door/toggle1",
+      "caverns_and_chasms:block/copper_door/toggle2",
+      "caverns_and_chasms:block/copper_door/toggle3"
+    ],
+    "subtitle": "subtitles.block.door.toggle"
   },
   "block.copper_door.open": {
     "sounds": [

@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger;
 import com.teamabnormals.caverns_and_chasms.common.advancement.RepairedItemTrigger;
+import com.teamabnormals.caverns_and_chasms.common.block.CopperBulbBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -12,14 +13,18 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.BlockPredicate.Builder;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.packs.VanillaHusbandryAdvancements;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import net.minecraftforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
@@ -46,21 +51,25 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("necromium_armor", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/necromium_armor");
 
-		createAdvancement("smelt_copper", "adventure", new ResourceLocation("adventure/root"), Items.COPPER_INGOT, FrameType.TASK, true, true, false)
+		Advancement smeltCopper = createAdvancement("smelt_copper", "adventure", new ResourceLocation("adventure/root"), Items.COPPER_INGOT, FrameType.TASK, true, true, false)
 				.addCriterion("copper", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_INGOT))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/smelt_copper");
 
-		createAdvancement("use_tuning_fork", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, false)
+		Advancement useTuningFork = createAdvancement("use_tuning_fork", "adventure", smeltCopper, CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, false)
 				.addCriterion("use_tuning_fork", CCCriteriaTriggers.USE_TUNING_FORK.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/use_tuning_fork");
 
-		createAdvancement("tune_a_fish", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/use_tuning_fork"), CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, true)
+		createAdvancement("tune_a_fish", "adventure", useTuningFork, CCItems.TUNING_FORK.get(), FrameType.TASK, true, true, true)
 				.addCriterion("attack_fish", new PlayerHurtEntityTrigger.TriggerInstance(EntityPredicate.wrap(EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().of(CCItems.TUNING_FORK.get()).build()).build()).build()), DamagePredicate.ANY, EntityPredicate.wrap(EntityPredicate.Builder.entity().of(BlueprintEntityTypeTags.FISHES).build())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/tune_a_fish");
 
-		createAdvancement("summon_copper_golem", "adventure", new ResourceLocation(CavernsAndChasms.MOD_ID, "adventure/smelt_copper"), Items.CARVED_PUMPKIN, FrameType.GOAL, true, true, false)
+		createAdvancement("summon_copper_golem", "adventure", smeltCopper, Items.CARVED_PUMPKIN, FrameType.GOAL, true, true, false)
 				.addCriterion("summoned_golem", SummonedEntityTrigger.TriggerInstance.summonedEntity(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/summon_copper_golem");
+
+		createAdvancement("lighten_up", "adventure", smeltCopper, CCBlocks.COPPER_BULB.get(), FrameType.TASK, true, true, false)
+				.addCriterion("lighten_up", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(Builder.block().of(CCBlocks.OXIDIZED_COPPER_BULB.get(), CCBlocks.WEATHERED_COPPER_BULB.get(), CCBlocks.EXPOSED_COPPER_BULB.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CopperBulbBlock.LIT, true).build()).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/lighten_up");
 
 		createAdvancement("ride_boat_with_deeper", "nether", new ResourceLocation("nether/root"), CCItems.DEEPER_HEAD.get(), FrameType.TASK, true, true, true)
 				.addCriterion("ride_boat_with_deeper", StartRidingTrigger.TriggerInstance.playerStartsRiding(EntityPredicate.Builder.entity().located(LocationPredicate.inDimension(Level.NETHER)).vehicle(EntityPredicate.Builder.entity().of(EntityType.BOAT).passenger(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get()).build()).build())))

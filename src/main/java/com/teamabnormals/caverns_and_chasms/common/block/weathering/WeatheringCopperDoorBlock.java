@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
-public class WeatheringCopperDoorBlock extends DoorBlock implements CCWeatheringCopper {
+public class WeatheringCopperDoorBlock extends CopperDoorBlock implements CCWeatheringCopper {
 	private final WeatherState weatherState;
 
 	public WeatheringCopperDoorBlock(WeatherState weatherState, Properties properties, BlockSetType type) {

@@ -25,6 +25,7 @@
     "FallingBlockEntityMixin",
     "FurnaceFuelSlotMixin",
     "HoneycombItemMixin",
+    "InteractWithDoorMixin",
     "IronGolemMixin",
     "ItemCooldownsMixin",
     "ItemMixin",
