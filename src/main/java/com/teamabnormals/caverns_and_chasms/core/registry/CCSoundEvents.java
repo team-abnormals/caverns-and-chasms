@@ -118,6 +118,18 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> FLOODLIGHT_PLACE = HELPER.createSoundEvent("block.floodlight.place");
 	public static final RegistryObject<SoundEvent> FLOODLIGHT_STEP = HELPER.createSoundEvent("block.floodlight.step");
 	
+	public static final RegistryObject<SoundEvent> COPPER_CHAIN_BREAK = HELPER.createSoundEvent("block.copper_chain.break");
+	public static final RegistryObject<SoundEvent> COPPER_CHAIN_STEP = HELPER.createSoundEvent("block.copper_chain.step");
+	public static final RegistryObject<SoundEvent> COPPER_CHAIN_PLACE = HELPER.createSoundEvent("block.copper_chain.place");
+	public static final RegistryObject<SoundEvent> COPPER_CHAIN_HIT = HELPER.createSoundEvent("block.copper_chain.hit");
+	public static final RegistryObject<SoundEvent> COPPER_CHAIN_FALL = HELPER.createSoundEvent("block.copper_chain.fall");
+	
+	public static final RegistryObject<SoundEvent> COPPER_LANTERN_BREAK = HELPER.createSoundEvent("block.copper_lantern.break");
+	public static final RegistryObject<SoundEvent> COPPER_LANTERN_STEP = HELPER.createSoundEvent("block.copper_lantern.step");
+	public static final RegistryObject<SoundEvent> COPPER_LANTERN_PLACE = HELPER.createSoundEvent("block.copper_lantern.place");
+	public static final RegistryObject<SoundEvent> COPPER_LANTERN_HIT = HELPER.createSoundEvent("block.copper_lantern.hit");
+	public static final RegistryObject<SoundEvent> COPPER_LANTERN_FALL = HELPER.createSoundEvent("block.copper_lantern.fall");
+	
 	public static final RegistryObject<SoundEvent> COPPER_BULB_BREAK = HELPER.createSoundEvent("block.copper_bulb.break");
 	public static final RegistryObject<SoundEvent> COPPER_BULB_STEP = HELPER.createSoundEvent("block.copper_bulb.step");
 	public static final RegistryObject<SoundEvent> COPPER_BULB_PLACE = HELPER.createSoundEvent("block.copper_bulb.place");
@@ -306,6 +318,8 @@ public class CCSoundEvents {
 		public static final ForgeSoundType ROTTEN_FLESH = new ForgeSoundType(1.0F, 1.0F, ROTTEN_FLESH_BREAK, ROTTEN_FLESH_STEP, ROTTEN_FLESH_PLACE, ROTTEN_FLESH_HIT, ROTTEN_FLESH_FALL);
 		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, LAVA_LAMP_BREAK, LAVA_LAMP_STEP, LAVA_LAMP_PLACE, LAVA_LAMP_HIT, LAVA_LAMP_FALL);
 		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);
+		public static final ForgeSoundType COPPER_LANTERN = new ForgeSoundType(1.0F, 1.0F, COPPER_LANTERN_BREAK, COPPER_LANTERN_STEP, COPPER_LANTERN_PLACE, COPPER_LANTERN_HIT, COPPER_LANTERN_FALL);
+		public static final ForgeSoundType COPPER_CHAIN = new ForgeSoundType(1.0F, 1.0F, COPPER_CHAIN_BREAK, COPPER_CHAIN_STEP, COPPER_CHAIN_PLACE, COPPER_CHAIN_HIT, COPPER_CHAIN_FALL);
 		public static final ForgeSoundType COPPER_BULB = new ForgeSoundType(1.0F, 1.0F, COPPER_BULB_BREAK, COPPER_BULB_STEP, COPPER_BULB_PLACE, COPPER_BULB_HIT, COPPER_BULB_FALL);
 		public static final ForgeSoundType COPPER_GRATE = new ForgeSoundType(1.0F, 1.0F, COPPER_GRATE_BREAK, COPPER_GRATE_STEP, COPPER_GRATE_PLACE, COPPER_GRATE_HIT, COPPER_GRATE_FALL);
 		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);

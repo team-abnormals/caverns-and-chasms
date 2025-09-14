@@ -1128,6 +1128,61 @@
     "subtitle": "subtitles.block.generic.footsteps"
   },
 
+  "block.copper_grate.break": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_grate/break1",
+      "caverns_and_chasms:block/copper_grate/break2",
+      "caverns_and_chasms:block/copper_grate/break3",
+      "caverns_and_chasms:block/copper_grate/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.copper_grate.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_grate/step1",
+      "caverns_and_chasms:block/copper_grate/step2",
+      "caverns_and_chasms:block/copper_grate/step3",
+      "caverns_and_chasms:block/copper_grate/step4",
+      "caverns_and_chasms:block/copper_grate/step5",
+      "caverns_and_chasms:block/copper_grate/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.copper_grate.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_grate/step1",
+      "caverns_and_chasms:block/copper_grate/step2",
+      "caverns_and_chasms:block/copper_grate/step3",
+      "caverns_and_chasms:block/copper_grate/step4",
+      "caverns_and_chasms:block/copper_grate/step5",
+      "caverns_and_chasms:block/copper_grate/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.copper_grate.place": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_grate/break1",
+      {
+        "name": "caverns_and_chasms:block/copper_grate/break1",
+        "pitch": 0.95
+      },
+      "caverns_and_chasms:block/copper_grate/break2",
+      "caverns_and_chasms:block/copper_grate/break3",
+      "caverns_and_chasms:block/copper_grate/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.copper_grate.step": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_grate/step1",
+      "caverns_and_chasms:block/copper_grate/step2",
+      "caverns_and_chasms:block/copper_grate/step3",
+      "caverns_and_chasms:block/copper_grate/step4",
+      "caverns_and_chasms:block/copper_grate/step5",
+      "caverns_and_chasms:block/copper_grate/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.copper_bulb.break": {
     "sounds": [
       "caverns_and_chasms:block/copper_bulb/break1",
@@ -1198,59 +1253,93 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.copper_bulb.turn_on"
   },
-
-  "block.copper_grate.break": {
+  "block.copper_lantern.break": {
     "sounds": [
-      "caverns_and_chasms:block/copper_grate/break1",
-      "caverns_and_chasms:block/copper_grate/break2",
-      "caverns_and_chasms:block/copper_grate/break3",
-      "caverns_and_chasms:block/copper_grate/break4"
+      "caverns_and_chasms:block/copper_lantern/break1",
+      "caverns_and_chasms:block/copper_lantern/break2",
+      "caverns_and_chasms:block/copper_lantern/break3",
+      "caverns_and_chasms:block/copper_lantern/break4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.copper_grate.fall": {
+  "block.copper_lantern.fall": {
     "sounds": [
-      "caverns_and_chasms:block/copper_grate/step1",
-      "caverns_and_chasms:block/copper_grate/step2",
-      "caverns_and_chasms:block/copper_grate/step3",
-      "caverns_and_chasms:block/copper_grate/step4",
-      "caverns_and_chasms:block/copper_grate/step5",
-      "caverns_and_chasms:block/copper_grate/step6"
+      "caverns_and_chasms:block/copper_lantern/step1",
+      "caverns_and_chasms:block/copper_lantern/step2",
+      "caverns_and_chasms:block/copper_lantern/step3",
+      "caverns_and_chasms:block/copper_lantern/step4"
     ],
     "subtitle": "subtitles.block.generic.fall"
   },
-  "block.copper_grate.hit": {
+  "block.copper_lantern.hit": {
     "sounds": [
-      "caverns_and_chasms:block/copper_grate/step1",
-      "caverns_and_chasms:block/copper_grate/step2",
-      "caverns_and_chasms:block/copper_grate/step3",
-      "caverns_and_chasms:block/copper_grate/step4",
-      "caverns_and_chasms:block/copper_grate/step5",
-      "caverns_and_chasms:block/copper_grate/step6"
+      "caverns_and_chasms:block/copper_lantern/step1",
+      "caverns_and_chasms:block/copper_lantern/step2",
+      "caverns_and_chasms:block/copper_lantern/step3",
+      "caverns_and_chasms:block/copper_lantern/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.copper_grate.place": {
+  "block.copper_lantern.place": {
     "sounds": [
-      "caverns_and_chasms:block/copper_grate/break1",
-      {
-        "name": "caverns_and_chasms:block/copper_grate/break1",
-        "pitch": 0.95
-      },
-      "caverns_and_chasms:block/copper_grate/break2",
-      "caverns_and_chasms:block/copper_grate/break3",
-      "caverns_and_chasms:block/copper_grate/break4"
+      "caverns_and_chasms:block/copper_lantern/break1",
+      "caverns_and_chasms:block/copper_lantern/break2",
+      "caverns_and_chasms:block/copper_lantern/break3",
+      "caverns_and_chasms:block/copper_lantern/break4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.copper_grate.step": {
+  "block.copper_lantern.step": {
     "sounds": [
-      "caverns_and_chasms:block/copper_grate/step1",
-      "caverns_and_chasms:block/copper_grate/step2",
-      "caverns_and_chasms:block/copper_grate/step3",
-      "caverns_and_chasms:block/copper_grate/step4",
-      "caverns_and_chasms:block/copper_grate/step5",
-      "caverns_and_chasms:block/copper_grate/step6"
+      "caverns_and_chasms:block/copper_lantern/step1",
+      "caverns_and_chasms:block/copper_lantern/step2",
+      "caverns_and_chasms:block/copper_lantern/step3",
+      "caverns_and_chasms:block/copper_lantern/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.copper_chain.break": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_chain/break1",
+      "caverns_and_chasms:block/copper_chain/break2",
+      "caverns_and_chasms:block/copper_chain/break3",
+      "caverns_and_chasms:block/copper_chain/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.copper_chain.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_chain/step1",
+      "caverns_and_chasms:block/copper_chain/step2",
+      "caverns_and_chasms:block/copper_chain/step3",
+      "caverns_and_chasms:block/copper_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.copper_chain.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_chain/step1",
+      "caverns_and_chasms:block/copper_chain/step2",
+      "caverns_and_chasms:block/copper_chain/step3",
+      "caverns_and_chasms:block/copper_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.copper_chain.place": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_chain/break1",
+      "caverns_and_chasms:block/copper_chain/break2",
+      "caverns_and_chasms:block/copper_chain/break3",
+      "caverns_and_chasms:block/copper_chain/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.copper_chain.step": {
+    "sounds": [
+      "caverns_and_chasms:block/copper_chain/step1",
+      "caverns_and_chasms:block/copper_chain/step2",
+      "caverns_and_chasms:block/copper_chain/step3",
+      "caverns_and_chasms:block/copper_chain/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
