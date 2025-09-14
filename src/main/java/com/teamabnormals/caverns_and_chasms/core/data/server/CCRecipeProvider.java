@@ -336,23 +336,46 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_CALCITE.get(), Blocks.CALCITE);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_CALCITE_SLAB.get(), Blocks.CALCITE, 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_CALCITE_STAIRS.get(), Blocks.CALCITE);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, POLISHED_CALCITE.get(), 4).define('#', Blocks.CALCITE).pattern("##").pattern("##").unlockedBy("has_calcite", has(Blocks.CALCITE)).save(consumer);
 		generateRecipes(consumer, POLISHED_CALCITE_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_CALCITE_SLAB.get(), POLISHED_CALCITE.get(), 2);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_CALCITE_STAIRS.get(), POLISHED_CALCITE.get());
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.TUFF, 2).requires(Blocks.BASALT).requires(Blocks.COBBLESTONE).unlockedBy("has_stone", has(Blocks.BASALT)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.TUFF).getPath()));
 		generateRecipes(consumer, TUFF_FAMILY);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, TUFF_SLAB.get(), Blocks.TUFF, 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, TUFF_STAIRS.get(), Blocks.TUFF);
-		stonecutterRecipe(consumer, DECORATIONS, TUFF_WALL.get(), Blocks.TUFF);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_TUFF.get(), Blocks.TUFF);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_TUFF_SLAB.get(), Blocks.TUFF, 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_TUFF_STAIRS.get(), Blocks.TUFF);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, POLISHED_TUFF.get(), 4).define('#', Blocks.TUFF).pattern("##").pattern("##").unlockedBy("has_tuff", has(Blocks.TUFF)).save(consumer);
 		generateRecipes(consumer, POLISHED_TUFF_FAMILY);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_TUFF_SLAB.get(), POLISHED_TUFF.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, POLISHED_TUFF_STAIRS.get(), POLISHED_TUFF.get());
+		generateRecipes(consumer, TUFF_BRICKS_FAMILY);
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.TUFF), RecipeCategory.BUILDING_BLOCKS, SMOOTH_TUFF.get(), 0.1F, 200).unlockedBy("has_tuff", has(Blocks.TUFF)).save(consumer);
+		ClayworksRecipeProvider.bakingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, Blocks.TUFF, SMOOTH_TUFF.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
+		generateRecipes(consumer, SMOOTH_TUFF_FAMILY);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SMOOTH_TUFF_SLAB.get(), SMOOTH_TUFF.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SMOOTH_TUFF_STAIRS.get(), SMOOTH_TUFF.get());
+
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_SLAB.get(), Blocks.TUFF, 2);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_STAIRS.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.DECORATIONS, TUFF_WALL.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CHISELED_TUFF.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, POLISHED_TUFF.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, POLISHED_TUFF_SLAB.get(), Blocks.TUFF, 2);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, POLISHED_TUFF_STAIRS.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.DECORATIONS, POLISHED_TUFF_WALL.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICKS.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICK_SLAB.get(), Blocks.TUFF, 2);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICK_STAIRS.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.DECORATIONS, TUFF_BRICK_WALL.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CHISELED_TUFF_BRICKS.get(), Blocks.TUFF);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, POLISHED_TUFF_SLAB.get(), POLISHED_TUFF.get(), 2);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, POLISHED_TUFF_STAIRS.get(), POLISHED_TUFF.get());
+		stonecutterRecipe(consumer, RecipeCategory.DECORATIONS, POLISHED_TUFF_WALL.get(), POLISHED_TUFF.get());
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICKS.get(), POLISHED_TUFF.get());
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICK_SLAB.get(), POLISHED_TUFF.get(), 2);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICK_STAIRS.get(), POLISHED_TUFF.get());
+		stonecutterRecipe(consumer, RecipeCategory.DECORATIONS, TUFF_BRICK_WALL.get(), POLISHED_TUFF.get());
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CHISELED_TUFF_BRICKS.get(), POLISHED_TUFF.get());
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICK_SLAB.get(), TUFF_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, TUFF_BRICK_STAIRS.get(), TUFF_BRICKS.get());
+		stonecutterRecipe(consumer, RecipeCategory.DECORATIONS, TUFF_BRICK_WALL.get(), TUFF_BRICKS.get());
+		stonecutterRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, CHISELED_TUFF_BRICKS.get(), TUFF_BRICKS.get());
 
 		generateRecipes(consumer, SUGILITE_FAMILY);
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE.get()).requires(Blocks.GRANITE).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer);

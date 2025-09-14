@@ -346,6 +346,16 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_TUFF = HELPER.createBlock("polished_tuff", () -> new Block(CCProperties.TUFF));
 	public static final RegistryObject<Block> POLISHED_TUFF_STAIRS = HELPER.createBlock("polished_tuff_stairs", () -> new StairBlock(() -> POLISHED_TUFF.get().defaultBlockState(), CCProperties.TUFF));
 	public static final RegistryObject<Block> POLISHED_TUFF_SLAB = HELPER.createBlock("polished_tuff_slab", () -> new SlabBlock(CCProperties.TUFF));
+	public static final RegistryObject<Block> POLISHED_TUFF_WALL = HELPER.createBlock("polished_tuff_wall", () -> new WallBlock(CCProperties.TUFF));
+	public static final RegistryObject<Block> CHISELED_TUFF = HELPER.createBlock("chiseled_tuff", () -> new Block(CCProperties.TUFF));
+	public static final RegistryObject<Block> TUFF_BRICKS = HELPER.createBlock("tuff_bricks", () -> new Block(CCProperties.TUFF));
+	public static final RegistryObject<Block> TUFF_BRICK_STAIRS = HELPER.createBlock("tuff_brick_stairs", () -> new StairBlock(() -> TUFF_BRICKS.get().defaultBlockState(), CCProperties.TUFF));
+	public static final RegistryObject<Block> TUFF_BRICK_SLAB = HELPER.createBlock("tuff_brick_slab", () -> new SlabBlock(CCProperties.TUFF));
+	public static final RegistryObject<Block> TUFF_BRICK_WALL = HELPER.createBlock("tuff_brick_wall", () -> new WallBlock(CCProperties.TUFF));
+	public static final RegistryObject<Block> CHISELED_TUFF_BRICKS = HELPER.createBlock("chiseled_tuff_bricks", () -> new Block(CCProperties.TUFF));
+	public static final RegistryObject<Block> SMOOTH_TUFF = HELPER.createBlock("smooth_tuff", () -> new Block(CCProperties.TUFF));
+	public static final RegistryObject<Block> SMOOTH_TUFF_STAIRS = HELPER.createBlock("smooth_tuff_stairs", () -> new StairBlock(() -> SMOOTH_TUFF.get().defaultBlockState(), CCProperties.TUFF));
+	public static final RegistryObject<Block> SMOOTH_TUFF_SLAB = HELPER.createBlock("smooth_tuff_slab", () -> new SlabBlock(CCProperties.TUFF));
 
 	public static final RegistryObject<Block> SUGILITE = HELPER.createBlock("sugilite", () -> new Block(CCProperties.SUGILITE));
 	public static final RegistryObject<Block> SUGILITE_STAIRS = HELPER.createBlock("sugilite_stairs", () -> new StairBlock(() -> SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE));
@@ -595,7 +605,8 @@ public class CCBlocks {
 				)
 				.addItemsBefore(of(Blocks.DEEPSLATE),
 						() -> Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL, POLISHED_CALCITE, POLISHED_CALCITE_STAIRS, POLISHED_CALCITE_SLAB,
-						() -> Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL, POLISHED_TUFF, POLISHED_TUFF_STAIRS, POLISHED_TUFF_SLAB,
+						() -> Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL, CHISELED_TUFF, SMOOTH_TUFF, SMOOTH_TUFF_STAIRS, SMOOTH_TUFF_SLAB,
+						POLISHED_TUFF, POLISHED_TUFF_STAIRS, POLISHED_TUFF_SLAB, POLISHED_TUFF_WALL, TUFF_BRICKS, TUFF_BRICK_STAIRS, TUFF_BRICK_SLAB, TUFF_BRICK_WALL, CHISELED_TUFF_BRICKS,
 						() -> Blocks.DRIPSTONE_BLOCK, DRIPSTONE_STAIRS, DRIPSTONE_SLAB, DRIPSTONE_WALL,
 						SMOOTH_DRIPSTONE, SMOOTH_DRIPSTONE_STAIRS, SMOOTH_DRIPSTONE_SLAB,
 						POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB,

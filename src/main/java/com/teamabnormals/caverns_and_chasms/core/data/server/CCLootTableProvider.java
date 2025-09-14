@@ -239,7 +239,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_EXPOSED_COPPER_BULB.get());
 			this.dropSelf(WAXED_WEATHERED_COPPER_BULB.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_BULB.get());
-			
+
 			this.add(COPPER_DOOR.get(), this::createDoorTable);
 			this.add(EXPOSED_COPPER_DOOR.get(), this::createDoorTable);
 			this.add(WEATHERED_COPPER_DOOR.get(), this::createDoorTable);
@@ -339,9 +339,10 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(TUFF_STAIRS.get());
 			this.dropSelf(TUFF_WALL.get());
 			this.add(TUFF_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(POLISHED_TUFF.get());
-			this.dropSelf(POLISHED_TUFF_STAIRS.get());
-			this.add(POLISHED_TUFF_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(CHISELED_TUFF.get());
+			this.blockFamily(POLISHED_TUFF_FAMILY);
+			this.blockFamily(TUFF_BRICKS_FAMILY);
+			this.blockFamily(SMOOTH_TUFF_FAMILY);
 
 			this.dropSelf(SUGILITE.get());
 			this.dropSelf(SUGILITE_STAIRS.get());
@@ -532,9 +533,19 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		public void blockFamily(BlockFamily family) {
 			this.dropSelf(family.getBaseBlock());
-			this.dropSelf(family.get(Variant.STAIRS));
-			this.dropSelf(family.get(Variant.WALL));
-			this.add(family.get(Variant.SLAB), this::createSlabItemTable);
+
+			if (family.getVariants().containsKey(Variant.STAIRS)) {
+				this.dropSelf(family.get(Variant.STAIRS));
+			}
+
+			if (family.getVariants().containsKey(Variant.SLAB)) {
+				this.add(family.get(Variant.SLAB), this::createSlabItemTable);
+			}
+
+			if (family.getVariants().containsKey(Variant.WALL)) {
+				this.dropSelf(family.get(Variant.WALL));
+			}
+
 			if (family.getVariants().containsKey(Variant.CHISELED)) {
 				this.dropSelf(family.get(Variant.CHISELED));
 			}
