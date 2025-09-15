@@ -899,7 +899,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 	@Override
 	public void slabBlock(Block block, Block slab) {
-		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == SMOOTH_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get() || slabBlock == POLISHED_CASSITERITE_SLAB.get() || slabBlock == POLISHED_DRIPSTONE_SLAB.get() || slabBlock == POLISHED_RHYOLITE_SLAB.get() || slabBlock == POLISHED_MAGMATIC_RHYOLITE_SLAB.get())) {
+		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == SMOOTH_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get() || slabBlock == POLISHED_CASSITERITE_SLAB.get() || slabBlock == POLISHED_DRIPSTONE_SLAB.get() || slabBlock == POLISHED_RHYOLITE_SLAB.get() || slabBlock == POLISHED_MAGMATIC_RHYOLITE_SLAB.get())) {
 			ResourceLocation side = blockTexture(slab);
 			ResourceLocation full = blockTexture(block);
 			this.slabBlock(slabBlock, models().slab(name(slab), side, full, full), models().slabTop(name(slab) + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));
