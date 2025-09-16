@@ -5,13 +5,18 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Predicate;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
 
@@ -23,6 +28,11 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
+		this.collect(BlockTags.STAIRS, block -> block instanceof StairBlock, AZALEA_STAIRS.get());
+		this.collect(BlockTags.SLABS, block -> block instanceof SlabBlock, AZALEA_SLAB.get());
+		this.collect(BlockTags.WALLS, block -> block instanceof WallBlock);
+		this.collect(BlockTags.FLOWER_POTS, block -> block instanceof FlowerPotBlock);
+
 		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), TIN_BLOCK.get(), NECROMIUM_BLOCK.get(), TURQUOISE_BLOCK.get(), ZIRCONIA_BLOCK.get());
 		this.tag(BlockTags.BUTTONS).add(HOLD_BUTTON.get(), COPPER_BUTTON.get(), EXPOSED_COPPER_BUTTON.get(), WEATHERED_COPPER_BUTTON.get(), OXIDIZED_COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
 		this.tag(BlockTags.CAMPFIRES).add(CUPRIC_CAMPFIRE.get());
@@ -32,44 +42,9 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.PIGLIN_REPELLENTS).add(SOUL_BRAZIER.get());
 		this.tag(BlockTags.PRESSURE_PLATES).add(MEDIUM_WEIGHTED_PRESSURE_PLATE.get(), HOLD_PLATE.get());
 		this.tag(BlockTags.RAILS).add(HALT_RAIL.get(), SPIKED_RAIL.get(), SLAUGHTER_RAIL.get()).addTag(CCBlockTags.COPPER_RAILS);
-		this.tag(BlockTags.SLABS).add(
-				COBBLESTONE_BRICK_SLAB.get(), COBBLESTONE_TILE_SLAB.get(), MOSSY_COBBLESTONE_BRICK_SLAB.get(), MOSSY_COBBLESTONE_TILE_SLAB.get(), COBBLED_DEEPSLATE_BRICK_SLAB.get(), COBBLED_DEEPSLATE_TILE_SLAB.get(),
-				SPINEL_BRICK_SLAB.get(), LAPIS_LAZULI_BRICK_SLAB.get(), TURQUOISE_TILE_SLAB.get(), SANGUINE_TILE_SLAB.get(), FORTIFIED_SANGUINE_TILE_SLAB.get(),
-				DRIPSTONE_SLAB.get(), SMOOTH_DRIPSTONE_SLAB.get(), DRIPSTONE_BRICK_SLAB.get(), POLISHED_DRIPSTONE_SLAB.get(), DRIPSTONE_SHINGLE_SLAB.get(),
-				CALCITE_SLAB.get(), POLISHED_CALCITE_SLAB.get(), TUFF_SLAB.get(), POLISHED_TUFF_SLAB.get(), TUFF_BRICK_SLAB.get(), SMOOTH_TUFF_SLAB.get(),
-				SUGILITE_SLAB.get(), POLISHED_SUGILITE_SLAB.get(), CUT_AMETHYST_BRICK_SLAB.get(),
-				IRON_BRICK_SLAB.get(), TIN_BRICK_SLAB.get(), GOLD_BRICK_SLAB.get(), SILVER_BRICK_SLAB.get(),
-				COPPER_BRICK_SLAB.get(), EXPOSED_COPPER_BRICK_SLAB.get(), WEATHERED_COPPER_BRICK_SLAB.get(), OXIDIZED_COPPER_BRICK_SLAB.get(),
-				WAXED_COPPER_BRICK_SLAB.get(), WAXED_EXPOSED_COPPER_BRICK_SLAB.get(), WAXED_WEATHERED_COPPER_BRICK_SLAB.get(), WAXED_OXIDIZED_COPPER_BRICK_SLAB.get(),
-				CASSITERITE_SLAB.get(), POLISHED_CASSITERITE_SLAB.get(), CASSITERITE_BRICK_SLAB.get(), SMOOTH_CASSITERITE_SLAB.get(),
-				RHYOLITE_SLAB.get(), POLISHED_RHYOLITE_SLAB.get(), RHYOLITE_BRICK_SLAB.get(), MAGMATIC_RHYOLITE_SLAB.get(), POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), MAGMATIC_RHYOLITE_BRICK_SLAB.get()
-		);
 		this.tag(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(SOUL_SILVER_ORE.get());
 		this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(SOUL_SILVER_ORE.get());
-		this.tag(BlockTags.STAIRS).add(
-				COBBLESTONE_BRICK_STAIRS.get(), COBBLESTONE_TILE_STAIRS.get(), MOSSY_COBBLESTONE_BRICK_STAIRS.get(), MOSSY_COBBLESTONE_TILE_STAIRS.get(), COBBLED_DEEPSLATE_BRICK_STAIRS.get(), COBBLED_DEEPSLATE_TILE_STAIRS.get(),
-				SPINEL_BRICK_STAIRS.get(), LAPIS_LAZULI_BRICK_STAIRS.get(), TURQUOISE_TILE_STAIRS.get(), SANGUINE_TILE_STAIRS.get(), FORTIFIED_SANGUINE_TILE_STAIRS.get(),
-				DRIPSTONE_STAIRS.get(), SMOOTH_DRIPSTONE_STAIRS.get(), DRIPSTONE_BRICK_STAIRS.get(), POLISHED_DRIPSTONE_STAIRS.get(), DRIPSTONE_SHINGLE_STAIRS.get(),
-				CALCITE_STAIRS.get(), POLISHED_CALCITE_STAIRS.get(), TUFF_STAIRS.get(), POLISHED_TUFF_STAIRS.get(), TUFF_BRICK_STAIRS.get(), SMOOTH_TUFF_STAIRS.get(),
-				SUGILITE_STAIRS.get(), POLISHED_SUGILITE_STAIRS.get(), CUT_AMETHYST_BRICK_STAIRS.get(),
-				IRON_BRICK_STAIRS.get(), TIN_BRICK_STAIRS.get(), GOLD_BRICK_STAIRS.get(), SILVER_BRICK_STAIRS.get(),
-				COPPER_BRICK_STAIRS.get(), EXPOSED_COPPER_BRICK_STAIRS.get(), WEATHERED_COPPER_BRICK_STAIRS.get(), OXIDIZED_COPPER_BRICK_STAIRS.get(),
-				WAXED_COPPER_BRICK_STAIRS.get(), WAXED_EXPOSED_COPPER_BRICK_STAIRS.get(), WAXED_WEATHERED_COPPER_BRICK_STAIRS.get(), WAXED_OXIDIZED_COPPER_BRICK_STAIRS.get(),
-				CASSITERITE_STAIRS.get(), POLISHED_CASSITERITE_STAIRS.get(), CASSITERITE_BRICK_STAIRS.get(), SMOOTH_CASSITERITE_STAIRS.get(),
-				RHYOLITE_STAIRS.get(), POLISHED_RHYOLITE_STAIRS.get(), RHYOLITE_BRICK_STAIRS.get(), MAGMATIC_RHYOLITE_STAIRS.get(), POLISHED_MAGMATIC_RHYOLITE_STAIRS.get(), MAGMATIC_RHYOLITE_BRICK_STAIRS.get()
-		);
 		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CUPRIC_TORCH.get());
-		this.tag(BlockTags.WALLS).add(
-				COBBLESTONE_BRICK_WALL.get(), COBBLESTONE_TILE_WALL.get(), MOSSY_COBBLESTONE_BRICK_WALL.get(), MOSSY_COBBLESTONE_TILE_WALL.get(), COBBLED_DEEPSLATE_BRICK_WALL.get(), COBBLED_DEEPSLATE_TILE_WALL.get(),
-				SPINEL_BRICK_WALL.get(), LAPIS_LAZULI_BRICK_WALL.get(), TURQUOISE_TILE_WALL.get(), SANGUINE_TILE_WALL.get(), FORTIFIED_SANGUINE_TILE_WALL.get(),
-				DRIPSTONE_WALL.get(), DRIPSTONE_BRICK_WALL.get(), DRIPSTONE_SHINGLE_WALL.get(),
-				CALCITE_WALL.get(), TUFF_WALL.get(), POLISHED_TUFF_WALL.get(), TUFF_BRICK_WALL.get(), SUGILITE_WALL.get(), CUT_AMETHYST_BRICK_WALL.get(),
-				IRON_BRICK_WALL.get(), TIN_BRICK_WALL.get(), GOLD_BRICK_WALL.get(), SILVER_BRICK_WALL.get(),
-				COPPER_BRICK_WALL.get(), EXPOSED_COPPER_BRICK_WALL.get(), WEATHERED_COPPER_BRICK_WALL.get(), OXIDIZED_COPPER_BRICK_WALL.get(),
-				WAXED_COPPER_BRICK_WALL.get(), WAXED_EXPOSED_COPPER_BRICK_WALL.get(), WAXED_WEATHERED_COPPER_BRICK_WALL.get(), WAXED_OXIDIZED_COPPER_BRICK_WALL.get(),
-				CASSITERITE_WALL.get(), CASSITERITE_BRICK_WALL.get(),
-				RHYOLITE_WALL.get(), POLISHED_RHYOLITE_WALL.get(), RHYOLITE_BRICK_WALL.get(), MAGMATIC_RHYOLITE_WALL.get(), POLISHED_MAGMATIC_RHYOLITE_WALL.get(), MAGMATIC_RHYOLITE_BRICK_WALL.get()
-		);
 		this.tag(BlockTags.PLANKS).add(AZALEA_PLANKS.get());
 		this.tag(BlockTags.LOGS_THAT_BURN).addTag(CCBlockTags.AZALEA_LOGS);
 		this.tag(BlockTags.WOODEN_SLABS).add(AZALEA_SLAB.get());
@@ -89,7 +64,6 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.REPLACEABLE_BY_TREES).addTag(CCBlockTags.CAVE_GROWTHS);
 		this.tag(BlockTags.SWORD_EFFICIENT).addTag(CCBlockTags.CAVE_GROWTHS);
 		this.tag(BlockTags.SMALL_FLOWERS).add(FALSE_HOPE.get(), MOSCHATEL.get());
-		this.tag(BlockTags.FLOWER_POTS).add(POTTED_FALSE_HOPE.get(), POTTED_MOSCHATEL.get(), POTTED_CAVE_GROWTHS.get(), POTTED_LURID_CAVE_GROWTHS.get(), POTTED_WISPY_CAVE_GROWTHS.get(), POTTED_CAVE_GROWTHS.get(), POTTED_WEIRD_CAVE_GROWTHS.get(), POTTED_ZESTY_CAVE_GROWTHS.get());
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
 		this.tag(BlockTags.BEEHIVES).add(AZALEA_BEEHIVE.get());
 		this.tag(BlockTags.IMPERMEABLE).add(FLOAT_GLASS.get());
@@ -128,7 +102,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				DRIPSTONE_BRICKS.get(), DRIPSTONE_BRICK_STAIRS.get(), DRIPSTONE_BRICK_SLAB.get(), DRIPSTONE_BRICK_WALL.get(), CHISELED_DRIPSTONE_BRICKS.get(), CRACKED_DRIPSTONE_BRICKS.get(),
 				DRIPSTONE_SHINGLES.get(), DRIPSTONE_SHINGLE_STAIRS.get(), DRIPSTONE_SHINGLE_SLAB.get(), DRIPSTONE_SHINGLE_WALL.get(), CHISELED_DRIPSTONE_SHINGLES.get(), FLOODED_DRIPSTONE_SHINGLES.get(),
 				CALCITE_STAIRS.get(), CALCITE_SLAB.get(), CALCITE_WALL.get(), POLISHED_CALCITE.get(), POLISHED_CALCITE_STAIRS.get(), POLISHED_CALCITE_SLAB.get(),
-				TUFF_STAIRS.get(), TUFF_SLAB.get(), TUFF_WALL.get(), CHISELED_TUFF.get(),  SMOOTH_TUFF.get(), SMOOTH_TUFF_STAIRS.get(), SMOOTH_TUFF_SLAB.get(),
+				TUFF_STAIRS.get(), TUFF_SLAB.get(), TUFF_WALL.get(), CHISELED_TUFF.get(), SMOOTH_TUFF.get(), SMOOTH_TUFF_STAIRS.get(), SMOOTH_TUFF_SLAB.get(),
 				POLISHED_TUFF.get(), POLISHED_TUFF_STAIRS.get(), POLISHED_TUFF_SLAB.get(), POLISHED_TUFF_WALL.get(), TUFF_BRICKS.get(), TUFF_BRICK_STAIRS.get(), TUFF_BRICK_SLAB.get(), TUFF_BRICK_WALL.get(), CHISELED_TUFF_BRICKS.get(),
 				SUGILITE.get(), SUGILITE_STAIRS.get(), SUGILITE_SLAB.get(), SUGILITE_WALL.get(), POLISHED_SUGILITE.get(), POLISHED_SUGILITE_STAIRS.get(), POLISHED_SUGILITE_SLAB.get(),
 				CASSITERITE.get(), CASSITERITE_STAIRS.get(), CASSITERITE_SLAB.get(), CASSITERITE_WALL.get(), POLISHED_CASSITERITE.get(), POLISHED_CASSITERITE_STAIRS.get(), POLISHED_CASSITERITE_SLAB.get(),
@@ -295,5 +269,9 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(Tags.Blocks.STONE).add(POLISHED_CALCITE.get(), POLISHED_TUFF.get(), SUGILITE.get(), POLISHED_SUGILITE.get(), CASSITERITE.get(), SMOOTH_CASSITERITE.get(), POLISHED_CASSITERITE.get(), RHYOLITE.get(), POLISHED_RHYOLITE.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 		this.tag(Tags.Blocks.GLASS).add(FLOAT_GLASS.get());
 		this.tag(Tags.Blocks.GLASS_PANES).add(FLOAT_GLASS_PANE.get());
+	}
+
+	public IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> collect(TagKey<Block> tag, Predicate<? super Block> predicate, Block... exclude) {
+		return this.tag(tag).add(HELPER.getDeferredRegister().getEntries().stream().map(RegistryObject::get).filter(predicate).filter(block -> !Arrays.stream(exclude).toList().contains(block)).toList().toArray(new Block[0]));
 	}
 }
