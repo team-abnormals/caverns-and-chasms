@@ -149,7 +149,19 @@ public class CCSoundEvents {
 	
 	public static final RegistryObject<SoundEvent> COPPER_TRAPDOOR_CLOSE = HELPER.createSoundEvent("block.copper_trapdoor.close");
 	public static final RegistryObject<SoundEvent> COPPER_TRAPDOOR_OPEN = HELPER.createSoundEvent("block.copper_trapdoor.open");
-	
+
+	public static final RegistryObject<SoundEvent> POLISHED_TUFF_BREAK = HELPER.createSoundEvent("block.polished_tuff.break");
+	public static final RegistryObject<SoundEvent> POLISHED_TUFF_FALL = HELPER.createSoundEvent("block.polished_tuff.fall");
+	public static final RegistryObject<SoundEvent> POLISHED_TUFF_HIT = HELPER.createSoundEvent("block.polished_tuff.hit");
+	public static final RegistryObject<SoundEvent> POLISHED_TUFF_PLACE = HELPER.createSoundEvent("block.polished_tuff.place");
+	public static final RegistryObject<SoundEvent> POLISHED_TUFF_STEP = HELPER.createSoundEvent("block.polished_tuff.step");
+
+	public static final RegistryObject<SoundEvent> TUFF_BRICKS_BREAK = HELPER.createSoundEvent("block.tuff_bricks.break");
+	public static final RegistryObject<SoundEvent> TUFF_BRICKS_FALL = HELPER.createSoundEvent("block.tuff_bricks.fall");
+	public static final RegistryObject<SoundEvent> TUFF_BRICKS_HIT = HELPER.createSoundEvent("block.tuff_bricks.hit");
+	public static final RegistryObject<SoundEvent> TUFF_BRICKS_PLACE = HELPER.createSoundEvent("block.tuff_bricks.place");
+	public static final RegistryObject<SoundEvent> TUFF_BRICKS_STEP = HELPER.createSoundEvent("block.tuff_bricks.step");
+
 	public static final RegistryObject<SoundEvent> SILVER_BREAK = HELPER.createSoundEvent("block.silver.break");
 	public static final RegistryObject<SoundEvent> SILVER_FALL = HELPER.createSoundEvent("block.silver.fall");
 	public static final RegistryObject<SoundEvent> SILVER_HIT = HELPER.createSoundEvent("block.silver.hit");
@@ -329,6 +341,8 @@ public class CCSoundEvents {
 		public static final ForgeSoundType STORAGE_DUCT = new ForgeSoundType(1.0F, 1.0F, STORAGE_DUCT_BREAK, STORAGE_DUCT_STEP, STORAGE_DUCT_PLACE, STORAGE_DUCT_HIT, STORAGE_DUCT_FALL);
 		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, ATONING_TABLE_BREAK, ATONING_TABLE_STEP, ATONING_TABLE_PLACE, ATONING_TABLE_HIT, ATONING_TABLE_FALL);
 		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, BEJEWELED_ANVIL_BREAK, BEJEWELED_ANVIL_STEP, BEJEWELED_ANVIL_PLACE, BEJEWELED_ANVIL_HIT, BEJEWELED_ANVIL_FALL);
+		public static final ForgeSoundType POLISHED_TUFF = new ForgeSoundType(1.0F, 1.0F, POLISHED_TUFF_BREAK, POLISHED_TUFF_STEP, POLISHED_TUFF_PLACE, POLISHED_TUFF_HIT, POLISHED_TUFF_FALL);
+		public static final ForgeSoundType TUFF_BRICKS = new ForgeSoundType(1.0F, 1.0F, TUFF_BRICKS_BREAK, TUFF_BRICKS_STEP, TUFF_BRICKS_PLACE, TUFF_BRICKS_HIT, TUFF_BRICKS_FALL);
 	}
 
 	public static void registerNoteBlocks() {
