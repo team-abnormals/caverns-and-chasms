@@ -375,8 +375,10 @@ public class CCEvents {
 			for (int z = 0; z < k; z++) {
 				EquipmentSlot slot = EquipmentSlot.values()[random.nextInt(EquipmentSlot.values().length)];
 				ItemStack stack = entity.getItemBySlot(slot);
-				Optional<ItemStack> previous = WeatheringCopperItem.getPrevious(stack);
-				previous.ifPresent(itemStack -> WeatheringCopperItem.copyStackToNewItem(stack, itemStack));
+				if (stack.getItem() instanceof WeatheringCopperItem) {
+					Optional<ItemStack> previous = WeatheringCopperItem.getPrevious(stack);
+					previous.ifPresent(itemStack -> WeatheringCopperItem.copyStackToNewItem(stack, itemStack));
+				}
 			}
 		}
 	}
