@@ -110,7 +110,6 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 
 		createAdvancement("find_monolith", "adventure", zirconia, CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
 				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(CCStructures.TIN_MONOLITH)))
-				.addCriterion("obtain_raw_tin", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
 	}
 
