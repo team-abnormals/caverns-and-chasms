@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
@@ -91,7 +92,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("atoned_item", AtonedItemTrigger.TriggerInstance.atonedItem())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/atone_item");
 
-		createAdvancement("break_item_atoning", "adventure", atoneItem, CCBlocks.ATONING_TABLE.get(), FrameType.GOAL, true, true, true)
+		createAdvancement("break_item_atoning", "adventure", atoneItem, CCBlocks.ATONING_TABLE.get(), FrameType.TASK, true, true, true)
 				.addCriterion("broken_atonement", AtonedItemTrigger.TriggerInstance.brokenAtonement())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/break_item_atoning");
 
@@ -99,9 +100,18 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("bejeweled_anvil_repair", RepairedItemTrigger.TriggerInstance.repairedItem())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/bejeweled_anvil_repair");
 
-		createAdvancement("repair_with_zirconia", "adventure", bejeweledAnvilRepair, CCItems.ZIRCONIA.get(), FrameType.GOAL, true, true, false)
+		Advancement zirconia = createAdvancement("repair_with_zirconia", "adventure", bejeweledAnvilRepair, CCItems.ZIRCONIA.get(), FrameType.TASK, true, true, false)
 				.addCriterion("repair_with_zirconia", RepairedItemTrigger.TriggerInstance.repairedItemWith(ItemPredicate.Builder.item().of(CCItems.ZIRCONIA.get()).build()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/repair_with_zirconia");
+
+		createAdvancement("copy_music_disc", "adventure", zirconia, CCItems.MUSIC_DISC_COPY.get(), FrameType.TASK, true, true, false)
+				.addCriterion("copy_music_disc", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/copy_music_disc");
+
+		createAdvancement("find_monolith", "adventure", zirconia, CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
+				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(CCStructures.TIN_MONOLITH)))
+				.addCriterion("obtain_raw_tin", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {

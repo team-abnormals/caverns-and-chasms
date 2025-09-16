@@ -17,7 +17,7 @@
     "description": {
       "translate": "advancements.caverns_and_chasms.adventure.break_item_atoning.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "caverns_and_chasms:atoning_table"

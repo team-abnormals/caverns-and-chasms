@@ -1,0 +1,42 @@
+{
+  "parent": "caverns_and_chasms:adventure/repair_with_zirconia",
+  "criteria": {
+    "find_monolith": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "caverns_and_chasms:tin_monolith"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.find_monolith.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:raw_tin"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.find_monolith.title"
+    }
+  },
+  "requirements": [
+    [
+      "find_monolith"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
