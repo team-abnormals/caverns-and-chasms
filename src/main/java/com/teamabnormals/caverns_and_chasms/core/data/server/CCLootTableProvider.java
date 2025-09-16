@@ -176,14 +176,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(REFRACTOR.get());
 
 			this.dropSelf(SANGUINE_BLOCK.get());
-			this.dropSelf(SANGUINE_TILES.get());
-			this.dropSelf(SANGUINE_TILE_STAIRS.get());
-			this.dropSelf(SANGUINE_TILE_WALL.get());
-			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(FORTIFIED_SANGUINE_TILES.get());
-			this.dropSelf(FORTIFIED_SANGUINE_TILE_STAIRS.get());
-			this.dropSelf(FORTIFIED_SANGUINE_TILE_WALL.get());
-			this.add(FORTIFIED_SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(SANGUINE_TILES_FAMILY);
+			this.blockFamily(FORTIFIED_SANGUINE_TILES_FAMILY);
 
 			this.add(CCBlocks.TMT.get(), LootTable.lootTable().withPool(applyExplosionCondition(CCBlocks.TMT.get(), LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCBlocks.TMT.get()).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(CCBlocks.TMT.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TmtBlock.UNSTABLE, false)))))));
 			this.dropSelf(SPLURTER.get());
@@ -302,39 +296,22 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_COPPER_LANTERN.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_LANTERN.get());
 
-			this.dropSelf(COBBLESTONE_BRICKS.get());
-			this.dropSelf(COBBLESTONE_BRICK_STAIRS.get());
-			this.dropSelf(COBBLESTONE_BRICK_WALL.get());
-			this.add(COBBLESTONE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(COBBLESTONE_TILES.get());
-			this.dropSelf(COBBLESTONE_TILE_STAIRS.get());
-			this.dropSelf(COBBLESTONE_TILE_WALL.get());
-			this.add(COBBLESTONE_TILE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(COBBLESTONE_BRICKS_FAMILY);
+			this.blockFamily(COBBLESTONE_TILES_FAMILY);
+			this.blockFamily(MOSSY_COBBLESTONE_BRICKS_FAMILY);
+			this.blockFamily(MOSSY_COBBLESTONE_TILES_FAMILY);
+			this.blockFamily(COBBLED_DEEPSLATE_BRICKS_FAMILY);
+			this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
 
-			this.dropSelf(MOSSY_COBBLESTONE_BRICKS.get());
-			this.dropSelf(MOSSY_COBBLESTONE_BRICK_STAIRS.get());
-			this.dropSelf(MOSSY_COBBLESTONE_BRICK_WALL.get());
-			this.add(MOSSY_COBBLESTONE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(MOSSY_COBBLESTONE_TILES.get());
-			this.dropSelf(MOSSY_COBBLESTONE_TILE_STAIRS.get());
-			this.dropSelf(MOSSY_COBBLESTONE_TILE_WALL.get());
-			this.add(MOSSY_COBBLESTONE_TILE_SLAB.get(), this::createSlabItemTable);
-
-			this.dropSelf(COBBLED_DEEPSLATE_BRICKS.get());
-			this.dropSelf(COBBLED_DEEPSLATE_BRICK_STAIRS.get());
-			this.dropSelf(COBBLED_DEEPSLATE_BRICK_WALL.get());
-			this.add(COBBLED_DEEPSLATE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(COBBLED_DEEPSLATE_TILES.get());
-			this.dropSelf(COBBLED_DEEPSLATE_TILE_STAIRS.get());
-			this.dropSelf(COBBLED_DEEPSLATE_TILE_WALL.get());
-			this.add(COBBLED_DEEPSLATE_TILE_SLAB.get(), this::createSlabItemTable);
+			this.dropSelf(STONE_WALL.get());
+			this.dropSelf(POLISHED_GRANITE_WALL.get());
+			this.dropSelf(POLISHED_DIORITE_WALL.get());
+			this.dropSelf(POLISHED_ANDESITE_WALL.get());
 
 			this.dropSelf(CALCITE_STAIRS.get());
 			this.dropSelf(CALCITE_WALL.get());
 			this.add(CALCITE_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(POLISHED_CALCITE.get());
-			this.dropSelf(POLISHED_CALCITE_STAIRS.get());
-			this.add(POLISHED_CALCITE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(POLISHED_CALCITE_FAMILY);
 
 			this.dropSelf(TUFF_STAIRS.get());
 			this.dropSelf(TUFF_WALL.get());
@@ -344,128 +321,54 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.blockFamily(TUFF_BRICKS_FAMILY);
 			this.blockFamily(SMOOTH_TUFF_FAMILY);
 
-			this.dropSelf(SUGILITE.get());
-			this.dropSelf(SUGILITE_STAIRS.get());
-			this.dropSelf(SUGILITE_WALL.get());
-			this.add(SUGILITE_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(POLISHED_SUGILITE.get());
-			this.dropSelf(POLISHED_SUGILITE_STAIRS.get());
-			this.add(POLISHED_SUGILITE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(SUGILITE_FAMILY);
+			this.blockFamily(POLISHED_SUGILITE_FAMILY);
 
-			this.dropSelf(CASSITERITE.get());
-			this.dropSelf(CASSITERITE_STAIRS.get());
-			this.add(CASSITERITE_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CASSITERITE_WALL.get());
-			this.dropSelf(CASSITERITE_BRICKS.get());
-			this.dropSelf(CASSITERITE_BRICK_STAIRS.get());
-			this.add(CASSITERITE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CASSITERITE_BRICK_WALL.get());
-			this.dropSelf(CHISELED_CASSITERITE_BRICKS.get());
+			this.blockFamily(CASSITERITE_FAMILY);
+			this.blockFamily(CASSITERITE_BRICKS_FAMILY);
 			this.dropSelf(CASSITERITE_PILLAR.get());
-			this.dropSelf(POLISHED_CASSITERITE.get());
-			this.dropSelf(POLISHED_CASSITERITE_STAIRS.get());
-			this.add(POLISHED_CASSITERITE_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(SMOOTH_CASSITERITE.get());
-			this.dropSelf(SMOOTH_CASSITERITE_STAIRS.get());
-			this.add(SMOOTH_CASSITERITE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(POLISHED_CASSITERITE_FAMILY);
+			this.blockFamily(SMOOTH_CASSITERITE_FAMILY);
 
-			this.dropSelf(MAGMATIC_RHYOLITE.get());
-			this.dropSelf(MAGMATIC_RHYOLITE_BRICKS.get());
-			this.dropSelf(MAGMATIC_RHYOLITE_BRICK_STAIRS.get());
-			this.dropSelf(MAGMATIC_RHYOLITE_STAIRS.get());
-			this.dropSelf(MAGMATIC_RHYOLITE_WALL.get());
-			this.dropSelf(MAGMATIC_RHYOLITE_BRICK_WALL.get());
-			this.dropSelf(CHISELED_MAGMATIC_RHYOLITE_BRICKS.get());
-			this.dropSelf(POLISHED_MAGMATIC_RHYOLITE.get());
-			this.dropSelf(POLISHED_MAGMATIC_RHYOLITE_STAIRS.get());
-			this.dropSelf(POLISHED_MAGMATIC_RHYOLITE_WALL.get());
-			this.add(MAGMATIC_RHYOLITE_SLAB.get(), this::createSlabItemTable);
-			this.add(MAGMATIC_RHYOLITE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.add(POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), this::createSlabItemTable);
-
-			this.dropSelf(RHYOLITE.get());
-			this.dropSelf(RHYOLITE_BRICKS.get());
-			this.dropSelf(RHYOLITE_BRICK_STAIRS.get());
-			this.dropSelf(RHYOLITE_STAIRS.get());
-			this.dropSelf(RHYOLITE_WALL.get());
-			this.dropSelf(RHYOLITE_BRICK_WALL.get());
-			this.dropSelf(CHISELED_RHYOLITE_BRICKS.get());
-			this.dropSelf(POLISHED_RHYOLITE.get());
-			this.dropSelf(POLISHED_RHYOLITE_STAIRS.get());
-			this.dropSelf(POLISHED_RHYOLITE_WALL.get());
-			this.add(RHYOLITE_SLAB.get(), this::createSlabItemTable);
-			this.add(RHYOLITE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.add(POLISHED_RHYOLITE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(RHYOLITE_FAMILY);
+			this.blockFamily(POLISHED_RHYOLITE_FAMILY);
+			this.blockFamily(RHYOLITE_BRICKS_FAMILY);
+			this.blockFamily(MAGMATIC_RHYOLITE_FAMILY);
+			this.blockFamily(POLISHED_MAGMATIC_RHYOLITE_FAMILY);
+			this.blockFamily(MAGMATIC_RHYOLITE_BRICKS_FAMILY);
 
 			this.dropSelf(DRIPSTONE_STAIRS.get());
 			this.dropSelf(DRIPSTONE_WALL.get());
 			this.add(DRIPSTONE_SLAB.get(), this::createSlabItemTable);
 
-			this.dropSelf(SMOOTH_DRIPSTONE.get());
-			this.dropSelf(SMOOTH_DRIPSTONE_STAIRS.get());
-			this.add(SMOOTH_DRIPSTONE_SLAB.get(), this::createSlabItemTable);
-
-			this.dropSelf(POLISHED_DRIPSTONE.get());
-			this.dropSelf(POLISHED_DRIPSTONE_STAIRS.get());
-			this.add(POLISHED_DRIPSTONE_SLAB.get(), this::createSlabItemTable);
-
-			this.dropSelf(DRIPSTONE_BRICKS.get());
-			this.dropSelf(DRIPSTONE_BRICK_STAIRS.get());
-			this.dropSelf(DRIPSTONE_BRICK_WALL.get());
-			this.add(DRIPSTONE_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_DRIPSTONE_BRICKS.get());
+			this.blockFamily(SMOOTH_DRIPSTONE_FAMILY);
+			this.blockFamily(POLISHED_DRIPSTONE_FAMILY);
+			this.blockFamily(DRIPSTONE_BRICKS_FAMILY);
 			this.dropSelf(CRACKED_DRIPSTONE_BRICKS.get());
-
-			this.dropSelf(DRIPSTONE_SHINGLES.get());
-			this.dropSelf(DRIPSTONE_SHINGLE_STAIRS.get());
-			this.dropSelf(DRIPSTONE_SHINGLE_WALL.get());
-			this.add(DRIPSTONE_SHINGLE_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_DRIPSTONE_SHINGLES.get());
+			this.blockFamily(DRIPSTONE_SHINGLES_FAMILY);
 			this.dropSelf(FLOODED_DRIPSTONE_SHINGLES.get());
 
 			this.dropSelf(AMETHYST_BLOCK.get());
 			this.dropSelf(CUT_AMETHYST.get());
-			this.dropSelf(CUT_AMETHYST_BRICKS.get());
-			this.dropSelf(CUT_AMETHYST_BRICK_STAIRS.get());
-			this.dropSelf(CUT_AMETHYST_BRICK_WALL.get());
-			this.add(CUT_AMETHYST_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(CUT_AMETHYST_BRICKS_FAMILY);
 
 			this.dropSelf(ECHO_BLOCK.get());
 
-			this.dropSelf(LAPIS_LAZULI_BRICKS.get());
-			this.dropSelf(LAPIS_LAZULI_BRICK_STAIRS.get());
-			this.dropSelf(LAPIS_LAZULI_BRICK_WALL.get());
-			this.add(LAPIS_LAZULI_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(LAPIS_LAZULI_BRICKS_FAMILY);
 			this.dropSelf(LAPIS_LAZULI_PILLAR.get());
 			this.dropSelf(LAPIS_LAZULI_LAMP.get());
 
 			this.dropSelf(SPINEL_BLOCK.get());
-			this.dropSelf(SPINEL_BRICKS.get());
-			this.dropSelf(SPINEL_BRICK_STAIRS.get());
-			this.dropSelf(SPINEL_BRICK_WALL.get());
-			this.add(SPINEL_BRICK_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(SPINEL_BRICKS_FAMILY);
 			this.dropSelf(SPINEL_PILLAR.get());
 			this.dropSelf(SPINEL_LAMP.get());
 
 			this.dropSelf(TURQUOISE_BLOCK.get());
-			this.dropSelf(TURQUOISE_TILES.get());
-			this.dropSelf(TURQUOISE_TILE_STAIRS.get());
-			this.dropSelf(TURQUOISE_TILE_WALL.get());
-			this.add(TURQUOISE_TILE_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(TURQUOISE_TILES_FAMILY);
 			this.dropSelf(TURQUOISE_PILLAR.get());
 			this.dropSelf(CAVIAR.get());
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
-
-			this.dropSelf(SANGUINE_TILES.get());
-			this.dropSelf(SANGUINE_TILE_STAIRS.get());
-			this.add(SANGUINE_TILE_SLAB.get(), this::createSlabItemTable);
-
-			this.dropSelf(IRON_BRICKS.get());
-			this.dropSelf(IRON_BRICK_STAIRS.get());
-			this.dropSelf(IRON_BRICK_WALL.get());
-			this.add(IRON_BRICK_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_IRON_BRICKS.get());
 
 			this.blockFamily(IRON_BRICKS_FAMILY);
 			this.blockFamily(TIN_BRICKS_FAMILY);
@@ -486,7 +389,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropOther(CUPRIC_WALL_TORCH.get(), CUPRIC_TORCH.get());
 			this.add(CUPRIC_CAMPFIRE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(Items.RAW_COPPER).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
 
-			this.dropSelf(AZALEA_PLANKS.get());
+			this.blockFamily(AZALEA_PLANKS_FAMILY);
 			this.dropSelf(AZALEA_LOG.get());
 			this.dropSelf(AZALEA_WOOD.get());
 			this.dropSelf(STRIPPED_AZALEA_LOG.get());
@@ -496,12 +399,10 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(AZALEA_PRESSURE_PLATE.get());
 			this.dropSelf(AZALEA_TRAPDOOR.get());
 			this.dropSelf(AZALEA_BUTTON.get());
-			this.dropSelf(AZALEA_STAIRS.get());
 			this.dropSelf(AZALEA_FENCE.get());
 			this.dropSelf(AZALEA_FENCE_GATE.get());
 			this.dropSelf(AZALEA_BOARDS.get());
 			this.dropSelf(AZALEA_LADDER.get());
-			this.add(AZALEA_SLAB.get(), this::createSlabItemTable);
 			this.add(AZALEA_DOOR.get(), this::createDoorTable);
 			this.add(AZALEA_BEEHIVE.get(), VanillaBlockLoot::createBeeHiveDrop);
 			this.add(AZALEA_CHEST.get(), this::createNameableBlockEntityTable);

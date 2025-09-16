@@ -333,12 +333,18 @@ public class CCBlocks {
 	public static final RegistryObject<Block> COBBLED_DEEPSLATE_TILE_SLAB = HELPER.createBlock("cobbled_deepslate_tile_slab", () -> new SlabBlock(CCProperties.COBBLED_DEEPSLATE_BRICKS));
 	public static final RegistryObject<Block> COBBLED_DEEPSLATE_TILE_WALL = HELPER.createBlock("cobbled_deepslate_tile_wall", () -> new WallBlock(CCProperties.COBBLED_DEEPSLATE_BRICKS));
 
+	public static final RegistryObject<Block> STONE_WALL = HELPER.createBlock("stone_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+	public static final RegistryObject<Block> POLISHED_GRANITE_WALL = HELPER.createBlock("polished_granite_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_GRANITE)));
+	public static final RegistryObject<Block> POLISHED_DIORITE_WALL = HELPER.createBlock("polished_diorite_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_DIORITE)));
+	public static final RegistryObject<Block> POLISHED_ANDESITE_WALL = HELPER.createBlock("polished_andesite_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.POLISHED_ANDESITE)));
+
 	public static final RegistryObject<Block> CALCITE_STAIRS = HELPER.createBlock("calcite_stairs", () -> new StairBlock(() -> Blocks.CALCITE.defaultBlockState(), CCProperties.CALCITE));
 	public static final RegistryObject<Block> CALCITE_SLAB = HELPER.createBlock("calcite_slab", () -> new SlabBlock(CCProperties.CALCITE));
 	public static final RegistryObject<Block> CALCITE_WALL = HELPER.createBlock("calcite_wall", () -> new WallBlock(CCProperties.CALCITE));
 	public static final RegistryObject<Block> POLISHED_CALCITE = HELPER.createBlock("polished_calcite", () -> new Block(CCProperties.CALCITE));
 	public static final RegistryObject<Block> POLISHED_CALCITE_STAIRS = HELPER.createBlock("polished_calcite_stairs", () -> new StairBlock(() -> POLISHED_CALCITE.get().defaultBlockState(), CCProperties.CALCITE));
 	public static final RegistryObject<Block> POLISHED_CALCITE_SLAB = HELPER.createBlock("polished_calcite_slab", () -> new SlabBlock(CCProperties.CALCITE));
+	public static final RegistryObject<Block> POLISHED_CALCITE_WALL = HELPER.createBlock("polished_calcite_wall", () -> new WallBlock(CCProperties.CALCITE));
 
 	public static final RegistryObject<Block> TUFF_STAIRS = HELPER.createBlock("tuff_stairs", () -> new StairBlock(() -> Blocks.TUFF.defaultBlockState(), CCProperties.TUFF));
 	public static final RegistryObject<Block> TUFF_SLAB = HELPER.createBlock("tuff_slab", () -> new SlabBlock(CCProperties.TUFF));
@@ -364,6 +370,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_SUGILITE = HELPER.createBlock("polished_sugilite", () -> new Block(CCProperties.SUGILITE));
 	public static final RegistryObject<Block> POLISHED_SUGILITE_STAIRS = HELPER.createBlock("polished_sugilite_stairs", () -> new StairBlock(() -> POLISHED_SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE));
 	public static final RegistryObject<Block> POLISHED_SUGILITE_SLAB = HELPER.createBlock("polished_sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE));
+	public static final RegistryObject<Block> POLISHED_SUGILITE_WALL = HELPER.createBlock("polished_sugilite_wall", () -> new WallBlock(CCProperties.SUGILITE));
 
 	public static final RegistryObject<Block> CASSITERITE = HELPER.createBlock("cassiterite", () -> new Block(CCProperties.CASSITERITE));
 	public static final RegistryObject<Block> CASSITERITE_STAIRS = HELPER.createBlock("cassiterite_stairs", () -> new StairBlock(() -> CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
@@ -381,6 +388,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_CASSITERITE = HELPER.createBlock("polished_cassiterite", () -> new Block(CCProperties.CASSITERITE));
 	public static final RegistryObject<Block> POLISHED_CASSITERITE_STAIRS = HELPER.createBlock("polished_cassiterite_stairs", () -> new StairBlock(() -> POLISHED_CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
 	public static final RegistryObject<Block> POLISHED_CASSITERITE_SLAB = HELPER.createBlock("polished_cassiterite_slab", () -> new SlabBlock(CCProperties.CASSITERITE));
+	public static final RegistryObject<Block> POLISHED_CASSITERITE_WALL = HELPER.createBlock("polished_cassiterite_wall", () -> new WallBlock(CCProperties.CASSITERITE));
 
 	public static final RegistryObject<Block> RHYOLITE = HELPER.createBlock("rhyolite", () -> new Block(CCProperties.RHYOLITE));
 	public static final RegistryObject<Block> RHYOLITE_STAIRS = HELPER.createBlock("rhyolite_stairs", () -> new StairBlock(() -> RHYOLITE.get().defaultBlockState(), CCProperties.RHYOLITE));
@@ -413,22 +421,19 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DRIPSTONE_STAIRS = HELPER.createBlock("dripstone_stairs", () -> new StairBlock(() -> Blocks.DRIPSTONE_BLOCK.defaultBlockState(), CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_SLAB = HELPER.createBlock("dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_WALL = HELPER.createBlock("dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
-
 	public static final RegistryObject<Block> SMOOTH_DRIPSTONE = HELPER.createBlock("smooth_dripstone", () -> new Block(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> SMOOTH_DRIPSTONE_STAIRS = HELPER.createBlock("smooth_dripstone_stairs", () -> new StairBlock(() -> SMOOTH_DRIPSTONE.get().defaultBlockState(), CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> SMOOTH_DRIPSTONE_SLAB = HELPER.createBlock("smooth_dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
-
 	public static final RegistryObject<Block> POLISHED_DRIPSTONE = HELPER.createBlock("polished_dripstone", () -> new Block(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> POLISHED_DRIPSTONE_STAIRS = HELPER.createBlock("polished_dripstone_stairs", () -> new StairBlock(() -> POLISHED_DRIPSTONE.get().defaultBlockState(), CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> POLISHED_DRIPSTONE_SLAB = HELPER.createBlock("polished_dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
-
+	public static final RegistryObject<Block> POLISHED_DRIPSTONE_WALL = HELPER.createBlock("polished_dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_BRICKS = HELPER.createBlock("dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_BRICK_STAIRS = HELPER.createBlock("dripstone_brick_stairs", () -> new StairBlock(() -> DRIPSTONE_BRICKS.get().defaultBlockState(), CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_BRICK_SLAB = HELPER.createBlock("dripstone_brick_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_BRICK_WALL = HELPER.createBlock("dripstone_brick_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> CHISELED_DRIPSTONE_BRICKS = HELPER.createBlock("chiseled_dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> CRACKED_DRIPSTONE_BRICKS = HELPER.createBlock("cracked_dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
-
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES));
@@ -603,19 +608,23 @@ public class CCBlocks {
 						MOSSY_COBBLESTONE_BRICKS, MOSSY_COBBLESTONE_BRICK_STAIRS, MOSSY_COBBLESTONE_BRICK_SLAB, MOSSY_COBBLESTONE_BRICK_WALL,
 						MOSSY_COBBLESTONE_TILES, MOSSY_COBBLESTONE_TILE_STAIRS, MOSSY_COBBLESTONE_TILE_SLAB, MOSSY_COBBLESTONE_TILE_WALL
 				)
+				.addItemsAfter(of(Blocks.STONE_SLAB), STONE_WALL)
+				.addItemsAfter(of(Blocks.POLISHED_GRANITE_SLAB), POLISHED_GRANITE_WALL)
+				.addItemsAfter(of(Blocks.POLISHED_DIORITE_SLAB), POLISHED_DIORITE_WALL)
+				.addItemsAfter(of(Blocks.POLISHED_ANDESITE_SLAB), POLISHED_ANDESITE_WALL)
 				.addItemsBefore(of(Blocks.DEEPSLATE),
-						() -> Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL, POLISHED_CALCITE, POLISHED_CALCITE_STAIRS, POLISHED_CALCITE_SLAB,
+						() -> Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL, POLISHED_CALCITE, POLISHED_CALCITE_STAIRS, POLISHED_CALCITE_SLAB, POLISHED_CALCITE_WALL,
 						() -> Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL, CHISELED_TUFF, SMOOTH_TUFF, SMOOTH_TUFF_STAIRS, SMOOTH_TUFF_SLAB,
 						POLISHED_TUFF, POLISHED_TUFF_STAIRS, POLISHED_TUFF_SLAB, POLISHED_TUFF_WALL, TUFF_BRICKS, TUFF_BRICK_STAIRS, TUFF_BRICK_SLAB, TUFF_BRICK_WALL, CHISELED_TUFF_BRICKS,
 						() -> Blocks.DRIPSTONE_BLOCK, DRIPSTONE_STAIRS, DRIPSTONE_SLAB, DRIPSTONE_WALL,
 						SMOOTH_DRIPSTONE, SMOOTH_DRIPSTONE_STAIRS, SMOOTH_DRIPSTONE_SLAB,
-						POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB,
+						POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB, POLISHED_DRIPSTONE_WALL,
 						DRIPSTONE_BRICKS, CRACKED_DRIPSTONE_BRICKS, DRIPSTONE_BRICK_STAIRS, DRIPSTONE_BRICK_SLAB, DRIPSTONE_BRICK_WALL, CHISELED_DRIPSTONE_BRICKS,
 						DRIPSTONE_SHINGLES, FLOODED_DRIPSTONE_SHINGLES, DRIPSTONE_SHINGLE_STAIRS, DRIPSTONE_SHINGLE_SLAB, DRIPSTONE_SHINGLE_WALL, CHISELED_DRIPSTONE_SHINGLES,
-						SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL, POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB,
+						SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL, POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB, POLISHED_SUGILITE_WALL,
 						CASSITERITE, CASSITERITE_STAIRS, CASSITERITE_SLAB, CASSITERITE_WALL,
 						SMOOTH_CASSITERITE, SMOOTH_CASSITERITE_STAIRS, SMOOTH_CASSITERITE_SLAB,
-						POLISHED_CASSITERITE, POLISHED_CASSITERITE_STAIRS, POLISHED_CASSITERITE_SLAB,
+						POLISHED_CASSITERITE, POLISHED_CASSITERITE_STAIRS, POLISHED_CASSITERITE_SLAB, POLISHED_CASSITERITE_WALL,
 						CASSITERITE_BRICKS, CASSITERITE_BRICK_STAIRS, CASSITERITE_BRICK_SLAB, CASSITERITE_BRICK_WALL, CHISELED_CASSITERITE_BRICKS, CASSITERITE_PILLAR,
 						RHYOLITE, RHYOLITE_STAIRS, RHYOLITE_SLAB, RHYOLITE_WALL,
 						POLISHED_RHYOLITE, POLISHED_RHYOLITE_STAIRS, POLISHED_RHYOLITE_SLAB, POLISHED_RHYOLITE_WALL,

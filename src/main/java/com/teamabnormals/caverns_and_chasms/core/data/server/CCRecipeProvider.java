@@ -318,6 +318,19 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		platedBricksRecipes(consumer, WAXED_WEATHERED_COPPER_BRICKS_FAMILY);
 		platedBricksRecipes(consumer, WAXED_OXIDIZED_COPPER_BRICKS_FAMILY);
 
+		wall(consumer, DECORATIONS, STONE_WALL.get(), Blocks.STONE);
+		wall(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.POLISHED_GRANITE);
+		wall(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
+		wall(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
+		
+		stonecutterRecipe(consumer, DECORATIONS, STONE_WALL.get(), Blocks.STONE);
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.POLISHED_GRANITE);
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.GRANITE);
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.DIORITE);
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
+		stonecutterRecipe(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.ANDESITE);
+
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.CALCITE).requires(Blocks.DIORITE).requires(Items.AMETHYST_SHARD).unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
 		generateRecipes(consumer, CALCITE_FAMILY);
 		generateRecipes(consumer, POLISHED_CALCITE_FAMILY);

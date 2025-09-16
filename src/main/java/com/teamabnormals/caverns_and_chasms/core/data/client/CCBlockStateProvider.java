@@ -139,6 +139,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(COBBLED_DEEPSLATE_BRICKS_FAMILY);
 		this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
 
+		this.wallBlock(Blocks.STONE, STONE_WALL.get());
+		this.wallBlock(Blocks.POLISHED_GRANITE, POLISHED_GRANITE_WALL.get());
+		this.wallBlock(Blocks.POLISHED_DIORITE, POLISHED_DIORITE_WALL.get());
+		this.wallBlock(Blocks.POLISHED_ANDESITE, POLISHED_ANDESITE_WALL.get());
+
 		this.baseBlockVariants(Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL);
 		this.blockFamily(POLISHED_CALCITE_FAMILY);
 
