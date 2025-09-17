@@ -1,0 +1,17 @@
+{
+  "repaletter": {
+    "type": "caverns_and_chasms:chance",
+    "chance": 0.4,
+    "replaces_block": "minecraft:gold_block",
+    "replaces_with": {
+      "Name": "caverns_and_chasms:gold_ingot",
+      "Properties": {
+        "axis": "x",
+        "layers": "3",
+        "top_ingot": "both",
+        "waterlogged": "false"
+      }
+    }
+  },
+  "structures": "minecraft:bastion_remnant"
+}
