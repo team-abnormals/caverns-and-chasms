@@ -107,13 +107,13 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(CHARCOAL.get(), this::createCoalDrops);
 
 			this.add(COPPER_INGOT.get(), this::createIngotDrops);
-			this.add(EXPOSED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
-			this.add(WEATHERED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
-			this.add(OXIDIZED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
-			this.add(WAXED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
-			this.add(WAXED_EXPOSED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
-			this.add(WAXED_WEATHERED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
-			this.add(WAXED_OXIDIZED_COPPER_INGOT.get(), block -> createIngotDrops(block, Items.COPPER_INGOT));
+			this.add(EXPOSED_COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(WEATHERED_COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(OXIDIZED_COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(WAXED_COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(WAXED_EXPOSED_COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(WAXED_WEATHERED_COPPER_INGOT.get(), this::createIngotDrops);
+			this.add(WAXED_OXIDIZED_COPPER_INGOT.get(), this::createIngotDrops);
 
 			this.add(IRON_INGOT.get(), this::createIngotDrops);
 			this.add(GOLD_INGOT.get(), this::createIngotDrops);

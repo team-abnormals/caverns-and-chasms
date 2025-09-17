@@ -65,7 +65,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "minecraft:copper_ingot"
+          "name": "caverns_and_chasms:waxed_oxidized_copper_ingot"
         }
       ],
       "rolls": 1.0
@@ -94,7 +94,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "minecraft:copper_ingot"
+          "name": "caverns_and_chasms:waxed_oxidized_copper_ingot"
         }
       ],
       "rolls": 1.0

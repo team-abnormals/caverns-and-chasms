@@ -1,6 +1,9 @@
 {
   "values": [
     "#forge:ingots/copper",
+    "#forge:ingots/exposed_copper",
+    "#forge:ingots/weathered_copper",
+    "#forge:ingots/oxidized_copper",
     "#forge:raw_materials/copper"
   ]
 }

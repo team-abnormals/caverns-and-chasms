@@ -64,7 +64,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(CCBlockTags.SPINEL_ORES, CCItemTags.SPINEL_ORES);
 		this.copy(CCBlockTags.TURQUOISE_ORES, CCItemTags.TURQUOISE_ORES);
 		this.copy(CCBlockTags.AZALEA_LOGS, CCItemTags.AZALEA_LOGS);
-		this.tag(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).addTag(Tags.Items.INGOTS_COPPER).addTag(Tags.Items.RAW_MATERIALS_COPPER);
+		this.tag(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).addTag(Tags.Items.INGOTS_COPPER).addTag(CCItemTags.INGOTS_EXPOSED_COPPER).addTag(CCItemTags.INGOTS_WEATHERED_COPPER).addTag(CCItemTags.INGOTS_OXIDIZED_COPPER).addTag(Tags.Items.RAW_MATERIALS_COPPER);
 		this.tag(CCItemTags.MAGIC_DAMAGE_ITEMS).add(SILVER_SWORD.get(), SILVER_PICKAXE.get(), SILVER_AXE.get(), SILVER_SHOVEL.get(), SILVER_HOE.get()).addOptional(new ResourceLocation("abnormals_delight", "silver_knife"));
 		this.tag(CCItemTags.EXPERIENCE_BOOST_ITEMS).add(Items.GOLDEN_SWORD, Items.GOLDEN_PICKAXE, Items.GOLDEN_AXE, Items.GOLDEN_SHOVEL, Items.GOLDEN_HOE).addOptional(new ResourceLocation("farmersdelight", "golden_knife"));
 		this.tag(CCItemTags.SLOWNESS_INFLICTING_ITEMS).add(NECROMIUM_SWORD.get(), NECROMIUM_PICKAXE.get(), NECROMIUM_AXE.get(), NECROMIUM_SHOVEL.get(), NECROMIUM_HOE.get()).addOptional(new ResourceLocation("abnormals_delight", "necromium_knife"));
