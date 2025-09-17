@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.GrazerModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.GrazerDroolLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
@@ -16,6 +17,7 @@ public class GrazerRenderer extends MobRenderer<AbstractGrazer, GrazerModel> {
 
 	public GrazerRenderer(EntityRendererProvider.Context context) {
 		super(context, new GrazerModel(context.bakeLayer(CCModelLayers.GRAZER)), 0.5F);
+		this.addLayer(new GrazerDroolLayer(this));
 	}
 
 	@Override

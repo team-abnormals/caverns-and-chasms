@@ -1,17 +1,24 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.teamabnormals.caverns_and_chasms.client.resources.GrazerSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GrazerModel extends AgeableListModel<AbstractGrazer> {
+	private static final RenderType RENDER_TYPE = RenderType.entityTranslucent(GrazerSpriteUploader.ATLAS_LOCATION);
+
 	private final ModelPart body;
 	private final ModelPart head;
 	private final ModelPart jaw;
@@ -132,6 +139,10 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 		}
 
 		this.head.xRot = this.body.xRot;
+	}
+
+	public void renderOverlay(TextureAtlasSprite sprite, PoseStack matrixStack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RENDER_TYPE)), packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

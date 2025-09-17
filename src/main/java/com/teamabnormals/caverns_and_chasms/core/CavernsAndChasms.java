@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperSkullBlo
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
+import com.teamabnormals.caverns_and_chasms.client.resources.GrazerSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
@@ -141,7 +142,10 @@ public class CavernsAndChasms {
 			bus.addListener(CCShaders::registerShaders);
 		});
 
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> DeeperSpriteUploader.init(bus));
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+			DeeperSpriteUploader.init(bus);
+			GrazerSpriteUploader.init(bus);
+		});
 
 		context.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
 		context.registerConfig(ModConfig.Type.CLIENT, CCConfig.CLIENT_SPEC);
