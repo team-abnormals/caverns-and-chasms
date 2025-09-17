@@ -4,12 +4,19 @@
       "type": "blueprint:paletted_permutations",
       "palette_key": "clayworks:entity/decorated_pot_trim_palettes/trim_palette",
       "permutations": {
+        "caverns_and_chasms_exposed_copper": "caverns_and_chasms:entity/decorated_pot_trim_palettes/exposed_copper",
         "caverns_and_chasms_necromium": "caverns_and_chasms:entity/decorated_pot_trim_palettes/necromium",
+        "caverns_and_chasms_oxidized_copper": "caverns_and_chasms:entity/decorated_pot_trim_palettes/oxidized_copper",
         "caverns_and_chasms_sanguine": "caverns_and_chasms:entity/decorated_pot_trim_palettes/sanguine",
         "caverns_and_chasms_silver": "caverns_and_chasms:entity/decorated_pot_trim_palettes/silver",
         "caverns_and_chasms_spinel": "caverns_and_chasms:entity/decorated_pot_trim_palettes/spinel",
         "caverns_and_chasms_tin": "caverns_and_chasms:entity/decorated_pot_trim_palettes/tin",
         "caverns_and_chasms_turquoise": "caverns_and_chasms:entity/decorated_pot_trim_palettes/turquoise",
+        "caverns_and_chasms_waxed_copper": "clayworks:entity/decorated_pot_trim_palettes/copper",
+        "caverns_and_chasms_waxed_exposed_copper": "caverns_and_chasms:entity/decorated_pot_trim_palettes/exposed_copper",
+        "caverns_and_chasms_waxed_oxidized_copper": "caverns_and_chasms:entity/decorated_pot_trim_palettes/oxidized_copper",
+        "caverns_and_chasms_waxed_weathered_copper": "caverns_and_chasms:entity/decorated_pot_trim_palettes/weathered_copper",
+        "caverns_and_chasms_weathered_copper": "caverns_and_chasms:entity/decorated_pot_trim_palettes/weathered_copper",
         "caverns_and_chasms_zirconia": "caverns_and_chasms:entity/decorated_pot_trim_palettes/zirconia"
       },
       "sources": [

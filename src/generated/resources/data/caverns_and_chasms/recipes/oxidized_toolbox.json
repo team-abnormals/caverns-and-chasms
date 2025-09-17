@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:oxidized_copper"
+    },
+    "I": {
+      "item": "caverns_and_chasms:oxidized_copper_ingot"
+    }
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "CCC"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:oxidized_toolbox"
+  },
+  "show_notification": true
+}

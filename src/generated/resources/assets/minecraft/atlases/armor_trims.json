@@ -43,8 +43,12 @@
       "palette_key": "minecraft:trims/color_palettes/trim_palette",
       "permutations": {
         "caverns_and_chasms_copper_darker": "caverns_and_chasms:trims/color_palettes/copper_darker",
+        "caverns_and_chasms_exposed_copper": "caverns_and_chasms:trims/color_palettes/exposed_copper",
+        "caverns_and_chasms_exposed_copper_darker": "caverns_and_chasms:trims/color_palettes/exposed_copper_darker",
         "caverns_and_chasms_necromium": "caverns_and_chasms:trims/color_palettes/necromium",
         "caverns_and_chasms_necromium_darker": "caverns_and_chasms:trims/color_palettes/necromium_darker",
+        "caverns_and_chasms_oxidized_copper": "caverns_and_chasms:trims/color_palettes/oxidized_copper",
+        "caverns_and_chasms_oxidized_copper_darker": "caverns_and_chasms:trims/color_palettes/oxidized_copper_darker",
         "caverns_and_chasms_sanguine": "caverns_and_chasms:trims/color_palettes/sanguine",
         "caverns_and_chasms_sanguine_darker": "caverns_and_chasms:trims/color_palettes/sanguine_darker",
         "caverns_and_chasms_silver": "caverns_and_chasms:trims/color_palettes/silver",
@@ -52,6 +56,8 @@
         "caverns_and_chasms_spinel": "caverns_and_chasms:trims/color_palettes/spinel",
         "caverns_and_chasms_tin": "caverns_and_chasms:trims/color_palettes/tin",
         "caverns_and_chasms_turquoise": "caverns_and_chasms:trims/color_palettes/turquoise",
+        "caverns_and_chasms_weathered_copper": "caverns_and_chasms:trims/color_palettes/weathered_copper",
+        "caverns_and_chasms_weathered_copper_darker": "caverns_and_chasms:trims/color_palettes/weathered_copper_darker",
         "caverns_and_chasms_zirconia": "caverns_and_chasms:trims/color_palettes/zirconia"
       },
       "sources": [

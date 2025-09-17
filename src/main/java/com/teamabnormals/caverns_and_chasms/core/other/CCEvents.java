@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
@@ -176,8 +177,27 @@ public class CCEvents {
 		Direction face = event.getFace();
 		RandomSource random = level.getRandom();
 
+		if (state.getBlock() instanceof GrindstoneBlock && player.isSecondaryUseActive() && !event.isCanceled() && stack.getItem() instanceof CCWeatheringCopper) {
+			if (WeatheringCopperItem.getUnwaxed(stack).isPresent()) {
+				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getUnwaxed(stack).get());
+				level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.levelEvent(player, 3004, pos, 0);
+
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+
+			} else if (WeatheringCopperItem.getPrevious(stack).isPresent()) {
+				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getPrevious(stack).get());
+				level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.levelEvent(player, 3005, pos, 0);
+
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			}
+		}
+
 		placeableItems:
-		if (stack.is(CCItemTags.PLACEABLE_ITEMS)) {
+		if (stack.is(CCItemTags.PLACEABLE_ITEMS) && !event.isCanceled()) {
 			boolean sneakBypassesUse = !player.getMainHandItem().doesSneakBypassUse(player.level(), pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
 			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
 
@@ -206,7 +226,7 @@ public class CCEvents {
 
 		boolean fireCharge = stack.getItem() instanceof FireChargeItem;
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
-		if (fireCharge || flintAndSteel) {
+		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
 			boolean valid = state.getBlock() instanceof CoalBlock && !state.getValue(CoalBlock.LIT) && !state.getValue(CoalBlock.WATERLOGGED);
 			if (valid) {
 				BlockState returnState = state.setValue(CoalBlock.LIT, true);
@@ -228,26 +248,7 @@ public class CCEvents {
 			}
 		}
 
-		if (state.getBlock() instanceof GrindstoneBlock && player.isSecondaryUseActive()) {
-			if (WeatheringCopperItem.getUnwaxed(stack).isPresent()) {
-				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getUnwaxed(stack).get());
-				level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-				level.levelEvent(player, 3004, pos, 0);
-
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-
-			} else if (WeatheringCopperItem.getPrevious(stack).isPresent()) {
-				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getPrevious(stack).get());
-				level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-				level.levelEvent(player, 3005, pos, 0);
-
-				event.setCanceled(true);
-				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-			}
-		}
-
-		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP) {
+		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP && !event.isCanceled()) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
 				BlockState extinguishedState = BrazierBlock.extinguish(player, level, pos, state);
 				if (!level.isClientSide()) {
@@ -287,7 +288,7 @@ public class CCEvents {
 			}
 		}
 
-		if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get()) {
+		if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get() && !event.isCanceled()) {
 			CompoundTag tag = stack.getOrCreateTag();
 			if (!player.isCrouching() && tag.contains("Note")) {
 				int note = tag.getInt("Note");
@@ -303,7 +304,7 @@ public class CCEvents {
 		}
 
 
-		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock) {
+		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock && !event.isCanceled()) {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
 				Block block = ((BlockItem) item).getBlock();
 				if (block instanceof BaseRailBlock && !state.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {

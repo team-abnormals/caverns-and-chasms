@@ -1,0 +1,9 @@
+{
+  "asset_name": "caverns_and_chasms_oxidized_copper",
+  "description": {
+    "color": "#458B6B",
+    "translate": "trim_material.caverns_and_chasms.oxidized_copper"
+  },
+  "ingredient": "caverns_and_chasms:waxed_oxidized_copper_ingot",
+  "item_model_index": -1.0
+}

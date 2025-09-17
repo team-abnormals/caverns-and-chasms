@@ -3,8 +3,34 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "tag": "caverns_and_chasms:smelts_to_copper_ingot"
-  },
+  "ingredient": [
+    {
+      "item": "caverns_and_chasms:copper_pickaxe"
+    },
+    {
+      "item": "caverns_and_chasms:copper_shovel"
+    },
+    {
+      "item": "caverns_and_chasms:copper_axe"
+    },
+    {
+      "item": "caverns_and_chasms:copper_hoe"
+    },
+    {
+      "item": "caverns_and_chasms:copper_sword"
+    },
+    {
+      "item": "caverns_and_chasms:copper_helmet"
+    },
+    {
+      "item": "caverns_and_chasms:copper_chestplate"
+    },
+    {
+      "item": "caverns_and_chasms:copper_leggings"
+    },
+    {
+      "item": "caverns_and_chasms:copper_boots"
+    }
+  ],
   "result": "minecraft:copper_ingot"
 }

@@ -1,0 +1,9 @@
+{
+  "asset_name": "caverns_and_chasms_exposed_copper",
+  "description": {
+    "color": "#99715D",
+    "translate": "trim_material.caverns_and_chasms.exposed_copper"
+  },
+  "ingredient": "caverns_and_chasms:waxed_exposed_copper_ingot",
+  "item_model_index": -1.0
+}

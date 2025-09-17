@@ -6,6 +6,13 @@
     "caverns_and_chasms:spinel",
     "caverns_and_chasms:zirconia",
     "caverns_and_chasms:turquoise",
-    "caverns_and_chasms:living_flesh"
+    "caverns_and_chasms:living_flesh",
+    "caverns_and_chasms:exposed_copper_ingot",
+    "caverns_and_chasms:weathered_copper_ingot",
+    "caverns_and_chasms:oxidized_copper_ingot",
+    "caverns_and_chasms:waxed_copper_ingot",
+    "caverns_and_chasms:waxed_exposed_copper_ingot",
+    "caverns_and_chasms:waxed_weathered_copper_ingot",
+    "caverns_and_chasms:waxed_oxidized_copper_ingot"
   ]
 }

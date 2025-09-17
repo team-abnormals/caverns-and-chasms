@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "tag": "forge:ingots/copper"
+      "item": "minecraft:copper_ingot"
     },
     "X": {
       "item": "minecraft:deepslate"

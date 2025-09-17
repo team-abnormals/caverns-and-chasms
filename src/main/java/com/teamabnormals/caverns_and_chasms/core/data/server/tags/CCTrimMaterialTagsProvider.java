@@ -27,7 +27,11 @@ public class CCTrimMaterialTagsProvider extends TagsProvider<TrimMaterial> {
 				CCTrimMaterials.SPINEL,
 				CCTrimMaterials.ZIRCONIA,
 				CCTrimMaterials.TURQUOISE,
-				CCTrimMaterials.NECROMIUM
+				CCTrimMaterials.NECROMIUM,
+				CCTrimMaterials.WAXED_COPPER,
+				CCTrimMaterials.EXPOSED_COPPER, CCTrimMaterials.WAXED_EXPOSED_COPPER,
+				CCTrimMaterials.WEATHERED_COPPER, CCTrimMaterials.WAXED_WEATHERED_COPPER,
+				CCTrimMaterials.OXIDIZED_COPPER, CCTrimMaterials.WAXED_OXIDIZED_COPPER
 		);
 	}
 }

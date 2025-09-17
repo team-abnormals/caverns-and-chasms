@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.mixin.ItemStackAccessor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
@@ -18,6 +19,9 @@ import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
 public interface WeatheringCopperItem {
 	Supplier<BiMap<Item, Item>> NEXT_BY_ITEM = Suppliers.memoize(() -> ImmutableBiMap.<Item, Item>builder()
+			.put(Items.COPPER_INGOT, EXPOSED_COPPER_INGOT.get())
+			.put(EXPOSED_COPPER_INGOT.get(), WEATHERED_COPPER_INGOT.get())
+			.put(WEATHERED_COPPER_INGOT.get(), OXIDIZED_COPPER_INGOT.get())
 			.put(COPPER_HELMET.get(), EXPOSED_COPPER_HELMET.get())
 			.put(EXPOSED_COPPER_HELMET.get(), WEATHERED_COPPER_HELMET.get())
 			.put(WEATHERED_COPPER_HELMET.get(), OXIDIZED_COPPER_HELMET.get())
@@ -50,6 +54,8 @@ public interface WeatheringCopperItem {
 	Supplier<BiMap<Item, Item>> PREVIOUS_BY_ITEM = Suppliers.memoize(() -> NEXT_BY_ITEM.get().inverse());
 
 	Supplier<BiMap<Item, Item>> WAXABLES = Suppliers.memoize(() -> ImmutableBiMap.<Item, Item>builder()
+			.put(Items.COPPER_INGOT, WAXED_COPPER_INGOT.get()).put(EXPOSED_COPPER_INGOT.get(), WAXED_EXPOSED_COPPER_INGOT.get()).put(WEATHERED_COPPER_INGOT.get(), WAXED_WEATHERED_COPPER_INGOT.get()).put(OXIDIZED_COPPER_INGOT.get(), WAXED_OXIDIZED_COPPER_INGOT.get())
+			
 			.put(COPPER_HELMET.get(), WAXED_COPPER_HELMET.get()).put(EXPOSED_COPPER_HELMET.get(), WAXED_EXPOSED_COPPER_HELMET.get()).put(WEATHERED_COPPER_HELMET.get(), WAXED_WEATHERED_COPPER_HELMET.get()).put(OXIDIZED_COPPER_HELMET.get(), WAXED_OXIDIZED_COPPER_HELMET.get())
 			.put(COPPER_CHESTPLATE.get(), WAXED_COPPER_CHESTPLATE.get()).put(EXPOSED_COPPER_CHESTPLATE.get(), WAXED_EXPOSED_COPPER_CHESTPLATE.get()).put(WEATHERED_COPPER_CHESTPLATE.get(), WAXED_WEATHERED_COPPER_CHESTPLATE.get()).put(OXIDIZED_COPPER_CHESTPLATE.get(), WAXED_OXIDIZED_COPPER_CHESTPLATE.get())
 			.put(COPPER_LEGGINGS.get(), WAXED_COPPER_LEGGINGS.get()).put(EXPOSED_COPPER_LEGGINGS.get(), WAXED_EXPOSED_COPPER_LEGGINGS.get()).put(WEATHERED_COPPER_LEGGINGS.get(), WAXED_WEATHERED_COPPER_LEGGINGS.get()).put(OXIDIZED_COPPER_LEGGINGS.get(), WAXED_OXIDIZED_COPPER_LEGGINGS.get())

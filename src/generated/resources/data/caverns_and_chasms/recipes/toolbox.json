@@ -6,7 +6,7 @@
       "item": "minecraft:copper_block"
     },
     "I": {
-      "tag": "forge:ingots/copper"
+      "item": "minecraft:copper_ingot"
     }
   },
   "pattern": [

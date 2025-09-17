@@ -6,7 +6,7 @@
       "item": "minecraft:amethyst_shard"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "item": "minecraft:copper_ingot"
     }
   },
   "pattern": [

@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper": {
+    "has_copper_ingot": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/copper"
+            "items": [
+              "minecraft:copper_ingot"
+            ]
           }
         ]
       },
@@ -20,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_copper",
+      "has_copper_ingot",
       "has_the_recipe"
     ]
   ],

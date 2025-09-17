@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "waxed_weathered_copper_ingot",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:weathered_copper_ingot"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_weathered_copper_ingot"
+  }
+}

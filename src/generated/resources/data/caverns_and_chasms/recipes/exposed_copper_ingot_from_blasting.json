@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "caverns_and_chasms:exposed_copper_pickaxe"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_shovel"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_axe"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_hoe"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_sword"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_helmet"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_chestplate"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_leggings"
+    },
+    {
+      "item": "caverns_and_chasms:exposed_copper_boots"
+    }
+  ],
+  "result": "caverns_and_chasms:exposed_copper_ingot"
+}

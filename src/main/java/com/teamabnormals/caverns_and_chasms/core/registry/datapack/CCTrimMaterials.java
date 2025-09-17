@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
@@ -27,7 +28,20 @@ public class CCTrimMaterials {
 	public static final ResourceKey<TrimMaterial> NECROMIUM_DARKER = createKey("necromium_darker");
 	public static final ResourceKey<TrimMaterial> SANGUINE = createKey("sanguine");
 	public static final ResourceKey<TrimMaterial> SANGUINE_DARKER = createKey("sanguine_darker");
+
+	public static final ResourceKey<TrimMaterial> EXPOSED_COPPER = createKey("exposed_copper");
+	public static final ResourceKey<TrimMaterial> WEATHERED_COPPER = createKey("weathered_copper");
+	public static final ResourceKey<TrimMaterial> OXIDIZED_COPPER = createKey("oxidized_copper");
+
 	public static final ResourceKey<TrimMaterial> COPPER_DARKER = createKey("copper_darker");
+	public static final ResourceKey<TrimMaterial> EXPOSED_COPPER_DARKER = createKey("exposed_copper_darker");
+	public static final ResourceKey<TrimMaterial> WEATHERED_COPPER_DARKER = createKey("weathered_copper_darker");
+	public static final ResourceKey<TrimMaterial> OXIDIZED_COPPER_DARKER = createKey("oxidized_copper_darker");
+
+	public static final ResourceKey<TrimMaterial> WAXED_COPPER = createKey("waxed_copper");
+	public static final ResourceKey<TrimMaterial> WAXED_EXPOSED_COPPER = createKey("waxed_exposed_copper");
+	public static final ResourceKey<TrimMaterial> WAXED_WEATHERED_COPPER = createKey("waxed_weathered_copper");
+	public static final ResourceKey<TrimMaterial> WAXED_OXIDIZED_COPPER = createKey("waxed_oxidized_copper");
 
 	public static void bootstrap(BootstapContext<TrimMaterial> context) {
 		register(context, SPINEL, CCItems.SPINEL.get(), Style.EMPTY.withColor(0xD684AC), Map.of());
@@ -37,6 +51,15 @@ public class CCTrimMaterials {
 		register(context, TURQUOISE, CCItems.TURQUOISE.get(), Style.EMPTY.withColor(0x2BFF75), Map.of());
 		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of());
 		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of());
+
+		register(context, EXPOSED_COPPER, CCItems.EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of());
+		register(context, WEATHERED_COPPER, CCItems.WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of());
+		register(context, OXIDIZED_COPPER, CCItems.OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of());
+		
+		register(context, WAXED_COPPER, CCItems.WAXED_COPPER_INGOT.get(), Style.EMPTY.withColor(0xB4684D), Map.of());
+		register(context, WAXED_EXPOSED_COPPER, CCItems.WAXED_EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of());
+		register(context, WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of());
+		register(context, WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of());
 	}
 
 	private static ResourceKey<TrimMaterial> createKey(String name) {
@@ -45,6 +68,8 @@ public class CCTrimMaterials {
 
 	private static void register(BootstapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Item item, Style style, Map<ArmorMaterials, String> overrides) {
 		ResourceLocation location = key.location();
-		context.register(key, new TrimMaterial(location.getNamespace() + "_" + location.getPath(), ForgeRegistries.ITEMS.getHolder(item).get(), -1.0F, overrides, Component.translatable(Util.makeDescriptionId("trim_material", location)).withStyle(style)));
+		boolean waxedCopper = key.equals(WAXED_COPPER);
+		String path = location.getPath().replace("waxed_", "");
+		context.register(key, new TrimMaterial((!waxedCopper ? location.getNamespace() + "_" : "") + path, ForgeRegistries.ITEMS.getHolder(item).get(), -1.0F, overrides, Component.translatable(Util.makeDescriptionId("trim_material", new ResourceLocation(waxedCopper ? "minecraft" : location.getNamespace(), path))).withStyle(style)));
 	}
 }

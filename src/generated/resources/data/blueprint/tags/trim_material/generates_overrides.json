@@ -6,6 +6,13 @@
     "caverns_and_chasms:spinel",
     "caverns_and_chasms:zirconia",
     "caverns_and_chasms:turquoise",
-    "caverns_and_chasms:necromium"
+    "caverns_and_chasms:necromium",
+    "caverns_and_chasms:waxed_copper",
+    "caverns_and_chasms:exposed_copper",
+    "caverns_and_chasms:waxed_exposed_copper",
+    "caverns_and_chasms:weathered_copper",
+    "caverns_and_chasms:waxed_weathered_copper",
+    "caverns_and_chasms:oxidized_copper",
+    "caverns_and_chasms:waxed_oxidized_copper"
   ]
 }

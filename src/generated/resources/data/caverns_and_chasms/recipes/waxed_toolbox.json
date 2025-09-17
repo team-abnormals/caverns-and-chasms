@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:waxed_copper_block"
+    },
+    "I": {
+      "item": "caverns_and_chasms:waxed_copper_ingot"
+    }
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "CCC"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_toolbox"
+  },
+  "show_notification": true
+}

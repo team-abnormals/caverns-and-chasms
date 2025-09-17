@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "tag": "minecraft:wooden_buttons"
+    },
+    {
+      "item": "caverns_and_chasms:weathered_copper_ingot"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:weathered_copper_button"
+  }
+}

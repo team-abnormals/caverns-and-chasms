@@ -47,6 +47,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.armortrim.TrimMaterial;
+import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -156,6 +158,16 @@ public class CavernsAndChasms {
 		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.SILVER, Map.of(CCArmorMaterials.SILVER, CavernsAndChasms.MOD_ID + "_silver_darker"));
 		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.NECROMIUM, Map.of(CCArmorMaterials.NECROMIUM, CavernsAndChasms.MOD_ID + "_necromium_darker"));
 		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.SANGUINE, Map.of(CCArmorMaterials.SANGUINE, CavernsAndChasms.MOD_ID + "_sanguine_darker"));
+
+		BlueprintTrims.registerArmorMaterialOverrides(TrimMaterials.COPPER, Map.of(CCArmorMaterials.COPPER, CavernsAndChasms.MOD_ID + "_copper_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.EXPOSED_COPPER, Map.of(CCArmorMaterials.EXPOSED_COPPER, CavernsAndChasms.MOD_ID + "_exposed_copper_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WEATHERED_COPPER, Map.of(CCArmorMaterials.WEATHERED_COPPER, CavernsAndChasms.MOD_ID + "_weathered_copper_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.OXIDIZED_COPPER, Map.of(CCArmorMaterials.OXIDIZED_COPPER, CavernsAndChasms.MOD_ID + "_oxidized_copper_darker"));
+
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_COPPER, Map.of(CCArmorMaterials.COPPER, CavernsAndChasms.MOD_ID + "_copper_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_EXPOSED_COPPER, Map.of(CCArmorMaterials.EXPOSED_COPPER, CavernsAndChasms.MOD_ID + "_exposed_copper_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_WEATHERED_COPPER, Map.of(CCArmorMaterials.WEATHERED_COPPER, CavernsAndChasms.MOD_ID + "_weathered_copper_darker"));
+		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_OXIDIZED_COPPER, Map.of(CCArmorMaterials.OXIDIZED_COPPER, CavernsAndChasms.MOD_ID + "_oxidized_copper_darker"));
 
 		event.enqueueWork(() -> {
 			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, CavernsAndChasms.location("textures/entity/deeper/deeper.png"));
