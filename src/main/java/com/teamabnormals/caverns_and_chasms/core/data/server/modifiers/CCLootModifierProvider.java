@@ -83,6 +83,8 @@ public class CCLootModifierProvider extends LootModifierProvider {
 						lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 5),
 						lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 6))))
 				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 1))));
+		this.entry("bastion_bridge").selects(BuiltInLootTables.BASTION_BRIDGE)
+				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":golden_bucket").add(LootItem.lootTableItem(CCItems.GOLDEN_BUCKET.get())).build()), false));
 
 		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1))));

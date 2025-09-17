@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
+import com.teamabnormals.blueprint.core.registry.BlueprintDataPackRegistries;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCNoiseParameters;
@@ -8,10 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCPro
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructureSets;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCTemplatePools;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCBiomeModifiers;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.*;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -35,7 +33,8 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(Registries.STRUCTURE_SET, CCStructureSets::bootstrap)
 			.add(Registries.DAMAGE_TYPE, CCDamageTypes::bootstrap)
 			.add(Registries.TRIM_MATERIAL, CCTrimMaterials::bootstrap)
-			.add(Registries.TRIM_PATTERN, CCTrimPatterns::bootstrap);
+			.add(Registries.TRIM_PATTERN, CCTrimPatterns::bootstrap)
+			.add(BlueprintDataPackRegistries.STRUCTURE_REPALETTERS, CCStructureRepaletters::bootstrap);
 
 	public CCDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<Provider> provider) {
 		super(output, provider, BUILDER, Set.of(CavernsAndChasms.MOD_ID, "minecraft"));
