@@ -19,12 +19,18 @@ public class BabyGrazerDroolParticle extends UpFacingParticle {
 
 	@Override
 	public void tick() {
+		this.yd = -0.05D;
 		super.tick();
-		float f = (float) this.age / this.lifetime;
-		this.quadSize = (f < 0.5F ? -4.0F * f * f + 4.0F * f : 1.0F) * 0.6F;
-		this.alpha = Math.min(-4.0F * f + 4.0F, 1.0F);
-		if (this.age == (int) (3.0F / 4.0F * this.lifetime))
-			this.y -= 0.005F;
+		if (!this.onGround) {
+			this.remove();
+		} else {
+			float f = (float) this.age / this.lifetime;
+			this.quadSize = (f < 0.5F ? -4.0F * f * f + 4.0F * f : 1.0F) * 0.6F;
+			this.alpha = Math.min(-4.0F * f + 4.0F, 1.0F);
+			this.yOffset = 0.01F - 0.005F * f;
+			this.yOffsetO = this.yOffset;
+			this.stoppedByCollision = false;
+		}
 	}
 
 	@Override

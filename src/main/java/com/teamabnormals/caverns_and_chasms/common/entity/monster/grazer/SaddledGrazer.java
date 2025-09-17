@@ -17,7 +17,7 @@ public class SaddledGrazer extends AbstractGrazer {
 
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
-		if (!this.isVehicle() && !player.isSecondaryUseActive()) {
+		if (!this.isVehicle() && !this.isBaby() && !player.isSecondaryUseActive()) {
 			if (!this.level().isClientSide)
 				player.startRiding(this);
 			return InteractionResult.sidedSuccess(this.level().isClientSide);

@@ -12,18 +12,20 @@ import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class UpFacingParticle extends TextureSheetParticle {
-	private float rot;
+	protected double yOffset = 0.01D;
+	protected double yOffsetO = 0.01D;
 
 	protected UpFacingParticle(ClientLevel level, double x, double y, double z, float rotation) {
 		super(level, x, y, z);
-		this.rot = rotation;
+		this.roll = rotation;
+		this.oRoll = this.roll;
 	}
 
 	@Override
 	public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
 		Vec3 vec3 = camera.getPosition();
 		float f = (float) (Mth.lerp(partialTick, this.xo, this.x) - vec3.x());
-		float f1 = (float) (Mth.lerp(partialTick, this.yo, this.y) - vec3.y());
+		float f1 = (float) (Mth.lerp(partialTick, this.yo + this.yOffsetO, this.y + this.yOffset) - vec3.y());
 		float f2 = (float) (Mth.lerp(partialTick, this.zo, this.z) - vec3.z());
 
 		Vector3f[] avector3f = new Vector3f[]{
@@ -36,8 +38,8 @@ public abstract class UpFacingParticle extends TextureSheetParticle {
 		float f3 = this.getQuadSize(partialTick);
 		for (int i = 0; i < 4; ++i) {
 			Vector3f vertex = avector3f[i];
-			vertex.rotateZ(this.rot);
-			vertex.rotateX(Mth.PI / 2.0F);
+			vertex.rotateZ(Mth.lerp(partialTick, this.oRoll, this.roll));
+			vertex.rotateX(Mth.HALF_PI);
 			vertex.mul(f3);
 			vertex.add(f, f1, f2);
 		}

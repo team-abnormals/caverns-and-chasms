@@ -31,6 +31,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
@@ -460,7 +461,12 @@ public abstract class AbstractGrazer extends Animal {
 
 			if (this.isBaby() && this.tickCount % 100 == 0) {
 				float rot = this.getYRot() * Mth.DEG_TO_RAD;
-				this.level().addParticle(CCParticleTypes.BABY_GRAZER_DROOL.get(), this.getX() + 0.45D * Math.sin(-rot), this.getY() + 0.01D, this.getZ() + 0.45D * Math.cos(-rot), this.random.nextInt(4) * Mth.HALF_PI, 0.0D, 0.0D);
+				double x = this.getX() + 0.45D * Math.sin(-rot);
+				double y = this.getY();
+				double z = this.getZ() + 0.45D * Math.cos(-rot);
+				Vec3 vec3 = new Vec3(x, y, z);
+				if (this.level().clip(new ClipContext(vec3, vec3.add(0.0D, -0.05D, 0.0D), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).isInside())
+					this.level().addParticle(CCParticleTypes.BABY_GRAZER_DROOL.get(), x, y, z, this.random.nextInt(4) * Mth.HALF_PI, 0.0D, 0.0D);
 			}
 		} else if (this.isAlive()) {
 			// Undo aging tick if not enough space
