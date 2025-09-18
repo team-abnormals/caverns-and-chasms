@@ -10,8 +10,6 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.block.AtoningTableRe
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperSkullBlockRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
-import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.client.resources.GrazerSpriteUploader;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
@@ -48,7 +46,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -140,11 +137,6 @@ public class CavernsAndChasms {
 			bus.addListener(this::registerClientTooltips);
 			bus.addListener(this::registerGuiOverlays);
 			bus.addListener(CCShaders::registerShaders);
-		});
-
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			DeeperSpriteUploader.init(bus);
-			GrazerSpriteUploader.init(bus);
 		});
 
 		context.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);

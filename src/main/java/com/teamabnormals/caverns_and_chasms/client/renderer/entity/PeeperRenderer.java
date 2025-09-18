@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperChargedLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPowerLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPrimedLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
@@ -18,6 +19,7 @@ public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
 
 	public PeeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new PeeperModel<>(context.bakeLayer(CCModelLayers.PEEPER)), 0.5F);
+		this.addLayer(new PeeperChargedLayer(this));
 		this.addLayer(new PeeperPrimedLayer(this));
 		this.addLayer(new PeeperPowerLayer(this, context.getModelSet()));
 	}
