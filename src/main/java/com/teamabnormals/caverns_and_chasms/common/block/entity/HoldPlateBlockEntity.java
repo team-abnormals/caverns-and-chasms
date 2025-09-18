@@ -26,7 +26,6 @@ public class HoldPlateBlockEntity extends BlockEntity {
 			if (level.getGameTime() % 20 == 0) {
 				if (state.getValue(HoldPlateBlock.PRESSED)) {
 					blockEntity.timePressed++;
-					blockEntity.timePressed++;
 					level.blockUpdated(pos, state.getBlock());
 				} else if (blockEntity.timePressed != 0) {
 					blockEntity.timePressed = 0;
