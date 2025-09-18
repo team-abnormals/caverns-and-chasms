@@ -11,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -115,6 +116,19 @@ public class HoldButtonBlock extends BaseEntityBlock {
 					return flag ? PRESSED_CEILING_AABB_Z : CEILING_AABB_Z;
 				}
 		}
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof HoldButtonBlockEntity blockEntity) {
+			return Math.min(blockEntity.getTimePressed(), 15);
+		}
+		return 0;
 	}
 
 	@Override

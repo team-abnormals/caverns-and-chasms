@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.block.HoldButtonBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.HoldPlateBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
@@ -13,6 +14,12 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class HoldButtonBlockEntity extends BlockEntity {
 	private int pressTime;
+
+	private int timePressed;
+
+	public int getTimePressed() {
+		return this.timePressed;
+	}
 
 	public HoldButtonBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.HOLD_BUTTON.get(), pos, state);
@@ -36,6 +43,16 @@ public class HoldButtonBlockEntity extends BlockEntity {
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {
 		if (!level.isClientSide) {
+			if (level.getGameTime() % 20 == 0) {
+				if (state.getValue(HoldButtonBlock.PRESSED)) {
+					blockEntity.timePressed++;
+					level.blockUpdated(pos, state.getBlock());
+				} else if (blockEntity.timePressed != 0) {
+					blockEntity.timePressed = 0;
+					level.blockUpdated(pos, state.getBlock());
+				}
+			}
+
 			if (blockEntity.pressTime > 0) {
 				--blockEntity.pressTime;
 			} else if (state.getValue(HoldButtonBlock.PRESSED)) {
@@ -47,5 +64,9 @@ public class HoldButtonBlockEntity extends BlockEntity {
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
 			}
 		}
+	}
+
+	public int getPressTime() {
+		return this.pressTime;
 	}
 }

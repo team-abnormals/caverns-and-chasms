@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldButtonBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldPlateBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
@@ -65,6 +66,19 @@ public class HoldPlateBlock extends BaseEntityBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return state.getValue(PRESSED) ? PRESSED_AABB : AABB;
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof HoldPlateBlockEntity blockEntity) {
+			return Math.min(blockEntity.getTimePressed(), 15);
+		}
+		return 0;
 	}
 
 	@Override
