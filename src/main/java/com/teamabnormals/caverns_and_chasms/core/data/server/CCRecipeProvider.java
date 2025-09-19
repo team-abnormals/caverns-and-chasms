@@ -341,9 +341,20 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.CALCITE).requires(Blocks.DIORITE).requires(Items.AMETHYST_SHARD).unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
 		generateRecipes(consumer, CALCITE_FAMILY);
 		generateRecipes(consumer, POLISHED_CALCITE_FAMILY);
+		generateRecipes(consumer, CALCITE_BRICKS_FAMILY);
 		stonecutterRecipes(consumer, CALCITE_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_CALCITE_FAMILY, Blocks.CALCITE, POLISHED_CALCITE.get());
+		stonecutterRecipes(consumer, CALCITE_BRICKS_FAMILY, Blocks.CALCITE, POLISHED_CALCITE.get(), CALCITE_BRICKS.get());
 
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CALCITE_PILLAR.get(), 2).define('#', POLISHED_CALCITE.get()).pattern("#").pattern("#").unlockedBy(getHasName(POLISHED_CALCITE.get()), has(POLISHED_CALCITE.get())).unlockedBy(getHasName(CALCITE_PILLAR.get()), has(CALCITE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), Blocks.CALCITE, 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), POLISHED_CALCITE.get(), 2);
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.CALCITE), RecipeCategory.BUILDING_BLOCKS, SMOOTH_CALCITE.get(), 0.1F, 200).unlockedBy("has_calcite", has(Blocks.CALCITE)).save(consumer);
+		ClayworksRecipeProvider.bakingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, Blocks.CALCITE, SMOOTH_CALCITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
+		generateRecipes(consumer, SMOOTH_CALCITE_FAMILY);
+		stonecutterRecipes(consumer, SMOOTH_CALCITE_FAMILY);
+		
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.TUFF, 2).requires(Blocks.BASALT).requires(Blocks.COBBLESTONE).unlockedBy("has_stone", has(Blocks.BASALT)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.TUFF).getPath()));
 		generateRecipes(consumer, TUFF_FAMILY);
 		generateRecipes(consumer, POLISHED_TUFF_FAMILY);
