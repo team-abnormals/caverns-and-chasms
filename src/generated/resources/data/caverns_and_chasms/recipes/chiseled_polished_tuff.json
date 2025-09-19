@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "caverns_and_chasms:tuff_slab"
+      "item": "caverns_and_chasms:polished_tuff_slab"
     }
   },
   "pattern": [
@@ -11,7 +11,7 @@
     "#"
   ],
   "result": {
-    "item": "caverns_and_chasms:chiseled_tuff"
+    "item": "caverns_and_chasms:chiseled_polished_tuff"
   },
   "show_notification": true
 }

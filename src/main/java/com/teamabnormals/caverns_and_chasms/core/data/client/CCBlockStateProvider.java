@@ -148,7 +148,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(POLISHED_CALCITE_FAMILY);
 
 		this.baseBlockVariants(Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL);
-		this.cubeColumnBlock(CHISELED_TUFF);
+		this.cubeColumnBlock(CHISELED_POLISHED_TUFF);
 		this.cubeColumnBlock(CHISELED_TUFF_BRICKS);
 		this.blockFamily(TUFF_BRICKS_FAMILY);
 		this.blockFamily(SMOOTH_TUFF_FAMILY);

@@ -316,7 +316,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(TUFF_STAIRS.get());
 			this.dropSelf(TUFF_WALL.get());
 			this.add(TUFF_SLAB.get(), this::createSlabItemTable);
-			this.dropSelf(CHISELED_TUFF.get());
 			this.blockFamily(POLISHED_TUFF_FAMILY);
 			this.blockFamily(TUFF_BRICKS_FAMILY);
 			this.blockFamily(SMOOTH_TUFF_FAMILY);

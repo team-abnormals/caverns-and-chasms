@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:chiseled_tuff"
+          "name": "caverns_and_chasms:chiseled_polished_tuff"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "caverns_and_chasms:blocks/chiseled_tuff"
+  "random_sequence": "caverns_and_chasms:blocks/chiseled_polished_tuff"
 }
