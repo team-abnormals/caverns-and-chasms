@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_tuff": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:polished_tuff"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:chiseled_tuff_from_polished_tuff_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_tuff",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:chiseled_tuff_from_polished_tuff_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

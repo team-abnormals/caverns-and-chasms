@@ -2,16 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "caverns_and_chasms:polished_tuff_slab"
+    "S": {
+      "item": "caverns_and_chasms:polished_calcite"
     }
   },
   "pattern": [
-    "#",
-    "#"
+    "SS",
+    "SS"
   ],
   "result": {
-    "item": "caverns_and_chasms:chiseled_polished_tuff"
+    "count": 4,
+    "item": "caverns_and_chasms:calcite_bricks"
   },
   "show_notification": true
 }

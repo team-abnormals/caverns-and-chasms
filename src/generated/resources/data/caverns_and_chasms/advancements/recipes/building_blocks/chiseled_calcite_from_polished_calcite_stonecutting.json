@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_polished_tuff": {
+    "has_polished_calcite": {
       "conditions": {
         "items": [
           {
             "items": [
-              "caverns_and_chasms:polished_tuff"
+              "caverns_and_chasms:polished_calcite"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:chiseled_polished_tuff_from_polished_tuff_stonecutting"
+        "recipe": "caverns_and_chasms:chiseled_calcite_from_polished_calcite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_polished_tuff",
+      "has_polished_calcite",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:chiseled_polished_tuff_from_polished_tuff_stonecutting"
+      "caverns_and_chasms:chiseled_calcite_from_polished_calcite_stonecutting"
     ]
   },
   "sends_telemetry_event": false
