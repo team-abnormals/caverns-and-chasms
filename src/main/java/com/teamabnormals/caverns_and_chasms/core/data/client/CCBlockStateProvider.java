@@ -150,6 +150,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(CALCITE_BRICKS_FAMILY);
 		this.blockFamily(SMOOTH_CALCITE_FAMILY);
 		this.logBlock(CALCITE_PILLAR);
+		this.chiseledCalciteBlock(CHISELED_CALCITE);
 
 		this.baseBlockVariants(Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL);
 		this.cubeColumnBlock(CHISELED_TUFF);
@@ -321,6 +322,22 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.directionalBlock(caveGrowths.get(), this.models().cross(name(caveGrowths.get()), this.blockTexture(caveGrowths.get())));
 		this.generatedItem(caveGrowths.get(), "block");
 		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), new ResourceLocation("block/flower_pot_cross"), "plant", CavernsAndChasms.location("block/potted_" + name(caveGrowths.get()))));
+	}
+
+	public void chiseledCalciteBlock(RegistryObject<Block> chiseled) {
+		Block block = chiseled.get();
+		ModelFile up = this.models().cubeBottomTop(name(block) + "_up", blockTexture(block).withSuffix("_up"), blockTexture(block).withSuffix("_bottom"), blockTexture(block).withSuffix("_top"));
+		ModelFile down = this.models().cubeBottomTop(name(block) + "_down", blockTexture(block).withSuffix("_down"), blockTexture(block).withSuffix("_top"), blockTexture(block).withSuffix("_bottom"));
+
+		this.getVariantBuilder(block)
+				.partialState().with(BlockStateProperties.FACING, Direction.UP).modelForState().modelFile(up).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.DOWN).modelForState().modelFile(down).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.NORTH).modelForState().modelFile(up).rotationX(90).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.EAST).modelForState().modelFile(up).rotationX(90).rotationY(90).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.SOUTH).modelForState().modelFile(down).rotationX(90).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.WEST).modelForState().modelFile(down).rotationX(90).rotationY(90).addModel();
+
+		this.simpleBlockItem(block, up);
 	}
 
 	@Override

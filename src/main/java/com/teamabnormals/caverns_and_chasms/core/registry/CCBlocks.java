@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.block.BlueprintBeehiveBlock;
+import com.teamabnormals.blueprint.common.block.BlueprintDirectionalBlock;
 import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.common.block.chest.BlueprintChestBlock;
 import com.teamabnormals.blueprint.common.block.chest.BlueprintTrappedChestBlock;
@@ -345,7 +346,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_CALCITE_STAIRS = HELPER.createBlock("polished_calcite_stairs", () -> new StairBlock(() -> POLISHED_CALCITE.get().defaultBlockState(), CCProperties.POLISHED_CALCITE));
 	public static final RegistryObject<Block> POLISHED_CALCITE_SLAB = HELPER.createBlock("polished_calcite_slab", () -> new SlabBlock(CCProperties.POLISHED_CALCITE));
 	public static final RegistryObject<Block> POLISHED_CALCITE_WALL = HELPER.createBlock("polished_calcite_wall", () -> new WallBlock(CCProperties.POLISHED_CALCITE));
-	public static final RegistryObject<Block> CHISELED_CALCITE = HELPER.createBlock("chiseled_calcite", () -> new Block(CCProperties.POLISHED_CALCITE));
+	public static final RegistryObject<Block> CHISELED_CALCITE = HELPER.createBlock("chiseled_calcite", () -> new BlueprintDirectionalBlock(CCProperties.POLISHED_CALCITE));
 	public static final RegistryObject<Block> CALCITE_PILLAR = HELPER.createBlock("calcite_pillar", () -> new RotatedPillarBlock(CCProperties.POLISHED_CALCITE));
 	public static final RegistryObject<Block> CALCITE_BRICKS = HELPER.createBlock("calcite_bricks", () -> new Block(CCProperties.CALCITE_BRICKS));
 	public static final RegistryObject<Block> CALCITE_BRICK_STAIRS = HELPER.createBlock("calcite_brick_stairs", () -> new StairBlock(() -> CALCITE_BRICKS.get().defaultBlockState(), CCProperties.CALCITE_BRICKS));
