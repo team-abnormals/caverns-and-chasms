@@ -328,16 +328,26 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		Block block = chiseled.get();
 		ModelFile up = this.models().cubeBottomTop(name(block) + "_up", blockTexture(block).withSuffix("_up"), blockTexture(block).withSuffix("_bottom"), blockTexture(block).withSuffix("_top"));
 		ModelFile down = this.models().cubeBottomTop(name(block) + "_down", blockTexture(block).withSuffix("_down"), blockTexture(block).withSuffix("_top"), blockTexture(block).withSuffix("_bottom"));
+		ModelFile northEast = this.cubeBottomTopHorizontal(name(block) + "_north_east", blockTexture(block).withSuffix("_up"), blockTexture(block).withSuffix("_bottom"), blockTexture(block).withSuffix("_top"));
+		ModelFile southWest = this.cubeBottomTopHorizontal(name(block) + "_south_west", blockTexture(block).withSuffix("_down"), blockTexture(block).withSuffix("_top"), blockTexture(block).withSuffix("_bottom"));
+
 
 		this.getVariantBuilder(block)
 				.partialState().with(BlockStateProperties.FACING, Direction.UP).modelForState().modelFile(up).addModel()
 				.partialState().with(BlockStateProperties.FACING, Direction.DOWN).modelForState().modelFile(down).addModel()
-				.partialState().with(BlockStateProperties.FACING, Direction.NORTH).modelForState().modelFile(up).rotationX(90).addModel()
-				.partialState().with(BlockStateProperties.FACING, Direction.EAST).modelForState().modelFile(up).rotationX(90).rotationY(90).addModel()
-				.partialState().with(BlockStateProperties.FACING, Direction.SOUTH).modelForState().modelFile(down).rotationX(90).addModel()
-				.partialState().with(BlockStateProperties.FACING, Direction.WEST).modelForState().modelFile(down).rotationX(90).rotationY(90).addModel();
+				.partialState().with(BlockStateProperties.FACING, Direction.NORTH).modelForState().modelFile(northEast).rotationX(90).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.EAST).modelForState().modelFile(northEast).rotationX(90).rotationY(90).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.SOUTH).modelForState().modelFile(southWest).rotationX(90).addModel()
+				.partialState().with(BlockStateProperties.FACING, Direction.WEST).modelForState().modelFile(southWest).rotationX(90).rotationY(90).addModel();
 
 		this.simpleBlockItem(block, up);
+	}
+
+	public ModelFile cubeBottomTopHorizontal(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+		return this.models().withExistingParent(name, CavernsAndChasms.location("block/cube_bottom_top_horizontal"))
+				.texture("side", side)
+				.texture("bottom", bottom)
+				.texture("top", top);
 	}
 
 	@Override
