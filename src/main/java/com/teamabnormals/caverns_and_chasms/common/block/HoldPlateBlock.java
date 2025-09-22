@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldButtonBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldPlateBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;

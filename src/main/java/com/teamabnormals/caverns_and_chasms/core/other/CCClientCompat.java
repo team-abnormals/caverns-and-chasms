@@ -1,47 +1,97 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
+import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
+import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
-import com.teamabnormals.caverns_and_chasms.core.CCConfig;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.ChatFormatting;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CCClientCompat {
 
 	public static void registerClientCompat() {
 		registerRenderLayers();
 		registerItemProperties();
+		CCTrimMaterials.registerArmorMaterialOverrides();
+		CCSkullTypes.registerSkullModels();
+	}
+
+	@SubscribeEvent
+	public static void registerLayers(EntityRenderersEvent.AddLayers event) {
+		event.getSkins().forEach(skin -> {
+			PlayerRenderer renderer = event.getSkin(skin);
+			renderer.addLayer(new RatOnShoulderLayer(renderer, event.getEntityModels()));
+		});
+	}
+
+	@SubscribeEvent
+	public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.IMPACT_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TRAIL_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.FOIL.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
+	}
+
+	@SubscribeEvent
+	public static void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
+		event.registerSkullModel(CCSkullTypes.DEEPER, new DeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
+		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
+		event.registerSkullModel(CCSkullTypes.PEEPER, new PeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.PEEPER_HEAD)));
+	}
+
+	@SubscribeEvent
+	public static void registerClientTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
+		if (ModList.get().isLoaded("quark")) {
+			event.register(ToolboxComponent.class, Function.identity());
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
+		event.registerAbove(CavernsAndChasms.location("monocle"), "monocle_head", new MonocleHeadGuiOverlay());
 	}
 
 	public static void registerRenderLayers() {
@@ -53,7 +103,7 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
-		
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_DOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
@@ -71,7 +121,7 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_BARS.get(), RenderType.cutout());
@@ -236,110 +286,5 @@ public class CCClientCompat {
 				}
 			}
 		});
-	}
-
-	@SubscribeEvent
-	public static void onItemTooltip(ItemTooltipEvent event) {
-		ItemStack stack = event.getItemStack();
-		Item item = stack.getItem();
-		Player player = event.getEntity();
-
-		if (player != null && player.getInventory().contains(stack)) {
-			Level level = player.level();
-
-			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("latitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
-				event.getToolTip().add(createTooltip("longitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
-			}
-
-			if (item == Items.CLOCK) {
-				if (CCConfig.CLIENT.clocksDisplayTime.get()) {
-					event.getToolTip().add(Component.literal(calculateTime(level)).withStyle(ChatFormatting.GRAY));
-				}
-
-				if (CCConfig.CLIENT.clocksDisplayDay.get()) {
-					event.getToolTip().add(createTooltip("day").withStyle(ChatFormatting.GRAY).append(Component.literal(" " + level.getDayTime() / 24000L).withStyle(ChatFormatting.GRAY)));
-				}
-			}
-
-			if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("altitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getY())).withStyle(ChatFormatting.GRAY)));
-			}
-
-			if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
-				event.getToolTip().add(createTooltip("weather").withStyle(ChatFormatting.GRAY).append(": ").append(createTooltip(getWeather(player, level)).withStyle(ChatFormatting.GRAY)));
-			}
-		}
-	}
-
-	private static String getWeather(Player player, Level level) {
-		Precipitation precipitation = level.getBiome(player.blockPosition()).value().getPrecipitationAt(player.blockPosition());
-
-		if (precipitation != Precipitation.NONE) {
-			if (level.isThundering())
-				return "stormy";
-			else if (level.isRaining()) {
-				if (precipitation == Precipitation.SNOW)
-					return "snowy";
-				return "rainy";
-			}
-		}
-
-		return level.dimensionType().hasSkyLight() && !level.dimensionType().hasCeiling() ? "clear" : "null";
-	}
-
-	private static MutableComponent createTooltip(String identifier) {
-		return Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
-	}
-
-	private static String calculateTime(Level level) {
-		String addition = "";
-
-		int totalMinutes = (int) (level.dayTime() * 3 / 50);
-		int hour = 6 + (totalMinutes / 60);
-		if (hour >= 24) hour %= 24;
-		int minute = totalMinutes % 60;
-
-		if (!CCConfig.CLIENT.clocksUse24hrTime.get()) {
-			addition = " " + (hour > 11 ? createTooltip("pm").getString() : createTooltip("am").getString());
-			hour = hour > 12 ? hour - 12 : hour == 0 ? 12 : hour;
-		}
-
-		String stringMinute = (minute < 10 ? "0" : "") + minute;
-		return hour + ":" + stringMinute + addition;
-	}
-
-	@SubscribeEvent
-	public static void onItemUse(RightClickItem event) {
-		Player player = event.getEntity();
-		Item item = event.getItemStack().getItem();
-		Level level = player.level();
-		boolean displayTime = CCConfig.CLIENT.clocksDisplayTime.get();
-		boolean displayDay = CCConfig.CLIENT.clocksDisplayDay.get();
-		if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-			player.displayClientMessage(createTooltip("latitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f, ", player.getX())).append(createTooltip("longitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getZ()))))), true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		} else if (item == Items.CLOCK && (displayDay || displayTime)) {
-			MutableComponent time = Component.literal(calculateTime(level));
-			MutableComponent day = createTooltip("day").append(Component.literal(" " + (level.getDayTime() + 6000) / 24000L));
-			MutableComponent message = Component.literal("");
-			if (CCConfig.CLIENT.clocksDisplayTime.get()) {
-				message.append(time);
-				if (displayDay) message.append(Component.literal(", "));
-			}
-			if (displayDay) message.append(day);
-			player.displayClientMessage(message, true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		} else if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
-			player.displayClientMessage(createTooltip("altitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getY()))), true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		} else if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
-			player.displayClientMessage(createTooltip("weather").append(": ").append(createTooltip(getWeather(player, level))), true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		}
 	}
 }

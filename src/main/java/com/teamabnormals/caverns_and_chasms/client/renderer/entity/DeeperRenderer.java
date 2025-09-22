@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class DeeperRenderer extends MobRenderer<Deeper, DeeperModel<Deeper>> {
-	private static final ResourceLocation DEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/deeper/deeper.png");
+	public static final ResourceLocation DEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/deeper/deeper.png");
 
 	public DeeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new DeeperModel<>(context.bakeLayer(CCModelLayers.DEEPER)), 0.5F);

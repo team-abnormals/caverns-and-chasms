@@ -149,7 +149,7 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_PICKAXE = HELPER.createItem("waxed_oxidized_copper_pickaxe", () -> new PickaxeItem(CCItemTiers.COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_AXE = HELPER.createItem("waxed_oxidized_copper_axe", () -> new AxeItem(CCItemTiers.COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_HOE = HELPER.createItem("waxed_oxidized_copper_hoe", () -> new HoeItem(CCItemTiers.COPPER, -1, -2.0F, new Item.Properties()));
-	
+
 	public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> NETHERITE_HORSE_ARMOR = HELPER.createItem("netherite_horse_armor", () -> new NetheriteHorseArmorItem(12, "netherite", new Item.Properties().fireResistant().stacksTo(1)));
 

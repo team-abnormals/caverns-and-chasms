@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
-	public static final ResourceLocation PEEPER = CavernsAndChasms.location("textures/entity/peeper/peeper.png");
+	public static final ResourceLocation PEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/peeper/peeper.png");
 	public static final ResourceLocation PEEPER_GLOW = CavernsAndChasms.location("textures/entity/peeper/peeper_glow.png");
 
 	public PeeperRenderer(EntityRendererProvider.Context context) {
@@ -38,6 +38,6 @@ public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
 
 	@Override
 	public ResourceLocation getTextureLocation(Peeper entity) {
-		return PEEPER;
+		return PEEPER_TEXTURE;
 	}
 }

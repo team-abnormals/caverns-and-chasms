@@ -3,19 +3,24 @@ package com.teamabnormals.caverns_and_chasms.client;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceProvider;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterShadersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 
+
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class CCShaders {
 	@Nullable
 	private static ShaderInstance rendertypeArmorTranslucentNoCullShader;
 	@Nullable
 	private static ShaderInstance rendertypeArmorCutoutNoCullEmissiveShader;
 
+	@SubscribeEvent
 	public static void registerShaders(RegisterShadersEvent event) {
 		try {
 			ResourceProvider resourceProvider = event.getResourceProvider();
@@ -27,7 +32,7 @@ public final class CCShaders {
 				rendertypeArmorCutoutNoCullEmissiveShader = shaderInstance;
 			});
 		} catch (IOException e) {
-			throw new RuntimeException("Could not reload Caverns & Chasms's shaders!", e);
+			throw new RuntimeException("Could not reload Caverns & Chasms' shaders!", e);
 		}
 	}
 

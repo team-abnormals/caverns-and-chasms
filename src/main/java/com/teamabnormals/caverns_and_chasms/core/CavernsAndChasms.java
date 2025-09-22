@@ -1,16 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
-import com.teamabnormals.blueprint.core.api.BlueprintTrims;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
-import com.teamabnormals.caverns_and_chasms.client.CCShaders;
-import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
-import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
-import com.teamabnormals.caverns_and_chasms.client.model.*;
-import com.teamabnormals.caverns_and_chasms.client.renderer.block.AtoningTableRenderer;
-import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperSkullBlockRenderer;
-import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
-import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
-import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
@@ -21,44 +11,28 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.*;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
-import com.teamabnormals.caverns_and_chasms.core.other.*;
-import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
+import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
+import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructurePieceTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCStructureRepaletters;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
-import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
-import net.minecraft.client.model.MinecartModel;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.renderer.blockentity.CampfireRenderer;
-import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -71,10 +45,8 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 @Mod(CavernsAndChasms.MOD_ID)
 public class CavernsAndChasms {
@@ -126,17 +98,10 @@ public class CavernsAndChasms {
 		bus.addListener(this::clientSetup);
 		bus.addListener(this::dataSetup);
 
+		CCStructureRepaletters.registerRepaletters();
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			CCItems.setupTabEditors();
 			CCBlocks.setupTabEditors();
-			bus.addListener(this::registerLayerDefinitions);
-			bus.addListener(this::registerRenderers);
-			bus.addListener(this::registerLayers);
-			bus.addListener(this::registerItemColors);
-			bus.addListener(this::createSkullModels);
-			bus.addListener(this::registerClientTooltips);
-			bus.addListener(this::registerGuiOverlays);
-			bus.addListener(CCShaders::registerShaders);
 		});
 
 		context.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
@@ -151,24 +116,7 @@ public class CavernsAndChasms {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.SILVER, Map.of(CCArmorMaterials.SILVER, CavernsAndChasms.MOD_ID + "_silver_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.NECROMIUM, Map.of(CCArmorMaterials.NECROMIUM, CavernsAndChasms.MOD_ID + "_necromium_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.SANGUINE, Map.of(CCArmorMaterials.SANGUINE, CavernsAndChasms.MOD_ID + "_sanguine_darker"));
-
-		BlueprintTrims.registerArmorMaterialOverrides(TrimMaterials.COPPER, Map.of(CCArmorMaterials.COPPER, CavernsAndChasms.MOD_ID + "_copper_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.EXPOSED_COPPER, Map.of(CCArmorMaterials.EXPOSED_COPPER, CavernsAndChasms.MOD_ID + "_exposed_copper_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WEATHERED_COPPER, Map.of(CCArmorMaterials.WEATHERED_COPPER, CavernsAndChasms.MOD_ID + "_weathered_copper_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.OXIDIZED_COPPER, Map.of(CCArmorMaterials.OXIDIZED_COPPER, CavernsAndChasms.MOD_ID + "_oxidized_copper_darker"));
-
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_COPPER, Map.of(CCArmorMaterials.COPPER, CavernsAndChasms.MOD_ID + "_copper_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_EXPOSED_COPPER, Map.of(CCArmorMaterials.EXPOSED_COPPER, CavernsAndChasms.MOD_ID + "_exposed_copper_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_WEATHERED_COPPER, Map.of(CCArmorMaterials.WEATHERED_COPPER, CavernsAndChasms.MOD_ID + "_weathered_copper_darker"));
-		BlueprintTrims.registerArmorMaterialOverrides(CCTrimMaterials.WAXED_OXIDIZED_COPPER, Map.of(CCArmorMaterials.OXIDIZED_COPPER, CavernsAndChasms.MOD_ID + "_oxidized_copper_darker"));
-
 		event.enqueueWork(() -> {
-			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.DEEPER, CavernsAndChasms.location("textures/entity/deeper/deeper.png"));
-			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.PEEPER, CavernsAndChasms.location("textures/entity/peeper/peeper.png"));
-			SkullBlockRenderer.SKIN_BY_TYPE.put(CCSkullTypes.MIME, MimeRenderer.MIME_TEXTURE);
 			CCMenuTypes.registerScreenFactories();
 			CCClientCompat.registerClientCompat();
 		});
@@ -214,96 +162,6 @@ public class CavernsAndChasms {
 
 		generator.addProvider(client, new GalleryItemModelProvider(MOD_ID, output, helper));
 		generator.addProvider(client, new GalleryAssetsRemolderProvider(MOD_ID, output, provider));
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(CCModelLayers.DEEPER, () -> DeeperModel.createBodyLayer(CubeDeformation.NONE, true));
-		event.registerLayerDefinition(CCModelLayers.DEEPER_HEAD, DeeperHeadModel::createHeadLayer);
-		event.registerLayerDefinition(CCModelLayers.DEEPER_ARMOR, () -> DeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));
-		event.registerLayerDefinition(CCModelLayers.PEEPER, () -> PeeperModel.createBodyLayer(CubeDeformation.NONE));
-		event.registerLayerDefinition(CCModelLayers.PEEPER_HEAD, PeeperHeadModel::createHeadLayer);
-		event.registerLayerDefinition(CCModelLayers.PEEPER_ARMOR, () -> PeeperModel.createBodyLayer(new CubeDeformation(2.0F)));
-		event.registerLayerDefinition(CCModelLayers.MIME, MimeModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.MIME_HEAD, MimeHeadModel::createHeadLayer);
-		event.registerLayerDefinition(CCModelLayers.FLY, FlyModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.RAT, RatModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.GLARE, GlareModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.GRAZER, GrazerModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.TOOLBOX, ToolboxRenderer::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.ROLLER_DOOR, RollerDoorRenderer::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.TMT_MINECART, MinecartModel::createBodyLayer);
-		event.registerLayerDefinition(CCModelLayers.LOST_GOAT, LostGoatModel::createBodyLayer);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.PEEPER.get(), PeeperRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);
-//		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.GRAZER.get(), GrazerRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.SADDLED_GRAZER.get(), SaddledGrazerRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.BEJEWELED_PEARL.get(), ThrownItemRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.TMT_MINECART.get(), TmtMinecartRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.LARGE_ARROW.get(), LargeArrowRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.LOST_GOAT.get(), LostGoatRenderer::new);
-
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperSkullBlockRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR.get(), RollerDoorRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR_HEADER.get(), RollerDoorRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.ATONING_TABLE.get(), AtoningTableRenderer::new);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public void registerLayers(EntityRenderersEvent.AddLayers event) {
-		event.getSkins().forEach(skin -> {
-			PlayerRenderer renderer = event.getSkin(skin);
-			renderer.addLayer(new RatOnShoulderLayer(renderer, event.getEntityModels()));
-		});
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public void registerItemColors(RegisterColorHandlersEvent.Item event) {
-		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
-		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
-		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.IMPACT_POTION.get());
-		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TRAIL_POTION.get());
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.FOIL.get());
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
-		event.registerSkullModel(CCSkullTypes.DEEPER, new DeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
-		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
-		event.registerSkullModel(CCSkullTypes.PEEPER, new PeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.PEEPER_HEAD)));
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private void registerClientTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
-		if (ModList.get().isLoaded("quark")) {
-			event.register(ToolboxComponent.class, Function.identity());
-		}
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	private void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
-		event.registerAbove(location("monocle"), "monocle_head", new MonocleHeadGuiOverlay());
 	}
 
 	private void setupMessages() {

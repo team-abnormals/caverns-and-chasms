@@ -24,7 +24,7 @@ public class CopperArmorModel<T extends LivingEntity> extends HumanoidArmorModel
 		CubeDeformation base = new CubeDeformation(deformation.growX / 4.0F, deformation.growY / 8.0F, deformation.growZ / 4.0F);
 		float baseX = deformation.growX * -1.0F;
 		float baseY = deformation.growY * -1.125F;
-		
+
 		CubeDeformation top = new CubeDeformation(deformation.growX / 2.0F, deformation.growY / (8.0F / 3.0F), deformation.growZ / 2.0F);
 		float topX = deformation.growX * 1.0F;
 		float topY = deformation.growY * -1.625F;

@@ -354,7 +354,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ClayworksRecipeProvider.bakingRecipe(consumer, RecipeCategory.BUILDING_BLOCKS, Blocks.CALCITE, SMOOTH_CALCITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
 		generateRecipes(consumer, SMOOTH_CALCITE_FAMILY);
 		stonecutterRecipes(consumer, SMOOTH_CALCITE_FAMILY);
-		
+
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.TUFF, 2).requires(Blocks.BASALT).requires(Blocks.COBBLESTONE).unlockedBy("has_stone", has(Blocks.BASALT)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.TUFF).getPath()));
 		generateRecipes(consumer, TUFF_FAMILY);
 		generateRecipes(consumer, POLISHED_TUFF_FAMILY);

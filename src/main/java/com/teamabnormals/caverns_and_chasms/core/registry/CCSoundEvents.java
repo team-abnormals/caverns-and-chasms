@@ -117,19 +117,19 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> FLOODLIGHT_HIT = HELPER.createSoundEvent("block.floodlight.hit");
 	public static final RegistryObject<SoundEvent> FLOODLIGHT_PLACE = HELPER.createSoundEvent("block.floodlight.place");
 	public static final RegistryObject<SoundEvent> FLOODLIGHT_STEP = HELPER.createSoundEvent("block.floodlight.step");
-	
+
 	public static final RegistryObject<SoundEvent> COPPER_CHAIN_BREAK = HELPER.createSoundEvent("block.copper_chain.break");
 	public static final RegistryObject<SoundEvent> COPPER_CHAIN_STEP = HELPER.createSoundEvent("block.copper_chain.step");
 	public static final RegistryObject<SoundEvent> COPPER_CHAIN_PLACE = HELPER.createSoundEvent("block.copper_chain.place");
 	public static final RegistryObject<SoundEvent> COPPER_CHAIN_HIT = HELPER.createSoundEvent("block.copper_chain.hit");
 	public static final RegistryObject<SoundEvent> COPPER_CHAIN_FALL = HELPER.createSoundEvent("block.copper_chain.fall");
-	
+
 	public static final RegistryObject<SoundEvent> COPPER_LANTERN_BREAK = HELPER.createSoundEvent("block.copper_lantern.break");
 	public static final RegistryObject<SoundEvent> COPPER_LANTERN_STEP = HELPER.createSoundEvent("block.copper_lantern.step");
 	public static final RegistryObject<SoundEvent> COPPER_LANTERN_PLACE = HELPER.createSoundEvent("block.copper_lantern.place");
 	public static final RegistryObject<SoundEvent> COPPER_LANTERN_HIT = HELPER.createSoundEvent("block.copper_lantern.hit");
 	public static final RegistryObject<SoundEvent> COPPER_LANTERN_FALL = HELPER.createSoundEvent("block.copper_lantern.fall");
-	
+
 	public static final RegistryObject<SoundEvent> COPPER_BULB_BREAK = HELPER.createSoundEvent("block.copper_bulb.break");
 	public static final RegistryObject<SoundEvent> COPPER_BULB_STEP = HELPER.createSoundEvent("block.copper_bulb.step");
 	public static final RegistryObject<SoundEvent> COPPER_BULB_PLACE = HELPER.createSoundEvent("block.copper_bulb.place");
@@ -137,16 +137,16 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> COPPER_BULB_FALL = HELPER.createSoundEvent("block.copper_bulb.fall");
 	public static final RegistryObject<SoundEvent> COPPER_BULB_TURN_ON = HELPER.createSoundEvent("block.copper_bulb.turn_on");
 	public static final RegistryObject<SoundEvent> COPPER_BULB_TURN_OFF = HELPER.createSoundEvent("block.copper_bulb.turn_off");
-	
+
 	public static final RegistryObject<SoundEvent> COPPER_DOOR_CLOSE = HELPER.createSoundEvent("block.copper_door.close");
 	public static final RegistryObject<SoundEvent> COPPER_DOOR_OPEN = HELPER.createSoundEvent("block.copper_door.open");
-	
+
 	public static final RegistryObject<SoundEvent> COPPER_GRATE_BREAK = HELPER.createSoundEvent("block.copper_grate.break");
 	public static final RegistryObject<SoundEvent> COPPER_GRATE_STEP = HELPER.createSoundEvent("block.copper_grate.step");
 	public static final RegistryObject<SoundEvent> COPPER_GRATE_PLACE = HELPER.createSoundEvent("block.copper_grate.place");
 	public static final RegistryObject<SoundEvent> COPPER_GRATE_HIT = HELPER.createSoundEvent("block.copper_grate.hit");
 	public static final RegistryObject<SoundEvent> COPPER_GRATE_FALL = HELPER.createSoundEvent("block.copper_grate.fall");
-	
+
 	public static final RegistryObject<SoundEvent> COPPER_TRAPDOOR_CLOSE = HELPER.createSoundEvent("block.copper_trapdoor.close");
 	public static final RegistryObject<SoundEvent> COPPER_TRAPDOOR_OPEN = HELPER.createSoundEvent("block.copper_trapdoor.open");
 

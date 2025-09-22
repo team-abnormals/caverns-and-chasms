@@ -15,6 +15,9 @@ import com.teamabnormals.blueprint.core.util.PropertyUtil;
 import com.teamabnormals.blueprint.core.util.PropertyUtil.WoodSetProperties;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.DeeperRenderer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.MimeRenderer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.PeeperRenderer;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystSlabBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.amethyst.AmethystStairBlock;
@@ -31,6 +34,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -907,6 +911,12 @@ public class CCBlocks {
 	}
 
 	public enum CCSkullTypes implements SkullBlock.Type {
-		MIME, DEEPER, PEEPER
+		MIME, DEEPER, PEEPER;
+
+		public static void registerSkullModels() {
+			SkullBlockRenderer.SKIN_BY_TYPE.put(DEEPER, DeeperRenderer.DEEPER_TEXTURE);
+			SkullBlockRenderer.SKIN_BY_TYPE.put(PEEPER, PeeperRenderer.PEEPER_TEXTURE);
+			SkullBlockRenderer.SKIN_BY_TYPE.put(MIME, MimeRenderer.MIME_TEXTURE);
+		}
 	}
 }

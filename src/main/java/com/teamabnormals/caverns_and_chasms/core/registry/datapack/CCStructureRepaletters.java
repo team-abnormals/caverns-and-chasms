@@ -13,11 +13,9 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,13 +40,10 @@ public final class CCStructureRepaletters {
 	}
 
 	private static ResourceKey<StructureRepaletterEntry> create(String name) {
-		return ResourceKey.create(BlueprintDataPackRegistries.STRUCTURE_REPALETTERS, new ResourceLocation(CavernsAndChasms.MOD_ID, name));
+		return ResourceKey.create(BlueprintDataPackRegistries.STRUCTURE_REPALETTERS, CavernsAndChasms.location(name));
 	}
 
-	@Mod.EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
-	public static final class CCStructureRepalleterManager {
-		static {
-			StructureRepalleterManager.registerSerializer(CavernsAndChasms.location("chance"), ChanceStructureRepaletter.CODEC);
-		}
+	public static void registerRepaletters() {
+		StructureRepalleterManager.registerSerializer(CavernsAndChasms.location("chance"), ChanceStructureRepaletter.CODEC);
 	}
 }
