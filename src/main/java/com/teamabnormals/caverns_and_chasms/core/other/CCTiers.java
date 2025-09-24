@@ -34,9 +34,18 @@ public class CCTiers {
 	}
 
 	public static class CCItemTiers {
-		public static final Tier FOIL = new BlueprintItemTier(1, 1822, 12.0F, 0.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+		public static final Tier COPPER = createCopperTier(Tags.Items.INGOTS_COPPER);
+		public static final Tier EXPOSED_COPPER = createCopperTier(CCItemTags.INGOTS_EXPOSED_COPPER);
+		public static final Tier WEATHERED_COPPER = createCopperTier(CCItemTags.INGOTS_WEATHERED_COPPER);
+		public static final Tier OXIDIZED_COPPER = createCopperTier(CCItemTags.INGOTS_OXIDIZED_COPPER);
+
 		public static final Tier SILVER = new BlueprintItemTier(2, 157, 9.0F, 1.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
-		public static final Tier COPPER = new BlueprintItemTier(1, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(Tags.Items.INGOTS_COPPER));
 		public static final Tier NECROMIUM = new BlueprintItemTier(4, 2031, 9.0F, 3.0F, 15, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
+
+		public static final Tier FOIL = new BlueprintItemTier(1, 1822, 12.0F, 0.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+
+		public static BlueprintItemTier createCopperTier(TagKey<Item> repairTag) {
+			return new BlueprintItemTier(1, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(repairTag));
+		}
 	}
 }
