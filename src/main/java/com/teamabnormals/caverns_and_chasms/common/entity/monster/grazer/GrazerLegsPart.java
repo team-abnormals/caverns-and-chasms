@@ -14,6 +14,7 @@ public class GrazerLegsPart extends GrazerPart {
 		return grazer.isBouncingState(grazer.getState()) ? this.yOffsetTucked : this.yOffset;
 	}
 
+	@Override
 	public boolean deflectsAttacks() {
 		AbstractGrazer grazer = this.getParent();
 		return grazer.isBouncingState(grazer.getState());

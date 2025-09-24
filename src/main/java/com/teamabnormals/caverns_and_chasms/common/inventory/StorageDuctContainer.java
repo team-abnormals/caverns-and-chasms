@@ -1,20 +1,36 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
+import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctBlock.DuctEnd;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
 public class StorageDuctContainer implements Container {
 	private final List<StorageDuctBlockEntity> containers;
 	private final BlockPos openedAtPos;
+	private final StorageDuctBlockEntity firstDuct;
+	private final StorageDuctBlockEntity lastDuct;
+	private final DuctEnd firstDuctOpenEnd;
+	private final DuctEnd lastDuctOpenEnd;
+	private final Level level;
 
 	public StorageDuctContainer(List<StorageDuctBlockEntity> containers, BlockPos openedAtPos) {
 		this.containers = containers;
 		this.openedAtPos = openedAtPos;
+
+		this.firstDuct = containers.get(0);
+		this.lastDuct = containers.get(containers.size() - 1);
+
+		this.firstDuctOpenEnd = getOpenEndForDuct(firstDuct);
+		this.lastDuctOpenEnd = getOpenEndForDuct(lastDuct);
+
+		this.level = containers.get(0).getLevel();
 	}
 
 	@Override
@@ -63,7 +79,18 @@ public class StorageDuctContainer implements Container {
 
 	@Override
 	public boolean stillValid(Player player) {
-		return player.distanceToSqr(this.openedAtPos.getX() + 0.5D, this.openedAtPos.getY() + 0.5D, this.openedAtPos.getZ() + 0.5D) <= (double) (8 * 8) && this.containers.stream().allMatch(container -> container.stillValid(player));
+		if (player.distanceToSqr(this.openedAtPos.getX() + 0.5D, this.openedAtPos.getY() + 0.5D, this.openedAtPos.getZ() + 0.5D) > (double) (8 * 8))
+			return false;
+		else if (!this.containers.stream().allMatch(container -> container.stillValid(player)))
+			return false;
+		else if (this.firstDuctOpenEnd != null) {
+			if (StorageDuctBlock.hasConnectionAt(this.firstDuctOpenEnd, this.level, this.firstDuct.getBlockPos(), this.firstDuct.getBlockState()))
+				return false;
+			else if (StorageDuctBlock.hasConnectionAt(this.lastDuctOpenEnd, this.level, this.lastDuct.getBlockPos(), this.lastDuct.getBlockState()))
+				return false;
+		}
+
+		return true;
 	}
 
 	@Override
@@ -84,5 +111,12 @@ public class StorageDuctContainer implements Container {
 	@Override
 	public void clearContent() {
 		this.containers.forEach(Container::clearContent);
+	}
+
+	private static DuctEnd getOpenEndForDuct(StorageDuctBlockEntity duct) {
+		for (DuctEnd end : DuctEnd.values())
+			if (!StorageDuctBlock.hasConnectionAt(end, duct.getLevel(), duct.getBlockPos(), duct.getBlockState()))
+				return end;
+		return null;
 	}
 }
