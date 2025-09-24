@@ -27,7 +27,7 @@ public class CCTiers {
 		public static final ArmorMaterial COWL = new BlueprintArmorMaterial(CavernsAndChasms.location("cowl"), 5, new int[]{1, 2, 3, 1}, 15, () -> CCSoundEvents.ARMOR_EQUIP_COWL.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
 
 		public static BlueprintArmorMaterial createCopperMaterial(String name) {
-			return new BlueprintArmorMaterial(CavernsAndChasms.location(name), 11 + 45, new int[]{2, 4, 5, 2}, 8, () -> CCSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Tags.Items.INGOTS_COPPER));
+			return new BlueprintArmorMaterial(CavernsAndChasms.location(name), 11 + 45, new int[]{2, 4, 5, 2}, 8, () -> CCSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.05F, () -> Ingredient.of(Tags.Items.INGOTS_COPPER));
 		}
 	}
 
