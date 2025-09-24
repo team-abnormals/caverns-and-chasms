@@ -35,6 +35,7 @@ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -121,10 +122,20 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		BlockEntity blockentity = level.getBlockEntity(pos);
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (!itemstack.is(CCBlocks.STORAGE_DUCT.get().asItem()) && !itemstack.is((CCBlocks.STORAGE_DUCT_HATCH).get().asItem()) && blockentity instanceof StorageDuctBlockEntity) {
-			DuctEnd startend = getFirstOpenableEnd(level, pos, state);
-			if (startend != null) {
+			Direction direction = result.getDirection();
+			List<DuctEnd> openableends = getOpenableEnds(level, pos, state);
+			DuctEnd endtoopen = null;
+
+			for (DuctEnd end : openableends) {
+				if (state.getValue(end.getDirectionProperty()) == direction) {
+					endtoopen = end;
+					break;
+				}
+			}
+
+			if (endtoopen != null) {
 				if (!level.isClientSide) {
-					openMenu((ServerPlayer) player, level, pos, startend, null);
+					openMenu((ServerPlayer) player, level, pos, endtoopen, null);
 					PiglinAi.angerNearbyPiglins(player, true);
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
@@ -233,14 +244,15 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		return state.getValue(FIRST_END) == direction || state.getValue(SECOND_END) == direction;
 	}
 
-	public static DuctEnd getFirstOpenableEnd(Level level, BlockPos pos, BlockState state) {
+	public static List<DuctEnd> getOpenableEnds(Level level, BlockPos pos, BlockState state) {
+		List<DuctEnd> list = new ArrayList<>();
 		for (DuctEnd end : DuctEnd.values()) {
 			Direction direction = state.getValue(end.getDirectionProperty());
 			BlockPos offsetpos = pos.relative(direction);
 			if (!level.getBlockState(offsetpos).isFaceSturdy(level, offsetpos, direction.getOpposite()))
-				return end;
+				list.add(end);
 		}
-		return null;
+		return list;
 	}
 
 	@Override
