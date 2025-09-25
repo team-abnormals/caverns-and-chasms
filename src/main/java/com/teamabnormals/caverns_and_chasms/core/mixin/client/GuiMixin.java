@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerPart;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Final;

@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerState;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.SaddledGrazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerState;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledGrazer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

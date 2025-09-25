@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer;
+package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 public class GrazerLegsPart extends GrazerPart {
 	private final double yOffsetTucked;

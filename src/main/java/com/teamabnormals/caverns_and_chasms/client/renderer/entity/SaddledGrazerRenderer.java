@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.ResourceLocation;

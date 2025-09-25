@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerState;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerState;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;

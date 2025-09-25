@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer;
+package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;

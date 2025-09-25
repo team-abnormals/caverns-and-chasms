@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer;
+package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.server.level.ServerLevel;

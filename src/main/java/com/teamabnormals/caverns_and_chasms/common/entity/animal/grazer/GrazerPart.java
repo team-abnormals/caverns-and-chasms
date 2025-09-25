@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer;
+package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
 import net.minecraft.nbt.CompoundTag;
