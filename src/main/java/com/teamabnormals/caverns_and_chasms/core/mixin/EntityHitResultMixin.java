@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.GrazerPart;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;

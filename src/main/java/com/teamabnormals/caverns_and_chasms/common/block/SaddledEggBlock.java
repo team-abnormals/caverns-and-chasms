@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.SaddledGrazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledGrazer;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.BlockPos;

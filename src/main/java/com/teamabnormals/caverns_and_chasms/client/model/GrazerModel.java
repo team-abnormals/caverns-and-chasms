@@ -3,7 +3,7 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.resources.GrazerSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.grazer.AbstractGrazer;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.geom.ModelPart;
