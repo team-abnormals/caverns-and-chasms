@@ -141,6 +141,12 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 		this.head.xRot = this.body.xRot;
 	}
 
+	@Override
+	public void prepareMobModel(AbstractGrazer grazer, float limbSwing, float limbSwingTicks, float partialTick) {
+		super.prepareMobModel(grazer, limbSwing, limbSwingTicks, partialTick);
+		this.drool.visible = grazer.shouldShowDroolModel();
+	}
+
 	public void renderOverlay(TextureAtlasSprite sprite, PoseStack matrixStack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RENDER_TYPE)), packedLight, packedOverlay, red, green, blue, alpha);
 	}

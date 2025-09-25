@@ -155,6 +155,11 @@ public abstract class AbstractGrazer extends Animal {
 		return !this.isBaby() && !this.isBouncingState(state) && state != GrazerState.WIGGLING && state != GrazerState.FLIPPING_OVER;
 	}
 
+	public boolean shouldShowDroolModel() {
+		GrazerState state = this.getState();
+		return !this.isBouncingState(state) && state != GrazerState.WIGGLING && state != GrazerState.FLIPPING_OVER;
+	}
+
 	public float getBodyLowerAmount() {
 		return this.entityData.get(BODY_LOWER_AMOUNT);
 	}

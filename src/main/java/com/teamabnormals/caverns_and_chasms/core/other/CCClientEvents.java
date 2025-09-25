@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
@@ -82,6 +83,10 @@ public class CCClientEvents {
 			if (headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
 				event.setCanceled(true);
 			}
+		}
+
+		if (entity instanceof LocalPlayer) {
+
 		}
 	}
 
