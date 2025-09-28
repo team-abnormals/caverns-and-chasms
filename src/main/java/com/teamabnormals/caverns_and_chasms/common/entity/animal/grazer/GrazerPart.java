@@ -82,7 +82,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 	private Vec3 calculatePosition(double x, double y, double z, float xRot, float yRot) {
 		float f = xRot * Mth.DEG_TO_RAD;
 		float f1 = yRot * Mth.DEG_TO_RAD;
-		Vec3 vec3 = new Vec3(0.0D, this.getYOffset() * this.getScale(), this.getZOffset() * this.getScale()).xRot(-f).yRot(-f1);
+		Vec3 vec3 = new Vec3(0.0D, this.getYOffset(), this.getZOffset()).scale(this.getScale()).xRot(-f).yRot(-f1);
 		Vec3 vec31 = new Vec3(0.0D, this.getParent().shellCenterY(1.0F) - this.getDimensions(Pose.STANDING).height * 0.5D, this.getParent().shellCenterZ(1.0F)).yRot(-f1);
 		return vec3.add(vec31).add(x, y, z);
 	}

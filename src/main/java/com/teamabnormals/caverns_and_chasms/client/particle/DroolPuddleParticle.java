@@ -10,9 +10,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BabyGrazerDroolParticle extends UpFacingParticle {
+public class DroolPuddleParticle extends UpFacingParticle {
 
-	private BabyGrazerDroolParticle(ClientLevel level, double x, double y, double z, float rotation) {
+	private DroolPuddleParticle(ClientLevel level, double x, double y, double z, float rotation) {
 		super(level, x, y, z, rotation);
 		this.lifetime = 320;
 		this.quadSize = 0.0F;
@@ -49,7 +49,7 @@ public class BabyGrazerDroolParticle extends UpFacingParticle {
 
 		@Override
 		public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double rotation, double ySpeed, double zSpeed) {
-			BabyGrazerDroolParticle particle = new BabyGrazerDroolParticle(level, x, y, z, (float) rotation);
+			DroolPuddleParticle particle = new DroolPuddleParticle(level, x, y, z, (float) rotation);
 			particle.pickSprite(this.sprites);
 			return particle;
 		}
