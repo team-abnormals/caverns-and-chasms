@@ -15,6 +15,7 @@ public class BabyGrazerDroolParticle extends UpFacingParticle {
 	private BabyGrazerDroolParticle(ClientLevel level, double x, double y, double z, float rotation) {
 		super(level, x, y, z, rotation);
 		this.lifetime = 320;
+		this.quadSize = 0.0F;
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public class BabyGrazerDroolParticle extends UpFacingParticle {
 			this.remove();
 		} else {
 			float f = (float) this.age / this.lifetime;
-			this.quadSize = (f < 0.5F ? -4.0F * f * f + 4.0F * f : 1.0F) * 0.6F;
+			this.quadSize = f;
 			this.alpha = Math.min(-4.0F * f + 4.0F, 1.0F);
 			this.yOffset = 0.01F - 0.005F * f;
 			this.yOffsetO = this.yOffset;
