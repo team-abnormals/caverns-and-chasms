@@ -14,10 +14,10 @@ import java.util.function.Predicate;
 @Mixin(InteractWithDoor.class)
 public abstract class InteractWithDoorMixin {
 
-	@WrapOperation(method = "lambda$create$3", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;Ljava/util/function/Predicate;)Z"))
-	private static boolean create(BlockState state, TagKey tagKey, Predicate predicate, Operation<Boolean> original) {
-		return state.is(CCBlockTags.MOB_INTERACTABLE_DOORS);
-	}
+//	@WrapOperation(method = "lambda$create$3", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;Ljava/util/function/Predicate;)Z"))
+//	private static boolean create(BlockState state, TagKey tagKey, Predicate predicate, Operation<Boolean> original) {
+//		return state.is(CCBlockTags.MOB_INTERACTABLE_DOORS);
+//	}
 
 	@WrapOperation(method = "closeDoorsThatIHaveOpenedOrPassedThrough", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;Ljava/util/function/Predicate;)Z"))
 	private static boolean closeDoorsThatIHaveOpenedOrPassedThrough(BlockState state, TagKey tagKey, Predicate predicate, Operation<Boolean> original) {

@@ -983,12 +983,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				default -> "_four";
 			};
 
-			boolean isLit = state.getValue(CoalBlock.LIT);
-			String lit = isLit ? "_lit" : "";
-			String name = name(block) + count + lit;
-			BlockModelBuilder model = models().withExistingParent(name, CavernsAndChasms.location("block/template_" + name))
+			int heat = state.getValue(CoalBlock.HEAT);
+			boolean isHot = heat != 0;
+			boolean hasFlame = heat == 2;
+			String lit = isHot ? "_lit" : "";
+			String flame = hasFlame ? "_flame" : "";
+			String name = name(block) + count;
+			BlockModelBuilder model = models().withExistingParent(name + lit + flame, CavernsAndChasms.location("block/template_" + name + (hasFlame ? "_lit" : "")))
 					.texture("coal", blockTexture(block).withSuffix(lit));
-			if (isLit) {
+			if (hasFlame) {
 				model.texture("fire", blockTexture(block).withSuffix("_fire"));
 			}
 			return ConfiguredModel.builder()

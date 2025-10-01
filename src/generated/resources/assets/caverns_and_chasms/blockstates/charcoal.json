@@ -1,6 +1,6 @@
 {
   "variants": {
-    "coal=1,lit=false": [
+    "coal=1,heat=0": [
       {
         "model": "caverns_and_chasms:block/charcoal_one"
       },
@@ -17,7 +17,7 @@
         "y": 270
       }
     ],
-    "coal=1,lit=true": [
+    "coal=1,heat=1": [
       {
         "model": "caverns_and_chasms:block/charcoal_one_lit"
       },
@@ -34,7 +34,24 @@
         "y": 270
       }
     ],
-    "coal=2,lit=false": [
+    "coal=1,heat=2": [
+      {
+        "model": "caverns_and_chasms:block/charcoal_one_lit_flame"
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_one_lit_flame",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_one_lit_flame",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_one_lit_flame",
+        "y": 270
+      }
+    ],
+    "coal=2,heat=0": [
       {
         "model": "caverns_and_chasms:block/charcoal_two"
       },
@@ -51,7 +68,7 @@
         "y": 270
       }
     ],
-    "coal=2,lit=true": [
+    "coal=2,heat=1": [
       {
         "model": "caverns_and_chasms:block/charcoal_two_lit"
       },
@@ -68,7 +85,24 @@
         "y": 270
       }
     ],
-    "coal=3,lit=false": [
+    "coal=2,heat=2": [
+      {
+        "model": "caverns_and_chasms:block/charcoal_two_lit_flame"
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_two_lit_flame",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_two_lit_flame",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_two_lit_flame",
+        "y": 270
+      }
+    ],
+    "coal=3,heat=0": [
       {
         "model": "caverns_and_chasms:block/charcoal_three"
       },
@@ -85,7 +119,7 @@
         "y": 270
       }
     ],
-    "coal=3,lit=true": [
+    "coal=3,heat=1": [
       {
         "model": "caverns_and_chasms:block/charcoal_three_lit"
       },
@@ -102,7 +136,24 @@
         "y": 270
       }
     ],
-    "coal=4,lit=false": [
+    "coal=3,heat=2": [
+      {
+        "model": "caverns_and_chasms:block/charcoal_three_lit_flame"
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_three_lit_flame",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_three_lit_flame",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_three_lit_flame",
+        "y": 270
+      }
+    ],
+    "coal=4,heat=0": [
       {
         "model": "caverns_and_chasms:block/charcoal_four"
       },
@@ -119,7 +170,7 @@
         "y": 270
       }
     ],
-    "coal=4,lit=true": [
+    "coal=4,heat=1": [
       {
         "model": "caverns_and_chasms:block/charcoal_four_lit"
       },
@@ -133,6 +184,23 @@
       },
       {
         "model": "caverns_and_chasms:block/charcoal_four_lit",
+        "y": 270
+      }
+    ],
+    "coal=4,heat=2": [
+      {
+        "model": "caverns_and_chasms:block/charcoal_four_lit_flame"
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_four_lit_flame",
+        "y": 90
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_four_lit_flame",
+        "y": 180
+      },
+      {
+        "model": "caverns_and_chasms:block/charcoal_four_lit_flame",
         "y": 270
       }
     ]

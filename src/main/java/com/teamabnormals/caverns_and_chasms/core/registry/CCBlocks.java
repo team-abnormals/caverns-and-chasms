@@ -583,8 +583,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> FLINT_BLOCK = HELPER.createBlock("flint_block", () -> new FlintBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL).sound(CCSoundTypes.FLINT_BLOCK)));
 
-	public static final RegistryObject<Block> COAL = HELPER.createPlacedItem("coal", () -> new CoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 9 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY)));
-	public static final RegistryObject<Block> CHARCOAL = HELPER.createPlacedItem("charcoal", () -> new CoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> !state.getValue(CoalBlock.LIT) ? 0 : 7 + state.getValue(CoalBlock.COAL)).noOcclusion().pushReaction(PushReaction.DESTROY)));
+	public static final RegistryObject<Block> COAL = HELPER.createPlacedItem("coal", () -> new CoalBlock(CCProperties.placedCoal(6)));
+	public static final RegistryObject<Block> CHARCOAL = HELPER.createPlacedItem("charcoal", () -> new CoalBlock(CCProperties.placedCoal(4)));
 	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createFuelBlock("charcoal_block", () -> new CharcoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> state.getValue(CharcoalBlock.LIT) ? 15 : 0).hasPostProcess((state, level, pos) -> state.getValue(CharcoalBlock.LIT)).emissiveRendering((state, level, pos) -> state.getValue(CharcoalBlock.LIT))), 12800);
 
 	public static final RegistryObject<Block> COPPER_INGOT = HELPER.createPlacedItem("copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.UNAFFECTED, () -> Items.COPPER_INGOT, BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
@@ -886,6 +886,17 @@ public class CCBlocks {
 
 		public static BlockBehaviour.Properties platedBricks(MapColor color, SoundType soundType) {
 			return BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(soundType);
+		}
+
+		private static BlockBehaviour.Properties placedCoal(int baseLight) {
+			return BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(placedCoalLight(baseLight)).noOcclusion().pushReaction(PushReaction.DESTROY);
+		}
+
+		private static ToIntFunction<BlockState> placedCoalLight(int base) {
+			return state -> {
+				int heat = state.getValue(CoalBlock.HEAT);
+				return heat > 0 ? base + (heat * 2) + state.getValue(CoalBlock.COAL) : 0;
+			};
 		}
 
 		private static BlockBehaviour.Properties caveGrowths(MapColor mapColor) {

@@ -53,10 +53,10 @@ public class CCClientEvents {
 		model.leftArm.xRot += model.body.yRot;
 		f = 1.0F - ((1.0F - model.attackTime) * f * f);
 		float f1 = Mth.sin(f * (float) Math.PI);
-		float f2 = Mth.sin(model.attackTime * (float) Math.PI) * -(model.head.xRot - 0.7F) * 0.75F;
+		float f2 = Mth.sin(model.attackTime * (float) Math.PI) * -(model.head.xRot - 0.7F);
 		armModel.xRot -= f1 * 1.2F + f2;
 		// armModel.yRot += model.body.yRot * 2.0F;
-		armModel.zRot += Mth.sin(model.attackTime * (float) Math.PI) * -0.4F;
+		// armModel.zRot += Mth.sin(model.attackTime * (float) Math.PI) * -0.4F;
 	}
 
 	@SubscribeEvent

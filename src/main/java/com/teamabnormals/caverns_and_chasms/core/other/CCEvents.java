@@ -227,9 +227,9 @@ public class CCEvents {
 		boolean fireCharge = stack.getItem() instanceof FireChargeItem;
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
 		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
-			boolean valid = state.getBlock() instanceof CoalBlock && !state.getValue(CoalBlock.LIT) && !state.getValue(CoalBlock.WATERLOGGED);
+			boolean valid = state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) != 2 && !state.getValue(CoalBlock.WATERLOGGED);
 			if (valid) {
-				BlockState returnState = state.setValue(CoalBlock.LIT, true);
+				BlockState returnState = state.setValue(CoalBlock.HEAT, 2);
 				if (flintAndSteel) {
 					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					level.setBlock(pos, returnState, 11);

@@ -1,7 +1,6 @@
 {
-  "parent": "caverns_and_chasms:block/template_charcoal_one_lit",
+  "parent": "caverns_and_chasms:block/template_charcoal_one",
   "textures": {
-    "coal": "caverns_and_chasms:block/charcoal_lit",
-    "fire": "caverns_and_chasms:block/charcoal_fire"
+    "coal": "caverns_and_chasms:block/charcoal_lit"
   }
 }
