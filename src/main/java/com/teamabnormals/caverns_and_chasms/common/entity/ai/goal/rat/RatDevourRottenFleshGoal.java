@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
+package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
