@@ -2,10 +2,11 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,7 +18,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -28,8 +28,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -41,7 +39,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -49,16 +46,17 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Rat extends ShoulderRidingEntity {
+public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant> {
 	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isBaby() && entity.isAlive();
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
 
-	private static final EntityDataAccessor<Integer> RAT_TYPE = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> TRUSTING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
@@ -97,7 +95,7 @@ public class Rat extends ShoulderRidingEntity {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(RAT_TYPE, 0);
+		this.entityData.define(VARIANT, CCRatVariants.BLUE.location().toString());
 		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
 		this.entityData.define(TRUSTING, false);
 		this.entityData.define(RUNNING_AWAY, false);
@@ -126,29 +124,43 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.putInt("Type", this.getRatType());
-		compound.putByte("CollarColor", (byte) this.getCollarColor().getId());
-		compound.putBoolean("Trusting", this.isTrusting());
+	public void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		tag.putString("Variant", this.getStringVariant());
+		tag.putByte("CollarColor", (byte) this.getCollarColor().getId());
+		tag.putBoolean("Trusting", this.isTrusting());
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		this.setRatType(compound.getInt("Type"));
-		if (compound.contains("CollarColor", 99)) {
-			this.setCollarColor(DyeColor.byId(compound.getInt("CollarColor")));
+	public void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		this.setStringVariant(tag.getString("Variant"));
+		if (tag.contains("CollarColor", 99)) {
+			this.setCollarColor(DyeColor.byId(tag.getInt("CollarColor")));
 		}
-		this.setTrusting(compound.getBoolean("Trusting"));
+		this.setTrusting(tag.getBoolean("Trusting"));
 	}
 
-	private void setRatType(int id) {
-		this.entityData.set(RAT_TYPE, id);
+	public String getStringVariant() {
+		return !this.entityData.get(VARIANT).isEmpty() ? this.entityData.get(VARIANT) : CCRatVariants.BLUE.location().toString();
 	}
 
-	public int getRatType() {
-		return this.entityData.get(RAT_TYPE);
+	private void setStringVariant(String var) {
+		this.entityData.set(VARIANT, var);
+	}
+
+	@Override
+	public void setVariant(RatVariant variant) {
+		this.setVariant(this.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).getKey(variant));
+	}
+
+	@Override
+	public RatVariant getVariant() {
+		return this.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(this.getStringVariant()));
+	}
+
+	public void setVariant(ResourceLocation variant) {
+		this.setStringVariant(variant.toString());
 	}
 
 	public DyeColor getCollarColor() {
@@ -493,19 +505,12 @@ public class Rat extends ShoulderRidingEntity {
 	}
 
 	@Override
-	public Rat getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+	public Rat getBreedOffspring(ServerLevel level, AgeableMob parent) {
 		Rat child = CCEntityTypes.RAT.get().create(level);
-		if (child != null) {
-			if (otherParent instanceof Rat) {
-				if (this.random.nextBoolean()) {
-					child.setRatType(((Rat) otherParent).getRatType());
-				} else {
-					child.setRatType(this.getRatType());
-				}
-
-				if (this.trustsPlayers() || ((Rat) otherParent).trustsPlayers()) {
-					child.setTrusting(true);
-				}
+		if (child != null && parent instanceof Rat rat) {
+			child.setVariant(this.random.nextBoolean() ? rat.getVariant() : this.getVariant());
+			if (this.trustsPlayers() || rat.trustsPlayers()) {
+				child.setTrusting(true);
 			}
 		}
 
@@ -518,8 +523,8 @@ public class Rat extends ShoulderRidingEntity {
 		float f = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
 		float f1 = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
 		function.accept(passenger, this.getX() + (double) (0.1F * f), this.getY(0.5D) + passenger.getMyRidingOffset() + 0.0D, this.getZ() - (double) (0.1F * f1));
-		if (passenger instanceof LivingEntity) {
-			((LivingEntity) passenger).yBodyRot = this.yBodyRot;
+		if (passenger instanceof LivingEntity living) {
+			living.yBodyRot = this.yBodyRot;
 		}
 	}
 
@@ -527,11 +532,7 @@ public class Rat extends ShoulderRidingEntity {
 	@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag dataTag) {
 		groupData = super.finalizeSpawn(level, difficulty, spawnType, groupData, dataTag);
-
-		float chance = random.nextFloat();
-		RatType type = chance < 0.05F ? RatType.WHITE : chance < 0.30F ? RatType.BROWN : chance < 0.65F ? RatType.GRAY : RatType.BLUE;
-		this.setRatType(type.getId());
-
+		this.setVariant(RatVariant.getSpawnVariant(level.registryAccess(), this.random).value());
 		this.populateDefaultEquipmentSlots(this.random, difficulty);
 		return super.finalizeSpawn(level, difficulty, spawnType, groupData, dataTag);
 	}

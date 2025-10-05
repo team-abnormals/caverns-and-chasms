@@ -94,6 +94,8 @@ public class CavernsAndChasms {
 			}
 		});
 
+		bus.addListener(CCRegistries::registerRegistries);
+
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
 		bus.addListener(this::dataSetup);

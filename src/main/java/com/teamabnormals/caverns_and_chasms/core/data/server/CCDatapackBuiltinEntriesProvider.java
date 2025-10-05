@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCConfiguredFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCNoiseParameters;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCProcessorLists;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructureSets;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
@@ -34,6 +35,7 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(Registries.DAMAGE_TYPE, CCDamageTypes::bootstrap)
 			.add(Registries.TRIM_MATERIAL, CCTrimMaterials::bootstrap)
 			.add(Registries.TRIM_PATTERN, CCTrimPatterns::bootstrap)
+			.add(CCRegistries.RAT_VARIANT, CCRatVariants::bootstrap)
 			.add(BlueprintDataPackRegistries.STRUCTURE_REPALETTERS, CCStructureRepaletters::bootstrap);
 
 	public CCDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<Provider> provider) {

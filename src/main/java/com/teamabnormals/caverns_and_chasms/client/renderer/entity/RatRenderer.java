@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCollarLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.RatType;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -19,8 +18,7 @@ public class RatRenderer extends MobRenderer<Rat, RatModel<Rat>> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Rat entity) {
-		RatType type = RatType.byId(entity.getRatType());
-		return type.getTextureLocation();
+	public ResourceLocation getTextureLocation(Rat rat) {
+		return rat.getVariant().texture().withPrefix("textures/").withSuffix(".png");
 	}
 }

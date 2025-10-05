@@ -14,7 +14,7 @@ public class UndeadRatRenderer extends RatRenderer {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(Rat entity) {
+	public ResourceLocation getTextureLocation(Rat rat) {
 		return true ? ZOMBIE_RAT_TEXTURE : SKELETON_RAT_TEXTURE;
 	}
 }

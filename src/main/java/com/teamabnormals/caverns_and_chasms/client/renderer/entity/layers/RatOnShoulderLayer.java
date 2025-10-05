@@ -3,10 +3,11 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.RatType;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -16,6 +17,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -48,10 +50,10 @@ public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, Player
 
 			boolean isbaby = compound.getInt("Age") < 0;
 			float ageinticks = player.tickCount + partialTicks;
-			RatType type = RatType.byId(compound.getInt("Type"));
+			RatVariant type = player.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(compound.getString("Variant")));
 			DyeColor collarcolor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
 			ItemStack stack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
-			VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(type.getTextureLocation()));
+			VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(type.texture().withPrefix("textures/").withSuffix(".png")));
 
 			this.model.young = isbaby;
 			this.model.renderOnShoulder(matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
