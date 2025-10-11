@@ -24,7 +24,7 @@ public class ToolboxMenu extends AbstractContainerMenu {
 
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 7; ++j) {
-				this.addSlot(new ToolboxSlot(container, j + i * 2, 26 + j * 18, 32 + i * 18));
+				this.addSlot(new ToolboxSlot(container, j + i * 7, 26 + j * 18, 32 + i * 18));
 			}
 		}
 
