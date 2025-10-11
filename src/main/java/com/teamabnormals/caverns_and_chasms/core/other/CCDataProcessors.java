@@ -1,15 +1,20 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.blueprint.common.world.storage.tracking.DataProcessors;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataProcessor;
 import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedData;
 import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedDataManager;
+import com.teamabnormals.caverns_and_chasms.common.entity.RatHolder.AttachedRat;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,6 +52,25 @@ public class CCDataProcessors {
 			return Optional.empty();
 		}
 	};
+	public static final IDataProcessor<List<AttachedRat>> ATTACHED_RAT_DATA_LIST = new IDataProcessor<>() {
+		@Override
+		public CompoundTag write(List<AttachedRat> list) {
+			CompoundTag compound = new CompoundTag();
+			ListTag listtag = new ListTag();
+			for (AttachedRat data : list) {
+				listtag.add(data.save());
+			}
+			compound.put("Entries", listtag);
+			return compound;
+		}
+
+		@Override
+		public List<AttachedRat> read(CompoundTag nbt) {
+			List<AttachedRat> list = Lists.newArrayList();
+			nbt.getList("Entries", 10).forEach(tag -> list.add(AttachedRat.load(((CompoundTag) tag))));
+			return list;
+		}
+	};
 
 	public static final TrackedData<Optional<UUID>> CONTROLLED_GOLEM_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
 	public static final TrackedData<Boolean> IS_BEING_CONTROLLED = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).build();
@@ -61,6 +85,7 @@ public class CCDataProcessors {
 	public static final TrackedData<Double> DEFLECT_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> DEFLECT_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
+	public static final TrackedData<List<AttachedRat>> ATTACHED_RATS = TrackedData.Builder.create(ATTACHED_RAT_DATA_LIST, ArrayList::new).enableSaving().build();
 
 	public static void registerTrackedData() {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
@@ -76,5 +101,6 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_x"), DEFLECT_X);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_y"), DEFLECT_Y);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_z"), DEFLECT_Z);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("attached_rats"), ATTACHED_RATS);
 	}
 }

@@ -64,22 +64,50 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 		return ImmutableList.of(this.body, this.rightFrontLeg, this.leftFrontLeg, this.rightHindLeg, this.leftHindLeg, this.tail);
 	}
 
-	public void renderOnShoulder(PoseStack matrixStackIn, VertexConsumer vertexconsumer, int packedLightIn, int overlayTexture, float tailWagAmount, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.setupAnim(RatModel.State.ON_SHOULDER, tailWagAmount, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+	public void renderWithoutMob(RatPose ratPose, PoseStack matrixStackIn, VertexConsumer vertexconsumer, int packedLightIn, int overlayTexture, float tailWagAmount, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.setupAnim(ratPose, tailWagAmount, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		this.renderToBuffer(matrixStackIn, vertexconsumer, packedLightIn, overlayTexture, 1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	@Override
 	public void setupAnim(T rat, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.setupAnim(rat.isInSittingPose() ? RatModel.State.SITTING : RatModel.State.STANDING, rat.getTailWagAmount(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+		this.setupAnim(rat.isInSittingPose() ? RatPose.SITTING : RatPose.STANDING, rat.getTailWagAmount(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 	}
 
-	public void setupAnim(RatModel.State state, float tailWagAmount, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		switch (state) {
+	public void setupAnim(RatPose ratPose, float tailWagAmount, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.tail.yRot = -tailWagAmount * 0.45F * Mth.sin(0.6F * ageInTicks);
+
+		if (ratPose == RatPose.SITTING) {
+			this.head.setPos(0.0F, !this.young ? 15.0F : 14.0F, !this.young ? 0.5F : -1.5F);
+			this.body.setPos(0.0F, 16.0F, -0.5F);
+			this.body.xRot = -Mth.PI / 2.0F;
+			this.tail.setPos(0.0F, 23.0F, 2.5F);
+		} else {
+			this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
+			this.body.setPos(0.0F, 21.0F, -3.0F);
+			this.body.xRot = 0.0F;
+			this.tail.setPos(0.0F, 21.0F, 5.0F);
+		}
+
+		if (ratPose == RatPose.ON_SHOULDER) {
+			this.tail.xRot = -1.0F;
+		} else {
+			this.tail.xRot = 0.0F;
+		}
+
+		if (ratPose == RatPose.ATTACHED) {
+			this.head.xRot = 0.45F;
+			this.head.yRot = Mth.sin(ageInTicks * 0.75F) * 0.25F;
+			this.body.zRot = Mth.sin(ageInTicks) * 0.3F;
+			this.tail.yRot += Mth.sin((ageInTicks - 3) * 0.75F) * 0.7F;
+		} else {
+			this.head.xRot = headPitch * (Mth.PI / 180F);
+			this.head.yRot = netHeadYaw * (Mth.PI / 180F);
+			this.body.zRot = 0.0F;
+		}
+
+		switch (ratPose) {
 			case STANDING:
-				this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
-				this.body.setPos(0.0F, 21.0F, -3.0F);
-				this.body.xRot = 0.0F;
 				this.rightHindLeg.setPos(-2.0F, 23.0F, 4.0F);
 				this.leftHindLeg.setPos(2.0F, 23.0F, 4.0F);
 				this.rightFrontLeg.setPos(-2.0F, 23.0F, -1.0F);
@@ -88,28 +116,18 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 				this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
 				this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount;
 				this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-				this.tail.setPos(0.0F, 21.0F, 5.0F);
-				this.tail.xRot = 0.0F;
 				break;
 			case SITTING:
-				this.head.setPos(0.0F, !this.young ? 15.0F : 14.0F, !this.young ? 0.5F : -1.5F);
-				this.body.setPos(0.0F, 16.0F, -0.5F);
-				this.body.xRot = -Mth.PI / 2.0F;
 				this.rightHindLeg.setPos(-2.0F, 24.0F, -3.0F);
 				this.leftHindLeg.setPos(2.0F, 24.0F, -3.0F);
 				this.rightFrontLeg.setPos(-2.0F, 19.0F, -2.5F);
 				this.leftFrontLeg.setPos(2.0F, 19.0F, -2.5F);
-				this.rightHindLeg.xRot = -Mth.PI / 2.0F;
-				this.leftHindLeg.xRot = -Mth.PI / 2.0F;
-				this.rightFrontLeg.xRot = -Mth.PI / 4.0F;
-				this.leftFrontLeg.xRot = -Mth.PI / 4.0F;
-				this.tail.setPos(0.0F, 23.0F, 2.5F);
-				this.tail.xRot = 0.0F;
+				this.rightHindLeg.xRot = -Mth.HALF_PI;
+				this.leftHindLeg.xRot = -Mth.HALF_PI;
+				this.rightFrontLeg.xRot = -Mth.HALF_PI;
+				this.leftFrontLeg.xRot = -Mth.HALF_PI;
 				break;
 			case ON_SHOULDER:
-				this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
-				this.body.setPos(0.0F, 21.0F, -3.0F);
-				this.body.xRot = 0.0F;
 				this.rightHindLeg.setPos(-1.0F, 23.0F, 3.0F);
 				this.leftHindLeg.setPos(1.0F, 23.0F, 3.0F);
 				this.rightFrontLeg.setPos(-1.0F, 23.0F, 0.0F);
@@ -118,20 +136,25 @@ public class RatModel<T extends Rat> extends AgeableListModel<T> {
 				this.leftHindLeg.xRot = 0.0F;
 				this.rightFrontLeg.xRot = 0.0F;
 				this.leftFrontLeg.xRot = 0.0F;
-				this.tail.setPos(0.0F, 21.0F, 5.0F);
-				this.tail.xRot = -1.0F;
+				break;
+			case ATTACHED:
+				this.rightHindLeg.setPos(-2.0F, 23.0F, 4.0F);
+				this.leftHindLeg.setPos(2.0F, 23.0F, 4.0F);
+				this.rightFrontLeg.setPos(-2.0F, 23.0F, -1.0F);
+				this.leftFrontLeg.setPos(2.0F, 23.0F, -1.0F);
+				this.rightHindLeg.xRot = 0.0F;
+				this.leftHindLeg.xRot = 0.0F;
+				this.rightFrontLeg.xRot = 0.0F;
+				this.leftFrontLeg.xRot = 0.0F;
 				break;
 		}
-
-		this.head.xRot = headPitch * (Mth.PI / 180F);
-		this.head.yRot = netHeadYaw * (Mth.PI / 180F);
-		this.tail.yRot = -tailWagAmount * 0.45F * Mth.sin(0.6F * ageInTicks);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static enum State {
+	public enum RatPose {
 		STANDING,
 		SITTING,
-		ON_SHOULDER;
+		ON_SHOULDER,
+		ATTACHED;
 	}
 }

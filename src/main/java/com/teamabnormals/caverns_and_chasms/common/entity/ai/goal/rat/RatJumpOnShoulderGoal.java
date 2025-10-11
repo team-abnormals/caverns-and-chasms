@@ -6,11 +6,11 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
-public class RatJumpOnOwnersShoulderGoal extends Goal {
+public class RatJumpOnShoulderGoal extends Goal {
 	private final Rat rat;
 	private ServerPlayer owner;
 
-	public RatJumpOnOwnersShoulderGoal(Rat rat) {
+	public RatJumpOnShoulderGoal(Rat rat) {
 		this.rat = rat;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
 	}

@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.Monocle
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.AttachedRatsLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
@@ -15,9 +16,16 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -55,12 +63,22 @@ public class CCClientCompat {
 		CCSkullTypes.registerSkullModels();
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@SubscribeEvent
 	public static void registerLayers(EntityRenderersEvent.AddLayers event) {
+		EntityModelSet modelset = event.getEntityModels();
+		EntityRendererProvider.Context context = event.getContext();
+		ItemInHandRenderer iteminhandrenderer = context.getItemInHandRenderer();
+
 		event.getSkins().forEach(skin -> {
 			PlayerRenderer renderer = event.getSkin(skin);
-			renderer.addLayer(new RatOnShoulderLayer(renderer, event.getEntityModels()));
+			renderer.addLayer(new RatOnShoulderLayer(renderer, modelset));
 		});
+
+		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {
+			if (renderer instanceof LivingEntityRenderer<?, ?> livingrenderer)
+				livingrenderer.addLayer(new AttachedRatsLayer(livingrenderer, modelset, iteminhandrenderer));
+		}
 	}
 
 	@SubscribeEvent

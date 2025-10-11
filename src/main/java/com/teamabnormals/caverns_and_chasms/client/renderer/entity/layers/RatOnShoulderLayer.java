@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
+import com.teamabnormals.caverns_and_chasms.client.model.RatModel.RatPose;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
@@ -56,9 +57,9 @@ public class RatOnShoulderLayer extends RenderLayer<AbstractClientPlayer, Player
 			VertexConsumer vertexconsumer = bufferIn.getBuffer(this.model.renderType(type.texture().withPrefix("textures/").withSuffix(".png")));
 
 			this.model.young = isbaby;
-			this.model.renderOnShoulder(matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
-			RatCollarLayer.renderCollar(this.model, matrixStackIn, bufferIn, packedLightIn, collarcolor, 0, 0, limbSwing, limbSwingAmount, ageinticks, netHeadYaw, headPitch);
-			RatHeldItemLayer.renderItem(this.model, this.itemInHandRenderer, matrixStackIn, bufferIn, packedLightIn, player, isbaby, stack, limbSwing, limbSwingAmount, partialTicks, ageinticks, netHeadYaw, headPitch);
+			this.model.renderWithoutMob(RatPose.ON_SHOULDER, matrixStackIn, vertexconsumer, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 0.0F, 0.0F, ageinticks, netHeadYaw, headPitch);
+			RatCollarLayer.renderCollar(this.model, matrixStackIn, bufferIn, packedLightIn, collarcolor, 0, 0);
+			RatHeldItemLayer.renderItem(this.model, this.itemInHandRenderer, matrixStackIn, bufferIn, packedLightIn, player, isbaby, stack, netHeadYaw, headPitch);
 
 			matrixStackIn.popPose();
 		});

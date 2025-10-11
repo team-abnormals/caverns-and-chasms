@@ -26,11 +26,11 @@ public class RatCollarLayer extends RenderLayer<Rat, RatModel<Rat>> {
 	@Override
 	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (rat.isTame()) {
-			renderCollar(this.getParentModel(), matrixStackIn, bufferIn, packedLightIn, rat.getCollarColor(), rat.hurtTime, rat.deathTime, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+			renderCollar(this.getParentModel(), matrixStackIn, bufferIn, packedLightIn, rat.getCollarColor(), rat.hurtTime, rat.deathTime);
 		}
 	}
 
-	public static void renderCollar(RatModel<Rat> model, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, DyeColor collarColor, int hurtTime, int deathTime, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public static void renderCollar(RatModel<Rat> model, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, DyeColor collarColor, int hurtTime, int deathTime) {
 		float[] afloat = collarColor.getTextureDiffuseColors();
 		int overlaycoords = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(hurtTime > 0 || deathTime > 0));
 		VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(RAT_COLLAR_LOCATION));

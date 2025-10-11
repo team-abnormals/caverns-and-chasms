@@ -26,10 +26,10 @@ public class RatHeldItemLayer extends RenderLayer<Rat, RatModel<Rat>> {
 
 	@Override
 	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		renderItem(this.getParentModel(), this.itemInHandRenderer, matrixStackIn, bufferIn, packedLightIn, rat, rat.isBaby(), rat.getItemBySlot(EquipmentSlot.MAINHAND), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+		renderItem(this.getParentModel(), this.itemInHandRenderer, matrixStackIn, bufferIn, packedLightIn, rat, rat.isBaby(), rat.getItemBySlot(EquipmentSlot.MAINHAND), netHeadYaw, headPitch);
 	}
 
-	public static void renderItem(RatModel<Rat> model, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, LivingEntity entity, boolean isBaby, ItemStack stack, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public static void renderItem(RatModel<Rat> model, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, LivingEntity entity, boolean isBaby, ItemStack stack, float netHeadYaw, float headPitch) {
 		poseStack.pushPose();
 		if (isBaby) {
 			poseStack.translate(0.0D, 0.3125D, 0.125D);

@@ -73,19 +73,20 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
-		this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-		this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(5, new RatTemptGoal(this));
-		this.goalSelector.addGoal(6, new RatJumpOnOwnersShoulderGoal(this));
-		this.goalSelector.addGoal(6, new RatDevourRottenFleshGoal(this, 1.25D, 16, 4));
-		this.goalSelector.addGoal(7, new RatStayInGroupGoal(this));
-		this.goalSelector.addGoal(8, new RatFollowParentGoal(this));
-		this.goalSelector.addGoal(9, new RatAvoidEntityGoal<>(this, Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
-		this.goalSelector.addGoal(10, new RatRandomStrollGoal(this));
-		this.goalSelector.addGoal(11, new RatFindItemsGoal(this));
-		this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(2, new RatAttachToTargetGoal(this));
+		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2D, false));
+		this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+		this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(6, new RatTemptGoal(this));
+		this.goalSelector.addGoal(7, new RatJumpOnShoulderGoal(this));
+		this.goalSelector.addGoal(8, new RatDevourRottenFleshGoal(this, 1.25D, 16, 4));
+		this.goalSelector.addGoal(9, new RatStayInGroupGoal(this));
+		this.goalSelector.addGoal(10, new RatFollowParentGoal(this));
+		this.goalSelector.addGoal(11, new RatAvoidEntityGoal<>(this, Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
+		this.goalSelector.addGoal(12, new RatRandomStrollGoal(this));
+		this.goalSelector.addGoal(13, new RatFindItemsGoal(this));
+		this.goalSelector.addGoal(14, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(15, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
 		this.targetSelector.addGoal(3, new RatStopAttackingGoal(this));
@@ -293,7 +294,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public boolean shouldAttack(LivingEntity target) {
-		if (this.getFriendAmount() > 1 && this.tamer == null) {
+		if (this.isTame() || (this.getFriendAmount() > 1 && this.tamer == null)) {
 			if (target instanceof Player) {
 				return !this.trustsPlayers();
 			} else {
@@ -432,7 +433,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-		if (this.getFriendAmount() < 2) {
+		if (!this.isTame() && this.getFriendAmount() < 2) {
 			return false;
 		}
 
