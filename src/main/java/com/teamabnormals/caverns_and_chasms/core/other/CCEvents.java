@@ -8,13 +8,15 @@ import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.common.entity.RatHolder;
+import com.teamabnormals.caverns_and_chasms.common.entity.RatHolder.AttachedRat;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
@@ -113,6 +115,11 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingSpawned(EntityJoinLevelEvent event) {
 		Entity entity = event.getEntity();
+
+		if (entity instanceof RatHolder ratholder) {
+			for (AttachedRat attachedrat : ratholder.getAttachedRats())
+				attachedrat.initialize((LivingEntity) ratholder);
+		}
 
 		if (entity instanceof Zombie zombie) {
 			zombie.goalSelector.addGoal(1, new AvoidEntityGoal<>(zombie, Fly.class, 9.0F, 1.05D, 1.05D));
@@ -596,6 +603,15 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
+	public static void onLivingDeath(LivingDeathEvent event) {
+		LivingEntity entity = event.getEntity();
+		Level level = entity.level();
+
+		if (!level.isClientSide)
+			((RatHolder) entity).detachAllRats();
+	}
+
+	@SubscribeEvent
 	public static void visibilityEvent(LivingVisibilityEvent event) {
 		LivingEntity entity = event.getEntity();
 		EntityType<?> looking = event.getLookingEntity().getType();
@@ -807,6 +823,9 @@ public class CCEvents {
 				golem.setTuningForkTarget(null);
 			}
 		}
+
+		if (entity instanceof RatHolder ratholder)
+			ratholder.tickRats();
 
 		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (!level.isClientSide() && headstack.getItem() == CCItems.TETHER_POTION.get()) {

@@ -123,7 +123,7 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt("State", this.getState().getId());
+		compound.putInt("RatPose", this.getState().getId());
 		compound.putFloat("BodyLowerAmount", this.getBodyLowerAmount());
 		compound.putBoolean("BouncingBackwards", this.bouncingBackwards);
 		compound.putDouble("BounceHeight", this.bounceHeight);
@@ -132,7 +132,7 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.setState(GrazerState.byId(compound.getInt("State")));
+		this.setState(GrazerState.byId(compound.getInt("RatPose")));
 		this.setBodyLowerAmount(compound.getFloat("BodyLowerAmount"));
 		this.bouncingBackwards = compound.getBoolean("BouncingBackwards");
 		this.bounceHeight = compound.getDouble("BounceHeight");
@@ -478,7 +478,7 @@ public abstract class AbstractGrazer extends Animal {
 				float f1 = this.getYRot() * Mth.DEG_TO_RAD;
 				Vec3 offset = new Vec3(-5.0D / 16.0D, -12.0D / 16.0D, 9.5D / 16.0D).scale(this.getScale());
 				Vec3 offsetrotated = offset.xRot(-f).yRot(-f1);
-				Vec3 shellcenter = new Vec3(0.0D, this.shellCenterY(1.0F) - this.getDimensions(Pose.STANDING).height * 0.5D, this.shellCenterZ(1.0F)).yRot(-f1);
+				Vec3 shellcenter = new Vec3(0.0D, this.shellCenterY(1.0F) - this.getDimensions(net.minecraft.world.entity.Pose.STANDING).height * 0.5D, this.shellCenterZ(1.0F)).yRot(-f1);
 				Vec3 pos = offsetrotated.add(shellcenter).add(this.position());
 				double tangentialspeed = Mth.TWO_PI * 18.0D / ROTATION_SPEED * Math.sqrt(offset.y * offset.y + offset.z * offset.z) * Mth.DEG_TO_RAD;
 				Vec3 tangentialvelcity = new Vec3(0.0D, offsetrotated.z, -offsetrotated.y).normalize().scale(tangentialspeed).add(this.getDeltaMovement());
