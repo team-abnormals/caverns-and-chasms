@@ -511,7 +511,7 @@
   "container.caverns_and_chasms.splurter": "Splurter",
   "container.caverns_and_chasms.storage_duct": "Storage Duct",
   "container.caverns_and_chasms.toolbox": "Toolbox",
-  "container.caverns_and_chasms.toolbox.more": "and %s more...",
+  "container.caverns_and_chasms.toolbox.more": "+ %s more",
   "death.attack.caverns_and_chasms.kunai": "%1$s was stabbed by %2$s",
   "death.attack.caverns_and_chasms.kunai.item": "%1$s was stabbed by %2$s using %3$s",
   "death.attack.caverns_and_chasms.lava_lamp": "%1$s felt the heat",
