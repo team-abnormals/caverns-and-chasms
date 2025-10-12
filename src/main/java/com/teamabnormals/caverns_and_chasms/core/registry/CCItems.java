@@ -79,6 +79,7 @@ public class CCItems {
 	public static final RegistryObject<Item> COPPER_PICKAXE = HELPER.createItem("copper_pickaxe", () -> new WeatheringPickaxeItem(WeatherState.UNAFFECTED, CCItemTiers.COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> COPPER_AXE = HELPER.createItem("copper_axe", () -> new WeatheringAxeItem(WeatherState.UNAFFECTED, CCItemTiers.COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> COPPER_HOE = HELPER.createItem("copper_hoe", () -> new WeatheringHoeItem(WeatherState.UNAFFECTED, CCItemTiers.COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> COPPER_HORSE_ARMOR = HELPER.createItem("copper_horse_armor", () -> new WeatheringHorseArmorItem(WeatherState.UNAFFECTED, 15, "copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> EXPOSED_COPPER_HELMET = HELPER.createItem("exposed_copper_helmet", () -> new WeatheringCopperArmorItem(WeatherState.EXPOSED, CCArmorMaterials.EXPOSED_COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> EXPOSED_COPPER_CHESTPLATE = HELPER.createItem("exposed_copper_chestplate", () -> new WeatheringCopperArmorItem(WeatherState.EXPOSED, CCArmorMaterials.EXPOSED_COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -89,6 +90,7 @@ public class CCItems {
 	public static final RegistryObject<Item> EXPOSED_COPPER_PICKAXE = HELPER.createItem("exposed_copper_pickaxe", () -> new WeatheringPickaxeItem(WeatherState.EXPOSED, CCItemTiers.EXPOSED_COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> EXPOSED_COPPER_AXE = HELPER.createItem("exposed_copper_axe", () -> new WeatheringAxeItem(WeatherState.EXPOSED, CCItemTiers.EXPOSED_COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> EXPOSED_COPPER_HOE = HELPER.createItem("exposed_copper_hoe", () -> new WeatheringHoeItem(WeatherState.EXPOSED, CCItemTiers.EXPOSED_COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> EXPOSED_COPPER_HORSE_ARMOR = HELPER.createItem("exposed_copper_horse_armor", () -> new WeatheringHorseArmorItem(WeatherState.EXPOSED, 15, "exposed_copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> WEATHERED_COPPER_HELMET = HELPER.createItem("weathered_copper_helmet", () -> new WeatheringCopperArmorItem(WeatherState.WEATHERED, CCArmorMaterials.WEATHERED_COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> WEATHERED_COPPER_CHESTPLATE = HELPER.createItem("weathered_copper_chestplate", () -> new WeatheringCopperArmorItem(WeatherState.WEATHERED, CCArmorMaterials.WEATHERED_COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -99,6 +101,7 @@ public class CCItems {
 	public static final RegistryObject<Item> WEATHERED_COPPER_PICKAXE = HELPER.createItem("weathered_copper_pickaxe", () -> new WeatheringPickaxeItem(WeatherState.WEATHERED, CCItemTiers.WEATHERED_COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> WEATHERED_COPPER_AXE = HELPER.createItem("weathered_copper_axe", () -> new WeatheringAxeItem(WeatherState.WEATHERED, CCItemTiers.WEATHERED_COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> WEATHERED_COPPER_HOE = HELPER.createItem("weathered_copper_hoe", () -> new WeatheringHoeItem(WeatherState.WEATHERED, CCItemTiers.WEATHERED_COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> WEATHERED_COPPER_HORSE_ARMOR = HELPER.createItem("weathered_copper_horse_armor", () -> new WeatheringHorseArmorItem(WeatherState.WEATHERED, 15, "weathered_copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> OXIDIZED_COPPER_HELMET = HELPER.createItem("oxidized_copper_helmet", () -> new WeatheringCopperArmorItem(WeatherState.OXIDIZED, CCArmorMaterials.OXIDIZED_COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> OXIDIZED_COPPER_CHESTPLATE = HELPER.createItem("oxidized_copper_chestplate", () -> new WeatheringCopperArmorItem(WeatherState.OXIDIZED, CCArmorMaterials.OXIDIZED_COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -109,6 +112,7 @@ public class CCItems {
 	public static final RegistryObject<Item> OXIDIZED_COPPER_PICKAXE = HELPER.createItem("oxidized_copper_pickaxe", () -> new WeatheringPickaxeItem(WeatherState.OXIDIZED, CCItemTiers.OXIDIZED_COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> OXIDIZED_COPPER_AXE = HELPER.createItem("oxidized_copper_axe", () -> new WeatheringAxeItem(WeatherState.OXIDIZED, CCItemTiers.OXIDIZED_COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> OXIDIZED_COPPER_HOE = HELPER.createItem("oxidized_copper_hoe", () -> new WeatheringHoeItem(WeatherState.OXIDIZED, CCItemTiers.OXIDIZED_COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> OXIDIZED_COPPER_HORSE_ARMOR = HELPER.createItem("oxidized_copper_horse_armor", () -> new WeatheringHorseArmorItem(WeatherState.OXIDIZED, 15, "oxidized_copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> WAXED_COPPER_HELMET = HELPER.createItem("waxed_copper_helmet", () -> new CopperArmorItem(CCArmorMaterials.COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_COPPER_CHESTPLATE = HELPER.createItem("waxed_copper_chestplate", () -> new CopperArmorItem(CCArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -119,6 +123,7 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_COPPER_PICKAXE = HELPER.createItem("waxed_copper_pickaxe", () -> new PickaxeItem(CCItemTiers.COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_COPPER_AXE = HELPER.createItem("waxed_copper_axe", () -> new AxeItem(CCItemTiers.COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_COPPER_HOE = HELPER.createItem("waxed_copper_hoe", () -> new HoeItem(CCItemTiers.COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_COPPER_HORSE_ARMOR = HELPER.createItem("waxed_copper_horse_armor", () -> new CopperHorseArmorItem(15, "copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_HELMET = HELPER.createItem("waxed_exposed_copper_helmet", () -> new CopperArmorItem(CCArmorMaterials.EXPOSED_COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_CHESTPLATE = HELPER.createItem("waxed_exposed_copper_chestplate", () -> new CopperArmorItem(CCArmorMaterials.EXPOSED_COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -129,6 +134,7 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_PICKAXE = HELPER.createItem("waxed_exposed_copper_pickaxe", () -> new PickaxeItem(CCItemTiers.EXPOSED_COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_AXE = HELPER.createItem("waxed_exposed_copper_axe", () -> new AxeItem(CCItemTiers.EXPOSED_COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_HOE = HELPER.createItem("waxed_exposed_copper_hoe", () -> new HoeItem(CCItemTiers.EXPOSED_COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_EXPOSED_COPPER_HORSE_ARMOR = HELPER.createItem("waxed_exposed_copper_horse_armor", () -> new CopperHorseArmorItem(15, "exposed_copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_HELMET = HELPER.createItem("waxed_weathered_copper_helmet", () -> new CopperArmorItem(CCArmorMaterials.WEATHERED_COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_CHESTPLATE = HELPER.createItem("waxed_weathered_copper_chestplate", () -> new CopperArmorItem(CCArmorMaterials.WEATHERED_COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -139,6 +145,7 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_PICKAXE = HELPER.createItem("waxed_weathered_copper_pickaxe", () -> new PickaxeItem(CCItemTiers.WEATHERED_COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_AXE = HELPER.createItem("waxed_weathered_copper_axe", () -> new AxeItem(CCItemTiers.WEATHERED_COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_HOE = HELPER.createItem("waxed_weathered_copper_hoe", () -> new HoeItem(CCItemTiers.WEATHERED_COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_WEATHERED_COPPER_HORSE_ARMOR = HELPER.createItem("waxed_weathered_copper_horse_armor", () -> new CopperHorseArmorItem(15, "weathered_copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_HELMET = HELPER.createItem("waxed_oxidized_copper_helmet", () -> new CopperArmorItem(CCArmorMaterials.OXIDIZED_COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_CHESTPLATE = HELPER.createItem("waxed_oxidized_copper_chestplate", () -> new CopperArmorItem(CCArmorMaterials.OXIDIZED_COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -149,6 +156,7 @@ public class CCItems {
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_PICKAXE = HELPER.createItem("waxed_oxidized_copper_pickaxe", () -> new PickaxeItem(CCItemTiers.OXIDIZED_COPPER, 1, -2.8F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_AXE = HELPER.createItem("waxed_oxidized_copper_axe", () -> new AxeItem(CCItemTiers.OXIDIZED_COPPER, 7.0F, -3.2F, new Item.Properties()));
 	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_HOE = HELPER.createItem("waxed_oxidized_copper_hoe", () -> new HoeItem(CCItemTiers.OXIDIZED_COPPER, -1, -2.0F, new Item.Properties()));
+	public static final RegistryObject<Item> WAXED_OXIDIZED_COPPER_HORSE_ARMOR = HELPER.createItem("waxed_oxidized_copper_horse_armor", () -> new CopperHorseArmorItem(15, "oxidized_copper", new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> NETHERITE_NUGGET = HELPER.createItem("netherite_nugget", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> NETHERITE_HORSE_ARMOR = HELPER.createItem("netherite_horse_armor", () -> new NetheriteHorseArmorItem(12, "netherite", new Item.Properties().fireResistant().stacksTo(1)));
@@ -304,6 +312,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.STONE_SWORD), COPPER_SWORD)
 				.addItemsAfter(of(Items.STONE_AXE), COPPER_AXE)
 				.addItemsAfter(of(Items.LEATHER_BOOTS), COPPER_HELMET, COPPER_CHESTPLATE, COPPER_LEGGINGS, COPPER_BOOTS)
+				.addItemsAfter(of(Items.LEATHER_HORSE_ARMOR), COPPER_HORSE_ARMOR)
 				.addItemsAfter(of(Items.GOLDEN_SWORD), SILVER_SWORD)
 				.addItemsAfter(of(Items.GOLDEN_AXE), SILVER_AXE)
 				.addItemsAfter(of(Items.GOLDEN_BOOTS), SILVER_HELMET, SILVER_CHESTPLATE, SILVER_LEGGINGS, SILVER_BOOTS)

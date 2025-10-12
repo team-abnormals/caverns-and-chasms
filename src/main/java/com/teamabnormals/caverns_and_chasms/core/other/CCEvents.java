@@ -356,11 +356,11 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
-		Level level = entity.getCommandSenderWorld();
+		Level level = entity.level();
 		for (EquipmentSlot slot : EquipmentSlot.values()) {
 			ItemStack stack = entity.getItemBySlot(slot);
 			if (stack.getItem() instanceof WeatheringCopperItem item) {
-				boolean armor = slot.isArmor() && item instanceof ArmorItem;
+				boolean armor = slot.isArmor() && (item instanceof HorseArmorItem || item instanceof ArmorItem);
 				boolean tool = !slot.isArmor() && item instanceof TieredItem;
 				if (armor || tool) {
 					item.updateOxidation(stack, level);

@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.ForgeMod;
 
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -32,8 +31,7 @@ public class CopperArmorItem extends ArmorItem {
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.putAll(super.getAttributeModifiers(slot, stack));
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(this.type);
-		builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Copper armor slowness", -0.05F, AttributeModifier.Operation.MULTIPLY_TOTAL));
-		builder.put(ForgeMod.ENTITY_GRAVITY.get(), new AttributeModifier(uuid, "Copper armor gravity", 0.04F, AttributeModifier.Operation.MULTIPLY_TOTAL));
+		builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Copper armor slowness", -0.1F, AttributeModifier.Operation.MULTIPLY_TOTAL));
 		return slot == this.getEquipmentSlot() ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 
