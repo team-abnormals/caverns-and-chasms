@@ -35,6 +35,7 @@ import java.util.List;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
+	/*
 	@Shadow
 	@Final
 	Minecraft minecraft;
@@ -61,7 +62,6 @@ public abstract class GameRendererMixin {
 
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderItemActivationAnimation(IIF)V", shift = At.Shift.AFTER))
 	private void render(float partialTick, long p_109095_, boolean p_109096_, CallbackInfo ci) {
-		/*
 		List<AttachedRat> attachedrats = ((RatHolder) this.minecraft.player).getAttachedRats();
 		if (!attachedrats.isEmpty()) {
 			RenderSystem.enableDepthTest();
@@ -81,6 +81,6 @@ public abstract class GameRendererMixin {
 			RenderSystem.enableCull();
 			RenderSystem.disableDepthTest();
 		}
-		*/
 	}
+	*/
 }
