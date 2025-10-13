@@ -52,7 +52,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant> {
-	private static final Predicate<Rat> FRIEND_RATS = (entity) -> !entity.isBaby() && entity.isAlive();
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
 
@@ -61,8 +60,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private static final EntityDataAccessor<Boolean> TRUSTING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 
-	private List<Rat> group = Lists.newArrayList();
-	private int eatTicks;
+	private List<Rat> pack = Lists.newArrayList();
+	private int ticksSinceEaten;
 	private Player tamer;
 
 	public Rat(EntityType<? extends Rat> type, Level level) {
@@ -190,25 +189,25 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void aiStep() {
 		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
-			++this.eatTicks;
+			++this.ticksSinceEaten;
 			ItemStack itemstack = this.getMainHandItem();
 			if (this.canEatItem(itemstack)) {
-				if (this.eatTicks > 600) {
+				if (this.ticksSinceEaten > 600) {
 					ItemStack itemstack1 = itemstack.finishUsingItem(this.level(), this);
 					if (!itemstack1.isEmpty()) {
 						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
 					}
 
-					this.eatTicks = 0;
-				} else if (this.eatTicks > 560 && this.random.nextFloat() < 0.1F) {
+					this.ticksSinceEaten = 0;
+				} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
 					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
 					this.level().broadcastEntityEvent(this, (byte) 45);
 				}
 			}
 
-			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), FRIEND_RATS.and(entity -> entity.isTame() == this.isTame()));
+			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), rat -> !rat.isBaby() && rat.isAlive() && (!rat.isTame() || rat.getOwner() == this.getOwner()) && !rat.is(this));
 			rats.sort(Comparator.comparing(this::distanceToSqr));
-			this.group = rats.stream().limit(4).collect(Collectors.toList());
+			this.pack = rats.stream().limit(4).collect(Collectors.toList());
 		}
 
 		super.aiStep();
@@ -276,17 +275,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.tamer;
 	}
 
-	public List<Rat> getGroup() {
-		return this.group;
-	}
-
-	public int getFriendAmount() {
-		int size = this.group.size();
-		return this.isBaby() ? size : size - 1;
+	public List<Rat> getPack() {
+		return this.pack;
 	}
 
 	public boolean isSurroundedByFriends() {
-		return this.getFriendAmount() > 0;
+		return !this.pack.isEmpty();
 	}
 
 	public boolean trustsPlayers() {
@@ -294,41 +288,40 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public boolean shouldAttack(LivingEntity target) {
-		if (this.isTame() || (this.getFriendAmount() > 1 && this.tamer == null)) {
-			if (target instanceof Player) {
-				return !this.trustsPlayers();
-			} else {
-				return true;
-			}
-		}
+		if (this.isTame() || (this.pack.size() > 1 && this.tamer == null))
+			return !(target instanceof Player) || !this.trustsPlayers();
 
 		return false;
 	}
 
 	public boolean shouldRunAway() {
-		return !this.trustsPlayers() && this.getFriendAmount() <= 1;
+		return !this.trustsPlayers() && this.pack.size() <= 1;
 	}
 
-	public Vec3 findGroupCenter(List<Rat> groupIn) {
+	public Vec3 findPackCenter(List<Rat> pack) {
 		double x = 0.0D;
 		double y = 0.0D;
 		double z = 0.0D;
 
-		for (Rat friend : groupIn) {
+		for (Rat friend : pack) {
 			x += friend.getX();
 			y += friend.getY();
 			z += friend.getZ();
 		}
 
-		return new Vec3(x / groupIn.size(), y / groupIn.size(), z / groupIn.size());
+		return new Vec3(x / pack.size(), y / pack.size(), z / pack.size());
 	}
 
 	public float getTailWagAmount() {
-		if (this.isTame()) {
-			float f = Mth.clamp(1.0F - (this.getMaxHealth() - this.getHealth()) / this.getMaxHealth(), 0.0F, 1.0F);
-			return this.isInWater() ? f : f * 1.5F;
+		return calculateTailWagAmount(this.getHealth(), this.getMaxHealth(), this.isTame());
+	}
+
+	public static float calculateTailWagAmount(float health, float maxHealth, boolean isTame) {
+		if (isTame) {
+			float f = Mth.clamp(1.0F - (maxHealth - health) / maxHealth, 0.0F, 1.0F);
+			return f * 1.5F;
 		} else {
-			return this.isInWater() ? 1.0F : 1.5F;
+			return 1.5F;
 		}
 	}
 
@@ -378,7 +371,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public boolean canHoldItem(ItemStack stack) {
 		Item item = stack.getItem();
 		ItemStack itemstack = this.getMainHandItem();
-		return itemstack.isEmpty() || this.eatTicks > 0 && item.isEdible() && !itemstack.getItem().isEdible();
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && item.isEdible() && !itemstack.getItem().isEdible();
 	}
 
 	private void spitOutItem(ItemStack stackIn) {
@@ -411,7 +404,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
 			this.take(itemEntity, itemstack.getCount());
 			itemEntity.discard();
-			this.eatTicks = 0;
+			this.ticksSinceEaten = 0;
 		}
 	}
 
@@ -433,7 +426,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-		if (!this.isTame() && this.getFriendAmount() < 2) {
+		if (!this.isTame() && this.pack.size() <= 1) {
 			return false;
 		}
 

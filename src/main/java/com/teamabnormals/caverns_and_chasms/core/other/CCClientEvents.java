@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.network.chat.Component;
@@ -22,7 +21,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderNameTagEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -189,13 +187,6 @@ public class CCClientEvents {
 			player.displayClientMessage(createTooltip("weather").append(": ").append(createTooltip(getWeather(player, level))), true);
 			event.setCanceled(true);
 			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		}
-	}
-
-	@SubscribeEvent
-	public static void onLevelRender(RenderLevelStageEvent event) {
-		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
-
 		}
 	}
 }

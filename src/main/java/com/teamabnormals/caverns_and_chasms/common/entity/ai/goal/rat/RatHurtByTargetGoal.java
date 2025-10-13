@@ -18,6 +18,10 @@ public class RatHurtByTargetGoal extends HurtByTargetGoal {
 		return this.rat.shouldAttack(this.rat.getLastHurtByMob()) && super.canUse();
 	}
 
+	public void start() {
+		super.start();
+	}
+
 	@Override
 	protected void alertOther(Mob mob, LivingEntity target) {
 		if (mob instanceof Rat && ((Rat) mob).shouldAttack(this.targetMob)) {

@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;

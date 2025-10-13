@@ -16,20 +16,20 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RatHeldItemLayer extends RenderLayer<Rat, RatModel<Rat>> {
+public class RatHeldItemLayer extends RenderLayer<Rat, RatModel> {
 	private final ItemInHandRenderer itemInHandRenderer;
 
-	public RatHeldItemLayer(RenderLayerParent<Rat, RatModel<Rat>> entityRenderer, ItemInHandRenderer itemInHandRenderer) {
+	public RatHeldItemLayer(RenderLayerParent<Rat, RatModel> entityRenderer, ItemInHandRenderer itemInHandRenderer) {
 		super(entityRenderer);
 		this.itemInHandRenderer = itemInHandRenderer;
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		renderItem(this.getParentModel(), this.itemInHandRenderer, matrixStackIn, bufferIn, packedLightIn, rat, rat.isBaby(), rat.getItemBySlot(EquipmentSlot.MAINHAND), netHeadYaw, headPitch);
+	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		renderItem(this.getParentModel(), this.itemInHandRenderer, poseStack, buffer, packedLight, rat, rat.isBaby(), rat.getItemBySlot(EquipmentSlot.MAINHAND), netHeadYaw, headPitch);
 	}
 
-	public static void renderItem(RatModel<Rat> model, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, LivingEntity entity, boolean isBaby, ItemStack stack, float netHeadYaw, float headPitch) {
+	public static void renderItem(RatModel model, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, LivingEntity entity, boolean isBaby, ItemStack stack, float netHeadYaw, float headPitch) {
 		poseStack.pushPose();
 		if (isBaby) {
 			poseStack.translate(0.0D, 0.3125D, 0.125D);

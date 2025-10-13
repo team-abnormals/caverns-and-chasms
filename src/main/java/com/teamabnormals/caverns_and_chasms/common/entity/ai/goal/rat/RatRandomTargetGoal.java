@@ -21,7 +21,7 @@ public class RatRandomTargetGoal<T extends LivingEntity> extends NonTameRandomTa
 
 	@Override
 	public void start() {
-		for (Rat friend : this.rat.getGroup()) {
+		for (Rat friend : this.rat.getPack()) {
 			if (friend != this.rat && friend.shouldAttack(this.target) && friend.getTarget() == null) {
 				friend.setTarget(this.target);
 			}

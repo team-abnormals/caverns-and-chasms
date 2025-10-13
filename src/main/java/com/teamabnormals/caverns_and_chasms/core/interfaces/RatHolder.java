@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity;
+package com.teamabnormals.caverns_and_chasms.core.interfaces;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -6,10 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
-import net.minecraft.world.entity.ai.attributes.RangedAttribute;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -33,26 +31,19 @@ public interface RatHolder {
 		private final float angle;
 		private final float posY;
 		private final float attackDamage;
+		private long attachTime;
 		private int biteTimer;
 
 		public AttachedRat(CompoundTag entityData, float angle, float posY) {
 			this.entityData = entityData;
 			this.angle = angle;
 			this.posY = posY;
-			this.attackDamage = calculateAttackAttribute(entityData);
+			this.attackDamage = (float) getAttributeValue(entityData, Attributes.ATTACK_DAMAGE);
 		}
 
 		public void initialize(LivingEntity host) {
 			this.biteTimer = host.getRandom().nextInt(30);
-		}
-
-		public void tick(LivingEntity host) {
-			if (!host.level().isClientSide) {
-				if (this.biteTimer-- <= 0) {
-					this.biteTimer = 20 + host.getRandom().nextInt(10);
-					host.hurt(host.level().damageSources().genericKill(), this.attackDamage);
-				}
-			}
+			this.attachTime = host.level().getGameTime();
 		}
 
 		public CompoundTag getEntityData() {
@@ -67,6 +58,22 @@ public interface RatHolder {
 			return this.posY;
 		}
 
+		public float getAttackDamage() {
+			return this.attackDamage;
+		}
+
+		public long getAttachTime() {
+			return this.attachTime;
+		}
+
+		public int getBiteTimer() {
+			return this.biteTimer;
+		}
+
+		public void setBiteTimer(int time) {
+			this.biteTimer = time;
+		}
+
 		public CompoundTag save() {
 			CompoundTag compoundtag = new CompoundTag();
 			compoundtag.put("EntityData", this.entityData);
@@ -79,20 +86,20 @@ public interface RatHolder {
 			return new AttachedRat((CompoundTag) compoundtag.get("EntityData"), compoundtag.getFloat("Angle"), compoundtag.getFloat("PosY"));
 		}
 
-		private static float calculateAttackAttribute(CompoundTag entityData) {
+		public static double getAttributeValue(CompoundTag entityData, Attribute attribute) {
 			if (entityData.contains("Attributes", 9)) {
 				ListTag attributes = entityData.getList("Attributes", 10);
 
 				for (int i = 0; i < attributes.size(); ++i) {
-					CompoundTag attribute = attributes.getCompound(i);
-					if (attribute.getString("Name").equals("generic.attack_damage")) {
-						double basevalue = attribute.getDouble("Base");
+					CompoundTag attributetag = attributes.getCompound(i);
+					if (attributetag.getString("Name").equals(ForgeRegistries.ATTRIBUTES.getKey(attribute).toString())) {
+						double basevalue = attributetag.getDouble("Base");
 						double addition = 0.0D;
 						double multiplybase = 0.0D;
 						double multiplytotal = 1.0D;
 
-						if (attribute.contains("Modifiers", 9)) {
-							ListTag modifiers = attribute.getList("Modifiers", 10);
+						if (attributetag.contains("Modifiers", 9)) {
+							ListTag modifiers = attributetag.getList("Modifiers", 10);
 
 							for (int j = 0; j < modifiers.size(); ++j) {
 								CompoundTag modifier = modifiers.getCompound(j);
@@ -109,13 +116,15 @@ public interface RatHolder {
 						value += value * multiplybase;
 						value *= multiplytotal;
 
-						RangedAttribute rangedattribute = (RangedAttribute) Attributes.ATTACK_DAMAGE;
-						return (float) (Double.isNaN(value) ? rangedattribute.getMinValue() : Mth.clamp(value, rangedattribute.getMinValue(), rangedattribute.getMaxValue()));
+						if (attribute instanceof RangedAttribute rangedattribute)
+							return (Double.isNaN(value) ? rangedattribute.getMinValue() : Mth.clamp(value, rangedattribute.getMinValue(), rangedattribute.getMaxValue()));
+						else
+							return value;
 					}
 				}
 			}
 
-			return (float) DefaultAttributes.getSupplier(CCEntityTypes.RAT.get()).getBaseValue(Attributes.ATTACK_DAMAGE);
+			return DefaultAttributes.getSupplier(CCEntityTypes.RAT.get()).getBaseValue(attribute);
 		}
 	}
 }

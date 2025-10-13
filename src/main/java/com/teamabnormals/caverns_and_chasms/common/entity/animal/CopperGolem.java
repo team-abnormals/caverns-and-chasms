@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
-import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;

@@ -17,7 +17,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -73,6 +72,7 @@ public class CCClientCompat {
 		event.getSkins().forEach(skin -> {
 			PlayerRenderer renderer = event.getSkin(skin);
 			renderer.addLayer(new RatOnShoulderLayer(renderer, modelset));
+			renderer.addLayer(new AttachedRatsLayer(renderer, modelset, iteminhandrenderer));
 		});
 
 		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {
