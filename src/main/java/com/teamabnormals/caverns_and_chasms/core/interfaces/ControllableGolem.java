@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity;
+package com.teamabnormals.caverns_and_chasms.core.interfaces;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;

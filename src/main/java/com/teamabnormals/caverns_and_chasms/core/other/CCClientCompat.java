@@ -75,6 +75,7 @@ public class CCClientCompat {
 		event.getSkins().forEach(skin -> {
 			PlayerRenderer renderer = event.getSkin(skin);
 			renderer.addLayer(new RatOnShoulderLayer(renderer, modelset));
+			renderer.addLayer(new AttachedRatsLayer(renderer, modelset, iteminhandrenderer));
 		});
 
 		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {

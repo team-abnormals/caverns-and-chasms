@@ -54,6 +54,6 @@ public class RatStayInGroupGoal extends Goal {
 	}
 
 	private void setGroupCenter() {
-		this.groupCenter = this.rat.findGroupCenter(this.rat.getGroup());
+		this.groupCenter = this.rat.findPackCenter(this.rat.getPack());
 	}
 }

@@ -16,21 +16,21 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RatCollarLayer extends RenderLayer<Rat, RatModel<Rat>> {
+public class RatCollarLayer extends RenderLayer<Rat, RatModel> {
 	private static final ResourceLocation RAT_COLLAR_LOCATION = CavernsAndChasms.location("textures/entity/rat/rat_collar.png");
 
-	public RatCollarLayer(RenderLayerParent<Rat, RatModel<Rat>> renderer) {
+	public RatCollarLayer(RenderLayerParent<Rat, RatModel> renderer) {
 		super(renderer);
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLightIn, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (rat.isTame()) {
-			renderCollar(this.getParentModel(), matrixStackIn, bufferIn, packedLightIn, rat.getCollarColor(), rat.hurtTime, rat.deathTime);
+			renderCollar(this.getParentModel(), poseStack, buffer, packedLightIn, rat.getCollarColor(), rat.hurtTime, rat.deathTime);
 		}
 	}
 
-	public static void renderCollar(RatModel<Rat> model, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, DyeColor collarColor, int hurtTime, int deathTime) {
+	public static void renderCollar(RatModel model, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, DyeColor collarColor, int hurtTime, int deathTime) {
 		float[] afloat = collarColor.getTextureDiffuseColors();
 		int overlaycoords = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(hurtTime > 0 || deathTime > 0));
 		VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(RAT_COLLAR_LOCATION));

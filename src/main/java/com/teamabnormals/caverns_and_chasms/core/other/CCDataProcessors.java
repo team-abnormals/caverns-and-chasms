@@ -5,7 +5,7 @@ import com.teamabnormals.blueprint.common.world.storage.tracking.DataProcessors;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataProcessor;
 import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedData;
 import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedDataManager;
-import com.teamabnormals.caverns_and_chasms.common.entity.RatHolder.AttachedRat;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder.AttachedRat;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

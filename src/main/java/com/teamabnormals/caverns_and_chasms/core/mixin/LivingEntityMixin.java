@@ -3,21 +3,25 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 import com.google.common.collect.Lists;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager.DataEntry;
-import com.teamabnormals.caverns_and_chasms.common.entity.RatHolder;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements RatHolder {
+
+	@Shadow public abstract boolean isSleeping();
 
 	public LivingEntityMixin(EntityType<?> type, Level level) {
 		super(type, level);
@@ -81,10 +85,26 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 
 	@Override
 	public void tickRats() {
+		LivingEntity livingentity = (LivingEntity) (Object) this;
 		List<AttachedRat> attachedrats = this.getAttachedRats();
 		AttachedRat[] ratstotick = this.getAttachedRats().toArray(new AttachedRat[attachedrats.size()]);
-		for (AttachedRat ratdata : ratstotick)
-			ratdata.tick((LivingEntity) (Object) this);
+
+		if (!livingentity.level().isClientSide) {
+			boolean trydetachingrats = livingentity instanceof Player && (this.fallDistance > 0.5F || this.isInWater() || ((Player) livingentity).getAbilities().flying || this.isSleeping() || this.isInPowderSnow);
+
+			for (AttachedRat attachedrat : ratstotick) {
+				if (trydetachingrats && attachedrat.getAttachTime() + 20L < livingentity.level().getGameTime()) {
+					Rat rat = this.detachRat(attachedrat);
+					rat.setTarget(livingentity);
+				}
+
+				attachedrat.setBiteTimer(attachedrat.getBiteTimer() - 1);
+				if (attachedrat.getBiteTimer() <= 0) {
+					attachedrat.setBiteTimer(20 + livingentity.getRandom().nextInt(10));
+					livingentity.hurt(livingentity.level().damageSources().generic(), attachedrat.getAttackDamage());
+				}
+			}
+		}
 	}
 
 	@Override
