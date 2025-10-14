@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.AttachedRatsLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
@@ -17,7 +18,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.HorseRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
@@ -32,6 +33,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -79,6 +81,11 @@ public class CCClientCompat {
 			if (renderer instanceof LivingEntityRenderer<?, ?> livingrenderer)
 				livingrenderer.addLayer(new AttachedRatsLayer(livingrenderer, modelset, iteminhandrenderer));
 		}
+
+		HorseRenderer horseRenderer = event.getRenderer(EntityType.HORSE);
+		if (horseRenderer != null) {
+			horseRenderer.addLayer(new UnicornHornLayer(horseRenderer, event.getEntityModels()));
+		}
 	}
 
 	@SubscribeEvent
@@ -90,6 +97,7 @@ public class CCClientCompat {
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.FOIL.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.UNICORN_HORN.get());
 	}
 
 	@SubscribeEvent
@@ -227,7 +235,7 @@ public class CCClientCompat {
 			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
 		}
 
-		for (Item item : List.of(Items.BUNDLE, CCItems.FOIL.get())) {
+		for (Item item : List.of(Items.BUNDLE, CCItems.FOIL.get(), CCItems.UNICORN_HORN.get())) {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 

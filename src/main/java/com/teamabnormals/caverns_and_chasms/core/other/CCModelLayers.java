@@ -40,7 +40,7 @@ public class CCModelLayers {
 	public static final ModelLayerLocation TMT_MINECART = register("tmt_minecart");
 	public static final ModelLayerLocation TOOLBOX = register("toolbox");
 	public static final ModelLayerLocation ROLLER_DOOR = register("roller_door");
-
+	public static final ModelLayerLocation UNICORN_HORN = register("unicorn_horn");
 
 	@SubscribeEvent
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -62,6 +62,7 @@ public class CCModelLayers {
 		event.registerLayerDefinition(TMT_MINECART, MinecartModel::createBodyLayer);
 		event.registerLayerDefinition(LOST_GOAT, LostGoatModel::createBodyLayer);
 		event.registerLayerDefinition(COPPER_HORSE_ARMOR, () -> LayerDefinition.create(CopperHorseArmorModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
+		event.registerLayerDefinition(UNICORN_HORN, () -> LayerDefinition.create(UnicornHornModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
 	}
 
 	@SubscribeEvent
