@@ -32,6 +32,7 @@ public class UnicornHornLayer extends RenderLayer<Horse, HorseModel<Horse>> {
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Horse horse, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!((IDataManager) horse).getValue(CCDataProcessors.UNICORN_HORN).isEmpty()) {
 			ItemStack stack = ((IDataManager) horse).getValue(CCDataProcessors.UNICORN_HORN);
+			boolean emissive = stack.getOrCreateTag().getBoolean("emissive");
 			this.getParentModel().copyPropertiesTo(this.model);
 			this.model.prepareMobModel(horse, limbSwing, limbSwingAmount, partialTicks);
 			this.model.setupAnim(horse, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
@@ -50,6 +51,10 @@ public class UnicornHornLayer extends RenderLayer<Horse, HorseModel<Horse>> {
 			}
 			VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(HORN_TEXTURE));
 			this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1.0F);
+			if (emissive) {
+				VertexConsumer emissiveConsumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(HORN_TEXTURE));
+				this.model.renderToBuffer(poseStack, emissiveConsumer, packedLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1.0F);
+			}
 		}
 	}
 }
