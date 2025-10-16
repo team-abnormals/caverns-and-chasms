@@ -6,8 +6,8 @@ import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.AttachedRatsLayer;
-import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
@@ -23,9 +23,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HorseRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
@@ -33,7 +33,6 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -79,13 +78,12 @@ public class CCClientCompat {
 		});
 
 		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {
-			if (renderer instanceof LivingEntityRenderer<?, ?> livingrenderer)
-				livingrenderer.addLayer(new AttachedRatsLayer(livingrenderer, modelset, iteminhandrenderer));
-		}
-
-		HorseRenderer horseRenderer = event.getRenderer(EntityType.HORSE);
-		if (horseRenderer != null) {
-			horseRenderer.addLayer(new UnicornHornLayer(horseRenderer, event.getEntityModels()));
+			if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
+				livingRenderer.addLayer(new AttachedRatsLayer(livingRenderer, modelset, iteminhandrenderer));
+				if (renderer instanceof AbstractHorseRenderer<?, ?> horseRenderer) {
+					horseRenderer.addLayer(new UnicornHornLayer(horseRenderer, event.getEntityModels()));
+				}
+			}
 		}
 	}
 

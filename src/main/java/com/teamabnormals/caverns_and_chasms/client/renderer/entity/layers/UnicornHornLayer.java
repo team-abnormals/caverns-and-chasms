@@ -15,21 +15,22 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 
-public class UnicornHornLayer extends RenderLayer<Horse, HorseModel<Horse>> {
+public class UnicornHornLayer<T extends AbstractHorse, M extends HorseModel<T>> extends RenderLayer<T, M> {
 	public static final ResourceLocation HORN_TEXTURE = CavernsAndChasms.location("textures/entity/horse/unicorn_horn.png");
-	private final UnicornHornModel<Horse> model;
+	private final UnicornHornModel<T> model;
 
-	public UnicornHornLayer(RenderLayerParent<Horse, HorseModel<Horse>> parent, EntityModelSet modelSet) {
+	public UnicornHornLayer(RenderLayerParent<T, M> parent, EntityModelSet modelSet) {
 		super(parent);
 		this.model = new UnicornHornModel<>(modelSet.bakeLayer(CCModelLayers.UNICORN_HORN));
 	}
 
 	@Override
-	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Horse horse, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T horse, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!((IDataManager) horse).getValue(CCDataProcessors.UNICORN_HORN).isEmpty()) {
 			ItemStack stack = ((IDataManager) horse).getValue(CCDataProcessors.UNICORN_HORN);
 			boolean emissive = stack.getOrCreateTag().getBoolean("emissive");

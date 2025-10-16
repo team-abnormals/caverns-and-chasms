@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.nbt.CompoundTag;
@@ -10,13 +9,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -36,7 +34,7 @@ public class UnicornHornItem extends Item implements DyeableLeatherItem {
 		Entity entity = event.getTarget();
 		Player player = event.getEntity();
 		ItemStack stack = event.getItemStack();
-		if (entity instanceof Horse horse && entity.isAlive() && horse instanceof IDataManager dataManager) {
+		if (entity instanceof AbstractHorse horse && entity.isAlive() && horse instanceof IDataManager dataManager) {
 			if (dataManager.getValue(CCDataProcessors.UNICORN_HORN).isEmpty()) {
 				if (stack.is(CCItems.UNICORN_HORN.get())) {
 					horse.level().playSound(null, horse, SoundEvents.LARGE_AMETHYST_BUD_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
