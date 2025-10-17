@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,16 +32,15 @@ public class AttachedRatsLayer<T extends LivingEntity & RatHolder, M extends Ent
 
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-		RandomSource random = RandomSource.create(entity.getId());
-		for (AttachedRat ratdata : entity.getAttachedRats()) {
+		for (AttachedRat attachedrat : entity.getAttachedRats()) {
 			poseStack.pushPose();
-			float animtime = ageInTicks + random.nextFloat() * 100.0F;
-			float angle = ratdata.getAngle();
-			poseStack.translate(-Math.sin(angle * Mth.DEG_TO_RAD) * entity.getBbWidth() * 0.45D, entity.getBbHeight() * -ratdata.getPosY(), -Math.cos(angle * Mth.DEG_TO_RAD) * entity.getBbWidth() * 0.45D);
+			float animtime = ageInTicks + attachedrat.getAnimOffset();
+			float angle = attachedrat.getAngle();
+			poseStack.translate(-Math.sin(angle * Mth.DEG_TO_RAD) * entity.getBbWidth() * 0.45D, entity.getBbHeight() * -attachedrat.getPosY(), -Math.cos(angle * Mth.DEG_TO_RAD) * entity.getBbWidth() * 0.45D);
 			poseStack.mulPose(Axis.YP.rotationDegrees(180.0F + angle));
 			poseStack.rotateAround(Axis.XP.rotationDegrees(-90.0F), 0.0F, 1.5F, 0.0F);
 			poseStack.mulPose(Axis.YP.rotationDegrees(Mth.sin(animtime * 0.75F) * 10.0F));
-			this.ratModel.renderFromTag(ratdata.getEntityData(), entity.level(), entity, this.itemInHandRenderer, poseStack, buffer, packedLight, 0.0F, 0.0F, animtime, Mth.sin(ageInTicks * 0.75F) * 15.0F, 35.0F);
+			this.ratModel.renderFromTag(attachedrat.getEntityData(), entity.level(), entity, this.itemInHandRenderer, poseStack, buffer, packedLight, 0.0F, 0.0F, animtime, Mth.sin(ageInTicks * 0.75F) * 15.0F, 35.0F);
 			poseStack.popPose();
 		}
 	}

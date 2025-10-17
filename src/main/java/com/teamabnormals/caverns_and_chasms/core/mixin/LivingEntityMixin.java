@@ -41,10 +41,20 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 		CompoundTag compound = new CompoundTag();
 		compound.putString("id", rat.getEncodeId());
 		rat.saveWithoutId(compound);
-		AttachedRat attachedrat = new AttachedRat(compound, this.random.nextFloat() * 360.0F, (0.25F + this.random.nextFloat() * Math.max(this.getEyeHeight() - 0.5F, 0.0F)) / this.getBbHeight());
+
+		List<AttachedRat> attachedrats = this.getAttachedRats();
+
+		List<Integer> availableslots = Lists.newArrayList(-1, 0, 1);
+		for (AttachedRat attachedrat : attachedrats)
+			availableslots.remove(Integer.valueOf(Math.round(attachedrat.getFirstPersonPos())));
+		float firstpersonpos = (availableslots.isEmpty() ? this.random.nextInt(3) - 1 : availableslots.get(this.random.nextInt(availableslots.size()))) + (this.random.nextFloat() - 0.5F) * 0.8F;
+
+		AttachedRat attachedrat = new AttachedRat(compound, this.random.nextFloat() * 360.0F, (0.25F + this.random.nextFloat() * Math.max(this.getEyeHeight() - 0.5F, 0.0F)) / this.getBbHeight(), firstpersonpos);
 		attachedrat.initialize((LivingEntity) (Object) this);
-		this.getAttachedRats().add(attachedrat);
+
+		attachedrats.add(attachedrat);
 		this.syncAttachedRats();
+
 		rat.discard();
 	}
 
@@ -90,7 +100,7 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 		AttachedRat[] ratstotick = this.getAttachedRats().toArray(new AttachedRat[attachedrats.size()]);
 
 		if (!livingentity.level().isClientSide) {
-			boolean trydetachingrats = livingentity instanceof Player && (this.fallDistance > 0.5F || this.isInWater() || ((Player) livingentity).getAbilities().flying || this.isSleeping() || this.isInPowderSnow);
+			boolean trydetachingrats = livingentity instanceof Player && (this.fallDistance > 0.5F || this.isInWater() || ((Player) livingentity).getAbilities().flying || this.isInPowderSnow);
 
 			for (AttachedRat attachedrat : ratstotick) {
 				if (trydetachingrats && attachedrat.getAttachTime() + 20L < livingentity.level().getGameTime()) {

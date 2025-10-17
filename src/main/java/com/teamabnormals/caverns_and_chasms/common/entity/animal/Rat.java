@@ -279,7 +279,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.pack;
 	}
 
-	public boolean isSurroundedByFriends() {
+	public boolean hasPack() {
 		return !this.pack.isEmpty();
 	}
 
@@ -287,15 +287,19 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.isTrusting() || this.isTame();
 	}
 
+	public boolean isPackBigEnoughToAttack() {
+		return this.isBaby() ? this.pack.size() > 2 : this.pack.size() > 1;
+	}
+
 	public boolean shouldAttack(LivingEntity target) {
-		if (this.isTame() || (this.pack.size() > 1 && this.tamer == null))
+		if (this.isTame() || (this.isPackBigEnoughToAttack() && this.tamer == null))
 			return !(target instanceof Player) || !this.trustsPlayers();
 
 		return false;
 	}
 
 	public boolean shouldRunAway() {
-		return !this.trustsPlayers() && this.pack.size() <= 1;
+		return !this.trustsPlayers() && !this.isPackBigEnoughToAttack();
 	}
 
 	public Vec3 findPackCenter(List<Rat> pack) {
@@ -426,7 +430,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-		if (!this.isTame() && this.pack.size() <= 1) {
+		if (!this.isTame() && !this.isPackBigEnoughToAttack()) {
 			return false;
 		}
 

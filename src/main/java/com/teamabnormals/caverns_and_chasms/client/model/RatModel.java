@@ -130,7 +130,6 @@ public class RatModel extends AgeableListModel<Rat> {
 
 		if (this.pose == RatPose.ATTACHED) {
 			this.body.zRot = Mth.sin(ageInTicks) * 0.3F;
-			this.tail.yRot += Mth.sin((ageInTicks - 3) * 0.75F) * 0.7F;
 		} else {
 			this.body.zRot = 0.0F;
 		}

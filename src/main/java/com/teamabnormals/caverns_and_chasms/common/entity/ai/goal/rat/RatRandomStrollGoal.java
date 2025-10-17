@@ -23,7 +23,7 @@ public class RatRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
 			Vec3 vec3 = LandRandomPos.getPos(this.rat, 15, 7);
 			return vec3 == null ? super.getPosition() : vec3;
 		} else {
-			boolean flag = this.rat.isTame() || this.rat.isSurroundedByFriends();
+			boolean flag = this.rat.isTame() || this.rat.hasPack();
 			int max = flag ? 6 : 10;
 			int min = flag ? 3 : 7;
 			return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, max, min) : DefaultRandomPos.getPos(this.mob, max, min);

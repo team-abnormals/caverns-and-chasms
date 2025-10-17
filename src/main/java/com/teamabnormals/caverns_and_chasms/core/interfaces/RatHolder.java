@@ -30,19 +30,23 @@ public interface RatHolder {
 		private final CompoundTag entityData;
 		private final float angle;
 		private final float posY;
+		private final float firstPersonPos;
 		private final float attackDamage;
-		private long attachTime;
 		private int biteTimer;
+		private int animOffset;
+		private long attachTime;
 
-		public AttachedRat(CompoundTag entityData, float angle, float posY) {
+		public AttachedRat(CompoundTag entityData, float angle, float posY, float firstPersonPos) {
 			this.entityData = entityData;
 			this.angle = angle;
 			this.posY = posY;
+			this.firstPersonPos = firstPersonPos;
 			this.attackDamage = (float) getAttributeValue(entityData, Attributes.ATTACK_DAMAGE);
 		}
 
 		public void initialize(LivingEntity host) {
 			this.biteTimer = host.getRandom().nextInt(30);
+			this.animOffset = host.getRandom().nextInt(100);
 			this.attachTime = host.level().getGameTime();
 		}
 
@@ -56,6 +60,10 @@ public interface RatHolder {
 
 		public float getPosY() {
 			return this.posY;
+		}
+
+		public float getFirstPersonPos() {
+			return this.firstPersonPos;
 		}
 
 		public float getAttackDamage() {
@@ -74,16 +82,21 @@ public interface RatHolder {
 			this.biteTimer = time;
 		}
 
+		public int getAnimOffset() {
+			return this.animOffset;
+		}
+
 		public CompoundTag save() {
 			CompoundTag compoundtag = new CompoundTag();
 			compoundtag.put("EntityData", this.entityData);
 			compoundtag.putFloat("Angle", this.angle);
 			compoundtag.putFloat("PosY", this.posY);
+			compoundtag.putFloat("FirstPersonPos", this.firstPersonPos);
 			return compoundtag;
 		}
 
 		public static AttachedRat load(CompoundTag compoundtag) {
-			return new AttachedRat((CompoundTag) compoundtag.get("EntityData"), compoundtag.getFloat("Angle"), compoundtag.getFloat("PosY"));
+			return new AttachedRat((CompoundTag) compoundtag.get("EntityData"), compoundtag.getFloat("Angle"), compoundtag.getFloat("PosY"), compoundtag.getFloat("FirstPersonPos"));
 		}
 
 		public static double getAttributeValue(CompoundTag entityData, Attribute attribute) {

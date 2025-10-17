@@ -18,7 +18,7 @@ public class RatStayInGroupGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (!this.rat.isTame() && !this.rat.isBaby() && this.rat.isSurroundedByFriends()) {
+		if (!this.rat.isTame() && !this.rat.isBaby() && this.rat.hasPack()) {
 			this.setGroupCenter();
 			return this.rat.distanceToSqr(this.groupCenter) > 16.0D;
 		}
