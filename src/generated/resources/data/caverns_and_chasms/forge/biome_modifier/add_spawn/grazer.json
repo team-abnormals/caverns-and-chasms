@@ -5,6 +5,6 @@
     "type": "caverns_and_chasms:grazer",
     "maxCount": 1,
     "minCount": 1,
-    "weight": 20
+    "weight": 120
   }
 }

@@ -36,7 +36,7 @@ public class CCBiomeModifiers {
 	public static void bootstrap(BootstapContext<BiomeModifier> context) {
 		addSpawn(context, "peeper", CCBiomeTags.HAS_PEEPER, new MobSpawnSettings.SpawnerData(CCEntityTypes.PEEPER.get(), 40, 2, 4));
 		addSpawn(context, "mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 100, 1, 1));
-		addSpawn(context, "grazer", CCBiomeTags.HAS_GRAZER, new MobSpawnSettings.SpawnerData(CCEntityTypes.GRAZER.get(), 20, 1, 1));
+		addSpawn(context, "grazer", CCBiomeTags.HAS_GRAZER, new MobSpawnSettings.SpawnerData(CCEntityTypes.GRAZER.get(), 120, 1, 1));
 		addSpawn(context, "glare", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
 		addSpawn(context, "lost_goat", CCBiomeTags.HAS_LOST_GOAT, new MobSpawnSettings.SpawnerData(CCEntityTypes.LOST_GOAT.get(), 1, 1, 1));
 
