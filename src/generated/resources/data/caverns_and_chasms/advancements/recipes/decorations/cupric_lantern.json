@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper": {
+    "has_cupric_torch": {
       "conditions": {
         "items": [
           {
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_copper",
+      "has_cupric_torch",
       "has_the_recipe"
     ]
   ],
