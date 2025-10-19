@@ -292,6 +292,9 @@ public class CCBlocks {
 	public static final RegistryObject<Block> ATONING_TABLE = HELPER.createBlock("atoning_table", () -> new AtoningTableBlock(BlockBehaviour.Properties.copy(Blocks.ENCHANTING_TABLE).sound(CCSoundTypes.ATONING_TABLE)));
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.ZIRCONIA)));
+	public static final RegistryObject<Block> ZIRCONIA_LAMP = HELPER.createBlock("zirconia_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get()).sound(CCSoundTypes.ZIRCONIA)));
+	public static final RegistryObject<Block> ORNATE_GLASS = HELPER.createBlock("ornate_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+	public static final RegistryObject<Block> ORNATE_GLASS_PANE = HELPER.createBlock("ornate_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
 	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
 	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
@@ -301,8 +304,13 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new TurquoiseSlabBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new TurquoiseWallBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
+	public static final RegistryObject<Block> TURQUOISE_LAMP = HELPER.createBlock("turquoise_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
 
 	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot()));
+
+	public static final RegistryObject<Block> QUARTZ_LAMP = HELPER.createBlock("quartz_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
+	public static final RegistryObject<Block> DIAMOND_LAMP = HELPER.createBlock("diamond_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
+	public static final RegistryObject<Block> EMERALD_LAMP = HELPER.createBlock("emerald_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
 
 	public static final RegistryObject<Block> ROCKY_DIRT = HELPER.createBlock("rocky_dirt", () -> new Block(CCProperties.ROCKY_DIRT));
 	public static final RegistryObject<Block> FRAGILE_STONE = HELPER.createBlock("fragile_stone", () -> new FragileStoneBlock(CCProperties.FRAGILE_STONE));
@@ -462,6 +470,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_STAIRS = HELPER.createBlock("cut_amethyst_brick_stairs", () -> new AmethystStairBlock(() -> CUT_AMETHYST_BRICKS.get().defaultBlockState(), CCProperties.AMETHYST));
 	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_SLAB = HELPER.createBlock("cut_amethyst_brick_slab", () -> new AmethystSlabBlock(CCProperties.AMETHYST));
 	public static final RegistryObject<Block> CUT_AMETHYST_BRICK_WALL = HELPER.createBlock("cut_amethyst_brick_wall", () -> new AmethystWallBlock(CCProperties.AMETHYST));
+	public static final RegistryObject<Block> AMETHYST_LAMP = HELPER.createBlock("amethyst_lamp", () -> new AmethystBlock(Properties.copy(LAPIS_LAZULI_LAMP.get()).sound(SoundType.AMETHYST)));
 
 	public static final RegistryObject<Block> ECHO_BLOCK = HELPER.createBlock("echo_block", () -> new Block(CCProperties.ECHO_BLOCK));
 
@@ -656,19 +665,22 @@ public class CCBlocks {
 				.editor(event -> event.getEntries().remove(new ItemStack(Blocks.CHISELED_DEEPSLATE)))
 				.addItemsBefore(of(Blocks.DEEPSLATE_TILES), () -> Blocks.CHISELED_DEEPSLATE)
 				.addItemsBefore(of(Blocks.BASALT), SANGUINE_BLOCK, SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL, FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL)
-				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL)
+				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL, AMETHYST_LAMP)
 				.addItemsAfter(of(Blocks.COAL_BLOCK), CHARCOAL_BLOCK)
 				.addItemsAfter(of(Blocks.IRON_BLOCK), IRON_BRICKS, IRON_BRICK_STAIRS, IRON_BRICK_SLAB, IRON_BRICK_WALL, CHISELED_IRON_BRICKS)
 				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLD_BRICKS, GOLD_BRICK_STAIRS, GOLD_BRICK_SLAB, GOLD_BRICK_WALL, CHISELED_GOLD_BRICKS, GOLDEN_BARS)
 				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS, ROLLER_DOOR, HOLD_PLATE, HOLD_BUTTON)
 				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BRICKS, SILVER_BRICK_STAIRS, SILVER_BRICK_SLAB, SILVER_BRICK_WALL, CHISELED_SILVER_BRICKS, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
-				.addItemsBefore(of(Blocks.LAPIS_BLOCK), TURQUOISE_BLOCK, TURQUOISE_TILES, TURQUOISE_TILE_STAIRS, TURQUOISE_TILE_SLAB, TURQUOISE_TILE_WALL, TURQUOISE_PILLAR)
+				.addItemsAfter(of(Blocks.EMERALD_BLOCK), EMERALD_LAMP)
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
 						LAPIS_LAZULI_BRICKS, LAPIS_LAZULI_BRICK_STAIRS, LAPIS_LAZULI_BRICK_SLAB, LAPIS_LAZULI_BRICK_WALL, LAPIS_LAZULI_PILLAR, LAPIS_LAZULI_LAMP,
 						SPINEL_BLOCK, SPINEL_BRICKS, SPINEL_BRICK_STAIRS, SPINEL_BRICK_SLAB, SPINEL_BRICK_WALL, SPINEL_PILLAR, SPINEL_LAMP,
-						ZIRCONIA_BLOCK
+						TURQUOISE_BLOCK, TURQUOISE_TILES, TURQUOISE_TILE_STAIRS, TURQUOISE_TILE_SLAB, TURQUOISE_TILE_WALL, TURQUOISE_PILLAR, TURQUOISE_LAMP,
+						ZIRCONIA_BLOCK, ZIRCONIA_LAMP
 				)
+				.addItemsAfter(of(Blocks.DIAMOND_BLOCK), DIAMOND_LAMP)
 				.addItemsAfter(of(Blocks.NETHERITE_BLOCK), NECROMIUM_BLOCK)
+				.addItemsAfter(of(Blocks.SMOOTH_QUARTZ_SLAB), QUARTZ_LAMP)
 				.addItemsAfter(of(Blocks.COPPER_BLOCK), CHISELED_COPPER, COPPER_GRATE)
 				.addItemsAfter(of(Blocks.CUT_COPPER_SLAB), CHISELED_COPPER_BRICKS, COPPER_BRICK_STAIRS, COPPER_BRICK_SLAB, COPPER_BRICK_WALL, CHISELED_COPPER_BRICKS, COPPER_DOOR, COPPER_TRAPDOOR, COPPER_BUTTON, () -> Blocks.LIGHTNING_ROD, COPPER_BARS, COPPER_CHAIN, COPPER_BULB)
 				.addItemsAfter(of(Blocks.EXPOSED_COPPER), EXPOSED_CHISELED_COPPER, EXPOSED_COPPER_GRATE)
@@ -686,8 +698,8 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_COPPER), WAXED_OXIDIZED_CHISELED_COPPER, WAXED_OXIDIZED_COPPER_GRATE)
 				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), WAXED_OXIDIZED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_BRICK_STAIRS, WAXED_OXIDIZED_COPPER_BRICK_SLAB, WAXED_OXIDIZED_COPPER_BRICK_WALL, WAXED_OXIDIZED_CHISELED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_DOOR, WAXED_OXIDIZED_COPPER_TRAPDOOR, WAXED_OXIDIZED_COPPER_BUTTON, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_COPPER_CHAIN, WAXED_OXIDIZED_COPPER_BULB)
 				.tab(COLORED_BLOCKS)
-				.addItemsAfter(of(Blocks.GLASS), FLOAT_GLASS)
-				.addItemsAfter(of(Blocks.GLASS_PANE), FLOAT_GLASS_PANE)
+				.addItemsAfter(of(Blocks.TINTED_GLASS), FLOAT_GLASS, ORNATE_GLASS)
+				.addItemsAfter(of(Blocks.GLASS_PANE), FLOAT_GLASS_PANE, ORNATE_GLASS_PANE)
 				.tab(NATURAL_BLOCKS)
 				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
 				.addItemsAfter(of(Blocks.GRAVEL), FLINT_BLOCK)

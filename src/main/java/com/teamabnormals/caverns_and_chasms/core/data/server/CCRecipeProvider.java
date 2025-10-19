@@ -280,22 +280,32 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, LAPIS_LAZULI_BRICKS.get()).define('#', Items.LAPIS_LAZULI).pattern("##").pattern("##").unlockedBy(getHasName(Items.LAPIS_LAZULI), has(Items.LAPIS_LAZULI)).save(consumer);
 		generateRecipes(consumer, LAPIS_LAZULI_BRICKS_FAMILY);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, LAPIS_LAZULI_PILLAR.get(), 2).define('#', LAPIS_LAZULI_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(LAPIS_LAZULI_BRICKS.get()), has(LAPIS_LAZULI_BRICKS.get())).unlockedBy(getHasName(LAPIS_LAZULI_PILLAR.get()), has(LAPIS_LAZULI_PILLAR.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, LAPIS_LAZULI_LAMP.get()).define('#', Items.LAPIS_LAZULI).define('G', Blocks.GLOWSTONE).pattern(" # ").pattern("#G#").pattern(" # ").unlockedBy("has_glowstone", has(Blocks.GLOWSTONE)).save(consumer);
+		lampRecipe(consumer, LAPIS_LAZULI_LAMP.get(), Tags.Items.GEMS_LAPIS);
 		stonecutterRecipes(consumer, LAPIS_LAZULI_BRICKS_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, LAPIS_LAZULI_PILLAR.get(), LAPIS_LAZULI_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_BRICKS.get()).define('#', CCItemTags.GEMS_SPINEL).pattern("##").pattern("##").unlockedBy(getHasName(CCItems.SPINEL.get()), has(CCItemTags.GEMS_SPINEL)).save(consumer);
 		generateRecipes(consumer, SPINEL_BRICKS_FAMILY);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_PILLAR.get(), 2).define('#', SPINEL_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(SPINEL_BRICKS.get()), has(SPINEL_BRICKS.get())).unlockedBy(getHasName(SPINEL_PILLAR.get()), has(SPINEL_PILLAR.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SPINEL_LAMP.get()).define('#', CCItemTags.GEMS_SPINEL).define('G', Blocks.GLOWSTONE).pattern(" # ").pattern("#G#").pattern(" # ").unlockedBy("has_glowstone", has(Blocks.GLOWSTONE)).save(consumer);
+		lampRecipe(consumer, SPINEL_LAMP.get(), CCItemTags.GEMS_SPINEL);
 		stonecutterRecipes(consumer, SPINEL_BRICKS_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SPINEL_PILLAR.get(), SPINEL_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TURQUOISE_TILES.get(), 8).define('#', Blocks.STONE_BRICKS).define('S', CCItemTags.GEMS_TURQUOISE).pattern("###").pattern("#S#").pattern("###").unlockedBy("has_turquoise", has(CCItemTags.GEMS_TURQUOISE)).save(consumer);
 		generateRecipes(consumer, TURQUOISE_TILES_FAMILY);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TURQUOISE_PILLAR.get(), 2).define('#', TURQUOISE_TILES.get()).pattern("#").pattern("#").unlockedBy(getHasName(TURQUOISE_TILES.get()), has(TURQUOISE_TILES.get())).unlockedBy(getHasName(TURQUOISE_PILLAR.get()), has(TURQUOISE_PILLAR.get())).save(consumer);
+		lampRecipe(consumer, TURQUOISE_LAMP.get(), CCItemTags.GEMS_TURQUOISE);
 		stonecutterRecipes(consumer, TURQUOISE_TILES_FAMILY);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, TURQUOISE_PILLAR.get(), TURQUOISE_TILES.get());
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, ORNATE_GLASS.get(), 8).define('G', Tags.Items.GLASS_SILICA).define('Z', CCItemTags.GEMS_ZIRCONIA).pattern("GGG").pattern("GZG").pattern("GGG").unlockedBy("has_zirconia", has(CCItemTags.GEMS_ZIRCONIA)).save(consumer);
+		ShapedRecipeBuilder.shaped(DECORATIONS, ORNATE_GLASS_PANE.get(), 16).define('#', ORNATE_GLASS.get()).pattern("###").pattern("###").unlockedBy("has_ornate_glass", has(ORNATE_GLASS.get())).save(consumer);
+		lampRecipe(consumer, ZIRCONIA_LAMP.get(), CCItemTags.GEMS_ZIRCONIA);
+
+		lampRecipe(consumer, AMETHYST_LAMP.get(), Tags.Items.GEMS_AMETHYST);
+		lampRecipe(consumer, QUARTZ_LAMP.get(), Tags.Items.GEMS_QUARTZ);
+		lampRecipe(consumer, DIAMOND_LAMP.get(), Tags.Items.GEMS_DIAMOND);
+		lampRecipe(consumer, EMERALD_LAMP.get(), Tags.Items.GEMS_EMERALD);
 
 		platedBricksRecipe(consumer, IRON_BRICKS.get(), Tags.Items.INGOTS_IRON, "iron");
 		platedBricksRecipes(consumer, IRON_BRICKS_FAMILY);
@@ -585,6 +595,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 		String recipeName = (harmonyID + melodyID + bassID).replace("caverns_and_chasms:", "").replace("copper_horn", "");
 		CCShapedRecipeBuilder.shaped(TOOLS, PartialNBTIngredient.of(CCItems.COPPER_HORN.get(), outputTag)).define('#', PartialNBTIngredient.of(Items.GOAT_HORN, inputTag)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).save(consumer, CavernsAndChasms.location(recipeName + "copper_horn"));
+	}
+
+	public static void lampRecipe(Consumer<FinishedRecipe> consumer, ItemLike output, TagKey<Item> input) {
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, output).define('#', input).define('G', Blocks.GLOWSTONE).pattern(" # ").pattern("#G#").pattern(" # ").unlockedBy("has_glowstone", has(Blocks.GLOWSTONE)).save(consumer);
 	}
 
 	public void platedBricksRecipe(Consumer<FinishedRecipe> consumer, ItemLike block, ItemLike ingot) {

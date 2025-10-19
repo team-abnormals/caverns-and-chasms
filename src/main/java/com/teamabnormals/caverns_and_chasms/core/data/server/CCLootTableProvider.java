@@ -368,9 +368,18 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(TURQUOISE_BLOCK.get());
 			this.blockFamily(TURQUOISE_TILES_FAMILY);
 			this.dropSelf(TURQUOISE_PILLAR.get());
+			this.dropSelf(TURQUOISE_LAMP.get());
 			this.dropSelf(CAVIAR.get());
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
+			this.dropSelf(ZIRCONIA_LAMP.get());;
+			this.dropSelf(ORNATE_GLASS.get());
+			this.dropSelf(ORNATE_GLASS_PANE.get());
+			
+			this.dropSelf(QUARTZ_LAMP.get());
+			this.dropSelf(AMETHYST_LAMP.get());
+			this.dropSelf(DIAMOND_LAMP.get());
+			this.dropSelf(EMERALD_LAMP.get());
 
 			this.blockFamily(IRON_BRICKS_FAMILY);
 			this.blockFamily(TIN_BRICKS_FAMILY);
