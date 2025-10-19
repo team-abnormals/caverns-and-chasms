@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,8 +31,9 @@ public abstract class EnchantmentHelperMixin {
 
 			if (!magicDamageModifiers.isEmpty() && !stack.is(CCItems.SILVER_PICKAXE.get())) {
 				float magicDamage = (float) magicDamageModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-				if (target instanceof WitherBoss)
+				if (target.getType().is(CCEntityTypeTags.SILVER_HURTS_EXTRA_TYPES)) {
 					magicDamage *= 3.0F;
+				}
 				livingTarget.invulnerableTime = 0;
 				livingTarget.hurt(livingTarget.damageSources().magic(), magicDamage);
 				SilverItem.causeMagicDamageParticles(livingTarget);

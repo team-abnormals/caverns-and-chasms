@@ -10,8 +10,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags.NOT_DEFLECTED_BY_TIN;
-import static com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags.SPAWNS_FROM_CAVE_GROWTHS;
+import static com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes.*;
 
 public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
@@ -28,5 +27,6 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
 		this.tag(SPAWNS_FROM_CAVE_GROWTHS).add(EntityType.BAT, EntityType.SILVERFISH);
 		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.WITHER_SKULL);
+		this.tag(SILVER_HURTS_EXTRA_TYPES).add(EntityType.WITHER);
 	}
 }
