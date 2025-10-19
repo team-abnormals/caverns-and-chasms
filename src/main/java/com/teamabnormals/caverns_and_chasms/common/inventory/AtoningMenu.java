@@ -147,6 +147,14 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 	}
 
+	public void doDurability(ItemStack output, int i, Player player) {
+		float durabilityPercent = Math.min(1.0F, 0.25F * i + this.random.nextFloat() * 0.275F);
+		float durabilityAmount = durabilityPercent * output.getMaxDamage();
+		output.hurtAndBreak((int) durabilityAmount, player, (entity) -> {
+			entity.broadcastBreakEvent(player.getUsedItemHand());
+		});
+	}
+
 	public boolean clickMenuButton(Player player, int slot) {
 		if (slot >= 0 && slot < this.costs.length) {
 			ItemStack input = this.enchantSlots.getItem(0);
@@ -162,12 +170,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 					ItemStack output = input;
 					List<EnchantmentInstance> list = this.getEnchantmentList(input, slot, this.costs[slot]);
 					if (!list.isEmpty()) {
-						float durabilityPercent = 0.25F * i + this.random.nextFloat() * 0.2F;
-						float durabilityAmount = durabilityPercent * (output.getMaxDamage() - output.getDamageValue());
-						output.hurtAndBreak((int) durabilityAmount, player, (entity) -> {
-							entity.broadcastBreakEvent(player.getUsedItemHand());
-						});
-
+						this.doDurability(output, i, player);
 						player.onEnchantmentPerformed(input, 0);
 						boolean flag = input.is(Items.BOOK);
 //						if (flag) {
