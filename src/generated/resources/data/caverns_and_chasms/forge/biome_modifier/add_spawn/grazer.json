@@ -3,8 +3,8 @@
   "biomes": "#caverns_and_chasms:has_monster/grazer",
   "spawners": {
     "type": "caverns_and_chasms:grazer",
-    "maxCount": 1,
+    "maxCount": 4,
     "minCount": 1,
-    "weight": 120
+    "weight": 200
   }
 }

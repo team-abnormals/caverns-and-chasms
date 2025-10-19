@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -23,7 +24,7 @@ public class Grazer extends AbstractGrazer implements Enemy {
 	}
 
 	public static boolean checkGrazerSpawnRules(EntityType<Grazer> grazer, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-		if (Mime.checkUndergroundMonsterSpawnRules(grazer, level, spawnType, pos, random) && level instanceof WorldGenLevel wgLevel) {
+		if (Mime.checkUndergroundMonsterSpawnRules(grazer, level, spawnType, pos, random) && level instanceof WorldGenLevel wgLevel && pos.getY() <= CCConfig.COMMON.grazerMaxSpawnHeight.get()) {
 			int length = 256;
 			int phase = level.dimensionType().moonPhase(level.dayTime());
 			int zPos = pos.getZ() + ((int) (wgLevel.getSeed() % 10) * length);
