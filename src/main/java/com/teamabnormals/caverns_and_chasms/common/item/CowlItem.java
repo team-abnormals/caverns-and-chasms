@@ -3,10 +3,15 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
+import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
+import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -18,7 +23,10 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -58,6 +66,34 @@ public class CowlItem extends DyeableArmorItem {
 	}
 
 	@SubscribeEvent
+	public static void onLivingUpdate(LivingTickEvent event) {
+		LivingEntity entity = event.getEntity();
+		IDataManager dataManager = ((IDataManager) entity);
+		Level level = entity.level();
+		if (!level.isClientSide()) {
+			ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
+			boolean isInvisible = dataManager.getValue(CCDataProcessors.OBSCURITY_INVISIBILITY);
+			boolean shouldBeInvisible = entity.isCrouching() && headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0;
+			if (isInvisible != shouldBeInvisible) {
+				dataManager.setValue(CCDataProcessors.OBSCURITY_INVISIBILITY, shouldBeInvisible);
+				poofParticles(level, entity.getBoundingBox(), 6);
+			}
+		}
+	}
+
+	public static void poofParticles(Level level, AABB box, int loops) {
+		if (!level.isClientSide()) {
+			RandomSource random = level.getRandom();
+			for (int i = 0; i < loops; i++) {
+				double x = box.min(Direction.Axis.X) + (random.nextFloat() * box.getXsize());
+				double y = box.min(Direction.Axis.Y) + (random.nextFloat() * box.getYsize());
+				double z = box.min(Direction.Axis.Z) + (random.nextFloat() * box.getZsize());
+				NetworkUtil.spawnParticle("minecraft:poof", level.dimension(), x, y, z, 0.0D, 0.0D, 0.0D);
+			}
+		}
+	}
+
+	@SubscribeEvent
 	public static void onLivingVisiblity(LivingVisibilityEvent event) {
 		LivingEntity entity = event.getEntity();
 		double stealth = 1.0D;
@@ -69,6 +105,10 @@ public class CowlItem extends DyeableArmorItem {
 					stealth -= stealthModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 				}
 			}
+		}
+
+		if (entity.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
+			stealth = 0.0D;
 		}
 
 		if (stealth < 1.0D) {

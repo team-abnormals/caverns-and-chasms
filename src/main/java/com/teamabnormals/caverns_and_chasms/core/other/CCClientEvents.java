@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips;
 import net.minecraft.ChatFormatting;
@@ -76,12 +76,8 @@ public class CCClientEvents {
 
 	@SubscribeEvent
 	public static void livingRender(RenderLivingEvent.Pre<?, ?> event) {
-		LivingEntity entity = event.getEntity();
-		if (entity.isCrouching()) {
-			ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
-			if (headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
-				event.setCanceled(true);
-			}
+		if (event.getEntity() instanceof IDataManager data && data.getValue(CCDataProcessors.OBSCURITY_INVISIBILITY)) {
+			event.setCanceled(true);
 		}
 	}
 

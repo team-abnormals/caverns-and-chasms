@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.enchantment;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ObscurityEnchantment extends Enchantment {
 
@@ -16,5 +17,10 @@ public class ObscurityEnchantment extends Enchantment {
 
 	public int getMaxCost(int p_45227_) {
 		return 50;
+	}
+
+	@Override
+	public boolean checkCompatibility(Enchantment enchantment) {
+		return super.checkCompatibility(enchantment) && enchantment != CCEnchantments.THIEVING.get();
 	}
 }

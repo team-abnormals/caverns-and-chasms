@@ -88,6 +88,7 @@ public class CCDataProcessors {
 	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<List<AttachedRat>> ATTACHED_RATS = TrackedData.Builder.create(ATTACHED_RAT_DATA_LIST, ArrayList::new).enableSaving().build();
 	public static final TrackedData<ItemStack> UNICORN_HORN = TrackedData.Builder.create(DataProcessors.STACK, () -> ItemStack.EMPTY).enableSaving().build();
+	public static final TrackedData<Boolean> OBSCURITY_INVISIBILITY = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
 
 	public static void registerTrackedData() {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);
@@ -105,5 +106,6 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_z"), DEFLECT_Z);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("attached_rats"), ATTACHED_RATS);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("unicorn_horn"), UNICORN_HORN);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("obscurity_invisibility"), OBSCURITY_INVISIBILITY);
 	}
 }
