@@ -7,7 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCol
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
-import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder.AttachedRat;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -20,15 +20,17 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class RatModel extends AgeableListModel<Rat> {
 	public final ModelPart head;
@@ -88,7 +90,7 @@ public class RatModel extends AgeableListModel<Rat> {
 		ItemStack heldstack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
 
 		this.young = isbaby;
-		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) AttachedRat.getAttributeValue(compound, Attributes.MAX_HEALTH), hasowner);
+		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) getAttributeValue(compound, Attributes.MAX_HEALTH), hasowner);
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
 		VertexConsumer vertexconsumer = buffer.getBuffer(this.renderType(type.texture().withPrefix("textures/").withSuffix(".png")));
@@ -102,12 +104,10 @@ public class RatModel extends AgeableListModel<Rat> {
 
 	@Override
 	public void setupAnim(Rat rat, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks + rat.getAnimTimeOffset(), netHeadYaw, headPitch);
 	}
 
 	public void setupAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.head.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
 		this.tail.yRot = -this.tailWagAmount * 0.45F * Mth.sin(0.6F * ageInTicks);
 
 		if (this.pose == RatPose.SITTING) {
@@ -129,8 +129,12 @@ public class RatModel extends AgeableListModel<Rat> {
 		}
 
 		if (this.pose == RatPose.ATTACHED) {
+			this.head.xRot = 0.6F;
+			this.head.yRot = Mth.sin(ageInTicks * 0.75F) * 0.25F;
 			this.body.zRot = Mth.sin(ageInTicks) * 0.3F;
 		} else {
+			this.head.xRot = headPitch * Mth.DEG_TO_RAD;
+			this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
 			this.body.zRot = 0.0F;
 		}
 
@@ -180,7 +184,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 	@Override
 	public void prepareMobModel(Rat rat, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.pose = rat.isInSittingPose() ? RatPose.SITTING : RatPose.STANDING;
+		this.pose = rat.isAttachedToEntity() ? RatPose.ATTACHED : rat.isInSittingPose() ? RatPose.SITTING : RatPose.STANDING;
 		this.tailWagAmount = rat.getTailWagAmount();
 		super.prepareMobModel(rat, limbSwing, limbSwingAmount, partialTick);
 	}
@@ -191,5 +195,46 @@ public class RatModel extends AgeableListModel<Rat> {
 		SITTING,
 		ON_SHOULDER,
 		ATTACHED;
+	}
+
+	private static double getAttributeValue(CompoundTag entityData, Attribute attribute) {
+		if (entityData.contains("Attributes", 9)) {
+			ListTag attributes = entityData.getList("Attributes", 10);
+
+			for (int i = 0; i < attributes.size(); ++i) {
+				CompoundTag attributetag = attributes.getCompound(i);
+				if (attributetag.getString("Name").equals(ForgeRegistries.ATTRIBUTES.getKey(attribute).toString())) {
+					double basevalue = attributetag.getDouble("Base");
+					double addition = 0.0D;
+					double multiplybase = 0.0D;
+					double multiplytotal = 1.0D;
+
+					if (attributetag.contains("Modifiers", 9)) {
+						ListTag modifiers = attributetag.getList("Modifiers", 10);
+
+						for (int j = 0; j < modifiers.size(); ++j) {
+							CompoundTag modifier = modifiers.getCompound(j);
+							AttributeModifier.Operation operation = AttributeModifier.Operation.fromValue(modifier.getInt("Operation"));
+							switch (operation) {
+								case ADDITION -> addition += modifier.getDouble("Amount");
+								case MULTIPLY_BASE -> multiplybase += modifier.getDouble("Amount");
+								case MULTIPLY_TOTAL -> multiplytotal *= (1.0D + modifier.getDouble("Amount"));
+							}
+						}
+					}
+
+					double value = basevalue + addition;
+					value += value * multiplybase;
+					value *= multiplytotal;
+
+					if (attribute instanceof RangedAttribute rangedattribute)
+						return (Double.isNaN(value) ? rangedattribute.getMinValue() : Mth.clamp(value, rangedattribute.getMinValue(), rangedattribute.getMaxValue()));
+					else
+						return value;
+				}
+			}
+		}
+
+		return DefaultAttributes.getSupplier(CCEntityTypes.RAT.get()).getBaseValue(attribute);
 	}
 }

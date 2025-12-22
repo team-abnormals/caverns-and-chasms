@@ -29,19 +29,19 @@ public class RatHeldItemLayer extends RenderLayer<Rat, RatModel> {
 		renderItem(this.getParentModel(), this.itemInHandRenderer, poseStack, buffer, packedLight, rat, rat.isBaby(), rat.getItemBySlot(EquipmentSlot.MAINHAND), netHeadYaw, headPitch);
 	}
 
-	public static void renderItem(RatModel model, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, LivingEntity entity, boolean isBaby, ItemStack stack, float netHeadYaw, float headPitch) {
+	public static void renderItem(RatModel model, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, LivingEntity entity, boolean isBaby, ItemStack stack, float netHeadYaw, float headPitch) {
 		poseStack.pushPose();
 		if (isBaby) {
 			poseStack.translate(0.0D, 0.3125D, 0.125D);
 		}
 
 		poseStack.translate(model.head.x / 16.0F, model.head.y / 16.0F, model.head.z / 16.0F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(netHeadYaw));
-		poseStack.mulPose(Axis.XP.rotationDegrees(headPitch));
+		poseStack.mulPose(Axis.YP.rotation(model.head.yRot));
+		poseStack.mulPose(Axis.XP.rotation(model.head.xRot));
 		poseStack.translate(0.0F, 0.08D, -0.4D);
 
 		poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
-		itemInHandRenderer.renderItem(entity, stack, ItemDisplayContext.GROUND, false, poseStack, bufferIn, packedLightIn);
+		itemInHandRenderer.renderItem(entity, stack, ItemDisplayContext.GROUND, false, poseStack, buffer, packedLight);
 		poseStack.popPose();
 	}
 }

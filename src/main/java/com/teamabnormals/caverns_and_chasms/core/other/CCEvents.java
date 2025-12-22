@@ -7,9 +7,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
-import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
-import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
-import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder.AttachedRat;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
@@ -25,8 +22,11 @@ import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.FoilItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
+import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.mixin.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
@@ -42,6 +42,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -95,12 +96,14 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.event.entity.player.PlayerEvent.StartTracking;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Collection;
@@ -115,11 +118,6 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingSpawned(EntityJoinLevelEvent event) {
 		Entity entity = event.getEntity();
-
-		if (entity instanceof RatHolder ratholder) {
-			for (AttachedRat attachedrat : ratholder.getAttachedRats())
-				attachedrat.initialize((LivingEntity) ratholder);
-		}
 
 		if (entity instanceof Zombie zombie) {
 			zombie.goalSelector.addGoal(1, new AvoidEntityGoal<>(zombie, Fly.class, 9.0F, 1.05D, 1.05D));
@@ -370,6 +368,20 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
+	public static void onEntityTracked(StartTracking event) {
+		ServerPlayer player = (ServerPlayer) event.getEntity();
+		Entity trackingentity = event.getTarget();
+		if (trackingentity instanceof Rat rat) {
+			LivingEntity attachedEntity = rat.getAttachedEntity();
+			if (attachedEntity != null) {
+				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CUpdateAttachedRatsMessage((RatHolder) attachedEntity));
+			}
+		} else if (trackingentity instanceof RatHolder ratholder) {
+			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CUpdateAttachedRatsMessage(ratholder));
+		}
+	}
+
+	@SubscribeEvent
 	public static void onLightningStrike(EntityStruckByLightningEvent event) {
 		if (event.getEntity() instanceof LivingEntity entity && !entity.level().isClientSide()) {
 			ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
@@ -603,12 +615,28 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
+	public static void onShieldBlock(ShieldBlockEvent event) {
+		LivingEntity entity = event.getEntity();
+		DamageSource source = event.getDamageSource();
+		if (source.getDirectEntity() instanceof Rat rat && rat.getAttachedEntity() == entity)
+			event.setCanceled(true);
+	}
+
+	@SubscribeEvent
 	public static void onLivingDeath(LivingDeathEvent event) {
 		LivingEntity entity = event.getEntity();
 		Level level = entity.level();
 
 		if (!level.isClientSide)
 			((RatHolder) entity).detachAllRats();
+	}
+
+	@SubscribeEvent
+	public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
+		LivingEntity entity = event.getEntity();
+		LivingEntity newtarget = event.getNewTarget();
+		if (newtarget instanceof Rat rat && rat.getAttachedEntity() == entity)
+			event.setCanceled(true);
 	}
 
 	@SubscribeEvent
@@ -823,9 +851,6 @@ public class CCEvents {
 				golem.setTuningForkTarget(null);
 			}
 		}
-
-		if (entity instanceof RatHolder ratholder)
-			ratholder.tickRats();
 
 		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (!level.isClientSide() && headstack.getItem() == CCItems.TETHER_POTION.get()) {

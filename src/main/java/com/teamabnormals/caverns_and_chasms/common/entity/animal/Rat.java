@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -60,9 +61,18 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private static final EntityDataAccessor<Boolean> TRUSTING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 
+	private static final EntityDataAccessor<Float> ATTACH_ANGLE = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> ATTACH_HEIGHT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> FIRST_PERSON_POS = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
+
 	private List<Rat> pack = Lists.newArrayList();
 	private int ticksSinceEaten;
 	private Player tamer;
+
+	private LivingEntity attachedEntity;
+	private long attachTime;
+	private int attachCooldown = 20;
+	private final int animTimeOffset = this.random.nextInt(100);
 
 	public Rat(EntityType<? extends Rat> type, Level level) {
 		super(type, level);
@@ -70,22 +80,23 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-		this.goalSelector.addGoal(2, new RatAttachToTargetGoal(this));
-		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2D, false));
-		this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-		this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(6, new RatTemptGoal(this));
-		this.goalSelector.addGoal(7, new RatJumpOnShoulderGoal(this));
-		this.goalSelector.addGoal(8, new RatDevourRottenFleshGoal(this, 1.25D, 16, 4));
-		this.goalSelector.addGoal(9, new RatStayInGroupGoal(this));
-		this.goalSelector.addGoal(10, new RatFollowParentGoal(this));
-		this.goalSelector.addGoal(11, new RatAvoidEntityGoal<>(this, Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
-		this.goalSelector.addGoal(12, new RatRandomStrollGoal(this));
-		this.goalSelector.addGoal(13, new RatFindItemsGoal(this));
-		this.goalSelector.addGoal(14, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(15, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(0, new RatAttachedToMobGoal(this));
+		this.goalSelector.addGoal(1, new FloatGoal(this));
+		this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+		this.goalSelector.addGoal(3, new RatJumpAtTargetGoal(this));
+		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.2D, false));
+		this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+		this.goalSelector.addGoal(6, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(7, new RatTemptGoal(this));
+		this.goalSelector.addGoal(8, new RatJumpOnShoulderGoal(this));
+		this.goalSelector.addGoal(9, new RatDevourRottenFleshGoal(this, 1.25D, 16, 4));
+		this.goalSelector.addGoal(10, new RatStayInGroupGoal(this));
+		this.goalSelector.addGoal(11, new RatFollowParentGoal(this));
+		this.goalSelector.addGoal(12, new RatAvoidEntityGoal<>(this, Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
+		this.goalSelector.addGoal(13, new RatRandomStrollGoal(this));
+		this.goalSelector.addGoal(14, new RatFindItemsGoal(this));
+		this.goalSelector.addGoal(15, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(16, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
 		this.targetSelector.addGoal(3, new RatStopAttackingGoal(this));
@@ -99,6 +110,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
 		this.entityData.define(TRUSTING, false);
 		this.entityData.define(RUNNING_AWAY, false);
+		this.entityData.define(ATTACH_ANGLE, 0.0F);
+		this.entityData.define(ATTACH_HEIGHT, 0.0F);
+		this.entityData.define(FIRST_PERSON_POS, 0.0F);
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
@@ -124,11 +138,19 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
+
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.putString("Variant", this.getStringVariant());
 		tag.putByte("CollarColor", (byte) this.getCollarColor().getId());
 		tag.putBoolean("Trusting", this.isTrusting());
+		if (this.isAttachedToEntity() && !(this.attachedEntity instanceof Player)) {
+			// tag.put("Pos", this.newDoubleList(this.attachEntity.getX(), this.attachEntity.getY(), this.attachEntity.getZ()));
+			tag.putUUID("AttachedUUID", this.attachedEntity.getUUID());
+		}
+		tag.putFloat("AttachAngle", this.getAttachAngle());
+		tag.putFloat("AttachHeight", this.getAttachHeight());
+		tag.putFloat("FirstPersonPos", this.getFirstPersonPos());
 	}
 
 	@Override
@@ -139,6 +161,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.setCollarColor(DyeColor.byId(tag.getInt("CollarColor")));
 		}
 		this.setTrusting(tag.getBoolean("Trusting"));
+		if (tag.hasUUID("AttachedUUID")) {
+			// this.attachedEntityUUID = compound.getUUID("AttachedUUID");
+		}
+		this.setAttachAngle(tag.getFloat("AttachAngle"));
+		this.setAttachHeight(tag.getFloat("AttachHeight"));
+		this.setFirstPersonPos(tag.getFloat("FirstPersonPos"));
 	}
 
 	public String getStringVariant() {
@@ -187,8 +215,138 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.entityData.set(RUNNING_AWAY, runningAway);
 	}
 
+	// Attach to entity stuff
+	public void attachToEntity(LivingEntity target) {
+		((RatHolder) target).attachRat(this);
+		this.attachedEntity = target;
+		this.noPhysics = true;
+		this.blocksBuilding = false;
+		this.attachTime = this.level().getGameTime();
+		if (target instanceof Mob mob && mob.getTarget() == this)
+			mob.setTarget(null);
+		if (target.getLastHurtByMob() == this)
+			target.setLastHurtByMob(null);
+	}
+
+	public void detachFromEntity() {
+		if (this.isAttachedToEntity()) {
+			((RatHolder) this.attachedEntity).detachRat(this);
+			this.setPos(this.attachedEntity.getX(), this.getY(), this.attachedEntity.getZ());
+			this.attachedEntity = null;
+			this.noPhysics = false;
+			this.blocksBuilding = true;
+			this.attachCooldown = 80;
+		}
+	}
+
+	public void tickAttached() {
+		this.setDeltaMovement(Vec3.ZERO);
+		if (this.canUpdate())
+			this.tick();
+		this.updateAttachedPosition();
+	}
+
+	public void updateAttachedPosition() {
+		if (this.isAttachedToEntity()) {
+			Vec3 vec3 = (new Vec3(0.0D, this.attachedEntity.getBbHeight() * this.getAttachHeight(), 0.45D)).yRot(-(this.attachedEntity.yBodyRot + this.getAttachAngle()) * Mth.DEG_TO_RAD);
+			// TODO: Maybe this should use moveTo when the host teleports like passengers?
+			this.setPos(this.attachedEntity.position().add(vec3));
+			this.setYRot((float) (Mth.atan2(this.attachedEntity.getZ() - this.getZ(), this.attachedEntity.getX() - this.getX()) * Mth.RAD_TO_DEG - 90.0F));
+			this.yHeadRot = this.getYRot();
+			this.yBodyRot = this.getYRot();
+		}
+	}
+
+	public LivingEntity getAttachedEntity() {
+		return this.attachedEntity;
+	}
+
+	public boolean isAttachedToEntity() {
+		return this.attachedEntity != null;
+	}
+
+	public float getAttachAngle() {
+		return this.entityData.get(ATTACH_ANGLE);
+	}
+
+	public void setAttachAngle(float angle) {
+		this.entityData.set(ATTACH_ANGLE, angle);
+	}
+
+	public float getAttachHeight() {
+		return this.entityData.get(ATTACH_HEIGHT);
+	}
+
+	public void setAttachHeight(float height) {
+		this.entityData.set(ATTACH_HEIGHT, height);
+	}
+
+	public float getFirstPersonPos() {
+		return this.entityData.get(FIRST_PERSON_POS);
+	}
+
+	public void setFirstPersonPos(float pos) {
+		this.entityData.set(FIRST_PERSON_POS, pos);
+	}
+
+	public int getAnimTimeOffset() {
+		return this.animTimeOffset;
+	}
+
+	public boolean isOnAttachCooldown() {
+		return this.attachCooldown > 0;
+	}
+
+	@Override
+	public boolean isPushable() {
+		return !this.isAttachedToEntity() && super.isPushable();
+	}
+
+	@Override
+	protected void doPush(Entity entity) {
+		if (!this.isAttachedToEntity())
+			super.doPush(entity);
+	}
+
+	@Override
+	protected void pushEntities() {
+		if (!this.isAttachedToEntity())
+			super.pushEntities();
+	}
+
+	@Override
+	public boolean isPickable() {
+		return !this.isAttachedToEntity();
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+
+		if (!this.level().isClientSide && this.isAttachedToEntity()) {
+			boolean shoulddetach;
+
+			if (this.attachedEntity instanceof Player) {
+				shoulddetach = this.attachedEntity.fallDistance > 0.5F || ((Player) this.attachedEntity).getAbilities().flying;
+			} else {
+				shoulddetach = this.random.nextInt(100) == 0;
+			}
+
+			if (shoulddetach && this.attachTime + 20L < this.level().getGameTime()) {
+				if (!(this.attachedEntity instanceof Player))
+					this.attachedEntity.swing(InteractionHand.MAIN_HAND);
+				this.attachedEntity.setLastHurtByMob(this);
+				this.detachFromEntity();
+			}
+		}
+	}
+
+	@Override
 	public void aiStep() {
 		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
+			if (this.attachCooldown > 0)
+				--this.attachCooldown;
+
 			++this.ticksSinceEaten;
 			ItemStack itemstack = this.getMainHandItem();
 			if (this.canEatItem(itemstack)) {
@@ -265,6 +423,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		}
 
 		return super.mobInteract(player, hand);
+	}
+
+	@Override
+	public boolean doHurtTarget(Entity entity) {
+		DamageSource source = entity == this.getAttachedEntity() ? this.damageSources().noAggroMobAttack(this) : this.damageSources().mobAttack(this);
+		boolean flag = entity.hurt(source, (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+		if (flag) {
+			this.doEnchantDamageEffects(this, entity);
+		}
+
+		return flag;
 	}
 
 	public void setTamer(Player entity) {
