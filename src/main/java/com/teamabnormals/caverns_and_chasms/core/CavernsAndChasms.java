@@ -45,6 +45,8 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -52,6 +54,7 @@ import java.util.concurrent.CompletableFuture;
 @Mod(CavernsAndChasms.MOD_ID)
 public class CavernsAndChasms {
 	public static final String MOD_ID = "caverns_and_chasms";
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID.toUpperCase());
 	public static final String NETWORK_PROTOCOL = "CC1";
 	public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MOD_ID, helper -> helper.putSubHelper(ForgeRegistries.BLOCKS, new CCBlockSubRegistryHelper(helper)));
 

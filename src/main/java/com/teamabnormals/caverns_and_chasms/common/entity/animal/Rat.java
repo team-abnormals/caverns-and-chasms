@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -49,6 +50,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -70,6 +72,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private Player tamer;
 
 	private LivingEntity attachedEntity;
+	private UUID attachedEntityUUID;
 	private long attachTime;
 	private int attachCooldown = 20;
 	private final int animTimeOffset = this.random.nextInt(100);
@@ -145,7 +148,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		tag.putByte("CollarColor", (byte) this.getCollarColor().getId());
 		tag.putBoolean("Trusting", this.isTrusting());
 		if (this.isAttachedToEntity() && !(this.attachedEntity instanceof Player)) {
-			// tag.put("Pos", this.newDoubleList(this.attachEntity.getX(), this.attachEntity.getY(), this.attachEntity.getZ()));
+			tag.put("Pos", this.newDoubleList(this.attachedEntity.getX(), this.attachedEntity.getY(), this.attachedEntity.getZ()));
 			tag.putUUID("AttachedUUID", this.attachedEntity.getUUID());
 		}
 		tag.putFloat("AttachAngle", this.getAttachAngle());
@@ -162,7 +165,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		}
 		this.setTrusting(tag.getBoolean("Trusting"));
 		if (tag.hasUUID("AttachedUUID")) {
-			// this.attachedEntityUUID = compound.getUUID("AttachedUUID");
+			this.attachedEntityUUID = tag.getUUID("AttachedUUID");
 		}
 		this.setAttachAngle(tag.getFloat("AttachAngle"));
 		this.setAttachHeight(tag.getFloat("AttachHeight"));
@@ -323,21 +326,34 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public void tick() {
 		super.tick();
 
-		if (!this.level().isClientSide && this.isAttachedToEntity()) {
-			boolean shoulddetach;
+		if (this.isAttachedToEntity() && (!this.attachedEntity.isAlive() || this.attachedEntity.isSpectator())) {
+			this.detachFromEntity();
+		} else if (!this.level().isClientSide) {
+			if (this.isAttachedToEntity()) {
+				boolean shouldflyoff;
 
-			if (this.attachedEntity instanceof Player) {
-				shoulddetach = this.attachedEntity.fallDistance > 0.5F || ((Player) this.attachedEntity).getAbilities().flying;
-			} else {
-				shoulddetach = this.random.nextInt(100) == 0;
+				if (this.attachedEntity instanceof Player) {
+					shouldflyoff = this.attachedEntity.fallDistance > 0.5F || ((Player) this.attachedEntity).getAbilities().flying;
+				} else {
+					shouldflyoff = this.random.nextInt(100) == 0;
+				}
+
+				if (shouldflyoff && this.attachTime + 20L < this.level().getGameTime()) {
+					if (!(this.attachedEntity instanceof Player))
+						this.attachedEntity.swing(InteractionHand.MAIN_HAND);
+					this.attachedEntity.setLastHurtByMob(this);
+					this.detachFromEntity();
+				}
+			} else if (this.attachedEntityUUID != null) {
+				Entity entity = ((ServerLevel) this.level()).getEntity(this.attachedEntityUUID);
+				if (entity instanceof LivingEntity living) {
+					this.attachToEntity(living);
+				} else {
+					CavernsAndChasms.LOGGER.warn("Could not find entity the rat was attached to with UUID: {}", this.attachedEntityUUID);
+				}
 			}
 
-			if (shoulddetach && this.attachTime + 20L < this.level().getGameTime()) {
-				if (!(this.attachedEntity instanceof Player))
-					this.attachedEntity.swing(InteractionHand.MAIN_HAND);
-				this.attachedEntity.setLastHurtByMob(this);
-				this.detachFromEntity();
-			}
+			this.attachedEntityUUID = null;
 		}
 	}
 

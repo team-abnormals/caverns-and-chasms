@@ -38,6 +38,7 @@ public final class ServerEntityMixin {
 			List<Rat> currentrats = ratholder.getAttachedRats();
 			if (!currentrats.equals(this.prevRats)) {
 				this.prevRats = currentrats;
+				// TODO: Try to figure out what the problem with tracking entity is. Might also be a problem in PlayerListMixin, which is why I set it to dimension too.
 				CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level.dimension()), new S2CUpdateAttachedRatsMessage(ratholder));
 			}
 		}
