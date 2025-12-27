@@ -73,7 +73,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private LivingEntity attachedEntity;
 	private UUID attachedEntityUUID;
-	private long attachTime;
+	private float grip;
+	private float prevHostXRot;
+	private float prevHostYRot;
+	private float prevHostDeltaRot;
 	private int attachCooldown = 20;
 	private final int animTimeOffset = this.random.nextInt(100);
 
@@ -224,7 +227,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.attachedEntity = target;
 		this.noPhysics = true;
 		this.blocksBuilding = false;
-		this.attachTime = this.level().getGameTime();
+		this.grip = 20F;
+		this.prevHostXRot = target.getXRot();
+		this.prevHostYRot = target.getYRot();
 		if (target instanceof Mob mob && mob.getTarget() == this)
 			mob.setTarget(null);
 		if (target.getLastHurtByMob() == this)
@@ -322,6 +327,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return !this.isAttachedToEntity();
 	}
 
+	public void loosenGrip(float amount) {
+		this.grip -= amount;
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -333,12 +342,27 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				boolean shouldflyoff;
 
 				if (this.attachedEntity instanceof Player) {
-					shouldflyoff = this.attachedEntity.fallDistance > 0.5F || ((Player) this.attachedEntity).getAbilities().flying;
+					float deltaXRot = Mth.degreesDifference(this.attachedEntity.getXRot(), this.prevHostXRot);
+					float deltaYRot = Mth.degreesDifference(this.attachedEntity.getYRot(), this.prevHostYRot);
+					float deltaRot = Mth.sqrt(deltaXRot * deltaXRot + deltaYRot * deltaYRot);
+					float deltaRotAcc = Mth.abs(deltaRot - this.prevHostDeltaRot);
+
+					if (deltaRotAcc > 30.0D) {
+						this.grip--;
+					} else {
+						this.grip = Math.min(this.grip + 0.35F, 20F);
+					}
+
+					this.prevHostXRot = this.attachedEntity.getXRot();
+					this.prevHostYRot = this.attachedEntity.getYRot();
+					this.prevHostDeltaRot = deltaRot;
+
+					shouldflyoff = this.grip <= 0F;
 				} else {
 					shouldflyoff = this.random.nextInt(100) == 0;
 				}
 
-				if (shouldflyoff && this.attachTime + 20L < this.level().getGameTime()) {
+				if (shouldflyoff) {
 					if (!(this.attachedEntity instanceof Player))
 						this.attachedEntity.swing(InteractionHand.MAIN_HAND);
 					this.attachedEntity.setLastHurtByMob(this);

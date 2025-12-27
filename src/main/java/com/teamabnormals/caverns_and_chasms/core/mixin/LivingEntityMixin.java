@@ -24,6 +24,10 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	@Unique
 	private List<Rat> attachedRats = Lists.newArrayList();
 
+	private float prevHostXRot;
+	private float prevHostYRot;
+	private float prevHostDeltaRot;
+
 	public LivingEntityMixin(EntityType<?> type, Level level) {
 		super(type, level);
 	}

@@ -12,6 +12,7 @@ import java.util.List;
 
 public class RatJumpAtTargetGoal extends Goal {
 	private final Rat rat;
+	private LivingEntity target;
 
 	public RatJumpAtTargetGoal(Rat rat) {
 		this.rat = rat;
@@ -28,10 +29,13 @@ public class RatJumpAtTargetGoal extends Goal {
 				return false;
 			} else if (!((RatHolder) livingentity).canHoldMoreRats()) {
 				return false;
-			} else {
-				return this.rat.distanceToSqr(livingentity) <= 16.0D && this.rat.onGround() && this.rat.getRandom().nextInt(reducedTickDelay(5)) == 0;
+			} else if (this.rat.distanceToSqr(livingentity) <= 16.0D && this.rat.onGround() && this.rat.getRandom().nextInt(reducedTickDelay(5)) == 0) {
+				this.target = livingentity;
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	@Override
@@ -39,10 +43,9 @@ public class RatJumpAtTargetGoal extends Goal {
 		if (this.rat.isVehicle() || this.rat.isAttachedToEntity()) {
 			return false;
 		} else {
-			LivingEntity livingentity = this.rat.getTarget();
-			if (livingentity == null || !livingentity.isAlive()) {
+			if (this.target == null || !this.target.isAlive() || this.target != this.rat.getTarget()) {
 				return false;
-			} else if (!((RatHolder) livingentity).canHoldMoreRats()) {
+			} else if (!((RatHolder) this.target).canHoldMoreRats()) {
 				return false;
 			} else {
 				return !this.rat.onGround();
@@ -52,9 +55,8 @@ public class RatJumpAtTargetGoal extends Goal {
 
 	@Override
 	public void start() {
-		LivingEntity livingentity = this.rat.getTarget();
 		Vec3 vec3 = this.rat.getDeltaMovement();
-		Vec3 vec31 = new Vec3(livingentity.getX() - this.rat.getX(), 0.0D, livingentity.getZ() - this.rat.getZ());
+		Vec3 vec31 = new Vec3(this.target.getX() - this.rat.getX(), 0.0D, this.target.getZ() - this.rat.getZ());
 		if (vec31.lengthSqr() > 1.0E-7D) {
 			vec31 = vec31.normalize().scale(0.4D).add(vec3.scale(0.2D));
 		}
@@ -64,15 +66,14 @@ public class RatJumpAtTargetGoal extends Goal {
 
 	@Override
 	public void tick() {
-		LivingEntity livingentity = this.rat.getTarget();
-		if (this.rat.getBoundingBox().inflate(0.2D).intersects(livingentity.getBoundingBox())) {
+		if (this.rat.getBoundingBox().inflate(0.2D).intersects(this.target.getBoundingBox())) {
 			List<Integer> availableslots = Lists.newArrayList(-1, 0, 1);
-			for (Rat attachedrat : ((RatHolder) livingentity).getAttachedRats())
+			for (Rat attachedrat : ((RatHolder) this.target).getAttachedRats())
 				availableslots.remove(Integer.valueOf(Math.round(attachedrat.getFirstPersonPos())));
 
-			this.rat.attachToEntity(livingentity);
+			this.rat.attachToEntity(this.target);
 			this.rat.setAttachAngle(this.rat.getRandom().nextFloat() * 360.0F);
-			this.rat.setAttachHeight((0.25F + this.rat.getRandom().nextFloat() * Math.max(livingentity.getEyeHeight() - 0.5F, 0.0F)) / livingentity.getBbHeight());
+			this.rat.setAttachHeight((0.25F + this.rat.getRandom().nextFloat() * Math.max(this.target.getEyeHeight() - 0.5F, 0.0F)) / this.target.getBbHeight());
 
 			int i = (availableslots.isEmpty() ? this.rat.getRandom().nextInt(3) - 1 : availableslots.get(this.rat.getRandom().nextInt(availableslots.size())));
 			this.rat.setFirstPersonPos(i + (this.rat.getRandom().nextFloat() - 0.5F) * 0.6F);

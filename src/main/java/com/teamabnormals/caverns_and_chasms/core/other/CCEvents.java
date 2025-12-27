@@ -92,6 +92,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
@@ -907,6 +908,18 @@ public class CCEvents {
 		Level level = player.level();
 		if (event.getRight().is(CCItems.ZIRCONIA.get()))
 			player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), CCSoundEvents.ZIRCONIA_ANVIL_USE.get(), SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F, false);
+	}
+
+	@SubscribeEvent
+	public static void onLivingJump(LivingJumpEvent event) {
+		LivingEntity entity = event.getEntity();
+		Level level = entity.level();
+
+		if (!level.isClientSide && entity instanceof Player) {
+			for (Rat rat : ((RatHolder) entity).getAttachedRats()) {
+				rat.loosenGrip(15F);
+			}
+		}
 	}
 
 	public static void playTinDeflectEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random) {

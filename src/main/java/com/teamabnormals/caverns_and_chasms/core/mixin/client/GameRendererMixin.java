@@ -74,7 +74,6 @@ public abstract class GameRendererMixin {
 					rat.xRotO = 0.0F;
 					rat.setXRot(0.0F);
 					entityrenderdispatcher.setRenderShadow(false);
-					// this.ratModel.renderFromTag(rat.getEntityData(), this.minecraft.level, livingentity, this.itemInHandRenderer, posestack, buffer, this.minecraft.getEntityRenderDispatcher().getPackedLightCoords(livingentity, partialTick), 0.0F, 0.0F, animtime, Mth.sin(animtime * 0.75F) * 15.0F, 35.0F);
 					RenderSystem.runAsFancy(() -> {
 						entityrenderdispatcher.render(rat, 0.0D, 0.0D, 0.0D, 0.0F, partialTick, posestack, buffer, packedLight);
 					});
