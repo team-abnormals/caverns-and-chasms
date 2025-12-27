@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -32,6 +33,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
 import net.minecraft.world.entity.animal.Wolf;
@@ -45,10 +47,12 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -57,6 +61,7 @@ import java.util.stream.Collectors;
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant> {
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
+	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
@@ -509,6 +514,33 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public boolean shouldRunAway() {
 		return !this.trustsPlayers() && !this.isPackBigEnoughToAttack();
+	}
+
+	@Override
+	public void die(DamageSource source) {
+		super.die(source);
+
+		if (this.dead && !source.is(DamageTypeTags.NO_ANGER) && source.getEntity() instanceof LivingEntity living && HURT_BY_TARGETING.test(this, living) && this.isWithinRestriction(living.blockPosition()))
+			this.alertOthers(living);
+	}
+
+	public void alertOthers(LivingEntity target) {
+		double d0 = this.getAttributeValue(Attributes.FOLLOW_RANGE);
+		AABB aabb = AABB.unitCubeFromLowerCorner(this.position()).inflate(d0, 10.0D, d0);
+		List<Rat> list = this.level().getEntitiesOfClass(Rat.class, aabb);
+		Iterator<Rat> iterator = list.iterator();
+
+		Rat rat;
+
+		while (true) {
+			if (!iterator.hasNext())
+				return;
+
+			rat = iterator.next();
+
+			if (this != rat && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.shouldAttack(target))
+				rat.setTarget(target);
+		}
 	}
 
 	public Vec3 findPackCenter(List<Rat> pack) {
