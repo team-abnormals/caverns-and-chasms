@@ -75,7 +75,7 @@ public class HoldPlateBlock extends BaseEntityBlock {
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof HoldPlateBlockEntity blockEntity) {
-			return Math.min(blockEntity.getTimePressed(), 15);
+			return Math.min(blockEntity.getTimePressed() / 20, 15);
 		}
 		return 0;
 	}

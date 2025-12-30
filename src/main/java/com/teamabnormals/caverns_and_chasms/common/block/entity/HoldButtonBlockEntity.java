@@ -13,7 +13,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class HoldButtonBlockEntity extends BlockEntity {
 	private int pressTime;
-
 	private int timePressed;
 
 	public int getTimePressed() {
@@ -42,14 +41,12 @@ public class HoldButtonBlockEntity extends BlockEntity {
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {
 		if (!level.isClientSide) {
-			if (level.getGameTime() % 20 == 0) {
-				if (state.getValue(HoldButtonBlock.PRESSED)) {
-					blockEntity.timePressed++;
-					level.blockUpdated(pos, state.getBlock());
-				} else if (blockEntity.timePressed != 0) {
-					blockEntity.timePressed = 0;
-					level.blockUpdated(pos, state.getBlock());
-				}
+			if (state.getValue(HoldButtonBlock.PRESSED)) {
+				blockEntity.timePressed++;
+				level.blockUpdated(pos, state.getBlock());
+			} else if (blockEntity.timePressed != 0) {
+				blockEntity.timePressed = 0;
+				level.blockUpdated(pos, state.getBlock());
 			}
 
 			if (blockEntity.pressTime > 0) {
@@ -63,9 +60,5 @@ public class HoldButtonBlockEntity extends BlockEntity {
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
 			}
 		}
-	}
-
-	public int getPressTime() {
-		return this.pressTime;
 	}
 }
