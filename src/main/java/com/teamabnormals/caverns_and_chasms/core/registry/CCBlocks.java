@@ -293,8 +293,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ZIRCONIA_BLOCK = HELPER.createBlock("zirconia_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.ZIRCONIA)));
 	public static final RegistryObject<Block> ZIRCONIA_LAMP = HELPER.createBlock("zirconia_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get()).sound(CCSoundTypes.ZIRCONIA)));
-	public static final RegistryObject<Block> ORNATE_GLASS = HELPER.createBlock("ornate_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-	public static final RegistryObject<Block> ORNATE_GLASS_PANE = HELPER.createBlock("ornate_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
+	public static final RegistryObject<Block> ORNATE_GLASS = HELPER.createBlock("ornate_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(CCSoundTypes.ORNATE_GLASS)));
+	public static final RegistryObject<Block> ORNATE_GLASS_PANE = HELPER.createBlock("ornate_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE).sound(CCSoundTypes.ORNATE_GLASS)));
 
 	public static final RegistryObject<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
 	public static final RegistryObject<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)), CCProperties.FANCY);

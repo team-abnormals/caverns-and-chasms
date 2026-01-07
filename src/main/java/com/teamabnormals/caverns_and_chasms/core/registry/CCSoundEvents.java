@@ -62,6 +62,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ZIRCONIA_HIT = HELPER.createSoundEvent("block.zirconia.hit");
 	public static final RegistryObject<SoundEvent> ZIRCONIA_PLACE = HELPER.createSoundEvent("block.zirconia.place");
 	public static final RegistryObject<SoundEvent> ZIRCONIA_STEP = HELPER.createSoundEvent("block.zirconia.step");
+	
+	public static final RegistryObject<SoundEvent> ORNATE_GLASS_BREAK = HELPER.createSoundEvent("block.ornate_glass.break");
+	public static final RegistryObject<SoundEvent> ORNATE_GLASS_FALL = HELPER.createSoundEvent("block.ornate_glass.fall");
+	public static final RegistryObject<SoundEvent> ORNATE_GLASS_HIT = HELPER.createSoundEvent("block.ornate_glass.hit");
+	public static final RegistryObject<SoundEvent> ORNATE_GLASS_PLACE = HELPER.createSoundEvent("block.ornate_glass.place");
+	public static final RegistryObject<SoundEvent> ORNATE_GLASS_STEP = HELPER.createSoundEvent("block.ornate_glass.step");
 
 	public static final RegistryObject<SoundEvent> NECROMIUM_BREAK = HELPER.createSoundEvent("block.necromium.break");
 	public static final RegistryObject<SoundEvent> NECROMIUM_FALL = HELPER.createSoundEvent("block.necromium.fall");
@@ -321,6 +327,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType SPINEL = new ForgeSoundType(1.0F, 1.0F, SPINEL_BREAK, SPINEL_STEP, SPINEL_PLACE, SPINEL_HIT, SPINEL_FALL);
 		public static final ForgeSoundType SUGILITE = new ForgeSoundType(1.0F, 1.0F, SUGILITE_BREAK, SUGILITE_STEP, SUGILITE_PLACE, SUGILITE_HIT, SUGILITE_FALL);
 		public static final ForgeSoundType ZIRCONIA = new ForgeSoundType(1.0F, 1.0F, ZIRCONIA_BREAK, ZIRCONIA_STEP, ZIRCONIA_PLACE, ZIRCONIA_HIT, ZIRCONIA_FALL);
+		public static final ForgeSoundType ORNATE_GLASS = new ForgeSoundType(1.0F, 1.0F, ORNATE_GLASS_BREAK, ORNATE_GLASS_STEP, ORNATE_GLASS_PLACE, ORNATE_GLASS_HIT, ORNATE_GLASS_FALL);
 		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, NECROMIUM_BREAK, NECROMIUM_STEP, NECROMIUM_PLACE, NECROMIUM_HIT, NECROMIUM_FALL);
 		public static final ForgeSoundType FALSE_HOPE = new ForgeSoundType(1.0F, 1.0F, FALSE_HOPE_BREAK, FALSE_HOPE_STEP, FALSE_HOPE_PLACE, FALSE_HOPE_HIT, FALSE_HOPE_FALL);
 		public static final ForgeSoundType CAVE_GROWTHS = new ForgeSoundType(1.0F, 1.0F, CAVE_GROWTHS_BREAK, CAVE_GROWTHS_STEP, CAVE_GROWTHS_PLACE, CAVE_GROWTHS_HIT, CAVE_GROWTHS_FALL);
