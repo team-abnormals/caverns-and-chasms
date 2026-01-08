@@ -2087,6 +2087,69 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.glare.untame"
   },
+  "entity.grazer.ambient": {
+    "sounds": [
+      "mob/pig/say1",
+      "mob/pig/say2",
+      "mob/pig/say3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.ambient"
+  },
+  "entity.grazer.death": {
+    "sounds": [
+      "mob/pig/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.death"
+  },
+  "entity.grazer.hurt": {
+    "sounds": [
+      "mob/pig/say1",
+      "mob/pig/say2",
+      "mob/pig/say3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.hurt"
+  },
+  "entity.grazer.ricochet": {
+    "sounds": [
+      "caverns_and_chasms:block/tin/deflect1",
+      "caverns_and_chasms:block/tin/deflect2",
+      "caverns_and_chasms:block/tin/deflect3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.ricochet"
+  },
+  "entity.grazer.charge": {
+    "sounds": [
+      "mob/horse/angry1"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.charge"
+  },
+  "entity.grazer.start_bouncing": {
+    "sounds": [
+      "random/explode1",
+      "random/explode2",
+      "random/explode3",
+      "random/explode4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.start_bouncing"
+  },
+  "entity.grazer.struggle": {
+    "sounds": [
+      "mob/pig/say1",
+      "mob/pig/say2",
+      "mob/pig/say3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.struggle"
+  },
+  "entity.grazer.step": {
+    "sounds": [
+      "mob/pig/step1",
+      "mob/pig/step2",
+      "mob/pig/step3",
+      "mob/pig/step4",
+      "mob/pig/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.parrot.imitate.deeper": {
     "sounds": [
       {

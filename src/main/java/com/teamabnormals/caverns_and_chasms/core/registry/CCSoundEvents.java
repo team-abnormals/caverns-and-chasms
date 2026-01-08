@@ -296,6 +296,15 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GLARE_TAME = HELPER.createSoundEvent("entity.glare.tame");
 	public static final RegistryObject<SoundEvent> GLARE_UNTAME = HELPER.createSoundEvent("entity.glare.untame");
 
+	public static final RegistryObject<SoundEvent> GRAZER_AMBIENT = HELPER.createSoundEvent("entity.grazer.ambient");
+	public static final RegistryObject<SoundEvent> GRAZER_HURT = HELPER.createSoundEvent("entity.grazer.hurt");
+	public static final RegistryObject<SoundEvent> GRAZER_DEATH = HELPER.createSoundEvent("entity.grazer.death");
+	public static final RegistryObject<SoundEvent> GRAZER_RICOCHET = HELPER.createSoundEvent("entity.grazer.ricochet");
+	public static final RegistryObject<SoundEvent> GRAZER_CHARGE = HELPER.createSoundEvent("entity.grazer.charge");
+	public static final RegistryObject<SoundEvent> GRAZER_START_BOUNCING = HELPER.createSoundEvent("entity.grazer.start_bouncing");
+	public static final RegistryObject<SoundEvent> GRAZER_STRUGGLE = HELPER.createSoundEvent("entity.grazer.struggle");
+	public static final RegistryObject<SoundEvent> GRAZER_STEP = HELPER.createSoundEvent("entity.grazer.step");
+
 	public static final RegistryObject<SoundEvent> BLUNT_ARROW_HIT = HELPER.createSoundEvent("entity.blunt_arrow.hit");
 
 	public static final RegistryObject<SoundEvent> REWIND = HELPER.createSoundEvent("effect.rewind.rewind");

@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerState;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledGrazer;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -78,6 +79,7 @@ public class GrazerRunGoal extends Goal {
 			this.runStillTime--;
 		} else if (this.grazer.getState() == GrazerState.RUNNING_STILL) {
 			this.grazer.setState(GrazerState.RUNNING);
+			this.grazer.playSound(CCSoundEvents.GRAZER_CHARGE.get(), 1.0F, 1.0F);
 		}
 	}
 }

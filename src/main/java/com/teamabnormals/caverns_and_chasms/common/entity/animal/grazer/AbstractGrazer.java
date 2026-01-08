@@ -6,12 +6,16 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerB
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
 import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,6 +33,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
@@ -109,6 +114,26 @@ public abstract class AbstractGrazer extends Animal {
 
 	public static AttributeSupplier.Builder registerAttributes() {
 		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F).add(Attributes.ATTACK_DAMAGE, 3.0D);
+	}
+
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return CCSoundEvents.GRAZER_AMBIENT.get();
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return CCSoundEvents.GRAZER_HURT.get();
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return CCSoundEvents.GRAZER_DEATH.get();
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(CCSoundEvents.GRAZER_STEP.get(), 0.15F, 1.0F);
 	}
 
 	@Override
@@ -477,17 +502,15 @@ public abstract class AbstractGrazer extends Animal {
 			}
 		} else if (this.isAlive()) {
 			// Undo aging tick if not enough space
-			if (!this.level().isClientSide && this.isAlive() && this.getAge() < 0 && !this.level().noCollision(this, this.getType().getDimensions().scale(0.5F, 1.0F).makeBoundingBox(this.position()).deflate(1.0E-6D)))
+			if (this.getAge() < 0 && !this.level().noCollision(this, this.getType().getDimensions().scale(0.5F, 1.0F).makeBoundingBox(this.position()).deflate(1.0E-6D)))
 				this.setAge(this.age - 1);
 
-			// Flap wings randomly
-			if (this.getState() == GrazerState.DEFAULT && this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
-				this.wingFlapAnim = 20;
-				this.level().broadcastEntityEvent(this, (byte) 6);
-			}
-
-			// Rotation while bouncing
-			if (this.getState() == GrazerState.BOUNCING) {
+			if (this.getState() == GrazerState.DEFAULT) {
+				if (this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
+					this.wingFlapAnim = 20;
+					this.level().broadcastEntityEvent(this, (byte) 6);
+				}
+			} else if (this.getState() == GrazerState.BOUNCING) {
 				Vec3 movement = this.getDeltaMovement();
 				this.setXRot(Mth.wrapDegrees(this.getXRot() - ROTATION_SPEED));
 				if (this.bouncingBackwards)
@@ -536,6 +559,7 @@ public abstract class AbstractGrazer extends Animal {
 
 							if (this.getState() == GrazerState.RUNNING) {
 								this.setState(GrazerState.BOUNCING);
+								this.playSound(CCSoundEvents.GRAZER_START_BOUNCING.get(), 1.0F, 1.0F);
 								this.bounceHeight = 0.8D;
 								this.bouncingBackwards = true;
 								newmotion.add(0.0D, this.bounceHeight, 0.0D);
@@ -550,7 +574,7 @@ public abstract class AbstractGrazer extends Animal {
 							this.setDeltaMovement(newmotion);
 							other.setDeltaMovement(othernewmotion);
 
-							CCEvents.playTinDeflectSound(this.level(), this.position(), d0);
+							CCEvents.playRicochetSound(this.level(), this.position(), d0, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
 						}
 					} else {
 						// TODO: Add knockback
@@ -575,7 +599,7 @@ public abstract class AbstractGrazer extends Animal {
 
 		// Ricocheting off of walls
 		GrazerState state = this.getState();
-		if (!this.level().isClientSide && this.isAlive() && !this.noPhysics && (state == GrazerState.RUNNING || state == GrazerState.BOUNCING || state == GrazerState.LANDING)) {
+		if (!this.level().isClientSide && this.isAlive() && !this.noPhysics && (state == GrazerState.RUNNING || this.isBouncingState(state))) {
 			Vec3 newmotion = oldmotion;
 			boolean ricocheted = false;
 			boolean horizontal = false;
@@ -612,6 +636,7 @@ public abstract class AbstractGrazer extends Animal {
 
 				if (this.getState() == GrazerState.RUNNING) {
 					this.setState(GrazerState.BOUNCING);
+					this.playSound(CCSoundEvents.GRAZER_START_BOUNCING.get(), 1.0F, 1.0F);
 					this.bounceHeight = 0.8D;
 					this.bouncingBackwards = true;
 					newmotion = newmotion.multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D).add(0.0D, this.bounceHeight, 0.0D);
@@ -622,7 +647,7 @@ public abstract class AbstractGrazer extends Animal {
 
 				this.setDeltaMovement(newmotion);
 
-				CCEvents.playTinDeflectSound(this.level(), this.position(), newmotion.lengthSqr());
+				CCEvents.playRicochetSound(this.level(), this.position(), newmotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
 			}
 		}
 	}

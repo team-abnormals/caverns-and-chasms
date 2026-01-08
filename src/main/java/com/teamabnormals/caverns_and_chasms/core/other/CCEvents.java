@@ -739,7 +739,7 @@ public class CCEvents {
 					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.DEEPSLATE_TIN_ORE ? CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE ? CCSoundEvents.CASSITERITE_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
 					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
 
-					playTinDeflectEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
+					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
 
 					for (int l = 0; l < 3; ++l) {
 						Vec3 vec3 = movement.reverse().normalize();
@@ -772,7 +772,7 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					CCEvents.playTinDeflectEffects(level, location, reflect.reverse().normalize(), movement.lengthSqr(), random);
+					CCEvents.playRicochetEffects(level, location, reflect.reverse().normalize(), movement.lengthSqr(), random);
 				}
 
 				grazer.addDeflectedProjectile(projectile);
@@ -922,8 +922,8 @@ public class CCEvents {
 		}
 	}
 
-	public static void playTinDeflectEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random) {
-		playTinDeflectSound(level, location, speed, soundEvent, pitchMultiplier);
+	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random) {
+		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
 
 		for (int i = 0; i < 3; ++i) {
 			;
@@ -934,16 +934,16 @@ public class CCEvents {
 		}
 	}
 
-	public static void playTinDeflectEffects(Level level, Vec3 location, Vec3 normal, double speed, RandomSource random) {
-		playTinDeflectEffects(level, location, normal, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F, random);
+	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, RandomSource random) {
+		playRicochetEffects(level, location, normal, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F, random);
 	}
 
-	public static void playTinDeflectSound(Level level, Vec3 location, double speed, SoundEvent soundEvent, float pitchMultiplier) {
+	public static void playRicochetSound(Level level, Vec3 location, double speed, SoundEvent soundEvent, float pitchMultiplier) {
 		level.playSound(null, location.x, location.y, location.z, soundEvent, SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F * pitchMultiplier, 1.8F));
 	}
 
-	public static void playTinDeflectSound(Level level, Vec3 location, double speed) {
-		playTinDeflectSound(level, location, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F);
+	public static void playRicochetSound(Level level, Vec3 location, double speed) {
+		playRicochetSound(level, location, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F);
 	}
 
 	private static void rewindTeleport(LivingEntity entity) {

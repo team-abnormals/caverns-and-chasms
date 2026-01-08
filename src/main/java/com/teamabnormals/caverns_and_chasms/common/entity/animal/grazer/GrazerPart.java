@@ -117,7 +117,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 				Vec3 location = aabb.clip(attackerpos, attackerpos.add(directentity.getViewVector(1.0F).scale(partpos.subtract(attackerpos).length() + this.getDimensions(Pose.STANDING).height * 0.5D + 0.3D))).or(() -> aabb.clip(attackerpos, partpos)).orElse(partpos);
 				Vec3 normal = grazer.calculateDeflectionNormal(location);
 
-				CCEvents.playTinDeflectEffects(this.level(), location, normal, 0.8F, this.random);
+				CCEvents.playRicochetEffects(this.level(), location, normal, 0.8F, this.random);
 
 				return false;
 			}
