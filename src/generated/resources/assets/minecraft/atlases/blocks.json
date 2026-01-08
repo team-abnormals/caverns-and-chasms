@@ -11,6 +11,11 @@
       "source": "entity/roller_door"
     },
     {
+      "type": "minecraft:directory",
+      "prefix": "entity/winch/",
+      "source": "entity/winch"
+    },
+    {
       "type": "minecraft:single",
       "resource": "caverns_and_chasms:entity/atoning_table_book"
     },

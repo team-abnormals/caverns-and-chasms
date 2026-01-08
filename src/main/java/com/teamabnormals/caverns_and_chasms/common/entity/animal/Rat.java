@@ -83,7 +83,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private float prevHostYRot;
 	private float prevHostDeltaRot;
 	private int attachCooldown = 20;
-	private final int animTimeOffset = this.random.nextInt(100);
+	private final float animTimeOffset = this.random.nextFloat() * 10F;
 
 	public Rat(EntityType<? extends Rat> type, Level level) {
 		super(type, level);
@@ -302,7 +302,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.entityData.set(FIRST_PERSON_POS, pos);
 	}
 
-	public int getAnimTimeOffset() {
+	public float getAnimTimeOffset() {
 		return this.animTimeOffset;
 	}
 

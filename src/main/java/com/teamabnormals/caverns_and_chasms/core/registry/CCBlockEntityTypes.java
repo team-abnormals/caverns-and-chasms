@@ -21,6 +21,7 @@ public class CCBlockEntityTypes {
 	public static final RegistryObject<BlockEntityType<AtoningTableBlockEntity>> ATONING_TABLE = HELPER.createBlockEntity("atoning_table", AtoningTableBlockEntity::new, () -> Set.of(CCBlocks.ATONING_TABLE.get()));
 	public static final RegistryObject<BlockEntityType<HoldPlateBlockEntity>> HOLD_PLATE = HELPER.createBlockEntity("hold_plate", HoldPlateBlockEntity::new, () -> Set.of(CCBlocks.HOLD_PLATE.get()));
 	public static final RegistryObject<BlockEntityType<HoldButtonBlockEntity>> HOLD_BUTTON = HELPER.createBlockEntity("hold_button", HoldButtonBlockEntity::new, () -> Set.of(CCBlocks.HOLD_BUTTON.get()));
+	public static final RegistryObject<BlockEntityType<WinchBlockEntity>> WINCH = HELPER.createBlockEntity("winch", WinchBlockEntity::new, () -> Set.of(CCBlocks.WINCH.get()));
 	public static final RegistryObject<BlockEntityType<DimmerBlockEntity>> DIMMER = HELPER.createBlockEntity("dimmer", DimmerBlockEntity::new, () -> Set.of(CCBlocks.DIMMER.get(), CCBlocks.WALL_DIMMER.get()));
 	public static final RegistryObject<BlockEntityType<HoopBlockEntity>> HOOP = HELPER.createBlockEntity("hoop", HoopBlockEntity::new, () -> Set.of(CCBlocks.HOOP.get()));
 	public static final RegistryObject<BlockEntityType<SplurterBlockEntity>> SPLURTER = HELPER.createBlockEntity("splurter", SplurterBlockEntity::new, () -> Set.of(CCBlocks.SPLURTER.get()));

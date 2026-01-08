@@ -56,6 +56,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.holdPlateBlock(HOLD_PLATE, TIN_BLOCK);
 		this.holdButtonBlock(TIN_BLOCK, HOLD_BUTTON);
+		this.winchBlock(WINCH, TIN_BLOCK);
 		this.dimmerBlock(DIMMER, WALL_DIMMER);
 		this.block(BOUNCER);
 		this.hoopBlock(HOOP);
@@ -660,6 +661,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		}, HoldButtonBlock.POWERED);
 
 		this.itemModels().getBuilder(name(block)).parent(buttonInventoryModel);
+	}
+
+	public void winchBlock(RegistryObject<Block> winch, RegistryObject<Block> textureBlock) {
+		ModelFile model = this.particle(winch.get(), blockTexture(textureBlock.get()));
+		this.simpleBlock(winch.get(), model);
 	}
 
 	public void dimmerBlock(RegistryObject<Block> registryObject, RegistryObject<Block> wall) {

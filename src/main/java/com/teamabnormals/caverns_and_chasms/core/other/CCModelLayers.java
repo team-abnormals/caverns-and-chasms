@@ -40,6 +40,7 @@ public class CCModelLayers {
 	public static final ModelLayerLocation TMT_MINECART = register("tmt_minecart");
 	public static final ModelLayerLocation TOOLBOX = register("toolbox");
 	public static final ModelLayerLocation ROLLER_DOOR = register("roller_door");
+	public static final ModelLayerLocation WINCH = register("winch");
 	public static final ModelLayerLocation UNICORN_HORN = register("unicorn_horn");
 
 	@SubscribeEvent
@@ -59,6 +60,7 @@ public class CCModelLayers {
 		event.registerLayerDefinition(GRAZER, GrazerModel::createBodyLayer);
 		event.registerLayerDefinition(TOOLBOX, ToolboxRenderer::createBodyLayer);
 		event.registerLayerDefinition(ROLLER_DOOR, RollerDoorRenderer::createBodyLayer);
+		event.registerLayerDefinition(WINCH, WinchRenderer::createBodyLayer);
 		event.registerLayerDefinition(TMT_MINECART, MinecartModel::createBodyLayer);
 		event.registerLayerDefinition(LOST_GOAT, LostGoatModel::createBodyLayer);
 		event.registerLayerDefinition(COPPER_HORSE_ARMOR, () -> LayerDefinition.create(CopperHorseArmorModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
@@ -92,6 +94,7 @@ public class CCModelLayers {
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR.get(), RollerDoorRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ROLLER_DOOR_HEADER.get(), RollerDoorRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.WINCH.get(), WinchRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.ATONING_TABLE.get(), AtoningTableRenderer::new);
 	}
 
