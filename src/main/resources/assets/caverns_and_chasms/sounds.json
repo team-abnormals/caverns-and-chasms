@@ -858,7 +858,9 @@
       "caverns_and_chasms:block/zirconia/step1",
       "caverns_and_chasms:block/zirconia/step2",
       "caverns_and_chasms:block/zirconia/step3",
-      "caverns_and_chasms:block/zirconia/step4"
+      "caverns_and_chasms:block/zirconia/step4",
+      "caverns_and_chasms:block/zirconia/step5",
+      "caverns_and_chasms:block/zirconia/step6"
     ]
   },
   "block.zirconia.hit": {
@@ -884,7 +886,9 @@
       "caverns_and_chasms:block/zirconia/step1",
       "caverns_and_chasms:block/zirconia/step2",
       "caverns_and_chasms:block/zirconia/step3",
-      "caverns_and_chasms:block/zirconia/step4"
+      "caverns_and_chasms:block/zirconia/step4",
+      "caverns_and_chasms:block/zirconia/step5",
+      "caverns_and_chasms:block/zirconia/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -898,36 +902,32 @@
   },
   "block.ornate_glass.fall": {
     "sounds": [
-      "caverns_and_chasms:block/zirconia/step1",
-      "caverns_and_chasms:block/zirconia/step2",
-      "caverns_and_chasms:block/zirconia/step3",
-      "caverns_and_chasms:block/zirconia/step4"
+      "caverns_and_chasms:block/ornate_glass/step1",
+      "caverns_and_chasms:block/ornate_glass/step2",
+      "caverns_and_chasms:block/ornate_glass/step3"
     ]
   },
   "block.ornate_glass.hit": {
     "sounds": [
-      "caverns_and_chasms:block/zirconia/step1",
-      "caverns_and_chasms:block/zirconia/step2",
-      "caverns_and_chasms:block/zirconia/step3",
-      "caverns_and_chasms:block/zirconia/step4"
+      "caverns_and_chasms:block/ornate_glass/step1",
+      "caverns_and_chasms:block/ornate_glass/step2",
+      "caverns_and_chasms:block/ornate_glass/step3"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.ornate_glass.place": {
     "sounds": [
-      "caverns_and_chasms:block/zirconia/break1",
-      "caverns_and_chasms:block/zirconia/break2",
-      "caverns_and_chasms:block/zirconia/break3",
-      "caverns_and_chasms:block/zirconia/break4"
+      "caverns_and_chasms:block/ornate_glass/step1",
+      "caverns_and_chasms:block/ornate_glass/step2",
+      "caverns_and_chasms:block/ornate_glass/step3"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.ornate_glass.step": {
     "sounds": [
-      "caverns_and_chasms:block/zirconia/step1",
-      "caverns_and_chasms:block/zirconia/step2",
-      "caverns_and_chasms:block/zirconia/step3",
-      "caverns_and_chasms:block/zirconia/step4"
+      "caverns_and_chasms:block/ornate_glass/step1",
+      "caverns_and_chasms:block/ornate_glass/step2",
+      "caverns_and_chasms:block/ornate_glass/step3"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
