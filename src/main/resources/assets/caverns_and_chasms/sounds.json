@@ -931,6 +931,35 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.float_glass.break": {
+    "sounds": [
+      "caverns_and_chasms:block/float_glass/break1"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.float_glass.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/float_glass/step1"
+    ]
+  },
+  "block.float_glass.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/float_glass/step1"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.float_glass.place": {
+    "sounds": [
+      "caverns_and_chasms:block/float_glass/step1"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.float_glass.step": {
+    "sounds": [
+      "caverns_and_chasms:block/float_glass/step1"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.necromium.break": {
     "sounds": [
       "caverns_and_chasms:block/necromium/break1",
@@ -2089,19 +2118,21 @@
   },
   "entity.grazer.ambient": {
     "sounds": [
-      "caverns_and_chasms:mob/grazer/oink1",
-      "caverns_and_chasms:mob/grazer/oink2",
-      "caverns_and_chasms:mob/grazer/oink3",
-      "caverns_and_chasms:mob/grazer/oink4",
-	  "caverns_and_chasms:mob/grazer/oink5"
+      "caverns_and_chasms:mob/grazer/clangor1",
+      "caverns_and_chasms:mob/grazer/clangor2",
+      "caverns_and_chasms:mob/grazer/clangor3",
+      "caverns_and_chasms:mob/grazer/clangor4",
+	  "caverns_and_chasms:mob/grazer/clangor5",
+      "caverns_and_chasms:mob/grazer/clangor6",
+	  "caverns_and_chasms:mob/grazer/clangor7"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.grazer.ambient"
   },
   "entity.grazer.death": {
     "sounds": [
       "caverns_and_chasms:mob/grazer/death1",
-      "caverns_and_chasms:mob/grazer/death",
-      "caverns_and_chasms:mob/grazer/death"
+      "caverns_and_chasms:mob/grazer/death2",
+      "caverns_and_chasms:mob/grazer/death3"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.grazer.death"
   },
@@ -2124,7 +2155,10 @@
   },
   "entity.grazer.charge": {
     "sounds": [
-      "caverns_and_chasms:mob/grazer/charge1"
+      "caverns_and_chasms:mob/grazer/charge1",
+	  "caverns_and_chasms:mob/grazer/charge2", 
+      "caverns_and_chasms:mob/grazer/charge3",
+	  "caverns_and_chasms:mob/grazer/charge4"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.grazer.charge"
   },
