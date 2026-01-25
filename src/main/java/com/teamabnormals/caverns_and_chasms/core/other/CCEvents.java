@@ -736,7 +736,7 @@ public class CCEvents {
 					projectile.checkInsideBlocks();
 
 					SoundType soundtype = state.getBlock().getSoundType(state, level, pos, null);
-					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.DEEPSLATE_TIN_ORE ? CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE ? CCSoundEvents.CASSITERITE_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.DEEPSLATE_TIN_ORE ? CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE ? CCSoundEvents.CASSITERITE_DEFLECT.get() : soundtype == CCSoundTypes.FLOAT_GLASS ? CCSoundEvents.FLOAT_GLASS_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
 					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
 
 					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);

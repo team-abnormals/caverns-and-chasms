@@ -81,6 +81,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_HIT = HELPER.createSoundEvent("block.float_glass.hit");
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_PLACE = HELPER.createSoundEvent("block.float_glass.place");
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_STEP = HELPER.createSoundEvent("block.float_glass.step");
+	public static final RegistryObject<SoundEvent> FLOAT_GLASS_DEFLECT = HELPER.createSoundEvent("block.float_glass.deflect");
 
 	public static final RegistryObject<SoundEvent> NECROMIUM_BREAK = HELPER.createSoundEvent("block.necromium.break");
 	public static final RegistryObject<SoundEvent> NECROMIUM_FALL = HELPER.createSoundEvent("block.necromium.fall");
