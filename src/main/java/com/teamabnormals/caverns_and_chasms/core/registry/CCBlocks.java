@@ -595,7 +595,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> COAL = HELPER.createPlacedItem("coal", () -> new CoalBlock(CCProperties.placedCoal(6)));
 	public static final RegistryObject<Block> CHARCOAL = HELPER.createPlacedItem("charcoal", () -> new CoalBlock(CCProperties.placedCoal(4)));
-	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createFuelBlock("charcoal_block", () -> new CharcoalBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).lightLevel(state -> state.getValue(CharcoalBlock.LIT) ? 15 : 0).hasPostProcess((state, level, pos) -> state.getValue(CharcoalBlock.LIT)).emissiveRendering((state, level, pos) -> state.getValue(CharcoalBlock.LIT))), 12800);
+	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createFuelBlock("charcoal_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK)), 12800);
 
 	public static final RegistryObject<Block> COPPER_INGOT = HELPER.createPlacedItem("copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.UNAFFECTED, () -> Items.COPPER_INGOT, BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
 	public static final RegistryObject<Block> EXPOSED_COPPER_INGOT = HELPER.createPlacedItem("exposed_copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.EXPOSED, CCItems.EXPOSED_COPPER_INGOT, BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER)));

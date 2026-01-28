@@ -1,27 +1,15 @@
 {
   "variants": {
-    "axis=x,lit=false": {
+    "axis=x": {
       "model": "caverns_and_chasms:block/charcoal_block_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=x,lit=true": {
-      "model": "caverns_and_chasms:block/charcoal_block_horizontal_lit",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,lit=false": {
+    "axis=y": {
       "model": "caverns_and_chasms:block/charcoal_block"
     },
-    "axis=y,lit=true": {
-      "model": "caverns_and_chasms:block/charcoal_block_lit"
-    },
-    "axis=z,lit=false": {
+    "axis=z": {
       "model": "caverns_and_chasms:block/charcoal_block_horizontal",
-      "x": 90
-    },
-    "axis=z,lit=true": {
-      "model": "caverns_and_chasms:block/charcoal_block_horizontal_lit",
       "x": 90
     }
   }
