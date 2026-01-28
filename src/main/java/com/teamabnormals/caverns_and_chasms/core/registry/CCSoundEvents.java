@@ -31,7 +31,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> RHYOLITE_HIT = HELPER.createSoundEvent("block.rhyolite.hit");
 	public static final RegistryObject<SoundEvent> RHYOLITE_PLACE = HELPER.createSoundEvent("block.rhyolite.place");
 	public static final RegistryObject<SoundEvent> RHYOLITE_STEP = HELPER.createSoundEvent("block.rhyolite.step");
-	
+
 	public static final RegistryObject<SoundEvent> CASSITERITE_BREAK = HELPER.createSoundEvent("block.cassiterite.break");
 	public static final RegistryObject<SoundEvent> CASSITERITE_FALL = HELPER.createSoundEvent("block.cassiterite.fall");
 	public static final RegistryObject<SoundEvent> CASSITERITE_HIT = HELPER.createSoundEvent("block.cassiterite.hit");
@@ -69,13 +69,13 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ZIRCONIA_HIT = HELPER.createSoundEvent("block.zirconia.hit");
 	public static final RegistryObject<SoundEvent> ZIRCONIA_PLACE = HELPER.createSoundEvent("block.zirconia.place");
 	public static final RegistryObject<SoundEvent> ZIRCONIA_STEP = HELPER.createSoundEvent("block.zirconia.step");
-	
+
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_BREAK = HELPER.createSoundEvent("block.ornate_glass.break");
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_FALL = HELPER.createSoundEvent("block.ornate_glass.fall");
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_HIT = HELPER.createSoundEvent("block.ornate_glass.hit");
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_PLACE = HELPER.createSoundEvent("block.ornate_glass.place");
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_STEP = HELPER.createSoundEvent("block.ornate_glass.step");
-	
+
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_BREAK = HELPER.createSoundEvent("block.float_glass.break");
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_FALL = HELPER.createSoundEvent("block.float_glass.fall");
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_HIT = HELPER.createSoundEvent("block.float_glass.hit");

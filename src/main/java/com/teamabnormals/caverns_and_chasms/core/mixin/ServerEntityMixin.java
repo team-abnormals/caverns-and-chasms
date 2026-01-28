@@ -30,7 +30,9 @@ public final class ServerEntityMixin {
 	@Final
 	private Entity entity;
 
-	@Shadow @Final private ServerLevel level;
+	@Shadow
+	@Final
+	private ServerLevel level;
 
 	@Inject(at = @At("HEAD"), method = "sendChanges")
 	private void updateRats(CallbackInfo info) {

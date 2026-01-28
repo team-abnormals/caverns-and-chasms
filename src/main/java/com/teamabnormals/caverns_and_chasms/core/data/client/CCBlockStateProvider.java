@@ -109,7 +109,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(CUT_AMETHYST);
 		this.blockFamily(CUT_AMETHYST_BRICKS_FAMILY);
 		this.block(AMETHYST_LAMP);
-		
+
 		this.block(QUARTZ_LAMP);
 		this.block(DIAMOND_LAMP);
 		this.block(EMERALD_LAMP);

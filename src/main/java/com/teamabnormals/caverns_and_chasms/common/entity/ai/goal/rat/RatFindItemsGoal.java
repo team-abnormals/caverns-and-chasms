@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RatFindItemsGoal extends Goal {
 	private final Rat rat;
-	
+
 	public RatFindItemsGoal(Rat rat) {
 		this.rat = rat;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE));

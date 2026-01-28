@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class RatRandomTargetGoal<T extends LivingEntity> extends NonTameRandomTargetGoal<T> {
 	private final Rat rat;
-	
+
 	public RatRandomTargetGoal(Rat rat, Class<T> targetType, boolean mustReach, Predicate<LivingEntity> predicate) {
 		super(rat, targetType, mustReach, predicate);
 		this.rat = rat;

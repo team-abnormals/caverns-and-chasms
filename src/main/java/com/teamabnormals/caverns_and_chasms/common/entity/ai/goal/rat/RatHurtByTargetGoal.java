@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 
 public class RatHurtByTargetGoal extends HurtByTargetGoal {
 	private final Rat rat;
-	
+
 	public RatHurtByTargetGoal(Rat rat) {
 		super(rat);
 		this.rat = rat;

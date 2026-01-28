@@ -373,10 +373,11 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CAVIAR.get());
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
-			this.dropSelf(ZIRCONIA_LAMP.get());;
+			this.dropSelf(ZIRCONIA_LAMP.get());
+			;
 			this.dropSelf(ORNATE_GLASS.get());
 			this.dropSelf(ORNATE_GLASS_PANE.get());
-			
+
 			this.dropSelf(QUARTZ_LAMP.get());
 			this.dropSelf(AMETHYST_LAMP.get());
 			this.dropSelf(DIAMOND_LAMP.get());

@@ -7,7 +7,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class RatTemptGoal extends TemptGoal {
 	private final Rat rat;
-	
+
 	public RatTemptGoal(Rat rat) {
 		super(rat, 1.0D, Ingredient.of(CCItemTags.RAT_FOOD), false);
 		this.rat = rat;

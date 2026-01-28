@@ -29,10 +29,17 @@ import java.util.List;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
-	@Shadow @Final Minecraft minecraft;
-	@Shadow private int tick;
-	@Shadow @Final private RenderBuffers renderBuffers;
-	@Shadow @Final private LightTexture lightTexture;
+	@Shadow
+	@Final
+	Minecraft minecraft;
+	@Shadow
+	private int tick;
+	@Shadow
+	@Final
+	private RenderBuffers renderBuffers;
+	@Shadow
+	@Final
+	private LightTexture lightTexture;
 
 	@Inject(method = "pick", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;hitResult:Lnet/minecraft/world/phys/HitResult;", shift = At.Shift.AFTER, ordinal = 8), locals = LocalCapture.CAPTURE_FAILSOFT)
 	private void pick(float p_109088_, CallbackInfo ci, Entity entity, double d0, double entityReach, Vec3 vec3, boolean flag, int i, double d1, Vec3 vec31, Vec3 vec32, float f, AABB aabb, EntityHitResult entityhitresult, Entity entity1) {

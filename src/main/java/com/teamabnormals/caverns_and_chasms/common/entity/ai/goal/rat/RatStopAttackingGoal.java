@@ -7,7 +7,7 @@ import java.util.EnumSet;
 
 public class RatStopAttackingGoal extends Goal {
 	private final Rat rat;
-	
+
 	public RatStopAttackingGoal(Rat rat) {
 		this.rat = rat;
 		this.setFlags(EnumSet.of(Goal.Flag.TARGET));

@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class RatAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
 	private final Rat rat;
-	
+
 	public RatAvoidEntityGoal(Rat rat, Class<T> avoidClass, float maxDist, double walkSpeedModifier, double sprintSpeedModifier, Predicate<LivingEntity> predicate) {
 		super(rat, avoidClass, maxDist, walkSpeedModifier, sprintSpeedModifier, predicate);
 		this.rat = rat;
