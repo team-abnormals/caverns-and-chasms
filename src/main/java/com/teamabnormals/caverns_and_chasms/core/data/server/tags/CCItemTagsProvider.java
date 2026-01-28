@@ -78,6 +78,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.FADED_TRIM_MODIFIERS).addTag(CCItemTags.GEMS_SPINEL);
 		this.tag(CCItemTags.EMISSIVE_TRIM_MODIFIERS).add(Items.BLAZE_POWDER);
 		this.tag(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA);
+		this.tag(CCItemTags.CHANGES_HOOP_SIZE).add(TUNING_FORK.get());
 		this.tag(CCItemTags.PLACEABLE_ITEMS).add(
 				Items.COAL, Items.CHARCOAL, Items.BRICK, Items.NETHER_BRICK,
 				Items.COPPER_INGOT, EXPOSED_COPPER_INGOT.get(), WEATHERED_COPPER_INGOT.get(), OXIDIZED_COPPER_INGOT.get(),

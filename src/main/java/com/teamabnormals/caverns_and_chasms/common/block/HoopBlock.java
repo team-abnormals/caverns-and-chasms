@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.HoopBlockEntity;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -110,7 +110,7 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (player.getAbilities().mayBuild && player.getItemInHand(hand).is(CCItems.TUNING_FORK.get())) {
+		if (player.getAbilities().mayBuild && player.getItemInHand(hand).is(CCItemTags.CHANGES_HOOP_SIZE)) {
 			int i = state.getValue(SIZE) - 1;
 			if (i < 0)
 				i = 3;
