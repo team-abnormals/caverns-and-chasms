@@ -24,6 +24,11 @@
             "type": "minecraft:item",
             "name": "caverns_and_chasms:silver_horse_armor",
             "weight": 6
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:copper_horse_armor",
+            "weight": 5
           }
         ],
         "index": 0,
