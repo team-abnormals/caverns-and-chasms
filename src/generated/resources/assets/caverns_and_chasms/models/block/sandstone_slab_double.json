@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "minecraft:block/sandstone_bottom",
+    "side": "caverns_and_chasms:block/sandstone_slab",
+    "top": "minecraft:block/sandstone_top"
+  }
+}

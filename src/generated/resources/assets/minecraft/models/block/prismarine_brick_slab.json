@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "minecraft:block/prismarine_bricks",
+    "side": "caverns_and_chasms:block/prismarine_brick_slab",
+    "top": "minecraft:block/prismarine_bricks"
+  }
+}

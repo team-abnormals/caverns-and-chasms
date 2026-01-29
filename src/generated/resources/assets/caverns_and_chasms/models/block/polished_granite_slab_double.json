@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "minecraft:block/polished_granite",
+    "side": "caverns_and_chasms:block/polished_granite_slab"
+  }
+}

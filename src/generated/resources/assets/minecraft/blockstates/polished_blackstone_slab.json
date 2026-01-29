@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "minecraft:block/polished_blackstone_slab"
+    },
+    "type=double": {
+      "model": "caverns_and_chasms:block/polished_blackstone_slab_double"
+    },
+    "type=top": {
+      "model": "minecraft:block/polished_blackstone_slab_top"
+    }
+  }
+}
