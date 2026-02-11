@@ -237,6 +237,7 @@ public class CCItems {
 	public static final RegistryObject<Item> LOST_GOAT_HORN = HELPER.createItem("lost_goat_horn", () -> new InstrumentItem((new Item.Properties()).stacksTo(1), CCInstrumentTags.LOST_GOAT_HORNS));
 
 	public static final RegistryObject<Item> COWL = HELPER.createItem("cowl", () -> new CowlItem(CCArmorMaterials.COWL, ArmorItem.Type.HELMET, new Item.Properties()));
+	public static final RegistryObject<Item> TOOLBELT = HELPER.createItem("toolbelt", () -> new ToolbeltItem(CCArmorMaterials.TOOLBELT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
 
 	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 77));
 	public static final RegistryObject<Item> ABNORMALS_BANNER_PATTERN = HELPER.createItem("abnormals_banner_pattern", () -> new BannerPatternItem(CCBannerPatternTags.PATTERN_ITEM_ABNORMALS, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
@@ -324,7 +325,7 @@ public class CCItems {
 						NECROMIUM_HELMET, NECROMIUM_CHESTPLATE, NECROMIUM_LEGGINGS, NECROMIUM_BOOTS,
 						SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS
 				)
-				.addItemsBefore(of(Items.TURTLE_HELMET), COWL)
+				.addItemsBefore(of(Items.TURTLE_HELMET), COWL, TOOLBELT)
 				.addItemsAfter(of(Items.DIAMOND_HORSE_ARMOR), NETHERITE_HORSE_ARMOR, NECROMIUM_HORSE_ARMOR)
 				.addItemsBefore(of(Items.SNOWBALL), KUNAI)
 				.addItemsAfter(of(Items.SPECTRAL_ARROW), BLUNT_ARROW, LARGE_ARROW)

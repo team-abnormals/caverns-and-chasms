@@ -107,7 +107,7 @@ public class CowlItem extends DyeableArmorItem {
 			}
 		}
 
-		if (entity.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
+		if (entity.isCrouching() && entity.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
 			stealth = 0.0D;
 		}
 

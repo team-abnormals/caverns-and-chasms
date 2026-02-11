@@ -162,7 +162,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 
 		this.tag(Tags.Items.ARMORS_HELMETS).addTag(CCItemTags.COPPER_HELMETS).add(SILVER_HELMET.get(), NECROMIUM_HELMET.get(), COWL.get());
 		this.tag(Tags.Items.ARMORS_CHESTPLATES).addTag(CCItemTags.COPPER_CHESTPLATES).add(SILVER_CHESTPLATE.get(), NECROMIUM_CHESTPLATE.get());
-		this.tag(Tags.Items.ARMORS_LEGGINGS).addTag(CCItemTags.COPPER_LEGGINGS).add(SILVER_LEGGINGS.get(), NECROMIUM_LEGGINGS.get());
+		this.tag(Tags.Items.ARMORS_LEGGINGS).addTag(CCItemTags.COPPER_LEGGINGS).add(SILVER_LEGGINGS.get(), NECROMIUM_LEGGINGS.get(), TOOLBELT.get());
 		this.tag(Tags.Items.ARMORS_BOOTS).addTag(CCItemTags.COPPER_BOOTS).add(SILVER_BOOTS.get(), NECROMIUM_BOOTS.get());
 
 		this.tag(CCItemTags.BOTTLES_MILK);
