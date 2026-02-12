@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -74,7 +75,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private List<Rat> pack = Lists.newArrayList();
 	private int ticksSinceEaten;
+
 	private Player tamer;
+	private BlockPos rottenFleshPos;
 
 	private LivingEntity attachedEntity;
 	private UUID attachedEntityUUID;
@@ -100,7 +103,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(6, new BreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(7, new RatTemptGoal(this));
 		this.goalSelector.addGoal(8, new RatJumpOnShoulderGoal(this));
-		this.goalSelector.addGoal(9, new RatDevourRottenFleshGoal(this, 1.25D, 16, 4));
+		this.goalSelector.addGoal(9, new RatDevourRottenFleshGoal(this, 1.25D));
 		this.goalSelector.addGoal(10, new RatStayInGroupGoal(this));
 		this.goalSelector.addGoal(11, new RatFollowParentGoal(this));
 		this.goalSelector.addGoal(12, new RatAvoidEntityGoal<>(this, Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
@@ -481,12 +484,21 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return flag;
 	}
 
+	public void setMassTamedBy(Player player, BlockPos rottenFleshPos) {
+		this.tamer = player;
+		this.rottenFleshPos = rottenFleshPos;
+	}
+
 	public void setTamer(Player entity) {
 		this.tamer = entity;
 	}
 
 	public Player getTamer() {
 		return this.tamer;
+	}
+
+	public BlockPos getRottenFleshPos() {
+		return this.rottenFleshPos;
 	}
 
 	public List<Rat> getPack() {
@@ -646,7 +658,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.spitOutItem(this.getMainHandItem());
 			this.onItemPickup(itemEntity);
 			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
-			this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 2.0F;
+			this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
 			this.take(itemEntity, itemstack.getCount());
 			itemEntity.discard();
 			this.ticksSinceEaten = 0;

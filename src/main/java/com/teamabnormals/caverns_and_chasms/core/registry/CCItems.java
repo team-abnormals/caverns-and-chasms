@@ -235,6 +235,7 @@ public class CCItems {
 
 	public static final RegistryObject<Item> COPPER_HORN = HELPER.createItem("copper_horn", () -> new CopperHornItem((new Item.Properties()).stacksTo(1), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS));
 	public static final RegistryObject<Item> LOST_GOAT_HORN = HELPER.createItem("lost_goat_horn", () -> new InstrumentItem((new Item.Properties()).stacksTo(1), CCInstrumentTags.LOST_GOAT_HORNS));
+	public static final RegistryObject<Item> BONE_FLUTE = HELPER.createItem("bone_flute", () -> new BoneFluteItem(new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> COWL = HELPER.createItem("cowl", () -> new CowlItem(CCArmorMaterials.COWL, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> TOOLBELT = HELPER.createItem("toolbelt", () -> new ToolbeltItem(CCArmorMaterials.TOOLBELT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
@@ -310,6 +311,7 @@ public class CCItems {
 				.editor(event -> event.getParameters().holders().lookup(Registries.INSTRUMENT).ifPresent(registry -> {
 					generateInstrumentTypes(event, registry, COPPER_HORN.get(), CCInstrumentTags.HARMONY_COPPER_HORNS, CCInstrumentTags.MELODY_COPPER_HORNS, CCInstrumentTags.BASS_COPPER_HORNS);
 				}))
+				.addItemsBefore(of(Items.MUSIC_DISC_13), BONE_FLUTE)
 				.tab(COMBAT)
 				.addItemsAfter(of(Items.STONE_SWORD), COPPER_SWORD)
 				.addItemsAfter(of(Items.STONE_AXE), COPPER_AXE)

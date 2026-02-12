@@ -228,7 +228,7 @@ public class CCClientCompat {
 			ItemProperties.register(item, CavernsAndChasms.location("level"), (stack, level, entity, hash) -> GoldenBucketItem.getFluidLevel(stack));
 		}
 
-		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get())) {
+		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get(), CCItems.BONE_FLUTE.get())) {
 			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
 		}
 
