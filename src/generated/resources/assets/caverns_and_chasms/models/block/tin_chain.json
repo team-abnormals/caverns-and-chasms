@@ -1,0 +1,7 @@
+{
+  "parent": "caverns_and_chasms:block/template_tin_chain",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "caverns_and_chasms:block/tin_chain"
+  }
+}

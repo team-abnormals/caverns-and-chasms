@@ -211,6 +211,9 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS_PANE.get(), RenderType.translucent());
 
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FROSTED_GLASS.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FROSTED_GLASS_PANE.get(), RenderType.translucent());
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ORNATE_GLASS.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ORNATE_GLASS_PANE.get(), RenderType.translucent());
 

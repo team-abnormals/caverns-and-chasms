@@ -15,7 +15,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
@@ -48,8 +51,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(DEEPSLATE_TIN_ORE);
 		this.block(CASSITERITE_TIN_ORE);
 		this.block(TIN_BLOCK);
+		this.tinChainBlock(TIN_CHAIN);
+		this.tinBulbBlock(TIN_BULB);
 		this.block(FLOAT_GLASS);
 		this.glassPaneBlock(FLOAT_GLASS_PANE, FLOAT_GLASS);
+		this.block(FROSTED_GLASS);
+		this.glassPaneBlock(FROSTED_GLASS_PANE, FROSTED_GLASS);
 
 		this.holdPlateBlock(HOLD_PLATE, TIN_BLOCK);
 		this.holdButtonBlock(TIN_BLOCK, HOLD_BUTTON);
@@ -581,6 +588,29 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				}, BlockStateProperties.WATERLOGGED);
 
 		this.generatedItem(block, "item");
+	}
+
+	public void tinChainBlock(RegistryObject<Block> chainBlock) {
+		Block block = chainBlock.get();
+		ModelFile chain = models().withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_tin_chain").texture("all", blockTexture(block)).renderType("cutout");
+		this.getVariantBuilder(block).forAllStatesExcept(state -> {
+			Axis axis = state.getValue(BlockStateProperties.AXIS);
+			return ConfiguredModel.builder().modelFile(chain).rotationX(axis.isHorizontal() ? 90 : 0).rotationY(axis == Axis.X ? 90 : 0).build();
+		}, BlockStateProperties.WATERLOGGED);
+		this.generatedItem(block, "item");
+	}
+
+	public void tinBulbBlock(RegistryObject<Block> bulbBlock) {
+		Block block = bulbBlock.get();
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					int power = state.getValue(TinBulbBlock.POWER);
+					boolean powered = state.getValue(TinBulbBlock.POWERED);
+					String suffix = "_power_" + power;
+					return ConfiguredModel.builder().modelFile(this.models().cubeAll(name(block) + suffix, blockTexture(block).withSuffix(suffix))).build();
+				}, TinBulbBlock.POWERED);
+
+		this.simpleBlockItem(block, this.existingModel(blockModel(block).withSuffix("_power_0")));
 	}
 
 	public void copperLanternBlocks(Block lantern, Block waxedLantern, Block chain, Block waxedChain) {

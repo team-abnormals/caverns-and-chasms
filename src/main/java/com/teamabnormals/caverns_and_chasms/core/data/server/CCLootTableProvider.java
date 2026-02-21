@@ -144,8 +144,12 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(TIN_BLOCK.get());
 			this.dropSelf(RAW_TIN_BLOCK.get());
 			this.dropSelf(TIN_BARS.get());
+			this.dropSelf(TIN_CHAIN.get());
+			this.dropSelf(TIN_BULB.get());
 			this.dropSelf(FLOAT_GLASS.get());
 			this.dropSelf(FLOAT_GLASS_PANE.get());
+			this.dropSelf(FROSTED_GLASS.get());
+			this.dropSelf(FROSTED_GLASS_PANE.get());
 
 			this.dropSelf(HOLD_PLATE.get());
 			this.dropSelf(HOLD_BUTTON.get());
