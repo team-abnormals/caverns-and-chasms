@@ -46,7 +46,7 @@ public class CowlItem extends DyeableArmorItem {
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.putAll(super.getAttributeModifiers(slot, stack));
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(this.type);
-		double amount = 0.4D + 0.1D * stack.getEnchantmentLevel(CCEnchantments.THIEVING.get());
+		double amount = 0.4D + 0.1D * stack.getEnchantmentLevel(CCEnchantments.CONCEAL.get());
 		builder.put(CCAttributes.STEALTH.get(), new AttributeModifier(uuid, "Stealth", amount, Operation.ADDITION));
 		return slot == this.getEquipmentSlot() ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}

@@ -20,6 +20,6 @@ public class ObscurityEnchantment extends Enchantment {
 
 	@Override
 	public boolean checkCompatibility(Enchantment enchantment) {
-		return super.checkCompatibility(enchantment) && enchantment != CCEnchantments.THIEVING.get();
+		return super.checkCompatibility(enchantment) && enchantment != CCEnchantments.CONCEAL.get();
 	}
 }

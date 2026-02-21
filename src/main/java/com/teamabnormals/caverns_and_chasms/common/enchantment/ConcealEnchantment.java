@@ -4,9 +4,9 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public class ThievingEnchantment extends Enchantment {
+public class ConcealEnchantment extends Enchantment {
 
-	public ThievingEnchantment(Enchantment.Rarity rarity, EquipmentSlot... slot) {
+	public ConcealEnchantment(Enchantment.Rarity rarity, EquipmentSlot... slot) {
 		super(rarity, CCEnchantments.COWL, slot);
 	}
 
