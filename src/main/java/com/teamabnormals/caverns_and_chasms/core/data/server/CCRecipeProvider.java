@@ -78,6 +78,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		copperHornRecipe(consumer, CCInstruments.FLY_GOAT_HORN.getKey(), CCInstruments.FEARLESS_RIVER_GIFT_COPPER_HORN);
 		copperHornRecipe(consumer, CCInstruments.RESIST_GOAT_HORN.getKey(), CCInstruments.SWEET_MOON_LOVE_COPPER_HORN);
 
+		ShapelessRecipeBuilder.shapeless(MISC, Items.BONE_MEAL, 3).requires(CCItems.BONE_FLUTE.get()).group("bonemeal").unlockedBy("has_bone_flute", has(CCItems.BONE_FLUTE.get())).save(consumer, getModConversionRecipeName(Items.BONE_MEAL, CCItems.BONE_FLUTE.get()));
+
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.RAIL, 3).define('#', Tags.Items.RODS_WOODEN).define('X', Tags.Items.NUGGETS_IRON).pattern("X X").pattern("X#X").pattern("X X").unlockedBy("has_minecart", has(Items.MINECART)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.ACTIVATOR_RAIL).define('#', Blocks.REDSTONE_TORCH).define('S', Tags.Items.RODS_WOODEN).define('X', Tags.Items.NUGGETS_IRON).pattern("XSX").pattern("X#X").pattern("XSX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);
 		ShapedRecipeBuilder.shaped(TRANSPORTATION, Blocks.DETECTOR_RAIL).define('R', Items.REDSTONE).define('#', Blocks.STONE_PRESSURE_PLATE).define('X', Tags.Items.NUGGETS_IRON).pattern("X X").pattern("X#X").pattern("XRX").unlockedBy("has_rail", has(Blocks.RAIL)).save(consumer);

@@ -168,7 +168,7 @@ public class CCEvents {
 			LevelAccessor level = event.getLevel();
 			BlockPos pos = event.getPos();
 			List<Rat> rats = level.getEntitiesOfClass(Rat.class, new AABB(pos).inflate(8.0D, 4.0D, 8.0D), entity -> entity.isAlive() && !entity.isTame());
-			rats.stream().limit(9).toList().forEach(rat -> rat.setTamer(player));
+			rats.stream().limit(9).toList().forEach(rat -> rat.setMassTamedBy(player, pos));
 		}
 	}
 
