@@ -246,6 +246,12 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, FLOAT_GLASS_PANE.get(), 16).define('#', FLOAT_GLASS.get()).pattern("###").pattern("###").unlockedBy("has_float_glass", has(FLOAT_GLASS.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(REDSTONE, ROLLER_DOOR.get(), 2).define('T', CCItemTags.INGOTS_TIN).pattern("TT").pattern("TT").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 
+		copperBulb(consumer, TIN_BULB.get(), CCItems.TIN_INGOT.get());
+		ShapedRecipeBuilder.shaped(DECORATIONS, TIN_CHAIN.get()).define('#', CCItemTags.NUGGETS_TIN).pattern("#").pattern("#").pattern("#").unlockedBy("has_tin_nugget", has(CCItemTags.NUGGETS_TIN)).save(consumer);
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, FROSTED_GLASS.get(), 2).define('G', Blocks.GLASS).define('S', Items.AMETHYST_SHARD).define('T', Items.QUARTZ).pattern(" T ").pattern("SGS").pattern(" T ").unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).unlockedBy("has_quartz", has(Items.QUARTZ)).save(consumer);
+		ShapedRecipeBuilder.shaped(DECORATIONS, FROSTED_GLASS_PANE.get(), 16).define('#', FROSTED_GLASS.get()).pattern("###").pattern("###").unlockedBy("has_frosted_glass", has(FROSTED_GLASS.get())).save(consumer);
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, RESISTOR.get()).define('#', Blocks.REDSTONE_TORCH).define('X', Items.REDSTONE).define('I', CCItemTags.INGOTS_TIN).pattern("#X#").pattern("III").unlockedBy("has_redstone_torch", has(Blocks.REDSTONE_TORCH)).save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, REFRACTOR.get()).define('#', Blocks.REDSTONE_TORCH).define('X', Items.AMETHYST_BLOCK).define('I', CCItemTags.INGOTS_TIN).pattern(" # ").pattern("#X#").pattern("III").unlockedBy("has_amethyst", has(Items.AMETHYST_BLOCK)).save(consumer);
 
@@ -620,7 +626,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, grateBlock, 4).define('M', material).pattern(" M ").pattern("M M").pattern(" M ").unlockedBy(getHasName(material), has(material)).save(consumer);
 	}
 
-	protected static void copperBulb(Consumer<FinishedRecipe> consumer, Block bulbBlock, Block material) {
+	protected static void copperBulb(Consumer<FinishedRecipe> consumer, Block bulbBlock, ItemLike material) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, bulbBlock, 4).define('C', material).define('R', Items.REDSTONE).define('B', Items.BLAZE_ROD).pattern(" C ").pattern("CBC").pattern(" R ").unlockedBy(getHasName(material), has(material)).save(consumer);
 	}
 

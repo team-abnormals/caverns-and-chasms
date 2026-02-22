@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:tin_chain"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tin_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:nuggets/tin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_tin_nugget",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:tin_chain"
+    ]
+  },
+  "sends_telemetry_event": false
+}
