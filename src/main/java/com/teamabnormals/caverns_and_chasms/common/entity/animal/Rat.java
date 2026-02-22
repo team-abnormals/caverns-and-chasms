@@ -102,7 +102,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
 		this.goalSelector.addGoal(6, new BreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(7, new RatTemptGoal(this));
-		this.goalSelector.addGoal(8, new RatJumpOnShoulderGoal(this));
+		// this.goalSelector.addGoal(8, new RatJumpOnShoulderGoal(this));
 		this.goalSelector.addGoal(9, new RatDevourRottenFleshGoal(this, 1.25D));
 		this.goalSelector.addGoal(10, new RatStayInGroupGoal(this));
 		this.goalSelector.addGoal(11, new RatFollowParentGoal(this));
