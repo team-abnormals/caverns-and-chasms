@@ -120,14 +120,18 @@ public class CCStructureTypes {
 
 	public static class CCTemplatePools {
 		public static final ResourceKey<StructureTemplatePool> FORGE = createKey("forge");
+		public static final ResourceKey<StructureTemplatePool> FORGE_ROOVES = createKey("forge/rooves");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ENTRANCES = createKey("forge/entrances");
+		public static final ResourceKey<StructureTemplatePool> FORGE_FIREPLACES = createKey("forge/fireplaces");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ARCHAEOLOGY = createKey("forge/archaeology");
 		public static final ResourceKey<StructureTemplatePool> FORGE_DECORATIONS = createKey("forge/decorations");
 		public static final ResourceKey<StructureTemplatePool> FORGE_SMALL_DECORATIONS = createKey("forge/small_decorations");
 		public static final ResourceKey<StructureTemplatePool> FORGE_PILE_DECORATIONS = createKey("forge/pile_decorations");
 
 		public static final List<Entry> FORGES = List.of(of("forge", 4));
+		public static final List<Entry> ROOVES = List.of(of("roof", 2));
 		public static final List<Entry> ENTRANCES = List.of(of("gate", 6), of("broken_gate", 4));
+		public static final List<Entry> FIREPLACES = List.of(of("fireplace", 2));
 		public static final List<Entry> ARCHAEOLOGY = List.of(of("gravel_pile", 32));
 		public static final List<Entry> DECORATIONS = List.of(of("oak_platform", 8), of("oak_shelf", 2), of("tnt_pile", 3));
 		public static final List<Entry> SMALL_DECORATIONS = List.of(of("empty", 1, 22), of("cauldron", 1), of("furnace", 1), of("blast_furnace", 1), of("damaged_anvil", 1), of("dimmer", 1), of("dimmer_scaffolding", 1), of("anvil", 1), of("tnt", 2), of("tnt_scaffolding", 2), of("water_cauldron", 3), of("scaffolding", 4));
@@ -147,7 +151,9 @@ public class CCStructureTypes {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
 
 			createPool(context, FORGE, empty, FORGES);
+            createPool(context, FORGE_ROOVES, empty, ROOVES);
 			createPool(context, FORGE_ENTRANCES, empty, ENTRANCES);
+			createPool(context, FORGE_FIREPLACES, empty, FIREPLACES);
 			createPool(context, FORGE_ARCHAEOLOGY, empty, ARCHAEOLOGY);
 			createPool(context, FORGE_DECORATIONS, empty, DECORATIONS);
 			createPool(context, FORGE_SMALL_DECORATIONS, empty, SMALL_DECORATIONS);
