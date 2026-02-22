@@ -46,6 +46,23 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:tnt_minecart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:furnace_minecart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:minecart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:diamond",
           "weight": 2
         },

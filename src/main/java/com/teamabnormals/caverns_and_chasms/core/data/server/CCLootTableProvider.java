@@ -711,6 +711,10 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(Items.SCAFFOLDING).setWeight(5))
 							.add(LootItem.lootTableItem(Items.BAMBOO).setWeight(4))
 							.add(LootItem.lootTableItem(Items.BUCKET).setWeight(3))
+							.add(LootItem.lootTableItem(Items.TNT_MINECART).setWeight(1))
+							.add(LootItem.lootTableItem(Items.FURNACE_MINECART).setWeight(1))
+							.add(LootItem.lootTableItem(Items.MINECART).setWeight(1))
+							.add(LootItem.lootTableItem(Items.EMERALD).setWeight(3))
 							.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
 							.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get()))
 					));
