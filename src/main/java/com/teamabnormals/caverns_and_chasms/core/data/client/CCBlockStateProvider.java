@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;

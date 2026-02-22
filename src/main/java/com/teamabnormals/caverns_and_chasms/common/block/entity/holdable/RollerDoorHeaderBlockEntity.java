@@ -1,7 +1,7 @@
-package com.teamabnormals.caverns_and_chasms.common.block.entity;
+package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorHeaderBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
@@ -60,7 +60,7 @@ public class RollerDoorHeaderBlockEntity extends RollerDoorBlockEntity {
 	}
 
 	public void setBeingLifted() {
-		this.liftTime = 5;
+		this.liftTime = 2;
 		this.beingLifted = true;
 	}
 

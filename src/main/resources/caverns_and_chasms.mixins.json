@@ -73,7 +73,8 @@
     "client.HumanoidArmorLayerMixin",
     "client.HumanoidModelMixin",
     "client.ItemInHandRendererMixin",
-    "client.LevelRendererMixin"
+    "client.LevelRendererMixin",
+    "client.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

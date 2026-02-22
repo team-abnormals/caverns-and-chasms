@@ -26,8 +26,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricCampfireBl
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricFireBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricTorchBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.cupric.CupricWallTorchBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.*;
 import com.teamabnormals.caverns_and_chasms.common.block.turquoise.*;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;

@@ -1,6 +1,6 @@
-package com.teamabnormals.caverns_and_chasms.common.block.entity;
+package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.HoldButtonBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.HoldButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
@@ -36,7 +36,7 @@ public class HoldButtonBlockEntity extends BlockEntity {
 	}
 
 	public void setPressed() {
-		this.pressTime = 5;
+		this.pressTime = 2;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {

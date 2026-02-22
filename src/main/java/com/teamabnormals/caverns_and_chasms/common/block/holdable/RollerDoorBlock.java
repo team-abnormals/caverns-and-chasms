@@ -1,7 +1,7 @@
-package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
@@ -33,7 +33,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class RollerDoorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class RollerDoorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, HoldableBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

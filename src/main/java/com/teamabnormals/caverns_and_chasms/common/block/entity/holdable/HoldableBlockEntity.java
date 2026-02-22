@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.block.entity;
+package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;

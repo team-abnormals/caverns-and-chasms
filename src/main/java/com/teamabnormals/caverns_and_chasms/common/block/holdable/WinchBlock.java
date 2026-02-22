@@ -1,6 +1,6 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.WinchBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,7 +27,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class WinchBlock extends BaseEntityBlock {
+public class WinchBlock extends BaseEntityBlock implements HoldableBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 

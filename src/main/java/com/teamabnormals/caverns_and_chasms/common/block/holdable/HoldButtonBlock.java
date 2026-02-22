@@ -1,6 +1,6 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldButtonBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.HoldButtonBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class HoldButtonBlock extends BaseEntityBlock {
+public class HoldButtonBlock extends BaseEntityBlock implements HoldableBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;

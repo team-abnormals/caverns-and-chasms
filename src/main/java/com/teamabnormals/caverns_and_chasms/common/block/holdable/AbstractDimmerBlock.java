@@ -1,6 +1,6 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.DimmerBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.DimmerBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;

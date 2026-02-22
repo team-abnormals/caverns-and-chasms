@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

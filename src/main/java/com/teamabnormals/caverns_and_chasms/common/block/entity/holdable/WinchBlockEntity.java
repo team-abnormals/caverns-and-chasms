@@ -1,6 +1,6 @@
-package com.teamabnormals.caverns_and_chasms.common.block.entity;
+package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.WinchBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.WinchBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -37,7 +37,7 @@ public class WinchBlockEntity extends BlockEntity {
 		if (this.pressTime <= 0 && this.isFullyPowered()) {
 
 		}
-		this.pressTime = 5;
+		this.pressTime = 1;
 	}
 
 	public float getRotation(float partialTick) {

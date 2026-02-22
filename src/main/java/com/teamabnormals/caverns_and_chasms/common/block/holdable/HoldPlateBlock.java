@@ -1,6 +1,6 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.HoldPlateBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.HoldPlateBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;

@@ -2,9 +2,9 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.roller_door.RollerDoorHeaderBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorHeaderBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;

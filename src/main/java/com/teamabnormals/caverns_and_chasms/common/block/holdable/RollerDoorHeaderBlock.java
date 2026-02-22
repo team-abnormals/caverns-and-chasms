@@ -1,9 +1,9 @@
-package com.teamabnormals.caverns_and_chasms.common.block.roller_door;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorHeaderBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

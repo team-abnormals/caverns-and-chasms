@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.blueprint.common.item.BEWLRBlockItem;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;

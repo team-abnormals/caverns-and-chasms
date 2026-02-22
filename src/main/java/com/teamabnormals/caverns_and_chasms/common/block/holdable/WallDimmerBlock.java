@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.block;
+package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
