@@ -119,13 +119,14 @@ public class CCStructureTypes {
 	}
 
 	public static class CCTemplatePools {
-		public static final ResourceKey<StructureTemplatePool> FORGE = createKey("forge/forge");
+		public static final ResourceKey<StructureTemplatePool> FORGE = createKey("forge");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ENTRANCES = createKey("forge/entrances");
 		public static final ResourceKey<StructureTemplatePool> FORGE_ARCHAEOLOGY = createKey("forge/archaeology");
 		public static final ResourceKey<StructureTemplatePool> FORGE_DECORATIONS = createKey("forge/decorations");
 		public static final ResourceKey<StructureTemplatePool> FORGE_SMALL_DECORATIONS = createKey("forge/small_decorations");
 		public static final ResourceKey<StructureTemplatePool> FORGE_PILE_DECORATIONS = createKey("forge/pile_decorations");
 
+		public static final List<Entry> FORGES = List.of(of("forge", 2));
 		public static final List<Entry> ENTRANCES = List.of(of("gate", 6), of("broken_gate", 4));
 		public static final List<Entry> ARCHAEOLOGY = List.of(of("gravel_pile", 32));
 		public static final List<Entry> DECORATIONS = List.of(of("oak_platform", 8), of("oak_shelf", 2), of("tnt_pile", 3));
@@ -145,8 +146,7 @@ public class CCStructureTypes {
 		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
 
-			context.register(FORGE, new StructureTemplatePool(empty, ImmutableList.of(Pair.of(LegacySinglePoolElement.single(FORGE.location().toString()), 1)), StructureTemplatePool.Projection.RIGID));
-
+			createPool(context, FORGE, empty, FORGES);
 			createPool(context, FORGE_ENTRANCES, empty, ENTRANCES);
 			createPool(context, FORGE_ARCHAEOLOGY, empty, ARCHAEOLOGY);
 			createPool(context, FORGE_DECORATIONS, empty, DECORATIONS);
