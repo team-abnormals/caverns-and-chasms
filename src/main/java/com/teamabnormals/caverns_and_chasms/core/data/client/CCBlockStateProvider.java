@@ -603,12 +603,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	public void tinBulbBlock(RegistryObject<Block> bulbBlock) {
 		Block block = bulbBlock.get();
 		this.getVariantBuilder(block)
-				.forAllStatesExcept(state -> {
+				.forAllStates(state -> {
 					int power = state.getValue(TinBulbBlock.POWER);
 					boolean powered = state.getValue(TinBulbBlock.POWERED);
-					String suffix = "_power_" + power;
+					String suffix = (powered ? "_powered" : "") + ("_power_" + power);
 					return ConfiguredModel.builder().modelFile(this.models().cubeAll(name(block) + suffix, blockTexture(block).withSuffix(suffix))).build();
-				}, TinBulbBlock.POWERED);
+				});
 
 		this.simpleBlockItem(block, this.existingModel(blockModel(block).withSuffix("_power_0")));
 	}

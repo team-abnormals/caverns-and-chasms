@@ -631,7 +631,7 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_BUCKET.get()).setWeight(4))
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(3))
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(2).apply(fluidLevelTag(1)))
-							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(1).apply(fluidLevelTag(2)))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).apply(fluidLevelTag(2)))
 					));
 
 			consumer.accept(CavernsAndChasms.location("chests/vault"), LootTable.lootTable()
@@ -711,9 +711,9 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(Items.SCAFFOLDING).setWeight(5))
 							.add(LootItem.lootTableItem(Items.BAMBOO).setWeight(4))
 							.add(LootItem.lootTableItem(Items.BUCKET).setWeight(3))
-							.add(LootItem.lootTableItem(Items.TNT_MINECART).setWeight(1))
-							.add(LootItem.lootTableItem(Items.FURNACE_MINECART).setWeight(1))
-							.add(LootItem.lootTableItem(Items.MINECART).setWeight(1))
+							.add(LootItem.lootTableItem(Items.TNT_MINECART))
+							.add(LootItem.lootTableItem(Items.FURNACE_MINECART))
+							.add(LootItem.lootTableItem(Items.MINECART))
 							.add(LootItem.lootTableItem(Items.EMERALD).setWeight(3))
 							.add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2))
 							.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get()))
