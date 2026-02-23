@@ -129,7 +129,7 @@ public class CCStructureTypes {
 		public static final ResourceKey<StructureTemplatePool> FORGE_PILE_DECORATIONS = createKey("forge/pile_decorations");
 
 		public static final List<Entry> FORGES = List.of(of("forge", 4));
-		public static final List<Entry> ROOVES = List.of(of("roof", 2));
+		public static final List<Entry> ROOVES = List.of(of("roof", 3));
 		public static final List<Entry> ENTRANCES = List.of(of("gate", 6), of("broken_gate", 4));
 		public static final List<Entry> FIREPLACES = List.of(of("fireplace", 3));
 		public static final List<Entry> ARCHAEOLOGY = List.of(of("gravel_pile", 32));
