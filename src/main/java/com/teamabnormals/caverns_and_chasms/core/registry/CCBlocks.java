@@ -310,8 +310,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot()));
 
-	public static final RegistryObject<Block> FROSTED_GLASS = HELPER.createBlock("frosted_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(CCSoundTypes.FLOAT_GLASS)));
-	public static final RegistryObject<Block> FROSTED_GLASS_PANE = HELPER.createBlock("frosted_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE).sound(CCSoundTypes.FLOAT_GLASS)));
+	public static final RegistryObject<Block> FROSTED_GLASS = HELPER.createBlock("frosted_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+	public static final RegistryObject<Block> FROSTED_GLASS_PANE = HELPER.createBlock("frosted_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
 
 	public static final RegistryObject<Block> QUARTZ_LAMP = HELPER.createBlock("quartz_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
 	public static final RegistryObject<Block> DIAMOND_LAMP = HELPER.createBlock("diamond_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
@@ -598,8 +598,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> FLINT_BLOCK = HELPER.createBlock("flint_block", () -> new FlintBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL).sound(CCSoundTypes.FLINT_BLOCK)));
 
 	public static final RegistryObject<Block> COAL = HELPER.createPlacedItem("coal", () -> new CoalBlock(CCProperties.placedCoal(6)));
-	public static final RegistryObject<Block> CHARCOAL = HELPER.createPlacedItem("charcoal", () -> new CoalBlock(CCProperties.placedCoal(4)));
-	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createFuelBlock("charcoal_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK)), 12800);
+	public static final RegistryObject<Block> CHARCOAL = HELPER.createPlacedItem("charcoal", () -> new CoalBlock(CCProperties.placedCoal(4).sound(CCSoundTypes.CHARCOAL)));
+	public static final RegistryObject<Block> CHARCOAL_BLOCK = HELPER.createFuelBlock("charcoal_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK).sound(CCSoundTypes.CHARCOAL)), 12800);
 
 	public static final RegistryObject<Block> COPPER_INGOT = HELPER.createPlacedItem("copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.UNAFFECTED, () -> Items.COPPER_INGOT, BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
 	public static final RegistryObject<Block> EXPOSED_COPPER_INGOT = HELPER.createPlacedItem("exposed_copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.EXPOSED, CCItems.EXPOSED_COPPER_INGOT, BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER)));
@@ -848,8 +848,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties OXIDIZED_FLOODLIGHT = BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.FLOODLIGHT).lightLevel((state) -> 7);
 		public static final BlockBehaviour.Properties TOOLBOX = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.2F, 6.0F).sound(SoundType.COPPER);
 
-		public static final BlockBehaviour.Properties TIN_CHAIN = BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion();
-		public static final BlockBehaviour.Properties TIN_BULB = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(3.0F, 6.0F).sound(CCSoundTypes.COPPER_BULB).requiresCorrectToolForDrops().isRedstoneConductor(PropertyUtil::never).lightLevel(state -> state.getValue(TinBulbBlock.POWER));
+		public static final BlockBehaviour.Properties TIN_CHAIN = BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.TIN_CHAIN).noOcclusion();
+		public static final BlockBehaviour.Properties TIN_BULB = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(3.0F, 6.0F).sound(CCSoundTypes.TIN_BULB).requiresCorrectToolForDrops().isRedstoneConductor(PropertyUtil::never).lightLevel(state -> state.getValue(TinBulbBlock.POWER));
 
 		public static final BlockBehaviour.Properties LAVA_LAMP = BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.LAVA_LAMP).lightLevel((state) -> 15);
 		public static final BlockBehaviour.Properties COPPER_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.COPPER).noOcclusion();
@@ -883,7 +883,7 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(CCSoundTypes.TIN_ORE);
 		public static final BlockBehaviour.Properties DEEPSLATE_TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(CCSoundTypes.DEEPSLATE_TIN_ORE);
-		public static final BlockBehaviour.Properties CASSITERITE_TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.5F, 1.0F).sound(CCSoundTypes.TIN_ORE);
+		public static final BlockBehaviour.Properties CASSITERITE_TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.5F, 1.0F).sound(CCSoundTypes.CASSITERITE_TIN_ORE);
 
 		public static final BlockBehaviour.Properties ROTTEN_FLESH_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.8F).sound(CCSoundTypes.ROTTEN_FLESH);
 		public static final BlockBehaviour.Properties NECROMIUM_BLOCK = BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).sound(CCSoundTypes.NECROMIUM).mapColor(MapColor.TERRACOTTA_GREEN);

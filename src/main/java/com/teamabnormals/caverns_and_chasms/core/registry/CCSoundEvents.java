@@ -25,6 +25,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_HIT = HELPER.createSoundEvent("block.rocky_dirt.hit");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_PLACE = HELPER.createSoundEvent("block.rocky_dirt.place");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_STEP = HELPER.createSoundEvent("block.rocky_dirt.step");
+	
+	public static final RegistryObject<SoundEvent> CHARCOAL_BREAK = HELPER.createSoundEvent("block.charcoal.break");
+	public static final RegistryObject<SoundEvent> CHARCOAL_FALL = HELPER.createSoundEvent("block.charcoal.fall");
+	public static final RegistryObject<SoundEvent> CHARCOAL_HIT = HELPER.createSoundEvent("block.charcoal.hit");
+	public static final RegistryObject<SoundEvent> CHARCOAL_PLACE = HELPER.createSoundEvent("block.charcoal.place");
+	public static final RegistryObject<SoundEvent> CHARCOAL_STEP = HELPER.createSoundEvent("block.charcoal.step");
 
 	public static final RegistryObject<SoundEvent> RHYOLITE_BREAK = HELPER.createSoundEvent("block.rhyolite.break");
 	public static final RegistryObject<SoundEvent> RHYOLITE_FALL = HELPER.createSoundEvent("block.rhyolite.fall");
@@ -194,6 +200,22 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_PLACE = HELPER.createSoundEvent("block.tin.place");
 	public static final RegistryObject<SoundEvent> TIN_STEP = HELPER.createSoundEvent("block.tin.step");
 	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
+	
+	public static final RegistryObject<SoundEvent> TIN_BULB_BREAK = HELPER.createSoundEvent("block.tin_bulb.break");
+	public static final RegistryObject<SoundEvent> TIN_BULB_FALL = HELPER.createSoundEvent("block.tin_bulb.fall");
+	public static final RegistryObject<SoundEvent> TIN_BULB_HIT = HELPER.createSoundEvent("block.tin_bulb.hit");
+	public static final RegistryObject<SoundEvent> TIN_BULB_PLACE = HELPER.createSoundEvent("block.tin_bulb.place");
+	public static final RegistryObject<SoundEvent> TIN_BULB_STEP = HELPER.createSoundEvent("block.tin_bulb.step");
+	public static final RegistryObject<SoundEvent> TIN_BULB_DEFLECT = HELPER.createSoundEvent("block.tin_bulb.deflect");
+	public static final RegistryObject<SoundEvent> TIN_BULB_TURN_ON = HELPER.createSoundEvent("block.tin_bulb.turn_on");
+	public static final RegistryObject<SoundEvent> TIN_BULB_TURN_OFF = HELPER.createSoundEvent("block.tin_bulb.turn_off");
+	
+	public static final RegistryObject<SoundEvent> TIN_CHAIN_BREAK = HELPER.createSoundEvent("block.tin_chain.break");
+	public static final RegistryObject<SoundEvent> TIN_CHAIN_FALL = HELPER.createSoundEvent("block.tin_chain.fall");
+	public static final RegistryObject<SoundEvent> TIN_CHAIN_HIT = HELPER.createSoundEvent("block.tin_chain.hit");
+	public static final RegistryObject<SoundEvent> TIN_CHAIN_PLACE = HELPER.createSoundEvent("block.tin_chain.place");
+	public static final RegistryObject<SoundEvent> TIN_CHAIN_STEP = HELPER.createSoundEvent("block.tin_chain.step");
+	public static final RegistryObject<SoundEvent> TIN_CHAIN_DEFLECT = HELPER.createSoundEvent("block.tin_chain.deflect");
 
 	public static final RegistryObject<SoundEvent> TIN_ORE_BREAK = HELPER.createSoundEvent("block.tin_ore.break");
 	public static final RegistryObject<SoundEvent> TIN_ORE_FALL = HELPER.createSoundEvent("block.tin_ore.fall");
@@ -208,6 +230,13 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_PLACE = HELPER.createSoundEvent("block.deepslate_tin_ore.place");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_STEP = HELPER.createSoundEvent("block.deepslate_tin_ore.step");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.deepslate_tin_ore.deflect");
+	
+	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_BREAK = HELPER.createSoundEvent("block.cassiterite_tin_ore.break");
+	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_FALL = HELPER.createSoundEvent("block.cassiterite_tin_ore.fall");
+	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_HIT = HELPER.createSoundEvent("block.cassiterite_tin_ore.hit");
+	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_PLACE = HELPER.createSoundEvent("block.cassiterite_tin_ore.place");
+	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_STEP = HELPER.createSoundEvent("block.cassiterite_tin_ore.step");
+	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.cassiterite_tin_ore.deflect");
 
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_BREAK = HELPER.createSoundEvent("block.storage_duct.break");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_FALL = HELPER.createSoundEvent("block.storage_duct.fall");
@@ -344,6 +373,7 @@ public class CCSoundEvents {
 
 	public static class CCSoundTypes {
 		public static final ForgeSoundType ROCKY_DIRT = new ForgeSoundType(1.0F, 1.0F, ROCKY_DIRT_BREAK, ROCKY_DIRT_STEP, ROCKY_DIRT_PLACE, ROCKY_DIRT_HIT, ROCKY_DIRT_FALL);
+		public static final ForgeSoundType CHARCOAL = new ForgeSoundType(1.0F, 1.0F, CHARCOAL_BREAK, CHARCOAL_STEP, CHARCOAL_PLACE, CHARCOAL_HIT, CHARCOAL_FALL);
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
 		public static final ForgeSoundType CASSITERITE = new ForgeSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL);
 		public static final ForgeSoundType FLINT_BLOCK = new ForgeSoundType(1.0F, 1.0F, FLINT_BLOCK_BREAK, FLINT_BLOCK_STEP, FLINT_BLOCK_PLACE, FLINT_BLOCK_HIT, FLINT_BLOCK_FALL);
@@ -368,8 +398,11 @@ public class CCSoundEvents {
 		public static final ForgeSoundType COPPER_GRATE = new ForgeSoundType(1.0F, 1.0F, COPPER_GRATE_BREAK, COPPER_GRATE_STEP, COPPER_GRATE_PLACE, COPPER_GRATE_HIT, COPPER_GRATE_FALL);
 		public static final ForgeSoundType SILVER = new ForgeSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);
 		public static final ForgeSoundType TIN = new ForgeSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL);
+		public static final ForgeSoundType TIN_BULB = new ForgeSoundType(1.0F, 1.0F, TIN_BULB_BREAK, TIN_BULB_STEP, TIN_BULB_PLACE, TIN_BULB_HIT, TIN_BULB_FALL);
+		public static final ForgeSoundType TIN_CHAIN = new ForgeSoundType(1.0F, 1.0F, TIN_CHAIN_BREAK, TIN_CHAIN_STEP, TIN_CHAIN_PLACE, TIN_CHAIN_HIT, TIN_CHAIN_FALL);
 		public static final ForgeSoundType TIN_ORE = new ForgeSoundType(1.0F, 1.0F, TIN_ORE_BREAK, TIN_ORE_STEP, TIN_ORE_PLACE, TIN_ORE_HIT, TIN_ORE_FALL);
 		public static final ForgeSoundType DEEPSLATE_TIN_ORE = new ForgeSoundType(1.0F, 1.0F, DEEPSLATE_TIN_ORE_BREAK, DEEPSLATE_TIN_ORE_STEP, DEEPSLATE_TIN_ORE_PLACE, DEEPSLATE_TIN_ORE_HIT, DEEPSLATE_TIN_ORE_FALL);
+		public static final ForgeSoundType CASSITERITE_TIN_ORE = new ForgeSoundType(1.0F, 1.0F, CASSITERITE_TIN_ORE_BREAK, CASSITERITE_TIN_ORE_STEP, CASSITERITE_TIN_ORE_PLACE, CASSITERITE_TIN_ORE_HIT, CASSITERITE_TIN_ORE_FALL);
 		public static final ForgeSoundType STORAGE_DUCT = new ForgeSoundType(1.0F, 1.0F, STORAGE_DUCT_BREAK, STORAGE_DUCT_STEP, STORAGE_DUCT_PLACE, STORAGE_DUCT_HIT, STORAGE_DUCT_FALL);
 		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, ATONING_TABLE_BREAK, ATONING_TABLE_STEP, ATONING_TABLE_PLACE, ATONING_TABLE_HIT, ATONING_TABLE_FALL);
 		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, BEJEWELED_ANVIL_BREAK, BEJEWELED_ANVIL_STEP, BEJEWELED_ANVIL_PLACE, BEJEWELED_ANVIL_HIT, BEJEWELED_ANVIL_FALL);

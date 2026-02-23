@@ -41,7 +41,7 @@ public class TinBulbBlock extends Block {
 			BlockState blockstate = state;
 			if (!state.getValue(POWERED)) {
 				blockstate = state.cycle(POWER);
-				level.playSound(null, pos, blockstate.getValue(POWER) > 0 ? CCSoundEvents.COPPER_BULB_TURN_ON.get() : CCSoundEvents.COPPER_BULB_TURN_OFF.get(), SoundSource.BLOCKS);
+				level.playSound(null, pos, blockstate.getValue(POWER) > 0 ? CCSoundEvents.TIN_BULB_TURN_ON.get() : CCSoundEvents.TIN_BULB_TURN_OFF.get(), SoundSource.BLOCKS);
 			}
 
 			level.setBlock(pos, blockstate.setValue(POWERED, flag), 3);
