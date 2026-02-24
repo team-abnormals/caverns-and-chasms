@@ -51,6 +51,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_PLACE = HELPER.createSoundEvent("block.flint_block.place");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STEP = HELPER.createSoundEvent("block.flint_block.step");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STRIKE = HELPER.createSoundEvent("block.flint_block.strike");
+	public static final RegistryObject<SoundEvent> FLINT_BLOCK_LAND = HELPER.createSoundEvent("block.flint_block.land");
 
 	public static final RegistryObject<SoundEvent> SOUL_SILVER_ORE_BREAK = HELPER.createSoundEvent("block.soul_silver_ore.break");
 	public static final RegistryObject<SoundEvent> SOUL_SILVER_ORE_FALL = HELPER.createSoundEvent("block.soul_silver_ore.fall");
@@ -267,6 +268,12 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.copper_button.click_off");
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.copper_button.click_on");
+	
+	public static final RegistryObject<SoundEvent> TIN_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.tin_button.click_off");
+	public static final RegistryObject<SoundEvent> TIN_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.tin_button.click_on");
+	
+	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.tin_pressure_plate.click_off");
+	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.tin_pressure_plate.click_on");
 
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
@@ -316,6 +323,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> MIME_HURT = HELPER.createSoundEvent("entity.mime.hurt");
 	public static final RegistryObject<SoundEvent> MIME_MIME = HELPER.createSoundEvent("entity.mime.mime");
 	public static final RegistryObject<SoundEvent> MIME_IMPERSONATE = HELPER.createSoundEvent("entity.mime.impersonate");
+	public static final RegistryObject<SoundEvent> MIME_CONVERT = HELPER.createSoundEvent("entity.mime.convert");
 
 	public static final RegistryObject<SoundEvent> COPPER_GOLEM_DEATH = HELPER.createSoundEvent("entity.copper_golem.death");
 	public static final RegistryObject<SoundEvent> COPPER_GOLEM_HURT = HELPER.createSoundEvent("entity.copper_golem.hurt");
@@ -337,7 +345,6 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GRAZER_DEATH = HELPER.createSoundEvent("entity.grazer.death");
 	public static final RegistryObject<SoundEvent> GRAZER_RICOCHET = HELPER.createSoundEvent("entity.grazer.ricochet");
 	public static final RegistryObject<SoundEvent> GRAZER_CHARGE = HELPER.createSoundEvent("entity.grazer.charge");
-	public static final RegistryObject<SoundEvent> GRAZER_START_BOUNCING = HELPER.createSoundEvent("entity.grazer.start_bouncing");
 	public static final RegistryObject<SoundEvent> GRAZER_STRUGGLE = HELPER.createSoundEvent("entity.grazer.struggle");
 	public static final RegistryObject<SoundEvent> GRAZER_STEP = HELPER.createSoundEvent("entity.grazer.step");
 

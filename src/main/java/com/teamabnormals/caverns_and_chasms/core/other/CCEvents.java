@@ -970,6 +970,6 @@ public class CCEvents {
 			entity.teleportTo(x, y, z);
 
 		entity.resetFallDistance();
-		entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+		entity.playSound(CCSoundEvents.REWIND.get(), 1.0F, 1.0F);
 	}
 }

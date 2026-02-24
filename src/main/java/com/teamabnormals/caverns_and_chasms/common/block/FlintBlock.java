@@ -59,6 +59,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 	@Override
 	public void onLand(Level level, BlockPos pos, BlockState state, BlockState newState, FallingBlockEntity fallingBlockEntity) {
 		spark(level, pos, false);
+		level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_LAND.get(), SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.1F + 0.9F);
 	}
 
 	@Override
@@ -131,7 +132,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 	public static BlockState litState(BlockState state) {
 		return state.setValue(LIT, true);
 	}
-
+	
 	@Override
 	public int getDustColor(BlockState p_53238_, BlockGetter p_53239_, BlockPos p_53240_) {
 		return -8356741;

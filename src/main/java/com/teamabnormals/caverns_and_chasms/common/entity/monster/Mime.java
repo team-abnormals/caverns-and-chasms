@@ -167,7 +167,7 @@ public class Mime extends Monster {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
 						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem(this.level().registryAccess()).copy());
-						source.playSound(CCSoundEvents.MIME_MIME.get(), 1.0F, 1.0F);
+						this.level().playSound(null, this, CCSoundEvents.MIME_CONVERT.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 						return;
 					}
 				}

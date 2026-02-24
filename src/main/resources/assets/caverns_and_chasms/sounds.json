@@ -293,6 +293,13 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.flint_block.strike"
   },
+  "block.flint_block.land": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/land1",
+      "caverns_and_chasms:block/flint_block/land2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.flint_block.land"
+  },
   "block.tin.break": {
     "sounds": [
       "caverns_and_chasms:block/tin/break1",
@@ -2226,6 +2233,46 @@
     ],
     "subtitle": "subtitles.block.pressure_plate.click"
   },
+  "block.tin_button.click_off": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/hold_button/click",
+        "pitch": 0.5,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.button.click"
+  },
+  "block.tin_button.click_on": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/hold_button/click_on",
+        "pitch": 0.5,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.button.click"
+  },
+  "block.tin_pressure_plate.click_off": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/hold_plate/click",
+        "pitch": 0.7,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
+  "block.tin_pressure_plate.click_on": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/hold_plate/click",
+        "pitch": 0.8,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
   "block.dimmer.buzz": {
     "sounds": [
       "caverns_and_chasms:block/dimmer/buzz"
@@ -2315,6 +2362,13 @@
       "caverns_and_chasms:mob/copper_golem/death"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.copper_golem.death"
+  },
+  "entity.mime.convert": {
+    "sounds": [
+      "caverns_and_chasms:mob/mime/convert1",
+      "caverns_and_chasms:mob/mime/convert2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.mime.convert"
   },
   "entity.copper_golem.hurt": {
     "sounds": [
