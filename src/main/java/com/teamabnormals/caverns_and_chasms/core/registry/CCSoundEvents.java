@@ -291,6 +291,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_MIME = HELPER.createSoundEvent("block.note_block.imitate.mime");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_DEEPER = HELPER.createSoundEvent("block.note_block.imitate.deeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_PEEPER = HELPER.createSoundEvent("block.note_block.imitate.peeper");
+	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_WARDEN = HELPER.createSoundEvent("block.note_block.imitate.warden");
 
 	public static final RegistryObject<SoundEvent> TUNING_FORK_VIBRATE = HELPER.createSoundEvent("item.tuning_fork.vibrate");
 
@@ -300,9 +301,10 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COPPER = HELPER.createSoundEvent("item.armor.equip_copper");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SILVER = HELPER.createSoundEvent("item.armor.equip_silver");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_NECROMIUM = HELPER.createSoundEvent("item.armor.equip_necromium");
-	public static final RegistryObject<SoundEvent> ARMOR_NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SANGUINE = HELPER.createSoundEvent("item.armor.equip_sanguine");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COWL = HELPER.createSoundEvent("item.armor.equip_cowl");
+	
+	public static final RegistryObject<SoundEvent> NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_EAT = HELPER.createSoundEvent("item.bejeweled_apple.eat");
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_BURP = HELPER.createSoundEvent("item.bejeweled_apple.burp");
@@ -424,6 +426,7 @@ public class CCSoundEvents {
 		registerHeadInstrument(CCBlocks.MIME_HEAD, NOTE_BLOCK_IMITATE_MIME);
 		registerHeadInstrument(CCBlocks.DEEPER_HEAD, NOTE_BLOCK_IMITATE_DEEPER);
 		registerHeadInstrument(CCBlocks.PEEPER_HEAD, NOTE_BLOCK_IMITATE_PEEPER);
+		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.WARDEN_NOTE_BLOCKS), NOTE_BLOCK_IMITATE_WARDEN.get(), false));
 		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.STATIC_NOTE_BLOCKS), NOTE_BLOCK_STATIC.get(), false));
 	}
 

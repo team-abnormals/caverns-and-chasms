@@ -36,6 +36,15 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.peeper.primed"
   },
+  "block.note_block.imitate.warden": {
+    "sounds": [
+      {
+        "name": "entity.warden.roar",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.note_block.warden​"
+  },
   "block.note_block.static": {
     "sounds": [
       "caverns_and_chasms:note/static"

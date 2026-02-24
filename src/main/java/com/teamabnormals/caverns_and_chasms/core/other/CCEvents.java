@@ -556,6 +556,7 @@ public class CCEvents {
 
 			if (slownessInfliction > 0.0F) {
 				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
+	        	attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
 			}
 		}
 
