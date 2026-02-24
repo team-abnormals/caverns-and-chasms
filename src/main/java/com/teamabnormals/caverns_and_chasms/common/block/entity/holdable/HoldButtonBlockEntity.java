@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.HoldButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -58,6 +59,9 @@ public class HoldButtonBlockEntity extends BlockEntity {
 				level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
 				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOff(), SoundSource.BLOCKS);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+			}
+		    if (state.getValue(HoldButtonBlock.PRESSED) && level.getGameTime() % 2 == 0) {
+			   level.playSound(null, pos, CCSoundEvents.TIN_BUTTON_HOLD.get(), SoundSource.BLOCKS);
 			}
 		}
 	}

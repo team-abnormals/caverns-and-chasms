@@ -899,6 +899,8 @@
   "subtitles.caverns_and_chasms.block.dismantling_table.use": "Dismantling Table used",
   "subtitles.caverns_and_chasms.block.flint_block.land": "Flint Block landed",
   "subtitles.caverns_and_chasms.block.flint_block.strike": "Flint Block sparks",
+  "subtitles.caverns_and_chasms.block.hold_button.hold": "Button holds",
+  "subtitles.caverns_and_chasms.block.hold_plate.hold": "Plate holds",
   "subtitles.caverns_and_chasms.block.hoop.score": "Goal scored",
   "subtitles.caverns_and_chasms.block.lava_lamp.glug": "Lava Lamp glugs",
   "subtitles.caverns_and_chasms.block.storage_duct_hatch.close": "Hatch closes",

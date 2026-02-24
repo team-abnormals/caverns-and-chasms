@@ -271,9 +271,11 @@ public class CCSoundEvents {
 	
 	public static final RegistryObject<SoundEvent> TIN_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.tin_button.click_off");
 	public static final RegistryObject<SoundEvent> TIN_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.tin_button.click_on");
+	public static final RegistryObject<SoundEvent> TIN_BUTTON_HOLD = HELPER.createSoundEvent("block.tin_button.hold");
 	
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.tin_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.tin_pressure_plate.click_on");
+	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_HOLD = HELPER.createSoundEvent("block.tin_pressure_plate.hold");
 
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_on");

@@ -2253,6 +2253,15 @@
     ],
     "subtitle": "subtitles.block.button.click"
   },
+  "block.tin_button.hold": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/hold_button/held",
+        "volume": 0.3
+	  } 
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.hold_button.hold"
+  },
   "block.tin_pressure_plate.click_off": {
     "sounds": [
       {
@@ -2272,6 +2281,15 @@
       }
     ],
     "subtitle": "subtitles.block.pressure_plate.click"
+  },
+  "block.tin_pressure_plate.hold": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/hold_plate/held",
+        "volume": 0.3
+	  } 
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.hold_plate.hold"
   },
   "block.dimmer.buzz": {
     "sounds": [
