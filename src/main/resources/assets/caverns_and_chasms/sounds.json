@@ -2625,6 +2625,17 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.parrot.imitate.mime"
   },
+  "entity.parrot.imitate.grazer": {
+    "sounds": [
+   	  {
+        "name": "caverns_and_chasms:entity.grazer.ambient",
+        "pitch": 1.8,
+        "type": "event",
+        "volume": 0.6
+       }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.parrot.imitate.grazer"
+  },
   "entity.blunt_arrow.hit": {
     "sounds": [
       "caverns_and_chasms:entity/blunt_arrow/hit1",
