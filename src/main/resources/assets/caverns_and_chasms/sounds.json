@@ -2579,10 +2579,8 @@
   },
   "entity.grazer.struggle": {
     "sounds": [
-      "caverns_and_chasms:mob/grazer/charge1",
-	  "caverns_and_chasms:mob/grazer/charge2", 
-      "caverns_and_chasms:mob/grazer/charge3",
-	  "caverns_and_chasms:mob/grazer/charge4"
+      "caverns_and_chasms:mob/grazer/struggle1",
+	  "caverns_and_chasms:mob/grazer/struggle2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.grazer.struggle"
   },
