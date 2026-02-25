@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.HoldPlateBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -38,8 +39,11 @@ public class HoldPlateBlockEntity extends BlockEntity {
 				level.setBlocksDirty(pos, state, blockState);
 				((HoldPlateBlock) state.getBlock()).updateNeighbours(level, pos);
 				level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
-				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOff(), SoundSource.BLOCKS);
+				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().pressurePlateClickOff(), SoundSource.BLOCKS);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+			}
+		    if (state.getValue(HoldPlateBlock.PRESSED) && level.getGameTime() % 2 == 0) {
+			   level.playSound(null, pos, CCSoundEvents.TIN_PRESSURE_PLATE_HOLD.get(), SoundSource.BLOCKS);
 			}
 		}
 	}

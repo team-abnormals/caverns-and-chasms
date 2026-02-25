@@ -150,7 +150,7 @@ public class HoldButtonBlock extends BaseEntityBlock implements HoldableBlock {
 			holdButtonBlockEntity.setPressed();
 			if (!state.getValue(PRESSED)) {
 				level.setBlock(pos, state.setValue(PRESSED, true), 3);
-				level.playSound(player, pos, CCProperties.TIN_BLOCK_SET.buttonClickOn(), SoundSource.BLOCKS);
+				level.playSound(player, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOn(), SoundSource.BLOCKS);
 				level.gameEvent(player, GameEvent.BLOCK_ACTIVATE, pos);
 				return InteractionResult.sidedSuccess(level.isClientSide);
 			}

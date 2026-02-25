@@ -218,6 +218,7 @@ public class CCCompat {
 		DataUtil.registerParrotImitation(CCEntityTypes.DEEPER.get(), CCSoundEvents.PARROT_IMITATE_DEEPER.get());
 		DataUtil.registerParrotImitation(CCEntityTypes.PEEPER.get(), CCSoundEvents.PARROT_IMITATE_PEEPER.get());
 		DataUtil.registerParrotImitation(CCEntityTypes.MIME.get(), CCSoundEvents.PARROT_IMITATE_MIME.get());
+		DataUtil.registerParrotImitation(CCEntityTypes.GRAZER.get(), CCSoundEvents.PARROT_IMITATE_GRAZER.get());
 	}
 
 	private static void registerVibrationFrequencies() {

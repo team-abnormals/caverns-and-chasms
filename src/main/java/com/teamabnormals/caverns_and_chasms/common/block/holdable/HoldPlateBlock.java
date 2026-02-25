@@ -111,7 +111,7 @@ public class HoldPlateBlock extends BaseEntityBlock {
 			level.setBlock(pos, blockState, 2);
 			level.setBlocksDirty(pos, state, blockState);
 			this.updateNeighbours(level, pos);
-			level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.pressurePlateClickOn(), SoundSource.BLOCKS);
+			level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().pressurePlateClickOn(), SoundSource.BLOCKS);
 			level.gameEvent(entity, GameEvent.BLOCK_ACTIVATE, pos);
 		}
 	}

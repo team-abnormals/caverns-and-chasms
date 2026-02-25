@@ -559,7 +559,6 @@ public abstract class AbstractGrazer extends Animal {
 
 							if (this.getState() == GrazerState.RUNNING) {
 								this.setState(GrazerState.BOUNCING);
-								this.playSound(CCSoundEvents.GRAZER_START_BOUNCING.get(), 1.0F, 1.0F);
 								this.bounceHeight = 0.8D;
 								this.bouncingBackwards = true;
 								newmotion.add(0.0D, this.bounceHeight, 0.0D);
@@ -636,7 +635,6 @@ public abstract class AbstractGrazer extends Animal {
 
 				if (this.getState() == GrazerState.RUNNING) {
 					this.setState(GrazerState.BOUNCING);
-					this.playSound(CCSoundEvents.GRAZER_START_BOUNCING.get(), 1.0F, 1.0F);
 					this.bounceHeight = 0.8D;
 					this.bouncingBackwards = true;
 					newmotion = newmotion.multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D).add(0.0D, this.bounceHeight, 0.0D);

@@ -556,6 +556,7 @@ public class CCEvents {
 
 			if (slownessInfliction > 0.0F) {
 				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
+	        	attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
 			}
 		}
 
@@ -736,7 +737,7 @@ public class CCEvents {
 					projectile.checkInsideBlocks();
 
 					SoundType soundtype = state.getBlock().getSoundType(state, level, pos, null);
-					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.DEEPSLATE_TIN_ORE ? CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE ? CCSoundEvents.CASSITERITE_DEFLECT.get() : soundtype == CCSoundTypes.FLOAT_GLASS ? CCSoundEvents.FLOAT_GLASS_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.DEEPSLATE_TIN_ORE ? CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE_TIN_ORE ? CCSoundEvents.CASSITERITE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE ? CCSoundEvents.CASSITERITE_DEFLECT.get() : soundtype == CCSoundTypes.FLOAT_GLASS ? CCSoundEvents.FLOAT_GLASS_DEFLECT.get() : soundtype == CCSoundTypes.TIN_CHAIN ? CCSoundEvents.TIN_CHAIN_DEFLECT.get() : soundtype == CCSoundTypes.TIN_BULB ? CCSoundEvents.TIN_BULB_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
 					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
 
 					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
@@ -970,6 +971,6 @@ public class CCEvents {
 			entity.teleportTo(x, y, z);
 
 		entity.resetFallDistance();
-		entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+		entity.playSound(CCSoundEvents.REWIND.get(), 1.0F, 1.0F);
 	}
 }

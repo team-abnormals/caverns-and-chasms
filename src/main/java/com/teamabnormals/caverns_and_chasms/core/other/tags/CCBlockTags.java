@@ -21,6 +21,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> WEAKER_DEFLECT_VELOCITY = blockTag("weaker_deflect_velocity");
 	public static final TagKey<Block> MAINTAINS_DEFLECT_VELOCITY = blockTag("maintains_deflect_velocity");
 	public static final TagKey<Block> STATIC_NOTE_BLOCKS = blockTag("static_note_blocks");
+	public static final TagKey<Block> WARDEN_NOTE_BLOCKS = blockTag("warden_note_blocks");
 	public static final TagKey<Block> COPPER_GOLEM_SUMMON_BLOCKS = blockTag("copper_golem_summon_blocks");
 
 	public static final TagKey<Block> MOB_INTERACTABLE_DOORS = TagUtil.blockTag("forge", "mob_interactable_doors");
