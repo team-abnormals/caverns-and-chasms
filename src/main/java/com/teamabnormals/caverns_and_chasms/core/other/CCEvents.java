@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.TinSoundType;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
@@ -737,7 +738,7 @@ public class CCEvents {
 					projectile.checkInsideBlocks();
 
 					SoundType soundtype = state.getBlock().getSoundType(state, level, pos, null);
-					SoundEvent soundevent = soundtype == CCSoundTypes.STORAGE_DUCT ? CCSoundEvents.STORAGE_DUCT_DEFLECT.get() : soundtype == CCSoundTypes.TIN_ORE ? CCSoundEvents.TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.DEEPSLATE_TIN_ORE ? CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE_TIN_ORE ? CCSoundEvents.CASSITERITE_TIN_ORE_DEFLECT.get() : soundtype == CCSoundTypes.CASSITERITE ? CCSoundEvents.CASSITERITE_DEFLECT.get() : soundtype == CCSoundTypes.FLOAT_GLASS ? CCSoundEvents.FLOAT_GLASS_DEFLECT.get() : soundtype == CCSoundTypes.TIN_CHAIN ? CCSoundEvents.TIN_CHAIN_DEFLECT.get() : soundtype == CCSoundTypes.TIN_BULB ? CCSoundEvents.TIN_BULB_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					SoundEvent soundevent = soundtype instanceof TinSoundType tinsoundtype ? tinsoundtype.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
 					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
 
 					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
@@ -927,7 +928,6 @@ public class CCEvents {
 		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
 
 		for (int i = 0; i < 3; ++i) {
-			;
 			double d1 = normal.x * 0.2D + random.nextGaussian() * 0.05D;
 			double d2 = normal.y * 0.2D + random.nextGaussian() * 0.05D;
 			double d3 = normal.z * 0.2D + random.nextGaussian() * 0.05D;
