@@ -378,10 +378,14 @@
   },
   "block.tin_chain.break": {
     "sounds": [
-      "caverns_and_chasms:block/tin_chain/step1",
-      "caverns_and_chasms:block/tin_chain/step2",
-      "caverns_and_chasms:block/tin_chain/step3",
-      "caverns_and_chasms:block/tin_chain/step4"
+      {
+        "name": "caverns_and_chasms:block/tin_chain/break1",
+        "volume": 0.7
+      },
+      {
+        "name": "caverns_and_chasms:block/tin_chain/break2",
+        "volume": 0.7
+      }
     ],
     "subtitle": "subtitles.block.generic.break"
   },
@@ -404,10 +408,14 @@
   },
   "block.tin_chain.place": {
     "sounds": [
-      "caverns_and_chasms:block/tin_chain/step1",
-      "caverns_and_chasms:block/tin_chain/step2",
-      "caverns_and_chasms:block/tin_chain/step3",
-      "caverns_and_chasms:block/tin_chain/step4"
+      {
+        "name": "caverns_and_chasms:block/tin_chain/break1",
+        "volume": 0.7
+      },
+      {
+        "name": "caverns_and_chasms:block/tin_chain/break2",
+        "volume": 0.7
+      }
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -427,7 +435,7 @@
       "caverns_and_chasms:block/tin_chain/step3",
       "caverns_and_chasms:block/tin_chain/step4"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.block.tin_chain.deflect"
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
   "block.tin_bulb.break": {
     "sounds": [
