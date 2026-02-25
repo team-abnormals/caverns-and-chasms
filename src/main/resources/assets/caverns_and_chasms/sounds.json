@@ -540,7 +540,7 @@
       "caverns_and_chasms:block/copper_bulb/break3",
       "caverns_and_chasms:block/copper_bulb/break4"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.block.tin_bulb.deflect"
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
   "block.tin_bulb.turn_off": {
     "sounds": [
