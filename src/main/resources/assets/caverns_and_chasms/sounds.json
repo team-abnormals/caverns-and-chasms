@@ -1265,12 +1265,8 @@
   },
   "block.float_glass.deflect": {
     "sounds": [
-      "caverns_and_chasms:block/float_glass/break1",
-      "caverns_and_chasms:block/float_glass/break2",
-      "caverns_and_chasms:block/float_glass/break3",
-      "caverns_and_chasms:block/float_glass/break4",
-      "caverns_and_chasms:block/float_glass/break5",
-      "caverns_and_chasms:block/float_glass/break6"	  
+      "caverns_and_chasms:block/float_glass/step1",
+      "caverns_and_chasms:block/float_glass/step2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
@@ -2639,8 +2635,21 @@
   },
   "entity.grazer.struggle": {
     "sounds": [
-      "caverns_and_chasms:mob/grazer/struggle1",
-	  "caverns_and_chasms:mob/grazer/struggle2"
+      {
+        "name": "caverns_and_chasms:mob/grazer/struggle1",
+        "volume": 1.5,
+        "pitch": 0.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/grazer/struggle2",
+        "volume": 1.5,
+        "pitch": 0.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/grazer/struggle3",
+        "volume": 1.5,
+        "pitch": 0.8
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.grazer.struggle"
   },
