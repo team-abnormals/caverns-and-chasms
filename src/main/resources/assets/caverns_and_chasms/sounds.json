@@ -2362,6 +2362,12 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.dimmer.buzz"
   },
+  "block.winch.wind": {
+    "sounds": [
+      "caverns_and_chasms:block/winch/wind"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.winch.wind"
+  },
   "entity.deeper.death": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/death"

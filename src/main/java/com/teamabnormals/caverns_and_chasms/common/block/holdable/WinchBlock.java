@@ -142,7 +142,7 @@ public class WinchBlock extends BaseEntityBlock implements HoldableBlock {
 
 	@Override
 	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return getPower(pos, level);
+		return getConnectedDirection(state) == direction ? getPower(pos, level) : 0;
 	}
 
 	private static int getPower(BlockPos pos, BlockGetter level) {

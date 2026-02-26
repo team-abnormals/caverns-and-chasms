@@ -66,8 +66,8 @@ public class WinchRenderer<T extends WinchBlockEntity> implements BlockEntityRen
 
 			poseStack.mulPose(Axis.YP.rotationDegrees(face == AttachFace.WALL ? facing.toYRot() : facing.getOpposite().toYRot()));
 			if (face != AttachFace.WALL) {
-				poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-				poseStack.translate(0.0D, -1.0D, face == AttachFace.CEILING ? 1.75D : 1.0D);
+				poseStack.mulPose(Axis.XP.rotationDegrees(face == AttachFace.CEILING ? 90.0F : -90.0F));
+				poseStack.translate(0.0D, -1.0D, face == AttachFace.CEILING ? -1.0D : 1.0D);
 			}
 
 			this.crank.zRot = Mth.HALF_PI + winch.getRotation(partialTick) * Mth.DEG_TO_RAD;
@@ -76,6 +76,8 @@ public class WinchRenderer<T extends WinchBlockEntity> implements BlockEntityRen
 			this.base.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
 			this.crank.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
 			this.base.render(poseStack, GLOW_MATERIAL.buffer(buffer, RenderType::entityTranslucentCull), combinedLight, combinedOverlay, 1.0F, 1.0F, 1.0F, winch.getPower() / 15F);
+
+			// System.out.println("G: " + winch.time + ", P: " + partialTick + ", R0: " + winch.getRotation(0) + ", R1: " + winch.getRotation(1) + ", R: " + winch.getRotation(partialTick));
 
 			poseStack.popPose();
 		}

@@ -2,10 +2,14 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.WinchBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -13,6 +17,8 @@ public class WinchBlockEntity extends BlockEntity {
 	private int pressTime;
 	private float rotation;
 	private float rotationO;
+	private float rewindSpeed;
+	private boolean forceRollBack;
 
 	public WinchBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.WINCH.get(), pos, state);
@@ -23,7 +29,7 @@ public class WinchBlockEntity extends BlockEntity {
 		super.load(compound);
 		this.pressTime = compound.getShort("PressTime");
 		this.rotation = compound.getFloat("Rotation");
-		this.rotationO = this.rotation;
+		// this.rotationO = this.rotation;
 	}
 
 	@Override
@@ -33,11 +39,21 @@ public class WinchBlockEntity extends BlockEntity {
 		compound.putFloat("Rotation", this.rotation);
 	}
 
-	public void setPressed() {
-		if (this.pressTime <= 0 && this.isFullyPowered()) {
+	@Override
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
 
+	@Override
+	public CompoundTag getUpdateTag() {
+		return this.saveWithoutMetadata();
+	}
+
+	public void setPressed() {
+		if (this.pressTime <= 0) {
+			this.forceRollBack = this.isFullyPowered();
 		}
-		this.pressTime = 1;
+		this.pressTime = 2;
 	}
 
 	public float getRotation(float partialTick) {
@@ -59,15 +75,23 @@ public class WinchBlockEntity extends BlockEntity {
 
 		int oldpower = blockEntity.getPower();
 
-		if (blockEntity.pressTime > 0) {
-			--blockEntity.pressTime;
-			blockEntity.rotation = Math.min(blockEntity.rotation + 4F, 360F);
-		} else if (!blockEntity.isFullyPowered()) {
-			blockEntity.rotation = Math.max(blockEntity.rotation - 2F, 0F);
+		if (blockEntity.forceRollBack || (!blockEntity.isFullyPowered() && blockEntity.pressTime <= 0)) {
+			blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
+			blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
+			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
+		} else if (blockEntity.pressTime > 0) {
+			blockEntity.rewindSpeed = 0F;
+			blockEntity.rotation = Math.min(blockEntity.rotation + 3F, 360F);
+			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		}
 
-		if (oldpower != blockEntity.getPower()) {
+		if (blockEntity.pressTime > 0) {
+			--blockEntity.pressTime;
+		}
+
+		if (!level.isClientSide && oldpower != blockEntity.getPower()) {
 			WinchBlock.updateNeighbours(state, level, pos);
+			level.playSound(null, pos, CCSoundEvents.WINCH_WIND.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 		}
 	}
 }
