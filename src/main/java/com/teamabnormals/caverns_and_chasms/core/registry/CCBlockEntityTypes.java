@@ -31,4 +31,5 @@ public class CCBlockEntityTypes {
 	public static final RegistryObject<BlockEntityType<StorageDuctHatchBlockEntity>> STORAGE_DUCT_HATCH = HELPER.createBlockEntity("storage_duct_hatch", StorageDuctHatchBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT_HATCH.get()));
 	public static final RegistryObject<BlockEntityType<RollerDoorBlockEntity>> ROLLER_DOOR = HELPER.createBlockEntity("roller_door", RollerDoorBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR.get()));
 	public static final RegistryObject<BlockEntityType<RollerDoorHeaderBlockEntity>> ROLLER_DOOR_HEADER = HELPER.createBlockEntity("roller_door_header", RollerDoorHeaderBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR_HEADER.get()));
+	public static final RegistryObject<BlockEntityType<ResistorBlockEntity>> RESISTOR = HELPER.createBlockEntity("resistor", ResistorBlockEntity::new, () -> Set.of(CCBlocks.RESISTOR.get()));
 }
