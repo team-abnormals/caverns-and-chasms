@@ -30,7 +30,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
 			HumanoidArm attackArm = this.getAttackArm(entity);
 			if (attackArm != null) {
 				ModelPart armModel = this.getArm(attackArm);
-				if (armModel != null && entity.getItemInHand(entity.swingingArm).is(CCItems.FOIL.get())) {
+				if (armModel != null && entity.swingingArm != null && entity.getItemInHand(entity.swingingArm).is(CCItems.FOIL.get())) {
 					CCClientEvents.customFoilAnimation((HumanoidModel<?>) (Object) this, armModel, attackArm == HumanoidArm.LEFT);
 					ci.cancel();
 				}

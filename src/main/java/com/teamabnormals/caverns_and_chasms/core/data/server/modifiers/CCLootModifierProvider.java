@@ -46,8 +46,9 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(new LootPoolEntriesModifier(false, 0, List.of(lootPool(Items.BUNDLE, 5), lootPool(CCItems.DEPTH_GAUGE.get(), 5))))
 				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 3), lootPool(CCItems.SPINEL.get(), 5, 6, 11))))
 				.addModifier(new LootPoolEntriesModifier(false, 2, List.of(lootPool(CCBlocks.SPIKED_RAIL.get(), 5, 1, 4))));
-		this.entry("stronghold_corridor").selects(BuiltInLootTables.STRONGHOLD_CORRIDOR).addModifier(new LootPoolEntriesModifier(false, 0,
-				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 3), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1), lootPool(CCItems.COPPER_HORSE_ARMOR.get(), 1))));
+		this.entry("stronghold_corridor").selects(BuiltInLootTables.STRONGHOLD_CORRIDOR)
+				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":gear").setRolls(ConstantValue.exactly(1.0F)).add(EmptyLootItem.emptyItem().setWeight(8)).add(LootItem.lootTableItem(CCItems.COWL.get())).add(LootItem.lootTableItem(CCItems.TOOLBELT.get())).build()), false))
+				.addModifier(new LootPoolEntriesModifier(false, 0, List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 3), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1), lootPool(CCItems.COPPER_HORSE_ARMOR.get(), 1))));
 		this.entry("stronghold_crossing").selects(BuiltInLootTables.STRONGHOLD_CROSSING).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 3))));
 
@@ -63,8 +64,9 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 1, 5), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 10), lootPool(CCItems.COPPER_HORSE_ARMOR.get(), 15))));
 		this.entry("jungle_temple").selects(BuiltInLootTables.JUNGLE_TEMPLE).addModifier(new LootPoolEntriesModifier(false, 0,
 				List.of(lootPool(CCItems.SILVER_INGOT.get(), 15, 2, 7), lootPool(CCItems.SPINEL.get(), 15, 2, 5), lootPool(CCItems.SILVER_HORSE_ARMOR.get(), 1), lootPool(CCItems.COPPER_HORSE_ARMOR.get(), 1))));
-		this.entry("woodland_mansion").selects(BuiltInLootTables.WOODLAND_MANSION).addModifier(new LootPoolEntriesModifier(false, 1,
-				List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 4))));
+		this.entry("woodland_mansion").selects(BuiltInLootTables.WOODLAND_MANSION)
+				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":gear").setRolls(ConstantValue.exactly(1.0F)).add(EmptyLootItem.emptyItem().setWeight(8)).add(LootItem.lootTableItem(CCItems.COWL.get())).add(LootItem.lootTableItem(CCItems.TOOLBELT.get())).build()), false))
+				.addModifier(new LootPoolEntriesModifier(false, 1, List.of(lootPool(CCItems.SILVER_INGOT.get(), 5, 1, 4))));
 
 		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
 				.addModifier(new LootPoolsModifier(List.of(LootPool.lootPool().name(CavernsAndChasms.MOD_ID + ":barometer").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(CCItems.BAROMETER.get())).build()), false));

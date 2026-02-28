@@ -3,6 +3,8 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTickEvent;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
+import com.teamabnormals.blueprint.core.util.TradeUtil;
+import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
@@ -71,6 +73,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -101,6 +104,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.StartTracking;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -116,6 +120,12 @@ import java.util.function.Function;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
+
+
+	@SubscribeEvent
+	public static void onVillagerTradesEvent(VillagerTradesEvent event) {
+		TradeUtil.addVillagerTrades(event, VillagerProfession.MASON, TradeUtil.MASTER, new BlueprintTrade(24, CCItems.TOOLBELT.get(), 1, 1, 30));
+	}
 
 	@SubscribeEvent
 	public static void onLivingSpawned(EntityJoinLevelEvent event) {

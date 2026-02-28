@@ -1,6 +1,33 @@
 {
   "modifiers": [
     {
+      "type": "pools",
+      "config": {
+        "pools": [
+          {
+            "bonus_rolls": 0.0,
+            "entries": [
+              {
+                "type": "minecraft:empty",
+                "weight": 8
+              },
+              {
+                "type": "minecraft:item",
+                "name": "caverns_and_chasms:cowl"
+              },
+              {
+                "type": "minecraft:item",
+                "name": "caverns_and_chasms:toolbelt"
+              }
+            ],
+            "name": "caverns_and_chasms:gear",
+            "rolls": 1.0
+          }
+        ],
+        "replace": false
+      }
+    },
+    {
       "type": "entries",
       "config": {
         "entries": [
