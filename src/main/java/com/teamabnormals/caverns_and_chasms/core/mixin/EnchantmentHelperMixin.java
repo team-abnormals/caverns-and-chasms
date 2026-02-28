@@ -28,7 +28,7 @@ public abstract class EnchantmentHelperMixin {
 			ItemStack stack = attacker.getMainHandItem();
 			Collection<AttributeModifier> magicDamageModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.MAGIC_DAMAGE.get());
 
-			if (!magicDamageModifiers.isEmpty() && !stack.is(CCItems.SILVER_PICKAXE.get())) {
+			if (!magicDamageModifiers.isEmpty()) {
 				float magicDamage = (float) magicDamageModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 				if (target.getType().is(CCEntityTypeTags.SILVER_HURTS_EXTRA_TYPES)) {
 					magicDamage *= 3.0F;
