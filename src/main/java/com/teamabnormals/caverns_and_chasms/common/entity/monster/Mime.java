@@ -84,8 +84,8 @@ public class Mime extends Monster {
 		return pos.getY() <= 48 && (random.nextInt(10) == 0 || pos.getY() <= 0) && checkUndergroundMonsterSpawnRules(type, level, reason, pos, random);
 	}
 
-	public static boolean checkUndergroundMonsterSpawnRules(EntityType<? extends Mob> monster, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource p_219018_) {
-		return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawnNoSkylight(level, pos, p_219018_) && checkMobSpawnRules(monster, level, reason, pos, p_219018_);
+	public static boolean checkUndergroundMonsterSpawnRules(EntityType<? extends Mob> monster, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+		return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawnNoSkylight(level, pos, random) && checkMobSpawnRules(monster, level, reason, pos, random);
 	}
 
 	public static boolean isDarkEnoughToSpawnNoSkylight(ServerLevelAccessor level, BlockPos pos, RandomSource random) {

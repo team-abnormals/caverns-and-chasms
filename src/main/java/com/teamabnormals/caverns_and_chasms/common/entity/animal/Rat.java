@@ -49,6 +49,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -140,12 +141,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public static boolean checkRatSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-		return Mime.checkUndergroundMonsterSpawnRules(type, level, reason, pos, random);
+		return Mime.isDarkEnoughToSpawnNoSkylight(level, pos, random) && checkMobSpawnRules(type, level, reason, pos, random);
 	}
 
 	@Override
 	public boolean removeWhenFarAway(double distanceSqr) {
 		return !this.isTame() && !this.trustsPlayers();
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		return -level.getPathfindingCostFromLightLevels(pos);
 	}
 
 	@Override
