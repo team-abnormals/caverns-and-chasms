@@ -37,7 +37,7 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 				NETHERITE_NUGGET, NETHERITE_HORSE_ARMOR,
 				BEJEWELED_APPLE, BLUNT_ARROW, SPINEL, TMT_MINECART, ZIRCONIA,
 				TURQUOISE, UNICORN_HORN,
-				COWL, TOOLBELT,
+				COWL,
 				LIVING_FLESH, EXILE_ARMOR_TRIM_SMITHING_TEMPLATE, FORGER_ARMOR_TRIM_SMITHING_TEMPLATE, IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE, RIM_ARMOR_TRIM_SMITHING_TEMPLATE, PLATE_ARMOR_TRIM_SMITHING_TEMPLATE, CORE_ARMOR_TRIM_SMITHING_TEMPLATE,
 				BOOM_POTTERY_SHERD, CAST_POTTERY_SHERD, RIDE_POTTERY_SHERD, STALKER_POTTERY_SHERD,
 				AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond(), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT,
@@ -45,6 +45,8 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 				COPPER_HORSE_ARMOR, EXPOSED_COPPER_HORSE_ARMOR, WEATHERED_COPPER_HORSE_ARMOR, OXIDIZED_COPPER_HORSE_ARMOR,
 				WAXED_COPPER_HORSE_ARMOR, WAXED_EXPOSED_COPPER_HORSE_ARMOR, WAXED_WEATHERED_COPPER_HORSE_ARMOR, WAXED_OXIDIZED_COPPER_HORSE_ARMOR
 		);
+		
+		this.overlayItem(TOOLBELT, "generated");
 
 		this.withExistingParent(name(WAXED_COPPER_INGOT.get()), "item/generated").texture("layer0", new ResourceLocation("item/copper_ingot"));
 
@@ -81,6 +83,12 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 
 	public ItemModelBuilder item(RegistryObject<? extends ItemLike> item, String type) {
 		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get()).toString().replace("waxed_", ""));
+	}
+
+	public ItemModelBuilder overlayItem(RegistryObject<? extends ItemLike> item, String type) {
+		return this.withExistingParent(name(item.get()), "item/" + type)
+				.texture("layer0", itemTexture(item.get()))
+				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
 	}
 
 	@SafeVarargs
