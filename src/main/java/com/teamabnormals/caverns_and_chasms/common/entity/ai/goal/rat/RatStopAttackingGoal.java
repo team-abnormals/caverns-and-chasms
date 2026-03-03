@@ -15,12 +15,12 @@ public class RatStopAttackingGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return !this.rat.isTame() && !this.rat.shouldAttack(this.rat.getTarget());
+		return this.rat.getTarget() != null && !this.rat.canFightAgainst(this.rat.getTarget());
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return !this.rat.isTame() && !this.rat.shouldAttack(this.rat.getTarget());
+		return false;
 	}
 
 	@Override

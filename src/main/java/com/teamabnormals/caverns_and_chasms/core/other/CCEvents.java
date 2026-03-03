@@ -594,36 +594,41 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onLivingDamage(LivingDamageEvent event) {
-		LivingEntity target = event.getEntity();
+		LivingEntity entity = event.getEntity();
 		DamageSource source = event.getSource();
-		Level level = target.level();
-		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
+		Level level = entity.level();
+		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
 
 		if (headstack.getItem() instanceof TetherPotionItem && !source.is(DamageTypeTags.BYPASSES_ARMOR) && !source.is(CCDamageTypeTags.BYPASSES_TETHER_POTIONS)) {
-			Player player = target instanceof Player ? (Player) target : null;
-			target.broadcastBreakEvent(EquipmentSlot.HEAD);
-			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+			Player player = entity instanceof Player ? (Player) entity : null;
+			entity.broadcastBreakEvent(EquipmentSlot.HEAD);
+			entity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 
 			if (headstack.getItem() == CCItems.IMPACT_POTION.get()) {
 				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 					if (instance.getEffect().isInstantenous()) {
-						instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+						instance.getEffect().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
 					} else {
-						target.addEffect(new MobEffectInstance(instance));
+						entity.addEffect(new MobEffectInstance(instance));
 					}
 				}
 			} else if (headstack.getItem() == CCItems.TRAIL_POTION.get()) {
-				TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), target, level, true);
+				TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, true);
 			} else {
 				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
 					if (instance.getEffect().isInstantenous()) {
-						instance.getEffect().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
+						instance.getEffect().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
 					}
 				}
 			}
 
 			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
-			level.levelEvent(i, BlockPos.containing(target.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+			level.levelEvent(i, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+		}
+		
+		// TODO: Maybe use a tag?
+		if (entity instanceof Rat rat && rat.getHealth() >= rat.getMaxHealth() && source.getEntity() instanceof LivingEntity) {
+			event.setAmount(rat.getHealth() - 1.0F);
 		}
 	}
 

@@ -4,19 +4,17 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 
-import java.util.function.Predicate;
-
-public class RatAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
+public class RatAvoidEntityGoal extends AvoidEntityGoal<LivingEntity> {
 	private final Rat rat;
 
-	public RatAvoidEntityGoal(Rat rat, Class<T> avoidClass, float maxDist, double walkSpeedModifier, double sprintSpeedModifier, Predicate<LivingEntity> predicate) {
-		super(rat, avoidClass, maxDist, walkSpeedModifier, sprintSpeedModifier, predicate);
+	public RatAvoidEntityGoal(Rat rat, float maxDist, double walkSpeedModifier, double sprintSpeedModifier) {
+		super(rat, LivingEntity.class, maxDist, walkSpeedModifier, sprintSpeedModifier, rat::isScaredOf);
 		this.rat = rat;
 	}
 
 	@Override
 	public boolean canUse() {
-		return this.rat.shouldRunAway() && super.canUse();
+		return !this.rat.hasBraveryToFight() && super.canUse();
 	}
 
 	@Override

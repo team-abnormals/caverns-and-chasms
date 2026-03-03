@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
-import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
@@ -44,7 +43,6 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.GameRules;
@@ -110,14 +108,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(9, new RatDevourRottenFleshGoal(this, 1.25D));
 		this.goalSelector.addGoal(10, new RatStayInGroupGoal(this));
 		this.goalSelector.addGoal(11, new RatFollowParentGoal(this));
-		this.goalSelector.addGoal(12, new RatAvoidEntityGoal<>(this, Player.class, 10.0F, 1.0F, 1.2F, AVOID_PLAYERS::test));
+		this.goalSelector.addGoal(12, new RatAvoidEntityGoal(this, 10.0F, 1.0F, 1.2F));
 		this.goalSelector.addGoal(13, new RatRandomStrollGoal(this));
 		this.goalSelector.addGoal(14, new RatFindItemsGoal(this));
 		this.goalSelector.addGoal(15, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(16, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-		this.targetSelector.addGoal(3, new RatStopAttackingGoal(this));
+		this.targetSelector.addGoal(1, new RatStopAttackingGoal(this));
+		this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
+		this.targetSelector.addGoal(3, new OwnerHurtTargetGoal(this));
 		this.targetSelector.addGoal(4, (new RatHurtByTargetGoal(this)).setAlertOthers());
 	}
 
@@ -429,7 +427,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				}
 			}
 
-			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), rat -> !rat.isBaby() && rat.isAlive() && (!rat.isTame() || rat.getOwner() == this.getOwner()) && !rat.is(this));
+			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
 			rats.sort(Comparator.comparing(this::distanceToSqr));
 			this.pack = rats.stream().limit(4).collect(Collectors.toList());
 		}
@@ -502,6 +500,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return flag;
 	}
 
+	// Taming stuff
 	public void setMassTamedBy(Player player, BlockPos rottenFleshPos) {
 		this.tamer = player;
 		this.rottenFleshPos = rottenFleshPos;
@@ -519,6 +518,16 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.rottenFleshPos;
 	}
 
+	public boolean trustsPlayers() {
+		return this.isTrusting() || this.isTame();
+	}
+
+	// TODO: alliedTo stuff
+	public boolean isAdultOfSamePack(Rat rat) {
+		return !rat.isBaby() && rat.isAlive() && rat.getOwner() == this.getOwner();
+	}
+
+	// Pack stuff
 	public List<Rat> getPack() {
 		return this.pack;
 	}
@@ -527,23 +536,54 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return !this.pack.isEmpty();
 	}
 
-	public boolean trustsPlayers() {
-		return this.isTrusting() || this.isTame();
+	public boolean hasBraveryToFight() {
+		return !this.isWounded() && (this.isTame() || (this.isBaby() ? this.pack.size() > 2 : this.pack.size() > 1));
 	}
 
-	public boolean isPackBigEnoughToAttack() {
-		return this.isBaby() ? this.pack.size() > 2 : this.pack.size() > 1;
+	public boolean canFightAgainst(LivingEntity target) {
+		return target != this.getOwner() && this.hasBraveryToFight();
 	}
 
-	public boolean shouldAttack(LivingEntity target) {
-		if (this.isTame() || (this.isPackBigEnoughToAttack() && this.tamer == null))
-			return !(target instanceof Player) || !this.trustsPlayers();
-
-		return false;
+	public boolean isWounded() {
+		return this.getHealth() <= 2.0F;
 	}
 
-	public boolean shouldRunAway() {
-		return !this.trustsPlayers() && !this.isPackBigEnoughToAttack();
+	/*
+	public boolean shouldRunAwayFrom(LivingEntity entity) {
+		return this.isScaredOf(entity) && !this.hasBraveryToFight();
+	}
+	*/
+
+	public boolean isScaredOf(LivingEntity target) {
+		if (this.getOwner() == target)
+			return false;
+		else if (!this.trustsPlayers() && target instanceof Player)
+			return true;
+		else if (this.getLastHurtByMob() == target)
+			return true;
+		else if (target instanceof Mob mob && mob.getTarget() == this)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
+		if (!this.hasBraveryToFight()) {
+			return false;
+		} else if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
+			if (target instanceof Wolf wolf) {
+				return !wolf.isTame() || wolf.getOwner() != owner;
+			} else if (target instanceof Player && owner instanceof Player && !((Player) owner).canHarmPlayer((Player) target)) {
+				return false;
+			} else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
+				return false;
+			} else {
+				return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
+			}
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -568,7 +608,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 			rat = iterator.next();
 
-			if (this != rat && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.shouldAttack(target))
+			if (this != rat && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.canFightAgainst(target))
 				rat.setTarget(target);
 		}
 	}
@@ -645,8 +685,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	public boolean canHoldItem(ItemStack stack) {
 		Item item = stack.getItem();
-		ItemStack itemstack = this.getMainHandItem();
-		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && item.isEdible() && !itemstack.getItem().isEdible();
+		if (item == CCItems.BONE_FLUTE.get()) {
+			return false;
+		} else {
+			ItemStack currentstack = this.getMainHandItem();
+			return currentstack.isEmpty() || this.ticksSinceEaten > 0 && item.isEdible() && !currentstack.getItem().isEdible();
+		}
 	}
 
 	private void spitOutItem(ItemStack stackIn) {
@@ -696,27 +740,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.setHealth(10.0F);
 		} else {
 			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(4.0D);
-		}
-	}
-
-	@Override
-	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-		if (!this.isTame() && !this.isPackBigEnoughToAttack()) {
-			return false;
-		}
-
-		if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
-			if (target instanceof Wolf wolf) {
-				return !wolf.isTame() || wolf.getOwner() != owner;
-			} else if (target instanceof Player && owner instanceof Player && !((Player) owner).canHarmPlayer((Player) target)) {
-				return false;
-			} else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
-				return false;
-			} else {
-				return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
-			}
-		} else {
-			return false;
 		}
 	}
 
