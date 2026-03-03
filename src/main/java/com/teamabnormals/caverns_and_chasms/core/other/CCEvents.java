@@ -112,10 +112,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -178,8 +175,8 @@ public class CCEvents {
 		if (event.getEntity() instanceof Player player && event.getPlacedBlock().is(CCBlocks.ROTTEN_FLESH_BLOCK.get())) {
 			LevelAccessor level = event.getLevel();
 			BlockPos pos = event.getPos();
-			List<Rat> rats = level.getEntitiesOfClass(Rat.class, new AABB(pos).inflate(8.0D, 4.0D, 8.0D), entity -> entity.isAlive() && !entity.isTame());
-			rats.stream().limit(9).toList().forEach(rat -> rat.setMassTamedBy(player, pos));
+			List<Rat> rats = level.getEntitiesOfClass(Rat.class, new AABB(pos).inflate(8.0D, 4.0D, 8.0D), entity -> entity.isAlive() && !entity.isTame() && entity.getTamer() == null);
+			rats.stream().sorted(Comparator.comparing(rat -> pos.distToCenterSqr(rat.position()))).limit(9).toList().forEach(rat -> rat.setMassTamedBy(player, pos));
 		}
 	}
 

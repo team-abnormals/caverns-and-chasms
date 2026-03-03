@@ -428,8 +428,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			}
 
 			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
-			rats.sort(Comparator.comparing(this::distanceToSqr));
-			this.pack = rats.stream().limit(4).collect(Collectors.toList());
+			this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
 		}
 
 		super.aiStep();

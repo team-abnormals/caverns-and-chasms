@@ -37,10 +37,18 @@ public class RatDevourRottenFleshGoal extends Goal {
 			return false;
 		} else if (this.rat.isPassenger()) {
 			return false;
-		} else {
-			this.targetPos = this.rat.getRottenFleshPos();
-			return this.targetPos != null;
 		}
+
+		this.targetPos = this.rat.getRottenFleshPos();
+		if (this.targetPos != null) {
+			if (this.targetPos.distToCenterSqr(this.rat.position()) <= 256.0D) {
+				return true;
+			} else {
+				this.rat.setTamer(null);
+			}
+		}
+
+		return false;
 	}
 
 	@Override
