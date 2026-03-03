@@ -359,6 +359,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public void tick() {
 		super.tick();
 
+		// TODO: Make this better
 		if (this.isAttachedToEntity() && (!this.attachedEntity.isAlive() || this.attachedEntity.isSpectator())) {
 			this.detachFromEntity();
 		} else if (!this.level().isClientSide) {
@@ -425,6 +426,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
 					this.level().broadcastEntityEvent(this, (byte) 45);
 				}
+			}
+
+			if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
+				this.heal(1.0F);
 			}
 
 			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
