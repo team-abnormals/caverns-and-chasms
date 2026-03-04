@@ -1,6 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.caverns_and_chasms.common.recipe.*;
+import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
+import com.teamabnormals.caverns_and_chasms.common.recipe.MusicDiscCopying;
+import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe;
+import com.teamabnormals.caverns_and_chasms.common.recipe.ToolboxWaxing;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,8 +20,7 @@ public class CCRecipes {
 
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<ToolboxWaxing>> TOOLBOX_WAXING = RECIPE_SERIALIZERS.register("crafting_special_toolboxwaxing", () -> new SimpleCraftingRecipeSerializer<>(ToolboxWaxing::new));
 		public static final RegistryObject<SimpleCraftingRecipeSerializer<MusicDiscCopying>> MUSIC_DISC_COPYING = RECIPE_SERIALIZERS.register("crafting_special_musicdisccopying", () -> new SimpleCraftingRecipeSerializer<>(MusicDiscCopying::new));
-		public static final RegistryObject<SimpleCraftingRecipeSerializer<FadedTrimRecipe>> FADED_TRIM_DUPING = RECIPE_SERIALIZERS.register("crafting_special_fadedtrimduping", () -> new SimpleCraftingRecipeSerializer<>(FadedTrimRecipe::new));
-		public static final RegistryObject<SimpleCraftingRecipeSerializer<EmissiveTrimRecipe>> EMISSIVE_TRIM_DUPING = RECIPE_SERIALIZERS.register("crafting_special_emissivetrimduping", () -> new SimpleCraftingRecipeSerializer<>(EmissiveTrimRecipe::new));
+		public static final RegistryObject<RecipeSerializer<SmithingModifierRecipe>> SMITHING_MODIFIER = RECIPE_SERIALIZERS.register("smithing_modifier", SmithingModifierRecipe.Serializer::new);
 	}
 
 	public static class CCRecipeTypes {

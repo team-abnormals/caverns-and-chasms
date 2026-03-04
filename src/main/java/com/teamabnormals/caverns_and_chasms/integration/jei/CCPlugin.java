@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
+import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
@@ -8,10 +9,12 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.recipe.category.extensions.vanilla.smithing.IExtendableSmithingRecipeCategory;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -36,6 +39,12 @@ public class CCPlugin implements IModPlugin {
 	}
 
 	@Override
+	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+		IExtendableSmithingRecipeCategory smithingCategory = registration.getSmithingCategory();
+		smithingCategory.addExtension(SmithingModifierRecipe.class, new SmithingModifierCategoryExtension<>());
+	}
+
+	@Override
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
 		registration.registerSubtypeInterpreter(CCItems.COPPER_HORN.get(), InstrumentSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.TETHER_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
@@ -48,7 +57,6 @@ public class CCPlugin implements IModPlugin {
 		registration.addRecipes(RecipeTypes.ANVIL, getRepairRecipes(registration).toList());
 		registration.addRecipes(RecipeTypes.CRAFTING, SubtleTippedArrowRecipe.createRecipes(registration));
 		registration.addRecipes(RecipeTypes.CRAFTING, ToolboxWaxingRecipeMaker.createRecipes());
-		registration.addRecipes(RecipeTypes.CRAFTING, FadedSmithingTemplateDupingRecipeMaker.createRecipes());
 		registration.addRecipes(RecipeTypes.CRAFTING, MusicDiscCopyRecipe.createRecipes());
 	}
 

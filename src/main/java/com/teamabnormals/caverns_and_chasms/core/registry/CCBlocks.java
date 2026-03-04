@@ -306,7 +306,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TURQUOISE_TILE_SLAB = HELPER.createBlock("turquoise_tile_slab", () -> new TurquoiseSlabBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final RegistryObject<Block> TURQUOISE_TILE_WALL = HELPER.createBlock("turquoise_tile_wall", () -> new TurquoiseWallBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
-	public static final RegistryObject<Block> TURQUOISE_LAMP = HELPER.createBlock("turquoise_lamp", () -> new Block(Properties.copy(LAPIS_LAZULI_LAMP.get())));
+	public static final RegistryObject<Block> TURQUOISE_LAMP = HELPER.createBlock("turquoise_lamp", () -> new TurquoiseBlock(Properties.copy(LAPIS_LAZULI_LAMP.get())), CCProperties.FANCY);
 
 	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot()));
 

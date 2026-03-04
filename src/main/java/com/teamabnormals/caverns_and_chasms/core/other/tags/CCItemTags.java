@@ -22,9 +22,7 @@ public class CCItemTags {
 	public static final TagKey<Item> UNREPAIRABLE_BY_ZIRCONIA = itemTag("unrepairable_by_zirconia");
 	public static final TagKey<Item> PLACEABLE_ITEMS = itemTag("placeable_items");
 	public static final TagKey<Item> CHANGES_HOOP_SIZE = itemTag("changes_hoop_size");
-
-	public static final TagKey<Item> FADED_TRIM_MODIFIERS = itemTag("faded_trim_modifiers");
-	public static final TagKey<Item> EMISSIVE_TRIM_MODIFIERS = itemTag("emissive_trim_modifiers");
+	public static final TagKey<Item> TRIM_MODIFIERS = itemTag("trim_modifiers");
 
 	public static final TagKey<Item> GLARE_FOOD = itemTag("glare_food");
 	public static final TagKey<Item> RAT_FOOD = itemTag("rat_food");

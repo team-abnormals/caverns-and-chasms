@@ -54,7 +54,8 @@ public class ArmorTrimMixin implements CCArmorTrim {
 		CCArmorTrim armorTrim = (CCArmorTrim) trim;
 		if (tag.getBoolean("EmissiveTrim")) {
 			armorTrim.setEmissive(true);
-		} else if (tag.getBoolean("FadedTrim")) {
+		}
+		if (tag.getBoolean("FadedTrim")) {
 			armorTrim.setFaded(true);
 		}
 		return trim;

@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.CopperHornItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.recipe.CCShapedRecipeBuilder;
+import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
@@ -106,6 +107,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, BEJEWELED_ANVIL.get(), 2).define('T', Items.ANVIL).define('S', CCItemTags.GEMS_SPINEL).pattern("SSS").pattern("STS").pattern("SSS").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_anvil", has(Items.ANVIL)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, ATONING_TABLE.get()).define('T', Items.ENCHANTING_TABLE).define('S', CCItemTags.GEMS_SPINEL).pattern("SSS").pattern("STS").pattern("SSS").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_enchanting_table", has(Items.ENCHANTING_TABLE)).save(consumer);
 
+		ShapelessRecipeBuilder.shapeless(MISC, CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get(), 2).requires(ItemTags.TRIM_TEMPLATES).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer, RecipeBuilder.getDefaultRecipeId(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()).withSuffix("_from_smithing_template"));
 		ShapelessRecipeBuilder.shapeless(FOOD, CCItems.CAVIAR.get()).requires(Items.SALMON_BUCKET).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
 		ShapelessRecipeBuilder.shapeless(TOOLS, CCItems.MONOCLE.get()).requires(Items.SPYGLASS).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
 		ShapelessRecipeBuilder.shapeless(TOOLS, CCItems.UNICORN_HORN.get()).requires(Items.END_ROD).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
@@ -514,8 +516,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		trimRecipes(consumer, CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
 		trimRecipes(consumer, CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
 		trimRecipes(consumer, CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
-		SpecialRecipeBuilder.special(CCRecipeSerializers.FADED_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":faded_trim_smithing_template_duping");
-		SpecialRecipeBuilder.special(CCRecipeSerializers.EMISSIVE_TRIM_DUPING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":emissive_trim_smithing_template_duping");
+
+		modifierRecipe(consumer, Items.GLOW_INK_SAC, "emissive");
+		modifierRecipe(consumer, CCItems.SPINEL.get(), "faded");
+		copySmithingTemplate(consumer, CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get(), CCItemTags.GEMS_TURQUOISE);
 
 		ccWaxRecipes(consumer);
 	}
@@ -588,6 +592,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 	protected void necromiumSmithingRecipe(Consumer<FinishedRecipe> consumer, Item input, RecipeCategory category, Item output) {
 		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(input), Ingredient.of(CCItemTags.INGOTS_NECROMIUM), category, output).unlocks("has_necromium_ingot", has(CCItemTags.INGOTS_NECROMIUM)).save(consumer, new ResourceLocation(this.getModID(), getItemName(output) + "_smithing"));
+	}
+
+	public static void modifierRecipe(Consumer<FinishedRecipe> consumer, ItemLike addition, String name) {
+		SmithingModifierRecipeBuilder.smithingModifier(Ingredient.of(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(addition), RecipeCategory.MISC).unlocks("has_smithing_modifier_template", has(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get())).save(consumer, suffix(RecipeBuilder.getDefaultRecipeId(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()), "_smithing_" + name));
 	}
 
 	public static void copperHornRecipe(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> input, ImmutableList<RegistryObject<Instrument>> output) {
