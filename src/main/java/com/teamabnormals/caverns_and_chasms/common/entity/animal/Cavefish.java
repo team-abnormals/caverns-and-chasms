@@ -31,12 +31,6 @@ public class Cavefish extends AbstractSchoolingFish {
 		this(CCEntityTypes.CAVEFISH.get(), level);
 	}
 
-	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(5, new FollowFlockLeaderGoal(this));
-	}
-
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(CCItems.CAVEFISH_BUCKET.get());
 	}

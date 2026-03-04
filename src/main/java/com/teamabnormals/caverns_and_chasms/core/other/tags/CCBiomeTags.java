@@ -32,6 +32,7 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> HAS_MIME = biomeTag("has_monster/mime");
 	public static final TagKey<Biome> HAS_GRAZER = biomeTag("has_monster/grazer");
 	public static final TagKey<Biome> HAS_RAT = biomeTag("has_animal/rat");
+	public static final TagKey<Biome> HAS_CAVEFISH = biomeTag("has_animal/cavefish");
 	public static final TagKey<Biome> HAS_LOST_GOAT = biomeTag("has_monster/lost_goat");
 	public static final TagKey<Biome> HAS_GLARE = biomeTag("has_animal/glare");
 

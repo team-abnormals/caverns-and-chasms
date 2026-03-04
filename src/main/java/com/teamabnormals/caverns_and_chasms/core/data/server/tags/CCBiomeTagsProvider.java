@@ -46,8 +46,9 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.tag(HAS_PEEPER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
-		this.tag(HAS_GRAZER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
-		this.tag(HAS_RAT).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
+		this.tag(HAS_GRAZER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS).add(Biomes.MUSHROOM_FIELDS);
+		this.tag(HAS_RAT).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS).add(Biomes.MUSHROOM_FIELDS);
+		this.tag(HAS_CAVEFISH).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
 		this.tag(HAS_GLARE).add(Biomes.LUSH_CAVES);
 		this.tag(HAS_LOST_GOAT).addTag(Tags.Biomes.IS_PEAK).add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.SNOWY_SLOPES, Biomes.GROVE);
 	}
