@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.recipe;
 
 import com.google.gson.JsonObject;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -100,7 +101,7 @@ public class SmithingModifierRecipe implements SmithingRecipe {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return RecipeSerializer.SMITHING_TRIM;
+		return CCRecipeSerializers.SMITHING_MODIFIER.get();
 	}
 
 	@Override
