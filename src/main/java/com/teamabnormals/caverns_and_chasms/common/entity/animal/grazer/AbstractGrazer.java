@@ -409,6 +409,8 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	public void tick() {
+		this.pushedThisTick.clear();
+
 		super.tick();
 
 		this.updateDeflectProjectiles();
@@ -472,7 +474,6 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	public void aiStep() {
-		this.pushedThisTick.clear();
 		int lerpstepsold = this.lerpSteps;
 		float xrotold = this.getXRot();
 
@@ -500,91 +501,96 @@ public abstract class AbstractGrazer extends Animal {
 				Vec3 tangentialvelcity = new Vec3(0.0D, offsetrotated.z, -offsetrotated.y).normalize().scale(tangentialspeed).add(this.getDeltaMovement());
 				this.level().addParticle(CCParticleTypes.DROOL.get(), pos.x, pos.y, pos.z, tangentialvelcity.x + this.random.nextGaussian() * 0.02F, tangentialvelcity.y + this.random.nextGaussian() * 0.02F, tangentialvelcity.z + this.random.nextGaussian() * 0.02F);
 			}
-		} else if (this.isAlive()) {
-			// Undo aging tick if not enough space
-			if (this.getAge() < 0 && !this.level().noCollision(this, this.getType().getDimensions().scale(0.5F, 1.0F).makeBoundingBox(this.position()).deflate(1.0E-6D)))
-				this.setAge(this.age - 1);
-
-			if (this.getState() == GrazerState.DEFAULT) {
-				if (this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
-					this.wingFlapAnim = 20;
-					this.level().broadcastEntityEvent(this, (byte) 6);
-				}
-			} else if (this.getState() == GrazerState.BOUNCING) {
-				Vec3 movement = this.getDeltaMovement();
-				this.setXRot(Mth.wrapDegrees(this.getXRot() - ROTATION_SPEED));
-				if (this.bouncingBackwards)
-					this.setYRot((float) (Mth.atan2(movement.x, -movement.z) * Mth.RAD_TO_DEG));
-				else
-					this.setYRot((float) (Mth.atan2(-movement.x, movement.z) * Mth.RAD_TO_DEG));
-			} else if (this.getState() == GrazerState.LANDING) {
-				float xrot = Mth.wrapDegrees(this.getXRot());
-				if (xrot == -180.0F || xrot == -90.0F || xrot == 90.0F) {
-					this.setState(GrazerState.WIGGLING);
-				} else {
-					if (xrot < -90.0F)
-						this.setXRot(Math.max(xrot - ROTATION_SPEED, -180.0F));
-					else if (xrot < 90.0F)
-						this.setXRot(Math.max(xrot - ROTATION_SPEED, -90.0F));
-					else
-						this.setXRot(Math.max(xrot - ROTATION_SPEED, 90.0F));
-				}
-			} else if (this.getState() == GrazerState.FLIPPING_OVER) {
-				float xrot = Mth.wrapDegrees(this.getXRot());
-				if (xrot > 0.0F)
-					this.setXRot(Math.max(xrot - 20.0F, 0.0F));
-				else if (xrot < 0.0F)
-					this.setXRot(Math.min(xrot + 20.0F, 0.0F));
-				else
-					this.setState(GrazerState.DEFAULT);
-			}
-
-			// Colliding with entities while running or bouncing
-			if (this.getState() == GrazerState.RUNNING || this.isBouncingState(this.getState())) {
-				LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
-				if (livingentity != null) {
-					if (livingentity instanceof AbstractGrazer other && !other.isBaby()) {
-						GrazerState otherstate = other.getState();
-						double d0 = this.position().distanceTo(other.position()) - this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement()));
-
-						if (d0 > 0.0D) {
-							Vec3 deltapos = other.position().subtract(this.position());
-							Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
-
-							Vec3 collvector = deltapos.scale(motion.dot(deltapos) / deltapos.dot(deltapos));
-							Vec3 othercollvector = deltapos.scale(other.getDeltaMovement().dot(deltapos) / deltapos.dot(deltapos));
-
-							Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
-							Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
-
-							if (this.getState() == GrazerState.RUNNING) {
-								this.setState(GrazerState.BOUNCING);
-								this.bounceHeight = 0.8D;
-								this.bouncingBackwards = true;
-								newmotion.add(0.0D, this.bounceHeight, 0.0D);
-							}
-
-							if (!this.isBouncingState(otherstate)) {
-								other.setState(GrazerState.BOUNCING);
-								other.bounceHeight = this.bounceHeight;
-								othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
-							}
-
-							this.setDeltaMovement(newmotion);
-							other.setDeltaMovement(othernewmotion);
-
-							CCEvents.playRicochetSound(this.level(), this.position(), d0, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
-						}
-					} else {
-						// TODO: Add knockback
-						livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-					}
-				}
-			}
 		}
 
 		for (GrazerPart part : this.parts)
 			part.pushEntities();
+	}
+
+	@Override
+	public void customServerAiStep() {
+		super.customServerAiStep();
+
+		// Undo aging tick if not enough space
+		if (this.getAge() < 0 && !this.level().noCollision(this, this.getType().getDimensions().scale(0.5F, 1.0F).makeBoundingBox(this.position()).deflate(1.0E-6D)))
+			this.setAge(this.age - 1);
+
+		if (this.getState() == GrazerState.DEFAULT) {
+			if (this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
+				this.wingFlapAnim = 20;
+				this.level().broadcastEntityEvent(this, (byte) 6);
+			}
+		} else if (this.getState() == GrazerState.BOUNCING) {
+			Vec3 movement = this.getDeltaMovement();
+			this.setXRot(Mth.wrapDegrees(this.getXRot() - ROTATION_SPEED));
+			if (this.bouncingBackwards)
+				this.setYRot((float) (Mth.atan2(movement.x, -movement.z) * Mth.RAD_TO_DEG));
+			else
+				this.setYRot((float) (Mth.atan2(-movement.x, movement.z) * Mth.RAD_TO_DEG));
+		} else if (this.getState() == GrazerState.LANDING) {
+			float xrot = Mth.wrapDegrees(this.getXRot());
+			if (xrot == -180.0F || xrot == -90.0F || xrot == 90.0F) {
+				this.setState(GrazerState.WIGGLING);
+			} else {
+				if (xrot < -90.0F)
+					this.setXRot(Math.max(xrot - ROTATION_SPEED, -180.0F));
+				else if (xrot < 90.0F)
+					this.setXRot(Math.max(xrot - ROTATION_SPEED, -90.0F));
+				else
+					this.setXRot(Math.max(xrot - ROTATION_SPEED, 90.0F));
+			}
+		} else if (this.getState() == GrazerState.FLIPPING_OVER) {
+			float xrot = Mth.wrapDegrees(this.getXRot());
+			if (xrot > 0.0F)
+				this.setXRot(Math.max(xrot - 20.0F, 0.0F));
+			else if (xrot < 0.0F)
+				this.setXRot(Math.min(xrot + 20.0F, 0.0F));
+			else
+				this.setState(GrazerState.DEFAULT);
+		}
+
+		// Colliding with entities while running or bouncing
+		if (this.getState() == GrazerState.RUNNING || this.isBouncingState(this.getState())) {
+			LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
+			if (livingentity != null) {
+				if (livingentity instanceof AbstractGrazer other && !other.isBaby()) {
+					GrazerState otherstate = other.getState();
+					double d0 = this.position().distanceTo(other.position()) - this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement()));
+
+					if (d0 > 0.0D) {
+						Vec3 deltapos = other.position().subtract(this.position());
+						Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
+
+						Vec3 collvector = deltapos.scale(motion.dot(deltapos) / deltapos.dot(deltapos));
+						Vec3 othercollvector = deltapos.scale(other.getDeltaMovement().dot(deltapos) / deltapos.dot(deltapos));
+
+						Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
+						Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
+
+						if (this.getState() == GrazerState.RUNNING) {
+							this.setState(GrazerState.BOUNCING);
+							this.bounceHeight = 0.8D;
+							this.bouncingBackwards = true;
+							newmotion.add(0.0D, this.bounceHeight, 0.0D);
+						}
+
+						if (!this.isBouncingState(otherstate)) {
+							other.setState(GrazerState.BOUNCING);
+							other.bounceHeight = this.bounceHeight;
+							othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
+						}
+
+						this.setDeltaMovement(newmotion);
+						other.setDeltaMovement(othernewmotion);
+
+						CCEvents.playRicochetSound(this.level(), this.position(), d0, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+					}
+				} else {
+					// TODO: Add knockback
+					livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+				}
+			}
+		}
 	}
 
 	@Override
@@ -703,6 +709,7 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	private class GrazerMoveControl extends MoveControl {
+
 		public GrazerMoveControl() {
 			super(AbstractGrazer.this);
 		}
@@ -710,8 +717,13 @@ public abstract class AbstractGrazer extends Animal {
 		@Override
 		public void tick() {
 			if (AbstractGrazer.this.canMove()) {
-				if (AbstractGrazer.this.getState() == GrazerState.RUNNING) {
+				GrazerState state = AbstractGrazer.this.getState();
+				if (state == GrazerState.RUNNING) {
 					AbstractGrazer.this.setSpeed(0.5F);
+				} else if (state == GrazerState.SLOWING_DOWN) {
+					AbstractGrazer.this.setSpeed(Math.max(AbstractGrazer.this.getSpeed() - 0.01F, 0.0F));
+					if (AbstractGrazer.this.getSpeed() <= 0.0F)
+						AbstractGrazer.this.setState(GrazerState.DEFAULT);
 				} else {
 					super.tick();
 				}

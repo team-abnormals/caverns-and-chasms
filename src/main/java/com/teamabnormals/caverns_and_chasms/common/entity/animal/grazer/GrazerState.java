@@ -11,7 +11,8 @@ public enum GrazerState {
 	BOUNCING(3),
 	LANDING(4),
 	WIGGLING(5),
-	FLIPPING_OVER(6);
+	FLIPPING_OVER(6),
+	SLOWING_DOWN(7);
 
 	private static final IntFunction<GrazerState> BY_ID = ByIdMap.continuous(GrazerState::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
 	private final int id;
