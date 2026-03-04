@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnS
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -17,6 +18,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.SmithingScreen;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -48,6 +50,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -60,6 +63,10 @@ public class CCClientCompat {
 		registerItemProperties();
 		CCTrimMaterials.registerArmorMaterialOverrides();
 		CCSkullTypes.registerSkullModels();
+
+		List<ResourceLocation> list = new ArrayList<>(SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES);
+		list.add(TrimModifierSmithingTemplateItem.EMPTY_SLOT_SMITHING_TEMPLATE_TRIM_MODIFIER);
+		SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES = list;
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

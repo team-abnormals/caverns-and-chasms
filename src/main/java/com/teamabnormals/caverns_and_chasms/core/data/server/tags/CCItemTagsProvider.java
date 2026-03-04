@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
@@ -75,8 +76,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS).add(Items.SPYGLASS, Items.TOTEM_OF_UNDYING, TUNING_FORK.get());
 		this.tag(CCItemTags.DISMANTLING_FUELS).addTag(CCItemTags.GEMS_SPINEL);
 		this.tag(CCItemTags.ATONING_FUELS).addTag(CCItemTags.GEMS_SPINEL);
-		this.tag(CCItemTags.FADED_TRIM_MODIFIERS).addTag(CCItemTags.GEMS_SPINEL);
-		this.tag(CCItemTags.EMISSIVE_TRIM_MODIFIERS).add(Items.BLAZE_POWDER);
+		this.tag(CCItemTags.TRIM_MODIFIERS).add(Items.GLOW_INK_SAC, SPINEL.get());
 		this.tag(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA);
 		this.tag(CCItemTags.CHANGES_HOOP_SIZE).add(TUNING_FORK.get());
 		this.tag(CCItemTags.PLACEABLE_ITEMS).add(

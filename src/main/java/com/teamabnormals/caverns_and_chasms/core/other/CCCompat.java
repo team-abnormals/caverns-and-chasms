@@ -41,12 +41,9 @@ public class CCCompat {
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
 
-		FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new InteractionInformation(
-				(level, currentPos, relativePos, currentState) -> {
-					return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);
-				},
-				CCBlocks.RHYOLITE.get().defaultBlockState()
-		));
+		FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new InteractionInformation((level, currentPos, relativePos, currentState) -> {
+			return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);
+		}, CCBlocks.RHYOLITE.get().defaultBlockState()));
 	}
 
 	public static void registerCompostables() {

@@ -42,7 +42,7 @@ public final class CCShaders {
 	}
 
 	@Nullable
-	public static ShaderInstance getRrendertypeArmorCutoutNoCullEmissiveShader() {
+	public static ShaderInstance getRendertypeArmorCutoutNoCullEmissiveShader() {
 		return rendertypeArmorCutoutNoCullEmissiveShader;
 	}
 }

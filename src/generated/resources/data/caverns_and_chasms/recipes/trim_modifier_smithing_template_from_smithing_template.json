@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "minecraft:trim_templates"
+    },
+    {
+      "item": "caverns_and_chasms:turquoise"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "caverns_and_chasms:trim_modifier_smithing_template"
+  }
+}

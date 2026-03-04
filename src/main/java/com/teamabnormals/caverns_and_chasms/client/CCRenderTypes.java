@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 public class CCRenderTypes extends RenderType {
 	public static final ShaderStateShard RENDERTYPE_ARMOR_TRANSLUCENT_NO_CULL_SHADER = new RenderStateShard.ShaderStateShard(CCShaders::getRendertypeArmorTranslucentNoCullShader);
-	public static final ShaderStateShard RENDERTYPE_ARMOR_CUTOUT_NO_CULL_EMISSIVE = new RenderStateShard.ShaderStateShard(CCShaders::getRrendertypeArmorCutoutNoCullEmissiveShader);
+	public static final ShaderStateShard RENDERTYPE_ARMOR_CUTOUT_NO_CULL_EMISSIVE = new RenderStateShard.ShaderStateShard(CCShaders::getRendertypeArmorCutoutNoCullEmissiveShader);
 
 	public CCRenderTypes(String p_173178_, VertexFormat p_173179_, Mode p_173180_, int p_173181_, boolean p_173182_, boolean p_173183_, Runnable p_173184_, Runnable p_173185_) {
 		super(p_173178_, p_173179_, p_173180_, p_173181_, p_173182_, p_173183_, p_173184_, p_173185_);
