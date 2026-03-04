@@ -52,12 +52,8 @@ public class ArmorTrimMixin implements CCArmorTrim {
 	private static ArmorTrim getTrim(ArmorTrim trim, RegistryAccess access, ItemStack stack) {
 		CompoundTag tag = stack.getOrCreateTag();
 		CCArmorTrim armorTrim = (CCArmorTrim) trim;
-		if (tag.getBoolean("EmissiveTrim")) {
-			armorTrim.setEmissive(true);
-		}
-		if (tag.getBoolean("FadedTrim")) {
-			armorTrim.setFaded(true);
-		}
+		armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
+		armorTrim.setFaded(tag.getBoolean("FadedTrim"));
 		return trim;
 	}
 
@@ -66,11 +62,11 @@ public class ArmorTrimMixin implements CCArmorTrim {
 		Style style = ArmorTrim.getTrim(access, stack).get().material().value().description().getStyle();
 
 		if (stack.getOrCreateTag().getBoolean("EmissiveTrim")) {
-			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive").withStyle(style)));
+			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
 		}
 
 		if (stack.getOrCreateTag().getBoolean("FadedTrim")) {
-			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded").withStyle(style)));
+			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
 		}
 	}
 }

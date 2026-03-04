@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -57,6 +58,19 @@ public class UnicornHornItem extends Item implements DyeableLeatherItem {
 					stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(event.getHand()));
 				}
 				dataManager.setValue(CCDataProcessors.UNICORN_HORN, ItemStack.EMPTY);
+				dataManager.setValue(CCDataProcessors.GLOW_UNICORN_HORN, false);
+
+				event.setCancellationResult(InteractionResult.sidedSuccess(player.level().isClientSide));
+				event.setCanceled(true);
+			} else if (stack.is(Items.GLOW_INK_SAC) && !dataManager.getValue(CCDataProcessors.GLOW_UNICORN_HORN)) {
+				horse.level().playSound(null, horse, SoundEvents.GLOW_INK_SAC_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+				dataManager.setValue(CCDataProcessors.GLOW_UNICORN_HORN, true);
+				if (!player.level().isClientSide) {
+					entity.level().gameEvent(entity, GameEvent.EQUIP, entity.position());
+					if (!player.getAbilities().instabuild) {
+						stack.shrink(1);
+					}
+				}
 
 				event.setCancellationResult(InteractionResult.sidedSuccess(player.level().isClientSide));
 				event.setCanceled(true);
