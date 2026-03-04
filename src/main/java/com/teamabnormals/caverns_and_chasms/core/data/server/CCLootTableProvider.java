@@ -602,6 +602,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			);
 //			this.add(FLY.get(), LootTable.lootTable());
 			this.add(RAT.get(), LootTable.lootTable());
+			this.add(CAVEFISH.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.CAVEFISH.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.BONE_MEAL)).when(LootItemRandomChanceCondition.randomChance(0.05F))));
 			this.add(GLARE.get(), LootTable.lootTable());
 			this.add(LOST_GOAT.get(), LootTable.lootTable());
 

@@ -7,7 +7,6 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
@@ -119,6 +118,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(BlueprintItemTags.BUCKETS_LAVA).add(GOLDEN_LAVA_BUCKET.get());
 		this.tag(BlueprintItemTags.BUCKETS_MILK).add(GOLDEN_MILK_BUCKET.get());
 		this.tag(BlueprintItemTags.BUCKETS_POWDER_SNOW).add(GOLDEN_POWDER_SNOW_BUCKET.get());
+		this.tag(ItemTags.FISHES).add(CAVEFISH.get());
 		this.tag(CCItemTags.GEMS_SPINEL).add(SPINEL.get());
 		this.tag(CCItemTags.GEMS_TURQUOISE).add(TURQUOISE.get());
 		this.tag(CCItemTags.GEMS_ZIRCONIA).add(ZIRCONIA.get());

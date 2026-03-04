@@ -112,7 +112,7 @@ public abstract class AbstractGrazer extends Animal {
 		this.entityData.define(BODY_LOWER_AMOUNT, 0.0F);
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F).add(Attributes.ATTACK_DAMAGE, 3.0D);
 	}
 

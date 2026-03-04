@@ -62,7 +62,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 		this.entityData.define(WAXED, false);
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0D);
 	}
 

@@ -131,7 +131,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.entityData.define(FIRST_PERSON_POS, 0.0F);
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 4.0D)
 				.add(Attributes.MOVEMENT_SPEED, 0.4D)

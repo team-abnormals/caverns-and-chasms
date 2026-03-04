@@ -26,7 +26,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_HIT = HELPER.createSoundEvent("block.rocky_dirt.hit");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_PLACE = HELPER.createSoundEvent("block.rocky_dirt.place");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_STEP = HELPER.createSoundEvent("block.rocky_dirt.step");
-	
+
 	public static final RegistryObject<SoundEvent> CHARCOAL_BREAK = HELPER.createSoundEvent("block.charcoal.break");
 	public static final RegistryObject<SoundEvent> CHARCOAL_FALL = HELPER.createSoundEvent("block.charcoal.fall");
 	public static final RegistryObject<SoundEvent> CHARCOAL_HIT = HELPER.createSoundEvent("block.charcoal.hit");
@@ -202,7 +202,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_PLACE = HELPER.createSoundEvent("block.tin.place");
 	public static final RegistryObject<SoundEvent> TIN_STEP = HELPER.createSoundEvent("block.tin.step");
 	public static final RegistryObject<SoundEvent> TIN_DEFLECT = HELPER.createSoundEvent("block.tin.deflect");
-	
+
 	public static final RegistryObject<SoundEvent> TIN_BULB_BREAK = HELPER.createSoundEvent("block.tin_bulb.break");
 	public static final RegistryObject<SoundEvent> TIN_BULB_FALL = HELPER.createSoundEvent("block.tin_bulb.fall");
 	public static final RegistryObject<SoundEvent> TIN_BULB_HIT = HELPER.createSoundEvent("block.tin_bulb.hit");
@@ -211,7 +211,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_BULB_DEFLECT = HELPER.createSoundEvent("block.tin_bulb.deflect");
 	public static final RegistryObject<SoundEvent> TIN_BULB_TURN_ON = HELPER.createSoundEvent("block.tin_bulb.turn_on");
 	public static final RegistryObject<SoundEvent> TIN_BULB_TURN_OFF = HELPER.createSoundEvent("block.tin_bulb.turn_off");
-	
+
 	public static final RegistryObject<SoundEvent> TIN_CHAIN_BREAK = HELPER.createSoundEvent("block.tin_chain.break");
 	public static final RegistryObject<SoundEvent> TIN_CHAIN_FALL = HELPER.createSoundEvent("block.tin_chain.fall");
 	public static final RegistryObject<SoundEvent> TIN_CHAIN_HIT = HELPER.createSoundEvent("block.tin_chain.hit");
@@ -232,7 +232,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_PLACE = HELPER.createSoundEvent("block.deepslate_tin_ore.place");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_STEP = HELPER.createSoundEvent("block.deepslate_tin_ore.step");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.deepslate_tin_ore.deflect");
-	
+
 	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_BREAK = HELPER.createSoundEvent("block.cassiterite_tin_ore.break");
 	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_FALL = HELPER.createSoundEvent("block.cassiterite_tin_ore.fall");
 	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_HIT = HELPER.createSoundEvent("block.cassiterite_tin_ore.hit");
@@ -269,11 +269,11 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.copper_button.click_off");
 	public static final RegistryObject<SoundEvent> COPPER_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.copper_button.click_on");
-	
+
 	public static final RegistryObject<SoundEvent> TIN_BUTTON_CLICK_OFF = HELPER.createSoundEvent("block.tin_button.click_off");
 	public static final RegistryObject<SoundEvent> TIN_BUTTON_CLICK_ON = HELPER.createSoundEvent("block.tin_button.click_on");
 	public static final RegistryObject<SoundEvent> TIN_BUTTON_HOLD = HELPER.createSoundEvent("block.tin_button.hold");
-	
+
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.tin_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.tin_pressure_plate.click_on");
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_HOLD = HELPER.createSoundEvent("block.tin_pressure_plate.hold");
@@ -305,7 +305,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_NECROMIUM = HELPER.createSoundEvent("item.armor.equip_necromium");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SANGUINE = HELPER.createSoundEvent("item.armor.equip_sanguine");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COWL = HELPER.createSoundEvent("item.armor.equip_cowl");
-	
+
 	public static final RegistryObject<SoundEvent> NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_EAT = HELPER.createSoundEvent("item.bejeweled_apple.eat");

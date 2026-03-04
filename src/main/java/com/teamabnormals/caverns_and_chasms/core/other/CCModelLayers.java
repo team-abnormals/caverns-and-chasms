@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CCModelLayers {
+	public static final ModelLayerLocation CAVEFISH = register("cavefish");
 	public static final ModelLayerLocation COPPER_GOLEM = register("copper_golem");
 	public static final ModelLayerLocation COPPER_HORSE_ARMOR = register("copper_horse_armor");
 	public static final ModelLayerLocation DEEPER = register("deeper");
@@ -55,6 +56,7 @@ public class CCModelLayers {
 		event.registerLayerDefinition(MIME_HEAD, MimeHeadModel::createHeadLayer);
 		event.registerLayerDefinition(FLY, FlyModel::createBodyLayer);
 		event.registerLayerDefinition(RAT, RatModel::createBodyLayer);
+		event.registerLayerDefinition(CAVEFISH, CavefishModel::createBodyLayer);
 		event.registerLayerDefinition(COPPER_GOLEM, CopperGolemModel::createBodyLayer);
 		event.registerLayerDefinition(GLARE, GlareModel::createBodyLayer);
 		event.registerLayerDefinition(GRAZER, GrazerModel::createBodyLayer);
@@ -75,6 +77,7 @@ public class CCModelLayers {
 //		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.MIME.get(), MimeRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.RAT.get(), RatRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.CAVEFISH.get(), CavefishRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get(), OxidizedCopperGolemRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.GRAZER.get(), GrazerRenderer::new);
