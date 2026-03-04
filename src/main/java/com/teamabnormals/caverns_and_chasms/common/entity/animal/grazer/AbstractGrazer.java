@@ -33,6 +33,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -266,6 +267,11 @@ public abstract class AbstractGrazer extends Animal {
 			Vec3 vec3 = new Vec3(0.0D, this.getPassengersRidingOffset() + rider.getMyRidingOffset(), this.shellCenterZ(1.0F) - 0.3F).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
 			function.accept(rider, this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
 		}
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		return -level.getPathfindingCostFromLightLevels(pos);
 	}
 
 	public double shellWidth() {
