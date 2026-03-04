@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -41,20 +42,20 @@ public class Cavefish extends AbstractSchoolingFish {
 	}
 
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.TROPICAL_FISH_AMBIENT;
+		return CCSoundEvents.CAVEFISH_AMBIENT.get();
 	}
 
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.TROPICAL_FISH_DEATH;
+		return CCSoundEvents.CAVEFISH_DEATH.get();
 	}
 
 	protected SoundEvent getHurtSound(DamageSource p_30039_) {
-		return SoundEvents.TROPICAL_FISH_HURT;
+		return CCSoundEvents.CAVEFISH_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getFlopSound() {
-		return SoundEvents.TROPICAL_FISH_FLOP;
+		return CCSoundEvents.CAVEFISH_FLOP.get();
 	}
 
 	public int getMaxSchoolSize() {

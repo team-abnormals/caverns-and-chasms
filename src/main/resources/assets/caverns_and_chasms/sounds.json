@@ -2724,6 +2724,33 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.parrot.imitate.grazer"
   },
+  "entity.cavefish.death": {
+    "sounds": [
+      {
+        "name": "entity.tropical_fish.death",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.cavefish.death"
+  },
+  "entity.cavefish.hurt": {
+    "sounds": [
+      {
+        "name": "entity.tropical_fish.hurt",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.cavefish.hurt"
+  },
+  "entity.cavefish.flop": {
+    "sounds": [
+      {
+        "name": "entity.tropical_fish.flop",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.cavefish.flop"
+  },
   "entity.blunt_arrow.hit": {
     "sounds": [
       "caverns_and_chasms:entity/blunt_arrow/hit1",
