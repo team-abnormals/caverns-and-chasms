@@ -135,7 +135,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return Mob.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 4.0D)
 				.add(Attributes.MOVEMENT_SPEED, 0.4D)
-				.add(Attributes.ATTACK_DAMAGE, 1.0D);
+				.add(Attributes.ATTACK_DAMAGE, 2.0D);
 	}
 
 	public static boolean checkRatSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
