@@ -71,7 +71,7 @@ public class Mime extends Monster {
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 30.0F)
 				.add(Attributes.FOLLOW_RANGE, 35.0D)

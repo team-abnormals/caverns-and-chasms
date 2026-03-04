@@ -60,8 +60,8 @@ public class HoldButtonBlockEntity extends BlockEntity {
 				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOff(), SoundSource.BLOCKS);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
 			}
-		    if (state.getValue(HoldButtonBlock.PRESSED) && level.getGameTime() % 2 == 0) {
-			   level.playSound(null, pos, CCSoundEvents.TIN_BUTTON_HOLD.get(), SoundSource.BLOCKS);
+			if (state.getValue(HoldButtonBlock.PRESSED) && level.getGameTime() % 2 == 0) {
+				level.playSound(null, pos, CCSoundEvents.TIN_BUTTON_HOLD.get(), SoundSource.BLOCKS);
 			}
 		}
 	}

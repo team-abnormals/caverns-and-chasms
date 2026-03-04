@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
+import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -24,6 +25,7 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(COPPER_GOLEM.get(), GLARE.get(), RAT.get());
 		this.tag(EntityTypeTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get());
 		this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(KUNAI.get());
+		this.tag(BlueprintEntityTypeTags.FISHES).add(CAVEFISH.get());
 
 		this.tag(SPAWNS_FROM_CAVE_GROWTHS).add(EntityType.BAT, EntityType.SILVERFISH);
 		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.WITHER_SKULL);

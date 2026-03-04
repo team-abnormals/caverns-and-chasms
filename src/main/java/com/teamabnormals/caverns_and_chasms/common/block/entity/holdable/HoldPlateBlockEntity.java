@@ -42,8 +42,8 @@ public class HoldPlateBlockEntity extends BlockEntity {
 				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().pressurePlateClickOff(), SoundSource.BLOCKS);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
 			}
-		    if (state.getValue(HoldPlateBlock.PRESSED) && level.getGameTime() % 2 == 0) {
-			   level.playSound(null, pos, CCSoundEvents.TIN_PRESSURE_PLATE_HOLD.get(), SoundSource.BLOCKS);
+			if (state.getValue(HoldPlateBlock.PRESSED) && level.getGameTime() % 2 == 0) {
+				level.playSound(null, pos, CCSoundEvents.TIN_PRESSURE_PLATE_HOLD.get(), SoundSource.BLOCKS);
 			}
 		}
 	}

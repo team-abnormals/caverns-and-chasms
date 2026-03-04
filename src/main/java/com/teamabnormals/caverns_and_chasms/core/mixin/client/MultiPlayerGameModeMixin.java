@@ -16,7 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MultiPlayerGameMode.class)
 public abstract class MultiPlayerGameModeMixin {
-	@Shadow @Final private Minecraft minecraft;
+	@Shadow
+	@Final
+	private Minecraft minecraft;
 
 	@Inject(at = @At(value = "RETURN", ordinal = 4), method = "performUseItemOn")
 	public void startUseItem(LocalPlayer player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {

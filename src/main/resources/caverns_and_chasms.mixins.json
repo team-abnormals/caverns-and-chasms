@@ -26,6 +26,7 @@
     "EntityHitResultMixin",
     "ExplosionMixin",
     "FallingBlockEntityMixin",
+    "FollowFlockLeaderGoalMixin",
     "FurnaceFuelSlotMixin",
     "HoneycombItemMixin",
     "InteractWithDoorMixin",

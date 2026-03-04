@@ -151,7 +151,7 @@ public class CCStructureTypes {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
 
 			createPool(context, FORGE, empty, FORGES);
-            createPool(context, FORGE_ROOVES, empty, ROOVES);
+			createPool(context, FORGE_ROOVES, empty, ROOVES);
 			createPool(context, FORGE_ENTRANCES, empty, ENTRANCES);
 			createPool(context, FORGE_FIREPLACES, empty, FIREPLACES);
 			createPool(context, FORGE_ARCHAEOLOGY, empty, ARCHAEOLOGY);

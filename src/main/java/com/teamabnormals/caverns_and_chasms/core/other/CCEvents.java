@@ -564,7 +564,7 @@ public class CCEvents {
 
 			if (slownessInfliction > 0.0F) {
 				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
-	        	attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
+				attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
 			}
 		}
 
@@ -622,7 +622,7 @@ public class CCEvents {
 			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
 			level.levelEvent(i, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
 		}
-		
+
 		// TODO: Maybe use a tag?
 		if (entity instanceof Rat rat && rat.getHealth() >= rat.getMaxHealth() && source.getEntity() instanceof LivingEntity) {
 			event.setAmount(rat.getHealth() - 1.0F);
