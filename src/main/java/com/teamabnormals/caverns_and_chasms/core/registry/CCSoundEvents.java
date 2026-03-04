@@ -353,6 +353,11 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GRAZER_CHARGE = HELPER.createSoundEvent("entity.grazer.charge");
 	public static final RegistryObject<SoundEvent> GRAZER_STRUGGLE = HELPER.createSoundEvent("entity.grazer.struggle");
 	public static final RegistryObject<SoundEvent> GRAZER_STEP = HELPER.createSoundEvent("entity.grazer.step");
+	
+	public static final RegistryObject<SoundEvent> CAVEFISH_DEATH = HELPER.createSoundEvent("entity.cavefish.death");
+	public static final RegistryObject<SoundEvent> CAVEFISH_HURT = HELPER.createSoundEvent("entity.cavefish.hurt");
+	public static final RegistryObject<SoundEvent> CAVEFISH_AMBIENT = HELPER.createSoundEvent("entity.cavefish.ambient");
+	public static final RegistryObject<SoundEvent> CAVEFISH_FLOP = HELPER.createSoundEvent("entity.cavefish.flop");
 
 	public static final RegistryObject<SoundEvent> BLUNT_ARROW_HIT = HELPER.createSoundEvent("entity.blunt_arrow.hit");
 
