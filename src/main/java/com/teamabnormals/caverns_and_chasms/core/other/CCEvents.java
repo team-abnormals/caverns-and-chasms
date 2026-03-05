@@ -931,7 +931,7 @@ public class CCEvents {
 	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random, boolean fromServer) {
 		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
 
-		for (int i = 0; i < 3; ++i) {
+		for (int i = 0; i < 4; ++i) {
 			double d1 = normal.x * 0.2D + random.nextGaussian() * 0.05D;
 			double d2 = normal.y * 0.2D + random.nextGaussian() * 0.05D;
 			double d3 = normal.z * 0.2D + random.nextGaussian() * 0.05D;
