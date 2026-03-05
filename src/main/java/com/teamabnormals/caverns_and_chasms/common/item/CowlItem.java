@@ -10,6 +10,8 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
@@ -114,5 +117,19 @@ public class CowlItem extends DyeableArmorItem {
 		if (stealth < 1.0D) {
 			event.modifyVisibility(Math.max(0.0D, stealth));
 		}
+	}
+
+	public static void tweakModel(LivingEntity entity, HumanoidModel<?> model) {
+		if (entity.getItemBySlot(EquipmentSlot.CHEST).is(Tags.Items.ARMORS_CHESTPLATES)) {
+			setScale(model.head, 0.95F);
+		} else {
+			setScale(model.head, 1.02F);
+		}
+	}
+
+	private static void setScale(ModelPart part, float scale) {
+		part.xScale = scale;
+		part.yScale = scale;
+		part.zScale = scale;
 	}
 }

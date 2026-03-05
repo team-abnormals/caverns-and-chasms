@@ -58,10 +58,14 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 	}
 
 	public static float getBothAlpha() {
-		return 0.15F;
+		return 0.2F;
 	}
 
-	public static float getDefaultAlpha() {
-		return 0.5F;
+	public static float getFadedAlpha() {
+		return 0.4F;
+	}
+
+	public static float getEmissiveAlpha() {
+		return 0.6F;
 	}
 }

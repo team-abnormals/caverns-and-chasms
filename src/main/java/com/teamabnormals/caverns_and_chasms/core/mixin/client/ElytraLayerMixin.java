@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.ElytraModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -21,8 +22,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ElytraLayer.class)
 public abstract class ElytraLayerMixin<T extends LivingEntity> {
@@ -32,10 +31,12 @@ public abstract class ElytraLayerMixin<T extends LivingEntity> {
 	@Unique
 	private static final ResourceLocation MIME_WINGS_LOCATION = CavernsAndChasms.location("textures/entity/mime_elytra.png");
 
-	@Inject(method = "getElytraTexture", at = @At("RETURN"), cancellable = true, remap = false)
-	public void getElytraTexture(ItemStack stack, T entity, CallbackInfoReturnable<ResourceLocation> cir) {
+	@WrapOperation(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/RenderType;armorCutoutNoCull(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"))
+	public RenderType getElytraTexture(ResourceLocation texture, Operation<RenderType> original, PoseStack poseStack, MultiBufferSource bufferSource, int i, T entity) {
 		if (entity.getType() == CCEntityTypes.MIME.get() || entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.MIME_HEAD.get())) {
-			cir.setReturnValue(MIME_WINGS_LOCATION);
+			return RenderType.armorCutoutNoCull(MIME_WINGS_LOCATION);
+		} else {
+			return original.call(texture);
 		}
 	}
 

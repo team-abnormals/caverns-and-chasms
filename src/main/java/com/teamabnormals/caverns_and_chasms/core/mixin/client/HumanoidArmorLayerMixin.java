@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
+import com.teamabnormals.caverns_and_chasms.common.item.CowlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -36,6 +37,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraftforge.common.Tags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -107,6 +109,9 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	public A renderArmorPieceForCowl(HumanoidArmorLayer layer, EquipmentSlot slot, Operation<A> original, PoseStack poseStack, MultiBufferSource source, int p_117098_, T entity) {
 		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (stack.is(CCItems.COWL.get())) {
+			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(Tags.Items.ARMORS_CHESTPLATES)) {
+				return this.outerModel;
+			}
 			return this.innerModel;
 		}
 		return original.call(layer, slot);
@@ -119,6 +124,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			model.body.visible = true;
 			model.rightArm.visible = true;
 			model.leftArm.visible = true;
+			CowlItem.tweakModel(entity, model);
 		}
 	}
 
@@ -150,7 +156,10 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(inner ? trim.innerTexture(material) : trim.outerTexture(material));
 			Function<ResourceLocation, RenderType> type = emissive ? CCRenderTypes.ARMOR_CUTOUT_NO_CULL_EMISSIVE : CCRenderTypes.ARMOR_TRANSLUCENT_NO_CULL;
 			VertexConsumer vertexconsumer = sprite.wrap(source.getBuffer(type.apply(Sheets.ARMOR_TRIMS_SHEET)));
-			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, faded && emissive ? TrimModifierSmithingTemplateItem.getBothAlpha() : TrimModifierSmithingTemplateItem.getDefaultAlpha());
+			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F,
+					faded && emissive ? TrimModifierSmithingTemplateItem.getBothAlpha() :
+							faded ? TrimModifierSmithingTemplateItem.getFadedAlpha() :
+									TrimModifierSmithingTemplateItem.getEmissiveAlpha());
 			ci.cancel();
 		}
 	}

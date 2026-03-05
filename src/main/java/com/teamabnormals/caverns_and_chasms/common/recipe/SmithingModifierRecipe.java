@@ -21,6 +21,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeHooks;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -106,7 +107,7 @@ public class SmithingModifierRecipe implements SmithingRecipe {
 
 	@Override
 	public boolean isIncomplete() {
-		return Stream.of(this.template, this.base, this.addition).anyMatch(net.minecraftforge.common.ForgeHooks::hasNoElements);
+		return Stream.of(this.template, this.base, this.addition).anyMatch(ForgeHooks::hasNoElements);
 	}
 
 	public static class Serializer implements RecipeSerializer<SmithingModifierRecipe> {

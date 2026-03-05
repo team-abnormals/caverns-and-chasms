@@ -160,10 +160,10 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(ItemTags.HOES).addTag(CCItemTags.COPPER_HOES).add(SILVER_HOE.get(), NECROMIUM_HOE.get());
 		this.tag(ItemTags.SHOVELS).addTag(CCItemTags.COPPER_SHOVELS).add(SILVER_SHOVEL.get(), NECROMIUM_SHOVEL.get());
 
-		this.tag(Tags.Items.ARMORS_HELMETS).addTag(CCItemTags.COPPER_HELMETS).add(SILVER_HELMET.get(), NECROMIUM_HELMET.get(), COWL.get());
-		this.tag(Tags.Items.ARMORS_CHESTPLATES).addTag(CCItemTags.COPPER_CHESTPLATES).add(SILVER_CHESTPLATE.get(), NECROMIUM_CHESTPLATE.get());
-		this.tag(Tags.Items.ARMORS_LEGGINGS).addTag(CCItemTags.COPPER_LEGGINGS).add(SILVER_LEGGINGS.get(), NECROMIUM_LEGGINGS.get(), TOOLBELT.get());
-		this.tag(Tags.Items.ARMORS_BOOTS).addTag(CCItemTags.COPPER_BOOTS).add(SILVER_BOOTS.get(), NECROMIUM_BOOTS.get());
+		this.tag(Tags.Items.ARMORS_HELMETS).addTag(CCItemTags.COPPER_HELMETS).add(SILVER_HELMET.get(), NECROMIUM_HELMET.get(), COWL.get(), SANGUINE_HELMET.get());
+		this.tag(Tags.Items.ARMORS_CHESTPLATES).addTag(CCItemTags.COPPER_CHESTPLATES).add(SILVER_CHESTPLATE.get(), NECROMIUM_CHESTPLATE.get(), SANGUINE_CHESTPLATE.get());
+		this.tag(Tags.Items.ARMORS_LEGGINGS).addTag(CCItemTags.COPPER_LEGGINGS).add(SILVER_LEGGINGS.get(), NECROMIUM_LEGGINGS.get(), TOOLBELT.get(), SANGUINE_LEGGINGS.get());
+		this.tag(Tags.Items.ARMORS_BOOTS).addTag(CCItemTags.COPPER_BOOTS).add(SILVER_BOOTS.get(), NECROMIUM_BOOTS.get(), SANGUINE_BOOTS.get());
 
 		this.tag(CCItemTags.BOTTLES_MILK);
 		this.tag(CCItemTags.ENDER_FIRE_BASE_BLOCKS);
