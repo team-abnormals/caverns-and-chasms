@@ -34,8 +34,8 @@ public class MimeModel extends PlayerModel<Mime> {
 		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offset(0.0F, 2.0F, 0.0F));
 		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-5.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(5.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-1.9F, 12.0F, 0.0F));
-		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(1.9F, 12.0F, 0.0F));
+		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-2.0F, 12.0F, 0.0F));
+		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(2.0F, 12.0F, 0.0F));
 		root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
