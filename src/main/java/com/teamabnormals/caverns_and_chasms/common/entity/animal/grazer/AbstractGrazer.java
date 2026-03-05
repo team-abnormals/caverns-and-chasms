@@ -135,7 +135,7 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(CCSoundEvents.GRAZER_STEP.get(), 0.15F, 1.0F);
+		this.playSound(CCSoundEvents.GRAZER_STEP.get(), 1.0F, 1.0F);
 	}
 
 	@Override
