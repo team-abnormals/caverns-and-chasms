@@ -29,7 +29,8 @@ public class WinchBlockEntity extends BlockEntity {
 		super.load(compound);
 		this.pressTime = compound.getShort("PressTime");
 		this.rotation = compound.getFloat("Rotation");
-		// this.rotationO = this.rotation;
+		this.rewindSpeed = compound.getFloat("RewindSpeed");
+		this.forceRollBack = compound.getBoolean("ForceRollBack");
 	}
 
 	@Override
@@ -37,6 +38,8 @@ public class WinchBlockEntity extends BlockEntity {
 		super.saveAdditional(compound);
 		compound.putShort("PressTime", (short) this.pressTime);
 		compound.putFloat("Rotation", this.rotation);
+		compound.putFloat("RewindSpeed", this.rewindSpeed);
+		compound.putBoolean("ForceRollBack", this.forceRollBack);
 	}
 
 	@Override

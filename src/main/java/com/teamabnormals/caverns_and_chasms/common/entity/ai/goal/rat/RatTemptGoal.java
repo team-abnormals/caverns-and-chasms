@@ -15,6 +15,6 @@ public class RatTemptGoal extends TemptGoal {
 
 	@Override
 	public boolean canUse() {
-		return this.rat.trustsPlayers() && super.canUse();
+		return this.rat.isTameOrTrusting() && super.canUse();
 	}
 }

@@ -144,7 +144,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean removeWhenFarAway(double distanceSqr) {
-		return !this.isTame() && !this.trustsPlayers();
+		return !this.isTameOrTrusting();
 	}
 
 	@Override
@@ -522,7 +522,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.rottenFleshPos;
 	}
 
-	public boolean trustsPlayers() {
+	public boolean isTameOrTrusting() {
 		return this.isTrusting() || this.isTame();
 	}
 
@@ -561,7 +561,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public boolean isScaredOf(LivingEntity target) {
 		if (this.getOwner() == target)
 			return false;
-		else if (!this.trustsPlayers() && target instanceof Player)
+		else if (!this.isTameOrTrusting() && target instanceof Player)
 			return true;
 		else if (this.getLastHurtByMob() == target)
 			return true;
@@ -805,7 +805,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		Rat child = CCEntityTypes.RAT.get().create(level);
 		if (child != null && parent instanceof Rat rat) {
 			child.setVariant(this.random.nextBoolean() ? rat.getVariant() : this.getVariant());
-			if (this.trustsPlayers() || rat.trustsPlayers()) {
+			if (this.isTameOrTrusting() || rat.isTameOrTrusting()) {
 				child.setTrusting(true);
 			}
 		}
