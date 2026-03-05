@@ -30,7 +30,7 @@ public class GrazerRunGoal extends Goal {
 	public boolean canUse() {
 		if (this.grazer.getState() == GrazerState.RUNNING_STILL || this.grazer.getState() == GrazerState.RUNNING) {
 			return true;
-		} else if (this.grazer.getState() != GrazerState.DEFAULT) {
+		} else if (!this.grazer.isIdleState(this.grazer.getState())) {
 			return false;
 		} else if (this.cooldown-- > 0) {
 			return false;

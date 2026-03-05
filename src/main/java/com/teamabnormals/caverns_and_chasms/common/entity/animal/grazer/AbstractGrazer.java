@@ -52,7 +52,7 @@ public abstract class AbstractGrazer extends Animal {
 		return livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox()) && !livingentity.isPassenger();
 	});
 
-	private static final EntityDataAccessor<Integer> RUN_PHASE = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> BODY_LOWER_AMOUNT = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.FLOAT);
 
 	private final GrazerPart[] parts = new GrazerPart[7];
@@ -66,8 +66,6 @@ public abstract class AbstractGrazer extends Animal {
 	private double bounceHeight;
 	private float bodyLowerAmountO;
 
-	private boolean beingStupid;
-
 	private float runAmount;
 	private float runAmountO;
 	private float bounceAmount;
@@ -78,9 +76,12 @@ public abstract class AbstractGrazer extends Animal {
 	private float onBackAmountO;
 	private float beStupidAmount;
 	private float beStupidAmountO;
+	private float vocalizeAmount;
+	private float vocalizeAmountO;
 
 	private int wingFlapAnim;
 	private int wingFlapAnimO;
+	private int vocalizeTime;
 
 	public AbstractGrazer(EntityType<? extends Animal> type, Level level) {
 		super(type, level);
@@ -109,7 +110,7 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(RUN_PHASE, 0);
+		this.entityData.define(STATE, 0);
 		this.entityData.define(BODY_LOWER_AMOUNT, 0.0F);
 	}
 
@@ -138,9 +139,18 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	@Override
+	public void playAmbientSound() {
+		if (this.getState() == GrazerState.DEFAULT) {
+			super.playAmbientSound();
+			if (!this.level().isClientSide)
+				this.level().broadcastEntityEvent(this, (byte) 7);
+		}
+	}
+
+	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt("RatPose", this.getState().getId());
+		compound.putInt("State", this.getState().getId());
 		compound.putFloat("BodyLowerAmount", this.getBodyLowerAmount());
 		compound.putBoolean("BouncingBackwards", this.bouncingBackwards);
 		compound.putDouble("BounceHeight", this.bounceHeight);
@@ -149,24 +159,28 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.setState(GrazerState.byId(compound.getInt("RatPose")));
+		this.setState(GrazerState.byId(compound.getInt("State")));
 		this.setBodyLowerAmount(compound.getFloat("BodyLowerAmount"));
 		this.bouncingBackwards = compound.getBoolean("BouncingBackwards");
 		this.bounceHeight = compound.getDouble("BounceHeight");
 	}
 
 	public GrazerState getState() {
-		return GrazerState.byId(this.entityData.get(RUN_PHASE));
+		return GrazerState.byId(this.entityData.get(STATE));
 	}
 
 	public void setState(GrazerState state) {
-		this.entityData.set(RUN_PHASE, state.getId());
+		this.entityData.set(STATE, state.getId());
 		this.setSprinting(state == GrazerState.RUNNING);
 		this.setDiscardFriction(this.isBouncingState(state));
 	}
 
 	public boolean isBouncingState(GrazerState state) {
 		return state == GrazerState.BOUNCING || state == GrazerState.LANDING;
+	}
+
+	public boolean isIdleState(GrazerState state) {
+		return state == GrazerState.DEFAULT || state == GrazerState.BEING_STUPID;
 	}
 
 	public boolean canMove() {
@@ -189,7 +203,7 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-		if (RUN_PHASE.equals(key))
+		if (STATE.equals(key))
 			this.refreshDimensions();
 		super.onSyncedDataUpdated(key);
 	}
@@ -396,19 +410,21 @@ public abstract class AbstractGrazer extends Animal {
 		return Mth.lerp(partialTick, this.beStupidAmountO, this.beStupidAmount);
 	}
 
+	public float getVocalizeAmount(float partialTick) {
+		return Mth.lerp(partialTick, this.vocalizeAmountO, this.vocalizeAmount);
+	}
+
 	public float getWingFlapAnim(float partialTick) {
 		return Mth.lerp(partialTick, this.wingFlapAnimO, this.wingFlapAnim);
 	}
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		if (id == 4) {
-			this.beingStupid = true;
-		} else if (id == 5) {
-			this.beingStupid = false;
-		} else if (id == 6) {
+		if (id == 6) {
 			this.wingFlapAnim = 20;
 			this.wingFlapAnimO = this.wingFlapAnim;
+		} else if (id == 7) {
+			this.vocalizeTime = 25;
 		}
 		super.handleEntityEvent(id);
 	}
@@ -449,10 +465,16 @@ public abstract class AbstractGrazer extends Animal {
 				this.onBackAmount = Math.max(0.0F, this.onBackAmount - 0.1F);
 
 			this.beStupidAmountO = this.beStupidAmount;
-			if (this.beingStupid)
+			if (this.getState() == GrazerState.BEING_STUPID)
 				this.beStupidAmount = Math.min(1.0F, this.beStupidAmount + 0.003F);
 			else
 				this.beStupidAmount = Math.max(0.0F, this.beStupidAmount - 0.2F);
+
+			this.vocalizeAmountO = this.vocalizeAmount;
+			if (this.vocalizeTime > 0)
+				this.vocalizeAmount = Math.min(1.0F, this.vocalizeAmount + 0.2F);
+			else
+				this.vocalizeAmount = Math.max(0.0F, this.vocalizeAmount - 0.025F);
 
 			this.wingFlapAnimO = this.wingFlapAnim;
 			this.bodyLowerAmountO = this.getBodyLowerAmount();
@@ -466,6 +488,9 @@ public abstract class AbstractGrazer extends Animal {
 
 		if (this.wingFlapAnim > 0)
 			this.wingFlapAnim--;
+
+		if (this.vocalizeTime > 0)
+			this.vocalizeTime--;
 
 		double d0 = this.shellRadius();
 		Vec3 vec3 = new Vec3(0.0D, this.shellCenterY(1.0F), this.shellCenterZ(1.0F)).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
@@ -521,7 +546,7 @@ public abstract class AbstractGrazer extends Animal {
 		if (this.getAge() < 0 && !this.level().noCollision(this, this.getType().getDimensions().scale(0.5F, 1.0F).makeBoundingBox(this.position()).deflate(1.0E-6D)))
 			this.setAge(this.age - 1);
 
-		if (this.getState() == GrazerState.DEFAULT) {
+		if (this.isIdleState(this.getState())) {
 			if (this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
 				this.wingFlapAnim = 20;
 				this.level().broadcastEntityEvent(this, (byte) 6);

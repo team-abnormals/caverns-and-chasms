@@ -83,6 +83,7 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 			float wiggleamount = grazer.getWiggleAmount(partialtick);
 			float onbackamount = grazer.getOnBackAmount(partialtick);
 			float bestupidamount = grazer.getBeStupidAmount(partialtick);
+			float vocalizeamount = grazer.getVocalizeAmount(partialtick);
 			float walkamount = 1.0F - Math.max(bounceamount, wiggleamount);
 			float idleanimamount = 1.0F - Math.max(Math.max(runamount, bounceamount), wiggleamount);
 
@@ -109,6 +110,9 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 			float f = -bestupidamount * bestupidamount + 2.0F * bestupidamount;
 			this.body.xRot += -0.2F * f;
 			this.jaw.xRot += 0.6F * f;
+
+			// Open mouth when vocalizing
+			this.jaw.xRot += (0.35F + Mth.cos(ageInTicks) * 0.03F) * Mth.sin(vocalizeamount);
 
 			// Running animation
 			this.body.xRot += (-0.15F - Mth.cos(limbSwing) * 0.15F) * limbSwingAmount * runamount;
