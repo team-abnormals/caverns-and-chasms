@@ -510,6 +510,7 @@ public abstract class AbstractGrazer extends Animal {
 
 		super.aiStep();
 
+		// TODO: Why is this in aiStep?
 		if (this.level().isClientSide) {
 			if (lerpstepsold > 0)
 				this.setXRot((xrotold + (float) Mth.wrapDegrees(this.lerpXRot - (double) xrotold) / (float) lerpstepsold) % 360.0F);

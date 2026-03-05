@@ -753,15 +753,7 @@ public class CCEvents {
 					SoundEvent soundevent = soundtype instanceof TinSoundType tinsoundtype ? tinsoundtype.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
 					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
 
-					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random);
-
-					for (int l = 0; l < 3; ++l) {
-						Vec3 vec3 = movement.reverse().normalize();
-						double d1 = vec3.x * 0.2D + random.nextGaussian() * 0.05D;
-						double d2 = vec3.y * 0.2D + random.nextGaussian() * 0.05D;
-						double d3 = vec3.z * 0.2D + random.nextGaussian() * 0.05D;
-						level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
-					}
+					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random, false);
 
 					event.setCanceled(true);
 				}
@@ -786,7 +778,7 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					CCEvents.playRicochetEffects(level, location, reflect.reverse().normalize(), movement.lengthSqr(), random);
+					playRicochetEffects(level, location, movement.reverse().normalize(), movement.lengthSqr(), random, false);
 				}
 
 				grazer.addDeflectedProjectile(projectile);
@@ -936,27 +928,26 @@ public class CCEvents {
 		}
 	}
 
-	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random) {
+	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random, boolean fromServer) {
 		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
 
 		for (int i = 0; i < 3; ++i) {
 			double d1 = normal.x * 0.2D + random.nextGaussian() * 0.05D;
 			double d2 = normal.y * 0.2D + random.nextGaussian() * 0.05D;
 			double d3 = normal.z * 0.2D + random.nextGaussian() * 0.05D;
-			level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
+			if (fromServer)
+				NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), location.x, location.y, location.z, d1, d2, d3);
+			else
+				level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
 		}
 	}
 
-	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, RandomSource random) {
-		playRicochetEffects(level, location, normal, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F, random);
+	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, RandomSource random, boolean formServer) {
+		playRicochetEffects(level, location, normal, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F, random, formServer);
 	}
 
 	public static void playRicochetSound(Level level, Vec3 location, double speed, SoundEvent soundEvent, float pitchMultiplier) {
 		level.playSound(null, location.x, location.y, location.z, soundEvent, SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F * pitchMultiplier, 1.8F));
-	}
-
-	public static void playRicochetSound(Level level, Vec3 location, double speed) {
-		playRicochetSound(level, location, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F);
 	}
 
 	private static void rewindTeleport(LivingEntity entity) {
