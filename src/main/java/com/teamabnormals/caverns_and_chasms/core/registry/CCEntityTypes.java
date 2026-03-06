@@ -40,6 +40,7 @@ public class CCEntityTypes {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final MobCategory LOST_GOAT_CATEGORY = MobCategory.create(CavernsAndChasms.MOD_ID + ":lost_goat", "lost_goat", 1, false, false, 128);
+	public static final MobCategory UNDERGROUND_WATER_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_water_ambient", "underground_water_ambient", 20, true, false, 128);
 
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<Peeper>> PEEPER = HELPER.createLivingEntity("peeper", Peeper::new, MobCategory.MONSTER, 0.6F, 2.2F);
@@ -51,7 +52,7 @@ public class CCEntityTypes {
 	public static final RegistryObject<EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.register("oxidized_copper_golem", () -> EntityType.Builder.<OxidizedCopperGolem>of(OxidizedCopperGolem::new, MobCategory.MISC).fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(CavernsAndChasms.location("oxidized_copper_golem").toString()));
 	public static final RegistryObject<EntityType<Grazer>> GRAZER = HELPER.createLivingEntity("grazer", Grazer::new, MobCategory.MONSTER, 0.9F, 1.98F);
 	public static final RegistryObject<EntityType<SaddledGrazer>> SADDLED_GRAZER = HELPER.createLivingEntity("saddled_grazer", SaddledGrazer::new, MobCategory.CREATURE, 0.9F, 1.98F);
-	public static final RegistryObject<EntityType<Cavefish>> CAVEFISH = HELPER.createEntity("cavefish", Cavefish::new, Cavefish::new, MobCategory.UNDERGROUND_WATER_CREATURE, 0.4F, 0.3F);
+	public static final RegistryObject<EntityType<Cavefish>> CAVEFISH = HELPER.createEntity("cavefish", Cavefish::new, Cavefish::new, UNDERGROUND_WATER_AMBIENT, 0.4F, 0.3F);
 	public static final RegistryObject<EntityType<Kunai>> KUNAI = HELPER.createEntity("kunai", Kunai::new, Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
 	public static final RegistryObject<EntityType<PrimedTmt>> TMT = ENTITY_TYPES.register("tmt", () -> EntityType.Builder.<PrimedTmt>of(PrimedTmt::new, MobCategory.MISC).fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10).build(CavernsAndChasms.location("tmt").toString()));
 	public static final RegistryObject<EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = HELPER.createEntity("spinel_pearl", ThrownBejeweledPearl::new, ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);

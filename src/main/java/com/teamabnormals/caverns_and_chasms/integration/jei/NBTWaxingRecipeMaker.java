@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.NonNullList;
@@ -16,17 +18,31 @@ import net.minecraft.world.item.crafting.ShapelessRecipe;
 import java.util.Arrays;
 import java.util.List;
 
-public final class ToolboxWaxingRecipeMaker {
-	private static final String group = "caverns_and_chasms.toolbox.wax";
+public final class NBTWaxingRecipeMaker {
 
 	public static List<CraftingRecipe> createRecipes() {
-		return Arrays.asList(
+		List<CraftingRecipe> recipes = Lists.newArrayList();
+		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
+			if (base instanceof WeatheringCopperItem) {
+				NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(base), Ingredient.of(Items.HONEYCOMB));
+				ItemStack output = new ItemStack(waxed);
+				ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
+				String name = base.builtInRegistryHolder().key().location().getPath().replace("exposed_|weathered_|oxidized_", "");
+				recipes.add(new ShapelessRecipe(id, "caverns_and_chasms." + name + ".wax", CraftingBookCategory.EQUIPMENT, output, inputs));
+			}
+		});
+
+		recipes.addAll(Arrays.asList(
 				createRecipe((WeatheringToolboxBlock) CCBlocks.TOOLBOX.get()),
 				createRecipe((WeatheringToolboxBlock) CCBlocks.EXPOSED_TOOLBOX.get()),
 				createRecipe((WeatheringToolboxBlock) CCBlocks.WEATHERED_TOOLBOX.get()),
 				createRecipe((WeatheringToolboxBlock) CCBlocks.OXIDIZED_TOOLBOX.get())
-		);
+		));
+
+		return recipes;
 	}
+
+	private static final String group = "caverns_and_chasms.toolbox.wax";
 
 	private static CraftingRecipe createRecipe(WeatheringToolboxBlock toolbox) {
 		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(toolbox), Ingredient.of(Items.HONEYCOMB));
