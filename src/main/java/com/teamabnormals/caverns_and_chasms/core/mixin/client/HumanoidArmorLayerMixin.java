@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
-import com.teamabnormals.caverns_and_chasms.common.item.CowlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -124,8 +123,19 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			model.body.visible = true;
 			model.rightArm.visible = true;
 			model.leftArm.visible = true;
-			CowlItem.tweakModel(entity, model);
+			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(Tags.Items.ARMORS_CHESTPLATES)) {
+				setScale(model.head, 0.95F);
+			} else {
+				setScale(model.head, 1.02F);
+			}
 		}
+	}
+
+	@Unique
+	private static void setScale(ModelPart part, float scale) {
+		part.xScale = scale;
+		part.yScale = scale;
+		part.zScale = scale;
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hasFoil()Z", shift = At.Shift.BEFORE), method = "renderArmorPiece")
