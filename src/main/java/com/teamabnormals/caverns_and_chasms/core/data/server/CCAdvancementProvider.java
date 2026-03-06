@@ -47,6 +47,10 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("ancient_hoes", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_HOE, CCItems.NECROMIUM_HOE.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_ancient_hoes");
 
+		createAdvancement("obtain_bone_flute", "husbandry", new ResourceLocation("husbandry/tame_an_animal"), CCItems.BONE_FLUTE.get(), FrameType.TASK, true, true, false)
+				.addCriterion("bone_flute", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.BONE_FLUTE.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_bone_flute");
+
 		createAdvancement("necromium_armor", "nether", new ResourceLocation("nether/obtain_ancient_debris"), CCItems.NECROMIUM_CHESTPLATE.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.addCriterion("necromium_armor", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get()))

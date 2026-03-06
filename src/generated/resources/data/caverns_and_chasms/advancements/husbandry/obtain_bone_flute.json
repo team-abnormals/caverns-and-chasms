@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:husbandry/tame_an_animal",
+  "criteria": {
+    "bone_flute": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:bone_flute"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.husbandry.obtain_bone_flute.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:bone_flute"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.husbandry.obtain_bone_flute.title"
+    }
+  },
+  "requirements": [
+    [
+      "bone_flute"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
