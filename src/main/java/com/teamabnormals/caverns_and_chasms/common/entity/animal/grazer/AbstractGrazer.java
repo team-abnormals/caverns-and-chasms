@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
+import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBeBabyGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBeStupidGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
@@ -586,15 +587,16 @@ public abstract class AbstractGrazer extends Animal {
 			LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
 			if (livingentity != null) {
 				if (livingentity instanceof AbstractGrazer other && !other.isBaby()) {
-					GrazerState otherstate = other.getState();
-					double d0 = this.position().distanceTo(other.position()) - this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement()));
+					Vec3 posdiff = other.position().subtract(this.position());
+					double distance = posdiff.length();
 
-					if (d0 > 0.0D) {
-						Vec3 deltapos = other.position().subtract(this.position());
+					double distancechange = this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement())) - distance;
+
+					if (distancechange < 0.0D) {
 						Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
 
-						Vec3 collvector = deltapos.scale(motion.dot(deltapos) / deltapos.dot(deltapos));
-						Vec3 othercollvector = deltapos.scale(other.getDeltaMovement().dot(deltapos) / deltapos.dot(deltapos));
+						Vec3 collvector = posdiff.scale(motion.dot(posdiff) / posdiff.dot(posdiff));
+						Vec3 othercollvector = posdiff.scale(other.getDeltaMovement().dot(posdiff) / posdiff.dot(posdiff));
 
 						Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
 						Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
@@ -606,7 +608,7 @@ public abstract class AbstractGrazer extends Animal {
 							newmotion.add(0.0D, this.bounceHeight, 0.0D);
 						}
 
-						if (!this.isBouncingState(otherstate)) {
+						if (!this.isBouncingState(other.getState())) {
 							other.setState(GrazerState.BOUNCING);
 							other.bounceHeight = this.bounceHeight;
 							othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
@@ -615,7 +617,18 @@ public abstract class AbstractGrazer extends Animal {
 						this.setDeltaMovement(newmotion);
 						other.setDeltaMovement(othernewmotion);
 
-						CCEvents.playRicochetSound(this.level(), this.position(), d0, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+						double horizontaldist = Math.sqrt(posdiff.x * posdiff.x + posdiff.z * posdiff.z);
+						double d0 = (horizontaldist + this.getBbWidth() * 0.5D - other.getBbWidth() * 0.5D) / horizontaldist * 0.5D;
+
+						Vec3 collpoint = new Vec3(this.position().x + posdiff.x * d0, (this.position().y + this.getBbHeight() + other.position().y) * 0.5D, this.position().z + posdiff.z * d0);
+						CCEvents.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+
+						for (int i = 0; i < 4; i++) {
+							double d1 = this.random.nextGaussian() * 0.05D;
+							double d2 = 0.3D + this.random.nextGaussian() * 0.05D;
+							double d3 = this.random.nextGaussian() * 0.05D;
+							NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), collpoint.x, collpoint.y, collpoint.z, d1, d2, d3);
+						}
 					}
 				} else {
 					// TODO: Add knockback
@@ -638,11 +651,13 @@ public abstract class AbstractGrazer extends Animal {
 		GrazerState state = this.getState();
 		if (!this.level().isClientSide && this.isAlive() && !this.noPhysics && (state == GrazerState.RUNNING || this.isBouncingState(state))) {
 			Vec3 newmotion = oldmotion;
+			Vec3 collpoint = Vec3.ZERO;
 			boolean ricocheted = false;
 			boolean horizontal = false;
 
 			if (xold + movement.x != this.getX()) {
 				newmotion = new Vec3(-oldmotion.x, oldmotion.y, oldmotion.z);
+				collpoint = new Vec3(this.getBbWidth() * 0.5D * (movement.x >= 0 ? 1 : - 1), collpoint.y, collpoint.z);
 				ricocheted = true;
 				horizontal = true;
 			}
@@ -650,6 +665,7 @@ public abstract class AbstractGrazer extends Animal {
 				double d0 = yold + movement.y;
 				if (d0 > this.getY()) {
 					newmotion = new Vec3(oldmotion.x, -oldmotion.y, oldmotion.z);
+					collpoint = new Vec3(collpoint.x, this.getBbHeight(), collpoint.z);
 					ricocheted = true;
 				} else if (d0 < this.getY()) {
 					if (this.bounceHeight < 0.4D && this.getState() != GrazerState.LANDING)
@@ -661,6 +677,7 @@ public abstract class AbstractGrazer extends Animal {
 			}
 			if (zold + movement.z != this.getZ()) {
 				newmotion = new Vec3(oldmotion.x, oldmotion.y, -oldmotion.z);
+				collpoint = new Vec3(collpoint.x, collpoint.y, this.getBbWidth() * 0.5D * (movement.z >= 0 ? 1 : - 1));
 				ricocheted = true;
 				horizontal = true;
 			}
@@ -683,7 +700,20 @@ public abstract class AbstractGrazer extends Animal {
 
 				this.setDeltaMovement(newmotion);
 
-				CCEvents.playRicochetSound(this.level(), this.position(), newmotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+				Vec3 vec3 = this.position().add(collpoint);
+				Vec3 vec31 = oldmotion.reverse().normalize();
+				CCEvents.playRicochetSound(this.level(), vec3, newmotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+
+				for (int i = 0; i < 8; i++) {
+					double d1 = vec31.x * 0.3D + this.random.nextGaussian() * 0.05D;
+					double d2 = vec31.y * 0.3D + this.random.nextGaussian() * 0.05D;
+					double d3 = vec31.z * 0.3D + this.random.nextGaussian() * 0.05D;
+					double d7 = 1.0D + this.random.nextDouble() * 2.0D;
+					double d4 = vec3.x + vec31.x * d7 + this.random.nextGaussian() * 0.2D;
+					double d5 = vec3.y + vec31.y + this.random.nextGaussian() * 0.2D;
+					double d6 = vec3.z + vec31.z * d7 + this.random.nextGaussian() * 0.2D;
+					NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), d4, d5, d6, d1, d2, d3);
+				}
 			}
 		}
 	}
