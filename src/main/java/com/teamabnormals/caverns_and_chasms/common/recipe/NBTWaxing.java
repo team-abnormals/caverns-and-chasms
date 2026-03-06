@@ -1,11 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.recipe;
 
-import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -14,11 +15,10 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 
-public class ToolboxWaxing extends CustomRecipe {
+public class NBTWaxing extends CustomRecipe {
 
-	public ToolboxWaxing(ResourceLocation id, CraftingBookCategory category) {
+	public NBTWaxing(ResourceLocation id, CraftingBookCategory category) {
 		super(id, category);
 	}
 
@@ -30,7 +30,7 @@ public class ToolboxWaxing extends CustomRecipe {
 		for (int k = 0; k < container.getContainerSize(); ++k) {
 			ItemStack stack = container.getItem(k);
 			if (!stack.isEmpty()) {
-				if (Block.byItem(stack.getItem()) instanceof WeatheringToolboxBlock) {
+				if (Block.byItem(stack.getItem()) instanceof WeatheringToolboxBlock || stack.getItem() instanceof WeatheringCopperItem) {
 					++i;
 				} else {
 					if (!stack.is(Items.HONEYCOMB)) {
@@ -52,25 +52,29 @@ public class ToolboxWaxing extends CustomRecipe {
 	@Override
 	public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
 		ItemStack returnStack = ItemStack.EMPTY;
-		WeatherState weatherState = WeatherState.UNAFFECTED;
-
 		for (int i = 0; i < container.getContainerSize(); ++i) {
 			ItemStack stack = container.getItem(i);
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
-				if (Block.byItem(item) instanceof WeatheringToolboxBlock weatheringToolboxBlock) {
+				if (Block.byItem(item) instanceof WeatheringToolboxBlock || item instanceof WeatheringCopperItem) {
 					returnStack = stack;
-					weatherState = weatheringToolboxBlock.getWeatherState();
+					break;
 				}
 			}
 		}
 
-		ItemStack weatheredStack = ToolboxBlock.getWeatheredItemStack(weatherState, false);
-		if (returnStack.hasTag()) {
-			weatheredStack.setTag(returnStack.getTag().copy());
+		ItemStack waxedStack;
+		if (Block.byItem(returnStack.getItem()) instanceof WeatheringToolboxBlock) {
+			waxedStack = new ItemStack(HoneycombItem.getWaxed(Block.byItem(returnStack.getItem()).defaultBlockState()).get().getBlock().asItem());
+		} else {
+			waxedStack = WeatheringCopperItem.getWaxed(returnStack).get();
 		}
 
-		return weatheredStack;
+		if (returnStack.hasTag()) {
+			waxedStack.setTag(returnStack.getTag().copy());
+		}
+
+		return waxedStack;
 	}
 
 	@Override
@@ -80,6 +84,6 @@ public class ToolboxWaxing extends CustomRecipe {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return CCRecipeSerializers.TOOLBOX_WAXING.get();
+		return CCRecipeSerializers.NBT_WAXING.get();
 	}
 }

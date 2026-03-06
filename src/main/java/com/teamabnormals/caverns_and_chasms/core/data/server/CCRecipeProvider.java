@@ -132,7 +132,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		copperIngotRecipes(consumer, CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), Blocks.WAXED_OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_DOOR.get(), WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), WAXED_OXIDIZED_COPPER_BARS.get(), WAXED_OXIDIZED_COPPER_BUTTON.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_FLOODLIGHT.get(), WAXED_OXIDIZED_TOOLBOX.get());
 
 		SpecialRecipeBuilder.special(CCRecipeSerializers.MUSIC_DISC_COPYING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":music_disc_copying");
-		SpecialRecipeBuilder.special(CCRecipeSerializers.TOOLBOX_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":toolbox_waxing");
+		SpecialRecipeBuilder.special(CCRecipeSerializers.NBT_WAXING.get()).save(consumer, CavernsAndChasms.MOD_ID + ":nbt_waxing");
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.TUNING_FORK.get()).define('#', Tags.Items.INGOTS_COPPER).pattern(" # ").pattern(" ##").pattern("#  ").unlockedBy("has_copper_ingot", has(Tags.Items.INGOTS_COPPER)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.BAROMETER.get()).define('#', Tags.Items.INGOTS_COPPER).define('X', Items.REDSTONE).pattern(" # ").pattern("#X#").pattern(" # ").unlockedBy("has_redstone", has(Items.REDSTONE)).save(consumer);
 		waxRecipe(consumer, DECORATIONS, CCItems.OXIDIZED_COPPER_GOLEM.get(), CCItems.WAXED_OXIDIZED_COPPER_GOLEM.get());
@@ -653,9 +653,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		});
 
 		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
-			if (BuiltInRegistries.ITEM.getKey(waxed).getNamespace().equals(this.getModID())) {
-				RecipeCategory category = (waxed instanceof ArmorItem || waxed instanceof SwordItem) ? COMBAT : TOOLS;
-				ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(Items.HONEYCOMB).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
+			if (!(base instanceof WeatheringCopperItem)) {
+				ShapelessRecipeBuilder.shapeless(MISC, waxed).requires(base).requires(Items.HONEYCOMB).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
 			}
 		});
 	}
