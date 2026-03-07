@@ -44,7 +44,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class AbstractGrazer extends Animal {
-	private static final float ROTATION_SPEED = 15.0F;
+	private static final float BOUNCE_ROT_SPEED = 15.0F;
+	private static final byte FLAP_WINGS_ANIM = 6;
+	private static final byte VOCALIZE_ANIM = 7;
 
 	private static final EntityDimensions BOUNCING_DIMENSIONS = EntityDimensions.scalable(0.9F, 1.625F);
 	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(1.8F, 1.98F);
@@ -144,7 +146,7 @@ public abstract class AbstractGrazer extends Animal {
 		if (this.getState() == GrazerState.DEFAULT) {
 			super.playAmbientSound();
 			if (!this.level().isClientSide)
-				this.level().broadcastEntityEvent(this, (byte) 7);
+				this.level().broadcastEntityEvent(this, VOCALIZE_ANIM);
 		}
 	}
 
@@ -421,13 +423,15 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		if (id == 6) {
-			this.wingFlapAnim = 20;
-			this.wingFlapAnimO = this.wingFlapAnim;
-		} else if (id == 7) {
-			this.vocalizeTime = 25;
+		switch (id) {
+			case (FLAP_WINGS_ANIM):
+				this.wingFlapAnim = 20;
+				this.wingFlapAnimO = this.wingFlapAnim;
+			case (VOCALIZE_ANIM):
+				this.vocalizeTime = 25;
+			default:
+				super.handleEntityEvent(id);
 		}
-		super.handleEntityEvent(id);
 	}
 
 	@Override
@@ -511,7 +515,43 @@ public abstract class AbstractGrazer extends Animal {
 
 		super.aiStep();
 
-		// TODO: Why is this in aiStep?
+		if (this.getState() == GrazerState.BOUNCING) {
+			Vec3 movement = this.getDeltaMovement();
+			this.setXRot(Mth.wrapDegrees(this.getXRot() - BOUNCE_ROT_SPEED));
+			if (!this.level().isClientSide) {
+				if (this.bouncingBackwards)
+					this.setYRot((float) (Mth.atan2(movement.x, -movement.z) * Mth.RAD_TO_DEG));
+				else
+					this.setYRot((float) (Mth.atan2(-movement.x, movement.z) * Mth.RAD_TO_DEG));
+			}
+		} else if (this.getState() == GrazerState.LANDING) {
+			float xrot = Mth.wrapDegrees(this.getXRot());
+			if (xrot == -180.0F || xrot == -90.0F || xrot == 90.0F) {
+				if (!this.level().isClientSide)
+					this.setState(GrazerState.WIGGLING);
+			} else {
+				if (xrot < -90.0F)
+					this.setXRot(Math.max(xrot - BOUNCE_ROT_SPEED, -180.0F));
+				else if (xrot < 90.0F)
+					this.setXRot(Math.max(xrot - BOUNCE_ROT_SPEED, -90.0F));
+				else
+					this.setXRot(Math.max(xrot - BOUNCE_ROT_SPEED, 90.0F));
+			}
+		} else if (this.getState() != GrazerState.WIGGLING) {
+			float xrot = Mth.wrapDegrees(this.getXRot());
+			if (xrot > 0.0F)
+				this.setXRot(Math.max(xrot - 20.0F, 0.0F));
+			else if (xrot < 0.0F)
+				this.setXRot(Math.min(xrot + 20.0F, 0.0F));
+			else if (!this.level().isClientSide && this.getState() == GrazerState.FLIPPING_OVER)
+				this.setState(GrazerState.DEFAULT);
+
+			if (!this.level().isClientSide && this.isIdleState(this.getState()) && this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
+				this.wingFlapAnim = 20;
+				this.level().broadcastEntityEvent(this, FLAP_WINGS_ANIM);
+			}
+		}
+
 		if (this.level().isClientSide) {
 			if (lerpstepsold > 0)
 				this.setXRot((xrotold + (float) Mth.wrapDegrees(this.lerpXRot - (double) xrotold) / (float) lerpstepsold) % 360.0F);
@@ -530,7 +570,7 @@ public abstract class AbstractGrazer extends Animal {
 				Vec3 offsetrotated = offset.xRot(-f).yRot(-f1);
 				Vec3 shellcenter = new Vec3(0.0D, this.shellCenterY(1.0F) - this.getDimensions(net.minecraft.world.entity.Pose.STANDING).height * 0.5D, this.shellCenterZ(1.0F)).yRot(-f1);
 				Vec3 pos = offsetrotated.add(shellcenter).add(this.position());
-				double tangentialspeed = Mth.TWO_PI * 18.0D / ROTATION_SPEED * Math.sqrt(offset.y * offset.y + offset.z * offset.z) * Mth.DEG_TO_RAD;
+				double tangentialspeed = Mth.TWO_PI * 18.0D / BOUNCE_ROT_SPEED * Math.sqrt(offset.y * offset.y + offset.z * offset.z) * Mth.DEG_TO_RAD;
 				Vec3 tangentialvelcity = new Vec3(0.0D, offsetrotated.z, -offsetrotated.y).normalize().scale(tangentialspeed).add(this.getDeltaMovement());
 				this.level().addParticle(CCParticleTypes.DROOL.get(), pos.x, pos.y, pos.z, tangentialvelcity.x + this.random.nextGaussian() * 0.02F, tangentialvelcity.y + this.random.nextGaussian() * 0.02F, tangentialvelcity.z + this.random.nextGaussian() * 0.02F);
 			}
@@ -548,40 +588,6 @@ public abstract class AbstractGrazer extends Animal {
 		if (this.getAge() < 0 && !this.level().noCollision(this, this.getType().getDimensions().scale(0.5F, 1.0F).makeBoundingBox(this.position()).deflate(1.0E-6D)))
 			this.setAge(this.age - 1);
 
-		if (this.isIdleState(this.getState())) {
-			if (this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
-				this.wingFlapAnim = 20;
-				this.level().broadcastEntityEvent(this, (byte) 6);
-			}
-		} else if (this.getState() == GrazerState.BOUNCING) {
-			Vec3 movement = this.getDeltaMovement();
-			this.setXRot(Mth.wrapDegrees(this.getXRot() - ROTATION_SPEED));
-			if (this.bouncingBackwards)
-				this.setYRot((float) (Mth.atan2(movement.x, -movement.z) * Mth.RAD_TO_DEG));
-			else
-				this.setYRot((float) (Mth.atan2(-movement.x, movement.z) * Mth.RAD_TO_DEG));
-		} else if (this.getState() == GrazerState.LANDING) {
-			float xrot = Mth.wrapDegrees(this.getXRot());
-			if (xrot == -180.0F || xrot == -90.0F || xrot == 90.0F) {
-				this.setState(GrazerState.WIGGLING);
-			} else {
-				if (xrot < -90.0F)
-					this.setXRot(Math.max(xrot - ROTATION_SPEED, -180.0F));
-				else if (xrot < 90.0F)
-					this.setXRot(Math.max(xrot - ROTATION_SPEED, -90.0F));
-				else
-					this.setXRot(Math.max(xrot - ROTATION_SPEED, 90.0F));
-			}
-		} else if (this.getState() == GrazerState.FLIPPING_OVER) {
-			float xrot = Mth.wrapDegrees(this.getXRot());
-			if (xrot > 0.0F)
-				this.setXRot(Math.max(xrot - 20.0F, 0.0F));
-			else if (xrot < 0.0F)
-				this.setXRot(Math.min(xrot + 20.0F, 0.0F));
-			else
-				this.setState(GrazerState.DEFAULT);
-		}
-
 		// Colliding with entities while running or bouncing
 		if (this.getState() == GrazerState.RUNNING || this.isBouncingState(this.getState())) {
 			LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
@@ -589,7 +595,6 @@ public abstract class AbstractGrazer extends Animal {
 				if (livingentity instanceof AbstractGrazer other && !other.isBaby()) {
 					Vec3 posdiff = other.position().subtract(this.position());
 					double distance = posdiff.length();
-
 					double distancechange = this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement())) - distance;
 
 					if (distancechange < 0.0D) {
@@ -727,6 +732,14 @@ public abstract class AbstractGrazer extends Animal {
 				return anglediff > 0.0D ? Math.max(-0.6D, -anglediff) : anglediff < 0.0D ? Math.min(0.6D, -anglediff) : 0.0D;
 		}
 		return this.random.nextDouble() - 0.5D;
+	}
+
+	@Override
+	public void knockback(double strength, double ratioX, double ratioZ) {
+		super.knockback(strength, ratioX, ratioZ);
+		if (this.getState() == GrazerState.WIGGLING) {
+			this.setState(GrazerState.FLIPPING_OVER);
+		}
 	}
 
 	@Override
