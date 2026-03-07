@@ -16,17 +16,17 @@ public enum GrazerState {
 	BEING_STUPID(8);
 
 	private static final IntFunction<GrazerState> BY_ID = ByIdMap.continuous(GrazerState::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-	private final int id;
+	private final byte id;
 
 	GrazerState(int id) {
-		this.id = id;
+		this.id = (byte) id;
 	}
 
-	public int getId() {
+	public byte getId() {
 		return this.id;
 	}
 
-	public static GrazerState byId(int id) {
+	public static GrazerState byId(byte id) {
 		return BY_ID.apply(id);
 	}
 }

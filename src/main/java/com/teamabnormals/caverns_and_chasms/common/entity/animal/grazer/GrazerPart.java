@@ -49,7 +49,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 	public void updatePosition() {
 		AbstractGrazer grazer = this.getParent();
 
-		Vec3 oldpos = this.calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.xRotO, grazer.yRotO);
+		Vec3 oldpos = this.calculatePosition(grazer.xOld, grazer.yOld, grazer.zOld, grazer.customXRotO, grazer.yRotO);
 		this.xo = oldpos.x;
 		this.yo = oldpos.y;
 		this.zo = oldpos.z;
@@ -57,7 +57,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 		this.yOld = oldpos.y;
 		this.zOld = oldpos.z;
 
-		Vec3 newpos = this.calculatePosition(grazer.getX(), grazer.getY(), grazer.getZ(), grazer.getXRot(), grazer.getYRot());
+		Vec3 newpos = this.calculatePosition(grazer.getX(), grazer.getY(), grazer.getZ(), grazer.getCustomXRot(), grazer.getYRot());
 		this.setPos(newpos.x, newpos.y, newpos.z);
 	}
 
