@@ -41,8 +41,8 @@ import java.util.List;
 public class Deeper extends Creeper implements Shearable, IForgeShearable {
 	private static final EntityDataAccessor<Integer> HAT = SynchedEntityData.defineId(Deeper.class, EntityDataSerializers.INT);
 
-	public Deeper(EntityType<? extends Deeper> type, Level worldIn) {
-		super(type, worldIn);
+	public Deeper(EntityType<? extends Deeper> type, Level level) {
+		super(type, level);
 		this.explosionRadius = 4;
 	}
 
@@ -114,10 +114,10 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 	}
 
 	@Override
-	public List<ItemStack> onSheared(Player player, ItemStack item, Level world, BlockPos pos, int fortune) {
-		world.playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+	public List<ItemStack> onSheared(Player player, ItemStack item, Level level, BlockPos pos, int fortune) {
+		level.playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
 		this.gameEvent(GameEvent.SHEAR, player);
-		if (!world.isClientSide()) {
+		if (!level.isClientSide()) {
 			ItemStack itemstack = new ItemStack(this.getHat().getItem());
 			this.setHat(DeeperHat.NONE);
 			return Collections.singletonList(itemstack);

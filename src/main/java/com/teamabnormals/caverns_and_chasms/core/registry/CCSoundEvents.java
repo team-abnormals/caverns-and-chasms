@@ -364,6 +364,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> REWIND = HELPER.createSoundEvent("effect.rewind.rewind");
 
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_DEEPER = HELPER.createSoundEvent("entity.parrot.imitate.deeper");
+	public static final RegistryObject<SoundEvent> PARROT_IMITATE_EVENDEEPER = HELPER.createSoundEvent("entity.parrot.imitate.evendeeper");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_PEEPER = HELPER.createSoundEvent("entity.parrot.imitate.peeper");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_MIME = HELPER.createSoundEvent("entity.parrot.imitate.mime");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_GRAZER = HELPER.createSoundEvent("entity.parrot.imitate.grazer");

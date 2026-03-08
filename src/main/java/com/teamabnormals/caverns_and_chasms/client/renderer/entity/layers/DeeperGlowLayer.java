@@ -13,14 +13,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class DeeperGlowLayer extends RenderLayer<Deeper, DeeperModel<Deeper>> {
+public class DeeperGlowLayer<T extends Deeper, M extends DeeperModel<T>> extends RenderLayer<T, M> {
 
-	public DeeperGlowLayer(RenderLayerParent<Deeper, DeeperModel<Deeper>> renderer) {
+	public DeeperGlowLayer(RenderLayerParent<T, M> renderer) {
 		super(renderer);
 	}
 
 	@Override
-	public void render(PoseStack stack, MultiBufferSource buffer, int packedLightIn, Deeper deeper, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack stack, MultiBufferSource buffer, int packedLightIn, T deeper, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean charged = deeper.isPowered();
 		float emission = DeeperRenderer.getExplosionEmissionProgress(deeper, partialTick, charged);
 		float alpha = charged ? 1.0F : emission;

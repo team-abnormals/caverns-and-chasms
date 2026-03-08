@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.TinSoundType;
-import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
@@ -152,19 +151,14 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingSpawn(MobSpawnEvent.FinalizeSpawn event) {
 		LivingEntity entity = event.getEntity();
-		LevelAccessor world = event.getLevel();
+		LevelAccessor level = event.getLevel();
 		boolean validSpawn = event.getSpawnType() == MobSpawnType.NATURAL || event.getSpawnType() == MobSpawnType.CHUNK_GENERATION;
 		if (event.getResult() != Result.DENY) {
-			if (validSpawn && entity.getType() == EntityType.CREEPER && event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
-				Creeper creeper = (Creeper) entity;
-				if (world.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
-					Deeper deeper = CCEntityTypes.DEEPER.get().create((Level) world);
-					if (deeper != null) {
-						deeper.copyPosition(creeper);
-						world.addFreshEntity(deeper);
-					}
-					event.setSpawnCancelled(true);
-					event.setResult(Result.DENY);
+			if (validSpawn && entity.getType() == EntityType.CREEPER) {
+				if (event.getY() < CCConfig.COMMON.evendeeperMaxSpawnHeight.get()) {
+					replaceCreeperSpawn((Creeper) entity, CCEntityTypes.EVENDEEPER.get(), level, event);
+				} else if (event.getY() < CCConfig.COMMON.deeperMaxSpawnHeight.get()) {
+					replaceCreeperSpawn((Creeper) entity, CCEntityTypes.DEEPER.get(), level, event);
 				}
 			}
 		}
@@ -975,5 +969,17 @@ public class CCEvents {
 
 		entity.resetFallDistance();
 		entity.playSound(CCSoundEvents.REWIND.get(), 1.0F, 1.0F);
+	}
+
+	private static void replaceCreeperSpawn(Creeper creeper, EntityType entityType, LevelAccessor level, MobSpawnEvent.FinalizeSpawn event) {
+		if (level.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
+			Entity entity = entityType.create((Level) level);
+			if (entity != null) {
+				entity.copyPosition(creeper);
+				level.addFreshEntity(entity);
+			}
+			event.setSpawnCancelled(true);
+			event.setResult(Result.DENY);
+		}
 	}
 }

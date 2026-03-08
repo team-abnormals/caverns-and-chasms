@@ -59,7 +59,7 @@ public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
 		this.model.setupAnim(anim, rot, 0.0F);
 		this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		if (hat != DeeperHat.NONE) {
-			vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(hat.getTexture()));
+			vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(hat.getDeeperTexture()));
 			this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		}
 		poseStack.popPose();
