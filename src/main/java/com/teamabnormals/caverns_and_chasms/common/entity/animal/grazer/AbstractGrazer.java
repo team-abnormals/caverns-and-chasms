@@ -123,7 +123,10 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.2F).add(Attributes.ATTACK_DAMAGE, 3.0D);
+		return Monster.createMonsterAttributes()
+				.add(Attributes.MAX_HEALTH, 26.0D)
+				.add(Attributes.MOVEMENT_SPEED, 0.2F)
+				.add(Attributes.ATTACK_DAMAGE, 3.0D);
 	}
 
 	@Override
