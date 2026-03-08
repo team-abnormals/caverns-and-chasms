@@ -16,6 +16,7 @@ import com.teamabnormals.blueprint.core.util.PropertyUtil.WoodSetProperties;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.DeeperRenderer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.EvendeeperRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.MimeRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.PeeperRenderer;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
@@ -150,8 +151,10 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK));
 
-	public static final RegistryObject<Block> DEEPER_HEAD = HELPER.createBlockNoItem("deeper_head", () -> new DeeperSkullBlock(BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
-	public static final RegistryObject<Block> DEEPER_WALL_HEAD = HELPER.createBlockNoItem("deeper_wall_head", () -> new DeeperWallSkullBlock(BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(DEEPER_HEAD.get())));
+	public static final RegistryObject<Block> DEEPER_HEAD = HELPER.createBlockNoItem("deeper_head", () -> new DeeperSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
+	public static final RegistryObject<Block> DEEPER_WALL_HEAD = HELPER.createBlockNoItem("deeper_wall_head", () -> new DeeperWallSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(DEEPER_HEAD.get())));
+	public static final RegistryObject<Block> EVENDEEPER_HEAD = HELPER.createBlockNoItem("evendeeper_head", () -> new DeeperSkullBlock(CCSkullTypes.EVENDEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
+	public static final RegistryObject<Block> EVENDEEPER_WALL_HEAD = HELPER.createBlockNoItem("evendeeper_wall_head", () -> new DeeperWallSkullBlock(CCSkullTypes.EVENDEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(EVENDEEPER_HEAD.get())));
 	public static final RegistryObject<Block> PEEPER_HEAD = HELPER.createBlockNoItem("peeper_head", () -> new CCSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> PEEPER_WALL_HEAD = HELPER.createBlockNoItem("peeper_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(PEEPER_HEAD.get())));
 	public static final RegistryObject<Block> MIME_HEAD = HELPER.createBlockNoItem("mime_head", () -> new CCSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
@@ -942,10 +945,11 @@ public class CCBlocks {
 	}
 
 	public enum CCSkullTypes implements SkullBlock.Type {
-		MIME, DEEPER, PEEPER;
+		MIME, DEEPER, EVENDEEPER, PEEPER;
 
 		public static void registerSkullModels() {
 			SkullBlockRenderer.SKIN_BY_TYPE.put(DEEPER, DeeperRenderer.DEEPER_TEXTURE);
+			SkullBlockRenderer.SKIN_BY_TYPE.put(EVENDEEPER, EvendeeperRenderer.EVENDEEPER_TEXTURE);
 			SkullBlockRenderer.SKIN_BY_TYPE.put(PEEPER, PeeperRenderer.PEEPER_TEXTURE);
 			SkullBlockRenderer.SKIN_BY_TYPE.put(MIME, MimeRenderer.MIME_TEXTURE);
 		}

@@ -235,7 +235,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				WAXED_COPPER_DOOR.get(), WAXED_EXPOSED_COPPER_DOOR.get(), WAXED_WEATHERED_COPPER_DOOR.get(), WAXED_OXIDIZED_COPPER_DOOR.get(),
 				WAXED_COPPER_TRAPDOOR.get(), WAXED_EXPOSED_COPPER_TRAPDOOR.get(), WAXED_WEATHERED_COPPER_TRAPDOOR.get(), WAXED_OXIDIZED_COPPER_TRAPDOOR.get()
 		);
-		this.tag(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS).add(MIME_HEAD.get(), DEEPER_HEAD.get(), PEEPER_HEAD.get());
+		this.tag(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS).add(MIME_HEAD.get(), DEEPER_HEAD.get(), EVENDEEPER_HEAD.get(), PEEPER_HEAD.get());
 
 		this.tag(BlueprintBlockTags.WOODEN_BOARDS).add(AZALEA_BOARDS.get());
 		this.tag(BlueprintBlockTags.WOODEN_CHESTS).add(AZALEA_CHEST.get());

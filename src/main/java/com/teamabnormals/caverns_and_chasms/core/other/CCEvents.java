@@ -655,6 +655,7 @@ public class CCEvents {
 		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (
 				(looking == CCEntityTypes.DEEPER.get() && stack.is(CCItems.DEEPER_HEAD.get())) ||
+						(looking == CCEntityTypes.EVENDEEPER.get() && stack.is(CCItems.EVENDEEPER_HEAD.get())) ||
 						(looking == CCEntityTypes.PEEPER.get() && stack.is(CCItems.PEEPER_HEAD.get())) ||
 						(looking == CCEntityTypes.MIME.get() && stack.is(CCItems.MIME_HEAD.get()))
 		) {

@@ -53,7 +53,7 @@ public class CCModelLayers {
 		event.registerLayerDefinition(DEEPER_HEAD, DeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(DEEPER_ARMOR, () -> DeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));
 		event.registerLayerDefinition(EVENDEEPER, () -> EvendeeperModel.createBodyLayer(CubeDeformation.NONE, true));
-		// event.registerLayerDefinition(EVENDEEPER_HEAD, EvendeeperHeadModel::createHeadLayer);
+		event.registerLayerDefinition(EVENDEEPER_HEAD, EvendeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(EVENDEEPER_ARMOR, () -> EvendeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));
 		event.registerLayerDefinition(PEEPER, () -> PeeperModel.createBodyLayer(CubeDeformation.NONE));
 		event.registerLayerDefinition(PEEPER_HEAD, PeeperHeadModel::createHeadLayer);

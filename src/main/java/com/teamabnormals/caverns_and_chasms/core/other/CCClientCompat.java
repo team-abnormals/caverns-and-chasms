@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
@@ -104,6 +105,7 @@ public class CCClientCompat {
 	@SubscribeEvent
 	public static void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
 		event.registerSkullModel(CCSkullTypes.DEEPER, new DeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
+		event.registerSkullModel(CCSkullTypes.EVENDEEPER, new EvendeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.EVENDEEPER_HEAD)));
 		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
 		event.registerSkullModel(CCSkullTypes.PEEPER, new PeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.PEEPER_HEAD)));
 	}

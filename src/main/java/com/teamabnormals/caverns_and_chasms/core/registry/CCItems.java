@@ -223,6 +223,7 @@ public class CCItems {
 	public static final RegistryObject<Item> MUSIC_DISC_COPY = HELPER.createItem("music_disc_copy", () -> new CopyRecordItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<Item> DEEPER_HEAD = HELPER.createItem("deeper_head", () -> new StandingAndWallBlockItem(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
+	public static final RegistryObject<Item> EVENDEEPER_HEAD = HELPER.createItem("evendeeper_head", () -> new StandingAndWallBlockItem(CCBlocks.EVENDEEPER_HEAD.get(), CCBlocks.EVENDEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final RegistryObject<Item> PEEPER_HEAD = HELPER.createItem("peeper_head", () -> new StandingAndWallBlockItem(CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final RegistryObject<Item> MIME_HEAD = HELPER.createItem("mime_head", () -> new StandingAndWallBlockItem(CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 
@@ -290,7 +291,7 @@ public class CCItems {
 				}))
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsAfter(of(Items.ARMOR_STAND), OXIDIZED_COPPER_GOLEM, WAXED_OXIDIZED_COPPER_GOLEM)
-				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
+				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, EVENDEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
 				.tab(INGREDIENTS)
 				.addItemsAfter(of(Items.RAW_COPPER), RAW_TIN)
 				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER)

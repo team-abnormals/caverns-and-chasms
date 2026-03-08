@@ -292,6 +292,7 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_MIME = HELPER.createSoundEvent("block.note_block.imitate.mime");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_DEEPER = HELPER.createSoundEvent("block.note_block.imitate.deeper");
+	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_EVENDEEPER = HELPER.createSoundEvent("block.note_block.imitate.evendeeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_PEEPER = HELPER.createSoundEvent("block.note_block.imitate.peeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_WARDEN = HELPER.createSoundEvent("block.note_block.imitate.warden");
 
@@ -433,6 +434,7 @@ public class CCSoundEvents {
 	public static void registerNoteBlocks() {
 		registerHeadInstrument(CCBlocks.MIME_HEAD, NOTE_BLOCK_IMITATE_MIME);
 		registerHeadInstrument(CCBlocks.DEEPER_HEAD, NOTE_BLOCK_IMITATE_DEEPER);
+		registerHeadInstrument(CCBlocks.EVENDEEPER_HEAD, NOTE_BLOCK_IMITATE_EVENDEEPER);
 		registerHeadInstrument(CCBlocks.PEEPER_HEAD, NOTE_BLOCK_IMITATE_PEEPER);
 		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.WARDEN_NOTE_BLOCKS), NOTE_BLOCK_IMITATE_WARDEN.get(), false));
 		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.STATIC_NOTE_BLOCKS), NOTE_BLOCK_STATIC.get(), false));
