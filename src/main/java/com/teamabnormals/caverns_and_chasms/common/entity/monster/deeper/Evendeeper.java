@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper;
 
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.EvendeeperSwellGoal;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.sounds.SoundEvent;
@@ -7,6 +8,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.SwellGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -14,6 +16,8 @@ import net.minecraft.world.level.Level;
 public class Evendeeper extends Deeper {
 	public Evendeeper(EntityType<? extends Evendeeper> type, Level level) {
 		super(type, level);
+		this.goalSelector.removeAllGoals(goal -> goal instanceof SwellGoal);
+		this.goalSelector.addGoal(2, new EvendeeperSwellGoal(this));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
