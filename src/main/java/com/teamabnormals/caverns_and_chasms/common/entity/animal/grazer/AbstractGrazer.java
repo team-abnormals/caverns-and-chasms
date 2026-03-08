@@ -158,7 +158,8 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putByte("State", this.getState().getId());
+		if (this.getState().getsSaved())
+			compound.putByte("State", this.getState().getId());
 		compound.putFloat("BodyLowerAmount", this.getBodyLowerAmount());
 		compound.putFloat("CustomXRot", this.getCustomXRot());
 		compound.putFloat("TargetRot", this.getTargetRot());
@@ -169,7 +170,9 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		this.setState(GrazerState.byId(compound.getByte("State")));
+		GrazerState state = GrazerState.byId(compound.getByte("State"));
+		if (state.getsSaved())
+			this.setState(state);
 		this.setBodyLowerAmount(compound.getFloat("BodyLowerAmount"));
 		this.setCustomXRot(compound.getFloat("CustomXRot"));
 		this.setTargetRot(compound.getFloat("TargetRot"));
