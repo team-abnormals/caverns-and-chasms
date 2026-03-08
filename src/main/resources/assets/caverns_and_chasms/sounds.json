@@ -2384,6 +2384,12 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.winch.wind"
   },
+  "entity.deeper.primed": {
+    "sounds": [
+      "random/fuse"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.primed"
+  },
   "entity.deeper.death": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/death"
@@ -2398,6 +2404,27 @@
       "caverns_and_chasms:mob/deeper/say4"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.deeper.hurt"
+  },
+  "entity.evendeeper.primed": {
+    "sounds": [
+      "random/fuse"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.primed"
+  },
+  "entity.evendeeper.death": {
+    "sounds": [
+      "caverns_and_chasms:mob/deeper/death"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.death"
+  },
+  "entity.evendeeper.hurt": {
+    "sounds": [
+      "caverns_and_chasms:mob/deeper/say1",
+      "caverns_and_chasms:mob/deeper/say2",
+      "caverns_and_chasms:mob/deeper/say3",
+      "caverns_and_chasms:mob/deeper/say4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.hurt"
   },
   "entity.peeper.primed": {
     "sounds": [
@@ -2428,12 +2455,6 @@
       "caverns_and_chasms:mob/peeper/explode4"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.peeper.explode"
-  },
-  "entity.deeper.primed": {
-    "sounds": [
-      "random/fuse"
-    ],
-    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.primed"
   },
   "entity.mime.death": {
     "sounds": [
