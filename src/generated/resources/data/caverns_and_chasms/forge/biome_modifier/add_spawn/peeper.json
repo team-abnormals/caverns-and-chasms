@@ -5,6 +5,6 @@
     "type": "caverns_and_chasms:peeper",
     "maxCount": 4,
     "minCount": 2,
-    "weight": 40
+    "weight": 30
   }
 }
