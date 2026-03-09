@@ -2386,7 +2386,7 @@
   },
   "entity.deeper.primed": {
     "sounds": [
-      "random/fuse"
+      "caverns_and_chasms:mob/deeper/fuse"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.deeper.primed"
   },
@@ -2415,7 +2415,7 @@
   },
   "entity.evendeeper.primed": {
     "sounds": [
-      "random/fuse"
+      "caverns_and_chasms:mob/deeper/fuse"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.primed"
   },
