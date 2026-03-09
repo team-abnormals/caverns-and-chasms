@@ -2413,16 +2413,15 @@
   },
   "entity.evendeeper.death": {
     "sounds": [
-      "caverns_and_chasms:mob/deeper/death"
+      "caverns_and_chasms:mob/evendeeper/death"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.death"
   },
   "entity.evendeeper.hurt": {
     "sounds": [
-      "caverns_and_chasms:mob/deeper/say1",
-      "caverns_and_chasms:mob/deeper/say2",
-      "caverns_and_chasms:mob/deeper/say3",
-      "caverns_and_chasms:mob/deeper/say4"
+      "caverns_and_chasms:mob/evendeeper/say1",
+      "caverns_and_chasms:mob/evendeeper/say2",
+      "caverns_and_chasms:mob/evendeeper/say3"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.hurt"
   },
