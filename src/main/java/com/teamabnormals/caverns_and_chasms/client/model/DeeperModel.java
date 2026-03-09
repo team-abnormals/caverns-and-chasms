@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.blueprint.client.BlueprintRenderTypes;
 import com.teamabnormals.caverns_and_chasms.client.resources.DeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ListModel;
 import net.minecraft.client.model.geom.ModelPart;

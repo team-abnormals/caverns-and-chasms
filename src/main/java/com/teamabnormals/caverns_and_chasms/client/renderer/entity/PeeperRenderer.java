@@ -5,7 +5,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.PeeperModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperChargedLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPowerLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPrimedLayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

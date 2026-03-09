@@ -3,7 +3,7 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperModel;
 import com.teamabnormals.caverns_and_chasms.client.resources.PeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.blueprint.client.BlueprintRenderTypes;
 import com.teamabnormals.blueprint.core.util.MathUtil;
 import com.teamabnormals.caverns_and_chasms.client.resources.PeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ListModel;
 import net.minecraft.client.model.geom.ModelPart;

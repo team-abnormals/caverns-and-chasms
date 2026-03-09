@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper;
+package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.EvendeeperSwellGoal;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -32,6 +32,16 @@ public class Evendeeper extends Deeper {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return CCSoundEvents.EVENDEEPER_DEATH.get();
+	}
+
+	@Override
+	protected SoundEvent getPrimedSound() {
+		return CCSoundEvents.EVENDEEPER_PRIMED.get();
+	}
+
+	@Override
+	protected SoundEvent getExplosionSound() {
+		return CCSoundEvents.EVENDEEPER_EXPLODE.get();
 	}
 
 	@Override

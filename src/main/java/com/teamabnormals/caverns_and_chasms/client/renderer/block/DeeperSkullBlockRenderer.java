@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.DeeperSkullBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.DeeperHat;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;

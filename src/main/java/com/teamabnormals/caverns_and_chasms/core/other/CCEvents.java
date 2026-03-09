@@ -15,7 +15,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;

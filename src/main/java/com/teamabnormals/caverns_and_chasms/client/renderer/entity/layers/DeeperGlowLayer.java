@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel.DeeperSprite;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.DeeperRenderer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;

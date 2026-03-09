@@ -11,9 +11,9 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledG
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Evendeeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Evendeeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.LargeArrow;

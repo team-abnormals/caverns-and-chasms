@@ -1,8 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperModel;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
-import net.minecraft.client.model.geom.EntityModelSet;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;

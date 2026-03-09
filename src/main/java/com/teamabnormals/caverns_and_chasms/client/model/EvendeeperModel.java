@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.teamabnormals.caverns_and_chasms.client.resources.EvendeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Evendeeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Evendeeper;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

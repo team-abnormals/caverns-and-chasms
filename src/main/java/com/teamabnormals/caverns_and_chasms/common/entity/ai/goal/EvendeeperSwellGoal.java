@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Evendeeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Evendeeper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 

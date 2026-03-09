@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperModel;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Evendeeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Evendeeper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

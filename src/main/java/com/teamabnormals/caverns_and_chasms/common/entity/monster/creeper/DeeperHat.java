@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper;
+package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;

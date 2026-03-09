@@ -5,7 +5,7 @@ import com.teamabnormals.blueprint.client.BlueprintRenderTypes;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.PeeperRenderer;
 import com.teamabnormals.caverns_and_chasms.client.resources.PeeperSpriteUploader;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
