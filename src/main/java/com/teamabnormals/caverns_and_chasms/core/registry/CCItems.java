@@ -223,6 +223,7 @@ public class CCItems {
 	public static final RegistryObject<Item> MUSIC_DISC_COPY = HELPER.createItem("music_disc_copy", () -> new CopyRecordItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<Item> DEEPER_HEAD = HELPER.createItem("deeper_head", () -> new StandingAndWallBlockItem(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
+	public static final RegistryObject<Item> EVENDEEPER_HEAD = HELPER.createItem("evendeeper_head", () -> new StandingAndWallBlockItem(CCBlocks.EVENDEEPER_HEAD.get(), CCBlocks.EVENDEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final RegistryObject<Item> PEEPER_HEAD = HELPER.createItem("peeper_head", () -> new StandingAndWallBlockItem(CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final RegistryObject<Item> MIME_HEAD = HELPER.createItem("mime_head", () -> new StandingAndWallBlockItem(CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 
@@ -265,6 +266,7 @@ public class CCItems {
 	public static final RegistryObject<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new MobBucketItem(() -> CCEntityTypes.CAVEFISH.get(), () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<ForgeSpawnEggItem> DEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("deeper", CCEntityTypes.DEEPER::get, 8355711, 13717260);
+	public static final RegistryObject<ForgeSpawnEggItem> EVENDEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("evendeeper", CCEntityTypes.EVENDEEPER::get, 3092279, 13717260);
 	public static final RegistryObject<ForgeSpawnEggItem> PEEPER_SPAWN_EGG = HELPER.createSpawnEggItem("peeper", CCEntityTypes.PEEPER::get, 0x3E3434, 0x694242);
 	//	public static final RegistryObject<ForgeSpawnEggItem> FLY_SPAWN_EGG = HELPER.createSpawnEggItem("fly", CCEntityTypes.FLY::get, 920336, 7080720);
 	public static final RegistryObject<ForgeSpawnEggItem> MIME_SPAWN_EGG = HELPER.createSpawnEggItem("mime", CCEntityTypes.MIME::get, 0x5A5050, 0x969964);
@@ -289,7 +291,7 @@ public class CCItems {
 				}))
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsAfter(of(Items.ARMOR_STAND), OXIDIZED_COPPER_GOLEM, WAXED_OXIDIZED_COPPER_GOLEM)
-				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
+				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, EVENDEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
 				.tab(INGREDIENTS)
 				.addItemsAfter(of(Items.RAW_COPPER), RAW_TIN)
 				.addItemsAfter(of(Items.RAW_GOLD), RAW_SILVER)
@@ -355,7 +357,7 @@ public class CCItems {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.tab(SPAWN_EGGS)
-				.addItemsAlphabetically(ItemStackUtil.is(SpawnEggItem.class), "spawn_egg|_", DEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, CAVEFISH_SPAWN_EGG, GRAZER_SPAWN_EGG, SADDLED_GRAZER_SPAWN_EGG);
+				.addItemsAlphabetically(ItemStackUtil.is(SpawnEggItem.class), "spawn_egg|_", DEEPER_SPAWN_EGG, EVENDEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, CAVEFISH_SPAWN_EGG, GRAZER_SPAWN_EGG, SADDLED_GRAZER_SPAWN_EGG);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {

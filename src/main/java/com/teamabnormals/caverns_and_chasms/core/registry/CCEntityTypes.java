@@ -11,8 +11,9 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledG
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.item.PrimedTmt;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Evendeeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.LargeArrow;
@@ -44,6 +45,7 @@ public class CCEntityTypes {
 	public static final MobCategory UNDERGROUND_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_ambient", "underground_ambient", 20, true, false, 128);
 
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
+	public static final RegistryObject<EntityType<Evendeeper>> EVENDEEPER = HELPER.createLivingEntity("evendeeper", Evendeeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<Peeper>> PEEPER = HELPER.createLivingEntity("peeper", Peeper::new, MobCategory.MONSTER, 0.6F, 2.2F);
 	public static final RegistryObject<EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
 	//	public static final RegistryObject<EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
@@ -65,6 +67,7 @@ public class CCEntityTypes {
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {
 		event.put(DEEPER.get(), Deeper.createAttributes().build());
+		event.put(EVENDEEPER.get(), Evendeeper.createAttributes().build());
 		event.put(PEEPER.get(), Peeper.createAttributes().build());
 		event.put(MIME.get(), Mime.createAttributes().build());
 //		event.put(FLY.get(), Fly.createAttributes().build());
@@ -86,6 +89,7 @@ public class CCEntityTypes {
 	@SubscribeEvent
 	public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
 		event.register(DEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, Operation.AND);
+		event.register(EVENDEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, Operation.AND);
 		event.register(PEEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Peeper::checkPeeperSpawnRules, Operation.AND);
 		event.register(MIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mime::checkMimeSpawnRules, Operation.AND);
 		event.register(GLARE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Glare::checkGlareSpawnRules, Operation.AND);

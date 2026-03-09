@@ -28,6 +28,9 @@ public class CCModelLayers {
 	public static final ModelLayerLocation DEEPER = register("deeper");
 	public static final ModelLayerLocation DEEPER_HEAD = register("deeper_head");
 	public static final ModelLayerLocation DEEPER_ARMOR = register("deeper", "armor");
+	public static final ModelLayerLocation EVENDEEPER = register("evendeeper");
+	public static final ModelLayerLocation EVENDEEPER_HEAD = register("evendeeper_head");
+	public static final ModelLayerLocation EVENDEEPER_ARMOR = register("evendeeper", "armor");
 	public static final ModelLayerLocation PEEPER = register("peeper");
 	public static final ModelLayerLocation PEEPER_HEAD = register("peeper_head");
 	public static final ModelLayerLocation PEEPER_ARMOR = register("peeper", "armor");
@@ -49,6 +52,9 @@ public class CCModelLayers {
 		event.registerLayerDefinition(DEEPER, () -> DeeperModel.createBodyLayer(CubeDeformation.NONE, true));
 		event.registerLayerDefinition(DEEPER_HEAD, DeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(DEEPER_ARMOR, () -> DeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));
+		event.registerLayerDefinition(EVENDEEPER, () -> EvendeeperModel.createBodyLayer(CubeDeformation.NONE, true));
+		event.registerLayerDefinition(EVENDEEPER_HEAD, EvendeeperHeadModel::createHeadLayer);
+		event.registerLayerDefinition(EVENDEEPER_ARMOR, () -> EvendeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));
 		event.registerLayerDefinition(PEEPER, () -> PeeperModel.createBodyLayer(CubeDeformation.NONE));
 		event.registerLayerDefinition(PEEPER_HEAD, PeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(PEEPER_ARMOR, () -> PeeperModel.createBodyLayer(new CubeDeformation(2.0F)));
@@ -72,6 +78,7 @@ public class CCModelLayers {
 	@SubscribeEvent
 	public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(CCEntityTypes.DEEPER.get(), DeeperRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.EVENDEEPER.get(), EvendeeperRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.PEEPER.get(), PeeperRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.KUNAI.get(), KunaiRenderer::new);
 //		event.registerEntityRenderer(CCEntityTypes.FLY.get(), FlyRenderer::new);

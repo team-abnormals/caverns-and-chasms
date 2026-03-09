@@ -129,6 +129,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 			this.dropSelf(NECROMIUM_BLOCK.get());
 			this.dropSelf(DEEPER_HEAD.get());
+			this.dropSelf(EVENDEEPER_HEAD.get());
 			this.dropSelf(PEEPER_HEAD.get());
 			this.dropSelf(MIME_HEAD.get());
 
@@ -561,7 +562,25 @@ public class CCLootTableProvider extends LootTableProvider {
 					)
 					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
 							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
-			this.add(PEEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))).withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS)).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
+			this.add(EVENDEEPER.get(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+							.apply(FortuneEnchantFunction.fortuneMultiplier(UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
+							.when(HAS_SILK_TOUCH.invert())
+					))
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.DEEPSLATE)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+							.when(HAS_SILK_TOUCH))
+					)
+					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
+			this.add(PEEPER.get(), LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 6.0F)))
+							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(MIME.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(CCItems.SPINEL.get())

@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.DeeperHat;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

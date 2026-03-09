@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.teamabnormals.caverns_and_chasms.common.block.CaveGrowthsBlock;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.Deeper;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.DeeperHat;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
 import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;

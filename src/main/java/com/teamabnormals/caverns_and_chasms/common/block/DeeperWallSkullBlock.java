@@ -1,12 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.DeeperSkullBlockEntity;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SkullBlock.Type;
 import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -16,8 +16,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class DeeperWallSkullBlock extends WallSkullBlock {
 
-	public DeeperWallSkullBlock(Properties properties) {
-		super(CCSkullTypes.DEEPER, properties);
+	public DeeperWallSkullBlock(Type type, Properties properties) {
+		super(type, properties);
 	}
 
 	@Override

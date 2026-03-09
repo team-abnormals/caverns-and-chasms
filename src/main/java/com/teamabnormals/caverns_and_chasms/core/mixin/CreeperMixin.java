@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

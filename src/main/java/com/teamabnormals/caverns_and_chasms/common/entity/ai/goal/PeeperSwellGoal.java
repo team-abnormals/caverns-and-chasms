@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;

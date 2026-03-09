@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper;
+package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -26,7 +26,8 @@ public enum DeeperHat implements StringRepresentable {
 	private final int id;
 	private final String name;
 	private final Block block;
-	private final LazyLoadedValue<ResourceLocation> texture = new LazyLoadedValue<>(() -> CavernsAndChasms.location("textures/entity/deeper/hat/" + this.getSerializedName() + ".png"));
+	private final LazyLoadedValue<ResourceLocation> deeperTexture = new LazyLoadedValue<>(() -> CavernsAndChasms.location("textures/entity/deeper/hat/" + this.getSerializedName() + ".png"));
+	private final LazyLoadedValue<ResourceLocation> evendeeperTexture = new LazyLoadedValue<>(() -> CavernsAndChasms.location("textures/entity/evendeeper/hat/" + this.getSerializedName() + ".png"));
 
 	DeeperHat(int id, String name, Block block) {
 		this.id = id;
@@ -51,8 +52,12 @@ public enum DeeperHat implements StringRepresentable {
 		return this.block == null ? null : this.block.asItem();
 	}
 
-	public ResourceLocation getTexture() {
-		return this.texture.get();
+	public ResourceLocation getDeeperTexture() {
+		return this.deeperTexture.get();
+	}
+
+	public ResourceLocation getEvendeeperTexture() {
+		return this.evendeeperTexture.get();
 	}
 
 	public static DeeperHat byName(String name) {

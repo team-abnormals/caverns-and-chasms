@@ -13,6 +13,7 @@ public class CCConfig {
 		public final DoubleValue creeperExplosionNerfFactor;
 
 		public final IntValue deeperMaxSpawnHeight;
+		public final IntValue evendeeperMaxSpawnHeight;
 		public final IntValue grazerMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
@@ -35,6 +36,9 @@ public class CCConfig {
 			builder.pop();
 			builder.push("deeper");
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
+			builder.pop();
+			builder.push("evendeeper");
+			evendeeperMaxSpawnHeight = builder.defineInRange("Evendeeper max spawn height", -4, -64, 320);
 			builder.pop();
 			builder.push("grazer");
 			grazerMaxSpawnHeight = builder.defineInRange("Grazer max spawn height", -4, -64, 320);

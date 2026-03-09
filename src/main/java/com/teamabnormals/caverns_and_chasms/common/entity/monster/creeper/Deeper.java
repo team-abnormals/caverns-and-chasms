@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper;
+package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
@@ -20,14 +20,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -38,11 +36,11 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class Deeper extends Creeper implements Shearable, IForgeShearable {
+public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
 	private static final EntityDataAccessor<Integer> HAT = SynchedEntityData.defineId(Deeper.class, EntityDataSerializers.INT);
 
-	public Deeper(EntityType<? extends Deeper> type, Level worldIn) {
-		super(type, worldIn);
+	public Deeper(EntityType<? extends Deeper> type, Level level) {
+		super(type, level);
 		this.explosionRadius = 4;
 	}
 
@@ -64,6 +62,16 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return CCSoundEvents.DEEPER_DEATH.get();
+	}
+
+	@Override
+	protected SoundEvent getPrimedSound() {
+		return CCSoundEvents.DEEPER_PRIMED.get();
+	}
+
+	@Override
+	protected SoundEvent getExplosionSound() {
+		return CCSoundEvents.DEEPER_EXPLODE.get();
 	}
 
 	@Override
@@ -114,10 +122,10 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 	}
 
 	@Override
-	public List<ItemStack> onSheared(Player player, ItemStack item, Level world, BlockPos pos, int fortune) {
-		world.playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+	public List<ItemStack> onSheared(Player player, ItemStack item, Level level, BlockPos pos, int fortune) {
+		level.playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
 		this.gameEvent(GameEvent.SHEAR, player);
-		if (!world.isClientSide()) {
+		if (!level.isClientSide()) {
 			ItemStack itemstack = new ItemStack(this.getHat().getItem());
 			this.setHat(DeeperHat.NONE);
 			return Collections.singletonList(itemstack);
@@ -148,42 +156,8 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 	}
 
 	@Override
-	public void explodeCreeper() {
-		if (!this.level().isClientSide) {
-			float f = this.isPowered() ? 2.0F : 1.0F;
-			this.dead = true;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB);
-			this.discard();
-			this.spawnLingeringCloud();
-		}
-	}
-
-	@Override
 	protected void dropCustomDeathLoot(DamageSource source, int p_34292_, boolean p_34293_) {
-		for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
-			ItemStack itemstack = this.getItemBySlot(equipmentslot);
-			float f = this.getEquipmentDropChance(equipmentslot);
-			boolean flag = f > 1.0F;
-			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack) && (p_34293_ || flag) && Math.max(this.random.nextFloat() - (float) p_34292_ * 0.01F, 0.0F) < f) {
-				if (!flag && itemstack.isDamageableItem()) {
-					itemstack.setDamageValue(itemstack.getMaxDamage() - this.random.nextInt(1 + this.random.nextInt(Math.max(itemstack.getMaxDamage() - 3, 1))));
-				}
-
-				this.spawnAtLocation(itemstack);
-				this.setItemSlot(equipmentslot, ItemStack.EMPTY);
-			}
-		}
-
-		Entity entity = source.getEntity();
-		if (entity instanceof Creeper creeper) {
-			if (creeper.canDropMobsSkull()) {
-				ItemStack itemstack = this.getSkull();
-				if (!itemstack.isEmpty()) {
-					creeper.increaseDroppedSkulls();
-					this.spawnAtLocation(itemstack);
-				}
-			}
-		}
+		super.dropCustomDeathLoot(source, p_34292_, p_34293_);
 
 		if (this.getHat() != DeeperHat.NONE && random.nextBoolean()) {
 			this.spawnAtLocation(this.getHat().getItem());
@@ -227,6 +201,7 @@ public class Deeper extends Creeper implements Shearable, IForgeShearable {
 		return super.finalizeSpawn(level, difficulty, spawnType, groupData, compound);
 	}
 
+	@Override
 	protected ItemStack getSkull() {
 		return new ItemStack(CCItems.DEEPER_HEAD.get());
 	}

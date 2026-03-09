@@ -1,8 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.DeeperSkullBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.deeper.DeeperHat;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -30,8 +29,8 @@ import java.util.List;
 
 public class DeeperSkullBlock extends SkullBlock {
 
-	public DeeperSkullBlock(Properties properties) {
-		super(CCSkullTypes.DEEPER, properties);
+	public DeeperSkullBlock(Type type, Properties properties) {
+		super(type, properties);
 	}
 
 	@Override
