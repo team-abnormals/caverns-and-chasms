@@ -320,10 +320,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPER_DEATH = HELPER.createSoundEvent("entity.deeper.death");
 	public static final RegistryObject<SoundEvent> DEEPER_HURT = HELPER.createSoundEvent("entity.deeper.hurt");
 	public static final RegistryObject<SoundEvent> DEEPER_PRIMED = HELPER.createSoundEvent("entity.deeper.primed");
+    public static final RegistryObject<SoundEvent> DEEPER_EXPLODE = HELPER.createSoundEvent("entity.deeper.explode");
 
 	public static final RegistryObject<SoundEvent> EVENDEEPER_DEATH = HELPER.createSoundEvent("entity.evendeeper.death");
 	public static final RegistryObject<SoundEvent> EVENDEEPER_HURT = HELPER.createSoundEvent("entity.evendeeper.hurt");
 	public static final RegistryObject<SoundEvent> EVENDEEPER_PRIMED = HELPER.createSoundEvent("entity.evendeeper.primed");
+	public static final RegistryObject<SoundEvent> EVENDEEPER_EXPLODE = HELPER.createSoundEvent("entity.evendeeper.explode");
 
 	public static final RegistryObject<SoundEvent> PEEPER_DEATH = HELPER.createSoundEvent("entity.peeper.death");
 	public static final RegistryObject<SoundEvent> PEEPER_HURT = HELPER.createSoundEvent("entity.peeper.hurt");

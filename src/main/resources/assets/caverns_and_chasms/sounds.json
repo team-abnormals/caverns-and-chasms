@@ -2396,6 +2396,14 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.deeper.death"
   },
+  "entity.deeper.explode": {
+    "sounds": [
+      "caverns_and_chasms:mob/deeper/explode1",
+      "caverns_and_chasms:mob/deeper/explode2",
+      "caverns_and_chasms:mob/deeper/explode3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.deeper.explode"
+  },
   "entity.deeper.hurt": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/say1",
@@ -2416,6 +2424,14 @@
       "caverns_and_chasms:mob/evendeeper/death"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.death"
+  },
+  "entity.evendeeper.explode": {
+    "sounds": [
+      "caverns_and_chasms:mob/deeper/explode1",
+      "caverns_and_chasms:mob/deeper/explode2",
+      "caverns_and_chasms:mob/deeper/explode3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.evendeeper.explode"
   },
   "entity.evendeeper.hurt": {
     "sounds": [
