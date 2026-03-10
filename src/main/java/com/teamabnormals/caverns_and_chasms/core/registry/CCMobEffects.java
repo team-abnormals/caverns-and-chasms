@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -24,6 +25,9 @@ public class CCMobEffects {
 
 	public static final RegistryObject<Potion> REWIND_NORMAL = POTIONS.register("rewind", () -> new Potion("rewind", new MobEffectInstance(REWIND.get(), 400)));
 	public static final RegistryObject<Potion> REWIND_LONG = POTIONS.register("long_rewind", () -> new Potion("rewind", new MobEffectInstance(REWIND.get(), 800)));
+
+	public static final RegistryObject<Potion> BLINDNESS = POTIONS.register("blindness", () -> new Potion("blindness", new MobEffectInstance(MobEffects.BLINDNESS, 3600)));
+	public static final RegistryObject<Potion> BLINDNESS_LONG = POTIONS.register("long_blindness", () -> new Potion("blindness", new MobEffectInstance(MobEffects.BLINDNESS, 9600)));
 
 	public static void registerBrewingRecipes() {
 		PotionBrewing.addContainer(CCItems.TETHER_POTION.get());
@@ -46,5 +50,8 @@ public class CCMobEffects {
 
 		DataUtil.addMix(Potions.AWKWARD, CCItems.BEJEWELED_PEARL.get(), REWIND_NORMAL.get());
 		DataUtil.addMix(REWIND_NORMAL.get(), Items.REDSTONE, REWIND_LONG.get());
+
+		DataUtil.addMix(Potions.AWKWARD, CCItems.CAVEFISH.get(), BLINDNESS.get());
+		DataUtil.addMix(BLINDNESS.get(), Items.REDSTONE, BLINDNESS_LONG.get());
 	}
 }
