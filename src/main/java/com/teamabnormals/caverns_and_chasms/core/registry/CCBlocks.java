@@ -912,7 +912,7 @@ public class CCBlocks {
 		}
 
 		private static BlockBehaviour.Properties placedCoal(int baseLight) {
-			return BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(placedCoalLight(baseLight)).noOcclusion().pushReaction(PushReaction.DESTROY);
+			return BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(2.0F, 6.0F).requiresCorrectToolForDrops().lightLevel(placedCoalLight(baseLight)).noOcclusion().pushReaction(PushReaction.DESTROY);
 		}
 
 		private static ToIntFunction<BlockState> placedCoalLight(int base) {

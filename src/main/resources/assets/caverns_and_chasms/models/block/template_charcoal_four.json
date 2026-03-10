@@ -5,9 +5,9 @@
 	"elements": [
 		{
 			"name": "charcoal1",
-			"from": [5, 0, 5],
-			"to": [10, 7, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"from": [6, 0, 5],
+			"to": [11, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 7]},
 			"faces": {
 				"north": {"uv": [0, 5, 5, 12], "texture": "#coal"},
 				"east": {"uv": [0, 5, 5, 12], "texture": "#coal"},
@@ -19,9 +19,9 @@
 		},
 		{
 			"name": "charcoal2",
-			"from": [2, 0, 4],
-			"to": [5, 3, 7],
-			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 5]},
+			"from": [3, 0, 4],
+			"to": [6, 3, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 5]},
 			"faces": {
 				"north": {"uv": [8, 9, 11, 12], "texture": "#coal"},
 				"east": {"uv": [8, 9, 11, 12], "texture": "#coal"},
@@ -33,9 +33,9 @@
 		},
 		{
 			"name": "charcoal3",
-			"from": [6, 0, 10],
-			"to": [9, 5, 13],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 11]},
+			"from": [5, 0, 10],
+			"to": [8, 5, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 0, 11]},
 			"faces": {
 				"north": {"uv": [13, 3, 16, 8], "texture": "#coal"},
 				"east": {"uv": [13, 3, 16, 8], "texture": "#coal"},
@@ -47,9 +47,9 @@
 		},
 		{
 			"name": "charcoal4",
-			"from": [9, 0, 2],
-			"to": [12, 5, 5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [11, 0, 3]},
+			"from": [11, 0, 8],
+			"to": [14, 5, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 0, 9]},
 			"faces": {
 				"north": {"uv": [13, 3, 16, 8], "texture": "#coal"},
 				"east": {"uv": [13, 3, 16, 8], "texture": "#coal"},

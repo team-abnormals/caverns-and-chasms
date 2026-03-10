@@ -5,9 +5,9 @@
 	"elements": [
 		{
 			"name": "coal1",
-			"from": [5, 0, 5],
-			"to": [11, 6, 11],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"from": [6, 0, 6],
+			"to": [12, 6, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
 				"north": {"uv": [4, 6, 10, 12], "texture": "#coal"},
 				"east": {"uv": [4, 6, 10, 12], "texture": "#coal"},
@@ -19,9 +19,9 @@
 		},
 		{
 			"name": "coal2",
-			"from": [3, 0, 2],
-			"to": [6, 3, 5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 3]},
+			"from": [4, 0, 3],
+			"to": [7, 3, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 4]},
 			"faces": {
 				"north": {"uv": [3, 13, 6, 16], "texture": "#coal"},
 				"east": {"uv": [3, 13, 6, 16], "texture": "#coal"},

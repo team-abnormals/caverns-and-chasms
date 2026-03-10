@@ -47,10 +47,15 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 	public static final IntegerProperty HEAT = IntegerProperty.create("heat", 0, 2);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	protected static final VoxelShape ONE_AABB = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 6.0D, 10.0D);
+	protected static final VoxelShape ONE_AABB = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);
 	protected static final VoxelShape TWO_AABB = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 6.0D, 13.0D);
-	protected static final VoxelShape THREE_AABB = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 6.0D, 14.0D);
-	protected static final VoxelShape FOUR_AABB = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 7.0D, 14.0D);
+	protected static final VoxelShape THREE_AABB = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 6.0D, 13.0D);
+	protected static final VoxelShape FOUR_AABB = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 6.0D, 14.0D);
+
+	protected static final VoxelShape CHARCOAL_ONE_AABB = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D);
+	protected static final VoxelShape CHARCOAL_TWO_AABB = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D);
+	protected static final VoxelShape CHARCOAL_THREE_AABB = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 7.0D, 13.0D);
+	protected static final VoxelShape CHARCOAL_FOUR_AABB = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 7.0D, 14.0D);
 
 	public CoalBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -181,11 +186,12 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		boolean charcoal = state.is(CCBlocks.CHARCOAL.get());
 		return switch (state.getValue(COAL)) {
-			case 1 -> ONE_AABB;
-			case 2 -> TWO_AABB;
-			case 3 -> THREE_AABB;
-			default -> FOUR_AABB;
+			case 1 -> charcoal ? CHARCOAL_ONE_AABB : ONE_AABB;
+			case 2 -> charcoal ? CHARCOAL_TWO_AABB : TWO_AABB;
+			case 3 -> charcoal ? CHARCOAL_THREE_AABB : THREE_AABB;
+			default -> charcoal ? CHARCOAL_FOUR_AABB : FOUR_AABB;
 		};
 	}
 

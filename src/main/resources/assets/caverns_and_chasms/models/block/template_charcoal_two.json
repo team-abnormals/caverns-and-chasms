@@ -5,9 +5,9 @@
 	"elements": [
 		{
 			"name": "charcoal1",
-			"from": [5, 0, 5],
-			"to": [10, 7, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"from": [6, 0, 7],
+			"to": [11, 7, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 9]},
 			"faces": {
 				"north": {"uv": [0, 5, 5, 12], "texture": "#coal"},
 				"east": {"uv": [0, 5, 5, 12], "texture": "#coal"},
@@ -19,9 +19,9 @@
 		},
 		{
 			"name": "charcoal2",
-			"from": [2, 0, 4],
-			"to": [5, 3, 7],
-			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 5]},
+			"from": [4, 0, 4],
+			"to": [7, 3, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 5]},
 			"faces": {
 				"north": {"uv": [8, 9, 11, 12], "texture": "#coal"},
 				"east": {"uv": [8, 9, 11, 12], "texture": "#coal"},

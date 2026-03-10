@@ -5,9 +5,9 @@
 	"elements": [
 		{
 			"name": "coal1",
-			"from": [5, 0, 5],
-			"to": [11, 6, 11],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"from": [6, 0, 6],
+			"to": [12, 6, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
 				"north": {"uv": [4, 6, 10, 12], "texture": "#coal"},
 				"east": {"uv": [4, 6, 10, 12], "texture": "#coal"},
@@ -19,9 +19,9 @@
 		},
 		{
 			"name": "coal2",
-			"from": [3, 0, 2],
-			"to": [6, 3, 5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 3]},
+			"from": [4, 0, 3],
+			"to": [7, 3, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 4]},
 			"faces": {
 				"north": {"uv": [3, 13, 6, 16], "texture": "#coal"},
 				"east": {"uv": [3, 13, 6, 16], "texture": "#coal"},
@@ -33,10 +33,10 @@
 		},
 		{
 			"name": "fire1",
-			"from": [4.8, 6, 8],
-			"to": [11.2, 12, 8],
+			"from": [5.8, 6, 9],
+			"to": [12.2, 12, 9],
 			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"rotation": {"angle": 45, "axis": "y", "origin": [9, 8, 9], "rescale": true},
 			"faces": {
 				"north": {"uv": [0, 11, 6, 16], "texture": "#fire"},
 				"east": {"uv": [0, 10, 6, 16], "texture": "#fire"},
@@ -48,10 +48,10 @@
 		},
 		{
 			"name": "fire1",
-			"from": [8, 6, 4.8],
-			"to": [8, 12, 11.2],
+			"from": [9, 6, 5.8],
+			"to": [9, 12, 12.2],
 			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"rotation": {"angle": 45, "axis": "y", "origin": [9, 8, 9], "rescale": true},
 			"faces": {
 				"north": {"uv": [0, 10, 6, 16], "texture": "#fire"},
 				"east": {"uv": [0, 10, 6, 16], "texture": "#fire"},
@@ -63,10 +63,10 @@
 		},
 		{
 			"name": "fire2",
-			"from": [5, 3, 1.8],
-			"to": [5, 9, 5.2],
+			"from": [6, 3, 2.8],
+			"to": [6, 9, 6.2],
 			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [5, 5, 4], "rescale": true},
+			"rotation": {"angle": 45, "axis": "y", "origin": [6, 5, 5], "rescale": true},
 			"faces": {
 				"north": {"uv": [12, 10, 15, 16], "texture": "#fire"},
 				"east": {"uv": [12, 10, 15, 16], "texture": "#fire"},
@@ -78,10 +78,10 @@
 		},
 		{
 			"name": "fire2",
-			"from": [2.8, 3, 2],
-			"to": [6.2, 9, 2],
+			"from": [3.8, 3, 3],
+			"to": [7.2, 9, 3],
 			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [6, 5, 2], "rescale": true},
+			"rotation": {"angle": 45, "axis": "y", "origin": [7, 5, 3], "rescale": true},
 			"faces": {
 				"north": {"uv": [12, 10, 15, 16], "texture": "#fire"},
 				"east": {"uv": [12, 10, 15, 16], "texture": "#fire"},
