@@ -46,7 +46,7 @@ public class CCTiers {
 		public static final Tier FOIL = new BlueprintItemTier(1, 1822, 12.0F, 0.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
 
 		public static BlueprintItemTier createCopperTier(TagKey<Item> repairTag) {
-			return new BlueprintItemTier(1, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(repairTag));
+			return new BlueprintItemTier(1 + 1, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(repairTag));
 		}
 	}
 }
