@@ -101,7 +101,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 						.add(LootItem.lootTableItem(CCItems.TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))).invert())
-								.when(LootItemRandomChanceCondition.randomChance(0.02F))
+								.when(LootItemRandomChanceCondition.randomChance(0.01F))
 						).build()), false
 		));
 
@@ -110,7 +110,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 						.add(LootItem.lootTableItem(CCItems.TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))).invert())
-								.when(LootItemRandomChanceCondition.randomChance(0.04F))
+								.when(LootItemRandomChanceCondition.randomChance(0.02F))
 						).build()), false
 		));
 	}

@@ -27,7 +27,7 @@
                     }
                   },
                   {
-                    "chance": 0.04,
+                    "chance": 0.02,
                     "condition": "minecraft:random_chance"
                   }
                 ],
