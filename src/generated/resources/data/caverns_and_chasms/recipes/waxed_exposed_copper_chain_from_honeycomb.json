@@ -6,14 +6,9 @@
     {
       "item": "caverns_and_chasms:exposed_copper_chain"
     },
-    [
-      {
-        "item": "minecraft:honeycomb"
-      },
-      {
-        "item": "caverns_and_chasms:tinplate"
-      }
-    ]
+    {
+      "tag": "forge:wax"
+    }
   ],
   "result": {
     "item": "caverns_and_chasms:waxed_exposed_copper_chain"

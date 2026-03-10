@@ -38,6 +38,8 @@ public class CCItemTags {
 	public static final TagKey<Item> COPPER_AXES = itemTag("copper_axes");
 	public static final TagKey<Item> COPPER_HOES = itemTag("copper_hoes");
 
+	public static final TagKey<Item> WAX = TagUtil.itemTag("forge", "wax");
+
 	public static final TagKey<Item> GEMS_SPINEL = TagUtil.itemTag("forge", "gems/spinel");
 	public static final TagKey<Item> GEMS_TURQUOISE = TagUtil.itemTag("forge", "gems/turquoise");
 	public static final TagKey<Item> GEMS_ZIRCONIA = TagUtil.itemTag("forge", "gems/zirconia");

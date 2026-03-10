@@ -6,14 +6,9 @@
     {
       "item": "caverns_and_chasms:oxidized_copper_grate"
     },
-    [
-      {
-        "item": "minecraft:honeycomb"
-      },
-      {
-        "item": "caverns_and_chasms:tinplate"
-      }
-    ]
+    {
+      "tag": "forge:wax"
+    }
   ],
   "result": {
     "item": "caverns_and_chasms:waxed_oxidized_copper_grate"

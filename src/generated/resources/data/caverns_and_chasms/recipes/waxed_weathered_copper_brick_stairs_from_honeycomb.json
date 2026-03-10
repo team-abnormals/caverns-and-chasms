@@ -6,14 +6,9 @@
     {
       "item": "caverns_and_chasms:weathered_copper_brick_stairs"
     },
-    [
-      {
-        "item": "minecraft:honeycomb"
-      },
-      {
-        "item": "caverns_and_chasms:tinplate"
-      }
-    ]
+    {
+      "tag": "forge:wax"
+    }
   ],
   "result": {
     "item": "caverns_and_chasms:waxed_weathered_copper_brick_stairs"

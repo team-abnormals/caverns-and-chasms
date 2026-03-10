@@ -647,15 +647,20 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	protected void ccWaxRecipes(Consumer<FinishedRecipe> consumer) {
 		CCCompat.registerWaxables();
 		HoneycombItem.WAXABLES.get().forEach((base, waxed) -> {
-			if (BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID()) && !(waxed instanceof ToolboxBlock) && !(waxed instanceof IngotBlock)) {
-				RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS : waxed instanceof ButtonBlock ? REDSTONE : BUILDING_BLOCKS;
-				ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(Ingredient.of(Items.HONEYCOMB, CCItems.TINPLATE.get())).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
+			if (BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID())) {
+				if (!(waxed instanceof ToolboxBlock) && !(waxed instanceof IngotBlock)) {
+					RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS : waxed instanceof ButtonBlock ? REDSTONE : BUILDING_BLOCKS;
+					ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
+				}
+			} else {
+				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getConversionRecipeName(waxed, Items.HONEYCOMB));
+
 			}
 		});
 
 		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
 			if (!(base instanceof WeatheringCopperItem)) {
-				ShapelessRecipeBuilder.shapeless(MISC, waxed).requires(base).requires(Ingredient.of(Items.HONEYCOMB, CCItems.TINPLATE.get())).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
+				ShapelessRecipeBuilder.shapeless(MISC, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
 			}
 		});
 	}

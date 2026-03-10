@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.recipe;
 
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +34,7 @@ public class NBTWaxing extends CustomRecipe {
 				if (Block.byItem(stack.getItem()) instanceof WeatheringToolboxBlock || stack.getItem() instanceof WeatheringCopperItem) {
 					++i;
 				} else {
-					if (!(stack.getItem() instanceof HoneycombItem)) {
+					if (!(stack.is(CCItemTags.WAX))) {
 						return false;
 					}
 

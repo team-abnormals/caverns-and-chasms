@@ -6,14 +6,9 @@
     {
       "item": "caverns_and_chasms:copper_rail"
     },
-    [
-      {
-        "item": "minecraft:honeycomb"
-      },
-      {
-        "item": "caverns_and_chasms:tinplate"
-      }
-    ]
+    {
+      "tag": "forge:wax"
+    }
   ],
   "result": {
     "item": "caverns_and_chasms:waxed_copper_rail"

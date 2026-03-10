@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
@@ -142,6 +143,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_TIN).addTag(CCItemTags.NUGGETS_COPPER).addTag(CCItemTags.NUGGETS_NETHERITE).addTag(CCItemTags.NUGGETS_NECROMIUM);
 		this.tag(Tags.Items.HEADS).add(DEEPER_HEAD.get(), EVENDEEPER_HEAD.get(), PEEPER_HEAD.get(), MIME_HEAD.get());
 		this.copy(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS, ItemTags.NOTE_BLOCK_TOP_INSTRUMENTS);
+		this.tag(CCItemTags.WAX).add(Items.HONEYCOMB, TINPLATE.get());
 
 		this.tag(CCItemTags.COPPER_SWORDS).add(COPPER_SWORD.get(), EXPOSED_COPPER_SWORD.get(), WEATHERED_COPPER_SWORD.get(), OXIDIZED_COPPER_SWORD.get(), WAXED_COPPER_SWORD.get(), WAXED_EXPOSED_COPPER_SWORD.get(), WAXED_WEATHERED_COPPER_SWORD.get(), WAXED_OXIDIZED_COPPER_SWORD.get());
 		this.tag(CCItemTags.COPPER_PICKAXES).add(COPPER_PICKAXE.get(), EXPOSED_COPPER_PICKAXE.get(), WEATHERED_COPPER_PICKAXE.get(), OXIDIZED_COPPER_PICKAXE.get(), WAXED_COPPER_PICKAXE.get(), WAXED_EXPOSED_COPPER_PICKAXE.get(), WAXED_WEATHERED_COPPER_PICKAXE.get(), WAXED_OXIDIZED_COPPER_PICKAXE.get());

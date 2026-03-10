@@ -27,9 +27,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": [
-                      "minecraft:honeycomb"
-                    ]
+                    "tag": "forge:wax"
                   }
                 }
               ]
