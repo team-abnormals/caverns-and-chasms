@@ -38,6 +38,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundT
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -218,15 +219,17 @@ public class CCEvents {
 			}
 
 			UseOnContext context = new UseOnContext(level, player, event.getHand(), stack, event.getHitVec());
-			Collection<RegistryObject<Item>> items = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper().getDeferredRegister().getEntries();
-			for (RegistryObject<Item> reg : items) {
-				if (reg.get() instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
-					InteractionResult itemResult = reg.get().useOn(context);
-					if (itemResult.consumesAction()) {
-						event.setCanceled(true);
-						event.setCancellationResult(itemResult);
+			Optional<Registry<Item>> registry = level.registryAccess().registry(Registries.ITEM);
+			if (registry.isPresent()) {
+				for (Item item1 : registry.get()) {
+					if (item1 instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
+						InteractionResult itemResult = item1.useOn(context);
+						if (itemResult.consumesAction()) {
+							event.setCanceled(true);
+							event.setCancellationResult(itemResult);
+						}
+						break;
 					}
-					break;
 				}
 			}
 		}
