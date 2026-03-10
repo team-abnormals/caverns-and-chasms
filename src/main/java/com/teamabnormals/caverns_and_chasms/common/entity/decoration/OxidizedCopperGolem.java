@@ -25,10 +25,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -99,7 +96,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 		ItemStack itemstack = player.getItemInHand(hand);
 		Item item = itemstack.getItem();
 		boolean success = false;
-		if (item == Items.HONEYCOMB) {
+		if (item instanceof HoneycombItem) {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);

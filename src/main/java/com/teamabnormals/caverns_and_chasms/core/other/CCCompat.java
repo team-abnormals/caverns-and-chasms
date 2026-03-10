@@ -7,23 +7,30 @@ import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.sensing.VillagerHostilesSensor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.HoneycombItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.FireworkStarRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fluids.FluidInteractionRegistry.InteractionInformation;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CCCompat {
 
@@ -112,6 +119,24 @@ public class CCCompat {
 		DispenserBlock.registerBehavior(CCItems.TETHER_POTION.get(), armorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.IMPACT_POTION.get(), armorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.TRAIL_POTION.get(), armorDispenseBehavior);
+
+		DispenserBlock.registerBehavior(CCItems.TINPLATE.get(), new OptionalDispenseItemBehavior() {
+			public ItemStack execute(BlockSource source, ItemStack stack) {
+				BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+				Level level = source.getLevel();
+				BlockState blockstate = level.getBlockState(blockpos);
+				Optional<BlockState> optional = HoneycombItem.getWaxed(blockstate);
+				if (optional.isPresent()) {
+					level.setBlockAndUpdate(blockpos, optional.get());
+					level.levelEvent(3003, blockpos, 0);
+					stack.shrink(1);
+					this.setSuccess(true);
+					return stack;
+				} else {
+					return super.execute(source, stack);
+				}
+			}
+		});
 	}
 
 	private static void changeLocalization() {

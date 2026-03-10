@@ -39,10 +39,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -200,7 +197,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				}
 				success = true;
 			}
-		} else if (item == Items.HONEYCOMB) {
+		} else if (item instanceof HoneycombItem) {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);

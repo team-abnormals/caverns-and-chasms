@@ -204,6 +204,7 @@ public class CCItems {
 	public static final RegistryObject<Item> RAW_TIN = HELPER.createItem("raw_tin", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TIN_INGOT = HELPER.createItem("tin_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TIN_NUGGET = HELPER.createItem("tin_nugget", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> TINPLATE = HELPER.createItem("tinplate", () -> new HoneycombItem(new Item.Properties()));
 
 	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(FANCY)));
 	public static final RegistryObject<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(FANCY).food(CCFoods.CAVIAR)));
@@ -302,6 +303,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.GOLD_INGOT), SILVER_INGOT)
 				.addItemsAfter(of(Items.NETHERITE_INGOT), NECROMIUM_INGOT, LIVING_FLESH)
 				.addItemsAfter(of(Items.MOJANG_BANNER_PATTERN), ABNORMALS_BANNER_PATTERN)
+				.addItemsAfter(of(Items.HONEYCOMB), TINPLATE)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
 				.addItemsAfter(of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), TRIM_MODIFIER_SMITHING_TEMPLATE)
 				.addItemsBefore(of(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE), CORE_ARMOR_TRIM_SMITHING_TEMPLATE, FORGER_ARMOR_TRIM_SMITHING_TEMPLATE, IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE, PLATE_ARMOR_TRIM_SMITHING_TEMPLATE, RIM_ARMOR_TRIM_SMITHING_TEMPLATE)
