@@ -6,9 +6,14 @@
     {
       "item": "caverns_and_chasms:exposed_chiseled_copper"
     },
-    {
-      "item": "minecraft:honeycomb"
-    }
+    [
+      {
+        "item": "minecraft:honeycomb"
+      },
+      {
+        "item": "caverns_and_chasms:tinplate"
+      }
+    ]
   ],
   "result": {
     "item": "caverns_and_chasms:waxed_exposed_chiseled_copper"

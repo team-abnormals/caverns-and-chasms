@@ -33,7 +33,7 @@ public class NBTWaxing extends CustomRecipe {
 				if (Block.byItem(stack.getItem()) instanceof WeatheringToolboxBlock || stack.getItem() instanceof WeatheringCopperItem) {
 					++i;
 				} else {
-					if (!stack.is(Items.HONEYCOMB)) {
+					if (!(stack.getItem() instanceof HoneycombItem)) {
 						return false;
 					}
 

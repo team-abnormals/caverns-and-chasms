@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringTo
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +25,7 @@ public final class NBTWaxingRecipeMaker {
 		List<CraftingRecipe> recipes = Lists.newArrayList();
 		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
 			if (base instanceof WeatheringCopperItem) {
-				NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(base), Ingredient.of(Items.HONEYCOMB));
+				NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(base), Ingredient.of(Items.HONEYCOMB, CCItems.TINPLATE.get()));
 				ItemStack output = new ItemStack(waxed);
 				ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
 				String name = base.builtInRegistryHolder().key().location().getPath().replace("exposed_|weathered_|oxidized_", "");
@@ -45,7 +46,7 @@ public final class NBTWaxingRecipeMaker {
 	private static final String group = "caverns_and_chasms.toolbox.wax";
 
 	private static CraftingRecipe createRecipe(WeatheringToolboxBlock toolbox) {
-		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(toolbox), Ingredient.of(Items.HONEYCOMB));
+		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(toolbox), Ingredient.of(Items.HONEYCOMB, CCItems.TINPLATE.get()));
 		ItemStack output = ToolboxBlock.getWeatheredItemStack(toolbox.getWeatherState(), false);
 		ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
 		return new ShapelessRecipe(id, group, CraftingBookCategory.EQUIPMENT, output, inputs);
