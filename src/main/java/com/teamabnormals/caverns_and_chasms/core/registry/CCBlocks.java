@@ -106,6 +106,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 	public static final RegistryObject<Block> STORAGE_DUCT = HELPER.createBlock("storage_duct", () -> new StorageDuctBlock(CCProperties.STORAGE_DUCT));
 	public static final RegistryObject<Block> STORAGE_DUCT_HATCH = HELPER.createBlock("storage_duct_hatch", () -> new StorageDuctHatchBlock(CCProperties.STORAGE_DUCT_HATCH));
+	public static final RegistryObject<Block> TINPLATE_BLOCK = HELPER.createBlock("tinplate_block", () -> new TinplateBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
 
 	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createRollerDoorBlock("roller_door", () -> new RollerDoorBlock(CCProperties.ROLLER_DOOR));
 	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorHeaderBlock(CCProperties.ROLLER_DOOR));
@@ -746,7 +747,7 @@ public class CCBlocks {
 				.addItemsBefore(of(Blocks.INFESTED_STONE), FRAGILE_STONE, FRAGILE_DEEPSLATE)
 				.addItemsAfter(of(Blocks.SMITHING_TABLE), DISMANTLING_TABLE)
 				.addItemsAfter(of(Blocks.DAMAGED_ANVIL), BEJEWELED_ANVIL)
-				.addItemsAfter(of(Blocks.ENCHANTING_TABLE), ATONING_TABLE)
+				.addItemsAfter(of(Blocks.ENCHANTING_TABLE), ATONING_TABLE, TINPLATE_BLOCK)
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Blocks.TARGET), WAXED_COPPER_BULB, WAXED_EXPOSED_COPPER_BULB, WAXED_WEATHERED_COPPER_BULB, WAXED_OXIDIZED_COPPER_BULB, TIN_BULB)
 				.addItemsAfter(of(Blocks.COMPARATOR), REFRACTOR, RESISTOR)

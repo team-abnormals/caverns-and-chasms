@@ -205,6 +205,7 @@ public class CCItems {
 	public static final RegistryObject<Item> TIN_INGOT = HELPER.createItem("tin_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TIN_NUGGET = HELPER.createItem("tin_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TINPLATE = HELPER.createItem("tinplate", () -> new HoneycombItem(new Item.Properties()));
+	public static final RegistryObject<Item> RICOCHET_ARROW = HELPER.createItem("ricochet_arrow", () -> new RicochetArrowItem(new Item.Properties()));
 
 	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(FANCY)));
 	public static final RegistryObject<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(FANCY).food(CCFoods.CAVIAR)));
@@ -345,7 +346,7 @@ public class CCItems {
 				.addItemsBefore(of(Items.TURTLE_HELMET), COWL, TOOLBELT)
 				.addItemsAfter(of(Items.DIAMOND_HORSE_ARMOR), NETHERITE_HORSE_ARMOR, NECROMIUM_HORSE_ARMOR)
 				.addItemsBefore(of(Items.SNOWBALL), KUNAI)
-				.addItemsAfter(of(Items.SPECTRAL_ARROW), BLUNT_ARROW, LARGE_ARROW)
+				.addItemsAfter(of(Items.SPECTRAL_ARROW), BLUNT_ARROW, RICOCHET_ARROW, LARGE_ARROW)
 				.addItemsAfter(of(Items.TRIDENT), FOIL)
 				.editor(event -> event.getParameters().holders().lookup(Registries.POTION).ifPresent(registry -> {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());

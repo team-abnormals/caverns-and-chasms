@@ -93,7 +93,7 @@ public class CCModelLayers {
 		event.registerEntityRenderer(CCEntityTypes.TMT.get(), TmtRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.TMT_MINECART.get(), TmtMinecartRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
-		event.registerEntityRenderer(CCEntityTypes.BLUNT_ARROW.get(), BluntArrowRenderer::new);
+		event.registerEntityRenderer(CCEntityTypes.RICOCHET_ARROW.get(), RicochetArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.LARGE_ARROW.get(), LargeArrowRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.GLARE.get(), GlareRenderer::new);
 		event.registerEntityRenderer(CCEntityTypes.LOST_GOAT.get(), LostGoatRenderer::new);

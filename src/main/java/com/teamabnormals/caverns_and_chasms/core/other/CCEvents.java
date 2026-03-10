@@ -5,10 +5,7 @@ import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTic
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.blueprint.core.util.TradeUtil;
 import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
-import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.FlintBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.TinSoundType;
+import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
@@ -702,7 +699,14 @@ public class CCEvents {
 				}
 			}
 
-			if (flag) {
+			boolean bonus = data.getValue(CCDataProcessors.BONUS_DEFLECT);
+			if (flag || bonus || projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get()) {
+				if (!flag) {
+					data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
+				} else if (state.getBlock() instanceof TinplateBlock) {
+					data.setValue(CCDataProcessors.BONUS_DEFLECT, true);
+				}
+
 				double speed = movement.lengthSqr();
 				if (direction != Direction.UP || speed > 0.04D) {
 					Vec3 location = hitResult.getLocation();
@@ -717,7 +721,7 @@ public class CCEvents {
 						k = 0.9D;
 					}
 
-					if (state.is(CCBlockTags.WEAKER_DEFLECT_VELOCITY)) {
+					if (state.is(CCBlockTags.WEAKER_DEFLECT_VELOCITY) || bonus) {
 						j -= 0.25D;
 						k -= 0.25D;
 					}

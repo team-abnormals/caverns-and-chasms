@@ -49,7 +49,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(ItemTags.CHEST_BOATS).add(AZALEA_BOAT.getSecond().get());
 		this.tag(BlueprintItemTags.FURNACE_BOATS).add(AZALEA_FURNACE_BOAT.get());
 		this.tag(BlueprintItemTags.LARGE_BOATS).add(LARGE_AZALEA_BOAT.get());
-		this.tag(ItemTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get());
+		this.tag(ItemTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get(), RICOCHET_ARROW.get());
 		this.tag(ItemTags.TRIMMABLE_ARMOR).addTag(CCItemTags.COPPER_HELMETS).addTag(CCItemTags.COPPER_CHESTPLATES).addTag(CCItemTags.COPPER_LEGGINGS).addTag(CCItemTags.COPPER_BOOTS).add(
 				SILVER_HELMET.get(), SILVER_CHESTPLATE.get(), SILVER_LEGGINGS.get(), SILVER_BOOTS.get(),
 				NECROMIUM_HELMET.get(), NECROMIUM_CHESTPLATE.get(), NECROMIUM_LEGGINGS.get(), NECROMIUM_BOOTS.get(),

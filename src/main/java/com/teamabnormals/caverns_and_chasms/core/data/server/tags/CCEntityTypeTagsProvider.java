@@ -23,7 +23,7 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 	@Override
 	public void addTags(Provider provider) {
 		this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(COPPER_GOLEM.get(), GLARE.get(), RAT.get());
-		this.tag(EntityTypeTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get());
+		this.tag(EntityTypeTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get(), RICOCHET_ARROW.get());
 		this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(KUNAI.get());
 		this.tag(BlueprintEntityTypeTags.FISHES).add(CAVEFISH.get());
 

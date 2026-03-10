@@ -67,6 +67,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.hoopBlock(HOOP);
 		this.storageDuctBlock(STORAGE_DUCT);
 		this.storageDuctHatchBlock(STORAGE_DUCT_HATCH);
+		this.logBlock(TINPLATE_BLOCK);
 
 		this.rollerDoorBlocks(ROLLER_DOOR, ROLLER_DOOR_HEADER);
 

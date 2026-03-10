@@ -59,6 +59,7 @@ public class CCDataProcessors {
 	public static final TrackedData<Double> REWIND_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> REWIND_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Boolean> SHOULD_DEFLECT = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
+	public static final TrackedData<Boolean> BONUS_DEFLECT = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
 	public static final TrackedData<Double> DEFLECT_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> DEFLECT_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
 	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
@@ -77,6 +78,7 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_y"), REWIND_Y);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_z"), REWIND_Z);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("should_deflect"), SHOULD_DEFLECT);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("bonus_deflect"), BONUS_DEFLECT);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_x"), DEFLECT_X);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_y"), DEFLECT_Y);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_z"), DEFLECT_Z);

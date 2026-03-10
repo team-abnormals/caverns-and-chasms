@@ -249,6 +249,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, FLOAT_GLASS_PANE.get(), 16).define('#', FLOAT_GLASS.get()).pattern("###").pattern("###").unlockedBy("has_float_glass", has(FLOAT_GLASS.get())).save(consumer);
 		ShapedRecipeBuilder.shaped(REDSTONE, ROLLER_DOOR.get(), 2).define('T', CCItemTags.INGOTS_TIN).pattern("TT").pattern("TT").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.TINPLATE.get(), 16).requires(CCItemTags.INGOTS_TIN).requires(Items.HONEYCOMB).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
+		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.TINPLATE.get(), BUILDING_BLOCKS, TINPLATE_BLOCK.get(), "tinplate_from_tinplate_block", "tinplate");
+		ShapedRecipeBuilder.shaped(COMBAT, CCItems.RICOCHET_ARROW.get(), 4).define('#', Tags.Items.RODS_WOODEN).define('X', CCItems.RAW_TIN.get()).define('Y', Items.FEATHER).pattern("X").pattern("#").pattern("Y").unlockedBy("has_feather", has(Items.FEATHER)).unlockedBy("has_raw_tin", has(CCItems.RAW_TIN.get())).save(consumer);
 
 		copperBulb(consumer, TIN_BULB.get(), CCItems.TIN_INGOT.get());
 		ShapedRecipeBuilder.shaped(DECORATIONS, TIN_CHAIN.get()).define('#', CCItemTags.NUGGETS_TIN).pattern("#").pattern("#").pattern("#").unlockedBy("has_tin_nugget", has(CCItemTags.NUGGETS_TIN)).save(consumer);

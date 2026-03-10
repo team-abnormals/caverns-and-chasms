@@ -97,6 +97,7 @@ public class CCCompat {
 	private static void registerDispenserBehaviors() {
 		DispenserBlock.registerBehavior(CCItems.KUNAI.get(), new KunaiDispenseBehavior());
 		DispenserBlock.registerBehavior(CCItems.BLUNT_ARROW.get(), new BluntArrowDispenseBehavior());
+		DispenserBlock.registerBehavior(CCItems.RICOCHET_ARROW.get(), new RicochetArrowDispenseBehavior());
 		DispenserBlock.registerBehavior(CCItems.LARGE_ARROW.get(), new LargeArrowDispenserBehavior());
 		DispenserBlock.registerBehavior(CCBlocks.TMT.get(), new TMTDispenseBehavior());
 		DispenserBlock.registerBehavior(CCItems.GOLDEN_BUCKET.get(), new GoldenBucketDispenseBehavior());
