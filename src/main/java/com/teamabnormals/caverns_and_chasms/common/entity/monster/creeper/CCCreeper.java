@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
 import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;

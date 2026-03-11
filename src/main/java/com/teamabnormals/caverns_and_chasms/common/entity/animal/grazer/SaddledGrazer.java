@@ -1,11 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.common.network.C2SGrazerJumpMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
@@ -14,9 +12,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PacketDistributor;
-
-import javax.annotation.Nullable;
 
 public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumping {
 	private float playerJumpPendingScale;
