@@ -63,6 +63,7 @@ public class CCFeatures {
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_GROWTH_GROVE = FEATURES.register("cave_growth_grove", () -> new CaveGrowthGroveFeature(NoneFeatureConfiguration.CODEC));
 	public static final RegistryObject<Feature<LakeFeature.Configuration>> MAGMA_LAKE = FEATURES.register("magma_lake", () -> new MagmaLakeFeature(LakeFeature.Configuration.CODEC));
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> FALSE_HOPE = FEATURES.register("false_hope", () -> new FalseHopeFeature(NoneFeatureConfiguration.CODEC));
+	public static final RegistryObject<Feature<OreConfiguration>> RHYOLITE = FEATURES.register("rhyolite", () -> new RhyoliteFeature(OreConfiguration.CODEC));
 
 	public static final LevelConcurrentHashMapReceiver<Pair<Integer, Integer>, BlockPos> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
 	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
@@ -103,6 +104,7 @@ public class CCFeatures {
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ROCKY_DIRT = createKey("ore_rocky_dirt");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE = createKey("ore_fragile_stone");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FRAGILE_STONE_BURIED = createKey("ore_fragile_stone_buried");
+		public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_RHYOLITE = createKey("ore_rhyolite");
 
 		public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CAVE_GROWTHS = createKey("patch_cave_growths");
 		public static final ResourceKey<ConfiguredFeature<?, ?>> CAVE_GROWTH_GROVE = createKey("cave_growth_grove");
@@ -138,6 +140,7 @@ public class CCFeatures {
 			register(context, ORE_ROCKY_DIRT, CCFeatures.ORE_WITH_DIRT.get(), new OreConfiguration(baseStone, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33));
 			register(context, ORE_FRAGILE_STONE, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(stoneOre, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState())), 48, 0.1F));
 			register(context, ORE_FRAGILE_STONE_BURIED, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(stoneOre, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState())), 48, 1.0F));
+			register(context, ORE_RHYOLITE, CCFeatures.RHYOLITE.get(), new OreConfiguration(baseStone, CCBlocks.RHYOLITE.get().defaultBlockState(), 64));
 
 			register(context, AZALEA_TREE, Feature.TREE, (new TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build());
 
@@ -185,6 +188,7 @@ public class CCFeatures {
 		public static final ResourceKey<PlacedFeature> ORE_ROCKY_DIRT = createKey("ore_rocky_dirt");
 		public static final ResourceKey<PlacedFeature> ORE_FRAGILE_STONE = createKey("ore_fragile_stone");
 		public static final ResourceKey<PlacedFeature> ORE_FRAGILE_STONE_BURIED = createKey("ore_fragile_stone_buried");
+		public static final ResourceKey<PlacedFeature> ORE_RHYOLITE = createKey("ore_rhyolite");
 
 		public static final ResourceKey<PlacedFeature> PATCH_CAVE_GROWTHS = createKey("patch_cave_growths");
 		public static final ResourceKey<PlacedFeature> PATCH_CAVE_GROWTHS_DEEP = createKey("patch_cave_growths_deep");
@@ -214,6 +218,7 @@ public class CCFeatures {
 			register(context, ORE_ROCKY_DIRT, CCConfiguredFeatures.ORE_ROCKY_DIRT, commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(160))));
 			register(context, ORE_FRAGILE_STONE, CCConfiguredFeatures.ORE_FRAGILE_STONE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
 			register(context, ORE_FRAGILE_STONE_BURIED, CCConfiguredFeatures.ORE_FRAGILE_STONE_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
+			register(context, ORE_RHYOLITE, CCConfiguredFeatures.ORE_RHYOLITE, commonOrePlacement(15, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(32))));
 
 			register(context, PATCH_CAVE_GROWTHS, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new NoiseDensityPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 2.5F, 0.8F), InSquarePlacement.spread(), HeightmapRandomOffsetPlacement.of(Heightmap.Types.WORLD_SURFACE_WG, -40, -2), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
 			register(context, PATCH_CAVE_GROWTHS_DEEP, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new NoiseDensityPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 0.35F, 0.75F), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(172)), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -40), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());

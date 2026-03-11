@@ -1,0 +1,18 @@
+{
+  "type": "caverns_and_chasms:rhyolite",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 64,
+    "targets": [
+      {
+        "state": {
+          "Name": "caverns_and_chasms:rhyolite"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:base_stone_overworld"
+        }
+      }
+    ]
+  }
+}
