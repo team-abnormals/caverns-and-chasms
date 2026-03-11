@@ -2676,9 +2676,8 @@
   },
   "entity.grazer.ricochet": {
     "sounds": [
-      "caverns_and_chasms:block/tin/deflect1",
-      "caverns_and_chasms:block/tin/deflect2",
-      "caverns_and_chasms:block/tin/deflect3"
+      "caverns_and_chasms:mob/grazer/deflect1",
+      "caverns_and_chasms:mob/grazer/deflect2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.grazer.ricochet"
   },
