@@ -111,7 +111,5 @@ public abstract class CCCreeper extends Creeper {
 		return SoundEvents.GENERIC_EXPLODE;
 	}
 
-	protected ItemStack getSkull() {
-		return new ItemStack(CCItems.PEEPER_HEAD.get());
-	}
+	protected abstract ItemStack getSkull();
 }
