@@ -25,7 +25,7 @@ public class Grazer extends AbstractGrazer implements Enemy {
 
 	@Override
 	public boolean removeWhenFarAway(double d) {
-		return false;
+		return true;
 	}
 
 	public static boolean checkGrazerSpawnRules(EntityType<Grazer> grazer, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
