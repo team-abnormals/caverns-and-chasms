@@ -160,14 +160,11 @@ public class WinchBlock extends BaseEntityBlock implements HoldableBlock {
 		builder.add(FACING, FACE);
 	}
 
-	private static Direction getConnectedDirection(BlockState state) {
-		switch (state.getValue(FACE)) {
-			case CEILING:
-				return Direction.DOWN;
-			case FLOOR:
-				return Direction.UP;
-			default:
-				return state.getValue(FACING);
-		}
+	public static Direction getConnectedDirection(BlockState state) {
+		return switch (state.getValue(FACE)) {
+			case CEILING -> Direction.DOWN;
+			case FLOOR -> Direction.UP;
+			default -> state.getValue(FACING);
+		};
 	}
 }

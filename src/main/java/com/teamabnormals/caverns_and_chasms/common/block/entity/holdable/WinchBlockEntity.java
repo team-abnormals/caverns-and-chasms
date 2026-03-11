@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.WinchBlock;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -77,8 +79,9 @@ public class WinchBlockEntity extends BlockEntity {
 		}
 
 		int oldpower = blockEntity.getPower();
+		BlockState onState = level.getBlockState(pos.relative(WinchBlock.getConnectedDirection(state).getOpposite()));
 
-		if (blockEntity.forceRollBack || (!blockEntity.isFullyPowered() && blockEntity.pressTime <= 0)) {
+		if (blockEntity.forceRollBack || (!onState.is(CCBlockTags.WINCH_DOES_NOT_UNWIND_ON) && (!blockEntity.isFullyPowered() && blockEntity.pressTime <= 0) || (onState.is(CCBlockTags.WINCH_FORCES_UNWIND_ON)) && blockEntity.isFullyPowered() && blockEntity.pressTime <= 0)) {
 			blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
 			blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
 			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);

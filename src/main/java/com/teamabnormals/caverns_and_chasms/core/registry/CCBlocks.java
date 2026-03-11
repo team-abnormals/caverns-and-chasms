@@ -450,7 +450,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> MAGMATIC_RHYOLITE_BRICK_WALL = HELPER.createBlock("magmatic_rhyolite_brick_wall", () -> new WallBlock(CCProperties.MAGMATIC_RHYOLITE_BRICKS));
 	public static final RegistryObject<Block> CHISELED_MAGMATIC_RHYOLITE_BRICKS = HELPER.createBlock("chiseled_magmatic_rhyolite_bricks", () -> new Block(CCProperties.MAGMATIC_RHYOLITE_BRICKS));
 
-	public static final RegistryObject<Block> AMBIENT_BUBBLE_COLUMN = HELPER.createBlockNoItem("ambient_bubble_column", () -> new AmbientBubbleColumnBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN)));
+	public static final RegistryObject<Block> AMBIENT_BUBBLE_COLUMN = HELPER.createBlockNoItem("ambient_bubble_column", () -> new AmbientBubbleColumnBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).noLootTable()));
 
 	public static final RegistryObject<Block> DRIPSTONE_STAIRS = HELPER.createBlock("dripstone_stairs", () -> new StairBlock(() -> Blocks.DRIPSTONE_BLOCK.defaultBlockState(), CCProperties.DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_SLAB = HELPER.createBlock("dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
