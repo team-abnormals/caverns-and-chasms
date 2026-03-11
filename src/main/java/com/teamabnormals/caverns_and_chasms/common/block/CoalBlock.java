@@ -4,11 +4,13 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -154,6 +156,23 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	public static int getHeatForPos(LevelAccessor level, BlockPos pos) {
 		return level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK) ? 1 : 0;
+	}
+
+	public static BlockState extinguish(Entity entity, LevelAccessor level, BlockPos pos, BlockState state) {
+		BlockState extinguishedsstate = state.setValue(HEAT, getHeatForPos(level, pos));
+		if (level.isClientSide()) {
+			for (int i = 0; i < 10; ++i) {
+				spawnSmokeParticles((Level) level, pos);
+			}
+		}
+
+		level.gameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
+		return extinguishedsstate;
+	}
+
+	public static void spawnSmokeParticles(Level level, BlockPos pos) {
+		RandomSource random = level.getRandom();
+		level.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D + random.nextDouble() * 0.3D * (random.nextBoolean() ? 1 : -1), pos.getY() + 0.35D, pos.getZ() + 0.5D + random.nextDouble() * 0.3D * (random.nextBoolean() ? 1 : -1), 0.0D, 0.005D, 0.0D);
 	}
 
 	protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {

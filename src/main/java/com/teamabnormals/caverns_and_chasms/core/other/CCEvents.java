@@ -255,6 +255,20 @@ public class CCEvents {
 			}
 		}
 
+		if (state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) == 2 && !event.isCanceled()) {
+			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN)) {
+				BlockState extinguishedState = CoalBlock.extinguish(player, level, pos, state);
+				if (!level.isClientSide()) {
+					level.levelEvent(null, 1009, pos, 0);
+					level.setBlock(pos, extinguishedState, 11);
+					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
+				}
+
+				event.setCanceled(true);
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+			}
+		}
+
 		if (state.getBlock() instanceof BrazierBlock && face == Direction.UP && !event.isCanceled()) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN) && state.getValue(BrazierBlock.LIT)) {
 				BlockState extinguishedState = BrazierBlock.extinguish(player, level, pos, state);
