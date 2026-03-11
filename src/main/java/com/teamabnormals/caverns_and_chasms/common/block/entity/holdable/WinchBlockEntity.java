@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.WinchBlock;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -78,26 +77,35 @@ public class WinchBlockEntity extends BlockEntity {
 			blockEntity.rotationO = blockEntity.rotation;
 		}
 
-		int oldpower = blockEntity.getPower();
-		BlockState onState = level.getBlockState(pos.relative(WinchBlock.getConnectedDirection(state).getOpposite()));
+		int oldPower = blockEntity.getPower();
+		boolean isPressed = blockEntity.pressTime > 0;
 
-		if (blockEntity.forceRollBack || (!onState.is(CCBlockTags.WINCH_DOES_NOT_UNWIND_ON) && (!blockEntity.isFullyPowered() && blockEntity.pressTime <= 0) || (onState.is(CCBlockTags.WINCH_FORCES_UNWIND_ON)) && blockEntity.isFullyPowered() && blockEntity.pressTime <= 0)) {
+		if (blockEntity.forceRollBack || (!isPressed && shouldUnwind(level, pos, state, blockEntity))) {
 			blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
 			blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
 			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
-		} else if (blockEntity.pressTime > 0) {
+		} else if (isPressed) {
 			blockEntity.rewindSpeed = 0F;
 			blockEntity.rotation = Math.min(blockEntity.rotation + 3F, 360F);
 			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		}
 
-		if (blockEntity.pressTime > 0) {
+		if (isPressed) {
 			--blockEntity.pressTime;
 		}
 
-		if (!level.isClientSide && oldpower != blockEntity.getPower()) {
+		if (!level.isClientSide && oldPower != blockEntity.getPower()) {
 			WinchBlock.updateNeighbours(state, level, pos);
 			level.playSound(null, pos, CCSoundEvents.WINCH_WIND.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+		}
+	}
+
+	public static boolean shouldUnwind(Level level, BlockPos pos, BlockState state, WinchBlockEntity blockEntity) {
+		BlockState onState = level.getBlockState(pos.relative(WinchBlock.getConnectedDirection(state).getOpposite()));
+		if (blockEntity.isFullyPowered()) {
+			return onState.is(CCBlockTags.WINCH_FORCES_UNWIND_ON);
+		} else {
+			return !onState.is(CCBlockTags.WINCH_DOES_NOT_UNWIND_ON);
 		}
 	}
 }
