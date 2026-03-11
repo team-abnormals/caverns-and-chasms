@@ -23,6 +23,11 @@ public class Grazer extends AbstractGrazer implements Enemy {
 		return true;
 	}
 
+	@Override
+	public boolean removeWhenFarAway(double d) {
+		return false;
+	}
+
 	public static boolean checkGrazerSpawnRules(EntityType<Grazer> grazer, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		if (Mime.checkUndergroundMonsterSpawnRules(grazer, level, spawnType, pos, random) && level instanceof WorldGenLevel wgLevel && pos.getY() <= CCConfig.COMMON.grazerMaxSpawnHeight.get()) {
 			int length = 256;
