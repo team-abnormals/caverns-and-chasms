@@ -1,10 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CCustomSoundExplosionMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.*;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
@@ -175,6 +172,7 @@ public class CavernsAndChasms {
 		CHANNEL.registerMessage(1, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		CHANNEL.registerMessage(2, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		CHANNEL.registerMessage(3, S2CUpdateAttachedRatsMessage.class, S2CUpdateAttachedRatsMessage::serialize, S2CUpdateAttachedRatsMessage::deserialize, S2CUpdateAttachedRatsMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(4, C2SGrazerJumpMessage.class, C2SGrazerJumpMessage::serialize, C2SGrazerJumpMessage::deserialize, C2SGrazerJumpMessage::handle);
 	}
 
 	public static ResourceLocation location(String path) {

@@ -68,7 +68,7 @@ public abstract class AbstractGrazer extends Animal {
 	private long lastDeflectTick;
 
 	private boolean bouncingBackwards;
-	private double bounceHeight;
+	protected double bounceHeight;
 	private float bodyLowerAmountO;
 	public float customXRotO;
 
@@ -204,6 +204,14 @@ public abstract class AbstractGrazer extends Animal {
 	public boolean canMove() {
 		GrazerState state = this.getState();
 		return !this.isBaby() && !this.isBouncingState(state) && state != GrazerState.WIGGLING && state != GrazerState.FLIPPING_OVER;
+	}
+
+	public double getBounceHeight() {
+		return this.bounceHeight;
+	}
+
+	public void setBounceHeight(double height) {
+		this.bounceHeight = height;
 	}
 
 	public boolean shouldShowDroolModel() {
