@@ -73,7 +73,6 @@
     "client.HorseArmorLayerMixin",
     "client.HorseModelMixin",
     "client.HumanoidArmorLayerMixin",
-    "client.HumanoidModelMixin",
     "client.ItemInHandRendererMixin",
     "client.LevelRendererMixin",
     "client.MultiPlayerGameModeMixin"

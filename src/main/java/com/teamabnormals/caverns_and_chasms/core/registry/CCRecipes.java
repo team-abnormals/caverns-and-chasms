@@ -2,8 +2,8 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MusicDiscCopying;
-import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
+import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.registries.DeferredRegister;

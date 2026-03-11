@@ -18,7 +18,6 @@ import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
-import com.teamabnormals.caverns_and_chasms.common.item.silver.FoilItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
@@ -106,7 +105,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.*;
 import java.util.function.Function;
@@ -575,24 +573,8 @@ public class CCEvents {
 			}
 		}
 
-		if (source.getDirectEntity() instanceof BluntArrow || source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
-			if (source.getDirectEntity() instanceof BluntArrow) {
-				event.setAmount(0.0F);
-			}
-
-			if (source.getEntity() instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof FoilItem) {
-				event.setAmount(0.0F);
-				if (target.isPassenger() && target.level().getRandom().nextInt(3) == 0 && target.getVehicle() != null) {
-					float rot = living.getVisualRotationYInDegrees();
-					float x = Mth.sin(rot * Mth.DEG_TO_RAD);
-					float z = -Mth.cos(rot * Mth.DEG_TO_RAD);
-
-					target.removeVehicle();
-					Vec3 vec3 = (new Vec3(x, 0.0D, z)).scale(-0.2F);
-					target.push(vec3.x, 0.8D, vec3.z);
-					target.hurtMarked = true;
-				}
-			}
+		if (source.getDirectEntity() instanceof BluntArrow) {
+			event.setAmount(0.0F);
 		}
 	}
 
