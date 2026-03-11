@@ -24,6 +24,7 @@
     "DefaultDispenseItemBehaviorMixin",
     "EnchantmentHelperMixin",
     "EntityHitResultMixin",
+    "EntityMixin",
     "ExplosionMixin",
     "FallingBlockEntityMixin",
     "FollowFlockLeaderGoalMixin",

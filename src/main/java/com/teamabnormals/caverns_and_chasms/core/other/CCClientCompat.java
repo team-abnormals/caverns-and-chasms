@@ -22,6 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.SmithingScreen;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -87,6 +88,11 @@ public class CCClientCompat {
 				horseRenderer.addLayer(new UnicornHornLayer(horseRenderer, event.getEntityModels()));
 			}
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+		event.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1, CCBlocks.AMBIENT_BUBBLE_COLUMN.get());
 	}
 
 	@SubscribeEvent
@@ -227,6 +233,8 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ORNATE_GLASS_PANE.get(), RenderType.translucent());
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SADDLED_EGG.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AMBIENT_BUBBLE_COLUMN.get(), RenderType.translucent());
 	}
 
 	public static void registerItemProperties() {
