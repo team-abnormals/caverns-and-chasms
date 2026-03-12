@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,12 +22,21 @@ public abstract class ItemCooldownsMixin {
 
 	@Inject(at = @At("RETURN"), method = "addCooldown")
 	private void getCooldownPercent(Item item, int duration, CallbackInfo ci) {
-		if (item == CCItems.LOST_GOAT_HORN.get() && !this.isOnCooldown(Items.GOAT_HORN)) {
-			this.addCooldown(Items.GOAT_HORN, duration);
+		if (item == CCItems.LOST_GOAT_HORN.get()) {
+			this.addCooldown(duration, Items.GOAT_HORN, CCItems.COPPER_HORN.get());
+		} else if (item == Items.GOAT_HORN) {
+			this.addCooldown(duration, CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get());
+		} else if (item == CCItems.COPPER_HORN.get()) {
+			this.addCooldown(duration, Items.GOAT_HORN, CCItems.LOST_GOAT_HORN.get());
 		}
+	}
 
-		if (item == Items.GOAT_HORN && !this.isOnCooldown(CCItems.LOST_GOAT_HORN.get())) {
-			this.addCooldown(CCItems.LOST_GOAT_HORN.get(), duration);
+	@Unique
+	private void addCooldown(int duration, Item... items) {
+		for (Item item : items) {
+			if (!this.isOnCooldown(item)) {
+				this.addCooldown(item, duration);
+			}
 		}
 	}
 }
