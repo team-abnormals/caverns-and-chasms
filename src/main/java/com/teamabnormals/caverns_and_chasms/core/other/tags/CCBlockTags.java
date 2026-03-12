@@ -21,6 +21,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> WEAKER_DEFLECT_VELOCITY = blockTag("weaker_deflect_velocity");
 	public static final TagKey<Block> MAINTAINS_DEFLECT_VELOCITY = blockTag("maintains_deflect_velocity");
 	public static final TagKey<Block> STATIC_NOTE_BLOCKS = blockTag("static_note_blocks");
+	public static final TagKey<Block> ALARM_NOTE_BLOCKS = blockTag("alarm_note_blocks");
 	public static final TagKey<Block> WARDEN_NOTE_BLOCKS = blockTag("warden_note_blocks");
 	public static final TagKey<Block> COPPER_GOLEM_SUMMON_BLOCKS = blockTag("copper_golem_summon_blocks");
 	public static final TagKey<Block> WINCH_DOES_NOT_UNWIND_ON = blockTag("winch_does_not_unwind_on");

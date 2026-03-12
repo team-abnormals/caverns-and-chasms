@@ -61,6 +61,12 @@
     ],
     "subtitle": "subtitles.block.note_block.note"
   },
+  "block.note_block.alarm": {
+    "sounds": [
+      "caverns_and_chasms:note/alarm"
+    ],
+    "subtitle": "subtitles.block.note_block.note"
+  },
   "block.rocky_dirt.break": {
     "sounds": [
       "caverns_and_chasms:block/rocky_dirt/place1",

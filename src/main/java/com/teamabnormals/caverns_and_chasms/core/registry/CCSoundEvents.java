@@ -388,6 +388,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_GRAZER = HELPER.createSoundEvent("entity.parrot.imitate.grazer");
 
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_STATIC = HELPER.createSoundEvent("block.note_block.static");
+	public static final RegistryObject<SoundEvent> NOTE_BLOCK_ALARM = HELPER.createSoundEvent("block.note_block.alarm");
 
 	public static final ImmutableList<RegistryObject<SoundEvent>> GOAT_HORN_SOUND_VARIANTS = registerGoatHornSoundVariants();
 
@@ -461,6 +462,7 @@ public class CCSoundEvents {
 		registerHeadInstrument(CCBlocks.PEEPER_HEAD, NOTE_BLOCK_IMITATE_PEEPER);
 		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.WARDEN_NOTE_BLOCKS), NOTE_BLOCK_IMITATE_WARDEN.get(), false));
 		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.STATIC_NOTE_BLOCKS), NOTE_BLOCK_STATIC.get(), false));
+		DataUtil.registerNoteBlockInstrument(new CustomNoteBlockInstrument(CavernsAndChasms.MOD_ID, source -> source.getBlockState().is(CCBlockTags.ALARM_NOTE_BLOCKS), NOTE_BLOCK_ALARM.get(), false));
 	}
 
 	public static void registerHeadInstrument(RegistryObject<Block> block, RegistryObject<SoundEvent> soundEvent) {
