@@ -257,10 +257,10 @@
   },
   "block.dimmer.fall": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/place1",
-      "caverns_and_chasms:block/dimmer/place2",
-      "caverns_and_chasms:block/dimmer/place3",
-      "caverns_and_chasms:block/dimmer/place4"
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
     ]
   },
   "block.dimmer.hit": {
@@ -274,10 +274,10 @@
   },
   "block.dimmer.place": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/place1",
-      "caverns_and_chasms:block/dimmer/place2",
-      "caverns_and_chasms:block/dimmer/place3",
-      "caverns_and_chasms:block/dimmer/place4"
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
