@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -118,7 +119,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 				Vec3 normal = grazer.calculateDeflectionNormal(location);
 
 				if (!this.level().isClientSide)
-					CCEvents.playRicochetEffects(this.level(), location, normal, 0.8F, this.random, true);
+					CCEvents.playRicochetEffects(this.level(), location, normal, 0.8F, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F, this.random, true);
 
 				return false;
 			}
