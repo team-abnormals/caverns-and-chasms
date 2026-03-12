@@ -299,6 +299,15 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.sparkler.sparkle": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/sparkle1",
+      "caverns_and_chasms:block/sparkler/sparkle2",
+      "caverns_and_chasms:block/sparkler/sparkle3",
+      "caverns_and_chasms:block/sparkler/sparkle4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.sparkler.sparkle"
+  },
   "block.flint_block.break": {
     "sounds": [
       "caverns_and_chasms:block/flint_block/break1",
@@ -2437,6 +2446,12 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.winch.wind"
   },
+  "block.winch.lock": {
+    "sounds": [
+      "caverns_and_chasms:block/winch/lock"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.winch.lock"
+  },
   "entity.deeper.primed": {
     "sounds": [
       "caverns_and_chasms:mob/deeper/fuse"
@@ -3241,4 +3256,4 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.effect.rewind.rewind"
   }
-}
+},

@@ -290,7 +290,10 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> DIMMER_BUZZ = HELPER.createSoundEvent("block.dimmer.buzz");
 	public static final RegistryObject<SoundEvent> WINCH_WIND = HELPER.createSoundEvent("block.winch.wind");
+	public static final RegistryObject<SoundEvent> WINCH_LOCK = HELPER.createSoundEvent("block.winch.lock");
 	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
+
+	public static final RegistryObject<SoundEvent> SPARKLER_SPARKLE = HELPER.createSoundEvent("block.sparkler.sparkle");
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
