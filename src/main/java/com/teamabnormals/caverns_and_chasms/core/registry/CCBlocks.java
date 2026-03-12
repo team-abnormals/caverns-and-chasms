@@ -39,6 +39,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -151,6 +152,10 @@ public class CCBlocks {
 	public static final RegistryObject<Block> CUPRIC_TORCH = HELPER.createStandingAndWallBlock("cupric_torch", () -> new CupricTorchBlock(Block.Properties.copy(Blocks.SOUL_TORCH)), CUPRIC_WALL_TORCH, Direction.DOWN);
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK));
+
+	public static final RegistryObject<Block> GUNPOWDER_BLOCK = HELPER.createBlock("gunpowder_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SAND)));
+	public static final RegistryObject<Block> WALL_SPARKLER = HELPER.createBlockNoItem("wall_sparkler", () -> new SparklerWallBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)));
+	public static final RegistryObject<Block> SPARKLER = HELPER.createStandingAndWallBlock("sparkler", () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)), WALL_SPARKLER, Direction.DOWN);
 
 	public static final RegistryObject<Block> DEEPER_HEAD = HELPER.createBlockNoItem("deeper_head", () -> new DeeperSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> DEEPER_WALL_HEAD = HELPER.createBlockNoItem("deeper_wall_head", () -> new DeeperWallSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(DEEPER_HEAD.get())));
@@ -723,7 +728,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.RAW_COPPER_BLOCK), RAW_TIN_BLOCK)
 				.addItemsAfter(of(Blocks.RAW_GOLD_BLOCK), RAW_SILVER_BLOCK)
 				.addItemsAfter(of(Blocks.SCULK_SENSOR), ECHO_BLOCK)
-				.addItemsBefore(of(Blocks.COBWEB), ROTTEN_FLESH_BLOCK)
+				.addItemsBefore(of(Blocks.COBWEB), GUNPOWDER_BLOCK, ROTTEN_FLESH_BLOCK)
 				.addItemsBefore(of(Blocks.DEAD_BUSH), CAVE_GROWTHS, LURID_CAVE_GROWTHS, WISPY_CAVE_GROWTHS, WEIRD_CAVE_GROWTHS, GRAINY_CAVE_GROWTHS, ZESTY_CAVE_GROWTHS)
 				.addItemsBefore(of(Blocks.TORCHFLOWER), MOSCHATEL, FALSE_HOPE)
 				.addItemsBefore(of(Blocks.PRISMARINE), SUGILITE, CASSITERITE, RHYOLITE, MAGMATIC_RHYOLITE)
@@ -731,6 +736,7 @@ public class CCBlocks {
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
+				.addItemsAfter(of(Blocks.LANTERN), SPARKLER)
 				.addItemsBefore(of(Blocks.ANVIL), CUPRIC_CAMPFIRE)
 				.addItemsBefore(of(Blocks.CHAIN),
 						CUPRIC_LANTERN,

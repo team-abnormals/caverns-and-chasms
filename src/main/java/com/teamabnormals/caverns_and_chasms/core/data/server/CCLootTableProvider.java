@@ -127,6 +127,11 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(EUMUS_BRICK.get(), this::createIngotDrops);
 
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
+
+			this.dropSelf(GUNPOWDER_BLOCK.get());
+			this.dropSelf(SPARKLER.get());
+			this.dropOther(WALL_SPARKLER.get(), SPARKLER.get());
+
 			this.dropSelf(NECROMIUM_BLOCK.get());
 			this.dropSelf(DEEPER_HEAD.get());
 			this.dropSelf(EVENDEEPER_HEAD.get());
@@ -508,8 +513,7 @@ public class CCLootTableProvider extends LootTableProvider {
 												);
 									})
 							))
-					)
-					;
+					);
 		}
 
 		protected LootTable.Builder createToolboxDrop(Block p_124295_) {

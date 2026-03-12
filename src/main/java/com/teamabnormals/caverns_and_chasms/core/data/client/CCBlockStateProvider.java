@@ -122,6 +122,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.block(NECROMIUM_BLOCK);
 		this.block(ROTTEN_FLESH_BLOCK);
+		this.block(GUNPOWDER_BLOCK);
+		this.sparklerBlock(SPARKLER, WALL_SPARKLER);
+
 		this.randomRotationBlock(ROCKY_DIRT);
 		this.flintBlock(FLINT_BLOCK);
 		this.coalBlock(COAL);
@@ -345,6 +348,19 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.vanillaSlabBlock(Blocks.POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB);
 		this.vanillaSlabBlock(Blocks.POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB);
 		this.vanillaSlabBlock(Blocks.PRISMARINE_BRICKS, Blocks.PRISMARINE_BRICK_SLAB);
+	}
+
+	public void sparklerBlock(RegistryObject<Block> sparkler, RegistryObject<Block> wallSparkler) {
+		ModelFile standing = this.models().withExistingParent(name(sparkler.get()), CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()));
+		ModelFile standingLit = this.models().withExistingParent(name(sparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
+
+		this.getVariantBuilder(sparkler.get()).partialState().with(SparklerBlock.LIT, false).modelForState().modelFile(standing).addModel().partialState().with(SparklerBlock.LIT, true).modelForState().modelFile(standingLit).addModel();
+		this.generatedItem(sparkler.get(), "block");
+
+		ModelFile wall = this.models().withExistingParent(name(wallSparkler.get()), CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()));
+		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
+
+		this.horizontalBlock(wallSparkler.get(), state -> state.getValue(SparklerWallBlock.LIT) ? wallLit : wall, 90);
 	}
 
 	public void caveGrowthsBlock(RegistryObject<Block> caveGrowths, RegistryObject<Block> flowerPot) {

@@ -81,6 +81,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -232,9 +233,10 @@ public class CCEvents {
 		boolean fireCharge = stack.getItem() instanceof FireChargeItem;
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
 		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
-			boolean valid = state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) != 2 && !state.getValue(CoalBlock.WATERLOGGED);
-			if (valid) {
-				BlockState returnState = state.setValue(CoalBlock.HEAT, 2);
+			boolean coal = state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) != 2 && !state.getValue(CoalBlock.WATERLOGGED);
+			boolean sparkler = (state.getBlock() instanceof SparklerBlock || state.getBlock() instanceof SparklerWallBlock) && !state.getValue(BlockStateProperties.LIT);
+			if (coal || sparkler) {
+				BlockState returnState = coal ? state.setValue(CoalBlock.HEAT, 2) : state.setValue(BlockStateProperties.LIT, true);
 				if (flintAndSteel) {
 					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					level.setBlock(pos, returnState, 11);

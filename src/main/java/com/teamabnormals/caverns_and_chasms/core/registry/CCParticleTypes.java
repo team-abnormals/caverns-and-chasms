@@ -50,6 +50,7 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> ATONING_LETTER = registerSimpleParticleType(true, "atoning_table_letter");
 	public static final RegistryObject<SimpleParticleType> DROOL_PUDDLE = registerSimpleParticleType(true, "drool_puddle");
 	public static final RegistryObject<SimpleParticleType> DROOL = registerSimpleParticleType(true, "drool");
+	public static final RegistryObject<SimpleParticleType> SPARKLER_SPARK = registerSimpleParticleType(true, "sparkler_spark");
 
 	private static RegistryObject<SimpleParticleType> registerSimpleParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -88,6 +89,7 @@ public class CCParticleTypes {
 			event.registerSpriteSet(ATONING_LETTER.get(), AtoningLetterParticle.Provider::new);
 			event.registerSpriteSet(DROOL_PUDDLE.get(), DroolPuddleParticle.Provider::new);
 			event.registerSpriteSet(DROOL.get(), DroolParticle.Provider::new);
+			event.registerSpriteSet(SPARKLER_SPARK.get(), FlameParticle.Provider::new);
 		}
 	}
 }
