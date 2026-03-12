@@ -2819,6 +2819,14 @@
     ],
     "subtitle": "subtitles.entity.arrow.hit"
   },
+  "entity.large_arrow.hit": {
+    "sounds": [
+      "caverns_and_chasms:entity/large_arrow/hit1",
+      "caverns_and_chasms:entity/large_arrow/hit2",
+      "caverns_and_chasms:entity/large_arrow/hit3"
+    ],
+    "subtitle": "subtitles.entity.arrow.hit"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"

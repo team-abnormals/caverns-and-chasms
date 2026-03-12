@@ -367,6 +367,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> CAVEFISH_FLOP = HELPER.createSoundEvent("entity.cavefish.flop");
 
 	public static final RegistryObject<SoundEvent> BLUNT_ARROW_HIT = HELPER.createSoundEvent("entity.blunt_arrow.hit");
+	public static final RegistryObject<SoundEvent> LARGE_ARROW_HIT = HELPER.createSoundEvent("entity.large_arrow.hit");
 
 	public static final RegistryObject<SoundEvent> REWIND = HELPER.createSoundEvent("effect.rewind.rewind");
 
