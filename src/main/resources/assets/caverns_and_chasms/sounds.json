@@ -3146,6 +3146,30 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.copper_horn.play"
   },
+  "item.bone_flute.sit": {
+    "sounds": [
+      "random/successful_hit"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+  },
+  "item.bone_flute.recall": {
+    "sounds": [
+      "random/burp"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+  },
+  "item.bone_flute.go_there": {
+    "sounds": [
+      "random/chestopen"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+  },
+  "item.bone_flute.attack": {
+    "sounds": [
+      "random/splash"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+  },
   "effect.rewind.rewind": {
     "sounds": [
       "caverns_and_chasms:effect/rewind/rewind"

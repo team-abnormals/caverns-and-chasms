@@ -386,6 +386,11 @@ public class CCSoundEvents {
 	public static final ImmutableList<RegistryObject<SoundEvent>> COPPER_HORN_MELODY_SOUND_VARIANTS = registerCopperHornSoundVariants("melody");
 	public static final ImmutableList<RegistryObject<SoundEvent>> COPPER_HORN_BASS_SOUND_VARIANTS = registerCopperHornSoundVariants("bass");
 
+	public static final RegistryObject<SoundEvent> BONE_FLUTE_SIT = HELPER.createSoundEvent("item.bone_flute.sit");
+	public static final RegistryObject<SoundEvent> BONE_FLUTE_RECALL = HELPER.createSoundEvent("item.bone_flute.recall");
+	public static final RegistryObject<SoundEvent> BONE_FLUTE_GO_THERE = HELPER.createSoundEvent("item.bone_flute.go_there");
+	public static final RegistryObject<SoundEvent> BONE_FLUTE_ATTACK = HELPER.createSoundEvent("item.bone_flute.attack");
+
 	private static ImmutableList<RegistryObject<SoundEvent>> registerGoatHornSoundVariants() {
 		return IntStream.range(8, 10).mapToObj((suffix) -> HELPER.createSoundEvent("item.goat_horn.sound." + suffix)).collect(ImmutableList.toImmutableList());
 	}

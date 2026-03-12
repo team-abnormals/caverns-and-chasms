@@ -63,7 +63,6 @@ import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant> {
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
-	private static final Predicate<Entity> AVOID_PLAYERS = (entity) -> !entity.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(entity);
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
@@ -77,6 +76,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private List<Rat> pack = Lists.newArrayList();
 	private int ticksSinceEaten;
+
+	private BlockPos commandedPos;
 
 	private Player tamer;
 	private BlockPos rottenFleshPos;
@@ -95,24 +96,26 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.setCanPickUpLoot(true);
 	}
 
+	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new RatAttachedToMobGoal(this));
 		this.goalSelector.addGoal(1, new FloatGoal(this));
 		this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
 		this.goalSelector.addGoal(3, new RatJumpAtTargetGoal(this));
-		this.goalSelector.addGoal(4, new RatMeleeAttackGoal(this, 1.2D, false));
-		this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-		this.goalSelector.addGoal(6, new BreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(7, new RatTemptGoal(this));
-		// this.goalSelector.addGoal(8, new RatJumpOnShoulderGoal(this));
-		this.goalSelector.addGoal(9, new RatDevourRottenFleshGoal(this, 1.25D));
-		this.goalSelector.addGoal(10, new RatStayInGroupGoal(this));
-		this.goalSelector.addGoal(11, new RatFollowParentGoal(this));
-		this.goalSelector.addGoal(12, new RatAvoidEntityGoal(this, 10.0F, 1.0F, 1.2F));
-		this.goalSelector.addGoal(13, new RatRandomStrollGoal(this));
-		this.goalSelector.addGoal(14, new RatFindItemsGoal(this));
-		this.goalSelector.addGoal(15, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(16, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(4, new RatMeleeAttackGoal(this, 1.2D, true));
+		this.goalSelector.addGoal(5, new RatGoToCommandedPosGoal(this, 1.2D));
+		this.goalSelector.addGoal(6, new RatFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(8, new RatTemptGoal(this));
+		// this.goalSelector.addGoal(9, new RatJumpOnShoulderGoal(this));
+		this.goalSelector.addGoal(10, new RatDevourRottenFleshGoal(this, 1.25D));
+		this.goalSelector.addGoal(11, new RatStayInGroupGoal(this));
+		this.goalSelector.addGoal(12, new RatFollowParentGoal(this));
+		this.goalSelector.addGoal(13, new RatAvoidEntityGoal(this, 10.0F, 1.0F, 1.2F));
+		this.goalSelector.addGoal(14, new RatRandomStrollGoal(this));
+		this.goalSelector.addGoal(15, new RatFindItemsGoal(this));
+		this.goalSelector.addGoal(16, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(17, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new RatStopAttackingGoal(this));
 		this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
 		this.targetSelector.addGoal(3, new OwnerHurtTargetGoal(this));
@@ -571,22 +574,31 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			return false;
 	}
 
+	// Bone flute command stuff
+	public void setCommandedPos(BlockPos commandedPos) {
+		this.commandedPos = commandedPos;
+	}
+
+	public BlockPos getCommandedPos() {
+		return this.commandedPos;
+	}
+
 	@Override
 	public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
-		if (!this.hasBraveryToFight()) {
+		return this.hasBraveryToFight() && canRatsAttack(target, owner);
+	}
+
+	public static boolean canRatsAttack(LivingEntity target, LivingEntity owner) {
+		if (target instanceof Creeper || target instanceof Ghast) {
 			return false;
-		} else if (!(target instanceof Creeper) && !(target instanceof Ghast)) {
-			if (target instanceof Wolf wolf) {
-				return !wolf.isTame() || wolf.getOwner() != owner;
-			} else if (target instanceof Player && owner instanceof Player && !((Player) owner).canHarmPlayer((Player) target)) {
-				return false;
-			} else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
-				return false;
-			} else {
-				return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
-			}
+		} else if (target instanceof Wolf wolf) {
+			return !wolf.isTame() || wolf.getOwner() != owner;
+		} else if (target instanceof Player && owner instanceof Player && !((Player) owner).canHarmPlayer((Player) target)) {
+			return false;
+		} else if (target instanceof AbstractHorse && ((AbstractHorse) target).isTamed()) {
+			return false;
 		} else {
-			return false;
+			return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
 		}
 	}
 

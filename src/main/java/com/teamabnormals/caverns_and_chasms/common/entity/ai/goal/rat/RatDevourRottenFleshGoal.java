@@ -95,7 +95,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 					this.rat.playSound(this.rat.getEatingSound(flesh), 0.5F + 0.5F * (float) random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 					this.rat.spawnItemParticles(flesh, 4);
 				}
-			} else if (this.eatingTime == 160) {
+			} else {
 				this.rat.playSound(SoundEvents.PLAYER_BURP, 0.5F, random.nextFloat() * 0.1F + 0.9F);
 				this.rat.tame(this.rat.getTamer());
 				if (!this.rat.level().isClientSide()) {
