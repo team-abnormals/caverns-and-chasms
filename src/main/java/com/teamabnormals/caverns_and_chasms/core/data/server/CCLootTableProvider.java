@@ -556,7 +556,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(OXIDIZED_COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
 			this.add(DEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
 							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
 							.apply(FortuneEnchantFunction.fortuneMultiplier(UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
 							.when(HAS_SILK_TOUCH.invert())
@@ -569,7 +569,7 @@ public class CCLootTableProvider extends LootTableProvider {
 							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(EVENDEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F)))
 							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
 							.apply(FortuneEnchantFunction.fortuneMultiplier(UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
 							.when(HAS_SILK_TOUCH.invert())
@@ -582,7 +582,7 @@ public class CCLootTableProvider extends LootTableProvider {
 							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(PEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 6.0F)))
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 8.0F)))
 							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
 					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
 							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
