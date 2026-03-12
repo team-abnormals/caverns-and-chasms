@@ -41,6 +41,7 @@
     "LightningRodBlockMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
+    "MineshaftCorridorMixin",
     "MineshaftStructureMixin",
     "MineshaftStructureTypeMixin",
     "MobEffectInstanceMixin",
