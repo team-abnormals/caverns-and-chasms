@@ -246,6 +246,59 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.dimmer.break": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dimmer.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/place1",
+      "caverns_and_chasms:block/dimmer/place2",
+      "caverns_and_chasms:block/dimmer/place3",
+      "caverns_and_chasms:block/dimmer/place4"
+    ]
+  },
+  "block.dimmer.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.dimmer.place": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/place1",
+      "caverns_and_chasms:block/dimmer/place2",
+      "caverns_and_chasms:block/dimmer/place3",
+      "caverns_and_chasms:block/dimmer/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dimmer.step": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/step1",
+      "caverns_and_chasms:block/dimmer/step2",
+      "caverns_and_chasms:block/dimmer/step3",
+      "caverns_and_chasms:block/dimmer/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.dimmer.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.flint_block.break": {
     "sounds": [
       "caverns_and_chasms:block/flint_block/break1",
