@@ -53,15 +53,17 @@ public class SparklerWallBlock extends WallTorchBlock {
 			Direction facing = state.getValue(FACING);
 			Direction opposite = facing.getOpposite();
 			double x = (double) pos.getX() + 0.5D;
-			double y = (double) pos.getY() + 0.8D;
+			double y = (double) pos.getY() + 0.78D;
 			double z = (double) pos.getZ() + 0.5D;
 			double offsetY = 0.15D;
 			double offsetXZ = 0.2D;
-			level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(),
-					x + offsetXZ * (double) opposite.getStepX() + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
-					y + offsetY + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.025D, random),
-					z + offsetXZ * (double) opposite.getStepZ() + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
-					0.0D, 0.0D, 0.0D);
+			for (int i = 0; i < 2; i++) {
+				level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(),
+						x + offsetXZ * (double) opposite.getStepX() + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
+						y + offsetY + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.025D, random),
+						z + offsetXZ * (double) opposite.getStepZ() + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
+						0.0D, 0.0D, 0.0D);
+			}
 		}
 	}
 

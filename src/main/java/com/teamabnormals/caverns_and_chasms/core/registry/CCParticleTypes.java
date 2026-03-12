@@ -89,7 +89,7 @@ public class CCParticleTypes {
 			event.registerSpriteSet(ATONING_LETTER.get(), AtoningLetterParticle.Provider::new);
 			event.registerSpriteSet(DROOL_PUDDLE.get(), DroolPuddleParticle.Provider::new);
 			event.registerSpriteSet(DROOL.get(), DroolParticle.Provider::new);
-			event.registerSpriteSet(SPARKLER_SPARK.get(), FlameParticle.Provider::new);
+			event.registerSpriteSet(SPARKLER_SPARK.get(), SparklerParticle.Provider::new);
 		}
 	}
 }

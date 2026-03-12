@@ -41,13 +41,15 @@ public class SparklerBlock extends TorchBlock {
 			}
 
 			double x = (double) pos.getX() + 0.5D;
-			double y = (double) pos.getY() + 0.8D;
+			double y = (double) pos.getY() + 0.78D;
 			double z = (double) pos.getZ() + 0.5D;
-			level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(),
-					x + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
-					y + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.025D, random),
-					z + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
-					0.0D, 0.0D, 0.0D);
+			for (int i = 0; i < 2; i++) {
+				level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(),
+						x + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
+						y + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.025D, random),
+						z + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
+						0.0D, 0.0D, 0.0D);
+			}
 		}
 	}
 
