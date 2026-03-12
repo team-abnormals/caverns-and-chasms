@@ -140,7 +140,7 @@ public class BoneFluteItem extends Item {
 	}
 
 	public static Command getCommand(Player player, HitResult hitResult) {
-		if (player.isCrouching()) {
+		if (player.isSecondaryUseActive()) {
 			return player.getXRot() > 15.0F ? Command.SIT : Command.RECALL;
 		} else {
 			HitResult.Type type = hitResult.getType();
