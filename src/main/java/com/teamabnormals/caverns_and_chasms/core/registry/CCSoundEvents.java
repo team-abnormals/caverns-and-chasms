@@ -389,7 +389,7 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_SIT = HELPER.createSoundEvent("item.bone_flute.sit");
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_RECALL = HELPER.createSoundEvent("item.bone_flute.recall");
-	public static final RegistryObject<SoundEvent> BONE_FLUTE_GO_THERE = HELPER.createSoundEvent("item.bone_flute.go_there");
+	public static final RegistryObject<SoundEvent> BONE_FLUTE_MOVE = HELPER.createSoundEvent("item.bone_flute.move");
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_ATTACK = HELPER.createSoundEvent("item.bone_flute.attack");
 
 	private static ImmutableList<RegistryObject<SoundEvent>> registerGoatHornSoundVariants() {

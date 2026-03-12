@@ -3168,7 +3168,7 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
   },
-  "item.bone_flute.go_there": {
+  "item.bone_flute.move": {
     "sounds": [
       "caverns_and_chasms:item/bone_flute/move1",
       "caverns_and_chasms:item/bone_flute/move2"

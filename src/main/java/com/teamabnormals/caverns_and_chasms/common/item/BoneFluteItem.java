@@ -123,7 +123,7 @@ public class BoneFluteItem extends Item {
 				rat.setOrderedToSit(false);
 				rat.setCommandedPos(null);
 			}
-		} else if (command == Command.GO_THERE) {
+		} else if (command == Command.MOVE) {
 			BlockPos targetPos = hitResult.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) hitResult).getBlockPos() : BlockPos.containing(hitResult.getLocation());
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(false);
@@ -151,7 +151,7 @@ public class BoneFluteItem extends Item {
 					return Command.ATTACK;
 				}
 			}
-			return Command.GO_THERE;
+			return Command.MOVE;
 		}
 	}
 
@@ -220,7 +220,7 @@ public class BoneFluteItem extends Item {
 	public enum Command {
 		SIT(CCSoundEvents.BONE_FLUTE_SIT.get()),
 		RECALL(CCSoundEvents.BONE_FLUTE_RECALL.get()),
-		GO_THERE(CCSoundEvents.BONE_FLUTE_GO_THERE.get()),
+		MOVE(CCSoundEvents.BONE_FLUTE_MOVE.get()),
 		ATTACK(CCSoundEvents.BONE_FLUTE_ATTACK.get());
 
 		private final ResourceLocation crosshairIcon;
