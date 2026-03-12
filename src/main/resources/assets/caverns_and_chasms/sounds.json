@@ -3156,25 +3156,29 @@
   },
   "item.bone_flute.sit": {
     "sounds": [
-      "random/successful_hit"
+      "caverns_and_chasms:item/bone_flute/sit1",
+      "caverns_and_chasms:item/bone_flute/sit2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
   },
   "item.bone_flute.recall": {
     "sounds": [
-      "random/burp"
+      "caverns_and_chasms:item/bone_flute/recall1",
+      "caverns_and_chasms:item/bone_flute/recall2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
   },
   "item.bone_flute.go_there": {
     "sounds": [
-      "random/chestopen"
+      "caverns_and_chasms:item/bone_flute/move1",
+      "caverns_and_chasms:item/bone_flute/move2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
   },
   "item.bone_flute.attack": {
     "sounds": [
-      "random/splash"
+      "caverns_and_chasms:item/bone_flute/attack1",
+      "caverns_and_chasms:item/bone_flute/attack2"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
   },
