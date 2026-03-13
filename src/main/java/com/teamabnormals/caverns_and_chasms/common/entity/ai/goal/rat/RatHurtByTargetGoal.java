@@ -13,7 +13,7 @@ public class RatHurtByTargetGoal extends HurtByTargetGoal {
 
 	public void start() {
 		super.start();
-		if (!this.rat.canFightAgainst(this.targetMob)) {
+		if (!this.rat.hasBraveryToFight()) {
 			this.stop();
 		}
 	}

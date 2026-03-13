@@ -1,15 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -36,11 +35,13 @@ import org.joml.Vector3f;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class BoneFluteItem extends Item {
-	private static final double RANGE = 32.0D;
+	private static final double MAX_COMMAND_DIST = 64.0D;
+	private static final double RANGE = 128.0D;
 
 	public BoneFluteItem(Properties properties) {
 		super(properties);
@@ -50,10 +51,10 @@ public class BoneFluteItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		HitResult hitResult = getHitResult(player);
-		Command command = getCommand(player, hitResult);
+		BoneFluteCommand command = getCommand(player, hitResult);
 		if (command != null) {
 			player.startUsingItem(hand);
-			level.playSound(player, player, command.sound, SoundSource.RECORDS, 3.0F, 1.0F);
+			level.playSound(player, player, command.getSound(), SoundSource.RECORDS, 3.0F, 1.0F);
 			level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
 			executeCommand(command, level, player, hitResult);
 			player.getCooldowns().addCooldown(this, 20);
@@ -111,63 +112,73 @@ public class BoneFluteItem extends Item {
 		return 32;
 	}
 
-	private static void executeCommand(Command command, Level level, Player player, HitResult hitResult) {
-		List<Rat> rats = level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(64D), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= 4096D);
+	private static void executeCommand(BoneFluteCommand command, Level level, Player player, HitResult hitResult) {
+		List<Rat> rats = level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= RANGE * RANGE);
 
-		if (command == Command.SIT) {
+		if (command == BoneFluteCommand.SIT) {
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(true);
-			}
-		} else if (command == Command.RECALL) {
-			for (Rat rat : rats) {
-				rat.setOrderedToSit(false);
+				rat.detachFromEntity();
+				rat.setTarget(null);
+				rat.setCommandedTarget(null);
 				rat.setCommandedPos(null);
 			}
-		} else if (command == Command.MOVE) {
-			BlockPos targetPos = hitResult.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) hitResult).getBlockPos() : BlockPos.containing(hitResult.getLocation());
+		} else if (command == BoneFluteCommand.RECALL) {
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(false);
 				rat.detachFromEntity();
-				rat.setCommandedPos(targetPos);
+				rat.setTarget(null);
+				rat.setCommandedTarget(null);
+				rat.setCommandedPos(null);
 			}
-		} else if (command == Command.ATTACK) {
+		} else if (command == BoneFluteCommand.MOVE) {
+			BlockPos pos = hitResult.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) hitResult).getBlockPos() : BlockPos.containing(hitResult.getLocation());
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(false);
-				rat.setTarget((LivingEntity) ((EntityHitResult) hitResult).getEntity());
+				rat.detachFromEntity();
+				rat.setTarget(null);
+				rat.setCommandedTarget(null);
+				rat.setCommandedPos(pos);
+			}
+		} else if (command == BoneFluteCommand.ATTACK) {
+			LivingEntity target = (LivingEntity) ((EntityHitResult) hitResult).getEntity();
+			for (Rat rat : rats) {
+				rat.setOrderedToSit(false);
+				rat.setCommandedTarget(target);
 				rat.setCommandedPos(null);
 			}
 		}
 	}
 
-	public static Command getCommand(Player player, HitResult hitResult) {
+	public static BoneFluteCommand getCommand(Player player, HitResult hitResult) {
 		if (player.isSecondaryUseActive()) {
-			return player.getXRot() > 15.0F ? Command.SIT : Command.RECALL;
+			return player.getXRot() > 15.0F ? BoneFluteCommand.SIT : BoneFluteCommand.RECALL;
 		} else {
 			HitResult.Type type = hitResult.getType();
 			if (type == HitResult.Type.MISS) {
-				return Command.RECALL;
+				return BoneFluteCommand.RECALL;
 			} else if (type == HitResult.Type.ENTITY) {
 				if (Rat.canRatsAttack((LivingEntity) ((EntityHitResult) hitResult).getEntity(), player)) {
-					return Command.ATTACK;
+					return BoneFluteCommand.ATTACK;
 				}
 			}
-			return Command.MOVE;
+			return BoneFluteCommand.MOVE;
 		}
 	}
 
 	@NonNull
 	public static HitResult getHitResult(Player player) {
-		HitResult hitResult = player.pick(RANGE, 1.0F, false);
+		HitResult hitResult = player.pick(MAX_COMMAND_DIST, 1.0F, false);
 		Vec3 eyeLoc = player.getEyePosition(1.0F);
 
-		double blockDistSqr = RANGE * RANGE;
+		double blockDistSqr = MAX_COMMAND_DIST * MAX_COMMAND_DIST;
 		if (hitResult.getType() != HitResult.Type.MISS) {
 			blockDistSqr = hitResult.getLocation().distanceToSqr(eyeLoc);
 		}
 
 		Vec3 viewVector = player.getViewVector(1.0F);
-		Vec3 clipTargetLoc = eyeLoc.add(viewVector.x * RANGE, viewVector.y * RANGE, viewVector.z * RANGE);
-		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(RANGE)).inflate(1.0D);
+		Vec3 clipTargetLoc = eyeLoc.add(viewVector.x * MAX_COMMAND_DIST, viewVector.y * MAX_COMMAND_DIST, viewVector.z * MAX_COMMAND_DIST);
+		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(MAX_COMMAND_DIST)).inflate(1.0D);
 
 		EntityHitResult entityHitResult = getBoneFluteEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
 			if (!entity.isSpectator() && entity.isPickable()) {
@@ -215,34 +226,5 @@ public class BoneFluteItem extends Item {
 		}
 
 		return entity1 == null ? null : new EntityHitResult(entity1, vec3);
-	}
-
-	public enum Command {
-		SIT(CCSoundEvents.BONE_FLUTE_SIT.get()),
-		RECALL(CCSoundEvents.BONE_FLUTE_RECALL.get()),
-		MOVE(CCSoundEvents.BONE_FLUTE_MOVE.get()),
-		ATTACK(CCSoundEvents.BONE_FLUTE_ATTACK.get());
-
-		private final ResourceLocation crosshairIcon;
-		private final ResourceLocation crosshairIconBackground;
-		private final SoundEvent sound;
-
-		Command(SoundEvent sound) {
-			this.crosshairIcon = CavernsAndChasms.location("textures/gui/sprites/hud/bone_flute_crosshair/" + this.name().toLowerCase() + ".png");
-			this.crosshairIconBackground = CavernsAndChasms.location("textures/gui/sprites/hud/bone_flute_crosshair/" + this.name().toLowerCase() + "_background.png");
-			this.sound = sound;
-		}
-
-		public ResourceLocation getCrosshairIcon() {
-			return this.crosshairIcon;
-		}
-
-		public ResourceLocation getCrosshairIconBackground() {
-			return this.crosshairIconBackground;
-		}
-
-		public SoundEvent getSound() {
-			return this.sound;
-		}
 	}
 }

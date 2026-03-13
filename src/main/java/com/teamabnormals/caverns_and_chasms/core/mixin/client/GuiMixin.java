@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
+import com.teamabnormals.caverns_and_chasms.common.item.BoneFluteCommand;
 import com.teamabnormals.caverns_and_chasms.common.item.BoneFluteItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -41,7 +42,7 @@ public abstract class GuiMixin {
 	@WrapOperation(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V", ordinal = 0))
 	private void renderCrosshair(GuiGraphics guiGraphics, ResourceLocation location, int x, int y, int uOffset, int vOffset, int uWidth, int vHeight, Operation<Void> original) {
 		if (this.minecraft.player.getMainHandItem().is(CCItems.BONE_FLUTE.get()) || this.minecraft.player.getOffhandItem().is(CCItems.BONE_FLUTE.get())) {
-			BoneFluteItem.Command command = BoneFluteItem.getCommand(this.minecraft.player, BoneFluteItem.getHitResult(this.minecraft.player));
+			BoneFluteCommand command = BoneFluteItem.getCommand(this.minecraft.player, BoneFluteItem.getHitResult(this.minecraft.player));
 			if (command != null) {
 				float cooldown = this.minecraft.player.getCooldowns().getCooldownPercent(CCItems.BONE_FLUTE.get(), this.minecraft.getFrameTime());
 				int i = 7 - Mth.ceil(cooldown * 7);
