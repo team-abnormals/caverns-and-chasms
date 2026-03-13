@@ -305,6 +305,59 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.tinplate.break": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/break1",
+      "caverns_and_chasms:block/tinplate/break2",
+      "caverns_and_chasms:block/tinplate/break3",
+      "caverns_and_chasms:block/tinplate/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.tinplate.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/step1",
+      "caverns_and_chasms:block/tinplate/step2",
+      "caverns_and_chasms:block/tinplate/step3",
+      "caverns_and_chasms:block/tinplate/step4"
+    ]
+  },
+  "block.tinplate.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/step1",
+      "caverns_and_chasms:block/tinplate/step2",
+      "caverns_and_chasms:block/tinplate/step3",
+      "caverns_and_chasms:block/tinplate/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.tinplate.place": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/break1",
+      "caverns_and_chasms:block/tinplate/break2",
+      "caverns_and_chasms:block/tinplate/break3",
+      "caverns_and_chasms:block/tinplate/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.tinplate.step": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/step1",
+      "caverns_and_chasms:block/tinplate/step2",
+      "caverns_and_chasms:block/tinplate/step3",
+      "caverns_and_chasms:block/tinplate/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.tinplate.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/break1",
+      "caverns_and_chasms:block/tinplate/break2",
+      "caverns_and_chasms:block/tinplate/break3",
+      "caverns_and_chasms:block/tinplate/break4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.sparkler.sparkle": {
     "sounds": [
       "caverns_and_chasms:block/sparkler/sparkle1",
@@ -2954,6 +3007,13 @@
       "caverns_and_chasms:item/tether_potion/break3"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.tether_potion.break"
+  },
+  "item.tinplate.wax": {
+    "sounds": [
+      "caverns_and_chasms:item/tinplate/wax_on1",
+      "caverns_and_chasms:item/tinplate/wax_on2"
+    ],
+    "subtitle": "subtitles.item.honeycomb.wax_on​"
   },
   "item.bejeweled_apple.eat": {
     "sounds": [
