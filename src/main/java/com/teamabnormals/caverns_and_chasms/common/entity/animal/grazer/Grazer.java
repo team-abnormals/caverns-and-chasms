@@ -30,18 +30,40 @@ public class Grazer extends AbstractGrazer implements Enemy {
 
 	public static boolean checkGrazerSpawnRules(EntityType<Grazer> grazer, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		if (Mime.checkUndergroundMonsterSpawnRules(grazer, level, spawnType, pos, random) && level instanceof WorldGenLevel wgLevel && pos.getY() <= CCConfig.COMMON.grazerMaxSpawnHeight.get()) {
-			int length = 256;
-			int phase = level.dimensionType().moonPhase(level.dayTime());
-			int zPos = pos.getZ() + ((int) (wgLevel.getSeed() % 10) * length);
-			int dividedZ = Math.floorMod(zPos, length * 8);
-			if (length * phase <= dividedZ && dividedZ <= length * (phase + 1)) {
-				int center = length * phase + length / 2;
-				int distance = Math.abs(dividedZ - center);
-				float chance = Math.min(1.0F, 0.3F + 1.0F - (float) distance / center);
-				return random.nextFloat() < chance;
-			}
+			return random.nextFloat() < calculateGrazerMigrationChance(wgLevel, pos, level.getMoonPhase());
 		}
 
 		return false;
+	}
+
+	public static float calculateGrazerMigrationChance(WorldGenLevel wgLevel, BlockPos pos, int phase) {
+		int length = 256;
+		long seed = wgLevel.getSeed();
+		int axisPos = (seed < 0 ? pos.getZ() : pos.getX()) + (4 * length);
+		int dividedPos = Math.floorMod(axisPos, length * 8);
+		if (seed % 2  == 0) {
+			dividedPos = (8 * length) - dividedPos;
+		}
+
+		if (length * phase <= dividedPos && dividedPos <= length * (phase + 1)) {
+			int center = length * phase + length / 2;
+			int distance = Math.abs(dividedPos - center);
+			return Math.min(1.0F, 0.3F + 1.0F - (float) distance / center);
+		} else {
+			return 0.0F;
+		}
+	}
+
+	public static int calculateOptimalMoonPhaseForPos(WorldGenLevel wgLevel, BlockPos pos) {
+		float maxChance = 0.0F;
+		int maxPhase = 0;
+		for (int i = 0; i < 8; i++) {
+			float chance = calculateGrazerMigrationChance(wgLevel, pos, i);
+			if (chance > maxChance) {
+				maxChance = chance;
+				maxPhase = i;
+			}
+		}
+		return maxPhase;
 	}
 }
