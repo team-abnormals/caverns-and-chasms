@@ -8,15 +8,10 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "distance": {
-                "horizontal": {
-                  "min": 15.0
-                }
-              },
               "type_specific": {
                 "type": "ricochets",
                 "count": {
-                  "min": 1
+                  "min": 3
                 }
               }
             }
@@ -35,7 +30,7 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "minecraft:target"
+      "item": "caverns_and_chasms:bouncer"
     },
     "show_toast": true,
     "title": {

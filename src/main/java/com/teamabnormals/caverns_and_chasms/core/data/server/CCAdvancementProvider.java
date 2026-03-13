@@ -120,9 +120,9 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("open_large_storage_duct", OpenStorageDuctTrigger.TriggerInstance.openStorageDuct(Ints.atLeast(100)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/open_large_storage_duct");
 
-		createAdvancement("ricochet_bullseye", "adventure", monolith, Items.TARGET, FrameType.CHALLENGE, true, true, false)
+		createAdvancement("ricochet_bullseye", "adventure", monolith, CCBlocks.BOUNCER.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(50))
-				.addCriterion("ricochet_bullseye", TargetBlockTrigger.TriggerInstance.targetHit(MinMaxBounds.Ints.exactly(15), EntityPredicate.wrap(EntityPredicate.Builder.entity().distance(DistancePredicate.horizontal(MinMaxBounds.Doubles.atLeast(15.0D))).subPredicate(RicochetPredicate.ricochets(Ints.atLeast(1))).build())))
+				.addCriterion("ricochet_bullseye", TargetBlockTrigger.TriggerInstance.targetHit(MinMaxBounds.Ints.exactly(15), EntityPredicate.wrap(EntityPredicate.Builder.entity().subPredicate(RicochetPredicate.ricochets(Ints.atLeast(3))).build())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/ricochet_bullseye");
 
 		Advancement ricochetHit = createAdvancement("ricochet_hit", "adventure", monolith, CCItems.RICOCHET_ARROW.get(), FrameType.TASK, true, true, false)
