@@ -53,7 +53,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		if (this.eatingTime >= 160) {
+		if (this.eatingTime >= 80) {
 			return false;
 		} else if (this.rat.isPassenger()) {
 			return false;
@@ -89,7 +89,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 		if (dist <= 2.25D) {
 			RandomSource random = this.rat.getRandom();
-			if (++this.eatingTime < 160) {
+			if (++this.eatingTime < 80) {
 				if (random.nextFloat() < 0.3F) {
 					ItemStack flesh = new ItemStack(Items.ROTTEN_FLESH);
 					this.rat.playSound(this.rat.getEatingSound(flesh), 0.5F + 0.5F * (float) random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
