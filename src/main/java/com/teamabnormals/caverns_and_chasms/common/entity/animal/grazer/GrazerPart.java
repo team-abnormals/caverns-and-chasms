@@ -119,7 +119,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 				Vec3 normal = grazer.calculateDeflectionNormal(location);
 
 				if (!this.level().isClientSide)
-					CCEvents.playRicochetEffects(this.level(), location, normal, 0.8F, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F, this.random, true);
+					CCEvents.playRicochetEffects(this.level(), location, normal, 0.8F, CCSoundEvents.GRAZER_DEFLECT.get(), 1.0F, this.random, true);
 
 				return false;
 			}
