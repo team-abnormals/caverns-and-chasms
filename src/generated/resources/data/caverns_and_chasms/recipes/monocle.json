@@ -1,15 +1,21 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "ingredients": [
-    {
-      "item": "minecraft:spyglass"
+  "key": {
+    "#": {
+      "tag": "forge:gems/turquoise"
     },
-    {
-      "item": "caverns_and_chasms:turquoise"
+    "X": {
+      "item": "minecraft:spyglass"
     }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
   ],
   "result": {
     "item": "caverns_and_chasms:monocle"
-  }
+  },
+  "show_notification": true
 }

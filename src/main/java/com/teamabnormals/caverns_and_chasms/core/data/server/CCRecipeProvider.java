@@ -28,7 +28,6 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
@@ -107,10 +106,11 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, BEJEWELED_ANVIL.get(), 2).define('T', Items.ANVIL).define('S', CCItemTags.GEMS_SPINEL).pattern("SSS").pattern("STS").pattern("SSS").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_anvil", has(Items.ANVIL)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, ATONING_TABLE.get()).define('T', Items.ENCHANTING_TABLE).define('S', CCItemTags.GEMS_SPINEL).pattern("SSS").pattern("STS").pattern("SSS").unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).unlockedBy("has_enchanting_table", has(Items.ENCHANTING_TABLE)).save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(MISC, CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()).requires(ItemTags.TRIM_TEMPLATES).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer, RecipeBuilder.getDefaultRecipeId(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()).withSuffix("_from_smithing_template"));
-		ShapelessRecipeBuilder.shapeless(FOOD, CCItems.CAVIAR.get()).requires(Items.SALMON_BUCKET).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
-		ShapelessRecipeBuilder.shapeless(TOOLS, CCItems.MONOCLE.get()).requires(Items.SPYGLASS).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
-		ShapelessRecipeBuilder.shapeless(TOOLS, CCItems.UNICORN_HORN.get()).requires(Items.END_ROD).requires(CCItems.TURQUOISE.get()).unlockedBy("has_turquoise", has(CCItems.TURQUOISE.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(MISC, CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()).define('#', CCItemTags.GEMS_TURQUOISE).define('X', ItemTags.TRIM_TEMPLATES).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_turquoise", has(CCItemTags.GEMS_TURQUOISE)).save(consumer, RecipeBuilder.getDefaultRecipeId(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()).withSuffix("_from_smithing_template"));
+		ShapedRecipeBuilder.shaped(FOOD, CCItems.CAVIAR.get()).define('#', CCItemTags.GEMS_TURQUOISE).define('X', Items.SALMON_BUCKET).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_turquoise", has(CCItemTags.GEMS_TURQUOISE)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.MONOCLE.get()).define('#', CCItemTags.GEMS_TURQUOISE).define('X', Items.SPYGLASS).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_turquoise", has(CCItemTags.GEMS_TURQUOISE)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.UNICORN_HORN.get()).define('#', CCItemTags.GEMS_TURQUOISE).define('X', Items.END_ROD).pattern("###").pattern("#X#").pattern("###").unlockedBy("has_turquoise", has(CCItemTags.GEMS_TURQUOISE)).save(consumer);
+
 		conversionRecipe(consumer, Items.CYAN_DYE, CCItems.TURQUOISE.get(), "cyan_dye", 16);
 
 		copperGearRecipes(consumer, Items.COPPER_INGOT, Blocks.COPPER_BLOCK, CCItems.COPPER_HELMET.get(), CCItems.COPPER_CHESTPLATE.get(), CCItems.COPPER_LEGGINGS.get(), CCItems.COPPER_BOOTS.get(), CCItems.COPPER_SWORD.get(), CCItems.COPPER_PICKAXE.get(), CCItems.COPPER_AXE.get(), CCItems.COPPER_SHOVEL.get(), CCItems.COPPER_HOE.get());

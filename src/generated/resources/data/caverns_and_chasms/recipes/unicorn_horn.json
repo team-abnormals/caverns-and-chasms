@@ -1,15 +1,21 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "ingredients": [
-    {
-      "item": "minecraft:end_rod"
+  "key": {
+    "#": {
+      "tag": "forge:gems/turquoise"
     },
-    {
-      "item": "caverns_and_chasms:turquoise"
+    "X": {
+      "item": "minecraft:end_rod"
     }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
   ],
   "result": {
     "item": "caverns_and_chasms:unicorn_horn"
-  }
+  },
+  "show_notification": true
 }
