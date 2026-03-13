@@ -2757,10 +2757,17 @@
   },
   "entity.grazer.ricochet": {
     "sounds": [
+      "caverns_and_chasms:mob/grazer/ricochet1",
+      "caverns_and_chasms:mob/grazer/ricochet2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.ricochet"
+  },
+  "entity.grazer.deflect": {
+    "sounds": [
       "caverns_and_chasms:mob/grazer/deflect1",
       "caverns_and_chasms:mob/grazer/deflect2"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.ricochet"
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.deflect"
   },
   "entity.grazer.charge": {
     "sounds": [
