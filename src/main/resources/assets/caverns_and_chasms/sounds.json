@@ -2908,6 +2908,15 @@
     ],
     "subtitle": "subtitles.entity.arrow.hit"
   },
+  "entity.ricochet_arrow.hit": {
+    "sounds": [
+      "caverns_and_chasms:entity/ricochet_arrow/hit1",
+      "caverns_and_chasms:entity/ricochet_arrow/hit2",
+      "caverns_and_chasms:entity/ricochet_arrow/hit3",
+      "caverns_and_chasms:entity/ricochet_arrow/hit4"
+    ],
+    "subtitle": "subtitles.entity.arrow.hit"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"
