@@ -778,7 +778,7 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					playRicochetEffects(level, location, movement.reverse().normalize(), movement.lengthSqr(), random, false);
+					playRicochetEffects(level, location, movement.reverse().normalize(), movement.lengthSqr(), CCSoundEvents.GRAZER_DEFLECT.get(), 1.0F, random, false);
 				}
 
 				grazer.addDeflectedProjectile(projectile);
