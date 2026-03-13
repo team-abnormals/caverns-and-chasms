@@ -615,7 +615,7 @@ public class CCEvents {
 		}
 
 		// TODO: Maybe use a tag?
-		if (entity instanceof Rat rat && rat.getHealth() >= rat.getMaxHealth() && source.getEntity() instanceof LivingEntity) {
+		if (entity instanceof Rat rat && source.getEntity() instanceof LivingEntity && !rat.isWounded() && rat.getHealth() - event.getAmount() <= 0.0F) {
 			event.setAmount(rat.getHealth() - 1.0F);
 		}
 	}
@@ -859,7 +859,7 @@ public class CCEvents {
 		}
 
 		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
-		if (!level.isClientSide() && headstack.getItem() == CCItems.TETHER_POTION.get()) {
+		if (!level.isClientSide && headstack.getItem() == CCItems.TETHER_POTION.get()) {
 			TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 
 			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
@@ -884,8 +884,7 @@ public class CCEvents {
 			}
 		}
 
-		ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
-		if (headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
+		if (headstack.is(CCItems.COWL.get()) && headstack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
 			entity.setInvisible(entity.isCrouching());
 			if (!entity.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
 				accessor.invokeUpdateInvisibilityStatus();

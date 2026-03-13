@@ -33,8 +33,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
@@ -78,6 +76,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private int ticksSinceEaten;
 
 	private BlockPos commandedPos;
+	private LivingEntity commandedTarget;
+	private int commandedTargetOwnerTimestamp;
 
 	private Player tamer;
 	private BlockPos rottenFleshPos;
@@ -116,10 +116,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(15, new RatFindItemsGoal(this));
 		this.goalSelector.addGoal(16, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(17, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, new RatStopAttackingGoal(this));
-		this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
-		this.targetSelector.addGoal(3, new OwnerHurtTargetGoal(this));
-		this.targetSelector.addGoal(4, (new RatHurtByTargetGoal(this)).setAlertOthers());
+		this.targetSelector.addGoal(0, new RatStopAttackingGoal(this));
+		this.targetSelector.addGoal(1, new RatAttackCommandedTargetGoal(this));
+		this.targetSelector.addGoal(2, (new RatHurtByTargetGoal(this)).setAlertOthers());
 	}
 
 	@Override
@@ -161,7 +160,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+	protected SoundEvent getHurtSound(DamageSource damageSource) {
 		return SoundEvents.FOX_HURT;
 	}
 
@@ -435,6 +434,23 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				this.heal(1.0F);
 			}
 
+			if (this.commandedTarget != null && !this.commandedTarget.isAlive()) {
+				this.commandedTarget = null;
+			}
+
+			if (this.commandedTarget == null && this.isTame()) {
+				LivingEntity owner = this.getOwner();
+				if (owner != null) {
+					LivingEntity lastHurtByMob = owner.getLastHurtByMob();
+					LivingEntity lastHurtMob = owner.getLastHurtMob();
+					if (lastHurtByMob != null && owner.getLastHurtByMobTimestamp() > this.commandedTargetOwnerTimestamp) {
+						this.setCommandedTarget(lastHurtByMob);
+					} else if (lastHurtMob != null && owner.getLastHurtMobTimestamp() > this.commandedTargetOwnerTimestamp) {
+						this.setCommandedTarget(lastHurtMob);
+					}
+				}
+			}
+
 			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
 			this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
 		}
@@ -547,19 +563,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return !this.isWounded() && (this.isTame() || (this.isBaby() ? this.pack.size() > 2 : this.pack.size() > 1));
 	}
 
-	public boolean canFightAgainst(LivingEntity target) {
-		return target != this.getOwner() && this.hasBraveryToFight();
+	@Override
+	public boolean canAttack(LivingEntity p_21822_) {
+		return this.isOwnedBy(p_21822_) ? false : super.canAttack(p_21822_);
 	}
 
 	public boolean isWounded() {
-		return this.getHealth() <= 2.0F;
+		return this.getHealth() <= 1.0F;
 	}
-
-	/*
-	public boolean shouldRunAwayFrom(LivingEntity entity) {
-		return this.isScaredOf(entity) && !this.hasBraveryToFight();
-	}
-	*/
 
 	public boolean isScaredOf(LivingEntity target) {
 		if (this.getOwner() == target)
@@ -575,12 +586,23 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	// Bone flute command stuff
-	public void setCommandedPos(BlockPos commandedPos) {
-		this.commandedPos = commandedPos;
+	public void setCommandedPos(BlockPos pos) {
+		this.commandedPos = pos;
 	}
 
 	public BlockPos getCommandedPos() {
 		return this.commandedPos;
+	}
+
+	public void setCommandedTarget(LivingEntity target) {
+		this.commandedTarget = target;
+		if (this.getOwner() != null) {
+			this.commandedTargetOwnerTimestamp = this.getOwner().tickCount;
+		}
+	}
+
+	public LivingEntity getCommandedTarget() {
+		return this.commandedTarget;
 	}
 
 	@Override
@@ -588,6 +610,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.hasBraveryToFight() && canRatsAttack(target, owner);
 	}
 
+	// TODO: Look at the canAttack method
 	public static boolean canRatsAttack(LivingEntity target, LivingEntity owner) {
 		if (target instanceof Creeper || target instanceof Ghast) {
 			return false;
@@ -600,6 +623,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		} else {
 			return !(target instanceof TamableAnimal) || !((TamableAnimal) target).isTame();
 		}
+	}
+
+	@Override
+	public boolean canBeSeenAsEnemy() {
+		return !this.isWounded() && super.canBeSeenAsEnemy();
 	}
 
 	@Override
@@ -624,7 +652,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 			rat = iterator.next();
 
-			if (this != rat && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.canFightAgainst(target))
+			if (this != rat && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.hasBraveryToFight())
 				rat.setTarget(target);
 		}
 	}
@@ -744,8 +772,16 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+		if (DATA_FLAGS_ID.equals(key)) {
+			this.refreshDimensions();
+		}
+		super.refreshDimensions();
+	}
+
+	@Override
 	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-		return size.height * 0.5F;
+		return this.isInSittingPose() ? size.height : size.height * 0.5F;
 	}
 
 	@Override

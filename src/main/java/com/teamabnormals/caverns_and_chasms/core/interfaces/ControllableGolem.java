@@ -54,11 +54,7 @@ public interface ControllableGolem {
 	}
 
 	default BlockPos getTuningForkPos() {
-		IDataManager data = (IDataManager) this;
-		if (data.getValue(CCDataProcessors.TUNING_FORK_POS).isPresent()) {
-			return data.getValue(CCDataProcessors.TUNING_FORK_POS).get();
-		}
-		return null;
+		return ((IDataManager) this).getValue(CCDataProcessors.TUNING_FORK_POS).orElse(null);
 	}
 
 	default void setTuningForkTarget(LivingEntity target) {
