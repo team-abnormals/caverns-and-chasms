@@ -2917,6 +2917,14 @@
     ],
     "subtitle": "subtitles.entity.arrow.hit"
   },
+  "entity.ricochet_arrow.deflect": {
+    "sounds": [
+      "caverns_and_chasms:entity/ricochet_arrow/deflect1",
+      "caverns_and_chasms:entity/ricochet_arrow/deflect2",
+      "caverns_and_chasms:entity/ricochet_arrow/deflect3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "item.tuning_fork.vibrate": {
     "sounds": [
       "caverns_and_chasms:item/tuning_fork/vibrate"
