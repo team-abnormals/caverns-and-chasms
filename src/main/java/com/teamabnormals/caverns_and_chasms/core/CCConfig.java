@@ -27,6 +27,7 @@ public class CCConfig {
 		public final IntValue betterRailPlacementRange;
 
 		public final BooleanValue preventReplacingTrims;
+		public final BooleanValue zirconiaUniversalRepairing;
 
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("mobs");
@@ -51,6 +52,12 @@ public class CCConfig {
 			builder.push("blocks");
 			builder.push("fragile_stone");
 			fragileStoneDropsOres = builder.comment("If ores next to or within Fragile Stone and Deepslate fall when the neighbor blocks crumble").define("Fragile stone collapses ores", true);
+			builder.pop();
+			builder.pop();
+
+			builder.push("items");
+			builder.push("zirconia");
+			zirconiaUniversalRepairing = builder.comment("If Zirconia can be used as a universal repair material").define("Zirconia universal repairing", true);
 			builder.pop();
 			builder.pop();
 

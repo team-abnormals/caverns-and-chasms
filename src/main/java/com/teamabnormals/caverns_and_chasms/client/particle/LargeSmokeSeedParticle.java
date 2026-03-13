@@ -18,7 +18,7 @@ public class LargeSmokeSeedParticle extends NoRenderParticle {
 	}
 
 	public void tick() {
-		for (int i = 0; i < 24; ++i) {
+		for (int i = 0; i < 18; ++i) {
 			double d0 = this.x + (this.random.nextDouble() - this.random.nextDouble()) * 4.0D;
 			double d1 = this.y + (this.random.nextDouble() - this.random.nextDouble()) * 4.0D;
 			double d2 = this.z + (this.random.nextDouble() - this.random.nextDouble()) * 4.0D;

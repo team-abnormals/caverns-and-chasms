@@ -31,9 +31,7 @@ public class GunpowderBlock extends TntBlock {
 
 	@Override
 	public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
-		if (!level.isClientSide) {
-			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, SoundEvents.GENERIC_EXPLODE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
-		}
+		explode(level, pos, explosion.getIndirectSourceEntity());
 	}
 
 	@Override
@@ -47,7 +45,7 @@ public class GunpowderBlock extends TntBlock {
 
 	public static void explode(Level level, BlockPos pos, @Nullable LivingEntity igniter) {
 		if (!level.isClientSide) {
-			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, SoundEvents.GENERIC_EXPLODE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
+			CustomExplosion.spawnExplosion(level, igniter, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, SoundEvents.GENERIC_EXPLODE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
 		}
 	}
 
