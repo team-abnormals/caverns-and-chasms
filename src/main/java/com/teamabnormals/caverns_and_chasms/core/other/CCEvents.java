@@ -633,8 +633,15 @@ public class CCEvents {
 		LivingEntity entity = event.getEntity();
 		Level level = entity.level();
 
-		if (!level.isClientSide)
+		if (!level.isClientSide) {
 			((RatHolder) entity).detachAllRats();
+
+			if (event.getSource().getDirectEntity() instanceof Rat rat && rat.isTame()) {
+				if (rat.getOwner() instanceof ServerPlayer serverPlayer) {
+					CCCriteriaTriggers.RAT_KILLED_ENTITY.trigger(serverPlayer, rat, entity, event.getSource());
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent

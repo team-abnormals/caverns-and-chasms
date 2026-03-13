@@ -20,6 +20,7 @@ public class CCCriteriaTriggers {
 	public static final RepairedItemTrigger REPAIRED_ITEM = CriteriaTriggers.register(new RepairedItemTrigger());
 	public static final PlayerHurtSelfTrigger PLAYER_HURT_SELF = CriteriaTriggers.register(new PlayerHurtSelfTrigger());
 	public static final OpenStorageDuctTrigger OPEN_STORAGE_DUCT = CriteriaTriggers.register(new OpenStorageDuctTrigger());
+	public static final RatKilledEntityTrigger RAT_KILLED_ENTITY = CriteriaTriggers.register(new RatKilledEntityTrigger());
 
 	public static final EntitySubPredicate.Type RICOCHETS = RicochetPredicate::fromJson;
 

@@ -25,12 +25,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -54,9 +51,17 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("ancient_hoes", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_HOE, CCItems.NECROMIUM_HOE.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_ancient_hoes");
 
-		createAdvancement("obtain_bone_flute", "husbandry", new ResourceLocation("husbandry/tame_an_animal"), CCItems.BONE_FLUTE.get(), FrameType.TASK, true, true, false)
+		Advancement boneFlute = createAdvancement("obtain_bone_flute", "husbandry", new ResourceLocation("husbandry/tame_an_animal"), CCItems.BONE_FLUTE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("bone_flute", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.BONE_FLUTE.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_bone_flute");
+
+		Advancement killWithRat = createAdvancement("kill_with_rat", "husbandry", boneFlute, CCItems.BONE_FLUTE.get(), FrameType.TASK, true, true, false)
+				.addCriterion("kill_with_rat", RatKilledEntityTrigger.TriggerInstance.ratKilledEntity(EntityPredicate.ANY))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/kill_with_rat");
+
+		createAdvancement("kill_guardian_with_rat", "husbandry", killWithRat, CCItems.BONE_FLUTE.get(), FrameType.CHALLENGE, true, true, true)
+				.addCriterion("kill_guardian_with_rat", RatKilledEntityTrigger.TriggerInstance.ratKilledEntity(EntityPredicate.Builder.entity().of(EntityType.GUARDIAN)))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/kill_guardian_with_rat");
 
 		createAdvancement("necromium_armor", "nether", new ResourceLocation("nether/obtain_ancient_debris"), CCItems.NECROMIUM_CHESTPLATE.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(100))
