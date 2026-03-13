@@ -63,7 +63,7 @@ public class S2CCustomSoundExplosionMessage {
 		return new S2CCustomSoundExplosionMessage(posX, posY, posZ, strength, affectedBlockPositions, sound, emitter, particle);
 	}
 
-	private static  <T extends ParticleOptions> T readParticle(FriendlyByteBuf buf, ParticleType<T> particle) {
+	private static <T extends ParticleOptions> T readParticle(FriendlyByteBuf buf, ParticleType<T> particle) {
 		return particle.getDeserializer().fromNetwork(particle, buf);
 	}
 
@@ -89,11 +89,13 @@ public class S2CCustomSoundExplosionMessage {
 
 	public static void handle(S2CCustomSoundExplosionMessage message, Supplier<Context> ctx) {
 		NetworkEvent.Context context = ctx.get();
-		LocalPlayer player = Minecraft.getInstance().player;
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-			CustomExplosion explosion = new CustomExplosion(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength, false, BlockInteraction.DESTROY, message.sound, message.emitter, message.particle);
-			explosion.finalizeExplosion(true);
-			context.setPacketHandled(true);
+			context.enqueueWork(() -> {
+				LocalPlayer player = Minecraft.getInstance().player;
+				CustomExplosion explosion = new CustomExplosion(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength, false, BlockInteraction.DESTROY, message.sound, message.emitter, message.particle);
+				explosion.finalizeExplosion(true);
+			});
 		}
+		context.setPacketHandled(true);
 	}
 }
