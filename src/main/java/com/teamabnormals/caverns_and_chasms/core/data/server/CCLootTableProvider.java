@@ -603,7 +603,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			);
 			this.add(GRAZER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(CCItems.RAW_TIN.get())
+							.add(LootItem.lootTableItem(CCItems.TIN_INGOT.get())
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
 									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
 							)
@@ -618,7 +618,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			);
 			this.add(SADDLED_GRAZER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(CCItems.RAW_TIN.get())
+							.add(LootItem.lootTableItem(CCItems.TIN_INGOT.get())
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
 									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
 							)
