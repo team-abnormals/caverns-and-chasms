@@ -698,7 +698,8 @@ public class CCEvents {
 			}
 
 			boolean bonus = data.getValue(CCDataProcessors.BONUS_DEFLECT);
-			if (flag || bonus || projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get()) {
+			boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
+			if (flag || bonus || ricochetArrow) {
 				if (!flag) {
 					data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
 				} else if (state.getBlock() instanceof TinplateBlock) {
@@ -748,11 +749,9 @@ public class CCEvents {
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
 
-					SoundType soundtype = state.getBlock().getSoundType(state, level, pos, null);
-					SoundEvent soundevent = soundtype instanceof TinSoundType tinsoundtype ? tinsoundtype.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
-					float pitchmultiplier = soundtype == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F;
-
-					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundevent, pitchmultiplier, random, false);
+					SoundType soundType = state.getBlock().getSoundType(state, level, pos, null);
+					SoundEvent soundEvent = soundType instanceof TinSoundType tinSoundType ? tinSoundType.getDeflectSound() : ricochetArrow ? CCSoundEvents.GRAZER_RICOCHET.get() : CCSoundEvents.TIN_DEFLECT.get();
+					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundEvent, soundType == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F, random, false);
 
 					event.setCanceled(true);
 				}
