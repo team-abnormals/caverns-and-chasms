@@ -5,7 +5,9 @@
       "config": {
         "criteria": "all_effects",
         "effects": {
-          "caverns_and_chasms:rewind": {}
+          "caverns_and_chasms:rewind": {},
+          "caverns_and_chasms:vampirism": {},
+          "minecraft:blindness": {}
         },
         "removes": false
       }

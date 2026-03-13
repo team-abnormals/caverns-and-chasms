@@ -1,5 +1,5 @@
 {
-  "parent": "caverns_and_chasms:adventure/repair_with_zirconia",
+  "parent": "minecraft:adventure/root",
   "criteria": {
     "find_monolith": {
       "conditions": {

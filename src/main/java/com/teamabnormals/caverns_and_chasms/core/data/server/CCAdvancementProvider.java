@@ -112,9 +112,21 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("copy_music_disc", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/copy_music_disc");
 
-		createAdvancement("find_monolith", "adventure", zirconia, CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
+		createAdvancement("find_monolith", "adventure", new ResourceLocation("adventure/root"), CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
 				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(CCStructures.TIN_MONOLITH)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
+
+		Advancement turq = createAdvancement("obtain_turquoise", "adventure", new ResourceLocation("adventure/root"), CCItems.TURQUOISE.get(), FrameType.TASK, true, true, false)
+				.addCriterion("turquoise", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.TURQUOISE.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_turquoise");
+
+		createAdvancement("use_unicorn_horn", "adventure", turq, CCItems.UNICORN_HORN.get(), FrameType.TASK, true, true, false)
+				.addCriterion("unicorn_horn", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(CCItems.UNICORN_HORN.get()), EntityPredicate.wrap(EntityPredicate.ANY)))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/use_unicorn_horn");
+
+		createAdvancement("equip_monocle", "adventure", turq, CCItems.MONOCLE.get(), FrameType.TASK, true, true, false)
+				.addCriterion("monocle", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MONOCLE.get()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/equip_monocle");
 	}
 
 	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
