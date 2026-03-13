@@ -22,12 +22,17 @@ public class CCMobEffects {
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<MobEffect> REWIND = MOB_EFFECTS.register("rewind", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0xCE65B4));
+	public static final RegistryObject<MobEffect> VAMPIRISM = MOB_EFFECTS.register("vampirism", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0x971B21));
 
 	public static final RegistryObject<Potion> REWIND_NORMAL = POTIONS.register("rewind", () -> new Potion("rewind", new MobEffectInstance(REWIND.get(), 400)));
 	public static final RegistryObject<Potion> REWIND_LONG = POTIONS.register("long_rewind", () -> new Potion("rewind", new MobEffectInstance(REWIND.get(), 800)));
 
 	public static final RegistryObject<Potion> BLINDNESS = POTIONS.register("blindness", () -> new Potion("blindness", new MobEffectInstance(MobEffects.BLINDNESS, 3600)));
 	public static final RegistryObject<Potion> BLINDNESS_LONG = POTIONS.register("long_blindness", () -> new Potion("blindness", new MobEffectInstance(MobEffects.BLINDNESS, 9600)));
+
+	public static final RegistryObject<Potion> REVENANT = POTIONS.register("revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 1800)));
+	public static final RegistryObject<Potion> LONG_REVENANT = POTIONS.register("long_revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 4800)));
+	public static final RegistryObject<Potion> STRONG_REVENANT = POTIONS.register("strong_revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 400, 3)));
 
 	public static void registerBrewingRecipes() {
 		PotionBrewing.addContainer(CCItems.TETHER_POTION.get());
@@ -53,5 +58,9 @@ public class CCMobEffects {
 
 		DataUtil.addMix(Potions.AWKWARD, CCItems.CAVEFISH.get(), BLINDNESS.get());
 		DataUtil.addMix(BLINDNESS.get(), Items.REDSTONE, BLINDNESS_LONG.get());
+
+		DataUtil.addMix(Potions.AWKWARD, CCItems.LIVING_FLESH.get(), REVENANT.get());
+		DataUtil.addMix(REVENANT.get(), Items.REDSTONE, LONG_REVENANT.get());
+		DataUtil.addMix(REVENANT.get(), Items.GLOWSTONE_DUST, STRONG_REVENANT.get());
 	}
 }
