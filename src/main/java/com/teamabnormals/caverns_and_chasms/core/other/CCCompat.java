@@ -93,6 +93,7 @@ public class CCCompat {
 		DataUtil.registerFlammable(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 60, 100);
 
 		DataUtil.registerFlammable(CCBlocks.TMT.get(), 15, 100);
+		DataUtil.registerFlammable(CCBlocks.GUNPOWDER_BLOCK.get(), 15, 100);
 	}
 
 	private static void registerDispenserBehaviors() {

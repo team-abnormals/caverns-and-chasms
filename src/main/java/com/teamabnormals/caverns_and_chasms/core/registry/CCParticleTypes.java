@@ -52,6 +52,7 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> DROOL = registerSimpleParticleType(true, "drool");
 	public static final RegistryObject<SimpleParticleType> SPARKLER_SPARK = registerSimpleParticleType(true, "sparkler_spark");
 	public static final RegistryObject<SimpleParticleType> SPARKLER_SPARK_EMITTER = registerSimpleParticleType(true, "sparkler_spark_emitter");
+	public static final RegistryObject<SimpleParticleType> LARGE_SMOKE_EMITTER = registerSimpleParticleType(true, "large_smoke_emitter");
 
 	private static RegistryObject<SimpleParticleType> registerSimpleParticleType(boolean alwaysShow, String name) {
 		return PARTICLE_TYPES.register(name, () -> new SimpleParticleType(alwaysShow));
@@ -92,6 +93,7 @@ public class CCParticleTypes {
 			event.registerSpriteSet(DROOL.get(), DroolParticle.Provider::new);
 			event.registerSpriteSet(SPARKLER_SPARK.get(), SparklerParticle.Provider::new);
 			event.registerSpecial(SPARKLER_SPARK_EMITTER.get(), new SparklerSeedParticle.Provider());
+			event.registerSpecial(LARGE_SMOKE_EMITTER.get(), new LargeSmokeSeedParticle.Provider());
 		}
 	}
 }

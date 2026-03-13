@@ -32,7 +32,7 @@ public interface Sparkler {
 			level.addParticle(ParticleTypes.SMOKE, vec3.x, vec3.y, vec3.z, 0.0D, 0.1F, 0.0D);
 			level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
 			if (!level.isClientSide) {
-				if (level.random.nextFloat() < 0.0F) {
+				if (level.random.nextFloat() < 0.25F) {
 					level.setBlock(pos, state.setValue(LIT, false), 11);
 				} else {
 					explode(level, pos, vec3);

@@ -1,26 +1,54 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class GunpowderBlock extends Block {
+public class GunpowderBlock extends TntBlock {
 
 	public GunpowderBlock(Properties properties) {
 		super(properties);
+	}
+
+	@Override
+	public void wasExploded(Level level, BlockPos pos, Explosion explosion) {
+		if (!level.isClientSide) {
+			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, SoundEvents.GENERIC_EXPLODE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
+		}
+	}
+
+	@Override
+	public void onCaughtFire(BlockState state, Level world, BlockPos pos, @Nullable Direction face, @Nullable LivingEntity igniter) {
+		explode(world, pos, igniter);
+	}
+
+	public static void explode(Level level, BlockPos pos) {
+		explode(level, pos, null);
+	}
+
+	public static void explode(Level level, BlockPos pos, @Nullable LivingEntity igniter) {
+		if (!level.isClientSide) {
+			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, SoundEvents.GENERIC_EXPLODE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
+		}
 	}
 
 	@Override
