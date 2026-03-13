@@ -5,10 +5,12 @@ import com.teamabnormals.caverns_and_chasms.common.advancement.*;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperBulbBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -24,7 +26,11 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -89,6 +95,12 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("spotted_by_peeper", CCCriteriaTriggers.SPOTTED_BY_PEEPER.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dont_move");
 
+		ItemStack stack = new ItemStack(Items.POTION);
+		PotionUtils.setPotion(stack, CCMobEffects.REVENANT.get());
+		createAdvancement("kill_bat_with_vampirism", "adventure", new ResourceLocation("adventure/kill_a_mob"), stack, FrameType.TASK, true, true, true)
+				.addCriterion("kill_bat", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(EntityType.BAT), DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(CCDamageTypeTags.DRAINS_ENEMIES)).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/kill_bat_with_vampirism");
+
 		createAdvancement("dismantle_item", "adventure", new ResourceLocation("adventure/trim_with_any_armor_pattern"), CCBlocks.DISMANTLING_TABLE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("dismantled_item", CCCriteriaTriggers.DISMANTLED_ITEM.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dismantle_item");
@@ -151,10 +163,18 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		return createAdvancement(name, category, Advancement.Builder.advancement().build(parent), icon, frame, showToast, announceToChat, hidden);
 	}
 
-	private static Advancement.Builder createAdvancement(String name, String category, Advancement parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+	private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemStack icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+		return createAdvancement(name, category, Advancement.Builder.advancement().build(parent), icon, frame, showToast, announceToChat, hidden);
+	}
+
+	private static Advancement.Builder createAdvancement(String name, String category, Advancement parent, ItemStack icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
 		return Advancement.Builder.advancement().parent(parent).display(icon,
 				Component.translatable("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".title"),
 				Component.translatable("advancements." + CavernsAndChasms.MOD_ID + "." + category + "." + name + ".description"),
 				null, frame, showToast, announceToChat, hidden);
+	}
+
+	private static Advancement.Builder createAdvancement(String name, String category, Advancement parent, ItemLike icon, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+		return createAdvancement(name, category, parent, new ItemStack(icon), frame, showToast, announceToChat, hidden);
 	}
 }

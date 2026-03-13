@@ -33,7 +33,7 @@ public class CCMobEffects {
 
 	public static final RegistryObject<Potion> REVENANT = POTIONS.register("revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 1800)));
 	public static final RegistryObject<Potion> LONG_REVENANT = POTIONS.register("long_revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 4800)));
-	public static final RegistryObject<Potion> STRONG_REVENANT = POTIONS.register("strong_revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 400, 3)));
+	public static final RegistryObject<Potion> STRONG_REVENANT = POTIONS.register("strong_revenant", () -> new Potion("revenant", new MobEffectInstance(VAMPIRISM.get(), 400, 1)));
 
 	public static void registerBrewingRecipes() {
 		PotionBrewing.addContainer(CCItems.TETHER_POTION.get());
