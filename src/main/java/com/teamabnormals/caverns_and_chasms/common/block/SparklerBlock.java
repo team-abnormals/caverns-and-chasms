@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.blueprint.core.util.MathUtil;
+import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -10,8 +11,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TorchBlock;
@@ -42,15 +46,31 @@ public class SparklerBlock extends TorchBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		if (player.getAbilities().mayBuild && player.getItemInHand(hand).isEmpty() && state.getValue(LIT)) {
-			level.setBlock(pos, state.setValue(LIT, false), 11);
 			level.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.78D, (double) pos.getZ() + 0.5D, 0.0D, 0.1F, 0.0D);
 			level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
+			if (!level.isClientSide()) {
+				if (level.random.nextFloat() > 0.25F) {
+					level.setBlock(pos, state.setValue(LIT, false), 11);
+				} else {
+					CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY() + 0.78F, pos.getZ() + 0.5F, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get());
+					level.destroyBlock(pos, false);
+				}
+			}
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else {
 			return InteractionResult.PASS;
 		}
 	}
+
+	@Override
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextFloat() < 0.1F) {
+			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY() + 0.78F, pos.getZ() + 0.5F, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get());
+			level.destroyBlock(pos, false);
+		}
+	}
+
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {

@@ -314,6 +314,13 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.sparkler.sparkle"
   },
+  "block.sparkler.explode": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/explode1",
+      "caverns_and_chasms:block/sparkler/explode2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.sparkler.explode"
+  },
   "block.flint_block.break": {
     "sounds": [
       "caverns_and_chasms:block/flint_block/break1",

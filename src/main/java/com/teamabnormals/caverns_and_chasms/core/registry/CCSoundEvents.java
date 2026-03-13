@@ -294,6 +294,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
 
 	public static final RegistryObject<SoundEvent> SPARKLER_SPARKLE = HELPER.createSoundEvent("block.sparkler.sparkle");
+	public static final RegistryObject<SoundEvent> SPARKLER_EXPLODE = HELPER.createSoundEvent("block.sparkler.explode");
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");

@@ -1,10 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.network;
 
 import com.google.common.collect.Lists;
-import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
+import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -25,14 +28,18 @@ public class S2CCustomSoundExplosionMessage {
 	public float strength;
 	public List<BlockPos> affectedBlockPositions;
 	public SoundEvent sound;
+	public ParticleOptions emitter;
+	public ParticleOptions particle;
 
-	public S2CCustomSoundExplosionMessage(float x, float y, float z, float strength, List<BlockPos> affectedBlockPositions, SoundEvent sound) {
+	public S2CCustomSoundExplosionMessage(float x, float y, float z, float strength, List<BlockPos> affectedBlockPositions, SoundEvent sound, ParticleOptions emitter, ParticleOptions particle) {
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
 		this.strength = strength;
 		this.affectedBlockPositions = Lists.newArrayList(affectedBlockPositions);
 		this.sound = sound;
+		this.particle = particle;
+		this.emitter = emitter;
 	}
 
 	public static S2CCustomSoundExplosionMessage deserialize(FriendlyByteBuf buf) {
@@ -43,6 +50,8 @@ public class S2CCustomSoundExplosionMessage {
 		int blockPositionsSize = buf.readInt();
 		List<BlockPos> affectedBlockPositions = Lists.newArrayListWithCapacity(blockPositionsSize);
 		SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation((buf.readUtf())));
+		ParticleOptions emitter = readParticle(buf, buf.readById(BuiltInRegistries.PARTICLE_TYPE));
+		ParticleOptions particle = readParticle(buf, buf.readById(BuiltInRegistries.PARTICLE_TYPE));
 
 		for (int i = 0; i < blockPositionsSize; i++) {
 			int x = buf.readByte() + Mth.floor(posX);
@@ -51,7 +60,11 @@ public class S2CCustomSoundExplosionMessage {
 			affectedBlockPositions.add(new BlockPos(x, y, z));
 		}
 
-		return new S2CCustomSoundExplosionMessage(posX, posY, posZ, strength, affectedBlockPositions, sound);
+		return new S2CCustomSoundExplosionMessage(posX, posY, posZ, strength, affectedBlockPositions, sound, emitter, particle);
+	}
+
+	private static  <T extends ParticleOptions> T readParticle(FriendlyByteBuf buf, ParticleType<T> particle) {
+		return particle.getDeserializer().fromNetwork(particle, buf);
 	}
 
 	public void serialize(FriendlyByteBuf buf) {
@@ -61,6 +74,8 @@ public class S2CCustomSoundExplosionMessage {
 		buf.writeFloat(this.strength);
 		buf.writeInt(this.affectedBlockPositions.size());
 		buf.writeUtf(this.sound.getLocation().toString());
+		buf.writeId(BuiltInRegistries.PARTICLE_TYPE, this.emitter.getType());
+		buf.writeId(BuiltInRegistries.PARTICLE_TYPE, this.particle.getType());
 
 		for (BlockPos blockpos : this.affectedBlockPositions) {
 			int x = blockpos.getX() - Mth.floor(this.posX);
@@ -76,7 +91,7 @@ public class S2CCustomSoundExplosionMessage {
 		NetworkEvent.Context context = ctx.get();
 		LocalPlayer player = Minecraft.getInstance().player;
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-			CustomSoundExplosion explosion = new CustomSoundExplosion(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength, false, BlockInteraction.DESTROY, message.sound);
+			CustomExplosion explosion = new CustomExplosion(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength, false, BlockInteraction.DESTROY, message.sound, message.emitter, message.particle);
 			explosion.finalizeExplosion(true);
 			context.setPacketHandled(true);
 		}

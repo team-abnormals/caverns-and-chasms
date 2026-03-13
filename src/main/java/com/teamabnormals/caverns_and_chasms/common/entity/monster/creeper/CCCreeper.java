@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
-import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
+import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -68,7 +68,7 @@ public abstract class CCCreeper extends Creeper {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
 			BlockInteraction blockinteraction = !ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Explosion.BlockInteraction.KEEP : this.level().getGameRules().getBoolean(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY) ? Explosion.BlockInteraction.DESTROY_WITH_DECAY : Explosion.BlockInteraction.DESTROY;
-			CustomSoundExplosion.spawnExplosion(this.level(), this, this.getX(), this.getY(), this.getZ(), this.explosionRadius * f, this.isOnFire(), blockinteraction, this.getExplosionSound());
+			CustomExplosion.spawnExplosion(this.level(), this, this.getX(), this.getY(), this.getZ(), this.explosionRadius * f, this.isOnFire(), blockinteraction, this.getExplosionSound());
 			this.discard();
 			this.spawnLingeringCloud();
 		}

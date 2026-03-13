@@ -3,10 +3,11 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 import com.teamabnormals.caverns_and_chasms.common.block.CaveGrowthsBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
-import com.teamabnormals.caverns_and_chasms.common.level.CustomSoundExplosion;
+import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -68,6 +69,16 @@ public abstract class ExplosionMixin {
 
 	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), index = 3)
 	public SoundEvent setCustomExplosionSound(SoundEvent soundEvent) {
-		return ((Object) this) instanceof CustomSoundExplosion customSoundExplosion ? customSoundExplosion.getSound() : soundEvent;
+		return ((Object) this) instanceof CustomExplosion customExplosion ? customExplosion.getSound() : soundEvent;
+	}
+
+	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 0), index = 0)
+	public ParticleOptions setEmitterParticle(ParticleOptions particle) {
+		return ((Object) this) instanceof CustomExplosion customExplosion ? customExplosion.getEmitter() : particle;
+	}
+
+	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 1), index = 0)
+	public ParticleOptions setParticle(ParticleOptions particle) {
+		return ((Object) this) instanceof CustomExplosion customExplosion ? customExplosion.getParticle() : particle;
 	}
 }
