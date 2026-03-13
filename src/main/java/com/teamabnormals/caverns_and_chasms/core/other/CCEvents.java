@@ -700,6 +700,7 @@ public class CCEvents {
 			boolean bonus = data.getValue(CCDataProcessors.BONUS_DEFLECT);
 			boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
 			if (flag || bonus || ricochetArrow) {
+				data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
 				if (!flag) {
 					data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
 				} else if (state.getBlock() instanceof TinplateBlock) {
@@ -762,6 +763,7 @@ public class CCEvents {
 				AbstractGrazer grazer = grazerpart.getParent();
 
 				if (!grazer.projectileJustDeflected(projectile)) {
+					data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
 					AABB aabb = grazerpart.getBoundingBox().inflate(0.3D);
 					Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerpart.getX(), grazerpart.getY(0.5D), grazerpart.getZ()))).orElse(projectile.position());
 					Vec3 normal = grazer.calculateDeflectionNormal(location);

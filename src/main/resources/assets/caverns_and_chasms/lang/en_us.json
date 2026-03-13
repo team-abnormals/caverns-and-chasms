@@ -1,4 +1,11 @@
 {
+
+  "advancements.caverns_and_chasms.adventure.ricochet_bullseye.description": "Hit the bullseye of a Target block with a ricocheted projectile from at least 15 meters away",
+  "advancements.caverns_and_chasms.adventure.ricochet_bullseye.title": "Ricochet Bullseye",
+  "advancements.caverns_and_chasms.adventure.ricochet_hit.description": "Hit something with a ricocheted projectile",
+  "advancements.caverns_and_chasms.adventure.ricochet_hit.title": "Ricochet",
+  "advancements.caverns_and_chasms.adventure.ricochet_hit_yourself.description": "Hit yourself with a ricocheted projectile",
+  "advancements.caverns_and_chasms.adventure.ricochet_hit_yourself.title": "Stop Hitting Yourself",
   "advancements.caverns_and_chasms.adventure.obtain_turquoise.description": "Obtain an elusive gem of Turquoise",
   "advancements.caverns_and_chasms.adventure.obtain_turquoise.title": "Uncut Gems",
   "advancements.caverns_and_chasms.adventure.use_unicorn_horn.description": "Decorate an equine beauty with a Unicorn Horn",

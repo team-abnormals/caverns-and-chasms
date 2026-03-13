@@ -2,7 +2,9 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger;
+import com.teamabnormals.caverns_and_chasms.common.advancement.PlayerHurtSelfTrigger;
 import com.teamabnormals.caverns_and_chasms.common.advancement.RepairedItemTrigger;
+import com.teamabnormals.caverns_and_chasms.common.advancement.RicochetPredicate;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperBulbBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
@@ -16,6 +18,7 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.BlockPredicate.Builder;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -112,9 +115,22 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("copy_music_disc", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/copy_music_disc");
 
-		createAdvancement("find_monolith", "adventure", new ResourceLocation("adventure/root"), CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
+		Advancement monolith = createAdvancement("find_monolith", "adventure", new ResourceLocation("adventure/root"), CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
 				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(CCStructures.TIN_MONOLITH)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
+
+		createAdvancement("ricochet_bullseye", "adventure", monolith, Items.TARGET, FrameType.CHALLENGE, true, true, false)
+				.rewards(AdvancementRewards.Builder.experience(50))
+				.addCriterion("ricochet_bullseye", TargetBlockTrigger.TriggerInstance.targetHit(MinMaxBounds.Ints.exactly(15), EntityPredicate.wrap(EntityPredicate.Builder.entity().distance(DistancePredicate.horizontal(MinMaxBounds.Doubles.atLeast(15.0D))).subPredicate(RicochetPredicate.ricochets(Ints.atLeast(1))).build())))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/ricochet_bullseye");
+
+		Advancement ricochetHit = createAdvancement("ricochet_hit", "adventure", monolith, CCItems.RICOCHET_ARROW.get(), FrameType.TASK, true, true, false)
+				.addCriterion("ricochet_hit", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().subPredicate(RicochetPredicate.ricochets(Ints.atLeast(1))))).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/ricochet_hit");
+
+		createAdvancement("ricochet_hit_yourself", "adventure", ricochetHit, CCItems.RICOCHET_ARROW.get(), FrameType.TASK, true, true, false)
+				.addCriterion("ricochet_hit_yourself", PlayerHurtSelfTrigger.TriggerInstance.playerHurtSelf(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().subPredicate(RicochetPredicate.ricochets(Ints.atLeast(1))))).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/ricochet_hit_yourself");
 
 		Advancement turq = createAdvancement("obtain_turquoise", "adventure", new ResourceLocation("adventure/root"), CCItems.TURQUOISE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("turquoise", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.TURQUOISE.get()))

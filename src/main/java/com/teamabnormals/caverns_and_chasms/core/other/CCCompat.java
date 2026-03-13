@@ -47,6 +47,7 @@ public class CCCompat {
 		CCDecoratedPotPatterns.registerDecoratedPotPatterns();
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
+		CCCriteriaTriggers.registerPredicates();
 
 		FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new InteractionInformation((level, currentPos, relativePos, currentState) -> {
 			return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);
