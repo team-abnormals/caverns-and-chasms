@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctContaine
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
 import com.teamabnormals.caverns_and_chasms.common.network.S2COpenStorageDuctMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -153,6 +154,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 
 			player.nextContainerCounter();
 			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2COpenStorageDuctMessage(player.containerCounter, container.getContainerSize(), pos));
+			CCCriteriaTriggers.OPEN_STORAGE_DUCT.trigger(player, container.getContainerSize() / 9);
 			player.containerMenu = new StorageDuctMenu(player.containerCounter, player.getInventory(), container, hatch);
 			player.initMenu(player.containerMenu);
 			MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));

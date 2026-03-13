@@ -1,10 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
-import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.PlayerHurtSelfTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.RepairedItemTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.RicochetPredicate;
+import com.teamabnormals.caverns_and_chasms.common.advancement.*;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperBulbBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
@@ -118,6 +115,10 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		Advancement monolith = createAdvancement("find_monolith", "adventure", new ResourceLocation("adventure/root"), CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
 				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(CCStructures.TIN_MONOLITH)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
+
+		createAdvancement("open_large_storage_duct", "adventure", monolith, CCBlocks.STORAGE_DUCT.get(), FrameType.CHALLENGE, true, true, false)
+				.addCriterion("open_large_storage_duct", OpenStorageDuctTrigger.TriggerInstance.openStorageDuct(Ints.atLeast(100)))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/open_large_storage_duct");
 
 		createAdvancement("ricochet_bullseye", "adventure", monolith, Items.TARGET, FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(50))

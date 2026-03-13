@@ -2,10 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.blueprint.common.advancement.EmptyTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.AtonedItemTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.PlayerHurtSelfTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.RepairedItemTrigger;
-import com.teamabnormals.caverns_and_chasms.common.advancement.RicochetPredicate;
+import com.teamabnormals.caverns_and_chasms.common.advancement.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.EntitySubPredicate;
@@ -22,6 +19,7 @@ public class CCCriteriaTriggers {
 	public static final AtonedItemTrigger ATONED_ITEM = CriteriaTriggers.register(new AtonedItemTrigger());
 	public static final RepairedItemTrigger REPAIRED_ITEM = CriteriaTriggers.register(new RepairedItemTrigger());
 	public static final PlayerHurtSelfTrigger PLAYER_HURT_SELF = CriteriaTriggers.register(new PlayerHurtSelfTrigger());
+	public static final OpenStorageDuctTrigger OPEN_STORAGE_DUCT = CriteriaTriggers.register(new OpenStorageDuctTrigger());
 
 	public static final EntitySubPredicate.Type RICOCHETS = RicochetPredicate::fromJson;
 

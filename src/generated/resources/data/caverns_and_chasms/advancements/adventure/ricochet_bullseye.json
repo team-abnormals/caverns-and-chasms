@@ -10,7 +10,7 @@
             "predicate": {
               "distance": {
                 "horizontal": {
-                  "min": 10.0
+                  "min": 15.0
                 }
               },
               "type_specific": {
