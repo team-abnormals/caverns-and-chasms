@@ -1,36 +1,23 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.blueprint.core.util.MathUtil;
-import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SparklerBlock extends TorchBlock {
-	public static final BooleanProperty LIT = BlockStateProperties.LIT;
-
+public class SparklerBlock extends TorchBlock implements Sparkler {
 	protected static final VoxelShape AABB = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 12.0D, 10.0D);
 
 	public SparklerBlock(Properties properties) {
@@ -45,51 +32,18 @@ public class SparklerBlock extends TorchBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if (player.getAbilities().mayBuild && player.getItemInHand(hand).isEmpty() && state.getValue(LIT)) {
-			level.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.78D, (double) pos.getZ() + 0.5D, 0.0D, 0.1F, 0.0D);
-			level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
-			if (!level.isClientSide()) {
-				if (level.random.nextFloat() > 0.25F) {
-					level.setBlock(pos, state.setValue(LIT, false), 11);
-				} else {
-					CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY() + 0.78F, pos.getZ() + 0.5F, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get());
-					level.destroyBlock(pos, false);
-				}
-			}
-			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-			return InteractionResult.sidedSuccess(level.isClientSide);
-		} else {
-			return InteractionResult.PASS;
-		}
+		return Sparkler.use(state, level, pos, player, hand);
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextFloat() < 0.1F) {
-			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY() + 0.78F, pos.getZ() + 0.5F, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get());
-			level.destroyBlock(pos, false);
-		}
+		Sparkler.entityInside(state, level, pos, entity);
 	}
 
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (state.getValue(LIT)) {
-			if (random.nextInt(24) == 0) {
-				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.SPARKLER_SPARKLE.get(), SoundSource.BLOCKS, 0.4F, 1.0F, false);
-			}
-
-			double x = (double) pos.getX() + 0.5D;
-			double y = (double) pos.getY() + 0.78D;
-			double z = (double) pos.getZ() + 0.5D;
-			for (int i = 0; i < 2; i++) {
-				level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(),
-						x + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
-						y + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.025D, random),
-						z + MathUtil.makeNegativeRandomly(random.nextFloat() * 0.05D, random),
-						0.0D, 0.0D, 0.0D);
-			}
-		}
+		Sparkler.animateTick(state, level, pos, random);
 	}
 
 	@Override

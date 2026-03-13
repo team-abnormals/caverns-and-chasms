@@ -18,13 +18,16 @@ public class SparklerSeedParticle extends NoRenderParticle {
 	}
 
 	public void tick() {
-		double d0 = this.x + (this.random.nextDouble() - this.random.nextDouble()) * 0.25D;
-		double d1 = this.y + (this.random.nextDouble() - this.random.nextDouble()) * 0.35D;
-		double d2 = this.z + (this.random.nextDouble() - this.random.nextDouble()) * 0.25D;
-		this.level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(), d0, d1, d2, (float) this.life / (float) this.lifeTime, 0.0D, 0.0D);
+
+		for (int i = 0; i < 5; i++) {
+			double d0 = this.x + (this.random.nextDouble() - this.random.nextDouble()) * 0.3D;
+			double d1 = this.y - 0.1D + (this.random.nextDouble() - this.random.nextDouble()) * 0.3D;
+			double d2 = this.z + (this.random.nextDouble() - this.random.nextDouble()) * 0.3D;
+			this.level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(), d0, d1, d2, (float) this.life / (float) this.lifeTime, 0.0D, 0.0D);
+		}
 
 		++this.life;
-		if (this.life == this.lifeTime) {
+		if (this.life == 8) {
 			this.remove();
 		}
 
