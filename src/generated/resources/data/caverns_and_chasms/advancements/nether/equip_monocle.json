@@ -9,6 +9,21 @@
               "caverns_and_chasms:monocle"
             ]
           }
+        ],
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "head": {
+                  "items": [
+                    "caverns_and_chasms:monocle"
+                  ]
+                }
+              }
+            }
+          }
         ]
       },
       "trigger": "minecraft:inventory_changed"

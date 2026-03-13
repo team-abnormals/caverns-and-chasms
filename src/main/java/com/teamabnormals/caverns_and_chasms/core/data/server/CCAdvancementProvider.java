@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -142,7 +143,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/use_unicorn_horn");
 
 		createAdvancement("equip_monocle", "adventure", turq, CCItems.MONOCLE.get(), FrameType.TASK, true, true, false)
-				.addCriterion("monocle", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MONOCLE.get()))
+				.addCriterion("monocle", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.wrap(EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().head(ItemPredicate.Builder.item().of(CCItems.MONOCLE.get()).build()).build()).build()), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[]{ItemPredicate.Builder.item().of(CCItems.MONOCLE.get()).build()}))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/equip_monocle");
 	}
 

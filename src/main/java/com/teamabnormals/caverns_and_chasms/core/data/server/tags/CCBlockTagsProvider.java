@@ -44,7 +44,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.RAILS).add(HALT_RAIL.get(), SPIKED_RAIL.get(), SLAUGHTER_RAIL.get()).addTag(CCBlockTags.COPPER_RAILS);
 		this.tag(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(SOUL_SILVER_ORE.get());
 		this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(SOUL_SILVER_ORE.get());
-		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CUPRIC_TORCH.get());
+		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CUPRIC_TORCH.get(), SPARKLER.get());
 		this.tag(BlockTags.PLANKS).add(AZALEA_PLANKS.get());
 		this.tag(BlockTags.LOGS_THAT_BURN).addTag(CCBlockTags.AZALEA_LOGS);
 		this.tag(BlockTags.WOODEN_SLABS).add(AZALEA_SLAB.get());
