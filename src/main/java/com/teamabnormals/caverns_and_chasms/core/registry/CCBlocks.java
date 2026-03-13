@@ -153,7 +153,7 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK));
 
-	public static final RegistryObject<Block> GUNPOWDER_BLOCK = HELPER.createBlock("gunpowder_block", () -> new GunpowderBlock(BlockBehaviour.Properties.copy(Blocks.SAND)));
+	public static final RegistryObject<Block> GUNPOWDER_BLOCK = HELPER.createBlock("gunpowder_block", () -> new GunpowderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> WALL_SPARKLER = HELPER.createBlockNoItem("wall_sparkler", () -> new SparklerWallBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> SPARKLER = HELPER.createStandingAndWallBlock("sparkler", () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)), WALL_SPARKLER, Direction.DOWN);
 

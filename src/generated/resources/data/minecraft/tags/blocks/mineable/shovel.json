@@ -2,6 +2,7 @@
   "values": [
     "caverns_and_chasms:rocky_dirt",
     "caverns_and_chasms:soul_silver_ore",
-    "caverns_and_chasms:flint_block"
+    "caverns_and_chasms:flint_block",
+    "caverns_and_chasms:gunpowder_block"
   ]
 }
