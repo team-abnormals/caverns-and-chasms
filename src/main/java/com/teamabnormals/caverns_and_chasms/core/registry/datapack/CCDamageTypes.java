@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -16,11 +17,13 @@ public class CCDamageTypes {
 	public static final ResourceKey<DamageType> SPIKED_RAIL = createKey("spiked_rail");
 	public static final ResourceKey<DamageType> LAVA_LAMP = createKey("lava_lamp");
 	public static final ResourceKey<DamageType> KUNAI = createKey("kunai");
+	public static final ResourceKey<DamageType> DRAINING = createKey("draining");
 
 	public static void bootstrap(BootstapContext<DamageType> context) {
 		context.register(SPIKED_RAIL, new DamageType(CavernsAndChasms.MOD_ID + ".spiked_rail", 0.1F));
 		context.register(LAVA_LAMP, new DamageType(CavernsAndChasms.MOD_ID + ".lava_lamp", 0.1F));
 		context.register(KUNAI, new DamageType(CavernsAndChasms.MOD_ID + ".kunai", 0.1F));
+		context.register(DRAINING, new DamageType(CavernsAndChasms.MOD_ID + ".draining", 0.1F));
 	}
 
 	public static DamageSource spikedRail(Level level) {
@@ -33,6 +36,10 @@ public class CCDamageTypes {
 
 	public static DamageSource kunai(Level level, Kunai kunai, @Nullable Entity indirectEntity) {
 		return level.damageSources().source(KUNAI, kunai, indirectEntity);
+	}
+
+	public static DamageSource draining(Level level, LivingEntity entity) {
+		return level.damageSources().source(DRAINING, entity);
 	}
 
 	public static ResourceKey<DamageType> createKey(String name) {

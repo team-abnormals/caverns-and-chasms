@@ -22,8 +22,8 @@ public class CCDamageTypeTagsProvider extends TagsProvider<DamageType> {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(KUNAI, SPIKED_RAIL);
-		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(SPIKED_RAIL, KUNAI);
+		this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(KUNAI, SPIKED_RAIL, DRAINING);
+		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(KUNAI, SPIKED_RAIL, DRAINING);
 		this.tag(DamageTypeTags.IS_FIRE).add(LAVA_LAMP);
 		this.tag(DamageTypeTags.IS_PROJECTILE).add(KUNAI);
 		this.tag(CCDamageTypeTags.BYPASSES_TETHER_POTIONS);
