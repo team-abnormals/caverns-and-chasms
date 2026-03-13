@@ -539,19 +539,19 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/tin_chain/step1",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step2",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step3",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step4",
-        "volume": 0.4
+        "volume": 0.7
       }
     ]
   },
@@ -559,19 +559,19 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/tin_chain/step1",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step2",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step3",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step4",
-        "volume": 0.4
+        "volume": 0.7
       }
     ],
     "subtitle": "subtitles.block.generic.hit"
@@ -601,19 +601,19 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/tin_chain/step1",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step2",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step3",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:block/tin_chain/step4",
-        "volume": 0.4
+        "volume": 0.7
       }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
