@@ -32,6 +32,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -834,6 +836,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		if (target == this.commandedTarget && this.isTargetFromFlute && this.getOwner() instanceof ServerPlayer serverPlayer) {
 			CCCriteriaTriggers.RAT_KILLED_ENTITY.trigger(serverPlayer, this, target, damageSource);
 		}
+	}
+
+	@Override
+	public boolean canBeAffected(MobEffectInstance effect) {
+		return effect.getEffect() != MobEffects.HUNGER && super.canBeAffected(effect);
 	}
 
 	@Override
