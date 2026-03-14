@@ -12,6 +12,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,7 +34,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
@@ -67,13 +70,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> TRUSTING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> SITTING_BECAUSE_ORDERED = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 
 	private static final EntityDataAccessor<Float> ATTACH_ANGLE = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> ATTACH_HEIGHT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> FIRST_PERSON_POS = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
 
 	private List<Rat> pack = Lists.newArrayList();
-	private int ticksSinceEaten;
 
 	private BlockPos commandedPos;
 	private LivingEntity commandedTarget;
@@ -91,6 +95,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private int attachCooldown = 20;
 	private final float animTimeOffset = this.random.nextFloat() * 10F;
 
+	private boolean floating;
+
 	public Rat(EntityType<? extends Rat> type, Level level) {
 		super(type, level);
 		this.setCanPickUpLoot(true);
@@ -99,23 +105,24 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new RatAttachedToMobGoal(this));
-		this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+		this.goalSelector.addGoal(1, new RatFloatGoal(this));
+		this.goalSelector.addGoal(2, new RatSitWhenOrderedToGoal(this));
 		this.goalSelector.addGoal(3, new RatJumpAtTargetGoal(this));
 		this.goalSelector.addGoal(4, new RatMeleeAttackGoal(this, 1.2D, true));
 		this.goalSelector.addGoal(5, new RatGoToCommandedPosGoal(this, 1.2D));
 		this.goalSelector.addGoal(6, new RatFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
-		this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(7, new RatBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(8, new RatTemptGoal(this));
 		// this.goalSelector.addGoal(9, new RatJumpOnShoulderGoal(this));
 		this.goalSelector.addGoal(10, new RatDevourRottenFleshGoal(this, 1.25D));
 		this.goalSelector.addGoal(11, new RatStayInGroupGoal(this));
 		this.goalSelector.addGoal(12, new RatFollowParentGoal(this));
 		this.goalSelector.addGoal(13, new RatAvoidEntityGoal(this, 10.0F, 1.0F, 1.2F));
-		this.goalSelector.addGoal(14, new RatRandomStrollGoal(this));
-		this.goalSelector.addGoal(15, new RatFindItemsGoal(this));
-		this.goalSelector.addGoal(16, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(17, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(14, new RatEatGoal(this));
+		this.goalSelector.addGoal(15, new RatRandomStrollGoal(this));
+		this.goalSelector.addGoal(16, new RatFindItemsGoal(this));
+		this.goalSelector.addGoal(17, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(18, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(0, new RatStopAttackingGoal(this));
 		this.targetSelector.addGoal(1, new RatAttackCommandedTargetGoal(this));
 		this.targetSelector.addGoal(2, (new RatHurtByTargetGoal(this)).setAlertOthers());
@@ -128,6 +135,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
 		this.entityData.define(TRUSTING, false);
 		this.entityData.define(RUNNING_AWAY, false);
+		this.entityData.define(SITTING_BECAUSE_ORDERED, false);
+		this.entityData.define(EATING, false);
 		this.entityData.define(ATTACH_ANGLE, 0.0F);
 		this.entityData.define(ATTACH_HEIGHT, 0.0F);
 		this.entityData.define(FIRST_PERSON_POS, 0.0F);
@@ -245,6 +254,34 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void setRunningAway(boolean runningAway) {
 		this.entityData.set(RUNNING_AWAY, runningAway);
+	}
+
+	public boolean isSittingBecauseOrdered() {
+		return this.entityData.get(SITTING_BECAUSE_ORDERED);
+	}
+
+	public void setSittingBecauseOrdered(boolean sitting) {
+		this.entityData.set(SITTING_BECAUSE_ORDERED, sitting);
+	}
+
+	public boolean isEating() {
+		return this.entityData.get(EATING);
+	}
+
+	public void setEating(boolean eating) {
+		this.entityData.set(EATING, eating);
+	}
+
+	public void setFloating(boolean floating) {
+		this.floating = floating;
+	}
+
+	public boolean canSit() {
+		return !this.isAttachedToEntity() && this.onGround() && !this.isInWaterOrBubble() && !this.floating;
+	}
+
+	public boolean isSitting() {
+		return this.isSittingBecauseOrdered() || this.isEating();
 	}
 
 	// Attach to entity stuff
@@ -410,49 +447,55 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
-			if (this.attachCooldown > 0)
-				--this.attachCooldown;
+		if (this.isAlive()) {
+			if (this.isEffectiveAi()) {
+				if (this.attachCooldown > 0)
+					--this.attachCooldown;
 
-			++this.ticksSinceEaten;
-			ItemStack itemstack = this.getMainHandItem();
-			if (this.canEatItem(itemstack)) {
-				if (this.ticksSinceEaten > 600) {
-					ItemStack itemstack1 = itemstack.finishUsingItem(this.level(), this);
-					if (!itemstack1.isEmpty()) {
-						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
-					}
-
-					this.ticksSinceEaten = 0;
-				} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
-					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-					this.level().broadcastEntityEvent(this, (byte) 45);
+				if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
+					this.heal(1.0F);
 				}
-			}
 
-			if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
-				this.heal(1.0F);
-			}
+				if (this.commandedTarget != null && !this.commandedTarget.isAlive()) {
+					this.commandedTarget = null;
+				}
 
-			if (this.commandedTarget != null && !this.commandedTarget.isAlive()) {
-				this.commandedTarget = null;
-			}
-
-			if (this.commandedTarget == null && this.isTame()) {
-				LivingEntity owner = this.getOwner();
-				if (owner != null) {
-					LivingEntity lastHurtByMob = owner.getLastHurtByMob();
-					LivingEntity lastHurtMob = owner.getLastHurtMob();
-					if (lastHurtByMob != null && owner.getLastHurtByMobTimestamp() > this.commandedTargetOwnerTimestamp) {
-						this.setCommandedTarget(lastHurtByMob);
-					} else if (lastHurtMob != null && owner.getLastHurtMobTimestamp() > this.commandedTargetOwnerTimestamp) {
-						this.setCommandedTarget(lastHurtMob);
+				if (this.commandedTarget == null && this.isTame()) {
+					LivingEntity owner = this.getOwner();
+					if (owner != null) {
+						LivingEntity lastHurtByMob = owner.getLastHurtByMob();
+						LivingEntity lastHurtMob = owner.getLastHurtMob();
+						if (lastHurtByMob != null && owner.getLastHurtByMobTimestamp() > this.commandedTargetOwnerTimestamp) {
+							this.setCommandedTarget(lastHurtByMob);
+						} else if (lastHurtMob != null && owner.getLastHurtMobTimestamp() > this.commandedTargetOwnerTimestamp) {
+							this.setCommandedTarget(lastHurtMob);
+						}
 					}
 				}
+
+				List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
+				this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
 			}
 
-			List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
-			this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
+
+			if (this.tickCount % 5 == 0 && this.isEating()) {
+				ItemStack stack = this.getMainHandItem();
+				if (this.level().isClientSide) {
+					for (int i = 0; i < 2; ++i) {
+						Vec3 vec3 = new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+						vec3 = vec3.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
+						vec3 = vec3.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
+						double d0 = (double) (-this.random.nextFloat()) * 0.3D - 0.15D;
+						Vec3 vec31 = new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.15D, d0, 0.3D);
+						vec31 = vec31.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
+						vec31 = vec31.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
+						vec31 = vec31.add(this.getX(), this.getEyeY(), this.getZ());
+						this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z);
+					}
+				} else {
+					this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
+				}
+			}
 		}
 
 		super.aiStep();
@@ -627,7 +670,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean canBeSeenAsEnemy() {
-		return !this.isWounded() && super.canBeSeenAsEnemy();
+		return !this.isWounded() && !this.isAttachedToEntity() && super.canBeSeenAsEnemy();
 	}
 
 	@Override
@@ -717,12 +760,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
-	public boolean canTakeItem(ItemStack itemstackIn) {
-		EquipmentSlot equipmentslottype = Mob.getEquipmentSlotForItem(itemstackIn);
+	public boolean canTakeItem(ItemStack stack) {
+		EquipmentSlot equipmentslottype = Mob.getEquipmentSlotForItem(stack);
 		if (!this.getItemBySlot(equipmentslottype).isEmpty()) {
 			return false;
 		} else {
-			return equipmentslottype == EquipmentSlot.MAINHAND && super.canTakeItem(itemstackIn);
+			return equipmentslottype == EquipmentSlot.MAINHAND && super.canTakeItem(stack);
 		}
 	}
 
@@ -733,7 +776,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			return false;
 		} else {
 			ItemStack currentstack = this.getMainHandItem();
-			return currentstack.isEmpty() || this.ticksSinceEaten > 0 && item.isEdible() && !currentstack.getItem().isEdible();
+			return currentstack.isEmpty() || (this.getHealth() < this.getMaxHealth() && item.isEdible() && !currentstack.getItem().isEdible());
 		}
 	}
 
@@ -767,7 +810,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
 			this.take(itemEntity, itemstack.getCount());
 			itemEntity.discard();
-			this.ticksSinceEaten = 0;
 		}
 	}
 
@@ -781,7 +823,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-		return this.isInSittingPose() ? size.height : size.height * 0.5F;
+		return this.isSitting() ? size.height : size.height * 0.5F;
 	}
 
 	@Override

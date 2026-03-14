@@ -1,18 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
 
-import java.util.EnumSet;
-
-public class RatFollowParentGoal extends FollowParentGoal {
+public class RatBreedGoal extends BreedGoal {
 	private final Rat rat;
 
-	public RatFollowParentGoal(Rat rat) {
-		super(rat, 1.2D);
+	public RatBreedGoal(Rat rat, double speed) {
+		super(rat, speed);
 		this.rat = rat;
-		this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 	}
 
 	@Override

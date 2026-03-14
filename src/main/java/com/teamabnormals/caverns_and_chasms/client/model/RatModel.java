@@ -42,6 +42,7 @@ public class RatModel extends AgeableListModel<Rat> {
 	public final ModelPart rightHindLeg;
 	public RatPose pose;
 	public float tailWagAmount;
+	public boolean eating;
 
 	public RatModel(ModelPart root) {
 		super(false, 5.0F, 2.0F);
@@ -91,6 +92,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 		this.young = isbaby;
 		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) getAttributeValue(compound, Attributes.MAX_HEALTH), hasowner);
+		this.eating = false;
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
 		VertexConsumer vertexconsumer = buffer.getBuffer(this.renderType(type.texture().withPrefix("textures/").withSuffix(".png")));
@@ -99,7 +101,7 @@ public class RatModel extends AgeableListModel<Rat> {
 			DyeColor collarcolor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
 			RatCollarLayer.renderCollar(this, poseStack, buffer, packedLight, collarcolor, 0, 0);
 		}
-		RatHeldItemLayer.renderItem(this, itemInHandRenderer, poseStack, buffer, packedLight, entity, isbaby, heldstack, netHeadYaw, headPitch);
+		RatHeldItemLayer.renderItem(null, this, itemInHandRenderer, poseStack, buffer, packedLight, entity, isbaby, heldstack, netHeadYaw, headPitch);
 	}
 
 	@Override
@@ -136,6 +138,11 @@ public class RatModel extends AgeableListModel<Rat> {
 			this.head.xRot = headPitch * Mth.DEG_TO_RAD;
 			this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
 			this.body.zRot = 0.0F;
+
+			if (this.eating) {
+				this.head.xRot += 0.4F + 0.05F * Mth.cos(ageInTicks * 1.5F);
+				this.head.yRot += 0.4F * Mth.cos(ageInTicks * 0.3F);
+			}
 		}
 
 		switch (this.pose) {
@@ -184,8 +191,9 @@ public class RatModel extends AgeableListModel<Rat> {
 
 	@Override
 	public void prepareMobModel(Rat rat, float limbSwing, float limbSwingAmount, float partialTick) {
-		this.pose = rat.isAttachedToEntity() ? RatPose.ATTACHED : rat.isInSittingPose() ? RatPose.SITTING : RatPose.STANDING;
+		this.pose = rat.isAttachedToEntity() ? RatPose.ATTACHED : rat.isSitting() ? RatPose.SITTING : RatPose.STANDING;
 		this.tailWagAmount = rat.getTailWagAmount();
+		this.eating = rat.isEating();
 		super.prepareMobModel(rat, limbSwing, limbSwingAmount, partialTick);
 	}
 

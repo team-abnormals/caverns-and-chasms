@@ -18,7 +18,9 @@ public class RatFindItemsGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (!this.rat.getMainHandItem().isEmpty()) {
+		if (this.rat.isSittingBecauseOrdered()) {
+			return false;
+		} else if (!this.rat.getMainHandItem().isEmpty()) {
 			return false;
 		} else if (this.rat.getTarget() == null && this.rat.getLastHurtByMob() == null) {
 			if (this.rat.getRandom().nextInt(10) != 0) {
@@ -30,6 +32,11 @@ public class RatFindItemsGoal extends Goal {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public boolean canContinueToUse() {
+		return !this.rat.isSittingBecauseOrdered() && super.canContinueToUse();
 	}
 
 	@Override

@@ -31,7 +31,9 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (this.rat.isTame()) {
+		if (this.rat.isSittingBecauseOrdered()) {
+			return false;
+		} else if (this.rat.isTame()) {
 			return false;
 		} else if (this.rat.getTamer() == null) {
 			return false;
@@ -53,7 +55,9 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		if (this.eatingTime >= 80) {
+		if (this.rat.isSittingBecauseOrdered()) {
+			return false;
+		} else if (this.eatingTime >= 80) {
 			return false;
 		} else if (this.rat.isPassenger()) {
 			return false;

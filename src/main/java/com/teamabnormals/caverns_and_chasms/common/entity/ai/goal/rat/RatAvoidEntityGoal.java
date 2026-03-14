@@ -14,7 +14,12 @@ public class RatAvoidEntityGoal extends AvoidEntityGoal<LivingEntity> {
 
 	@Override
 	public boolean canUse() {
-		return !this.rat.hasBraveryToFight() && super.canUse();
+		return !this.rat.isSittingBecauseOrdered() && !this.rat.hasBraveryToFight() && super.canUse();
+	}
+
+	@Override
+	public boolean canContinueToUse() {
+		return !this.rat.isSittingBecauseOrdered() && super.canContinueToUse();
 	}
 
 	@Override

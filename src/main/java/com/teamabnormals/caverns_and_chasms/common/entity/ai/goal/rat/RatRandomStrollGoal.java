@@ -16,6 +16,16 @@ public class RatRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
 		this.rat = rat;
 	}
 
+	@Override
+	public boolean canUse() {
+		return !this.rat.isSittingBecauseOrdered() && super.canUse();
+	}
+
+	@Override
+	public boolean canContinueToUse() {
+		return !this.rat.isSittingBecauseOrdered() && super.canContinueToUse();
+	}
+
 	@Nullable
 	@Override
 	protected Vec3 getPosition() {

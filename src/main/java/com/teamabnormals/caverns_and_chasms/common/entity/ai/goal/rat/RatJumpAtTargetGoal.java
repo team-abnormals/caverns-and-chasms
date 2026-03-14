@@ -21,7 +21,7 @@ public class RatJumpAtTargetGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (this.rat.isOnAttachCooldown() || this.rat.isVehicle() || this.rat.isAttachedToEntity()) {
+		if (this.rat.isSittingBecauseOrdered() || this.rat.isOnAttachCooldown() || this.rat.isVehicle() || this.rat.isAttachedToEntity()) {
 			return false;
 		} else {
 			LivingEntity livingentity = this.rat.getTarget();
@@ -40,7 +40,7 @@ public class RatJumpAtTargetGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		if (this.rat.isVehicle() || this.rat.isAttachedToEntity()) {
+		if (this.rat.isSittingBecauseOrdered() || this.rat.isVehicle() || this.rat.isAttachedToEntity()) {
 			return false;
 		} else {
 			if (this.target == null || !this.target.isAlive() || this.target != this.rat.getTarget()) {

@@ -19,8 +19,17 @@ public class RatGoToCommandedPosGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
+		if (this.rat.isSittingBecauseOrdered()) {
+			return false;
+		}
+
 		BlockPos commandedPos = this.rat.getCommandedPos();
 		return commandedPos != null && this.rat.distanceToSqr(commandedPos.getCenter()) > 36.0D;
+	}
+
+	@Override
+	public boolean canContinueToUse() {
+		return !this.rat.isSittingBecauseOrdered() && super.canContinueToUse();
 	}
 
 	@Override
