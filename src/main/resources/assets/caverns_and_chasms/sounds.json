@@ -409,7 +409,7 @@
       "caverns_and_chasms:block/saddled_egg/hatch1",
       "caverns_and_chasms:block/saddled_egg/hatch2"	  
     ],
-    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+    "subtitle": "subtitles.caverns_and_chasms.block.saddled_egg.hatch"
   },
   "block.brazier.crackle": {
     "sounds": [
