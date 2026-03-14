@@ -46,7 +46,7 @@ public abstract class PlayerListMixin {
 				for (int i = 0; i < ratstag.size(); i++) {
 					Entity entity = EntityType.loadEntityRecursive(ratstag.getCompound(i), serverlevel, (rat -> !serverlevel.addWithUUID(rat) ? null : rat));
 					if (entity instanceof Rat rat) {
-						rat.attachToEntity(player);
+						rat.setAttachedToEntity(player);
 						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(serverlevel::dimension), new S2CUpdateAttachedRatsMessage((RatHolder) player));
 					}
 				}

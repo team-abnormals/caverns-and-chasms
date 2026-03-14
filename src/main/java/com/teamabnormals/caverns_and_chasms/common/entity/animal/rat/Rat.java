@@ -99,7 +99,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private int attachCooldown = 20;
 	private final float animTimeOffset = this.random.nextFloat() * 10F;
 
-	private boolean floating;
+	private boolean floatingInWater;
 
 	public Rat(EntityType<? extends Rat> type, Level level) {
 		super(type, level);
@@ -276,12 +276,16 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.entityData.set(EATING, eating);
 	}
 
-	public void setFloating(boolean floating) {
-		this.floating = floating;
+	public boolean isFloatingInWater() {
+		return this.floatingInWater;
+	}
+
+	public void setFloatingInWater(boolean floating) {
+		this.floatingInWater = floating;
 	}
 
 	public boolean canSit() {
-		return !this.isAttachedToEntity() && this.onGround() && !this.isInWaterOrBubble() && !this.floating;
+		return !this.isAttachedToEntity() && this.onGround() && !this.isInWaterOrBubble() && !this.floatingInWater;
 	}
 
 	public boolean isSitting() {
@@ -289,7 +293,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	// Attach to entity stuff
-	public void attachToEntity(LivingEntity target) {
+	public void setAttachedToEntity(LivingEntity target) {
 		((RatHolder) target).attachRat(this);
 		this.attachedEntity = target;
 		this.noPhysics = true;
@@ -301,6 +305,21 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			mob.setTarget(null);
 		if (target.getLastHurtByMob() == this)
 			target.setLastHurtByMob(null);
+	}
+
+	public void tryToAttachToEntity(LivingEntity target) {
+		if (((RatHolder) target).canHoldMoreRats()) {
+			List<Integer> availableslots = Lists.newArrayList(-1, 0, 1);
+			for (Rat attachedrat : ((RatHolder) target).getAttachedRats())
+				availableslots.remove(Integer.valueOf(Math.round(attachedrat.getFirstPersonPos())));
+
+			this.setAttachedToEntity(target);
+			this.setAttachAngle(this.getRandom().nextFloat() * 360.0F);
+			this.setAttachHeight((0.25F + this.getRandom().nextFloat() * Math.max(target.getEyeHeight() - 0.5F, 0.0F)) / target.getBbHeight());
+
+			int i = (availableslots.isEmpty() ? this.getRandom().nextInt(3) - 1 : availableslots.get(this.getRandom().nextInt(availableslots.size())));
+			this.setFirstPersonPos(i + (this.getRandom().nextFloat() - 0.5F) * 0.6F);
+		}
 	}
 
 	public void detachFromEntity() {
@@ -439,7 +458,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			} else if (this.attachedEntityUUID != null) {
 				Entity entity = ((ServerLevel) this.level()).getEntity(this.attachedEntityUUID);
 				if (entity instanceof LivingEntity living) {
-					this.attachToEntity(living);
+					this.setAttachedToEntity(living);
 				} else {
 					CavernsAndChasms.LOGGER.warn("Could not find entity the rat was attached to with UUID: {}", this.attachedEntityUUID);
 				}

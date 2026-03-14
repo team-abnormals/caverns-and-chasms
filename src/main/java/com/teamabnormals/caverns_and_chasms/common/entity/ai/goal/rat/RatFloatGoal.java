@@ -14,12 +14,12 @@ public class RatFloatGoal extends FloatGoal {
 	@Override
 	public void start() {
 		super.start();
-		this.rat.setFloating(true);
+		this.rat.setFloatingInWater(true);
 	}
 
 	@Override
 	public void stop() {
 		super.stop();
-		this.rat.setFloating(false);
+		this.rat.setFloatingInWater(false);
 	}
 }

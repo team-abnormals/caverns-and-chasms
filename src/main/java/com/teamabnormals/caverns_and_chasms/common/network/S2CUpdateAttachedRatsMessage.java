@@ -52,7 +52,7 @@ public final class S2CUpdateAttachedRatsMessage {
 					for (int id : message.ratIds) {
 						Entity rat = level.getEntity(id);
 						if (rat instanceof Rat) {
-							((Rat) rat).attachToEntity(livingentity);
+							((Rat) rat).setAttachedToEntity(livingentity);
 						}
 					}
 				}
