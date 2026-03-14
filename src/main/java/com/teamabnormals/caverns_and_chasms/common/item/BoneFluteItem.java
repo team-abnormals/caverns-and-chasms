@@ -36,8 +36,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class BoneFluteItem extends Item {
-	private static final double MAX_COMMAND_DIST = 64.0D;
-	private static final double RANGE = 128.0D;
+	private static final double MAX_SEND_DIST = 64.0D;
+	private static final double RAT_RANGE = 128.0D;
 
 	public BoneFluteItem(Properties properties) {
 		super(properties);
@@ -109,14 +109,14 @@ public class BoneFluteItem extends Item {
 	}
 
 	private static void executeCommand(BoneFluteCommand command, Level level, Player player, HitResult hitResult) {
-		List<Rat> rats = level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= RANGE * RANGE);
+		List<Rat> rats = level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(RAT_RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= RAT_RANGE * RAT_RANGE);
 
 		if (command == BoneFluteCommand.SIT) {
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(true);
 				rat.detachFromEntity();
 				rat.setTarget(null);
-				rat.setCommandedTarget(null);
+				rat.setCommandedTarget(null, false);
 				rat.setCommandedPos(null);
 			}
 		} else if (command == BoneFluteCommand.RECALL) {
@@ -124,7 +124,7 @@ public class BoneFluteItem extends Item {
 				rat.setOrderedToSit(false);
 				rat.detachFromEntity();
 				rat.setTarget(null);
-				rat.setCommandedTarget(null);
+				rat.setCommandedTarget(null, false);
 				rat.setCommandedPos(null);
 			}
 		} else if (command == BoneFluteCommand.MOVE) {
@@ -133,14 +133,14 @@ public class BoneFluteItem extends Item {
 				rat.setOrderedToSit(false);
 				rat.detachFromEntity();
 				rat.setTarget(null);
-				rat.setCommandedTarget(null);
+				rat.setCommandedTarget(null, false);
 				rat.setCommandedPos(pos);
 			}
 		} else if (command == BoneFluteCommand.ATTACK) {
 			LivingEntity target = (LivingEntity) ((EntityHitResult) hitResult).getEntity();
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(false);
-				rat.setCommandedTarget(target);
+				rat.setCommandedTarget(target, true);
 				rat.setCommandedPos(null);
 			}
 		}
@@ -164,17 +164,17 @@ public class BoneFluteItem extends Item {
 
 	@NonNull
 	public static HitResult getHitResult(Player player) {
-		HitResult hitResult = player.pick(MAX_COMMAND_DIST, 1.0F, false);
+		HitResult hitResult = player.pick(MAX_SEND_DIST, 1.0F, false);
 		Vec3 eyeLoc = player.getEyePosition(1.0F);
 
-		double blockDistSqr = MAX_COMMAND_DIST * MAX_COMMAND_DIST;
+		double blockDistSqr = MAX_SEND_DIST * MAX_SEND_DIST;
 		if (hitResult.getType() != HitResult.Type.MISS) {
 			blockDistSqr = hitResult.getLocation().distanceToSqr(eyeLoc);
 		}
 
 		Vec3 viewVector = player.getViewVector(1.0F);
-		Vec3 clipTargetLoc = eyeLoc.add(viewVector.x * MAX_COMMAND_DIST, viewVector.y * MAX_COMMAND_DIST, viewVector.z * MAX_COMMAND_DIST);
-		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(MAX_COMMAND_DIST)).inflate(1.0D);
+		Vec3 clipTargetLoc = eyeLoc.add(viewVector.x * MAX_SEND_DIST, viewVector.y * MAX_SEND_DIST, viewVector.z * MAX_SEND_DIST);
+		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(MAX_SEND_DIST)).inflate(1.0D);
 
 		EntityHitResult entityHitResult = getBoneFluteEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
 			if (!entity.isSpectator() && entity.isPickable()) {

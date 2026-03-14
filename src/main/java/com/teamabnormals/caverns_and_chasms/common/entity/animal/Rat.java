@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -81,6 +82,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private BlockPos commandedPos;
 	private LivingEntity commandedTarget;
+	private boolean isTargetFromFlute;
 	private int commandedTargetOwnerTimestamp;
 
 	private Player tamer;
@@ -466,9 +468,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 						LivingEntity lastHurtByMob = owner.getLastHurtByMob();
 						LivingEntity lastHurtMob = owner.getLastHurtMob();
 						if (lastHurtByMob != null && owner.getLastHurtByMobTimestamp() > this.commandedTargetOwnerTimestamp) {
-							this.setCommandedTarget(lastHurtByMob);
+							this.setCommandedTarget(lastHurtByMob, false);
 						} else if (lastHurtMob != null && owner.getLastHurtMobTimestamp() > this.commandedTargetOwnerTimestamp) {
-							this.setCommandedTarget(lastHurtMob);
+							this.setCommandedTarget(lastHurtMob, false);
 						}
 					}
 				}
@@ -476,7 +478,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
 				this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
 			}
-
 
 			if (this.tickCount % 5 == 0 && this.isEating()) {
 				ItemStack stack = this.getMainHandItem();
@@ -637,8 +638,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.commandedPos;
 	}
 
-	public void setCommandedTarget(LivingEntity target) {
+	public void setCommandedTarget(LivingEntity target, boolean fromFlute) {
 		this.commandedTarget = target;
+		this.isTargetFromFlute = fromFlute;
 		if (this.getOwner() != null) {
 			this.commandedTargetOwnerTimestamp = this.getOwner().tickCount;
 		}
@@ -824,6 +826,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
 		return this.isSitting() ? size.height : size.height * 0.5F;
+	}
+
+	@Override
+	public void awardKillScore(Entity target, int deathScore, DamageSource damageSource) {
+		super.awardKillScore(target, deathScore, damageSource);
+		if (target == this.commandedTarget && this.isTargetFromFlute && this.getOwner() instanceof ServerPlayer serverPlayer) {
+			CCCriteriaTriggers.RAT_KILLED_ENTITY.trigger(serverPlayer, this, target, damageSource);
+		}
 	}
 
 	@Override

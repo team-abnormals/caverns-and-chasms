@@ -629,22 +629,6 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingDeath(LivingDeathEvent event) {
-		LivingEntity entity = event.getEntity();
-		Level level = entity.level();
-
-		if (!level.isClientSide) {
-			((RatHolder) entity).detachAllRats();
-
-			if (event.getSource().getDirectEntity() instanceof Rat rat && rat.isTame()) {
-				if (rat.getOwner() instanceof ServerPlayer serverPlayer) {
-					CCCriteriaTriggers.RAT_KILLED_ENTITY.trigger(serverPlayer, rat, entity, event.getSource());
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
 		LivingEntity entity = event.getEntity();
 		LivingEntity newtarget = event.getNewTarget();
