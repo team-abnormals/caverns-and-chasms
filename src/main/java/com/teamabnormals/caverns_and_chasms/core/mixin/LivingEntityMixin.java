@@ -7,7 +7,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;

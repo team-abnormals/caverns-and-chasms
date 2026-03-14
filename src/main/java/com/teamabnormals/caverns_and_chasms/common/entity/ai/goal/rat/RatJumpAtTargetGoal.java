@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.google.common.collect.Lists;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;

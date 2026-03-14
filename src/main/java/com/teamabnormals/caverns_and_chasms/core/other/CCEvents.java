@@ -8,7 +8,7 @@ import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;

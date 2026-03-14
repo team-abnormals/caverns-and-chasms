@@ -5,7 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.LostGoat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Cavefish;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Glare;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.Grazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;

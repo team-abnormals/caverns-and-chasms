@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.RatVariant;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;

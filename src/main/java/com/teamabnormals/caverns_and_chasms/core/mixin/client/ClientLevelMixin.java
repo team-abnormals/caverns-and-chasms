@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;

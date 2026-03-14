@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.mojang.authlib.GameProfile;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;

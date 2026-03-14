@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
+package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
