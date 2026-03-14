@@ -58,8 +58,12 @@ public interface Sparkler {
 
 	static void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(LIT)) {
-			if (random.nextInt(24) == 0) {
+			if (random.nextInt(12) == 0) {
 				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.SPARKLER_SPARKLE.get(), SoundSource.BLOCKS, 0.4F, 1.0F, false);
+			}
+			
+			if (random.nextInt(12) == 0) {
+				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.SPARKLER_FIZZLE.get(), SoundSource.BLOCKS, 0.4F, 1.0F, false);
 			}
 
 			Vec3 vec3 = particlePos(state, pos);

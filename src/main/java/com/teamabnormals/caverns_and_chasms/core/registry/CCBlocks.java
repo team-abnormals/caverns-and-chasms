@@ -902,7 +902,7 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties FALSE_HOPE = PropertyUtil.flower().sound(CCSoundTypes.FALSE_HOPE).lightLevel((state) -> 15);
 
-		public static final BlockBehaviour.Properties SADDLED_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().strength(0.5F).sound(SoundType.METAL).randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties SADDLED_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().strength(0.5F).sound(CCSoundTypes.SADDLED_EGG).randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
 
 		public static final Item.Properties FANCY = new Item.Properties().rarity(CCItems.FANCY);
 

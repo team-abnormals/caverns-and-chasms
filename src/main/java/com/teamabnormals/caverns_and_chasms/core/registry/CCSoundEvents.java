@@ -196,6 +196,15 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SILVER_PLACE = HELPER.createSoundEvent("block.silver.place");
 	public static final RegistryObject<SoundEvent> SILVER_STEP = HELPER.createSoundEvent("block.silver.step");
 	
+	public static final RegistryObject<SoundEvent> BRAZIER_CRACKLE = HELPER.createSoundEvent("block.brazier.crackle");
+	
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_BREAK = HELPER.createSoundEvent("block.saddled_egg.break");
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_FALL = HELPER.createSoundEvent("block.saddled_egg.fall");
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_HIT = HELPER.createSoundEvent("block.saddled_egg.hit");
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_PLACE = HELPER.createSoundEvent("block.saddled_egg.place");
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_STEP = HELPER.createSoundEvent("block.saddled_egg.step");
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_DEFLECT = HELPER.createSoundEvent("block.saddled_egg.deflect");
+	
 	public static final RegistryObject<SoundEvent> DIMMER_BREAK = HELPER.createSoundEvent("block.dimmer.break");
 	public static final RegistryObject<SoundEvent> DIMMER_FALL = HELPER.createSoundEvent("block.dimmer.fall");
 	public static final RegistryObject<SoundEvent> DIMMER_HIT = HELPER.createSoundEvent("block.dimmer.hit");
@@ -301,6 +310,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
 
 	public static final RegistryObject<SoundEvent> SPARKLER_SPARKLE = HELPER.createSoundEvent("block.sparkler.sparkle");
+	public static final RegistryObject<SoundEvent> SPARKLER_FIZZLE = HELPER.createSoundEvent("block.sparkler.fizzle");
 	public static final RegistryObject<SoundEvent> SPARKLER_EXPLODE = HELPER.createSoundEvent("block.sparkler.explode");
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
@@ -326,6 +336,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_NECROMIUM = HELPER.createSoundEvent("item.armor.equip_necromium");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SANGUINE = HELPER.createSoundEvent("item.armor.equip_sanguine");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COWL = HELPER.createSoundEvent("item.armor.equip_cowl");
+	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_TOOLBELT = HELPER.createSoundEvent("item.armor.equip_toolbelt");
 
 	public static final RegistryObject<SoundEvent> NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
 
@@ -457,6 +468,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType TIN = new TinSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL, TIN_DEFLECT);
 		public static final ForgeSoundType TINPLATE = new TinSoundType(1.0F, 1.0F, TINPLATE_BREAK, TINPLATE_STEP, TINPLATE_PLACE, TINPLATE_HIT, TINPLATE_FALL, TINPLATE_DEFLECT);
 		public static final ForgeSoundType DIMMER = new TinSoundType(1.0F, 1.0F, DIMMER_BREAK, DIMMER_STEP, DIMMER_PLACE, DIMMER_HIT, DIMMER_FALL, DIMMER_DEFLECT);
+		public static final ForgeSoundType SADDLED_EGG = new TinSoundType(1.0F, 1.0F, SADDLED_EGG_BREAK, SADDLED_EGG_STEP, SADDLED_EGG_PLACE, SADDLED_EGG_HIT, SADDLED_EGG_FALL, SADDLED_EGG_DEFLECT);
 		public static final ForgeSoundType TIN_BULB = new TinSoundType(1.0F, 1.0F, TIN_BULB_BREAK, TIN_BULB_STEP, TIN_BULB_PLACE, TIN_BULB_HIT, TIN_BULB_FALL, TIN_BULB_DEFLECT);
 		public static final ForgeSoundType TIN_CHAIN = new TinSoundType(1.0F, 1.0F, TIN_CHAIN_BREAK, TIN_CHAIN_STEP, TIN_CHAIN_PLACE, TIN_CHAIN_HIT, TIN_CHAIN_FALL, TIN_CHAIN_DEFLECT);
 		public static final ForgeSoundType TIN_ORE = new TinSoundType(1.0F, 1.0F, TIN_ORE_BREAK, TIN_ORE_STEP, TIN_ORE_PLACE, TIN_ORE_HIT, TIN_ORE_FALL, TIN_ORE_DEFLECT);
