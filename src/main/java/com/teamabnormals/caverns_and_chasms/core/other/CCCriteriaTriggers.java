@@ -21,6 +21,8 @@ public class CCCriteriaTriggers {
 	public static final PlayerHurtSelfTrigger PLAYER_HURT_SELF = CriteriaTriggers.register(new PlayerHurtSelfTrigger());
 	public static final OpenStorageDuctTrigger OPEN_STORAGE_DUCT = CriteriaTriggers.register(new OpenStorageDuctTrigger());
 	public static final RatKilledEntityTrigger RAT_KILLED_ENTITY = CriteriaTriggers.register(new RatKilledEntityTrigger());
+	public static final HoopTrigger HOOP_ENTERED = CriteriaTriggers.register(new HoopTrigger());
+	public static final EmptyTrigger HATCH_SADDLED_GRAZER = CriteriaTriggers.register(new EmptyTrigger(prefix("hatch_saddled_grazer")));
 
 	public static final EntitySubPredicate.Type RICOCHETS = RicochetPredicate::fromJson;
 

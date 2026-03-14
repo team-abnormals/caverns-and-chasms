@@ -1,0 +1,47 @@
+{
+  "parent": "caverns_and_chasms:adventure/find_monolith",
+  "criteria": {
+    "half_court": {
+      "conditions": {
+        "projectile": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "distance": {
+                "horizontal": {
+                  "min": 14.326
+                },
+                "y": {
+                  "min": 3.048
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "caverns_and_chasms:hoop_entered"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.half_court.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:hoop"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.half_court.title"
+    }
+  },
+  "requirements": [
+    [
+      "half_court"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

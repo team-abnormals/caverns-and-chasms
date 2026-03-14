@@ -1,10 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledGrazer;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -60,6 +62,10 @@ public class SaddledEggBlock extends HorizontalDirectionalBlock {
 			level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(state));
 			level.levelEvent(2001, pos, Block.getId(state));
 			level.removeBlock(pos, false);
+
+			if (entity instanceof ServerPlayer serverPlayer) {
+				CCCriteriaTriggers.HATCH_SADDLED_GRAZER.trigger(serverPlayer);
+			}
 
 			SaddledGrazer saddledgrazer = CCEntityTypes.SADDLED_GRAZER.get().create(level);
 			if (saddledgrazer != null) {

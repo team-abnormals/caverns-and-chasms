@@ -17,6 +17,7 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.BlockPredicate.Builder;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.MinMaxBounds.Doubles;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -137,6 +138,16 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		createAdvancement("open_large_storage_duct", "adventure", monolith, CCBlocks.STORAGE_DUCT.get(), FrameType.CHALLENGE, true, true, false)
 				.addCriterion("open_large_storage_duct", OpenStorageDuctTrigger.TriggerInstance.openStorageDuct(Ints.atLeast(100)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/open_large_storage_duct");
+
+		createAdvancement("half_court", "adventure", monolith, CCBlocks.HOOP.get(), FrameType.TASK, true, true, false)
+				.addCriterion("half_court", HoopTrigger.TriggerInstance.hoopEntered(Ints.ANY, Ints.ANY, EntityPredicate.wrap(EntityPredicate.Builder.entity().distance(
+						new DistancePredicate(MinMaxBounds.Doubles.ANY, Doubles.atLeast(3.048D), MinMaxBounds.Doubles.ANY, Doubles.atLeast(14.326D), MinMaxBounds.Doubles.ANY)
+				).build())))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/half_court");
+
+		createAdvancement("hatch_saddled_grazer", "adventure", monolith, CCBlocks.SADDLED_EGG.get(), FrameType.TASK, true, true, true)
+				.addCriterion("hatch_saddled_grazer", CCCriteriaTriggers.HATCH_SADDLED_GRAZER.createInstance())
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/hatch_saddled_grazer");
 
 		createAdvancement("ricochet_bullseye", "adventure", monolith, CCBlocks.BOUNCER.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(50))
