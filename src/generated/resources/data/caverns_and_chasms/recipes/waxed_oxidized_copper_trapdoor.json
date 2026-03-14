@@ -7,11 +7,10 @@
     }
   },
   "pattern": [
-    "###",
-    "###"
+    "##",
+    "##"
   ],
   "result": {
-    "count": 2,
     "item": "caverns_and_chasms:waxed_oxidized_copper_trapdoor"
   },
   "show_notification": true

@@ -555,7 +555,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		}
 
 		doorBuilder(door, Ingredient.of(ingot)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
-		trapdoorBuilder(trapdoor, Ingredient.of(ingot)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, trapdoor).define('#', ingot).pattern("##").pattern("##").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, bars, 16).define('#', ingot).pattern("###").pattern("###").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapelessRecipeBuilder.shapeless(REDSTONE, button).requires(ItemTags.WOODEN_BUTTONS).requires(ingot).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, floodlight).define('C', ingot).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
