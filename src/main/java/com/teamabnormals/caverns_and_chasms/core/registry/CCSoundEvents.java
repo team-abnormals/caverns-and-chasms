@@ -361,6 +361,7 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> PEEPER_DEATH = HELPER.createSoundEvent("entity.peeper.death");
 	public static final RegistryObject<SoundEvent> PEEPER_HURT = HELPER.createSoundEvent("entity.peeper.hurt");
+	public static final RegistryObject<SoundEvent> PEEPER_PULSE = HELPER.createSoundEvent("entity.peeper.pulse");
 	public static final RegistryObject<SoundEvent> PEEPER_PRIMED = HELPER.createSoundEvent("entity.peeper.primed");
 	public static final RegistryObject<SoundEvent> PEEPER_EXPLODE = HELPER.createSoundEvent("entity.peeper.explode");
 

@@ -27,7 +27,7 @@ public class CCTiers {
 		public static final ArmorMaterial SANGUINE = new BlueprintArmorMaterial(CavernsAndChasms.location("sanguine"), 23, new int[]{2, 5, 7, 3}, 17, () -> CCSoundEvents.ARMOR_EQUIP_SANGUINE.get(), 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
 
 		public static final ArmorMaterial COWL = new BlueprintArmorMaterial(CavernsAndChasms.location("cowl"), 5, new int[]{1, 2, 3, 1}, 15, () -> CCSoundEvents.ARMOR_EQUIP_COWL.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
-		public static final ArmorMaterial TOOLBELT = new BlueprintArmorMaterial(CavernsAndChasms.location("toolbelt"), 5, new int[]{1, 2, 3, 1}, 15, () -> CCSoundEvents.ARMOR_EQUIP_COWL.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+		public static final ArmorMaterial TOOLBELT = new BlueprintArmorMaterial(CavernsAndChasms.location("toolbelt"), 5, new int[]{1, 2, 3, 1}, 15, () -> CCSoundEvents.ARMOR_EQUIP_TOOLBELT.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
 
 		public static BlueprintArmorMaterial createCopperMaterial(String name, TagKey<Item> repairTag) {
 			return new BlueprintArmorMaterial(CavernsAndChasms.location(name), 11 + 45, new int[]{1 + 2, 3 + 2, 4 + 2, 2 + 2}, 8, () -> CCSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.05F, () -> Ingredient.of(repairTag));
