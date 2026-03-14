@@ -413,11 +413,31 @@
   },
   "block.brazier.crackle": {
     "sounds": [
-      "caverns_and_chasms:block/brazier/crackle1",
-      "caverns_and_chasms:block/brazier/crackle2",
-      "caverns_and_chasms:block/brazier/crackle3",
-      "caverns_and_chasms:block/brazier/crackle4",
-      "caverns_and_chasms:block/brazier/crackle5"
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle1",
+        "volume": 0.2,
+        "pitch": 0.9
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle2",
+        "volume": 0.2,
+        "pitch": 0.9
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle3",
+        "volume": 0.2,
+        "pitch": 0.9
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle4",
+        "volume": 0.2,
+        "pitch": 0.9
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle5",
+        "volume": 0.2,
+        "pitch": 0.9
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.brazier.crackle"
   },

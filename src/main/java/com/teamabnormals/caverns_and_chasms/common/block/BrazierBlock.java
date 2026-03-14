@@ -137,7 +137,7 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (state.getValue(LIT) && random.nextInt(10) == 0) {
+		if (state.getValue(LIT) && random.nextInt(2) == 0) {
 			level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.BRAZIER_CRACKLE.get(), SoundSource.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
 		}
 	}
