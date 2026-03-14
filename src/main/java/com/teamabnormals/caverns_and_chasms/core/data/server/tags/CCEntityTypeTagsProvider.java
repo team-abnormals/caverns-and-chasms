@@ -25,6 +25,7 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(COPPER_GOLEM.get(), GLARE.get(), RAT.get());
 		this.tag(EntityTypeTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get(), RICOCHET_ARROW.get());
 		this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(KUNAI.get());
+		this.tag(EntityTypeTags.DISMOUNTS_UNDERWATER).add(SADDLED_GRAZER.get());
 		this.tag(BlueprintEntityTypeTags.FISHES).add(CAVEFISH.get());
 
 		this.tag(SPAWNS_FROM_CAVE_GROWTHS).add(EntityType.BAT, EntityType.SILVERFISH);
