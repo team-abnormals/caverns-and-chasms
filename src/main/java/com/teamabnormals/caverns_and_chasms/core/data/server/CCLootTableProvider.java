@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.teamabnormals.caverns_and_chasms.common.advancement.CopperGolemPredicate;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -26,6 +27,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -550,10 +552,22 @@ public class CCLootTableProvider extends LootTableProvider {
 						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES)
 								.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, Ints.ANY)).build()).build()));
 
+		public static LootPoolSingletonContainer.Builder<?> copperIngot(ItemLike copperIngot, int oxidation, boolean waxed) {
+			return LootItem.lootTableItem(copperIngot).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(CopperGolemPredicate.copperGolem(Ints.exactly(oxidation), waxed))));
+		}
+
 		@Override
 		public void generate() {
-			this.add(COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
-			this.add(OXIDIZED_COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.COPPER_INGOT).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))));
+			this.add(COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+					.add(copperIngot(Items.COPPER_INGOT, 0, false))
+					.add(copperIngot(CCItems.EXPOSED_COPPER_INGOT.get(), 1, false))
+					.add(copperIngot(CCItems.WEATHERED_COPPER_INGOT.get(), 2, false))
+					.add(copperIngot(CCItems.WAXED_COPPER_INGOT.get(), 0, true))
+					.add(copperIngot(CCItems.WAXED_EXPOSED_COPPER_INGOT.get(), 1, true))
+					.add(copperIngot(CCItems.WAXED_WEATHERED_COPPER_INGOT.get(), 2, true))));
+			this.add(OXIDIZED_COPPER_GOLEM.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+					.add(copperIngot(CCItems.OXIDIZED_COPPER_INGOT.get(), 3, false))
+					.add(copperIngot(CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), 3, true))));
 			this.add(DEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))

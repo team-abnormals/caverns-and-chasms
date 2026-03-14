@@ -25,11 +25,13 @@ public class CCCriteriaTriggers {
 	public static final EmptyTrigger HATCH_SADDLED_GRAZER = CriteriaTriggers.register(new EmptyTrigger(prefix("hatch_saddled_grazer")));
 
 	public static final EntitySubPredicate.Type RICOCHETS = RicochetPredicate::fromJson;
+	public static final EntitySubPredicate.Type COPPER_GOLEM = CopperGolemPredicate::fromJson;
 
 	public static void registerPredicates() {
 		ImmutableBiMap.Builder<String, Type> builder = ImmutableBiMap.builder();
 		Types.TYPES.forEach(builder::put);
 		builder.put("ricochets", RICOCHETS);
+		builder.put("copper_golem", COPPER_GOLEM);
 		Types.TYPES = builder.buildOrThrow();
 	}
 
