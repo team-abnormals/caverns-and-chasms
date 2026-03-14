@@ -204,6 +204,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SADDLED_EGG_PLACE = HELPER.createSoundEvent("block.saddled_egg.place");
 	public static final RegistryObject<SoundEvent> SADDLED_EGG_STEP = HELPER.createSoundEvent("block.saddled_egg.step");
 	public static final RegistryObject<SoundEvent> SADDLED_EGG_DEFLECT = HELPER.createSoundEvent("block.saddled_egg.deflect");
+	public static final RegistryObject<SoundEvent> SADDLED_EGG_HATCH = HELPER.createSoundEvent("block.saddled_egg.hatch");
 	
 	public static final RegistryObject<SoundEvent> DIMMER_BREAK = HELPER.createSoundEvent("block.dimmer.break");
 	public static final RegistryObject<SoundEvent> DIMMER_FALL = HELPER.createSoundEvent("block.dimmer.fall");

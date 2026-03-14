@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledG
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -58,7 +59,7 @@ public class SaddledEggBlock extends HorizontalDirectionalBlock {
 
 	private void destroyEgg(Level level, BlockState state, BlockPos pos, Entity entity, int chance) {
 		if (!level.isClientSide && this.canDestroyEgg(level, entity) && level.random.nextInt(chance) == 0 && state.is(CCBlocks.SADDLED_EGG.get())) {
-			level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+			level.playSound(null, pos, CCSoundEvents.SADDLED_EGG_HATCH.get(), SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 			level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(state));
 			level.levelEvent(2001, pos, Block.getId(state));
 			level.removeBlock(pos, false);
