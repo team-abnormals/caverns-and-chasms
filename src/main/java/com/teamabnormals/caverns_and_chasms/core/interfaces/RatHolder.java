@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.interfaces;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import net.minecraft.world.level.entity.EntityTickList;
 
 import java.util.List;

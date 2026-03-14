@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.advancement;
 
 import com.google.gson.JsonObject;
 import com.teamabnormals.caverns_and_chasms.common.advancement.RatKilledEntityTrigger.TriggerInstance;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;

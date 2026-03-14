@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCollarLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.culling.Frustum;

@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.network;
 
 import com.teamabnormals.blueprint.client.ClientInfo;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;

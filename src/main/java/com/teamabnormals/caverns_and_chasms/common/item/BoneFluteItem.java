@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.LocalPlayer;

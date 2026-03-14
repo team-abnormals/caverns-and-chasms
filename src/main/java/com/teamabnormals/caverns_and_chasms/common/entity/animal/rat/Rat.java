@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.common.entity.animal;
+package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
