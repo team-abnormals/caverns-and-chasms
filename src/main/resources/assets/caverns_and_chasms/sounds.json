@@ -2709,6 +2709,26 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.peeper.hurt"
   },
+  "entity.peeper.pulse": {
+    "sounds": [
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:mob/peeper/pulse1",
+        "volume": 0.4
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:mob/peeper/pulse2",
+        "volume": 0.4
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:mob/peeper/pulse3",
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.peeper.pulse"
+  },
   "entity.peeper.explode": {
     "sounds": [
       "caverns_and_chasms:mob/peeper/explode1",

@@ -60,6 +60,11 @@ public class Peeper extends CCCreeper {
 	}
 
 	@Override
+	protected SoundEvent getAmbientSound() {
+		return CCSoundEvents.PEEPER_PULSE.get();
+	}
+
+	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		return CCSoundEvents.PEEPER_HURT.get();
 	}
