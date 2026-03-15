@@ -85,7 +85,7 @@ public interface WeatheringCopperItem {
 	WeatherState getAge();
 
 	default void updateOxidation(ItemStack stack, Level level) {
-		if (this.getNext(stack).isPresent() && level.getGameTime() % 60 == 0) {
+		if (!level.isClientSide() && this.getNext(stack).isPresent() && level.getGameTime() % 60 == 0) {
 			for (int i = 0; i < level.getGameRules().getRule(GameRules.RULE_RANDOMTICKING).get(); i++) {
 				Optional<ItemStack> next = this.getNext(stack);
 				if (next.isPresent()) {
