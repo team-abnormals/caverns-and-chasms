@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCollarLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatEarsLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
@@ -19,6 +20,7 @@ public class RatRenderer extends MobRenderer<Rat, RatModel> {
 
 	public RatRenderer(EntityRendererProvider.Context context) {
 		super(context, new RatModel(context.bakeLayer(CCModelLayers.RAT)), 0.3F);
+		this.addLayer(new RatEarsLayer(this));
 		this.addLayer(new RatCollarLayer(this));
 		this.addLayer(new RatHeldItemLayer(this, context.getItemInHandRenderer()));
 	}

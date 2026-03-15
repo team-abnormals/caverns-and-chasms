@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCollarLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import net.minecraft.client.model.AgeableListModel;
@@ -34,6 +34,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class RatModel extends AgeableListModel<Rat> {
 	public final ModelPart head;
+	public final ModelPart leftEar;
+	public final ModelPart rightEar;
 	public final ModelPart body;
 	public final ModelPart tail;
 	public final ModelPart leftFrontLeg;
@@ -47,6 +49,8 @@ public class RatModel extends AgeableListModel<Rat> {
 	public RatModel(ModelPart root) {
 		super(false, 5.0F, 2.0F);
 		this.head = root.getChild("head");
+		this.leftEar = root.getChild("left_ear");
+		this.rightEar = root.getChild("right_ear");
 		this.body = root.getChild("body");
 		this.rightHindLeg = root.getChild("right_hind_leg");
 		this.leftHindLeg = root.getChild("left_hind_leg");
@@ -60,8 +64,8 @@ public class RatModel extends AgeableListModel<Rat> {
 		PartDefinition root = meshdefinition.getRoot();
 
 		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 13).addBox(-1.5F, -2.0F, -6.0F, 3.0F, 3.0F, 6.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 6).mirror().addBox(1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 6).mirror().addBox(1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
 		head.addOrReplaceChild("whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-3.5F, -2.0F, -4.0F, 7.0F, 3.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		head.addOrReplaceChild("tooth", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 1.0F, -5.0F, 1.0F, 1.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 5.0F, 5.0F, 8.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
@@ -82,6 +86,16 @@ public class RatModel extends AgeableListModel<Rat> {
 	@Override
 	protected Iterable<ModelPart> bodyParts() {
 		return ImmutableList.of(this.body, this.rightFrontLeg, this.leftFrontLeg, this.rightHindLeg, this.leftHindLeg, this.tail);
+	}
+
+	public void renderEars(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		if (this.head.visible) {
+			poseStack.pushPose();
+			this.head.translateAndRotate(poseStack);
+			this.leftEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+			this.rightEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+			poseStack.popPose();
+		}
 	}
 
 	public void renderFromTag(CompoundTag compound, Level level, LivingEntity entity, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
