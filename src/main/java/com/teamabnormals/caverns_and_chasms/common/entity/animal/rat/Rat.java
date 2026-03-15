@@ -9,8 +9,8 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -54,6 +54,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -184,7 +185,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
+	public SoundEvent getEatingSound(ItemStack stack) {
+		SoundEvent sound = super.getEatingSound(stack);
+		return sound == SoundEvents.GENERIC_EAT ? CCSoundEvents.RAT_EAT.get() : sound;
+	}
 
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(CCSoundEvents.RAT_STEP.get(), 1.0F, 1.0F);
+	}
+
+	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		tag.putString("Variant", this.getStringVariant());
