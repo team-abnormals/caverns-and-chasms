@@ -457,22 +457,22 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> AMBIENT_BUBBLE_COLUMN = HELPER.createBlockNoItem("ambient_bubble_column", () -> new AmbientBubbleColumnBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).noLootTable()));
 
-	public static final RegistryObject<Block> DRIPSTONE_STAIRS = HELPER.createBlock("dripstone_stairs", () -> new StairBlock(() -> Blocks.DRIPSTONE_BLOCK.defaultBlockState(), CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> DRIPSTONE_SLAB = HELPER.createBlock("dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> DRIPSTONE_WALL = HELPER.createBlock("dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> SMOOTH_DRIPSTONE = HELPER.createBlock("smooth_dripstone", () -> new Block(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> SMOOTH_DRIPSTONE_STAIRS = HELPER.createBlock("smooth_dripstone_stairs", () -> new StairBlock(() -> SMOOTH_DRIPSTONE.get().defaultBlockState(), CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> SMOOTH_DRIPSTONE_SLAB = HELPER.createBlock("smooth_dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> POLISHED_DRIPSTONE = HELPER.createBlock("polished_dripstone", () -> new Block(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> POLISHED_DRIPSTONE_STAIRS = HELPER.createBlock("polished_dripstone_stairs", () -> new StairBlock(() -> POLISHED_DRIPSTONE.get().defaultBlockState(), CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> POLISHED_DRIPSTONE_SLAB = HELPER.createBlock("polished_dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> POLISHED_DRIPSTONE_WALL = HELPER.createBlock("polished_dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> DRIPSTONE_BRICKS = HELPER.createBlock("dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> DRIPSTONE_BRICK_STAIRS = HELPER.createBlock("dripstone_brick_stairs", () -> new StairBlock(() -> DRIPSTONE_BRICKS.get().defaultBlockState(), CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> DRIPSTONE_BRICK_SLAB = HELPER.createBlock("dripstone_brick_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> DRIPSTONE_BRICK_WALL = HELPER.createBlock("dripstone_brick_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> CHISELED_DRIPSTONE_BRICKS = HELPER.createBlock("chiseled_dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
-	public static final RegistryObject<Block> CRACKED_DRIPSTONE_BRICKS = HELPER.createBlock("cracked_dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_STAIRS = HELPER.createBlock("dripstone_stairs", () -> new StairBlock(() -> Blocks.DRIPSTONE_BLOCK.defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_SLAB = HELPER.createBlock("dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_WALL = HELPER.createBlock("dripstone_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> SMOOTH_DRIPSTONE = HELPER.createBlock("smooth_dripstone", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> SMOOTH_DRIPSTONE_STAIRS = HELPER.createBlock("smooth_dripstone_stairs", () -> new StairBlock(() -> SMOOTH_DRIPSTONE.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> SMOOTH_DRIPSTONE_SLAB = HELPER.createBlock("smooth_dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> POLISHED_DRIPSTONE = HELPER.createBlock("polished_dripstone", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> POLISHED_DRIPSTONE_STAIRS = HELPER.createBlock("polished_dripstone_stairs", () -> new StairBlock(() -> POLISHED_DRIPSTONE.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> POLISHED_DRIPSTONE_SLAB = HELPER.createBlock("polished_dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> POLISHED_DRIPSTONE_WALL = HELPER.createBlock("polished_dripstone_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_BRICKS = HELPER.createBlock("dripstone_bricks", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_BRICK_STAIRS = HELPER.createBlock("dripstone_brick_stairs", () -> new StairBlock(() -> DRIPSTONE_BRICKS.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_BRICK_SLAB = HELPER.createBlock("dripstone_brick_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> DRIPSTONE_BRICK_WALL = HELPER.createBlock("dripstone_brick_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> CHISELED_DRIPSTONE_BRICKS = HELPER.createBlock("chiseled_dripstone_bricks", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
+	public static final RegistryObject<Block> CRACKED_DRIPSTONE_BRICKS = HELPER.createBlock("cracked_dripstone_bricks", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(() -> DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES));
 	public static final RegistryObject<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES));
@@ -809,7 +809,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).sound(CCSoundTypes.ROCKY_DIRT).requiresCorrectToolForDrops().strength(1.5F);
 		public static final BlockBehaviour.Properties FRAGILE_STONE = BlockBehaviour.Properties.copy(Blocks.STONE);
 		public static final BlockBehaviour.Properties FRAGILE_DEEPSLATE = BlockBehaviour.Properties.copy(Blocks.DEEPSLATE);
-		public static final BlockBehaviour.Properties DRIPSTONE = BlockBehaviour.Properties.copy(Blocks.DRIPSTONE_BLOCK);
+		public static final BlockBehaviour.Properties POLISHED_DRIPSTONE = BlockBehaviour.Properties.copy(Blocks.DRIPSTONE_BLOCK).sound(CCSoundTypes.POLISHED_DRIPSTONE);
 		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.copy(Blocks.CALCITE);
 		public static final BlockBehaviour.Properties POLISHED_CALCITE = BlockBehaviour.Properties.copy(Blocks.CALCITE);
 		public static final BlockBehaviour.Properties CALCITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.CALCITE);

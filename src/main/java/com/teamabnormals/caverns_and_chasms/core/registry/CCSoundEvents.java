@@ -96,6 +96,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> NECROMIUM_HIT = HELPER.createSoundEvent("block.necromium.hit");
 	public static final RegistryObject<SoundEvent> NECROMIUM_PLACE = HELPER.createSoundEvent("block.necromium.place");
 	public static final RegistryObject<SoundEvent> NECROMIUM_STEP = HELPER.createSoundEvent("block.necromium.step");
+	
+	public static final RegistryObject<SoundEvent> POLISHED_DRIPSTONE_BREAK = HELPER.createSoundEvent("block.polished_dripstone.break");
+	public static final RegistryObject<SoundEvent> POLISHED_DRIPSTONE_FALL = HELPER.createSoundEvent("block.polished_dripstone.fall");
+	public static final RegistryObject<SoundEvent> POLISHED_DRIPSTONE_HIT = HELPER.createSoundEvent("block.polished_dripstone.hit");
+	public static final RegistryObject<SoundEvent> POLISHED_DRIPSTONE_PLACE = HELPER.createSoundEvent("block.polished_dripstone.place");
+	public static final RegistryObject<SoundEvent> POLISHED_DRIPSTONE_STEP = HELPER.createSoundEvent("block.polished_dripstone.step");
 
 	public static final RegistryObject<SoundEvent> FALSE_HOPE_BREAK = HELPER.createSoundEvent("block.false_hope.break");
 	public static final RegistryObject<SoundEvent> FALSE_HOPE_FALL = HELPER.createSoundEvent("block.false_hope.fall");
@@ -466,6 +472,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType ORNATE_GLASS = new ForgeSoundType(1.0F, 1.0F, ORNATE_GLASS_BREAK, ORNATE_GLASS_STEP, ORNATE_GLASS_PLACE, ORNATE_GLASS_HIT, ORNATE_GLASS_FALL);
 		public static final ForgeSoundType FLOAT_GLASS = new TinSoundType(1.0F, 1.0F, FLOAT_GLASS_BREAK, FLOAT_GLASS_STEP, FLOAT_GLASS_PLACE, FLOAT_GLASS_HIT, FLOAT_GLASS_FALL, FLOAT_GLASS_DEFLECT);
 		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, NECROMIUM_BREAK, NECROMIUM_STEP, NECROMIUM_PLACE, NECROMIUM_HIT, NECROMIUM_FALL);
+		public static final ForgeSoundType POLISHED_DRIPSTONE = new ForgeSoundType(1.0F, 1.0F, POLISHED_DRIPSTONE_BREAK, POLISHED_DRIPSTONE_STEP, POLISHED_DRIPSTONE_PLACE, POLISHED_DRIPSTONE_HIT, POLISHED_DRIPSTONE_FALL);
 		public static final ForgeSoundType FALSE_HOPE = new ForgeSoundType(1.0F, 1.0F, FALSE_HOPE_BREAK, FALSE_HOPE_STEP, FALSE_HOPE_PLACE, FALSE_HOPE_HIT, FALSE_HOPE_FALL);
 		public static final ForgeSoundType CAVE_GROWTHS = new ForgeSoundType(1.0F, 1.0F, CAVE_GROWTHS_BREAK, CAVE_GROWTHS_STEP, CAVE_GROWTHS_PLACE, CAVE_GROWTHS_HIT, CAVE_GROWTHS_FALL);
 		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, MOSCHATEL_BREAK, MOSCHATEL_STEP, MOSCHATEL_PLACE, MOSCHATEL_HIT, MOSCHATEL_FALL);
