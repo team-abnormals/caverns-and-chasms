@@ -501,6 +501,15 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.bouncer.boost": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/bounce1",
+      "caverns_and_chasms:block/bouncer/bounce2",
+      "caverns_and_chasms:block/bouncer/bounce3",
+      "caverns_and_chasms:block/bouncer/bounce4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.bouncer.boost"
+  },
   "block.brazier.crackle": {
     "sounds": [
       {

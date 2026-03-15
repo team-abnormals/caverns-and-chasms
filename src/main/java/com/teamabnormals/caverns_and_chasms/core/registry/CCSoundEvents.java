@@ -225,6 +225,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> BOUNCER_PLACE = HELPER.createSoundEvent("block.bouncer.place");
 	public static final RegistryObject<SoundEvent> BOUNCER_STEP = HELPER.createSoundEvent("block.bouncer.step");
 	public static final RegistryObject<SoundEvent> BOUNCER_DEFLECT = HELPER.createSoundEvent("block.bouncer.deflect");
+	public static final RegistryObject<SoundEvent> BOUNCER_BOOST = HELPER.createSoundEvent("block.bouncer.boost");
 
 	public static final RegistryObject<SoundEvent> TINPLATE_BREAK = HELPER.createSoundEvent("block.tinplate.break");
 	public static final RegistryObject<SoundEvent> TINPLATE_FALL = HELPER.createSoundEvent("block.tinplate.fall");
