@@ -3598,28 +3598,28 @@
       "caverns_and_chasms:item/bone_flute/sit1",
       "caverns_and_chasms:item/bone_flute/sit2"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.sit"
   },
   "item.bone_flute.recall": {
     "sounds": [
       "caverns_and_chasms:item/bone_flute/recall1",
       "caverns_and_chasms:item/bone_flute/recall2"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.recall"
   },
   "item.bone_flute.move": {
     "sounds": [
       "caverns_and_chasms:item/bone_flute/move1",
       "caverns_and_chasms:item/bone_flute/move2"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.move"
   },
   "item.bone_flute.attack": {
     "sounds": [
       "caverns_and_chasms:item/bone_flute/attack1",
       "caverns_and_chasms:item/bone_flute/attack2"
     ],
-    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.play"
+    "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.attack"
   },
   "effect.rewind.rewind": {
     "sounds": [
