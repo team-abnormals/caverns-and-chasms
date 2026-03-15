@@ -31,5 +31,6 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(SPAWNS_FROM_CAVE_GROWTHS).add(EntityType.BAT, EntityType.SILVERFISH);
 		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.WITHER_SKULL);
 		this.tag(SILVER_HURTS_EXTRA_TYPES).add(EntityType.WITHER);
+		this.tag(RATS_CANNOT_ATTACH_EXTRA_TYPES).add(EntityType.BAT, EntityType.PARROT, EntityType.VEX);
 	}
 }

@@ -10,6 +10,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -93,6 +94,9 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 
 	@Override
 	public int getMaxRats() {
+		if (this.getType().is(CCEntityTypeTags.RATS_CANNOT_ATTACH_EXTRA_TYPES)) {
+			return 0;
+		}
 		return this.getBbHeight() >= 0.8F ? (int) (3.5F * this.getBbWidth() * this.getBbHeight()) : 0;
 	}
 
