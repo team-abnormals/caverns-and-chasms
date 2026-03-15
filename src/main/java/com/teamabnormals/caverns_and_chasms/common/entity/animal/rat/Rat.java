@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -169,17 +170,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.FOX_AMBIENT;
+		return CCSoundEvents.RAT_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return SoundEvents.FOX_HURT;
+		return CCSoundEvents.RAT_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.FOX_DEATH;
+		return CCSoundEvents.RAT_DEATH.get();
 	}
 
 	@Override
@@ -813,7 +814,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, stackIn);
 			itementity.setPickUpDelay(40);
 			itementity.setThrower(this.getUUID());
-			this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
+			this.playSound(CCSoundEvents.RAT_SPIT.get(), 1.0F, 1.0F);
 			this.level().addFreshEntity(itementity);
 		}
 	}

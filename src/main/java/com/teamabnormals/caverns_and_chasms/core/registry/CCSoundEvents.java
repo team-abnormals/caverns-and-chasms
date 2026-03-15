@@ -413,6 +413,16 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GRAZER_STRUGGLE = HELPER.createSoundEvent("entity.grazer.struggle");
 	public static final RegistryObject<SoundEvent> GRAZER_STEP = HELPER.createSoundEvent("entity.grazer.step");
 	
+	public static final RegistryObject<SoundEvent> RAT_DEATH = HELPER.createSoundEvent("entity.rat.death");
+	public static final RegistryObject<SoundEvent> RAT_HURT = HELPER.createSoundEvent("entity.rat.hurt");
+	public static final RegistryObject<SoundEvent> RAT_AMBIENT = HELPER.createSoundEvent("entity.rat.ambient");
+	public static final RegistryObject<SoundEvent> RAT_STEP = HELPER.createSoundEvent("entity.rat.step");
+	public static final RegistryObject<SoundEvent> RAT_ANGRY = HELPER.createSoundEvent("entity.rat.angry");
+	public static final RegistryObject<SoundEvent> RAT_EAT = HELPER.createSoundEvent("entity.rat.eat");
+	public static final RegistryObject<SoundEvent> RAT_ATTACK = HELPER.createSoundEvent("entity.rat.attack");
+	public static final RegistryObject<SoundEvent> RAT_LATCH = HELPER.createSoundEvent("entity.rat.latch");
+	public static final RegistryObject<SoundEvent> RAT_SPIT = HELPER.createSoundEvent("entity.rat.spit");
+	
 	public static final RegistryObject<SoundEvent> CAVEFISH_DEATH = HELPER.createSoundEvent("entity.cavefish.death");
 	public static final RegistryObject<SoundEvent> CAVEFISH_HURT = HELPER.createSoundEvent("entity.cavefish.hurt");
 	public static final RegistryObject<SoundEvent> CAVEFISH_AMBIENT = HELPER.createSoundEvent("entity.cavefish.ambient");
