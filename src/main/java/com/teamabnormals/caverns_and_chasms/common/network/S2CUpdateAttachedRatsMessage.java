@@ -48,11 +48,12 @@ public final class S2CUpdateAttachedRatsMessage {
 				Level level = ClientInfo.getClientPlayerLevel();
 				Entity entity = level.getEntity(message.entityId);
 				if (entity instanceof LivingEntity livingentity) {
-					((RatHolder) entity).detachAllRats();
+					for (Rat rat : ((RatHolder) livingentity).getAttachedRats()) {
+						rat.setDetachedFromEntity();
+					}
 					for (int id : message.ratIds) {
-						Entity rat = level.getEntity(id);
-						if (rat instanceof Rat) {
-							((Rat) rat).setAttachedToEntity(livingentity);
+						if (level.getEntity(id) instanceof Rat rat) {
+							rat.setAttachedToEntity(livingentity);
 						}
 					}
 				}

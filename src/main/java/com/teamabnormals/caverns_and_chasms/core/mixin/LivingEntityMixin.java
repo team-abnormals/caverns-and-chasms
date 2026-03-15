@@ -29,7 +29,7 @@ import java.util.List;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	@Shadow
-	public abstract void push(Entity p_21294_);
+	public abstract void push(Entity entity);
 
 	@Unique
 	private List<Rat> attachedRats = Lists.newArrayList();

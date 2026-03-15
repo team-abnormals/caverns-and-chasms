@@ -298,13 +298,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.attachedEntity = target;
 		this.noPhysics = true;
 		this.blocksBuilding = false;
-		this.grip = 20F;
 		this.prevHostXRot = target.getXRot();
 		this.prevHostYRot = target.getYRot();
-		if (target instanceof Mob mob && mob.getTarget() == this)
-			mob.setTarget(null);
-		if (target.getLastHurtByMob() == this)
-			target.setLastHurtByMob(null);
 	}
 
 	public void tryToAttachToEntity(LivingEntity target) {
@@ -317,18 +312,28 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.setAttachAngle(this.getRandom().nextFloat() * 360.0F);
 			this.setAttachHeight((0.25F + this.getRandom().nextFloat() * Math.max(target.getEyeHeight() - 0.5F, 0.0F)) / target.getBbHeight());
 
+			this.grip = 20F;
+			if (target instanceof Mob mob && mob.getTarget() == this)
+				mob.setTarget(null);
+			if (target.getLastHurtByMob() == this)
+				target.setLastHurtByMob(null);
+
 			int i = (availableslots.isEmpty() ? this.getRandom().nextInt(3) - 1 : availableslots.get(this.getRandom().nextInt(availableslots.size())));
 			this.setFirstPersonPos(i + (this.getRandom().nextFloat() - 0.5F) * 0.6F);
 		}
 	}
 
+	public void setDetachedFromEntity() {
+		((RatHolder) this.attachedEntity).detachRat(this);
+		this.attachedEntity = null;
+		this.noPhysics = false;
+		this.blocksBuilding = true;
+	}
+
 	public void detachFromEntity() {
 		if (this.isAttachedToEntity()) {
-			((RatHolder) this.attachedEntity).detachRat(this);
 			this.setPos(this.attachedEntity.getX(), this.getY(), this.attachedEntity.getZ());
-			this.attachedEntity = null;
-			this.noPhysics = false;
-			this.blocksBuilding = true;
+			this.setDetachedFromEntity();
 			this.attachCooldown = 80;
 		}
 	}
@@ -458,7 +463,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			} else if (this.attachedEntityUUID != null) {
 				Entity entity = ((ServerLevel) this.level()).getEntity(this.attachedEntityUUID);
 				if (entity instanceof LivingEntity living) {
-					this.setAttachedToEntity(living);
+					this.tryToAttachToEntity(living);
 				} else {
 					CavernsAndChasms.LOGGER.warn("Could not find entity the rat was attached to with UUID: {}", this.attachedEntityUUID);
 				}
