@@ -73,7 +73,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.GLARE_FOOD).add(Items.GLOW_BERRIES);
 		this.tag(CCItemTags.RAT_FOOD).add(Items.ROTTEN_FLESH);
 		this.tag(CCItemTags.RAT_TAME_ITEMS).add(Items.ROTTEN_FLESH);
-		this.tag(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS).add(Items.SPYGLASS, Items.TOTEM_OF_UNDYING, TUNING_FORK.get());
+		this.tag(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS).add(Items.SPYGLASS, MONOCLE.get(), Items.TOTEM_OF_UNDYING, TUNING_FORK.get(), Items.GOAT_HORN, COPPER_HORN.get(), BONE_FLUTE.get());
 		this.tag(CCItemTags.DISMANTLING_FUELS).addTag(CCItemTags.GEMS_SPINEL);
 		this.tag(CCItemTags.ATONING_FUELS).addTag(CCItemTags.GEMS_SPINEL);
 		this.tag(CCItemTags.TRIM_MODIFIERS).add(Items.GLOW_INK_SAC, SPINEL.get());
