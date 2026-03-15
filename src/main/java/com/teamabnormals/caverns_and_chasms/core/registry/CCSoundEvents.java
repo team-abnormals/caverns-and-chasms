@@ -418,6 +418,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> RAT_AMBIENT = HELPER.createSoundEvent("entity.rat.ambient");
 	public static final RegistryObject<SoundEvent> RAT_STEP = HELPER.createSoundEvent("entity.rat.step");
 	public static final RegistryObject<SoundEvent> RAT_ANGRY = HELPER.createSoundEvent("entity.rat.angry");
+	public static final RegistryObject<SoundEvent> RAT_HAPPY = HELPER.createSoundEvent("entity.rat.happy");
 	public static final RegistryObject<SoundEvent> RAT_EAT = HELPER.createSoundEvent("entity.rat.eat");
 	public static final RegistryObject<SoundEvent> RAT_ATTACK = HELPER.createSoundEvent("entity.rat.attack");
 	public static final RegistryObject<SoundEvent> RAT_LATCH = HELPER.createSoundEvent("entity.rat.latch");
