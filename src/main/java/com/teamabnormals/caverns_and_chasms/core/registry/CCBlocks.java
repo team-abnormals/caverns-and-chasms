@@ -103,7 +103,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> WINCH = HELPER.createWinchBlock("winch", () -> new WinchBlock(CCProperties.WINCH));
 	public static final RegistryObject<Block> WALL_DIMMER = HELPER.createBlockNoItem("wall_dimmer", () -> new WallDimmerBlock(CCProperties.DIMMER));
 	public static final RegistryObject<Block> DIMMER = HELPER.createBlockNoItem("dimmer", () -> new DimmerBlock(CCProperties.DIMMER));
-	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get())));
+	public static final RegistryObject<Block> BOUNCER = HELPER.createBlock("bouncer", () -> new BouncerBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get()).sound(CCSoundTypes.BOUNCER)));
 	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 	public static final RegistryObject<Block> STORAGE_DUCT = HELPER.createBlock("storage_duct", () -> new StorageDuctBlock(CCProperties.STORAGE_DUCT));
 	public static final RegistryObject<Block> STORAGE_DUCT_HATCH = HELPER.createBlock("storage_duct_hatch", () -> new StorageDuctHatchBlock(CCProperties.STORAGE_DUCT_HATCH));
@@ -125,8 +125,8 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SPIKED_RAIL = HELPER.createBlock("spiked_rail", () -> new SpikedRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL).sound(CCSoundTypes.SILVER)));
 	public static final RegistryObject<Block> SLAUGHTER_RAIL = HELPER.createBlock("slaughter_rail", () -> new SlaughterRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL).sound(CCSoundTypes.SILVER)));
 
-	public static final RegistryObject<Block> RESISTOR = HELPER.createBlock("resistor", () -> new ResistorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
-	public static final RegistryObject<Block> REFRACTOR = HELPER.createBlock("refractor", () -> new RefractorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
+	public static final RegistryObject<Block> RESISTOR = HELPER.createBlock("resistor", () -> new ResistorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER).sound(CCSoundTypes.DIMMER)));
+	public static final RegistryObject<Block> REFRACTOR = HELPER.createBlock("refractor", () -> new RefractorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER).sound(CCSoundTypes.DIMMER)));
 
 	public static final RegistryObject<Block> SANGUINE_BLOCK = HELPER.createBlock("sanguine_block", () -> new Block(CCProperties.SANGUINE_TILES));
 	public static final RegistryObject<Block> SANGUINE_TILES = HELPER.createBlock("sanguine_tiles", () -> new Block(CCProperties.SANGUINE_TILES));
@@ -168,8 +168,8 @@ public class CCBlocks {
 
 	public static final RegistryObject<Block> TMT = HELPER.createBlock("tmt", () -> new TmtBlock(CCProperties.TMT));
 
-	public static final RegistryObject<Block> SCATTERER = HELPER.createBlock("scatterer", () -> new ScattererBlock(BlockBehaviour.Properties.copy(Blocks.DISPENSER)));
-	public static final RegistryObject<Block> SPLURTER = HELPER.createBlock("splurter", () -> new SplurterBlock(BlockBehaviour.Properties.copy(Blocks.DISPENSER)));
+	public static final RegistryObject<Block> SCATTERER = HELPER.createBlock("scatterer", () -> new ScattererBlock(BlockBehaviour.Properties.copy(Blocks.DISPENSER).sound(CCSoundTypes.TIN)));
+	public static final RegistryObject<Block> SPLURTER = HELPER.createBlock("splurter", () -> new SplurterBlock(BlockBehaviour.Properties.copy(Blocks.DISPENSER).sound(CCSoundTypes.TIN)));
 
 	public static final RegistryObject<Block> FLOODLIGHT = HELPER.createBlock("floodlight", () -> new WeatheringFloodlightBlock(WeatherState.UNAFFECTED, CCProperties.FLOODLIGHT));
 	public static final RegistryObject<Block> EXPOSED_FLOODLIGHT = HELPER.createBlock("exposed_floodlight", () -> new WeatheringFloodlightBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_FLOODLIGHT));

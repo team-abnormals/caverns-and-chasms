@@ -358,6 +358,31 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.tinplate.second_deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/second_deflect1",
+      "caverns_and_chasms:block/tinplate/second_deflect2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
+  "block.scatterer.scatter": {
+    "sounds": [
+      "caverns_and_chasms:block/scatterer/scatter"
+    ],
+    "subtitle": "subtitles.block.dispenser.launch"
+  },
+  "block.scatterer.splurt": {
+    "sounds": [
+      "caverns_and_chasms:block/scatterer/splurt"
+    ],
+    "subtitle": "subtitles.block.dispenser.dispenser"
+  },
+  "block.scatterer.fail": {
+    "sounds": [
+      "caverns_and_chasms:block/scatterer/fail"
+    ],
+    "subtitle": "subtitles.block.dispenser.fail"
+  },
   "block.saddled_egg.break": {
     "sounds": [
       "caverns_and_chasms:block/saddled_egg/step1",
@@ -410,6 +435,71 @@
       "caverns_and_chasms:block/saddled_egg/hatch2"	  
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.saddled_egg.hatch"
+  },
+  "block.bouncer.break": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/break1",
+      "caverns_and_chasms:block/bouncer/break2",
+      "caverns_and_chasms:block/bouncer/break3",
+      "caverns_and_chasms:block/bouncer/break4",
+      "caverns_and_chasms:block/bouncer/break5",
+      "caverns_and_chasms:block/bouncer/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.bouncer.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/break1",
+      "caverns_and_chasms:block/bouncer/break2",
+      "caverns_and_chasms:block/bouncer/break3",
+      "caverns_and_chasms:block/bouncer/break4",
+      "caverns_and_chasms:block/bouncer/break5",
+      "caverns_and_chasms:block/bouncer/break6"
+    ]
+  },
+  "block.bouncer.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/break1",
+      "caverns_and_chasms:block/bouncer/break2",
+      "caverns_and_chasms:block/bouncer/break3",
+      "caverns_and_chasms:block/bouncer/break4",
+      "caverns_and_chasms:block/bouncer/break5",
+      "caverns_and_chasms:block/bouncer/break6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.bouncer.place": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/break1",
+      "caverns_and_chasms:block/bouncer/break2",
+      "caverns_and_chasms:block/bouncer/break3",
+      "caverns_and_chasms:block/bouncer/break4",
+      "caverns_and_chasms:block/bouncer/break5",
+      "caverns_and_chasms:block/bouncer/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.bouncer.step": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/break1",
+      "caverns_and_chasms:block/bouncer/break2",
+      "caverns_and_chasms:block/bouncer/break3",
+      "caverns_and_chasms:block/bouncer/break4",
+      "caverns_and_chasms:block/bouncer/break5",
+      "caverns_and_chasms:block/bouncer/break6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.bouncer.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/bouncer/break1",
+      "caverns_and_chasms:block/bouncer/break2",
+      "caverns_and_chasms:block/bouncer/break3",
+      "caverns_and_chasms:block/bouncer/break4",
+      "caverns_and_chasms:block/bouncer/break5",
+      "caverns_and_chasms:block/bouncer/break6"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
   "block.brazier.crackle": {
     "sounds": [

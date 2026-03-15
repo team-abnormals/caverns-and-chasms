@@ -213,12 +213,20 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DIMMER_STEP = HELPER.createSoundEvent("block.dimmer.step");
 	public static final RegistryObject<SoundEvent> DIMMER_DEFLECT = HELPER.createSoundEvent("block.dimmer.deflect");
 
+	public static final RegistryObject<SoundEvent> BOUNCER_BREAK = HELPER.createSoundEvent("block.bouncer.break");
+	public static final RegistryObject<SoundEvent> BOUNCER_FALL = HELPER.createSoundEvent("block.bouncer.fall");
+	public static final RegistryObject<SoundEvent> BOUNCER_HIT = HELPER.createSoundEvent("block.bouncer.hit");
+	public static final RegistryObject<SoundEvent> BOUNCER_PLACE = HELPER.createSoundEvent("block.bouncer.place");
+	public static final RegistryObject<SoundEvent> BOUNCER_STEP = HELPER.createSoundEvent("block.bouncer.step");
+	public static final RegistryObject<SoundEvent> BOUNCER_DEFLECT = HELPER.createSoundEvent("block.bouncer.deflect");
+
 	public static final RegistryObject<SoundEvent> TINPLATE_BREAK = HELPER.createSoundEvent("block.tinplate.break");
 	public static final RegistryObject<SoundEvent> TINPLATE_FALL = HELPER.createSoundEvent("block.tinplate.fall");
 	public static final RegistryObject<SoundEvent> TINPLATE_HIT = HELPER.createSoundEvent("block.tinplate.hit");
 	public static final RegistryObject<SoundEvent> TINPLATE_PLACE = HELPER.createSoundEvent("block.tinplate.place");
 	public static final RegistryObject<SoundEvent> TINPLATE_STEP = HELPER.createSoundEvent("block.tinplate.step");
 	public static final RegistryObject<SoundEvent> TINPLATE_DEFLECT = HELPER.createSoundEvent("block.tinplate.deflect");
+	public static final RegistryObject<SoundEvent> TINPLATE_SECOND_DEFLECT = HELPER.createSoundEvent("block.tinplate.second_deflect");
 
 	public static final RegistryObject<SoundEvent> TIN_BREAK = HELPER.createSoundEvent("block.tin.break");
 	public static final RegistryObject<SoundEvent> TIN_FALL = HELPER.createSoundEvent("block.tin.fall");
@@ -301,6 +309,10 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.tin_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.tin_pressure_plate.click_on");
 	public static final RegistryObject<SoundEvent> TIN_PRESSURE_PLATE_HOLD = HELPER.createSoundEvent("block.tin_pressure_plate.hold");
+	
+	public static final RegistryObject<SoundEvent> SCATTERER_SCATTER = HELPER.createSoundEvent("block.scatterer.scatter");
+	public static final RegistryObject<SoundEvent> SCATTERER_SPLURT = HELPER.createSoundEvent("block.scatterer.splurt");
+	public static final RegistryObject<SoundEvent> SCATTERER_FAIL = HELPER.createSoundEvent("block.scatterer.fail");
 
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
@@ -470,6 +482,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType TIN = new TinSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL, TIN_DEFLECT);
 		public static final ForgeSoundType TINPLATE = new TinSoundType(1.0F, 1.0F, TINPLATE_BREAK, TINPLATE_STEP, TINPLATE_PLACE, TINPLATE_HIT, TINPLATE_FALL, TINPLATE_DEFLECT);
 		public static final ForgeSoundType DIMMER = new TinSoundType(1.0F, 1.0F, DIMMER_BREAK, DIMMER_STEP, DIMMER_PLACE, DIMMER_HIT, DIMMER_FALL, DIMMER_DEFLECT);
+		public static final ForgeSoundType BOUNCER = new TinSoundType(1.0F, 1.0F, BOUNCER_BREAK, BOUNCER_STEP, BOUNCER_PLACE, BOUNCER_HIT, BOUNCER_FALL, BOUNCER_DEFLECT);
 		public static final ForgeSoundType SADDLED_EGG = new TinSoundType(1.0F, 1.0F, SADDLED_EGG_BREAK, SADDLED_EGG_STEP, SADDLED_EGG_PLACE, SADDLED_EGG_HIT, SADDLED_EGG_FALL, SADDLED_EGG_DEFLECT);
 		public static final ForgeSoundType TIN_BULB = new TinSoundType(1.0F, 1.0F, TIN_BULB_BREAK, TIN_BULB_STEP, TIN_BULB_PLACE, TIN_BULB_HIT, TIN_BULB_FALL, TIN_BULB_DEFLECT);
 		public static final ForgeSoundType TIN_CHAIN = new TinSoundType(1.0F, 1.0F, TIN_CHAIN_BREAK, TIN_CHAIN_STEP, TIN_CHAIN_PLACE, TIN_CHAIN_HIT, TIN_CHAIN_FALL, TIN_CHAIN_DEFLECT);
