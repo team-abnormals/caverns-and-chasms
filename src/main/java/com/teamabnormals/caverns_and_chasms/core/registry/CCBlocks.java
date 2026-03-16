@@ -826,9 +826,9 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties RHYOLITE = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).sound(CCSoundTypes.RHYOLITE);
 		public static final BlockBehaviour.Properties POLISHED_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).sound(CCSoundTypes.RHYOLITE);
 		public static final BlockBehaviour.Properties RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).sound(CCSoundTypes.RHYOLITE);
-		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BLOCKS = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).lightLevel(state -> 3).strength(0.5F).isValidSpawn((state, level, pos, entity) -> entity.fireImmune()).hasPostProcess(PropertyUtil::always).emissiveRendering(PropertyUtil::always).sound(CCSoundTypes.RHYOLITE);
-		public static final BlockBehaviour.Properties POLISHED_MAGMATIC_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).lightLevel(state -> 3).strength(0.5F).isValidSpawn((state, level, pos, entity) -> entity.fireImmune()).hasPostProcess(PropertyUtil::always).emissiveRendering(PropertyUtil::always).sound(CCSoundTypes.RHYOLITE);
-		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).lightLevel(state -> 3).strength(0.5F).isValidSpawn((state, level, pos, entity) -> entity.fireImmune()).hasPostProcess(PropertyUtil::always).emissiveRendering(PropertyUtil::always).sound(CCSoundTypes.RHYOLITE);
+		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BLOCKS = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).lightLevel(state -> 3).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
+		public static final BlockBehaviour.Properties POLISHED_MAGMATIC_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).lightLevel(state -> 3).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
+		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).lightLevel(state -> 3).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
 
 		public static final BlockBehaviour.Properties IRON_PLATED_BRICKS = platedBricks(MapColor.RAW_IRON, SoundType.METAL);
 		public static final BlockBehaviour.Properties TIN_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_WHITE, CCSoundTypes.TIN);
