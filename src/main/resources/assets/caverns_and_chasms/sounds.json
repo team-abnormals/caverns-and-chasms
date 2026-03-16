@@ -2697,7 +2697,7 @@
       {
         "name": "caverns_and_chasms:block/hold_button/click",
         "pitch": 0.5,
-        "volume": 0.3
+        "volume": 0.6
       }
     ],
     "subtitle": "subtitles.block.button.click"
@@ -2707,7 +2707,7 @@
       {
         "name": "caverns_and_chasms:block/hold_button/click_on",
         "pitch": 0.5,
-        "volume": 0.3
+        "volume": 0.6
       }
     ],
     "subtitle": "subtitles.block.button.click"
