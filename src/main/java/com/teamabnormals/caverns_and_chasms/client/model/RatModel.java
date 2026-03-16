@@ -90,12 +90,23 @@ public class RatModel extends AgeableListModel<Rat> {
 
 	public void renderEars(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (this.head.visible) {
-			poseStack.pushPose();
-			this.head.translateAndRotate(poseStack);
-			this.leftEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-			this.rightEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-			poseStack.popPose();
+			if (this.young) {
+				poseStack.pushPose();
+				poseStack.translate(0.0F, this.babyYHeadOffset / 16.0F, this.babyZHeadOffset / 16.0F);
+				this.renderEarsUnscaled(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+				poseStack.popPose();
+			} else {
+				this.renderEarsUnscaled(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+			}
 		}
+	}
+
+	private void renderEarsUnscaled(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		poseStack.pushPose();
+		this.head.translateAndRotate(poseStack);
+		this.leftEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.rightEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		poseStack.popPose();
 	}
 
 	public void renderFromTag(CompoundTag compound, Level level, LivingEntity entity, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
