@@ -3267,6 +3267,10 @@
       {
         "name": "caverns_and_chasms:mob/rat/ambient5",
         "volume": 1
+      },
+            {
+        "name": "caverns_and_chasms:mob/rat/ambient6",
+        "volume": 1
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.ambient"
@@ -3275,30 +3279,123 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/eat1",
-        "volume": 0.8
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:mob/rat/eat2",
-        "volume": 0.8
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:mob/rat/eat3",
-        "volume": 0.8
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:mob/rat/eat4",
-        "volume": 0.6
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:mob/rat/eat5",
-        "volume": 0.8
+        "volume": 0.7
       },
       {
         "name": "caverns_and_chasms:mob/rat/eat6",
-        "volume": 0.8
+        "volume": 0.7
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.eat"
+  },
+  "entity.rat.hurt": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/hurt1",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/hurt2",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/hurt3",
+        "volume": 1
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.hurt"
+  },
+  "entity.rat.death": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/death1",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/death2",
+        "volume": 1
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.death"
+  },
+  "entity.rat.step": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/step1",
+        "volume": 0.3
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/step2",
+        "volume": 0.3
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/step3",
+        "volume": 0.3
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/step4",
+        "volume": 0.3
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/step5",
+        "volume": 0.3
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/step6",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.rat.attack": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/bite1",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/bite2",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/bite3",
+        "volume": 1
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.attack"
+  },
+  "entity.rat.latch": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/latch1",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/latch2",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/latch3",
+        "volume": 1
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.latch"
   },
   "entity.kunai.throw": {
     "sounds": [
