@@ -3227,6 +3227,60 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.cavefish.flop"
   },
+  "entity.rat.ambient": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/ambient1",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/ambient2",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/ambient3",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/ambient4",
+        "volume": 1
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/ambient5",
+        "volume": 1
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.ambient"
+  },
+  "entity.rat.eat": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/eat1",
+        "volume": 0.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/eat2",
+        "volume": 0.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/eat3",
+        "volume": 0.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/eat4",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/eat5",
+        "volume": 0.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/eat6",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.eat"
+  },
   "entity.blunt_arrow.hit": {
     "sounds": [
       "caverns_and_chasms:entity/blunt_arrow/hit1",
@@ -3636,4 +3690,4 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.effect.rewind.rewind"
   }
-},
+}
