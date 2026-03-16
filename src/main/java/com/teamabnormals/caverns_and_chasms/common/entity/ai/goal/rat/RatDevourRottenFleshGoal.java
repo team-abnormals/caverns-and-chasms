@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -100,7 +101,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 					this.rat.spawnItemParticles(flesh, 4);
 				}
 			} else {
-				this.rat.playSound(SoundEvents.PLAYER_BURP, 0.5F, random.nextFloat() * 0.1F + 0.9F);
+				this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, random.nextFloat() * 0.1F + 0.9F);
 				this.rat.tame(this.rat.getTamer());
 				if (!this.rat.level().isClientSide()) {
 					for (int i = 0; i < 4; ++i) {
