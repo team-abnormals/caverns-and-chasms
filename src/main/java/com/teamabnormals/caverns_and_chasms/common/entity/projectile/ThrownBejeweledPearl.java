@@ -138,7 +138,7 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 				this.doTeleport();
 			} else if (i % BejeweledPearlItem.getChargeStageDuration() == 0) {
 				float j = (float) i / BejeweledPearlItem.getMaxLifetime();
-				this.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 0.8F + j * 0.4F, 0.6F + j * 0.4F);
+				this.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 0.8F + j * 0.2F, 0.8F + j * 0.2F);
 			}
 			super.tick();
 		}
