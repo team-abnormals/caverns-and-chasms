@@ -742,7 +742,7 @@ public class CCEvents {
 					projectile.checkInsideBlocks();
 
 					SoundType soundType = state.getBlock().getSoundType(state, level, pos, null);
-					SoundEvent soundEvent = soundType instanceof TinSoundType tinSoundType ? tinSoundType.getDeflectSound() : ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : CCSoundEvents.TIN_DEFLECT.get();
+					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : soundType instanceof TinSoundType tinSoundType ? tinSoundType.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
 					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundEvent, soundType == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F, random, false);
 
 					event.setCanceled(true);
