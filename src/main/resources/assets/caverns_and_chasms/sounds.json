@@ -3513,8 +3513,12 @@
   },
   "item.armor.equip_toolbelt": {
     "sounds": [
-      "caverns_and_chasms:item/cowl/equip1",
-      "caverns_and_chasms:item/cowl/equip2"
+      "caverns_and_chasms:item/toolbelt/equip1",
+      "caverns_and_chasms:item/toolbelt/equip2",
+      "caverns_and_chasms:item/toolbelt/equip3",
+      "caverns_and_chasms:item/toolbelt/equip4",
+      "caverns_and_chasms:item/toolbelt/equip5",
+      "caverns_and_chasms:item/toolbelt/equip6"
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_toolbelt"
   },
