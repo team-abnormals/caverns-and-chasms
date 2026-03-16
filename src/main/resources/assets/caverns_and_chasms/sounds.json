@@ -850,18 +850,18 @@
   },
   "block.tin_bulb.fall": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/step1",
-      "caverns_and_chasms:block/tinplate/step2",
-      "caverns_and_chasms:block/tinplate/step3",
-      "caverns_and_chasms:block/tinplate/step4"
+      "caverns_and_chasms:block/dimmer/step1",
+      "caverns_and_chasms:block/dimmer/step2",
+      "caverns_and_chasms:block/dimmer/step3",
+      "caverns_and_chasms:block/dimmer/step4"
     ]
   },
   "block.tin_bulb.hit": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/step1",
-      "caverns_and_chasms:block/tinplate/step2",
-      "caverns_and_chasms:block/tinplate/step3",
-      "caverns_and_chasms:block/tinplate/step4"
+      "caverns_and_chasms:block/dimmer/step1",
+      "caverns_and_chasms:block/dimmer/step2",
+      "caverns_and_chasms:block/dimmer/step3",
+      "caverns_and_chasms:block/dimmer/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -876,10 +876,10 @@
   },
   "block.tin_bulb.step": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/step1",
-      "caverns_and_chasms:block/tinplate/step2",
-      "caverns_and_chasms:block/tinplate/step3",
-      "caverns_and_chasms:block/tinplate/step4"
+      "caverns_and_chasms:block/dimmer/step1",
+      "caverns_and_chasms:block/dimmer/step2",
+      "caverns_and_chasms:block/dimmer/step3",
+      "caverns_and_chasms:block/dimmer/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
