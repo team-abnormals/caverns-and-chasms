@@ -3300,6 +3300,22 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.eat"
   },
+  "entity.kunai.throw": {
+    "sounds": [
+      "caverns_and_chasms:entity/kunai/throw1",
+      "caverns_and_chasms:entity/kunai/throw2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.kunai.throw"
+  },
+  "entity.kunai.hit": {
+    "sounds": [
+      "caverns_and_chasms:entity/kunai/land1",
+      "caverns_and_chasms:entity/kunai/land2",
+      "caverns_and_chasms:entity/kunai/land3",
+      "caverns_and_chasms:entity/kunai/land4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.kunai.hit"
+  },
   "entity.blunt_arrow.hit": {
     "sounds": [
       "caverns_and_chasms:entity/blunt_arrow/hit1",

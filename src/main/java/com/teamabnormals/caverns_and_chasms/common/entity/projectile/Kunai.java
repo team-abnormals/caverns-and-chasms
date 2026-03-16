@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -129,7 +130,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 
 	@Override
 	protected SoundEvent getDefaultHitGroundSoundEvent() {
-		return SoundEvents.WOOD_BREAK;
+		return CCSoundEvents.KUNAI_HIT.get();
 	}
 
 	@Override

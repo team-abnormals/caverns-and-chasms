@@ -1013,6 +1013,8 @@
   "subtitles.caverns_and_chasms.entity.grazer.hurt": "Grazer hurts",
   "subtitles.caverns_and_chasms.entity.grazer.ricochet": "Grazer ricochets",
   "subtitles.caverns_and_chasms.entity.grazer.struggle": "Grazer struggles",
+  "subtitles.caverns_and_chasms.entity.kunai.throw": "Kunai soars",
+  "subtitles.caverns_and_chasms.entity.kunai.hit": "Kunai strikes",
   "subtitles.caverns_and_chasms.entity.mime.convert": "Mysterious Warping",
   "subtitles.caverns_and_chasms.entity.mime.death": "Mime dies",
   "subtitles.caverns_and_chasms.entity.mime.hurt": "Mime hurts",
