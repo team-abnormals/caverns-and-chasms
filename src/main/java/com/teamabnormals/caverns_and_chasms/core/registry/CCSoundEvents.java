@@ -53,6 +53,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STEP = HELPER.createSoundEvent("block.flint_block.step");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_STRIKE = HELPER.createSoundEvent("block.flint_block.strike");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_LAND = HELPER.createSoundEvent("block.flint_block.land");
+	public static final RegistryObject<SoundEvent> FLINT_BLOCK_RATTLE = HELPER.createSoundEvent("block.flint_block.rattle");
 
 	public static final RegistryObject<SoundEvent> SOUL_SILVER_ORE_BREAK = HELPER.createSoundEvent("block.soul_silver_ore.break");
 	public static final RegistryObject<SoundEvent> SOUL_SILVER_ORE_FALL = HELPER.createSoundEvent("block.soul_silver_ore.fall");
@@ -328,6 +329,8 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> WINCH_WIND = HELPER.createSoundEvent("block.winch.wind");
 	public static final RegistryObject<SoundEvent> WINCH_LOCK = HELPER.createSoundEvent("block.winch.lock");
 	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
+	public static final RegistryObject<SoundEvent> RESISTOR_BUZZ = HELPER.createSoundEvent("block.resistor.buzz");
+	public static final RegistryObject<SoundEvent> RESISTOR_TOGGLE = HELPER.createSoundEvent("block.resistor.toggle");
 
 	public static final RegistryObject<SoundEvent> SPARKLER_SPARKLE = HELPER.createSoundEvent("block.sparkler.sparkle");
 	public static final RegistryObject<SoundEvent> SPARKLER_FIZZLE = HELPER.createSoundEvent("block.sparkler.fizzle");

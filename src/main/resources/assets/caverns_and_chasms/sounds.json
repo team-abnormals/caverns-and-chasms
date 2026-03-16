@@ -659,6 +659,19 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.flint_block.land"
   },
+  "block.flint_block.rattle": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/rattle1",
+      "caverns_and_chasms:block/flint_block/rattle2",
+      "caverns_and_chasms:block/flint_block/rattle3",
+      "caverns_and_chasms:block/flint_block/rattle4",
+      "caverns_and_chasms:block/flint_block/rattle5",
+      "caverns_and_chasms:block/flint_block/rattle6",
+      "caverns_and_chasms:block/flint_block/rattle7",
+      "caverns_and_chasms:block/flint_block/rattle8"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.flint_block.rattle"
+  },
   "block.tin.break": {
     "sounds": [
       "caverns_and_chasms:block/tin/break1",
@@ -2755,6 +2768,18 @@
       "caverns_and_chasms:block/dimmer/buzz"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.dimmer.buzz"
+  },
+  "block.resistor.buzz": {
+    "sounds": [
+      "caverns_and_chasms:block/redstone_resistor/buzz"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.resistor.buzz"
+  },
+  "block.resistor.toggle": {
+    "sounds": [
+      "caverns_and_chasms:block/redstone_resistor/toggle"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.resistor.toggle"
   },
   "block.winch.wind": {
     "sounds": [
