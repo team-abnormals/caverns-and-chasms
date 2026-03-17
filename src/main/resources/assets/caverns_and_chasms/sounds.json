@@ -3432,10 +3432,26 @@
   },
   "entity.ricochet_arrow.hit": {
     "sounds": [
-      "caverns_and_chasms:entity/ricochet_arrow/hit1",
-      "caverns_and_chasms:entity/ricochet_arrow/hit2",
-      "caverns_and_chasms:entity/ricochet_arrow/hit3",
-      "caverns_and_chasms:entity/ricochet_arrow/hit4"
+	  {
+        "name": "caverns_and_chasms:entity/ricochet_arrow/hit1",
+        "volume": 0.7,
+        "pitch": 1.3
+      },
+	  {
+        "name": "caverns_and_chasms:entity/ricochet_arrow/hit2",
+        "volume": 0.7,
+        "pitch": 1.3
+      },
+	  {
+        "name": "caverns_and_chasms:entity/ricochet_arrow/hit3",
+        "volume": 0.7,
+        "pitch": 1.3
+      },
+	  {
+        "name": "caverns_and_chasms:entity/ricochet_arrow/hit4",
+        "volume": 0.7,
+        "pitch": 1.3
+      }
     ],
     "subtitle": "subtitles.entity.arrow.hit"
   },
