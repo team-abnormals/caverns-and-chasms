@@ -96,16 +96,11 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		VoxelShape[] shapes = SHAPES[state.getValue(SIZE)];
-
-		switch (state.getValue(AXIS)) {
-			case X:
-			default:
-				return shapes[0];
-			case Y:
-				return shapes[1];
-			case Z:
-				return shapes[2];
-		}
+		return switch (state.getValue(AXIS)) {
+			case Z -> shapes[2];
+			case Y -> shapes[1];
+			default -> shapes[0];
+		};
 	}
 
 	@Override
@@ -144,20 +139,14 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
-		switch (rotation) {
-			case COUNTERCLOCKWISE_90:
-			case CLOCKWISE_90:
-				switch (state.getValue(AXIS)) {
-					case X:
-						return state.setValue(AXIS, Direction.Axis.Z);
-					case Z:
-						return state.setValue(AXIS, Direction.Axis.X);
-					default:
-						return state;
-				}
-			default:
-				return state;
-		}
+		return switch (rotation) {
+			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
+				case X -> state.setValue(AXIS, Axis.Z);
+				case Z -> state.setValue(AXIS, Axis.X);
+				default -> state;
+			};
+			default -> state;
+		};
 	}
 
 	@Override

@@ -3,7 +3,12 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
+import com.teamabnormals.blueprint.core.util.BlockUtil;
 import com.teamabnormals.blueprint.core.util.DataUtil;
+import com.teamabnormals.blueprint.core.util.DataUtil.AlternativeDispenseBehavior;
+import com.teamabnormals.caverns_and_chasms.common.block.BrazierBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.Sparkler;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
@@ -25,6 +30,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fluids.FluidInteractionRegistry.InteractionInformation;
@@ -113,6 +120,14 @@ public class CCCompat {
 		DispenserBlock.registerBehavior(CCItems.SILVER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.NETHERITE_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 		DispenserBlock.registerBehavior(CCItems.NECROMIUM_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.EXPOSED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.WEATHERED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.OXIDIZED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.WAXED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.WAXED_EXPOSED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.WAXED_WEATHERED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
+		DispenserBlock.registerBehavior(CCItems.WAXED_OXIDIZED_COPPER_HORSE_ARMOR.get(), horseArmorDispenseBehavior);
 
 		DispenseItemBehavior armorDispenseBehavior = new ArmorDispenseBehavior();
 		DispenserBlock.registerBehavior(CCItems.DEEPER_HEAD.get(), armorDispenseBehavior);
@@ -140,6 +155,30 @@ public class CCCompat {
 				}
 			}
 		});
+
+
+		DataUtil.registerAlternativeDispenseBehavior(new AlternativeDispenseBehavior(CavernsAndChasms.MOD_ID, Items.FLINT_AND_STEEL, (source, stack) -> {
+			BlockState state = source.getLevel().getBlockState(BlockUtil.offsetPos(source));
+			Block block = state.getBlock();
+			if (block instanceof CoalBlock || block instanceof BrazierBlock || block instanceof Sparkler) {
+				return state.hasProperty(BlockStateProperties.LIT) && !state.getValue(BlockStateProperties.LIT) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
+			} else {
+				return false;
+			}
+		}, new OptionalDispenseItemBehavior() {
+			protected ItemStack execute(BlockSource source, ItemStack stack) {
+				Level level = source.getLevel();
+				BlockPos pos = BlockUtil.offsetPos(source);
+				BlockState state = level.getBlockState(pos);
+				level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LIT, true));
+				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+				if (stack.hurt(1, level.random, null)) {
+					stack.setCount(0);
+				}
+
+				return stack;
+			}
+		}));
 	}
 
 	private static void changeLocalization() {

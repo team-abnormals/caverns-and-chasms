@@ -16,6 +16,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -46,7 +47,8 @@ import javax.annotation.Nullable;
 
 public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 	public static final IntegerProperty COAL = IntegerProperty.create("coal", 1, 4);
-	public static final IntegerProperty HEAT = IntegerProperty.create("heat", 0, 2);
+	public static final BooleanProperty LIT = BlockStateProperties.LIT;
+	public static final BooleanProperty WARM = BooleanProperty.create("warm");
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	protected static final VoxelShape ONE_AABB = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);
@@ -61,7 +63,15 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	public CoalBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(COAL, 1).setValue(WATERLOGGED, false).setValue(HEAT, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(COAL, 1).setValue(WATERLOGGED, false).setValue(LIT, false).setValue(WARM, false));
+	}
+
+	@Override
+	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+		BlockPos pos = hit.getBlockPos();
+		if (!level.isClientSide() && projectile.isOnFire() && projectile.mayInteract(level, pos) && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+		}
 	}
 
 	@Nullable
@@ -73,14 +83,14 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 			FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
 			return super.getStateForPlacement(context)
 					.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER)
-					.setValue(HEAT, getHeatForPos(context.getLevel(), context.getClickedPos()));
+					.setValue(WARM, shouldBeWarm(context.getLevel(), context.getClickedPos()));
 		}
 	}
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(Items.STICK) && state.getValue(HEAT) == 2) {
+		if (stack.is(Items.STICK) && state.getValue(LIT)) {
 			if (!level.isClientSide) {
 				level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
 
@@ -113,7 +123,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		if (state.getValue(HEAT) == 1 && !entity.isSteppingCarefully() && entity instanceof LivingEntity living && !EnchantmentHelper.hasFrostWalker(living)) {
+		if ((state.getValue(WARM) || state.getValue(LIT)) && !entity.isSteppingCarefully() && entity instanceof LivingEntity living && !EnchantmentHelper.hasFrostWalker(living)) {
 			entity.hurt(level.damageSources().hotFloor(), 0.125F * state.getValue(COAL));
 		}
 
@@ -122,7 +132,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (state.getValue(HEAT) == 2) {
+		if (state.getValue(LIT)) {
 			if (!entity.fireImmune()) {
 				entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
 				if (entity.getRemainingFireTicks() == 0) {
@@ -138,7 +148,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 	@Override
 	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getType() == Fluids.WATER) {
-			if (state.getValue(HEAT) == 2) {
+			if (state.getValue(LIT)) {
 				if (!level.isClientSide()) {
 					level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				}
@@ -146,7 +156,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 			}
 
-			level.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(HEAT, getHeatForPos(level, pos)), 3);
+			level.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(WARM, shouldBeWarm(level, pos)).setValue(LIT, false), 3);
 			level.scheduleTick(pos, fluidState.getType(), fluidState.getType().getTickDelay(level));
 			return true;
 		} else {
@@ -154,12 +164,12 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 		}
 	}
 
-	public static int getHeatForPos(LevelAccessor level, BlockPos pos) {
-		return level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK) ? 1 : 0;
+	public static boolean shouldBeWarm(LevelAccessor level, BlockPos pos) {
+		return level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK);
 	}
 
 	public static BlockState extinguish(Entity entity, LevelAccessor level, BlockPos pos, BlockState state) {
-		BlockState extinguishedsstate = state.setValue(HEAT, getHeatForPos(level, pos));
+		BlockState extinguishedsstate = state.setValue(WARM, shouldBeWarm(level, pos)).setValue(LIT, false);
 		if (level.isClientSide()) {
 			for (int i = 0; i < 10; ++i) {
 				spawnSmokeParticles((Level) level, pos);
@@ -221,7 +231,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(COAL, WATERLOGGED, HEAT);
+		builder.add(COAL, WATERLOGGED, LIT, WARM);
 	}
 
 	@Override

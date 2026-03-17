@@ -11,7 +11,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -38,7 +37,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
@@ -144,15 +142,10 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
-		if (!level.isClientSide && projectile.isOnFire()) {
-			Entity entity = projectile.getOwner();
-			boolean flag = entity == null || entity instanceof Player || ForgeEventFactory.getMobGriefingEvent(level, entity);
-			if (flag && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
-				BlockPos blockpos = hit.getBlockPos();
-				level.setBlock(blockpos, state.setValue(BlockStateProperties.LIT, true), 11);
-			}
+		BlockPos pos = hit.getBlockPos();
+		if (!level.isClientSide() && projectile.isOnFire() && projectile.mayInteract(level, pos) && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
 		}
-
 	}
 
 	public static void spawnSmokeParticles(Level level, BlockPos pos) {

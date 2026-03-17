@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
@@ -55,6 +56,12 @@ public interface Sparkler {
 		map.put(DyeColor.RED, CCBlocks.RED_SPARKLER);
 		map.put(DyeColor.BLACK, CCBlocks.BLACK_SPARKLER);
 	});
+
+	default void onProjectileHitSparkler(Level level, BlockState state, BlockPos pos, Projectile projectile) {
+		if (!level.isClientSide() && projectile.isOnFire() && projectile.mayInteract(level, pos) && !state.getValue(LIT)) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+		}
+	}
 
 	default InteractionResult useSparkler(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
@@ -94,6 +101,8 @@ public interface Sparkler {
 	default void entityInsideSparkler(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextFloat() < 0.1F) {
 			this.explodeSparkler(state, level, pos);
+		} else if (entity instanceof Projectile projectile) {
+			this.onProjectileHitSparkler(level, state, pos, projectile);
 		}
 	}
 

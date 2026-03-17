@@ -1091,9 +1091,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 				default -> "_four";
 			};
 
-			int heat = state.getValue(CoalBlock.HEAT);
-			boolean isHot = heat != 0;
-			boolean hasFlame = heat == 2;
+			boolean hasFlame = state.getValue(CoalBlock.LIT);
+			boolean isHot = hasFlame || state.getValue(CoalBlock.WARM);
 			String lit = isHot ? "_lit" : "";
 			String flame = hasFlame ? "_flame" : "";
 			String name = name(block) + count;

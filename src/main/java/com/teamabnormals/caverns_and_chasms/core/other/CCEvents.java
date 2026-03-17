@@ -233,10 +233,10 @@ public class CCEvents {
 		boolean fireCharge = stack.getItem() instanceof FireChargeItem;
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
 		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
-			boolean coal = state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) != 2 && !state.getValue(CoalBlock.WATERLOGGED);
+			boolean coal = state.getBlock() instanceof CoalBlock && !state.getValue(CoalBlock.LIT) && !state.getValue(CoalBlock.WATERLOGGED);
 			boolean sparkler = state.getBlock() instanceof Sparkler;
 			if (coal || (sparkler && !state.getValue(BlockStateProperties.LIT))) {
-				BlockState returnState = coal ? state.setValue(CoalBlock.HEAT, 2) : state.setValue(BlockStateProperties.LIT, true);
+				BlockState returnState = state.setValue(BlockStateProperties.LIT, true);
 				if (flintAndSteel) {
 					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					level.setBlock(pos, returnState, 11);
@@ -271,7 +271,7 @@ public class CCEvents {
 			}
 		}
 
-		if (state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) == 2 && !event.isCanceled()) {
+		if (state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.LIT) && !event.isCanceled()) {
 			if (stack.canPerformAction(ToolActions.SHOVEL_FLATTEN)) {
 				BlockState extinguishedState = CoalBlock.extinguish(player, level, pos, state);
 				if (!level.isClientSide()) {

@@ -942,8 +942,9 @@ public class CCBlocks {
 
 		private static ToIntFunction<BlockState> placedCoalLight(int base) {
 			return state -> {
-				int heat = state.getValue(CoalBlock.HEAT);
-				return heat > 0 ? base + (heat * 2) + state.getValue(CoalBlock.COAL) : 0;
+				boolean warm = state.getValue(CoalBlock.WARM);
+				boolean lit = state.getValue(CoalBlock.LIT);
+				return (warm || lit) ? base + (lit ? 4 : 2) + state.getValue(CoalBlock.COAL) : 0;
 			};
 		}
 

@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -48,6 +49,11 @@ public class WallSparklerBlock extends WallTorchBlock implements Sparkler {
 	}
 
 	@Override
+	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+		this.onProjectileHitSparkler(level, state, hit.getBlockPos(), projectile);
+	}
+
+	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		return this.useSparkler(state, level, pos, player, hand);
 	}
@@ -56,7 +62,6 @@ public class WallSparklerBlock extends WallTorchBlock implements Sparkler {
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		this.entityInsideSparkler(state, level, pos, entity);
 	}
-
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {

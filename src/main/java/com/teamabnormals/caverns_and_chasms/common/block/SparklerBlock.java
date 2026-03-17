@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -36,6 +37,11 @@ public class SparklerBlock extends TorchBlock implements Sparkler {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return AABB;
+	}
+
+	@Override
+	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+		this.onProjectileHitSparkler(level, state, hit.getBlockPos(), projectile);
 	}
 
 	@Override
