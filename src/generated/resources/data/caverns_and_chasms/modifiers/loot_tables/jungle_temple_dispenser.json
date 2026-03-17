@@ -11,13 +11,14 @@
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "max": 3.0,
+                  "max": 4.0,
                   "min": 1.0
                 },
                 "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:cavefish"
+            "name": "caverns_and_chasms:ricochet_arrow",
+            "weight": 10
           }
         ],
         "index": 0,
@@ -26,5 +27,5 @@
     }
   ],
   "priority": "normal",
-  "selector": "minecraft:chests/village/village_fisher"
+  "selector": "minecraft:chests/jungle_temple_dispenser"
 }

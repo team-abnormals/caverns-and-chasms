@@ -1,21 +1,26 @@
 {
   "modifiers": [
     {
-      "type": "pools",
+      "type": "entries",
       "config": {
-        "pools": [
+        "entries": [
           {
-            "bonus_rolls": 0.0,
-            "entries": [
+            "type": "minecraft:item",
+            "functions": [
               {
-                "type": "minecraft:item",
-                "name": "caverns_and_chasms:golden_bucket"
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 8.0,
+                  "min": 4.0
+                },
+                "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:golden_bucket",
-            "rolls": 1.0
+            "name": "caverns_and_chasms:large_arrow"
           }
         ],
+        "index": 0,
         "replace": false
       }
     },
@@ -30,37 +35,19 @@
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "max": 9.0,
-                  "min": 4.0
+                  "max": 6.0,
+                  "min": 1.0
                 },
                 "function": "minecraft:set_count"
               }
             ],
-            "name": "caverns_and_chasms:silver_ingot"
+            "name": "caverns_and_chasms:silver_ingot",
+            "weight": 2
           },
           {
             "type": "minecraft:item",
-            "functions": [
-              {
-                "add": false,
-                "count": {
-                  "type": "minecraft:uniform",
-                  "max": 12.0,
-                  "min": 4.0
-                },
-                "function": "minecraft:set_count"
-              }
-            ],
-            "name": "caverns_and_chasms:large_arrow"
-          },
-          {
-            "type": "minecraft:item",
-            "functions": [
-              {
-                "function": "minecraft:enchant_randomly"
-              }
-            ],
-            "name": "caverns_and_chasms:toolbelt"
+            "name": "caverns_and_chasms:silver_block",
+            "weight": 2
           }
         ],
         "index": 1,
@@ -78,7 +65,7 @@
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
-                  "max": 6.0,
+                  "max": 8.0,
                   "min": 2.0
                 },
                 "function": "minecraft:set_count"
@@ -87,11 +74,11 @@
             "name": "caverns_and_chasms:silver_nugget"
           }
         ],
-        "index": 2,
+        "index": 1,
         "replace": false
       }
     }
   ],
   "priority": "normal",
-  "selector": "minecraft:chests/bastion_bridge"
+  "selector": "minecraft:chests/bastion_other"
 }
