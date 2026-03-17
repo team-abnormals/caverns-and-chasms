@@ -1,20 +1,30 @@
 package com.teamabnormals.caverns_and_chasms.core.registry.helper;
 
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.client.renderer.block.TypedBlockEntityWithoutLevelRenderer;
 import com.teamabnormals.blueprint.common.item.BEWLRBlockItem;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.RollerDoorBlockEntityWithoutLevelRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.ToolboxBlockEntityWithoutLevelRenderer;
+import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.item.RollerDoorBlockItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.RegistryObject;
@@ -49,6 +59,13 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
 		this.itemRegister.register(name + "_placed", () -> new BlockItem(block.get(), new Item.Properties()));
 		return block;
+	}
+
+	public Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> createSparklerBlock(String name, String wallName, Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle) {
+		RegistryObject<SparklerBlock> block = this.deferredRegister.register(name, () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), particle));
+		RegistryObject<WallSparklerBlock> wallBlock = this.deferredRegister.register(wallName, () -> new WallSparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).lootFrom(block), particle));
+		this.itemRegister.register(name, () -> new StandingAndWallBlockItem(block.get(), wallBlock.get(), new Item.Properties(), Direction.DOWN));
+		return Pair.of(block, wallBlock);
 	}
 
 	@OnlyIn(Dist.CLIENT)

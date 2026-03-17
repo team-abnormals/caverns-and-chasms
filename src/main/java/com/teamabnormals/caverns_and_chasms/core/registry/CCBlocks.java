@@ -39,7 +39,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -154,8 +153,24 @@ public class CCBlocks {
 	public static final RegistryObject<Block> ROTTEN_FLESH_BLOCK = HELPER.createBlock("rotten_flesh_block", () -> new Block(CCProperties.ROTTEN_FLESH_BLOCK));
 
 	public static final RegistryObject<Block> GUNPOWDER_BLOCK = HELPER.createBlock("gunpowder_block", () -> new GunpowderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
-	public static final RegistryObject<Block> WALL_SPARKLER = HELPER.createBlockNoItem("wall_sparkler", () -> new SparklerWallBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)));
-	public static final RegistryObject<Block> SPARKLER = HELPER.createStandingAndWallBlock("sparkler", () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)), WALL_SPARKLER, Direction.DOWN);
+
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> SPARKLER = HELPER.createSparklerBlock("sparkler", "wall_sparkler", CCParticleTypes.SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> WHITE_SPARKLER = HELPER.createSparklerBlock("white_sparkler", "white_wall_sparkler", CCParticleTypes.WHITE_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> ORANGE_SPARKLER = HELPER.createSparklerBlock("orange_sparkler", "orange_wall_sparkler", CCParticleTypes.ORANGE_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> MAGENTA_SPARKLER = HELPER.createSparklerBlock("magenta_sparkler", "magenta_wall_sparkler", CCParticleTypes.MAGENTA_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> LIGHT_BLUE_SPARKLER = HELPER.createSparklerBlock("light_blue_sparkler", "light_blue_wall_sparkler", CCParticleTypes.LIGHT_BLUE_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> YELLOW_SPARKLER = HELPER.createSparklerBlock("yellow_sparkler", "yellow_wall_sparkler", CCParticleTypes.YELLOW_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> LIME_SPARKLER = HELPER.createSparklerBlock("lime_sparkler", "lime_wall_sparkler", CCParticleTypes.LIME_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> PINK_SPARKLER = HELPER.createSparklerBlock("pink_sparkler", "pink_wall_sparkler", CCParticleTypes.PINK_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> GRAY_SPARKLER = HELPER.createSparklerBlock("gray_sparkler", "gray_wall_sparkler", CCParticleTypes.GRAY_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> LIGHT_GRAY_SPARKLER = HELPER.createSparklerBlock("light_gray_sparkler", "light_gray_wall_sparkler", CCParticleTypes.LIGHT_GRAY_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> CYAN_SPARKLER = HELPER.createSparklerBlock("cyan_sparkler", "cyan_wall_sparkler", CCParticleTypes.CYAN_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> PURPLE_SPARKLER = HELPER.createSparklerBlock("purple_sparkler", "purple_wall_sparkler", CCParticleTypes.PURPLE_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> BLUE_SPARKLER = HELPER.createSparklerBlock("blue_sparkler", "blue_wall_sparkler", CCParticleTypes.BLUE_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> BROWN_SPARKLER = HELPER.createSparklerBlock("brown_sparkler", "brown_wall_sparkler", CCParticleTypes.BROWN_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> GREEN_SPARKLER = HELPER.createSparklerBlock("green_sparkler", "green_wall_sparkler", CCParticleTypes.GREEN_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> RED_SPARKLER = HELPER.createSparklerBlock("red_sparkler", "red_wall_sparkler", CCParticleTypes.RED_SPARKLER_SPARK);
+	public static final Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> BLACK_SPARKLER = HELPER.createSparklerBlock("black_sparkler", "black_wall_sparkler", CCParticleTypes.BLACK_SPARKLER_SPARK);
 
 	public static final RegistryObject<Block> DEEPER_HEAD = HELPER.createBlockNoItem("deeper_head", () -> new DeeperSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> DEEPER_WALL_HEAD = HELPER.createBlockNoItem("deeper_wall_head", () -> new DeeperWallSkullBlock(CCSkullTypes.DEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(DEEPER_HEAD.get())));
@@ -716,6 +731,7 @@ public class CCBlocks {
 				.tab(COLORED_BLOCKS)
 				.addItemsAfter(of(Blocks.TINTED_GLASS), FROSTED_GLASS, FLOAT_GLASS, ORNATE_GLASS)
 				.addItemsAfter(of(Blocks.GLASS_PANE), FROSTED_GLASS_PANE, FLOAT_GLASS_PANE, ORNATE_GLASS_PANE)
+				.addItems(SPARKLER.getFirst(), WHITE_SPARKLER.getFirst(), LIGHT_GRAY_SPARKLER.getFirst(), GRAY_SPARKLER.getFirst(), BLACK_SPARKLER.getFirst(), BROWN_SPARKLER.getFirst(), RED_SPARKLER.getFirst(), ORANGE_SPARKLER.getFirst(), YELLOW_SPARKLER.getFirst(), LIME_SPARKLER.getFirst(), GREEN_SPARKLER.getFirst(), CYAN_SPARKLER.getFirst(), LIGHT_BLUE_SPARKLER.getFirst(), BLUE_SPARKLER.getFirst(), PURPLE_SPARKLER.getFirst(), MAGENTA_SPARKLER.getFirst(), PINK_SPARKLER.getFirst())
 				.tab(NATURAL_BLOCKS)
 				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
 				.addItemsAfter(of(Blocks.GRAVEL), FLINT_BLOCK)
@@ -736,7 +752,7 @@ public class CCBlocks {
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
-				.addItemsBefore(of(Blocks.LANTERN), SPARKLER)
+				.addItemsBefore(of(Blocks.LANTERN), SPARKLER.getFirst())
 				.addItemsBefore(of(Blocks.ANVIL), CUPRIC_CAMPFIRE)
 				.addItemsBefore(of(Blocks.CHAIN),
 						CUPRIC_LANTERN,
@@ -912,7 +928,7 @@ public class CCBlocks {
 			return true;
 		}
 
-		private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
+		public static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
 			return (state) -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
 		}
 

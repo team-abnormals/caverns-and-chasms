@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.data.client;
 
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
@@ -123,7 +124,24 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(NECROMIUM_BLOCK);
 		this.block(ROTTEN_FLESH_BLOCK);
 		this.block(GUNPOWDER_BLOCK);
-		this.sparklerBlock(SPARKLER, WALL_SPARKLER);
+
+		this.sparklerBlock(SPARKLER);
+		this.sparklerBlock(WHITE_SPARKLER);
+		this.sparklerBlock(ORANGE_SPARKLER);
+		this.sparklerBlock(MAGENTA_SPARKLER);
+		this.sparklerBlock(LIGHT_BLUE_SPARKLER);
+		this.sparklerBlock(YELLOW_SPARKLER);
+		this.sparklerBlock(LIME_SPARKLER);
+		this.sparklerBlock(PINK_SPARKLER);
+		this.sparklerBlock(GRAY_SPARKLER);
+		this.sparklerBlock(LIGHT_GRAY_SPARKLER);
+		this.sparklerBlock(CYAN_SPARKLER);
+		this.sparklerBlock(PURPLE_SPARKLER);
+		this.sparklerBlock(BLUE_SPARKLER);
+		this.sparklerBlock(BROWN_SPARKLER);
+		this.sparklerBlock(GREEN_SPARKLER);
+		this.sparklerBlock(RED_SPARKLER);
+		this.sparklerBlock(BLACK_SPARKLER);
 
 		this.randomRotationBlock(ROCKY_DIRT);
 		this.flintBlock(FLINT_BLOCK);
@@ -350,7 +368,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.vanillaSlabBlock(Blocks.PRISMARINE_BRICKS, Blocks.PRISMARINE_BRICK_SLAB);
 	}
 
-	public void sparklerBlock(RegistryObject<Block> sparkler, RegistryObject<Block> wallSparkler) {
+	public void sparklerBlock(Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> pair) {
+		RegistryObject<SparklerBlock> sparkler = pair.getFirst();
+		RegistryObject<WallSparklerBlock> wallSparkler = pair.getSecond();
+
 		ModelFile standing = this.models().withExistingParent(name(sparkler.get()), CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()));
 		ModelFile standingLit = this.models().withExistingParent(name(sparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
 
@@ -360,7 +381,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile wall = this.models().withExistingParent(name(wallSparkler.get()), CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()));
 		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
 
-		this.horizontalBlock(wallSparkler.get(), state -> state.getValue(SparklerWallBlock.LIT) ? wallLit : wall, 90);
+		this.horizontalBlock(wallSparkler.get(), state -> state.getValue(WallSparklerBlock.LIT) ? wallLit : wall, 90);
 	}
 
 	public void caveGrowthsBlock(RegistryObject<Block> caveGrowths, RegistryObject<Block> flowerPot) {
@@ -958,7 +979,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 	public void saddledEggBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
-		this.horizontalBlock(block, new ModelFile.UncheckedModelFile(CavernsAndChasms.location("block/saddled_egg")));
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> ConfiguredModel.builder()
+						.modelFile(new UncheckedModelFile(CavernsAndChasms.location("block/saddled_egg")))
+						.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
+						.build(), BlockStateProperties.WATERLOGGED
+				);
 		this.generatedItem(block, "item");
 	}
 

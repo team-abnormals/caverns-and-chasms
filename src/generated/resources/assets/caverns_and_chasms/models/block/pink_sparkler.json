@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_sparkler",
+  "textures": {
+    "sparkler": "caverns_and_chasms:block/pink_sparkler"
+  }
+}

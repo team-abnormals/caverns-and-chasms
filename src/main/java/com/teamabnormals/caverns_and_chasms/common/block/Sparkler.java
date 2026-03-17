@@ -6,7 +6,9 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -23,10 +25,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.function.Supplier;
+
 public interface Sparkler {
 	BooleanProperty LIT = BlockStateProperties.LIT;
 
-	static InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+	static InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, Supplier<? extends ParticleOptions> particleEmitter) {
 		if (player.getAbilities().mayBuild && player.getItemInHand(hand).isEmpty() && state.getValue(LIT)) {
 			Vec3 vec3 = particlePos(state, pos);
 			level.addParticle(ParticleTypes.SMOKE, vec3.x, vec3.y, vec3.z, 0.0D, 0.1F, 0.0D);
@@ -35,7 +39,7 @@ public interface Sparkler {
 				if (level.random.nextFloat() < 0.25F) {
 					level.setBlock(pos, state.setValue(LIT, false), 11);
 				} else {
-					explode(level, pos, vec3);
+					explode(level, pos, vec3, particleEmitter);
 				}
 			}
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
@@ -45,18 +49,18 @@ public interface Sparkler {
 		}
 	}
 
-	static void explode(Level level, BlockPos pos, Vec3 vec3) {
-		CustomExplosion.spawnExplosion(level, null, vec3.x, vec3.y, vec3.z, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get(), CCParticleTypes.SPARKLER_SPARK_EMITTER.get());
+	static void explode(Level level, BlockPos pos, Vec3 vec3, Supplier<? extends ParticleOptions> particleEmitter) {
+		CustomExplosion.spawnExplosion(level, null, vec3.x, vec3.y, vec3.z, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), particleEmitter.get(), particleEmitter.get());
 		level.destroyBlock(pos, false);
 	}
 
-	static void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+	static void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, Supplier<? extends ParticleOptions> particle) {
 		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextFloat() < 0.1F) {
-			explode(level, pos, particlePos(state, pos));
+			explode(level, pos, particlePos(state, pos), particle);
 		}
 	}
 
-	static void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+	static void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, Supplier<? extends ParticleOptions> particle) {
 		if (state.getValue(LIT)) {
 			if (random.nextInt(12) == 0) {
 				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.SPARKLER_SPARKLE.get(), SoundSource.BLOCKS, 0.4F, 1.0F, false);
@@ -68,7 +72,7 @@ public interface Sparkler {
 
 			Vec3 vec3 = particlePos(state, pos);
 			for (int i = 0; i < 2; i++) {
-				level.addParticle(CCParticleTypes.SPARKLER_SPARK.get(), vec3.x + (random.nextFloat() - 0.5D) * 0.1D, vec3.y + (random.nextFloat() - 0.5D) * 0.05D, vec3.z + (random.nextFloat() - 0.5D) * 0.1D, 0.0D, 0.0D, 0.0D);
+				level.addParticle(particle.get(), vec3.x + (random.nextFloat() - 0.5D) * 0.1D, vec3.y + (random.nextFloat() - 0.5D) * 0.05D, vec3.z + (random.nextFloat() - 0.5D) * 0.1D, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

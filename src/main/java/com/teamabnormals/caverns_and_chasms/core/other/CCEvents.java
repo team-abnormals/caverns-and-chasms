@@ -234,7 +234,7 @@ public class CCEvents {
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
 		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
 			boolean coal = state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) != 2 && !state.getValue(CoalBlock.WATERLOGGED);
-			boolean sparkler = (state.getBlock() instanceof SparklerBlock || state.getBlock() instanceof SparklerWallBlock) && !state.getValue(BlockStateProperties.LIT);
+			boolean sparkler = (state.getBlock() instanceof SparklerBlock || state.getBlock() instanceof WallSparklerBlock) && !state.getValue(BlockStateProperties.LIT);
 			if (coal || sparkler) {
 				BlockState returnState = coal ? state.setValue(CoalBlock.HEAT, 2) : state.setValue(BlockStateProperties.LIT, true);
 				if (flintAndSteel) {

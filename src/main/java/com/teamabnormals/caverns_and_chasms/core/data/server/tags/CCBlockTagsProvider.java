@@ -1,8 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintBlockTags;
+import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -32,6 +35,9 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.collect(BlockTags.SLABS, block -> block instanceof SlabBlock, AZALEA_SLAB.get());
 		this.collect(BlockTags.WALLS, block -> block instanceof WallBlock);
 		this.collect(BlockTags.FLOWER_POTS, block -> block instanceof FlowerPotBlock);
+		this.collect(CCBlockTags.STANDING_SPARKLERS, block -> block instanceof SparklerBlock);
+		this.collect(CCBlockTags.WALL_SPARKLERS, block -> block instanceof WallSparklerBlock);
+		this.tag(CCBlockTags.SPARKLERS).addTag(CCBlockTags.STANDING_SPARKLERS).addTag(CCBlockTags.WALL_SPARKLERS);
 
 		this.tag(BlockTags.BEACON_BASE_BLOCKS).add(SILVER_BLOCK.get(), TIN_BLOCK.get(), NECROMIUM_BLOCK.get(), TURQUOISE_BLOCK.get(), ZIRCONIA_BLOCK.get());
 		this.tag(BlockTags.BUTTONS).add(HOLD_BUTTON.get(), COPPER_BUTTON.get(), EXPOSED_COPPER_BUTTON.get(), WEATHERED_COPPER_BUTTON.get(), OXIDIZED_COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get());
@@ -44,7 +50,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.RAILS).add(HALT_RAIL.get(), SPIKED_RAIL.get(), SLAUGHTER_RAIL.get()).addTag(CCBlockTags.COPPER_RAILS);
 		this.tag(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(SOUL_SILVER_ORE.get());
 		this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(SOUL_SILVER_ORE.get());
-		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CUPRIC_TORCH.get(), SPARKLER.get());
+		this.tag(BlockTags.WALL_POST_OVERRIDE).add(CUPRIC_TORCH.get()).addTag(CCBlockTags.STANDING_SPARKLERS);
 		this.tag(BlockTags.PLANKS).add(AZALEA_PLANKS.get());
 		this.tag(BlockTags.LOGS_THAT_BURN).addTag(CCBlockTags.AZALEA_LOGS);
 		this.tag(BlockTags.WOODEN_SLABS).add(AZALEA_SLAB.get());

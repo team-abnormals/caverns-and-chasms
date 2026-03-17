@@ -2,9 +2,11 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,20 +21,23 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
-public class SparklerWallBlock extends WallTorchBlock implements Sparkler {
+public class WallSparklerBlock extends WallTorchBlock implements Sparkler {
 	private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(ImmutableMap.of(
 			Direction.NORTH, Block.box(5.5D, 3.0D, 11.0D, 10.5D, 15.0D, 16.0D),
 			Direction.SOUTH, Block.box(5.5D, 3.0D, 0.0D, 10.5D, 15.0D, 5.0D),
 			Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 15.0D, 10.5D),
 			Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 15.0D, 10.5D)
 	));
+	protected final Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle;
 
-	public SparklerWallBlock(Properties properties) {
+	public WallSparklerBlock(Properties properties, Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle) {
 		super(properties, ParticleTypes.FLAME);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+		this.particle = particle;
 	}
 
 	@Override
@@ -42,18 +47,18 @@ public class SparklerWallBlock extends WallTorchBlock implements Sparkler {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		return Sparkler.use(state, level, pos, player, hand);
+		return Sparkler.use(state, level, pos, player, hand, this.particle.getSecond());
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		Sparkler.entityInside(state, level, pos, entity);
+		Sparkler.entityInside(state, level, pos, entity, this.particle.getSecond());
 	}
 
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		Sparkler.animateTick(state, level, pos, random);
+		Sparkler.animateTick(state, level, pos, random, this.particle.getFirst());
 	}
 
 	@Override

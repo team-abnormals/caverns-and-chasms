@@ -27,7 +27,6 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -131,8 +130,24 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(ROTTEN_FLESH_BLOCK.get());
 
 			this.dropSelf(GUNPOWDER_BLOCK.get());
-			this.dropSelf(SPARKLER.get());
-			this.dropOther(WALL_SPARKLER.get(), SPARKLER.get());
+
+			this.dropSelf(SPARKLER.getFirst().get());
+			this.dropSelf(WHITE_SPARKLER.getFirst().get());
+			this.dropSelf(ORANGE_SPARKLER.getFirst().get());
+			this.dropSelf(MAGENTA_SPARKLER.getFirst().get());
+			this.dropSelf(LIGHT_BLUE_SPARKLER.getFirst().get());
+			this.dropSelf(YELLOW_SPARKLER.getFirst().get());
+			this.dropSelf(LIME_SPARKLER.getFirst().get());
+			this.dropSelf(PINK_SPARKLER.getFirst().get());
+			this.dropSelf(GRAY_SPARKLER.getFirst().get());
+			this.dropSelf(LIGHT_GRAY_SPARKLER.getFirst().get());
+			this.dropSelf(CYAN_SPARKLER.getFirst().get());
+			this.dropSelf(PURPLE_SPARKLER.getFirst().get());
+			this.dropSelf(BLUE_SPARKLER.getFirst().get());
+			this.dropSelf(BROWN_SPARKLER.getFirst().get());
+			this.dropSelf(GREEN_SPARKLER.getFirst().get());
+			this.dropSelf(RED_SPARKLER.getFirst().get());
+			this.dropSelf(BLACK_SPARKLER.getFirst().get());
 
 			this.dropSelf(NECROMIUM_BLOCK.get());
 			this.dropSelf(DEEPER_HEAD.get());

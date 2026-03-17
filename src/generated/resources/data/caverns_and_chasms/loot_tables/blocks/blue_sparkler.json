@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:sparkler"
+          "name": "caverns_and_chasms:blue_sparkler"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "caverns_and_chasms:blocks/wall_sparkler"
+  "random_sequence": "caverns_and_chasms:blocks/blue_sparkler"
 }
