@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "dyed_sparkler",
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:sparkler"
+    },
+    "X": {
+      "item": "minecraft:magenta_dye"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "item": "caverns_and_chasms:magenta_sparkler"
+  },
+  "show_notification": true
+}

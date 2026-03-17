@@ -8,9 +8,9 @@ import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
@@ -234,8 +234,8 @@ public class CCEvents {
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
 		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
 			boolean coal = state.getBlock() instanceof CoalBlock && state.getValue(CoalBlock.HEAT) != 2 && !state.getValue(CoalBlock.WATERLOGGED);
-			boolean sparkler = (state.getBlock() instanceof SparklerBlock || state.getBlock() instanceof WallSparklerBlock) && !state.getValue(BlockStateProperties.LIT);
-			if (coal || sparkler) {
+			boolean sparkler = state.getBlock() instanceof Sparkler;
+			if (coal || (sparkler && !state.getValue(BlockStateProperties.LIT))) {
 				BlockState returnState = coal ? state.setValue(CoalBlock.HEAT, 2) : state.setValue(BlockStateProperties.LIT, true);
 				if (flintAndSteel) {
 					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
@@ -245,6 +245,22 @@ public class CCEvents {
 				} else {
 					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 					level.setBlockAndUpdate(pos, returnState);
+					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+					if (!player.getAbilities().instabuild)
+						stack.shrink(1);
+				}
+
+				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
+				event.setCanceled(true);
+			} else if (state.getBlock() instanceof Sparkler sparklerBlock) {
+				if (flintAndSteel) {
+					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+					sparklerBlock.explodeSparkler(state, level, pos);
+					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
+				} else {
+					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+					sparklerBlock.explodeSparkler(state, level, pos);
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 					if (!player.getAbilities().instabuild)
 						stack.shrink(1);

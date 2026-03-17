@@ -40,23 +40,33 @@ public class SparklerBlock extends TorchBlock implements Sparkler {
 
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		return Sparkler.use(state, level, pos, player, hand, this.particle.getSecond());
+		return this.useSparkler(state, level, pos, player, hand);
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		Sparkler.entityInside(state, level, pos, entity, this.particle.getSecond());
+		this.entityInsideSparkler(state, level, pos, entity);
 	}
 
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		Sparkler.animateTick(state, level, pos, random, this.particle.getFirst());
+		this.animateTickSparkler(state, level, pos, random);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(LIT);
+	}
+
+	@Override
+	public Supplier<? extends ParticleOptions> getParticle() {
+		return this.particle.getFirst();
+	}
+
+	@Override
+	public Supplier<? extends ParticleOptions> getParticleEmitter() {
+		return this.particle.getSecond();
 	}
 }

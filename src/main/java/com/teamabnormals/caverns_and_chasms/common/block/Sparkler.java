@@ -1,14 +1,15 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.blueprint.core.util.MathUtil;
+import com.google.common.collect.Maps;
+import com.teamabnormals.blueprint.core.util.BlockUtil;
 import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -17,6 +18,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,55 +28,84 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public interface Sparkler {
 	BooleanProperty LIT = BlockStateProperties.LIT;
+	Map<DyeColor, RegistryObject<SparklerBlock>> SPARKLER_BY_DYE = Util.make(Maps.newEnumMap(DyeColor.class), (map) -> {
+		map.put(DyeColor.WHITE, CCBlocks.WHITE_SPARKLER.getFirst());
+		map.put(DyeColor.ORANGE, CCBlocks.ORANGE_SPARKLER.getFirst());
+		map.put(DyeColor.MAGENTA, CCBlocks.MAGENTA_SPARKLER.getFirst());
+		map.put(DyeColor.LIGHT_BLUE, CCBlocks.LIGHT_BLUE_SPARKLER.getFirst());
+		map.put(DyeColor.YELLOW, CCBlocks.YELLOW_SPARKLER.getFirst());
+		map.put(DyeColor.LIME, CCBlocks.LIME_SPARKLER.getFirst());
+		map.put(DyeColor.PINK, CCBlocks.PINK_SPARKLER.getFirst());
+		map.put(DyeColor.GRAY, CCBlocks.GRAY_SPARKLER.getFirst());
+		map.put(DyeColor.LIGHT_GRAY, CCBlocks.LIGHT_GRAY_SPARKLER.getFirst());
+		map.put(DyeColor.CYAN, CCBlocks.CYAN_SPARKLER.getFirst());
+		map.put(DyeColor.PURPLE, CCBlocks.PURPLE_SPARKLER.getFirst());
+		map.put(DyeColor.BLUE, CCBlocks.BLUE_SPARKLER.getFirst());
+		map.put(DyeColor.BROWN, CCBlocks.BROWN_SPARKLER.getFirst());
+		map.put(DyeColor.GREEN, CCBlocks.GREEN_SPARKLER.getFirst());
+		map.put(DyeColor.RED, CCBlocks.RED_SPARKLER.getFirst());
+		map.put(DyeColor.BLACK, CCBlocks.BLACK_SPARKLER.getFirst());
+	});
 
-	static InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, Supplier<? extends ParticleOptions> particleEmitter) {
-		if (player.getAbilities().mayBuild && player.getItemInHand(hand).isEmpty() && state.getValue(LIT)) {
+	default InteractionResult useSparkler(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (player.getAbilities().mayBuild && stack.isEmpty() && state.getValue(LIT)) {
 			Vec3 vec3 = particlePos(state, pos);
 			level.addParticle(ParticleTypes.SMOKE, vec3.x, vec3.y, vec3.z, 0.0D, 0.1F, 0.0D);
 			level.playSound(null, pos, SoundEvents.CANDLE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
 			if (!level.isClientSide) {
-				if (level.random.nextFloat() < 0.25F) {
-					level.setBlock(pos, state.setValue(LIT, false), 11);
-				} else {
-					explode(level, pos, vec3, particleEmitter);
+				level.setBlock(pos, state.setValue(LIT, false), 11);
+			}
+			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+			return InteractionResult.sidedSuccess(level.isClientSide);
+		} else if (stack.getItem() instanceof DyeItem dyeItem && SPARKLER_BY_DYE.get(dyeItem.getDyeColor()) != null) {
+			level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+			if (!level.isClientSide()) {
+				BlockState newState = SPARKLER_BY_DYE.get(dyeItem.getDyeColor()).get().defaultBlockState();
+				level.setBlock(pos, BlockUtil.transferAllBlockStates(state, newState), 11);
+				if (!player.getAbilities().instabuild) {
+					stack.shrink(1);
 				}
 			}
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide);
-		} else {
-			return InteractionResult.PASS;
+
 		}
+		return InteractionResult.PASS;
 	}
 
-	static void explode(Level level, BlockPos pos, Vec3 vec3, Supplier<? extends ParticleOptions> particleEmitter) {
-		CustomExplosion.spawnExplosion(level, null, vec3.x, vec3.y, vec3.z, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), particleEmitter.get(), particleEmitter.get());
-		level.destroyBlock(pos, false);
+	default void explodeSparkler(BlockState state, Level level, BlockPos pos) {
+		Vec3 vec3 = particlePos(state, pos);
+		CustomExplosion.spawnExplosion(level, null, vec3.x, vec3.y, vec3.z, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), getParticleEmitter().get(), getParticleEmitter().get());
+		level.setBlock(pos, state.setValue(LIT, false), 11);
 	}
 
-	static void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, Supplier<? extends ParticleOptions> particle) {
+	default void entityInsideSparkler(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextFloat() < 0.1F) {
-			explode(level, pos, particlePos(state, pos), particle);
+			this.explodeSparkler(state, level, pos);
 		}
 	}
 
-	static void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, Supplier<? extends ParticleOptions> particle) {
+	default void animateTickSparkler(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (state.getValue(LIT)) {
 			if (random.nextInt(12) == 0) {
 				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.SPARKLER_SPARKLE.get(), SoundSource.BLOCKS, 0.4F, 1.0F, false);
 			}
-			
+
 			if (random.nextInt(12) == 0) {
 				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.SPARKLER_FIZZLE.get(), SoundSource.BLOCKS, 0.4F, 1.0F, false);
 			}
 
 			Vec3 vec3 = particlePos(state, pos);
 			for (int i = 0; i < 2; i++) {
-				level.addParticle(particle.get(), vec3.x + (random.nextFloat() - 0.5D) * 0.1D, vec3.y + (random.nextFloat() - 0.5D) * 0.05D, vec3.z + (random.nextFloat() - 0.5D) * 0.1D, 0.0D, 0.0D, 0.0D);
+				level.addParticle(getParticle().get(), vec3.x + (random.nextFloat() - 0.5D) * 0.1D, vec3.y + (random.nextFloat() - 0.5D) * 0.05D, vec3.z + (random.nextFloat() - 0.5D) * 0.1D, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -94,4 +127,7 @@ public interface Sparkler {
 			return new Vec3(x, y, z);
 		}
 	}
+	
+	Supplier<? extends ParticleOptions> getParticle();
+	Supplier<? extends ParticleOptions> getParticleEmitter();
 }

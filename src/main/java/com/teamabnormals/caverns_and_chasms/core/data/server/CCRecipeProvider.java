@@ -195,9 +195,24 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_BRAZIER.get()).define('#', CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).define('S', CCItemTags.INGOTS_SILVER).pattern("S#S").pattern(" S ").unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS)).save(consumer);
 		conditionalRecipe(consumer, ENDERGETIC_LOADED, DECORATIONS, ShapedRecipeBuilder.shaped(DECORATIONS, ENDER_BRAZIER.get()).define('#', CCItemTags.ENDER_FIRE_BASE_BLOCKS).define('S', CCItemTags.INGOTS_SILVER).pattern("S#S").pattern(" S ").unlockedBy("has_end_stone", has(CCItemTags.ENDER_FIRE_BASE_BLOCKS)));
 
-		ShapedRecipeBuilder.shaped(DECORATIONS, SPARKLER.getFirst().get(), 4).define('X', Items.GUNPOWDER).define('#', Tags.Items.RODS_WOODEN).pattern("X").pattern("#").unlockedBy("has_gunpowder", has(Items.GUNPOWDER)).save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, Blocks.TNT).define('#', Tags.Items.SAND).define('X', Items.GUNPOWDER).pattern("X#").pattern("#X").unlockedBy("has_gunpowder", has(Items.GUNPOWDER)).save(consumer);
-
+		ShapedRecipeBuilder.shaped(DECORATIONS, SPARKLER.getFirst().get(), 4).define('X', Items.GUNPOWDER).define('#', Tags.Items.RODS_WOODEN).pattern("X").pattern("#").unlockedBy("has_gunpowder", has(Items.GUNPOWDER)).save(consumer);
+		sparkler(consumer, WHITE_SPARKLER.getFirst().get(), Items.WHITE_DYE);
+		sparkler(consumer, LIGHT_GRAY_SPARKLER.getFirst().get(), Items.LIGHT_GRAY_DYE);
+		sparkler(consumer, GRAY_SPARKLER.getFirst().get(), Items.GRAY_DYE);
+		sparkler(consumer, BLACK_SPARKLER.getFirst().get(), Items.BLACK_DYE);
+		sparkler(consumer, BROWN_SPARKLER.getFirst().get(), Items.BROWN_DYE);
+		sparkler(consumer, RED_SPARKLER.getFirst().get(), Items.RED_DYE);
+		sparkler(consumer, ORANGE_SPARKLER.getFirst().get(), Items.ORANGE_DYE);
+		sparkler(consumer, YELLOW_SPARKLER.getFirst().get(), Items.YELLOW_DYE);
+		sparkler(consumer, LIME_SPARKLER.getFirst().get(), Items.LIME_DYE);
+		sparkler(consumer, GREEN_SPARKLER.getFirst().get(), Items.GREEN_DYE);
+		sparkler(consumer, CYAN_SPARKLER.getFirst().get(), Items.CYAN_DYE);
+		sparkler(consumer, LIGHT_BLUE_SPARKLER.getFirst().get(), Items.LIGHT_BLUE_DYE);
+		sparkler(consumer, BLUE_SPARKLER.getFirst().get(), Items.BLUE_DYE);
+		sparkler(consumer, PURPLE_SPARKLER.getFirst().get(), Items.PURPLE_DYE);
+		sparkler(consumer, MAGENTA_SPARKLER.getFirst().get(), Items.MAGENTA_DYE);
+		sparkler(consumer, PINK_SPARKLER.getFirst().get(), Items.PINK_DYE);
 
 		storageRecipes(consumer, MISC, Items.CHARCOAL, BUILDING_BLOCKS, CHARCOAL_BLOCK.get());
 		storageRecipes(consumer, MISC, CCItems.SPINEL.get(), BUILDING_BLOCKS, SPINEL_BLOCK.get());
@@ -604,6 +619,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 	public static void modifierRecipe(Consumer<FinishedRecipe> consumer, ItemLike addition, String name) {
 		SmithingModifierRecipeBuilder.smithingModifier(Ingredient.of(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(addition), RecipeCategory.MISC).unlocks("has_smithing_modifier_template", has(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get())).save(consumer, suffix(RecipeBuilder.getDefaultRecipeId(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()), "_smithing_" + name));
+	}
+
+	protected static void sparkler(Consumer<FinishedRecipe> consumer, ItemLike dyedSparkler, ItemLike dye) {
+		ShapedRecipeBuilder.shaped(DECORATIONS, dyedSparkler, 8).define('#', SPARKLER.getFirst().get()).define('X', dye).pattern("###").pattern("#X#").pattern("###").group("dyed_sparkler").unlockedBy("has_sparkler", has(SPARKLER.getFirst().get())).save(consumer);
 	}
 
 	public static void copperHornRecipe(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> input, ImmutableList<RegistryObject<Instrument>> output) {
