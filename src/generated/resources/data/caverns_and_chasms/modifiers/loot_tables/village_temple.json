@@ -33,6 +33,10 @@
               }
             ],
             "name": "caverns_and_chasms:silver_ingot"
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:zirconia"
           }
         ],
         "index": 0,

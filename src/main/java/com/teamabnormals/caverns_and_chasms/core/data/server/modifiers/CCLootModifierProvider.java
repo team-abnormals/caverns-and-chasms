@@ -46,18 +46,20 @@ public class CCLootModifierProvider extends LootModifierProvider {
 	@Override
 	protected void registerEntries(Provider provider) {
 		this.entry("simple_dungeon").selects(BuiltInLootTables.SIMPLE_DUNGEON)
-				.addModifier(entries(0, entry(COPPER_HORSE_ARMOR.get(), 15)))
-				.addModifier(entries(0, entry(SILVER_HORSE_ARMOR.get(), 10)))
-				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4)));
+				.addModifier(entries(0, entry(COPPER_HORSE_ARMOR.get(), 15), entry(SILVER_HORSE_ARMOR.get(), 10), entry(BEJEWELED_APPLE.get(), 10)))
+				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4), entry(ZIRCONIA.get(), 10, 1, 2)));
 		this.entry("abandoned_mineshaft").selects(BuiltInLootTables.ABANDONED_MINESHAFT)
 				.addModifier(entries(0, entry(Items.BUNDLE, 5), entry(DEPTH_GAUGE.get(), 5), entry(TOOLBELT.get(), 5)))
 				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 3), entry(SPINEL.get(), 5, 6, 11), entry(TIN_INGOT.get(), 2, 1, 3)))
 				.addModifier(entries(2, entry(CCBlocks.SPARKLER.getFirst().get(), 15, 4, 12), entry(CCBlocks.SPIKED_RAIL.get(), 5, 1, 4)));
+
 		this.entry("stronghold_corridor").selects(BuiltInLootTables.STRONGHOLD_CORRIDOR)
-				.addModifier(entries(0, entry(SILVER_INGOT.get(), 5, 1, 3), entry(TIN_INGOT.get(), 8, 1, 3), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
+				.addModifier(entries(0, entry(SILVER_INGOT.get(), 5, 1, 3), entry(TIN_INGOT.get(), 8, 1, 3), entry(ZIRCONIA.get(), 5, 1, 2), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1), entry(BEJEWELED_APPLE.get(), 10, 1, 3)));
 		this.entry("stronghold_crossing").selects(BuiltInLootTables.STRONGHOLD_CROSSING).addModifier(entries(0,
 				LootItem.lootTableItem(COWL.get()).setWeight(2).apply(EnchantRandomlyFunction.randomApplicableEnchantment()).build(),
-				entry(SILVER_INGOT.get(), 5, 1, 3)));
+				entry(SILVER_INGOT.get(), 5, 1, 3), entry(BEJEWELED_APPLE.get(), 10, 1, 3)));
+		this.entry("stronghold_library").selects(BuiltInLootTables.STRONGHOLD_LIBRARY)
+				.addModifier(entries(0, entry(ZIRCONIA.get(), 1, 1, 3)));
 
 		this.entry("shipwreck_map").selects(BuiltInLootTables.SHIPWRECK_MAP)
 				.addModifier(entries(1, entry(BAROMETER.get(), 1), entry(DEPTH_GAUGE.get(), 1)));
@@ -65,7 +67,8 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(entries(0, entry(SILVER_INGOT.get(), 10, 1, 5)))
 				.addModifier(entries(1, entry(SILVER_NUGGET.get(), 10, 1, 10), entry(SPINEL.get(), 20, 1, 8)));
 		this.entry("buried_treasure").selects(BuiltInLootTables.BURIED_TREASURE)
-				.addModifier(entries(1, entry(SILVER_INGOT.get(), 10, 1, 4)));
+				.addModifier(entries(1, entry(SILVER_INGOT.get(), 10, 1, 4)))
+				.addModifier(entries(2, entry(ZIRCONIA.get(), 5, 1, 2), entry(TURQUOISE.get(), 1)));
 
 		this.entry("desert_pyramid").selects(BuiltInLootTables.DESERT_PYRAMID).addModifier(entries(0,
 				entry(SILVER_INGOT.get(), 15, 1, 5), entry(SILVER_HORSE_ARMOR.get(), 10), entry(COPPER_HORSE_ARMOR.get(), 15)));
@@ -75,7 +78,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				entry(RICOCHET_ARROW.get(), 10, 1, 4)));
 		this.entry("woodland_mansion").selects(BuiltInLootTables.WOODLAND_MANSION)
 				.addModifier(entries(0, entry(COWL.get(), 10)))
-				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4), entry(TIN_INGOT.get(), 8, 1, 4)));
+				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4), entry(TIN_INGOT.get(), 8, 1, 4), entry(ZIRCONIA.get(), 5, 1, 2)));
 
 		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
 				.addModifier(pools(pool("barometer").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(BAROMETER.get())).build()));
@@ -84,7 +87,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 		this.entry("village_toolsmith").selects(BuiltInLootTables.VILLAGE_TOOLSMITH)
 				.addModifier(entries(0, entry(SILVER_INGOT.get(), 1, 1, 3)));
 		this.entry("village_temple").selects(BuiltInLootTables.VILLAGE_TEMPLE)
-				.addModifier(entries(0, entry(SPINEL.get(), 1, 1, 4), entry(SILVER_INGOT.get(), 1, 1, 4)));
+				.addModifier(entries(0, entry(SPINEL.get(), 1, 1, 4), entry(SILVER_INGOT.get(), 1, 1, 4), entry(ZIRCONIA.get(), 1)));
 		this.entry("village_fletcher").selects(BuiltInLootTables.VILLAGE_FLETCHER)
 				.addModifier(entries(0, entry(CCBlocks.HOOP.get(), 1), entry(BLUNT_ARROW.get(), 1, 1, 8)));
 		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
@@ -105,7 +108,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(entries(3, entry(RICOCHET_ARROW.get(), 2, 1, 4), entry(LARGE_ARROW.get(), 4, 1, 2)));
 
 		this.entry("ancient_city").selects(BuiltInLootTables.ANCIENT_CITY).addModifier(entries(0,
-				entry(TUNING_FORK.get(), 2), entry(CCBlocks.SPARKLER.getFirst().get(), 5, 1, 15),
+				entry(TUNING_FORK.get(), 2), entry(CCBlocks.SPARKLER.getFirst().get(), 5, 1, 15), entry(BEJEWELED_APPLE.get(), 3, 1, 3), entry(ZIRCONIA.get(), 3, 1, 2),
 				LootItem.lootTableItem(COWL.get()).setWeight(2).apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(20.0F, 39.0F)).allowTreasure()).build()
 		));
 
@@ -131,8 +134,8 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(entries(1, entry(SILVER_INGOT.get(), 2, 1, 6), entry(CCBlocks.SILVER_BLOCK.get(), 2)))
 				.addModifier(entries(1, entry(SILVER_NUGGET.get(), 1, 2, 8)));
 
-		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE).addModifier(entries(0,
-				entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
+		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE)
+				.addModifier(entries(0, entry(BEJEWELED_APPLE.get(), 5, 3, 9), entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
 
 		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "chests/kousa_sanctum")).addModifier(entries(0,
 				entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));

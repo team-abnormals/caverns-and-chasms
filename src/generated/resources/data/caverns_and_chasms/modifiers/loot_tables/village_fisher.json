@@ -1,26 +1,25 @@
 {
   "modifiers": [
     {
-      "type": "entries",
+      "type": "pools",
       "config": {
-        "entries": [
+        "pools": [
           {
-            "type": "minecraft:item",
-            "functions": [
+            "bonus_rolls": 0.0,
+            "entries": [
               {
-                "add": false,
-                "count": {
-                  "type": "minecraft:uniform",
-                  "max": 3.0,
-                  "min": 1.0
-                },
-                "function": "minecraft:set_count"
+                "type": "minecraft:item",
+                "name": "caverns_and_chasms:barometer"
               }
             ],
-            "name": "caverns_and_chasms:cavefish"
+            "name": "caverns_and_chasms:barometer",
+            "rolls": {
+              "type": "minecraft:uniform",
+              "max": 1.0,
+              "min": 0.0
+            }
           }
         ],
-        "index": 0,
         "replace": false
       }
     }

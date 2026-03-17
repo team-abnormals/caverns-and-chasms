@@ -49,6 +49,22 @@
             ],
             "name": "caverns_and_chasms:tin_ingot",
             "weight": 8
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 2.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:zirconia",
+            "weight": 5
           }
         ],
         "index": 1,
