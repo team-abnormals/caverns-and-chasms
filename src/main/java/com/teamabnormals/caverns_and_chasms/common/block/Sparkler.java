@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.Maps;
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.util.BlockUtil;
 import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -35,23 +37,23 @@ import java.util.function.Supplier;
 
 public interface Sparkler {
 	BooleanProperty LIT = BlockStateProperties.LIT;
-	Map<DyeColor, RegistryObject<SparklerBlock>> SPARKLER_BY_DYE = Util.make(Maps.newEnumMap(DyeColor.class), (map) -> {
-		map.put(DyeColor.WHITE, CCBlocks.WHITE_SPARKLER.getFirst());
-		map.put(DyeColor.ORANGE, CCBlocks.ORANGE_SPARKLER.getFirst());
-		map.put(DyeColor.MAGENTA, CCBlocks.MAGENTA_SPARKLER.getFirst());
-		map.put(DyeColor.LIGHT_BLUE, CCBlocks.LIGHT_BLUE_SPARKLER.getFirst());
-		map.put(DyeColor.YELLOW, CCBlocks.YELLOW_SPARKLER.getFirst());
-		map.put(DyeColor.LIME, CCBlocks.LIME_SPARKLER.getFirst());
-		map.put(DyeColor.PINK, CCBlocks.PINK_SPARKLER.getFirst());
-		map.put(DyeColor.GRAY, CCBlocks.GRAY_SPARKLER.getFirst());
-		map.put(DyeColor.LIGHT_GRAY, CCBlocks.LIGHT_GRAY_SPARKLER.getFirst());
-		map.put(DyeColor.CYAN, CCBlocks.CYAN_SPARKLER.getFirst());
-		map.put(DyeColor.PURPLE, CCBlocks.PURPLE_SPARKLER.getFirst());
-		map.put(DyeColor.BLUE, CCBlocks.BLUE_SPARKLER.getFirst());
-		map.put(DyeColor.BROWN, CCBlocks.BROWN_SPARKLER.getFirst());
-		map.put(DyeColor.GREEN, CCBlocks.GREEN_SPARKLER.getFirst());
-		map.put(DyeColor.RED, CCBlocks.RED_SPARKLER.getFirst());
-		map.put(DyeColor.BLACK, CCBlocks.BLACK_SPARKLER.getFirst());
+	Map<DyeColor, Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>>> SPARKLER_BY_DYE = Util.make(Maps.newEnumMap(DyeColor.class), (map) -> {
+		map.put(DyeColor.WHITE, CCBlocks.WHITE_SPARKLER);
+		map.put(DyeColor.ORANGE, CCBlocks.ORANGE_SPARKLER);
+		map.put(DyeColor.MAGENTA, CCBlocks.MAGENTA_SPARKLER);
+		map.put(DyeColor.LIGHT_BLUE, CCBlocks.LIGHT_BLUE_SPARKLER);
+		map.put(DyeColor.YELLOW, CCBlocks.YELLOW_SPARKLER);
+		map.put(DyeColor.LIME, CCBlocks.LIME_SPARKLER);
+		map.put(DyeColor.PINK, CCBlocks.PINK_SPARKLER);
+		map.put(DyeColor.GRAY, CCBlocks.GRAY_SPARKLER);
+		map.put(DyeColor.LIGHT_GRAY, CCBlocks.LIGHT_GRAY_SPARKLER);
+		map.put(DyeColor.CYAN, CCBlocks.CYAN_SPARKLER);
+		map.put(DyeColor.PURPLE, CCBlocks.PURPLE_SPARKLER);
+		map.put(DyeColor.BLUE, CCBlocks.BLUE_SPARKLER);
+		map.put(DyeColor.BROWN, CCBlocks.BROWN_SPARKLER);
+		map.put(DyeColor.GREEN, CCBlocks.GREEN_SPARKLER);
+		map.put(DyeColor.RED, CCBlocks.RED_SPARKLER);
+		map.put(DyeColor.BLACK, CCBlocks.BLACK_SPARKLER);
 	});
 
 	default InteractionResult useSparkler(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
@@ -66,17 +68,19 @@ public interface Sparkler {
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else if (stack.getItem() instanceof DyeItem dyeItem && SPARKLER_BY_DYE.get(dyeItem.getDyeColor()) != null) {
-			level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
-			if (!level.isClientSide()) {
-				BlockState newState = SPARKLER_BY_DYE.get(dyeItem.getDyeColor()).get().defaultBlockState();
-				level.setBlock(pos, BlockUtil.transferAllBlockStates(state, newState), 11);
-				if (!player.getAbilities().instabuild) {
-					stack.shrink(1);
+			Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> pair = SPARKLER_BY_DYE.get(dyeItem.getDyeColor());
+			Block newBlock = this instanceof SparklerBlock ? pair.getFirst().get() : pair.getSecond().get();
+			if (!state.is(newBlock)) {
+				level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
+				if (!level.isClientSide()) {
+					level.setBlock(pos, BlockUtil.transferAllBlockStates(state, newBlock.defaultBlockState()), 11);
+					if (!player.getAbilities().instabuild) {
+						stack.shrink(1);
+					}
 				}
+				level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+				return InteractionResult.sidedSuccess(level.isClientSide);
 			}
-			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-			return InteractionResult.sidedSuccess(level.isClientSide);
-
 		}
 		return InteractionResult.PASS;
 	}
@@ -127,7 +131,8 @@ public interface Sparkler {
 			return new Vec3(x, y, z);
 		}
 	}
-	
+
 	Supplier<? extends ParticleOptions> getParticle();
+
 	Supplier<? extends ParticleOptions> getParticleEmitter();
 }
