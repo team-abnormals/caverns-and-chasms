@@ -3,6 +3,9 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.LushMineshaftPieces;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.LushMineshaftStructure;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.LushMineshaftStructure.Type;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithPieces.TinMonolithPiece;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -39,6 +42,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.structures.MineshaftStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
 import net.minecraftforge.registries.DeferredRegister;
@@ -52,11 +56,17 @@ public class CCStructureTypes {
 	public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<StructureType<TinMonolithStructure>> TIN_MONOLITH_TYPE = STRUCTURE_TYPES.register("tin_monolith", () -> () -> TinMonolithStructure.CODEC);
+	public static final RegistryObject<StructureType<LushMineshaftStructure>> LUSH_MINESHAFT = STRUCTURE_TYPES.register("lush_mineshaft", () -> () -> LushMineshaftStructure.CODEC);
 
 	public static class CCStructurePieceTypes {
 		public static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE_TYPES = DeferredRegister.create(Registries.STRUCTURE_PIECE, CavernsAndChasms.MOD_ID);
 
 		public static final RegistryObject<ContextlessType> TIN_MONOLITH = STRUCTURE_PIECE_TYPES.register("tin_monolith", () -> TinMonolithPiece::new);
+
+		public static final RegistryObject<ContextlessType> MINE_SHAFT_CORRIDOR = STRUCTURE_PIECE_TYPES.register("mscorridor", () -> LushMineshaftPieces.MineShaftCorridor::new);
+		public static final RegistryObject<ContextlessType> MINE_SHAFT_CROSSING = STRUCTURE_PIECE_TYPES.register("mscrossing", () -> LushMineshaftPieces.MineShaftCrossing::new);
+		public static final RegistryObject<ContextlessType> MINE_SHAFT_ROOM = STRUCTURE_PIECE_TYPES.register("msroom", () -> LushMineshaftPieces.MineShaftRoom::new);
+		public static final RegistryObject<ContextlessType> MINE_SHAFT_STAIRS = STRUCTURE_PIECE_TYPES.register("msstairs", () -> LushMineshaftPieces.MineShaftStairs::new);
 	}
 
 	public static class CCProcessorLists {
@@ -214,7 +224,7 @@ public class CCStructureTypes {
 			HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 			HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
 
-//			context.register(MINESHAFT_LUSH, new MineshaftStructure(new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_MINESHAFT_LUSH), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.NONE), Type.NORMAL));
+			context.register(MINESHAFT_LUSH, new LushMineshaftStructure(new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_MINESHAFT_LUSH), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.NONE), Type.LUSH));
 
 			context.register(FORGE, new JigsawStructure(
 					new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_FORGE), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BEARD_THIN),
