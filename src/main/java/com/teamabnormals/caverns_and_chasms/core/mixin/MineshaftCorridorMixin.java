@@ -19,6 +19,6 @@ public class MineshaftCorridorMixin {
 
 	@WrapOperation(method = "placeSupport", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftCorridor;maybeGenerateBlock(Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;Lnet/minecraft/util/RandomSource;FIIILnet/minecraft/world/level/block/state/BlockState;)V"))
 	private void placeSupport(MineShaftCorridor instance, WorldGenLevel level, BoundingBox aabb, RandomSource random, float v, int i, int j, int k, BlockState state, Operation<Void> original) {
-		original.call(instance, level, aabb, random, v, i, j, k, instance.type == Type.MESA ? BlockUtil.transferAllBlockStates(state, CCBlocks.SPARKLER.getSecond().get().defaultBlockState()) : state);
+		original.call(instance, level, aabb, random, v, i, j, k, BlockUtil.transferAllBlockStates(state, (instance.type == Type.MESA ? CCBlocks.YELLOW_SPARKLER : CCBlocks.SPARKLER).getSecond().get().defaultBlockState()));
 	}
 }

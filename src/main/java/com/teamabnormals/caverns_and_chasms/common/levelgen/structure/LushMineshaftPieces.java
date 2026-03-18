@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.levelgen.structure;
 
 import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructurePieceTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -398,8 +399,8 @@ public class LushMineshaftPieces {
 					this.generateBox(p_227770_, p_227771_, p_227776_, p_227775_, p_227774_, p_227776_, p_227775_, p_227774_, blockstate, CAVE_AIR, false);
 				} else {
 					this.generateBox(p_227770_, p_227771_, p_227772_, p_227775_, p_227774_, p_227776_, p_227775_, p_227774_, blockstate, CAVE_AIR, false);
-					this.maybeGenerateBlock(p_227770_, p_227771_, p_227777_, 0.05F, p_227772_ + 1, p_227775_, p_227774_ - 1, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, Direction.SOUTH));
-					this.maybeGenerateBlock(p_227770_, p_227771_, p_227777_, 0.05F, p_227772_ + 1, p_227775_, p_227774_ + 1, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH));
+					this.maybeGenerateBlock(p_227770_, p_227771_, p_227777_, 0.05F, p_227772_ + 1, p_227775_, p_227774_ - 1, CCBlocks.PINK_SPARKLER.getSecond().get().defaultBlockState().setValue(WallTorchBlock.FACING, Direction.SOUTH));
+					this.maybeGenerateBlock(p_227770_, p_227771_, p_227777_, 0.05F, p_227772_ + 1, p_227775_, p_227774_ + 1, CCBlocks.PINK_SPARKLER.getSecond().get().defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH));
 				}
 
 			}
