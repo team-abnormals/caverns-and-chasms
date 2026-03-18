@@ -58,8 +58,12 @@ public interface Sparkler {
 	});
 
 	default void onProjectileHitSparkler(Level level, BlockState state, BlockPos pos, Projectile projectile) {
-		if (!level.isClientSide() && projectile.isOnFire() && projectile.mayInteract(level, pos) && !state.getValue(LIT)) {
-			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+		if (!level.isClientSide() && projectile.isOnFire() && projectile.mayInteract(level, pos)) {
+			if (!state.getValue(LIT)) {
+				level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+			} else {
+				explodeSparkler(state, level, pos);
+			}
 		}
 	}
 
