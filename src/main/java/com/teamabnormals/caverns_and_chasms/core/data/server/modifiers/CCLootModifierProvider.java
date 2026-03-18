@@ -81,6 +81,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4), entry(TIN_INGOT.get(), 8, 1, 4), entry(ZIRCONIA.get(), 5, 1, 2)));
 
 		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
+				.addModifier(entries(0, entry(CAVEFISH.get(), 1, 1, 3)))
 				.addModifier(pools(pool("barometer").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(BAROMETER.get())).build()));
 		this.entry("village_weaponsmith").selects(BuiltInLootTables.VILLAGE_WEAPONSMITH)
 				.addModifier(entries(0, entry(SILVER_INGOT.get(), 5, 1, 3), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
@@ -90,8 +91,6 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(entries(0, entry(SPINEL.get(), 1, 1, 4), entry(SILVER_INGOT.get(), 1, 1, 4), entry(ZIRCONIA.get(), 1)));
 		this.entry("village_fletcher").selects(BuiltInLootTables.VILLAGE_FLETCHER)
 				.addModifier(entries(0, entry(CCBlocks.HOOP.get(), 1), entry(BLUNT_ARROW.get(), 1, 1, 8)));
-		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
-				.addModifier(entries(0, entry(CAVEFISH.get(), 1, 1, 3)));
 		this.entry("village_snowy_house").selects(BuiltInLootTables.VILLAGE_SNOWY_HOUSE)
 				.addModifier(entries(0, entry(SILVER_NUGGET.get(), 1, 1, 4)));
 
