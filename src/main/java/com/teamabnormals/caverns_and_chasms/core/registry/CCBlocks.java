@@ -108,8 +108,10 @@ public class CCBlocks {
 	public static final RegistryObject<Block> STORAGE_DUCT_HATCH = HELPER.createBlock("storage_duct_hatch", () -> new StorageDuctHatchBlock(CCProperties.STORAGE_DUCT_HATCH));
 	public static final RegistryObject<Block> TINPLATE_BLOCK = HELPER.createBlock("tinplate_block", () -> new TinplateBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get()).sound(CCSoundTypes.TINPLATE)));
 
-	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createRollerDoorBlock("roller_door", () -> new RollerDoorBlock(CCProperties.ROLLER_DOOR));
-	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorHeaderBlock(CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createMovingDoorBlock("roller_door", () -> new RollerDoorBlock(false, MovingDoorType.ROLLER_DOOR, CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorBlock(true, MovingDoorType.ROLLER_DOOR, CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_WINDOW = HELPER.createMovingDoorBlock("roller_window", () -> new RollerDoorBlock(false, MovingDoorType.ROLLER_WINDOW, CCProperties.ROLLER_DOOR));
+	public static final RegistryObject<Block> ROLLER_WINDOW_HEADER = HELPER.createBlockNoItem("roller_window_header", () -> new RollerDoorBlock(true, MovingDoorType.ROLLER_WINDOW, CCProperties.ROLLER_DOOR));
 
 	public static final RegistryObject<Block> COPPER_RAIL = HELPER.createBlock("copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_RAIL));
 	public static final RegistryObject<Block> EXPOSED_COPPER_RAIL = HELPER.createBlock("exposed_copper_rail", () -> new WeatheringCopperRailBlock(WeatherState.EXPOSED, CCProperties.COPPER_RAIL));
@@ -700,7 +702,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.COAL_BLOCK), CHARCOAL_BLOCK)
 				.addItemsAfter(of(Blocks.IRON_BLOCK), IRON_BRICKS, IRON_BRICK_STAIRS, IRON_BRICK_SLAB, IRON_BRICK_WALL, CHISELED_IRON_BRICKS)
 				.addItemsAfter(of(Blocks.GOLD_BLOCK), GOLD_BRICKS, GOLD_BRICK_STAIRS, GOLD_BRICK_SLAB, GOLD_BRICK_WALL, CHISELED_GOLD_BRICKS, GOLDEN_BARS)
-				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS, TIN_CHAIN, TIN_BULB, ROLLER_DOOR, HOLD_PLATE, HOLD_BUTTON)
+				.addItemsBefore(of(Blocks.GOLD_BLOCK), TIN_BLOCK, TIN_BRICKS, TIN_BRICK_STAIRS, TIN_BRICK_SLAB, TIN_BRICK_WALL, CHISELED_TIN_BRICKS, TIN_BARS, ROLLER_DOOR, ROLLER_WINDOW, HOLD_PLATE, HOLD_BUTTON, TIN_CHAIN, TIN_BULB)
 				.addItemsBefore(of(Blocks.REDSTONE_BLOCK), SILVER_BLOCK, SILVER_BRICKS, SILVER_BRICK_STAIRS, SILVER_BRICK_SLAB, SILVER_BRICK_WALL, CHISELED_SILVER_BRICKS, SILVER_BARS, MEDIUM_WEIGHTED_PRESSURE_PLATE)
 				.addItemsAfter(of(Blocks.EMERALD_BLOCK), EMERALD_LAMP)
 				.addItemsAfter(of(Blocks.LAPIS_BLOCK),
@@ -785,7 +787,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.POWERED_RAIL), HALT_RAIL, SPIKED_RAIL, SLAUGHTER_RAIL)
 				.addItemsAfter(of(Blocks.DROPPER), SCATTERER, SPLURTER)
 				.addItemsAfter(of(Blocks.HOPPER), STORAGE_DUCT, STORAGE_DUCT_HATCH)
-				.addItemsBefore(of(Blocks.OAK_FENCE_GATE), ROLLER_DOOR)
+				.addItemsBefore(of(Blocks.OAK_FENCE_GATE), ROLLER_DOOR, ROLLER_WINDOW)
 				.tab(TOOLS_AND_UTILITIES)
 				.addItemsBefore(of(Blocks.RAIL), COPPER_RAIL, EXPOSED_COPPER_RAIL, WEATHERED_COPPER_RAIL, OXIDIZED_COPPER_RAIL, WAXED_COPPER_RAIL, WAXED_EXPOSED_COPPER_RAIL, WAXED_WEATHERED_COPPER_RAIL, WAXED_OXIDIZED_COPPER_RAIL)
 				.addItemsAfter(of(Blocks.POWERED_RAIL), HALT_RAIL, SPIKED_RAIL, SLAUGHTER_RAIL)

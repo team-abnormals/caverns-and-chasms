@@ -10,9 +10,9 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.block.ToolboxBlockEn
 import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.item.RollerDoorBlockItem;
+import com.teamabnormals.caverns_and_chasms.common.item.MovingDoorBlockItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
@@ -43,9 +43,9 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 		return block;
 	}
 
-	public <B extends Block> RegistryObject<B> createRollerDoorBlock(String name, Supplier<? extends B> supplier) {
+	public <B extends Block> RegistryObject<B> createMovingDoorBlock(String name, Supplier<? extends B> supplier) {
 		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
-		this.itemRegister.register(name, () -> new RollerDoorBlockItem(block.get(), new Item.Properties().stacksTo(64), () -> () -> rollerDoorBEWLR()));
+		this.itemRegister.register(name, () -> new MovingDoorBlockItem(block.get(), new Item.Properties().stacksTo(64), () -> () -> rollerDoorBEWLR()));
 		return block;
 	}
 
@@ -75,7 +75,7 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 
 	@OnlyIn(Dist.CLIENT)
 	private static BEWLRBlockItem.LazyBEWLR rollerDoorBEWLR() {
-		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new RollerDoorBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState())));
+		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new MovingDoorHeaderBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState())));
 	}
 
 	@OnlyIn(Dist.CLIENT)

@@ -187,6 +187,8 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(ROLLER_DOOR.get());
 			this.dropOther(ROLLER_DOOR_HEADER.get(), ROLLER_DOOR.get());
+			this.dropSelf(ROLLER_WINDOW.get());
+			this.dropOther(ROLLER_WINDOW_HEADER.get(), ROLLER_WINDOW.get());
 
 			this.dropSelf(COPPER_RAIL.get());
 			this.dropSelf(EXPOSED_COPPER_RAIL.get());

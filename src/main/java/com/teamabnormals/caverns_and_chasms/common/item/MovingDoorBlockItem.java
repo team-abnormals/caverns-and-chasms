@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.blueprint.common.item.BEWLRBlockItem;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Block;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
-public class RollerDoorBlockItem extends BEWLRBlockItem {
-	public RollerDoorBlockItem(Block block, Properties properties, Supplier<Callable<LazyBEWLR>> bewlr) {
+public class MovingDoorBlockItem extends BEWLRBlockItem {
+	public MovingDoorBlockItem(Block block, Properties properties, Supplier<Callable<LazyBEWLR>> bewlr) {
 		super(block, properties, bewlr);
 	}
 
@@ -21,8 +21,8 @@ public class RollerDoorBlockItem extends BEWLRBlockItem {
 		if (result.consumesAction()) {
 			Level level = context.getLevel();
 			BlockPos blockpos = context.getClickedPos();
-			if (level.getBlockEntity(blockpos) instanceof RollerDoorBlockEntity blockentity)
-				blockentity.onPlace();
+			if (level.getBlockEntity(blockpos) instanceof MovingDoorBlockEntity blockEntity)
+				blockEntity.onPlace();
 		}
 
 		return result;

@@ -2,9 +2,9 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.RollerDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorHeaderBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -18,18 +18,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements BlockEntityRenderer<T> {
+public class RollerDoorRenderer<T extends MovingDoorBlockEntity> implements BlockEntityRenderer<T> {
 	public static boolean renderAsItem;
-
-	public static final Material ROLLER_DOOR_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, CavernsAndChasms.location("entity/roller_door/roller_door"));
-	public static final Material ROLLER_DOOR_BOTTOM_MATERIAL = new Material(InventoryMenu.BLOCK_ATLAS, CavernsAndChasms.location("entity/roller_door/roller_door_bottom"));
 
 	private final ModelPart header;
 	private final ModelPart[] slats;
@@ -60,14 +56,18 @@ public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements Bloc
 
 	@Override
 	public void render(T rollerDoor, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-		BlockState blockstate = rollerDoor.getLevel() != null ? rollerDoor.getLevel().getBlockState(rollerDoor.getBlockPos()) : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
-		Block block = blockstate.getBlock();
-		if (block instanceof RollerDoorBlock) {
-			Direction facing = blockstate.getValue(RollerDoorBlock.FACING);
-			AttachFace face = blockstate.getValue(RollerDoorBlock.FACE);
+		BlockState blockState = rollerDoor.getLevel() != null ? rollerDoor.getLevel().getBlockState(rollerDoor.getBlockPos()) : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
+		if (blockState.getBlock() instanceof RollerDoorBlock block) {
+			Direction facing = blockState.getValue(RollerDoorBlock.FACING);
+			AttachFace face = blockState.getValue(RollerDoorBlock.FACE);
 			float openness = (float) rollerDoor.getOpenness(partialTick);
-			boolean header = block instanceof RollerDoorHeaderBlock;
-			boolean bottom = rollerDoor.isBottom() || renderAsItem;
+
+			boolean isBottom = rollerDoor.isBottom() || renderAsItem;
+			Material thisMaterial = isBottom ? block.getDoorType().getBottomMaterial() : block.getDoorType().getNormalMaterial();
+
+			boolean isBelowBottom = rollerDoor.isBelowBottom();
+			AbstractMovingDoorBlock belowBlock = rollerDoor.getBelowBlock();
+			Material belowMaterial = belowBlock == null ? thisMaterial : isBelowBottom ? belowBlock.getDoorType().getBottomMaterial() : belowBlock.getDoorType().getNormalMaterial();
 
 			poseStack.pushPose();
 			poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
@@ -80,23 +80,25 @@ public class RollerDoorRenderer<T extends RollerDoorBlockEntity> implements Bloc
 				poseStack.translate(0.0D, -1.0D, face == AttachFace.CEILING ? 1.75D : 1.0D);
 			}
 
-			if (header)
-				this.header.render(poseStack, ROLLER_DOOR_MATERIAL.buffer(buffer, RenderType::entitySolid), combinedLight, combinedOverlay);
+			if (block.isHeader())
+				this.header.render(poseStack, thisMaterial.buffer(buffer, RenderType::entityTranslucentCull), combinedLight, combinedOverlay);
 
 			for (int i = 0; i < this.slats.length; i++) {
 				ModelPart slat = this.slats[i];
-				Material material = bottom ? ROLLER_DOOR_BOTTOM_MATERIAL : ROLLER_DOOR_MATERIAL;
+				Material material = thisMaterial;
+
 				slat.y = 4.0F + (i + 1) * 4.0F - openness * 16.0F;
 				if (slat.y < 8.0F) {
-					if (bottom) {
+					if (isBottom) {
 						continue;
 					} else {
 						slat.y += 16.0F;
-						if (rollerDoor.hasBottomBelow() && slat.y >= 12.0F)
-							material = ROLLER_DOOR_BOTTOM_MATERIAL;
+						if (slat.y >= 12.0F) {
+							material = belowMaterial;
+						}
 					}
 				}
-				slat.render(poseStack, material.buffer(buffer, RenderType::entitySolid), combinedLight, combinedOverlay);
+				slat.render(poseStack, material.buffer(buffer, RenderType::entityTranslucentCull), combinedLight, combinedOverlay);
 			}
 
 			poseStack.popPose();
