@@ -839,9 +839,9 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);
 		public static final BlockBehaviour.Properties AMETHYST = BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK);
 		public static final BlockBehaviour.Properties ECHO_BLOCK = BlockBehaviour.Properties.of().strength(1.5F).sound(SoundType.SCULK_CATALYST).requiresCorrectToolForDrops().lightLevel(state -> 6);
-		public static final BlockBehaviour.Properties RHYOLITE = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).sound(CCSoundTypes.RHYOLITE);
-		public static final BlockBehaviour.Properties POLISHED_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).sound(CCSoundTypes.RHYOLITE);
-		public static final BlockBehaviour.Properties RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).sound(CCSoundTypes.RHYOLITE);
+		public static final BlockBehaviour.Properties RHYOLITE = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
+		public static final BlockBehaviour.Properties POLISHED_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
+		public static final BlockBehaviour.Properties RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
 		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BLOCKS = BlockBehaviour.Properties.copy(Blocks.BLACKSTONE).lightLevel(state -> 3).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
 		public static final BlockBehaviour.Properties POLISHED_MAGMATIC_RHYOLITE = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE).lightLevel(state -> 3).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
 		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BRICKS = BlockBehaviour.Properties.copy(Blocks.POLISHED_BLACKSTONE_BRICKS).lightLevel(state -> 3).strength(0.5F).sound(CCSoundTypes.RHYOLITE);
