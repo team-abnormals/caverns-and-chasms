@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
@@ -39,6 +40,7 @@ public class RatEatGoal extends Goal {
 		} else if (this.eatTime <= 0) {
 			this.rat.heal((float) this.stack.getItem().getFoodProperties().getNutrition());
 			ItemStack itemStack = this.stack.finishUsingItem(this.rat.level(), this.rat);
+			this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, this.rat.getRandom().nextFloat() * 0.1F + 0.9F);
 			if (!itemStack.isEmpty()) {
 				this.rat.setItemSlot(EquipmentSlot.MAINHAND, itemStack);
 			}
