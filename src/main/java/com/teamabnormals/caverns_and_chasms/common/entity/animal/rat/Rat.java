@@ -171,7 +171,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return CCSoundEvents.RAT_AMBIENT.get();
+		return this.getTarget() != null ? CCSoundEvents.RAT_ANGRY.get() : CCSoundEvents.RAT_AMBIENT.get();
 	}
 
 	@Override
@@ -332,6 +332,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 			int i = (availableslots.isEmpty() ? this.getRandom().nextInt(3) - 1 : availableslots.get(this.getRandom().nextInt(availableslots.size())));
 			this.setFirstPersonPos(i + (this.getRandom().nextFloat() - 0.5F) * 0.6F);
+
+			this.playSound(CCSoundEvents.RAT_LATCH.get(), 1.0F, 1.0F);
 		}
 	}
 
