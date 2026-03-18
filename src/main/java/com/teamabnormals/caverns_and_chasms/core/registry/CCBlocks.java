@@ -125,7 +125,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> SLAUGHTER_RAIL = HELPER.createBlock("slaughter_rail", () -> new SlaughterRailBlock(BlockBehaviour.Properties.copy(Blocks.POWERED_RAIL).sound(CCSoundTypes.SILVER)));
 
 	public static final RegistryObject<Block> RESISTOR = HELPER.createBlock("resistor", () -> new ResistorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER).sound(CCSoundTypes.DIMMER)));
-	public static final RegistryObject<Block> REFRACTOR = HELPER.createBlock("refractor", () -> new RefractorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER).sound(CCSoundTypes.DIMMER)));
+	public static final RegistryObject<Block> REFRACTOR = HELPER.createBlock("refractor", () -> new RefractorBlock(BlockBehaviour.Properties.copy(Blocks.REPEATER).sound(CCSoundTypes.REFRACTOR)));
 
 	public static final RegistryObject<Block> SANGUINE_BLOCK = HELPER.createBlock("sanguine_block", () -> new Block(CCProperties.SANGUINE_TILES));
 	public static final RegistryObject<Block> SANGUINE_TILES = HELPER.createBlock("sanguine_tiles", () -> new Block(CCProperties.SANGUINE_TILES));
@@ -899,7 +899,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties HOOP = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5F).sound(CCSoundTypes.TIN);
 		public static final BlockBehaviour.Properties STORAGE_DUCT = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.STORAGE_DUCT);
 		public static final BlockBehaviour.Properties STORAGE_DUCT_HATCH = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.TIN);
-		public static final BlockBehaviour.Properties ROLLER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.TIN).pushReaction(PushReaction.BLOCK).forceSolidOn();
+		public static final BlockBehaviour.Properties ROLLER_DOOR = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(5.0F).sound(CCSoundTypes.ROLLER_DOOR).pushReaction(PushReaction.BLOCK).forceSolidOn();
 
 		public static final BlockBehaviour.Properties ORE = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F);
 		public static final BlockBehaviour.Properties DEEPSLATE_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE);
