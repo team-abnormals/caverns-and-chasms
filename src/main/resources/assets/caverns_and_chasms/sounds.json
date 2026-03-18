@@ -1234,50 +1234,94 @@
   },
   "block.cassiterite_tin_ore.break": {
     "sounds": [
-      "caverns_and_chasms:block/deepslate_tin_ore/break1",
-      "caverns_and_chasms:block/deepslate_tin_ore/break2",
-      "caverns_and_chasms:block/deepslate_tin_ore/break3"
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/break1",
+        "volume": 0.5,
+		"pitch": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/break2",
+        "volume": 0.5,
+		"pitch": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/break3",
+        "volume": 0.5,
+		"pitch": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/break4",
+        "volume": 0.5,
+		"pitch": 1.2
+      }
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.cassiterite_tin_ore.fall": {
     "sounds": [
-      "caverns_and_chasms:block/deepslate_tin_ore/step1",
-      "caverns_and_chasms:block/deepslate_tin_ore/step2",
-      "caverns_and_chasms:block/deepslate_tin_ore/step3",
-      "caverns_and_chasms:block/deepslate_tin_ore/step4"
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place1",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place2",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place3",
+        "volume": 0.5
+      }
     ]
   },
   "block.cassiterite_tin_ore.hit": {
     "sounds": [
-      "caverns_and_chasms:block/deepslate_tin_ore/hit1",
-      "caverns_and_chasms:block/deepslate_tin_ore/hit2",
-      "caverns_and_chasms:block/deepslate_tin_ore/hit3"
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit1",
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit2",
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit3",
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.cassiterite_tin_ore.place": {
     "sounds": [
-      "caverns_and_chasms:block/deepslate_tin_ore/place1",
-      "caverns_and_chasms:block/deepslate_tin_ore/place2",
-      "caverns_and_chasms:block/deepslate_tin_ore/place3",
-      "caverns_and_chasms:block/deepslate_tin_ore/place4"
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place1",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place2",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place3",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.cassiterite_tin_ore.step": {
     "sounds": [
-      "caverns_and_chasms:block/deepslate_tin_ore/step1",
-      "caverns_and_chasms:block/deepslate_tin_ore/step2",
-      "caverns_and_chasms:block/deepslate_tin_ore/step3",
-      "caverns_and_chasms:block/deepslate_tin_ore/step4"
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place1",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place2",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/cassiterite_tin_ore/place3",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.cassiterite_tin_ore.deflect": {
     "sounds": [
-      "caverns_and_chasms:block/deepslate_tin_ore/deflect1",
-      "caverns_and_chasms:block/deepslate_tin_ore/deflect2"
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit1",
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit2",
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit3",
+      "caverns_and_chasms:block/cassiterite_tin_ore/hit4"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
