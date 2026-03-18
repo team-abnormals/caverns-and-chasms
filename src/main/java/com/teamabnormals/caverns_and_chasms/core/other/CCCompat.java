@@ -161,7 +161,7 @@ public class CCCompat {
 			BlockState state = source.getLevel().getBlockState(BlockUtil.offsetPos(source));
 			Block block = state.getBlock();
 			if (block instanceof CoalBlock || block instanceof BrazierBlock || block instanceof Sparkler) {
-				return state.hasProperty(BlockStateProperties.LIT) && !state.getValue(BlockStateProperties.LIT) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
+				return state.hasProperty(BlockStateProperties.LIT) && (!state.getValue(BlockStateProperties.LIT) || block instanceof Sparkler) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
 			} else {
 				return false;
 			}
@@ -170,7 +170,11 @@ public class CCCompat {
 				Level level = source.getLevel();
 				BlockPos pos = BlockUtil.offsetPos(source);
 				BlockState state = level.getBlockState(pos);
-				level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LIT, true));
+				if (!state.getValue(BlockStateProperties.LIT)) {
+					level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.LIT, true));
+				} else if (state.getBlock() instanceof Sparkler sparkler) {
+					sparkler.explodeSparkler(state, level, pos);
+				}
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
 				if (stack.hurt(1, level.random, null)) {
 					stack.setCount(0);

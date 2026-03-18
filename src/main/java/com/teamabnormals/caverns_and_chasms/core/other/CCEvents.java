@@ -678,6 +678,9 @@ public class CCEvents {
 
 		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
+			BlockPos origin = blockHitResult.getBlockPos();
+			BlockState originalState = level.getBlockState(origin);
+
 			BlockPos pos = blockHitResult.getBlockPos();
 			BlockState state = level.getBlockState(pos);
 			Direction direction = blockHitResult.getDirection();
@@ -719,6 +722,7 @@ public class CCEvents {
 					Vec3 location = hitResult.getLocation();
 					Axis axis = direction.getAxis();
 					int i = blockHitResult.getDirection().getAxisDirection().getStep();
+					originalState.onProjectileHit(level, originalState, blockHitResult, projectile);
 
 					double j = 0.65D;
 					double k = 0.75D;
@@ -731,10 +735,6 @@ public class CCEvents {
 					if (state.is(CCBlockTags.WEAKER_DEFLECT_VELOCITY) || bonus) {
 						j -= 0.25D;
 						k -= 0.25D;
-					}
-
-					if (state.getBlock() instanceof TargetBlock targetBlock) {
-						targetBlock.onProjectileHit(level, state, blockHitResult.withPosition(pos), projectile);
 					}
 
 					if (axis == Axis.X) {
@@ -753,6 +753,7 @@ public class CCEvents {
 						data.setValue(CCDataProcessors.DEFLECT_Z, -movement.z * j);
 						projectile.setPos(location.x, location.y, location.z + 0.01D * i);
 					}
+
 					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
 					projectile.setDeltaMovement(Vec3.ZERO);
 					projectile.checkInsideBlocks();
