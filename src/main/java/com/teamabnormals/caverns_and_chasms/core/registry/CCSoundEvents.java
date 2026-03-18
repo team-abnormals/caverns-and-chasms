@@ -219,6 +219,14 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DIMMER_PLACE = HELPER.createSoundEvent("block.dimmer.place");
 	public static final RegistryObject<SoundEvent> DIMMER_STEP = HELPER.createSoundEvent("block.dimmer.step");
 	public static final RegistryObject<SoundEvent> DIMMER_DEFLECT = HELPER.createSoundEvent("block.dimmer.deflect");
+	public static final RegistryObject<SoundEvent> DIMMER_BUZZ = HELPER.createSoundEvent("block.dimmer.buzz");
+	
+	public static final RegistryObject<SoundEvent> REFRACTOR_BREAK = HELPER.createSoundEvent("block.refractor.break");
+	public static final RegistryObject<SoundEvent> REFRACTOR_FALL = HELPER.createSoundEvent("block.refractor.fall");
+	public static final RegistryObject<SoundEvent> REFRACTOR_HIT = HELPER.createSoundEvent("block.refractor.hit");
+	public static final RegistryObject<SoundEvent> REFRACTOR_PLACE = HELPER.createSoundEvent("block.refractor.place");
+	public static final RegistryObject<SoundEvent> REFRACTOR_STEP = HELPER.createSoundEvent("block.refractor.step");
+	public static final RegistryObject<SoundEvent> REFRACTOR_DEFLECT = HELPER.createSoundEvent("block.refractor.deflect");
 
 	public static final RegistryObject<SoundEvent> BOUNCER_BREAK = HELPER.createSoundEvent("block.bouncer.break");
 	public static final RegistryObject<SoundEvent> BOUNCER_FALL = HELPER.createSoundEvent("block.bouncer.fall");
@@ -289,6 +297,16 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_HATCH_OPEN = HELPER.createSoundEvent("block.storage_duct_hatch.open");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_HATCH_CLOSE = HELPER.createSoundEvent("block.storage_duct_hatch.close");
+	
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_BREAK = HELPER.createSoundEvent("block.roller_door.break");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_FALL = HELPER.createSoundEvent("block.roller_door.fall");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_HIT = HELPER.createSoundEvent("block.roller_door.hit");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_PLACE = HELPER.createSoundEvent("block.roller_door.place");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_STEP = HELPER.createSoundEvent("block.roller_door.step");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_DEFLECT = HELPER.createSoundEvent("block.roller_door.deflect");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_OPEN = HELPER.createSoundEvent("block.roller_door.open");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_ROLL = HELPER.createSoundEvent("block.roller_door.roll");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_CLOSE = HELPER.createSoundEvent("block.roller_door.close");
 
 	public static final RegistryObject<SoundEvent> ATONING_TABLE_BREAK = HELPER.createSoundEvent("block.atoning_table.break");
 	public static final RegistryObject<SoundEvent> ATONING_TABLE_FALL = HELPER.createSoundEvent("block.atoning_table.fall");
@@ -325,10 +343,11 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final RegistryObject<SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = HELPER.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
 
-	public static final RegistryObject<SoundEvent> DIMMER_BUZZ = HELPER.createSoundEvent("block.dimmer.buzz");
 	public static final RegistryObject<SoundEvent> WINCH_WIND = HELPER.createSoundEvent("block.winch.wind");
 	public static final RegistryObject<SoundEvent> WINCH_LOCK = HELPER.createSoundEvent("block.winch.lock");
 	public static final RegistryObject<SoundEvent> HOOP_SCORE = HELPER.createSoundEvent("block.hoop.score");
+	public static final RegistryObject<SoundEvent> HOOP_SHRINK = HELPER.createSoundEvent("block.hoop.shrink");
+	public static final RegistryObject<SoundEvent> HOOP_EXPAND = HELPER.createSoundEvent("block.hoop.expand");
 	public static final RegistryObject<SoundEvent> RESISTOR_BUZZ = HELPER.createSoundEvent("block.resistor.buzz");
 	public static final RegistryObject<SoundEvent> RESISTOR_TOGGLE = HELPER.createSoundEvent("block.resistor.toggle");
 
@@ -507,6 +526,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType TIN = new TinSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL, TIN_DEFLECT);
 		public static final ForgeSoundType TINPLATE = new TinSoundType(1.0F, 1.0F, TINPLATE_BREAK, TINPLATE_STEP, TINPLATE_PLACE, TINPLATE_HIT, TINPLATE_FALL, TINPLATE_DEFLECT);
 		public static final ForgeSoundType DIMMER = new TinSoundType(1.0F, 1.0F, DIMMER_BREAK, DIMMER_STEP, DIMMER_PLACE, DIMMER_HIT, DIMMER_FALL, DIMMER_DEFLECT);
+		public static final ForgeSoundType REFRACTOR = new TinSoundType(1.0F, 1.0F, REFRACTOR_BREAK, REFRACTOR_STEP, REFRACTOR_PLACE, REFRACTOR_HIT, REFRACTOR_FALL, REFRACTOR_DEFLECT);
 		public static final ForgeSoundType BOUNCER = new TinSoundType(1.0F, 1.0F, BOUNCER_BREAK, BOUNCER_STEP, BOUNCER_PLACE, BOUNCER_HIT, BOUNCER_FALL, BOUNCER_DEFLECT);
 		public static final ForgeSoundType SADDLED_EGG = new TinSoundType(1.0F, 1.0F, SADDLED_EGG_BREAK, SADDLED_EGG_STEP, SADDLED_EGG_PLACE, SADDLED_EGG_HIT, SADDLED_EGG_FALL, SADDLED_EGG_DEFLECT);
 		public static final ForgeSoundType TIN_BULB = new TinSoundType(1.0F, 1.0F, TIN_BULB_BREAK, TIN_BULB_STEP, TIN_BULB_PLACE, TIN_BULB_HIT, TIN_BULB_FALL, TIN_BULB_DEFLECT);
@@ -515,6 +535,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType DEEPSLATE_TIN_ORE = new TinSoundType(1.0F, 1.0F, DEEPSLATE_TIN_ORE_BREAK, DEEPSLATE_TIN_ORE_STEP, DEEPSLATE_TIN_ORE_PLACE, DEEPSLATE_TIN_ORE_HIT, DEEPSLATE_TIN_ORE_FALL, DEEPSLATE_TIN_ORE_DEFLECT);
 		public static final ForgeSoundType CASSITERITE_TIN_ORE = new TinSoundType(1.0F, 1.0F, CASSITERITE_TIN_ORE_BREAK, CASSITERITE_TIN_ORE_STEP, CASSITERITE_TIN_ORE_PLACE, CASSITERITE_TIN_ORE_HIT, CASSITERITE_TIN_ORE_FALL, CASSITERITE_TIN_ORE_DEFLECT);
 		public static final ForgeSoundType STORAGE_DUCT = new TinSoundType(1.0F, 1.0F, STORAGE_DUCT_BREAK, STORAGE_DUCT_STEP, STORAGE_DUCT_PLACE, STORAGE_DUCT_HIT, STORAGE_DUCT_FALL, STORAGE_DUCT_DEFLECT);
+		public static final ForgeSoundType ROLLER_DOOR = new TinSoundType(1.0F, 1.0F, ROLLER_DOOR_BREAK, ROLLER_DOOR_STEP, ROLLER_DOOR_PLACE, ROLLER_DOOR_HIT, ROLLER_DOOR_FALL, ROLLER_DOOR_DEFLECT);
 		public static final ForgeSoundType ATONING_TABLE = new ForgeSoundType(1.0F, 1.0F, ATONING_TABLE_BREAK, ATONING_TABLE_STEP, ATONING_TABLE_PLACE, ATONING_TABLE_HIT, ATONING_TABLE_FALL);
 		public static final ForgeSoundType BEJEWELED_ANVIL = new ForgeSoundType(1.0F, 1.0F, BEJEWELED_ANVIL_BREAK, BEJEWELED_ANVIL_STEP, BEJEWELED_ANVIL_PLACE, BEJEWELED_ANVIL_HIT, BEJEWELED_ANVIL_FALL);
 		public static final ForgeSoundType POLISHED_TUFF = new ForgeSoundType(1.0F, 1.0F, POLISHED_TUFF_BREAK, POLISHED_TUFF_STEP, POLISHED_TUFF_PLACE, POLISHED_TUFF_HIT, POLISHED_TUFF_FALL);

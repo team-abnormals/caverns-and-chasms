@@ -305,6 +305,59 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.refractor.break": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.refractor.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ]
+  },
+  "block.refractor.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.refractor.place": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.refractor.step": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/step1",
+      "caverns_and_chasms:block/dimmer/step2",
+      "caverns_and_chasms:block/dimmer/step3",
+      "caverns_and_chasms:block/dimmer/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.refractor.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.tinplate.break": {
     "sounds": [
       "caverns_and_chasms:block/tinplate/break1",
@@ -365,6 +418,77 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.roller_door.break": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/break1",
+      "caverns_and_chasms:block/tinplate/break2",
+      "caverns_and_chasms:block/tinplate/break3",
+      "caverns_and_chasms:block/tinplate/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.roller_door.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/step1",
+      "caverns_and_chasms:block/tinplate/step2",
+      "caverns_and_chasms:block/tinplate/step3",
+      "caverns_and_chasms:block/tinplate/step4"
+    ]
+  },
+  "block.roller_door.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/step1",
+      "caverns_and_chasms:block/tinplate/step2",
+      "caverns_and_chasms:block/tinplate/step3",
+      "caverns_and_chasms:block/tinplate/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.roller_door.place": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/break1",
+      "caverns_and_chasms:block/tinplate/break2",
+      "caverns_and_chasms:block/tinplate/break3",
+      "caverns_and_chasms:block/tinplate/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.roller_door.step": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/step1",
+      "caverns_and_chasms:block/tinplate/step2",
+      "caverns_and_chasms:block/tinplate/step3",
+      "caverns_and_chasms:block/tinplate/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.roller_door.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/tinplate/break1",
+      "caverns_and_chasms:block/tinplate/break2",
+      "caverns_and_chasms:block/tinplate/break3",
+      "caverns_and_chasms:block/tinplate/break4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
+  "block.roller_door.open": {
+    "sounds": [
+      "caverns_and_chasms:block/roller_door/open"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.roller_door.open"
+  },
+  "block.roller_door.roll": {
+    "sounds": [
+      "caverns_and_chasms:block/roller_door/roll"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.roller_door.roll"
+  },
+  "block.roller_door.close": {
+    "sounds": [
+      "caverns_and_chasms:block/roller_door/close"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.roller_door.close"
+  },
   "block.scatterer.scatter": {
     "sounds": [
       "caverns_and_chasms:block/scatterer/scatter"
@@ -382,6 +506,24 @@
       "caverns_and_chasms:block/scatterer/fail"
     ],
     "subtitle": "subtitles.block.dispenser.fail"
+  },
+  "block.hoop.expand": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/step1",
+      "caverns_and_chasms:block/dimmer/step2",
+      "caverns_and_chasms:block/dimmer/step3",
+      "caverns_and_chasms:block/dimmer/step4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.hoop.expand"
+  },
+  "block.hoop.shrink": {
+    "sounds": [
+      "caverns_and_chasms:block/dimmer/break1",
+      "caverns_and_chasms:block/dimmer/break2",
+      "caverns_and_chasms:block/dimmer/break3",
+      "caverns_and_chasms:block/dimmer/break4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.hoop.shrink"
   },
   "block.saddled_egg.break": {
     "sounds": [
@@ -2661,7 +2803,7 @@
   },
   "block.atoning_table.whispers": {
     "sounds": [
-      "caverns_and_chasms:block/atoning_table/whispers"
+      "caverns_and_chasms:block/atoning_table/whispers1"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.atoning_table.whispers"
   },
@@ -2690,7 +2832,9 @@
   },
   "block.bejeweled_anvil.place": {
     "sounds": [
-      "caverns_and_chasms:block/bejeweled_anvil/land"
+      "caverns_and_chasms:block/bejeweled_anvil/land1",
+      "caverns_and_chasms:block/bejeweled_anvil/land2",
+      "caverns_and_chasms:block/bejeweled_anvil/land3"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
@@ -2712,7 +2856,9 @@
   },
   "block.bejeweled_anvil.land": {
     "sounds": [
-      "caverns_and_chasms:block/bejeweled_anvil/land"
+      "caverns_and_chasms:block/bejeweled_anvil/land1",
+      "caverns_and_chasms:block/bejeweled_anvil/land2",
+      "caverns_and_chasms:block/bejeweled_anvil/land3"
     ],
     "subtitle": "subtitles.block.anvil.land"
   },
