@@ -3,9 +3,9 @@ package com.teamabnormals.caverns_and_chasms.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorBlock;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.client.model.geom.ModelPart;
@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,19 +54,22 @@ public class RollerDoorRenderer<T extends MovingDoorBlockEntity> implements Bloc
 	}
 
 	@Override
-	public void render(T rollerDoor, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-		BlockState blockState = rollerDoor.getLevel() != null ? rollerDoor.getLevel().getBlockState(rollerDoor.getBlockPos()) : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
-		if (blockState.getBlock() instanceof RollerDoorBlock block) {
+	public void render(T blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+		BlockState blockState = blockEntity.getLevel() != null ? blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()) : CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState();
+		if (blockState.getBlock() instanceof RollerDoorBlock) {
 			Direction facing = blockState.getValue(RollerDoorBlock.FACING);
 			AttachFace face = blockState.getValue(RollerDoorBlock.FACE);
-			float openness = (float) rollerDoor.getOpenness(partialTick);
 
-			boolean isBottom = rollerDoor.isBottom() || renderAsItem;
-			Material thisMaterial = isBottom ? block.getDoorType().getBottomMaterial() : block.getDoorType().getNormalMaterial();
+			float openness = (float) blockEntity.getOpenness(partialTick);
 
-			boolean isBelowBottom = rollerDoor.isBelowBottom();
-			AbstractMovingDoorBlock belowBlock = rollerDoor.getBelowBlock();
-			Material belowMaterial = belowBlock == null ? thisMaterial : isBelowBottom ? belowBlock.getDoorType().getBottomMaterial() : belowBlock.getDoorType().getNormalMaterial();
+			MovingDoorType thisType = blockEntity.getDoorType();
+			MovingDoorType belowType = blockEntity.getBelowDoorType();
+
+			boolean isBottom = blockEntity.isBottom() || renderAsItem;
+			boolean isBelowBottom = blockEntity.isBelowBottom();
+
+			Material thisMaterial = isBottom ? thisType.getBottomMaterial() : thisType.getNormalMaterial();
+			Material belowMaterial = belowType == null ? thisMaterial : isBelowBottom ? belowType.getBottomMaterial() : belowType.getNormalMaterial();
 
 			poseStack.pushPose();
 			poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
@@ -80,8 +82,9 @@ public class RollerDoorRenderer<T extends MovingDoorBlockEntity> implements Bloc
 				poseStack.translate(0.0D, -1.0D, face == AttachFace.CEILING ? 1.75D : 1.0D);
 			}
 
-			if (block.isHeader())
+			if (blockEntity instanceof MovingDoorHeaderBlockEntity) {
 				this.header.render(poseStack, thisMaterial.buffer(buffer, RenderType::entityTranslucentCull), combinedLight, combinedOverlay);
+			}
 
 			for (int i = 0; i < this.slats.length; i++) {
 				ModelPart slat = this.slats[i];

@@ -5,9 +5,11 @@ import com.google.common.collect.Maps;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -26,6 +28,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
@@ -51,8 +55,8 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
 
-	public RollerDoorBlock(boolean isHeader, MovingDoorType doorType, Properties properties) {
-		super(isHeader, doorType, properties);
+	public RollerDoorBlock(boolean isHeader, MovingDoorType defaultDoorType, Properties properties) {
+		super(isHeader, defaultDoorType, properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FACE, AttachFace.WALL).setValue(WATERLOGGED, false));
 	}
 
@@ -105,27 +109,6 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState offsetState, LevelAccessor level, BlockPos pos, BlockPos offsetPos) {
-		if (state.getValue(WATERLOGGED))
-			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-
-		return state;
-	}
-
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!level.isClientSide && level.getBlockEntity(pos) instanceof MovingDoorBlockEntity blockEntity)
-			blockEntity.onRemove(newState);
-
-		super.onRemove(state, level, pos, newState, isMoving);
-	}
-
-	@Override
-	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-	}
-
-	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
 		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
@@ -138,6 +121,15 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, FACE, WATERLOGGED);
+	}
+
+	@Override
+	public AbstractMovingDoorBlock getNormalBlock() {
+		return (AbstractMovingDoorBlock) CCBlocks.ROLLER_DOOR.get();
+	}
+
+	public AbstractMovingDoorBlock getHeaderBlock() {
+		return (AbstractMovingDoorBlock) CCBlocks.ROLLER_DOOR_HEADER.get();
 	}
 
 	@Override
@@ -199,6 +191,36 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 				return Block.box(0.0D, 1.0D + offset, 0.0D, 16.0D - 16.0D * openness, 3.0D + offset, 16.0D);
 			else
 				return Block.box(16.0D * openness, 1.0D + offset, 0.0D, 16.0D, 3.0D + offset, 16.0D);
+		}
+	}
+
+	public AABB calculatePushAABB(double openness, int doorsBelowCount, BlockState state, Vec3i moveVector) {
+		Direction facing = state.getValue(FACING);
+		AttachFace face = state.getValue(FACE);
+
+		AABB aabb;
+		if (face == AttachFace.WALL) {
+			if (facing == Direction.EAST)
+				aabb = new AABB(0.8125D, 0.0D, 0.0D, 0.9375D, 1.0D, 1.0D);
+			else if (facing == Direction.WEST)
+				aabb = new AABB(0.0625D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
+			else if (facing == Direction.SOUTH)
+				aabb = new AABB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 0.9375D);
+			else
+				aabb = new AABB(0.0D, 0.0D, 0.0625D, 1.0D, 1.0D, 0.1875D);
+		} else if (face == AttachFace.FLOOR) {
+			aabb = new AABB(0.0D, 0.8125D, 0.0D, 1.0D, 0.9375D, 1.0D);
+		} else {
+			aabb = new AABB(0.0D, 0.0625D, 0.0D, 1.0D, 0.1875D, 1.0D);
+		}
+
+		Vec3 vec3 = Vec3.atLowerCornerOf(moveVector);
+
+		if (doorsBelowCount == 0) {
+			Vec3 vec31 = vec3.scale(openness);
+			return aabb.contract(vec31.x, vec31.y, vec31.z);
+		} else {
+			return aabb.expandTowards(vec3.scale(doorsBelowCount - openness));
 		}
 	}
 

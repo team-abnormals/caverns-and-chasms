@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.item.MovingDoorBlockItem;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +30,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -39,28 +42,20 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	private final boolean isHeader;
-	private final MovingDoorType doorType;
+	private final MovingDoorType defaultDoorType;
 
-	public AbstractMovingDoorBlock(boolean isHeader, MovingDoorType doorType, Properties properties) {
+	public AbstractMovingDoorBlock(boolean isHeader, MovingDoorType defaultDoorType, Properties properties) {
 		super(properties);
 		this.isHeader = isHeader;
-		this.doorType = doorType;
+		this.defaultDoorType = defaultDoorType;
 	}
 
 	public boolean isHeader() {
 		return this.isHeader;
 	}
 
-	public MovingDoorType getDoorType() {
-		return this.doorType;
-	}
-
-	public AbstractMovingDoorBlock getNormalBlock() {
-		return this.doorType.getNormalBlock();
-	}
-
-	public AbstractMovingDoorBlock getHeaderBlock() {
-		return this.doorType.getHeaderBlock();
+	public MovingDoorType getDefaultDoorType() {
+		return this.defaultDoorType;
 	}
 
 	@Override
@@ -81,14 +76,20 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
-		return new ItemStack(this.getNormalBlock());
+		if (level.getBlockEntity(pos) instanceof MovingDoorBlockEntity blockEntity) {
+			return new ItemStack(blockEntity.getDoorType().getItem());
+		}
+		return new ItemStack(this.defaultDoorType.getItem());
 	}
 
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-		if (this.isHeader() && builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof MovingDoorHeaderBlockEntity headerEntity) {
-			List<ItemStack> list = headerEntity.getStoredBlocksAsStacks();
-			list.add(new ItemStack(this.getNormalBlock(), 1));
+		if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof MovingDoorBlockEntity blockEntity) {
+			List<ItemStack> list = Lists.newArrayList();
+			list.add(new ItemStack(blockEntity.getDoorType().getItem(), 1));
+			if (blockEntity instanceof MovingDoorHeaderBlockEntity headerEntity) {
+				list.addAll(headerEntity.getStoredBlocksAsStacks());
+			}
 			return list;
 		}
 		return super.getDrops(state, builder);
@@ -133,6 +134,10 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 		return false;
 	}
 
+	public abstract AbstractMovingDoorBlock getNormalBlock();
+
+	public abstract AbstractMovingDoorBlock getHeaderBlock();
+
 	public abstract Direction getAboveDirection(BlockState state);
 
 	public Direction getBelowDirection(BlockState state) {
@@ -159,11 +164,13 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 
 	public abstract BlockState copyDirectionPropertiesTo(BlockState state, BlockState copyFromState);
 
-	protected abstract VoxelShape getHeaderShape(BlockState state);
+	public abstract VoxelShape getHeaderShape(BlockState state);
 
-	protected abstract VoxelShape getDoorShape(MovingDoorBlockEntity blockEntity, BlockState state);
+	public abstract VoxelShape getDoorShape(MovingDoorBlockEntity blockEntity, BlockState state);
 
-	protected boolean isHitResultInLiftArea(BlockState state, MovingDoorBlockEntity doorEntity, BlockPos pos, BlockHitResult hitResult) {
+	public abstract AABB calculatePushAABB(double openness, int doorsBelowCount, BlockState state, Vec3i moveVector);
+
+	public boolean isHitResultInLiftArea(BlockState state, MovingDoorBlockEntity doorEntity, BlockPos pos, BlockHitResult hitResult) {
 		Direction direction = this.getBelowDirection(state);
 		Axis axis = direction.getAxis();
 		double d0 = hitResult.getLocation().get(axis) - pos.get(axis);

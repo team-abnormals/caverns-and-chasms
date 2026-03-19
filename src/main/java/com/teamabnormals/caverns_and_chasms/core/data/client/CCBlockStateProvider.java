@@ -71,7 +71,6 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.logBlock(TINPLATE_BLOCK);
 
 		this.rollerDoorBlocks(ROLLER_DOOR, ROLLER_DOOR_HEADER);
-		this.rollerDoorBlocks(ROLLER_WINDOW, ROLLER_WINDOW_HEADER);
 
 		this.blockFamilyWithChiseled(IRON_BRICKS_FAMILY);
 		this.blockFamilyWithChiseled(TIN_BRICKS_FAMILY);

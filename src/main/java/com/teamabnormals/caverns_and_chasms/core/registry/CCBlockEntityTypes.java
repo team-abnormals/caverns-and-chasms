@@ -29,7 +29,7 @@ public class CCBlockEntityTypes {
 	public static final RegistryObject<BlockEntityType<ScattererBlockEntity>> SCATTERER = HELPER.createBlockEntity("scatterer", ScattererBlockEntity::new, () -> Set.of(CCBlocks.SCATTERER.get()));
 	public static final RegistryObject<BlockEntityType<StorageDuctBlockEntity>> STORAGE_DUCT = HELPER.createBlockEntity("storage_duct", StorageDuctBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT.get()));
 	public static final RegistryObject<BlockEntityType<StorageDuctHatchBlockEntity>> STORAGE_DUCT_HATCH = HELPER.createBlockEntity("storage_duct_hatch", StorageDuctHatchBlockEntity::new, () -> Set.of(CCBlocks.STORAGE_DUCT_HATCH.get()));
-	public static final RegistryObject<BlockEntityType<MovingDoorBlockEntity>> MOVING_DOOR = HELPER.createBlockEntity("roller_door", (BlockEntityType.BlockEntitySupplier<? extends MovingDoorBlockEntity>) MovingDoorBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR.get(), CCBlocks.ROLLER_WINDOW.get()));
-	public static final RegistryObject<BlockEntityType<MovingDoorHeaderBlockEntity>> MOVING_DOOR_HEADER = HELPER.createBlockEntity("roller_door_header", MovingDoorHeaderBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR_HEADER.get(), CCBlocks.ROLLER_WINDOW_HEADER.get()));
+	public static final RegistryObject<BlockEntityType<MovingDoorBlockEntity>> MOVING_DOOR = HELPER.createBlockEntity("roller_door", (BlockEntityType.BlockEntitySupplier<? extends MovingDoorBlockEntity>) MovingDoorBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR.get()));
+	public static final RegistryObject<BlockEntityType<MovingDoorHeaderBlockEntity>> MOVING_DOOR_HEADER = HELPER.createBlockEntity("roller_door_header", MovingDoorHeaderBlockEntity::new, () -> Set.of(CCBlocks.ROLLER_DOOR_HEADER.get()));
 	public static final RegistryObject<BlockEntityType<ResistorBlockEntity>> RESISTOR = HELPER.createBlockEntity("resistor", ResistorBlockEntity::new, () -> Set.of(CCBlocks.RESISTOR.get()));
 }

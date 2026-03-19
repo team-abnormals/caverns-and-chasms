@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:roller_door"
+    },
+    {
+      "item": "caverns_and_chasms:float_glass_pane"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "caverns_and_chasms:roller_window"
+  }
+}

@@ -1,13 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -15,18 +15,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class MovingDoorBlockEntity extends BlockEntity {
 	protected double openness;
 	protected double opennessOld;
 	protected long opennessUpdateTime;
-	protected boolean isBottom;
 	protected boolean isBelowBottom;
-	protected AbstractMovingDoorBlock belowBlock;
+	protected MovingDoorType doorType;
+	protected MovingDoorType belowDoorType;
 
 	public MovingDoorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
+		this.doorType = ((AbstractMovingDoorBlock) state.getBlock()).getDefaultDoorType();
 	}
 
 	public MovingDoorBlockEntity(BlockPos pos, BlockState state) {
@@ -37,31 +37,36 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	public void load(CompoundTag compound) {
 		super.load(compound);
 		this.openness = compound.getDouble("Openness");
-		this.opennessOld = compound.getDouble("OpennessOld");
-		this.isBottom = compound.getBoolean("IsBottom");
-		this.isBelowBottom = compound.getBoolean("IsBelowBottom");
-		Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(compound.getString("BelowType")));
-		if (block instanceof AbstractMovingDoorBlock doorBlock) {
-			this.belowBlock = doorBlock;
+		if (compound.contains("OpennessOld", 99)) {
+			this.opennessOld = compound.getDouble("OpennessOld");
+		} else {
+			this.opennessOld = this.openness;
 		}
+		this.isBelowBottom = compound.getBoolean("BelowIsBottom");
+		MovingDoorType thisType = MovingDoorType.byName((compound.getString("DoorType")));
+		if (thisType != null) {
+			this.doorType = thisType;
+		}
+		MovingDoorType belowType = MovingDoorType.byName((compound.getString("BelowDoorType")));
+		this.belowDoorType = belowType;
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag compound) {
 		super.saveAdditional(compound);
 		compound.putDouble("Openness", this.openness);
-		compound.putDouble("OpennessOld", this.opennessOld);
-		compound.putBoolean("IsBottom", this.isBottom);
-		compound.putBoolean("IsBelowBottom", this.isBelowBottom);
-		if (this.belowBlock != null) {
-			ResourceLocation location = ForgeRegistries.BLOCKS.getKey(this.belowBlock);
-			if (location != null) {
-				compound.putString("BelowType", location.toString());
-			}
+		compound.putBoolean("BelowIsBottom", this.isBelowBottom);
+		if (this.doorType != null) {
+			compound.putString("DoorType", this.doorType.getRegistryName());
+		}
+		if (this.belowDoorType != null) {
+			compound.putString("BelowDoorType", this.belowDoorType.getRegistryName());
 		}
 	}
 
-	public void onPlace() {
+	public void onPlace(MovingDoorType doorType) {
+		this.doorType = doorType;
+
 		BlockPos thisPos = this.getBlockPos();
 		BlockState thisState = this.getBlockState();
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
@@ -80,15 +85,15 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		if (this.level.getBlockEntity(abovePos) instanceof MovingDoorBlockEntity aboveEntity && thisBlock.partOfSameDoor(thisState, aboveState)) {
 			this.openness = aboveEntity.openness;
 			this.opennessOld = aboveEntity.opennessOld;
-			aboveEntity.belowBlock = thisBlock;
-			this.level.sendBlockUpdated(thisPos, thisState, thisState, 3);
+			aboveEntity.belowDoorType = doorType;
+			this.level.sendBlockUpdated(abovePos, aboveState, aboveState, 3);
 			hasDoorAbove = true;
 		}
 
 		// Merge with door below (assumed to be a header)
 		if (this.level.getBlockEntity(belowPos) instanceof MovingDoorHeaderBlockEntity belowEntity && thisBlock.partOfSameDoor(thisState, belowState)) {
 			MovingDoorHeaderBlockEntity aboveHeaderEntity = thisBlock.findHeaderBlockEntity(this.level, thisState, thisPos);
-			this.belowBlock = ((AbstractMovingDoorBlock) belowState.getBlock()).getNormalBlock();
+			this.belowDoorType = belowEntity.doorType;
 			if (aboveHeaderEntity != null) {
 				// Merged header below drops all its stored blocks because nothing else makes any spatial sense
 				for (ItemStack itemStack : belowEntity.getStoredBlocksAsStacks()) {
@@ -98,7 +103,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 				if (!hasDoorAbove) {
 					this.openness = belowEntity.openness;
 					this.opennessOld = belowEntity.opennessOld;
-					this.level.sendBlockUpdated(thisPos, thisState, thisState, 3);
 				}
 
 				AbstractMovingDoorBlock belowBlock = (AbstractMovingDoorBlock) belowState.getBlock();
@@ -107,6 +111,9 @@ public class MovingDoorBlockEntity extends BlockEntity {
 				if (this.level.getBlockEntity(belowPos) instanceof MovingDoorBlockEntity newBelowEntity) {
 					newBelowEntity.openness = belowEntity.openness;
 					newBelowEntity.opennessOld = belowEntity.opennessOld;
+					newBelowEntity.isBelowBottom = belowEntity.isBelowBottom;
+					newBelowEntity.doorType = belowEntity.doorType;
+					newBelowEntity.belowDoorType = belowEntity.belowDoorType;
 					this.level.sendBlockUpdated(belowPos, belowState, belowState, 3);
 				}
 			}
@@ -123,7 +130,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 					offsetEntity.openness = this.openness;
 					offsetEntity.opennessOld = this.opennessOld;
 				}
-				offsetEntity.isBottom = i == 0;
 				offsetEntity.isBelowBottom = i == 1;
 				this.level.sendBlockUpdated(mutable, offsetState, offsetState, 3);
 			} else {
@@ -152,8 +158,9 @@ public class MovingDoorBlockEntity extends BlockEntity {
 			if (this.level.getBlockEntity(belowPos) instanceof MovingDoorHeaderBlockEntity newBelowEntity) {
 				newBelowEntity.openness = belowEntity.openness;
 				newBelowEntity.opennessOld = belowEntity.opennessOld;
-				newBelowEntity.isBottom = belowEntity.isBottom;
 				newBelowEntity.isBelowBottom = belowEntity.isBelowBottom;
+				newBelowEntity.doorType = belowEntity.doorType;
+				newBelowEntity.belowDoorType = belowEntity.belowDoorType;
 				this.level.sendBlockUpdated(belowPos, belowState, belowState, 3);
 			}
 		}
@@ -166,9 +173,8 @@ public class MovingDoorBlockEntity extends BlockEntity {
 			BlockState aboveState = this.level.getBlockState(abovePos);
 
 			if (this.level.getBlockEntity(abovePos) instanceof MovingDoorBlockEntity aboveEntity && thisBlock.partOfSameDoor(thisState, aboveState)) {
-				aboveEntity.isBottom = true;
 				aboveEntity.isBelowBottom = false;
-				aboveEntity.belowBlock = null;
+				aboveEntity.belowDoorType = null;
 				this.level.sendBlockUpdated(abovePos, aboveState, aboveState, 3);
 
 				BlockPos abovePos1 = abovePos.relative(aboveDir);
@@ -188,11 +194,13 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+		CompoundTag compound = this.saveWithoutMetadata();
+		compound.putDouble("OpennessOld", this.opennessOld);
+		return compound;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, MovingDoorBlockEntity blockEntity) {
-		if (level.isClientSide && blockEntity.opennessUpdateTime < level.getGameTime())
+		if (blockEntity.opennessUpdateTime < level.getGameTime())
 			blockEntity.opennessOld = blockEntity.openness;
 	}
 
@@ -201,14 +209,22 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	}
 
 	public boolean isBottom() {
-		return this.isBottom;
+		return this.belowDoorType == null;
 	}
 
 	public boolean isBelowBottom() {
 		return this.isBelowBottom;
 	}
 
-	public AbstractMovingDoorBlock getBelowBlock() {
-		return this.belowBlock;
+	public MovingDoorType getDoorType() {
+		return this.doorType;
+	}
+
+	public void setDoorType(MovingDoorType doorType) {
+		this.doorType = doorType;
+	}
+
+	public MovingDoorType getBelowDoorType() {
+		return this.belowDoorType;
 	}
 }
