@@ -41,7 +41,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
 		this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get(), TURQUOISE.get(), ZIRCONIA.get());
-		this.tag(ItemTags.MUSIC_DISCS).add(MUSIC_DISC_EPILOGUE.get(), MUSIC_DISC_COPY.get());
+		this.tag(ItemTags.MUSIC_DISCS).add(MUSIC_DISC_ANALOGUE.get(), MUSIC_DISC_EPILOGUE.get(), MUSIC_DISC_COPY.get());
 		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.get().asItem(), CCBlocks.GOLDEN_BARS.get().asItem(), GOLDEN_BUCKET.get(), GOLDEN_WATER_BUCKET.get(), GOLDEN_LAVA_BUCKET.get(), GOLDEN_MILK_BUCKET.get(), GOLDEN_POWDER_SNOW_BUCKET.get(), CCBlocks.GOLD_BRICKS.get().asItem(), CCBlocks.GOLD_BRICK_STAIRS.get().asItem(), CCBlocks.GOLD_BRICK_SLAB.get().asItem(), CCBlocks.GOLD_BRICK_WALL.get().asItem(), CCBlocks.CHISELED_GOLD_BRICKS.get().asItem());
 		this.tag(ItemTags.PIGLIN_REPELLENTS).add(CCBlocks.SOUL_BRAZIER.get().asItem());
 		this.tag(ItemTags.BOATS).add(AZALEA_BOAT.getFirst().get());

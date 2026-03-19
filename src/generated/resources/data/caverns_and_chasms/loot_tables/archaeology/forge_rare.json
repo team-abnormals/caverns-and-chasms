@@ -6,6 +6,10 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "caverns_and_chasms:music_disc_analogue"
+        },
+        {
+          "type": "minecraft:item",
           "name": "caverns_and_chasms:boom_pottery_sherd",
           "weight": 3
         },

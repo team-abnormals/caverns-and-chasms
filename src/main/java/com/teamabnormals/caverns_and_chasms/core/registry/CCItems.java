@@ -247,6 +247,7 @@ public class CCItems {
 	public static final RegistryObject<Item> COWL = HELPER.createItem("cowl", () -> new CowlItem(CCArmorMaterials.COWL, ArmorItem.Type.HELMET, new Item.Properties()));
 	public static final RegistryObject<Item> TOOLBELT = HELPER.createItem("toolbelt", () -> new ToolbeltItem(CCArmorMaterials.TOOLBELT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
 
+	public static final RegistryObject<Item> MUSIC_DISC_ANALOGUE = HELPER.createItem("music_disc_analogue", () -> new BlueprintRecordItem(1, CCSoundEvents.ANALOGUE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 141));
 	public static final RegistryObject<Item> MUSIC_DISC_EPILOGUE = HELPER.createItem("music_disc_epilogue", () -> new BlueprintRecordItem(11, CCSoundEvents.EPILOGUE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 77));
 	public static final RegistryObject<Item> ABNORMALS_BANNER_PATTERN = HELPER.createItem("abnormals_banner_pattern", () -> new BannerPatternItem(CCBannerPatternTags.PATTERN_ITEM_ABNORMALS, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
@@ -322,7 +323,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET, () -> Items.BUNDLE)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
-				.addItemsBefore(of(Items.MUSIC_DISC_PIGSTEP), MUSIC_DISC_EPILOGUE)
+				.addItemsBefore(of(Items.MUSIC_DISC_PIGSTEP), MUSIC_DISC_ANALOGUE, MUSIC_DISC_EPILOGUE)
 				.addItemsBefore(of(Items.BAMBOO_RAFT), AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond())
 				.addItemsBefore(modLoaded(Items.BAMBOO_RAFT, "boatload"), AZALEA_FURNACE_BOAT, LARGE_AZALEA_BOAT)
 				.editor(event -> event.getParameters().holders().lookup(Registries.INSTRUMENT).ifPresent(registry -> {

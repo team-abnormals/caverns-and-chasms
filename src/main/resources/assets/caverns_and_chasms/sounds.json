@@ -1,4 +1,12 @@
 {
+  "music.record.analogue": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:record/analogue",
+        "stream": true
+      }
+    ]
+  },
   "music.record.epilogue": {
     "sounds": [
       {

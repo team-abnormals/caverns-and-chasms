@@ -19,6 +19,7 @@ import java.util.stream.IntStream;
 public class CCSoundEvents {
 	public static final SoundSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getSoundSubHelper();
 
+	public static final RegistryObject<SoundEvent> ANALOGUE = HELPER.createSoundEvent("music.record.analogue");
 	public static final RegistryObject<SoundEvent> EPILOGUE = HELPER.createSoundEvent("music.record.epilogue");
 
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_BREAK = HELPER.createSoundEvent("block.rocky_dirt.break");

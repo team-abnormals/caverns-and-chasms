@@ -777,6 +777,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			consumer.accept(FORGE_RARE, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(CCItems.MUSIC_DISC_ANALOGUE.get()))
 							.add(LootItem.lootTableItem(CCItems.BOOM_POTTERY_SHERD.get()).setWeight(3))
 							.add(LootItem.lootTableItem(CCItems.CAST_POTTERY_SHERD.get()).setWeight(3))
 							.add(LootItem.lootTableItem(CCItems.RIDE_POTTERY_SHERD.get()).setWeight(3))
