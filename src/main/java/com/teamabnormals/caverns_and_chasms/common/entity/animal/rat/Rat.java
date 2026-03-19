@@ -797,10 +797,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return itemstack.is(CCItemTags.RAT_FOOD);
 	}
 
-	private boolean canEatItem(ItemStack itemStackIn) {
-		return itemStackIn.getItem().isEdible() && this.getTarget() == null && this.onGround();
-	}
-
 	@Override
 	public boolean canTakeItem(ItemStack stack) {
 		EquipmentSlot equipmentslottype = Mob.getEquipmentSlotForItem(stack);
