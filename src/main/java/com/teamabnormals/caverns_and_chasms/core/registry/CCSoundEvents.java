@@ -26,6 +26,18 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_HIT = HELPER.createSoundEvent("block.rocky_dirt.hit");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_PLACE = HELPER.createSoundEvent("block.rocky_dirt.place");
 	public static final RegistryObject<SoundEvent> ROCKY_DIRT_STEP = HELPER.createSoundEvent("block.rocky_dirt.step");
+	
+	public static final RegistryObject<SoundEvent> FRAGILE_STONE_BREAK = HELPER.createSoundEvent("block.fragile_stone.break");
+	public static final RegistryObject<SoundEvent> FRAGILE_STONE_FALL = HELPER.createSoundEvent("block.fragile_stone.fall");
+	public static final RegistryObject<SoundEvent> FRAGILE_STONE_HIT = HELPER.createSoundEvent("block.fragile_stone.hit");
+	public static final RegistryObject<SoundEvent> FRAGILE_STONE_PLACE = HELPER.createSoundEvent("block.fragile_stone.place");
+	public static final RegistryObject<SoundEvent> FRAGILE_STONE_STEP = HELPER.createSoundEvent("block.fragile_stone.step");
+	
+	public static final RegistryObject<SoundEvent> FRAGILE_DEEPSLATE_BREAK = HELPER.createSoundEvent("block.fragile_deepslate.break");
+	public static final RegistryObject<SoundEvent> FRAGILE_DEEPSLATE_FALL = HELPER.createSoundEvent("block.fragile_deepslate.fall");
+	public static final RegistryObject<SoundEvent> FRAGILE_DEEPSLATE_HIT = HELPER.createSoundEvent("block.fragile_deepslate.hit");
+	public static final RegistryObject<SoundEvent> FRAGILE_DEEPSLATE_PLACE = HELPER.createSoundEvent("block.fragile_deepslate.place");
+	public static final RegistryObject<SoundEvent> FRAGILE_DEEPSLATE_STEP = HELPER.createSoundEvent("block.fragile_deepslate.step");
 
 	public static final RegistryObject<SoundEvent> CHARCOAL_BREAK = HELPER.createSoundEvent("block.charcoal.break");
 	public static final RegistryObject<SoundEvent> CHARCOAL_FALL = HELPER.createSoundEvent("block.charcoal.fall");
@@ -84,6 +96,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_HIT = HELPER.createSoundEvent("block.ornate_glass.hit");
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_PLACE = HELPER.createSoundEvent("block.ornate_glass.place");
 	public static final RegistryObject<SoundEvent> ORNATE_GLASS_STEP = HELPER.createSoundEvent("block.ornate_glass.step");
+	
+	public static final RegistryObject<SoundEvent> TURQUOISE_BREAK = HELPER.createSoundEvent("block.turquoise.break");
+	public static final RegistryObject<SoundEvent> TURQUOISE_FALL = HELPER.createSoundEvent("block.turquoise.fall");
+	public static final RegistryObject<SoundEvent> TURQUOISE_HIT = HELPER.createSoundEvent("block.turquoise.hit");
+	public static final RegistryObject<SoundEvent> TURQUOISE_PLACE = HELPER.createSoundEvent("block.turquoise.place");
+	public static final RegistryObject<SoundEvent> TURQUOISE_STEP = HELPER.createSoundEvent("block.turquoise.step");
 
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_BREAK = HELPER.createSoundEvent("block.float_glass.break");
 	public static final RegistryObject<SoundEvent> FLOAT_GLASS_FALL = HELPER.createSoundEvent("block.float_glass.fall");
@@ -133,6 +151,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SANGUINE_HIT = HELPER.createSoundEvent("block.sanguine.hit");
 	public static final RegistryObject<SoundEvent> SANGUINE_PLACE = HELPER.createSoundEvent("block.sanguine.place");
 	public static final RegistryObject<SoundEvent> SANGUINE_STEP = HELPER.createSoundEvent("block.sanguine.step");
+	
+	public static final RegistryObject<SoundEvent> FORTIFIED_SANGUINE_BREAK = HELPER.createSoundEvent("block.fortified_sanguine.break");
+	public static final RegistryObject<SoundEvent> FORTIFIED_SANGUINE_FALL = HELPER.createSoundEvent("block.fortified_sanguine.fall");
+	public static final RegistryObject<SoundEvent> FORTIFIED_SANGUINE_HIT = HELPER.createSoundEvent("block.fortified_sanguine.hit");
+	public static final RegistryObject<SoundEvent> FORTIFIED_SANGUINE_PLACE = HELPER.createSoundEvent("block.fortified_sanguine.place");
+	public static final RegistryObject<SoundEvent> FORTIFIED_SANGUINE_STEP = HELPER.createSoundEvent("block.fortified_sanguine.step");
 
 	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_BREAK = HELPER.createSoundEvent("block.rotten_flesh.break");
 	public static final RegistryObject<SoundEvent> ROTTEN_FLESH_FALL = HELPER.createSoundEvent("block.rotten_flesh.fall");
@@ -381,6 +405,10 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_TOOLBELT = HELPER.createSoundEvent("item.armor.equip_toolbelt");
 
 	public static final RegistryObject<SoundEvent> NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
+	public static final RegistryObject<SoundEvent> SILVER_RESIST = HELPER.createSoundEvent("item.armor.silver_resist");
+	public static final RegistryObject<SoundEvent> SANGUINE_HEAL = HELPER.createSoundEvent("item.armor.sanguine_heal");
+	
+	public static final RegistryObject<SoundEvent> SILVER_STRIKE = HELPER.createSoundEvent("item.silver.strike");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_EAT = HELPER.createSoundEvent("item.bejeweled_apple.eat");
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_BURP = HELPER.createSoundEvent("item.bejeweled_apple.burp");
@@ -498,6 +526,8 @@ public class CCSoundEvents {
 
 	public static class CCSoundTypes {
 		public static final ForgeSoundType ROCKY_DIRT = new ForgeSoundType(1.0F, 1.0F, ROCKY_DIRT_BREAK, ROCKY_DIRT_STEP, ROCKY_DIRT_PLACE, ROCKY_DIRT_HIT, ROCKY_DIRT_FALL);
+		public static final ForgeSoundType FRAGILE_STONE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_STONE_BREAK, FRAGILE_STONE_STEP, FRAGILE_STONE_PLACE, FRAGILE_STONE_HIT, FRAGILE_STONE_FALL);
+		public static final ForgeSoundType FRAGILE_DEEPSLATE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_DEEPSLATE_BREAK, FRAGILE_DEEPSLATE_STEP, FRAGILE_DEEPSLATE_PLACE, FRAGILE_DEEPSLATE_HIT, FRAGILE_DEEPSLATE_FALL);
 		public static final ForgeSoundType CHARCOAL = new ForgeSoundType(1.0F, 1.0F, CHARCOAL_BREAK, CHARCOAL_STEP, CHARCOAL_PLACE, CHARCOAL_HIT, CHARCOAL_FALL);
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
 		public static final ForgeSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);
@@ -506,6 +536,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType SPINEL = new ForgeSoundType(1.0F, 1.0F, SPINEL_BREAK, SPINEL_STEP, SPINEL_PLACE, SPINEL_HIT, SPINEL_FALL);
 		public static final ForgeSoundType SUGILITE = new ForgeSoundType(1.0F, 1.0F, SUGILITE_BREAK, SUGILITE_STEP, SUGILITE_PLACE, SUGILITE_HIT, SUGILITE_FALL);
 		public static final ForgeSoundType ZIRCONIA = new ForgeSoundType(1.0F, 1.0F, ZIRCONIA_BREAK, ZIRCONIA_STEP, ZIRCONIA_PLACE, ZIRCONIA_HIT, ZIRCONIA_FALL);
+		public static final ForgeSoundType TURQUOISE = new ForgeSoundType(1.0F, 1.0F, TURQUOISE_BREAK, TURQUOISE_STEP, TURQUOISE_PLACE, TURQUOISE_HIT, TURQUOISE_FALL);
 		public static final ForgeSoundType ORNATE_GLASS = new ForgeSoundType(1.0F, 1.0F, ORNATE_GLASS_BREAK, ORNATE_GLASS_STEP, ORNATE_GLASS_PLACE, ORNATE_GLASS_HIT, ORNATE_GLASS_FALL);
 		public static final ForgeSoundType FLOAT_GLASS = new TinSoundType(1.0F, 1.0F, FLOAT_GLASS_BREAK, FLOAT_GLASS_STEP, FLOAT_GLASS_PLACE, FLOAT_GLASS_HIT, FLOAT_GLASS_FALL, FLOAT_GLASS_DEFLECT);
 		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, NECROMIUM_BREAK, NECROMIUM_STEP, NECROMIUM_PLACE, NECROMIUM_HIT, NECROMIUM_FALL);
@@ -515,6 +546,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType MOSCHATEL = new ForgeSoundType(1.0F, 1.0F, MOSCHATEL_BREAK, MOSCHATEL_STEP, MOSCHATEL_PLACE, MOSCHATEL_HIT, MOSCHATEL_FALL);
 		public static final ForgeSoundType TMT = new ForgeSoundType(1.0F, 1.0F, TMT_BREAK, TMT_STEP, TMT_PLACE, TMT_HIT, TMT_FALL);
 		public static final ForgeSoundType SANGUINE = new ForgeSoundType(1.0F, 1.0F, SANGUINE_BREAK, SANGUINE_STEP, SANGUINE_PLACE, SANGUINE_HIT, SANGUINE_FALL);
+		public static final ForgeSoundType FORTIFIED_SANGUINE = new ForgeSoundType(1.0F, 1.0F, FORTIFIED_SANGUINE_BREAK, FORTIFIED_SANGUINE_STEP, FORTIFIED_SANGUINE_PLACE, FORTIFIED_SANGUINE_HIT, FORTIFIED_SANGUINE_FALL);
 		public static final ForgeSoundType ROTTEN_FLESH = new ForgeSoundType(1.0F, 1.0F, ROTTEN_FLESH_BREAK, ROTTEN_FLESH_STEP, ROTTEN_FLESH_PLACE, ROTTEN_FLESH_HIT, ROTTEN_FLESH_FALL);
 		public static final ForgeSoundType LAVA_LAMP = new ForgeSoundType(1.0F, 1.0F, LAVA_LAMP_BREAK, LAVA_LAMP_STEP, LAVA_LAMP_PLACE, LAVA_LAMP_HIT, LAVA_LAMP_FALL);
 		public static final ForgeSoundType FLOODLIGHT = new ForgeSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);

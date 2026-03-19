@@ -836,6 +836,94 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.sparkler.explode"
   },
+  "block.fragile_stone.break": {
+    "sounds": [
+	  {
+        "name": "block.stone.break",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.fragile_stone.fall": {
+    "sounds": [
+	  {
+        "name": "block.stone.fall",
+		"type": "event"
+      }
+    ]
+  },
+  "block.fragile_stone.hit": {
+    "sounds": [
+	  {
+        "name": "block.stone.hit",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.fragile_stone.place": {
+    "sounds": [
+	  {
+        "name": "block.stone.place",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.fragile_stone.step": {
+    "sounds": [
+	  {
+        "name": "block.stone.step",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.fragile_deepslate.break": {
+    "sounds": [
+	  {
+        "name": "block.deepslate.break",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.fragile_deepslate.fall": {
+    "sounds": [
+	  {
+        "name": "block.deepslate.fall",
+		"type": "event"
+      }
+    ]
+  },
+  "block.fragile_deepslate.hit": {
+    "sounds": [
+	  {
+        "name": "block.deepslate.hit",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.fragile_deepslate.place": {
+    "sounds": [
+	  {
+        "name": "block.deepslate.place",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.fragile_deepslate.step": {
+    "sounds": [
+	  {
+        "name": "block.deepslate.step",
+		"type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.flint_block.break": {
     "sounds": [
       "caverns_and_chasms:block/flint_block/break1",
@@ -1779,6 +1867,50 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.turquoise.break": {
+    "sounds": [
+      "caverns_and_chasms:block/spinel/break1",
+      "caverns_and_chasms:block/spinel/break2",
+      "caverns_and_chasms:block/spinel/break3",
+      "caverns_and_chasms:block/spinel/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.turquoise.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/spinel/step1",
+      "caverns_and_chasms:block/spinel/step2",
+      "caverns_and_chasms:block/spinel/step3",
+      "caverns_and_chasms:block/spinel/step4"
+    ]
+  },
+  "block.turquoise.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/spinel/step1",
+      "caverns_and_chasms:block/spinel/step2",
+      "caverns_and_chasms:block/spinel/step3",
+      "caverns_and_chasms:block/spinel/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.turquoise.place": {
+    "sounds": [
+      "caverns_and_chasms:block/spinel/break1",
+      "caverns_and_chasms:block/spinel/break2",
+      "caverns_and_chasms:block/spinel/break3",
+      "caverns_and_chasms:block/spinel/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.turquoise.step": {
+    "sounds": [
+      "caverns_and_chasms:block/spinel/step1",
+      "caverns_and_chasms:block/spinel/step2",
+      "caverns_and_chasms:block/spinel/step3",
+      "caverns_and_chasms:block/spinel/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.sugilite.break": {
     "sounds": [
       "caverns_and_chasms:block/sugilite/break1",
@@ -2127,6 +2259,56 @@
     "subtitle": "subtitles.block.generic.place"
   },
   "block.sanguine.step": {
+    "sounds": [
+      "caverns_and_chasms:block/sanguine/step1",
+      "caverns_and_chasms:block/sanguine/step2",
+      "caverns_and_chasms:block/sanguine/step3",
+      "caverns_and_chasms:block/sanguine/step4",
+      "caverns_and_chasms:block/sanguine/step5",
+      "caverns_and_chasms:block/sanguine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.fortified_sanguine.break": {
+    "sounds": [
+      "caverns_and_chasms:block/sanguine/break1",
+      "caverns_and_chasms:block/sanguine/break2",
+      "caverns_and_chasms:block/sanguine/break3",
+      "caverns_and_chasms:block/sanguine/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.fortified_sanguine.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/sanguine/step1",
+      "caverns_and_chasms:block/sanguine/step2",
+      "caverns_and_chasms:block/sanguine/step3",
+      "caverns_and_chasms:block/sanguine/step4",
+      "caverns_and_chasms:block/sanguine/step5",
+      "caverns_and_chasms:block/sanguine/step6"
+    ]
+  },
+  "block.fortified_sanguine.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/sanguine/step1",
+      "caverns_and_chasms:block/sanguine/step2",
+      "caverns_and_chasms:block/sanguine/step3",
+      "caverns_and_chasms:block/sanguine/step4",
+      "caverns_and_chasms:block/sanguine/step5",
+      "caverns_and_chasms:block/sanguine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.fortified_sanguine.place": {
+    "sounds": [
+      "caverns_and_chasms:block/sanguine/break1",
+      "caverns_and_chasms:block/sanguine/break2",
+      "caverns_and_chasms:block/sanguine/break3",
+      "caverns_and_chasms:block/sanguine/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.fortified_sanguine.step": {
     "sounds": [
       "caverns_and_chasms:block/sanguine/step1",
       "caverns_and_chasms:block/sanguine/step2",
@@ -3891,6 +4073,26 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_silver"
   },
+  "item.armor.silver_resist": {
+    "sounds": [
+      "caverns_and_chasms:item/silver_armor/resist1",
+      "caverns_and_chasms:item/silver_armor/resist2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.armor.silver_resist"
+  },
+  "item.silver.strike": {
+    "sounds": [
+	  {
+        "name": "caverns_and_chasms:item/silver_armor/resist1",
+        "pitch": 1.5
+      },
+	  {
+        "name": "caverns_and_chasms:item/silver_armor/resist2",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.silver.strike"
+  },
   "item.armor.equip_necromium": {
     "sounds": [
       "caverns_and_chasms:item/necromium_armor/equip1",
@@ -3918,17 +4120,42 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_sanguine"
   },
-  "item.armor.equip_horse_netherite": {
+  "item.armor.sanguine_heal": {
     "sounds": [
-      "caverns_and_chasms:item/netherite_horse_armor/equip"
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step1",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step2",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step3",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step4",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step5",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step6",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step7",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step8",
+        "pitch": 0.5
+      }
     ],
-    "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_horse_netherite"
-  },
-  "item.armor.equip_horse_necromium": {
-    "sounds": [
-      "caverns_and_chasms:item/necromium_horse_armor/equip"
-    ],
-    "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_horse_necromium"
+    "subtitle": "subtitles.caverns_and_chasms.item.armor.sanguine_heal"
   },
   "item.goat_horn.sound.8": {
     "sounds": [
