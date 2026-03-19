@@ -5,7 +5,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.BlacklistedAddFeaturesBiomeModifier;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.BlacklistedAddSpawnsBiomeModifier;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures.CCPlacedFeatures;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
