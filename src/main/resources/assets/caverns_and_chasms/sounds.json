@@ -1877,45 +1877,45 @@
   },
   "block.turquoise.break": {
     "sounds": [
-      "caverns_and_chasms:block/spinel/break1",
-      "caverns_and_chasms:block/spinel/break2",
-      "caverns_and_chasms:block/spinel/break3",
-      "caverns_and_chasms:block/spinel/break4"
+      "caverns_and_chasms:block/turquoise/break1",
+      "caverns_and_chasms:block/turquoise/break2",
+      "caverns_and_chasms:block/turquoise/break3",
+      "caverns_and_chasms:block/turquoise/break4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.turquoise.fall": {
     "sounds": [
-      "caverns_and_chasms:block/spinel/step1",
-      "caverns_and_chasms:block/spinel/step2",
-      "caverns_and_chasms:block/spinel/step3",
-      "caverns_and_chasms:block/spinel/step4"
+      "caverns_and_chasms:block/turquoise/step1",
+      "caverns_and_chasms:block/turquoise/step2",
+      "caverns_and_chasms:block/turquoise/step3",
+      "caverns_and_chasms:block/turquoise/step4"
     ]
   },
   "block.turquoise.hit": {
     "sounds": [
-      "caverns_and_chasms:block/spinel/step1",
-      "caverns_and_chasms:block/spinel/step2",
-      "caverns_and_chasms:block/spinel/step3",
-      "caverns_and_chasms:block/spinel/step4"
+      "caverns_and_chasms:block/turquoise/step1",
+      "caverns_and_chasms:block/turquoise/step2",
+      "caverns_and_chasms:block/turquoise/step3",
+      "caverns_and_chasms:block/turquoise/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.turquoise.place": {
     "sounds": [
-      "caverns_and_chasms:block/spinel/break1",
-      "caverns_and_chasms:block/spinel/break2",
-      "caverns_and_chasms:block/spinel/break3",
-      "caverns_and_chasms:block/spinel/break4"
+      "caverns_and_chasms:block/turquoise/break1",
+      "caverns_and_chasms:block/turquoise/break2",
+      "caverns_and_chasms:block/turquoise/break3",
+      "caverns_and_chasms:block/turquoise/break4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.turquoise.step": {
     "sounds": [
-      "caverns_and_chasms:block/spinel/step1",
-      "caverns_and_chasms:block/spinel/step2",
-      "caverns_and_chasms:block/spinel/step3",
-      "caverns_and_chasms:block/spinel/step4"
+      "caverns_and_chasms:block/turquoise/step1",
+      "caverns_and_chasms:block/turquoise/step2",
+      "caverns_and_chasms:block/turquoise/step3",
+      "caverns_and_chasms:block/turquoise/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
@@ -4042,6 +4042,18 @@
       "caverns_and_chasms:item/zirconia/anvil_use2",
       "caverns_and_chasms:item/zirconia/anvil_use3"
     ]
+  },
+  "item.unicorn_horn.equip": {
+    "sounds": [
+      "caverns_and_chasms:item/unicorn_horn/equip"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.unicorn_horn.equip"
+  },
+  "item.unicorn_horn.unequip": {
+    "sounds": [
+      "caverns_and_chasms:item/unicorn_horn/unequip"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.unicorn_horn.unequip"
   },
   "item.armor.equip_toolbelt": {
     "sounds": [

@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,7 +39,7 @@ public class UnicornHornItem extends Item implements DyeableLeatherItem {
 		if (entity instanceof AbstractHorse horse && entity.isAlive() && horse instanceof IDataManager dataManager) {
 			if (dataManager.getValue(CCDataProcessors.UNICORN_HORN).isEmpty()) {
 				if (stack.is(CCItems.UNICORN_HORN.get())) {
-					horse.level().playSound(null, horse, SoundEvents.LARGE_AMETHYST_BUD_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
+					horse.level().playSound(null, horse, CCSoundEvents.UNICORN_HORN_EQUIP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 					dataManager.setValue(CCDataProcessors.UNICORN_HORN, stack.copy());
 					if (!player.level().isClientSide) {
 						entity.level().gameEvent(entity, GameEvent.EQUIP, entity.position());
@@ -51,7 +52,7 @@ public class UnicornHornItem extends Item implements DyeableLeatherItem {
 					event.setCanceled(true);
 				}
 			} else if (stack.is(Tags.Items.SHEARS)) {
-				horse.level().playSound(null, horse, SoundEvents.MOOSHROOM_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+				horse.level().playSound(null, horse, CCSoundEvents.UNICORN_HORN_UNEQUIP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 				if (!player.level().isClientSide) {
 					entity.level().gameEvent(entity, GameEvent.SHEAR, entity.position());
 					entity.spawnAtLocation(dataManager.getValue(CCDataProcessors.UNICORN_HORN), 1.0F);
