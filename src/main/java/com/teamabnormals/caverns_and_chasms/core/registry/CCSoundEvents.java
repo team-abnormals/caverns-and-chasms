@@ -409,6 +409,9 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SILVER_RESIST = HELPER.createSoundEvent("item.armor.silver_resist");
 	public static final RegistryObject<SoundEvent> SANGUINE_HEAL = HELPER.createSoundEvent("item.armor.sanguine_heal");
 	
+	public static final RegistryObject<SoundEvent> UNICORN_HORN_EQUIP = HELPER.createSoundEvent("item.unicorn_horn.equip");
+	public static final RegistryObject<SoundEvent> UNICORN_HORN_UNEQUIP = HELPER.createSoundEvent("item.unicorn_horn.unequip");
+	
 	public static final RegistryObject<SoundEvent> SILVER_STRIKE = HELPER.createSoundEvent("item.silver.strike");
 
 	public static final RegistryObject<SoundEvent> BEJEWELED_APPLE_EAT = HELPER.createSoundEvent("item.bejeweled_apple.eat");

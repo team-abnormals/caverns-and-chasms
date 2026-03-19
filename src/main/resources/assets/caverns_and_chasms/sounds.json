@@ -4043,6 +4043,18 @@
       "caverns_and_chasms:item/zirconia/anvil_use3"
     ]
   },
+  "item.unicorn_horn.equip": {
+    "sounds": [
+      "caverns_and_chasms:item/unicorn_horn/equip"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.unicorn_horn.equip"
+  },
+  "item.unicorn_horn.unequip": {
+    "sounds": [
+      "caverns_and_chasms:item/unicorn_horn/unequip"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.unicorn_horn.unequip"
+  },
   "item.armor.equip_toolbelt": {
     "sounds": [
       "caverns_and_chasms:item/toolbelt/equip1",
