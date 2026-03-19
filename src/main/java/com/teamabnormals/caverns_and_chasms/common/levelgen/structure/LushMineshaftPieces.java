@@ -9,11 +9,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.MinecartChest;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
@@ -25,36 +27,30 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
+import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LushMineshaftPieces {
+public class LushMineshaftPieces extends MineshaftPieces {
 	static final Logger LOGGER = LogUtils.getLogger();
-	private static final int DEFAULT_SHAFT_WIDTH = 3;
-	private static final int DEFAULT_SHAFT_HEIGHT = 3;
-	private static final int DEFAULT_SHAFT_LENGTH = 5;
-	private static final int MAX_PILLAR_HEIGHT = 20;
-	private static final int MAX_CHAIN_HEIGHT = 50;
-	private static final int MAX_DEPTH = 8;
-	public static final int MAGIC_START_Y = 50;
 
 	private static LushMineshaftPieces.MineShaftPiece createRandomShaftPiece(StructurePieceAccessor p_227716_, RandomSource p_227717_, int p_227718_, int p_227719_, int p_227720_, @Nullable Direction p_227721_, int p_227722_, LushMineshaftStructure.Type p_227723_) {
 		int i = p_227717_.nextInt(100);
 		if (i >= 80) {
-			BoundingBox boundingbox = LushMineshaftPieces.MineShaftCrossing.findCrossing(p_227716_, p_227717_, p_227718_, p_227719_, p_227720_, p_227721_);
+			BoundingBox boundingbox = MineshaftPieces.MineShaftCrossing.findCrossing(p_227716_, p_227717_, p_227718_, p_227719_, p_227720_, p_227721_);
 			if (boundingbox != null) {
 				return new LushMineshaftPieces.MineShaftCrossing(p_227722_, boundingbox, p_227721_, p_227723_);
 			}
 		} else if (i >= 70) {
-			BoundingBox boundingbox1 = LushMineshaftPieces.MineShaftStairs.findStairs(p_227716_, p_227717_, p_227718_, p_227719_, p_227720_, p_227721_);
+			BoundingBox boundingbox1 = MineshaftPieces.MineShaftStairs.findStairs(p_227716_, p_227717_, p_227718_, p_227719_, p_227720_, p_227721_);
 			if (boundingbox1 != null) {
 				return new LushMineshaftPieces.MineShaftStairs(p_227722_, boundingbox1, p_227721_, p_227723_);
 			}
 		} else {
-			BoundingBox boundingbox2 = LushMineshaftPieces.MineShaftCorridor.findCorridorSize(p_227716_, p_227717_, p_227718_, p_227719_, p_227720_, p_227721_);
+			BoundingBox boundingbox2 = MineshaftPieces.MineShaftCorridor.findCorridorSize(p_227716_, p_227717_, p_227718_, p_227719_, p_227720_, p_227721_);
 			if (boundingbox2 != null) {
 				return new LushMineshaftPieces.MineShaftCorridor(p_227722_, p_227717_, boundingbox2, p_227721_, p_227723_);
 			}
@@ -113,35 +109,6 @@ public class LushMineshaftPieces {
 				this.numSections = p_227733_.getXSpan() / 5;
 			}
 
-		}
-
-		@Nullable
-		public static BoundingBox findCorridorSize(StructurePieceAccessor p_227799_, RandomSource p_227800_, int p_227801_, int p_227802_, int p_227803_, Direction p_227804_) {
-			for (int i = p_227800_.nextInt(3) + 2; i > 0; --i) {
-				int j = i * 5;
-				BoundingBox boundingbox;
-				switch (p_227804_) {
-					case NORTH:
-					default:
-						boundingbox = new BoundingBox(0, 0, -(j - 1), 2, 2, 0);
-						break;
-					case SOUTH:
-						boundingbox = new BoundingBox(0, 0, 0, 2, 2, j - 1);
-						break;
-					case WEST:
-						boundingbox = new BoundingBox(-(j - 1), 0, 0, 0, 2, 2);
-						break;
-					case EAST:
-						boundingbox = new BoundingBox(0, 0, 0, j - 1, 2, 2);
-				}
-
-				boundingbox.move(p_227801_, p_227802_, p_227803_);
-				if (p_227799_.findCollisionPiece(boundingbox) == null) {
-					return boundingbox;
-				}
-			}
-
-			return null;
 		}
 
 		public void addChildren(StructurePiece p_227795_, StructurePieceAccessor p_227796_, RandomSource p_227797_) {
@@ -455,35 +422,6 @@ public class LushMineshaftPieces {
 			this.isTwoFloored = p_227830_.getYSpan() > 3;
 		}
 
-		@Nullable
-		public static BoundingBox findCrossing(StructurePieceAccessor p_227855_, RandomSource p_227856_, int p_227857_, int p_227858_, int p_227859_, Direction p_227860_) {
-			int i;
-			if (p_227856_.nextInt(4) == 0) {
-				i = 6;
-			} else {
-				i = 2;
-			}
-
-			BoundingBox boundingbox;
-			switch (p_227860_) {
-				case NORTH:
-				default:
-					boundingbox = new BoundingBox(-1, 0, -4, 3, i, 0);
-					break;
-				case SOUTH:
-					boundingbox = new BoundingBox(-1, 0, 0, 3, i, 4);
-					break;
-				case WEST:
-					boundingbox = new BoundingBox(-4, 0, -1, 0, i, 3);
-					break;
-				case EAST:
-					boundingbox = new BoundingBox(0, 0, -1, 4, i, 3);
-			}
-
-			boundingbox.move(p_227857_, p_227858_, p_227859_);
-			return p_227855_.findCollisionPiece(boundingbox) != null ? null : boundingbox;
-		}
-
 		public void addChildren(StructurePiece p_227851_, StructurePieceAccessor p_227852_, RandomSource p_227853_) {
 			int i = this.getGenDepth();
 			switch (this.direction) {
@@ -566,11 +504,11 @@ public class LushMineshaftPieces {
 		}
 	}
 
-	abstract static class MineShaftPiece extends StructurePiece {
+	abstract static class MineShaftPiece extends MineshaftPieces.MineShaftPiece {
 		public LushMineshaftStructure.Type type;
 
 		public MineShaftPiece(StructurePieceType p_227867_, int p_227868_, LushMineshaftStructure.Type p_227869_, BoundingBox p_227870_) {
-			super(p_227867_, p_227868_, p_227870_);
+			super(p_227867_, p_227868_, null, p_227870_);
 			this.type = p_227869_;
 		}
 
@@ -579,85 +517,15 @@ public class LushMineshaftPieces {
 			this.type = LushMineshaftStructure.Type.byId(p_227873_.getInt("MST"));
 		}
 
+		@Override
 		protected boolean canBeReplaced(LevelReader p_227885_, int p_227886_, int p_227887_, int p_227888_, BoundingBox p_227889_) {
 			BlockState blockstate = this.getBlock(p_227885_, p_227886_, p_227887_, p_227888_, p_227889_);
 			return !blockstate.is(this.type.getPlanksState().getBlock()) && !blockstate.is(this.type.getWoodState().getBlock()) && !blockstate.is(this.type.getFenceState().getBlock()) && !blockstate.is(Blocks.CHAIN);
 		}
 
+		@Override
 		protected void addAdditionalSaveData(StructurePieceSerializationContext p_227898_, CompoundTag p_227899_) {
 			p_227899_.putInt("MST", this.type.ordinal());
-		}
-
-		protected boolean isSupportingBox(BlockGetter p_227875_, BoundingBox p_227876_, int p_227877_, int p_227878_, int p_227879_, int p_227880_) {
-			for (int i = p_227877_; i <= p_227878_; ++i) {
-				if (this.getBlock(p_227875_, i, p_227879_ + 1, p_227880_, p_227876_).isAir()) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		protected boolean isInInvalidLocation(LevelAccessor p_227882_, BoundingBox p_227883_) {
-			int i = Math.max(this.boundingBox.minX() - 1, p_227883_.minX());
-			int j = Math.max(this.boundingBox.minY() - 1, p_227883_.minY());
-			int k = Math.max(this.boundingBox.minZ() - 1, p_227883_.minZ());
-			int l = Math.min(this.boundingBox.maxX() + 1, p_227883_.maxX());
-			int i1 = Math.min(this.boundingBox.maxY() + 1, p_227883_.maxY());
-			int j1 = Math.min(this.boundingBox.maxZ() + 1, p_227883_.maxZ());
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos((i + l) / 2, (j + i1) / 2, (k + j1) / 2);
-			if (p_227882_.getBiome(blockpos$mutableblockpos).is(BiomeTags.MINESHAFT_BLOCKING)) {
-				return true;
-			} else {
-				for (int k1 = i; k1 <= l; ++k1) {
-					for (int l1 = k; l1 <= j1; ++l1) {
-						if (p_227882_.getBlockState(blockpos$mutableblockpos.set(k1, j, l1)).liquid()) {
-							return true;
-						}
-
-						if (p_227882_.getBlockState(blockpos$mutableblockpos.set(k1, i1, l1)).liquid()) {
-							return true;
-						}
-					}
-				}
-
-				for (int i2 = i; i2 <= l; ++i2) {
-					for (int k2 = j; k2 <= i1; ++k2) {
-						if (p_227882_.getBlockState(blockpos$mutableblockpos.set(i2, k2, k)).liquid()) {
-							return true;
-						}
-
-						if (p_227882_.getBlockState(blockpos$mutableblockpos.set(i2, k2, j1)).liquid()) {
-							return true;
-						}
-					}
-				}
-
-				for (int j2 = k; j2 <= j1; ++j2) {
-					for (int l2 = j; l2 <= i1; ++l2) {
-						if (p_227882_.getBlockState(blockpos$mutableblockpos.set(i, l2, j2)).liquid()) {
-							return true;
-						}
-
-						if (p_227882_.getBlockState(blockpos$mutableblockpos.set(l, l2, j2)).liquid()) {
-							return true;
-						}
-					}
-				}
-
-				return false;
-			}
-		}
-
-		protected void setPlanksBlock(WorldGenLevel p_227891_, BoundingBox p_227892_, BlockState p_227893_, int p_227894_, int p_227895_, int p_227896_) {
-			if (this.isInterior(p_227891_, p_227894_, p_227895_, p_227896_, p_227892_)) {
-				BlockPos blockpos = this.getWorldPos(p_227894_, p_227895_, p_227896_);
-				BlockState blockstate = p_227891_.getBlockState(blockpos);
-				if (!blockstate.isFaceSturdy(p_227891_, blockpos, Direction.UP)) {
-					p_227891_.setBlock(blockpos, p_227893_, 2);
-				}
-
-			}
 		}
 	}
 
@@ -773,28 +641,6 @@ public class LushMineshaftPieces {
 
 		public MineShaftStairs(CompoundTag p_227937_) {
 			super(CCStructurePieceTypes.MINE_SHAFT_STAIRS.get(), p_227937_);
-		}
-
-		@Nullable
-		public static BoundingBox findStairs(StructurePieceAccessor p_227951_, RandomSource p_227952_, int p_227953_, int p_227954_, int p_227955_, Direction p_227956_) {
-			BoundingBox boundingbox;
-			switch (p_227956_) {
-				case NORTH:
-				default:
-					boundingbox = new BoundingBox(0, -5, -8, 2, 2, 0);
-					break;
-				case SOUTH:
-					boundingbox = new BoundingBox(0, -5, 0, 2, 2, 8);
-					break;
-				case WEST:
-					boundingbox = new BoundingBox(-8, -5, 0, 0, 2, 2);
-					break;
-				case EAST:
-					boundingbox = new BoundingBox(0, -5, 0, 8, 2, 2);
-			}
-
-			boundingbox.move(p_227953_, p_227954_, p_227955_);
-			return p_227951_.findCollisionPiece(boundingbox) != null ? null : boundingbox;
 		}
 
 		public void addChildren(StructurePiece p_227947_, StructurePieceAccessor p_227948_, RandomSource p_227949_) {
