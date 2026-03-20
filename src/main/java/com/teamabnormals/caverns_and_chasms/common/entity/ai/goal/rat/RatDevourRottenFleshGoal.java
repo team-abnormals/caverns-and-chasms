@@ -31,13 +31,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (this.rat.isSittingBecauseOrdered()) {
-			return false;
-		} else if (this.rat.isTame()) {
-			return false;
-		} else if (this.rat.getTamer() == null) {
-			return false;
-		} else if (this.rat.isPassenger()) {
+		if (this.rat.isSittingBecauseOrdered() || this.rat.isTame() || this.rat.isAngry() || this.rat.getTamer() == null || this.rat.isPassenger()) {
 			return false;
 		}
 
@@ -55,11 +49,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		if (this.rat.isSittingBecauseOrdered()) {
-			return false;
-		} else if (this.eatingTime >= 80) {
-			return false;
-		} else if (this.rat.isPassenger()) {
+		if (this.rat.isSittingBecauseOrdered() || this.eatingTime >= 80 || this.rat.isTame() || this.rat.isPassenger()) {
 			return false;
 		} else {
 			return this.tryTicks >= -this.maxStayTicks && this.tryTicks <= 1200 && this.rat.level().getBlockState(this.targetPos).is(CCBlocks.ROTTEN_FLESH_BLOCK.get());

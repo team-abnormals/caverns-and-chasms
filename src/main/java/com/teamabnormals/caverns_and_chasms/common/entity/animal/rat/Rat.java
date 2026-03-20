@@ -29,6 +29,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,6 +42,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
@@ -58,6 +62,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -67,13 +73,12 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant> {
+public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant>, NeutralMob {
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Boolean> TRUSTING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> SITTING_BECAUSE_ORDERED = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
@@ -82,11 +87,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private static final EntityDataAccessor<Float> ATTACH_HEIGHT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> FIRST_PERSON_POS = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.FLOAT);
 
+	private static final EntityDataAccessor<Integer> REMAINING_ANGER_TIME = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
+
 	private List<Rat> pack = Lists.newArrayList();
 
 	private BlockPos commandedPos;
 	private LivingEntity commandedTarget;
-	private boolean isTargetFromFlute;
 	private int commandedTargetOwnerTimestamp;
 
 	private Player tamer;
@@ -100,6 +106,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private float prevHostDeltaRot;
 	private int attachCooldown = 20;
 	private final float animTimeOffset = this.random.nextFloat() * 10F;
+
+	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+	private UUID persistentAngerTarget;
 
 	private boolean floatingInWater;
 
@@ -131,7 +140,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(18, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(0, new RatStopAttackingGoal(this));
 		this.targetSelector.addGoal(1, new RatAttackCommandedTargetGoal(this));
-		this.targetSelector.addGoal(2, (new RatHurtByTargetGoal(this)).setAlertOthers());
+		this.targetSelector.addGoal(2, new RatOwnerHurtByTargetGoal(this));
+		this.targetSelector.addGoal(3, new RatOwnerHurtTargetGoal(this));
+		this.targetSelector.addGoal(4, (new RatHurtByTargetGoal(this)).setAlertOthers());
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+		this.targetSelector.addGoal(6, new ResetUniversalAngerTargetGoal<>(this, true));
 	}
 
 	@Override
@@ -139,13 +152,13 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, CCRatVariants.BLUE.location().toString());
 		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
-		this.entityData.define(TRUSTING, false);
 		this.entityData.define(RUNNING_AWAY, false);
 		this.entityData.define(SITTING_BECAUSE_ORDERED, false);
 		this.entityData.define(EATING, false);
 		this.entityData.define(ATTACH_ANGLE, 0.0F);
 		this.entityData.define(ATTACH_HEIGHT, 0.0F);
 		this.entityData.define(FIRST_PERSON_POS, 0.0F);
+		this.entityData.define(REMAINING_ANGER_TIME, 0);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -161,7 +174,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean removeWhenFarAway(double distanceSqr) {
-		return !this.isTameOrTrusting();
+		return !this.isTame();
 	}
 
 	@Override
@@ -171,7 +184,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.getTarget() != null ? CCSoundEvents.RAT_ANGRY.get() : CCSoundEvents.RAT_AMBIENT.get();
+		return this.isAngry() ? CCSoundEvents.RAT_ANGRY.get() : CCSoundEvents.RAT_AMBIENT.get();
 	}
 
 	@Override
@@ -200,7 +213,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		super.addAdditionalSaveData(tag);
 		tag.putString("Variant", this.getStringVariant());
 		tag.putByte("CollarColor", (byte) this.getCollarColor().getId());
-		tag.putBoolean("Trusting", this.isTrusting());
 		if (this.isAttachedToEntity() && !(this.attachedEntity instanceof Player)) {
 			tag.put("Pos", this.newDoubleList(this.attachedEntity.getX(), this.attachedEntity.getY(), this.attachedEntity.getZ()));
 			tag.putUUID("AttachedUUID", this.attachedEntity.getUUID());
@@ -208,6 +220,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		tag.putFloat("AttachAngle", this.getAttachAngle());
 		tag.putFloat("AttachHeight", this.getAttachHeight());
 		tag.putFloat("FirstPersonPos", this.getFirstPersonPos());
+		this.addPersistentAngerSaveData(tag);
 	}
 
 	@Override
@@ -217,13 +230,13 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		if (tag.contains("CollarColor", 99)) {
 			this.setCollarColor(DyeColor.byId(tag.getInt("CollarColor")));
 		}
-		this.setTrusting(tag.getBoolean("Trusting"));
 		if (tag.hasUUID("AttachedUUID")) {
 			this.attachedEntityUUID = tag.getUUID("AttachedUUID");
 		}
 		this.setAttachAngle(tag.getFloat("AttachAngle"));
 		this.setAttachHeight(tag.getFloat("AttachHeight"));
 		this.setFirstPersonPos(tag.getFloat("FirstPersonPos"));
+		this.readPersistentAngerSaveData(this.level(), tag);
 	}
 
 	public String getStringVariant() {
@@ -254,14 +267,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void setCollarColor(DyeColor color) {
 		this.entityData.set(COLLAR_COLOR, color.getId());
-	}
-
-	public boolean isTrusting() {
-		return this.entityData.get(TRUSTING);
-	}
-
-	private void setTrusting(boolean trusting) {
-		this.entityData.set(TRUSTING, trusting);
 	}
 
 	public boolean isRunningAway() {
@@ -346,7 +351,15 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void detachFromEntity() {
 		if (this.isAttachedToEntity()) {
-			this.setPos(this.attachedEntity.getX(), this.getY(), this.attachedEntity.getZ());
+			float bbWidth = this.getBbWidth();
+			float bbHeight = this.getBbHeight();
+			double attachDist = this.getHorizontalAttachDist(this.attachedEntity);
+			double attachBbHeight = this.attachedEntity.getBbHeight();
+			double searchWidth = attachDist * 2.0D + 1.0E-6D;
+			double searchHeight = attachBbHeight + 1.0E-6D;
+
+			VoxelShape searchShape = Shapes.create(AABB.ofSize(this.attachedEntity.position().add(0.0D, attachBbHeight / 2.0D, 0.0D), searchWidth, searchHeight, searchWidth));
+			this.level().findFreePosition(this, searchShape, this.position(), bbWidth, bbHeight, bbWidth).ifPresent(this::setPos);
 			this.setDetachedFromEntity();
 			this.attachCooldown = 80;
 		}
@@ -361,13 +374,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void updateAttachedPosition() {
 		if (this.isAttachedToEntity()) {
-			Vec3 vec3 = (new Vec3(0.0D, this.attachedEntity.getBbHeight() * this.getAttachHeight(), 0.45D)).yRot(-(this.attachedEntity.yBodyRot + this.getAttachAngle()) * Mth.DEG_TO_RAD);
+			Vec3 vec3 = (new Vec3(0.0D, this.attachedEntity.getBbHeight() * this.getAttachHeight(), this.getHorizontalAttachDist(this.attachedEntity))).yRot(-(this.attachedEntity.yBodyRot + this.getAttachAngle()) * Mth.DEG_TO_RAD);
 			// TODO: Maybe this should use moveTo when the host teleports like passengers?
 			this.setPos(this.attachedEntity.position().add(vec3));
 			this.setYRot((float) (Mth.atan2(this.attachedEntity.getZ() - this.getZ(), this.attachedEntity.getX() - this.getX()) * Mth.RAD_TO_DEG - 90.0F));
 			this.yHeadRot = this.getYRot();
 			this.yBodyRot = this.getYRot();
 		}
+	}
+
+	public double getHorizontalAttachDist(LivingEntity entity) {
+		return entity.getBbWidth() / 2.0D + 0.15D;
 	}
 
 	public LivingEntity getAttachedEntity() {
@@ -502,17 +519,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					this.commandedTarget = null;
 				}
 
-				if (this.commandedTarget == null && this.isTame()) {
-					LivingEntity owner = this.getOwner();
-					if (owner != null) {
-						LivingEntity lastHurtByMob = owner.getLastHurtByMob();
-						LivingEntity lastHurtMob = owner.getLastHurtMob();
-						if (lastHurtByMob != null && owner.getLastHurtByMobTimestamp() > this.commandedTargetOwnerTimestamp) {
-							this.setCommandedTarget(lastHurtByMob, false);
-						} else if (lastHurtMob != null && owner.getLastHurtMobTimestamp() > this.commandedTargetOwnerTimestamp) {
-							this.setCommandedTarget(lastHurtMob, false);
-						}
-					}
+				LivingEntity owner = this.getOwner();
+				if (owner != null && owner.tickCount < this.commandedTargetOwnerTimestamp) {
+					this.commandedTargetOwnerTimestamp = owner.tickCount;
 				}
 
 				List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
@@ -540,6 +549,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		}
 
 		super.aiStep();
+
+		if (!this.level().isClientSide) {
+			this.updatePersistentAnger((ServerLevel) this.level(), true);
+		}
 	}
 
 	@Override
@@ -575,25 +588,30 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 				return interactionresult;
 			}
-		} else if ((this.isTrusting() || (this.getTarget() != player && !this.isRunningAway())) && itemstack.is(CCItemTags.RAT_TAME_ITEMS)) {
-			this.usePlayerItem(player, hand, itemstack);
+		} else if (!this.isAngry()) {
+			if (!this.isRunningAway() && itemstack.is(CCItemTags.RAT_TAME_ITEMS)) {
+				this.usePlayerItem(player, hand, itemstack);
 
-			if (!this.level().isClientSide) {
-				if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
-					this.tame(player);
-					this.navigation.stop();
-					this.setTarget(null);
-					this.setOrderedToSit(true);
-					this.level().broadcastEntityEvent(this, (byte) 7);
-				} else {
-					this.level().broadcastEntityEvent(this, (byte) 6);
+				if (!this.level().isClientSide) {
+					if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+						this.tame(player);
+						this.navigation.stop();
+						this.setTarget(null);
+						this.setCommandedTarget(null);
+						this.setOrderedToSit(true);
+						this.level().broadcastEntityEvent(this, (byte) 7);
+					} else {
+						this.level().broadcastEntityEvent(this, (byte) 6);
+					}
 				}
+
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			}
 
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return super.mobInteract(player, hand);
 		}
 
-		return super.mobInteract(player, hand);
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -625,10 +643,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.rottenFleshPos;
 	}
 
-	public boolean isTameOrTrusting() {
-		return this.isTrusting() || this.isTame();
-	}
-
 	// TODO: alliedTo stuff
 	public boolean isAdultOfSamePack(Rat rat) {
 		return !rat.isBaby() && rat.isAlive() && rat.getOwner() == this.getOwner();
@@ -647,9 +661,30 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return !this.isWounded() && (this.isTame() || (this.isBaby() ? this.pack.size() > 2 : this.pack.size() > 1));
 	}
 
+	// NeutralMob Stuff
 	@Override
-	public boolean canAttack(LivingEntity p_21822_) {
-		return this.isOwnedBy(p_21822_) ? false : super.canAttack(p_21822_);
+	public int getRemainingPersistentAngerTime() {
+		return this.entityData.get(REMAINING_ANGER_TIME);
+	}
+
+	@Override
+	public void setRemainingPersistentAngerTime(int time) {
+		this.entityData.set(REMAINING_ANGER_TIME, time);
+	}
+
+	@Override
+	public UUID getPersistentAngerTarget() {
+		return this.persistentAngerTarget;
+	}
+
+	@Override
+	public void setPersistentAngerTarget(UUID target) {
+		this.persistentAngerTarget = target;
+	}
+
+	@Override
+	public void startPersistentAngerTimer() {
+		this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
 	}
 
 	public boolean isWounded() {
@@ -659,7 +694,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public boolean isScaredOf(LivingEntity target) {
 		if (this.getOwner() == target)
 			return false;
-		else if (!this.isTameOrTrusting() && target instanceof Player)
+		else if (!this.isTame() && target instanceof Player)
 			return true;
 		else if (this.getLastHurtByMob() == target)
 			return true;
@@ -678,16 +713,20 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.commandedPos;
 	}
 
-	public void setCommandedTarget(LivingEntity target, boolean fromFlute) {
+	public void setCommandedTarget(LivingEntity target) {
 		this.commandedTarget = target;
-		this.isTargetFromFlute = fromFlute;
-		if (this.getOwner() != null) {
-			this.commandedTargetOwnerTimestamp = this.getOwner().tickCount;
+		LivingEntity owner = this.getOwner();
+		if (owner != null) {
+			this.commandedTargetOwnerTimestamp = owner.tickCount;
 		}
 	}
 
 	public LivingEntity getCommandedTarget() {
 		return this.commandedTarget;
+	}
+
+	public int getCommandedTargetOwnerTimestamp() {
+		return this.commandedTargetOwnerTimestamp;
 	}
 
 	@Override
@@ -867,7 +906,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	public void awardKillScore(Entity target, int deathScore, DamageSource damageSource) {
 		super.awardKillScore(target, deathScore, damageSource);
-		if (target == this.commandedTarget && this.isTargetFromFlute && this.getOwner() instanceof ServerPlayer serverPlayer) {
+		if (target == this.commandedTarget && this.getOwner() instanceof ServerPlayer serverPlayer) {
 			CCCriteriaTriggers.RAT_KILLED_ENTITY.trigger(serverPlayer, this, target, damageSource);
 		}
 	}
@@ -946,8 +985,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		Rat child = CCEntityTypes.RAT.get().create(level);
 		if (child != null && parent instanceof Rat rat) {
 			child.setVariant(this.random.nextBoolean() ? rat.getVariant() : this.getVariant());
-			if (this.isTameOrTrusting() || rat.isTameOrTrusting()) {
-				child.setTrusting(true);
+			if (this.isTame()) {
+				child.setOwnerUUID(this.getOwnerUUID());
+				child.setTame(true);
+				child.setCollarColor(this.random.nextBoolean() ? rat.getCollarColor() : this.getCollarColor());
 			}
 		}
 

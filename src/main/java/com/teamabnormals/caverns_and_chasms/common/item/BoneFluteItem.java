@@ -116,7 +116,7 @@ public class BoneFluteItem extends Item {
 				rat.setOrderedToSit(true);
 				rat.detachFromEntity();
 				rat.setTarget(null);
-				rat.setCommandedTarget(null, false);
+				rat.setCommandedTarget(null);
 				rat.setCommandedPos(null);
 			}
 		} else if (command == BoneFluteCommand.RECALL) {
@@ -124,7 +124,7 @@ public class BoneFluteItem extends Item {
 				rat.setOrderedToSit(false);
 				rat.detachFromEntity();
 				rat.setTarget(null);
-				rat.setCommandedTarget(null, false);
+				rat.setCommandedTarget(null);
 				rat.setCommandedPos(null);
 			}
 		} else if (command == BoneFluteCommand.MOVE) {
@@ -133,14 +133,14 @@ public class BoneFluteItem extends Item {
 				rat.setOrderedToSit(false);
 				rat.detachFromEntity();
 				rat.setTarget(null);
-				rat.setCommandedTarget(null, false);
+				rat.setCommandedTarget(null);
 				rat.setCommandedPos(pos);
 			}
 		} else if (command == BoneFluteCommand.ATTACK) {
 			LivingEntity target = (LivingEntity) ((EntityHitResult) hitResult).getEntity();
 			for (Rat rat : rats) {
 				rat.setOrderedToSit(false);
-				rat.setCommandedTarget(target, true);
+				rat.setCommandedTarget(target);
 				rat.setCommandedPos(null);
 			}
 		}

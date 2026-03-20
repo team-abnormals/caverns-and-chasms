@@ -15,7 +15,7 @@ public class RatTemptGoal extends TemptGoal {
 
 	@Override
 	public boolean canUse() {
-		return !this.rat.isSittingBecauseOrdered() && this.rat.isTameOrTrusting() && super.canUse();
+		return !this.rat.isSittingBecauseOrdered() && this.rat.isTame() && super.canUse();
 	}
 
 	@Override
