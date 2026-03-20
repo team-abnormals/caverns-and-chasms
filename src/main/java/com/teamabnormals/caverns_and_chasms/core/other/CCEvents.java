@@ -7,6 +7,7 @@ import com.teamabnormals.blueprint.core.util.TradeUtil;
 import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem.Oxidation;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
@@ -56,18 +57,19 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Spider;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
@@ -378,22 +380,6 @@ public class CCEvents {
 							currentPos.set(nextPos);
 						}
 					}
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void onLivingUpdate(LivingTickEvent event) {
-		LivingEntity entity = event.getEntity();
-		Level level = entity.level();
-		for (EquipmentSlot slot : EquipmentSlot.values()) {
-			ItemStack stack = entity.getItemBySlot(slot);
-			if (stack.getItem() instanceof WeatheringCopperItem item) {
-				boolean armor = slot.isArmor() && (item instanceof HorseArmorItem || item instanceof ArmorItem);
-				boolean tool = !slot.isArmor() && item instanceof TieredItem;
-				if (armor || tool) {
-					item.updateOxidation(stack, level);
 				}
 			}
 		}
@@ -841,6 +827,17 @@ public class CCEvents {
 		LivingEntity entity = event.getEntity();
 		Level level = entity.level();
 
+		for (EquipmentSlot slot : EquipmentSlot.values()) {
+			ItemStack stack = entity.getItemBySlot(slot);
+			if (stack.getItem() instanceof WeatheringCopperItem item) {
+				boolean armor = slot.isArmor() && (item instanceof HorseArmorItem || item instanceof ArmorItem);
+				boolean tool = !slot.isArmor() && item instanceof TieredItem;
+				if (armor || tool) {
+					item.updateOxidation(stack, level);
+				}
+			}
+		}
+
 		if (entity instanceof Player player) {
 			IDataManager data = (IDataManager) entity;
 			if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
@@ -898,6 +895,11 @@ public class CCEvents {
 			if (!entity.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
 				accessor.invokeUpdateInvisibilityStatus();
 			}
+		}
+
+		if (!level.isClientSide && entity instanceof Mob mob && mob.getTarget() instanceof Rat rat && rat.isWounded() && mob.getLastHurtByMob() != null && mob.getLastHurtByMob() != rat) {
+			mob.setTarget(null);
+			mob.targetSelector.getRunningGoals().filter(wrappedGoal -> wrappedGoal.goal instanceof HurtByTargetGoal).findFirst().ifPresent(Goal::stop);
 		}
 	}
 

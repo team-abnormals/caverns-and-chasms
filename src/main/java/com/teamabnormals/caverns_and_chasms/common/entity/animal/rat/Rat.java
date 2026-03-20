@@ -752,7 +752,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean canBeSeenAsEnemy() {
-		return !this.isWounded() && !this.isAttachedToEntity() && super.canBeSeenAsEnemy();
+		return !this.isAttachedToEntity() && super.canBeSeenAsEnemy();
 	}
 
 	@Override
