@@ -75,6 +75,12 @@
     ],
     "subtitle": "subtitles.block.note_block.note"
   },
+  "block.halt_rail.halt": {
+    "sounds": [
+      "caverns_and_chasms:block/halt_rail/halt"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.halt"
+  },
   "block.rocky_dirt.break": {
     "sounds": [
       "caverns_and_chasms:block/rocky_dirt/place1",
