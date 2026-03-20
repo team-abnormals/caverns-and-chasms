@@ -375,7 +375,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public void updateAttachedPosition() {
 		if (this.isAttachedToEntity()) {
 			Vec3 vec3 = (new Vec3(0.0D, this.attachedEntity.getBbHeight() * this.getAttachHeight(), this.getHorizontalAttachDist(this.attachedEntity))).yRot(-(this.attachedEntity.yBodyRot + this.getAttachAngle()) * Mth.DEG_TO_RAD);
-			// TODO: Maybe this should use moveTo when the host teleports like passengers?
+			// Maybe this should use moveTo when the host teleports like with passengers?
 			this.setPos(this.attachedEntity.position().add(vec3));
 			this.setYRot((float) (Mth.atan2(this.attachedEntity.getZ() - this.getZ(), this.attachedEntity.getX() - this.getX()) * Mth.RAD_TO_DEG - 90.0F));
 			this.yHeadRot = this.getYRot();
@@ -489,6 +489,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					if (!(this.attachedEntity instanceof Player))
 						this.attachedEntity.swing(InteractionHand.MAIN_HAND);
 					this.attachedEntity.setLastHurtByMob(this);
+					this.setDeltaMovement(new Vec3(0.0D, 0.3D, 0.4D).yRot(-(this.attachedEntity.yBodyRot + this.getAttachAngle()) * Mth.DEG_TO_RAD));
 					this.detachFromEntity();
 				}
 			} else if (this.attachedEntityUUID != null) {
