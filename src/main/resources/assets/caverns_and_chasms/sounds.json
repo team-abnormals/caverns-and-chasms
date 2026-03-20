@@ -3120,7 +3120,10 @@
   },
   "block.atoning_table.whispers": {
     "sounds": [
-      "caverns_and_chasms:block/atoning_table/whispers1"
+      {
+        "name": "caverns_and_chasms:block/atoning_table/whispers1",
+        "attenuation_distance": 5
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.atoning_table.whispers"
   },
