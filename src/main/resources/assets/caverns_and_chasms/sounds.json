@@ -778,27 +778,32 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/brazier/crackle1",
-        "volume": 0.1,
+        "volume": 0.075,
+        "attenuation_distance": 8,
         "pitch": 0.9
       },
       {
         "name": "caverns_and_chasms:block/brazier/crackle2",
-        "volume": 0.1,
+        "volume": 0.075,
+        "attenuation_distance": 8,
         "pitch": 0.9
       },
       {
         "name": "caverns_and_chasms:block/brazier/crackle3",
-        "volume": 0.1,
+        "volume": 0.075,
+        "attenuation_distance": 8,
         "pitch": 0.9
       },
       {
         "name": "caverns_and_chasms:block/brazier/crackle4",
-        "volume": 0.1,
+        "volume": 0.075,
+        "attenuation_distance": 8,
         "pitch": 0.9
       },
       {
         "name": "caverns_and_chasms:block/brazier/crackle5",
-        "volume": 0.1,
+        "volume": 0.075,
+        "attenuation_distance": 8,
         "pitch": 0.9
       }
     ],
@@ -3250,6 +3255,7 @@
   "block.tin_button.hold": {
     "sounds": [
       {
+        "attenuation_distance": 3,
         "name": "caverns_and_chasms:block/hold_button/held",
         "volume": 0.3
 	  } 
@@ -3279,6 +3285,7 @@
   "block.tin_pressure_plate.hold": {
     "sounds": [
       {
+        "attenuation_distance": 3,
         "name": "caverns_and_chasms:block/hold_plate/held",
         "volume": 0.3
 	  } 
@@ -3287,19 +3294,28 @@
   },
   "block.dimmer.buzz": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/buzz"
+      {
+        "attenuation_distance": 8,
+        "name": "caverns_and_chasms:block/dimmer/buzz"
+	  } 
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.dimmer.buzz"
   },
   "block.resistor.buzz": {
     "sounds": [
-      "caverns_and_chasms:block/redstone_resistor/buzz"
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:block/redstone_resistor/buzz"
+	  } 
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.resistor.buzz"
   },
   "block.resistor.toggle": {
     "sounds": [
-      "caverns_and_chasms:block/redstone_resistor/toggle"
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:block/redstone_resistor/toggle"
+	  } 
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.resistor.toggle"
   },
