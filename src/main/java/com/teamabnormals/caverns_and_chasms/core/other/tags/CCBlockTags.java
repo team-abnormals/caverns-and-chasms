@@ -17,6 +17,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> AZALEA_LOGS = blockTag("azalea_logs");
 	public static final TagKey<Block> CAVE_GROWTHS = blockTag("cave_growths");
 	public static final TagKey<Block> COPPER_RAILS = blockTag("copper_rails");
+	public static final TagKey<Block> FLOODLIGHTS = blockTag("floodlights");
 	public static final TagKey<Block> DEFLECTS_PROJECTILES = blockTag("deflects_projectiles");
 	public static final TagKey<Block> WEAKER_DEFLECT_VELOCITY = blockTag("weaker_deflect_velocity");
 	public static final TagKey<Block> MAINTAINS_DEFLECT_VELOCITY = blockTag("maintains_deflect_velocity");

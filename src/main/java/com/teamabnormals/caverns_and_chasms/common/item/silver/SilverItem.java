@@ -3,18 +3,25 @@ package com.teamabnormals.caverns_and_chasms.common.item.silver;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SilverItem {
 
-	public static void causeMagicDamageParticles(LivingEntity target) {
+	public static void causeMagicDamageEffects(LivingEntity attacker, LivingEntity target) {
 		causeMagicParticles(target, false);
+		if (attacker != null) {
+			attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), CCSoundEvents.SILVER_STRIKE.get(), attacker.getSoundSource(), 1.0F, 1.0F);
+		} else {
+			target.level().playSound(null, target.getX(), target.getY(), target.getZ(), CCSoundEvents.SILVER_STRIKE.get(), target.getSoundSource(), 1.0F, 1.0F);
+		}
 	}
 
-	public static void causeMagicProtectionParticles(LivingEntity defender) {
+	public static void causeMagicProtectionEffects(LivingEntity defender) {
 		causeMagicParticles(defender, true);
+		defender.level().playSound(null, defender.getX(), defender.getY(), defender.getZ(), CCSoundEvents.SILVER_RESIST.get(), defender.getSoundSource(), 1.0F, 1.0F);
 	}
 
 	public static void causeMagicParticles(LivingEntity entity, boolean defensive) {

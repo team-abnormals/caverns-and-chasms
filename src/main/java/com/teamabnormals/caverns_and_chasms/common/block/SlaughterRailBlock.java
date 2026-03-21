@@ -28,7 +28,7 @@ public class SlaughterRailBlock extends BaseRailBlock {
 		cart.getPassengers().forEach((entity) -> {
 			if (state.getValue(POWERED) && entity instanceof LivingEntity target) {
 				if (target.hurt(CCDamageTypes.spikedRail(level), 5.0F)) {
-					SilverItem.causeMagicDamageParticles(target);
+					SilverItem.causeMagicDamageEffects(null, target);
 				}
 			}
 		});

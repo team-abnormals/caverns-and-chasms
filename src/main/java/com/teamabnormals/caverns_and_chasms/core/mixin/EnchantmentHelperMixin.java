@@ -34,7 +34,7 @@ public abstract class EnchantmentHelperMixin {
 				}
 				livingTarget.invulnerableTime = 0;
 				livingTarget.hurt(livingTarget.damageSources().magic(), magicDamage);
-				SilverItem.causeMagicDamageParticles(livingTarget);
+				SilverItem.causeMagicDamageEffects(attacker, livingTarget);
 			}
 
 			Collection<AttributeModifier> slownessModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.SLOWNESS_INFLICTION.get());

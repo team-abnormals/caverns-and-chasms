@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -145,13 +146,17 @@ public class FlintBlock extends BlueprintFallingBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (level.random.nextFloat() < 0.4) {
+		if (random.nextFloat() < 0.4) {
 			BlockPos blockpos = pos.below();
 			if (isFree(level.getBlockState(blockpos))) {
 				double d0 = pos.getX() + random.nextDouble();
 				double d1 = pos.getY() + 0.7;
 				double d2 = pos.getZ() + random.nextDouble();
 				level.addParticle(CCParticleTypes.FLINT.get(), d0, d1, d2, 0.0, 0.0, 0.0);
+
+				if (random.nextInt(50) == 0) {
+					level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.FLINT_BLOCK_RATTLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
+				}
 			}
 		}
 	}

@@ -7,7 +7,6 @@ import com.teamabnormals.blueprint.core.util.TradeUtil;
 import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem.Oxidation;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
@@ -58,18 +57,19 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
@@ -95,7 +95,6 @@ import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -528,7 +527,7 @@ public class CCEvents {
 
 			if (magicProtection > 0.0F) {
 				event.setAmount(event.getAmount() - event.getAmount() * magicProtection);
-				SilverItem.causeMagicProtectionParticles(target);
+				SilverItem.causeMagicProtectionEffects(target);
 			}
 		}
 
@@ -568,7 +567,7 @@ public class CCEvents {
 
 			if (lifeStealAmount > 0.0F) {
 				attacker.heal(lifeStealAmount * event.getAmount());
-				SanguineArmorItem.causeHealParticles(attacker, lifeStealAmount);
+				SanguineArmorItem.causeHealEffects(attacker, lifeStealAmount);
 			}
 
 			if (slownessInfliction > 0.0F) {
@@ -934,6 +933,11 @@ public class CCEvents {
 			for (Rat rat : ((RatHolder) entity).getAttachedRats()) {
 				rat.loosenGrip(15F);
 			}
+		}
+
+		BlockPos affectMovementPos = entity.getBlockPosBelowThatAffectsMyMovement();
+		if (level.getBlockState(affectMovementPos).getBlock() instanceof BouncerBlock) {
+			level.playSound(null, affectMovementPos, CCSoundEvents.BOUNCER_BOOST.get(), SoundSource.BLOCKS);
 		}
 	}
 

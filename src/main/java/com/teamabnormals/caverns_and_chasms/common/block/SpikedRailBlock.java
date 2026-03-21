@@ -25,7 +25,7 @@ public class SpikedRailBlock extends PoweredRailBlock {
 				double d1 = Math.abs(entity.getZ() - entity.zOld);
 				if (d0 >= 0.003F || d1 >= 0.003F) {
 					if (living.hurt(CCDamageTypes.spikedRail(level), 1.0F)) {
-						SilverItem.causeMagicDamageParticles(living);
+						SilverItem.causeMagicDamageEffects(null, living);
 					}
 				}
 			}
