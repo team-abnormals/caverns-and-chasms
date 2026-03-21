@@ -2,6 +2,10 @@ package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.network.*;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteAttackMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteMoveMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteRecallMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteSitMessage;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
@@ -165,11 +169,16 @@ public class CavernsAndChasms {
 	}
 
 	private void setupMessages() {
-		CHANNEL.registerMessage(0, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(1, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(2, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(3, S2CUpdateAttachedRatsMessage.class, S2CUpdateAttachedRatsMessage::serialize, S2CUpdateAttachedRatsMessage::deserialize, S2CUpdateAttachedRatsMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(4, C2SGrazerJumpMessage.class, C2SGrazerJumpMessage::serialize, C2SGrazerJumpMessage::deserialize, C2SGrazerJumpMessage::handle);
+		int id = -1;
+		CHANNEL.registerMessage(id++, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(id++, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(id++, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(id++, S2CUpdateAttachedRatsMessage.class, S2CUpdateAttachedRatsMessage::serialize, S2CUpdateAttachedRatsMessage::deserialize, S2CUpdateAttachedRatsMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(id++, C2SGrazerJumpMessage.class, C2SGrazerJumpMessage::serialize, C2SGrazerJumpMessage::deserialize, C2SGrazerJumpMessage::handle);
+		CHANNEL.registerMessage(id++, C2SBoneFluteSitMessage.class, C2SBoneFluteSitMessage::serialize, C2SBoneFluteSitMessage::deserialize, C2SBoneFluteSitMessage::handle);
+		CHANNEL.registerMessage(id++, C2SBoneFluteRecallMessage.class, C2SBoneFluteRecallMessage::serialize, C2SBoneFluteRecallMessage::deserialize, C2SBoneFluteRecallMessage::handle);
+		CHANNEL.registerMessage(id++, C2SBoneFluteMoveMessage.class, C2SBoneFluteMoveMessage::serialize, C2SBoneFluteMoveMessage::deserialize, C2SBoneFluteMoveMessage::handle);
+		CHANNEL.registerMessage(id++, C2SBoneFluteAttackMessage.class, C2SBoneFluteAttackMessage::serialize, C2SBoneFluteAttackMessage::deserialize, C2SBoneFluteAttackMessage::handle);
 	}
 
 	public static ResourceLocation location(String path) {

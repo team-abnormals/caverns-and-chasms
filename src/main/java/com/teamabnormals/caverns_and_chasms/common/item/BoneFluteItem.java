@@ -2,6 +2,12 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteAttackMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteMoveMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteRecallMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteSitMessage;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.LocalPlayer;
@@ -30,14 +36,13 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.joml.Matrix3f;
 import org.joml.Vector3f;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class BoneFluteItem extends Item {
-	private static final double MAX_SEND_DIST = 64.0D;
-	private static final double RAT_RANGE = 128.0D;
+	public static final double MAX_SEND_DIST = 64.0D;
+	public static final double RAT_RANGE = 128.0D;
 
 	public BoneFluteItem(Properties properties) {
 		super(properties);
@@ -47,18 +52,14 @@ public class BoneFluteItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		HitResult hitResult = getHitResult(player);
-		BoneFluteCommand command = getCommand(player, hitResult);
-		if (command != null) {
-			player.startUsingItem(hand);
-			level.playSound(player, player, command.getSound(), SoundSource.RECORDS, 3.0F, 1.0F);
-			level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
-			executeCommand(command, level, player, hitResult);
-			player.getCooldowns().addCooldown(this, 20);
-			player.awardStat(Stats.ITEM_USED.get(this));
-			return InteractionResultHolder.consume(stack);
-		} else {
-			return InteractionResultHolder.pass(stack);
+		player.startUsingItem(hand);
+		level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
+		if (level.isClientSide) {
+			broadcastCommand(getCommand(player, hitResult), hitResult);
 		}
+		player.getCooldowns().addCooldown(this, 20);
+		player.awardStat(Stats.ITEM_USED.get(this));
+		return InteractionResultHolder.consume(stack);
 	}
 
 	@Override
@@ -108,41 +109,17 @@ public class BoneFluteItem extends Item {
 		return 32;
 	}
 
-	private static void executeCommand(BoneFluteCommand command, Level level, Player player, HitResult hitResult) {
-		List<Rat> rats = level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(RAT_RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= RAT_RANGE * RAT_RANGE);
-
+	private static void broadcastCommand(BoneFluteCommand command, HitResult hitResult) {
 		if (command == BoneFluteCommand.SIT) {
-			for (Rat rat : rats) {
-				rat.setOrderedToSit(true);
-				rat.detachFromEntity();
-				rat.setTarget(null);
-				rat.setCommandedTarget(null);
-				rat.setCommandedPos(null);
-			}
+			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteSitMessage());
 		} else if (command == BoneFluteCommand.RECALL) {
-			for (Rat rat : rats) {
-				rat.setOrderedToSit(false);
-				rat.detachFromEntity();
-				rat.setTarget(null);
-				rat.setCommandedTarget(null);
-				rat.setCommandedPos(null);
-			}
+			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteRecallMessage());
 		} else if (command == BoneFluteCommand.MOVE) {
 			BlockPos pos = hitResult.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) hitResult).getBlockPos() : BlockPos.containing(hitResult.getLocation());
-			for (Rat rat : rats) {
-				rat.setOrderedToSit(false);
-				rat.detachFromEntity();
-				rat.setTarget(null);
-				rat.setCommandedTarget(null);
-				rat.setCommandedPos(pos);
-			}
+			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteMoveMessage(pos));
 		} else if (command == BoneFluteCommand.ATTACK) {
 			LivingEntity target = (LivingEntity) ((EntityHitResult) hitResult).getEntity();
-			for (Rat rat : rats) {
-				rat.setOrderedToSit(false);
-				rat.setCommandedTarget(target);
-				rat.setCommandedPos(null);
-			}
+			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteAttackMessage(target));
 		}
 	}
 
