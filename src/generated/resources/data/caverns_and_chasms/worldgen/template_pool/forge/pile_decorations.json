@@ -126,7 +126,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/pile_decorations/candle_1",
+        "location": "caverns_and_chasms:forge/pile_decorations/sparkler_1",
         "processors": {
           "processors": []
         },
@@ -137,29 +137,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/pile_decorations/candle_2",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/pile_decorations/candle_3",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
-      },
-      "weight": 4
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "caverns_and_chasms:forge/pile_decorations/candle_4",
+        "location": "caverns_and_chasms:forge/pile_decorations/sparkler_2",
         "processors": {
           "processors": []
         },

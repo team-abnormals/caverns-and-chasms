@@ -958,27 +958,27 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/bouncer/break1",
-        "volume": 0.3
+        "volume": 0.4
       },
       {
         "name": "caverns_and_chasms:block/bouncer/break2",
-        "volume": 0.3
+        "volume": 0.4
       },
       {
         "name": "caverns_and_chasms:block/bouncer/break3",
-        "volume": 0.3
+        "volume": 0.4
       },
       {
         "name": "caverns_and_chasms:block/bouncer/break4",
-        "volume": 0.3
+        "volume": 0.4
       },
       {
         "name": "caverns_and_chasms:block/bouncer/break5",
-        "volume": 0.3
+        "volume": 0.4
       },
       {
         "name": "caverns_and_chasms:block/bouncer/break6",
-        "volume": 0.3
+        "volume": 0.4
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
@@ -987,18 +987,22 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/bouncer/bounce1",
+        "volume": 0.5,
         "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/bouncer/bounce2",
+        "volume": 0.5,
         "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/bouncer/bounce3",
+        "volume": 0.5,
         "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/bouncer/bounce4",
+        "volume": 0.5,
         "attenuation_distance": 6
       }
     ],
@@ -1265,14 +1269,46 @@
   },
   "block.flint_block.rattle": {
     "sounds": [
-      "caverns_and_chasms:block/flint_block/rattle1",
-      "caverns_and_chasms:block/flint_block/rattle2",
-      "caverns_and_chasms:block/flint_block/rattle3",
-      "caverns_and_chasms:block/flint_block/rattle4",
-      "caverns_and_chasms:block/flint_block/rattle5",
-      "caverns_and_chasms:block/flint_block/rattle6",
-      "caverns_and_chasms:block/flint_block/rattle7",
-      "caverns_and_chasms:block/flint_block/rattle8"
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle1",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle2",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle3",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle4",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle5",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle6",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle7",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/flint_block/rattle8",
+        "volume": 0.1,
+        "attenuation_distance": 6
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.flint_block.rattle"
   },
@@ -4263,8 +4299,16 @@
   },
   "entity.kunai.throw": {
     "sounds": [
-      "caverns_and_chasms:entity/kunai/throw1",
-      "caverns_and_chasms:entity/kunai/throw2"
+	  {
+        "name": "caverns_and_chasms:entity/kunai/throw1",
+        "volume": 0.3,
+        "pitch": 0.5
+      },
+	  {
+        "name": "caverns_and_chasms:entity/kunai/throw2",
+        "volume": 0.3,
+        "pitch": 0.5
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.kunai.throw"
   },

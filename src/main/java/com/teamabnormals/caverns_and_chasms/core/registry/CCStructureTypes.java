@@ -145,7 +145,7 @@ public class CCStructureTypes {
 		public static final List<Entry> ARCHAEOLOGY = List.of(of("gravel_pile", 32));
 		public static final List<Entry> DECORATIONS = List.of(of("oak_platform", 8), of("oak_shelf", 2), of("tnt_pile", 3));
 		public static final List<Entry> SMALL_DECORATIONS = List.of(of("empty", 1, 22), of("cauldron", 1), of("furnace", 1), of("blast_furnace", 1), of("damaged_anvil", 1), of("dimmer", 1), of("dimmer_scaffolding", 1), of("anvil", 1), of("tnt", 2), of("tnt_scaffolding", 2), of("water_cauldron", 3), of("scaffolding", 4));
-		public static final List<Entry> PILE_DECORATIONS = List.of(of("empty", 1, 150), of("empty", 1, 150), of("empty", 1, 150), of("empty", 1, 150), of("stone_button", 1, 60), of("mushroom", 2, 3), of("cave_growths", 6, 1), of("candle", 4, 4), of("coal", 4, 5), of("charcoal", 4, 4), of("toolbox", 1, 8));
+		public static final List<Entry> PILE_DECORATIONS = List.of(of("empty", 1, 150), of("empty", 1, 150), of("empty", 1, 150), of("empty", 1, 150), of("stone_button", 1, 60), of("mushroom", 2, 3), of("cave_growths", 6, 1), of("sparkler", 2, 4), of("coal", 4, 5), of("charcoal", 4, 4), of("toolbox", 1, 8));
 
 		public static final ResourceKey<StructureTemplatePool> VAULT = createKey("vault");
 		public static final ResourceKey<StructureTemplatePool> VAULT_PILES = createKey("vault/piles");
