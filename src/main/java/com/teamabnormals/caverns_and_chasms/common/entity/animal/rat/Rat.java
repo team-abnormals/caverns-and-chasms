@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.blueprint.client.ClientInfo;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -13,6 +14,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -446,7 +449,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean isPickable() {
-		return !this.isAttachedToEntity();
+		LocalPlayer localPlayer = ClientInfo.getClientPlayer();
+		if (localPlayer != null && this.attachedEntity == localPlayer) {
+			return false;
+		}
+		return super.isPickable();
 	}
 
 	public void loosenGrip(float amount) {
