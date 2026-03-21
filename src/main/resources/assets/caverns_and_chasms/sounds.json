@@ -767,10 +767,22 @@
   },
   "block.bouncer.boost": {
     "sounds": [
-      "caverns_and_chasms:block/bouncer/bounce1",
-      "caverns_and_chasms:block/bouncer/bounce2",
-      "caverns_and_chasms:block/bouncer/bounce3",
-      "caverns_and_chasms:block/bouncer/bounce4"
+      {
+        "name": "caverns_and_chasms:block/bouncer/bounce1",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/bouncer/bounce2",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/bouncer/bounce3",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/bouncer/bounce4",
+        "attenuation_distance": 6
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.bouncer.boost"
   },
@@ -811,10 +823,22 @@
   },
   "block.sparkler.sparkle": {
     "sounds": [
-      "caverns_and_chasms:block/sparkler/sparkle1",
-      "caverns_and_chasms:block/sparkler/sparkle2",
-      "caverns_and_chasms:block/sparkler/sparkle3",
-      "caverns_and_chasms:block/sparkler/sparkle4"
+      {
+        "name": "caverns_and_chasms:block/sparkler/sparkle1",
+        "attenuation_distance": 8
+      },
+      {
+        "name": "caverns_and_chasms:block/sparkler/sparkle2",
+        "attenuation_distance": 8
+      },
+      {
+        "name": "caverns_and_chasms:block/sparkler/sparkle3",
+        "attenuation_distance": 8
+      },
+      {
+        "name": "caverns_and_chasms:block/sparkler/sparkle4",
+        "attenuation_distance": 8
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.sparkler.sparkle"
   },
@@ -822,28 +846,33 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:block/sparkler/fizzle1",
-        "volume": 0.2,
-        "pitch": 0.9
+        "volume": 0.3,
+        "pitch": 0.9,
+        "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/sparkler/fizzle2",
-        "volume": 0.2,
-        "pitch": 0.9
+        "volume": 0.3,
+        "pitch": 0.9,
+        "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/sparkler/fizzle3",
-        "volume": 0.2,
-        "pitch": 0.9
+        "volume": 0.3,
+        "pitch": 0.9,
+        "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/sparkler/fizzle4",
-        "volume": 0.2,
-        "pitch": 0.9
+        "volume": 0.3,
+        "pitch": 0.9,
+        "attenuation_distance": 6
       },
       {
         "name": "caverns_and_chasms:block/sparkler/fizzle5",
-        "volume": 0.2,
-        "pitch": 0.9
+        "volume": 0.3,
+        "pitch": 0.9,
+        "attenuation_distance": 6
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.sparkler.fizzle"
@@ -3562,10 +3591,22 @@
   },
   "entity.glare.ambient": {
     "sounds": [
-      "caverns_and_chasms:mob/glare/ambient1",
-      "caverns_and_chasms:mob/glare/ambient2",
-      "caverns_and_chasms:mob/glare/ambient3",
-      "caverns_and_chasms:mob/glare/ambient4"
+      {
+        "name": "caverns_and_chasms:mob/glare/ambient1",
+        "attenuation_distance": 12
+      },
+      {
+        "name": "caverns_and_chasms:mob/glare/ambient2",
+        "attenuation_distance": 12
+      },
+      {
+        "name": "caverns_and_chasms:mob/glare/ambient3",
+        "attenuation_distance": 12
+      },
+      {
+        "name": "caverns_and_chasms:mob/glare/ambient4",
+        "attenuation_distance": 12
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.glare.ambient"
   },
@@ -4057,7 +4098,10 @@
   },
   "item.bejeweled_pearl.crumble": {
     "sounds": [
-      "caverns_and_chasms:item/bejeweled_pearl/crumble"
+	  {
+        "name": "caverns_and_chasms:item/bejeweled_pearl/crumble",
+        "attenuation_distance": 3
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bejeweled_pearl.crumble"
   },
