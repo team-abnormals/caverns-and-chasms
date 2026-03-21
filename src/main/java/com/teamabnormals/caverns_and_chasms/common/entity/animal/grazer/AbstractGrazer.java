@@ -677,7 +677,7 @@ public abstract class AbstractGrazer extends Animal {
 							double d1 = this.random.nextGaussian() * 0.05D;
 							double d2 = 0.3D + this.random.nextGaussian() * 0.05D;
 							double d3 = this.random.nextGaussian() * 0.05D;
-							NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), collpoint.x, collpoint.y, collpoint.z, d1, d2, d3);
+							NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), collpoint.x, collpoint.y, collpoint.z, d1, d2, d3);
 						}
 					}
 				} else {
@@ -769,7 +769,7 @@ public abstract class AbstractGrazer extends Animal {
 					double d4 = vec3.x + vec31.x * d7 + this.random.nextGaussian() * 0.2D;
 					double d5 = vec3.y + vec31.y + this.random.nextGaussian() * 0.2D;
 					double d6 = vec3.z + vec31.z * d7 + this.random.nextGaussian() * 0.2D;
-					NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), d4, d5, d6, d1, d2, d3);
+					NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), d4, d5, d6, d1, d2, d3);
 				}
 			}
 		}

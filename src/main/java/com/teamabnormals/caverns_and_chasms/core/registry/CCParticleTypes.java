@@ -41,7 +41,7 @@ public class CCParticleTypes {
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_STAR = registerSimpleParticleType(true, "spinel_boom_star");
 	public static final RegistryObject<SimpleParticleType> SPINEL_BOOM_EMITTER = registerSimpleParticleType(true, "spinel_boom_emitter");
 	public static final RegistryObject<SimpleParticleType> GOLEM_NOTE = registerSimpleParticleType(true, "golem_note");
-	public static final RegistryObject<SimpleParticleType> SPARK = registerSimpleParticleType(false, "spark");
+	public static final RegistryObject<SimpleParticleType> TIN_SPARK = registerSimpleParticleType(false, "tin_spark");
 	public static final RegistryObject<SimpleParticleType> FLINT = registerSimpleParticleType(false, "flint");
 	public static final RegistryObject<SimpleParticleType> TURQUOISE_BLUE = registerSimpleParticleType(false, "turquoise_blue");
 	public static final RegistryObject<SimpleParticleType> TURQUOISE_GREEN = registerSimpleParticleType(false, "turquoise_green");
@@ -103,7 +103,7 @@ public class CCParticleTypes {
 			event.registerSpriteSet(SPINEL_BOOM_STAR.get(), HugeExplosionParticle.Provider::new);
 			event.registerSpecial(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());
 			event.registerSpriteSet(GOLEM_NOTE.get(), GolemNoteParticle.Provider::new);
-			event.registerSpriteSet(SPARK.get(), SparkParticle.Provider::new);
+			event.registerSpriteSet(TIN_SPARK.get(), TinSparkParticle.Provider::new);
 			event.registerSpriteSet(FLINT.get(), FlintParticle.Provider::new);
 			event.registerSpriteSet(TURQUOISE_BLUE.get(), TurquoiseParticle.Provider::new);
 			event.registerSpriteSet(TURQUOISE_GREEN.get(), TurquoiseParticle.Provider::new);

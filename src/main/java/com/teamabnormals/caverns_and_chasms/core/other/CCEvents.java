@@ -949,9 +949,9 @@ public class CCEvents {
 			double d2 = normalizedMovement.y * 0.2D + random.nextGaussian() * 0.05D;
 			double d3 = normalizedMovement.z * 0.2D + random.nextGaussian() * 0.05D;
 			if (fromServer)
-				NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), location.x, location.y, location.z, d1, d2, d3);
+				NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), location.x, location.y, location.z, d1, d2, d3);
 			else
-				level.addParticle(CCParticleTypes.SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
+				level.addParticle(CCParticleTypes.TIN_SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
 		}
 	}
 

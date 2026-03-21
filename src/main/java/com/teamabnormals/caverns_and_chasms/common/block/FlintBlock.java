@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -88,7 +87,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 					double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
 					double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
 
-					NetworkUtil.spawnParticle(CCParticleTypes.SPARK.getId().toString(), d0, d1, d2, d3, d4, d5);
+					NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), d0, d1, d2, d3, d4, d5);
 				}
 				for (int m = 0; m < (!grazing ? 25 : 10); ++m) {
 					double d0 = pos.getX() + level.random.nextDouble() * 0.8D;

@@ -11,8 +11,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
-public class SparkParticle extends SimpleAnimatedParticle {
-	protected SparkParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
+public class TinSparkParticle extends SimpleAnimatedParticle {
+	protected TinSparkParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
 		super(level, x, y, z, spriteSet, 0.1F);
 		this.xd = xSpeed;
 		this.yd = ySpeed;
@@ -52,7 +52,7 @@ public class SparkParticle extends SimpleAnimatedParticle {
 		}
 
 		public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-			SparkParticle particle = new SparkParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
+			TinSparkParticle particle = new TinSparkParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
 			particle.pickSprite(this.sprites);
 			return particle;
 		}
