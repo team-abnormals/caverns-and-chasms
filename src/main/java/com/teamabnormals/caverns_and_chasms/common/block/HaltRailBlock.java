@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
@@ -11,7 +10,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.Vec3;
 
 public class HaltRailBlock extends BaseRailBlock {
 	public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;
@@ -26,24 +24,6 @@ public class HaltRailBlock extends BaseRailBlock {
 	@Override
 	public Property<RailShape> getShapeProperty() {
 		return SHAPE;
-	}
-
-	@Override
-	public void onMinecartPass(BlockState state, Level level, BlockPos pos, AbstractMinecart cart) {
-		super.onMinecartPass(state, level, pos, cart);
-		boolean top = state.getValue(TOP_POWERED);
-		boolean bottom = state.getValue(BOTTOM_POWERED);
-
-		Direction direction = switch (state.getValue(SHAPE)) {
-			case EAST_WEST, ASCENDING_WEST, ASCENDING_EAST -> Direction.WEST;
-			default -> Direction.SOUTH;
-		};
-
-		Direction motion = cart.getMotionDirection();
-
-		if (top && motion.equals(direction) || bottom && motion.equals(direction.getOpposite())) {
-			cart.setDeltaMovement(Vec3.ZERO);
-		}
 	}
 
 	@Override
