@@ -252,6 +252,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> REFRACTOR_PLACE = HELPER.createSoundEvent("block.refractor.place");
 	public static final RegistryObject<SoundEvent> REFRACTOR_STEP = HELPER.createSoundEvent("block.refractor.step");
 	public static final RegistryObject<SoundEvent> REFRACTOR_DEFLECT = HELPER.createSoundEvent("block.refractor.deflect");
+	public static final RegistryObject<SoundEvent> REFRACTOR_REFRACT = HELPER.createSoundEvent("block.refractor.refract");
 
 	public static final RegistryObject<SoundEvent> BOUNCER_BREAK = HELPER.createSoundEvent("block.bouncer.break");
 	public static final RegistryObject<SoundEvent> BOUNCER_FALL = HELPER.createSoundEvent("block.bouncer.fall");
