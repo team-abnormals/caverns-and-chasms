@@ -321,54 +321,54 @@
   },
   "block.refractor.break": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/break1",
-      "caverns_and_chasms:block/dimmer/break2",
-      "caverns_and_chasms:block/dimmer/break3",
-      "caverns_and_chasms:block/dimmer/break4"
+      "caverns_and_chasms:block/refractor/step1",
+      "caverns_and_chasms:block/refractor/step2",
+      "caverns_and_chasms:block/refractor/step3",
+      "caverns_and_chasms:block/refractor/step4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.refractor.fall": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/break1",
-      "caverns_and_chasms:block/dimmer/break2",
-      "caverns_and_chasms:block/dimmer/break3",
-      "caverns_and_chasms:block/dimmer/break4"
+      "caverns_and_chasms:block/refractor/step1",
+      "caverns_and_chasms:block/refractor/step2",
+      "caverns_and_chasms:block/refractor/step3",
+      "caverns_and_chasms:block/refractor/step4"
     ]
   },
   "block.refractor.hit": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/break1",
-      "caverns_and_chasms:block/dimmer/break2",
-      "caverns_and_chasms:block/dimmer/break3",
-      "caverns_and_chasms:block/dimmer/break4"
+      "caverns_and_chasms:block/refractor/step1",
+      "caverns_and_chasms:block/refractor/step2",
+      "caverns_and_chasms:block/refractor/step3",
+      "caverns_and_chasms:block/refractor/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.refractor.place": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/break1",
-      "caverns_and_chasms:block/dimmer/break2",
-      "caverns_and_chasms:block/dimmer/break3",
-      "caverns_and_chasms:block/dimmer/break4"
+      "caverns_and_chasms:block/refractor/step1",
+      "caverns_and_chasms:block/refractor/step2",
+      "caverns_and_chasms:block/refractor/step3",
+      "caverns_and_chasms:block/refractor/step4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.refractor.step": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/step1",
-      "caverns_and_chasms:block/dimmer/step2",
-      "caverns_and_chasms:block/dimmer/step3",
-      "caverns_and_chasms:block/dimmer/step4"
+      "caverns_and_chasms:block/refractor/step1",
+      "caverns_and_chasms:block/refractor/step2",
+      "caverns_and_chasms:block/refractor/step3",
+      "caverns_and_chasms:block/refractor/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.refractor.deflect": {
     "sounds": [
-      "caverns_and_chasms:block/dimmer/break1",
-      "caverns_and_chasms:block/dimmer/break2",
-      "caverns_and_chasms:block/dimmer/break3",
-      "caverns_and_chasms:block/dimmer/break4"
+      "caverns_and_chasms:block/refractor/step1",
+      "caverns_and_chasms:block/refractor/step2",
+      "caverns_and_chasms:block/refractor/step3",
+      "caverns_and_chasms:block/refractor/step4"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
@@ -1815,33 +1815,54 @@
   },
   "block.storage_duct_hatch.close": {
     "sounds": [
-      "caverns_and_chasms:block/storage_duct_hatch/close"
+      {
+        "attenuation_distance": 12,
+        "name": "caverns_and_chasms:block/storage_duct_hatch/close"
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.storage_duct_hatch.close"
   },
   "block.storage_duct_hatch.open": {
     "sounds": [
-      "caverns_and_chasms:block/storage_duct_hatch/open"
+      {
+        "attenuation_distance": 12,
+        "name": "caverns_and_chasms:block/storage_duct_hatch/open"
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.storage_duct_hatch.open"
   },
   "block.toolbox.close": {
     "sounds": [
-      "caverns_and_chasms:block/toolbox/close1",
-      "caverns_and_chasms:block/toolbox/close2",
-      "caverns_and_chasms:block/toolbox/close3"
+      {
+        "attenuation_distance": 10,
+        "name": "caverns_and_chasms:block/toolbox/close1"
+      },
+      {
+        "attenuation_distance": 10,
+        "name": "caverns_and_chasms:block/toolbox/close2"
+      },
+      {
+        "attenuation_distance": 10,
+        "name": "caverns_and_chasms:block/toolbox/close3"
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.toolbox.close"
   },
   "block.toolbox.open": {
     "sounds": [
-      "caverns_and_chasms:block/toolbox/open"
+      {
+        "attenuation_distance": 10,
+        "name": "caverns_and_chasms:block/toolbox/open"
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.toolbox.open"
   },
   "block.hoop.score": {
     "sounds": [
-      "caverns_and_chasms:block/hoop/score"
+      {
+        "attenuation_distance": 32,
+        "name": "caverns_and_chasms:block/hoop/score"
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.hoop.score"
   },
@@ -2778,16 +2799,46 @@
   },
   "block.lava_lamp.glug": {
     "sounds": [
-      "caverns_and_chasms:block/lava_lamp/glug1",
-      "caverns_and_chasms:block/lava_lamp/glug2",
-      "caverns_and_chasms:block/lava_lamp/glug3",
-      "caverns_and_chasms:block/lava_lamp/glug4",
-      "caverns_and_chasms:block/lava_lamp/glug5",
-      "caverns_and_chasms:block/lava_lamp/glug6",
-      "caverns_and_chasms:block/lava_lamp/glug7",
-      "caverns_and_chasms:block/lava_lamp/glug8",
-      "caverns_and_chasms:block/lava_lamp/glug9",
-      "caverns_and_chasms:block/lava_lamp/glug10"
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug1",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug2",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug3",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug4",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug5",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug6",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug7",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug8",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug9",
+        "attenuation_distance": 6
+      },
+      {
+        "name": "caverns_and_chasms:block/lava_lamp/glug10",
+        "attenuation_distance": 6
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.lava_lamp.glug"
   },
@@ -3568,6 +3619,19 @@
 	  } 
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.resistor.toggle"
+  },
+  "block.refractor.refract": {
+    "sounds": [
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:block/refractor/refract1"
+	  }, 
+      {
+        "attenuation_distance": 6,
+        "name": "caverns_and_chasms:block/refractor/refract2"
+	  }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.refractor.refract"
   },
   "block.winch.wind": {
     "sounds": [
