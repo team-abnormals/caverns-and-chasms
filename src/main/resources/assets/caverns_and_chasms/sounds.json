@@ -213,6 +213,50 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.magmatic_rhyolite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/magmatic_rhyolite/break1",
+      "caverns_and_chasms:block/magmatic_rhyolite/break2",
+      "caverns_and_chasms:block/magmatic_rhyolite/break3",
+      "caverns_and_chasms:block/magmatic_rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.magmatic_rhyolite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/magmatic_rhyolite/step1",
+      "caverns_and_chasms:block/magmatic_rhyolite/step2",
+      "caverns_and_chasms:block/magmatic_rhyolite/step3",
+      "caverns_and_chasms:block/magmatic_rhyolite/step4"
+    ]
+  },
+  "block.magmatic_rhyolite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/magmatic_rhyolite/step1",
+      "caverns_and_chasms:block/magmatic_rhyolite/step2",
+      "caverns_and_chasms:block/magmatic_rhyolite/step3",
+      "caverns_and_chasms:block/magmatic_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.magmatic_rhyolite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/magmatic_rhyolite/break1",
+      "caverns_and_chasms:block/magmatic_rhyolite/break2",
+      "caverns_and_chasms:block/magmatic_rhyolite/break3",
+      "caverns_and_chasms:block/magmatic_rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.magmatic_rhyolite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/magmatic_rhyolite/step1",
+      "caverns_and_chasms:block/magmatic_rhyolite/step2",
+      "caverns_and_chasms:block/magmatic_rhyolite/step3",
+      "caverns_and_chasms:block/magmatic_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.cassiterite.break": {
     "sounds": [
       "caverns_and_chasms:block/cassiterite/break1",
@@ -2280,45 +2324,105 @@
   },
   "block.polished_dripstone.break": {
     "sounds": [
-      "caverns_and_chasms:block/polished_dripstone/break1",
-      "caverns_and_chasms:block/polished_dripstone/break2",
-      "caverns_and_chasms:block/polished_dripstone/break3",
-      "caverns_and_chasms:block/polished_dripstone/break4"
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break1",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break2",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break3",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break4",
+        "volume": 0.6
+      }
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.polished_dripstone.fall": {
     "sounds": [
-      "caverns_and_chasms:block/polished_dripstone/step1",
-      "caverns_and_chasms:block/polished_dripstone/step2",
-      "caverns_and_chasms:block/polished_dripstone/step3",
-      "caverns_and_chasms:block/polished_dripstone/step4"
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step1",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step2",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step3",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step4",
+        "volume": 0.6
+      }
     ]
   },
   "block.polished_dripstone.hit": {
     "sounds": [
-      "caverns_and_chasms:block/polished_dripstone/step1",
-      "caverns_and_chasms:block/polished_dripstone/step2",
-      "caverns_and_chasms:block/polished_dripstone/step3",
-      "caverns_and_chasms:block/polished_dripstone/step4"
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step1",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step2",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step3",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step4",
+        "volume": 0.6
+      }
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.polished_dripstone.place": {
     "sounds": [
-      "caverns_and_chasms:block/polished_dripstone/break1",
-      "caverns_and_chasms:block/polished_dripstone/break2",
-      "caverns_and_chasms:block/polished_dripstone/break3",
-      "caverns_and_chasms:block/polished_dripstone/break4"
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break1",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break2",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break3",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/break4",
+        "volume": 0.6
+      }
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.polished_dripstone.step": {
     "sounds": [
-      "caverns_and_chasms:block/polished_dripstone/step1",
-      "caverns_and_chasms:block/polished_dripstone/step2",
-      "caverns_and_chasms:block/polished_dripstone/step3",
-      "caverns_and_chasms:block/polished_dripstone/step4"
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step1",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step2",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step3",
+        "volume": 0.6
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_dripstone/step4",
+        "volume": 0.6
+      }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

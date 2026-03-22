@@ -51,6 +51,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> RHYOLITE_HIT = HELPER.createSoundEvent("block.rhyolite.hit");
 	public static final RegistryObject<SoundEvent> RHYOLITE_PLACE = HELPER.createSoundEvent("block.rhyolite.place");
 	public static final RegistryObject<SoundEvent> RHYOLITE_STEP = HELPER.createSoundEvent("block.rhyolite.step");
+	
+	public static final RegistryObject<SoundEvent> MAGMATIC_RHYOLITE_BREAK = HELPER.createSoundEvent("block.magmatic_rhyolite.break");
+	public static final RegistryObject<SoundEvent> MAGMATIC_RHYOLITE_FALL = HELPER.createSoundEvent("block.magmatic_rhyolite.fall");
+	public static final RegistryObject<SoundEvent> MAGMATIC_RHYOLITE_HIT = HELPER.createSoundEvent("block.magmatic_rhyolite.hit");
+	public static final RegistryObject<SoundEvent> MAGMATIC_RHYOLITE_PLACE = HELPER.createSoundEvent("block.magmatic_rhyolite.place");
+	public static final RegistryObject<SoundEvent> MAGMATIC_RHYOLITE_STEP = HELPER.createSoundEvent("block.magmatic_rhyolite.step");
 
 	public static final RegistryObject<SoundEvent> CASSITERITE_BREAK = HELPER.createSoundEvent("block.cassiterite.break");
 	public static final RegistryObject<SoundEvent> CASSITERITE_FALL = HELPER.createSoundEvent("block.cassiterite.fall");
@@ -538,6 +544,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType FRAGILE_DEEPSLATE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_DEEPSLATE_BREAK, FRAGILE_DEEPSLATE_STEP, FRAGILE_DEEPSLATE_PLACE, FRAGILE_DEEPSLATE_HIT, FRAGILE_DEEPSLATE_FALL);
 		public static final ForgeSoundType CHARCOAL = new ForgeSoundType(1.0F, 1.0F, CHARCOAL_BREAK, CHARCOAL_STEP, CHARCOAL_PLACE, CHARCOAL_HIT, CHARCOAL_FALL);
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
+		public static final ForgeSoundType MAGMATIC_RHYOLITE = new ForgeSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BREAK, MAGMATIC_RHYOLITE_STEP, MAGMATIC_RHYOLITE_PLACE, MAGMATIC_RHYOLITE_HIT, MAGMATIC_RHYOLITE_FALL);
 		public static final ForgeSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);
 		public static final ForgeSoundType FLINT_BLOCK = new ForgeSoundType(1.0F, 1.0F, FLINT_BLOCK_BREAK, FLINT_BLOCK_STEP, FLINT_BLOCK_PLACE, FLINT_BLOCK_HIT, FLINT_BLOCK_FALL);
 		public static final ForgeSoundType SOUL_SILVER_ORE = new ForgeSoundType(1.0F, 1.0F, SOUL_SILVER_ORE_BREAK, SOUL_SILVER_ORE_STEP, SOUL_SILVER_ORE_PLACE, SOUL_SILVER_ORE_HIT, SOUL_SILVER_ORE_FALL);
