@@ -4416,10 +4416,6 @@
       {
         "name": "caverns_and_chasms:mob/rat/happy2",
         "volume": 2
-      },
-      {
-        "name": "caverns_and_chasms:mob/rat/happy3",
-        "volume": 2
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.happy"
