@@ -18,7 +18,7 @@ public class RatRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
 
 	@Override
 	public boolean canUse() {
-		return !this.rat.isSittingBecauseOrdered() && super.canUse();
+		return !this.rat.isSittingBecauseOrdered() && (!this.rat.isWounded() || this.rat.getRandom().nextInt(3) == 0) && super.canUse();
 	}
 
 	@Override
