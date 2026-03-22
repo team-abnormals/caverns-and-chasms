@@ -34,6 +34,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RatModel extends AgeableListModel<Rat> {
+	public final ModelPart root;
 	public final ModelPart head;
 	public final ModelPart leftEar;
 	public final ModelPart rightEar;
@@ -43,6 +44,7 @@ public class RatModel extends AgeableListModel<Rat> {
 	public final ModelPart leftHindLeg;
 	public final ModelPart rightFrontLeg;
 	public final ModelPart rightHindLeg;
+
 	public RatPose pose;
 	private float tailWagAmount;
 	private boolean eating;
@@ -51,6 +53,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 	public RatModel(ModelPart root) {
 		super(false, 5.0F, 2.0F);
+		this.root = root;
 		this.head = root.getChild("head");
 		this.leftEar = root.getChild("left_ear");
 		this.rightEar = root.getChild("right_ear");
@@ -116,27 +119,27 @@ public class RatModel extends AgeableListModel<Rat> {
 	}
 
 	public void renderFromTag(CompoundTag compound, Level level, LivingEntity entity, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean hasowner = compound.hasUUID("Owner");
-		boolean isbaby = compound.getInt("Age") < 0;
+		boolean hasOwner = compound.hasUUID("Owner");
+		boolean isBaby = compound.getInt("Age") < 0;
 		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(compound.getString("Variant")));
-		ItemStack heldstack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
+		ItemStack heldStack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
 		float health = compound.getFloat("Health");
 		boolean dirty = compound.getBoolean("Dirty");
 
-		this.young = isbaby;
-		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) getAttributeValue(compound, Attributes.MAX_HEALTH), hasowner);
+		this.young = isBaby;
+		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) getAttributeValue(compound, Attributes.MAX_HEALTH));
 		this.eating = false;
 		this.wounded = health <= Rat.WOUNDED_THRESHOLD;
 		this.shakeAnim = 0.0F;
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-		VertexConsumer vertexconsumer = buffer.getBuffer(this.renderType(variant.getTexture(this.wounded, dirty)));
-		this.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-		if (hasowner) {
-			DyeColor collarcolor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
-			RatCollarLayer.renderCollar(this, poseStack, buffer, packedLight, collarcolor, 0, 0);
+		VertexConsumer vertexConsumer = buffer.getBuffer(this.renderType(variant.getTexture(this.wounded, dirty)));
+		this.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		if (hasOwner) {
+			DyeColor collarColor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
+			RatCollarLayer.renderCollar(this, poseStack, buffer, packedLight, collarColor, 0, 0);
 		}
-		RatHeldItemLayer.renderItem(null, this, itemInHandRenderer, poseStack, buffer, packedLight, entity, isbaby, heldstack, netHeadYaw, headPitch);
+		RatHeldItemLayer.renderItem(null, this, itemInHandRenderer, poseStack, buffer, packedLight, entity, isBaby, heldStack, netHeadYaw, headPitch);
 	}
 
 	@Override
@@ -145,8 +148,9 @@ public class RatModel extends AgeableListModel<Rat> {
 	}
 
 	public void setupAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+
 		this.tail.yRot = -this.tailWagAmount * 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.tail.zRot = 0.0F;
 
 		if (this.pose == RatPose.SITTING) {
 			this.head.setPos(0.0F, !this.young ? 15.0F : 14.0F, !this.young ? 0.5F : -1.5F);
@@ -155,17 +159,12 @@ public class RatModel extends AgeableListModel<Rat> {
 			this.tail.setPos(0.0F, 23.0F, 2.5F);
 		} else {
 			this.head.setPos(0.0F, !this.young ? 21.0F : 17.5F, -3.0F);
-			this.body.setPos(0.0F, 21.0F, -3.0F);
-			this.body.xRot = 0.0F;
-			this.tail.setPos(0.0F, 21.0F, 5.0F);
 		}
 
 		if (this.pose == RatPose.ON_SHOULDER) {
 			this.tail.xRot = -1.0F;
-		} else if (this.wounded) {
+		} else if (this.pose == RatPose.STANDING && this.wounded) {
 			this.tail.xRot = -0.25F;
-		} else {
-			this.tail.xRot = 0.0F;
 		}
 
 		if (this.pose == RatPose.ATTACHED) {
@@ -175,7 +174,6 @@ public class RatModel extends AgeableListModel<Rat> {
 		} else {
 			this.head.xRot = headPitch * Mth.DEG_TO_RAD;
 			this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-			this.body.zRot = 0.0F;
 
 			if (this.eating) {
 				this.head.xRot += 0.4F + 0.05F * Mth.cos(ageInTicks * 1.5F);
@@ -185,13 +183,15 @@ public class RatModel extends AgeableListModel<Rat> {
 			if (this.wounded) {
 				this.head.xRot += 0.25F + 0.1F * Mth.sin(ageInTicks * 0.1F);
 				this.head.zRot = 0.3F;
-			} else {
-				this.head.zRot = 0.0F;
 			}
 
 			if (this.shakeAnim > 0.0F) {
 				this.head.zRot += getShake(this.shakeAnim, 0.0F);
-				this.body.zRot += getShake(this.shakeAnim, 1.0F);
+				if (this.pose == RatPose.SITTING) {
+					this.body.yRot += getShake(this.shakeAnim, 1.0F);
+				} else {
+					this.body.zRot += getShake(this.shakeAnim, 1.0F);
+				}
 				this.tail.zRot += getShake(this.shakeAnim, 2.0F);
 			}
 		}
@@ -259,6 +259,10 @@ public class RatModel extends AgeableListModel<Rat> {
 		this.wounded = rat.isVisuallyWounded();
 		this.shakeAnim = rat.getShakeAnim(partialTick);
 		super.prepareMobModel(rat, limbSwing, limbSwingAmount, partialTick);
+	}
+
+	public ModelPart root() {
+		return this.root;
 	}
 
 	@OnlyIn(Dist.CLIENT)

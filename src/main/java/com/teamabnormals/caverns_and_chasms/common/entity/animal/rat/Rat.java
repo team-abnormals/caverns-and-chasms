@@ -118,6 +118,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private final float animTimeOffset = this.random.nextFloat() * 10F;
 
 	private int shakeAnim;
+	private boolean wasWounded;
 
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 	private UUID persistentAngerTarget;
@@ -566,12 +567,16 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					--this.attachCooldown;
 
 				if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
-					boolean wasWounded = this.isWounded();
 					this.heal(1.0F);
-					if (!this.isWounded() && wasWounded) {
-						this.level().broadcastEntityEvent(this, (byte) 8);
-					}
 				}
+
+				boolean wounded = this.isWounded();
+
+				if (this.wasWounded && !wounded) {
+					this.level().broadcastEntityEvent(this, (byte) 8);
+				}
+
+				this.wasWounded = wounded;
 
 				if (this.commandedTarget != null && !this.commandedTarget.isAlive()) {
 					this.commandedTarget = null;
@@ -863,16 +868,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public float getTailWagAmount() {
-		return calculateTailWagAmount(this.getHealth(), this.getMaxHealth(), this.isTame());
+		return calculateTailWagAmount(this.getHealth(), this.getMaxHealth());
 	}
 
-	public static float calculateTailWagAmount(float health, float maxHealth, boolean isTame) {
-		if (isTame) {
-			float f = Mth.clamp(1.0F - (maxHealth - health) / maxHealth, 0.0F, 1.0F);
-			return f * 1.5F;
-		} else {
-			return 1.5F;
-		}
+	public static float calculateTailWagAmount(float health, float maxHealth) {
+		float f = Mth.clamp(1.0F - (maxHealth - health) / (maxHealth - 1.0F), 0.0F, 1.0F);
+		return f * 1.5F;
 	}
 
 	@OnlyIn(Dist.CLIENT)
