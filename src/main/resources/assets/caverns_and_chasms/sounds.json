@@ -4411,15 +4411,15 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/happy1",
-        "volume": 1.8
+        "volume": 2
       },
       {
         "name": "caverns_and_chasms:mob/rat/happy2",
-        "volume": 1.8
+        "volume": 2
       },
       {
         "name": "caverns_and_chasms:mob/rat/happy3",
-        "volume": 1.8
+        "volume": 2
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.happy"
@@ -4462,14 +4462,17 @@
     "sounds": [
       {
         "name": "mob/fox/spit1",
+        "pitch": 1.1,
         "volume": 0.7
       },
       {
         "name": "mob/fox/spit2",
+        "pitch": 1.1,
         "volume": 0.7
       },
       {
         "name": "mob/fox/spit3",
+        "pitch": 1.1,
         "volume": 0.7
       }
     ],
