@@ -1,3 +1,13 @@
 {
-  "asset_id": "caverns_and_chasms:entity/rat/white_rat"
+  "assets": {
+    "hurt": "caverns_and_chasms:entity/rat/white_rat_hurt",
+    "normal": "caverns_and_chasms:entity/rat/white_rat"
+  },
+  "description": {
+    "translate": "rat_variant.caverns_and_chasms.white"
+  },
+  "dirty_assets": {
+    "hurt": "caverns_and_chasms:entity/rat/white_rat_hurt_dirty",
+    "normal": "caverns_and_chasms:entity/rat/white_rat_dirty"
+  }
 }

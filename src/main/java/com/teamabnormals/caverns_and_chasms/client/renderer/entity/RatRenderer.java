@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.teamabnormals.caverns_and_chasms.client.model.RatModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatAngryEyesLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCollarLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatEarsLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
@@ -21,13 +22,14 @@ public class RatRenderer extends MobRenderer<Rat, RatModel> {
 	public RatRenderer(EntityRendererProvider.Context context) {
 		super(context, new RatModel(context.bakeLayer(CCModelLayers.RAT)), 0.3F);
 		this.addLayer(new RatEarsLayer(this));
+		this.addLayer(new RatAngryEyesLayer(this));
 		this.addLayer(new RatCollarLayer(this));
 		this.addLayer(new RatHeldItemLayer(this, context.getItemInHandRenderer()));
 	}
 
 	@Override
 	public ResourceLocation getTextureLocation(Rat rat) {
-		return rat.getVariant().texture().withPrefix("textures/").withSuffix(".png");
+		return rat.getVariant().getTexture(rat.isWounded(), rat.isDirty());
 	}
 
 	@Override

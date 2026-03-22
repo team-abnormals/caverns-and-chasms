@@ -43,6 +43,7 @@ public class RatHeldItemLayer extends RenderLayer<Rat, RatModel> {
 			poseStack.translate(2.0F / 16.0F, -1.0D / 16.0F, -1.5D / 16.0F);
 		} else {
 			poseStack.translate(model.head.x / 16.0F, model.head.y / 16.0F, model.head.z / 16.0F);
+			poseStack.mulPose(Axis.ZP.rotation(model.head.zRot));
 			poseStack.mulPose(Axis.YP.rotation(model.head.yRot));
 			poseStack.mulPose(Axis.XP.rotation(model.head.xRot));
 			poseStack.translate(0.0F, 0.08D, -0.4D);

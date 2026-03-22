@@ -91,7 +91,12 @@ public class RatDevourRottenFleshGoal extends Goal {
 				}
 			} else {
 				this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, random.nextFloat() * 0.1F + 0.9F);
+
 				this.rat.tame(this.rat.getTamer());
+				this.rat.setTarget(null);
+				this.rat.setCommandedTarget(null);
+				this.rat.setDirty(false);
+
 				if (!this.rat.level().isClientSide()) {
 					for (int i = 0; i < 4; ++i) {
 						double d0 = random.nextGaussian() * 0.02D;

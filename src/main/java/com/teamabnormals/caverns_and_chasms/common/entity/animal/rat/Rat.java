@@ -14,7 +14,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -41,6 +40,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -77,11 +78,16 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant>, NeutralMob {
+	public static final float WOUNDED_THRESHOLD = 1.0F;
+
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
+	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(UUID.fromString("5317A396-A13A-4019-92EA-F2BBB84769E2"), "Wounded speed reduction", -0.35D, AttributeModifier.Operation.MULTIPLY_BASE);
+
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> DIRTY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> RUNNING_AWAY = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> SITTING_BECAUSE_ORDERED = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> EATING = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.BOOLEAN);
@@ -155,6 +161,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, CCRatVariants.BLUE.location().toString());
 		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
+		this.entityData.define(DIRTY, false);
 		this.entityData.define(RUNNING_AWAY, false);
 		this.entityData.define(SITTING_BECAUSE_ORDERED, false);
 		this.entityData.define(EATING, false);
@@ -216,6 +223,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		super.addAdditionalSaveData(tag);
 		tag.putString("Variant", this.getStringVariant());
 		tag.putByte("CollarColor", (byte) this.getCollarColor().getId());
+		tag.putBoolean("Dirty", this.isDirty());
 		if (this.isAttachedToEntity() && !(this.attachedEntity instanceof Player)) {
 			tag.put("Pos", this.newDoubleList(this.attachedEntity.getX(), this.attachedEntity.getY(), this.attachedEntity.getZ()));
 			tag.putUUID("AttachedUUID", this.attachedEntity.getUUID());
@@ -230,6 +238,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
 		this.setStringVariant(tag.getString("Variant"));
+		this.setDirty(tag.getBoolean("Dirty"));
 		if (tag.contains("CollarColor", 99)) {
 			this.setCollarColor(DyeColor.byId(tag.getInt("CollarColor")));
 		}
@@ -270,6 +279,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void setCollarColor(DyeColor color) {
 		this.entityData.set(COLLAR_COLOR, color.getId());
+	}
+
+	public boolean isDirty() {
+		return this.entityData.get(DIRTY);
+	}
+
+	public void setDirty(boolean dirty) {
+		this.entityData.set(DIRTY, dirty);
 	}
 
 	public boolean isRunningAway() {
@@ -456,6 +473,23 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return super.isPickable();
 	}
 
+	@Override
+	public boolean startRiding(Entity entity, boolean p_19967_) {
+		return !this.isAttachedToEntity() && super.startRiding(entity, p_19967_);
+	}
+
+	@Override
+	public void setHealth(float health) {
+		super.setHealth(health);
+		AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+		if (attributeinstance != null) {
+			attributeinstance.removeModifier(SPEED_MODIFIER_WOUNDED);
+			if (this.isWounded()) {
+				attributeinstance.addTransientModifier(SPEED_MODIFIER_WOUNDED);
+			}
+		}
+	}
+
 	public void loosenGrip(float amount) {
 		this.grip -= amount;
 	}
@@ -607,6 +641,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 						this.setTarget(null);
 						this.setCommandedTarget(null);
 						this.setOrderedToSit(true);
+						this.setDirty(false);
 						this.level().broadcastEntityEvent(this, (byte) 7);
 					} else {
 						this.level().broadcastEntityEvent(this, (byte) 6);
@@ -696,17 +731,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public boolean isWounded() {
-		return this.getHealth() <= 1.0F;
+		return this.getHealth() <= WOUNDED_THRESHOLD;
 	}
 
-	public boolean isScaredOf(LivingEntity target) {
-		if (this.getOwner() == target)
+	public boolean isScaredOf(LivingEntity entity) {
+		if (this.getOwner() == entity)
 			return false;
-		else if (!this.isTame() && target instanceof Player)
+		else if (!this.isTame() && entity instanceof Player)
 			return true;
-		else if (this.getLastHurtByMob() == target)
+		else if (this.getLastHurtByMob() == entity)
 			return true;
-		else if (target instanceof Mob mob && mob.getTarget() == this)
+		else if (entity instanceof Mob mob && mob.getTarget() == this)
 			return true;
 		else
 			return false;
@@ -1019,6 +1054,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag dataTag) {
 		groupData = super.finalizeSpawn(level, difficulty, spawnType, groupData, dataTag);
 		this.setVariant(RatVariant.getSpawnVariant(level.registryAccess(), this.random).value());
+		this.setDirty(this.random.nextBoolean());
 		this.populateDefaultEquipmentSlots(this.random, difficulty);
 		return super.finalizeSpawn(level, difficulty, spawnType, groupData, dataTag);
 	}

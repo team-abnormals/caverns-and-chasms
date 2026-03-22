@@ -16,24 +16,23 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RatCollarLayer extends RenderLayer<Rat, RatModel> {
-	private static final ResourceLocation RAT_COLLAR_LOCATION = CavernsAndChasms.location("textures/entity/rat/rat_collar.png");
+public class RatAngryEyesLayer extends RenderLayer<Rat, RatModel> {
+	private static final ResourceLocation ANGRY_EYES_LOCATION = CavernsAndChasms.location("textures/entity/rat/rat_angry_eyes.png");
 
-	public RatCollarLayer(RenderLayerParent<Rat, RatModel> renderer) {
+	public RatAngryEyesLayer(RenderLayerParent<Rat, RatModel> renderer) {
 		super(renderer);
 	}
 
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (rat.isTame() && !rat.isInvisible()) {
-			renderCollar(this.getParentModel(), poseStack, buffer, packedLight, rat.getCollarColor(), rat.hurtTime, rat.deathTime);
+		if (rat.isAngry() && !rat.isTame() && !rat.isInvisible()) {
+			renderAngryEyes(this.getParentModel(), poseStack, buffer, packedLight, rat.hurtTime, rat.deathTime);
 		}
 	}
 
-	public static void renderCollar(RatModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, DyeColor collarColor, int hurtTime, int deathTime) {
-		float[] afloat = collarColor.getTextureDiffuseColors();
+	public static void renderAngryEyes(RatModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int hurtTime, int deathTime) {
 		int overlaycoords = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(hurtTime > 0 || deathTime > 0));
-		VertexConsumer ivertexbuilder = buffer.getBuffer(RenderType.entityCutoutNoCull(RAT_COLLAR_LOCATION));
-		model.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlaycoords, afloat[0], afloat[1], afloat[2], 1.0F);
+		VertexConsumer ivertexbuilder = buffer.getBuffer(RenderType.entityCutoutNoCull(ANGRY_EYES_LOCATION));
+		model.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlaycoords, 1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

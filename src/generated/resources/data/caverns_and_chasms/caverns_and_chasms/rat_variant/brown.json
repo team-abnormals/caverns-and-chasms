@@ -1,4 +1,14 @@
 {
-  "asset_id": "caverns_and_chasms:entity/rat/brown_rat",
+  "assets": {
+    "hurt": "caverns_and_chasms:entity/rat/brown_rat_hurt",
+    "normal": "caverns_and_chasms:entity/rat/brown_rat"
+  },
+  "description": {
+    "translate": "rat_variant.caverns_and_chasms.brown"
+  },
+  "dirty_assets": {
+    "hurt": "caverns_and_chasms:entity/rat/brown_rat_hurt_dirty",
+    "normal": "caverns_and_chasms:entity/rat/brown_rat_dirty"
+  },
   "weight": 5
 }

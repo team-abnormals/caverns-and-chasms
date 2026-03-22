@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCol
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant.RatAssetGroup;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import net.minecraft.client.model.AgeableListModel;
@@ -43,8 +44,9 @@ public class RatModel extends AgeableListModel<Rat> {
 	public final ModelPart rightFrontLeg;
 	public final ModelPart rightHindLeg;
 	public RatPose pose;
-	public float tailWagAmount;
-	public boolean eating;
+	private float tailWagAmount;
+	private boolean eating;
+	private boolean wounded;
 
 	public RatModel(ModelPart root) {
 		super(false, 5.0F, 2.0F);
@@ -64,11 +66,14 @@ public class RatModel extends AgeableListModel<Rat> {
 		PartDefinition root = meshdefinition.getRoot();
 
 		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 13).addBox(-1.5F, -2.0F, -6.0F, 3.0F, 3.0F, 6.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 6).addBox(-3.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 6).mirror().addBox(1.0F, -1.0F, 0.5F, 2.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(0.0F, -3.0F, -1.0F, 0.0F, 0.0F, 0.0F));
-		head.addOrReplaceChild("whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-3.5F, -2.0F, -4.0F, 7.0F, 3.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+		root.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(0, 6).addBox(-2.0F, -2.0F, 0.0F, 2.0F, 2.0F, 0.0F), PartPose.offset(-1.0F, -2.0F, -1.5F));
+		root.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(0, 6).mirror().addBox(0.0F, -2.0F, 0.0F, 2.0F, 2.0F, 0.0F), PartPose.offset(1.0F, -2.0F, -1.5F));
+		head.addOrReplaceChild("right_whisker", CubeListBuilder.create().texOffs(12, 14).addBox(-2.0F, -1.5F, 0.0F, 2.0F, 3.0F, 0.0F), PartPose.offset(-1.5F, -0.5F, -4.0F));
+		head.addOrReplaceChild("left_whisker", CubeListBuilder.create().texOffs(17, 14).addBox(0.0F, -1.5F, 0.0F, 2.0F, 3.0F, 0.0F), PartPose.offset(1.5F, -0.5F, -4.0F));
 		head.addOrReplaceChild("tooth", CubeListBuilder.create().texOffs(4, 0).addBox(-0.5F, 1.0F, -5.0F, 1.0F, 1.0F, 0.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 5.0F, 5.0F, 8.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
+		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, 0.0F, 5.0F, 5.0F, 8.0F), PartPose.offsetAndRotation(0.0F, 21.0F, -3.0F, 0.0F, 0.0F, 0.0F));
+		body.addOrReplaceChild("fur1", CubeListBuilder.create().texOffs(0, 22).addBox(-3.5F, -3.0F, 0.0F, 7.0F, 6.0F, 0.0F), PartPose.offset(0.0F, -1.0F, 2.0F));
+		body.addOrReplaceChild("fur2", CubeListBuilder.create().texOffs(14, 22).addBox(-3.5F, -3.0F, 0.0F, 7.0F, 6.0F, 0.0F), PartPose.offset(0.0F, -1.0F, 6.0F));
 		root.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(-2.0F, 23.0F, 4.0F, 0.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(2.0F, 23.0F, 4.0F, 0.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -1.0F, -2.0F, 1.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(-2.0F, 23.0F, -1.0F, 0.0F, 0.0F, 0.0F));
@@ -112,15 +117,18 @@ public class RatModel extends AgeableListModel<Rat> {
 	public void renderFromTag(CompoundTag compound, Level level, LivingEntity entity, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean hasowner = compound.hasUUID("Owner");
 		boolean isbaby = compound.getInt("Age") < 0;
-		RatVariant type = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(compound.getString("Variant")));
+		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(compound.getString("Variant")));
 		ItemStack heldstack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
+		float health = compound.getFloat("Health");
+		boolean dirty = compound.getBoolean("Dirty");
 
 		this.young = isbaby;
 		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) getAttributeValue(compound, Attributes.MAX_HEALTH), hasowner);
 		this.eating = false;
+		this.wounded = health <= Rat.WOUNDED_THRESHOLD;
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-		VertexConsumer vertexconsumer = buffer.getBuffer(this.renderType(type.texture().withPrefix("textures/").withSuffix(".png")));
+		VertexConsumer vertexconsumer = buffer.getBuffer(this.renderType(variant.getTexture(this.wounded, dirty)));
 		this.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		if (hasowner) {
 			DyeColor collarcolor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
@@ -151,6 +159,8 @@ public class RatModel extends AgeableListModel<Rat> {
 
 		if (this.pose == RatPose.ON_SHOULDER) {
 			this.tail.xRot = -1.0F;
+		} else if (this.wounded) {
+			this.tail.xRot = -0.25F;
 		} else {
 			this.tail.xRot = 0.0F;
 		}
@@ -167,6 +177,13 @@ public class RatModel extends AgeableListModel<Rat> {
 			if (this.eating) {
 				this.head.xRot += 0.4F + 0.05F * Mth.cos(ageInTicks * 1.5F);
 				this.head.yRot += 0.4F * Mth.cos(ageInTicks * 0.3F);
+			}
+
+			if (this.wounded) {
+				this.head.xRot += 0.25F + 0.1F * Mth.sin(ageInTicks * 0.1F);
+				this.head.zRot = 0.3F;
+			} else {
+				this.head.zRot = 0.0F;
 			}
 		}
 
@@ -219,6 +236,7 @@ public class RatModel extends AgeableListModel<Rat> {
 		this.pose = rat.isAttachedToEntity() ? RatPose.ATTACHED : rat.isSitting() ? RatPose.SITTING : RatPose.STANDING;
 		this.tailWagAmount = rat.getTailWagAmount();
 		this.eating = rat.isEating();
+		this.wounded = rat.isWounded();
 		super.prepareMobModel(rat, limbSwing, limbSwingAmount, partialTick);
 	}
 
