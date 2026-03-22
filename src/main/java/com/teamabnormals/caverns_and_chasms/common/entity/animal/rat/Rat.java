@@ -84,7 +84,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
-	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(UUID.fromString("5317A396-A13A-4019-92EA-F2BBB84769E2"), "Wounded speed reduction", -0.35D, AttributeModifier.Operation.MULTIPLY_BASE);
+	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(UUID.fromString("5317A396-A13A-4019-92EA-F2BBB84769E2"), "Wounded speed reduction", -0.1D, AttributeModifier.Operation.MULTIPLY_BASE);
 
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
@@ -156,7 +156,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.targetSelector.addGoal(2, new RatOwnerHurtByTargetGoal(this));
 		this.targetSelector.addGoal(3, new RatOwnerHurtTargetGoal(this));
 		this.targetSelector.addGoal(4, (new RatHurtByTargetGoal(this)).setAlertOthers());
-		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+		this.targetSelector.addGoal(5, new RatNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
 		this.targetSelector.addGoal(6, new ResetUniversalAngerTargetGoal<>(this, true));
 	}
 
