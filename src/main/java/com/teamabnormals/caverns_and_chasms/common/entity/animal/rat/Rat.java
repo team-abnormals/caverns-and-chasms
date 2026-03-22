@@ -198,7 +198,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isAngry() ? CCSoundEvents.RAT_ANGRY.get() : CCSoundEvents.RAT_AMBIENT.get();
+		return this.isWounded() ? CCSoundEvents.RAT_WOUNDED.get() : this.isAngry() ? CCSoundEvents.RAT_ANGRY.get() : CCSoundEvents.RAT_AMBIENT.get();
 	}
 
 	@Override

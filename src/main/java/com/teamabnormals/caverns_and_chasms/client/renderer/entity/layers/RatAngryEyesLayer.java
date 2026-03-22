@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -25,7 +24,7 @@ public class RatAngryEyesLayer extends RenderLayer<Rat, RatModel> {
 
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Rat rat, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (rat.isAngry() && !rat.isTame() && !rat.isInvisible()) {
+		if (rat.isAngry() && !rat.isWounded() && !rat.isTame() && !rat.isInvisible()) {
 			renderAngryEyes(this.getParentModel(), poseStack, buffer, packedLight, rat.hurtTime, rat.deathTime);
 		}
 	}
