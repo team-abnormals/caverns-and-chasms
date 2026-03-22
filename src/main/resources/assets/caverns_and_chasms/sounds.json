@@ -4812,6 +4812,51 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.bone_flute.attack"
   },
+  "effect.vampirism.drain": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step1",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step2",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step3",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step4",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step5",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step6",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step7",
+		"volume": 0.3,
+        "pitch": 1.3
+      },
+      {
+        "name": "caverns_and_chasms:block/rotten_flesh/step8",
+		"volume": 0.3,
+        "pitch": 1.3
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.effect.vampirism.drain"
+  },
   "effect.rewind.rewind": {
     "sounds": [
       "caverns_and_chasms:effect/rewind/rewind"

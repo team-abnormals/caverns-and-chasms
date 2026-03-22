@@ -1025,6 +1025,7 @@
   "subtitles.caverns_and_chasms.block.winch.lock": "Winch locks",
   "subtitles.caverns_and_chasms.block.winch.wind": "Winch winds",
   "subtitles.caverns_and_chasms.effect.rewind.rewind": "Something rewinds",
+  "subtitles.caverns_and_chasms.effect.vampirism.drain": "Something drains life",
   "subtitles.caverns_and_chasms.entity.cavefish.death": "Cavefish dies",
   "subtitles.caverns_and_chasms.entity.cavefish.flop": "Cavefish flops",
   "subtitles.caverns_and_chasms.entity.cavefish.hurt": "Cavefish hurts",
