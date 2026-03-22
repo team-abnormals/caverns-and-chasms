@@ -14,12 +14,14 @@ public class CCRatVariants {
 	public static final ResourceKey<RatVariant> BLUE = createKey("blue");
 	public static final ResourceKey<RatVariant> BROWN = createKey("brown");
 	public static final ResourceKey<RatVariant> GRAY = createKey("gray");
+	public static final ResourceKey<RatVariant> BLACK = createKey("black");
 	public static final ResourceKey<RatVariant> WHITE = createKey("white");
 
 	public static void bootstrap(BootstapContext<RatVariant> context) {
 		registerVariant(context, BLUE, 7);
 		registerVariant(context, GRAY, 7);
 		registerVariant(context, BROWN, 5);
+		registerVariant(context, BLACK, 5);
 		registerVariant(context, WHITE, 1);
 	}
 
