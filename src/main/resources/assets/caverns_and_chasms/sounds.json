@@ -4254,27 +4254,27 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/ambient1",
-        "volume": 1
+        "volume": 1.2
       },
       {
         "name": "caverns_and_chasms:mob/rat/ambient2",
-        "volume": 1
+        "volume": 1.2
       },
       {
         "name": "caverns_and_chasms:mob/rat/ambient3",
-        "volume": 1
+        "volume": 1.2
       },
       {
         "name": "caverns_and_chasms:mob/rat/ambient4",
-        "volume": 1
+        "volume": 1.2
       },
       {
         "name": "caverns_and_chasms:mob/rat/ambient5",
-        "volume": 1
+        "volume": 1.2
       },
             {
         "name": "caverns_and_chasms:mob/rat/ambient6",
-        "volume": 1
+        "volume": 1.2
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.ambient"
@@ -4312,15 +4312,15 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/hurt1",
-        "volume": 1
+        "volume": 1.1
       },
       {
         "name": "caverns_and_chasms:mob/rat/hurt2",
-        "volume": 1
+        "volume": 1.1
       },
       {
         "name": "caverns_and_chasms:mob/rat/hurt3",
-        "volume": 1
+        "volume": 1.1
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.hurt"
@@ -4329,11 +4329,11 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/death1",
-        "volume": 1
+        "volume": 1.1
       },
       {
         "name": "caverns_and_chasms:mob/rat/death2",
-        "volume": 1
+        "volume": 1.1
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.death"
@@ -4371,15 +4371,18 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/bite1",
-        "volume": 1
+        "pitch": 1.1,
+        "volume": 0.5
       },
       {
         "name": "caverns_and_chasms:mob/rat/bite2",
-        "volume": 1
+        "pitch": 1.1,
+        "volume": 0.5
       },
       {
         "name": "caverns_and_chasms:mob/rat/bite3",
-        "volume": 1
+        "pitch": 1.1,
+        "volume": 0.5
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.attack"
@@ -4388,18 +4391,89 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:mob/rat/latch1",
-        "volume": 1
+        "pitch": 1.1,
+        "volume": 0.8
       },
       {
         "name": "caverns_and_chasms:mob/rat/latch2",
-        "volume": 1
+        "pitch": 1.1,
+        "volume": 0.8
       },
       {
         "name": "caverns_and_chasms:mob/rat/latch3",
-        "volume": 1
+        "pitch": 1.1,
+        "volume": 0.8
       }
     ],
     "subtitle": "subtitles.caverns_and_chasms.entity.rat.latch"
+  },
+  "entity.rat.happy": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/happy1",
+        "volume": 1.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/happy2",
+        "volume": 1.8
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/happy3",
+        "volume": 1.8
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.happy"
+  },
+  "entity.rat.angry": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/angry1",
+        "volume": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/angry2",
+        "volume": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/angry3",
+        "volume": 1.2
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.angry"
+  },
+  "entity.rat.wounded": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:mob/rat/wounded1",
+        "volume": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/wounded2",
+        "volume": 1.2
+      },
+      {
+        "name": "caverns_and_chasms:mob/rat/wounded3",
+        "volume": 1.2
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.wounded"
+  },
+  "entity.rat.spit": {
+    "sounds": [
+      {
+        "name": "mob/fox/spit1",
+        "volume": 0.7
+      },
+      {
+        "name": "mob/fox/spit2",
+        "volume": 0.7
+      },
+      {
+        "name": "mob/fox/spit3",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.rat.spit"
   },
   "entity.kunai.throw": {
     "sounds": [
