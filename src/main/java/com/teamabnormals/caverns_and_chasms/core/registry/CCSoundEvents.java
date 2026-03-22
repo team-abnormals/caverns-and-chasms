@@ -496,6 +496,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> KUNAI_THROW = HELPER.createSoundEvent("entity.kunai.throw");
 
 	public static final RegistryObject<SoundEvent> REWIND = HELPER.createSoundEvent("effect.rewind.rewind");
+	public static final RegistryObject<SoundEvent> DRAIN = HELPER.createSoundEvent("effect.vampirism.drain");
 
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_DEEPER = HELPER.createSoundEvent("entity.parrot.imitate.deeper");
 	public static final RegistryObject<SoundEvent> PARROT_IMITATE_EVENDEEPER = HELPER.createSoundEvent("entity.parrot.imitate.evendeeper");
