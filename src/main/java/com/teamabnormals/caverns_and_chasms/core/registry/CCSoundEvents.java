@@ -487,6 +487,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> RAT_ATTACK = HELPER.createSoundEvent("entity.rat.attack");
 	public static final RegistryObject<SoundEvent> RAT_LATCH = HELPER.createSoundEvent("entity.rat.latch");
 	public static final RegistryObject<SoundEvent> RAT_SPIT = HELPER.createSoundEvent("entity.rat.spit");
+	public static final RegistryObject<SoundEvent> RAT_WOUNDED = HELPER.createSoundEvent("entity.rat.wounded");
 	
 	public static final RegistryObject<SoundEvent> CAVEFISH_DEATH = HELPER.createSoundEvent("entity.cavefish.death");
 	public static final RegistryObject<SoundEvent> CAVEFISH_HURT = HELPER.createSoundEvent("entity.cavefish.hurt");
