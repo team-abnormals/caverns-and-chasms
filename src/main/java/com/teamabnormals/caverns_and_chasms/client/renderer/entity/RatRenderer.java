@@ -29,7 +29,7 @@ public class RatRenderer extends MobRenderer<Rat, RatModel> {
 
 	@Override
 	public ResourceLocation getTextureLocation(Rat rat) {
-		return rat.getVariant().getTexture(rat.isWounded(), rat.isDirty());
+		return rat.getVariant().getTexture(rat.isVisuallyWounded(), rat.isDirty());
 	}
 
 	@Override

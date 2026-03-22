@@ -66,6 +66,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -77,6 +79,7 @@ import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant>, NeutralMob {
 	public static final float WOUNDED_THRESHOLD = 1.0F;
+	public static final int SHAKE_TIME = 16;
 
 	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
@@ -113,6 +116,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private float prevHostDeltaRot;
 	private int attachCooldown = 20;
 	private final float animTimeOffset = this.random.nextFloat() * 10F;
+
+	private int shakeAnim;
 
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 	private UUID persistentAngerTarget;
@@ -247,6 +252,15 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.setAttachHeight(tag.getFloat("AttachHeight"));
 		this.setFirstPersonPos(tag.getFloat("FirstPersonPos"));
 		this.readPersistentAngerSaveData(this.level(), tag);
+	}
+
+	@Override
+	public void handleEntityEvent(byte id) {
+		if (id == 8) {
+			this.shakeAnim = SHAKE_TIME;
+		} else {
+			super.handleEntityEvent(id);
+		}
 	}
 
 	public String getStringVariant() {
@@ -552,7 +566,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					--this.attachCooldown;
 
 				if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
+					boolean wasWounded = this.isWounded();
 					this.heal(1.0F);
+					if (!this.isWounded() && wasWounded) {
+						this.level().broadcastEntityEvent(this, (byte) 8);
+					}
 				}
 
 				if (this.commandedTarget != null && !this.commandedTarget.isAlive()) {
@@ -566,6 +584,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 				List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
 				this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
+			}
+
+			if (this.level().isClientSide) {
+				this.shakeAnim = Math.max(0, this.shakeAnim - 1);
 			}
 
 			if (this.tickCount % 5 == 0 && this.isEating()) {
@@ -732,6 +754,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return this.getHealth() <= WOUNDED_THRESHOLD;
 	}
 
+	public boolean isVisuallyWounded() {
+		return this.isWounded() || this.shakeAnim > SHAKE_TIME / 2;
+	}
+
 	public boolean isScaredOf(LivingEntity entity) {
 		if (this.getOwner() == entity)
 			return false;
@@ -847,6 +873,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		} else {
 			return 1.5F;
 		}
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public float getShakeAnim(float partialTick) {
+		return this.shakeAnim > 0 ? Mth.lerp(partialTick, this.shakeAnim, this.shakeAnim - 1) : 0;
 	}
 
 	@Override

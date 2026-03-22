@@ -47,6 +47,7 @@ public class RatModel extends AgeableListModel<Rat> {
 	private float tailWagAmount;
 	private boolean eating;
 	private boolean wounded;
+	private float shakeAnim;
 
 	public RatModel(ModelPart root) {
 		super(false, 5.0F, 2.0F);
@@ -126,6 +127,7 @@ public class RatModel extends AgeableListModel<Rat> {
 		this.tailWagAmount = Rat.calculateTailWagAmount(compound.getFloat("Health"), (float) getAttributeValue(compound, Attributes.MAX_HEALTH), hasowner);
 		this.eating = false;
 		this.wounded = health <= Rat.WOUNDED_THRESHOLD;
+		this.shakeAnim = 0.0F;
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
 		VertexConsumer vertexconsumer = buffer.getBuffer(this.renderType(variant.getTexture(this.wounded, dirty)));
@@ -144,6 +146,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 	public void setupAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.tail.yRot = -this.tailWagAmount * 0.45F * Mth.sin(0.6F * ageInTicks);
+		this.tail.zRot = 0.0F;
 
 		if (this.pose == RatPose.SITTING) {
 			this.head.setPos(0.0F, !this.young ? 15.0F : 14.0F, !this.young ? 0.5F : -1.5F);
@@ -184,6 +187,12 @@ public class RatModel extends AgeableListModel<Rat> {
 				this.head.zRot = 0.3F;
 			} else {
 				this.head.zRot = 0.0F;
+			}
+
+			if (this.shakeAnim > 0.0F) {
+				this.head.zRot += getShake(this.shakeAnim, 0.0F);
+				this.body.zRot += getShake(this.shakeAnim, 1.0F);
+				this.tail.zRot += getShake(this.shakeAnim, 2.0F);
 			}
 		}
 
@@ -231,12 +240,24 @@ public class RatModel extends AgeableListModel<Rat> {
 		}
 	}
 
+	private static float getShake(float animTime, float timeOffset) {
+		float f = 2.0F;
+		float f1 = Rat.SHAKE_TIME - f;
+		if (animTime > f - timeOffset && animTime < f1 - timeOffset) {
+			float amount = (Mth.cos((animTime - f + timeOffset) * Mth.PI * 2.0F / f1 + Mth.PI) + 1.0F) * 0.5F;
+			return Mth.sin((animTime + timeOffset) * Mth.PI * 0.5F) * amount * 0.7F;
+		} else {
+			return 0.0F;
+		}
+	}
+
 	@Override
 	public void prepareMobModel(Rat rat, float limbSwing, float limbSwingAmount, float partialTick) {
 		this.pose = rat.isAttachedToEntity() ? RatPose.ATTACHED : rat.isSitting() ? RatPose.SITTING : RatPose.STANDING;
 		this.tailWagAmount = rat.getTailWagAmount();
 		this.eating = rat.isEating();
-		this.wounded = rat.isWounded();
+		this.wounded = rat.isVisuallyWounded();
+		this.shakeAnim = rat.getShakeAnim(partialTick);
 		super.prepareMobModel(rat, limbSwing, limbSwingAmount, partialTick);
 	}
 
