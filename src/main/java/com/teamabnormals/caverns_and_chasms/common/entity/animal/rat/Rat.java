@@ -912,6 +912,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			}
 
 			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
+			this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
 		}
 	}
 
