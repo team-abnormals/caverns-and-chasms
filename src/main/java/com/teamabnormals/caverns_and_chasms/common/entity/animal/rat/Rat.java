@@ -44,7 +44,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
@@ -137,20 +136,21 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(2, new RatSitWhenOrderedToGoal(this));
 		this.goalSelector.addGoal(3, new RatJumpAtTargetGoal(this));
 		this.goalSelector.addGoal(4, new RatMeleeAttackGoal(this, 1.2D, true));
-		this.goalSelector.addGoal(5, new RatGoToCommandedPosGoal(this, 1.2D));
-		this.goalSelector.addGoal(6, new RatFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
-		this.goalSelector.addGoal(7, new RatBreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(8, new RatTemptGoal(this));
-		// this.goalSelector.addGoal(9, new RatJumpOnShoulderGoal(this));
-		this.goalSelector.addGoal(10, new RatDevourRottenFleshGoal(this, 1.25D));
-		this.goalSelector.addGoal(11, new RatStayInGroupGoal(this));
-		this.goalSelector.addGoal(12, new RatFollowParentGoal(this));
-		this.goalSelector.addGoal(13, new RatAvoidEntityGoal(this, 10.0F, 1.0F, 1.2F));
-		this.goalSelector.addGoal(14, new RatEatGoal(this));
-		this.goalSelector.addGoal(15, new RatRandomStrollGoal(this));
-		this.goalSelector.addGoal(16, new RatFindItemsGoal(this));
-		this.goalSelector.addGoal(17, new RatLookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(18, new RatRandomLookAroundGoal(this));
+		this.goalSelector.addGoal(5, new RatTeleportToOwnerGoal(this));
+		this.goalSelector.addGoal(6, new RatAvoidEntityGoal(this, 10.0F, 1.0F, 1.2F));
+		this.goalSelector.addGoal(7, new RatGoToCommandedPosGoal(this, 1.2D));
+		this.goalSelector.addGoal(8, new RatFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(9, new RatBreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(10, new RatTemptGoal(this));
+		// this.goalSelector.addGoal(11, new RatJumpOnShoulderGoal(this));
+		this.goalSelector.addGoal(12, new RatDevourRottenFleshGoal(this, 1.25D));
+		this.goalSelector.addGoal(13, new RatStayInGroupGoal(this));
+		this.goalSelector.addGoal(14, new RatFollowParentGoal(this));
+		this.goalSelector.addGoal(15, new RatEatGoal(this));
+		this.goalSelector.addGoal(16, new RatRandomStrollGoal(this));
+		this.goalSelector.addGoal(17, new RatFindItemsGoal(this));
+		this.goalSelector.addGoal(18, new RatLookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(19, new RatRandomLookAroundGoal(this));
 		this.targetSelector.addGoal(0, new RatStopAttackingGoal(this));
 		this.targetSelector.addGoal(1, new RatAttackCommandedTargetGoal(this));
 		this.targetSelector.addGoal(2, new RatOwnerHurtByTargetGoal(this));
@@ -335,11 +335,15 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public boolean canSit() {
-		return !this.isAttachedToEntity() && this.onGround() && !this.isInWaterOrBubble() && !this.floatingInWater;
+		return !this.isAttachedToEntity() && this.onGround() && !this.isInWaterOrBubble() && !this.isFloatingInWater();
 	}
 
 	public boolean isSitting() {
 		return this.isSittingBecauseOrdered() || this.isEating();
+	}
+
+	public boolean shouldFollowOwner() {
+		return !this.isSittingBecauseOrdered() && this.getCommandedPos() == null;
 	}
 
 	// Attach to entity stuff
@@ -753,6 +757,13 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	public void startPersistentAngerTimer() {
 		this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+	}
+
+	@Override
+	public void stopBeingAngry() {
+		this.setPersistentAngerTarget(null);
+		this.setTarget(null);
+		this.setRemainingPersistentAngerTime(0);
 	}
 
 	public boolean isWounded() {

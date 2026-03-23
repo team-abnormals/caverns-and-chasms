@@ -32,6 +32,6 @@ public abstract class C2SAbstractBoneFluteCommandMessage {
 	protected abstract SoundEvent getSound();
 
 	protected static List<Rat> getNearbyPets(Level level, Player player) {
-		return level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(BoneFluteItem.RAT_RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= BoneFluteItem.RAT_RANGE * BoneFluteItem.RAT_RANGE);
+		return level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(BoneFluteItem.COMMAND_RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= BoneFluteItem.COMMAND_RANGE * BoneFluteItem.COMMAND_RANGE);
 	}
 }

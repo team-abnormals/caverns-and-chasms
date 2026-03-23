@@ -7,12 +7,10 @@ import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFlu
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteRecallMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteSitMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -42,7 +40,7 @@ import java.util.function.Predicate;
 
 public class BoneFluteItem extends Item {
 	public static final double MAX_SEND_DIST = 64.0D;
-	public static final double RAT_RANGE = 128.0D;
+	public static final double COMMAND_RANGE = 128.0D;
 
 	public BoneFluteItem(Properties properties) {
 		super(properties);
