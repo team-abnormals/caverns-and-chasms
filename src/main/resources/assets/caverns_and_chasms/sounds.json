@@ -4141,6 +4141,21 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "entity.grazer.mount": {
+    "sounds": [
+      "caverns_and_chasms:mob/grazer/mount1",
+      "caverns_and_chasms:mob/grazer/mount2",
+      "caverns_and_chasms:mob/grazer/mount3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.mount"
+  },
+  "entity.grazer.dismount": {
+    "sounds": [
+      "caverns_and_chasms:mob/grazer/dismount1",
+      "caverns_and_chasms:mob/grazer/dismount2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.dismount"
+  },
   "entity.parrot.imitate.deeper": {
     "sounds": [
       {

@@ -476,6 +476,8 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GRAZER_CHARGE = HELPER.createSoundEvent("entity.grazer.charge");
 	public static final RegistryObject<SoundEvent> GRAZER_STRUGGLE = HELPER.createSoundEvent("entity.grazer.struggle");
 	public static final RegistryObject<SoundEvent> GRAZER_STEP = HELPER.createSoundEvent("entity.grazer.step");
+	public static final RegistryObject<SoundEvent> GRAZER_MOUNT = HELPER.createSoundEvent("entity.grazer.mount");
+	public static final RegistryObject<SoundEvent> GRAZER_DISMOUNT = HELPER.createSoundEvent("entity.grazer.dismount");
 
 	public static final RegistryObject<SoundEvent> RAT_DEATH = HELPER.createSoundEvent("entity.rat.death");
 	public static final RegistryObject<SoundEvent> RAT_HURT = HELPER.createSoundEvent("entity.rat.hurt");
