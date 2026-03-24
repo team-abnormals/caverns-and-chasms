@@ -5,7 +5,6 @@ import com.teamabnormals.blueprint.common.world.storage.receiver.LevelNoiseRecei
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCNoiseParameters;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;

@@ -97,10 +97,10 @@ public class WinchBlockEntity extends BlockEntity {
 		if (!level.isClientSide && oldPower != blockEntity.getPower()) {
 			WinchBlock.updateNeighbours(state, level, pos);
 			if (blockEntity.isFullyPowered() && !shouldUnwind(level, pos, state, blockEntity)) {
-				level.playSound(null, pos,  CCSoundEvents.WINCH_LOCK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+				level.playSound(null, pos, CCSoundEvents.WINCH_LOCK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 			}
 
-			level.playSound(null, pos,  CCSoundEvents.WINCH_WIND.get(), SoundSource.BLOCKS, 1.0F, 0.9F + 0.02F * blockEntity.getPower());
+			level.playSound(null, pos, CCSoundEvents.WINCH_WIND.get(), SoundSource.BLOCKS, 1.0F, 0.9F + 0.02F * blockEntity.getPower());
 		}
 	}
 

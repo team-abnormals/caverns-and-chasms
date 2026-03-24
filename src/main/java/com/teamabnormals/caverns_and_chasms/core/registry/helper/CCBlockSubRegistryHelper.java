@@ -5,14 +5,11 @@ import com.teamabnormals.blueprint.client.renderer.block.TypedBlockEntityWithout
 import com.teamabnormals.blueprint.common.item.BEWLRBlockItem;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
-import com.teamabnormals.caverns_and_chasms.client.renderer.block.RollerDoorBlockEntityWithoutLevelRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.ToolboxBlockEntityWithoutLevelRenderer;
 import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;

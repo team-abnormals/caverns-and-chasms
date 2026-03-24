@@ -40,7 +40,7 @@ public class LargeArrow extends AbstractArrow {
 	protected ItemStack getPickupItem() {
 		return new ItemStack(CCItems.LARGE_ARROW.get());
 	}
-	
+
 	@Override
 	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);

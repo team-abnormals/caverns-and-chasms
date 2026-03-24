@@ -41,7 +41,7 @@ public class Grazer extends AbstractGrazer implements Enemy {
 		long seed = wgLevel.getSeed();
 		int axisPos = (seed < 0 ? pos.getZ() : pos.getX()) + (4 * length);
 		int dividedPos = Math.floorMod(axisPos, length * 8);
-		if (seed % 2  == 0) {
+		if (seed % 2 == 0) {
 			dividedPos = (8 * length) - dividedPos;
 		}
 

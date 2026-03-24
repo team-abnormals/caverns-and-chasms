@@ -37,7 +37,7 @@ public class RicochetArrow extends AbstractArrow {
 	protected ItemStack getPickupItem() {
 		return new ItemStack(CCItems.RICOCHET_ARROW.get());
 	}
-	
+
 	@Override
 	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);

@@ -4,7 +4,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;

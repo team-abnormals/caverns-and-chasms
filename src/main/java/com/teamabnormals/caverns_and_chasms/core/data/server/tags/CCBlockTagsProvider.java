@@ -5,7 +5,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
