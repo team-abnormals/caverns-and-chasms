@@ -752,7 +752,7 @@ public class CCBlocks {
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
-				.addItemsBefore(of(Blocks.LANTERN), SPARKLER.getFirst())
+				.addItemsBefore(of(Blocks.CANDLE), SPARKLER.getFirst(), WHITE_SPARKLER.getFirst(), LIGHT_GRAY_SPARKLER.getFirst(), GRAY_SPARKLER.getFirst(), BLACK_SPARKLER.getFirst(), BROWN_SPARKLER.getFirst(), RED_SPARKLER.getFirst(), ORANGE_SPARKLER.getFirst(), YELLOW_SPARKLER.getFirst(), LIME_SPARKLER.getFirst(), GREEN_SPARKLER.getFirst(), CYAN_SPARKLER.getFirst(), LIGHT_BLUE_SPARKLER.getFirst(), BLUE_SPARKLER.getFirst(), PURPLE_SPARKLER.getFirst(), MAGENTA_SPARKLER.getFirst(), PINK_SPARKLER.getFirst())
 				.addItemsBefore(of(Blocks.ANVIL), CUPRIC_CAMPFIRE)
 				.addItemsBefore(of(Blocks.CHAIN),
 						CUPRIC_LANTERN,
