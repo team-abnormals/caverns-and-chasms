@@ -21,10 +21,12 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSeriali
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class TinMonolithPieces {
+	public static final int RADIUS = 16;
+
 	public static class TinMonolithPiece extends StructurePiece {
 
 		public TinMonolithPiece(int x, int z) {
-			super(CCStructurePieceTypes.TIN_MONOLITH.get(), 0, new BoundingBox(x - 16, -63, z - 16, x + 16, 48, z + 16));
+			super(CCStructurePieceTypes.TIN_MONOLITH.get(), 0, new BoundingBox(x - RADIUS, -63, z - RADIUS, x + RADIUS, 48, z + RADIUS));
 		}
 
 		public TinMonolithPiece(CompoundTag tag) {
@@ -46,11 +48,11 @@ public class TinMonolithPieces {
 			int minZ = chunkPos.getMinBlockZ() - origin.getZ();
 			int maxZ = chunkPos.getMaxBlockZ() - origin.getZ();
 
-			int tipheight = Mth.clamp(level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, origin.getX(), origin.getZ()) - 4, 0, 48);
-			int height = 63 + tipheight;
+			int tipHeight = Mth.clamp(level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, origin.getX(), origin.getZ()) - 4, 0, 48);
+			int height = 63 + tipHeight;
 
 			for (int y = 0; y <= height; ++y) {
-				double radius = (double) y / height * 16;
+				double radius = (double) y / height * RADIUS;
 				int radiusInt = Mth.ceil(radius);
 
 				int minX1 = Math.max(minX, -radiusInt);
@@ -61,13 +63,13 @@ public class TinMonolithPieces {
 				for (int x = minX1; x <= maxX1; ++x) {
 					for (int z = minZ1; z <= maxZ1; ++z) {
 
-						double distance = Math.sqrt(x * x + z * z);
-						double shapeNoiseAtPos = distance == 0 ? 1.0D : shapeNoise.getValue(origin.getX() + x / distance, y * 0.025D, origin.getZ() + z / distance);
-						double distance1 = distance / (radius * (1 + shapeNoiseAtPos * 0.2D - 0.2D));
+						double distFromCenter = Math.sqrt(x * x + z * z);
+						double shapeNoiseAtPos = distFromCenter == 0 ? 1.0D : shapeNoise.getValue(origin.getX() + x / distFromCenter, y * 0.025D, origin.getZ() + z / distFromCenter);
+						double relativeDistFromCenter = distFromCenter / (radius * (1 + shapeNoiseAtPos * 0.2D - 0.2D));
 
-						if (distance1 <= 1.0D) {
+						if (relativeDistFromCenter <= 1.0D) {
 							int levelX = origin.getX() + x;
-							int levelY = tipheight - y;
+							int levelY = tipHeight - y;
 							int levelZ = origin.getZ() + z;
 
 							mutable.set(levelX, levelY, levelZ);
@@ -76,16 +78,16 @@ public class TinMonolithPieces {
 							if (blockstate.is(BlockTags.FEATURES_CANNOT_REPLACE))
 								continue;
 
-							boolean isInside = levelY <= 32 && distance1 < (1.0D - (111 - y) / 111.0D) * 0.8D;
+							boolean isInside = levelY <= 32 && relativeDistFromCenter < (1.0D - (111 - y) / 111.0D) * 0.8D;
 							double veinNoiseAtPos = Math.abs(veinNoise.getValue(levelX, levelY, levelZ));
 							double oreDensity = veinNoiseAtPos > 0.3D ? 0.0D : (0.3D - veinNoiseAtPos) * 3.5D;
 
-							if (random.nextFloat() * oreDensity > Math.max(0.4D + distance1, 0.6D))
+							if (random.nextFloat() * oreDensity > Math.max(0.4D + relativeDistFromCenter, 0.6D))
 								level.setBlock(mutable, CCBlocks.RAW_TIN_BLOCK.get().defaultBlockState(), 2);
-							else if (random.nextFloat() * oreDensity > Math.min(0.3D + distance1 * 0.3D, 0.5D))
+							else if (random.nextFloat() * oreDensity > Math.min(0.3D + relativeDistFromCenter * 0.3D, 0.5D))
 								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE_TIN_ORE.get().defaultBlockState() : computeDeepslateGradient(levelY, random) ? CCBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState() : CCBlocks.TIN_ORE.get().defaultBlockState(), 2);
 							else
-								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE.get().defaultBlockState() : computeDeepslateGradient(levelY, random) ? Blocks.COBBLED_DEEPSLATE.defaultBlockState() : Blocks.COBBLESTONE.defaultBlockState(), 2);
+								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE.get().defaultBlockState() : Blocks.TUFF.defaultBlockState(), 2);
 						}
 					}
 				}

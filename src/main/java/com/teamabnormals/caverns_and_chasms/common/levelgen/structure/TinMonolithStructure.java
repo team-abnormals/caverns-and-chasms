@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TinMonolithStructure extends Structure {
 	public static final int SPACING = 96;
 	public static final int SEPARATION = 32;
-	public static final int BLOCK_GEN_RANGE = 64;
+	public static final int NO_MONOLITHS_RANGE = 64;
 	public static final int SALT = 47621501;
 
 	public static final Codec<TinMonolithStructure> CODEC = simpleCodec(TinMonolithStructure::new);
@@ -26,7 +26,7 @@ public class TinMonolithStructure extends Structure {
 	@Override
 	protected Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
 		ChunkPos chunkpos = context.chunkPos();
-		if (chunkpos.x < -BLOCK_GEN_RANGE || chunkpos.x >= BLOCK_GEN_RANGE || chunkpos.z < -BLOCK_GEN_RANGE || chunkpos.z >= BLOCK_GEN_RANGE) {
+		if (chunkpos.x < -NO_MONOLITHS_RANGE || chunkpos.x >= NO_MONOLITHS_RANGE || chunkpos.z < -NO_MONOLITHS_RANGE || chunkpos.z >= NO_MONOLITHS_RANGE) {
 			BlockPos blockpos = new BlockPos(chunkpos.getMinBlockX(), 64, chunkpos.getMinBlockZ());
 			return Optional.of(new Structure.GenerationStub(blockpos, (builder) -> {
 				generatePieces(builder, context);

@@ -5,8 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPlacementModifierTypes;
-import it.unimi.dsi.fastutil.ints.IntIntImmutablePair;
-import it.unimi.dsi.fastutil.ints.IntIntPair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
@@ -17,7 +15,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.phys.Vec2;
 import org.joml.Vector2i;
 
 import java.util.Map;
@@ -75,7 +72,7 @@ public class TinArrowPlacement extends PlacementModifier {
 	public static Vector2i getClosestMonolithPosition(WorldGenLevel level, BlockPos pos) {
 		int chunkX = pos.getX() >> 4;
 		int chunkZ = pos.getZ() >> 4;
-		if (chunkX < -TinMonolithStructure.BLOCK_GEN_RANGE || chunkX >= TinMonolithStructure.BLOCK_GEN_RANGE || chunkZ < -TinMonolithStructure.BLOCK_GEN_RANGE || chunkZ >= TinMonolithStructure.BLOCK_GEN_RANGE) {
+		if (chunkX < -TinMonolithStructure.NO_MONOLITHS_RANGE || chunkX >= TinMonolithStructure.NO_MONOLITHS_RANGE || chunkZ < -TinMonolithStructure.NO_MONOLITHS_RANGE || chunkZ >= TinMonolithStructure.NO_MONOLITHS_RANGE) {
 			Vector2i spacingPos = new Vector2i(Math.floorDiv(chunkX, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ, TinMonolithStructure.SPACING));
 			Map<Vector2i, Vector2i> map = CCFeatures.MONOLITH_POSITIONS.get(level.getLevel());
 			if (!map.containsKey(spacingPos)) {
