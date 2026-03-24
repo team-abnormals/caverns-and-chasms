@@ -49,10 +49,10 @@ public class BoneFluteItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		HitResult hitResult = getHitResult(player);
 		player.startUsingItem(hand);
 		level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
 		if (level.isClientSide) {
+			HitResult hitResult = getHitResult(player);
 			broadcastCommand(getCommand(player, hitResult), hitResult);
 		}
 		player.getCooldowns().addCooldown(this, 20);
@@ -152,9 +152,9 @@ public class BoneFluteItem extends Item {
 		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(MAX_SEND_DIST)).inflate(1.0D);
 
 		EntityHitResult entityHitResult = getBoneFluteEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
-			if (!entity.isSpectator() && entity.isPickable()) {
+			if (entity.isPickable()) {
 				LivingEntity living = entity instanceof LivingEntity ? (LivingEntity) entity : entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity ? (LivingEntity) partEntity.getParent() : null;
-				return living != null && Rat.canRatsAttack(living, player);
+				return living != null && !living.isSpectator() && living != player.getVehicle() && Rat.canRatsAttack(living, player);
 			} else {
 				return false;
 			}
