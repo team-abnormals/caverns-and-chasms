@@ -5,6 +5,7 @@ import com.teamabnormals.blueprint.client.ClientInfo;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCGiftLoot;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
@@ -61,6 +62,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -895,24 +900,15 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		if (random.nextFloat() < 0.2F) {
-			float f = random.nextFloat();
-			ItemStack itemstack;
-			if (f < 0.05F) {
-				itemstack = new ItemStack(Items.DIAMOND);
-			} else if (f < 0.2F) {
-				itemstack = random.nextBoolean() ? new ItemStack(Items.RAW_GOLD) : new ItemStack(CCItems.RAW_SILVER.get());
-			} else if (f < 0.4F) {
-				itemstack = random.nextBoolean() ? new ItemStack(Items.LAPIS_LAZULI) : new ItemStack(CCItems.SPINEL.get());
-			} else if (f < 0.6F) {
-				itemstack = new ItemStack(Items.REDSTONE);
-			} else if (f < 0.8F) {
-				itemstack = new ItemStack(Items.SLIME_BALL);
-			} else {
-				itemstack = new ItemStack(Items.BONE);
-			}
+			ServerLevel serverLevel = (ServerLevel) this.level();
+			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(CCGiftLoot.RAT_SPAWN_ITEMS);
+			LootParams lootParams = (new LootParams.Builder(serverLevel)).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.GIFT);
+			List<ItemStack> list = lootTable.getRandomItems(lootParams);
 
-			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
-			this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+			if (!list.isEmpty()) {
+				this.setItemSlot(EquipmentSlot.MAINHAND, list.get(0));
+				this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+			}
 		}
 	}
 

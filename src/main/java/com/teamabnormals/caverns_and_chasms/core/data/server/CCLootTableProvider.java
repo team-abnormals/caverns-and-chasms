@@ -63,7 +63,8 @@ public class CCLootTableProvider extends LootTableProvider {
 				new LootTableProvider.SubProviderEntry(CCBlockLoot::new, LootContextParamSets.BLOCK),
 				new LootTableProvider.SubProviderEntry(CCEntityLoot::new, LootContextParamSets.ENTITY),
 				new LootTableProvider.SubProviderEntry(CCChestLoot::new, LootContextParamSets.CHEST),
-				new LootTableProvider.SubProviderEntry(CCArchaeologyLoot::new, LootContextParamSets.ARCHAEOLOGY)
+				new LootTableProvider.SubProviderEntry(CCArchaeologyLoot::new, LootContextParamSets.ARCHAEOLOGY),
+				new LootTableProvider.SubProviderEntry(CCGiftLoot::new, LootContextParamSets.GIFT)
 		));
 	}
 
@@ -748,7 +749,6 @@ public class CCLootTableProvider extends LootTableProvider {
 		}
 	}
 
-
 	public static class CCArchaeologyLoot implements LootTableSubProvider {
 		public static final ResourceLocation FORGE_COMMON = CavernsAndChasms.location("archaeology/forge_common");
 		public static final ResourceLocation FORGE_RARE = CavernsAndChasms.location("archaeology/forge_rare");
@@ -785,6 +785,31 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
 							.add(LootItem.lootTableItem(CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
 							.add(LootItem.lootTableItem(CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get()).setWeight(2))
+					));
+		}
+	}
+
+	public static class CCGiftLoot implements LootTableSubProvider {
+		public static final ResourceLocation RAT_SPAWN_ITEMS = CavernsAndChasms.location("equipment/rat_spawn_items");
+
+		@Override
+		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+			consumer.accept(RAT_SPAWN_ITEMS, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+							.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(120))
+							.add(LootItem.lootTableItem(Items.BONE).setWeight(80))
+							.add(LootItem.lootTableItem(Items.STRING).setWeight(80))
+							.add(LootItem.lootTableItem(CCItems.CAVEFISH.get()).setWeight(70))
+							.add(LootItem.lootTableItem(Items.SPIDER_EYE).setWeight(60))
+							.add(LootItem.lootTableItem(Items.COAL).setWeight(50))
+							.add(LootItem.lootTableItem(Items.REDSTONE).setWeight(50))
+							.add(LootItem.lootTableItem(Items.SLIME_BALL).setWeight(20))
+							.add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(15))
+							.add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(15))
+							.add(LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).setWeight(15))
+							.add(LootItem.lootTableItem(Items.LAPIS_LAZULI).setWeight(8))
+							.add(LootItem.lootTableItem(CCItems.SPINEL.get()).setWeight(8))
+							.add(LootItem.lootTableItem(CCItems.TURQUOISE.get()))
 					));
 		}
 	}
