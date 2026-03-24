@@ -27,7 +27,7 @@ public class TinSparkParticle extends SimpleAnimatedParticle {
 		this.setSize(0.02F, 0.02F);
 		this.quadSize *= this.random.nextFloat() * 0.6F + 0.5F;
 
-		this.displacement = new Vec3(this.x + this.xd, this.y + this.yd, this.z + this.zd);
+		this.displacement = new Vec3(this.xd, this.yd, this.zd);
 		this.prevDisplacement = this.displacement;
 	}
 
