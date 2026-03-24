@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
-import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelConcurrentHashMapReceiver;
 import com.teamabnormals.blueprint.common.world.storage.receiver.LevelNoiseReceiver;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.*;
@@ -16,6 +15,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.joml.Vector2i;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CCFeatures {
@@ -29,7 +29,7 @@ public class CCFeatures {
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> FALSE_HOPE = FEATURES.register("false_hope", () -> new FalseHopeFeature(NoneFeatureConfiguration.CODEC));
 	public static final RegistryObject<Feature<OreConfiguration>> RHYOLITE = FEATURES.register("rhyolite", () -> new RhyoliteFeature(OreConfiguration.CODEC));
 
-	public static final LevelConcurrentHashMapReceiver<Pair<Integer, Integer>, BlockPos> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
+	public static final LevelConcurrentHashMapReceiver<Vector2i, Vector2i> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
 	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
 	public static final LevelNoiseReceiver CAVE_GROWTH_GRADIENT = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTH_GRADIENT);
 }

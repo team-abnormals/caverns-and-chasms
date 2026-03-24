@@ -81,8 +81,8 @@ public class CCConfiguredFeatures {
 		register(context, ORE_GOLD_BURIED_WITH_SILVER, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_GOLD_BURIED, 0.80F, placedFeatures)), placedFeatures.get(CCPlacedFeatures.ORE_SILVER_BURIED).get()));
 		register(context, ORE_GOLD_AND_SILVER_BURIED, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SILVER_BURIED, 0.5F, placedFeatures)), placedFeatures.get(CCPlacedFeatures.ORE_GOLD_BURIED).get()));
 
-		register(context, ORE_TIN, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 9));
-		register(context, ORE_TIN_BURIED, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 9, 0.5F));
+		register(context, ORE_TIN, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 6));
+		register(context, ORE_TIN_BURIED, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 6, 0.5F));
 
 		register(context, ORE_SPINEL, Feature.ORE, new OreConfiguration(spinelTargets, 6));
 		register(context, ORE_SPINEL_BURIED, Feature.ORE, new OreConfiguration(spinelTargets, 12, 0.7F));
