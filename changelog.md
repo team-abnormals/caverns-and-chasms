@@ -1,4 +1,5 @@
 ### Features
+* Added a new underground deposit of Tin, Tin Monoliths
 * Added 5 new mobs
   * Cavefish
   * Evendeeper
@@ -12,7 +13,9 @@
 * Added the following blocks:
   * Tin Ore, Block of Raw Tin, and Tin Block
   * Tin Chain, Tin Bars, Tin Bulb, and Tinplate Block
-  * Hold Plate, Hold Button, Hoop, Winch, and Dimmer
+  * Hold Plate and Hold Button
+  * Hoop, Winch, and Dimmer
+  * Bouncer
   * Resistor and Refractor
   * Scaterrer and Splurter
   * Storage Duct and Storage Duct Door
@@ -21,6 +24,8 @@
   * Atoning Table
   * Dismantling Table
   * Float Glass, Frosted Glass, and Ornate Glass
+  * Block of Charcoal
+  * Placeable Ingots, Bricks, Coal, and Charcoal
   * Sparkler and dyed variants
   * Gunpowder Block
   * Flint Block
@@ -43,6 +48,7 @@
   * Stone and Polished Granite, Diorite, and Andesite Walls
 * Added the following items:
   * Copper Equipment
+  * Copper Horns
   * Tin Ingot, Tin Nugget, and Raw Tin
   * Tinplate
   * Ricochet Arrow
@@ -50,6 +56,7 @@
   * Cowl
   * Toolbelt
   * Bone Flute
+  * Minecart with TMT
   * Zirconia
   * Copied Music Disc
   * Turquoise
@@ -75,9 +82,20 @@
 * Added 22 new Advancements
 
 ### Improvements
-
-
-### Fixes
-
-
-### Removed
+* Updated textures on many blocks, items, and more
+* Added many items to existing loot tables
+* Gave unique sounds to many blocks, items, and interactions
+* Buffed Silver equipment's magic damage and protection
+* Necromium Armor now gives off slowness
+* Skeletons no longer have less health
+* Horse Armor now gives buffs to Horses that match the respective armor
+* Toolboxes now have a new UI with 5 additional slots
+* Toolboxes can now store instruments like Goat Horns
+* Added a Charged texture to Deepers and Peepers
+* Added a recipe for Fragile Stone
+* Backported Lodestone recipe change
+* Deepers and Peepers now drop more Gunpowder
+* Mimes now have a special texture when wearing an Elytra 
+* Adjusted Spinel Ore rates
+* Decreased Peeper spawn rates and adjusted spawning rules
+* TNT now only requires 2 Sand and 2 Gunpowder to craft
