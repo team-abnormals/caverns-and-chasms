@@ -114,7 +114,6 @@ import java.util.function.Function;
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
 
-
 	@SubscribeEvent
 	public static void onVillagerTradesEvent(VillagerTradesEvent event) {
 		TradeUtil.addVillagerTrades(event, VillagerProfession.MASON, TradeUtil.MASTER, new BlueprintTrade(24, CCItems.TOOLBELT.get(), 1, 1, 30));

@@ -1,10 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
@@ -17,15 +19,19 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.tooltip.BundleTooltip;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.player.PlayerEvent.ItemPickupEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class PackingContainerItem extends Item implements DyeableLeatherItem {
 	private static final String TAG_ITEM = "Item";
 	public static final int MAX_WEIGHT = 512;
@@ -47,6 +53,20 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 	}
 
 	@Override
+	public Component getName(ItemStack stack) {
+		CompoundTag tag = stack.getOrCreateTag();
+		if (tag.contains(TAG_ITEM)) {
+			ItemStack item = ofLargeCount(tag.getCompound(TAG_ITEM));
+			MutableComponent hoverName = Component.empty().append(item.getHoverName());
+			if (item.hasCustomHoverName()) {
+				hoverName.withStyle(ChatFormatting.ITALIC);
+			}
+			return Component.translatable("item.caverns_and_chasms.packing_container.full", hoverName);
+		}
+		return super.getName(stack);
+	}
+
+	@Override
 	public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
 		if (stack.getCount() != 1 || action != ClickAction.SECONDARY) {
 			return false;
@@ -54,7 +74,7 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 			ItemStack itemstack = slot.getItem();
 			if (itemstack.isEmpty()) {
 				this.playRemoveOneSound(player);
-				removeOneStack(stack).ifPresent((p_150740_) -> {
+				removeOne(stack).ifPresent((p_150740_) -> {
 					add(stack, slot.safeInsert(p_150740_));
 				});
 			} else if (itemstack.getItem().canFitInsideContainerItems()) {
@@ -74,7 +94,7 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		if (stack.getCount() != 1) return false;
 		if (p_150745_ == ClickAction.SECONDARY && slot.allowModification(player)) {
 			if (otherStack.isEmpty()) {
-				removeOneStack(stack).ifPresent((p_186347_) -> {
+				removeOne(stack).ifPresent((p_186347_) -> {
 					this.playRemoveOneSound(player);
 					p_150747_.set(p_186347_);
 				});
@@ -128,7 +148,7 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 				if (tag.contains(TAG_ITEM)) {
 					CompoundTag itemTag = tag.getCompound(TAG_ITEM);
 					ItemStack itemstack = ofLargeCount(itemTag);
-					if (itemstack.is(otherStack.getItem())) {
+					if (ItemStack.isSameItemSameTags(itemstack, otherStack)) {
 						itemstack.grow(k);
 						saveLargeCount(itemstack, itemTag);
 						tag.put(TAG_ITEM, itemTag);
@@ -136,9 +156,9 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 					}
 				} else if (i == 0) {
 					ItemStack itemstack1 = otherStack.copyWithCount(k);
-					CompoundTag compoundtag2 = new CompoundTag();
-					saveLargeCount(itemstack1, compoundtag2);
-					tag.put(TAG_ITEM, compoundtag2);
+					CompoundTag tag2 = new CompoundTag();
+					saveLargeCount(itemstack1, tag2);
+					tag.put(TAG_ITEM, tag2);
 					return k;
 				}
 
@@ -150,18 +170,18 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 	}
 
 	private static Optional<CompoundTag> getMatchingItem(ItemStack stack, ListTag p_150758_) {
-		return stack.is(Items.BUNDLE) ? Optional.empty() : p_150758_.stream().filter(CompoundTag.class::isInstance).map(CompoundTag.class::cast).filter((p_186350_) -> {
+		return stack.is(CCItems.PACKING_CONTAINER.get()) ? Optional.empty() : p_150758_.stream().filter(CompoundTag.class::isInstance).map(CompoundTag.class::cast).filter((p_186350_) -> {
 			return ItemStack.isSameItemSameTags(ofLargeCount(p_186350_), stack);
 		}).findFirst();
 	}
 
 	private static int getWeight(ItemStack stack) {
-		if (stack.is(Items.BUNDLE)) {
+		if (stack.is(CCItems.PACKING_CONTAINER.get())) {
 			return 4 + getContentWeight(stack);
 		} else {
 			if ((stack.is(Items.BEEHIVE) || stack.is(Items.BEE_NEST)) && stack.hasTag()) {
-				CompoundTag compoundtag = BlockItem.getBlockEntityData(stack);
-				if (compoundtag != null && !compoundtag.getList("Bees", 10).isEmpty()) {
+				CompoundTag tag = BlockItem.getBlockEntityData(stack);
+				if (tag != null && !tag.getList("Bees", 10).isEmpty()) {
 					return 64;
 				}
 			}
@@ -175,7 +195,7 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		return getWeight(contents) * contents.getCount();
 	}
 
-	private static Optional<ItemStack> removeOneStack(ItemStack stack) {
+	private static Optional<ItemStack> removeOne(ItemStack stack) {
 		CompoundTag tag = stack.getOrCreateTag();
 		if (!tag.contains(TAG_ITEM)) {
 			return Optional.empty();
@@ -220,36 +240,31 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		return stack;
 	}
 
-	private static boolean dropContents(ItemStack stack, Player p_150731_) {
-		CompoundTag compoundtag = stack.getOrCreateTag();
-		if (!compoundtag.contains(TAG_ITEM)) {
+	private static boolean dropContents(ItemStack stack, Player player) {
+		CompoundTag tag = stack.getOrCreateTag();
+		if (!tag.contains(TAG_ITEM)) {
 			return false;
 		} else {
-			if (p_150731_ instanceof ServerPlayer) {
-				CompoundTag itemTag = compoundtag.getCompound(TAG_ITEM);
-				ItemStack itemstack = ofLargeCount(itemTag);
-				p_150731_.drop(itemstack, true);
+			Optional<ItemStack> removeStack = removeOne(stack);
+			if (player instanceof ServerPlayer) {
+				removeStack.ifPresent(itemStack -> player.drop(itemStack, true));
 			}
-
-			stack.removeTagKey(TAG_ITEM);
 			return true;
 		}
 	}
 
 	private static ItemStack getContents(ItemStack stack) {
-		CompoundTag compoundtag = stack.getTag();
-		if (compoundtag == null) {
+		CompoundTag tag = stack.getTag();
+		if (tag == null) {
 			return ItemStack.EMPTY;
 		} else {
-			CompoundTag listtag = compoundtag.getCompound(TAG_ITEM);
+			CompoundTag listtag = tag.getCompound(TAG_ITEM);
 			return ofLargeCount(listtag);
 		}
 	}
 
 	public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-		NonNullList<ItemStack> nonnulllist = NonNullList.create();
-		nonnulllist.add(getContents(stack));
-		return Optional.of(new BundleTooltip(nonnulllist, getContentWeight(stack)));
+		return Optional.of(new PackingContainerTooltip(getContents(stack)));
 	}
 
 	public void appendHoverText(ItemStack stack, Level p_150750_, List<Component> p_150751_, TooltipFlag p_150752_) {
@@ -270,5 +285,22 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 
 	private void playDropContentsSound(Entity p_186354_) {
 		p_186354_.playSound(SoundEvents.BUNDLE_DROP_CONTENTS, 0.8F, 0.8F + p_186354_.level().getRandom().nextFloat() * 0.4F);
+	}
+
+	public static class PackingContainerTooltip implements TooltipComponent {
+		private final ItemStack item;
+
+		public PackingContainerTooltip(ItemStack p_150677_) {
+			this.item = p_150677_;
+		}
+
+		public ItemStack getItems() {
+			return this.item;
+		}
+	}
+
+	@SubscribeEvent
+	public static void onItemPickup(ItemPickupEvent event) {
+
 	}
 }

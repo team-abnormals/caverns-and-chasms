@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip.ClientPackingContainerTooltip;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
@@ -10,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnS
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.PackingContainerTooltip;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -69,6 +71,11 @@ public class CCClientCompat {
 		List<ResourceLocation> list = new ArrayList<>(SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES);
 		list.add(TrimModifierSmithingTemplateItem.EMPTY_SLOT_SMITHING_TEMPLATE_TRIM_MODIFIER);
 		SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES = list;
+	}
+
+	@SubscribeEvent
+	public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+		event.register(PackingContainerTooltip.class, ClientPackingContainerTooltip::new);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

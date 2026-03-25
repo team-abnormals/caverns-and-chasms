@@ -777,6 +777,7 @@
   "item.caverns_and_chasms.oxidized_copper_shovel": "Oxidized Copper Shovel",
   "item.caverns_and_chasms.oxidized_copper_sword": "Oxidized Copper Sword",
   "item.caverns_and_chasms.packing_container": "Packing Container",
+  "item.caverns_and_chasms.packing_container.full": "Container of %s",
   "item.caverns_and_chasms.peeper_spawn_egg": "Peeper Spawn Egg",
   "item.caverns_and_chasms.potion.subtle": "Subtle",
   "item.caverns_and_chasms.rat_spawn_egg": "Rat Spawn Egg",
