@@ -58,7 +58,7 @@ public abstract class AbstractGrazer extends Animal {
 	private static final EntityDataAccessor<Byte> STATE = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> BODY_LOWER_AMOUNT = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Float> CUSTOM_X_ROT = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> TARGET_ROT = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> TARGET_X_ROT = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.FLOAT);
 
 	private final GrazerPart[] parts = new GrazerPart[7];
 
@@ -71,6 +71,8 @@ public abstract class AbstractGrazer extends Animal {
 	protected double bounceHeight;
 	private float bodyLowerAmountO;
 	public float customXRotO;
+
+	private float passengerBounceAmount;
 
 	private float runAmount;
 	private float runAmountO;
@@ -119,7 +121,7 @@ public abstract class AbstractGrazer extends Animal {
 		this.entityData.define(STATE, (byte) 0);
 		this.entityData.define(BODY_LOWER_AMOUNT, 0.0F);
 		this.entityData.define(CUSTOM_X_ROT, 0.0F);
-		this.entityData.define(TARGET_ROT, 0.0F);
+		this.entityData.define(TARGET_X_ROT, 0.0F);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -165,7 +167,7 @@ public abstract class AbstractGrazer extends Animal {
 			compound.putByte("State", this.getState().getId());
 		compound.putFloat("BodyLowerAmount", this.getBodyLowerAmount());
 		compound.putFloat("CustomXRot", this.getCustomXRot());
-		compound.putFloat("TargetRot", this.getTargetRot());
+		compound.putFloat("TargetXRot", this.getTargetXRot());
 		compound.putBoolean("BouncingBackwards", this.bouncingBackwards);
 		compound.putDouble("BounceHeight", this.bounceHeight);
 	}
@@ -178,7 +180,7 @@ public abstract class AbstractGrazer extends Animal {
 			this.setState(state);
 		this.setBodyLowerAmount(compound.getFloat("BodyLowerAmount"));
 		this.setCustomXRot(compound.getFloat("CustomXRot"));
-		this.setTargetRot(compound.getFloat("TargetRot"));
+		this.setTargetXRot(compound.getFloat("TargetXRot"));
 		this.bouncingBackwards = compound.getBoolean("BouncingBackwards");
 		this.bounceHeight = compound.getDouble("BounceHeight");
 	}
@@ -235,12 +237,20 @@ public abstract class AbstractGrazer extends Animal {
 		this.entityData.set(CUSTOM_X_ROT, rot);
 	}
 
-	public float getTargetRot() {
-		return this.entityData.get(TARGET_ROT);
+	public float getTargetXRot() {
+		return this.entityData.get(TARGET_X_ROT);
 	}
 
-	public void setTargetRot(float rot) {
-		this.entityData.set(TARGET_ROT, rot);
+	public void setTargetXRot(float rot) {
+		this.entityData.set(TARGET_X_ROT, rot);
+	}
+
+	public boolean isBouncingBackwards() {
+		return this.bouncingBackwards;
+	}
+
+	public void setBouncingBackwards(boolean bouncingBackwards) {
+		this.bouncingBackwards = bouncingBackwards;
 	}
 
 	@Override
@@ -293,6 +303,15 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	@Override
+	public float maxUpStep() {
+		if (this.getControllingPassenger() instanceof Player && this.isIdleState(this.getState())) {
+			return Math.max(this.maxUpStep, 1.0F);
+		} else {
+			return this.maxUpStep;
+		}
+	}
+
+	@Override
 	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
 		return this.isBouncingState(this.getState()) ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
 	}
@@ -314,7 +333,7 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	public double getPassengersRidingOffset() {
-		return this.shellCenterY(1.0F) + this.shellRadius() - 0.3D;
+		return this.shellCenterY(1.0F) + this.shellRadius() - 0.3D + Math.abs(Mth.sin(this.tickCount * 0.3F)) * 0.75D * this.passengerBounceAmount;
 	}
 
 	@Override
@@ -466,14 +485,13 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		switch (id) {
-			case (FLAP_WINGS_ANIM):
-				this.wingFlapAnim = 20;
-				this.wingFlapAnimO = this.wingFlapAnim;
-			case (VOCALIZE_ANIM):
-				this.vocalizeTime = 25;
-			default:
-				super.handleEntityEvent(id);
+		if (id == FLAP_WINGS_ANIM) {
+			this.wingFlapAnim = 20;
+			this.wingFlapAnimO = this.wingFlapAnim;
+		} else if (id == VOCALIZE_ANIM) {
+			this.vocalizeTime = 25;
+		} else {
+			super.handleEntityEvent(id);
 		}
 	}
 
@@ -538,6 +556,11 @@ public abstract class AbstractGrazer extends Animal {
 		if (this.wingFlapAnim > 0)
 			this.wingFlapAnim--;
 
+		if (this.isBouncingState(this.getState()))
+			this.passengerBounceAmount = Math.min(1.0F, this.passengerBounceAmount + 0.2F);
+		else
+			this.passengerBounceAmount = Math.max(0.0F, this.passengerBounceAmount - 0.2F);
+
 		double d0 = this.shellRadius();
 		Vec3 vec3 = new Vec3(0.0D, this.shellCenterY(1.0F), this.shellCenterZ(1.0F)).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
 		AABB aabb = new AABB(-d0, -d0, -d0, d0, d0, d0).move(this.position()).move(vec3).inflate(0.3D);
@@ -573,7 +596,7 @@ public abstract class AbstractGrazer extends Animal {
 			}
 		} else if (this.getState() == GrazerState.LANDING || this.getState() == GrazerState.WIGGLING) {
 			float xrot = Mth.wrapDegrees(this.getCustomXRot());
-			float targetrot = this.getTargetRot();
+			float targetrot = this.getTargetXRot();
 			if (xrot == targetrot) {
 				if (!this.level().isClientSide && this.getState() != GrazerState.WIGGLING)
 					this.setState(GrazerState.WIGGLING);
@@ -702,64 +725,84 @@ public abstract class AbstractGrazer extends Animal {
 
 	public void ricochet(Vec3 movement, double xOld, double yOld, double zOld, Vec3 oldMotion) {
 		if (!this.level().isClientSide && this.isAlive() && !this.noPhysics && (this.getState() == GrazerState.RUNNING || this.getState() == GrazerState.BOUNCING)) {
-			Vec3 newmotion = oldMotion;
-			Vec3 collpoint = Vec3.ZERO;
+			Vec3 newMotion = oldMotion;
+			Vec3 collPoint = Vec3.ZERO;
 			boolean ricocheted = false;
 			boolean horizontal = false;
+			boolean ground = false;
 
 			if (xOld + movement.x != this.getX()) {
-				newmotion = new Vec3(-newmotion.x, newmotion.y, newmotion.z);
-				collpoint = new Vec3(this.getBbWidth() * 0.5D * (movement.x >= 0 ? 1 : -1), collpoint.y, collpoint.z);
+				newMotion = new Vec3(-newMotion.x, newMotion.y, newMotion.z);
+				collPoint = new Vec3(this.getBbWidth() * 0.5D * (movement.x >= 0 ? 1 : -1), collPoint.y, collPoint.z);
 				ricocheted = true;
 				horizontal = true;
 			}
 			if (this.getState() == GrazerState.BOUNCING) {
 				double d0 = yOld + movement.y;
 				if (d0 > this.getY()) {
-					newmotion = new Vec3(newmotion.x, -newmotion.y, newmotion.z);
-					collpoint = new Vec3(collpoint.x, this.getBbHeight(), collpoint.z);
+					newMotion = new Vec3(newMotion.x, -newMotion.y, newMotion.z);
+					collPoint = new Vec3(collPoint.x, this.getBbHeight(), collPoint.z);
 					ricocheted = true;
 				} else if (d0 < this.getY()) {
 					if (this.bounceHeight < 0.376D && this.getState() != GrazerState.LANDING) {
 						this.setState(GrazerState.LANDING);
 						float xrot = Mth.wrapDegrees(this.getCustomXRot());
-						this.setTargetRot(xrot < -90.0F ? -180.F : xrot < 90.0F ? -90.0F : 90.0F);
+						this.setTargetXRot(xrot < -90.0F ? -180.F : xrot < 90.0F ? -90.0F : 90.0F);
 						return;
 					} else {
 						this.bounceHeight *= 0.94D;
-						newmotion = new Vec3(newmotion.x, this.bounceHeight, newmotion.z);
+						newMotion = new Vec3(newMotion.x, this.bounceHeight, newMotion.z);
 						ricocheted = true;
+						ground = true;
 					}
 				}
 			}
 			if (zOld + movement.z != this.getZ()) {
-				newmotion = new Vec3(newmotion.x, newmotion.y, -newmotion.z);
-				collpoint = new Vec3(collpoint.x, collpoint.y, this.getBbWidth() * 0.5D * (movement.z >= 0 ? 1 : -1));
+				newMotion = new Vec3(newMotion.x, newMotion.y, -newMotion.z);
+				collPoint = new Vec3(collPoint.x, collPoint.y, this.getBbWidth() * 0.5D * (movement.z >= 0 ? 1 : -1));
 				ricocheted = true;
 				horizontal = true;
 			}
 
 			if (ricocheted) {
-				if (horizontal) {
-					double adjustangle = this.calculateCollisionAdjustAngle(newmotion);
-					newmotion = new Vec3(newmotion.x * Math.cos(adjustangle) - newmotion.z * Math.sin(adjustangle), newmotion.y, newmotion.x * Math.sin(adjustangle) + newmotion.z * Math.cos(adjustangle));
+				double adjustAngle = horizontal ? this.random.nextDouble() - 0.5D : 0.0D;
+
+				if (this.getControllingPassenger() instanceof Player player) {
+					Vec3 playerMoveVec = this.getRidingPlayerAbsMovement(player);
+					if (Math.abs(playerMoveVec.x) >= 1.0E-7D || Math.abs(playerMoveVec.z) >= 1.0E-7D) {
+						double newAdjustAngle = this.calculateHorizontalAngleDiff(newMotion, playerMoveVec);
+						adjustAngle = Mth.clamp(newAdjustAngle, -0.6D, 0.6D);
+					}
+				} else {
+					if (horizontal) {
+						LivingEntity target = this.getTarget();
+						if (target != null && target.isAlive()) {
+							Vec3 targetVec = target.position().subtract(this.position());
+							double newAdjustAngle = this.calculateHorizontalAngleDiff(newMotion, targetVec);
+							if (Math.abs(newAdjustAngle) <= Math.PI / 2.0D) {
+								adjustAngle = Mth.clamp(newAdjustAngle, -0.6D, 0.6D);
+							}
+						}
+					}
 				}
+
+				newMotion = new Vec3(newMotion.x * Math.cos(adjustAngle) - newMotion.z * Math.sin(adjustAngle), newMotion.y, newMotion.x * Math.sin(adjustAngle) + newMotion.z * Math.cos(adjustAngle));
 
 				if (this.getState() == GrazerState.RUNNING) {
 					this.setState(GrazerState.BOUNCING);
 					this.bounceHeight = 0.8D;
 					this.bouncingBackwards = true;
-					newmotion = newmotion.multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D).add(0.0D, this.bounceHeight, 0.0D);
+					newMotion = newMotion.multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D).add(0.0D, this.bounceHeight, 0.0D);
 				} else {
-					if (oldMotion.x * newmotion.x + oldMotion.z * newmotion.z < 0.0D)
+					if (oldMotion.x * newMotion.x + oldMotion.z * newMotion.z < 0.0D)
 						this.bouncingBackwards = !this.bouncingBackwards;
 				}
 
-				this.setDeltaMovement(newmotion);
+				this.setDeltaMovement(newMotion);
 
-				Vec3 vec3 = this.position().add(collpoint);
+				Vec3 vec3 = this.position().add(collPoint);
 				Vec3 vec31 = oldMotion.reverse().normalize();
-				CCEvents.playRicochetSound(this.level(), vec3, newmotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+				CCEvents.playRicochetSound(this.level(), vec3, newMotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
 
 				for (int i = 0; i < 8; i++) {
 					double d1 = vec31.x * 0.3D + this.random.nextGaussian() * 0.05D;
@@ -775,15 +818,13 @@ public abstract class AbstractGrazer extends Animal {
 		}
 	}
 
-	private double calculateCollisionAdjustAngle(Vec3 newmotion) {
-		LivingEntity target = this.getTarget();
-		if (target != null && target.isAlive()) {
-			Vec3 targetvector = target.position().subtract(this.position());
-			double anglediff = Math.atan2(targetvector.x * newmotion.z - newmotion.x * targetvector.z, targetvector.x * newmotion.x + targetvector.z * newmotion.z);
-			if (Math.abs(anglediff) <= Math.PI / 2.0D)
-				return anglediff > 0.0D ? Math.max(-0.6D, -anglediff) : anglediff < 0.0D ? Math.min(0.6D, -anglediff) : 0.0D;
-		}
-		return this.random.nextDouble() - 0.5D;
+	private Vec3 getRidingPlayerAbsMovement(Player player) {
+		return new Vec3(player.xxa, player.yya, player.zza).yRot(-player.getYRot() * Mth.DEG_TO_RAD);
+	}
+
+	private double calculateHorizontalAngleDiff(Vec3 motion, Vec3 targetVector) {
+		double angleDiff = Math.atan2(targetVector.x * motion.z - motion.x * targetVector.z, targetVector.x * motion.x + targetVector.z * motion.z);
+		return -angleDiff;
 	}
 
 	@Override

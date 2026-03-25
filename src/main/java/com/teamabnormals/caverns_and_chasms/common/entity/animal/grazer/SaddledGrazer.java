@@ -21,8 +21,6 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 	}
 
 	// TODO
-	// Don't run or be stupid when being ridden
-	// For some reason grazers can open their mouth when being stupid, but only on client side
 	// Make rider unable to hit their grazer
 
 	@Override
@@ -53,7 +51,7 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 
 	@Override
 	public void travelRidden(Player player, Vec3 movement) {
-		if (this.canMove()) {
+		if (this.isIdleState(this.getState()) && this.canMove()) {
 			super.travelRidden(player, movement);
 		} else {
 			this.travel(movement);
@@ -66,9 +64,9 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 		this.setYRot(player.getYRot());
 		this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
 		if (this.isControlledByLocalInstance()) {
-			if (this.onGround()) {
-				if (this.playerJumpPendingScale > 0.0F && this.isIdleState(this.getState())) {
-					this.executeRidersJump(this.playerJumpPendingScale, input);
+			if (this.canExecuteJump()) {
+				if (this.playerJumpPendingScale > 0.0F) {
+					CavernsAndChasms.CHANNEL.sendToServer(new C2SGrazerJumpMessage(this.playerJumpPendingScale, player.getXRot()));
 				}
 
 				this.playerJumpPendingScale = 0.0F;
@@ -76,12 +74,17 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 		}
 	}
 
-	protected void executeRidersJump(float jumpScale, Vec3 input) {
-		/*
-		this.setState(GrazerState.BOUNCING);
-		this.bounceHeight = 0.8D * jumpScale;
-		*/
-		CavernsAndChasms.CHANNEL.sendToServer(new C2SGrazerJumpMessage(0.8D * jumpScale));
+	public boolean canExecuteJump() {
+		return this.onGround() && this.isIdleState(this.getState());
+	}
+
+	@Override
+	public boolean isControlledByLocalInstance() {
+		if (this.isIdleState(this.getState()) && this.getControllingPassenger() instanceof Player player) {
+			return player.isLocalPlayer();
+		} else {
+			return this.isEffectiveAi();
+		}
 	}
 
 	@Override
@@ -97,7 +100,7 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 
 	@Override
 	protected float getRiddenSpeed(Player player) {
-		return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
+		return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F;
 	}
 
 	@Override
@@ -116,6 +119,11 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 	@Override
 	public boolean canJump() {
 		return true;
+	}
+
+	@Override
+	public int getJumpCooldown() {
+		return this.isIdleState(this.getState()) ? 0 : 1;
 	}
 
 	@Override

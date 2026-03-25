@@ -17,12 +17,12 @@ public class GrazerBeStupidGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return this.grazer.getState() == GrazerState.DEFAULT && this.grazer.getNavigation().isDone() && this.grazer.getRandom().nextInt(500) == 0;
+		return !this.grazer.hasControllingPassenger() && this.grazer.getState() == GrazerState.DEFAULT && this.grazer.getNavigation().isDone() && this.grazer.getRandom().nextInt(500) == 0;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.grazer.getState() == GrazerState.BEING_STUPID && this.timer > 0;
+		return !this.grazer.hasControllingPassenger() && this.grazer.getState() == GrazerState.BEING_STUPID && this.timer > 0;
 	}
 
 	@Override

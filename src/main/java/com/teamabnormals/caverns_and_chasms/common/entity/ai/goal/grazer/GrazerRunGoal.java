@@ -37,16 +37,18 @@ public class GrazerRunGoal extends Goal {
 		}
 
 		LivingEntity attacker = this.grazer.getLastHurtByMob();
-		if (attacker == null && !(this.grazer instanceof SaddledGrazer))
+		if (attacker == null && !(this.grazer instanceof SaddledGrazer)) {
 			attacker = findNearestScaryEntity();
-
-		if (attacker != null || this.grazer.isFreezing() || this.grazer.isOnFire()) {
-			if (attacker != null && !(this.grazer instanceof SaddledGrazer))
-				this.grazer.setTarget(attacker);
-			return true;
 		}
 
-		return false;
+		if (attacker != null) {
+			if (!(this.grazer instanceof SaddledGrazer)) {
+				this.grazer.setTarget(attacker);
+			}
+			return true;
+		} else {
+			return this.grazer.isFreezing() || this.grazer.isOnFire();
+		}
 	}
 
 	private LivingEntity findNearestScaryEntity() {
