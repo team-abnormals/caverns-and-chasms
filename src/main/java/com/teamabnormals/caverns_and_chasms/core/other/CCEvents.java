@@ -698,7 +698,7 @@ public class CCEvents {
 				data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
 				if (!flag) {
 					data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
-				} else if (state.getBlock() instanceof TinplateBlock) {
+				} else if (state.is(CCBlockTags.HAS_BONUS_DEFLECT)) {
 					data.setValue(CCDataProcessors.BONUS_DEFLECT, true);
 				}
 

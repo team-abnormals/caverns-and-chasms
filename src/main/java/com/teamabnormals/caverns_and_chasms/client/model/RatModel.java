@@ -7,7 +7,6 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatCol
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatHeldItemLayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant.RatAssetGroup;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import net.minecraft.client.model.AgeableListModel;

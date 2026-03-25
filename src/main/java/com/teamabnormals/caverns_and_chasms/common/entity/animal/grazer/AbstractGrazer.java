@@ -709,7 +709,7 @@ public abstract class AbstractGrazer extends Animal {
 
 			if (xOld + movement.x != this.getX()) {
 				newmotion = new Vec3(-newmotion.x, newmotion.y, newmotion.z);
-				collpoint = new Vec3(this.getBbWidth() * 0.5D * (movement.x >= 0 ? 1 : - 1), collpoint.y, collpoint.z);
+				collpoint = new Vec3(this.getBbWidth() * 0.5D * (movement.x >= 0 ? 1 : -1), collpoint.y, collpoint.z);
 				ricocheted = true;
 				horizontal = true;
 			}
@@ -734,7 +734,7 @@ public abstract class AbstractGrazer extends Animal {
 			}
 			if (zOld + movement.z != this.getZ()) {
 				newmotion = new Vec3(newmotion.x, newmotion.y, -newmotion.z);
-				collpoint = new Vec3(collpoint.x, collpoint.y, this.getBbWidth() * 0.5D * (movement.z >= 0 ? 1 : - 1));
+				collpoint = new Vec3(collpoint.x, collpoint.y, this.getBbWidth() * 0.5D * (movement.z >= 0 ? 1 : -1));
 				ricocheted = true;
 				horizontal = true;
 			}

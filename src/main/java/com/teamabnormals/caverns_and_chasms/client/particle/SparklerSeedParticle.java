@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.client.particle;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;

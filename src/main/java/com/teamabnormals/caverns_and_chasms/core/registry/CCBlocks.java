@@ -106,7 +106,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> HOOP = HELPER.createBlock("hoop", () -> new HoopBlock(CCProperties.HOOP));
 	public static final RegistryObject<Block> STORAGE_DUCT = HELPER.createBlock("storage_duct", () -> new StorageDuctBlock(CCProperties.STORAGE_DUCT));
 	public static final RegistryObject<Block> STORAGE_DUCT_HATCH = HELPER.createBlock("storage_duct_hatch", () -> new StorageDuctHatchBlock(CCProperties.STORAGE_DUCT_HATCH));
-	public static final RegistryObject<Block> TINPLATE_BLOCK = HELPER.createBlock("tinplate_block", () -> new TinplateBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get()).sound(CCSoundTypes.TINPLATE)));
+	public static final RegistryObject<Block> TINPLATE_BLOCK = HELPER.createBlock("tinplate_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(TIN_BLOCK.get()).sound(CCSoundTypes.TINPLATE)));
 
 	public static final RegistryObject<Block> ROLLER_DOOR = HELPER.createBlockNoItem("roller_door", () -> new RollerDoorBlock(false, MovingDoorType.ROLLER_DOOR, CCProperties.ROLLER_DOOR));
 	public static final RegistryObject<Block> ROLLER_DOOR_HEADER = HELPER.createBlockNoItem("roller_door_header", () -> new RollerDoorBlock(true, MovingDoorType.ROLLER_DOOR, CCProperties.ROLLER_DOOR));
@@ -752,7 +752,7 @@ public class CCBlocks {
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsBefore(of(Blocks.BAMBOO_SIGN), AZALEA_SIGNS.getFirst(), AZALEA_HANGING_SIGNS.getFirst())
 				.addItemsBefore(of(Blocks.REDSTONE_TORCH), CUPRIC_TORCH)
-				.addItemsBefore(of(Blocks.LANTERN), SPARKLER.getFirst())
+				.addItemsBefore(of(Blocks.CANDLE), SPARKLER.getFirst(), WHITE_SPARKLER.getFirst(), LIGHT_GRAY_SPARKLER.getFirst(), GRAY_SPARKLER.getFirst(), BLACK_SPARKLER.getFirst(), BROWN_SPARKLER.getFirst(), RED_SPARKLER.getFirst(), ORANGE_SPARKLER.getFirst(), YELLOW_SPARKLER.getFirst(), LIME_SPARKLER.getFirst(), GREEN_SPARKLER.getFirst(), CYAN_SPARKLER.getFirst(), LIGHT_BLUE_SPARKLER.getFirst(), BLUE_SPARKLER.getFirst(), PURPLE_SPARKLER.getFirst(), MAGENTA_SPARKLER.getFirst(), PINK_SPARKLER.getFirst())
 				.addItemsBefore(of(Blocks.ANVIL), CUPRIC_CAMPFIRE)
 				.addItemsBefore(of(Blocks.CHAIN),
 						CUPRIC_LANTERN,

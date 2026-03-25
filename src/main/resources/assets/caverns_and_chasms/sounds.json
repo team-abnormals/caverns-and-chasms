@@ -81,6 +81,42 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.halt"
   },
+  "block.halt_rail.extend": {
+    "sounds": [
+      "caverns_and_chasms:block/halt_rail/extend"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.extend"
+  },
+  "block.halt_rail.contract": {
+    "sounds": [
+      "caverns_and_chasms:block/halt_rail/contract"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.contract"
+  },
+  "block.slaughter_rail.extend": {
+    "sounds": [
+      "caverns_and_chasms:block/slaughter_rail/extend"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.slaughter_rail.extend"
+  },
+  "block.slaughter_rail.contract": {
+    "sounds": [
+      "caverns_and_chasms:block/slaughter_rail/contract"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.slaughter_rail.contract"
+  },
+  "block.spiked_rail.extend": {
+    "sounds": [
+      "caverns_and_chasms:block/spiked_rail/extend"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.spiked_rail.extend"
+  },
+  "block.spiked_rail.contract": {
+    "sounds": [
+      "caverns_and_chasms:block/spiked_rail/contract"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.spiked_rail.contract"
+  },
   "block.rocky_dirt.break": {
     "sounds": [
       "caverns_and_chasms:block/rocky_dirt/place1",
@@ -1054,36 +1090,12 @@
   },
   "block.brazier.crackle": {
     "sounds": [
-      {
-        "name": "caverns_and_chasms:block/brazier/crackle1",
-        "volume": 0.075,
-        "attenuation_distance": 8,
-        "pitch": 0.9
-      },
-      {
-        "name": "caverns_and_chasms:block/brazier/crackle2",
-        "volume": 0.075,
-        "attenuation_distance": 8,
-        "pitch": 0.9
-      },
-      {
-        "name": "caverns_and_chasms:block/brazier/crackle3",
-        "volume": 0.075,
-        "attenuation_distance": 8,
-        "pitch": 0.9
-      },
-      {
-        "name": "caverns_and_chasms:block/brazier/crackle4",
-        "volume": 0.075,
-        "attenuation_distance": 8,
-        "pitch": 0.9
-      },
-      {
-        "name": "caverns_and_chasms:block/brazier/crackle5",
-        "volume": 0.075,
-        "attenuation_distance": 8,
-        "pitch": 0.9
-      }
+      "block/campfire/crackle1",
+      "block/campfire/crackle2",
+      "block/campfire/crackle3",
+      "block/campfire/crackle4",
+      "block/campfire/crackle5",
+      "block/campfire/crackle6"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.brazier.crackle"
   },
@@ -4164,6 +4176,21 @@
       "caverns_and_chasms:mob/grazer/step10"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.grazer.mount": {
+    "sounds": [
+      "caverns_and_chasms:mob/grazer/mount1",
+      "caverns_and_chasms:mob/grazer/mount2",
+      "caverns_and_chasms:mob/grazer/mount3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.mount"
+  },
+  "entity.grazer.dismount": {
+    "sounds": [
+      "caverns_and_chasms:mob/grazer/dismount1",
+      "caverns_and_chasms:mob/grazer/dismount2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.entity.grazer.dismount"
   },
   "entity.parrot.imitate.deeper": {
     "sounds": [

@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(Gui.class)
 public abstract class GuiMixin {
 	@Unique
-	private static final ResourceLocation BONE_FLUTE_CROSSHAIR_FRAME = CavernsAndChasms.location("textures/gui/sprites/hud/bone_flute_crosshair/frame.png");;
+	private static final ResourceLocation BONE_FLUTE_CROSSHAIR_FRAME = CavernsAndChasms.location("textures/gui/sprites/hud/bone_flute_crosshair/frame.png");
 
 	@Shadow
 	@Final

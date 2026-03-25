@@ -9,7 +9,7 @@ public class RatOwnerHurtByTargetGoal extends OwnerHurtByTargetGoal {
 
 	public RatOwnerHurtByTargetGoal(Rat rat) {
 		super(rat);
-		this.rat =rat;
+		this.rat = rat;
 	}
 
 	@Override

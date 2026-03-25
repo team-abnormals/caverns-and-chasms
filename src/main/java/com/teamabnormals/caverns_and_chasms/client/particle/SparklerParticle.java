@@ -17,13 +17,13 @@ public class SparklerParticle extends RisingParticle {
 		double dy = this.random.nextDouble() * 0.5D;
 		double dz = this.random.nextDouble() - 0.5D;
 
-		double speed =  0.015D / Math.sqrt(dx * dx + dy * dy + dz * dz);
+		double speed = 0.015D / Math.sqrt(dx * dx + dy * dy + dz * dz);
 
 		this.xd = dx * speed;
 		this.yd = dy * speed;
 		this.zd = dz * speed;
 
-		this.lifetime = (int)(4.0D / (Math.random() * 0.8D + 0.2D)) + 2;
+		this.lifetime = (int) (4.0D / (Math.random() * 0.8D + 0.2D)) + 2;
 	}
 
 	public ParticleRenderType getRenderType() {
