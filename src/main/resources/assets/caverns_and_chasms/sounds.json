@@ -81,6 +81,42 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.halt"
   },
+  "block.halt_rail.extend": {
+    "sounds": [
+      "caverns_and_chasms:block/halt_rail/extend"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.extend"
+  },
+  "block.halt_rail.contract": {
+    "sounds": [
+      "caverns_and_chasms:block/halt_rail/contract"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.halt_rail.contract"
+  },
+  "block.slaughter_rail.extend": {
+    "sounds": [
+      "caverns_and_chasms:block/slaughter_rail/extend"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.slaughter_rail.extend"
+  },
+  "block.slaughter_rail.contract": {
+    "sounds": [
+      "caverns_and_chasms:block/slaughter_rail/contract"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.slaughter_rail.contract"
+  },
+  "block.spiked_rail.extend": {
+    "sounds": [
+      "caverns_and_chasms:block/spiked_rail/extend"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.spiked_rail.extend"
+  },
+  "block.spiked_rail.contract": {
+    "sounds": [
+      "caverns_and_chasms:block/spiked_rail/contract"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.spiked_rail.contract"
+  },
   "block.rocky_dirt.break": {
     "sounds": [
       "caverns_and_chasms:block/rocky_dirt/place1",

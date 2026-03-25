@@ -388,6 +388,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> SPARKLER_EXPLODE = HELPER.createSoundEvent("block.sparkler.explode");
 
 	public static final RegistryObject<SoundEvent> HALT_RAIL_HALT = HELPER.createSoundEvent("block.halt_rail.halt");
+	public static final RegistryObject<SoundEvent> HALT_RAIL_EXTEND = HELPER.createSoundEvent("block.halt_rail.extend");
+	public static final RegistryObject<SoundEvent> HALT_RAIL_CONTRACT = HELPER.createSoundEvent("block.halt_rail.contract");
+	public static final RegistryObject<SoundEvent> SLAUGHTER_RAIL_EXTEND = HELPER.createSoundEvent("block.slaughter_rail.extend");
+	public static final RegistryObject<SoundEvent> SLAUGHTER_RAIL_CONTRACT = HELPER.createSoundEvent("block.slaughter_rail.contract");
+	public static final RegistryObject<SoundEvent> SPIKED_RAIL_EXTEND = HELPER.createSoundEvent("block.spiked_rail.extend");
+	public static final RegistryObject<SoundEvent> SPIKED_RAIL_CONTRACT = HELPER.createSoundEvent("block.spiked_rail.contract");
 
 	public static final RegistryObject<SoundEvent> TOOLBOX_OPEN = HELPER.createSoundEvent("block.toolbox.open");
 	public static final RegistryObject<SoundEvent> TOOLBOX_CLOSE = HELPER.createSoundEvent("block.toolbox.close");
