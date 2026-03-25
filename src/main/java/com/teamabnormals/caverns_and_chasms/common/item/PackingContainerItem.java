@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -161,12 +160,6 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		} else {
 			return 0;
 		}
-	}
-
-	private static Optional<CompoundTag> getMatchingItem(ItemStack stack, ListTag p_150758_) {
-		return stack.is(CCItems.PACKING_CONTAINER.get()) ? Optional.empty() : p_150758_.stream().filter(CompoundTag.class::isInstance).map(CompoundTag.class::cast).filter((p_186350_) -> {
-			return ItemStack.isSameItemSameTags(ofLargeCount(p_186350_), stack);
-		}).findFirst();
 	}
 
 	private static int getWeight(ItemStack stack) {
