@@ -96,11 +96,21 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 	}
 
 	public ItemModelBuilder packingContainerItem(RegistryObject<? extends ItemLike> item, String type) {
-		ModelFile model = this.withExistingParent(name(item.get()) + "_dyed", "item/" + type)
+		ModelFile dyed = this.withExistingParent(name(item.get()) + "_dyed", "item/" + type)
 				.texture("layer0", itemTexture(item.get()))
 				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
 
-		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get())).override().model(model).predicate(new ResourceLocation("dyed"), 1).end();
+		ModelFile filled = this.withExistingParent(name(item.get()) + "_filled", "item/" + type)
+				.texture("layer0", itemTexture(item.get()).withSuffix("_filled"));
+
+		ModelFile dyedFilled = this.withExistingParent(name(item.get()) + "_dyed_filled", "item/" + type)
+				.texture("layer0", itemTexture(item.get()).withSuffix("_filled"))
+				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
+
+		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get()))
+				.override().model(filled).predicate(new ResourceLocation("dyed"), 0).predicate(new ResourceLocation("filled"), 0.0000001F).end()
+				.override().model(dyed).predicate(new ResourceLocation("dyed"), 1).end()
+				.override().model(dyedFilled).predicate(new ResourceLocation("dyed"), 1).predicate(new ResourceLocation("filled"), 0.0000001F).end();
 	}
 
 	@SafeVarargs

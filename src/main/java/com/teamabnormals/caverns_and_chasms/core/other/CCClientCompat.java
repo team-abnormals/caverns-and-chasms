@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnS
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
 import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.PackingContainerTooltip;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
@@ -262,6 +263,10 @@ public class CCClientCompat {
 		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.PACKING_CONTAINER.get())) {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
+
+		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> {
+			return PackingContainerItem.getFullnessDisplay(p_174625_);
+		});
 
 		ItemProperties.register(CCItems.TUNING_FORK.get(), CavernsAndChasms.location("holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
 		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), CavernsAndChasms.location("depth"), new ClampedItemPropertyFunction() {
