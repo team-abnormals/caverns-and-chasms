@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "# #",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:packing_container"
+  },
+  "show_notification": true
+}

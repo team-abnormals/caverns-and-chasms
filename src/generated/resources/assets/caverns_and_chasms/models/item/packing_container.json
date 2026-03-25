@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "caverns_and_chasms:item/packing_container_dyed",
+      "predicate": {
+        "minecraft:dyed": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "caverns_and_chasms:item/packing_container"
+  }
+}

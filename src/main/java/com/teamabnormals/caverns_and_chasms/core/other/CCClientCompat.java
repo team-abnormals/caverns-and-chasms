@@ -105,6 +105,7 @@ public class CCClientCompat {
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.TOOLBELT.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.UNICORN_HORN.get());
+		event.register((stack, color) -> color != 1 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.PACKING_CONTAINER.get());
 	}
 
 	@SubscribeEvent
@@ -251,7 +252,7 @@ public class CCClientCompat {
 			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
 		}
 
-		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get())) {
+		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.PACKING_CONTAINER.get())) {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 

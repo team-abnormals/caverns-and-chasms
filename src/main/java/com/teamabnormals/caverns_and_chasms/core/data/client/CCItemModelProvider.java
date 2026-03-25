@@ -8,6 +8,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -49,6 +50,7 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		);
 
 		this.overlayItem(TOOLBELT, "generated");
+		this.packingContainerItem(PACKING_CONTAINER, "generated");
 
 		this.withExistingParent(name(WAXED_COPPER_INGOT.get()), "item/generated").texture("layer0", new ResourceLocation("item/copper_ingot"));
 
@@ -91,6 +93,14 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		return this.withExistingParent(name(item.get()), "item/" + type)
 				.texture("layer0", itemTexture(item.get()))
 				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
+	}
+
+	public ItemModelBuilder packingContainerItem(RegistryObject<? extends ItemLike> item, String type) {
+		ModelFile model = this.withExistingParent(name(item.get()) + "_dyed", "item/" + type)
+				.texture("layer0", itemTexture(item.get()))
+				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
+
+		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get())).override().model(model).predicate(new ResourceLocation("dyed"), 1).end();
 	}
 
 	@SafeVarargs
