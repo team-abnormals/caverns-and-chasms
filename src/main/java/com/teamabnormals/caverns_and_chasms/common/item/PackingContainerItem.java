@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -22,20 +21,15 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.PlayerEvent.ItemPickupEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class PackingContainerItem extends Item implements DyeableLeatherItem {
 	private static final String TAG_ITEM = "Item";
 	public static final int MAX_WEIGHT = 512;
-	private static final int BUNDLE_IN_BUNDLE_WEIGHT = 4;
+	private static final int CONTAINER_IN_CONTAINER_WEIGHT = 4;
 	private static final int BAR_COLOR = Mth.color(0.4F, 0.4F, 1.0F);
 
 	public PackingContainerItem(Item.Properties properties) {
@@ -177,7 +171,7 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 
 	private static int getWeight(ItemStack stack) {
 		if (stack.is(CCItems.PACKING_CONTAINER.get())) {
-			return 4 + getContentWeight(stack);
+			return CONTAINER_IN_CONTAINER_WEIGHT + getContentWeight(stack);
 		} else {
 			if ((stack.is(Items.BEEHIVE) || stack.is(Items.BEE_NEST)) && stack.hasTag()) {
 				CompoundTag tag = BlockItem.getBlockEntityData(stack);
@@ -297,10 +291,5 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		public ItemStack getItems() {
 			return this.item;
 		}
-	}
-
-	@SubscribeEvent
-	public static void onItemPickup(ItemPickupEvent event) {
-
 	}
 }
