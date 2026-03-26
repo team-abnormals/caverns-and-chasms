@@ -204,7 +204,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
 
 		this.logBlock(CYLINDRITE);
+		this.blockFamily(SMOOTH_CYLINDRITE_FAMILY);
+		this.blockFamilyWithChiseled(CYLINDRITE_BRICKS_FAMILY);
 		this.blockFamily(POLISHED_CYLINDRITE_FAMILY);
+		this.logBlock(CYLINDRITE_PILLAR);
 
 		this.blockFamily(CASSITERITE_FAMILY);
 		this.blockFamily(SMOOTH_CASSITERITE_FAMILY);

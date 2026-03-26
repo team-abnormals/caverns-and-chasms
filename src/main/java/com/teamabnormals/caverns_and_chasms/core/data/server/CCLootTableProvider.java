@@ -358,7 +358,10 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.blockFamily(POLISHED_SUGILITE_FAMILY);
 
 			this.blockFamily(CYLINDRITE_FAMILY);
+			this.blockFamily(CYLINDRITE_BRICKS_FAMILY);
+			this.dropSelf(CYLINDRITE_PILLAR.get());
 			this.blockFamily(POLISHED_CYLINDRITE_FAMILY);
+			this.blockFamily(SMOOTH_CYLINDRITE_FAMILY);
 
 			this.blockFamily(CASSITERITE_FAMILY);
 			this.blockFamily(CASSITERITE_BRICKS_FAMILY);

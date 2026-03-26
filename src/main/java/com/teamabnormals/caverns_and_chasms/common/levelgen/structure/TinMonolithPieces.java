@@ -87,7 +87,7 @@ public class TinMonolithPieces {
 							else if (random.nextFloat() * oreDensity > Math.min(0.3D + relativeDistFromCenter * 0.3D, 0.5D))
 								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE_TIN_ORE.get().defaultBlockState() : CCBlocks.CYLINDRITE_TIN_ORE.get().defaultBlockState(), 2);
 							else
-								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE.get().defaultBlockState() : CCBlocks.CYLINDRITE.get().defaultBlockState(), 2);
+								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE.get().defaultBlockState() : (computeDeepslateGradient(levelY, random) ? CCBlocks.CYLINDRITE : CCBlocks.SMOOTH_CYLINDRITE).get().defaultBlockState(), 2);
 						}
 					}
 				}

@@ -424,8 +424,20 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CYLINDRITE.get()).requires(Blocks.DEEPSLATE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
 		generateRecipes(consumer, CYLINDRITE_FAMILY);
 		generateRecipes(consumer, POLISHED_CYLINDRITE_FAMILY);
+		generateRecipes(consumer, CYLINDRITE_BRICKS_FAMILY);
 		stonecutterRecipes(consumer, CYLINDRITE_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_CYLINDRITE_FAMILY, CYLINDRITE.get(), POLISHED_CYLINDRITE.get());
+		stonecutterRecipes(consumer, CYLINDRITE_BRICKS_FAMILY, CYLINDRITE.get(), POLISHED_CYLINDRITE.get(), CYLINDRITE_BRICKS.get());
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), 2).define('#', CYLINDRITE_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(CYLINDRITE_BRICKS.get()), has(CYLINDRITE_BRICKS.get())).unlockedBy(getHasName(CYLINDRITE_PILLAR.get()), has(CYLINDRITE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), CYLINDRITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), POLISHED_CYLINDRITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), CYLINDRITE_BRICKS.get(), 2);
+
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(CYLINDRITE.get()), BUILDING_BLOCKS, SMOOTH_CYLINDRITE.get(), 0.1F, 200).unlockedBy("has_cylindrite", has(CYLINDRITE.get())).save(consumer);
+		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE.get(), SMOOTH_CYLINDRITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
+		generateRecipes(consumer, SMOOTH_CYLINDRITE_FAMILY);
+		stonecutterRecipes(consumer, SMOOTH_CYLINDRITE_FAMILY);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CASSITERITE.get()).requires(Blocks.GRANITE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
 		generateRecipes(consumer, CASSITERITE_FAMILY);
