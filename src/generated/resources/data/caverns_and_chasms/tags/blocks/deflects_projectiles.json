@@ -30,6 +30,7 @@
     "caverns_and_chasms:saddled_egg",
     "caverns_and_chasms:tinplate_block",
     "#caverns_and_chasms:weaker_deflect_velocity",
+    "#caverns_and_chasms:weakest_deflect_velocity",
     "#caverns_and_chasms:maintains_deflect_velocity"
   ]
 }

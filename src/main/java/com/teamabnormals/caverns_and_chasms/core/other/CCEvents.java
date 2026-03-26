@@ -719,6 +719,9 @@ public class CCEvents {
 					if (state.is(CCBlockTags.WEAKER_DEFLECT_VELOCITY) || bonus) {
 						j -= 0.25D;
 						k -= 0.25D;
+					} else if (state.is(CCBlockTags.WEAKEST_DEFLECT_VELOCITY)) {
+						j -= 0.35D;
+						k -= 0.35D;
 					}
 
 					if (axis == Axis.X) {
