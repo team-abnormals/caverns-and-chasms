@@ -4811,9 +4811,12 @@
   },
   "item.packing_container.insert_fail": {
     "sounds": [
-      "caverns_and_chasms:item/packing_container/insert_fail"
+      {
+        "name": "caverns_and_chasms:item/packing_container/insert_fail",
+        "volume": 0.4
+      }
     ],
-    "subtitle": "ubtitles.caverns_and_chasms.item.packing_container.insert_fail"
+    "subtitle": "subtitles.caverns_and_chasms.item.packing_container.insert_fail"
   },
   "item.goat_horn.sound.8": {
     "sounds": [
