@@ -89,6 +89,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TIN_BLOCK = HELPER.createBlock("tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(CCSoundTypes.TIN)));
 	public static final RegistryObject<Block> TIN_ORE = HELPER.createBlock("tin_ore", () -> new Block(CCProperties.TIN_ORE));
 	public static final RegistryObject<Block> DEEPSLATE_TIN_ORE = HELPER.createBlock("deepslate_tin_ore", () -> new Block(CCProperties.DEEPSLATE_TIN_ORE));
+	public static final RegistryObject<Block> CYLINDRITE_TIN_ORE = HELPER.createBlock("cylindrite_tin_ore", () -> new Block(CCProperties.CYLINDRITE_TIN_ORE));
 	public static final RegistryObject<Block> CASSITERITE_TIN_ORE = HELPER.createBlock("cassiterite_tin_ore", () -> new Block(CCProperties.CASSITERITE_TIN_ORE));
 	public static final RegistryObject<Block> RAW_TIN_BLOCK = HELPER.createBlock("raw_tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.TIN_ORE)));
 	public static final RegistryObject<Block> TIN_BARS = HELPER.createBlock("tin_bars", () -> new IronBarsBlock(CCProperties.TIN_BARS));
@@ -919,6 +920,7 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(CCSoundTypes.TIN_ORE);
 		public static final BlockBehaviour.Properties DEEPSLATE_TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(CCSoundTypes.DEEPSLATE_TIN_ORE);
+		public static final BlockBehaviour.Properties CYLINDRITE_TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 1.0F).sound(CCSoundTypes.CASSITERITE_TIN_ORE);
 		public static final BlockBehaviour.Properties CASSITERITE_TIN_ORE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.5F, 1.0F).sound(CCSoundTypes.CASSITERITE_TIN_ORE);
 
 		public static final BlockBehaviour.Properties ROTTEN_FLESH_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.8F).sound(CCSoundTypes.ROTTEN_FLESH);

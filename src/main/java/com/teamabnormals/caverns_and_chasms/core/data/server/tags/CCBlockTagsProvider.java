@@ -79,7 +79,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				ROCKY_DIRT.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(),
 				CHARCOAL_BLOCK.get(), COAL.get(), CHARCOAL.get(),
 				SILVER_BLOCK.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SILVER_BARS.get(), MEDIUM_WEIGHTED_PRESSURE_PLATE.get(),
-				TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), TIN_BARS.get(), TIN_CHAIN.get(), TIN_BULB.get(),
+				TIN_BLOCK.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), TIN_BARS.get(), TIN_CHAIN.get(), TIN_BULB.get(),
 				HOLD_PLATE.get(), HOLD_BUTTON.get(), WINCH.get(), DIMMER.get(), WALL_DIMMER.get(), BOUNCER.get(), HOOP.get(), STORAGE_DUCT.get(), STORAGE_DUCT_HATCH.get(), TINPLATE_BLOCK.get(),
 				ROLLER_DOOR.get(), ROLLER_DOOR_HEADER.get(),
 				COPPER_RAIL.get(), EXPOSED_COPPER_RAIL.get(), WEATHERED_COPPER_RAIL.get(), OXIDIZED_COPPER_RAIL.get(),
@@ -163,7 +163,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				IRON_INGOT.get()
 		);
 		this.tag(BlockTags.NEEDS_IRON_TOOL).add(SILVER_BLOCK.get(), SILVER_INGOT.get(), RAW_SILVER_BLOCK.get(), SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), ZIRCONIA_BLOCK.get(), GOLD_INGOT.get());
-		this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(TIN_BLOCK.get(), TIN_INGOT.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), NECROMIUM_BLOCK.get(), NECROMIUM_INGOT.get(), NETHERITE_INGOT.get());
+		this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(TIN_BLOCK.get(), TIN_INGOT.get(), RAW_TIN_BLOCK.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), NECROMIUM_BLOCK.get(), NECROMIUM_INGOT.get(), NETHERITE_INGOT.get());
 		this.tag(BlockTags.VIBRATION_RESONATORS).add(AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get(), AMETHYST_LAMP.get());
 		this.tag(BlockTags.CRYSTAL_SOUND_BLOCKS).addTag(CCBlockTags.FLOODLIGHTS).add(AMETHYST_BLOCK.get(), CUT_AMETHYST.get(), CUT_AMETHYST.get(), CUT_AMETHYST_BRICKS.get(), CUT_AMETHYST_BRICK_STAIRS.get(), CUT_AMETHYST_BRICK_SLAB.get(), CUT_AMETHYST_BRICK_WALL.get(), AMETHYST_LAMP.get());
 		this.tag(BlockTags.BASE_STONE_OVERWORLD).add(FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get(), RHYOLITE.get());
@@ -177,7 +177,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.DEEPER_SPAWNABLE_ON).add(Blocks.GRAVEL).addTag(BlockTags.BASE_STONE_OVERWORLD).addTag(Tags.Blocks.ORES);
 		this.tag(CCBlockTags.IGNORE_RAIL_PLACEMENT);
 		this.tag(CCBlockTags.SILVER_ORES).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get());
-		this.tag(CCBlockTags.TIN_ORES).add(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get());
+		this.tag(CCBlockTags.TIN_ORES).add(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get());
 		this.tag(CCBlockTags.SPINEL_ORES).add(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 		this.tag(CCBlockTags.TURQUOISE_ORES).add(TURQUOISE_ORE.get(), DEEPSLATE_TURQUOISE_ORE.get());
 		this.tag(CCBlockTags.AZALEA_LOGS).add(AZALEA_LOG.get(), STRIPPED_AZALEA_LOG.get(), AZALEA_WOOD.get(), STRIPPED_AZALEA_WOOD.get());
@@ -274,7 +274,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.ORES_SPINEL).addTag(CCBlockTags.SPINEL_ORES);
 		this.tag(CCBlockTags.ORES_TURQUOISE).addTag(CCBlockTags.TURQUOISE_ORES);
 		this.tag(Tags.Blocks.ORE_RATES_DENSE).add(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
-		this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get());
+		this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get());
 		this.tag(Tags.Blocks.ORE_RATES_SPARSE).add(SOUL_SILVER_ORE.get());
 		this.tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(SILVER_ORE.get(), TIN_ORE.get(), SPINEL_ORE.get());
 		this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(DEEPSLATE_SILVER_ORE.get(), DEEPSLATE_TIN_ORE.get(), DEEPSLATE_SPINEL_ORE.get());

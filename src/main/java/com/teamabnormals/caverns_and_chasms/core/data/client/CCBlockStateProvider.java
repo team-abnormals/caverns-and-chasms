@@ -54,6 +54,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(RAW_TIN_BLOCK);
 		this.block(TIN_ORE);
 		this.block(DEEPSLATE_TIN_ORE);
+		this.block(CYLINDRITE_TIN_ORE);
 		this.block(CASSITERITE_TIN_ORE);
 		this.block(TIN_BLOCK);
 		this.tinChainBlock(TIN_CHAIN);

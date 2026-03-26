@@ -3,7 +3,7 @@
   "category": "building",
   "ingredients": [
     {
-      "item": "minecraft:andesite"
+      "item": "minecraft:deepslate"
     },
     {
       "tag": "forge:raw_materials/tin"

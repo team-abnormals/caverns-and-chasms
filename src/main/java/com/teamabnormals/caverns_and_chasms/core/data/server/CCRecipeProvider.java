@@ -51,7 +51,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	public static final ModLoadedCondition ENDERGETIC_LOADED = new ModLoadedCondition("endergetic");
 
 	private static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get(), CCItems.RAW_SILVER.get());
-	private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), CCItems.RAW_TIN.get());
+	private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), CCItems.RAW_TIN.get());
 	private static final ImmutableList<ItemLike> SPINEL_SMELTABLES = ImmutableList.of(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 	private static final ImmutableList<ItemLike> TURQUOISE_SMELTABLES = ImmutableList.of(TURQUOISE_ORE.get(), DEEPSLATE_TURQUOISE_ORE.get());
 
@@ -421,7 +421,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, SUGILITE_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_SUGILITE_FAMILY, SUGILITE.get(), POLISHED_SUGILITE.get());
 
-		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CYLINDRITE.get()).requires(Blocks.ANDESITE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
+		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CYLINDRITE.get()).requires(Blocks.DEEPSLATE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
 		generateRecipes(consumer, CYLINDRITE_FAMILY);
 		generateRecipes(consumer, POLISHED_CYLINDRITE_FAMILY);
 		stonecutterRecipes(consumer, CYLINDRITE_FAMILY);
