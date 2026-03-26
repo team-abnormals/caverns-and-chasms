@@ -37,6 +37,7 @@
   * Saddled Egg
   * Evendeeper Head
   * Cassiterite block set
+  * Cylindrite block set
   * Rhyolite block set
   * Magmatic Rhyolite block set
   * Plated Bricks block sets for all Ingots

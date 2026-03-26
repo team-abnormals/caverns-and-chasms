@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.Plane;
@@ -198,6 +199,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.blockFamily(SUGILITE_FAMILY);
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
+
+		this.deepslateBlock(CYLINDRITE.get());
+		this.stairsBlock(CYLINDRITE.get(), CYLINDRITE_STAIRS.get());
+		this.slabBlock(CYLINDRITE.get(), CYLINDRITE_SLAB.get());
+		this.wallBlock(CYLINDRITE.get(), CYLINDRITE_WALL.get());
+		this.blockFamily(POLISHED_CYLINDRITE_FAMILY);
 
 		this.blockFamily(CASSITERITE_FAMILY);
 		this.blockFamily(SMOOTH_CASSITERITE_FAMILY);

@@ -421,6 +421,12 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, SUGILITE_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_SUGILITE_FAMILY, SUGILITE.get(), POLISHED_SUGILITE.get());
 
+		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CYLINDRITE.get()).requires(Blocks.ANDESITE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
+		generateRecipes(consumer, CYLINDRITE_FAMILY);
+		generateRecipes(consumer, POLISHED_CYLINDRITE_FAMILY);
+		stonecutterRecipes(consumer, CYLINDRITE_FAMILY);
+		stonecutterRecipes(consumer, POLISHED_CYLINDRITE_FAMILY, CYLINDRITE.get(), POLISHED_CYLINDRITE.get());
+
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CASSITERITE.get()).requires(Blocks.GRANITE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
 		generateRecipes(consumer, CASSITERITE_FAMILY);
 		generateRecipes(consumer, POLISHED_CASSITERITE_FAMILY);

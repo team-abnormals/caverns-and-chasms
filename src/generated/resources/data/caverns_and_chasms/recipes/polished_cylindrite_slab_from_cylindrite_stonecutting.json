@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "caverns_and_chasms:cylindrite"
+  },
+  "result": "caverns_and_chasms:polished_cylindrite_slab"
+}

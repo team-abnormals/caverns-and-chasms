@@ -424,6 +424,15 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_SUGILITE_SLAB = HELPER.createBlock("polished_sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE));
 	public static final RegistryObject<Block> POLISHED_SUGILITE_WALL = HELPER.createBlock("polished_sugilite_wall", () -> new WallBlock(CCProperties.SUGILITE));
 
+	public static final RegistryObject<Block> CYLINDRITE = HELPER.createBlock("cylindrite", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_STAIRS = HELPER.createBlock("cylindrite_stairs", () -> new StairBlock(() -> CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_SLAB = HELPER.createBlock("cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_WALL = HELPER.createBlock("cylindrite_wall", () -> new WallBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> POLISHED_CYLINDRITE = HELPER.createBlock("polished_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> POLISHED_CYLINDRITE_STAIRS = HELPER.createBlock("polished_cylindrite_stairs", () -> new StairBlock(() -> POLISHED_CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> POLISHED_CYLINDRITE_SLAB = HELPER.createBlock("polished_cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> POLISHED_CYLINDRITE_WALL = HELPER.createBlock("polished_cylindrite_wall", () -> new WallBlock(CCProperties.CYLINDRITE));
+
 	public static final RegistryObject<Block> CASSITERITE = HELPER.createBlock("cassiterite", () -> new Block(CCProperties.CASSITERITE));
 	public static final RegistryObject<Block> CASSITERITE_STAIRS = HELPER.createBlock("cassiterite_stairs", () -> new StairBlock(() -> CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
 	public static final RegistryObject<Block> CASSITERITE_SLAB = HELPER.createBlock("cassiterite_slab", () -> new SlabBlock(CCProperties.CASSITERITE));
@@ -678,6 +687,7 @@ public class CCBlocks {
 						DRIPSTONE_BRICKS, CRACKED_DRIPSTONE_BRICKS, DRIPSTONE_BRICK_STAIRS, DRIPSTONE_BRICK_SLAB, DRIPSTONE_BRICK_WALL, CHISELED_DRIPSTONE_BRICKS,
 						DRIPSTONE_SHINGLES, FLOODED_DRIPSTONE_SHINGLES, DRIPSTONE_SHINGLE_STAIRS, DRIPSTONE_SHINGLE_SLAB, DRIPSTONE_SHINGLE_WALL, CHISELED_DRIPSTONE_SHINGLES,
 						SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL, POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB, POLISHED_SUGILITE_WALL,
+						CYLINDRITE, CYLINDRITE_STAIRS, CYLINDRITE_SLAB, CYLINDRITE_WALL, POLISHED_CYLINDRITE, POLISHED_CYLINDRITE_STAIRS, POLISHED_CYLINDRITE_SLAB, POLISHED_CYLINDRITE_WALL,
 						CASSITERITE, CASSITERITE_STAIRS, CASSITERITE_SLAB, CASSITERITE_WALL,
 						SMOOTH_CASSITERITE, SMOOTH_CASSITERITE_STAIRS, SMOOTH_CASSITERITE_SLAB,
 						POLISHED_CASSITERITE, POLISHED_CASSITERITE_STAIRS, POLISHED_CASSITERITE_SLAB, POLISHED_CASSITERITE_WALL,
@@ -833,7 +843,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties POLISHED_TUFF = BlockBehaviour.Properties.copy(Blocks.TUFF).sound(CCSoundTypes.POLISHED_TUFF);
 		public static final BlockBehaviour.Properties TUFF_BRICKS = BlockBehaviour.Properties.copy(Blocks.TUFF).sound(CCSoundTypes.TUFF_BRICKS);
 		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.0F, 4.0F).sound(CCSoundTypes.CASSITERITE);
+		public static final BlockBehaviour.Properties CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE).requiresCorrectToolForDrops().strength(0.75F);
+		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLESTONE);
 		public static final BlockBehaviour.Properties COBBLED_DEEPSLATE_BRICKS = BlockBehaviour.Properties.copy(Blocks.COBBLED_DEEPSLATE);
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);
