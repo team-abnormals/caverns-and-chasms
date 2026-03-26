@@ -1,9 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
+import com.google.common.base.Predicates;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBeBabyGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBeStupidGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerFloatGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
 import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
@@ -102,17 +103,22 @@ public abstract class AbstractGrazer extends Animal {
 		this.parts[4] = new GrazerPart(this, 12F, -7D, 0D);
 		this.parts[5] = new GrazerPart(this, 12F, -7D, -7D);
 		this.parts[6] = new GrazerLegsPart(this, 12F, -7D, -15D, -9D);
+		if (!level.isClientSide) {
+			this.reassessAgeGoals();
+		}
 	}
 
-	@Override
-	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new GrazerBeBabyGoal(this));
-		this.goalSelector.addGoal(1, new GrazerBounceGoal(this));
-		this.goalSelector.addGoal(2, new FloatGoal(this));
-		this.goalSelector.addGoal(3, new GrazerRunGoal(this, entity -> entity instanceof Player, 8.0D));
-		this.goalSelector.addGoal(4, new GrazerBeStupidGoal(this));
-		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+	protected void reassessAgeGoals() {
+		this.goalSelector.removeAllGoals(Predicates.alwaysTrue());
+
+		if (!this.isBaby()) {
+			this.goalSelector.addGoal(0, new GrazerFloatGoal(this));
+			this.goalSelector.addGoal(1, new GrazerBounceGoal(this));
+			this.goalSelector.addGoal(2, new GrazerRunGoal(this, entity -> entity instanceof Player, 8.0D));
+			this.goalSelector.addGoal(3, new GrazerBeStupidGoal(this));
+			this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+			this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+		}
 	}
 
 	@Override
@@ -183,6 +189,7 @@ public abstract class AbstractGrazer extends Animal {
 		this.setTargetXRot(compound.getFloat("TargetXRot"));
 		this.bouncingBackwards = compound.getBoolean("BouncingBackwards");
 		this.bounceHeight = compound.getDouble("BounceHeight");
+		this.reassessAgeGoals();
 	}
 
 	public GrazerState getState() {
@@ -324,6 +331,12 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		return null;
+	}
+
+	@Override
+	protected void ageBoundaryReached() {
+		super.ageBoundaryReached();
+		this.reassessAgeGoals();
 	}
 
 	@Override
@@ -768,10 +781,12 @@ public abstract class AbstractGrazer extends Animal {
 				double adjustAngle = horizontal ? this.random.nextDouble() - 0.5D : 0.0D;
 
 				if (this.getControllingPassenger() instanceof Player player) {
-					Vec3 playerMoveVec = this.getRidingPlayerAbsMovement(player);
-					if (Math.abs(playerMoveVec.x) >= 1.0E-7D || Math.abs(playerMoveVec.z) >= 1.0E-7D) {
-						double newAdjustAngle = this.calculateHorizontalAngleDiff(newMotion, playerMoveVec);
-						adjustAngle = Mth.clamp(newAdjustAngle, -0.6D, 0.6D);
+					if (horizontal || ground) {
+						Vec3 playerMoveVec = this.getRidingPlayerAbsMovement(player);
+						if (Math.abs(playerMoveVec.x) >= 1.0E-7D || Math.abs(playerMoveVec.z) >= 1.0E-7D) {
+							double newAdjustAngle = this.calculateHorizontalAngleDiff(newMotion, playerMoveVec);
+							adjustAngle = Mth.clamp(newAdjustAngle, -0.6D, 0.6D);
+						}
 					}
 				} else {
 					if (horizontal) {
