@@ -299,7 +299,7 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public float getStepHeight() {
 		GrazerState state = this.getState();
-		return state == GrazerState.RUNNING || state == GrazerState.SLOWING_DOWN ? 1.0F : super.getStepHeight();
+		return state == GrazerState.RUNNING || state == GrazerState.SLOWING_DOWN || state == GrazerState.BOUNCING ? 1.0F : super.getStepHeight();
 	}
 
 	@Override
