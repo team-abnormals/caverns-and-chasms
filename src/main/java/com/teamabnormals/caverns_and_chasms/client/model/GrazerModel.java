@@ -49,7 +49,7 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 		PartDefinition root = meshdefinition.getRoot();
 
 		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(12, 84).addBox(-5.0F, -13.0F, -19.0F, 10.0F, 9.0F, 12.0F), PartPose.offset(0.0F, 16.0F, 0.0F));
-		PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(15, 105).addBox(-5.0F, 0.0F, -9.0F, 10.0F, 3.0F, 9.0F), PartPose.offset(0.0F, -4.0F, -7.0F));
+		PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(15, 105).addBox(-5.0F, 0.0F, -9.0F, 10.0F, 3.0F, 9.0F, new CubeDeformation(-0.005F)), PartPose.offset(0.0F, -4.005F, -7.0F));
 		jaw.addOrReplaceChild("drool", CubeListBuilder.create().texOffs(33, 116).addBox(0.0F, 0.0F, -0.5F, 0.0F, 9.0F, 1.0F), PartPose.offset(5.0F, 3.0F, -8.5F));
 		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -25.0F, -19.0F, 10.0F, 12.0F, 24.0F)
 				.texOffs(0, 36).addBox(-5.0F, -25.0F, -19.0F, 10.0F, 24.0F, 24.0F, new CubeDeformation(0.5F))
