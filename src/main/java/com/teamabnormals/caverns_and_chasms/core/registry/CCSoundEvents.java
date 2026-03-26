@@ -534,6 +534,11 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_RECALL = HELPER.createSoundEvent("item.bone_flute.recall");
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_MOVE = HELPER.createSoundEvent("item.bone_flute.move");
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_ATTACK = HELPER.createSoundEvent("item.bone_flute.attack");
+	
+	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_DROP_CONTENTS = HELPER.createSoundEvent("item.packing_container.drop_contents");
+	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_INSERT = HELPER.createSoundEvent("item.packing_container.insert");
+	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_INSERT_FAIL = HELPER.createSoundEvent("item.packing_container.insert_fail");
+	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_REMOVE_ONE = HELPER.createSoundEvent("item.packing_container.remove_one");
 
 	private static ImmutableList<RegistryObject<SoundEvent>> registerGoatHornSoundVariants() {
 		return IntStream.range(8, 10).mapToObj((suffix) -> HELPER.createSoundEvent("item.goat_horn.sound." + suffix)).collect(ImmutableList.toImmutableList());

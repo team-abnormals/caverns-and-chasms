@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -267,15 +268,15 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 	}
 
 	public SoundEvent getInsertSound() {
-		return SoundEvents.BUNDLE_INSERT;
+		return CCSoundEvents.PACKING_CONTAINER_INSERT.get();
 	}
 
 	private void playRemoveOneSound(Entity p_186343_) {
-		p_186343_.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + p_186343_.level().getRandom().nextFloat() * 0.4F);
+		p_186343_.playSound(CCSoundEvents.PACKING_CONTAINER_REMOVE_ONE.get(), 0.8F, 0.8F + p_186343_.level().getRandom().nextFloat() * 0.4F);
 	}
 
 	private void playDropContentsSound(Entity p_186354_) {
-		p_186354_.playSound(SoundEvents.BUNDLE_DROP_CONTENTS, 0.8F, 0.8F + p_186354_.level().getRandom().nextFloat() * 0.4F);
+		p_186354_.playSound(CCSoundEvents.PACKING_CONTAINER_DROP_CONTENTS.get(), 0.8F, 0.8F + p_186354_.level().getRandom().nextFloat() * 0.4F);
 	}
 
 	private void playInsertSound(Entity p_186352_) {
