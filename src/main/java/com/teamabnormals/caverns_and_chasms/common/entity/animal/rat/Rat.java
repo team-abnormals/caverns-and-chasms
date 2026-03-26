@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCRatVariants;
@@ -921,13 +920,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean canHoldItem(ItemStack stack) {
-		Item item = stack.getItem();
-		if (item == CCItems.BONE_FLUTE.get()) {
-			return false;
-		} else {
-			ItemStack currentstack = this.getMainHandItem();
-			return currentstack.isEmpty() || (this.getHealth() < this.getMaxHealth() && item.isEdible() && !currentstack.getItem().isEdible());
-		}
+		ItemStack currentStack = this.getMainHandItem();
+		return stack.getItem().isEdible() && (currentStack.isEmpty() || !currentStack.getItem().isEdible());
 	}
 
 	private void spitOutItem(ItemStack stackIn) {
