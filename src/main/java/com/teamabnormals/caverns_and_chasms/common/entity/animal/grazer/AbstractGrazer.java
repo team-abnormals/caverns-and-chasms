@@ -681,7 +681,7 @@ public abstract class AbstractGrazer extends Animal {
 							newmotion.add(0.0D, this.bounceHeight, 0.0D);
 						}
 
-						if (this.getState() != GrazerState.BOUNCING) {
+						if (other.getState() != GrazerState.BOUNCING) {
 							other.setState(GrazerState.BOUNCING);
 							other.bounceHeight = this.bounceHeight;
 							othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
