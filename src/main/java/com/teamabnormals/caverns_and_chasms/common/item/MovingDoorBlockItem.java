@@ -14,6 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
@@ -23,11 +25,7 @@ public class MovingDoorBlockItem extends BEWLRBlockItem {
 	private String descriptionId;
 
 	public MovingDoorBlockItem(Block block, MovingDoorType doorType, Properties properties) {
-		super(block, properties, () -> () -> new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> {
-			MovingDoorHeaderBlockEntity blockEntity = new MovingDoorHeaderBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState());
-			blockEntity.setDoorType(doorType);
-			return new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, blockEntity);
-		}));
+		super(block, properties, () -> () -> BEWLR(doorType));
 		this.doorType = doorType;
 	}
 
@@ -59,5 +57,14 @@ public class MovingDoorBlockItem extends BEWLRBlockItem {
 		if (this.getBlock() instanceof AbstractMovingDoorBlock doorBlock && this.doorType == doorBlock.getDefaultDoorType()) {
 			super.registerBlocks(map, item);
 		}
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static BEWLRBlockItem.LazyBEWLR BEWLR(MovingDoorType doorType) {
+		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> {
+			MovingDoorHeaderBlockEntity blockEntity = new MovingDoorHeaderBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState());
+			blockEntity.setDoorType(doorType);
+			return new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, blockEntity);
+		});
 	}
 }

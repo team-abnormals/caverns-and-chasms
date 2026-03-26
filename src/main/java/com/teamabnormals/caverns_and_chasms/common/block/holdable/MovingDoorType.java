@@ -6,6 +6,8 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,14 +20,17 @@ public class MovingDoorType {
 	public static final MovingDoorType ROLLER_WINDOW = new MovingDoorType(CavernsAndChasms.MOD_ID, "roller_window", "roller_door", CCItems.ROLLER_WINDOW);
 
 	private final String registryName;
-	private final Material material;
-	private final Material bottomMaterial;
+	private final ResourceLocation materialLocation;
+	private final ResourceLocation bottomMaterialLocation;
 	private final Supplier<Item> item;
+
+	private Material material;
+	private Material bottomMaterial;
 
 	public MovingDoorType(String modId, String name, String group, Supplier<Item> item) {
 		this.registryName = modId + ":" + name;
-		this.material = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(modId, "entity/" + group + "/" + name));
-		this.bottomMaterial = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(modId, "entity/" + group + "/" + name + "_bottom"));
+		this.materialLocation = new ResourceLocation(modId, "entity/" + group + "/" + name);
+		this.bottomMaterialLocation = new ResourceLocation(modId, "entity/" + group + "/" + name + "_bottom");
 		this.item = item;
 		TYPES.put(registryName, this);
 	}
@@ -34,11 +39,17 @@ public class MovingDoorType {
 		return this.registryName;
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public Material getNormalMaterial() {
+		if (this.material == null)
+			this.material = new Material(InventoryMenu.BLOCK_ATLAS, this.materialLocation);
 		return this.material;
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public Material getBottomMaterial() {
+		if (this.bottomMaterial == null)
+			this.bottomMaterial = new Material(InventoryMenu.BLOCK_ATLAS, this.bottomMaterialLocation);
 		return this.bottomMaterial;
 	}
 
