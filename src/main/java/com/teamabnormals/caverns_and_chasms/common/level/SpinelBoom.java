@@ -40,24 +40,18 @@ public class SpinelBoom extends Explosion {
 	private final double x;
 	private final double y;
 	private final double z;
-	private final Explosion.BlockInteraction blockInteraction;
 	private final ExplosionDamageCalculator damageCalculator;
 	private final ObjectArrayList<BlockPos> toBlow = new ObjectArrayList<>();
 	private final Map<Player, Vec3> hitPlayers = Maps.newHashMap();
 
 	public SpinelBoom(Level level, @Nullable Entity source, double x, double y, double z, float radius) {
-		this(level, source, x, y, z, radius, BlockInteraction.DESTROY);
-	}
-
-	public SpinelBoom(Level level, @Nullable Entity source, double x, double y, double z, float radius, BlockInteraction blockInteraction) {
-		super(level, source, null, null, x, y, z, radius, false, blockInteraction);
+		super(level, source, null, null, x, y, z, radius, false, BlockInteraction.DESTROY);
 		this.level = level;
 		this.source = source;
 		this.radius = radius;
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.blockInteraction = blockInteraction;
 		this.damageCalculator = this.makeDamageCalculator(source);
 	}
 
