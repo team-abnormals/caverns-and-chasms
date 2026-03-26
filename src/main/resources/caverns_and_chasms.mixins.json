@@ -52,7 +52,6 @@
     "PotionUtilsMixin",
     "PowderSnowBlockMixin",
     "ProjectileMixin",
-    "ProjectileUtilMixin",
     "ServerEntityMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",

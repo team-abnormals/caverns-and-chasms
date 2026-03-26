@@ -154,7 +154,7 @@ public class BoneFluteItem extends Item {
 		EntityHitResult entityHitResult = getBoneFluteEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
 			if (entity.isPickable()) {
 				LivingEntity living = entity instanceof LivingEntity ? (LivingEntity) entity : entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity ? (LivingEntity) partEntity.getParent() : null;
-				return living != null && !living.isSpectator() && living != player.getVehicle() && Rat.canRatsAttack(living, player);
+				return living != null && !living.isSpectator() && living != player.getVehicle() && Rat.canRatsAttack(living, player) && !(entity instanceof Rat rat && rat.getAttachedEntity() == player);
 			} else {
 				return false;
 			}

@@ -22,18 +22,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
 	@Shadow
 	@Final
 	Minecraft minecraft;
-	@Shadow
-	private int tick;
 	@Shadow
 	@Final
 	private RenderBuffers renderBuffers;
@@ -45,6 +45,11 @@ public abstract class GameRendererMixin {
 	private void pick(float p_109088_, CallbackInfo ci, Entity entity, double d0, double entityReach, Vec3 vec3, boolean flag, int i, double d1, Vec3 vec31, Vec3 vec32, float f, AABB aabb, EntityHitResult entityhitresult, Entity entity1) {
 		if (entity1 instanceof GrazerPart)
 			this.minecraft.crosshairPickEntity = entity1;
+	}
+
+	@ModifyArg(method = "pick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ProjectileUtil;getEntityHitResult(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;D)Lnet/minecraft/world/phys/EntityHitResult;"), index = 4)
+	private Predicate<Entity> modifyEntityPickPredicate(Predicate<Entity> predicate) {
+		return predicate.and(entity -> !(entity instanceof Rat rat && rat.getAttachedEntity() == this.minecraft.getCameraEntity()));
 	}
 
 	@Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.BEFORE))
