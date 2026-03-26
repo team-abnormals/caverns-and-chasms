@@ -29,7 +29,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
@@ -200,10 +202,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(SUGILITE_FAMILY);
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
 
-		this.deepslateBlock(CYLINDRITE.get());
-		this.stairsBlock(CYLINDRITE.get(), CYLINDRITE_STAIRS.get());
-		this.slabBlock(CYLINDRITE.get(), CYLINDRITE_SLAB.get());
-		this.wallBlock(CYLINDRITE.get(), CYLINDRITE_WALL.get());
+		this.logBlock(CYLINDRITE);
 		this.blockFamily(POLISHED_CYLINDRITE_FAMILY);
 
 		this.blockFamily(CASSITERITE_FAMILY);
@@ -1039,9 +1038,17 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockItem(block);
 	}
 
+	public static final RegistryObject<Block>[] DOUBLE_SLABS = new RegistryObject[]{
+			POLISHED_CALCITE_SLAB, POLISHED_TUFF_SLAB,
+			SMOOTH_CALCITE_SLAB, SMOOTH_TUFF_SLAB,
+			POLISHED_SUGILITE_SLAB, POLISHED_DRIPSTONE_SLAB,
+			POLISHED_CYLINDRITE_SLAB, POLISHED_CASSITERITE_SLAB,
+			POLISHED_RHYOLITE_SLAB, POLISHED_MAGMATIC_RHYOLITE_SLAB
+	};
+
 	@Override
 	public void slabBlock(Block block, Block slab) {
-		if (slab instanceof SlabBlock slabBlock && (slabBlock == POLISHED_CALCITE_SLAB.get() || slabBlock == POLISHED_TUFF_SLAB.get() || slabBlock == SMOOTH_TUFF_SLAB.get() || slabBlock == POLISHED_SUGILITE_SLAB.get() || slabBlock == POLISHED_CASSITERITE_SLAB.get() || slabBlock == POLISHED_DRIPSTONE_SLAB.get() || slabBlock == POLISHED_RHYOLITE_SLAB.get() || slabBlock == POLISHED_MAGMATIC_RHYOLITE_SLAB.get())) {
+		if (slab instanceof SlabBlock slabBlock && Arrays.stream(DOUBLE_SLABS).map(RegistryObject::get).toList().contains(slabBlock)) {
 			ResourceLocation side = blockTexture(slab);
 			ResourceLocation full = blockTexture(block);
 			this.slabBlock(slabBlock, models().slab(name(slab), side, full, full), models().slabTop(name(slab) + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));

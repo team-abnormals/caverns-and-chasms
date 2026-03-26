@@ -22,7 +22,7 @@ public class CCBlockFamilies {
 	public static final BlockFamily SMOOTH_TUFF_FAMILY = new BlockFamily.Builder(SMOOTH_TUFF.get()).slab(SMOOTH_TUFF_SLAB.get()).stairs(SMOOTH_TUFF_STAIRS.get()).getFamily();
 	public static final BlockFamily SUGILITE_FAMILY = new BlockFamily.Builder(SUGILITE.get()).slab(SUGILITE_SLAB.get()).stairs(SUGILITE_STAIRS.get()).wall(SUGILITE_WALL.get()).polished(POLISHED_SUGILITE.get()).getFamily();
 	public static final BlockFamily POLISHED_SUGILITE_FAMILY = new BlockFamily.Builder(POLISHED_SUGILITE.get()).slab(POLISHED_SUGILITE_SLAB.get()).stairs(POLISHED_SUGILITE_STAIRS.get()).wall(POLISHED_SUGILITE_WALL.get()).getFamily();
-	public static final BlockFamily CYLINDRITE_FAMILY = new BlockFamily.Builder(CYLINDRITE.get()).slab(CYLINDRITE_SLAB.get()).stairs(CYLINDRITE_STAIRS.get()).wall(CYLINDRITE_WALL.get()).polished(POLISHED_CYLINDRITE.get()).getFamily();
+	public static final BlockFamily CYLINDRITE_FAMILY = new BlockFamily.Builder(CYLINDRITE.get()).polished(POLISHED_CYLINDRITE.get()).getFamily();
 	public static final BlockFamily POLISHED_CYLINDRITE_FAMILY = new BlockFamily.Builder(POLISHED_CYLINDRITE.get()).slab(POLISHED_CYLINDRITE_SLAB.get()).stairs(POLISHED_CYLINDRITE_STAIRS.get()).wall(POLISHED_CYLINDRITE_WALL.get()).getFamily();
 	public static final BlockFamily COBBLESTONE_BRICKS_FAMILY = new BlockFamily.Builder(COBBLESTONE_BRICKS.get()).slab(COBBLESTONE_BRICK_SLAB.get()).stairs(COBBLESTONE_BRICK_STAIRS.get()).wall(COBBLESTONE_BRICK_WALL.get()).polished(COBBLESTONE_TILES.get()).getFamily();
 	public static final BlockFamily COBBLESTONE_TILES_FAMILY = new BlockFamily.Builder(COBBLESTONE_TILES.get()).slab(COBBLESTONE_TILE_SLAB.get()).stairs(COBBLESTONE_TILE_STAIRS.get()).wall(COBBLESTONE_TILE_WALL.get()).getFamily();
