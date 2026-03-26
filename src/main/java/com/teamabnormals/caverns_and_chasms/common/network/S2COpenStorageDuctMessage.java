@@ -1,14 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.network;
 
-import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.StorageDuctScreen;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctMenu;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -37,17 +30,7 @@ public class S2COpenStorageDuctMessage {
 	}
 
 	public static void handle(S2COpenStorageDuctMessage message, Supplier<Context> supplier) {
-		supplier.get().enqueueWork(() -> {
-			Player player = Minecraft.getInstance().player;
-			if (player != null) {
-				BlockEntity blockEntity = player.level().getBlockEntity(message.getBlockPos());
-				if (blockEntity instanceof StorageDuctBlockEntity storageDuct) {
-					StorageDuctMenu container = new StorageDuctMenu(message.getWindowId(), player.getInventory(), new SimpleContainer(message.getContainerSize()), null);
-					player.containerMenu = container;
-					Minecraft.getInstance().setScreen(new StorageDuctScreen(container, player.getInventory(), storageDuct.getDisplayName(), Math.min(message.getContainerSize(), 54)));
-				}
-			}
-		});
+		supplier.get().enqueueWork(() -> ClientNetworkHandler.handleOpenStorageDuct(message));
 		supplier.get().setPacketHandled(true);
 	}
 
