@@ -24,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -154,7 +153,9 @@ public abstract class AbstractGrazer extends Animal {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(CCSoundEvents.GRAZER_STEP.get(), 1.0F, 1.0F);
+		if (!this.isBaby()) {
+			this.playSound(CCSoundEvents.GRAZER_STEP.get(), 1.0F, 1.0F);
+		}
 	}
 
 	@Override
