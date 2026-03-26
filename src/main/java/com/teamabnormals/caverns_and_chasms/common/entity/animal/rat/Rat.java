@@ -491,11 +491,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean isPickable() {
-		LocalPlayer localPlayer = ClientInfo.getClientPlayer();
-		if (localPlayer != null && this.attachedEntity == localPlayer) {
-			return false;
-		}
-		return super.isPickable();
+		return !this.isAttachedToEntity() && super.isPickable();
 	}
 
 	@Override
