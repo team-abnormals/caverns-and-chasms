@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 import com.teamabnormals.caverns_and_chasms.common.network.C2SGrazerJumpMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,6 +33,18 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 		} else {
 			return InteractionResult.PASS;
 		}
+	}
+
+	@Override
+	protected void addPassenger(Entity passenger) {
+		super.addPassenger(passenger);
+		this.playSound(CCSoundEvents.GRAZER_MOUNT.get());
+	}
+
+	@Override
+	protected void removePassenger(Entity passenger) {
+		super.removePassenger(passenger);
+		this.playSound(CCSoundEvents.GRAZER_DISMOUNT.get());
 	}
 
 	@Override

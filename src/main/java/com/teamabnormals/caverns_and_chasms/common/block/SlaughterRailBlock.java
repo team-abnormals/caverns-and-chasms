@@ -1,8 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
@@ -46,6 +48,7 @@ public class SlaughterRailBlock extends BaseRailBlock {
 		if (hasNeighborSignal != isPowered) {
 			level.setBlock(pos, state.setValue(POWERED, hasNeighborSignal), 3);
 			level.updateNeighborsAt(pos.below(), this);
+			level.playSound(null, pos, hasNeighborSignal ? CCSoundEvents.SLAUGHTER_RAIL_EXTEND.get() : CCSoundEvents.SLAUGHTER_RAIL_CONTRACT.get(), SoundSource.BLOCKS);
 			if (state.getValue(getShapeProperty()).isAscending()) {
 				level.updateNeighborsAt(pos.above(), this);
 			}

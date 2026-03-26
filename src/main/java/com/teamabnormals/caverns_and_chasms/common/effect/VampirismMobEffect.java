@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.effect;
 
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -20,6 +21,7 @@ public class VampirismMobEffect extends MobEffect {
 				float damage = (amplifier + 1);
 				living.hurt(CCDamageTypes.draining(level, entity), damage);
 				entity.heal(damage * 0.5F);
+				entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), CCSoundEvents.DRAIN.get(), entity.getSoundSource(), 1.0F, 1.0F);
 			}
 		}
 	}

@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
@@ -40,9 +42,14 @@ public class HaltRailBlock extends BaseRailBlock {
 		boolean bottomSignal = level.getSignal(pos.relative(direction.getOpposite()), direction.getOpposite()) > 0;
 
 		if (top != topSignal || bottom != bottomSignal) {
-
-			if (top != topSignal) level.setBlock(pos, state.setValue(TOP_POWERED, topSignal), 3);
-			if (bottom != bottomSignal) level.setBlock(pos, state.setValue(BOTTOM_POWERED, bottomSignal), 3);
+			if (top != topSignal) {
+				level.setBlock(pos, state.setValue(TOP_POWERED, topSignal), 3);
+				level.playSound(null, pos, topSignal ? CCSoundEvents.HALT_RAIL_EXTEND.get() : CCSoundEvents.HALT_RAIL_CONTRACT.get(), SoundSource.BLOCKS);
+			}
+			if (bottom != bottomSignal) {
+				level.setBlock(pos, state.setValue(BOTTOM_POWERED, bottomSignal), 3);
+				level.playSound(null, pos, bottomSignal ? CCSoundEvents.HALT_RAIL_EXTEND.get() : CCSoundEvents.HALT_RAIL_CONTRACT.get(), SoundSource.BLOCKS);
+			}
 
 			level.updateNeighborsAt(pos.below(), this);
 			if (state.getValue(getShapeProperty()).isAscending()) {
