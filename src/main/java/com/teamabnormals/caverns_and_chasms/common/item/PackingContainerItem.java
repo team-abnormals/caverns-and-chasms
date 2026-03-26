@@ -5,8 +5,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +17,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
@@ -262,16 +266,20 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		ItemUtils.onContainerDestroyed(p_150728_, Stream.of(getContents(p_150728_.getItem())));
 	}
 
+	public SoundEvent getInsertSound() {
+		return SoundEvents.BUNDLE_INSERT;
+	}
+
 	private void playRemoveOneSound(Entity p_186343_) {
 		p_186343_.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + p_186343_.level().getRandom().nextFloat() * 0.4F);
 	}
 
-	private void playInsertSound(Entity p_186352_) {
-		p_186352_.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + p_186352_.level().getRandom().nextFloat() * 0.4F);
-	}
-
 	private void playDropContentsSound(Entity p_186354_) {
 		p_186354_.playSound(SoundEvents.BUNDLE_DROP_CONTENTS, 0.8F, 0.8F + p_186354_.level().getRandom().nextFloat() * 0.4F);
+	}
+
+	private void playInsertSound(Entity p_186352_) {
+		p_186352_.playSound(this.getInsertSound(), 0.8F, 0.8F + p_186352_.level().getRandom().nextFloat() * 0.4F);
 	}
 
 	public static class PackingContainerTooltip implements TooltipComponent {
@@ -284,5 +292,26 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		public ItemStack getItems() {
 			return this.item;
 		}
+	}
+
+	public static boolean addToContainer(Inventory inventory, ItemStack toAdd) {
+		for (ItemStack stack : inventory.items) {
+			if (stack.getItem() instanceof PackingContainerItem item) {
+				CompoundTag tag = stack.getOrCreateTag();
+				if (tag.contains(TAG_ITEM) && PackingContainerItem.getFullnessDisplay(stack) != 1.0F) {
+					int i = add(stack, toAdd);
+					if (i > 0) {
+						ServerPlayer player = (ServerPlayer) inventory.player;
+						ServerLevel level = (ServerLevel) player.level();
+						level.playSound(null, player.getX(), player.getY(), player.getZ(), item.getInsertSound(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+						toAdd.shrink(i);
+						stack.setPopTime(5);
+					}
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }

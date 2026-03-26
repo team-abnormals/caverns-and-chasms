@@ -13,6 +13,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPa
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
@@ -44,6 +45,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -66,6 +68,7 @@ import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
@@ -89,6 +92,7 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.util.ITeleporter;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
@@ -97,6 +101,7 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.StartTracking;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
@@ -819,6 +824,36 @@ public class CCEvents {
 
 			if (stack.is(CCItemTags.SLOWNESS_INFLICTING_ITEMS)) {
 				event.addModifier(CCAttributes.SLOWNESS_INFLICTION.get(), new AttributeModifier(UUID.fromString("47b62d26-2010-4a6a-9f87-ebe11c50f467"), "Slowness infliction", 1.0F, AttributeModifier.Operation.ADDITION));
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onItemPickup(EntityItemPickupEvent event) {
+		if (!event.isCanceled()) {
+			ItemEntity itemEntity = event.getItem();
+			Player player = event.getEntity();
+
+			ItemStack stack = itemEntity.getItem();
+			int i = stack.getCount();
+			Item item = stack.getItem();
+
+			ItemStack copy = stack.copy();
+			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (event.getResult() == Result.ALLOW || i <= 0 || PackingContainerItem.addToContainer(player.getInventory(), stack))) {
+				i = copy.getCount() - stack.getCount();
+				copy.setCount(i);
+				ForgeEventFactory.firePlayerItemPickupEvent(player, itemEntity, copy);
+				player.take(itemEntity, i);
+				if (stack.isEmpty()) {
+					itemEntity.discard();
+					stack.setCount(i);
+				}
+
+				player.awardStat(Stats.ITEM_PICKED_UP.get(item), i);
+				player.onItemPickup(itemEntity);
+
+				event.setResult(Result.DENY);
+				event.setCanceled(true);
 			}
 		}
 	}
