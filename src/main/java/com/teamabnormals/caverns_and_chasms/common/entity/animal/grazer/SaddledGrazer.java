@@ -100,7 +100,7 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 
 	@Override
 	protected float getRiddenSpeed(Player player) {
-		return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F;
+		return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.6F;
 	}
 
 	@Override
