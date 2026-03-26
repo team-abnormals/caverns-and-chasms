@@ -85,7 +85,7 @@ public class CCConfiguredFeatures {
 		register(context, ORE_TIN_BURIED, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 6, 0.5F));
 
 		register(context, ORE_SPINEL, Feature.ORE, new OreConfiguration(spinelTargets, 12));
-		register(context, ORE_SPINEL_BURIED, Feature.ORE, new OreConfiguration(spinelTargets, 12, 0.7F));
+		register(context, ORE_SPINEL_BURIED, Feature.ORE, new OreConfiguration(spinelTargets, 12, 1.0F));
 
 		register(context, ORE_ROCKY_DIRT, CCFeatures.ORE_WITH_DIRT.get(), new OreConfiguration(baseStone, CCBlocks.ROCKY_DIRT.get().defaultBlockState(), 33));
 		register(context, ORE_FRAGILE_STONE, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(stoneOre, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState())), 48, 0.1F));
