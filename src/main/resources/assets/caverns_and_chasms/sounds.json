@@ -4788,6 +4788,36 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.armor.sanguine_heal"
   },
+  "item.packing_container.insert": {
+    "sounds": [
+      "caverns_and_chasms:item/packing_container/insert1",
+      "caverns_and_chasms:item/packing_container/insert2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.packing_container.insert"
+  },
+  "item.packing_container.drop_contents": {
+    "sounds": [
+      "caverns_and_chasms:item/packing_container/empty1",
+      "caverns_and_chasms:item/packing_container/empty2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.packing_container.drop_contents"
+  },
+  "item.packing_container.remove_one": {
+    "sounds": [
+      "caverns_and_chasms:item/packing_container/remove_one1",
+      "caverns_and_chasms:item/packing_container/remove_one2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.packing_container.remove_one"
+  },
+  "item.packing_container.insert_fail": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:item/packing_container/insert_fail",
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.packing_container.insert_fail"
+  },
   "item.goat_horn.sound.8": {
     "sounds": [
       "caverns_and_chasms:item/goat_horn/call8"

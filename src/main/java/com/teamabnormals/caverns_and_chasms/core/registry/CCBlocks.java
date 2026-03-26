@@ -426,6 +426,15 @@ public class CCBlocks {
 	public static final RegistryObject<Block> POLISHED_SUGILITE_WALL = HELPER.createBlock("polished_sugilite_wall", () -> new WallBlock(CCProperties.SUGILITE));
 
 	public static final RegistryObject<Block> CYLINDRITE = HELPER.createBlock("cylindrite", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> SMOOTH_CYLINDRITE = HELPER.createBlock("smooth_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> SMOOTH_CYLINDRITE_STAIRS = HELPER.createBlock("smooth_cylindrite_stairs", () -> new StairBlock(() -> CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> SMOOTH_CYLINDRITE_SLAB = HELPER.createBlock("smooth_cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_BRICKS = HELPER.createBlock("cylindrite_bricks", () -> new Block(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_BRICK_STAIRS = HELPER.createBlock("cylindrite_brick_stairs", () -> new StairBlock(() -> CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_BRICK_SLAB = HELPER.createBlock("cylindrite_brick_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_BRICK_WALL = HELPER.createBlock("cylindrite_brick_wall", () -> new WallBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CYLINDRITE_PILLAR = HELPER.createBlock("cylindrite_pillar", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE));
+	public static final RegistryObject<Block> CHISELED_CYLINDRITE_BRICKS = HELPER.createBlock("chiseled_cylindrite_bricks", () -> new Block(CCProperties.CYLINDRITE));
 	public static final RegistryObject<Block> POLISHED_CYLINDRITE = HELPER.createBlock("polished_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
 	public static final RegistryObject<Block> POLISHED_CYLINDRITE_STAIRS = HELPER.createBlock("polished_cylindrite_stairs", () -> new StairBlock(() -> POLISHED_CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
 	public static final RegistryObject<Block> POLISHED_CYLINDRITE_SLAB = HELPER.createBlock("polished_cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
@@ -685,7 +694,10 @@ public class CCBlocks {
 						DRIPSTONE_BRICKS, CRACKED_DRIPSTONE_BRICKS, DRIPSTONE_BRICK_STAIRS, DRIPSTONE_BRICK_SLAB, DRIPSTONE_BRICK_WALL, CHISELED_DRIPSTONE_BRICKS,
 						DRIPSTONE_SHINGLES, FLOODED_DRIPSTONE_SHINGLES, DRIPSTONE_SHINGLE_STAIRS, DRIPSTONE_SHINGLE_SLAB, DRIPSTONE_SHINGLE_WALL, CHISELED_DRIPSTONE_SHINGLES,
 						SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL, POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB, POLISHED_SUGILITE_WALL,
-						CYLINDRITE, POLISHED_CYLINDRITE, POLISHED_CYLINDRITE_STAIRS, POLISHED_CYLINDRITE_SLAB, POLISHED_CYLINDRITE_WALL,
+						CYLINDRITE,
+						SMOOTH_CYLINDRITE, SMOOTH_CYLINDRITE_STAIRS, SMOOTH_CYLINDRITE_SLAB,
+						POLISHED_CYLINDRITE, POLISHED_CYLINDRITE_STAIRS, POLISHED_CYLINDRITE_SLAB, POLISHED_CYLINDRITE_WALL,
+						CYLINDRITE_BRICKS, CYLINDRITE_BRICK_STAIRS, CYLINDRITE_BRICK_SLAB, CYLINDRITE_BRICK_WALL, CHISELED_CYLINDRITE_BRICKS, CYLINDRITE_PILLAR,
 						CASSITERITE, CASSITERITE_STAIRS, CASSITERITE_SLAB, CASSITERITE_WALL,
 						SMOOTH_CASSITERITE, SMOOTH_CASSITERITE_STAIRS, SMOOTH_CASSITERITE_SLAB,
 						POLISHED_CASSITERITE, POLISHED_CASSITERITE_STAIRS, POLISHED_CASSITERITE_SLAB, POLISHED_CASSITERITE_WALL,

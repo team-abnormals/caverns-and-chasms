@@ -1,12 +1,15 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +17,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
@@ -64,18 +68,23 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		if (stack.getCount() != 1 || action != ClickAction.SECONDARY) {
 			return false;
 		} else {
-			ItemStack itemstack = slot.getItem();
-			if (itemstack.isEmpty()) {
+			ItemStack otherStack = slot.getItem();
+			CompoundTag tag = stack.getOrCreateTag();
+			if (otherStack.isEmpty()) {
 				this.playRemoveOneSound(player);
 				removeOne(stack).ifPresent((p_150740_) -> {
 					add(stack, slot.safeInsert(p_150740_));
 				});
-			} else if (itemstack.getItem().canFitInsideContainerItems()) {
-				int i = (MAX_WEIGHT - getContentWeight(stack)) / getWeight(itemstack);
-				int j = add(stack, slot.safeTake(itemstack.getCount(), i, player));
+			} else if (otherStack.getItem().canFitInsideContainerItems() && (!tag.contains(TAG_ITEM) || ItemStack.isSameItemSameTags(ofLargeCount(tag.getCompound(TAG_ITEM)), otherStack))) {
+				int i = (MAX_WEIGHT - getContentWeight(stack)) / getWeight(otherStack);
+				int j = add(stack, slot.safeTake(otherStack.getCount(), i, player));
 				if (j > 0) {
 					this.playInsertSound(player);
+				} else {
+					this.playInsertFailSound(player);
 				}
+			} else {
+				this.playInsertFailSound(player);
 			}
 
 			return true;
@@ -83,9 +92,9 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 	}
 
 	@Override
-	public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction p_150745_, Player player, SlotAccess p_150747_) {
+	public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction action, Player player, SlotAccess p_150747_) {
 		if (stack.getCount() != 1) return false;
-		if (p_150745_ == ClickAction.SECONDARY && slot.allowModification(player)) {
+		if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
 			if (otherStack.isEmpty()) {
 				removeOne(stack).ifPresent((p_186347_) -> {
 					this.playRemoveOneSound(player);
@@ -96,6 +105,8 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 				if (i > 0) {
 					this.playInsertSound(player);
 					otherStack.shrink(i);
+				} else {
+					this.playInsertFailSound(player);
 				}
 			}
 
@@ -262,16 +273,24 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		ItemUtils.onContainerDestroyed(p_150728_, Stream.of(getContents(p_150728_.getItem())));
 	}
 
-	private void playRemoveOneSound(Entity p_186343_) {
-		p_186343_.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + p_186343_.level().getRandom().nextFloat() * 0.4F);
+	public SoundEvent getInsertSound() {
+		return CCSoundEvents.PACKING_CONTAINER_INSERT.get();
 	}
 
-	private void playInsertSound(Entity p_186352_) {
-		p_186352_.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + p_186352_.level().getRandom().nextFloat() * 0.4F);
+	private void playRemoveOneSound(Entity p_186343_) {
+		p_186343_.playSound(CCSoundEvents.PACKING_CONTAINER_REMOVE_ONE.get(), 0.8F, 0.8F + p_186343_.level().getRandom().nextFloat() * 0.4F);
 	}
 
 	private void playDropContentsSound(Entity p_186354_) {
-		p_186354_.playSound(SoundEvents.BUNDLE_DROP_CONTENTS, 0.8F, 0.8F + p_186354_.level().getRandom().nextFloat() * 0.4F);
+		p_186354_.playSound(CCSoundEvents.PACKING_CONTAINER_DROP_CONTENTS.get(), 0.8F, 0.8F + p_186354_.level().getRandom().nextFloat() * 0.4F);
+	}
+
+	private void playInsertSound(Entity p_186352_) {
+		p_186352_.playSound(this.getInsertSound(), 0.8F, 0.8F + p_186352_.level().getRandom().nextFloat() * 0.4F);
+	}
+
+	private void playInsertFailSound(Entity p_186352_) {
+		p_186352_.playSound(CCSoundEvents.PACKING_CONTAINER_INSERT_FAIL.get(), 0.8F, 0.8F + p_186352_.level().getRandom().nextFloat() * 0.4F);
 	}
 
 	public static class PackingContainerTooltip implements TooltipComponent {
@@ -284,5 +303,26 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		public ItemStack getItems() {
 			return this.item;
 		}
+	}
+
+	public static boolean addToContainer(Inventory inventory, ItemStack toAdd) {
+		for (ItemStack stack : inventory.items) {
+			if (stack.getItem() instanceof PackingContainerItem item) {
+				CompoundTag tag = stack.getOrCreateTag();
+				if (tag.contains(TAG_ITEM)) {
+					int i = add(stack, toAdd);
+					if (i > 0) {
+						ServerPlayer player = (ServerPlayer) inventory.player;
+						ServerLevel level = (ServerLevel) player.level();
+						level.playSound(null, player.getX(), player.getY(), player.getZ(), item.getInsertSound(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+						toAdd.shrink(i);
+						stack.setPopTime(5);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 }
