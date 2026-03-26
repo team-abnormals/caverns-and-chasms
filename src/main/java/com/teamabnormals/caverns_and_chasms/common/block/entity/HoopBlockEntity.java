@@ -79,7 +79,7 @@ public class HoopBlockEntity extends BlockEntity {
 			if (power > 0) {
 				level.setBlock(pos, state.setValue(HoopBlock.OUTPUT_POWER, power), 3);
 				level.scheduleTick(pos, state.getBlock(), 8);
-				level.playSound(null, pos, CCSoundEvents.HOOP_SCORE.get(), SoundSource.BLOCKS, 0.18F, 0.45F);
+				level.playSound(null, pos, CCSoundEvents.HOOP_SCORE.get(), SoundSource.BLOCKS, 2.0F, 0.8F + power / 15.0F * 0.6F);
 				level.gameEvent(GameEvent.BLOCK_ACTIVATE, pos, GameEvent.Context.of(state));
 
 				for (Entity entity : entities) {

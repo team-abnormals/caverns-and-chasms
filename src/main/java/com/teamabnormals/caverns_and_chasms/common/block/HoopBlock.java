@@ -3,10 +3,12 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.HoopBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -107,8 +109,12 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.getAbilities().mayBuild && player.getItemInHand(hand).is(CCItemTags.CHANGES_HOOP_SIZE)) {
 			int i = state.getValue(SIZE) - 1;
-			if (i < 0)
+			if (i < 0) {
 				i = 3;
+				level.playSound(null, pos, CCSoundEvents.HOOP_EXPAND.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+			} else {
+				level.playSound(null, pos, CCSoundEvents.HOOP_SHRINK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+			}
 			level.setBlock(pos, state.setValue(SIZE, i), 2);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
