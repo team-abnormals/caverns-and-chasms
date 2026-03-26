@@ -140,6 +140,11 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 	}
 
 	@Override
+	public Entity getRootVehicle() {
+		return this.getParent().getRootVehicle();
+	}
+
+	@Override
 	public EntityDimensions getDimensions(Pose pose) {
 		return this.dimensions.scale(this.getScale());
 	}
