@@ -514,54 +514,68 @@
   },
   "block.roller_door.break": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/break1",
-      "caverns_and_chasms:block/tinplate/break2",
-      "caverns_and_chasms:block/tinplate/break3",
-      "caverns_and_chasms:block/tinplate/break4"
+      "caverns_and_chasms:block/tin/break1",
+      "caverns_and_chasms:block/tin/break2",
+      "caverns_and_chasms:block/tin/break3",
+      "caverns_and_chasms:block/tin/break4",
+      "caverns_and_chasms:block/tin/break5",
+      "caverns_and_chasms:block/tin/break6",
+      "caverns_and_chasms:block/tin/break7"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.roller_door.fall": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/step1",
-      "caverns_and_chasms:block/tinplate/step2",
-      "caverns_and_chasms:block/tinplate/step3",
-      "caverns_and_chasms:block/tinplate/step4"
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6",
+      "caverns_and_chasms:block/tin/step7"
     ]
   },
   "block.roller_door.hit": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/step1",
-      "caverns_and_chasms:block/tinplate/step2",
-      "caverns_and_chasms:block/tinplate/step3",
-      "caverns_and_chasms:block/tinplate/step4"
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6",
+      "caverns_and_chasms:block/tin/step7"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.roller_door.place": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/break1",
-      "caverns_and_chasms:block/tinplate/break2",
-      "caverns_and_chasms:block/tinplate/break3",
-      "caverns_and_chasms:block/tinplate/break4"
+      "caverns_and_chasms:block/tin/break1",
+      "caverns_and_chasms:block/tin/break2",
+      "caverns_and_chasms:block/tin/break3",
+      "caverns_and_chasms:block/tin/break4",
+      "caverns_and_chasms:block/tin/break5",
+      "caverns_and_chasms:block/tin/break6",
+      "caverns_and_chasms:block/tin/break7"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.roller_door.step": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/step1",
-      "caverns_and_chasms:block/tinplate/step2",
-      "caverns_and_chasms:block/tinplate/step3",
-      "caverns_and_chasms:block/tinplate/step4"
+      "caverns_and_chasms:block/tin/step1",
+      "caverns_and_chasms:block/tin/step2",
+      "caverns_and_chasms:block/tin/step3",
+      "caverns_and_chasms:block/tin/step4",
+      "caverns_and_chasms:block/tin/step5",
+      "caverns_and_chasms:block/tin/step6",
+      "caverns_and_chasms:block/tin/step7"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.roller_door.deflect": {
     "sounds": [
-      "caverns_and_chasms:block/tinplate/break1",
-      "caverns_and_chasms:block/tinplate/break2",
-      "caverns_and_chasms:block/tinplate/break3",
-      "caverns_and_chasms:block/tinplate/break4"
+      "caverns_and_chasms:block/tin/deflect1",
+      "caverns_and_chasms:block/tin/deflect2",
+      "caverns_and_chasms:block/tin/deflect3"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
