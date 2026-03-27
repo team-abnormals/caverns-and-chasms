@@ -65,7 +65,8 @@ public class TinMonolithPieces {
 
 						double distFromCenter = Math.sqrt(x * x + z * z);
 						double shapeNoiseAtPos = distFromCenter == 0 ? 1.0D : shapeNoise.getValue(origin.getX() + x / distFromCenter, y * 0.025D, origin.getZ() + z / distFromCenter);
-						double relativeDistFromCenter = distFromCenter / (radius * (1 + shapeNoiseAtPos * 0.2D - 0.2D));
+						double radiusWithNoise = radius * (1 + shapeNoiseAtPos * 0.2D - 0.2D);
+						double relativeDistFromCenter = distFromCenter / radiusWithNoise;
 
 						if (relativeDistFromCenter <= 1.0D) {
 							int levelX = origin.getX() + x;
@@ -78,7 +79,7 @@ public class TinMonolithPieces {
 							if (blockstate.is(BlockTags.FEATURES_CANNOT_REPLACE))
 								continue;
 
-							boolean isInside = levelY <= 32 && relativeDistFromCenter < (1.0D - (111 - y) / 111.0D) * 0.8D;
+							boolean isInside = distFromCenter <= radiusWithNoise - 3.0D;
 							double veinNoiseAtPos = Math.abs(veinNoise.getValue(levelX, levelY, levelZ));
 							double oreDensity = veinNoiseAtPos > 0.3D ? 0.0D : (0.3D - veinNoiseAtPos) * 3.5D;
 
