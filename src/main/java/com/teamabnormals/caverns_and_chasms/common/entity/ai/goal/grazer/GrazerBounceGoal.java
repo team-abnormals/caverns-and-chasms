@@ -31,7 +31,7 @@ public class GrazerBounceGoal extends Goal {
 	public void start() {
 		this.grazer.getNavigation().stop();
 		this.grazer.setSpeed(0.0F);
-		this.wiggleTime = 0;
+		this.wiggleTime = this.adjustedTickDelay(this.grazer.hasControllingPassenger() ? 40 : 80);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class GrazerBounceGoal extends Goal {
 	@Override
 	public void tick() {
 		if (this.grazer.getState() == GrazerState.WIGGLING) {
-			if (++this.wiggleTime >= this.adjustedTickDelay(80)) {
+			if (--this.wiggleTime <= 0) {
 				this.grazer.setState(GrazerState.FLIPPING_OVER);
 				if (this.grazer.onGround())
 					this.grazer.getJumpControl().jump();
