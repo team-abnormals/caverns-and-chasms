@@ -37,6 +37,7 @@ public class GrazerBounceGoal extends Goal {
 	@Override
 	public void stop() {
 		this.grazer.setTarget(null);
+		this.grazer.setLastHurtByMob(null);
 	}
 
 	@Override
