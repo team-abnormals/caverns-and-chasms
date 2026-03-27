@@ -320,8 +320,8 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	@Override
-	protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-		return this.isBouncingState(this.getState()) ? 0 : super.calculateFallDamage(fallDistance, damageMultiplier);
+	public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
+		return !this.isBouncingState(this.getState()) && super.causeFallDamage(fallDistance, damageMultiplier, damageSource);
 	}
 
 	@Override
