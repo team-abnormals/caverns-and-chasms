@@ -64,6 +64,13 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> CASSITERITE_PLACE = HELPER.createSoundEvent("block.cassiterite.place");
 	public static final RegistryObject<SoundEvent> CASSITERITE_STEP = HELPER.createSoundEvent("block.cassiterite.step");
 	public static final RegistryObject<SoundEvent> CASSITERITE_DEFLECT = HELPER.createSoundEvent("block.cassiterite.deflect");
+	
+	public static final RegistryObject<SoundEvent> CYLINDRITE_BREAK = HELPER.createSoundEvent("block.cylindrite.break");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_FALL = HELPER.createSoundEvent("block.cylindrite.fall");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_HIT = HELPER.createSoundEvent("block.cylindrite.hit");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_PLACE = HELPER.createSoundEvent("block.cylindrite.place");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_STEP = HELPER.createSoundEvent("block.cylindrite.step");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_DEFLECT = HELPER.createSoundEvent("block.cylindrite.deflect");
 
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_BREAK = HELPER.createSoundEvent("block.flint_block.break");
 	public static final RegistryObject<SoundEvent> FLINT_BLOCK_FALL = HELPER.createSoundEvent("block.flint_block.fall");
@@ -312,6 +319,13 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_PLACE = HELPER.createSoundEvent("block.deepslate_tin_ore.place");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_STEP = HELPER.createSoundEvent("block.deepslate_tin_ore.step");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.deepslate_tin_ore.deflect");
+	
+	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_BREAK = HELPER.createSoundEvent("block.cylindrite_tin_ore.break");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_FALL = HELPER.createSoundEvent("block.cylindrite_tin_ore.fall");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_HIT = HELPER.createSoundEvent("block.cylindrite_tin_ore.hit");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_PLACE = HELPER.createSoundEvent("block.cylindrite_tin_ore.place");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_STEP = HELPER.createSoundEvent("block.cylindrite_tin_ore.step");
+	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.cylindrite_tin_ore.deflect");
 
 	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_BREAK = HELPER.createSoundEvent("block.cassiterite_tin_ore.break");
 	public static final RegistryObject<SoundEvent> CASSITERITE_TIN_ORE_FALL = HELPER.createSoundEvent("block.cassiterite_tin_ore.fall");
@@ -560,6 +574,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
 		public static final ForgeSoundType MAGMATIC_RHYOLITE = new ForgeSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BREAK, MAGMATIC_RHYOLITE_STEP, MAGMATIC_RHYOLITE_PLACE, MAGMATIC_RHYOLITE_HIT, MAGMATIC_RHYOLITE_FALL);
 		public static final ForgeSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);
+		public static final ForgeSoundType CYLINDRITE = new TinSoundType(1.0F, 1.0F, CYLINDRITE_BREAK, CYLINDRITE_STEP, CYLINDRITE_PLACE, CYLINDRITE_HIT, CYLINDRITE_FALL, CYLINDRITE_DEFLECT);
 		public static final ForgeSoundType FLINT_BLOCK = new ForgeSoundType(1.0F, 1.0F, FLINT_BLOCK_BREAK, FLINT_BLOCK_STEP, FLINT_BLOCK_PLACE, FLINT_BLOCK_HIT, FLINT_BLOCK_FALL);
 		public static final ForgeSoundType SOUL_SILVER_ORE = new ForgeSoundType(1.0F, 1.0F, SOUL_SILVER_ORE_BREAK, SOUL_SILVER_ORE_STEP, SOUL_SILVER_ORE_PLACE, SOUL_SILVER_ORE_HIT, SOUL_SILVER_ORE_FALL);
 		public static final ForgeSoundType SPINEL = new ForgeSoundType(1.0F, 1.0F, SPINEL_BREAK, SPINEL_STEP, SPINEL_PLACE, SPINEL_HIT, SPINEL_FALL);
@@ -594,6 +609,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType TIN_CHAIN = new TinSoundType(1.0F, 1.0F, TIN_CHAIN_BREAK, TIN_CHAIN_STEP, TIN_CHAIN_PLACE, TIN_CHAIN_HIT, TIN_CHAIN_FALL, TIN_CHAIN_DEFLECT);
 		public static final ForgeSoundType TIN_ORE = new TinSoundType(1.0F, 1.0F, TIN_ORE_BREAK, TIN_ORE_STEP, TIN_ORE_PLACE, TIN_ORE_HIT, TIN_ORE_FALL, TIN_ORE_DEFLECT);
 		public static final ForgeSoundType DEEPSLATE_TIN_ORE = new TinSoundType(1.0F, 1.0F, DEEPSLATE_TIN_ORE_BREAK, DEEPSLATE_TIN_ORE_STEP, DEEPSLATE_TIN_ORE_PLACE, DEEPSLATE_TIN_ORE_HIT, DEEPSLATE_TIN_ORE_FALL, DEEPSLATE_TIN_ORE_DEFLECT);
+		public static final ForgeSoundType CYLINDRITE_TIN_ORE = new TinSoundType(1.0F, 1.0F, CYLINDRITE_TIN_ORE_BREAK, CYLINDRITE_TIN_ORE_STEP, CYLINDRITE_TIN_ORE_PLACE, CYLINDRITE_TIN_ORE_HIT, CYLINDRITE_TIN_ORE_FALL, CYLINDRITE_TIN_ORE_DEFLECT);
 		public static final ForgeSoundType CASSITERITE_TIN_ORE = new TinSoundType(1.0F, 1.0F, CASSITERITE_TIN_ORE_BREAK, CASSITERITE_TIN_ORE_STEP, CASSITERITE_TIN_ORE_PLACE, CASSITERITE_TIN_ORE_HIT, CASSITERITE_TIN_ORE_FALL, CASSITERITE_TIN_ORE_DEFLECT);
 		public static final ForgeSoundType STORAGE_DUCT = new TinSoundType(1.0F, 1.0F, STORAGE_DUCT_BREAK, STORAGE_DUCT_STEP, STORAGE_DUCT_PLACE, STORAGE_DUCT_HIT, STORAGE_DUCT_FALL, STORAGE_DUCT_DEFLECT);
 		public static final ForgeSoundType ROLLER_DOOR = new TinSoundType(1.0F, 1.0F, ROLLER_DOOR_BREAK, ROLLER_DOOR_STEP, ROLLER_DOOR_PLACE, ROLLER_DOOR_HIT, ROLLER_DOOR_FALL, ROLLER_DOOR_DEFLECT);
