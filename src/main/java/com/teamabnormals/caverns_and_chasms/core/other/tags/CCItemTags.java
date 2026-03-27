@@ -18,6 +18,7 @@ public class CCItemTags {
 	public static final TagKey<Item> AZALEA_LOGS = itemTag("azalea_logs");
 	public static final TagKey<Item> ADDITIONAL_TOOLBOX_TOOLS = itemTag("additional_toolbox_tools");
 	public static final TagKey<Item> DISMANTLING_FUELS = itemTag("dismantling_fuels");
+	public static final TagKey<Item> DISMANTLING_TABLE_CANNOT_DISMANTLE = itemTag("dismantling_table_cannot_dismantle");
 	public static final TagKey<Item> ATONING_FUELS = itemTag("atoning_fuels");
 	public static final TagKey<Item> UNREPAIRABLE_BY_ZIRCONIA = itemTag("unrepairable_by_zirconia");
 	public static final TagKey<Item> PLACEABLE_ITEMS = itemTag("placeable_items");

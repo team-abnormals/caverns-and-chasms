@@ -100,41 +100,41 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 
 	public Container getResultContainer(ItemStack stack) {
 		Container container = new SimpleContainer(3);
-		ItemStack armor = stack.copy();
+		ItemStack item = stack.copy();
 
-		Optional<ArmorTrim> trim = ArmorTrim.getTrim(level.registryAccess(), armor);
+		Optional<ArmorTrim> trim = ArmorTrim.getTrim(level.registryAccess(), item);
 		if (trim.isPresent()) {
-			CompoundTag tag = armor.getOrCreateTag();
+			CompoundTag tag = item.getOrCreateTag();
 			if (tag.getBoolean("EmissiveTrim")) {
-				armor.getOrCreateTag().remove("EmissiveTrim");
+				item.getOrCreateTag().remove("EmissiveTrim");
 				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
-				container.setItem(1, armor);
+				container.setItem(1, item);
 				container.setItem(2, new ItemStack(Items.GLOW_INK_SAC));
 			} else if (tag.getBoolean("FadedTrim")) {
-				armor.getOrCreateTag().remove("FadedTrim");
+				item.getOrCreateTag().remove("FadedTrim");
 				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
-				container.setItem(1, armor);
+				container.setItem(1, item);
 				container.setItem(2, new ItemStack(CCItems.SPINEL.get()));
 			} else {
-				ItemStack item = trim.get().material().get().ingredient().get().getDefaultInstance();
+				ItemStack ingredient = trim.get().material().get().ingredient().get().getDefaultInstance();
 				ItemStack template = trim.get().pattern().get().templateItem().get().getDefaultInstance();
 				template.getOrCreateTag();
-				armor.getOrCreateTag().remove("Trim");
+				item.getOrCreateTag().remove("Trim");
 				container.setItem(0, template);
-				container.setItem(1, armor);
-				container.setItem(2, item);
+				container.setItem(1, item);
+				container.setItem(2, ingredient);
 			}
-		} else {
+		} else if (!item.is(CCItemTags.DISMANTLING_TABLE_CANNOT_DISMANTLE)) {
 			List<SmithingRecipe> list = this.level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING);
 			for (SmithingRecipe recipe : list) {
-				if (recipe instanceof SmithingTransformRecipe transform && transform.getResultItem(level.registryAccess()).is(armor.getItem())) {
+				if (recipe instanceof SmithingTransformRecipe transform && transform.getResultItem(level.registryAccess()).is(item.getItem())) {
 					if (transform.template.getItems().length > 0) {
 						container.setItem(0, transform.template.getItems()[0].copy());
 					}
 
 					if (transform.base.getItems().length > 0) {
 						ItemStack base = transform.base.getItems()[0].copy();
-						base.setTag(armor.getOrCreateTag().copy());
+						base.setTag(item.getOrCreateTag().copy());
 						container.setItem(1, base);
 					}
 
