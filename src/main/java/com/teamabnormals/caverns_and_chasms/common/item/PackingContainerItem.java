@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -305,19 +306,21 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		}
 	}
 
-	public static boolean addToContainer(Inventory inventory, ItemStack toAdd) {
-		for (ItemStack stack : inventory.items) {
-			if (stack.getItem() instanceof PackingContainerItem item) {
-				CompoundTag tag = stack.getOrCreateTag();
-				if (tag.contains(TAG_ITEM)) {
-					int i = add(stack, toAdd);
-					if (i > 0) {
-						ServerPlayer player = (ServerPlayer) inventory.player;
-						ServerLevel level = (ServerLevel) player.level();
-						level.playSound(null, player.getX(), player.getY(), player.getZ(), item.getInsertSound(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
-						toAdd.shrink(i);
-						stack.setPopTime(5);
-						return true;
+	public static boolean addToContainer(Inventory inventory, ItemStack otherStack) {
+		for (NonNullList<ItemStack> list : inventory.compartments) {
+			for (ItemStack stack : list) {
+				if (stack.getItem() instanceof PackingContainerItem item) {
+					CompoundTag tag = stack.getOrCreateTag();
+					if (tag.contains(TAG_ITEM)) {
+						int i = add(stack, otherStack);
+						if (i > 0) {
+							ServerPlayer player = (ServerPlayer) inventory.player;
+							ServerLevel level = (ServerLevel) player.level();
+							level.playSound(null, player.getX(), player.getY(), player.getZ(), item.getInsertSound(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+							otherStack.shrink(i);
+							stack.setPopTime(5);
+							return true;
+						}
 					}
 				}
 			}
