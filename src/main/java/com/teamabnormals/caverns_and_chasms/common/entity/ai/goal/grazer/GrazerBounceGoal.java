@@ -32,12 +32,12 @@ public class GrazerBounceGoal extends Goal {
 		this.grazer.getNavigation().stop();
 		this.grazer.setSpeed(0.0F);
 		this.wiggleTime = this.adjustedTickDelay(this.grazer.hasControllingPassenger() ? 40 : 80);
+		this.grazer.setLastHurtByMob(null);
 	}
 
 	@Override
 	public void stop() {
 		this.grazer.setTarget(null);
-		this.grazer.setLastHurtByMob(null);
 	}
 
 	@Override
