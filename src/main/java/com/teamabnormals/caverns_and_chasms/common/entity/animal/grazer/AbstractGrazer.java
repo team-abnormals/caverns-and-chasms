@@ -611,12 +611,19 @@ public abstract class AbstractGrazer extends Animal {
 		} else if (this.getState() == GrazerState.LANDING || this.getState() == GrazerState.WIGGLING) {
 			float xrot = Mth.wrapDegrees(this.getCustomXRot());
 			float targetrot = this.getTargetXRot();
+			if (this.getState() == GrazerState.LANDING)
+				System.out.println("Rot: " + xrot + ", Target rot: " + targetrot);
 			if (xrot == targetrot) {
 				if (!this.level().isClientSide && this.getState() != GrazerState.WIGGLING)
 					this.setState(GrazerState.WIGGLING);
 			} else {
-				this.setCustomXRot(Math.max(xrot - BOUNCE_ROT_SPEED, targetrot));
+				if (xrot < targetrot) {
+					xrot += 360.0F;
+				}
+				this.setCustomXRot(Mth.wrapDegrees(Math.max(xrot - BOUNCE_ROT_SPEED, targetrot)));
 			}
+			if (this.getState() == GrazerState.LANDING)
+				System.out.println("New rot: " + this.getCustomXRot());
 		} else {
 			float xrot = Mth.wrapDegrees(this.getCustomXRot());
 			if (xrot > 0.0F)
@@ -761,7 +768,7 @@ public abstract class AbstractGrazer extends Animal {
 					if (this.bounceHeight < 0.376D && this.getState() != GrazerState.LANDING) {
 						this.setState(GrazerState.LANDING);
 						float xrot = Mth.wrapDegrees(this.getCustomXRot());
-						this.setTargetXRot(xrot < -90.0F ? -180.F : xrot < 90.0F ? -90.0F : 90.0F);
+						this.setTargetXRot(xrot > 90.0F ? 90.0F : xrot > -90.0F ? -90.0F : this.getPassengers().isEmpty() ? -180.0F : 90.0F);
 						return;
 					} else {
 						this.bounceHeight *= 0.94D;
