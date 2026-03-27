@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 public class CCBiomeModifiers {
 
 	public static void bootstrap(BootstapContext<BiomeModifier> context) {
-		addSpawn(context, "peeper", CCBiomeTags.HAS_PEEPER, new MobSpawnSettings.SpawnerData(CCEntityTypes.PEEPER.get(), 30, 2, 4));
+		addSpawn(context, "peeper", CCBiomeTags.HAS_PEEPER, new MobSpawnSettings.SpawnerData(CCEntityTypes.PEEPER.get(), 20, 2, 4));
 		addSpawn(context, "mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 100, 1, 1));
 		addSpawn(context, "grazer", CCBiomeTags.HAS_GRAZER, new MobSpawnSettings.SpawnerData(CCEntityTypes.GRAZER.get(), 100, 1, 4));
 		addSpawn(context, "rat", CCBiomeTags.HAS_RAT, new MobSpawnSettings.SpawnerData(CCEntityTypes.RAT.get(), 10, 8, 12));
