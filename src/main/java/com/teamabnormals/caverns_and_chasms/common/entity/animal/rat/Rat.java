@@ -240,6 +240,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		tag.putFloat("AttachAngle", this.getAttachAngle());
 		tag.putFloat("AttachHeight", this.getAttachHeight());
 		tag.putFloat("FirstPersonPos", this.getFirstPersonPos());
+		BlockPos commandedPos = this.getCommandedPos();
+		if (commandedPos != null) {
+			tag.putInt("CommandedPosX", commandedPos.getX());
+			tag.putInt("CommandedPosY", commandedPos.getY());
+			tag.putInt("CommandedPosZ", commandedPos.getZ());
+		}
 		this.addPersistentAngerSaveData(tag);
 	}
 
@@ -257,6 +263,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.setAttachAngle(tag.getFloat("AttachAngle"));
 		this.setAttachHeight(tag.getFloat("AttachHeight"));
 		this.setFirstPersonPos(tag.getFloat("FirstPersonPos"));
+		if (tag.contains("CommandedPosX", 99) && tag.contains("CommandedPosY", 99) && tag.contains("CommandedPosZ", 99)) {
+			this.setCommandedPos(new BlockPos(tag.getInt("CommandedPosX"), tag.getInt("CommandedPosY"), tag.getInt("CommandedPosZ")));
+		}
 		this.readPersistentAngerSaveData(this.level(), tag);
 	}
 
