@@ -51,7 +51,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	public static final ModLoadedCondition ENDERGETIC_LOADED = new ModLoadedCondition("endergetic");
 
 	private static final ImmutableList<ItemLike> SILVER_SMELTABLES = ImmutableList.of(SILVER_ORE.get(), DEEPSLATE_SILVER_ORE.get(), SOUL_SILVER_ORE.get(), CCItems.RAW_SILVER.get());
-	private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), CCItems.RAW_TIN.get());
+	private static final ImmutableList<ItemLike> TIN_SMELTABLES = ImmutableList.of(TIN_ORE.get(), DEEPSLATE_TIN_ORE.get(), CYLINDRITE_TIN_ORE.get(), CASSITERITE_TIN_ORE.get(), CCItems.RAW_TIN.get(), SADDLED_EGG.get());
 	private static final ImmutableList<ItemLike> SPINEL_SMELTABLES = ImmutableList.of(SPINEL_ORE.get(), DEEPSLATE_SPINEL_ORE.get());
 	private static final ImmutableList<ItemLike> TURQUOISE_SMELTABLES = ImmutableList.of(TURQUOISE_ORE.get(), DEEPSLATE_TURQUOISE_ORE.get());
 
