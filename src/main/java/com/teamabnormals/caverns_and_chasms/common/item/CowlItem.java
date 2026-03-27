@@ -65,16 +65,20 @@ public class CowlItem extends DyeableArmorItem {
 		}
 	}
 
+	public static boolean shouldBeInvisible(LivingEntity entity) {
+		ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
+		return entity.isCrouching() && headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0;
+	}
+
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingTickEvent event) {
 		LivingEntity entity = event.getEntity();
 		IDataManager dataManager = ((IDataManager) entity);
 		Level level = entity.level();
 		if (!level.isClientSide()) {
-			ItemStack headStack = entity.getItemBySlot(EquipmentSlot.HEAD);
 			boolean isInvisible = dataManager.getValue(CCDataProcessors.OBSCURITY_INVISIBILITY);
-			boolean shouldBeInvisible = entity.isCrouching() && headStack.is(CCItems.COWL.get()) && headStack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0;
-			if (isInvisible != shouldBeInvisible) {
+			boolean shouldBeInvisible = shouldBeInvisible(entity);
+			if (isInvisible != shouldBeInvisible(entity)) {
 				dataManager.setValue(CCDataProcessors.OBSCURITY_INVISIBILITY, shouldBeInvisible);
 				poofParticles(level, entity.getBoundingBox(), 6);
 			}
