@@ -967,6 +967,16 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
+	protected void dropEquipment() {
+		super.dropEquipment();
+		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+		if (!itemstack.isEmpty()) {
+			this.spawnAtLocation(itemstack);
+			this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+		}
+	}
+
+	@Override
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (DATA_FLAGS_ID.equals(key)) {
 			this.refreshDimensions();
