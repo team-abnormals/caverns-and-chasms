@@ -611,8 +611,6 @@ public abstract class AbstractGrazer extends Animal {
 		} else if (this.getState() == GrazerState.LANDING || this.getState() == GrazerState.WIGGLING) {
 			float xrot = Mth.wrapDegrees(this.getCustomXRot());
 			float targetrot = this.getTargetXRot();
-			if (this.getState() == GrazerState.LANDING)
-				System.out.println("Rot: " + xrot + ", Target rot: " + targetrot);
 			if (xrot == targetrot) {
 				if (!this.level().isClientSide && this.getState() != GrazerState.WIGGLING)
 					this.setState(GrazerState.WIGGLING);
@@ -622,8 +620,6 @@ public abstract class AbstractGrazer extends Animal {
 				}
 				this.setCustomXRot(Mth.wrapDegrees(Math.max(xrot - BOUNCE_ROT_SPEED, targetrot)));
 			}
-			if (this.getState() == GrazerState.LANDING)
-				System.out.println("New rot: " + this.getCustomXRot());
 		} else {
 			float xrot = Mth.wrapDegrees(this.getCustomXRot());
 			if (xrot > 0.0F)
