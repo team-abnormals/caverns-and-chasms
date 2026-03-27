@@ -756,7 +756,7 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.ROOTED_DIRT), ROCKY_DIRT)
 				.addItemsAfter(of(Blocks.GRAVEL), FLINT_BLOCK)
 				.addItemsBefore(of(Blocks.MUSHROOM_STEM), AZALEA_LOG)
-				.addItemsBefore(of(Blocks.GOLD_ORE), TIN_ORE, DEEPSLATE_TIN_ORE, CASSITERITE_TIN_ORE)
+				.addItemsBefore(of(Blocks.GOLD_ORE), TIN_ORE, DEEPSLATE_TIN_ORE, CYLINDRITE_TIN_ORE, CASSITERITE_TIN_ORE)
 				.addItemsBefore(of(Blocks.REDSTONE_ORE), SILVER_ORE, DEEPSLATE_SILVER_ORE)
 				.addItemsBefore(of(Blocks.LAPIS_ORE), TURQUOISE_ORE, DEEPSLATE_TURQUOISE_ORE)
 				.addItemsBefore(of(Blocks.DIAMOND_ORE), SPINEL_ORE, DEEPSLATE_SPINEL_ORE)
