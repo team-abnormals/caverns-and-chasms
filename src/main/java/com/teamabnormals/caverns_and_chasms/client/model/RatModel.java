@@ -24,6 +24,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.DyeColor;
@@ -33,7 +34,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.UUID;
+
 public class RatModel extends AgeableListModel<Rat> {
+	private static final RandomSource RANDOM = RandomSource.create();
+
 	public final ModelPart root;
 	public final ModelPart head;
 	public final ModelPart leftEar;
@@ -131,6 +136,13 @@ public class RatModel extends AgeableListModel<Rat> {
 		this.eating = false;
 		this.wounded = health <= Rat.WOUNDED_THRESHOLD;
 		this.shakeAnim = 0.0F;
+
+		if (compound.hasUUID("UUID")) {
+			RANDOM.setSeed(compound.getUUID("UUID").hashCode());
+		} else {
+			RANDOM.setSeed(0L);
+		}
+
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
 		ResourceLocation textureLocation = variant.getTexture(this.wounded, dirty);
@@ -188,7 +200,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 			if (this.wounded) {
 				this.head.xRot += 0.25F + 0.1F * Mth.sin(ageInTicks * 0.1F);
-				this.head.zRot = 0.3F;
+				this.head.zRot = RANDOM.nextBoolean() ? -0.3F : 0.3F;
 			}
 
 			if (this.shakeAnim > 0.0F) {
@@ -264,6 +276,7 @@ public class RatModel extends AgeableListModel<Rat> {
 		this.eating = rat.isEating();
 		this.wounded = rat.isVisuallyWounded();
 		this.shakeAnim = rat.getShakeAnim(partialTick);
+		RANDOM.setSeed(rat.getUUID().hashCode());
 		super.prepareMobModel(rat, limbSwing, limbSwingAmount, partialTick);
 	}
 

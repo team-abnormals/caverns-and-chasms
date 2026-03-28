@@ -106,8 +106,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private List<Rat> pack = Lists.newArrayList();
 
-	private BoneFluteCommand latestCommand;
-	private long latestCommandTimestamp;
 	private BlockPos commandedPos;
 	private LivingEntity commandedTarget;
 	private int commandedTargetOwnerTimestamp;
