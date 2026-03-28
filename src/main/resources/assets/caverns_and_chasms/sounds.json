@@ -205,6 +205,74 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.echo_block.break": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/echo_block/break1",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/echo_block/break2",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/echo_block/break3",
+        "volume": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:block/echo_block/break4",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.echo_block.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/echo_block/step1",
+      "caverns_and_chasms:block/echo_block/step2",
+      "caverns_and_chasms:block/echo_block/step3",
+      "caverns_and_chasms:block/echo_block/step4"
+    ]
+  },
+  "block.echo_block.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/echo_block/step1",
+      "caverns_and_chasms:block/echo_block/step2",
+      "caverns_and_chasms:block/echo_block/step3",
+      "caverns_and_chasms:block/echo_block/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.echo_block.place": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/echo_block/place1",
+        "volume": 0.7
+      },
+      {
+        "name": "caverns_and_chasms:block/echo_block/place2",
+        "volume": 0.7
+      },
+      {
+        "name": "caverns_and_chasms:block/echo_block/place3",
+        "volume": 0.7
+      },
+      {
+        "name": "caverns_and_chasms:block/echo_block/place4",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.echo_block.step": {
+    "sounds": [
+      "caverns_and_chasms:block/echo_block/step1",
+      "caverns_and_chasms:block/echo_block/step2",
+      "caverns_and_chasms:block/echo_block/step3",
+      "caverns_and_chasms:block/echo_block/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.rhyolite.break": {
     "sounds": [
       "caverns_and_chasms:block/rhyolite/break1",
