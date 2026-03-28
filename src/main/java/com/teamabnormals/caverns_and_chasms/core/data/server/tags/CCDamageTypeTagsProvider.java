@@ -26,6 +26,7 @@ public class CCDamageTypeTagsProvider extends TagsProvider<DamageType> {
 		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(KUNAI, SPIKED_RAIL, DRAINING);
 		this.tag(DamageTypeTags.IS_FIRE).add(LAVA_LAMP);
 		this.tag(DamageTypeTags.IS_PROJECTILE).add(KUNAI);
+		this.tag(DamageTypeTags.NO_ANGER).add(GRAZER);
 		this.tag(CCDamageTypeTags.BYPASSES_TETHER_POTIONS);
 		this.tag(CCDamageTypeTags.DRAINS_ENEMIES).add(DRAINING);
 	}

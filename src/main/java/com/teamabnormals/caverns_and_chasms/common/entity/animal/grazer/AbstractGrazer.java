@@ -728,7 +728,7 @@ public abstract class AbstractGrazer extends Animal {
 					if (rider != null) {
 						damageSource = CCDamageTypes.ridingGrazer(this.level(), this, rider);
 					} else {
-						damageSource = this.damageSources().mobAttack(this);
+						damageSource = CCDamageTypes.grazer(this.level(), this);
 					}
 
 					livingentity.hurt(damageSource, (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));

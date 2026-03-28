@@ -18,6 +18,7 @@ public class CCDamageTypes {
 	public static final ResourceKey<DamageType> LAVA_LAMP = createKey("lava_lamp");
 	public static final ResourceKey<DamageType> KUNAI = createKey("kunai");
 	public static final ResourceKey<DamageType> DRAINING = createKey("draining");
+	public static final ResourceKey<DamageType> GRAZER = createKey("grazer");
 	public static final ResourceKey<DamageType> RIDING_GRAZER = createKey("riding_grazer");
 
 	public static void bootstrap(BootstapContext<DamageType> context) {
@@ -25,6 +26,7 @@ public class CCDamageTypes {
 		context.register(LAVA_LAMP, new DamageType(CavernsAndChasms.MOD_ID + ".lava_lamp", 0.1F));
 		context.register(KUNAI, new DamageType(CavernsAndChasms.MOD_ID + ".kunai", 0.1F));
 		context.register(DRAINING, new DamageType(CavernsAndChasms.MOD_ID + ".draining", 0.1F));
+		context.register(GRAZER, new DamageType(CavernsAndChasms.MOD_ID + ".grazer", 0.1F));
 		context.register(RIDING_GRAZER, new DamageType(CavernsAndChasms.MOD_ID + ".riding_grazer", 0.1F));
 	}
 
@@ -42,6 +44,10 @@ public class CCDamageTypes {
 
 	public static DamageSource draining(Level level, LivingEntity entity) {
 		return level.damageSources().source(DRAINING, entity);
+	}
+
+	public static DamageSource grazer(Level level, LivingEntity entity) {
+		return level.damageSources().source(GRAZER, entity);
 	}
 
 	public static DamageSource ridingGrazer(Level level, LivingEntity mount, @Nullable LivingEntity rider) {
