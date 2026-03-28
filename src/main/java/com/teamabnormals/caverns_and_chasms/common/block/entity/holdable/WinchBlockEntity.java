@@ -75,26 +75,31 @@ public class WinchBlockEntity extends BlockEntity {
 	public static void tick(Level level, BlockPos pos, BlockState state, WinchBlockEntity blockEntity) {
 		if (level.isClientSide) {
 			blockEntity.rotationO = blockEntity.rotation;
+			return;
 		}
 
 		int oldPower = blockEntity.getPower();
+		float oldRotation = blockEntity.rotation;
 		boolean isPressed = blockEntity.pressTime > 0;
 
 		if (blockEntity.forceRollBack || (!isPressed && shouldUnwind(level, pos, state, blockEntity))) {
 			blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
 			blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
-			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		} else if (isPressed) {
 			blockEntity.rewindSpeed = 0F;
 			blockEntity.rotation = Math.min(blockEntity.rotation + 3F, 360F);
-			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
 		}
 
 		if (isPressed) {
 			--blockEntity.pressTime;
 		}
 
-		if (!level.isClientSide && oldPower != blockEntity.getPower()) {
+		if (blockEntity.rotation != oldRotation) {
+			blockEntity.setChanged();
+			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
+		}
+
+		if (oldPower != blockEntity.getPower()) {
 			WinchBlock.updateNeighbours(state, level, pos);
 			if (blockEntity.isFullyPowered() && !shouldUnwind(level, pos, state, blockEntity)) {
 				level.playSound(null, pos, CCSoundEvents.WINCH_LOCK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
