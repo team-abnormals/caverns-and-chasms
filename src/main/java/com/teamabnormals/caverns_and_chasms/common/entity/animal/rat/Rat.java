@@ -1010,8 +1010,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
-	public void setTame(boolean tamed) {
-		super.setTame(tamed);
+	public void tame(Player player) {
+		super.tame(player);
+		this.setTameAttributes(true);
+	}
+
+	public void setTameAttributes(boolean tamed) {
 		if (tamed) {
 			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0D);
 			this.setHealth(10.0F);
@@ -1081,6 +1085,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			if (this.isTame()) {
 				child.setOwnerUUID(this.getOwnerUUID());
 				child.setTame(true);
+				child.setTameAttributes(true);
 				child.setCollarColor(this.random.nextBoolean() ? rat.getCollarColor() : this.getCollarColor());
 			}
 		}
