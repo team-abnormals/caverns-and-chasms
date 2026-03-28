@@ -18,6 +18,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -132,8 +133,14 @@ public class RatModel extends AgeableListModel<Rat> {
 		this.shakeAnim = 0.0F;
 		this.setupAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-		VertexConsumer vertexConsumer = buffer.getBuffer(this.renderType(variant.getTexture(this.wounded, dirty)));
+		ResourceLocation textureLocation = variant.getTexture(this.wounded, dirty);
+
+		VertexConsumer vertexConsumer = buffer.getBuffer(this.renderType(textureLocation));
 		this.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+
+		VertexConsumer vertexConsumerEars = buffer.getBuffer(RenderType.entityCutout(textureLocation));
+		this.renderEars(poseStack, vertexConsumerEars, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+
 		if (hasOwner) {
 			DyeColor collarColor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;
 			RatCollarLayer.renderCollar(this, poseStack, buffer, packedLight, collarColor, 0, 0);

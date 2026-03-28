@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.common.item.BoneFluteCommand;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCGiftLoot;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
@@ -105,6 +106,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private List<Rat> pack = Lists.newArrayList();
 
+	private BoneFluteCommand latestCommand;
+	private long latestCommandTimestamp;
 	private BlockPos commandedPos;
 	private LivingEntity commandedTarget;
 	private int commandedTargetOwnerTimestamp;
@@ -147,15 +150,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.goalSelector.addGoal(8, new RatFollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
 		this.goalSelector.addGoal(9, new RatBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new RatTemptGoal(this));
-		// this.goalSelector.addGoal(11, new RatJumpOnShoulderGoal(this));
-		this.goalSelector.addGoal(12, new RatDevourRottenFleshGoal(this, 1.25D));
-		this.goalSelector.addGoal(13, new RatStayInGroupGoal(this));
-		this.goalSelector.addGoal(14, new RatFollowParentGoal(this));
-		this.goalSelector.addGoal(15, new RatEatGoal(this));
-		this.goalSelector.addGoal(16, new RatRandomStrollGoal(this));
-		this.goalSelector.addGoal(17, new RatFindItemsGoal(this));
-		this.goalSelector.addGoal(18, new RatLookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(19, new RatRandomLookAroundGoal(this));
+		this.goalSelector.addGoal(11, new RatDevourRottenFleshGoal(this, 1.25D));
+		this.goalSelector.addGoal(12, new RatStayInGroupGoal(this));
+		this.goalSelector.addGoal(13, new RatFollowParentGoal(this));
+		this.goalSelector.addGoal(14, new RatEatGoal(this));
+		this.goalSelector.addGoal(15, new RatRandomStrollGoal(this));
+		this.goalSelector.addGoal(16, new RatFindItemsGoal(this));
+		this.goalSelector.addGoal(17, new RatLookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(18, new RatRandomLookAroundGoal(this));
 		this.targetSelector.addGoal(0, new RatStopAttackingGoal(this));
 		this.targetSelector.addGoal(1, new RatAttackCommandedTargetGoal(this));
 		this.targetSelector.addGoal(2, new RatOwnerHurtByTargetGoal(this));
@@ -485,8 +487,13 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected void doPush(Entity entity) {
-		if (!this.isAttachedToEntity())
-			super.doPush(entity);
+		if (!this.isAttachedToEntity()) {
+			if (!this.level().isClientSide && this.isSittingBecauseOrdered() && entity instanceof ServerPlayer player && player == this.getOwner() && player.isCrouching()) {
+				this.setEntityOnShoulder(player);
+			} else {
+				super.doPush(entity);
+			}
+		}
 	}
 
 	@Override
