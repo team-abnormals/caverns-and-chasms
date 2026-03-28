@@ -12,6 +12,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEnti
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -53,8 +54,8 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 	}
 
 	public Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> createSparklerBlock(String name, String wallName, Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle) {
-		RegistryObject<SparklerBlock> block = this.deferredRegister.register(name, () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY), particle));
-		RegistryObject<WallSparklerBlock> wallBlock = this.deferredRegister.register(wallName, () -> new WallSparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).lootFrom(block), particle));
+		RegistryObject<SparklerBlock> block = this.deferredRegister.register(name, () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY), particle));
+		RegistryObject<WallSparklerBlock> wallBlock = this.deferredRegister.register(wallName, () -> new WallSparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY).lootFrom(block), particle));
 		this.itemRegister.register(name, () -> new StandingAndWallBlockItem(block.get(), wallBlock.get(), new Item.Properties(), Direction.DOWN));
 		return Pair.of(block, wallBlock);
 	}

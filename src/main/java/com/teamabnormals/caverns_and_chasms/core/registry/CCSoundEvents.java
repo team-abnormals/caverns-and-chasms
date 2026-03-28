@@ -52,6 +52,15 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> GUNPOWDER_PLACE = HELPER.createSoundEvent("block.gunpowder.place");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_STEP = HELPER.createSoundEvent("block.gunpowder.step");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_EXPLODE = HELPER.createSoundEvent("block.gunpowder.explode");
+	
+	public static final RegistryObject<SoundEvent> SPARKLER_BREAK = HELPER.createSoundEvent("block.sparkler.break");
+	public static final RegistryObject<SoundEvent> SPARKLER_FALL = HELPER.createSoundEvent("block.sparkler.fall");
+	public static final RegistryObject<SoundEvent> SPARKLER_HIT = HELPER.createSoundEvent("block.sparkler.hit");
+	public static final RegistryObject<SoundEvent> SPARKLER_PLACE = HELPER.createSoundEvent("block.sparkler.place");
+	public static final RegistryObject<SoundEvent> SPARKLER_STEP = HELPER.createSoundEvent("block.sparkler.step");
+	public static final RegistryObject<SoundEvent> SPARKLER_SPARKLE = HELPER.createSoundEvent("block.sparkler.sparkle");
+	public static final RegistryObject<SoundEvent> SPARKLER_FIZZLE = HELPER.createSoundEvent("block.sparkler.fizzle");
+	public static final RegistryObject<SoundEvent> SPARKLER_EXPLODE = HELPER.createSoundEvent("block.sparkler.explode");
 
 	public static final RegistryObject<SoundEvent> RHYOLITE_BREAK = HELPER.createSoundEvent("block.rhyolite.break");
 	public static final RegistryObject<SoundEvent> RHYOLITE_FALL = HELPER.createSoundEvent("block.rhyolite.fall");
@@ -404,10 +413,6 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> RESISTOR_BUZZ = HELPER.createSoundEvent("block.resistor.buzz");
 	public static final RegistryObject<SoundEvent> RESISTOR_TOGGLE = HELPER.createSoundEvent("block.resistor.toggle");
 
-	public static final RegistryObject<SoundEvent> SPARKLER_SPARKLE = HELPER.createSoundEvent("block.sparkler.sparkle");
-	public static final RegistryObject<SoundEvent> SPARKLER_FIZZLE = HELPER.createSoundEvent("block.sparkler.fizzle");
-	public static final RegistryObject<SoundEvent> SPARKLER_EXPLODE = HELPER.createSoundEvent("block.sparkler.explode");
-
 	public static final RegistryObject<SoundEvent> HALT_RAIL_HALT = HELPER.createSoundEvent("block.halt_rail.halt");
 	public static final RegistryObject<SoundEvent> HALT_RAIL_EXTEND = HELPER.createSoundEvent("block.halt_rail.extend");
 	public static final RegistryObject<SoundEvent> HALT_RAIL_CONTRACT = HELPER.createSoundEvent("block.halt_rail.contract");
@@ -579,6 +584,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType FRAGILE_DEEPSLATE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_DEEPSLATE_BREAK, FRAGILE_DEEPSLATE_STEP, FRAGILE_DEEPSLATE_PLACE, FRAGILE_DEEPSLATE_HIT, FRAGILE_DEEPSLATE_FALL);
 		public static final ForgeSoundType CHARCOAL = new ForgeSoundType(1.0F, 1.0F, CHARCOAL_BREAK, CHARCOAL_STEP, CHARCOAL_PLACE, CHARCOAL_HIT, CHARCOAL_FALL);
 		public static final ForgeSoundType GUNPOWDER = new ForgeSoundType(1.0F, 1.0F, GUNPOWDER_BREAK, GUNPOWDER_STEP, GUNPOWDER_PLACE, GUNPOWDER_HIT, GUNPOWDER_FALL);
+		public static final ForgeSoundType SPARKLER = new ForgeSoundType(1.0F, 1.0F, SPARKLER_BREAK, SPARKLER_STEP, SPARKLER_PLACE, SPARKLER_HIT, SPARKLER_FALL);
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
 		public static final ForgeSoundType MAGMATIC_RHYOLITE = new ForgeSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BREAK, MAGMATIC_RHYOLITE_STEP, MAGMATIC_RHYOLITE_PLACE, MAGMATIC_RHYOLITE_HIT, MAGMATIC_RHYOLITE_FALL);
 		public static final ForgeSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);

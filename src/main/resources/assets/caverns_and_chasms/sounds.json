@@ -540,6 +540,45 @@
     ],
     "subtitle": "subtitles.entity.generic.explode"
   },
+  "block.sparkler.break": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/break1",
+      "caverns_and_chasms:block/sparkler/break2",
+      "caverns_and_chasms:block/sparkler/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sparkler.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/break1",
+      "caverns_and_chasms:block/sparkler/break2",
+      "caverns_and_chasms:block/sparkler/break3"
+    ]
+  },
+  "block.sparkler.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/break1",
+      "caverns_and_chasms:block/sparkler/break2",
+      "caverns_and_chasms:block/sparkler/break3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sparkler.place": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/break1",
+      "caverns_and_chasms:block/sparkler/break2",
+      "caverns_and_chasms:block/sparkler/break3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sparkler.step": {
+    "sounds": [
+      "caverns_and_chasms:block/sparkler/break1",
+      "caverns_and_chasms:block/sparkler/break2",
+      "caverns_and_chasms:block/sparkler/break3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.refractor.break": {
     "sounds": [
       "caverns_and_chasms:block/refractor/step1",
