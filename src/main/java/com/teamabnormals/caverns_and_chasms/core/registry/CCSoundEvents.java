@@ -46,6 +46,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> CHARCOAL_PLACE = HELPER.createSoundEvent("block.charcoal.place");
 	public static final RegistryObject<SoundEvent> CHARCOAL_STEP = HELPER.createSoundEvent("block.charcoal.step");
 	
+	public static final RegistryObject<SoundEvent> ECHO_BLOCK_BREAK = HELPER.createSoundEvent("block.echo_block.break");
+	public static final RegistryObject<SoundEvent> ECHO_BLOCK_FALL = HELPER.createSoundEvent("block.echo_block.fall");
+	public static final RegistryObject<SoundEvent> ECHO_BLOCK_HIT = HELPER.createSoundEvent("block.echo_block.hit");
+	public static final RegistryObject<SoundEvent> ECHO_BLOCK_PLACE = HELPER.createSoundEvent("block.echo_block.place");
+	public static final RegistryObject<SoundEvent> ECHO_BLOCK_STEP = HELPER.createSoundEvent("block.echo_block.step");
+	
 	public static final RegistryObject<SoundEvent> GUNPOWDER_BREAK = HELPER.createSoundEvent("block.gunpowder.break");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_FALL = HELPER.createSoundEvent("block.gunpowder.fall");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_HIT = HELPER.createSoundEvent("block.gunpowder.hit");
@@ -583,6 +589,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType FRAGILE_STONE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_STONE_BREAK, FRAGILE_STONE_STEP, FRAGILE_STONE_PLACE, FRAGILE_STONE_HIT, FRAGILE_STONE_FALL);
 		public static final ForgeSoundType FRAGILE_DEEPSLATE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_DEEPSLATE_BREAK, FRAGILE_DEEPSLATE_STEP, FRAGILE_DEEPSLATE_PLACE, FRAGILE_DEEPSLATE_HIT, FRAGILE_DEEPSLATE_FALL);
 		public static final ForgeSoundType CHARCOAL = new ForgeSoundType(1.0F, 1.0F, CHARCOAL_BREAK, CHARCOAL_STEP, CHARCOAL_PLACE, CHARCOAL_HIT, CHARCOAL_FALL);
+		public static final ForgeSoundType ECHO_BLOCK = new ForgeSoundType(1.0F, 1.0F, ECHO_BLOCK_BREAK, ECHO_BLOCK_STEP, ECHO_BLOCK_PLACE, ECHO_BLOCK_HIT, ECHO_BLOCK_FALL);
 		public static final ForgeSoundType GUNPOWDER = new ForgeSoundType(1.0F, 1.0F, GUNPOWDER_BREAK, GUNPOWDER_STEP, GUNPOWDER_PLACE, GUNPOWDER_HIT, GUNPOWDER_FALL);
 		public static final ForgeSoundType SPARKLER = new ForgeSoundType(1.0F, 1.0F, SPARKLER_BREAK, SPARKLER_STEP, SPARKLER_PLACE, SPARKLER_HIT, SPARKLER_FALL);
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
