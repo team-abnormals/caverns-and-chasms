@@ -802,7 +802,7 @@ public abstract class AbstractGrazer extends Animal {
 						}
 					}
 				} else {
-					if (horizontal) {
+					if (horizontal || ground) {
 						LivingEntity target = this.getTarget();
 						if (target != null && target.isAlive()) {
 							Vec3 targetVec = target.position().subtract(this.position());

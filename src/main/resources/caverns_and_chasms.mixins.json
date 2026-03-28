@@ -21,6 +21,7 @@
     "BundleItemMixin",
     "CarvedPumpkinBlockMixin",
     "CreeperMixin",
+    "DamageSourceMixin",
     "DefaultDispenseItemBehaviorMixin",
     "EnchantmentHelperMixin",
     "EntityHitResultMixin",
