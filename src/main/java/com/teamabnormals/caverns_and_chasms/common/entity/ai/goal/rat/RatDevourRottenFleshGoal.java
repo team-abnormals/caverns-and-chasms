@@ -66,6 +66,28 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 	@Override
 	public void stop() {
+		if (this.eatingTime >= 80) {
+			RandomSource random = this.rat.getRandom();
+
+			this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, random.nextFloat() * 0.1F + 0.9F);
+
+			this.rat.tame(this.rat.getTamer());
+			this.rat.setTarget(null);
+			this.rat.setCommandedTarget(null);
+			this.rat.setDirty(false);
+
+			for (int i = 0; i < 4; ++i) {
+				double d0 = random.nextGaussian() * 0.02D;
+				double d1 = random.nextGaussian() * 0.02D;
+				double d2 = random.nextGaussian() * 0.02D;
+				NetworkUtil.spawnParticle(ParticleTypes.HEART.writeToString(), this.rat.getRandomX(1.0D), this.rat.getRandomY() + 0.15D, this.rat.getRandomZ(1.0D), d0, d1, d2);
+			}
+
+			if (this.rat.level().getEntitiesOfClass(Rat.class, this.rat.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), (entity) -> entity != this.rat && entity.getTamer() != null && entity.getRottenFleshPos() == this.rat.getRottenFleshPos()).isEmpty()) {
+				this.rat.level().destroyBlock(this.targetPos, false);
+				Block.popResource(this.rat.level(), this.targetPos, new ItemStack(CCItems.BONE_FLUTE.get()));
+			}
+		}
 		this.rat.setTamer(null);
 	}
 
@@ -83,33 +105,11 @@ public class RatDevourRottenFleshGoal extends Goal {
 
 		if (dist <= 2.25D) {
 			RandomSource random = this.rat.getRandom();
-			if (++this.eatingTime < 80) {
-				if (random.nextFloat() < 0.3F) {
-					ItemStack flesh = new ItemStack(Items.ROTTEN_FLESH);
-					this.rat.playSound(this.rat.getEatingSound(flesh), 0.5F + 0.5F * (float) random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-					this.rat.spawnItemParticles(flesh, 4);
-				}
-			} else {
-				this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, random.nextFloat() * 0.1F + 0.9F);
-
-				this.rat.tame(this.rat.getTamer());
-				this.rat.setTarget(null);
-				this.rat.setCommandedTarget(null);
-				this.rat.setDirty(false);
-
-				if (!this.rat.level().isClientSide()) {
-					for (int i = 0; i < 4; ++i) {
-						double d0 = random.nextGaussian() * 0.02D;
-						double d1 = random.nextGaussian() * 0.02D;
-						double d2 = random.nextGaussian() * 0.02D;
-						NetworkUtil.spawnParticle(ParticleTypes.HEART.writeToString(), this.rat.getRandomX(1.0D), this.rat.getRandomY() + 0.15D, this.rat.getRandomZ(1.0D), d0, d1, d2);
-					}
-				}
-
-				if (this.rat.level().getEntitiesOfClass(Rat.class, this.rat.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), (entity) -> entity != this.rat && entity.getTamer() != null && entity.getRottenFleshPos() == this.rat.getRottenFleshPos()).isEmpty()) {
-					this.rat.level().destroyBlock(this.targetPos, false);
-					Block.popResource(this.rat.level(), this.targetPos, new ItemStack(CCItems.BONE_FLUTE.get()));
-				}
+			++this.eatingTime;
+			if (random.nextFloat() < 0.3F) {
+				ItemStack flesh = new ItemStack(Items.ROTTEN_FLESH);
+				this.rat.playSound(this.rat.getEatingSound(flesh), 0.5F + 0.5F * (float) random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+				this.rat.spawnItemParticles(flesh, 4);
 			}
 		}
 
