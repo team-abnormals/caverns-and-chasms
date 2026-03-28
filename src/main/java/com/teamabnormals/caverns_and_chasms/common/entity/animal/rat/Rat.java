@@ -86,7 +86,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public static final float WOUNDED_THRESHOLD = 1.0F;
 	public static final int SHAKE_TIME = 16;
 
-	public static final Predicate<ItemEntity> ALLOWED_ITEMS = (entity) -> !entity.hasPickUpDelay() && entity.isAlive();
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
 	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(UUID.fromString("5317A396-A13A-4019-92EA-F2BBB84769E2"), "Wounded speed reduction", -0.1D, AttributeModifier.Operation.MULTIPLY_BASE);
