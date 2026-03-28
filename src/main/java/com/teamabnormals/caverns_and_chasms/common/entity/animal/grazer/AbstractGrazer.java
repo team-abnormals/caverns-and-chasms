@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerR
 import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -722,7 +723,15 @@ public abstract class AbstractGrazer extends Animal {
 					}
 				} else {
 					// TODO: Add knockback
-					livingentity.hurt(this.level().damageSources().noAggroMobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+					DamageSource damageSource;
+					LivingEntity rider = this.getControllingPassenger();
+					if (rider != null) {
+						damageSource = CCDamageTypes.ridingGrazer(this.level(), this, rider);
+					} else {
+						damageSource = this.damageSources().mobAttack(this);
+					}
+
+					livingentity.hurt(damageSource, (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
 				}
 			}
 		}
