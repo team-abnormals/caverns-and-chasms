@@ -45,6 +45,13 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> CHARCOAL_HIT = HELPER.createSoundEvent("block.charcoal.hit");
 	public static final RegistryObject<SoundEvent> CHARCOAL_PLACE = HELPER.createSoundEvent("block.charcoal.place");
 	public static final RegistryObject<SoundEvent> CHARCOAL_STEP = HELPER.createSoundEvent("block.charcoal.step");
+	
+	public static final RegistryObject<SoundEvent> GUNPOWDER_BREAK = HELPER.createSoundEvent("block.gunpowder.break");
+	public static final RegistryObject<SoundEvent> GUNPOWDER_FALL = HELPER.createSoundEvent("block.gunpowder.fall");
+	public static final RegistryObject<SoundEvent> GUNPOWDER_HIT = HELPER.createSoundEvent("block.gunpowder.hit");
+	public static final RegistryObject<SoundEvent> GUNPOWDER_PLACE = HELPER.createSoundEvent("block.gunpowder.place");
+	public static final RegistryObject<SoundEvent> GUNPOWDER_STEP = HELPER.createSoundEvent("block.gunpowder.step");
+	public static final RegistryObject<SoundEvent> GUNPOWDER_EXPLODE = HELPER.createSoundEvent("block.gunpowder.explode");
 
 	public static final RegistryObject<SoundEvent> RHYOLITE_BREAK = HELPER.createSoundEvent("block.rhyolite.break");
 	public static final RegistryObject<SoundEvent> RHYOLITE_FALL = HELPER.createSoundEvent("block.rhyolite.fall");
@@ -571,6 +578,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType FRAGILE_STONE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_STONE_BREAK, FRAGILE_STONE_STEP, FRAGILE_STONE_PLACE, FRAGILE_STONE_HIT, FRAGILE_STONE_FALL);
 		public static final ForgeSoundType FRAGILE_DEEPSLATE = new ForgeSoundType(1.0F, 1.0F, FRAGILE_DEEPSLATE_BREAK, FRAGILE_DEEPSLATE_STEP, FRAGILE_DEEPSLATE_PLACE, FRAGILE_DEEPSLATE_HIT, FRAGILE_DEEPSLATE_FALL);
 		public static final ForgeSoundType CHARCOAL = new ForgeSoundType(1.0F, 1.0F, CHARCOAL_BREAK, CHARCOAL_STEP, CHARCOAL_PLACE, CHARCOAL_HIT, CHARCOAL_FALL);
+		public static final ForgeSoundType GUNPOWDER = new ForgeSoundType(1.0F, 1.0F, GUNPOWDER_BREAK, GUNPOWDER_STEP, GUNPOWDER_PLACE, GUNPOWDER_HIT, GUNPOWDER_FALL);
 		public static final ForgeSoundType RHYOLITE = new ForgeSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
 		public static final ForgeSoundType MAGMATIC_RHYOLITE = new ForgeSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BREAK, MAGMATIC_RHYOLITE_STEP, MAGMATIC_RHYOLITE_PLACE, MAGMATIC_RHYOLITE_HIT, MAGMATIC_RHYOLITE_FALL);
 		public static final ForgeSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);

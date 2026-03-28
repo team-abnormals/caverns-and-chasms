@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -45,7 +46,7 @@ public class GunpowderBlock extends TntBlock {
 
 	public static void explode(Level level, BlockPos pos, @Nullable LivingEntity igniter) {
 		if (!level.isClientSide) {
-			CustomExplosion.spawnExplosion(level, igniter, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, SoundEvents.GENERIC_EXPLODE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
+			CustomExplosion.spawnExplosion(level, igniter, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, CCSoundEvents.GUNPOWDER_EXPLODE.get(), CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
 		}
 	}
 

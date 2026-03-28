@@ -488,6 +488,58 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.gunpowder.break": {
+    "sounds": [
+      "caverns_and_chasms:block/gunpowder/break1",
+      "caverns_and_chasms:block/gunpowder/break2",
+      "caverns_and_chasms:block/gunpowder/break3",
+      "caverns_and_chasms:block/gunpowder/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.gunpowder.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/gunpowder/break1",
+      "caverns_and_chasms:block/gunpowder/break2",
+      "caverns_and_chasms:block/gunpowder/break3",
+      "caverns_and_chasms:block/gunpowder/break4"
+    ]
+  },
+  "block.gunpowder.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/gunpowder/step1",
+      "caverns_and_chasms:block/gunpowder/step2",
+      "caverns_and_chasms:block/gunpowder/step3",
+      "caverns_and_chasms:block/gunpowder/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.gunpowder.place": {
+    "sounds": [
+      "caverns_and_chasms:block/gunpowder/break1",
+      "caverns_and_chasms:block/gunpowder/break2",
+      "caverns_and_chasms:block/gunpowder/break3",
+      "caverns_and_chasms:block/gunpowder/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.gunpowder.step": {
+    "sounds": [
+      "caverns_and_chasms:block/gunpowder/step1",
+      "caverns_and_chasms:block/gunpowder/step2",
+      "caverns_and_chasms:block/gunpowder/step3",
+      "caverns_and_chasms:block/gunpowder/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.gunpowder.explode": {
+    "sounds": [
+      "caverns_and_chasms:block/gunpowder/explode1",
+      "caverns_and_chasms:block/gunpowder/explode2",
+      "caverns_and_chasms:block/gunpowder/explode3"
+    ],
+    "subtitle": "subtitles.entity.generic.explode"
+  },
   "block.refractor.break": {
     "sounds": [
       "caverns_and_chasms:block/refractor/step1",
