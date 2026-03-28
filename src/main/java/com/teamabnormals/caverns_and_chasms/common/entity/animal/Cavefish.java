@@ -13,10 +13,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.FollowFlockLeaderGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
@@ -24,14 +29,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class Cavefish extends AbstractSchoolingFish {
 
 	public Cavefish(EntityType<? extends Cavefish> p_30015_, Level p_30016_) {
 		super(p_30015_, p_30016_);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 1.0F, 1.0F, true);
+		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
 
 	public Cavefish(PlayMessages.SpawnEntity message, Level level) {
@@ -41,7 +50,7 @@ public class Cavefish extends AbstractSchoolingFish {
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new PanicGoal(this, 1.5D));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 16.0F, 2.4D, 2.0D, EntitySelector.NO_SPECTATORS::test));
 		this.goalSelector.addGoal(4, new CavefishSwimGoal(this));
 		this.goalSelector.addGoal(5, new FollowFlockLeaderGoal(this));
 	}
@@ -82,7 +91,7 @@ public class Cavefish extends AbstractSchoolingFish {
 	}
 
 	public int getMinSchoolSize() {
-		return 6;
+		return 4;
 	}
 
 	@Override
@@ -142,7 +151,7 @@ public class Cavefish extends AbstractSchoolingFish {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return AbstractFish.createAttributes().add(Attributes.MOVEMENT_SPEED, 3.0D);
+		return AbstractFish.createAttributes().add(Attributes.MOVEMENT_SPEED, 4.0F);
 	}
 
 	public static boolean checkCavefishSpawnRules(EntityType<Cavefish> cavefish, LevelAccessor level, MobSpawnType type, BlockPos pos, RandomSource random) {
@@ -153,7 +162,7 @@ public class Cavefish extends AbstractSchoolingFish {
 		private final Cavefish fish;
 
 		public CavefishSwimGoal(Cavefish p_27505_) {
-			super(p_27505_, 2.0D, 120);
+			super(p_27505_, 1.0D, 10);
 			this.fish = p_27505_;
 		}
 
