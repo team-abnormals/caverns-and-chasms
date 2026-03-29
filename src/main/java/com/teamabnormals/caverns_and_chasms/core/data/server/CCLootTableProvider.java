@@ -335,9 +335,23 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
 
 			this.dropSelf(STONE_WALL.get());
+
 			this.dropSelf(POLISHED_GRANITE_WALL.get());
+			this.dropSelf(CHISELED_POLISHED_GRANITE.get());
+			this.blockFamily(GRANITE_BRICKS_FAMILY);
+			this.blockFamily(GRANITE_TILES_FAMILY);
+
 			this.dropSelf(POLISHED_DIORITE_WALL.get());
+			this.dropSelf(CHISELED_POLISHED_DIORITE.get());
+			this.blockFamily(DIORITE_BRICKS_FAMILY);
+			this.blockFamily(DIORITE_TILES_FAMILY);
+			this.blockFamily(SMOOTH_DIORITE_FAMILY);
+			
 			this.dropSelf(POLISHED_ANDESITE_WALL.get());
+			this.dropSelf(CHISELED_POLISHED_ANDESITE.get());
+			this.dropSelf(ANDESITE_PILLAR.get());
+			this.blockFamily(ANDESITE_BRICKS_FAMILY);
+			this.blockFamily(ANDESITE_TILES_FAMILY);
 
 			this.dropSelf(CALCITE_STAIRS.get());
 			this.dropSelf(CALCITE_WALL.get());
@@ -356,6 +370,8 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.blockFamily(SUGILITE_FAMILY);
 			this.blockFamily(POLISHED_SUGILITE_FAMILY);
+			this.blockFamily(SUGILITE_BRICKS_FAMILY);
+			this.dropSelf(SUGILITE_PILLAR.get());
 
 			this.blockFamily(CYLINDRITE_FAMILY);
 			this.blockFamily(CYLINDRITE_BRICKS_FAMILY);
@@ -410,7 +426,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
 			this.dropSelf(ZIRCONIA_LAMP.get());
-			;
+			
 			this.dropSelf(ORNATE_GLASS.get());
 			this.dropSelf(ORNATE_GLASS_PANE.get());
 

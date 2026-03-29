@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "caverns_and_chasms:block/smooth_diorite_slab"
+    },
+    "type=double": {
+      "model": "caverns_and_chasms:block/smooth_diorite"
+    },
+    "type=top": {
+      "model": "caverns_and_chasms:block/smooth_diorite_slab_top"
+    }
+  }
+}

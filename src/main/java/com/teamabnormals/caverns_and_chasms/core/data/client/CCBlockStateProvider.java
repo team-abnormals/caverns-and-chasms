@@ -181,9 +181,24 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
 
 		this.wallBlock(Blocks.STONE, STONE_WALL.get());
+
 		this.wallBlock(Blocks.POLISHED_GRANITE, POLISHED_GRANITE_WALL.get());
+		this.block(CHISELED_POLISHED_GRANITE);
+		this.blockFamily(GRANITE_BRICKS_FAMILY);
+		this.cubeColumnBlock(CHISELED_GRANITE_BRICKS);
+		this.blockFamily(GRANITE_TILES_FAMILY);
+
 		this.wallBlock(Blocks.POLISHED_DIORITE, POLISHED_DIORITE_WALL.get());
+		this.block(CHISELED_POLISHED_DIORITE);
+		this.blockFamily(DIORITE_BRICKS_FAMILY);
+		this.blockFamily(DIORITE_TILES_FAMILY);
+		this.blockFamily(SMOOTH_DIORITE_FAMILY);
+
 		this.wallBlock(Blocks.POLISHED_ANDESITE, POLISHED_ANDESITE_WALL.get());
+		this.block(CHISELED_POLISHED_ANDESITE);
+		this.logBlock(ANDESITE_PILLAR);
+		this.blockFamily(ANDESITE_BRICKS_FAMILY);
+		this.blockFamily(ANDESITE_TILES_FAMILY);
 
 		this.baseBlockVariants(Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL);
 		this.cubeColumnBlock(CHISELED_CALCITE_BRICKS);
@@ -202,6 +217,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.blockFamily(SUGILITE_FAMILY);
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
+		this.blockFamilyWithChiseled(SUGILITE_BRICKS_FAMILY);
+		this.logBlock(SUGILITE_PILLAR);
 
 		this.logBlock(CYLINDRITE);
 		this.blockFamily(SMOOTH_CYLINDRITE_FAMILY);

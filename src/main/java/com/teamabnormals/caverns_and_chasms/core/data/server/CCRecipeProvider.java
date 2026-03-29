@@ -144,7 +144,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.ROOTED_DIRT).requires(Blocks.DIRT).requires(Blocks.HANGING_ROOTS).unlockedBy("has_hanging_roots", has(Blocks.HANGING_ROOTS)).save(consumer, CavernsAndChasms.location(getItemName(Blocks.ROOTED_DIRT)));
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, LAVA_LAMP.get()).define('G', Tags.Items.INGOTS_GOLD).define('B', BlueprintItemTags.BUCKETS_LAVA).pattern("GGG").pattern(" B ").pattern("GGG").unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD)).save(consumer);
-
+		
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_COPPER.get(), Blocks.COPPER_BLOCK, 4);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_COPPER, 4);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_COPPER, 4);
@@ -374,17 +374,50 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		platedBricksRecipes(consumer, WAXED_OXIDIZED_COPPER_BRICKS_FAMILY);
 
 		wall(consumer, DECORATIONS, STONE_WALL.get(), Blocks.STONE);
-		wall(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.POLISHED_GRANITE);
-		wall(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
-		wall(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
-
 		stonecutterRecipe(consumer, DECORATIONS, STONE_WALL.get(), Blocks.STONE);
+
+		wall(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.POLISHED_GRANITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.POLISHED_GRANITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_GRANITE_WALL.get(), Blocks.GRANITE);
+		chiseled(consumer, BUILDING_BLOCKS, CHISELED_POLISHED_GRANITE.get(), Blocks.POLISHED_GRANITE_SLAB);
+		stonecutterRecipe(consumer, DECORATIONS, CHISELED_POLISHED_GRANITE.get(), Blocks.POLISHED_GRANITE);
+		stonecutterRecipe(consumer, DECORATIONS, CHISELED_POLISHED_GRANITE.get(), Blocks.GRANITE);
+		polished(consumer, BUILDING_BLOCKS, GRANITE_BRICKS.get(), Blocks.POLISHED_GRANITE);
+		generateRecipes(consumer, GRANITE_BRICKS_FAMILY);
+		generateRecipes(consumer, GRANITE_TILES_FAMILY);
+		stonecutterRecipes(consumer, GRANITE_BRICKS_FAMILY, Blocks.GRANITE, Blocks.POLISHED_GRANITE, GRANITE_BRICKS.get());
+		stonecutterRecipes(consumer, GRANITE_TILES_FAMILY, Blocks.GRANITE, Blocks.POLISHED_GRANITE, GRANITE_BRICKS.get(), GRANITE_TILES.get());
+
+		wall(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.DIORITE);
+		chiseled(consumer, BUILDING_BLOCKS, CHISELED_POLISHED_DIORITE.get(), Blocks.POLISHED_DIORITE_SLAB);
+		stonecutterRecipe(consumer, DECORATIONS, CHISELED_POLISHED_DIORITE.get(), Blocks.POLISHED_DIORITE);
+		stonecutterRecipe(consumer, DECORATIONS, CHISELED_POLISHED_DIORITE.get(), Blocks.DIORITE);
+		polished(consumer, BUILDING_BLOCKS, DIORITE_BRICKS.get(), Blocks.POLISHED_DIORITE);
+		generateRecipes(consumer, DIORITE_BRICKS_FAMILY);
+		generateRecipes(consumer, DIORITE_TILES_FAMILY);
+		stonecutterRecipes(consumer, DIORITE_BRICKS_FAMILY, Blocks.DIORITE, Blocks.POLISHED_DIORITE, DIORITE_BRICKS.get());
+		stonecutterRecipes(consumer, DIORITE_TILES_FAMILY, Blocks.DIORITE, Blocks.POLISHED_DIORITE, DIORITE_BRICKS.get(), DIORITE_TILES.get());
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.DIORITE), BUILDING_BLOCKS, SMOOTH_DIORITE.get(), 0.1F, 200).unlockedBy("has_diorite", has(Blocks.DIORITE)).save(consumer);
+		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, Blocks.DIORITE, SMOOTH_DIORITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
+		generateRecipes(consumer, SMOOTH_DIORITE_FAMILY);
+		stonecutterRecipes(consumer, SMOOTH_DIORITE_FAMILY);
+
+		wall(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.ANDESITE);
+		chiseled(consumer, BUILDING_BLOCKS, CHISELED_POLISHED_ANDESITE.get(), Blocks.POLISHED_ANDESITE_SLAB);
+		stonecutterRecipe(consumer, DECORATIONS, CHISELED_POLISHED_ANDESITE.get(), Blocks.POLISHED_ANDESITE);
+		stonecutterRecipe(consumer, DECORATIONS, CHISELED_POLISHED_ANDESITE.get(), Blocks.ANDESITE);
+		polished(consumer, BUILDING_BLOCKS, ANDESITE_BRICKS.get(), Blocks.POLISHED_ANDESITE);
+		generateRecipes(consumer, ANDESITE_BRICKS_FAMILY);
+		generateRecipes(consumer, ANDESITE_TILES_FAMILY);
+		stonecutterRecipes(consumer, ANDESITE_BRICKS_FAMILY, Blocks.ANDESITE, Blocks.POLISHED_ANDESITE, ANDESITE_BRICKS.get());
+		stonecutterRecipes(consumer, ANDESITE_TILES_FAMILY, Blocks.ANDESITE, Blocks.POLISHED_ANDESITE, ANDESITE_BRICKS.get(), ANDESITE_TILES.get());
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, ANDESITE_PILLAR.get(), 2).define('#', Blocks.POLISHED_ANDESITE).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.POLISHED_ANDESITE), has(Blocks.POLISHED_ANDESITE)).unlockedBy(getHasName(ANDESITE_PILLAR.get()), has(ANDESITE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, ANDESITE_PILLAR.get(), Blocks.ANDESITE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, ANDESITE_PILLAR.get(), Blocks.POLISHED_ANDESITE);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.CALCITE).requires(Blocks.DIORITE).requires(Items.AMETHYST_SHARD).unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.CALCITE).getPath()));
 		generateRecipes(consumer, CALCITE_FAMILY);
@@ -395,8 +428,8 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, CALCITE_BRICKS_FAMILY, Blocks.CALCITE, POLISHED_CALCITE.get(), CALCITE_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CALCITE_PILLAR.get(), 2).define('#', POLISHED_CALCITE.get()).pattern("#").pattern("#").unlockedBy(getHasName(POLISHED_CALCITE.get()), has(POLISHED_CALCITE.get())).unlockedBy(getHasName(CALCITE_PILLAR.get()), has(CALCITE_PILLAR.get())).save(consumer);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), Blocks.CALCITE, 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), POLISHED_CALCITE.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), Blocks.CALCITE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), POLISHED_CALCITE.get());
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.CALCITE), BUILDING_BLOCKS, SMOOTH_CALCITE.get(), 0.1F, 200).unlockedBy("has_calcite", has(Blocks.CALCITE)).save(consumer);
 		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, Blocks.CALCITE, SMOOTH_CALCITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
@@ -419,8 +452,14 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE.get()).requires(Blocks.GRANITE).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer);
 		generateRecipes(consumer, SUGILITE_FAMILY);
 		generateRecipes(consumer, POLISHED_SUGILITE_FAMILY);
+		generateRecipes(consumer, SUGILITE_BRICKS_FAMILY);
 		stonecutterRecipes(consumer, SUGILITE_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_SUGILITE_FAMILY, SUGILITE.get(), POLISHED_SUGILITE.get());
+		stonecutterRecipes(consumer, SUGILITE_BRICKS_FAMILY, SUGILITE.get(), POLISHED_SUGILITE.get(), SUGILITE_BRICKS.get());
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SUGILITE_PILLAR.get(), 2).define('#', SUGILITE_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(SUGILITE_BRICKS.get()), has(SUGILITE_BRICKS.get())).unlockedBy(getHasName(SUGILITE_PILLAR.get()), has(SUGILITE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SUGILITE_PILLAR.get(), SUGILITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SUGILITE_PILLAR.get(), POLISHED_SUGILITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SUGILITE_PILLAR.get(), SUGILITE_BRICKS.get());
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, CYLINDRITE.get()).requires(Blocks.DEEPSLATE).requires(CCItemTags.RAW_MATERIALS_TIN).unlockedBy("has_raw_tin", has(CCItemTags.RAW_MATERIALS_TIN)).save(consumer);
 		generateRecipes(consumer, CYLINDRITE_FAMILY);
@@ -431,9 +470,9 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, CYLINDRITE_BRICKS_FAMILY, CYLINDRITE.get(), POLISHED_CYLINDRITE.get(), CYLINDRITE_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), 2).define('#', CYLINDRITE_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(CYLINDRITE_BRICKS.get()), has(CYLINDRITE_BRICKS.get())).unlockedBy(getHasName(CYLINDRITE_PILLAR.get()), has(CYLINDRITE_PILLAR.get())).save(consumer);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), CYLINDRITE.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), POLISHED_CYLINDRITE.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), CYLINDRITE_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), CYLINDRITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), POLISHED_CYLINDRITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE_PILLAR.get(), CYLINDRITE_BRICKS.get());
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(CYLINDRITE.get()), BUILDING_BLOCKS, SMOOTH_CYLINDRITE.get(), 0.1F, 200).unlockedBy("has_cylindrite", has(CYLINDRITE.get())).save(consumer);
 		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, CYLINDRITE.get(), SMOOTH_CYLINDRITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
@@ -449,9 +488,9 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, CASSITERITE_BRICKS_FAMILY, CASSITERITE.get(), POLISHED_CASSITERITE.get(), CASSITERITE_BRICKS.get());
 
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), 2).define('#', CASSITERITE_BRICKS.get()).pattern("#").pattern("#").unlockedBy(getHasName(CASSITERITE_BRICKS.get()), has(CASSITERITE_BRICKS.get())).unlockedBy(getHasName(CASSITERITE_PILLAR.get()), has(CASSITERITE_PILLAR.get())).save(consumer);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), CASSITERITE.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), POLISHED_CASSITERITE.get(), 2);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), CASSITERITE_BRICKS.get(), 2);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), CASSITERITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), POLISHED_CASSITERITE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, CASSITERITE_PILLAR.get(), CASSITERITE_BRICKS.get());
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(CASSITERITE.get()), BUILDING_BLOCKS, SMOOTH_CASSITERITE.get(), 0.1F, 200).unlockedBy("has_cassiterite", has(CASSITERITE.get())).save(consumer);
 		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, CASSITERITE.get(), SMOOTH_CASSITERITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
