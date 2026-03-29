@@ -28,7 +28,8 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 				KNIGHT.getKey(),
 				PROTOTYPE_701.getKey(),
 				SQUIRMY.getKey(),
-				THE_ENIGMA.getKey()
+				THE_ENIGMA.getKey(),
+				CHEF.getKey()
 		);
 	}
 }

@@ -18,4 +18,5 @@ public final class CCPaintingVariants {
 	public static final RegistryObject<PaintingVariant> PROTOTYPE_701 = PAINTING_VARIANTS.register("prototype_701", () -> new PaintingVariant(48, 32));
 	public static final RegistryObject<PaintingVariant> SQUIRMY = PAINTING_VARIANTS.register("squirmy", () -> new PaintingVariant(48, 16));
 	public static final RegistryObject<PaintingVariant> THE_ENIGMA = PAINTING_VARIANTS.register("the_enigma", () -> new PaintingVariant(64, 64));
+	public static final RegistryObject<PaintingVariant> CHEF = PAINTING_VARIANTS.register("chef", () -> new PaintingVariant(48, 64));
 }
