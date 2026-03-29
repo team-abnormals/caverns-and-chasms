@@ -13,10 +13,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPa
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
-import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
-import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
-import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
+import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
@@ -76,6 +73,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.Type;
@@ -759,7 +757,24 @@ public class CCEvents {
 			}
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
-			if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
+			if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && living.getUseItem().is(CCItems.AEGIS.get()) && isProjectileBlocked(living, projectile)) {
+				data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
+				AABB aabb = living.getBoundingBox().inflate(0.3D);
+				Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(living.getX(), living.getY(0.5D), living.getZ()))).orElse(projectile.position());
+				Vec3 reflect = living.getLookAngle();
+
+				data.setValue(CCDataProcessors.DEFLECT_X, reflect.x);
+				data.setValue(CCDataProcessors.DEFLECT_Y, reflect.y);
+				data.setValue(CCDataProcessors.DEFLECT_Z, reflect.z);
+				projectile.setPos(location.x, location.y, location.z);
+
+				data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
+				projectile.setDeltaMovement(Vec3.ZERO);
+				projectile.checkInsideBlocks();
+
+				playRicochetEffects(level, location, movement.reverse().normalize(), movement.lengthSqr(), CCSoundEvents.GRAZER_DEFLECT.get(), 1.0F, random, false);
+				event.setCanceled(true);
+			} else if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
 				AbstractGrazer grazer = grazerpart.getParent();
 
 				if (!grazer.projectileJustDeflected(projectile)) {
@@ -784,6 +799,36 @@ public class CCEvents {
 				grazer.addDeflectedProjectile(projectile);
 				event.setCanceled(true);
 			}
+		}
+	}
+
+	public static boolean isProjectileBlocked(LivingEntity living, Projectile projectile) {
+		boolean piercing = false;
+		if (projectile instanceof AbstractArrow arrow) {
+			if (arrow.getPierceLevel() > 0) {
+				piercing = true;
+			}
+		}
+
+		if (living.isBlocking() && !piercing) {
+			Vec3 projectilePos = projectile.position();
+			Vec3 viewVector = living.getViewVector(1.0F);
+			Vec3 vec = projectilePos.vectorTo(living.position()).normalize();
+			vec = new Vec3(vec.x, 0.0D, vec.z);
+			return vec.dot(viewVector) < 0.0D;
+		}
+
+		return false;
+	}
+
+	@SubscribeEvent
+	public static void onAegisBlock(ShieldBlockEvent event) {
+		LivingEntity entity = event.getEntity();
+		DamageSource source = event.getDamageSource();
+		if (entity instanceof Player player && player.getUseItem().is(CCItems.AEGIS.get()) && !(source.getDirectEntity() instanceof Projectile)) {
+			player.getCooldowns().addCooldown(CCItems.AEGIS.get(), 100);
+			entity.level().broadcastEntityEvent(player, (byte)30);
+			player.releaseUsingItem();
 		}
 	}
 

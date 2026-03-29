@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CCModelLayers {
+	public static final ModelLayerLocation AEGIS = register("aegis");
 	public static final ModelLayerLocation CAVEFISH = register("cavefish");
 	public static final ModelLayerLocation COPPER_GOLEM = register("copper_golem");
 	public static final ModelLayerLocation COPPER_HORSE_ARMOR = register("copper_horse_armor");
@@ -49,6 +50,7 @@ public class CCModelLayers {
 
 	@SubscribeEvent
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(AEGIS, AegisModel::createBodyLayer);
 		event.registerLayerDefinition(DEEPER, () -> DeeperModel.createBodyLayer(CubeDeformation.NONE, true));
 		event.registerLayerDefinition(DEEPER_HEAD, DeeperHeadModel::createHeadLayer);
 		event.registerLayerDefinition(DEEPER_ARMOR, () -> DeeperModel.createBodyLayer(new CubeDeformation(2.0F), false));

@@ -37,6 +37,8 @@ public class CCCauldronInteractions {
 	public static void registerCauldronInteractions() {
 		CauldronInteraction.WATER.put(Items.BUNDLE, CauldronInteraction.DYED_ITEM);
 		CauldronInteraction.WATER.put(CCItems.UNICORN_HORN.get(), CauldronInteraction.DYED_ITEM);
+		CauldronInteraction.WATER.put(CCItems.PACKING_CONTAINER.get(), CauldronInteraction.DYED_ITEM);
+		CauldronInteraction.WATER.put(CCItems.AEGIS.get(), CauldronInteraction.DYED_ITEM);
 
 		addFillBucketInteractions();
 		BlueprintCauldronInteraction.addMoreDefaultInteractions(CCItems.GOLDEN_LAVA_BUCKET.get(), FILL_LAVA);

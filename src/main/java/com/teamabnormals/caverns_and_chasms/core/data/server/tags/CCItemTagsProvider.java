@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
@@ -163,6 +164,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(ItemTags.AXES).addTag(CCItemTags.COPPER_AXES).add(SILVER_AXE.get(), NECROMIUM_AXE.get());
 		this.tag(ItemTags.HOES).addTag(CCItemTags.COPPER_HOES).add(SILVER_HOE.get(), NECROMIUM_HOE.get());
 		this.tag(ItemTags.SHOVELS).addTag(CCItemTags.COPPER_SHOVELS).add(SILVER_SHOVEL.get(), NECROMIUM_SHOVEL.get());
+		this.tag(Tags.Items.TOOLS_SHIELDS).add(AEGIS.get());
 
 		this.tag(Tags.Items.ARMORS_HELMETS).addTag(CCItemTags.COPPER_HELMETS).add(SILVER_HELMET.get(), NECROMIUM_HELMET.get(), COWL.get(), SANGUINE_HELMET.get());
 		this.tag(Tags.Items.ARMORS_CHESTPLATES).addTag(CCItemTags.COPPER_CHESTPLATES).add(SILVER_CHESTPLATE.get(), NECROMIUM_CHESTPLATE.get(), SANGUINE_CHESTPLATE.get());

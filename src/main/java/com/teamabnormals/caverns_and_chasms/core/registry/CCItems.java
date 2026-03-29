@@ -209,6 +209,7 @@ public class CCItems {
 	public static final RegistryObject<Item> TINPLATE = HELPER.createItem("tinplate", () -> new HoneycombItem(new Item.Properties()));
 	public static final RegistryObject<Item> RICOCHET_ARROW = HELPER.createItem("ricochet_arrow", () -> new RicochetArrowItem(new Item.Properties()));
 	public static final RegistryObject<Item> PACKING_CONTAINER = HELPER.createItem("packing_container", () -> new PackingContainerItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> AEGIS = HELPER.createItem("aegis", () -> new AegisItem(new Item.Properties().durability(945)));
 
 	public static final RegistryObject<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(FANCY)));
 	public static final RegistryObject<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(FANCY).food(CCFoods.CAVIAR)));
@@ -350,6 +351,7 @@ public class CCItems {
 						SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS
 				)
 				.addItemsBefore(of(Items.TURTLE_HELMET), COWL, TOOLBELT)
+				.addItemsAfter(of(Items.SHIELD), AEGIS)
 				.addItemsAfter(of(Items.DIAMOND_HORSE_ARMOR), NETHERITE_HORSE_ARMOR, NECROMIUM_HORSE_ARMOR)
 				.addItemsBefore(of(Items.SNOWBALL), KUNAI)
 				.addItemsAfter(of(Items.SPECTRAL_ARROW), BLUNT_ARROW, RICOCHET_ARROW, LARGE_ARROW)

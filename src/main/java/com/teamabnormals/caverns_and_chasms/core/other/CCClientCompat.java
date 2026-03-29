@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
@@ -44,10 +45,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -135,6 +133,11 @@ public class CCClientCompat {
 	public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
 		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
 		event.registerAbove(CavernsAndChasms.location("monocle"), "monocle_head", new MonocleHeadGuiOverlay());
+	}
+
+	@SubscribeEvent
+	public static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
+		event.registerReloadListener(AegisRenderer.INSTANCE);
 	}
 
 	public static void registerRenderLayers() {
@@ -264,8 +267,12 @@ public class CCClientCompat {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 
-		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (p_174625_, p_174626_, p_174627_, p_174628_) -> {
-			return PackingContainerItem.getFullnessDisplay(p_174625_);
+		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (stack, p_174626_, p_174627_, p_174628_) -> {
+			return PackingContainerItem.getFullnessDisplay(stack);
+		});
+
+		ItemProperties.register(CCItems.AEGIS.get(), new ResourceLocation("blocking"), (stack, level, entity, hash) -> {
+			return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
 		});
 
 		ItemProperties.register(CCItems.TUNING_FORK.get(), CavernsAndChasms.location("holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);

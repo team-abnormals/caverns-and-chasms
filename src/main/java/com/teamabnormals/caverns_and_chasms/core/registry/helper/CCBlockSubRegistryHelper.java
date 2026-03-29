@@ -12,7 +12,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEnti
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -20,7 +20,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,7 +31,7 @@ import java.util.function.Supplier;
 public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 
 	public CCBlockSubRegistryHelper(RegistryHelper parent) {
-		super(parent, parent.getItemSubHelper().getDeferredRegister(), parent.getBlockSubHelper().getDeferredRegister());
+		super(parent);
 	}
 
 	public <B extends Block> RegistryObject<B> createToolboxBlock(String name, Supplier<? extends B> supplier) {
