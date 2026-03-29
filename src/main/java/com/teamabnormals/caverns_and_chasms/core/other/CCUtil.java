@@ -64,13 +64,15 @@ public class CCUtil {
 		deflectProjectileRaw(projectile, deflectMovement.x, deflectMovement.y, deflectMovement.z, deflectLocation.x, deflectLocation.y, deflectLocation.z);
 	}
 
-	public static void deflectProjectile(Level level, Projectile projectile, HitResult hitResult, Vec3 oldMovement, Vec3 deflectMovement, Vec3 deflectLocation, SoundEvent soundEvent) {
+	public static boolean deflectProjectile(Level level, Projectile projectile, HitResult hitResult, Vec3 oldMovement, Vec3 deflectMovement, Vec3 deflectLocation, SoundEvent soundEvent) {
 		ProjectileDeflectEvent.Pre deflectEventPre = ProjectileDeflectEvent.onProjectileDeflectPre(projectile, hitResult, deflectMovement, deflectLocation, soundEvent);
 		if (!deflectEventPre.isCanceled()) {
 			ProjectileDeflectEvent.Post deflectEventPost = ProjectileDeflectEvent.onProjectileDeflectPost(projectile, hitResult, deflectEventPre.getDeflectedMovement(), deflectEventPre.getDeflectLocation(), deflectEventPre.getSoundEvent());
 			CCUtil.deflectProjectileRaw(projectile, deflectEventPost.getDeflectedMovement(), deflectEventPost.getDeflectLocation());
 			playRicochetEffects(level, deflectLocation, oldMovement.reverse().normalize(), oldMovement.lengthSqr(), deflectEventPost.getSoundEvent(), soundEvent == CCSoundEvents.STORAGE_DUCT_DEFLECT.get() ? 0.5F : 1.0F, level.random, false);
+			return true;
 		}
+		return false;
 	}
 
 	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normalizedMovement, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random, boolean fromServer) {

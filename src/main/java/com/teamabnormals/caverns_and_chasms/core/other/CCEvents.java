@@ -706,7 +706,6 @@ public class CCEvents {
 					Vec3 location = hitResult.getLocation();
 					Axis axis = direction.getAxis();
 					int i = blockHitResult.getDirection().getAxisDirection().getStep();
-					originalState.onProjectileHit(level, originalState, blockHitResult, projectile);
 
 					double j = 0.65D;
 					double k = 0.75D;
@@ -741,9 +740,10 @@ public class CCEvents {
 					SoundType soundType = state.getBlock().getSoundType(state, level, pos, null);
 					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : soundType instanceof TinSoundType tinSoundType ? tinSoundType.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
 
-					CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, soundEvent);
-
-					event.setCanceled(true);
+					if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, soundEvent)) {
+						originalState.onProjectileHit(level, originalState, blockHitResult, projectile);
+						event.setCanceled(true);
+					}
 				}
 			}
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
@@ -753,9 +753,9 @@ public class CCEvents {
 				Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(living.getX(), living.getY(0.5D), living.getZ()))).orElse(projectile.position());
 				Vec3 reflect = living.getLookAngle();
 
-				CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, CCSoundEvents.GRAZER_DEFLECT.get());
-
-				event.setCanceled(true);
+				if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, CCSoundEvents.GRAZER_DEFLECT.get())) {
+					event.setCanceled(true);
+				}
 			} else if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
 				AbstractGrazer grazer = grazerpart.getParent();
 
@@ -766,11 +766,12 @@ public class CCEvents {
 					Vec3 reflect = movement.subtract(normal.scale(movement.dot(normal) * 2.0D)).scale(0.65D);
 					Vec3 reflectLoc = location.add(normal.scale(0.01D));
 
-					CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, CCSoundEvents.GRAZER_DEFLECT.get());
+					if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, CCSoundEvents.GRAZER_DEFLECT.get())) {
+						event.setCanceled(true);
+					}
 				}
 
 				grazer.addDeflectedProjectile(projectile);
-				event.setCanceled(true);
 			}
 		}
 	}
