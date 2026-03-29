@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip.ClientPackingContainerTooltip;
-import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip.ClientTinCanTooltip;
 import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
@@ -15,7 +14,6 @@ import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
 import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.PackingContainerTooltip;
-import com.teamabnormals.caverns_and_chasms.common.item.TinCanItem.TinCanTooltip;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -77,7 +75,6 @@ public class CCClientCompat {
 	@SubscribeEvent
 	public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
 		event.register(PackingContainerTooltip.class, ClientPackingContainerTooltip::new);
-		event.register(TinCanTooltip.class, ClientTinCanTooltip::new);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
@@ -114,7 +111,6 @@ public class CCClientCompat {
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.TOOLBELT.get());
 		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.UNICORN_HORN.get());
-		event.register((stack, color) -> color != 1 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.TIN_CAN.get());
 		event.register((stack, color) -> color != 1 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.PACKING_CONTAINER.get());
 	}
 
@@ -267,12 +263,13 @@ public class CCClientCompat {
 			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
 		}
 
-		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.TIN_CAN.get(), CCItems.PACKING_CONTAINER.get())) {
+		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.PACKING_CONTAINER.get())) {
 			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 
-		ItemProperties.register(CCItems.TIN_CAN.get(), new ResourceLocation("filled"), (stack, p_174626_, p_174627_, p_174628_) -> BundleItem.getFullnessDisplay(stack));
-		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (stack, p_174626_, p_174627_, p_174628_) -> PackingContainerItem.getFullnessDisplay(stack));
+		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (stack, p_174626_, p_174627_, p_174628_) -> {
+			return PackingContainerItem.getFullnessDisplay(stack);
+		});
 
 		ItemProperties.register(CCItems.AEGIS.get(), new ResourceLocation("blocking"), (stack, level, entity, hash) -> {
 			return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;

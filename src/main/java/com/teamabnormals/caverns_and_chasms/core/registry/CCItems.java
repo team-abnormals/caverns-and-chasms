@@ -208,7 +208,6 @@ public class CCItems {
 	public static final RegistryObject<Item> TIN_NUGGET = HELPER.createItem("tin_nugget", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TINPLATE = HELPER.createItem("tinplate", () -> new HoneycombItem(new Item.Properties()));
 	public static final RegistryObject<Item> RICOCHET_ARROW = HELPER.createItem("ricochet_arrow", () -> new RicochetArrowItem(new Item.Properties()));
-	public static final RegistryObject<Item> TIN_CAN = HELPER.createItem("tin_can", () -> new BundleItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> PACKING_CONTAINER = HELPER.createItem("packing_container", () -> new PackingContainerItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> AEGIS = HELPER.createItem("aegis", () -> new AegisItem(new Item.Properties().durability(945)));
 
@@ -327,7 +326,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.SPYGLASS), MONOCLE, UNICORN_HORN, DEPTH_GAUGE)
 				.addItemsBefore(of(Items.TROPICAL_FISH_BUCKET), CAVEFISH_BUCKET)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
-				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET, () -> Items.BUNDLE, TIN_CAN, PACKING_CONTAINER)
+				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET, () -> Items.BUNDLE, PACKING_CONTAINER)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
 				.addItemsBefore(of(Items.MUSIC_DISC_PIGSTEP), MUSIC_DISC_ANALOGUE, MUSIC_DISC_EPILOGUE)
 				.addItemsBefore(of(Items.BAMBOO_RAFT), AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond())
