@@ -444,6 +444,9 @@ public class CCSoundEvents {
 
 	public static final RegistryObject<SoundEvent> TETHER_POTION_EQUIP = HELPER.createSoundEvent("item.tether_potion.equip");
 	public static final RegistryObject<SoundEvent> TETHER_POTION_BREAK = HELPER.createSoundEvent("item.tether_potion.break");
+	
+	public static final RegistryObject<SoundEvent> AEGIS_DEFLECT = HELPER.createSoundEvent("item.aegis.deflect");
+	public static final RegistryObject<SoundEvent> AEGIS_STUN = HELPER.createSoundEvent("item.aegis.stun");
 
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COPPER = HELPER.createSoundEvent("item.armor.equip_copper");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SILVER = HELPER.createSoundEvent("item.armor.equip_silver");

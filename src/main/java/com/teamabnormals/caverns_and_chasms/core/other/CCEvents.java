@@ -752,7 +752,7 @@ public class CCEvents {
 				Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(living.getX(), living.getY(0.5D), living.getZ()))).orElse(projectile.position());
 				Vec3 reflect = living.getLookAngle();
 
-				if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : CCSoundEvents.GRAZER_DEFLECT.get())) {
+				if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : CCSoundEvents.AEGIS_DEFLECT.get())) {
 					event.setCanceled(true);
 				}
 			} else if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {

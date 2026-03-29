@@ -5143,6 +5143,38 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.armor.sanguine_heal"
   },
+  "item.aegis.deflect": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:item/aegis/deflect1",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:item/aegis/deflect2",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:item/aegis/deflect3",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:item/aegis/deflect4",
+        "pitch": 0.5
+      },
+      {
+        "name": "caverns_and_chasms:item/aegis/deflect5",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.aegis.deflect"
+  },
+  "item.aegis.stun": {
+    "sounds": [
+      "caverns_and_chasms:item/aegis/stun1",
+      "caverns_and_chasms:item/aegis/stun2"
+    ],
+    "subtitle": "subtitles.entity.item.break​"
+  },
   "item.packing_container.insert": {
     "sounds": [
       "caverns_and_chasms:item/packing_container/insert1",
