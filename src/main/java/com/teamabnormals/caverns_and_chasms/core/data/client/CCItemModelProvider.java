@@ -50,7 +50,6 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		);
 
 		this.overlayItem(TOOLBELT, "generated");
-		this.packingContainerItem(TIN_CAN, "generated");
 		this.packingContainerItem(PACKING_CONTAINER, "generated");
 
 		this.withExistingParent(name(WAXED_COPPER_INGOT.get()), "item/generated").texture("layer0", new ResourceLocation("item/copper_ingot"));

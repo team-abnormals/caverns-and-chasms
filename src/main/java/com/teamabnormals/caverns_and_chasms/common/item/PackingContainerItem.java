@@ -294,7 +294,16 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 		p_186352_.playSound(CCSoundEvents.PACKING_CONTAINER_INSERT_FAIL.get(), 0.8F, 0.8F + p_186352_.level().getRandom().nextFloat() * 0.4F);
 	}
 
-	public record PackingContainerTooltip(ItemStack item) implements TooltipComponent {
+	public static class PackingContainerTooltip implements TooltipComponent {
+		private final ItemStack item;
+
+		public PackingContainerTooltip(ItemStack p_150677_) {
+			this.item = p_150677_;
+		}
+
+		public ItemStack getItems() {
+			return this.item;
+		}
 	}
 
 	public static boolean addToContainer(Inventory inventory, ItemStack otherStack) {
