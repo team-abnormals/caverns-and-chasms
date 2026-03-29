@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFlu
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteRecallMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteSitMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.LocalPlayer;
@@ -140,7 +141,7 @@ public class BoneFluteItem extends Item {
 	@NonNull
 	public static HitResult getHitResult(Player player) {
 		HitResult hitResult = player.pick(MAX_SEND_DIST, 1.0F, false);
-		Vec3 eyeLoc = player.getEyePosition(1.0F);
+		Vec3 eyeLoc = player.getEyePosition();
 
 		double blockDistSqr = MAX_SEND_DIST * MAX_SEND_DIST;
 		if (hitResult.getType() != HitResult.Type.MISS) {
@@ -151,14 +152,14 @@ public class BoneFluteItem extends Item {
 		Vec3 clipTargetLoc = eyeLoc.add(viewVector.x * MAX_SEND_DIST, viewVector.y * MAX_SEND_DIST, viewVector.z * MAX_SEND_DIST);
 		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(MAX_SEND_DIST)).inflate(1.0D);
 
-		EntityHitResult entityHitResult = getBoneFluteEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
+		EntityHitResult entityHitResult = CCUtil.getExaggeratedHitboxEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
 			if (entity.isPickable()) {
 				LivingEntity living = entity instanceof LivingEntity ? (LivingEntity) entity : entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity ? (LivingEntity) partEntity.getParent() : null;
 				return living != null && !living.isSpectator() && living != player.getVehicle() && Rat.canRatsAttack(living, player) && !(entity instanceof Rat rat && rat.getAttachedEntity() == player);
 			} else {
 				return false;
 			}
-		}, blockDistSqr);
+		}, blockDistSqr, true);
 
 		if (entityHitResult != null && entityHitResult.getType() != HitResult.Type.MISS) {
 			Vec3 entityLoc = entityHitResult.getLocation();
@@ -169,33 +170,5 @@ public class BoneFluteItem extends Item {
 		}
 
 		return hitResult;
-	}
-
-	private static EntityHitResult getBoneFluteEntityHitResult(Entity entity, Vec3 startLoc, Vec3 endLoc, AABB aabb, Predicate<Entity> predicate, double range) {
-		Level level = entity.level();
-		double d0 = range;
-		Vec3 vec3 = null;
-		Entity entity1 = null;
-
-		for (Entity entity2 : level.getEntities(entity, aabb, predicate)) {
-			AABB aabb1 = entity2.getBoundingBox();
-			AABB aabb2 = aabb1.inflate(entity2.getPickRadius() + 0.25D + Mth.clamp(startLoc.distanceTo(entity2.position()) * 0.05D, 0.0D, 1.0D));
-			Optional<Vec3> optional = aabb2.clip(startLoc, endLoc);
-			if (optional.isPresent()) {
-				Vec3 vec31 = optional.get();
-				double d1 = startLoc.distanceToSqr(vec31);
-				if (d1 < d0) {
-					Vec3 vec32 = new Vec3(Mth.clamp(vec31.x, aabb1.minX + 0.01D, aabb1.maxX - 0.01D), Mth.clamp(vec31.y, aabb1.minY + 0.01D, aabb1.maxY - 0.01D), Mth.clamp(vec31.z, aabb1.minZ + 0.01D, aabb1.maxZ - 0.01D));
-					BlockHitResult hitResult = level.clip(new ClipContext(vec31, vec32, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
-					if (hitResult.getType() == HitResult.Type.MISS) {
-						entity1 = entity2 instanceof PartEntity<?> partEntity ? partEntity.getParent() : entity2;
-						vec3 = vec31;
-						d0 = d1;
-					}
-				}
-			}
-		}
-
-		return entity1 == null ? null : new EntityHitResult(entity1, vec3);
 	}
 }

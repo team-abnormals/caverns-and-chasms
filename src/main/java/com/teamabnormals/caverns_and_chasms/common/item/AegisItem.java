@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;

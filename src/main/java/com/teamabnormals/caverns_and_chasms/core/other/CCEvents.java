@@ -13,13 +13,17 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPa
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
-import com.teamabnormals.caverns_and_chasms.common.item.*;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
+import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
+import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.mixin.LivingEntityAccessor;
@@ -28,7 +32,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -74,6 +77,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.Type;
@@ -697,13 +701,6 @@ public class CCEvents {
 			boolean bonus = data.getValue(CCDataProcessors.BONUS_DEFLECT);
 			boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
 			if (flag || bonus || ricochetArrow) {
-				data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
-				if (!flag) {
-					data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
-				} else if (state.is(CCBlockTags.HAS_BONUS_DEFLECT)) {
-					data.setValue(CCDataProcessors.BONUS_DEFLECT, true);
-				}
-
 				double speed = movement.lengthSqr();
 				if (direction != Direction.UP || speed > 0.04D) {
 					Vec3 location = hitResult.getLocation();
@@ -727,30 +724,24 @@ public class CCEvents {
 						k -= 0.35D;
 					}
 
-					if (axis == Axis.X) {
-						data.setValue(CCDataProcessors.DEFLECT_X, -movement.x * j);
-						data.setValue(CCDataProcessors.DEFLECT_Y, movement.y * k);
-						data.setValue(CCDataProcessors.DEFLECT_Z, movement.z * k);
-						projectile.setPos(location.x + 0.01D * i, location.y, location.z);
-					} else if (axis == Axis.Y) {
-						data.setValue(CCDataProcessors.DEFLECT_X, movement.x * k);
-						data.setValue(CCDataProcessors.DEFLECT_Y, -movement.y * j);
-						data.setValue(CCDataProcessors.DEFLECT_Z, movement.z * k);
-						projectile.setPos(location.x, i == 1 ? location.y : location.y - 0.01D, location.z);
-					} else if (axis == Axis.Z) {
-						data.setValue(CCDataProcessors.DEFLECT_X, movement.x * k);
-						data.setValue(CCDataProcessors.DEFLECT_Y, movement.y * k);
-						data.setValue(CCDataProcessors.DEFLECT_Z, -movement.z * j);
-						projectile.setPos(location.x, location.y, location.z + 0.01D * i);
-					}
+					Vec3 reflect;
+					Vec3 reflectLoc;
 
-					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
-					projectile.setDeltaMovement(Vec3.ZERO);
-					projectile.checkInsideBlocks();
+					if (axis == Axis.X) {
+						reflect = movement.multiply(-j, k, k);
+						reflectLoc = location.add(0.01D * i, 0.0D, 0.0D);
+					} else if (axis == Axis.Y) {
+						reflect = movement.multiply(k, -j, k);
+						reflectLoc = location.add(0.0D, i == 1 ? 0.0D : -0.01D, 0.0D);
+					} else {
+						reflect = movement.multiply(k, k, -j);
+						reflectLoc = location.add(0.0D, 0.0D, 0.01D * i);
+					}
 
 					SoundType soundType = state.getBlock().getSoundType(state, level, pos, null);
 					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : soundType instanceof TinSoundType tinSoundType ? tinSoundType.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
-					playRicochetEffects(level, location, movement.reverse().normalize(), speed, soundEvent, soundType == CCSoundTypes.STORAGE_DUCT ? 0.5F : 1.0F, random, false);
+
+					CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, soundEvent);
 
 					event.setCanceled(true);
 				}
@@ -758,47 +749,55 @@ public class CCEvents {
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
 			if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && living.getUseItem().is(CCItems.AEGIS.get()) && isProjectileBlocked(living, projectile)) {
-				data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
 				AABB aabb = living.getBoundingBox().inflate(0.3D);
 				Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(living.getX(), living.getY(0.5D), living.getZ()))).orElse(projectile.position());
 				Vec3 reflect = living.getLookAngle();
 
-				data.setValue(CCDataProcessors.DEFLECT_X, reflect.x);
-				data.setValue(CCDataProcessors.DEFLECT_Y, reflect.y);
-				data.setValue(CCDataProcessors.DEFLECT_Z, reflect.z);
-				projectile.setPos(location.x, location.y, location.z);
+				CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, CCSoundEvents.GRAZER_DEFLECT.get());
 
-				data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
-				projectile.setDeltaMovement(Vec3.ZERO);
-				projectile.checkInsideBlocks();
-
-				playRicochetEffects(level, location, movement.reverse().normalize(), movement.lengthSqr(), CCSoundEvents.GRAZER_DEFLECT.get(), 1.0F, random, false);
 				event.setCanceled(true);
 			} else if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
 				AbstractGrazer grazer = grazerpart.getParent();
 
 				if (!grazer.projectileJustDeflected(projectile)) {
-					data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
 					AABB aabb = grazerpart.getBoundingBox().inflate(0.3D);
 					Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerpart.getX(), grazerpart.getY(0.5D), grazerpart.getZ()))).orElse(projectile.position());
 					Vec3 normal = grazer.calculateDeflectionNormal(location);
-					Vec3 reflect = movement.subtract(normal.scale(movement.dot(normal) * 2.0D));
+					Vec3 reflect = movement.subtract(normal.scale(movement.dot(normal) * 2.0D)).scale(0.65D);
+					Vec3 reflectLoc = location.add(normal.scale(0.01D));
 
-					data.setValue(CCDataProcessors.DEFLECT_X, reflect.x * 0.65D);
-					data.setValue(CCDataProcessors.DEFLECT_Y, reflect.y * 0.65D);
-					data.setValue(CCDataProcessors.DEFLECT_Z, reflect.z * 0.65D);
-					projectile.setPos(location.x + normal.x * 0.01D, location.y + normal.y * 0.01D, location.z + normal.z * 0.01D);
-
-					data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
-					projectile.setDeltaMovement(Vec3.ZERO);
-					projectile.checkInsideBlocks();
-
-					playRicochetEffects(level, location, movement.reverse().normalize(), movement.lengthSqr(), CCSoundEvents.GRAZER_DEFLECT.get(), 1.0F, random, false);
+					CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, CCSoundEvents.GRAZER_DEFLECT.get());
 				}
 
 				grazer.addDeflectedProjectile(projectile);
 				event.setCanceled(true);
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onProjectileDeflectPost(ProjectileDeflectEvent.Post event) {
+		Projectile projectile = event.getProjectile();
+		Level level = projectile.level();
+		IDataManager data = (IDataManager) projectile;
+		HitResult hitResult = event.getRayTraceResult();
+		Vec3 deflectMovement = event.getDeflectedMovement();
+
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
+			BlockState blockState = level.getBlockState(blockPos);
+			if (!blockState.is(CCBlockTags.DEFLECTS_PROJECTILES)) {
+				data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
+			} else if (blockState.is(CCBlockTags.HAS_BONUS_DEFLECT)) {
+				data.setValue(CCDataProcessors.BONUS_DEFLECT, true);
+			}
+		}
+
+		if (projectile instanceof AbstractHurtingProjectile hurtingProjectile) {
+			Vec3 scaledMovement = deflectMovement.normalize().scale(0.1D);
+			hurtingProjectile.xPower = scaledMovement.x;
+			hurtingProjectile.yPower = scaledMovement.y;
+			hurtingProjectile.zPower = scaledMovement.z;
 		}
 	}
 
@@ -1021,28 +1020,6 @@ public class CCEvents {
 		if (level.getBlockState(affectMovementPos).getBlock() instanceof BouncerBlock) {
 			level.playSound(null, affectMovementPos, CCSoundEvents.BOUNCER_BOOST.get(), SoundSource.BLOCKS);
 		}
-	}
-
-	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normalizedMovement, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random, boolean fromServer) {
-		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
-
-		for (int i = 0; i < 4; ++i) {
-			double d1 = normalizedMovement.x * 0.2D + random.nextGaussian() * 0.05D;
-			double d2 = normalizedMovement.y * 0.2D + random.nextGaussian() * 0.05D;
-			double d3 = normalizedMovement.z * 0.2D + random.nextGaussian() * 0.05D;
-			if (fromServer)
-				NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), location.x, location.y, location.z, d1, d2, d3);
-			else
-				level.addParticle(CCParticleTypes.TIN_SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
-		}
-	}
-
-	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normal, double speed, RandomSource random, boolean formServer) {
-		playRicochetEffects(level, location, normal, speed, CCSoundEvents.TIN_DEFLECT.get(), 1.0F, random, formServer);
-	}
-
-	public static void playRicochetSound(Level level, Vec3 location, double speed, SoundEvent soundEvent, float pitchMultiplier) {
-		level.playSound(null, location.x, location.y, location.z, soundEvent, SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F * pitchMultiplier, 1.8F));
 	}
 
 	private static void rewindTeleport(LivingEntity entity) {
