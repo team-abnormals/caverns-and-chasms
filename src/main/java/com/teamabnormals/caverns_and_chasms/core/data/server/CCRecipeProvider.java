@@ -272,7 +272,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.TINPLATE.get(), 16).requires(CCItemTags.INGOTS_TIN).requires(Items.HONEYCOMB).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		storageRecipesWithCustomUnpacking(consumer, MISC, CCItems.TINPLATE.get(), BUILDING_BLOCKS, TINPLATE_BLOCK.get(), "tinplate_from_tinplate_block", "tinplate");
 		ShapedRecipeBuilder.shaped(COMBAT, CCItems.RICOCHET_ARROW.get(), 4).define('#', Tags.Items.RODS_WOODEN).define('X', CCItems.TIN_INGOT.get()).define('Y', Items.FEATHER).pattern("X").pattern("#").pattern("Y").unlockedBy("has_feather", has(Items.FEATHER)).unlockedBy("has_tin", has(CCItemTags.INGOTS_TIN)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, CCItems.TIN_CAN.get()).define('#', CCItemTags.INGOTS_TIN).define('B', Items.BUNDLE).pattern("#B#").pattern(" # ").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.TIN_CAN.get()).define('#', CCItemTags.INGOTS_TIN).pattern("# #").pattern(" # ").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.PACKING_CONTAINER.get()).define('#', CCItemTags.INGOTS_TIN).pattern("# #").pattern("# #").pattern("###").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(TOOLS, CCItems.AEGIS.get()).define('I', CCItemTags.INGOTS_TIN).define('B', CCItemTags.STORAGE_BLOCKS_TIN).define('L', Items.LEATHER).pattern("ILI").pattern("IBI").pattern(" I ").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 
