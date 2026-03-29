@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import mezz.jei.api.IModPlugin;
@@ -62,10 +63,9 @@ public class CCPlugin implements IModPlugin {
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {
 		Stream<ItemStack> items = registration.getIngredientManager().getAllItemStacks().stream().filter(IForgeItemStack::isRepairable);
-		RepairData zirconia = new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), items.collect(Collectors.toList()));
-
 		return Stream.of(
-				zirconia,
+				new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), items.collect(Collectors.toList())),
+				new RepairData(Ingredient.of(CCItemTags.INGOTS_TIN), new ItemStack(CCItems.AEGIS.get())),
 				new RepairData(CCArmorMaterials.COWL.getRepairIngredient(), new ItemStack(CCItems.COWL.get())),
 				new RepairData(CCArmorMaterials.TOOLBELT.getRepairIngredient(), new ItemStack(CCItems.TOOLBELT.get())),
 				new RepairData(CCArmorMaterials.SANGUINE.getRepairIngredient(),
