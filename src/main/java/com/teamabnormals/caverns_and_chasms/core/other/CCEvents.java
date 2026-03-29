@@ -661,12 +661,12 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
 		Level level = event.getEntity().level();
-		RandomSource random = level.getRandom();
 		Projectile projectile = event.getProjectile();
 		IDataManager data = (IDataManager) projectile;
 		HitResult hitResult = event.getRayTraceResult();
 		Vec3 movement = projectile.getDeltaMovement();
 
+		boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
 		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
 			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
 			BlockPos origin = blockHitResult.getBlockPos();
@@ -699,7 +699,6 @@ public class CCEvents {
 			}
 
 			boolean bonus = data.getValue(CCDataProcessors.BONUS_DEFLECT);
-			boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
 			if (flag || bonus || ricochetArrow) {
 				double speed = movement.lengthSqr();
 				if (direction != Direction.UP || speed > 0.04D) {
@@ -748,12 +747,12 @@ public class CCEvents {
 			}
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
-			if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && living.getUseItem().is(CCItems.AEGIS.get()) && isProjectileBlocked(living, projectile)) {
+			if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && isProjectileBlocked(living, projectile) && (living.getUseItem().is(CCItems.AEGIS.get()) || ricochetArrow)) {
 				AABB aabb = living.getBoundingBox().inflate(0.3D);
 				Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(living.getX(), living.getY(0.5D), living.getZ()))).orElse(projectile.position());
 				Vec3 reflect = living.getLookAngle();
 
-				if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, CCSoundEvents.GRAZER_DEFLECT.get())) {
+				if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : CCSoundEvents.GRAZER_DEFLECT.get())) {
 					event.setCanceled(true);
 				}
 			} else if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
@@ -827,7 +826,7 @@ public class CCEvents {
 		DamageSource source = event.getDamageSource();
 		if (entity instanceof Player player && player.getUseItem().is(CCItems.AEGIS.get()) && !(source.getDirectEntity() instanceof Projectile)) {
 			player.getCooldowns().addCooldown(CCItems.AEGIS.get(), 100);
-			entity.level().broadcastEntityEvent(player, (byte)30);
+			entity.level().broadcastEntityEvent(player, (byte) 30);
 			player.releaseUsingItem();
 		}
 	}
