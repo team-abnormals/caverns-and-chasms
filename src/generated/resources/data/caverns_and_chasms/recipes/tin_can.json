@@ -4,10 +4,13 @@
   "key": {
     "#": {
       "tag": "forge:ingots/tin"
+    },
+    "B": {
+      "item": "minecraft:bundle"
     }
   },
   "pattern": [
-    "# #",
+    "#B#",
     " # "
   ],
   "result": {

@@ -11,18 +11,25 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTickList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collections;
 import java.util.List;
@@ -103,5 +110,22 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	@Override
 	public boolean canHoldMoreRats() {
 		return this.attachedRats.size() < this.getMaxRats();
+	}
+
+	@Inject(method = "getItemInHand", at = @At("RETURN"), cancellable = true)
+	private void getItemInHand(InteractionHand hand, CallbackInfoReturnable<ItemStack> cir) {
+		if (cir.getReturnValue().is(CCItems.TIN_CAN.get())) {
+			ItemStack stack = cir.getReturnValue();
+			CompoundTag tag = stack.getOrCreateTag();
+			if (tag.contains("Items")) {
+				ListTag items = tag.getList("Items", 10);
+				if (!items.isEmpty()) {
+					int i = 0;
+					CompoundTag itemTag = items.getCompound(0);
+					ItemStack itemStack = ItemStack.of(itemTag);
+					cir.setReturnValue(itemStack);
+				}
+			}
+		}
 	}
 }
