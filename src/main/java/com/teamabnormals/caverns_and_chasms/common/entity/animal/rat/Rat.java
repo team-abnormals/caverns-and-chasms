@@ -1,9 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
-import com.teamabnormals.caverns_and_chasms.common.item.BoneFluteCommand;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCGiftLoot;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
@@ -53,10 +54,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -73,13 +71,13 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant>, NeutralMob {
@@ -637,12 +635,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
-		ItemStack itemstack = player.getItemInHand(hand);
-		Item item = itemstack.getItem();
+		ItemStack stack = player.getItemInHand(hand);
+		Item item = stack.getItem();
 
 		if (this.isTame()) {
-			if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-				this.usePlayerItem(player, hand, itemstack);
+			if (this.isFood(stack) && this.getHealth() < this.getMaxHealth()) {
+				this.usePlayerItem(player, hand, stack);
 				this.heal((float) item.getFoodProperties().getNutrition());
 				this.gameEvent(GameEvent.EAT, this);
 
@@ -651,7 +649,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				DyeColor dyecolor = ((DyeItem) item).getDyeColor();
 				if (dyecolor != this.getCollarColor()) {
 					this.setCollarColor(dyecolor);
-					this.usePlayerItem(player, hand, itemstack);
+					this.usePlayerItem(player, hand, stack);
 
 					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
@@ -669,9 +667,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				return interactionresult;
 			}
 		} else if (!this.isAngry()) {
-			if (!this.isRunningAway() && itemstack.is(CCItemTags.RAT_TAME_ITEMS)) {
-				this.usePlayerItem(player, hand, itemstack);
-
+			if (!this.isRunningAway() && stack.is(CCItemTags.RAT_TAME_ITEMS)) {
+				this.usePlayerItem(player, hand, stack);
 				if (!this.level().isClientSide) {
 					if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
 						this.tame(player);
@@ -686,6 +683,20 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					}
 				}
 
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
+			} else if (this.isDirty() && stack.is(BlueprintItemTags.BUCKETS_WATER)) {
+				this.level().playSound(null, this, SoundEvents.GENERIC_SPLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
+				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, stack.getCraftingRemainingItem()));
+				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+				this.setDirty(false);
+				if (!this.level().isClientSide) {
+					ServerLevel serverlevel = (ServerLevel) this.level();
+					for (int i = 0; i < 15; ++i) {
+						serverlevel.sendParticles(ParticleTypes.SPLASH, this.getX() + (random.nextDouble() - random.nextDouble()) * 0.4F, this.getY() + random.nextDouble() * 0.3F, this.getZ() + (random.nextDouble() - random.nextDouble()) * 0.4F, 1, 0.0D, 0.0D, 0.0D, 1.0D);
+					}
+				}
+
+				this.level().playSound(null, this, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			}
 
