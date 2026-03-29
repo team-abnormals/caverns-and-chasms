@@ -249,7 +249,7 @@ public class CCStructureTypes {
 		public static void bootstrap(BootstapContext<StructureSet> context) {
 			HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
-			context.register(FORGES, new StructureSet(structures.getOrThrow(CCStructures.FORGE), new RandomSpreadStructurePlacement(20, 6, RandomSpreadType.LINEAR, 294502589)));
+			context.register(FORGES, new StructureSet(structures.getOrThrow(CCStructures.FORGE), new RandomSpreadStructurePlacement(16, 6, RandomSpreadType.LINEAR, 294502589)));
 			context.register(VAULTS, new StructureSet(structures.getOrThrow(CCStructures.VAULT), new RandomSpreadStructurePlacement(32, 12, RandomSpreadType.LINEAR, 5123513)));
 			context.register(TIN_MONOLITHS, new StructureSet(structures.getOrThrow(CCStructures.TIN_MONOLITH), new RandomSpreadStructurePlacement(TinMonolithStructure.SPACING, TinMonolithStructure.SEPARATION, RandomSpreadType.TRIANGULAR, TinMonolithStructure.SALT)));
 		}
