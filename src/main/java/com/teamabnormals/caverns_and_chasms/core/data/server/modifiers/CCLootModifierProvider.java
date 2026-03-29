@@ -95,7 +95,8 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				.addModifier(entries(0, entry(SILVER_NUGGET.get(), 1, 1, 4)));
 
 		LootItemCondition.Builder inCave = LocationCheck.checkLocation(LocationPredicate.Builder.location().setY(Doubles.atMost(30.0D)));
-		this.entry("fishing/fish").selects(BuiltInLootTables.FISHING_FISH).addModifier(new LootPoolEntriesModifier(false, 0, LootItem.lootTableItem(CAVEFISH.get()).setWeight(70).when(inCave).build()));
+		this.entry("fishing/fish").selects(BuiltInLootTables.FISHING_FISH).addModifier(entries(0, LootItem.lootTableItem(CAVEFISH.get()).setWeight(70).when(inCave).build()));
+		this.entry("fishing/junk").selects(BuiltInLootTables.FISHING_JUNK).addModifier(entries(0, entry(TIN_CAN.get(), 2)));
 
 		this.entry("trail_ruins_rare").selects(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE)
 				.addModifier(entries(0, entry(TOOLBELT.get(), 1)));

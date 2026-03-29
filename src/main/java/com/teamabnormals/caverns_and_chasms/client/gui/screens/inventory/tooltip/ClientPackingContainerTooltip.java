@@ -13,7 +13,7 @@ public class ClientPackingContainerTooltip implements ClientTooltipComponent {
 	private final ItemStack items;
 
 	public ClientPackingContainerTooltip(PackingContainerTooltip p_169873_) {
-		this.items = p_169873_.getItems();
+		this.items = p_169873_.item();
 	}
 
 	public int getHeight() {
