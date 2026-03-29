@@ -144,7 +144,15 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.ROOTED_DIRT).requires(Blocks.DIRT).requires(Blocks.HANGING_ROOTS).unlockedBy("has_hanging_roots", has(Blocks.HANGING_ROOTS)).save(consumer, CavernsAndChasms.location(getItemName(Blocks.ROOTED_DIRT)));
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, LAVA_LAMP.get()).define('G', Tags.Items.INGOTS_GOLD).define('B', BlueprintItemTags.BUCKETS_LAVA).pattern("GGG").pattern(" B ").pattern("GGG").unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD)).save(consumer);
-		
+
+		chiseled(consumer, BUILDING_BLOCKS, CHISELED_COPPER.get(), Blocks.CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, WAXED_CHISELED_COPPER.get(), Blocks.WAXED_CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB);
+		chiseled(consumer, BUILDING_BLOCKS, WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CHISELED_COPPER.get(), Blocks.COPPER_BLOCK, 4);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_COPPER, 4);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_COPPER, 4);
