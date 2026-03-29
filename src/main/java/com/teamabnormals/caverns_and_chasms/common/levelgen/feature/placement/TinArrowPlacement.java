@@ -6,8 +6,8 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolit
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPlacementModifierTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 import java.util.Map;
@@ -22,6 +23,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TinArrowPlacement extends PlacementModifier {
+	private static final Vector2i[] CLOSEST_MONOLITH_OFFSETS = {new Vector2i(-1, 0), new Vector2i(0, 0), new Vector2i(-1, -1), new Vector2i(0, -1)};
+
 	public static final Codec<TinArrowPlacement> CODEC = RecordCodecBuilder.create(instance -> {
 		return instance.group(
 				Codec.INT.fieldOf("max_count").forGetter((placement) -> placement.maxCount),
@@ -69,28 +72,57 @@ public class TinArrowPlacement extends PlacementModifier {
 		return CCPlacementModifierTypes.TIN_ARROW.get();
 	}
 
+	@Nullable
 	public static Vector2i getClosestMonolithPosition(WorldGenLevel level, BlockPos pos) {
 		int chunkX = pos.getX() >> 4;
 		int chunkZ = pos.getZ() >> 4;
-		if (chunkX < -TinMonolithStructure.NO_MONOLITHS_RANGE || chunkX >= TinMonolithStructure.NO_MONOLITHS_RANGE || chunkZ < -TinMonolithStructure.NO_MONOLITHS_RANGE || chunkZ >= TinMonolithStructure.NO_MONOLITHS_RANGE) {
-			Vector2i spacingPos = new Vector2i(Math.floorDiv(chunkX, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ, TinMonolithStructure.SPACING));
-			Map<Vector2i, Vector2i> map = CCFeatures.MONOLITH_POSITIONS.get(level.getLevel());
-			if (!map.containsKey(spacingPos)) {
-				ChunkPos chunkPos = getPotentialStructureChunk(level.getSeed(), spacingPos.x, spacingPos.y);
-				map.put(spacingPos, new Vector2i(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ()));
+
+		Vector2i vec2i = new Vector2i(Math.floorDiv(chunkX + TinMonolithStructure.HALF_SPACING, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ + TinMonolithStructure.HALF_SPACING, TinMonolithStructure.SPACING));
+
+		Map<Vector2i, Vector2i[]> map = CCFeatures.CLOSEST_MONOLITH_POSITIONS_AT.get(level.getLevel());
+
+		if (!map.containsKey(vec2i)) {
+			Vector2i[] monolithPositions = new Vector2i[4];
+			for (int i = 0; i < 4; i++) {
+				Vector2i offset = CLOSEST_MONOLITH_OFFSETS[i];
+				monolithPositions[i] = getPotentialStructurePos(level.getSeed(), vec2i.x + offset.x, vec2i.y + offset.y);
 			}
-			return map.get(spacingPos);
-		} else {
-			return null;
+			map.put(vec2i, monolithPositions);
 		}
+
+		Vector2i[] closestPositions = map.get(vec2i);
+		Vector2i closestPos = null;
+		int closestDistSqr = Integer.MAX_VALUE;
+
+		for (Vector2i monolithPos : closestPositions) {
+			if (monolithPos == null) {
+				continue;
+			}
+
+			int distSqr = Mth.square(monolithPos.x - pos.getX()) + Mth.square(monolithPos.y - pos.getZ());
+			if (distSqr < closestDistSqr) {
+				closestPos = monolithPos;
+				closestDistSqr = distSqr;
+			}
+		}
+
+		return closestPos;
 	}
 
-	private static ChunkPos getPotentialStructureChunk(long seed, int spacingX, int spacingZ) {
+	@Nullable
+	private static Vector2i getPotentialStructurePos(long seed, int spacingX, int spacingZ) {
 		WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(0L));
 		worldgenrandom.setLargeFeatureWithSalt(seed, spacingX, spacingZ, TinMonolithStructure.SALT);
 		int k = TinMonolithStructure.SPACING - TinMonolithStructure.SEPARATION;
 		int l = RandomSpreadType.TRIANGULAR.evaluate(worldgenrandom, k);
 		int i1 = RandomSpreadType.TRIANGULAR.evaluate(worldgenrandom, k);
-		return new ChunkPos(spacingX * TinMonolithStructure.SPACING + l, spacingZ * TinMonolithStructure.SPACING + i1);
+		int chunkX = spacingX * TinMonolithStructure.SPACING + l;
+		int chunkZ = spacingZ * TinMonolithStructure.SPACING + i1;
+
+		if (Mth.abs(chunkX) <= TinMonolithStructure.NO_MONOLITHS_RANGE || Mth.abs(chunkZ) <= TinMonolithStructure.NO_MONOLITHS_RANGE) {
+			return null;
+		}
+
+		return new Vector2i(chunkX << 4, chunkZ << 4);
 	}
 }

@@ -29,6 +29,7 @@ public class CCFeatures {
 	public static final RegistryObject<Feature<OreConfiguration>> RHYOLITE = FEATURES.register("rhyolite", () -> new RhyoliteFeature(OreConfiguration.CODEC));
 
 	public static final LevelConcurrentHashMapReceiver<Vector2i, Vector2i> MONOLITH_POSITIONS = new LevelConcurrentHashMapReceiver<>();
+	public static final LevelConcurrentHashMapReceiver<Vector2i, Vector2i[]> CLOSEST_MONOLITH_POSITIONS_AT = new LevelConcurrentHashMapReceiver<>();
 	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
 	public static final LevelNoiseReceiver CAVE_GROWTH_GRADIENT = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTH_GRADIENT);
 }

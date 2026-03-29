@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class TinMonolithStructure extends Structure {
 	public static final int SPACING = 96;
+	public static final int HALF_SPACING = SPACING / 2;
 	public static final int SEPARATION = 32;
 	public static final int NO_MONOLITHS_RANGE = 64;
 	public static final int SALT = 47621501;
