@@ -436,15 +436,9 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, CALCITE_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_CALCITE_FAMILY, Blocks.CALCITE, POLISHED_CALCITE.get());
 		stonecutterRecipes(consumer, CALCITE_BRICKS_FAMILY, Blocks.CALCITE, POLISHED_CALCITE.get(), CALCITE_BRICKS.get());
-
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CALCITE_PILLAR.get(), 2).define('#', POLISHED_CALCITE.get()).pattern("#").pattern("#").unlockedBy(getHasName(POLISHED_CALCITE.get()), has(POLISHED_CALCITE.get())).unlockedBy(getHasName(CALCITE_PILLAR.get()), has(CALCITE_PILLAR.get())).save(consumer);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), Blocks.CALCITE);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, CALCITE_PILLAR.get(), POLISHED_CALCITE.get());
-
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.CALCITE), BUILDING_BLOCKS, SMOOTH_CALCITE.get(), 0.1F, 200).unlockedBy("has_calcite", has(Blocks.CALCITE)).save(consumer);
-		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, Blocks.CALCITE, SMOOTH_CALCITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
-		generateRecipes(consumer, SMOOTH_CALCITE_FAMILY);
-		stonecutterRecipes(consumer, SMOOTH_CALCITE_FAMILY);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, Blocks.TUFF, 2).requires(Blocks.BASALT).requires(Blocks.COBBLESTONE).unlockedBy("has_stone", has(Blocks.BASALT)).save(consumer, CavernsAndChasms.location(RecipeBuilder.getDefaultRecipeId(Blocks.TUFF).getPath()));
 		generateRecipes(consumer, TUFF_FAMILY);

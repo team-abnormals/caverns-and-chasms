@@ -22,12 +22,11 @@ public class CCBlockFamilies {
 	public static final BlockFamily ANDESITE_TILES_FAMILY = new BlockFamily.Builder(ANDESITE_TILES.get()).slab(ANDESITE_TILE_SLAB.get()).stairs(ANDESITE_TILE_STAIRS.get()).wall(ANDESITE_TILE_WALL.get()).getFamily();
 
 	public static final BlockFamily CALCITE_FAMILY = new BlockFamily.Builder(Blocks.CALCITE).slab(CALCITE_SLAB.get()).stairs(CALCITE_STAIRS.get()).wall(CALCITE_WALL.get()).polished(POLISHED_CALCITE.get()).getFamily();
-	public static final BlockFamily POLISHED_CALCITE_FAMILY = new BlockFamily.Builder(POLISHED_CALCITE.get()).slab(POLISHED_CALCITE_SLAB.get()).stairs(POLISHED_CALCITE_STAIRS.get()).wall(POLISHED_CALCITE_WALL.get()).chiseled(CHISELED_CALCITE.get()).polished(CALCITE_BRICKS.get()).getFamily();
+	public static final BlockFamily POLISHED_CALCITE_FAMILY = new BlockFamily.Builder(POLISHED_CALCITE.get()).slab(POLISHED_CALCITE_SLAB.get()).stairs(POLISHED_CALCITE_STAIRS.get()).wall(POLISHED_CALCITE_WALL.get()).chiseled(CHISELED_POLISHED_CALCITE.get()).polished(CALCITE_BRICKS.get()).getFamily();
 	public static final BlockFamily CALCITE_BRICKS_FAMILY = new BlockFamily.Builder(CALCITE_BRICKS.get()).slab(CALCITE_BRICK_SLAB.get()).stairs(CALCITE_BRICK_STAIRS.get()).wall(CALCITE_BRICK_WALL.get()).chiseled(CHISELED_CALCITE_BRICKS.get()).getFamily();
-	public static final BlockFamily SMOOTH_CALCITE_FAMILY = new BlockFamily.Builder(SMOOTH_CALCITE.get()).slab(SMOOTH_CALCITE_SLAB.get()).stairs(SMOOTH_CALCITE_STAIRS.get()).getFamily();
 
 	public static final BlockFamily TUFF_FAMILY = new BlockFamily.Builder(Blocks.TUFF).slab(TUFF_SLAB.get()).stairs(TUFF_STAIRS.get()).wall(TUFF_WALL.get()).polished(POLISHED_TUFF.get()).getFamily();
-	public static final BlockFamily POLISHED_TUFF_FAMILY = new BlockFamily.Builder(POLISHED_TUFF.get()).slab(POLISHED_TUFF_SLAB.get()).stairs(POLISHED_TUFF_STAIRS.get()).wall(POLISHED_TUFF_WALL.get()).chiseled(CHISELED_TUFF.get()).polished(TUFF_BRICKS.get()).getFamily();
+	public static final BlockFamily POLISHED_TUFF_FAMILY = new BlockFamily.Builder(POLISHED_TUFF.get()).slab(POLISHED_TUFF_SLAB.get()).stairs(POLISHED_TUFF_STAIRS.get()).wall(POLISHED_TUFF_WALL.get()).chiseled(CHISELED_POLISHED_TUFF.get()).polished(TUFF_BRICKS.get()).getFamily();
 	public static final BlockFamily TUFF_BRICKS_FAMILY = new BlockFamily.Builder(TUFF_BRICKS.get()).slab(TUFF_BRICK_SLAB.get()).stairs(TUFF_BRICK_STAIRS.get()).wall(TUFF_BRICK_WALL.get()).chiseled(CHISELED_TUFF_BRICKS.get()).getFamily();
 	public static final BlockFamily SMOOTH_TUFF_FAMILY = new BlockFamily.Builder(SMOOTH_TUFF.get()).slab(SMOOTH_TUFF_SLAB.get()).stairs(SMOOTH_TUFF_STAIRS.get()).getFamily();
 

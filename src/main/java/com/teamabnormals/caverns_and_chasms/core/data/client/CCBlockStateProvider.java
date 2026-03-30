@@ -202,12 +202,11 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.cubeColumnBlock(CHISELED_CALCITE_BRICKS);
 		this.blockFamily(POLISHED_CALCITE_FAMILY);
 		this.blockFamily(CALCITE_BRICKS_FAMILY);
-		this.blockFamily(SMOOTH_CALCITE_FAMILY);
 		this.logBlock(CALCITE_PILLAR);
-		this.chiseledCalciteBlock(CHISELED_CALCITE);
+		this.chiseledCalciteBlock(CHISELED_POLISHED_CALCITE);
 
 		this.baseBlockVariants(Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL);
-		this.cubeColumnBlock(CHISELED_TUFF);
+		this.cubeColumnBlock(CHISELED_POLISHED_TUFF);
 		this.cubeColumnBlock(CHISELED_TUFF_BRICKS);
 		this.blockFamily(TUFF_BRICKS_FAMILY);
 		this.blockFamily(SMOOTH_TUFF_FAMILY);
@@ -1058,8 +1057,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	}
 
 	public static final RegistryObject<Block>[] DOUBLE_SLABS = new RegistryObject[]{
-			POLISHED_CALCITE_SLAB, POLISHED_TUFF_SLAB,
-			SMOOTH_CALCITE_SLAB, SMOOTH_TUFF_SLAB,
+			POLISHED_CALCITE_SLAB, POLISHED_TUFF_SLAB, SMOOTH_TUFF_SLAB,
 			POLISHED_SUGILITE_SLAB, POLISHED_DRIPSTONE_SLAB,
 			POLISHED_CYLINDRITE_SLAB, POLISHED_CASSITERITE_SLAB,
 			POLISHED_RHYOLITE_SLAB, POLISHED_MAGMATIC_RHYOLITE_SLAB
