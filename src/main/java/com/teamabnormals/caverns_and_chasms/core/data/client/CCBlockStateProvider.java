@@ -7,7 +7,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.Plane;
@@ -31,7 +30,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
@@ -184,15 +182,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.wallBlock(Blocks.POLISHED_GRANITE, POLISHED_GRANITE_WALL.get());
 		this.block(CHISELED_POLISHED_GRANITE);
+		this.logBlock(GRANITE_PILLAR);
 		this.blockFamily(GRANITE_BRICKS_FAMILY);
-		this.cubeColumnBlock(CHISELED_GRANITE_BRICKS);
 		this.blockFamily(GRANITE_TILES_FAMILY);
 
 		this.wallBlock(Blocks.POLISHED_DIORITE, POLISHED_DIORITE_WALL.get());
 		this.block(CHISELED_POLISHED_DIORITE);
+		this.logBlock(DIORITE_PILLAR);
 		this.blockFamily(DIORITE_BRICKS_FAMILY);
 		this.blockFamily(DIORITE_TILES_FAMILY);
-		this.blockFamily(SMOOTH_DIORITE_FAMILY);
 
 		this.wallBlock(Blocks.POLISHED_ANDESITE, POLISHED_ANDESITE_WALL.get());
 		this.block(CHISELED_POLISHED_ANDESITE);
@@ -1061,7 +1059,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 	public static final RegistryObject<Block>[] DOUBLE_SLABS = new RegistryObject[]{
 			POLISHED_CALCITE_SLAB, POLISHED_TUFF_SLAB,
-			SMOOTH_DIORITE_SLAB, SMOOTH_CALCITE_SLAB, SMOOTH_TUFF_SLAB,
+			SMOOTH_CALCITE_SLAB, SMOOTH_TUFF_SLAB,
 			POLISHED_SUGILITE_SLAB, POLISHED_DRIPSTONE_SLAB,
 			POLISHED_CYLINDRITE_SLAB, POLISHED_CASSITERITE_SLAB,
 			POLISHED_RHYOLITE_SLAB, POLISHED_MAGMATIC_RHYOLITE_SLAB

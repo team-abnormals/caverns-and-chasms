@@ -395,7 +395,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, GRANITE_TILES_FAMILY);
 		stonecutterRecipes(consumer, GRANITE_BRICKS_FAMILY, Blocks.GRANITE, Blocks.POLISHED_GRANITE, GRANITE_BRICKS.get());
 		stonecutterRecipes(consumer, GRANITE_TILES_FAMILY, Blocks.GRANITE, Blocks.POLISHED_GRANITE, GRANITE_BRICKS.get(), GRANITE_TILES.get());
-
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GRANITE_PILLAR.get(), 2).define('#', Blocks.POLISHED_GRANITE).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.POLISHED_GRANITE), has(Blocks.POLISHED_GRANITE)).unlockedBy(getHasName(GRANITE_PILLAR.get()), has(GRANITE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, GRANITE_PILLAR.get(), Blocks.GRANITE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, GRANITE_PILLAR.get(), Blocks.POLISHED_GRANITE);
+		
 		wall(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.POLISHED_DIORITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_DIORITE_WALL.get(), Blocks.DIORITE);
@@ -407,11 +410,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, DIORITE_TILES_FAMILY);
 		stonecutterRecipes(consumer, DIORITE_BRICKS_FAMILY, Blocks.DIORITE, Blocks.POLISHED_DIORITE, DIORITE_BRICKS.get());
 		stonecutterRecipes(consumer, DIORITE_TILES_FAMILY, Blocks.DIORITE, Blocks.POLISHED_DIORITE, DIORITE_BRICKS.get(), DIORITE_TILES.get());
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.DIORITE), BUILDING_BLOCKS, SMOOTH_DIORITE.get(), 0.1F, 200).unlockedBy("has_diorite", has(Blocks.DIORITE)).save(consumer);
-		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, Blocks.DIORITE, SMOOTH_DIORITE.get(), 0.1F, 100, CavernsAndChasms.MOD_ID);
-		generateRecipes(consumer, SMOOTH_DIORITE_FAMILY);
-		stonecutterRecipes(consumer, SMOOTH_DIORITE_FAMILY);
-
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, DIORITE_PILLAR.get(), 2).define('#', Blocks.POLISHED_DIORITE).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.POLISHED_DIORITE), has(Blocks.POLISHED_DIORITE)).unlockedBy(getHasName(DIORITE_PILLAR.get()), has(DIORITE_PILLAR.get())).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, DIORITE_PILLAR.get(), Blocks.DIORITE);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, DIORITE_PILLAR.get(), Blocks.POLISHED_DIORITE);
+		
 		wall(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
 		stonecutterRecipe(consumer, DECORATIONS, POLISHED_ANDESITE_WALL.get(), Blocks.ANDESITE);

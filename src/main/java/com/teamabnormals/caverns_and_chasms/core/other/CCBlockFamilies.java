@@ -14,13 +14,10 @@ public class CCBlockFamilies {
 	public static final BlockFamily DRIPSTONE_BRICKS_FAMILY = new BlockFamily.Builder(DRIPSTONE_BRICKS.get()).slab(DRIPSTONE_BRICK_SLAB.get()).stairs(DRIPSTONE_BRICK_STAIRS.get()).wall(DRIPSTONE_BRICK_WALL.get()).chiseled(CHISELED_DRIPSTONE_BRICKS.get()).getFamily();
 	public static final BlockFamily DRIPSTONE_SHINGLES_FAMILY = new BlockFamily.Builder(DRIPSTONE_SHINGLES.get()).slab(DRIPSTONE_SHINGLE_SLAB.get()).stairs(DRIPSTONE_SHINGLE_STAIRS.get()).wall(DRIPSTONE_SHINGLE_WALL.get()).chiseled(CHISELED_DRIPSTONE_SHINGLES.get()).getFamily();
 
-	public static final BlockFamily GRANITE_BRICKS_FAMILY = new BlockFamily.Builder(GRANITE_BRICKS.get()).slab(GRANITE_BRICK_SLAB.get()).stairs(GRANITE_BRICK_STAIRS.get()).wall(GRANITE_BRICK_WALL.get()).chiseled(CHISELED_GRANITE_BRICKS.get()).polished(GRANITE_TILES.get()).getFamily();
+	public static final BlockFamily GRANITE_BRICKS_FAMILY = new BlockFamily.Builder(GRANITE_BRICKS.get()).slab(GRANITE_BRICK_SLAB.get()).stairs(GRANITE_BRICK_STAIRS.get()).wall(GRANITE_BRICK_WALL.get()).polished(GRANITE_TILES.get()).getFamily();
 	public static final BlockFamily GRANITE_TILES_FAMILY = new BlockFamily.Builder(GRANITE_TILES.get()).slab(GRANITE_TILE_SLAB.get()).stairs(GRANITE_TILE_STAIRS.get()).wall(GRANITE_TILE_WALL.get()).getFamily();
-
 	public static final BlockFamily DIORITE_BRICKS_FAMILY = new BlockFamily.Builder(DIORITE_BRICKS.get()).slab(DIORITE_BRICK_SLAB.get()).stairs(DIORITE_BRICK_STAIRS.get()).wall(DIORITE_BRICK_WALL.get()).polished(DIORITE_TILES.get()).getFamily();
 	public static final BlockFamily DIORITE_TILES_FAMILY = new BlockFamily.Builder(DIORITE_TILES.get()).slab(DIORITE_TILE_SLAB.get()).stairs(DIORITE_TILE_STAIRS.get()).wall(DIORITE_TILE_WALL.get()).getFamily();
-	public static final BlockFamily SMOOTH_DIORITE_FAMILY = new BlockFamily.Builder(SMOOTH_DIORITE.get()).slab(SMOOTH_DIORITE_SLAB.get()).stairs(SMOOTH_DIORITE_STAIRS.get()).getFamily();
-
 	public static final BlockFamily ANDESITE_BRICKS_FAMILY = new BlockFamily.Builder(ANDESITE_BRICKS.get()).slab(ANDESITE_BRICK_SLAB.get()).stairs(ANDESITE_BRICK_STAIRS.get()).wall(ANDESITE_BRICK_WALL.get()).polished(ANDESITE_TILES.get()).getFamily();
 	public static final BlockFamily ANDESITE_TILES_FAMILY = new BlockFamily.Builder(ANDESITE_TILES.get()).slab(ANDESITE_TILE_SLAB.get()).stairs(ANDESITE_TILE_STAIRS.get()).wall(ANDESITE_TILE_WALL.get()).getFamily();
 

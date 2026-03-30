@@ -338,14 +338,15 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(POLISHED_GRANITE_WALL.get());
 			this.dropSelf(CHISELED_POLISHED_GRANITE.get());
+			this.dropSelf(GRANITE_PILLAR.get());
 			this.blockFamily(GRANITE_BRICKS_FAMILY);
 			this.blockFamily(GRANITE_TILES_FAMILY);
 
 			this.dropSelf(POLISHED_DIORITE_WALL.get());
 			this.dropSelf(CHISELED_POLISHED_DIORITE.get());
+			this.dropSelf(DIORITE_PILLAR.get());
 			this.blockFamily(DIORITE_BRICKS_FAMILY);
 			this.blockFamily(DIORITE_TILES_FAMILY);
-			this.blockFamily(SMOOTH_DIORITE_FAMILY);
 			
 			this.dropSelf(POLISHED_ANDESITE_WALL.get());
 			this.dropSelf(CHISELED_POLISHED_ANDESITE.get());

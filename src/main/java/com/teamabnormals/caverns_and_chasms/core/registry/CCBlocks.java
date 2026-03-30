@@ -381,7 +381,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> GRANITE_BRICK_STAIRS = HELPER.createBlock("granite_brick_stairs", () -> new StairBlock(() -> GRANITE_BRICKS.get().defaultBlockState(), CCProperties.GRANITE));
 	public static final RegistryObject<Block> GRANITE_BRICK_SLAB = HELPER.createBlock("granite_brick_slab", () -> new SlabBlock(CCProperties.GRANITE));
 	public static final RegistryObject<Block> GRANITE_BRICK_WALL = HELPER.createBlock("granite_brick_wall", () -> new WallBlock(CCProperties.GRANITE));
-	public static final RegistryObject<Block> CHISELED_GRANITE_BRICKS = HELPER.createBlock("chiseled_granite_bricks", () -> new Block(CCProperties.GRANITE));
+	public static final RegistryObject<Block> GRANITE_PILLAR = HELPER.createBlock("granite_pillar", () -> new RotatedPillarBlock(CCProperties.GRANITE));
 	public static final RegistryObject<Block> GRANITE_TILES = HELPER.createBlock("granite_tiles", () -> new Block(CCProperties.GRANITE));
 	public static final RegistryObject<Block> GRANITE_TILE_STAIRS = HELPER.createBlock("granite_tile_stairs", () -> new StairBlock(() -> GRANITE_TILES.get().defaultBlockState(), CCProperties.GRANITE));
 	public static final RegistryObject<Block> GRANITE_TILE_SLAB = HELPER.createBlock("granite_tile_slab", () -> new SlabBlock(CCProperties.GRANITE));
@@ -393,14 +393,12 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DIORITE_BRICK_STAIRS = HELPER.createBlock("diorite_brick_stairs", () -> new StairBlock(() -> DIORITE_BRICKS.get().defaultBlockState(), CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_BRICK_SLAB = HELPER.createBlock("diorite_brick_slab", () -> new SlabBlock(CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_BRICK_WALL = HELPER.createBlock("diorite_brick_wall", () -> new WallBlock(CCProperties.DIORITE));
+	public static final RegistryObject<Block> DIORITE_PILLAR = HELPER.createBlock("diorite_pillar", () -> new RotatedPillarBlock(CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_TILES = HELPER.createBlock("diorite_tiles", () -> new Block(CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_TILE_STAIRS = HELPER.createBlock("diorite_tile_stairs", () -> new StairBlock(() -> DIORITE_TILES.get().defaultBlockState(), CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_TILE_SLAB = HELPER.createBlock("diorite_tile_slab", () -> new SlabBlock(CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_TILE_WALL = HELPER.createBlock("diorite_tile_wall", () -> new WallBlock(CCProperties.DIORITE));
-	public static final RegistryObject<Block> SMOOTH_DIORITE = HELPER.createBlock("smooth_diorite", () -> new Block(CCProperties.DIORITE));
-	public static final RegistryObject<Block> SMOOTH_DIORITE_STAIRS = HELPER.createBlock("smooth_diorite_stairs", () -> new StairBlock(() -> SMOOTH_DIORITE.get().defaultBlockState(), CCProperties.DIORITE));
-	public static final RegistryObject<Block> SMOOTH_DIORITE_SLAB = HELPER.createBlock("smooth_diorite_slab", () -> new SlabBlock(CCProperties.DIORITE));
-
+	
 	public static final RegistryObject<Block> POLISHED_ANDESITE_WALL = HELPER.createBlock("polished_andesite_wall", () -> new WallBlock(CCProperties.ANDESITE));
 	public static final RegistryObject<Block> CHISELED_POLISHED_ANDESITE = HELPER.createBlock("chiseled_polished_andesite", () -> new Block(CCProperties.ANDESITE));
 	public static final RegistryObject<Block> ANDESITE_BRICKS = HELPER.createBlock("andesite_bricks", () -> new Block(CCProperties.ANDESITE));
@@ -720,18 +718,17 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.STONE_SLAB), STONE_WALL)
 				.addItemsAfter(of(Blocks.POLISHED_GRANITE_SLAB), 
 						POLISHED_GRANITE_WALL, CHISELED_POLISHED_GRANITE,
-						GRANITE_BRICKS, GRANITE_BRICK_STAIRS, GRANITE_BRICK_SLAB, GRANITE_BRICK_WALL, CHISELED_GRANITE_BRICKS,
+						GRANITE_BRICKS, GRANITE_BRICK_STAIRS, GRANITE_BRICK_SLAB, GRANITE_BRICK_WALL, GRANITE_PILLAR,
 						GRANITE_TILES, GRANITE_TILE_STAIRS, GRANITE_TILE_SLAB, GRANITE_TILE_WALL
 				)
-				.addItemsBefore(of(Blocks.POLISHED_DIORITE), SMOOTH_DIORITE, SMOOTH_DIORITE_STAIRS, SMOOTH_DIORITE_SLAB)
 				.addItemsAfter(of(Blocks.POLISHED_DIORITE_SLAB),
 						POLISHED_DIORITE_WALL, CHISELED_POLISHED_DIORITE,
-						DIORITE_BRICKS, DIORITE_BRICK_STAIRS, DIORITE_BRICK_SLAB, DIORITE_BRICK_WALL,
+						DIORITE_BRICKS, DIORITE_BRICK_STAIRS, DIORITE_BRICK_SLAB, DIORITE_BRICK_WALL, DIORITE_PILLAR,
 						DIORITE_TILES, DIORITE_TILE_STAIRS, DIORITE_TILE_SLAB, DIORITE_TILE_WALL
 				)
 				.addItemsAfter(of(Blocks.POLISHED_ANDESITE_SLAB),
-						POLISHED_ANDESITE_WALL, CHISELED_POLISHED_ANDESITE, ANDESITE_PILLAR,
-						ANDESITE_BRICKS, ANDESITE_BRICK_STAIRS, ANDESITE_BRICK_SLAB, ANDESITE_BRICK_WALL,
+						POLISHED_ANDESITE_WALL, CHISELED_POLISHED_ANDESITE,
+						ANDESITE_BRICKS, ANDESITE_BRICK_STAIRS, ANDESITE_BRICK_SLAB, ANDESITE_BRICK_WALL, ANDESITE_PILLAR,
 						ANDESITE_TILES, ANDESITE_TILE_STAIRS, ANDESITE_TILE_SLAB, ANDESITE_TILE_WALL
 				)
 				.addItemsBefore(of(Blocks.DEEPSLATE),
