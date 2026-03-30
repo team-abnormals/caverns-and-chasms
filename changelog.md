@@ -23,12 +23,15 @@
   * Bejeweled Anvil
   * Atoning Table
   * Dismantling Table
-  * Float Glass, Frosted Glass, and Ornate Glass
+  * Float Glass and Float Glass Panes
+  * Frosted Glass and Frosted Glass Panes
+  * Ornate Glass and Ornate Glass Panes
   * Block of Charcoal
-  * Placeable Ingots, Bricks, Coal, and Charcoal
   * Sparkler and dyed variants
   * Gunpowder Block
   * Flint Block
+  * Placeable Ingots and Bricks
+  * Placeable Coal and Charcoal
   * Turquoise Ore and Deepslate Turquoise Ore
   * Copper Rails, Halt Rails, and Slaughter Rails
   * Cave Growths
@@ -84,7 +87,9 @@
     * Arrow of the Revenant
 * Added a new Music Disc by hatsondogs
 * Added a new Status Effect, Vampirism
-* Added 4 new Paintings by five
+* Added 5 new Paintings
+  * 4 by five
+  * 1 by hatsondogs
 * Added 22 new Advancements
 
 ### Improvements
