@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPoiTypes;
@@ -22,7 +24,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -35,13 +36,9 @@ public final class ServerLevelMixin {
 	@Final
 	EntityTickList entityTickList;
 
-	@Redirect(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-	private boolean tickChunk(BlockState state, Block block) {
-		if (block == Blocks.LIGHTNING_ROD && state.getBlock() instanceof LightningRodBlock) {
-			return true;
-		}
-
-		return state.is(block);
+	@WrapOperation(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
+	private boolean tickChunk(BlockState state, Block block, Operation<Boolean> original) {
+		return (block == Blocks.LIGHTNING_ROD && state.getBlock() instanceof LightningRodBlock) || original.call(state, block);
 	}
 
 	@Inject(method = "findLightningRod", at = @At("RETURN"), cancellable = true)

@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;

@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;

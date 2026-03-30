@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerB
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerFloatGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
-import com.teamabnormals.caverns_and_chasms.core.other.CCEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;

@@ -16,14 +16,12 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
@@ -35,9 +33,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.joml.Matrix3f;
 import org.joml.Vector3f;
 
-import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class BoneFluteItem extends Item {
 	public static final double MAX_SEND_DIST = 64.0D;

@@ -26,7 +26,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
-import com.teamabnormals.caverns_and_chasms.core.mixin.LivingEntityAccessor;
+import com.teamabnormals.caverns_and_chasms.core.mixin.entity.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;

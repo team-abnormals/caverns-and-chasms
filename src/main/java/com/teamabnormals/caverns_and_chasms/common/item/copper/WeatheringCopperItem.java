@@ -3,7 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.item.copper;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.teamabnormals.caverns_and_chasms.core.mixin.ItemStackAccessor;
+import com.teamabnormals.caverns_and_chasms.core.mixin.item.ItemStackAccessor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

@@ -8,12 +8,10 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingD
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Vec3i;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
