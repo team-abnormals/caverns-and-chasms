@@ -11,23 +11,7 @@
                 "type": "minecraft:item",
                 "conditions": [
                   {
-                    "condition": "minecraft:inverted",
-                    "term": {
-                      "condition": "minecraft:match_tool",
-                      "predicate": {
-                        "enchantments": [
-                          {
-                            "enchantment": "minecraft:silk_touch",
-                            "levels": {
-                              "min": 1
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "chance": 0.01,
+                    "chance": 0.1,
                     "condition": "minecraft:random_chance"
                   }
                 ],
@@ -50,5 +34,5 @@
     }
   ],
   "priority": "normal",
-  "selector": "minecraft:blocks/deepslate_copper_ore"
+  "selector": "minecraft:entities/elder_guardian"
 }

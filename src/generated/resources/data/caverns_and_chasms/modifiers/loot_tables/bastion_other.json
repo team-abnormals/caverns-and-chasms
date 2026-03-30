@@ -18,6 +18,11 @@
               }
             ],
             "name": "caverns_and_chasms:large_arrow"
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:turquoise",
+            "weight": 3
           }
         ],
         "index": 0,

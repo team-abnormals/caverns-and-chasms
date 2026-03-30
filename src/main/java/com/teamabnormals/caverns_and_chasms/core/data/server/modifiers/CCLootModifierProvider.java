@@ -78,7 +78,8 @@ public class CCLootModifierProvider extends LootModifierProvider {
 				entry(RICOCHET_ARROW.get(), 10, 1, 4)));
 		this.entry("woodland_mansion").selects(BuiltInLootTables.WOODLAND_MANSION)
 				.addModifier(entries(0, entry(COWL.get(), 10)))
-				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4), entry(TIN_INGOT.get(), 8, 1, 4), entry(ZIRCONIA.get(), 5, 1, 2)));
+				.addModifier(entries(1, entry(SILVER_INGOT.get(), 5, 1, 4), entry(TIN_INGOT.get(), 8, 1, 4), entry(ZIRCONIA.get(), 5, 1, 2)))
+				.addModifier(pools(pool("turquoise").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(TURQUOISE.get())).build()));
 
 		this.entry("village_fisher").selects(BuiltInLootTables.VILLAGE_FISHER)
 				.addModifier(entries(0, entry(CAVEFISH.get(), 1, 1, 3)))
@@ -112,48 +113,55 @@ public class CCLootModifierProvider extends LootModifierProvider {
 		));
 
 		this.entry("ruined_portal").selects(BuiltInLootTables.RUINED_PORTAL)
-				.addModifier(entries(0,
-						entry(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16), entry(CCBlocks.LAVA_LAMP.get(), 5), entry(GOLDEN_BUCKET.get(), 1)))
+				.addModifier(entries(0, entry(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16), entry(CCBlocks.LAVA_LAMP.get(), 5), entry(GOLDEN_BUCKET.get(), 1)))
 				.addModifier(pools(pool("lodestone").add(EmptyLootItem.emptyItem()).add(LootItem.lootTableItem(Blocks.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).build()));
 		this.entry("nether_bridge").selects(BuiltInLootTables.NETHER_BRIDGE)
-				.addModifier(entries(0,
-						entry(SILVER_INGOT.get(), 5, 1, 5),
-						entry(SILVER_HORSE_ARMOR.get(), 6),
-						entry(COPPER_HORSE_ARMOR.get(), 5)))
+				.addModifier(entries(0, entry(SILVER_INGOT.get(), 5, 1, 5), entry(SILVER_HORSE_ARMOR.get(), 6), entry(COPPER_HORSE_ARMOR.get(), 5), entry(TURQUOISE.get(), 1)))
 				.addModifier(entries(1, entry(EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 1)));
 		this.entry("bastion_bridge").selects(BuiltInLootTables.BASTION_BRIDGE)
 				.addModifier(pools(pool("golden_bucket").add(LootItem.lootTableItem(GOLDEN_BUCKET.get())).build()))
 				.addModifier(entries(1, entry(SILVER_INGOT.get(), 1, 4, 9), entry(LARGE_ARROW.get(), 1, 4, 12),
 						LootItem.lootTableItem(TOOLBELT.get()).apply(EnchantRandomlyFunction.randomApplicableEnchantment()).build()))
 				.addModifier(entries(2, entry(SILVER_NUGGET.get(), 1, 2, 6)));
+		this.entry("bastion_hoglin_stable").selects(BuiltInLootTables.BASTION_HOGLIN_STABLE)
+				.addModifier(entries(0, entry(TURQUOISE.get(), 6)));
 		this.entry("bastion_treasure").selects(BuiltInLootTables.BASTION_TREASURE)
+				.addModifier(entries(0, entry(TURQUOISE.get(), 6)))
 				.addModifier(entries(1, entry(SILVER_INGOT.get(), 1, 3, 9), entry(CCBlocks.SILVER_BLOCK.get(), 1, 2, 5), entry(LARGE_ARROW.get(), 1, 6, 10)));
 		this.entry("bastion_other").selects(BuiltInLootTables.BASTION_OTHER)
-				.addModifier(entries(0, entry(LARGE_ARROW.get(), 1, 4, 8)))
+				.addModifier(entries(0, entry(LARGE_ARROW.get(), 1, 4, 8), entry(TURQUOISE.get(), 3)))
 				.addModifier(entries(1, entry(SILVER_INGOT.get(), 2, 1, 6), entry(CCBlocks.SILVER_BLOCK.get(), 2)))
 				.addModifier(entries(1, entry(SILVER_NUGGET.get(), 1, 2, 8)));
 
 		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE)
-				.addModifier(entries(0, entry(BEJEWELED_APPLE.get(), 5, 3, 9), entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
+				.addModifier(entries(0, entry(BEJEWELED_APPLE.get(), 5, 3, 9), entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1), entry(TURQUOISE.get(), 1)));
 
 		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "chests/kousa_sanctum")).addModifier(entries(0,
 				entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
 
+		this.entry("elder_guardian").selects(new ResourceLocation("entities/elder_guardian")).addModifier(pools(
+				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
+						.add(LootItem.lootTableItem(TURQUOISE.get()).setWeight(1)
+								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+								.when(LootItemRandomChanceCondition.randomChance(0.1F))
+						).build())
+		);
+
 		this.entry("copper_ore").selects(new ResourceLocation("blocks/copper_ore")).addModifier(pools(
-				pool("turqouise").setRolls(ConstantValue.exactly(1.0F))
+				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))).invert())
-								.when(LootItemRandomChanceCondition.randomChance(0.01F))
+								.when(LootItemRandomChanceCondition.randomChance(0.005F))
 						).build())
 		);
 
 		this.entry("deepslate_copper_ore").selects(new ResourceLocation("blocks/deepslate_copper_ore")).addModifier(pools(
-				pool("turqouise").setRolls(ConstantValue.exactly(1.0F))
+				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))).invert())
-								.when(LootItemRandomChanceCondition.randomChance(0.02F))
+								.when(LootItemRandomChanceCondition.randomChance(0.01F))
 						).build())
 		);
 	}

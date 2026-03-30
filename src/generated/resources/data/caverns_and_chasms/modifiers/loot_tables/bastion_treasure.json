@@ -6,6 +6,20 @@
         "entries": [
           {
             "type": "minecraft:item",
+            "name": "caverns_and_chasms:turquoise",
+            "weight": 6
+          }
+        ],
+        "index": 0,
+        "replace": false
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
             "functions": [
               {
                 "add": false,

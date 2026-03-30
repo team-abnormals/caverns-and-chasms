@@ -27,7 +27,7 @@
                     }
                   },
                   {
-                    "chance": 0.01,
+                    "chance": 0.005,
                     "condition": "minecraft:random_chance"
                   }
                 ],
@@ -41,7 +41,7 @@
                 "name": "caverns_and_chasms:turquoise"
               }
             ],
-            "name": "caverns_and_chasms:turqouise",
+            "name": "caverns_and_chasms:turquoise",
             "rolls": 1.0
           }
         ],

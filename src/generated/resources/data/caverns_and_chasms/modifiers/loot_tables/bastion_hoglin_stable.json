@@ -1,0 +1,20 @@
+{
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:turquoise",
+            "weight": 6
+          }
+        ],
+        "index": 0,
+        "replace": false
+      }
+    }
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/bastion_hoglin_stable"
+}
