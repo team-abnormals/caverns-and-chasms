@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -130,6 +131,6 @@ public class LostGoat extends Mob {
 	}
 
 	public static boolean checkLostGoatSpawnRules(EntityType<? extends LostGoat> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-		return pos.getY() > 80 && level.getDifficulty() != Difficulty.PEACEFUL && !level.canSeeSky(pos) && level.getRawBrightness(pos, 0) == 0 && random.nextInt(5) == 0;
+		return pos.getY() > 80 && level.getDifficulty() != Difficulty.PEACEFUL && !level.canSeeSky(pos) && level.getRawBrightness(pos, 0) == 0 && random.nextInt(5) == 0 && level.getBlockState(pos.below()).is(BlockTags.BASE_STONE_OVERWORLD);
 	}
 }

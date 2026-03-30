@@ -17,7 +17,7 @@
   * Hoop, Winch, and Dimmer
   * Bouncer
   * Resistor and Refractor
-  * Scaterrer and Splurter
+  * Scatterer and Splurter
   * Storage Duct and Storage Duct Door
   * Roller Door and Roller Window
   * Bejeweled Anvil
@@ -42,16 +42,21 @@
   * Magmatic Rhyolite block set
   * Plated Bricks block sets for all Ingots
   * Gem Lamps for all Gems
+  * Stone Walls
+  * Additional Sugilite variants
+  * Additional Granite variants
+  * Additional Diorite variants
+  * Additional Andesite variants
   * Additional Calcite variants
   * Additional Dripstone variants
   * Backported Tuff variants 
   * Backported Copper variants (with some visual changes)
-  * Stone and Polished Granite, Diorite, and Andesite Walls
 * Added the following items:
   * Copper Equipment
   * Copper Horns
   * Tin Ingot, Tin Nugget, and Raw Tin
   * Tinplate
+  * Aegis
   * Ricochet Arrow
   * Packing Container
   * Cowl
