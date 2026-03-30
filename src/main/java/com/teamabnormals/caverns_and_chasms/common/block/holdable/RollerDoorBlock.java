@@ -2,14 +2,18 @@ package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Vec3i;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -221,6 +225,11 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 		} else {
 			return aabb.expandTowards(vec3.scale(doorsBelowCount - openness));
 		}
+	}
+
+	@Override
+	public MovingDoorMoveSoundInstance createSoundInstance(MovingDoorHeaderBlockEntity headerEntity) {
+		return new MovingDoorMoveSoundInstance(headerEntity, CCSoundEvents.ROLLER_DOOR_START_ROLL.get(), CCSoundEvents.ROLLER_DOOR_ROLL.get(), CCSoundEvents.ROLLER_DOOR_STOP_ROLL.get(), 12);
 	}
 
 	@Override

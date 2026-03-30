@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,10 +18,10 @@ import net.minecraft.world.level.block.state.BlockState;
 public class MovingDoorBlockEntity extends BlockEntity {
 	protected double openness;
 	protected double opennessOld;
-	protected long opennessUpdateTime;
 	protected boolean isBelowBottom;
 	protected MovingDoorType doorType;
 	protected MovingDoorType belowDoorType;
+	protected long lastUpdateTick;
 
 	public MovingDoorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -37,11 +36,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	public void load(CompoundTag compound) {
 		super.load(compound);
 		this.openness = compound.getDouble("Openness");
-		if (compound.contains("OpennessOld", 99)) {
-			this.opennessOld = compound.getDouble("OpennessOld");
-		} else {
-			this.opennessOld = this.openness;
-		}
 		this.isBelowBottom = compound.getBoolean("BelowIsBottom");
 		MovingDoorType thisType = MovingDoorType.byName((compound.getString("DoorType")));
 		if (thisType != null) {
@@ -49,6 +43,9 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		}
 		MovingDoorType belowType = MovingDoorType.byName((compound.getString("BelowDoorType")));
 		this.belowDoorType = belowType;
+
+		// Only in update tag
+		this.lastUpdateTick = compound.getLong("LastUpdateTick");
 	}
 
 	@Override
@@ -194,18 +191,32 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		CompoundTag compound = this.saveWithoutMetadata();
-		compound.putDouble("OpennessOld", this.opennessOld);
-		return compound;
+		return this.saveWithoutMetadata();
 	}
 
-	public static void tick(Level level, BlockPos pos, BlockState state, MovingDoorBlockEntity blockEntity) {
-		if (blockEntity.opennessUpdateTime < level.getGameTime())
-			blockEntity.opennessOld = blockEntity.openness;
+	public static void tick(Level level, BlockPos pos, BlockState state, MovingDoorBlockEntity thisEntity) {
+		if (thisEntity.lastUpdateTick < level.getGameTime()) {
+			thisEntity.opennessOld = thisEntity.openness;
+		}
 	}
 
 	public double getOpenness(float partialTick) {
-		return Mth.lerp(partialTick, this.opennessOld, this.openness);
+		double d0 = this.openness - this.opennessOld;
+		if (d0 > 0.5D) {
+			d0 -= 1.0D;
+		} else if (d0 < -0.5D) {
+			d0 += 1.0D;
+		}
+
+		double d1 = this.opennessOld + partialTick * d0;
+
+		if (d1 > 1.0D) {
+			d1 -= 1.0D;
+		} else if (d1 < 0.0D) {
+			d1 += 1.0D;
+		}
+
+		return d1;
 	}
 
 	public boolean isBottom() {

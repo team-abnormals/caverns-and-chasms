@@ -1,9 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
+import com.teamabnormals.caverns_and_chasms.common.network.S2CMovingDoorSoundMessage;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -23,7 +27,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.PacketDistributor;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +37,8 @@ import java.util.stream.Collectors;
 
 public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	private List<MovingDoorType> storedBlocks = Lists.newArrayList();
-	private int liftTime;
-	private boolean beingLifted;
-	private boolean prevBeingLifted;
-	private long liftUpdateTime;
+	private int holdTime;
+	private MovingDoorMoveSoundInstance soundInstance;
 
 	public MovingDoorHeaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -54,8 +58,13 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 				this.storedBlocks.add(storedBlock);
 			}
 		}
-		this.liftTime = compound.getShort("LiftTime");
-		this.beingLifted = compound.getBoolean("BeingLifted");
+		this.holdTime = compound.getShort("HoldTime");
+
+		if (this.level != null && this.level.isClientSide && this.soundInstance == null) {
+			AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) this.getBlockState().getBlock();
+			this.soundInstance = thisBlock.createSoundInstance(this);
+			Minecraft.getInstance().getSoundManager().play(this.soundInstance);
+		}
 	}
 
 	@Override
@@ -66,100 +75,116 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			listTag.add(StringTag.valueOf(storedBlock.getRegistryName()));
 		}
 		compound.put("StoredDoors", listTag);
-		compound.putShort("LiftTime", (short) this.liftTime);
-		compound.putBoolean("BeingLifted", this.beingLifted);
+		compound.putShort("HoldTime", (short) this.holdTime);
 	}
 
-	public void setBeingLifted() {
-		this.liftTime = 2;
-		this.beingLifted = true;
+	public void setHeld() {
+		this.holdTime = 2;
 	}
 
 	public boolean isBeingLifted() {
-		return this.beingLifted;
+		return this.holdTime > 0;
 	}
 
-	public static void tick(Level level, BlockPos thisPos, BlockState thisState, MovingDoorHeaderBlockEntity headerEntity) {
-		if (level.isClientSide) {
-			if (headerEntity.opennessUpdateTime < level.getGameTime())
-				headerEntity.opennessOld = headerEntity.openness;
-		} else {
-			headerEntity.opennessOld = headerEntity.openness;
-			headerEntity.prevBeingLifted = headerEntity.beingLifted;
-		}
-
-		headerEntity.move(level, thisPos, thisState);
-
-		headerEntity.liftUpdateTime = level.getGameTime();
-		if (headerEntity.liftTime > 0) {
-			--headerEntity.liftTime;
-			if (headerEntity.liftTime == 0)
-				headerEntity.beingLifted = false;
-		}
+	public MovingDoorMoveSoundInstance getSoundInstance() {
+		return this.soundInstance;
 	}
 
-	private void move(Level level, BlockPos thisPos, BlockState thisState) {
-		if (!level.isClientSide) {
-			double moveSpeed = 0.0625D;
-			AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
-			int doorsBelowCount = thisBlock.countDoorsBelow(level, thisPos, thisState);
+	public static void tick(Level level, BlockPos thisPos, BlockState thisState, MovingDoorHeaderBlockEntity thisHeader) {
+		if (thisHeader.lastUpdateTick < level.getGameTime()) {
+			List<MovingDoorHeaderBlockEntity> headers = thisHeader.getConnectedHeaders();
+			List<MovingDoorHeaderBlockEntity> movedHeaders = Lists.newArrayList();
 
-			if (this.shouldOpen()) {
-				this.openness += moveSpeed;
+			boolean shouldOpen = headers.stream().anyMatch(MovingDoorHeaderBlockEntity::shouldOpen);
 
-				if (this.openness > 1.0D) {
-					if (doorsBelowCount > 0) {
-						this.openness -= 1.0D;
-						doorsBelowCount--;
-						// TODO: Set old openness in a proper way
-						this.opennessOld = this.openness;
-						this.retract(level, thisPos, thisState, -moveSpeed, doorsBelowCount);
-						return;
+			for (MovingDoorHeaderBlockEntity header : headers) {
+				BlockPos headerPos = header.getBlockPos();
+				BlockState headerState = header.getBlockState();
+				AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) headerState.getBlock();
+				int doorsBelowCount = thisBlock.countDoorsBelow(level, headerPos, headerState);
+
+				if (level.isClientSide) {
+					header.updateOldOpennessInRow(level, headerPos, headerState, doorsBelowCount);
+				} else {
+					if (header.holdTime > 0) {
+						--header.holdTime;
 					}
 
-					this.openness = 1.0F;
-					return;
-				}
-
-				this.updateOpennessInRow(level, thisPos, thisState, -moveSpeed, doorsBelowCount);
-			} else {
-				this.openness -= moveSpeed;
-
-				if (this.openness < 0.0D) {
-					if (!this.storedBlocks.isEmpty()) {
-						BlockPos offsetpos = thisPos.relative(thisBlock.getBelowDirection(thisState), doorsBelowCount + 1);
-						BlockState offsetstate = level.getBlockState(offsetpos);
-
-						if (offsetpos.getY() >= level.getMinBuildHeight() && (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY)) {
-							this.openness += 1.0D;
-							doorsBelowCount++;
-							this.opennessOld = this.openness;
-							this.extend(level, thisPos, thisState, moveSpeed, doorsBelowCount);
-							return;
-						}
+					if (header.move(level, headerPos, headerState, doorsBelowCount, shouldOpen)) {
+						movedHeaders.add(header);
 					}
-
-					this.openness = 0.0D;
-					return;
 				}
+			}
 
-				this.updateOpennessInRow(level, thisPos, thisState, moveSpeed, doorsBelowCount);
+			if (!level.isClientSide) {
+				float volume = 1.0F / Math.min(movedHeaders.size(), 14);
+				for (MovingDoorHeaderBlockEntity header : headers) {
+					if (movedHeaders.contains(header)) {
+						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CMovingDoorSoundMessage(header.getBlockPos(), volume));
+					} else {
+						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CMovingDoorSoundMessage(header.getBlockPos(), 0.0F));
+					}
+				}
 			}
 		}
 	}
 
-	private void updateOpennessInRow(Level level, BlockPos thisPos, BlockState thisState, double moveSpeed, int doorsBelowCount) {
-		this.opennessUpdateTime = level.getGameTime();
+	protected boolean move(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount, boolean shouldOpen) {
+		double moveSpeed = 0.0625D;
+		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
+		if (shouldOpen) {
+			this.openness += moveSpeed;
+
+			if (this.openness > 1.0D) {
+				if (doorsBelowCount > 0) {
+					this.openness -= 1.0D;
+					doorsBelowCount--;
+					this.retract(level, thisPos, thisState, doorsBelowCount);
+					return true;
+				}
+
+				this.openness = 1.0F;
+				return false;
+			}
+
+			this.updateOpennessInRow(level, thisPos, thisState, doorsBelowCount);
+			return true;
+		} else {
+			this.openness -= moveSpeed;
+
+			if (this.openness < 0.0D) {
+				if (!this.storedBlocks.isEmpty()) {
+					BlockPos offsetpos = thisPos.relative(thisBlock.getBelowDirection(thisState), doorsBelowCount + 1);
+					BlockState offsetstate = level.getBlockState(offsetpos);
+
+					if (offsetpos.getY() >= level.getMinBuildHeight() && (offsetstate.isAir() || offsetstate.getPistonPushReaction() == PushReaction.DESTROY)) {
+						this.openness += 1.0D;
+						doorsBelowCount++;
+						this.extend(level, thisPos, thisState, doorsBelowCount);
+						return true;
+					}
+				}
+
+				this.openness = 0.0D;
+				return false;
+			}
+
+			this.updateOpennessInRow(level, thisPos, thisState, doorsBelowCount);
+			return true;
+		}
+	}
+
+	private void updateOpennessInRow(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount) {
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 		Direction belowDir = thisBlock.getBelowDirection(thisState);
 
-		MutableBlockPos mutable = thisPos.mutable().move(belowDir);
-		for (int i = 1; i <= doorsBelowCount; i++) {
+		MutableBlockPos mutable = thisPos.mutable();
+		for (int i = 0; i <= doorsBelowCount; i++) {
 			if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
 				offsetEntity.openness = this.openness;
-				offsetEntity.opennessOld = this.opennessOld;
-				offsetEntity.opennessUpdateTime = this.opennessUpdateTime;
+				offsetEntity.lastUpdateTick = level.getGameTime();
+				offsetEntity.setChanged();
 			}
 			BlockState offsetState = level.getBlockState(mutable);
 			level.sendBlockUpdated(mutable, offsetState, offsetState, 3);
@@ -170,9 +195,23 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		level.sendBlockUpdated(thisPos, thisState, thisState, 3);
 	}
 
-	private void extend(Level level, BlockPos thisPos, BlockState thisState, double moveSpeed, int doorsBelowCount) {
-		this.opennessUpdateTime = level.getGameTime();
+	private void updateOldOpennessInRow(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount) {
+		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
+		Direction belowDir = thisBlock.getBelowDirection(thisState);
 
+		MutableBlockPos mutable = thisPos.mutable();
+		for (int i = 0; i <= doorsBelowCount; i++) {
+			if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
+				offsetEntity.opennessOld = offsetEntity.openness;
+				offsetEntity.lastUpdateTick = level.getGameTime();
+				offsetEntity.setChanged();
+			}
+
+			mutable.move(belowDir);
+		}
+	}
+
+	private void extend(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount) {
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
 		Direction aboveDir = thisBlock.getAboveDirection(thisState);
@@ -196,18 +235,15 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 
 			if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
 				offsetEntity.openness = this.openness;
-				offsetEntity.opennessOld = this.opennessOld;
-				offsetEntity.opennessUpdateTime = this.opennessUpdateTime;
+				offsetEntity.lastUpdateTick = level.getGameTime();
 				offsetEntity.isBelowBottom = i == 1;
 				offsetEntity.belowDoorType = i == 0 ? null : offsetEntity.doorType;
 				offsetEntity.doorType = aboveEntity == null ? this.storedBlocks.remove(this.storedBlocks.size() - 1) : aboveEntity.doorType;
+				offsetEntity.setChanged();
 
 				if (offsetEntity instanceof MovingDoorHeaderBlockEntity offsetHeaderEntity) {
 					offsetHeaderEntity.storedBlocks = this.storedBlocks;
-					offsetHeaderEntity.liftTime = this.liftTime;
-					offsetHeaderEntity.beingLifted = this.beingLifted;
-					offsetHeaderEntity.prevBeingLifted = this.prevBeingLifted;
-					offsetHeaderEntity.liftUpdateTime = this.liftUpdateTime;
+					offsetHeaderEntity.holdTime = this.holdTime;
 				}
 			}
 
@@ -219,9 +255,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		}
 	}
 
-	private void retract(Level level, BlockPos thisPos, BlockState thisState, double moveSpeed, int doorsBelowCount) {
-		this.opennessUpdateTime = level.getGameTime();
-
+	private void retract(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount) {
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
 		// Store current top block
@@ -240,21 +274,17 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			} else {
 				MovingDoorBlockEntity belowEntity = (MovingDoorBlockEntity) level.getBlockEntity(belowMutable);
 
-				// TODO: Remove repetition
 				if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
 					offsetEntity.openness = this.openness;
-					offsetEntity.opennessOld = this.opennessOld;
-					offsetEntity.opennessUpdateTime = this.opennessUpdateTime;
+					offsetEntity.lastUpdateTick = level.getGameTime();
 					offsetEntity.isBelowBottom = i == iterateTo - 2;
 					offsetEntity.doorType = belowEntity.doorType;
 					offsetEntity.belowDoorType = belowEntity.belowDoorType;
+					offsetEntity.setChanged();
 
 					if (offsetEntity instanceof MovingDoorHeaderBlockEntity offsetHeaderEntity) {
 						offsetHeaderEntity.storedBlocks = this.storedBlocks;
-						offsetHeaderEntity.liftTime = this.liftTime;
-						offsetHeaderEntity.beingLifted = this.beingLifted;
-						offsetHeaderEntity.prevBeingLifted = this.prevBeingLifted;
-						offsetHeaderEntity.liftUpdateTime = this.liftUpdateTime;
+						offsetHeaderEntity.holdTime = this.holdTime;
 					}
 				}
 			}
@@ -336,10 +366,12 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	}
 
 	private boolean shouldOpen() {
-		return this.isBeingLifted() || this.level.hasNeighborSignal(this.getBlockPos()) || this.isConnectedHeaderBeingOpened();
+		return this.isBeingLifted() || this.level.hasNeighborSignal(this.getBlockPos());
 	}
 
-	private boolean isConnectedHeaderBeingOpened() {
+	private List<MovingDoorHeaderBlockEntity> getConnectedHeaders() {
+		List<MovingDoorHeaderBlockEntity> list = Lists.newArrayList(this);
+
 		BlockState thisState = this.getBlockState();
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
@@ -350,19 +382,17 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			mutable.move(direction);
 			BlockState offsetState = this.level.getBlockState(mutable);
 			if (this.level.getBlockEntity(mutable) instanceof MovingDoorHeaderBlockEntity offsetEntity && thisBlock.partOfSameDoor(thisState, offsetState)) {
-				if (this.level.hasNeighborSignal(mutable))
-					return true;
-				else if (offsetEntity.liftUpdateTime == level.getGameTime() && offsetEntity.prevBeingLifted || offsetEntity.liftUpdateTime < level.getGameTime() && offsetEntity.beingLifted)
-					return true;
+				list.add(offsetEntity);
+			} else if (!right) {
+				Collections.reverse(list);
+				right = true;
+				mutable.set(this.getBlockPos());
+				direction = direction.getOpposite();
 			} else {
-				if (!right) {
-					right = true;
-					mutable.set(this.getBlockPos());
-					direction = direction.getOpposite();
-				} else {
-					return false;
-				}
+				break;
 			}
 		}
+
+		return list;
 	}
 }

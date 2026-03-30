@@ -82,7 +82,7 @@ public class WinchBlock extends BaseEntityBlock implements HoldableBlock {
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof WinchBlockEntity winch) {
-			winch.setPressed();
+			winch.setHeld();
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 		return InteractionResult.PASS;

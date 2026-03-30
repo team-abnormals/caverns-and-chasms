@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class WinchBlockEntity extends BlockEntity {
-	private int pressTime;
+	private int holdTime;
 	private float rotation;
 	private float rotationO;
 	private float rewindSpeed;
@@ -28,7 +28,7 @@ public class WinchBlockEntity extends BlockEntity {
 	@Override
 	public void load(CompoundTag compound) {
 		super.load(compound);
-		this.pressTime = compound.getShort("PressTime");
+		this.holdTime = compound.getShort("HoldTime");
 		this.rotation = compound.getFloat("Rotation");
 		this.rewindSpeed = compound.getFloat("RewindSpeed");
 		this.forceRollBack = compound.getBoolean("ForceRollBack");
@@ -37,7 +37,7 @@ public class WinchBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag compound) {
 		super.saveAdditional(compound);
-		compound.putShort("PressTime", (short) this.pressTime);
+		compound.putShort("HoldTime", (short) this.holdTime);
 		compound.putFloat("Rotation", this.rotation);
 		compound.putFloat("RewindSpeed", this.rewindSpeed);
 		compound.putBoolean("ForceRollBack", this.forceRollBack);
@@ -53,11 +53,11 @@ public class WinchBlockEntity extends BlockEntity {
 		return this.saveWithoutMetadata();
 	}
 
-	public void setPressed() {
-		if (this.pressTime <= 0) {
+	public void setHeld() {
+		if (this.holdTime <= 0) {
 			this.forceRollBack = this.isFullyPowered();
 		}
-		this.pressTime = 2;
+		this.holdTime = 2;
 	}
 
 	public float getRotation(float partialTick) {
@@ -80,7 +80,7 @@ public class WinchBlockEntity extends BlockEntity {
 
 		int oldPower = blockEntity.getPower();
 		float oldRotation = blockEntity.rotation;
-		boolean isPressed = blockEntity.pressTime > 0;
+		boolean isPressed = blockEntity.holdTime > 0;
 
 		if (blockEntity.forceRollBack || (!isPressed && shouldUnwind(level, pos, state, blockEntity))) {
 			blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
@@ -91,7 +91,7 @@ public class WinchBlockEntity extends BlockEntity {
 		}
 
 		if (isPressed) {
-			--blockEntity.pressTime;
+			--blockEntity.holdTime;
 		}
 
 		if (blockEntity.rotation != oldRotation) {

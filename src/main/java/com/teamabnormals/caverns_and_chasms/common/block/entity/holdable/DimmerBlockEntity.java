@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DimmerBlockEntity extends BlockEntity {
-	private int pressTime;
+	private int holdTime;
 	private boolean unpowerTick;
 
 	public DimmerBlockEntity(BlockPos pos, BlockState state) {
@@ -21,24 +21,24 @@ public class DimmerBlockEntity extends BlockEntity {
 	@Override
 	public void load(CompoundTag compound) {
 		super.load(compound);
-		this.pressTime = compound.getShort("PressTime");
+		this.holdTime = compound.getShort("HoldTime");
 		this.unpowerTick = compound.getBoolean("UnpowerTick");
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag compound) {
 		super.saveAdditional(compound);
-		compound.putShort("PressTime", (short) this.pressTime);
+		compound.putShort("HoldTime", (short) this.holdTime);
 		compound.putBoolean("UnpowerTick", this.unpowerTick);
 	}
 
-	public void setPressed() {
-		this.pressTime = 5;
+	public void setHeld() {
+		this.holdTime = 5;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, DimmerBlockEntity blockEntity) {
 		if (!level.isClientSide()) {
-			int i = blockEntity.pressTime > 0 ? 15 : level.getBestNeighborSignal(pos);
+			int i = blockEntity.holdTime > 0 ? 15 : level.getBestNeighborSignal(pos);
 			int j = state.getValue(AbstractDimmerBlock.POWER);
 			if (i < j) {
 				if (!blockEntity.unpowerTick) {
@@ -56,8 +56,8 @@ public class DimmerBlockEntity extends BlockEntity {
 				blockEntity.unpowerTick = false;
 			}
 
-			if (blockEntity.pressTime > 0) {
-				--blockEntity.pressTime;
+			if (blockEntity.holdTime > 0) {
+				--blockEntity.holdTime;
 			}
 		} else if (state.getValue(AbstractDimmerBlock.POWER) > 0 && level.getGameTime() % 2 == 0) {
 			level.playLocalSound(pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.2F, 0.2F, false);

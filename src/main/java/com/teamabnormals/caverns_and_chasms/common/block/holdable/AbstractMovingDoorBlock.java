@@ -1,15 +1,18 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.google.common.collect.Lists;
+import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.item.MovingDoorBlockItem;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.core.Vec3i;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -101,7 +104,7 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 		boolean isItemCompatibleDoor = player.getItemInHand(hand).getItem() instanceof MovingDoorBlockItem doorItem && this.canBePartOfSameDoor(doorItem.getBlock());
 		if (headerEntity != null && !isItemCompatibleDoor && level.getBlockEntity(pos) instanceof MovingDoorBlockEntity doorEntity && (doorEntity.isBottom() || (doorEntity.isBelowBottom() && this.isHitResultInLiftArea(state, doorEntity, pos, hitResult)))) {
 			if (!level.isClientSide)
-				headerEntity.setBeingLifted();
+				headerEntity.setHeld();
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 
@@ -169,6 +172,8 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 	public abstract VoxelShape getDoorShape(MovingDoorBlockEntity blockEntity, BlockState state);
 
 	public abstract AABB calculatePushAABB(double openness, int doorsBelowCount, BlockState state, Vec3i moveVector);
+
+	public abstract MovingDoorMoveSoundInstance createSoundInstance(MovingDoorHeaderBlockEntity headerEntity);
 
 	public boolean isHitResultInLiftArea(BlockState state, MovingDoorBlockEntity doorEntity, BlockPos pos, BlockHitResult hitResult) {
 		Direction direction = this.getBelowDirection(state);

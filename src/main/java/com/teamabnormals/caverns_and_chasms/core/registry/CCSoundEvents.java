@@ -372,9 +372,9 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ROLLER_DOOR_PLACE = HELPER.createSoundEvent("block.roller_door.place");
 	public static final RegistryObject<SoundEvent> ROLLER_DOOR_STEP = HELPER.createSoundEvent("block.roller_door.step");
 	public static final RegistryObject<SoundEvent> ROLLER_DOOR_DEFLECT = HELPER.createSoundEvent("block.roller_door.deflect");
-	public static final RegistryObject<SoundEvent> ROLLER_DOOR_OPEN = HELPER.createSoundEvent("block.roller_door.open");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_START_ROLL = HELPER.createSoundEvent("block.roller_door.start_roll");
 	public static final RegistryObject<SoundEvent> ROLLER_DOOR_ROLL = HELPER.createSoundEvent("block.roller_door.roll");
-	public static final RegistryObject<SoundEvent> ROLLER_DOOR_CLOSE = HELPER.createSoundEvent("block.roller_door.close");
+	public static final RegistryObject<SoundEvent> ROLLER_DOOR_STOP_ROLL = HELPER.createSoundEvent("block.roller_door.stop_roll");
 
 	public static final RegistryObject<SoundEvent> ATONING_TABLE_BREAK = HELPER.createSoundEvent("block.atoning_table.break");
 	public static final RegistryObject<SoundEvent> ATONING_TABLE_FALL = HELPER.createSoundEvent("block.atoning_table.fall");

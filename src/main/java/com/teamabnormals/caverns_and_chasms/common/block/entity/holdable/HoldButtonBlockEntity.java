@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public class HoldButtonBlockEntity extends BlockEntity {
-	private int pressTime;
+	private int holdTime;
 	private int timePressed;
 
 	public int getTimePressed() {
@@ -27,17 +27,17 @@ public class HoldButtonBlockEntity extends BlockEntity {
 	@Override
 	public void load(CompoundTag compound) {
 		super.load(compound);
-		this.pressTime = compound.getShort("PressTime");
+		this.holdTime = compound.getShort("HoldTime");
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag compound) {
 		super.saveAdditional(compound);
-		compound.putShort("PressTime", (short) this.pressTime);
+		compound.putShort("HoldTime", (short) this.holdTime);
 	}
 
-	public void setPressed() {
-		this.pressTime = 2;
+	public void setHeld() {
+		this.holdTime = 2;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {
@@ -50,8 +50,8 @@ public class HoldButtonBlockEntity extends BlockEntity {
 				level.blockUpdated(pos, state.getBlock());
 			}
 
-			if (blockEntity.pressTime > 0) {
-				--blockEntity.pressTime;
+			if (blockEntity.holdTime > 0) {
+				--blockEntity.holdTime;
 			} else if (state.getValue(HoldButtonBlock.PRESSED)) {
 				HoldButtonBlock holdButtonBlock = (HoldButtonBlock) state.getBlock();
 				level.setBlock(pos, state.setValue(HoldButtonBlock.PRESSED, false).setValue(HoldButtonBlock.POWERED, true), 3);

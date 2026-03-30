@@ -50,7 +50,7 @@ public abstract class AbstractDimmerBlock extends BaseEntityBlock implements Sim
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof DimmerBlockEntity dimmerBlockEntity) {
-			dimmerBlockEntity.setPressed();
+			dimmerBlockEntity.setHeld();
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 		return InteractionResult.PASS;

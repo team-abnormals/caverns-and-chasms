@@ -177,6 +177,7 @@ public class CavernsAndChasms {
 		CHANNEL.registerMessage(id++, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		CHANNEL.registerMessage(id++, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		CHANNEL.registerMessage(id++, S2CUpdateAttachedRatsMessage.class, S2CUpdateAttachedRatsMessage::serialize, S2CUpdateAttachedRatsMessage::deserialize, S2CUpdateAttachedRatsMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		CHANNEL.registerMessage(id++, S2CMovingDoorSoundMessage.class, S2CMovingDoorSoundMessage::serialize, S2CMovingDoorSoundMessage::deserialize, S2CMovingDoorSoundMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		CHANNEL.registerMessage(id++, C2SGrazerJumpMessage.class, C2SGrazerJumpMessage::serialize, C2SGrazerJumpMessage::deserialize, C2SGrazerJumpMessage::handle);
 		CHANNEL.registerMessage(id++, C2SBoneFluteSitMessage.class, C2SBoneFluteSitMessage::serialize, C2SBoneFluteSitMessage::deserialize, C2SBoneFluteSitMessage::handle);
 		CHANNEL.registerMessage(id++, C2SBoneFluteRecallMessage.class, C2SBoneFluteRecallMessage::serialize, C2SBoneFluteRecallMessage::deserialize, C2SBoneFluteRecallMessage::handle);
