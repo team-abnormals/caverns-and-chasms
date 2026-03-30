@@ -8,8 +8,4 @@ public interface CCArmorTrim {
 	boolean isEmissive();
 
 	void setEmissive(boolean emissive);
-
-	boolean isPulse();
-
-	void setPulse(boolean pulse);
 }

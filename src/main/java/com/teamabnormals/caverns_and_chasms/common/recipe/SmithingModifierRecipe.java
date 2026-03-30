@@ -52,14 +52,11 @@ public class SmithingModifierRecipe implements SmithingRecipe {
 			ItemStack output = armor.copy();
 			output.setCount(1);
 			CompoundTag tag = armor.getOrCreateTag();
-			if (modifier.is(CCItems.SPINEL.get()) && !tag.getBoolean("FadedTrim")) {
-				output.getOrCreateTag().putBoolean("FadedTrim", true);
-				return output;
-			} else if (modifier.is(Items.GLOW_INK_SAC) && !tag.getBoolean("EmissiveTrim")) {
+			if (modifier.is(Items.GLOW_INK_SAC) && !tag.getBoolean("EmissiveTrim")) {
 				output.getOrCreateTag().putBoolean("EmissiveTrim", true);
 				return output;
-			} else if (modifier.is(Items.PRISMARINE_SHARD) && !tag.getBoolean("PulseTrim")) {
-				output.getOrCreateTag().putBoolean("PulseTrim", true);
+			} else if (modifier.is(CCItems.SPINEL.get()) && !tag.getBoolean("FadedTrim")) {
+				output.getOrCreateTag().putBoolean("FadedTrim", true);
 				return output;
 			}
 		}
