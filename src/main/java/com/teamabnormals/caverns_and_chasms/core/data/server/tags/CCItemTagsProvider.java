@@ -79,7 +79,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.DISMANTLING_FUELS).addTag(CCItemTags.GEMS_SPINEL);
 		this.tag(CCItemTags.DISMANTLING_TABLE_CANNOT_DISMANTLE);
 		this.tag(CCItemTags.ATONING_FUELS).addTag(CCItemTags.GEMS_SPINEL);
-		this.tag(CCItemTags.TRIM_MODIFIERS).add(Items.GLOW_INK_SAC, SPINEL.get());
+		this.tag(CCItemTags.TRIM_MODIFIERS).add(SPINEL.get(), Items.GLOW_INK_SAC, Items.PRISMARINE_SHARD);
 		this.tag(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA);
 		this.tag(CCItemTags.CHANGES_HOOP_SIZE).add(TUNING_FORK.get());
 		this.tag(CCItemTags.PLACEABLE_ITEMS).add(

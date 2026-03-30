@@ -28,6 +28,9 @@ public class ArmorTrimMixin implements CCArmorTrim {
 	@Unique
 	private boolean caverns_and_chasms$isEmissive = false;
 
+	@Unique
+	private boolean caverns_and_chasms$isPulse = false;
+
 	@Override
 	public boolean isFaded() {
 		return this.caverns_and_chasms$isFaded;
@@ -48,12 +51,23 @@ public class ArmorTrimMixin implements CCArmorTrim {
 		this.caverns_and_chasms$isEmissive = emissive;
 	}
 
+	@Override
+	public boolean isPulse() {
+		return this.caverns_and_chasms$isPulse;
+	}
+
+	@Override
+	public void setPulse(boolean pulse) {
+		this.caverns_and_chasms$isPulse = pulse;
+	}
+
 	@ModifyVariable(method = "getTrim", at = @At("STORE"))
 	private static ArmorTrim getTrim(ArmorTrim trim, RegistryAccess access, ItemStack stack) {
 		CompoundTag tag = stack.getOrCreateTag();
 		CCArmorTrim armorTrim = (CCArmorTrim) trim;
-		armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
 		armorTrim.setFaded(tag.getBoolean("FadedTrim"));
+		armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
+		armorTrim.setPulse(tag.getBoolean("PulseTrim"));
 		return trim;
 	}
 
@@ -61,12 +75,16 @@ public class ArmorTrimMixin implements CCArmorTrim {
 	private static void appendHoverText(ItemStack stack, RegistryAccess access, List<Component> tooltip, CallbackInfo ci) {
 		Style style = ArmorTrim.getTrim(access, stack).get().material().value().description().getStyle();
 
+		if (stack.getOrCreateTag().getBoolean("FadedTrim")) {
+			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
+		}
+
 		if (stack.getOrCreateTag().getBoolean("EmissiveTrim")) {
 			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
 		}
 
-		if (stack.getOrCreateTag().getBoolean("FadedTrim")) {
-			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
+		if (stack.getOrCreateTag().getBoolean("PulseTrim")) {
+			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".pulse_modifier").withStyle(style)));
 		}
 	}
 }

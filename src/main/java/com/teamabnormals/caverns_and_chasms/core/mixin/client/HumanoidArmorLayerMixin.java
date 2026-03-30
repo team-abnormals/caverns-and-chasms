@@ -151,6 +151,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 					ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(copper ? CCTrimPatterns.COPPER : CCTrimPatterns.SANGUINE));
 					((CCArmorTrim) trim).setFaded(((CCArmorTrim) armorTrim).isFaded());
 					((CCArmorTrim) trim).setEmissive(((CCArmorTrim) armorTrim).isEmissive());
+					((CCArmorTrim) trim).setPulse(((CCArmorTrim) armorTrim).isPulse());
 					this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
 				});
 			}
@@ -162,14 +163,12 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 		CCArmorTrim armorTrim = (CCArmorTrim) trim;
 		boolean faded = armorTrim.isFaded();
 		boolean emissive = armorTrim.isEmissive();
-		if (faded || emissive) {
+		boolean pulse = armorTrim.isPulse();
+		if (faded || emissive || pulse) {
 			TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(inner ? trim.innerTexture(material) : trim.outerTexture(material));
 			Function<ResourceLocation, RenderType> type = emissive ? CCRenderTypes.ARMOR_CUTOUT_NO_CULL_EMISSIVE : CCRenderTypes.ARMOR_TRANSLUCENT_NO_CULL;
 			VertexConsumer vertexconsumer = sprite.wrap(source.getBuffer(type.apply(Sheets.ARMOR_TRIMS_SHEET)));
-			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F,
-					faded && emissive ? TrimModifierSmithingTemplateItem.getBothAlpha() :
-							faded ? TrimModifierSmithingTemplateItem.getFadedAlpha() :
-									TrimModifierSmithingTemplateItem.getEmissiveAlpha());
+			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, TrimModifierSmithingTemplateItem.getTrimAlpha(faded, emissive, pulse));
 			ci.cancel();
 		}
 	}

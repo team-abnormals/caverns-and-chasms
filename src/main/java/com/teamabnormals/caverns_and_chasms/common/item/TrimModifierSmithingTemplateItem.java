@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -57,15 +58,35 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 		return List.of(EMPTY_SLOT_SPINEL, EMPTY_SLOT_GLOW_INK_SAC);
 	}
 
-	public static float getBothAlpha() {
-		return 0.2F;
+	public static float getPulseAlpha(float min, float max) {
+		float partialTicks = Minecraft.getInstance().getFrameTime();
+		float time = Minecraft.getInstance().level.getGameTime() + partialTicks;
+		float t = time * 0.03F;
+		float pulse = (float)(Math.sin(t) * 0.5F + 0.5F);
+		return min + (max - min) * pulse;
 	}
 
-	public static float getFadedAlpha() {
-		return 0.4F;
-	}
-
-	public static float getEmissiveAlpha() {
-		return 0.6F;
+	public static float getTrimAlpha(boolean faded, boolean emissive, boolean pulse) {
+		if (pulse) {
+			if (faded && emissive) {
+				return getPulseAlpha(0.15F, 0.45F);
+			} else if (faded) {
+				return getPulseAlpha(0.15F, 0.45F);
+			} else if (emissive) {
+				return getPulseAlpha(0.3F, 1.0F);
+			} else {
+				return getPulseAlpha(0.3F, 1.0F);
+			}
+		} else {
+			if (faded && emissive) {
+				return 0.2F;
+			} else if (faded) {
+				return 0.4F;
+			} else if (emissive) {
+				return 0.6F;
+			} else {
+				return 1.0F;
+			}
+		}
 	}
 }
