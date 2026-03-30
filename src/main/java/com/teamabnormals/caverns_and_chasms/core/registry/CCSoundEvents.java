@@ -362,6 +362,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_PLACE = HELPER.createSoundEvent("block.storage_duct.place");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_STEP = HELPER.createSoundEvent("block.storage_duct.step");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_DEFLECT = HELPER.createSoundEvent("block.storage_duct.deflect");
+	
+	public static final RegistryObject<SoundEvent> CAVIAR_BREAK = HELPER.createSoundEvent("block.caviar.break");
+	public static final RegistryObject<SoundEvent> CAVIAR_FALL = HELPER.createSoundEvent("block.caviar.fall");
+	public static final RegistryObject<SoundEvent> CAVIAR_HIT = HELPER.createSoundEvent("block.caviar.hit");
+	public static final RegistryObject<SoundEvent> CAVIAR_PLACE = HELPER.createSoundEvent("block.caviar.place");
+	public static final RegistryObject<SoundEvent> CAVIAR_STEP = HELPER.createSoundEvent("block.caviar.step");
 
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_HATCH_OPEN = HELPER.createSoundEvent("block.storage_duct_hatch.open");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_HATCH_CLOSE = HELPER.createSoundEvent("block.storage_duct_hatch.close");
@@ -437,6 +443,9 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_EVENDEEPER = HELPER.createSoundEvent("block.note_block.imitate.evendeeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_PEEPER = HELPER.createSoundEvent("block.note_block.imitate.peeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_WARDEN = HELPER.createSoundEvent("block.note_block.imitate.warden");
+	
+	public static final RegistryObject<SoundEvent> CAVIAR_EAT = HELPER.createSoundEvent("item.caviar.eat");
+	public static final RegistryObject<SoundEvent> CAVIAR_BURP = HELPER.createSoundEvent("item.caviar.burp");
 
 	public static final RegistryObject<SoundEvent> TINPLATE_WAX = HELPER.createSoundEvent("item.tinplate.wax");
 
@@ -605,6 +614,7 @@ public class CCSoundEvents {
 		public static final ForgeSoundType SUGILITE = new ForgeSoundType(1.0F, 1.0F, SUGILITE_BREAK, SUGILITE_STEP, SUGILITE_PLACE, SUGILITE_HIT, SUGILITE_FALL);
 		public static final ForgeSoundType ZIRCONIA = new ForgeSoundType(1.0F, 1.0F, ZIRCONIA_BREAK, ZIRCONIA_STEP, ZIRCONIA_PLACE, ZIRCONIA_HIT, ZIRCONIA_FALL);
 		public static final ForgeSoundType TURQUOISE = new ForgeSoundType(1.0F, 1.0F, TURQUOISE_BREAK, TURQUOISE_STEP, TURQUOISE_PLACE, TURQUOISE_HIT, TURQUOISE_FALL);
+		public static final ForgeSoundType CAVIAR = new ForgeSoundType(1.0F, 1.0F, CAVIAR_BREAK, CAVIAR_STEP, CAVIAR_PLACE, CAVIAR_HIT, CAVIAR_FALL);
 		public static final ForgeSoundType ORNATE_GLASS = new ForgeSoundType(1.0F, 1.0F, ORNATE_GLASS_BREAK, ORNATE_GLASS_STEP, ORNATE_GLASS_PLACE, ORNATE_GLASS_HIT, ORNATE_GLASS_FALL);
 		public static final ForgeSoundType FLOAT_GLASS = new TinSoundType(1.0F, 1.0F, FLOAT_GLASS_BREAK, FLOAT_GLASS_STEP, FLOAT_GLASS_PLACE, FLOAT_GLASS_HIT, FLOAT_GLASS_FALL, FLOAT_GLASS_DEFLECT);
 		public static final ForgeSoundType NECROMIUM = new ForgeSoundType(1.0F, 1.0F, NECROMIUM_BREAK, NECROMIUM_STEP, NECROMIUM_PLACE, NECROMIUM_HIT, NECROMIUM_FALL);
