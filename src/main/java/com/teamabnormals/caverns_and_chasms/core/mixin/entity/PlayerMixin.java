@@ -63,6 +63,12 @@ public abstract class PlayerMixin extends LivingEntity implements MovingPlayer {
 
 	@WrapOperation(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"), method = "eat")
 	private void wrapPositionUpdate(Level level, Player player, double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, Operation<Void> original, Level lvl, ItemStack stack) {
-		original.call(level, player, x, y, z, stack.is(CCItems.BEJEWELED_APPLE.get()) ? CCSoundEvents.BEJEWELED_APPLE_BURP.get() : soundEvent, soundSource, volume, pitch);
+		SoundEvent sound = soundEvent;
+		if (stack.is(CCItems.BEJEWELED_APPLE.get())) {
+			sound = CCSoundEvents.BEJEWELED_APPLE_BURP.get();
+		} else if (stack.is(CCItems.CAVIAR.get())) {
+			sound = CCSoundEvents.CAVIAR_BURP.get();
+		}
+		original.call(level, player, x, y, z, sound, soundSource, volume, pitch);
 	}
 }
