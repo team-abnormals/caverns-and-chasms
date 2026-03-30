@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,7 +32,7 @@ public class CaviarItem extends BlockItem {
 
 	@Override
 	public SoundEvent getEatingSound() {
-		return SoundEvents.PLAYER_BURP;
+		return CCSoundEvents.CAVIAR_EAT.get();
 	}
 
 	@Override

@@ -333,7 +333,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> TURQUOISE_PILLAR = HELPER.createBlock("turquoise_pillar", () -> new TurquoisePillarBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final RegistryObject<Block> TURQUOISE_LAMP = HELPER.createBlock("turquoise_lamp", () -> new TurquoiseBlock(Properties.copy(LAPIS_LAZULI_LAMP.get()).sound(CCSoundTypes.TURQUOISE)), CCProperties.FANCY);
 
-	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot()));
+	public static final RegistryObject<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot().sound(CCSoundTypes.CAVIAR)));
 
 	public static final RegistryObject<Block> FROSTED_GLASS = HELPER.createBlock("frosted_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 	public static final RegistryObject<Block> FROSTED_GLASS_PANE = HELPER.createBlock("frosted_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE)));
