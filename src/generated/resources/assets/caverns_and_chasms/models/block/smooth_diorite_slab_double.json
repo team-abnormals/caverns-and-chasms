@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "caverns_and_chasms:block/smooth_diorite",
+    "side": "caverns_and_chasms:block/smooth_diorite_slab"
+  }
+}

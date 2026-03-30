@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "caverns_and_chasms:block/smooth_diorite",
-    "side": "caverns_and_chasms:block/smooth_diorite",
+    "side": "caverns_and_chasms:block/smooth_diorite_slab",
     "top": "caverns_and_chasms:block/smooth_diorite"
   }
 }
