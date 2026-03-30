@@ -105,16 +105,21 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		Optional<ArmorTrim> trim = ArmorTrim.getTrim(level.registryAccess(), item);
 		if (trim.isPresent()) {
 			CompoundTag tag = item.getOrCreateTag();
-			if (tag.getBoolean("EmissiveTrim")) {
-				item.getOrCreateTag().remove("EmissiveTrim");
+			if (tag.getBoolean("PulseTrim")) {
+				item.getOrCreateTag().remove("PulseTrim");
 				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
 				container.setItem(1, item);
-				container.setItem(2, new ItemStack(Items.GLOW_INK_SAC));
+				container.setItem(2, new ItemStack(Items.PRISMARINE));
 			} else if (tag.getBoolean("FadedTrim")) {
 				item.getOrCreateTag().remove("FadedTrim");
 				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
 				container.setItem(1, item);
 				container.setItem(2, new ItemStack(CCItems.SPINEL.get()));
+			} else if (tag.getBoolean("EmissiveTrim")) {
+				item.getOrCreateTag().remove("EmissiveTrim");
+				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
+				container.setItem(1, item);
+				container.setItem(2, new ItemStack(Items.GLOW_INK_SAC));
 			} else {
 				ItemStack ingredient = trim.get().material().get().ingredient().get().getDefaultInstance();
 				ItemStack template = trim.get().pattern().get().templateItem().get().getDefaultInstance();

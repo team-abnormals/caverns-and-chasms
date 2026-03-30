@@ -606,6 +606,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		trimRecipes(consumer, CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Blocks.COAL_BLOCK);
 
 		modifierRecipe(consumer, Items.GLOW_INK_SAC, "emissive");
+		modifierRecipe(consumer, Items.PRISMARINE_SHARD, "pulse");
 		modifierRecipe(consumer, CCItems.SPINEL.get(), "faded");
 		copySmithingTemplate(consumer, CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get(), CCItemTags.GEMS_TURQUOISE);
 
