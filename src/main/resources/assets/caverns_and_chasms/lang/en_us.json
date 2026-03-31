@@ -1167,6 +1167,8 @@
   "subtitles.caverns_and_chasms.item.bone_flute.move": "Bone Flute plays Move",
   "subtitles.caverns_and_chasms.item.bone_flute.recall": "Bone Flute plays Recall",
   "subtitles.caverns_and_chasms.item.bone_flute.sit": "Bone Flute plays Sit",
+  "subtitles.caverns_and_chasms.item.caviar.eat": "*Tastes the food*",
+  "subtitles.caverns_and_chasms.item.caviar.burp": "*Enjoys it*",
   "subtitles.caverns_and_chasms.item.copper_horn.play": "Copper Horn plays",
   "subtitles.caverns_and_chasms.item.lost_goat_horn.play": "Goat Horn plays",
   "subtitles.caverns_and_chasms.item.packing_container.drop_contents": "Packing Container empties",
