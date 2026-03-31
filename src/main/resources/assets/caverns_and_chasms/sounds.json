@@ -2933,34 +2933,59 @@
   "block.float_glass.fall": {
     "sounds": [
       "caverns_and_chasms:block/float_glass/step1",
-      "caverns_and_chasms:block/float_glass/step2"
+      "caverns_and_chasms:block/float_glass/step2",
+      "caverns_and_chasms:block/float_glass/step3",
+      "caverns_and_chasms:block/float_glass/step4",
+      "caverns_and_chasms:block/float_glass/step5",
+      "caverns_and_chasms:block/float_glass/step6",
+      "caverns_and_chasms:block/float_glass/step7"	  
     ]
   },
   "block.float_glass.hit": {
     "sounds": [
       "caverns_and_chasms:block/float_glass/step1",
-      "caverns_and_chasms:block/float_glass/step2"
+      "caverns_and_chasms:block/float_glass/step2",
+      "caverns_and_chasms:block/float_glass/step3",
+      "caverns_and_chasms:block/float_glass/step4",
+      "caverns_and_chasms:block/float_glass/step5",
+      "caverns_and_chasms:block/float_glass/step6",
+      "caverns_and_chasms:block/float_glass/step7"	  
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.float_glass.place": {
     "sounds": [
       "caverns_and_chasms:block/float_glass/step1",
-      "caverns_and_chasms:block/float_glass/step2"
+      "caverns_and_chasms:block/float_glass/step2",
+      "caverns_and_chasms:block/float_glass/step3",
+      "caverns_and_chasms:block/float_glass/step4",
+      "caverns_and_chasms:block/float_glass/step5",
+      "caverns_and_chasms:block/float_glass/step6",
+      "caverns_and_chasms:block/float_glass/step7"	  
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.float_glass.step": {
     "sounds": [
       "caverns_and_chasms:block/float_glass/step1",
-      "caverns_and_chasms:block/float_glass/step2"
+      "caverns_and_chasms:block/float_glass/step2",
+      "caverns_and_chasms:block/float_glass/step3",
+      "caverns_and_chasms:block/float_glass/step4",
+      "caverns_and_chasms:block/float_glass/step5",
+      "caverns_and_chasms:block/float_glass/step6",
+      "caverns_and_chasms:block/float_glass/step7"	  
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
   "block.float_glass.deflect": {
     "sounds": [
       "caverns_and_chasms:block/float_glass/step1",
-      "caverns_and_chasms:block/float_glass/step2"
+      "caverns_and_chasms:block/float_glass/step2",
+      "caverns_and_chasms:block/float_glass/step3",
+      "caverns_and_chasms:block/float_glass/step4",
+      "caverns_and_chasms:block/float_glass/step5",
+      "caverns_and_chasms:block/float_glass/step6",
+      "caverns_and_chasms:block/float_glass/step7"	  
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
