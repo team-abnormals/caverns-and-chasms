@@ -59,7 +59,6 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 		return this.getEquipmentSlot(new ItemStack(this));
 	}
 
-	@Nullable
 	@Override
 	public SoundEvent getEquipSound() {
 		return CCSoundEvents.TETHER_POTION_EQUIP.get();
