@@ -102,8 +102,8 @@ public class CaveGrowthsBlock extends BushBlock {
 			if (entity != null) {
 				entity.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
 				level.addFreshEntity(entity);
-				if (entity instanceof Mob)
-					((Mob) entity).spawnAnim();
+				if (entity instanceof Mob mob)
+					mob.spawnAnim();
 			}
 		});
 	}
