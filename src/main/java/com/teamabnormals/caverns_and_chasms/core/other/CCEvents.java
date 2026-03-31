@@ -825,9 +825,6 @@ public class CCEvents {
 		LivingEntity entity = event.getEntity();
 		DamageSource source = event.getDamageSource();
 		if (entity instanceof Player player && player.getUseItem().is(CCItems.AEGIS.get()) && !(source.getDirectEntity() instanceof Projectile)) {
-			player.getCooldowns().addCooldown(CCItems.AEGIS.get(), 100);
-			entity.level().broadcastEntityEvent(player, (byte) 30);
-			player.releaseUsingItem();
 		}
 	}
 

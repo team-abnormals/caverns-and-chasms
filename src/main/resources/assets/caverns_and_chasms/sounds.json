@@ -5233,7 +5233,7 @@
       "caverns_and_chasms:item/aegis/stun1",
       "caverns_and_chasms:item/aegis/stun2"
     ],
-    "subtitle": "subtitles.entity.item.break​"
+    "subtitle": "subtitles.entity.item.break"
   },
   "item.packing_container.insert": {
     "sounds": [

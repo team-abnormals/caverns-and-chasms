@@ -11,12 +11,16 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTickList;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,6 +36,8 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	@Shadow
 	public abstract void push(Entity entity);
 
+	@Shadow
+	protected ItemStack useItem;
 	@Unique
 	private List<Rat> attachedRats = Lists.newArrayList();
 
@@ -85,10 +91,21 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	}
 
 	@WrapOperation(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/critereon/PlayerHurtEntityTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;FFZ)V"))
-	private void placeSupport(PlayerHurtEntityTrigger instance, ServerPlayer player, Entity entity, DamageSource source, float f, float f1, boolean flag, Operation<Void> original) {
+	private void playerHurtSelf(PlayerHurtEntityTrigger instance, ServerPlayer player, Entity entity, DamageSource source, float f, float f1, boolean flag, Operation<Void> original) {
 		original.call(instance, player, entity, source, f, f1, flag);
 		if (player.is(entity)) {
 			CCCriteriaTriggers.PLAYER_HURT_SELF.trigger(player, entity, source, f, f1, flag);
+		}
+	}
+
+	@WrapOperation(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;broadcastEntityEvent(Lnet/minecraft/world/entity/Entity;B)V"))
+	private void hurt(Level level, Entity entity, byte b, Operation<Void> original) {
+		if (!this.useItem.is(CCItems.AEGIS.get())) {
+			original.call(level, entity, b);
+		} else if (entity instanceof Player player){
+			player.getCooldowns().addCooldown(CCItems.AEGIS.get(), 100);
+			level.playSound(null, player.getX(), player.getY(), player.getZ(), CCSoundEvents.AEGIS_STUN.get(), player.getSoundSource(), 0.8F, 0.8F + level.random.nextFloat() * 0.4F);
+			player.releaseUsingItem();
 		}
 	}
 
