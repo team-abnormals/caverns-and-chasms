@@ -171,7 +171,7 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 	public VoxelShape getDoorShape(MovingDoorBlockEntity blockEntity, BlockState state) {
 		Direction facing = state.getValue(RollerDoorBlock.FACING);
 		AttachFace face = state.getValue(RollerDoorBlock.FACE);
-		double openness = blockEntity.isBottom() ? blockEntity.getOpenness(1.0F) : 0.0D;
+		double openness = blockEntity.isBottom() ? blockEntity.getVisualOpenness(1.0F) : 0.0D;
 
 		if (face == AttachFace.WALL) {
 			if (facing == Direction.NORTH)

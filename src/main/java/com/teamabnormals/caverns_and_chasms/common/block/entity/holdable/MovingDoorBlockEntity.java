@@ -17,11 +17,17 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MovingDoorBlockEntity extends BlockEntity {
 	protected double openness;
-	protected double opennessOld;
 	protected boolean isBelowBottom;
 	protected MovingDoorType doorType;
 	protected MovingDoorType belowDoorType;
 	protected long lastUpdateTick;
+	protected boolean justCreated;
+
+	protected double visualOpenness;
+	protected double visualOpennessOld;
+	protected boolean visualIsBelowBottom;
+	protected MovingDoorType visualDoorType;
+	protected MovingDoorType visualBelowDoorType;
 
 	public MovingDoorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -35,6 +41,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	@Override
 	public void load(CompoundTag compound) {
 		super.load(compound);
+
 		this.openness = compound.getDouble("Openness");
 		this.isBelowBottom = compound.getBoolean("BelowIsBottom");
 		MovingDoorType thisType = MovingDoorType.byName((compound.getString("DoorType")));
@@ -44,8 +51,10 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		MovingDoorType belowType = MovingDoorType.byName((compound.getString("BelowDoorType")));
 		this.belowDoorType = belowType;
 
-		// Only in update tag
-		this.lastUpdateTick = compound.getLong("LastUpdateTick");
+		this.justCreated = compound.getBoolean("JustCreated");
+		if (this.justCreated || !compound.getBoolean("UpdateTag")) {
+			this.syncVisuals();
+		}
 	}
 
 	@Override
@@ -59,6 +68,12 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		if (this.belowDoorType != null) {
 			compound.putString("BelowDoorType", this.belowDoorType.getRegistryName());
 		}
+	}
+
+	@Override
+	public void setLevel(Level level) {
+		super.setLevel(level);
+		this.syncVisuals();
 	}
 
 	public void onPlace(MovingDoorType doorType) {
@@ -81,7 +96,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		// Copy the openness of the door above
 		if (this.level.getBlockEntity(abovePos) instanceof MovingDoorBlockEntity aboveEntity && thisBlock.partOfSameDoor(thisState, aboveState)) {
 			this.openness = aboveEntity.openness;
-			this.opennessOld = aboveEntity.opennessOld;
+			// this.opennessOld = aboveEntity.opennessOld;
 			aboveEntity.belowDoorType = doorType;
 			this.level.sendBlockUpdated(abovePos, aboveState, aboveState, 3);
 			hasDoorAbove = true;
@@ -99,7 +114,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 				if (!hasDoorAbove) {
 					this.openness = belowEntity.openness;
-					this.opennessOld = belowEntity.opennessOld;
+					// this.opennessOld = belowEntity.opennessOld;
 				}
 
 				AbstractMovingDoorBlock belowBlock = (AbstractMovingDoorBlock) belowState.getBlock();
@@ -107,7 +122,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 				if (this.level.getBlockEntity(belowPos) instanceof MovingDoorBlockEntity newBelowEntity) {
 					newBelowEntity.openness = belowEntity.openness;
-					newBelowEntity.opennessOld = belowEntity.opennessOld;
+					// newBelowEntity.opennessOld = belowEntity.opennessOld;
 					newBelowEntity.isBelowBottom = belowEntity.isBelowBottom;
 					newBelowEntity.doorType = belowEntity.doorType;
 					newBelowEntity.belowDoorType = belowEntity.belowDoorType;
@@ -125,7 +140,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 			if (this.level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity && thisBlock.partOfSameDoor(thisState, offsetState)) {
 				if (hasDoorAbove) {
 					offsetEntity.openness = this.openness;
-					offsetEntity.opennessOld = this.opennessOld;
+					// offsetEntity.opennessOld = this.opennessOld;
 				}
 				offsetEntity.isBelowBottom = i == 1;
 				this.level.sendBlockUpdated(mutable, offsetState, offsetState, 3);
@@ -154,7 +169,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 			if (this.level.getBlockEntity(belowPos) instanceof MovingDoorHeaderBlockEntity newBelowEntity) {
 				newBelowEntity.openness = belowEntity.openness;
-				newBelowEntity.opennessOld = belowEntity.opennessOld;
+				// newBelowEntity.opennessOld = belowEntity.opennessOld;
 				newBelowEntity.isBelowBottom = belowEntity.isBelowBottom;
 				newBelowEntity.doorType = belowEntity.doorType;
 				newBelowEntity.belowDoorType = belowEntity.belowDoorType;
@@ -191,24 +206,37 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+		CompoundTag compound = this.saveWithoutMetadata();
+		compound.putBoolean("UpdateTag", true);
+		compound.putBoolean("JustCreated", this.justCreated);
+		return compound;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, MovingDoorBlockEntity thisEntity) {
-		if (thisEntity.lastUpdateTick < level.getGameTime()) {
-			thisEntity.opennessOld = thisEntity.openness;
+		thisEntity.justCreated = false;
+
+		if (level.isClientSide) {
+			thisEntity.visualOpennessOld = thisEntity.visualOpenness;
+			thisEntity.syncVisuals();
 		}
 	}
 
-	public double getOpenness(float partialTick) {
-		double d0 = this.openness - this.opennessOld;
+	public void syncVisuals() {
+		this.visualOpenness = this.openness;
+		this.visualIsBelowBottom = this.isBelowBottom;
+		this.visualDoorType = this.doorType;
+		this.visualBelowDoorType = this.belowDoorType;
+	}
+
+	public double getVisualOpenness(float partialTick) {
+		double d0 = this.visualOpenness - this.visualOpennessOld;
 		if (d0 > 0.5D) {
 			d0 -= 1.0D;
 		} else if (d0 < -0.5D) {
 			d0 += 1.0D;
 		}
 
-		double d1 = this.opennessOld + partialTick * d0;
+		double d1 = this.visualOpennessOld + partialTick * d0;
 
 		if (d1 > 1.0D) {
 			d1 -= 1.0D;
@@ -237,5 +265,21 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 	public MovingDoorType getBelowDoorType() {
 		return this.belowDoorType;
+	}
+
+	public boolean isVisuallyBottom() {
+		return this.visualBelowDoorType == null;
+	}
+
+	public boolean visualIsBelowBottom() {
+		return this.visualIsBelowBottom;
+	}
+
+	public MovingDoorType getVisualDoorType() {
+		return this.visualDoorType;
+	}
+
+	public MovingDoorType getVisualBelowDoorType() {
+		return this.visualBelowDoorType;
 	}
 }

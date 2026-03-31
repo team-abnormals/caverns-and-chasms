@@ -179,7 +179,7 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 		double d0 = hitResult.getLocation().get(axis) - pos.get(axis);
 		if (direction.getAxisDirection() == AxisDirection.POSITIVE)
 			d0 = 1.0D - d0;
-		return d0 < doorEntity.getOpenness(1.0F);
+		return d0 < doorEntity.getVisualOpenness(1.0F);
 	}
 
 	public MovingDoorHeaderBlockEntity findHeaderBlockEntity(LevelAccessor level, BlockState state, BlockPos pos) {

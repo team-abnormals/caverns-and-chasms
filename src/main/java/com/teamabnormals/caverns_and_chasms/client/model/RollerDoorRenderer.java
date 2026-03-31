@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.RollerDoorBlock;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -17,6 +18,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,13 +62,13 @@ public class RollerDoorRenderer<T extends MovingDoorBlockEntity> implements Bloc
 			Direction facing = blockState.getValue(RollerDoorBlock.FACING);
 			AttachFace face = blockState.getValue(RollerDoorBlock.FACE);
 
-			float openness = (float) blockEntity.getOpenness(partialTick);
+			float openness = (float) blockEntity.getVisualOpenness(partialTick);
 
-			MovingDoorType thisType = blockEntity.getDoorType();
-			MovingDoorType belowType = blockEntity.getBelowDoorType();
+			MovingDoorType thisType = blockEntity.getVisualDoorType();
+			MovingDoorType belowType = blockEntity.getVisualBelowDoorType();
 
-			boolean isBottom = blockEntity.isBottom() || renderAsItem;
-			boolean isBelowBottom = blockEntity.isBelowBottom();
+			boolean isBottom = blockEntity.isVisuallyBottom() || renderAsItem;
+			boolean isBelowBottom = blockEntity.visualIsBelowBottom();
 
 			Material thisMaterial = isBottom ? thisType.getBottomMaterial() : thisType.getNormalMaterial();
 			Material belowMaterial = belowType == null ? thisMaterial : isBelowBottom ? belowType.getBottomMaterial() : belowType.getNormalMaterial();

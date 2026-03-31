@@ -64,6 +64,7 @@ public class MovingDoorBlockItem extends BEWLRBlockItem {
 		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> {
 			MovingDoorHeaderBlockEntity blockEntity = new MovingDoorHeaderBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState());
 			blockEntity.setDoorType(doorType);
+			blockEntity.syncVisuals();
 			return new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, blockEntity);
 		});
 	}
