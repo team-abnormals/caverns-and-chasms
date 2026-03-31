@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class WinchBlockEntity extends BlockEntity {
-	private static WinchBlockEntity blockEntity;
 	private int holdTime;
 	private float rotation;
 	private float rotationO;
