@@ -26,8 +26,8 @@ public class BejeweledAppleItem extends Item {
 
 		RandomSource random = level.getRandom();
 		if (!level.isClientSide) {
-			entity.addEffect(new MobEffectInstance(getRandomEffect(random), 400 + (20 * random.nextInt(21)), 1));
-			entity.addEffect(new MobEffectInstance(getRandomEffect(random), 1200 + (20 * random.nextInt(61))));
+			addRandomEffect(entity, random, 60, 120, 0);
+			addRandomEffect(entity, random, 20, 40, 1);
 		}
 
 		if (entity instanceof Player player) {
@@ -37,7 +37,11 @@ public class BejeweledAppleItem extends Item {
 		return stack;
 	}
 
-	private MobEffect getRandomEffect(RandomSource random) {
+	public static void addRandomEffect(LivingEntity entity, RandomSource random, int minSecs, int maxSecs, int level) {
+		entity.addEffect(new MobEffectInstance(getRandomEffect(random), 20 * (minSecs + random.nextInt(1 + maxSecs - minSecs)), level));
+	}
+
+	private static MobEffect getRandomEffect(RandomSource random) {
 		List<MobEffect> mobEffectList = ForgeRegistries.MOB_EFFECTS.getValues().stream().toList();
 		MobEffect effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
 		while (ForgeRegistries.MOB_EFFECTS.tags().getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).contains(effect) || effect.isInstantenous())
