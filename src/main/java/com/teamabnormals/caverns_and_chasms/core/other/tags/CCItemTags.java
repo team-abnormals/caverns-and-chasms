@@ -23,6 +23,7 @@ public class CCItemTags {
 	public static final TagKey<Item> UNREPAIRABLE_BY_ZIRCONIA = itemTag("unrepairable_by_zirconia");
 	public static final TagKey<Item> PLACEABLE_ITEMS = itemTag("placeable_items");
 	public static final TagKey<Item> CHANGES_HOOP_SIZE = itemTag("changes_hoop_size");
+	public static final TagKey<Item> ROLLER_DOOR_LIFT_ITEMS = itemTag("roller_door_lift_items");
 	public static final TagKey<Item> TRIM_MODIFIERS = itemTag("trim_modifiers");
 	public static final TagKey<Item> SPARKLERS = itemTag("sparklers");
 

@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMo
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.item.MovingDoorBlockItem;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -99,8 +100,8 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		MovingDoorHeaderBlockEntity headerEntity = this.findHeaderBlockEntity(level, state, pos);
-		boolean isItemCompatibleDoor = player.getItemInHand(hand).getItem() instanceof MovingDoorBlockItem doorItem && this.canBePartOfSameDoor(doorItem.getBlock());
-		if (headerEntity != null && !isItemCompatibleDoor && level.getBlockEntity(pos) instanceof MovingDoorBlockEntity doorEntity && (doorEntity.isBottom() || (doorEntity.isBelowBottom() && this.isHitResultInLiftArea(state, doorEntity, pos, hitResult)))) {
+		// boolean isItemCompatibleDoor = player.getItemInHand(hand).getItem() instanceof MovingDoorBlockItem doorItem && this.canBePartOfSameDoor(doorItem.getBlock());
+		if (headerEntity != null && player.getItemInHand(hand).is(CCItemTags.ROLLER_DOOR_LIFT_ITEMS) && level.getBlockEntity(pos) instanceof MovingDoorBlockEntity doorEntity && (doorEntity.isBottom() || (doorEntity.isBelowBottom() && this.isHitResultInLiftArea(state, doorEntity, pos, hitResult)))) {
 			if (!level.isClientSide)
 				headerEntity.setHeld();
 

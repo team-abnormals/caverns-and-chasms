@@ -81,6 +81,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.TRIM_MODIFIERS).add(SPINEL.get(), Items.GLOW_INK_SAC, Items.PRISMARINE_SHARD);
 		this.tag(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA);
 		this.tag(CCItemTags.CHANGES_HOOP_SIZE).add(TUNING_FORK.get());
+		this.tag(CCItemTags.ROLLER_DOOR_LIFT_ITEMS).add(TUNING_FORK.get());
 		this.tag(CCItemTags.PLACEABLE_ITEMS).add(
 				Items.COAL, Items.CHARCOAL, Items.BRICK, Items.NETHER_BRICK,
 				Items.COPPER_INGOT, EXPOSED_COPPER_INGOT.get(), WEATHERED_COPPER_INGOT.get(), OXIDIZED_COPPER_INGOT.get(),
