@@ -103,8 +103,12 @@ public interface Sparkler {
 	}
 
 	default void entityInsideSparkler(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextFloat() < 0.1F) {
-			this.explodeSparkler(state, level, pos);
+		if (entity instanceof LivingEntity living && !level.isClientSide() && state.getValue(LIT) && (living.xOld != living.getX() || living.zOld != living.getZ()) && living.getRandom().nextBoolean()) {
+			double d0 = Math.abs(entity.getX() - entity.xOld);
+			double d1 = Math.abs(entity.getZ() - entity.zOld);
+			if (d0 >= (double) 0.25F || d1 >= (double) 0.25F) {
+				this.explodeSparkler(state, level, pos);
+			}
 		} else if (entity instanceof Projectile projectile) {
 			this.onProjectileHitSparkler(level, state, pos, projectile);
 		}
