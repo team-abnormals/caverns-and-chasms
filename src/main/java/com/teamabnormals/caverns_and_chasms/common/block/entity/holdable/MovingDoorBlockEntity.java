@@ -24,10 +24,14 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	protected boolean justCreated;
 
 	protected double visualOpenness;
-	protected double visualOpennessOld;
 	protected boolean visualIsBelowBottom;
 	protected MovingDoorType visualDoorType;
 	protected MovingDoorType visualBelowDoorType;
+
+	protected double visualOpennessOld;
+	protected boolean visualIsBelowBottomOld;
+	protected MovingDoorType visualDoorTypeOld;
+	protected MovingDoorType visualBelowDoorTypeOld;
 
 	public MovingDoorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -216,9 +220,16 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		thisEntity.justCreated = false;
 
 		if (level.isClientSide) {
-			thisEntity.visualOpennessOld = thisEntity.visualOpenness;
+			thisEntity.setOldVisuals();
 			thisEntity.syncVisuals();
 		}
+	}
+
+	public void setOldVisuals() {
+		this.visualOpennessOld = this.visualOpenness;
+		this.visualIsBelowBottomOld = this.visualIsBelowBottom;
+		this.visualDoorTypeOld = this.visualDoorType;
+		this.visualBelowDoorTypeOld = this.visualBelowDoorType;
 	}
 
 	public void syncVisuals() {
@@ -228,23 +239,8 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		this.visualBelowDoorType = this.belowDoorType;
 	}
 
-	public double getVisualOpenness(float partialTick) {
-		double d0 = this.visualOpenness - this.visualOpennessOld;
-		if (d0 > 0.5D) {
-			d0 -= 1.0D;
-		} else if (d0 < -0.5D) {
-			d0 += 1.0D;
-		}
-
-		double d1 = this.visualOpennessOld + partialTick * d0;
-
-		if (d1 > 1.0D) {
-			d1 -= 1.0D;
-		} else if (d1 < 0.0D) {
-			d1 += 1.0D;
-		}
-
-		return d1;
+	public double getOpenness() {
+		return this.openness;
 	}
 
 	public boolean isBottom() {
@@ -267,19 +263,48 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		return this.belowDoorType;
 	}
 
-	public boolean isVisuallyBottom() {
-		return this.visualBelowDoorType == null;
+	public double getVisualOpenness(float partialTick) {
+		double d0 = this.visualOpenness - this.visualOpennessOld;
+		if (d0 > 0.5D) {
+			d0 -= 1.0D;
+		} else if (d0 < -0.5D) {
+			d0 += 1.0D;
+		}
+
+		double d1 = this.visualOpennessOld + partialTick * d0;
+
+		if (d1 > 1.0D) {
+			d1 -= 1.0D;
+		} else if (d1 < 0.0D) {
+			d1 += 1.0D;
+		}
+
+		return d1;
 	}
 
-	public boolean visualIsBelowBottom() {
-		return this.visualIsBelowBottom;
+	public boolean isVisuallyBottom(boolean showOld) {
+		return showOld ? this.visualBelowDoorTypeOld == null : this.visualBelowDoorType == null;
 	}
 
-	public MovingDoorType getVisualDoorType() {
-		return this.visualDoorType;
+	public boolean visualIsBelowBottom(boolean showOld) {
+		return showOld ? this.visualIsBelowBottomOld : this.visualIsBelowBottom;
 	}
 
-	public MovingDoorType getVisualBelowDoorType() {
-		return this.visualBelowDoorType;
+	public MovingDoorType getVisualDoorType(boolean showOld) {
+		return showOld ? this.visualDoorTypeOld : this.visualDoorType;
+	}
+
+	public MovingDoorType getVisualBelowDoorType(boolean showOld) {
+		return showOld ? this.visualBelowDoorTypeOld : this.visualBelowDoorType;
+	}
+
+	public boolean shouldShowOldVisuals(float partialTick) {
+		double d0 = this.visualOpenness - this.visualOpennessOld;
+		if (d0 < -0.5D) {
+			d0 += 1.0D;
+			return this.visualOpennessOld + partialTick * d0 <= 1.0D;
+		}
+
+		return false;
 	}
 }

@@ -62,13 +62,12 @@ public class RollerDoorRenderer<T extends MovingDoorBlockEntity> implements Bloc
 			Direction facing = blockState.getValue(RollerDoorBlock.FACING);
 			AttachFace face = blockState.getValue(RollerDoorBlock.FACE);
 
+			boolean showOldVisuals = blockEntity.shouldShowOldVisuals(partialTick);
 			float openness = (float) blockEntity.getVisualOpenness(partialTick);
-
-			MovingDoorType thisType = blockEntity.getVisualDoorType();
-			MovingDoorType belowType = blockEntity.getVisualBelowDoorType();
-
-			boolean isBottom = blockEntity.isVisuallyBottom() || renderAsItem;
-			boolean isBelowBottom = blockEntity.visualIsBelowBottom();
+			MovingDoorType thisType = blockEntity.getVisualDoorType(showOldVisuals);
+			MovingDoorType belowType = blockEntity.getVisualBelowDoorType(showOldVisuals);
+			boolean isBottom = blockEntity.isVisuallyBottom(showOldVisuals) || renderAsItem;
+			boolean isBelowBottom = blockEntity.visualIsBelowBottom(showOldVisuals);
 
 			Material thisMaterial = isBottom ? thisType.getBottomMaterial() : thisType.getNormalMaterial();
 			Material belowMaterial = belowType == null ? thisMaterial : isBelowBottom ? belowType.getBottomMaterial() : belowType.getNormalMaterial();

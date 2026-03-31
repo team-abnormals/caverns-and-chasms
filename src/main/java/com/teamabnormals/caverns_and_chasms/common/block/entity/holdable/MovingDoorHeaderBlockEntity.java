@@ -106,7 +106,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		thisHeader.justCreated = false;
 
 		if (level.isClientSide) {
-			thisHeader.visualOpennessOld = thisHeader.visualOpenness;
+			thisHeader.setOldVisuals();
 			thisHeader.syncVisuals();
 		} else {
 			if (thisHeader.lastUpdateTick < level.getGameTime()) {
