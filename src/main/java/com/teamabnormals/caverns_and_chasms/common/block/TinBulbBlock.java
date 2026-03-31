@@ -38,13 +38,14 @@ public class TinBulbBlock extends Block {
 	public void checkAndFlip(BlockState state, ServerLevel level, BlockPos pos) {
 		boolean flag = level.hasNeighborSignal(pos);
 		if (flag != state.getValue(POWERED)) {
-			BlockState blockstate = state;
+			BlockState newState = state;
 			if (!state.getValue(POWERED)) {
-				blockstate = state.cycle(POWER);
-				level.playSound(null, pos, blockstate.getValue(POWER) > 0 ? CCSoundEvents.TIN_BULB_TURN_ON.get() : CCSoundEvents.TIN_BULB_TURN_OFF.get(), SoundSource.BLOCKS);
+				newState = state.cycle(POWER);
+				int power = newState.getValue(POWER);
+				level.playSound(null, pos, power > 0 ? CCSoundEvents.TIN_BULB_TURN_ON.get() : CCSoundEvents.TIN_BULB_TURN_OFF.get(), SoundSource.BLOCKS, 1.0F, 1.0F - power * 0.01F);
 			}
 
-			level.setBlock(pos, blockstate.setValue(POWERED, flag), 3);
+			level.setBlock(pos, newState.setValue(POWERED, flag), 3);
 		}
 	}
 
