@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -180,8 +181,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 				MAGMATIC_RHYOLITE.get(), MAGMATIC_RHYOLITE_STAIRS.get(), MAGMATIC_RHYOLITE_SLAB.get(), MAGMATIC_RHYOLITE_WALL.get(), POLISHED_MAGMATIC_RHYOLITE.get(), POLISHED_MAGMATIC_RHYOLITE_STAIRS.get(), POLISHED_MAGMATIC_RHYOLITE_SLAB.get(), POLISHED_MAGMATIC_RHYOLITE_WALL.get(),
 				MAGMATIC_RHYOLITE_BRICKS.get(), MAGMATIC_RHYOLITE_BRICK_STAIRS.get(), MAGMATIC_RHYOLITE_BRICK_SLAB.get(), MAGMATIC_RHYOLITE_BRICK_WALL.get(), CHISELED_MAGMATIC_RHYOLITE_BRICKS.get()
 		);
-		this.tag(BlockTags.COMBINATION_STEP_SOUND_BLOCKS).addTag(CCBlockTags.CAVE_GROWTHS).add(MOSCHATEL.get()).add(FALSE_HOPE.get());
-		this.tag(BlockTags.INSIDE_STEP_SOUND_BLOCKS).addTag(CCBlockTags.CAVE_GROWTHS).add(MOSCHATEL.get()).add(FALSE_HOPE.get());
+		this.tag(BlockTags.COMBINATION_STEP_SOUND_BLOCKS).addTag(CCBlockTags.CAVE_GROWTHS).add(MOSCHATEL.get(), FALSE_HOPE.get());
+		this.tag(BlockTags.INSIDE_STEP_SOUND_BLOCKS).addTag(CCBlockTags.CAVE_GROWTHS).add(MOSCHATEL.get(), FALSE_HOPE.get());
 
 		this.tag(CCBlockTags.BRAZIERS).add(BRAZIER.get(), SOUL_BRAZIER.get(), ENDER_BRAZIER.get(), CUPRIC_BRAZIER.get());
 		this.tag(CCBlockTags.CUPRIC_FIRE_BASE_BLOCKS).addTag(Tags.Blocks.ORES_COPPER).addTag(Tags.Blocks.STORAGE_BLOCKS_RAW_COPPER).addTag(CCBlockTags.WAXABLE_COPPER_BLOCKS).addTag(CCBlockTags.WAXED_COPPER_BLOCKS);
@@ -206,6 +207,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(CCBlockTags.WARDEN_NOTE_BLOCKS).add(ECHO_BLOCK.get());
 		this.tag(CCBlockTags.ALARM_NOTE_BLOCKS).add(FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 		this.tag(CCBlockTags.COPPER_GOLEM_SUMMON_BLOCKS).add(Blocks.LIGHTNING_ROD, EXPOSED_LIGHTNING_ROD.get(), WEATHERED_LIGHTNING_ROD.get(), OXIDIZED_LIGHTNING_ROD.get(), WAXED_LIGHTNING_ROD.get(), WAXED_EXPOSED_LIGHTNING_ROD.get(), WAXED_WEATHERED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get());
+		this.tag(CCBlockTags.RAT_FOOD_BLOCKS).add(ROTTEN_FLESH_BLOCK.get());
 
 		this.tag(CCBlockTags.MOB_INTERACTABLE_DOORS).addTag(BlockTags.WOODEN_DOORS).add(COPPER_DOOR.get(), EXPOSED_COPPER_DOOR.get(), WEATHERED_COPPER_DOOR.get(), OXIDIZED_COPPER_DOOR.get(), WAXED_COPPER_DOOR.get(), WAXED_EXPOSED_COPPER_DOOR.get(), WAXED_WEATHERED_COPPER_DOOR.get(), WAXED_OXIDIZED_COPPER_DOOR.get());
 		this.tag(CCBlockTags.WAXABLE_COPPER_BLOCKS).add(

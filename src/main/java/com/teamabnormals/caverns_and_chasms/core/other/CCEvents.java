@@ -169,7 +169,7 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
-		if (event.getEntity() instanceof Player player && event.getPlacedBlock().is(CCBlocks.ROTTEN_FLESH_BLOCK.get())) {
+		if (event.getEntity() instanceof Player player && event.getPlacedBlock().is(CCBlockTags.RAT_FOOD_BLOCKS)) {
 			LevelAccessor level = event.getLevel();
 			BlockPos pos = event.getPos();
 			List<Rat> rats = level.getEntitiesOfClass(Rat.class, new AABB(pos).inflate(8.0D, 4.0D, 8.0D), entity -> entity.isAlive() && !entity.isTame() && entity.getTamer() == null);

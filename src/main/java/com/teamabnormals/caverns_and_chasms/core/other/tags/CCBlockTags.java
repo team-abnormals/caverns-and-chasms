@@ -32,6 +32,7 @@ public class CCBlockTags {
 	public static final TagKey<Block> SPARKLERS = blockTag("sparklers");
 	public static final TagKey<Block> STANDING_SPARKLERS = blockTag("standing_sparklers");
 	public static final TagKey<Block> WALL_SPARKLERS = blockTag("wall_sparklers");
+	public static final TagKey<Block> RAT_FOOD_BLOCKS = blockTag("rat_food_blocks");
 
 	public static final TagKey<Block> MOB_INTERACTABLE_DOORS = TagUtil.blockTag("forge", "mob_interactable_doors");
 	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxable_copper_blocks");
