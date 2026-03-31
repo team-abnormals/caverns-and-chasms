@@ -79,11 +79,11 @@ public class FalseHopeBlock extends FlowerBlock {
 
 	@Override
 	public float getMaxHorizontalOffset() {
-		return 0.1F;
+		return 0.15F;
 	}
 
 	@Override
 	public float getMaxVerticalOffset() {
-		return 0.1F;
+		return 0.0F;
 	}
 }
