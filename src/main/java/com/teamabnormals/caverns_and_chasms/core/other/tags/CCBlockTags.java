@@ -29,6 +29,10 @@ public class CCBlockTags {
 	public static final TagKey<Block> COPPER_GOLEM_SUMMON_BLOCKS = blockTag("copper_golem_summon_blocks");
 	public static final TagKey<Block> WINCH_DOES_NOT_UNWIND_ON = blockTag("winch_does_not_unwind_on");
 	public static final TagKey<Block> WINCH_FORCES_UNWIND_ON = blockTag("winch_forces_unwind_on");
+	public static final TagKey<Block> WINCH_WINDS_FASTER_ON = blockTag("winch_winds_faster_on");
+	public static final TagKey<Block> WINCH_WINDS_SLOWER_ON = blockTag("winch_winds_slower_on");
+	public static final TagKey<Block> HOLDS_FASTER_ON = blockTag("holds_faster_on");
+	public static final TagKey<Block> HOLDS_SLOWER_ON = blockTag("holds_slower_on");
 	public static final TagKey<Block> SPARKLERS = blockTag("sparklers");
 	public static final TagKey<Block> STANDING_SPARKLERS = blockTag("standing_sparklers");
 	public static final TagKey<Block> WALL_SPARKLERS = blockTag("wall_sparklers");
