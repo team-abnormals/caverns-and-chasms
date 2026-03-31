@@ -1131,7 +1131,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				double d2 = this.getZ() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
 
 				if (rats.size() < ratCount) {
-					if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && spawnType.SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
+					if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
 						Rat rat = CCEntityTypes.RAT.get().create(level.getLevel());
 						if (rat != null) {
 							rats.add(Pair.of(rat, new Vec3(d0, d1, d2)));
