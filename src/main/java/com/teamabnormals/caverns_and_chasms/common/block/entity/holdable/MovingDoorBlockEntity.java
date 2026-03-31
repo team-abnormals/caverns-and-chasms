@@ -20,7 +20,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	protected boolean isBelowBottom;
 	protected MovingDoorType doorType;
 	protected MovingDoorType belowDoorType;
-	protected boolean justCreated;
+	protected boolean forceSyncVisuals;
 
 	protected double visualOpenness;
 	protected boolean visualIsBelowBottom;
@@ -54,8 +54,8 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		MovingDoorType belowType = MovingDoorType.byName((compound.getString("BelowDoorType")));
 		this.belowDoorType = belowType;
 
-		this.justCreated = compound.getBoolean("JustCreated");
-		if (this.justCreated || !compound.getBoolean("UpdateTag")) {
+		this.forceSyncVisuals = compound.getBoolean("JustCreated");
+		if (this.forceSyncVisuals || !compound.getBoolean("UpdateTag")) {
 			this.syncVisuals();
 		}
 	}
@@ -99,7 +99,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		// Copy the openness of the door above
 		if (this.level.getBlockEntity(abovePos) instanceof MovingDoorBlockEntity aboveEntity && thisBlock.partOfSameDoor(thisState, aboveState)) {
 			this.openness = aboveEntity.openness;
-			// this.opennessOld = aboveEntity.opennessOld;
 			aboveEntity.belowDoorType = doorType;
 			this.level.sendBlockUpdated(abovePos, aboveState, aboveState, 3);
 			hasDoorAbove = true;
@@ -117,7 +116,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 				if (!hasDoorAbove) {
 					this.openness = belowEntity.openness;
-					// this.opennessOld = belowEntity.opennessOld;
 				}
 
 				AbstractMovingDoorBlock belowBlock = (AbstractMovingDoorBlock) belowState.getBlock();
@@ -125,10 +123,10 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 				if (this.level.getBlockEntity(belowPos) instanceof MovingDoorBlockEntity newBelowEntity) {
 					newBelowEntity.openness = belowEntity.openness;
-					// newBelowEntity.opennessOld = belowEntity.opennessOld;
 					newBelowEntity.isBelowBottom = belowEntity.isBelowBottom;
 					newBelowEntity.doorType = belowEntity.doorType;
 					newBelowEntity.belowDoorType = belowEntity.belowDoorType;
+					newBelowEntity.copyVisualsFrom(belowEntity);
 					this.level.sendBlockUpdated(belowPos, belowState, belowState, 3);
 				}
 			}
@@ -143,7 +141,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 			if (this.level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity && thisBlock.partOfSameDoor(thisState, offsetState)) {
 				if (hasDoorAbove) {
 					offsetEntity.openness = this.openness;
-					// offsetEntity.opennessOld = this.opennessOld;
 				}
 				offsetEntity.isBelowBottom = i == 1;
 				this.level.sendBlockUpdated(mutable, offsetState, offsetState, 3);
@@ -172,10 +169,11 @@ public class MovingDoorBlockEntity extends BlockEntity {
 
 			if (this.level.getBlockEntity(belowPos) instanceof MovingDoorHeaderBlockEntity newBelowEntity) {
 				newBelowEntity.openness = belowEntity.openness;
-				// newBelowEntity.opennessOld = belowEntity.opennessOld;
 				newBelowEntity.isBelowBottom = belowEntity.isBelowBottom;
 				newBelowEntity.doorType = belowEntity.doorType;
 				newBelowEntity.belowDoorType = belowEntity.belowDoorType;
+				newBelowEntity.copyVisualsFrom(belowEntity);
+				newBelowEntity.forceSyncVisuals = true;
 				this.level.sendBlockUpdated(belowPos, belowState, belowState, 3);
 			}
 		}
@@ -211,17 +209,29 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	public CompoundTag getUpdateTag() {
 		CompoundTag compound = this.saveWithoutMetadata();
 		compound.putBoolean("UpdateTag", true);
-		compound.putBoolean("JustCreated", this.justCreated);
+		compound.putBoolean("ForceSyncVisuals", this.forceSyncVisuals);
 		return compound;
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, MovingDoorBlockEntity thisEntity) {
-		thisEntity.justCreated = false;
+		thisEntity.forceSyncVisuals = false;
 
 		if (level.isClientSide) {
 			thisEntity.setOldVisuals();
 			thisEntity.syncVisuals();
 		}
+	}
+
+	public void copyVisualsFrom(MovingDoorBlockEntity copyFrom) {
+		this.visualOpenness = copyFrom.visualOpenness;
+		this.visualIsBelowBottom = copyFrom.visualIsBelowBottom;
+		this.visualDoorType = copyFrom.visualDoorType;
+		this.visualBelowDoorType = copyFrom.visualBelowDoorType;
+
+		this.visualOpennessOld = copyFrom.visualOpennessOld;
+		this.visualIsBelowBottomOld = copyFrom.visualIsBelowBottomOld;
+		this.visualDoorTypeOld = copyFrom.visualDoorTypeOld;
+		this.visualBelowDoorTypeOld = copyFrom.visualBelowDoorTypeOld;
 	}
 
 	public void setOldVisuals() {

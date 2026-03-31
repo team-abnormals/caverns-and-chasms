@@ -104,7 +104,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	}
 
 	public static void tick(Level level, BlockPos thisPos, BlockState thisState, MovingDoorHeaderBlockEntity thisHeader) {
-		thisHeader.justCreated = false;
+		thisHeader.forceSyncVisuals = false;
 
 		if (level.isClientSide) {
 			thisHeader.setOldVisuals();
@@ -239,7 +239,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 				offsetEntity.belowDoorType = i == 0 ? null : offsetEntity.doorType;
 				offsetEntity.doorType = aboveEntity == null ? this.storedBlocks.remove(this.storedBlocks.size() - 1) : aboveEntity.doorType;
 				if (i == 0) {
-					offsetEntity.justCreated = true;
+					offsetEntity.forceSyncVisuals = true;
 				}
 				offsetEntity.setChanged();
 
