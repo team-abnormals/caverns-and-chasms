@@ -76,4 +76,14 @@ public class FalseHopeBlock extends FlowerBlock {
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> state) {
 		state.add(FACING);
 	}
+
+	@Override
+	public float getMaxHorizontalOffset() {
+		return 0.1F;
+	}
+
+	@Override
+	public float getMaxVerticalOffset() {
+		return 0.1F;
+	}
 }
