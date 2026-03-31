@@ -39,7 +39,7 @@ public class CCEntityTypes {
 
 	public static final MobCategory LOST_GOAT_CATEGORY = MobCategory.create(CavernsAndChasms.MOD_ID + ":lost_goat", "lost_goat", 1, false, false, 128);
 	public static final MobCategory UNDERGROUND_WATER_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_water_ambient", "underground_water_ambient", 20, true, false, 128);
-	public static final MobCategory UNDERGROUND_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_ambient", "underground_ambient", 20, true, false, 128);
+	public static final MobCategory UNDERGROUND_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_ambient", "underground_ambient", 16, true, false, 128);
 
 	public static final RegistryObject<EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
 	public static final RegistryObject<EntityType<Evendeeper>> EVENDEEPER = HELPER.createLivingEntity("evendeeper", Evendeeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
