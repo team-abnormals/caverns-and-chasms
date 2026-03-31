@@ -463,10 +463,12 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_SANGUINE = HELPER.createSoundEvent("item.armor.equip_sanguine");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_COWL = HELPER.createSoundEvent("item.armor.equip_cowl");
 	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_TOOLBELT = HELPER.createSoundEvent("item.armor.equip_toolbelt");
+	public static final RegistryObject<SoundEvent> ARMOR_EQUIP_MONOCLE = HELPER.createSoundEvent("item.armor.equip_monocle");
 
 	public static final RegistryObject<SoundEvent> NECROMIUM_INFLICT = HELPER.createSoundEvent("item.armor.necromium_inflict");
 	public static final RegistryObject<SoundEvent> SILVER_RESIST = HELPER.createSoundEvent("item.armor.silver_resist");
 	public static final RegistryObject<SoundEvent> SANGUINE_HEAL = HELPER.createSoundEvent("item.armor.sanguine_heal");
+	public static final RegistryObject<SoundEvent> MONOCLE_USE = HELPER.createSoundEvent("item.armor.monocle_use");
 
 	public static final RegistryObject<SoundEvent> UNICORN_HORN_EQUIP = HELPER.createSoundEvent("item.unicorn_horn.equip");
 	public static final RegistryObject<SoundEvent> UNICORN_HORN_UNEQUIP = HELPER.createSoundEvent("item.unicorn_horn.unequip");

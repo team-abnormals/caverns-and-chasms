@@ -5052,6 +5052,20 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.unicorn_horn.unequip"
   },
+  "item.armor.monocle_use": {
+    "sounds": [
+      "caverns_and_chasms:item/monocle/use1",
+      "caverns_and_chasms:item/monocle/use2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.armor.monocle_use"
+  },
+  "item.armor.equip_monocle": {
+    "sounds": [
+      "caverns_and_chasms:item/monocle/equip1",
+      "caverns_and_chasms:item/monocle/equip2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.armor.equip_monocle"
+  },
   "item.armor.equip_toolbelt": {
     "sounds": [
       "caverns_and_chasms:item/toolbelt/equip1",
