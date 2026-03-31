@@ -5059,6 +5059,13 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.item.monocle.use"
   },
+  "item.monocle.stop_using": {
+    "sounds": [
+      "caverns_and_chasms:item/monocle/stop1",
+      "caverns_and_chasms:item/monocle/stop2"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.item.monocle.stop_using"
+  },
   "item.monocle.equip": {
     "sounds": [
       "caverns_and_chasms:item/monocle/equip1",

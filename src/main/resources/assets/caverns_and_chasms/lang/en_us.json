@@ -1172,6 +1172,7 @@
   "subtitles.caverns_and_chasms.item.copper_horn.play": "Copper Horn plays",
   "subtitles.caverns_and_chasms.item.lost_goat_horn.play": "Goat Horn plays",
   "subtitles.caverns_and_chasms.item.monocle.equip": "Monocle cha-chings",
+  "subtitles.caverns_and_chasms.item.monocle.stop_using": "Monocle slips away",
   "subtitles.caverns_and_chasms.item.monocle.use": "Monocle observes",
   "subtitles.caverns_and_chasms.item.packing_container.drop_contents": "Packing Container empties",
   "subtitles.caverns_and_chasms.item.packing_container.insert": "Item packed",
