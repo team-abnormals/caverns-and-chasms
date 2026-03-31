@@ -86,27 +86,12 @@ public class HoldButtonBlock extends BaseEntityBlock implements HoldableBlock {
 
 				return flag ? PRESSED_FLOOR_AABB_Z : FLOOR_AABB_Z;
 			case WALL:
-				VoxelShape voxelshape;
-				switch (direction) {
-					case EAST:
-						voxelshape = flag ? PRESSED_EAST_AABB : EAST_AABB;
-						break;
-					case WEST:
-						voxelshape = flag ? PRESSED_WEST_AABB : WEST_AABB;
-						break;
-					case SOUTH:
-						voxelshape = flag ? PRESSED_SOUTH_AABB : SOUTH_AABB;
-						break;
-					case NORTH:
-					case UP:
-					case DOWN:
-						voxelshape = flag ? PRESSED_NORTH_AABB : NORTH_AABB;
-						break;
-					default:
-						throw new IncompatibleClassChangeError();
-				}
-
-				return voxelshape;
+				return switch (direction) {
+					case EAST -> flag ? PRESSED_EAST_AABB : EAST_AABB;
+					case WEST -> flag ? PRESSED_WEST_AABB : WEST_AABB;
+					case SOUTH -> flag ? PRESSED_SOUTH_AABB : SOUTH_AABB;
+					case NORTH, UP, DOWN -> flag ? PRESSED_NORTH_AABB : NORTH_AABB;
+				};
 			case CEILING:
 			default:
 				if (direction.getAxis() == Direction.Axis.X) {
@@ -124,8 +109,8 @@ public class HoldButtonBlock extends BaseEntityBlock implements HoldableBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof HoldButtonBlockEntity blockEntity) {
-			return Math.min(blockEntity.getTimePressed() / 20, 15);
+		if (level.getBlockEntity(pos) instanceof HoldButtonBlockEntity blockEntity && blockEntity.getTimePressed() > 0) {
+			return Math.min(1 + blockEntity.getTimePressed() / HoldPlateBlock.getOutputSpeed(level.getBlockState(pos.relative(getConnectedDirection(state).getOpposite()))), 15);
 		}
 		return 0;
 	}

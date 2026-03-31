@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class WinchBlockEntity extends BlockEntity {
+	private static WinchBlockEntity blockEntity;
 	private int holdTime;
 	private float rotation;
 	private float rotationO;
@@ -87,7 +88,7 @@ public class WinchBlockEntity extends BlockEntity {
 			blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
 		} else if (isPressed) {
 			blockEntity.rewindSpeed = 0F;
-			blockEntity.rotation = Math.min(blockEntity.rotation + 3F, 360F);
+			blockEntity.rotation = Math.min(blockEntity.rotation + getRewindSpeed(level, pos, state), 360F);
 		}
 
 		if (isPressed) {
@@ -115,6 +116,17 @@ public class WinchBlockEntity extends BlockEntity {
 			return onState.is(CCBlockTags.WINCH_FORCES_UNWIND_ON);
 		} else {
 			return !onState.is(CCBlockTags.WINCH_DOES_NOT_UNWIND_ON);
+		}
+	}
+
+	public static float getRewindSpeed(Level level, BlockPos pos, BlockState state) {
+		BlockState onState = level.getBlockState(pos.relative(WinchBlock.getConnectedDirection(state).getOpposite()));
+		if (onState.is(CCBlockTags.WINCH_WINDS_FASTER_ON)) {
+			return 6F;
+		} else if (onState.is(CCBlockTags.WINCH_WINDS_SLOWER_ON)) {
+			return 1F;
+		} else {
+			return 3F;
 		}
 	}
 }

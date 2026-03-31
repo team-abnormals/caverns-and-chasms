@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.HoldPlateBlockEntity;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
@@ -74,10 +75,20 @@ public class HoldPlateBlock extends BaseEntityBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof HoldPlateBlockEntity blockEntity) {
-			return Math.min(blockEntity.getTimePressed() / 20, 15);
+		if (level.getBlockEntity(pos) instanceof HoldPlateBlockEntity blockEntity && blockEntity.getTimePressed() > 0) {
+			return Math.min(1 + blockEntity.getTimePressed() / getOutputSpeed(level.getBlockState(pos.below())), 15);
 		}
 		return 0;
+	}
+
+	public static int getOutputSpeed(BlockState state) {
+		if (state.is(CCBlockTags.HOLDS_FASTER_ON)) {
+			return 10;
+		} else if (state.is(CCBlockTags.HOLDS_SLOWER_ON)) {
+			return 40;
+		} else {
+			return 20;
+		}
 	}
 
 	@Override
