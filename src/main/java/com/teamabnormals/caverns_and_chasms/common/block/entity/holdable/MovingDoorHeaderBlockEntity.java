@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMo
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CMovingDoorSoundMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.S2CPushPlayerMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.client.Minecraft;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -35,9 +37,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
+	private static final double MOVE_SPEED = 0.0625D;
+
 	private List<MovingDoorType> storedBlocks = Lists.newArrayList();
 	private int holdTime;
 	private long lastUpdateTick;
@@ -147,17 +150,17 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	}
 
 	protected boolean move(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount, boolean shouldOpen) {
-		double moveSpeed = 0.0625D;
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
 		if (shouldOpen) {
-			this.openness += moveSpeed;
+			this.openness += MOVE_SPEED;
 
 			if (this.openness >= 1.0D) {
 				if (doorsBelowCount > 0) {
 					this.openness -= 1.0D;
 					doorsBelowCount--;
 					this.retract(level, thisPos, thisState, doorsBelowCount);
+					this.moveCollidedEntities(level, thisPos, thisState, this.openness, -MOVE_SPEED, doorsBelowCount);
 					return true;
 				}
 
@@ -166,9 +169,10 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			}
 
 			this.updateOpennessInRow(level, thisPos, thisState, doorsBelowCount);
+			this.moveCollidedEntities(level, thisPos, thisState, this.openness, -MOVE_SPEED, doorsBelowCount);
 			return true;
 		} else {
-			this.openness -= moveSpeed;
+			this.openness -= MOVE_SPEED;
 
 			if (this.openness < 0.0D) {
 				if (!this.storedBlocks.isEmpty()) {
@@ -179,6 +183,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 						this.openness += 1.0D;
 						doorsBelowCount++;
 						this.extend(level, thisPos, thisState, doorsBelowCount);
+						this.moveCollidedEntities(level, thisPos, thisState, this.openness, MOVE_SPEED, doorsBelowCount);
 						return true;
 					}
 				}
@@ -188,6 +193,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			}
 
 			this.updateOpennessInRow(level, thisPos, thisState, doorsBelowCount);
+			this.moveCollidedEntities(level, thisPos, thisState, this.openness, MOVE_SPEED, doorsBelowCount);
 			return true;
 		}
 	}
@@ -308,36 +314,36 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			AABB aabb = thisBlock.calculatePushAABB(openness, doorsBelowCount, thisState, moveDirVector).move(thisPos);
 			AABB standAabb = aabb.expandTowards(0.0D, 0.05D, 0.0D);
 
-			List<Entity> standingEntities;
-			if (!level.isClientSide)
-				standingEntities = level.getEntities((Entity) null, standAabb, entity -> entity.onGround() && entity.getY() >= aabb.maxY && !(entity instanceof ServerPlayer));
-			else
-				standingEntities = level.players().stream().filter(player -> player.onGround() && player.getY() >= aabb.maxY && player.getBoundingBox().intersects(standAabb)).collect(Collectors.toList());
+			List<Entity> entitiesOnDoor = level.getEntities((Entity) null, standAabb, EntitySelector.NO_SPECTATORS.and(entity -> entity.onGround() && entity.getY() >= aabb.maxY));
 
-			if (!standingEntities.isEmpty()) {
-				for (Entity entity : standingEntities) {
-					if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-						entity.move(MoverType.PISTON, new Vec3(moveSpeed * moveDirVector.getX(), moveSpeed * moveDirVector.getY(), moveSpeed * moveDirVector.getZ()));
-						entity.setOnGround(true);
-					}
+			if (!entitiesOnDoor.isEmpty()) {
+				for (Entity entity : entitiesOnDoor) {
+					this.moveEntity(entity, moveSpeed * moveDirVector.getX(), moveSpeed * moveDirVector.getY(), moveSpeed * moveDirVector.getZ(), true);
 				}
 			}
 
 			if (moveSpeed > 0) {
-				List<Entity> insideEntities;
-				if (!level.isClientSide)
-					insideEntities = level.getEntities((Entity) null, aabb, entity -> !(entity instanceof ServerPlayer));
-				else
-					insideEntities = level.players().stream().filter(player -> player.onGround() && player.getY() >= aabb.maxY && player.getBoundingBox().intersects(aabb)).collect(Collectors.toList());
-				insideEntities.removeAll(standingEntities);
+				List<Entity> entitiesInsideDoor = level.getEntities(null, aabb);
+				entitiesInsideDoor.removeAll(entitiesOnDoor);
 
-				if (!insideEntities.isEmpty()) {
-					double d0 = moveSpeed + 0.01D;
-					for (Entity entity : insideEntities) {
-						if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-							entity.move(MoverType.SELF, new Vec3(d0 * moveDirVector.getX(), d0 * moveDirVector.getY(), d0 * moveDirVector.getZ()));
-						}
+				if (!entitiesInsideDoor.isEmpty()) {
+					double d0 = moveSpeed + 0.05D;
+					for (Entity entity : entitiesInsideDoor) {
+						this.moveEntity(entity, d0 * moveDirVector.getX(), d0 * moveDirVector.getY(), d0 * moveDirVector.getZ(), false);
 					}
+				}
+			}
+		}
+	}
+
+	private void moveEntity(Entity entity, double xMove, double yMove, double zMove, boolean onDoor) {
+		if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
+			if (entity instanceof ServerPlayer player) {
+				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CPushPlayerMessage((float) xMove, (float) yMove, (float) zMove));
+			} else {
+				entity.move(MoverType.SELF, new Vec3(xMove, yMove, zMove));
+				if (onDoor) {
+					entity.setOnGround(true);
 				}
 			}
 		}

@@ -54,7 +54,7 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		MovingDoorType belowType = MovingDoorType.byName((compound.getString("BelowDoorType")));
 		this.belowDoorType = belowType;
 
-		this.forceSyncVisuals = compound.getBoolean("JustCreated");
+		this.forceSyncVisuals = compound.getBoolean("ForceSyncVisuals");
 		if (this.forceSyncVisuals || !compound.getBoolean("UpdateTag")) {
 			this.syncVisuals();
 		}
