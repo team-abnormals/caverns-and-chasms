@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
-    "textures": {
-        "particle": "#hoop"
-    },
+	"textures": {
+		"particle": "#hoop"
+	},
 	"elements": [
 		{
 			"from": [6, 7, 6],
@@ -85,8 +85,8 @@
 				"north": {"uv": [7, 14, 9, 16], "rotation": 180, "texture": "#hoop"},
 				"east": {"uv": [7, 0, 9, 6], "rotation": 90, "texture": "#hoop"},
 				"west": {"uv": [7, 10, 9, 16], "rotation": 90, "texture": "#hoop"},
-				"up": {"uv": [7, 0, 9, 4], "texture": "#hoop"},
-				"down": {"uv": [7, 12, 9, 16], "texture": "#hoop"}
+				"up": {"uv": [7, 0, 9, 6], "texture": "#hoop"},
+				"down": {"uv": [7, 10, 9, 16], "texture": "#hoop"}
 			}
 		},
 		{
