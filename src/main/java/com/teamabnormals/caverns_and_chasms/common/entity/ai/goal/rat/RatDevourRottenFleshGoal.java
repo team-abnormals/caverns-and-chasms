@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -52,7 +53,7 @@ public class RatDevourRottenFleshGoal extends Goal {
 		if (this.rat.isSittingBecauseOrdered() || this.eatingTime >= 80 || this.rat.isTame() || this.rat.isPassenger()) {
 			return false;
 		} else {
-			return this.tryTicks >= -this.maxStayTicks && this.tryTicks <= 1200 && this.rat.level().getBlockState(this.targetPos).is(CCBlocks.ROTTEN_FLESH_BLOCK.get());
+			return this.tryTicks >= -this.maxStayTicks && this.tryTicks <= 1200 && this.rat.level().getBlockState(this.targetPos).is(CCBlockTags.RAT_FOOD_BLOCKS);
 		}
 	}
 
