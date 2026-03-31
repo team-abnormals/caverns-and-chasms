@@ -888,13 +888,13 @@
     "sounds": [
       "caverns_and_chasms:block/scatterer/scatter"
     ],
-    "subtitle": "subtitles.block.dispenser.launch"
+    "subtitle": "subtitles.block.dispenser.dispense"
   },
   "block.scatterer.splurt": {
     "sounds": [
       "caverns_and_chasms:block/scatterer/splurt"
     ],
-    "subtitle": "subtitles.block.dispenser.dispenser"
+    "subtitle": "subtitles.block.dispenser.dispense"
   },
   "block.scatterer.fail": {
     "sounds": [

@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-
+import net.minecraft.world.level.gameevent.GameEvent;
 
 public class ScattererBlock extends DispenserBlock {
 	public ScattererBlock(Properties properties) {
@@ -46,14 +46,21 @@ public class ScattererBlock extends DispenserBlock {
 
 	@Override
 	protected void dispenseFrom(ServerLevel level, BlockPos pos) {
-		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(level, pos);
-		DispenserBlockEntity dispenserblockentity = blocksourceimpl.getEntity();
-		for (int i = 0; i < dispenserblockentity.getContainerSize(); i++) {
-			ItemStack itemstack = dispenserblockentity.getItem(i);
-			DispenseItemBehavior dispenseitembehavior = getScatterMethod(itemstack);
-			if (dispenseitembehavior != DispenseItemBehavior.NOOP) {
-				dispenserblockentity.setItem(i, dispenseitembehavior.dispense(blocksourceimpl, itemstack));
+		BlockSourceImpl source = new BlockSourceImpl(level, pos);
+		DispenserBlockEntity dispenser = source.getEntity();
+		boolean success = false;
+		for (int i = 0; i < dispenser.getContainerSize(); i++) {
+			ItemStack stack = dispenser.getItem(i);
+			DispenseItemBehavior behavior = getScatterMethod(stack);
+			if (behavior != DispenseItemBehavior.NOOP && !stack.isEmpty()) {
+				dispenser.setItem(i, behavior.dispense(source, stack));
+				success = true;
 			}
+		}
+
+		if (!success) {
+			level.levelEvent(1001, pos, 0);
+			level.gameEvent(GameEvent.BLOCK_ACTIVATE, pos, GameEvent.Context.of(dispenser.getBlockState()));
 		}
 	}
 
@@ -63,10 +70,9 @@ public class ScattererBlock extends DispenserBlock {
 	}
 
 	public DispenseItemBehavior getScatterMethod(ItemStack stack) {
-		if (stack.getItem() == Items.FIREWORK_ROCKET) {
+		if (stack.is(Items.FIREWORK_ROCKET)) {
 			return new FireworkScattererBehavior();
-		}
-		if (stack.getItem() == Items.FIRE_CHARGE) {
+		} else if (stack.is(Items.FIRE_CHARGE)) {
 			return new FireChargeScattererBehavior();
 		} else {
 			return this.getDispenseMethod(stack);

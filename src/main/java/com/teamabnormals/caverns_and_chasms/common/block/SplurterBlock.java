@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.VanillaInventoryCodeHooks;
 import org.jetbrains.annotations.NotNull;
@@ -39,31 +40,32 @@ public class SplurterBlock extends ScattererBlock {
 		return new SplurterBlockEntity(pos, state);
 	}
 
-
-	protected void dispenseFrom(ServerLevel p_52944_, BlockPos p_52945_) {
-		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(p_52944_, p_52945_);
-		DispenserBlockEntity dispenserblockentity = blocksourceimpl.getEntity();
+	protected void dispenseFrom(ServerLevel level, BlockPos pos) {
+		BlockSourceImpl source = new BlockSourceImpl(level, pos);
+		DispenserBlockEntity dispenser = source.getEntity();
 
 		List<Integer> slots = IntStream.range(0, SplurterBlockEntity.CONTAINER_SIZE).boxed().collect(Collectors.toList());
 		Collections.shuffle(slots);
 
+		boolean success = false;
 		for (int i : slots) {
-			if (i < 0) {
-				p_52944_.levelEvent(1001, p_52945_, 0);
-			} else {
-				ItemStack itemstack = dispenserblockentity.getItem(i);
-				if (!itemstack.isEmpty() && splurterInsertHook(p_52944_, p_52945_, dispenserblockentity, i, itemstack)) {
-					Direction direction = p_52944_.getBlockState(p_52945_).getValue(FACING);
-					Container container = HopperBlockEntity.getContainerAt(p_52944_, p_52945_.relative(direction));
-					ItemStack itemstack1;
-					if (container == null) {
-						itemstack1 = DISPENSE_BEHAVIOUR.dispense(blocksourceimpl, itemstack);
-					} else {
-						itemstack1 = HopperBlockEntity.addItem(dispenserblockentity, container, itemstack.copy(), direction.getOpposite());
-					}
-					dispenserblockentity.setItem(i, itemstack1);
+			ItemStack stack = dispenser.getItem(i);
+			if (!stack.isEmpty() && splurterInsertHook(level, pos, dispenser, i, stack)) {
+				success = true;
+				Direction direction = level.getBlockState(pos).getValue(FACING);
+				Container container = HopperBlockEntity.getContainerAt(level, pos.relative(direction));
+				ItemStack itemstack1;
+				if (container == null) {
+					itemstack1 = DISPENSE_BEHAVIOUR.dispense(source, stack);
+				} else {
+					itemstack1 = HopperBlockEntity.addItem(dispenser, container, stack.copy(), direction.getOpposite());
 				}
+				dispenser.setItem(i, itemstack1);
 			}
+		}
+
+		if (!success) {
+			level.levelEvent(1001, pos, 0);
 		}
 	}
 
