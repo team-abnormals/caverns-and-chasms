@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "waxed_oxidized_floodlight",
   "key": {
     "A": {
       "item": "minecraft:amethyst_shard"

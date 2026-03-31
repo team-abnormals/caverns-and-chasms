@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "waxed_oxidized_copper_leggings",
   "key": {
     "X": {
       "item": "minecraft:waxed_oxidized_copper"

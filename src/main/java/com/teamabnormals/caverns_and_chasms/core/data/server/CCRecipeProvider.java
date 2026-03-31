@@ -614,16 +614,16 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	}
 
 	public static void copperGearRecipes(Consumer<FinishedRecipe> consumer, ItemLike ingot, ItemLike block, Item helmet, Item chestplate, Item leggings, Item boots, Item sword, Item pickaxe, Item axe, Item shovel, Item hoe) {
-		ShapedRecipeBuilder.shaped(COMBAT, boots).define('X', block).pattern("X X").pattern("X X").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, chestplate).define('X', block).pattern("X X").pattern("XXX").pattern("XXX").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, helmet).define('X', block).pattern("XXX").pattern("X X").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, leggings).define('X', block).pattern("XXX").pattern("X X").pattern("X X").unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, boots).define('X', block).pattern("X X").pattern("X X").group(getItemName(boots)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, chestplate).define('X', block).pattern("X X").pattern("XXX").pattern("XXX").group(getItemName(chestplate)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, helmet).define('X', block).pattern("XXX").pattern("X X").group(getItemName(helmet)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, leggings).define('X', block).pattern("XXX").pattern("X X").pattern("X X").group(getItemName(leggings)).unlockedBy("has_copper_block", has(block)).save(consumer);
 
-		ShapedRecipeBuilder.shaped(TOOLS, axe).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("XX").pattern("X#").pattern(" #").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, hoe).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("XX").pattern(" #").pattern(" #").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, pickaxe).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("XXX").pattern(" # ").pattern(" # ").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(TOOLS, shovel).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("X").pattern("#").pattern("#").unlockedBy("has_copper_block", has(block)).save(consumer);
-		ShapedRecipeBuilder.shaped(COMBAT, sword).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("X").pattern("X").pattern("#").unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, axe).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("XX").pattern("X#").pattern(" #").group(getItemName(axe)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, hoe).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("XX").pattern(" #").pattern(" #").group(getItemName(hoe)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, pickaxe).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("XXX").pattern(" # ").pattern(" # ").group(getItemName(pickaxe)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(TOOLS, shovel).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("X").pattern("#").pattern("#").group(getItemName(shovel)).unlockedBy("has_copper_block", has(block)).save(consumer);
+		ShapedRecipeBuilder.shaped(COMBAT, sword).define('#', Tags.Items.RODS_WOODEN).define('X', block).pattern("X").pattern("X").pattern("#").group(getItemName(sword)).unlockedBy("has_copper_block", has(block)).save(consumer);
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(pickaxe, shovel, axe, hoe, sword, helmet, chestplate, leggings, boots), MISC, ingot, 0.1F, 200).unlockedBy(getHasName(pickaxe), has(pickaxe)).unlockedBy(getHasName(shovel), has(shovel)).unlockedBy(getHasName(axe), has(axe)).unlockedBy(getHasName(hoe), has(hoe)).unlockedBy(getHasName(sword), has(sword)).unlockedBy(getHasName(helmet), has(helmet)).unlockedBy(getHasName(chestplate), has(chestplate)).unlockedBy(getHasName(leggings), has(leggings)).unlockedBy(getHasName(boots), has(boots)).save(consumer, CavernsAndChasms.location(getSmeltingRecipeName(ingot)));
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(pickaxe, shovel, axe, hoe, sword, helmet, chestplate, leggings, boots), MISC, ingot, 0.1F, 100).unlockedBy(getHasName(pickaxe), has(pickaxe)).unlockedBy(getHasName(shovel), has(shovel)).unlockedBy(getHasName(axe), has(axe)).unlockedBy(getHasName(hoe), has(hoe)).unlockedBy(getHasName(sword), has(sword)).unlockedBy(getHasName(helmet), has(helmet)).unlockedBy(getHasName(chestplate), has(chestplate)).unlockedBy(getHasName(leggings), has(leggings)).unlockedBy(getHasName(boots), has(boots)).save(consumer, CavernsAndChasms.location(getBlastingRecipeName(ingot)));
@@ -632,15 +632,15 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	public void copperIngotRecipes(Consumer<FinishedRecipe> consumer, ItemLike ingot, ItemLike block, ItemLike door, ItemLike trapdoor, ItemLike bars, ItemLike button, ItemLike lightningRod, ItemLike floodlight, ItemLike toolbox) {
 		if (ingot != Items.COPPER_INGOT) {
 			storageRecipesWithCustomUnpacking(consumer, MISC, ingot, BUILDING_BLOCKS, block, getSimpleRecipeName(ingot), getItemName(ingot));
-			ShapedRecipeBuilder.shaped(REDSTONE, lightningRod).define('#', ingot).pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+			ShapedRecipeBuilder.shaped(REDSTONE, lightningRod).define('#', ingot).pattern("#").pattern("#").pattern("#").group(getItemName(lightningRod)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		}
 
-		doorBuilder(door, Ingredient.of(ingot)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
-		ShapedRecipeBuilder.shaped(REDSTONE, trapdoor).define('#', ingot).pattern("##").pattern("##").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
-		ShapedRecipeBuilder.shaped(DECORATIONS, bars, 16).define('#', ingot).pattern("###").pattern("###").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
-		ShapelessRecipeBuilder.shapeless(REDSTONE, button).requires(ItemTags.WOODEN_BUTTONS).requires(ingot).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
-		ShapedRecipeBuilder.shaped(DECORATIONS, floodlight).define('C', ingot).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
-		ShapedRecipeBuilder.shaped(DECORATIONS, toolbox).define('C', block).define('I', ingot).pattern(" I ").pattern("I I").pattern("CCC").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		doorBuilder(door, Ingredient.of(ingot)).group(getItemName(door)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapedRecipeBuilder.shaped(REDSTONE, trapdoor).define('#', ingot).pattern("##").pattern("##").group(getItemName(trapdoor)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapedRecipeBuilder.shaped(DECORATIONS, bars, 16).define('#', ingot).pattern("###").pattern("###").group(getItemName(bars)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapelessRecipeBuilder.shapeless(REDSTONE, button).requires(ItemTags.WOODEN_BUTTONS).requires(ingot).group(getItemName(button)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapedRecipeBuilder.shaped(DECORATIONS, floodlight).define('C', ingot).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").group(getItemName(floodlight)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapedRecipeBuilder.shaped(DECORATIONS, toolbox).define('C', block).define('I', ingot).pattern(" I ").pattern("I I").pattern("CCC").group(getItemName(toolbox)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 	}
 
 	public void stonecutterRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike output, ItemLike input, ItemLike inputName) {
@@ -704,7 +704,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		outputTag.putString(CopperHornItem.BASS, bassID);
 
 		String recipeName = (harmonyID + melodyID + bassID).replace("caverns_and_chasms:", "").replace("copper_horn", "");
-		CCShapedRecipeBuilder.shaped(TOOLS, PartialNBTIngredient.of(CCItems.COPPER_HORN.get(), outputTag)).define('#', PartialNBTIngredient.of(Items.GOAT_HORN, inputTag)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).save(consumer, CavernsAndChasms.location(recipeName + "copper_horn"));
+		CCShapedRecipeBuilder.shaped(TOOLS, PartialNBTIngredient.of(CCItems.COPPER_HORN.get(), outputTag)).define('#', PartialNBTIngredient.of(Items.GOAT_HORN, inputTag)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).group("copper_horn").save(consumer, CavernsAndChasms.location(recipeName + "copper_horn"));
 	}
 
 	public static void lampRecipe(Consumer<FinishedRecipe> consumer, ItemLike output, TagKey<Item> input) {
@@ -712,11 +712,11 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	}
 
 	public void platedBricksRecipe(Consumer<FinishedRecipe> consumer, ItemLike block, ItemLike ingot) {
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, block, 4).define('#', ingot).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, block, 4).define('#', ingot).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").group(getItemName(block)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 	}
 
 	public void platedBricksRecipe(Consumer<FinishedRecipe> consumer, ItemLike block, TagKey<Item> ingotTag, String hasName) {
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, block, 4).define('#', ingotTag).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").unlockedBy("has_" + hasName, has(ingotTag)).save(consumer);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, block, 4).define('#', ingotTag).define('X', Blocks.DEEPSLATE).pattern("#X").pattern("X#").group(getItemName(block)).unlockedBy("has_" + hasName, has(ingotTag)).save(consumer);
 	}
 
 	public void platedBricksRecipes(Consumer<FinishedRecipe> consumer, BlockFamily family) {
@@ -725,11 +725,11 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	}
 
 	protected static void grate(Consumer<FinishedRecipe> consumer, Block grateBlock, Block material) {
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, grateBlock, 4).define('M', material).pattern(" M ").pattern("M M").pattern(" M ").unlockedBy(getHasName(material), has(material)).save(consumer);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, grateBlock, 4).define('M', material).pattern(" M ").pattern("M M").pattern(" M ").group(getItemName(grateBlock)).unlockedBy(getHasName(material), has(material)).save(consumer);
 	}
 
 	protected static void copperBulb(Consumer<FinishedRecipe> consumer, Block bulbBlock, ItemLike material) {
-		ShapedRecipeBuilder.shaped(REDSTONE, bulbBlock, 4).define('C', material).define('R', Items.REDSTONE).define('B', Items.BLAZE_ROD).pattern(" C ").pattern("CBC").pattern(" R ").unlockedBy(getHasName(material), has(material)).save(consumer);
+		ShapedRecipeBuilder.shaped(REDSTONE, bulbBlock, 4).define('C', material).define('R', Items.REDSTONE).define('B', Items.BLAZE_ROD).pattern(" C ").pattern("CBC").pattern(" R ").group(getItemName(bulbBlock)).unlockedBy(getHasName(material), has(material)).save(consumer);
 	}
 
 	public static void mimingRecipe(Consumer<FinishedRecipe> consumer, RecipeCategory category, ItemLike input, ItemLike output) {

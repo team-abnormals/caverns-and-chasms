@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "oxidized_copper_boots",
   "key": {
     "X": {
       "item": "minecraft:oxidized_copper"

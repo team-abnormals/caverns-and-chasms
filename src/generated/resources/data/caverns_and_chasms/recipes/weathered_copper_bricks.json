@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "weathered_copper_bricks",
   "key": {
     "#": {
       "item": "caverns_and_chasms:weathered_copper_ingot"

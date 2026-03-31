@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "exposed_copper_leggings",
   "key": {
     "X": {
       "item": "minecraft:exposed_copper"

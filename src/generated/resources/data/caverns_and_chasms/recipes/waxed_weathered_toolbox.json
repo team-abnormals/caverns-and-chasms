@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "waxed_weathered_toolbox",
   "key": {
     "C": {
       "item": "minecraft:waxed_weathered_copper"

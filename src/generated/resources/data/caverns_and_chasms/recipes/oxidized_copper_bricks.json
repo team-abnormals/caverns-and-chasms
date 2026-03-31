@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "oxidized_copper_bricks",
   "key": {
     "#": {
       "item": "caverns_and_chasms:oxidized_copper_ingot"

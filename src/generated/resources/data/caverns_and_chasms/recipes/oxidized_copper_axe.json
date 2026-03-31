@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "oxidized_copper_axe",
   "key": {
     "#": {
       "tag": "forge:rods/wooden"

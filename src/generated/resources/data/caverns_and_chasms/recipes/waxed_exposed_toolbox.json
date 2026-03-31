@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "waxed_exposed_toolbox",
   "key": {
     "C": {
       "item": "minecraft:waxed_exposed_copper"

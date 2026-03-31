@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "waxed_exposed_copper_sword",
   "key": {
     "#": {
       "tag": "forge:rods/wooden"

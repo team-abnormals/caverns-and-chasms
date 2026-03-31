@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "oxidized_toolbox",
   "key": {
     "C": {
       "item": "minecraft:oxidized_copper"

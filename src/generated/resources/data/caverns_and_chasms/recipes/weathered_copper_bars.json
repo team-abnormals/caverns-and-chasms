@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "weathered_copper_bars",
   "key": {
     "#": {
       "item": "caverns_and_chasms:weathered_copper_ingot"

@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "weathered_copper_hoe",
   "key": {
     "#": {
       "tag": "forge:rods/wooden"

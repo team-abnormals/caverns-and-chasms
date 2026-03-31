@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "waxed_exposed_copper_bricks",
   "key": {
     "#": {
       "item": "caverns_and_chasms:waxed_exposed_copper_ingot"

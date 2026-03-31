@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
+  "group": "exposed_copper_button",
   "ingredients": [
     {
       "tag": "minecraft:wooden_buttons"

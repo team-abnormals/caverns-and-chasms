@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "exposed_copper_bricks",
   "key": {
     "#": {
       "item": "caverns_and_chasms:exposed_copper_ingot"

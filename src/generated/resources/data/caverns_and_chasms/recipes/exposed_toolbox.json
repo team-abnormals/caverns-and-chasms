@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "exposed_toolbox",
   "key": {
     "C": {
       "item": "minecraft:exposed_copper"

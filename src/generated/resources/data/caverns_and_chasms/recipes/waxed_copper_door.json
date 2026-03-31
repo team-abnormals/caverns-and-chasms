@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
+  "group": "waxed_copper_door",
   "key": {
     "#": {
       "item": "caverns_and_chasms:waxed_copper_ingot"
