@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 
 import com.google.common.collect.Lists;
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
@@ -1118,6 +1119,41 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.setVariant(RatVariant.getSpawnVariant(level.registryAccess(), this.random).value());
 		this.setDirty(this.random.nextBoolean());
 		this.populateDefaultEquipmentSlots(this.random, difficulty);
-		return super.finalizeSpawn(level, difficulty, spawnType, groupData, dataTag);
+
+		if (spawnType == MobSpawnType.NATURAL && this.random.nextFloat() < 0.2F) {
+			List<Pair<Rat, Vec3>> rats = Lists.newArrayList();
+			int ratCount = 6 + random.nextInt(3) + random.nextInt(3);
+
+			for (int i = 0; i < 64; ++i) {
+				int spawnRange = 6;
+				double d0 = this.getX() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
+				double d1 = this.getY() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange / 2;
+				double d2 = this.getZ() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
+
+				if (rats.size() < ratCount) {
+					if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && spawnType.SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
+						Rat rat = CCEntityTypes.RAT.get().create(level.getLevel());
+						if (rat != null) {
+							rats.add(Pair.of(rat, new Vec3(d0, d1, d2)));
+						}
+					}
+				} else {
+					break;
+				}
+			}
+
+			if (rats.size() > 6) {
+				for (Pair<Rat, Vec3> pair : rats) {
+					Rat rat = pair.getFirst();
+					Vec3 ratPos = pair.getSecond();
+					rat.moveTo(ratPos.x(), ratPos.y(), ratPos.z(), level.getRandom().nextFloat() * 360.0F, 0.0F);
+					groupData = rat.finalizeSpawn(level, level.getCurrentDifficultyAt(rat.blockPosition()), MobSpawnType.EVENT, groupData, null);
+					level.addFreshEntity(rat);
+					rat.spawnAnim();
+				}
+			}
+		}
+
+		return groupData;
 	}
 }

@@ -36,7 +36,7 @@ public class CCBiomeModifiers {
 		addSpawn(context, "peeper", CCBiomeTags.HAS_PEEPER, new MobSpawnSettings.SpawnerData(CCEntityTypes.PEEPER.get(), 20, 2, 4));
 		addSpawn(context, "mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 100, 1, 1));
 		addSpawn(context, "grazer", CCBiomeTags.HAS_GRAZER, new MobSpawnSettings.SpawnerData(CCEntityTypes.GRAZER.get(), 100, 1, 4));
-		addSpawn(context, "rat", CCBiomeTags.HAS_RAT, new MobSpawnSettings.SpawnerData(CCEntityTypes.RAT.get(), 10, 8, 12));
+		addSpawn(context, "rat", CCBiomeTags.HAS_RAT, new MobSpawnSettings.SpawnerData(CCEntityTypes.RAT.get(), 10, 1, 2));
 		addSpawn(context, "cavefish", CCBiomeTags.HAS_CAVEFISH, new MobSpawnSettings.SpawnerData(CCEntityTypes.CAVEFISH.get(), 10, 6, 12));
 		addSpawn(context, "glare", CCBiomeTags.HAS_GLARE, new MobSpawnSettings.SpawnerData(CCEntityTypes.GLARE.get(), 20, 1, 1));
 		addSpawn(context, "lost_goat", CCBiomeTags.HAS_LOST_GOAT, new MobSpawnSettings.SpawnerData(CCEntityTypes.LOST_GOAT.get(), 1, 1, 1));

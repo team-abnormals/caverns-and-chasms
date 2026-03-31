@@ -3,8 +3,8 @@
   "biomes": "#caverns_and_chasms:has_animal/rat",
   "spawners": {
     "type": "caverns_and_chasms:rat",
-    "maxCount": 12,
-    "minCount": 8,
+    "maxCount": 2,
+    "minCount": 1,
     "weight": 10
   }
 }
