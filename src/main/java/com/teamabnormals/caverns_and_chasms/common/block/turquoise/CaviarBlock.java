@@ -23,12 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CaviarBlock extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	protected static final VoxelShape SHAPE = Shapes.or(
-			Block.box(2, 0, 2, 14, 9, 14),
-			Block.box(3, 9, 3, 13, 11, 13),
-			Block.box(7, 13, 7, 9, 15, 9),
-			Block.box(5, 11, 5, 11, 13, 11)
-	);
+	protected static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 8, 11);
 
 	public CaviarBlock(Properties properties) {
 		super(properties);

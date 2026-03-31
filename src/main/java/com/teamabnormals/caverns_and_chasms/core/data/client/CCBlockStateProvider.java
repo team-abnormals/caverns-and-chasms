@@ -940,12 +940,9 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 	public void caviarBlock(RegistryObject<Block> registryObject) {
 		Block block = registryObject.get();
-		ResourceLocation texture = suffix(blockTexture(block), "_");
 		this.simpleBlock(registryObject.get(), this.models()
 				.withExistingParent(name(block), CavernsAndChasms.MOD_ID + ":block/template_caviar")
-				.texture("side", suffix(texture, "side"))
-				.texture("top", suffix(texture, "top"))
-				.texture("bottom", suffix(texture, "bottom"))
+				.texture("caviar", blockTexture(block))
 		);
 		this.generatedItem(block, "item");
 	}
