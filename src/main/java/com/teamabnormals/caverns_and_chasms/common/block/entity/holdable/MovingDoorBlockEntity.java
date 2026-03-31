@@ -20,7 +20,6 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	protected boolean isBelowBottom;
 	protected MovingDoorType doorType;
 	protected MovingDoorType belowDoorType;
-	protected long lastUpdateTick;
 	protected boolean justCreated;
 
 	protected double visualOpenness;
@@ -303,6 +302,9 @@ public class MovingDoorBlockEntity extends BlockEntity {
 		if (d0 < -0.5D) {
 			d0 += 1.0D;
 			return this.visualOpennessOld + partialTick * d0 <= 1.0D;
+		} else if (d0 > 0.5D) {
+			d0 -= 1.0D;
+			return this.visualOpennessOld + partialTick * d0 >= 0.0D;
 		}
 
 		return false;

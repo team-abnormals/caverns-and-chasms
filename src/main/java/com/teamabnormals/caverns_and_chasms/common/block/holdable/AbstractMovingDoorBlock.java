@@ -103,6 +103,7 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 		if (headerEntity != null && !isItemCompatibleDoor && level.getBlockEntity(pos) instanceof MovingDoorBlockEntity doorEntity && (doorEntity.isBottom() || (doorEntity.isBelowBottom() && this.isHitResultInLiftArea(state, doorEntity, pos, hitResult)))) {
 			if (!level.isClientSide)
 				headerEntity.setHeld();
+
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 

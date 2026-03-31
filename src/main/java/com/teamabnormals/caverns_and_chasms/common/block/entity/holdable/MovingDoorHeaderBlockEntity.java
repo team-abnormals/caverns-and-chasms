@@ -40,6 +40,7 @@ import java.util.stream.Collectors;
 public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	private List<MovingDoorType> storedBlocks = Lists.newArrayList();
 	private int holdTime;
+	private long lastUpdateTick;
 	private MovingDoorMoveSoundInstance soundInstance;
 
 	public MovingDoorHeaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -122,6 +123,8 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 					AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) headerState.getBlock();
 					int doorsBelowCount = thisBlock.countDoorsBelow(level, headerPos, headerState);
 
+					header.lastUpdateTick = level.getGameTime();
+
 					if (header.holdTime > 0) {
 						--header.holdTime;
 					}
@@ -197,7 +200,6 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		for (int i = 0; i <= doorsBelowCount; i++) {
 			if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
 				offsetEntity.openness = this.openness;
-				offsetEntity.lastUpdateTick = level.getGameTime();
 				offsetEntity.setChanged();
 			}
 			BlockState offsetState = level.getBlockState(mutable);
@@ -208,25 +210,6 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 
 		level.sendBlockUpdated(thisPos, thisState, thisState, 3);
 	}
-
-	/*
-	private void updateVisualOpennessInRow(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount) {
-		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
-		Direction belowDir = thisBlock.getBelowDirection(thisState);
-
-		MutableBlockPos mutable = thisPos.mutable();
-		for (int i = 0; i <= doorsBelowCount; i++) {
-			if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
-				offsetEntity.visualOpennessOld = offsetEntity.visualOpenness;
-				offsetEntity.visualOpenness = this.openness;
-				offsetEntity.lastUpdateTick = level.getGameTime();
-				offsetEntity.setChanged();
-			}
-
-			mutable.move(belowDir);
-		}
-	}
-	*/
 
 	private void extend(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount) {
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
@@ -252,7 +235,6 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 
 			if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
 				offsetEntity.openness = this.openness;
-				offsetEntity.lastUpdateTick = level.getGameTime();
 				offsetEntity.isBelowBottom = i == 1;
 				offsetEntity.belowDoorType = i == 0 ? null : offsetEntity.doorType;
 				offsetEntity.doorType = aboveEntity == null ? this.storedBlocks.remove(this.storedBlocks.size() - 1) : aboveEntity.doorType;
@@ -296,7 +278,6 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 
 				if (level.getBlockEntity(mutable) instanceof MovingDoorBlockEntity offsetEntity) {
 					offsetEntity.openness = this.openness;
-					offsetEntity.lastUpdateTick = level.getGameTime();
 					offsetEntity.isBelowBottom = i == iterateTo - 2;
 					offsetEntity.doorType = belowEntity.doorType;
 					offsetEntity.belowDoorType = belowEntity.belowDoorType;
