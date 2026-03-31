@@ -366,7 +366,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.woodworksBlocks(AZALEA_PLANKS, AZALEA_BOARDS, AZALEA_LADDER, AZALEA_BOOKSHELF, AZALEA_BEEHIVE, AZALEA_CHEST, TRAPPED_AZALEA_CHEST);
 		this.chiseledBookshelfBlock(CHISELED_AZALEA_BOOKSHELF, ALTERNATE_BOOKSHELF_POSITIONS);
 
-		this.crossBlockWithPot(FALSE_HOPE, POTTED_FALSE_HOPE);
+		this.falseHopeBlock(FALSE_HOPE, POTTED_FALSE_HOPE);
 
 		this.crossBlockWithPot(MOSCHATEL, POTTED_MOSCHATEL);
 		this.caveGrowthsBlock(CAVE_GROWTHS, POTTED_CAVE_GROWTHS);
@@ -406,6 +406,12 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
 
 		this.horizontalBlock(wallSparkler.get(), state -> state.getValue(WallSparklerBlock.LIT) ? wallLit : wall, 90);
+	}
+
+	public void falseHopeBlock(RegistryObject<Block> plant, RegistryObject<Block> flowerPot) {
+		this.directionalBlock(plant.get(), this.models().cross(name(plant.get()), this.blockTexture(plant.get())));
+		this.generatedItem(plant.get(), "block");
+		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), new ResourceLocation("block/flower_pot_cross"), "plant", this.blockTexture(plant.get())));
 	}
 
 	public void caveGrowthsBlock(RegistryObject<Block> caveGrowths, RegistryObject<Block> flowerPot) {

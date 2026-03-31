@@ -398,7 +398,7 @@ public class CCBlocks {
 	public static final RegistryObject<Block> DIORITE_TILE_STAIRS = HELPER.createBlock("diorite_tile_stairs", () -> new StairBlock(() -> DIORITE_TILES.get().defaultBlockState(), CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_TILE_SLAB = HELPER.createBlock("diorite_tile_slab", () -> new SlabBlock(CCProperties.DIORITE));
 	public static final RegistryObject<Block> DIORITE_TILE_WALL = HELPER.createBlock("diorite_tile_wall", () -> new WallBlock(CCProperties.DIORITE));
-	
+
 	public static final RegistryObject<Block> POLISHED_ANDESITE_WALL = HELPER.createBlock("polished_andesite_wall", () -> new WallBlock(CCProperties.ANDESITE));
 	public static final RegistryObject<Block> CHISELED_POLISHED_ANDESITE = HELPER.createBlock("chiseled_polished_andesite", () -> new Block(CCProperties.ANDESITE));
 	public static final RegistryObject<Block> ANDESITE_BRICKS = HELPER.createBlock("andesite_bricks", () -> new Block(CCProperties.ANDESITE));
@@ -713,7 +713,7 @@ public class CCBlocks {
 						MOSSY_COBBLESTONE_TILES, MOSSY_COBBLESTONE_TILE_STAIRS, MOSSY_COBBLESTONE_TILE_SLAB, MOSSY_COBBLESTONE_TILE_WALL
 				)
 				.addItemsAfter(of(Blocks.STONE_SLAB), STONE_WALL)
-				.addItemsAfter(of(Blocks.POLISHED_GRANITE_SLAB), 
+				.addItemsAfter(of(Blocks.POLISHED_GRANITE_SLAB),
 						POLISHED_GRANITE_WALL, CHISELED_POLISHED_GRANITE,
 						GRANITE_BRICKS, GRANITE_BRICK_STAIRS, GRANITE_BRICK_SLAB, GRANITE_BRICK_WALL, GRANITE_PILLAR,
 						GRANITE_TILES, GRANITE_TILE_STAIRS, GRANITE_TILE_SLAB, GRANITE_TILE_WALL
@@ -986,7 +986,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ROTTEN_FLESH_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).strength(0.8F).sound(CCSoundTypes.ROTTEN_FLESH);
 		public static final BlockBehaviour.Properties NECROMIUM_BLOCK = BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK).sound(CCSoundTypes.NECROMIUM).mapColor(MapColor.TERRACOTTA_GREEN);
 
-		public static final BlockBehaviour.Properties FALSE_HOPE = PropertyUtil.flower().sound(CCSoundTypes.FALSE_HOPE).lightLevel((state) -> 15);
+		public static final BlockBehaviour.Properties FALSE_HOPE = modifyOffset(PropertyUtil.flower().sound(CCSoundTypes.FALSE_HOPE).lightLevel((state) -> 15));
 
 		public static final BlockBehaviour.Properties SADDLED_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().strength(0.5F).sound(CCSoundTypes.SADDLED_EGG).randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
 
@@ -1019,7 +1019,10 @@ public class CCBlocks {
 		}
 
 		private static BlockBehaviour.Properties caveGrowths(MapColor mapColor) {
-			BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().mapColor(mapColor).replaceable().noCollission().instabreak().sound(CCSoundTypes.CAVE_GROWTHS).ignitedByLava().pushReaction(PushReaction.DESTROY);
+			return modifyOffset(BlockBehaviour.Properties.of().mapColor(mapColor).replaceable().noCollission().instabreak().sound(CCSoundTypes.CAVE_GROWTHS).ignitedByLava().pushReaction(PushReaction.DESTROY));
+		}
+
+		private static BlockBehaviour.Properties modifyOffset(BlockBehaviour.Properties properties) {
 			properties.offsetFunction = Optional.of((state, level, pos) -> {
 				Block block = state.getBlock();
 				long i = Mth.getSeed(pos.getX(), pos.getY(), pos.getZ());

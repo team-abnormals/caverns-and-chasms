@@ -33,16 +33,19 @@ public class FalseHopeFeature extends Feature<NoneFeatureConfiguration> {
 				BlockState belowstate = level.getBlockState(blockpos.below());
 				if ((isStone(belowstate) || isDirt(belowstate)) && hasCeilingAbove(level, blockpos) && isOnAngledCliff(level, blockpos)) {
 					level.setBlock(blockpos, CCBlocks.FALSE_HOPE.get().defaultBlockState(), 2);
-					System.out.println("/tp " + blockpos.getX() + " " + blockpos.getY() + " " + blockpos.getZ());
-
 					MutableBlockPos mutable = new MutableBlockPos();
 					for (int x = -4; x <= 4; x++) {
 						for (int y = -4; y <= 4; y++) {
 							for (int z = -4; z <= 4; z++) {
 								if (x * x + y * y + z * z <= 16) {
 									mutable.setWithOffset(blockpos, x, y, z);
-									if (level.getBlockState(mutable).is(BlockTags.BASE_STONE_OVERWORLD))
-										level.setBlock(mutable, level.getBlockState(mutable.above()).isSolid() ? Blocks.DIRT.defaultBlockState() : Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+									if (level.getBlockState(mutable).is(BlockTags.BASE_STONE_OVERWORLD)) {
+										boolean covered = level.getBlockState(mutable.above()).isSolid();
+										level.setBlock(mutable, covered ? Blocks.DIRT.defaultBlockState() : Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+										if (!covered && level.getBlockState(mutable.above()).isAir() && random.nextInt(3) == 0) {
+											level.setBlock(mutable.above(), Blocks.GRASS.defaultBlockState(), 2);
+										}
+									}
 								}
 							}
 						}
