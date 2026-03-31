@@ -17,7 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class WinchBlockEntity extends BlockEntity {
 	private int holdTime;
 	private float rotation;
-	private float rotationO;
+	private float visualRotation;
+	private float visualRotationOld;
 	private float rewindSpeed;
 	private boolean forceRollBack;
 
@@ -32,6 +33,10 @@ public class WinchBlockEntity extends BlockEntity {
 		this.rotation = compound.getFloat("Rotation");
 		this.rewindSpeed = compound.getFloat("RewindSpeed");
 		this.forceRollBack = compound.getBoolean("ForceRollBack");
+
+		if (!compound.getBoolean("UpdateTag")) {
+			this.visualRotation = this.rotation;
+		}
 	}
 
 	@Override
@@ -44,13 +49,22 @@ public class WinchBlockEntity extends BlockEntity {
 	}
 
 	@Override
+	public void setLevel(Level level) {
+		super.setLevel(level);
+		this.visualRotation = this.rotation;
+		this.visualRotationOld = this.visualRotation;
+	}
+
+	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+		CompoundTag compound = this.saveWithoutMetadata();
+		compound.putBoolean("UpdateTag", true);
+		return compound;
 	}
 
 	public void setHeld() {
@@ -60,8 +74,8 @@ public class WinchBlockEntity extends BlockEntity {
 		this.holdTime = 2;
 	}
 
-	public float getRotation(float partialTick) {
-		return Mth.lerp(partialTick, this.rotationO, this.rotation);
+	public float getVisualRotation(float partialTick) {
+		return Mth.lerp(partialTick, this.visualRotationOld, this.visualRotation);
 	}
 
 	public int getPower() {
@@ -74,38 +88,38 @@ public class WinchBlockEntity extends BlockEntity {
 
 	public static void tick(Level level, BlockPos pos, BlockState state, WinchBlockEntity blockEntity) {
 		if (level.isClientSide) {
-			blockEntity.rotationO = blockEntity.rotation;
-			return;
-		}
+			blockEntity.visualRotationOld = blockEntity.visualRotation;
+			blockEntity.visualRotation = blockEntity.rotation;
+		} else {
+			int oldPower = blockEntity.getPower();
+			float oldRotation = blockEntity.rotation;
+			boolean isPressed = blockEntity.holdTime > 0;
 
-		int oldPower = blockEntity.getPower();
-		float oldRotation = blockEntity.rotation;
-		boolean isPressed = blockEntity.holdTime > 0;
-
-		if (blockEntity.forceRollBack || (!isPressed && shouldUnwind(level, pos, state, blockEntity))) {
-			blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
-			blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
-		} else if (isPressed) {
-			blockEntity.rewindSpeed = 0F;
-			blockEntity.rotation = Math.min(blockEntity.rotation + 3F, 360F);
-		}
-
-		if (isPressed) {
-			--blockEntity.holdTime;
-		}
-
-		if (blockEntity.rotation != oldRotation) {
-			blockEntity.setChanged();
-			level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
-		}
-
-		if (oldPower != blockEntity.getPower()) {
-			WinchBlock.updateNeighbours(state, level, pos);
-			if (blockEntity.isFullyPowered() && !shouldUnwind(level, pos, state, blockEntity)) {
-				level.playSound(null, pos, CCSoundEvents.WINCH_LOCK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+			if (blockEntity.forceRollBack || (!isPressed && shouldUnwind(level, pos, state, blockEntity))) {
+				blockEntity.rewindSpeed = blockEntity.rewindSpeed + 1.5F;
+				blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
+			} else if (isPressed) {
+				blockEntity.rewindSpeed = 0F;
+				blockEntity.rotation = Math.min(blockEntity.rotation + 3F, 360F);
 			}
 
-			level.playSound(null, pos, CCSoundEvents.WINCH_WIND.get(), SoundSource.BLOCKS, 1.0F, 0.9F + 0.02F * blockEntity.getPower());
+			if (isPressed) {
+				--blockEntity.holdTime;
+			}
+
+			if (blockEntity.rotation != oldRotation) {
+				blockEntity.setChanged();
+				level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
+			}
+
+			if (oldPower != blockEntity.getPower()) {
+				WinchBlock.updateNeighbours(state, level, pos);
+				if (blockEntity.isFullyPowered() && !shouldUnwind(level, pos, state, blockEntity)) {
+					level.playSound(null, pos, CCSoundEvents.WINCH_LOCK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+				}
+
+				level.playSound(null, pos, CCSoundEvents.WINCH_WIND.get(), SoundSource.BLOCKS, 1.0F, 0.9F + 0.02F * blockEntity.getPower());
+			}
 		}
 	}
 

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.item.MovingDoorBlockItem;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;

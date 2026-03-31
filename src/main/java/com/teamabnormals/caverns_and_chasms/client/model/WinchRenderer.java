@@ -70,7 +70,7 @@ public class WinchRenderer<T extends WinchBlockEntity> implements BlockEntityRen
 				poseStack.translate(0.0D, -1.0D, face == AttachFace.CEILING ? -1.0D : 1.0D);
 			}
 
-			this.crank.zRot = Mth.HALF_PI + winch.getRotation(partialTick) * Mth.DEG_TO_RAD;
+			this.crank.zRot = Mth.HALF_PI + winch.getVisualRotation(partialTick) * Mth.DEG_TO_RAD;
 
 			VertexConsumer vertexConsumer = WINCH_MATERIAL.buffer(buffer, RenderType::entitySolid);
 			this.base.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
