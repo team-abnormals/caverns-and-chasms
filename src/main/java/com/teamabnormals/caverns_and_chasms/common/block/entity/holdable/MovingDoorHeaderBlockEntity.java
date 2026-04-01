@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CMovingDoorSoundMessage;
 import com.teamabnormals.caverns_and_chasms.common.network.S2CPushPlayerMessage;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
@@ -86,6 +85,19 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		}
 	}
 
+	@Override
+	public boolean triggerEvent(int id, int type) {
+		if (id == 1) {
+			if (this.soundInstance != null) {
+				this.soundInstance.setVolume(type == 0 ? 0 : 1.0F / type);
+			}
+
+			return true;
+		} else {
+			return super.triggerEvent(id, type);
+		}
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	protected void initSoundInstance() {
 		if (this.soundInstance == null) {
@@ -101,11 +113,6 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 
 	public boolean isBeingLifted() {
 		return this.holdTime > 0;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public MovingDoorMoveSoundInstance getSoundInstance() {
-		return this.soundInstance;
 	}
 
 	public static void tick(Level level, BlockPos thisPos, BlockState thisState, MovingDoorHeaderBlockEntity thisHeader) {
@@ -139,13 +146,8 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 					}
 				}
 
-				float volume = 1.0F / Math.min(movedHeaders.size(), 14);
 				for (MovingDoorHeaderBlockEntity header : headers) {
-					if (movedHeaders.contains(header)) {
-						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CMovingDoorSoundMessage(header.getBlockPos(), volume));
-					} else {
-						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CMovingDoorSoundMessage(header.getBlockPos(), 0.0F));
-					}
+					level.blockEvent(header.worldPosition, header.getBlockState().getBlock(), 1, movedHeaders.contains(header) ? Math.min(movedHeaders.size(), 14) : 0);
 				}
 			}
 		}
@@ -341,12 +343,13 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	private void moveEntity(Entity entity, double xMove, double yMove, double zMove, boolean onDoor) {
 		if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
 			if (entity instanceof ServerPlayer player) {
-				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CPushPlayerMessage((float) xMove, (float) yMove, (float) zMove));
+				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CPushPlayerMessage((float) xMove, (float) yMove, (float) zMove, onDoor));
 			} else {
 				entity.move(MoverType.SELF, new Vec3(xMove, yMove, zMove));
-				if (onDoor) {
-					entity.setOnGround(true);
-				}
+			}
+
+			if (onDoor) {
+				entity.setOnGround(true);
 			}
 		}
 	}

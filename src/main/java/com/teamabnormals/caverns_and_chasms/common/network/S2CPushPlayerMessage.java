@@ -15,21 +15,24 @@ public class S2CPushPlayerMessage {
 	private final float x;
 	private final float y;
 	private final float z;
+	private final boolean onDoor;
 
-	public S2CPushPlayerMessage(float x, float y, float z) {
+	public S2CPushPlayerMessage(float x, float y, float z, boolean onDoor) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.onDoor = onDoor;
 	}
 
 	public static S2CPushPlayerMessage deserialize(FriendlyByteBuf buf) {
-		return new S2CPushPlayerMessage(buf.readFloat(), buf.readFloat(), buf.readFloat());
+		return new S2CPushPlayerMessage(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean());
 	}
 
 	public void serialize(FriendlyByteBuf buf) {
 		buf.writeFloat(this.x);
 		buf.writeFloat(this.y);
 		buf.writeFloat(this.z);
+		buf.writeBoolean(this.onDoor);
 	}
 
 	public static void handle(S2CPushPlayerMessage message, Supplier<Context> ctx) {
@@ -38,6 +41,9 @@ public class S2CPushPlayerMessage {
 			context.enqueueWork(() -> {
 				LocalPlayer player = Minecraft.getInstance().player;
 				player.move(MoverType.PLAYER, new Vec3(message.x, message.y, message.z));
+				if (message.onDoor) {
+					player.setOnGround(true);
+				}
 			});
 		}
 		context.setPacketHandled(true);
