@@ -1,5 +1,7 @@
+## Polished Up
+
 ### Features
-* Added a new underground deposit of Tin, Tin Monoliths
+* Added Tin Monoliths - large underground deposits of Tin
 * Added 5 new mobs
   * Cavefish
   * Evendeeper
@@ -23,9 +25,9 @@
   * Bejeweled Anvil
   * Atoning Table
   * Dismantling Table
-  * Float Glass and Float Glass Panes
-  * Frosted Glass and Frosted Glass Panes
-  * Ornate Glass and Ornate Glass Panes
+  * Float Glass
+  * Frosted Glass
+  * Ornate Glass
   * Block of Charcoal
   * Sparkler and dyed variants
   * Gunpowder Block
@@ -52,7 +54,7 @@
   * Additional Andesite variants
   * Additional Calcite variants
   * Additional Dripstone variants
-  * Backported Tuff variants 
+  * Backported Tuff variants
   * Backported Copper variants (with some visual changes)
 * Added the following items:
   * Copper Equipment
@@ -82,7 +84,7 @@
   * 2 new Potions
     * Potion of Blindness
     * Potion of the Revenant
-  * 4 new Tipped Arrows
+  * 2 new Tipped Arrows
     * Arrow of Blindness
     * Arrow of the Revenant
 * Added a new Music Disc by hatsondogs
@@ -99,16 +101,16 @@
 * Silver equipment's magic damage and protection has been buffed
 * Necromium armor has been reworked to provide slowness to enemies rather than weakness
 * Skeletons no longer have less health
-* Leather horse armor now stops horses sinking into powder snow, gold horse armor grants a small speed boost, and horse armor buffs are properly stated in the item descriptions 
+* Leather horse armor now stops horses sinking into powder snow, gold horse armor grants a small speed boost, and horse armor buffs are properly stated in the item descriptions
 * Spinel Ore generation rates have been tweaked to be rarer with larger veins
 * TNT now only requires 2 Sand and 2 Gunpowder to craft
 * Toolboxes now have a new UI with 5 additional slots
 * Toolboxes can now store instruments like Goat Horns
 * Fragile stone makes ores encased within it fall down upon breaking. No more ugly floating veins!
-* Fragile stone is now craftable with stone and gravel 
+* Fragile stone is now craftable with stone and gravel
 * Rocky dirt now has a chance to drop flint in addition to dirt
 * The cheaper lodestone recipe from vanilla has been backported
-* Deepers and peepers now drop more gunpowder 
+* Deepers and peepers now drop more gunpowder
 * Deepers are now affected by pickaxe enchantments
 * Peepers properly fear cats, and their pupils will dilate upon noticing one
 * Added a Charged texture to Deepers and Peepers
