@@ -119,7 +119,7 @@ public class TinArrowPlacement extends PlacementModifier {
 		int chunkX = spacingX * TinMonolithStructure.SPACING + l;
 		int chunkZ = spacingZ * TinMonolithStructure.SPACING + i1;
 
-		if (Mth.abs(chunkX) <= TinMonolithStructure.NO_MONOLITHS_RANGE || Mth.abs(chunkZ) <= TinMonolithStructure.NO_MONOLITHS_RANGE) {
+		if (Mth.abs(chunkX) <= TinMonolithStructure.NO_MONOLITHS_RANGE && Mth.abs(chunkZ) <= TinMonolithStructure.NO_MONOLITHS_RANGE) {
 			return null;
 		}
 
