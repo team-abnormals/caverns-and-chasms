@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractMovingDoorBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CPushPlayerMessage;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -16,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.MoverType;
@@ -30,7 +27,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +39,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	private List<MovingDoorType> storedBlocks = Lists.newArrayList();
 	private int holdTime;
 	private long lastUpdateTick;
+	private MoveState moveState = MoveState.NONE;
 	private MovingDoorMoveSoundInstance soundInstance;
 
 	public MovingDoorHeaderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -64,6 +61,8 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			}
 		}
 		this.holdTime = compound.getShort("HoldTime");
+
+		this.moveState = MoveState.byStep(compound.getInt("MoveState"));
 	}
 
 	@Override
@@ -78,6 +77,13 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	}
 
 	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag compound = super.getUpdateTag();
+		compound.putInt("MoveState", this.moveState.getStep());
+		return compound;
+	}
+
+	@Override
 	public void setLevel(Level level) {
 		super.setLevel(level);
 		if (this.level.isClientSide) {
@@ -88,6 +94,12 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	@Override
 	public boolean triggerEvent(int id, int type) {
 		if (id == 1) {
+			if (this.soundInstance != null) {
+				this.soundInstance.setVolume(type == 0 ? 0 : 1.0F / type);
+			}
+
+			return true;
+		} else if (id == 2) {
 			if (this.soundInstance != null) {
 				this.soundInstance.setVolume(type == 0 ? 0 : 1.0F / type);
 			}
@@ -121,39 +133,50 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		if (level.isClientSide) {
 			thisHeader.setOldVisuals();
 			thisHeader.syncVisuals();
-		} else {
-			if (thisHeader.lastUpdateTick < level.getGameTime()) {
+		}
 
-				List<MovingDoorHeaderBlockEntity> headers = thisHeader.getConnectedHeaders();
-				List<MovingDoorHeaderBlockEntity> movedHeaders = Lists.newArrayList();
+		if (thisHeader.lastUpdateTick < level.getGameTime()) {
+			List<MovingDoorHeaderBlockEntity> headers = thisHeader.getConnectedHeaders();
+			List<MovingDoorHeaderBlockEntity> movedHeaders = Lists.newArrayList();
+			List<Entity> alreadyMoved = Lists.newArrayList();
 
-				boolean shouldOpen = headers.stream().anyMatch(MovingDoorHeaderBlockEntity::shouldOpen);
+			boolean shouldOpen = headers.stream().anyMatch(MovingDoorHeaderBlockEntity::shouldOpen);
 
-				for (MovingDoorHeaderBlockEntity header : headers) {
-					BlockPos headerPos = header.getBlockPos();
-					BlockState headerState = header.getBlockState();
-					AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) headerState.getBlock();
-					int doorsBelowCount = thisBlock.countDoorsBelow(level, headerPos, headerState);
+			for (MovingDoorHeaderBlockEntity header : headers) {
+				BlockPos headerPos = header.getBlockPos();
+				BlockState headerState = header.getBlockState();
+				AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) headerState.getBlock();
+				int doorsBelowCount = thisBlock.countDoorsBelow(level, headerPos, headerState);
 
-					header.lastUpdateTick = level.getGameTime();
+				header.lastUpdateTick = level.getGameTime();
 
+				if (!level.isClientSide) {
 					if (header.holdTime > 0) {
 						--header.holdTime;
 					}
 
-					if (header.move(level, headerPos, headerState, doorsBelowCount, shouldOpen)) {
-						movedHeaders.add(header);
-					}
+					header.moveState = header.move(level, headerPos, headerState, doorsBelowCount, shouldOpen);
 				}
 
+				if (header.moveState != MoveState.NONE) {
+					movedHeaders.add(header);
+					header.moveCollidedEntities(level, headerPos, headerState, header.openness, header.moveState.getStep() * MOVE_SPEED, doorsBelowCount, alreadyMoved);
+					if (level.isClientSide) {
+						header.moveState = MoveState.NONE;
+					}
+				}
+			}
+
+			if (!level.isClientSide) {
+				int volume = Math.min(movedHeaders.size(), 14);
 				for (MovingDoorHeaderBlockEntity header : headers) {
-					level.blockEvent(header.worldPosition, header.getBlockState().getBlock(), 1, movedHeaders.contains(header) ? Math.min(movedHeaders.size(), 14) : 0);
+					level.blockEvent(header.worldPosition, header.getBlockState().getBlock(), 1, movedHeaders.contains(header) ? volume : 0);
 				}
 			}
 		}
 	}
 
-	protected boolean move(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount, boolean shouldOpen) {
+	protected MoveState move(Level level, BlockPos thisPos, BlockState thisState, int doorsBelowCount, boolean shouldOpen) {
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
 		if (shouldOpen) {
@@ -164,17 +187,15 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 					this.openness -= 1.0D;
 					doorsBelowCount--;
 					this.retract(level, thisPos, thisState, doorsBelowCount);
-					this.moveCollidedEntities(level, thisPos, thisState, this.openness, -MOVE_SPEED, doorsBelowCount);
-					return true;
+					return MoveState.RETRACT;
 				}
 
 				this.openness = 1.0F;
-				return false;
+				return MoveState.NONE;
 			}
 
 			this.updateOpennessInRow(level, thisPos, thisState, doorsBelowCount);
-			this.moveCollidedEntities(level, thisPos, thisState, this.openness, -MOVE_SPEED, doorsBelowCount);
-			return true;
+			return MoveState.RETRACT;
 		} else {
 			this.openness -= MOVE_SPEED;
 
@@ -187,18 +208,16 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 						this.openness += 1.0D;
 						doorsBelowCount++;
 						this.extend(level, thisPos, thisState, doorsBelowCount);
-						this.moveCollidedEntities(level, thisPos, thisState, this.openness, MOVE_SPEED, doorsBelowCount);
-						return true;
+						return MoveState.EXTEND;
 					}
 				}
 
 				this.openness = 0.0D;
-				return false;
+				return MoveState.NONE;
 			}
 
 			this.updateOpennessInRow(level, thisPos, thisState, doorsBelowCount);
-			this.moveCollidedEntities(level, thisPos, thisState, this.openness, MOVE_SPEED, doorsBelowCount);
-			return true;
+			return MoveState.EXTEND;
 		}
 	}
 
@@ -308,7 +327,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		}
 	}
 
-	private void moveCollidedEntities(Level level, BlockPos thisPos, BlockState thisState, double openness, double moveSpeed, int doorsBelowCount) {
+	private void moveCollidedEntities(Level level, BlockPos thisPos, BlockState thisState, double openness, double moveSpeed, int doorsBelowCount, List<Entity> alreadyMoved) {
 		AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) thisState.getBlock();
 
 		Direction belowDir = thisBlock.getBelowDirection(thisState);
@@ -318,38 +337,26 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 			AABB aabb = thisBlock.calculatePushAABB(openness, doorsBelowCount, thisState, moveDirVector).move(thisPos);
 			AABB standAabb = aabb.expandTowards(0.0D, 0.05D, 0.0D);
 
-			List<Entity> entitiesOnDoor = level.getEntities((Entity) null, standAabb, EntitySelector.NO_SPECTATORS.and(entity -> entity.onGround() && entity.getY() >= aabb.maxY));
+			List<Entity> entitiesOnDoor = level.getEntities((Entity) null, standAabb, EntitySelector.NO_SPECTATORS.and(entity -> entity.onGround() && entity.getY() >= aabb.maxY && entity.isControlledByLocalInstance() && !alreadyMoved.contains(entity)));
 
 			if (!entitiesOnDoor.isEmpty()) {
 				for (Entity entity : entitiesOnDoor) {
-					this.moveEntity(entity, moveSpeed * moveDirVector.getX(), moveSpeed * moveDirVector.getY(), moveSpeed * moveDirVector.getZ(), true);
+					entity.move(MoverType.PISTON, new Vec3(moveSpeed * moveDirVector.getX(), moveSpeed * moveDirVector.getY(), moveSpeed * moveDirVector.getZ()));
+					entity.setOnGround(true);
+					alreadyMoved.add(entity);
 				}
 			}
 
 			if (moveSpeed > 0) {
-				List<Entity> entitiesInsideDoor = level.getEntities(null, aabb);
-				entitiesInsideDoor.removeAll(entitiesOnDoor);
+				List<Entity> entitiesInsideDoor = level.getEntities((Entity) null, aabb, EntitySelector.NO_SPECTATORS.and(entity -> entity.isControlledByLocalInstance() && !entitiesOnDoor.contains(entity)));
 
 				if (!entitiesInsideDoor.isEmpty()) {
-					double d0 = moveSpeed + 0.05D;
+					double d0 = moveSpeed + 0.01D;
 					for (Entity entity : entitiesInsideDoor) {
-						this.moveEntity(entity, d0 * moveDirVector.getX(), d0 * moveDirVector.getY(), d0 * moveDirVector.getZ(), false);
+						entity.move(MoverType.PISTON, new Vec3(d0 * moveDirVector.getX(), d0 * moveDirVector.getY(), d0 * moveDirVector.getZ()));
+						alreadyMoved.add(entity);
 					}
 				}
-			}
-		}
-	}
-
-	private void moveEntity(Entity entity, double xMove, double yMove, double zMove, boolean onDoor) {
-		if (entity.getPistonPushReaction() != PushReaction.IGNORE) {
-			if (entity instanceof ServerPlayer player) {
-				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CPushPlayerMessage((float) xMove, (float) yMove, (float) zMove, onDoor));
-			} else {
-				entity.move(MoverType.SELF, new Vec3(xMove, yMove, zMove));
-			}
-
-			if (onDoor) {
-				entity.setOnGround(true);
 			}
 		}
 	}
@@ -406,5 +413,25 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		}
 
 		return list;
+	}
+
+	private enum MoveState {
+		NONE(0),
+		EXTEND(1),
+		RETRACT(-1);
+
+		private final int step;
+
+		MoveState(int step) {
+			this.step = step;
+		}
+
+		public int getStep() {
+			return this.step;
+		}
+
+		public static MoveState byStep(int step) {
+			return step == -1 ? RETRACT : step == 0 ? NONE : step == 1 ? EXTEND : null;
+		}
 	}
 }
