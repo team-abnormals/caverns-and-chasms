@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.HeightmapRandomOffsetPlacement;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.NoiseDensityPlacement;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinMonolithDistanceFilter;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -32,7 +32,6 @@ public class CCPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> ORE_SILVER_SOUL = createKey("ore_silver_soul");
 
 	public static final ResourceKey<PlacedFeature> ORE_TIN = createKey("ore_tin");
-	public static final ResourceKey<PlacedFeature> ORE_TIN_BURIED = createKey("ore_tin_buried");
 
 	public static final ResourceKey<PlacedFeature> ORE_SPINEL = createKey("ore_spinel");
 	public static final ResourceKey<PlacedFeature> ORE_SPINEL_BURIED = createKey("ore_spinel_buried");
@@ -61,8 +60,7 @@ public class CCPlacedFeatures {
 		register(context, ORE_SILVER_EXTRA, CCConfiguredFeatures.ORE_SILVER, commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
 		register(context, ORE_SILVER_SOUL, CCConfiguredFeatures.ORE_SOUL_SILVER, commonOrePlacement(45, PlacementUtils.RANGE_10_10));
 
-		register(context, ORE_TIN, CCConfiguredFeatures.ORE_TIN, orePlacement(TinArrowPlacement.of(1, 256), HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48))));
-		register(context, ORE_TIN_BURIED, CCConfiguredFeatures.ORE_TIN_BURIED, orePlacement(TinArrowPlacement.of(1, 320), HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(32))));
+		register(context, ORE_TIN, CCConfiguredFeatures.ORE_TIN, InSquarePlacement.spread(), TinMonolithDistanceFilter.of(512), HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48)));
 
 		register(context, ORE_SPINEL, CCConfiguredFeatures.ORE_SPINEL, commonOrePlacement(1, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(64))));
 		register(context, ORE_SPINEL_BURIED, CCConfiguredFeatures.ORE_SPINEL_BURIED, commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48))));

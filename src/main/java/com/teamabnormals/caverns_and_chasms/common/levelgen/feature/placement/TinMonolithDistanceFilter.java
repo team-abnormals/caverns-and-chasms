@@ -12,85 +12,72 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.LegacyRandomSource;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 import java.util.Map;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-public class TinArrowPlacement extends PlacementModifier {
+public class TinMonolithDistanceFilter extends PlacementFilter {
 	private static final Vector2i[] CLOSEST_MONOLITH_OFFSETS = {new Vector2i(-1, 0), new Vector2i(0, 0), new Vector2i(-1, -1), new Vector2i(0, -1)};
 
-	public static final Codec<TinArrowPlacement> CODEC = RecordCodecBuilder.create(instance -> {
+	public static final Codec<TinMonolithDistanceFilter> CODEC = RecordCodecBuilder.create(instance -> {
 		return instance.group(
-				Codec.INT.fieldOf("max_count").forGetter((placement) -> placement.maxCount),
 				Codec.INT.fieldOf("max_distance").forGetter((placement) -> placement.maxDistance)
-		).apply(instance, TinArrowPlacement::new);
+		).apply(instance, TinMonolithDistanceFilter::new);
 	});
-	private final int maxCount;
 	private final int maxDistance;
 
-	private TinArrowPlacement(int maxCount, int maxDistance) {
-		this.maxCount = maxCount;
+	private TinMonolithDistanceFilter(int maxDistance) {
 		this.maxDistance = maxDistance;
 	}
 
-	public static TinArrowPlacement of(int maxCount, int maxDistance) {
-		return new TinArrowPlacement(maxCount, maxDistance);
+	public static TinMonolithDistanceFilter of(int maxDistance) {
+		return new TinMonolithDistanceFilter(maxDistance);
 	}
 
 	@Override
-	public Stream<BlockPos> getPositions(PlacementContext context, RandomSource random, BlockPos pos) {
-		return IntStream.range(0, this.count(context.getLevel(), random, pos)).mapToObj((i) -> pos);
-	}
-
-	private int count(WorldGenLevel level, RandomSource random, BlockPos pos) {
-		Vector2i vec2i = getClosestMonolithPosition(level, pos);
-
-		if (vec2i == null)
-			return 0;
-
-		double d0 = vec2i.x - pos.getX();
-		double d1 = vec2i.y - pos.getZ();
-		double d2 = Math.sqrt(d0 * d0 + d1 * d1);
-
-		if (d2 < this.maxDistance) {
-			double d3 = this.maxCount * (1 - d2 / this.maxDistance);
-			int i = (int) d3;
-			return i + (random.nextFloat() < d3 - i ? 1 : 0);
+	protected boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos) {
+		Vector2i vec2i = getClosestMonolithPosition(context.getLevel(), pos);
+		if (vec2i == null) {
+			return false;
 		} else {
-			return 0;
+			double dx = vec2i.x - pos.getX();
+			double dz = vec2i.y - pos.getZ();
+			return dx * dx + dz * dz <= this.maxDistance * this.maxDistance;
 		}
 	}
 
 	@Override
 	public PlacementModifierType<?> type() {
-		return CCPlacementModifierTypes.TIN_ARROW.get();
+		return CCPlacementModifierTypes.TIN_MONOLITH_DISTANCE_FILTER.get();
 	}
 
 	@Nullable
 	public static Vector2i getClosestMonolithPosition(WorldGenLevel level, BlockPos pos) {
-		int chunkX = pos.getX() >> 4;
-		int chunkZ = pos.getZ() >> 4;
+		int x = pos.getX();
+		int z = pos.getZ();
+
+		int chunkX = x >> 4;
+		int chunkZ = z >> 4;
 
 		Vector2i vec2i = new Vector2i(Math.floorDiv(chunkX + TinMonolithStructure.HALF_SPACING, TinMonolithStructure.SPACING), Math.floorDiv(chunkZ + TinMonolithStructure.HALF_SPACING, TinMonolithStructure.SPACING));
 
 		Map<Vector2i, Vector2i[]> map = CCFeatures.CLOSEST_MONOLITH_POSITIONS_AT.get(level.getLevel());
 
-		if (!map.containsKey(vec2i)) {
-			Vector2i[] monolithPositions = new Vector2i[4];
+		Vector2i[] closestPositions = map.get(vec2i);
+
+		if (closestPositions == null) {
+			closestPositions = new Vector2i[4];
 			for (int i = 0; i < 4; i++) {
 				Vector2i offset = CLOSEST_MONOLITH_OFFSETS[i];
-				monolithPositions[i] = getPotentialStructurePos(level.getSeed(), vec2i.x + offset.x, vec2i.y + offset.y);
+				closestPositions[i] = getPotentialStructurePos(level.getSeed(), vec2i.x + offset.x, vec2i.y + offset.y);
 			}
-			map.put(vec2i, monolithPositions);
+			map.put(vec2i, closestPositions);
 		}
 
-		Vector2i[] closestPositions = map.get(vec2i);
 		Vector2i closestPos = null;
 		int closestDistSqr = Integer.MAX_VALUE;
 
@@ -99,7 +86,10 @@ public class TinArrowPlacement extends PlacementModifier {
 				continue;
 			}
 
-			int distSqr = Mth.square(monolithPos.x - pos.getX()) + Mth.square(monolithPos.y - pos.getZ());
+			int dx = monolithPos.x - x;
+			int dz = monolithPos.y - z;
+			int distSqr = dx * dx + dz * dz;
+
 			if (distSqr < closestDistSqr) {
 				closestPos = monolithPos;
 				closestDistSqr = distSqr;
