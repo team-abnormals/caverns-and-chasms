@@ -93,20 +93,26 @@
 * Added 22 new Advancements
 
 ### Improvements
-* Updated textures on many blocks, items, and more
+* Updated textures on various blocks, items, and more
+* Many blocks, items, and features in the mod now have unique sounds!
 * Added many items to existing loot tables
-* Gave unique sounds to many blocks, items, and interactions
-* Buffed Silver equipment's magic damage and protection
-* Necromium Armor now gives off slowness
+* Silver equipment's magic damage and protection has been buffed
+* Necromium armor has been reworked to provide slowness to enemies rather than weakness
 * Skeletons no longer have less health
-* Horse Armor now gives buffs to Horses that match the respective armor
+* Leather horse armor now stops horses sinking into powder snow, gold horse armor grants a small speed boost, and horse armor buffs are properly stated in the item descriptions 
+* Spinel Ore generation rates have been tweaked to be rarer with larger veins
+* TNT now only requires 2 Sand and 2 Gunpowder to craft
 * Toolboxes now have a new UI with 5 additional slots
 * Toolboxes can now store instruments like Goat Horns
+* Fragile stone makes ores encased within it fall down upon breaking. No more ugly floating veins!
+* Fragile stone is now craftable with stone and gravel 
+* Rocky dirt now has a chance to drop flint in addition to dirt
+* The cheaper lodestone recipe from vanilla has been backported
+* Deepers and peepers now drop more gunpowder 
+* Deepers are now affected by pickaxe enchantments
+* Peepers properly fear cats, and their pupils will dilate upon noticing one
 * Added a Charged texture to Deepers and Peepers
-* Added a recipe for Fragile Stone
-* Backported Lodestone recipe change
-* Deepers and Peepers now drop more Gunpowder
-* Mimes now have a special texture when wearing an Elytra 
-* Adjusted Spinel Ore rates
+* Charged Deepers drop one mob head like Charged Creepers do, plus a random chance to drop any others. Charged Peepers drop all heads.
 * Decreased Peeper spawn rates and adjusted spawning rules
-* TNT now only requires 2 Sand and 2 Gunpowder to craft
+* Peeper heads now rotate smoothly when powered by redstone
+* Mimes no longer render their cape when wearing elytra, and have a special elytra texture
