@@ -81,12 +81,14 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	@Override
 	public void setLevel(Level level) {
 		super.setLevel(level);
-		this.initSoundInstance();
+		if (this.level.isClientSide) {
+			this.initSoundInstance();
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	protected void initSoundInstance() {
-		if (this.level.isClientSide && this.soundInstance == null) {
+		if (this.soundInstance == null) {
 			AbstractMovingDoorBlock thisBlock = (AbstractMovingDoorBlock) this.getBlockState().getBlock();
 			this.soundInstance = thisBlock.createSoundInstance(this);
 			Minecraft.getInstance().getSoundManager().play(this.soundInstance);
