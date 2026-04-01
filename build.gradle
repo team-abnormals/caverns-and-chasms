@@ -29,6 +29,8 @@ archivesBaseName = project.mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+jarJar.enable()
+
 minecraft {
     mappings channel: "official", version: project.mc_version
     accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
@@ -119,7 +121,10 @@ tasks.jar {
 
 tasks.jarJar {
     archiveClassifier.set("")
+    finalizedBy 'reobfJarJar'
 }
+
+tasks.build.dependsOn tasks.jarJar
 
 jar {
     manifest {
