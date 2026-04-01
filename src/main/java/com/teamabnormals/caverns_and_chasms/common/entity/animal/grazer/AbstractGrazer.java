@@ -47,7 +47,8 @@ import java.util.Set;
 public abstract class AbstractGrazer extends Animal {
 	private static final float BOUNCE_ROT_SPEED = 15.0F;
 	private static final byte FLAP_WINGS_ANIM = 6;
-	private static final byte VOCALIZE_ANIM = 7;
+	private static final byte BABY_WIGGLE_LEGS_ANIM = 7;
+	private static final byte VOCALIZE_ANIM = 8;
 
 	private static final EntityDimensions BOUNCING_DIMENSIONS = EntityDimensions.scalable(0.9F, 1.625F);
 	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(1.8F, 1.98F);
@@ -87,10 +88,13 @@ public abstract class AbstractGrazer extends Animal {
 	private float beStupidAmountO;
 	private float vocalizeAmount;
 	private float vocalizeAmountO;
+	private float babyWiggleLegsAmount;
+	private float babyWiggleLegsAmountO;
 
 	private int wingFlapAnim;
 	private int wingFlapAnimO;
 	private int vocalizeTime;
+	private int babyWiggleLegsTime;
 
 	public AbstractGrazer(EntityType<? extends Animal> type, Level level) {
 		super(type, level);
@@ -494,6 +498,10 @@ public abstract class AbstractGrazer extends Animal {
 		return Mth.lerp(partialTick, this.vocalizeAmountO, this.vocalizeAmount);
 	}
 
+	public float getBabyWiggleLegsAmount(float partialTick) {
+		return Mth.lerp(partialTick, this.babyWiggleLegsAmountO, this.babyWiggleLegsAmount);
+	}
+
 	public float getWingFlapAnim(float partialTick) {
 		return Mth.lerp(partialTick, this.wingFlapAnimO, this.wingFlapAnim);
 	}
@@ -503,6 +511,8 @@ public abstract class AbstractGrazer extends Animal {
 		if (id == FLAP_WINGS_ANIM) {
 			this.wingFlapAnim = 20;
 			this.wingFlapAnimO = this.wingFlapAnim;
+		} else if (id == BABY_WIGGLE_LEGS_ANIM) {
+			this.babyWiggleLegsTime = 30;
 		} else if (id == VOCALIZE_ANIM) {
 			this.vocalizeTime = 25;
 		} else {
@@ -560,7 +570,13 @@ public abstract class AbstractGrazer extends Animal {
 			if (this.vocalizeTime > 0)
 				this.vocalizeAmount = Math.min(1.0F, this.vocalizeAmount + 0.2F);
 			else
-				this.vocalizeAmount = Math.max(0.0F, this.vocalizeAmount - 0.025F);
+				this.vocalizeAmount = Math.max(0.0F, this.vocalizeAmount - (this.isBaby() ? 0.2F : 0.025F));
+
+			this.babyWiggleLegsAmountO = this.babyWiggleLegsAmount;
+			if (this.babyWiggleLegsTime > 0)
+				this.babyWiggleLegsAmount = Math.min(1.0F, this.babyWiggleLegsAmount + 0.075F);
+			else
+				this.babyWiggleLegsAmount = Math.max(0.0F, this.babyWiggleLegsAmount - 0.075F);
 
 			if (this.vocalizeTime > 0)
 				this.vocalizeTime--;
@@ -570,6 +586,9 @@ public abstract class AbstractGrazer extends Animal {
 
 		if (this.wingFlapAnim > 0)
 			this.wingFlapAnim--;
+
+		if (this.babyWiggleLegsTime > 0)
+			this.babyWiggleLegsTime--;
 
 		if (this.isBouncingState(this.getState()))
 			this.passengerBounceAmount = Math.min(1.0F, this.passengerBounceAmount + 0.2F);
@@ -630,9 +649,15 @@ public abstract class AbstractGrazer extends Animal {
 			else if (!this.level().isClientSide && this.getState() == GrazerState.FLIPPING_OVER)
 				this.setState(GrazerState.DEFAULT);
 
-			if (!this.level().isClientSide && this.isIdleState(this.getState()) && this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
-				this.wingFlapAnim = 20;
-				this.level().broadcastEntityEvent(this, FLAP_WINGS_ANIM);
+			if (!this.level().isClientSide) {
+				if (this.isIdleState(this.getState()) && this.wingFlapAnim <= 0 && this.random.nextInt(200) == 0) {
+					this.wingFlapAnim = 20;
+					this.level().broadcastEntityEvent(this, FLAP_WINGS_ANIM);
+				}
+
+				if (this.isBaby() && this.babyWiggleLegsTime <= 0 && this.random.nextInt(50) == 0) {
+					this.level().broadcastEntityEvent(this, BABY_WIGGLE_LEGS_ANIM);
+				}
 			}
 		}
 
