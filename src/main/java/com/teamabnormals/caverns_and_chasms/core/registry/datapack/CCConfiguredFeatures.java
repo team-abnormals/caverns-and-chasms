@@ -46,7 +46,6 @@ public class CCConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_AND_SILVER_BURIED = createKey("ore_gold_and_silver_buried");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN = createKey("ore_tin");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_BURIED = createKey("ore_tin_buried");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SPINEL = createKey("ore_spinel");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SPINEL_BURIED = createKey("ore_spinel_buried");
@@ -82,7 +81,6 @@ public class CCConfiguredFeatures {
 		register(context, ORE_GOLD_AND_SILVER_BURIED, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(weighted(CCPlacedFeatures.ORE_SILVER_BURIED, 0.5F, placedFeatures)), placedFeatures.get(CCPlacedFeatures.ORE_GOLD_BURIED).get()));
 
 		register(context, ORE_TIN, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 6));
-		register(context, ORE_TIN_BURIED, CCFeatures.TIN_ARROW.get(), new OreConfiguration(tinTargets, 6, 0.5F));
 
 		register(context, ORE_SPINEL, Feature.ORE, new OreConfiguration(spinelTargets, 12));
 		register(context, ORE_SPINEL_BURIED, Feature.ORE, new OreConfiguration(spinelTargets, 12, 1.0F));

@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature;
 
 import com.mojang.serialization.Codec;
-import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinArrowPlacement;
+import com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement.TinMonolithDistanceFilter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.SectionPos;
@@ -33,7 +33,7 @@ public class TinArrowFeature extends Feature<OreConfiguration> {
 		BlockPos origin = context.origin();
 		RandomSource random = context.random();
 
-		Vector2i monolithPos = TinArrowPlacement.getClosestMonolithPosition(level, origin);
+		Vector2i monolithPos = TinMonolithDistanceFilter.getClosestMonolithPosition(level, origin);
 
 		if (monolithPos == null)
 			return false;

@@ -69,14 +69,16 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 		float partialtick = ageInTicks - (float) grazer.tickCount;
 
 		if (grazer.isBaby()) {
+			float wiggleamount = grazer.getBabyWiggleLegsAmount(partialtick);
+
 			this.body.xRot = 0.0F;
 			this.jaw.xRot = 0.0F;
-			this.rightWing.yRot = -0.6F - Mth.cos(ageInTicks) * 0.6F;
-			this.leftWing.yRot = 0.6F + Mth.cos(ageInTicks) * 0.6F;
-			this.rightHindLeg.xRot = Mth.cos(ageInTicks * 0.7F) * 0.5F;
-			this.leftHindLeg.xRot = Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F;
-			this.rightFrontLeg.xRot = Mth.cos(ageInTicks * 0.7F + Mth.PI) * 0.5F;
-			this.leftFrontLeg.xRot = Mth.cos(ageInTicks * 0.7F) * 0.5F;
+			this.rightWing.yRot = -0.3F - Mth.cos(ageInTicks * 0.2F) * 0.3F;
+			this.leftWing.yRot = 0.3F + Mth.cos(ageInTicks * 0.2F) * 0.3F;
+			this.rightHindLeg.xRot = Mth.cos(ageInTicks * 0.5F) * -0.2F * wiggleamount;
+			this.leftHindLeg.xRot = Mth.cos(ageInTicks * 0.5F + 0.2F) * -0.2F * wiggleamount;
+			this.rightFrontLeg.xRot = Mth.cos(ageInTicks * 0.5F - 0.2F) * 0.2F * wiggleamount;
+			this.leftFrontLeg.xRot = Mth.cos(ageInTicks * 0.5F + 0.1F) * 0.2F * wiggleamount;
 		} else {
 			float runamount = grazer.getRunAmount(partialtick);
 			float bounceamount = grazer.getBounceAmount(partialtick);
