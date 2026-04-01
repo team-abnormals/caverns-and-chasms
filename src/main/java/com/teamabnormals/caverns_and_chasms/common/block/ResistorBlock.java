@@ -36,7 +36,7 @@ public class ResistorBlock extends DiodeBlock implements EntityBlock {
 			return InteractionResult.PASS;
 		} else {
 			level.setBlock(pos, cycleOrReverse(state, player, RESISTANCE, 1, 14), 3);
-			this.refreshOutputState(level, pos, state);
+			this.refreshOutputState(level, pos, level.getBlockState(pos));
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 	}
