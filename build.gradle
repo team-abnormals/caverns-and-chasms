@@ -148,7 +148,6 @@ publishMods {
     modLoaders.add("forge")
     version = "${project.mod_version}"
     displayName = "${project.mod_name} ${project.mc_version} - ${project.mod_version}"
-    dryRun = true
 
     modrinth {
         announcementTitle = "<:modrinth:1428950505010364517> Download from Modrinth!"
