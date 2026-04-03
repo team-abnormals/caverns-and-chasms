@@ -127,7 +127,7 @@ public class GunpowderBlock extends FallingBlock {
 
 	public static void explode(Level level, BlockPos pos, @Nullable LivingEntity igniter) {
 		if (!level.isClientSide) {
-			CustomExplosion.spawnExplosion(level, igniter, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, CCSoundEvents.GUNPOWDER_EXPLODE.get(), CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
+			CustomExplosion.spawnExplosion(level, null, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, CCSoundEvents.GUNPOWDER_EXPLODE.get(), CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
 		}
 	}
 
