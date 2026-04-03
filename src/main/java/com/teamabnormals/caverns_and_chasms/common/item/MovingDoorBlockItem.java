@@ -14,9 +14,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.Map;
 
@@ -46,7 +46,7 @@ public class MovingDoorBlockItem extends BEWLRBlockItem {
 	@Override
 	public String getDescriptionId() {
 		if (this.descriptionId == null) {
-			this.descriptionId = Util.makeDescriptionId("block", ForgeRegistries.ITEMS.getKey(this));
+			this.descriptionId = Util.makeDescriptionId("block", BuiltInRegistries.ITEM.getKey(this));
 		}
 
 		return this.descriptionId;

@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -97,7 +97,7 @@ public class CaveGrowthsBlock extends BushBlock {
 	}
 
 	private void spawnCritter(Level level, BlockPos pos) {
-		ForgeRegistries.ENTITY_TYPES.tags().getTag(CCEntityTypeTags.SPAWNS_FROM_CAVE_GROWTHS).getRandomElement(level.getRandom()).ifPresent((entityType) -> {
+		Registries.ENTITY_TYPES.tags().getTag(CCEntityTypeTags.SPAWNS_FROM_CAVE_GROWTHS).getRandomElement(level.getRandom()).ifPresent((entityType) -> {
 			Entity entity = entityType.create(level);
 			if (entity != null) {
 				entity.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);

@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import java.util.Collections;
 import java.util.List;
@@ -148,7 +148,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 					if (source.isCreativePlayer()) {
 						this.breakStatue(source, false, false);
 						return true;
-					} else if (((Player) directentity).getMainHandItem().canPerformAction(ToolActions.PICKAXE_DIG)) {
+					} else if (((Player) directentity).getMainHandItem().canPerformAction(ItemAbilities.PICKAXE_DIG)) {
 						if (this.isDamaged()) {
 							this.breakStatue(source, true, true);
 						} else {

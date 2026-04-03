@@ -136,10 +136,10 @@ public class CCLootModifierProvider extends LootModifierProvider {
 		this.entry("end_city_treasure").selects(BuiltInLootTables.END_CITY_TREASURE)
 				.addModifier(entries(0, entry(BEJEWELED_APPLE.get(), 5, 3, 9), entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1), entry(TURQUOISE.get(), 1)));
 
-		this.entry("kousa_sanctum").selects(new ResourceLocation("atmospheric", "chests/kousa_sanctum")).addModifier(entries(0,
+		this.entry("kousa_sanctum").selects(ResourceLocation.withDefaultNamespace("atmospheric", "chests/kousa_sanctum")).addModifier(entries(0,
 				entry(SILVER_INGOT.get(), 15, 2, 7), entry(SILVER_HORSE_ARMOR.get(), 1), entry(COPPER_HORSE_ARMOR.get(), 1)));
 
-		this.entry("elder_guardian").selects(new ResourceLocation("entities/elder_guardian")).addModifier(pools(
+		this.entry("elder_guardian").selects(ResourceLocation.withDefaultNamespace("entities/elder_guardian")).addModifier(pools(
 				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get()).setWeight(1)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
@@ -147,7 +147,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 						).build())
 		);
 
-		this.entry("copper_ore").selects(new ResourceLocation("blocks/copper_ore")).addModifier(pools(
+		this.entry("copper_ore").selects(ResourceLocation.withDefaultNamespace("blocks/copper_ore")).addModifier(pools(
 				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
@@ -156,7 +156,7 @@ public class CCLootModifierProvider extends LootModifierProvider {
 						).build())
 		);
 
-		this.entry("deepslate_copper_ore").selects(new ResourceLocation("blocks/deepslate_copper_ore")).addModifier(pools(
+		this.entry("deepslate_copper_ore").selects(ResourceLocation.withDefaultNamespace("blocks/deepslate_copper_ore")).addModifier(pools(
 				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))

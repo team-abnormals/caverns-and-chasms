@@ -154,7 +154,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+	public boolean isPathfindable(BlockState state, PathComputationType type) {
 		return false;
 	}
 

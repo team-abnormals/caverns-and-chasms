@@ -19,9 +19,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Map;
 
@@ -52,7 +52,7 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 		ItemStack ingredient = this.inputSlots.getItem(1);
 		ItemStack output = this.resultSlots.getItem(0);
 
-		ForgeHooks.onAnvilRepair(player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
+		CommonHooks.onAnvilRepair(player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
 
 		this.inputSlots.setItem(0, ItemStack.EMPTY);
 		ItemStack itemstack = this.inputSlots.getItem(1);
@@ -80,7 +80,7 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 
 				if (!level.isClientSide()) {
 					SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
-					if (!ForgeEventFactory.onExplosionStart(level, boom)) {
+					if (!EventHooks.onExplosionStart(level, boom)) {
 						boom.explode();
 						boom.finalizeExplosion(true);
 						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
@@ -107,7 +107,7 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 			this.repairItemCountCost = 0;
 			boolean flag = false;
 
-			if (!ForgeHooks.onAnvilChange(this, item1, item2, resultSlots, itemName, j, this.player)) return;
+			if (!CommonHooks.onAnvilChange(this, item1, item2, resultSlots, itemName, j, this.player)) return;
 			if (!item2.isEmpty()) {
 				flag = item2.getItem() == Items.ENCHANTED_BOOK && !EnchantedBookItem.getEnchantments(item2).isEmpty();
 				if (item1Copy.isDamageableItem() && item1Copy.getItem().isValidRepairItem(item1, item2)) {

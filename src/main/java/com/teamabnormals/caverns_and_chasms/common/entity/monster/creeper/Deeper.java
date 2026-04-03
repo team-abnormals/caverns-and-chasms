@@ -29,8 +29,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.IForgeShearable;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.IForgeShearable;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -147,7 +147,7 @@ public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
 	public boolean hurt(DamageSource source, float amount) {
 		if (!this.level().isClientSide() && source.getEntity() instanceof LivingEntity entity) {
 			ItemStack stack = entity.getMainHandItem();
-			if (stack.canPerformAction(ToolActions.PICKAXE_DIG)) {
+			if (stack.canPerformAction(ItemAbilities.PICKAXE_DIG)) {
 				amount *= 2.5F;
 				amount += Enchantments.SHARPNESS.getDamageBonus(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack), this.getMobType(), stack);
 			}
@@ -165,7 +165,7 @@ public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag compound) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData) {
 		if (level.getRandom().nextFloat() < 0.05F + level.getMoonBrightness() * 0.05F) {
 			if (level.getRandom().nextFloat() < 0.1F) {
 				this.setHat(DeeperHat.MOSCHATEL);
@@ -198,7 +198,7 @@ public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
 			}
 		}
 
-		return super.finalizeSpawn(level, difficulty, spawnType, groupData, compound);
+		return super.finalizeSpawn(level, difficulty, spawnType, groupData);
 	}
 
 	@Override

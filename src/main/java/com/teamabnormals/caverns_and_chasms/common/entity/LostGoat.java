@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -94,14 +93,14 @@ public class LostGoat extends Mob {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29835_, DifficultyInstance p_29836_, MobSpawnType p_29837_, @Nullable SpawnGroupData p_29838_, @Nullable CompoundTag p_29839_) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29835_, DifficultyInstance p_29836_, MobSpawnType p_29837_, @Nullable SpawnGroupData p_29838_) {
 		this.setYBodyRot(this.random.nextFloat() * 360.0F);
-		return super.finalizeSpawn(p_29835_, p_29836_, p_29837_, p_29838_, p_29839_);
+		return super.finalizeSpawn(p_29835_, p_29836_, p_29837_, p_29838_);
 	}
 
 	public void turnIntoSilverfish() {
 		if (this.level().isClientSide()) {
-			this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.AMBIENT_CAVE.get(), SoundSource.NEUTRAL, 20.0F, 20.0F + this.random.nextFloat() * 2.0F, false);
+			this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.AMBIENT_CAVE.value(), SoundSource.NEUTRAL, 20.0F, 20.0F + this.random.nextFloat() * 2.0F, false);
 		} else if (this.level() instanceof ServerLevel serverLevel) {
 			MobEffectInstance darkness = new MobEffectInstance(MobEffects.DARKNESS, 260, 0, false, false);
 			MobEffectUtil.addEffectToPlayersAround(serverLevel, this, this.position(), 8, darkness, 200);
@@ -123,11 +122,6 @@ public class LostGoat extends Mob {
 		RandomSource random = RandomSource.create(this.getUUID().hashCode());
 		HolderSet<Instrument> holderSet = BuiltInRegistries.INSTRUMENT.getOrCreateTag(CCInstrumentTags.LOST_GOAT_HORNS);
 		return InstrumentItem.create(CCItems.LOST_GOAT_HORN.get(), holderSet.getRandomElement(random).get());
-	}
-
-	@Override
-	public MobType getMobType() {
-		return MobType.ARTHROPOD;
 	}
 
 	public static boolean checkLostGoatSpawnRules(EntityType<? extends LostGoat> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {

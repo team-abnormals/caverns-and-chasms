@@ -6,7 +6,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.Map;
 
@@ -46,7 +46,7 @@ public class CCTrimMaterials {
 	public static final ResourceKey<TrimMaterial> WAXED_WEATHERED_COPPER = createKey("waxed_weathered_copper");
 	public static final ResourceKey<TrimMaterial> WAXED_OXIDIZED_COPPER = createKey("waxed_oxidized_copper");
 
-	public static void bootstrap(BootstapContext<TrimMaterial> context) {
+	public static void bootstrap(BootstrapContext<TrimMaterial> context) {
 		register(context, SPINEL, CCItems.SPINEL.get(), Style.EMPTY.withColor(0xD684AC), Map.of());
 		register(context, ZIRCONIA, CCItems.ZIRCONIA.get(), Style.EMPTY.withColor(0xADAFF1), Map.of());
 		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), Map.of());
@@ -89,10 +89,10 @@ public class CCTrimMaterials {
 		return ResourceKey.create(Registries.TRIM_MATERIAL, CavernsAndChasms.location(name));
 	}
 
-	private static void register(BootstapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Item item, Style style, Map<ArmorMaterials, String> overrides) {
+	private static void register(BootstrapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Item item, Style style, Map<ArmorMaterials, String> overrides) {
 		ResourceLocation location = key.location();
 		boolean waxedCopper = key.equals(WAXED_COPPER);
 		String path = location.getPath().replace("waxed_", "");
-		context.register(key, new TrimMaterial((!waxedCopper ? location.getNamespace() + "_" : "") + path, ForgeRegistries.ITEMS.getHolder(item).get(), -1.0F, overrides, Component.translatable(Util.makeDescriptionId("trim_material", new ResourceLocation(waxedCopper ? "minecraft" : location.getNamespace(), path))).withStyle(style)));
+		context.register(key, new TrimMaterial((!waxedCopper ? location.getNamespace() + "_" : "") + path, BuiltInRegistries.ITEM.getHolder(item).get(), -1.0F, overrides, Component.translatable(Util.makeDescriptionId("trim_material", ResourceLocation.fromNamespaceAndPath(waxedCopper ? "minecraft" : location.getNamespace(), path))).withStyle(style)));
 	}
 }

@@ -5,7 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
@@ -60,7 +60,7 @@ public class CCConfiguredFeatures {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FALSE_HOPE = createKey("false_hope");
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+	public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 
 		RuleTest baseStone = new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD);
@@ -111,7 +111,7 @@ public class CCConfiguredFeatures {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, CavernsAndChasms.location(name));
 	}
 
-	public static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
+	public static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
 		context.register(key, new ConfiguredFeature<>(feature, config));
 	}
 }

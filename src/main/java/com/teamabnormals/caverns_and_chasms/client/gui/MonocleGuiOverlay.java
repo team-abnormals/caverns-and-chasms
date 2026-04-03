@@ -2,15 +2,16 @@ package com.teamabnormals.caverns_and_chasms.client.gui;
 
 import com.teamabnormals.caverns_and_chasms.common.item.MonocleItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-public class MonocleGuiOverlay implements IGuiOverlay {
+public class MonocleGuiOverlay implements LayeredDraw.Layer {
 	private static final ResourceLocation MONOCLE_SCOPE_LOCATION = CavernsAndChasms.location("textures/misc/monocle_scope.png");
 
 	public float overlayScopeScale;
@@ -20,12 +21,12 @@ public class MonocleGuiOverlay implements IGuiOverlay {
 	}
 
 	@Override
-	public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
-		gui.setupOverlayRenderState(true, false);
-		float deltaFrame = gui.getMinecraft().getDeltaFrameTime();
+	public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+		Minecraft mc = Minecraft.getInstance();
+		float deltaFrame = deltaTracker.getGameTimeDeltaTicks();
 		this.overlayScopeScale = Mth.lerp(0.5F * deltaFrame, this.overlayScopeScale, 1.125F);
-		if (gui.getMinecraft().options.getCameraType().isFirstPerson()) {
-			if (shouldRender(gui.getMinecraft().player)) {
+		if (mc.options.getCameraType().isFirstPerson()) {
+			if (shouldRender(mc.player)) {
 				renderMonocleOverlay(guiGraphics, this.overlayScopeScale);
 			} else {
 				this.overlayScopeScale = 0.5F;

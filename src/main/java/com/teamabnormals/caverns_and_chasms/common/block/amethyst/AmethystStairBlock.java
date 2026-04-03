@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public class AmethystStairBlock extends StairBlock {
 
-	public AmethystStairBlock(Supplier<BlockState> stateSupplier, Properties properties) {
+	public AmethystStairBlock(BlockState stateSupplier, Properties properties) {
 		super(stateSupplier, properties);
 	}
 

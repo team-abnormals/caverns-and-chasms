@@ -44,11 +44,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
@@ -130,9 +130,9 @@ public class CCClientCompat {
 	}
 
 	@SubscribeEvent
-	public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
-		event.registerAbove(CavernsAndChasms.location("monocle"), "monocle_head", new MonocleHeadGuiOverlay());
+	public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
+		event.registerAbove(ResourceLocation.withDefaultNamespace("spyglass"), CavernsAndChasms.location("monocle"), new MonocleGuiOverlay());
+		event.registerAbove(CavernsAndChasms.location("monocle"), CavernsAndChasms.location("monocle_head"), new MonocleHeadGuiOverlay());
 	}
 
 	@SubscribeEvent
@@ -260,18 +260,18 @@ public class CCClientCompat {
 		}
 
 		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get(), CCItems.BONE_FLUTE.get())) {
-			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+			ItemProperties.register(item, ResourceLocation.withDefaultNamespace("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
 		}
 
 		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.PACKING_CONTAINER.get())) {
-			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
+			ItemProperties.register(item, ResourceLocation.withDefaultNamespace("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
 		}
 
-		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (stack, p_174626_, p_174627_, p_174628_) -> {
+		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), ResourceLocation.withDefaultNamespace("filled"), (stack, p_174626_, p_174627_, p_174628_) -> {
 			return PackingContainerItem.getFullnessDisplay(stack);
 		});
 
-		ItemProperties.register(CCItems.AEGIS.get(), new ResourceLocation("blocking"), (stack, level, entity, hash) -> {
+		ItemProperties.register(CCItems.AEGIS.get(), ResourceLocation.withDefaultNamespace("blocking"), (stack, level, entity, hash) -> {
 			return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
 		});
 

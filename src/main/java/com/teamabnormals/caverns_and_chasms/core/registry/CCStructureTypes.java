@@ -15,7 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +33,6 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
-import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType.ContextlessType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.pools.EmptyPoolElement;
@@ -44,8 +43,8 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 import java.util.Map;
@@ -54,24 +53,24 @@ import java.util.function.Function;
 public class CCStructureTypes {
 	public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<StructureType<TinMonolithStructure>> TIN_MONOLITH_TYPE = STRUCTURE_TYPES.register("tin_monolith", () -> () -> TinMonolithStructure.CODEC);
-	public static final RegistryObject<StructureType<LushMineshaftStructure>> LUSH_MINESHAFT = STRUCTURE_TYPES.register("lush_mineshaft", () -> () -> LushMineshaftStructure.CODEC);
+	public static final DeferredHolder<StructureType<?>, StructureType<TinMonolithStructure>> TIN_MONOLITH_TYPE = STRUCTURE_TYPES.register("tin_monolith", () -> () -> TinMonolithStructure.CODEC);
+	public static final DeferredHolder<StructureType<?>, StructureType<LushMineshaftStructure>> LUSH_MINESHAFT = STRUCTURE_TYPES.register("lush_mineshaft", () -> () -> LushMineshaftStructure.CODEC);
 
 	public static class CCStructurePieceTypes {
 		public static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE_TYPES = DeferredRegister.create(Registries.STRUCTURE_PIECE, CavernsAndChasms.MOD_ID);
 
-		public static final RegistryObject<ContextlessType> TIN_MONOLITH = STRUCTURE_PIECE_TYPES.register("tin_monolith", () -> TinMonolithPiece::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> TIN_MONOLITH = STRUCTURE_PIECE_TYPES.register("tin_monolith", () -> TinMonolithPiece::new);
 
-		public static final RegistryObject<ContextlessType> MINE_SHAFT_CORRIDOR = STRUCTURE_PIECE_TYPES.register("mscorridor", () -> LushMineshaftPieces.MineShaftCorridor::new);
-		public static final RegistryObject<ContextlessType> MINE_SHAFT_CROSSING = STRUCTURE_PIECE_TYPES.register("mscrossing", () -> LushMineshaftPieces.MineShaftCrossing::new);
-		public static final RegistryObject<ContextlessType> MINE_SHAFT_ROOM = STRUCTURE_PIECE_TYPES.register("msroom", () -> LushMineshaftPieces.MineShaftRoom::new);
-		public static final RegistryObject<ContextlessType> MINE_SHAFT_STAIRS = STRUCTURE_PIECE_TYPES.register("msstairs", () -> LushMineshaftPieces.MineShaftStairs::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_CORRIDOR = STRUCTURE_PIECE_TYPES.register("mscorridor", () -> LushMineshaftPieces.MineShaftCorridor::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_CROSSING = STRUCTURE_PIECE_TYPES.register("mscrossing", () -> LushMineshaftPieces.MineShaftCrossing::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_ROOM = STRUCTURE_PIECE_TYPES.register("msroom", () -> LushMineshaftPieces.MineShaftRoom::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_STAIRS = STRUCTURE_PIECE_TYPES.register("msstairs", () -> LushMineshaftPieces.MineShaftStairs::new);
 	}
 
 	public static class CCProcessorLists {
 		public static final ResourceKey<StructureProcessorList> FORGE_ARCHAEOLOGY = createKey("forge_archaeology");
 
-		public static void bootstrap(BootstapContext<StructureProcessorList> context) {
+		public static void bootstrap(BootstrapContext<StructureProcessorList> context) {
 			float legendary = 0.001F;
 			float epic = 0.002F;
 			float rare = 0.01F;
@@ -122,7 +121,7 @@ public class CCStructureTypes {
 			return ResourceKey.create(Registries.PROCESSOR_LIST, CavernsAndChasms.location(name));
 		}
 
-		private static void register(BootstapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> processors) {
+		private static void register(BootstrapContext<StructureProcessorList> context, ResourceKey<StructureProcessorList> key, List<StructureProcessor> processors) {
 			context.register(key, new StructureProcessorList(processors));
 		}
 	}
@@ -156,7 +155,7 @@ public class CCStructureTypes {
 		public static final List<Entry> CHESTS = List.of(of("empty", 1), of("chest", 1, 2));
 		public static final List<Entry> LIGHTS = List.of(of("candle", 8));
 
-		public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
+		public static void bootstrap(BootstrapContext<StructureTemplatePool> context) {
 			Holder<StructureTemplatePool> empty = context.lookup(Registries.TEMPLATE_POOL).getOrThrow(Pools.EMPTY);
 
 			createPool(context, FORGE, empty, FORGES);
@@ -174,7 +173,7 @@ public class CCStructureTypes {
 			createPool(context, VAULT_LIGHTS, empty, LIGHTS);
 		}
 
-		public static void createPool(BootstapContext<StructureTemplatePool> context, ResourceKey<StructureTemplatePool> key, Holder<StructureTemplatePool> empty, List<Entry> strs) {
+		public static void createPool(BootstrapContext<StructureTemplatePool> context, ResourceKey<StructureTemplatePool> key, Holder<StructureTemplatePool> empty, List<Entry> strs) {
 			boolean processor = FORGE_ARCHAEOLOGY.equals(key);
 			Reference<StructureProcessorList> archyProcessor = context.lookup(Registries.PROCESSOR_LIST).getOrThrow(CCProcessorLists.FORGE_ARCHAEOLOGY);
 
@@ -219,7 +218,7 @@ public class CCStructureTypes {
 		public static final ResourceKey<Structure> FORGE = createKey("forge");
 		public static final ResourceKey<Structure> VAULT = createKey("vault");
 
-		public static void bootstrap(BootstapContext<Structure> context) {
+		public static void bootstrap(BootstrapContext<Structure> context) {
 			HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 			HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
 
@@ -246,7 +245,7 @@ public class CCStructureTypes {
 		public static final ResourceKey<StructureSet> VAULTS = createKey("vaults");
 		public static final ResourceKey<StructureSet> TIN_MONOLITHS = createKey("tin_monoliths");
 
-		public static void bootstrap(BootstapContext<StructureSet> context) {
+		public static void bootstrap(BootstrapContext<StructureSet> context) {
 			HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
 			context.register(FORGES, new StructureSet(structures.getOrThrow(CCStructures.FORGE), new RandomSpreadStructurePlacement(16, 6, RandomSpreadType.LINEAR, 294502589)));

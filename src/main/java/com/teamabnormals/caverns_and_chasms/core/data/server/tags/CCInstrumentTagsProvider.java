@@ -9,8 +9,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.InstrumentTagsProvider;
 import net.minecraft.tags.InstrumentTags;
 import net.minecraft.world.item.Instrument;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -40,8 +40,8 @@ public class CCInstrumentTagsProvider extends InstrumentTagsProvider {
 	}
 
 	@SafeVarargs
-	public final void tagCopperHornInstruments(ImmutableList<RegistryObject<Instrument>>... instruments) {
-		for (ImmutableList<RegistryObject<Instrument>> instrumentList : instruments) {
+	public final void tagCopperHornInstruments(ImmutableList<DeferredHolder<Instrument, ?>>... instruments) {
+		for (ImmutableList<DeferredHolder<Instrument, ?>> instrumentList : instruments) {
 			this.tag(CCInstrumentTags.HARMONY_COPPER_HORNS).add(instrumentList.get(0).getKey());
 			this.tag(CCInstrumentTags.MELODY_COPPER_HORNS).add(instrumentList.get(1).getKey());
 			this.tag(CCInstrumentTags.BASS_COPPER_HORNS).add(instrumentList.get(2).getKey());

@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 
 public class TurquoiseStairBlock extends StairBlock {
 
-	public TurquoiseStairBlock(Supplier<BlockState> stateSupplier, Properties properties) {
+	public TurquoiseStairBlock(BlockState stateSupplier, Properties properties) {
 		super(stateSupplier, properties);
 	}
 

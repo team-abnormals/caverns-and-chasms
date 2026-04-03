@@ -13,10 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Explosion.BlockInteraction;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkEvent.Context;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.NetworkEvent.Context;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -49,7 +49,7 @@ public class S2CCustomSoundExplosionMessage {
 		float strength = buf.readFloat();
 		int blockPositionsSize = buf.readInt();
 		List<BlockPos> affectedBlockPositions = Lists.newArrayListWithCapacity(blockPositionsSize);
-		SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation((buf.readUtf())));
+		SoundEvent sound = Registries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath((buf.readUtf())));
 		ParticleOptions emitter = readParticle(buf, buf.readById(BuiltInRegistries.PARTICLE_TYPE));
 		ParticleOptions particle = readParticle(buf, buf.readById(BuiltInRegistries.PARTICLE_TYPE));
 

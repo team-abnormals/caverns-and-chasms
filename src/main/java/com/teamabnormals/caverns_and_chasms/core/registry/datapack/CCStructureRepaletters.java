@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterEntry;
+import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterManager;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepalleterManager;
 import com.teamabnormals.blueprint.core.registry.BlueprintDataPackRegistries;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
@@ -11,7 +12,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
@@ -23,7 +24,7 @@ import java.util.stream.Stream;
 
 public final class CCStructureRepaletters {
 
-	public static void bootstrap(BootstapContext<StructureRepaletterEntry> context) {
+	public static void bootstrap(BootstrapContext<StructureRepaletterEntry> context) {
 		HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
 		context.register(create("lava_lamps_in_bastions"), new StructureRepaletterEntry(
@@ -44,6 +45,6 @@ public final class CCStructureRepaletters {
 	}
 
 	public static void registerRepaletters() {
-		StructureRepalleterManager.registerSerializer(CavernsAndChasms.location("chance"), ChanceStructureRepaletter.CODEC);
+		StructureRepaletterManager.registerRepalleter(CavernsAndChasms.location("chance"), ChanceStructureRepaletter.CODEC);
 	}
 }

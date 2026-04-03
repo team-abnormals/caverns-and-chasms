@@ -169,7 +169,7 @@ public class TuningForkItem extends Item {
 	public static void playNote(Level level, Entity entity, double x, double y, double z, int note) {
 		float pitch = (float) Math.pow(2.0D, (double) (note - 12) / 12.0D);
 		level.playSound(null, x, y, z, CCSoundEvents.TUNING_FORK_VIBRATE.get(), SoundSource.NEUTRAL, 1.0F, pitch);
-		level.gameEvent(CCGameEvents.TUNING_FORK_VIBRATE.get(), new Vec3(x, y, z), GameEvent.Context.of(entity));
+		level.gameEvent(CCGameEvents.TUNING_FORK_VIBRATE, new Vec3(x, y, z), GameEvent.Context.of(entity));
 	}
 
 	public static boolean isTuningForkWithNote(ItemStack stack) {

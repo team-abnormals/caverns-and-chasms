@@ -5,12 +5,12 @@ import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DeeperPowerLayer<T extends Deeper, M extends DeeperModel<T>> extends EnergySwirlLayer<T, M> {
-	private static final ResourceLocation POWER_LOCATION = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
+	private static final ResourceLocation POWER_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/creeper/creeper_armor.png");
 	private final M model;
 
 	public DeeperPowerLayer(RenderLayerParent<T, M> parent, M model) {

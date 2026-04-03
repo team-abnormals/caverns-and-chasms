@@ -25,7 +25,7 @@ public class BlockBehaviourMixin {
 	@Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
 	private void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
 		if ((Object) this instanceof LightningRodBlock && this instanceof CCWeatheringCopper weatheringCopper) {
-			weatheringCopper.onRandomTick(state, level, pos, random);
+			weatheringCopper.changeOverTime(state, level, pos, random);
 			ci.cancel();
 		}
 	}

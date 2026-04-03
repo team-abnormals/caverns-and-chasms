@@ -26,8 +26,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.common.ForgeMod;
+import net.neoforged.neoforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.Map;

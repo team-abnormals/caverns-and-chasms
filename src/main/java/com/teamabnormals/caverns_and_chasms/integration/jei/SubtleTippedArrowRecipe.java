@@ -42,7 +42,7 @@ public class SubtleTippedArrowRecipe {
 							arrowIngredient, arrowIngredient, arrowIngredient
 					);
 
-					ResourceLocation id = new ResourceLocation(ModIds.MINECRAFT_ID, "jei.tipped.arrow." + output.getDescriptionId());
+					ResourceLocation id = ResourceLocation.fromNamespaceAndPath(ModIds.MINECRAFT_ID, "jei.tipped.arrow." + output.getDescriptionId());
 					return new ShapedRecipe(id, group, CraftingBookCategory.MISC, 3, 3, inputs, output);
 				})
 				.toList();

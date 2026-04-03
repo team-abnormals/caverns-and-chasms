@@ -3,8 +3,8 @@ package com.teamabnormals.caverns_and_chasms.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class FlintParticle extends TextureSheetParticle {
 	protected FlintParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {

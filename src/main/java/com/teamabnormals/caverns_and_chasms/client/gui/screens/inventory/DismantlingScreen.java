@@ -12,8 +12,8 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 
 import javax.annotation.Nullable;
@@ -23,8 +23,8 @@ import java.util.Optional;
 @OnlyIn(Dist.CLIENT)
 public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 	private static final ResourceLocation SMITHING_LOCATION = CavernsAndChasms.location("textures/gui/container/dismantling.png");
-	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = new ResourceLocation("item/empty_slot_smithing_template_armor_trim");
-	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_NETHERITE_UPGRADE = new ResourceLocation("item/empty_slot_smithing_template_netherite_upgrade");
+	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = ResourceLocation.withDefaultNamespace("item/empty_slot_smithing_template_armor_trim");
+	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_NETHERITE_UPGRADE = ResourceLocation.withDefaultNamespace("item/empty_slot_smithing_template_netherite_upgrade");
 	private static final ResourceLocation EMPTY_SLOT_SPINEL = CavernsAndChasms.location("item/empty_slot_spinel");
 
 	private static final Component MISSING_SMITHED_ITEM = Component.translatable("container.caverns_and_chasms.dismantle.missing_smithed_item");

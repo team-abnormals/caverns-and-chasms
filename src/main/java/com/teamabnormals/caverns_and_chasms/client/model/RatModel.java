@@ -30,9 +30,9 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 public class RatModel extends AgeableListModel<Rat> {
 	private static final RandomSource RANDOM = RandomSource.create();
@@ -124,7 +124,7 @@ public class RatModel extends AgeableListModel<Rat> {
 	public void renderFromTag(CompoundTag compound, Level level, LivingEntity entity, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean hasOwner = compound.hasUUID("Owner");
 		boolean isBaby = compound.getInt("Age") < 0;
-		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(compound.getString("Variant")));
+		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.fromNamespaceAndPath(compound.getString("Variant")));
 		ItemStack heldStack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
 		float health = compound.getFloat("Health");
 		boolean dirty = compound.getBoolean("Dirty");
@@ -296,7 +296,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 			for (int i = 0; i < attributes.size(); ++i) {
 				CompoundTag attributetag = attributes.getCompound(i);
-				if (attributetag.getString("Name").equals(ForgeRegistries.ATTRIBUTES.getKey(attribute).toString())) {
+				if (attributetag.getString("Name").equals(Registries.ATTRIBUTES.getKey(attribute).toString())) {
 					double basevalue = attributetag.getDouble("Base");
 					double addition = 0.0D;
 					double multiplybase = 0.0D;

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -42,9 +42,9 @@ public class BejeweledAppleItem extends Item {
 	}
 
 	private static MobEffect getRandomEffect(RandomSource random) {
-		List<MobEffect> mobEffectList = ForgeRegistries.MOB_EFFECTS.getValues().stream().toList();
+		List<MobEffect> mobEffectList = Registries.MOB_EFFECTS.getValues().stream().toList();
 		MobEffect effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
-		while (ForgeRegistries.MOB_EFFECTS.tags().getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).contains(effect) || effect.isInstantenous())
+		while (Registries.MOB_EFFECTS.tags().getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).contains(effect) || effect.isInstantenous())
 			effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
 		return effect;
 	}

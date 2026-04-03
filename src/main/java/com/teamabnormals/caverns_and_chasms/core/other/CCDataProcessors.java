@@ -1,12 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.teamabnormals.blueprint.common.world.storage.tracking.DataProcessors;
-import com.teamabnormals.blueprint.common.world.storage.tracking.IDataProcessor;
+import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedData;
 import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedDataManager;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -15,58 +17,46 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class CCDataProcessors {
-
-	public static final IDataProcessor<Optional<UUID>> OPTIONAL_UUID = new IDataProcessor<>() {
-		@Override
-		public CompoundTag write(Optional<UUID> optionalUUID) {
-			CompoundTag compound = new CompoundTag();
-			if (optionalUUID.isPresent())
-				compound.putUUID("OptionalUUID", optionalUUID.get());
-			return compound;
+	public static final StreamCodec<ByteBuf, Optional<UUID>> OPTIONAL_UUID = new StreamCodec<>() {
+		public Optional<UUID> decode(ByteBuf buf) {
+			return Optional.ofNullable(FriendlyByteBuf.readUUID(buf));
 		}
 
-		@Override
-		public Optional<UUID> read(CompoundTag nbt) {
-			return nbt.hasUUID("OptionalUUID") ? Optional.of(nbt.getUUID("OptionalUUID")) : Optional.empty();
+		public void encode(ByteBuf buf, Optional<UUID> optional) {
+			FriendlyByteBuf.writeUUID(buf, optional.orElse(null));
 		}
 	};
-	public static final IDataProcessor<Optional<BlockPos>> OPTIONAL_POS = new IDataProcessor<>() {
-		@Override
-		public CompoundTag write(Optional<BlockPos> optionalPos) {
-			CompoundTag compound = new CompoundTag();
-			if (optionalPos.isPresent())
-				compound.putLong("OptionalPos", optionalPos.get().asLong());
-			return compound;
+
+	public static final StreamCodec<ByteBuf, Optional<BlockPos>> OPTIONAL_BLOCK_POS = new StreamCodec<>() {
+		public Optional<BlockPos> decode(ByteBuf buf) {
+			return Optional.ofNullable(FriendlyByteBuf.readBlockPos(buf));
 		}
 
-		@Override
-		public Optional<BlockPos> read(CompoundTag nbt) {
-			try {
-				return nbt.contains("OptionalPos", 99) ? Optional.of(BlockPos.of(nbt.getLong("OptionalPos"))) : Optional.empty();
-			} catch (ClassCastException classcastexception) {
-			}
-			return Optional.empty();
+		public void encode(ByteBuf buf, Optional<BlockPos> optional) {
+			FriendlyByteBuf.writeBlockPos(buf, optional.orElse(null));
 		}
 	};
 
 	public static final TrackedData<Optional<UUID>> CONTROLLED_GOLEM_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
-	public static final TrackedData<Boolean> IS_BEING_CONTROLLED = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).build();
-	public static final TrackedData<Integer> FORGET_GOLEM_TIME = TrackedData.Builder.create(DataProcessors.INT, () -> 0).build();
-	public static final TrackedData<Optional<BlockPos>> TUNING_FORK_POS = TrackedData.Builder.create(OPTIONAL_POS, () -> Optional.empty()).build();
+	public static final TrackedData<Boolean> IS_BEING_CONTROLLED = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).build();
+	public static final TrackedData<Integer> FORGET_GOLEM_TIME = TrackedData.Builder.create(ByteBufCodecs.INT, () -> 0).build();
+	public static final TrackedData<Optional<BlockPos>> TUNING_FORK_POS = TrackedData.Builder.create(OPTIONAL_BLOCK_POS, () -> Optional.empty()).build();
 	public static final TrackedData<Optional<UUID>> TUNING_FORK_TARGET_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
-	public static final TrackedData<ResourceLocation> REWIND_DIMENSION = TrackedData.Builder.create(DataProcessors.RESOURCE_LOCATION, () -> Level.OVERWORLD.location()).enableSaving().build();
-	public static final TrackedData<Double> REWIND_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
-	public static final TrackedData<Double> REWIND_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
-	public static final TrackedData<Double> REWIND_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
-	public static final TrackedData<Boolean> SHOULD_DEFLECT = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
-	public static final TrackedData<Boolean> BONUS_DEFLECT = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
-	public static final TrackedData<Integer> RICOCHETS = TrackedData.Builder.create(DataProcessors.INT, () -> 0).enableSaving().build();
-	public static final TrackedData<Double> DEFLECT_X = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
-	public static final TrackedData<Double> DEFLECT_Y = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
-	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(DataProcessors.DOUBLE, () -> 0.0D).enableSaving().build();
-	public static final TrackedData<ItemStack> UNICORN_HORN = TrackedData.Builder.create(DataProcessors.STACK, () -> ItemStack.EMPTY).enableSaving().build();
-	public static final TrackedData<Boolean> GLOW_UNICORN_HORN = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
-	public static final TrackedData<Boolean> OBSCURITY_INVISIBILITY = TrackedData.Builder.create(DataProcessors.BOOLEAN, () -> false).enableSaving().build();
+	public static final TrackedData<ResourceLocation> REWIND_DIMENSION = TrackedData.Builder.create(ResourceLocation.STREAM_CODEC, () -> Level.OVERWORLD.location()).enableSaving(ResourceLocation.CODEC.fieldOf("ResourceLocation")).build();
+	//TODO: Convert into one tracked Vec3?
+	public static final TrackedData<Double> REWIND_X = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Double> REWIND_Y = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Double> REWIND_Z = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Boolean> SHOULD_DEFLECT = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
+	public static final TrackedData<Boolean> BONUS_DEFLECT = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
+	public static final TrackedData<Integer> RICOCHETS = TrackedData.Builder.create(ByteBufCodecs.INT, () -> 0).enableSaving(Codec.INT.fieldOf("Integer")).build();
+	//TODO: Convert into one tracked Vec3?
+	public static final TrackedData<Double> DEFLECT_X = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Double> DEFLECT_Y = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<ItemStack> UNICORN_HORN = TrackedData.Builder.create(ItemStack.OPTIONAL_STREAM_CODEC, () -> ItemStack.EMPTY).enableSaving(ItemStack.OPTIONAL_CODEC.fieldOf("id").fieldOf("count").fieldOf("components")).build();
+	public static final TrackedData<Boolean> GLOW_UNICORN_HORN = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
+	public static final TrackedData<Boolean> OBSCURITY_INVISIBILITY = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 
 	public static void registerTrackedData() {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("controlled_golem_uuid"), CONTROLLED_GOLEM_UUID);

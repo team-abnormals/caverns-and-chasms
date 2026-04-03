@@ -3,7 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.Kunai;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -21,7 +21,7 @@ public class CCDamageTypes {
 	public static final ResourceKey<DamageType> GRAZER = createKey("grazer");
 	public static final ResourceKey<DamageType> RIDING_GRAZER = createKey("riding_grazer");
 
-	public static void bootstrap(BootstapContext<DamageType> context) {
+	public static void bootstrap(BootstrapContext<DamageType> context) {
 		context.register(SPIKED_RAIL, new DamageType(CavernsAndChasms.MOD_ID + ".spiked_rail", 0.1F));
 		context.register(LAVA_LAMP, new DamageType(CavernsAndChasms.MOD_ID + ".lava_lamp", 0.1F));
 		context.register(KUNAI, new DamageType(CavernsAndChasms.MOD_ID + ".kunai", 0.1F));

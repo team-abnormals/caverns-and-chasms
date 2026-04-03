@@ -7,7 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.B
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
@@ -17,12 +17,12 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers.RemoveFeaturesBiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers.RemoveSpawnsBiomeModifier;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
+import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;
+import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.RemoveFeaturesBiomeModifier;
+import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.RemoveSpawnsBiomeModifier;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 
 public class CCBiomeModifiers {
 
-	public static void bootstrap(BootstapContext<BiomeModifier> context) {
+	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
 		addSpawn(context, "peeper", CCBiomeTags.HAS_PEEPER, new MobSpawnSettings.SpawnerData(CCEntityTypes.PEEPER.get(), 20, 2, 4));
 		addSpawn(context, "mime", CCBiomeTags.HAS_MIME, new MobSpawnSettings.SpawnerData(CCEntityTypes.MIME.get(), 100, 1, 1));
 		addSpawn(context, "grazer", CCBiomeTags.HAS_GRAZER, new MobSpawnSettings.SpawnerData(CCEntityTypes.GRAZER.get(), 100, 1, 4));
@@ -65,38 +65,38 @@ public class CCBiomeModifiers {
 	}
 
 	@SafeVarargs
-	private static void removeFeature(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
+	private static void removeFeature(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
 		register(context, "remove_feature/" + name, () -> new RemoveFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), featureSet(context, features), Set.of(step)));
 	}
 
 	@SafeVarargs
-	private static void addFeature(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
+	private static void addFeature(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
 		register(context, "add_feature/" + name, () -> new AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), featureSet(context, features), step));
 	}
 
 	@SafeVarargs
-	private static void addFeatureBlacklisted(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> blacklistedBiomes, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
+	private static void addFeatureBlacklisted(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> blacklistedBiomes, TagKey<Biome> biomes, Decoration step, ResourceKey<PlacedFeature>... features) {
 		register(context, "add_feature/" + name, () -> new BlacklistedAddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(blacklistedBiomes), context.lookup(Registries.BIOME).getOrThrow(biomes), featureSet(context, features), step));
 	}
 
-	private static void addSpawn(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, MobSpawnSettings.SpawnerData... spawns) {
+	private static void addSpawn(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, MobSpawnSettings.SpawnerData... spawns) {
 		register(context, "add_spawn/" + name, () -> new AddSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), List.of(spawns)));
 	}
 
-	private static void addSpawnBlackListed(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, TagKey<Biome> blacklistedBiomes, MobSpawnSettings.SpawnerData... spawns) {
+	private static void addSpawnBlackListed(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, TagKey<Biome> blacklistedBiomes, MobSpawnSettings.SpawnerData... spawns) {
 		register(context, "add_spawn/" + name, () -> new BlacklistedAddSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), context.lookup(Registries.BIOME).getOrThrow(blacklistedBiomes), List.of(spawns)));
 	}
 
-	private static void removeSpawn(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, EntityType<?>... types) {
-		register(context, "remove_spawn/" + name, () -> new RemoveSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), HolderSet.direct(Stream.of(types).map(type -> ForgeRegistries.ENTITY_TYPES.getHolder(type).get()).collect(Collectors.toList()))));
+	private static void removeSpawn(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, EntityType<?>... types) {
+		register(context, "remove_spawn/" + name, () -> new RemoveSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), HolderSet.direct(Stream.of(types).map(type -> Registries.ENTITY_TYPES.getHolder(type).get()).collect(Collectors.toList()))));
 	}
 
-	private static void register(BootstapContext<BiomeModifier> context, String name, Supplier<? extends BiomeModifier> modifier) {
-		context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, CavernsAndChasms.location(name)), modifier.get());
+	private static void register(BootstrapContext<BiomeModifier> context, String name, Supplier<? extends BiomeModifier> modifier) {
+		context.register(ResourceKey.create(Registries.Keys.BIOME_MODIFIERS, CavernsAndChasms.location(name)), modifier.get());
 	}
 
 	@SafeVarargs
-	private static HolderSet<PlacedFeature> featureSet(BootstapContext<?> context, ResourceKey<PlacedFeature>... features) {
+	private static HolderSet<PlacedFeature> featureSet(BootstrapContext<?> context, ResourceKey<PlacedFeature>... features) {
 		return HolderSet.direct(Stream.of(features).map(placedFeatureKey -> context.lookup(Registries.PLACED_FEATURE).getOrThrow(placedFeatureKey)).collect(Collectors.toList()));
 	}
 }

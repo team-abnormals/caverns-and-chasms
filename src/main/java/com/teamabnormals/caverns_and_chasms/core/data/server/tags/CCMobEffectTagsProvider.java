@@ -9,20 +9,20 @@ import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.concurrent.CompletableFuture;
 
 public class CCMobEffectTagsProvider extends IntrinsicHolderTagsProvider<MobEffect> {
 
 	public CCMobEffectTagsProvider(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
-		super(output, Registries.MOB_EFFECT, provider, effect -> ForgeRegistries.MOB_EFFECTS.getResourceKey(effect).get(), CavernsAndChasms.MOD_ID, helper);
+		super(output, Registries.MOB_EFFECT, provider, effect -> Registries.MOB_EFFECT.getResourceKey(effect).get(), CavernsAndChasms.MOD_ID, helper);
 	}
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).add(MobEffects.BAD_OMEN, MobEffects.HERO_OF_THE_VILLAGE).addOptional(new ResourceLocation("environmental", "serenity"));
+		this.tag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).add(MobEffects.BAD_OMEN.getKey(), MobEffects.HERO_OF_THE_VILLAGE.getKey()).addOptional(ResourceLocation.fromNamespaceAndPath("environmental", "serenity"));
 	}
 
 	@Override

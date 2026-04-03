@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -74,7 +74,7 @@ public class CopyRecordItem extends Item {
 
 	public ItemStack getDiscStack(ItemStack base) {
 		String id = base.getOrCreateTag().getString("music_disc");
-		Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(id));
+		Item item = BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(id));
 		return new ItemStack(item != null ? item : this);
 	}
 }

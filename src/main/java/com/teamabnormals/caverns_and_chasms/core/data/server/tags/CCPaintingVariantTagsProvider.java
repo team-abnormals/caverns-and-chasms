@@ -5,7 +5,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PaintingVariantTagsProvider;
 import net.minecraft.tags.PaintingVariantTags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,16 +20,16 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 	@Override
 	public void addTags(Provider provider) {
 		this.tag(PaintingVariantTags.PLACEABLE).add(
-				ISOLATION.getKey(),
-				EXSANGUINATED.getKey(),
-				EMBEDDED.getKey(),
-				NOIR.getKey(),
-				STARRY_NIGHT.getKey(),
-				KNIGHT.getKey(),
-				PROTOTYPE_701.getKey(),
-				SQUIRMY.getKey(),
-				THE_ENIGMA.getKey(),
-				CHEF.getKey()
+				ISOLATION,
+				EXSANGUINATED,
+				EMBEDDED,
+				NOIR,
+				STARRY_NIGHT,
+				KNIGHT,
+				PROTOTYPE_701,
+				SQUIRMY,
+				THE_ENIGMA,
+				CHEF
 		);
 	}
 }

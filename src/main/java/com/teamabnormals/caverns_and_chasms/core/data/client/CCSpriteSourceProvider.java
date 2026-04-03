@@ -14,8 +14,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.armortrim.TrimMaterial;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SpriteSourceProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SpriteSourceProvider;
 
 import java.util.HashMap;
 import java.util.List;
@@ -92,11 +92,11 @@ public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 
 			if (location.getNamespace().equals("minecraft")) {
 				name = location.getPath();
-				location = new ResourceLocation(Clayworks.MOD_ID, name);
+				location = ResourceLocation.fromNamespaceAndPath(Clayworks.MOD_ID, name);
 			}
 
 			if (location.equals(CCTrimMaterials.WAXED_COPPER.location())) {
-				permutations.put(name, new ResourceLocation(Clayworks.MOD_ID, "entity/decorated_pot_trim_palettes/copper"));
+				permutations.put(name, ResourceLocation.fromNamespaceAndPath(Clayworks.MOD_ID, "entity/decorated_pot_trim_palettes/copper"));
 			} else {
 				permutations.put(name, location.withPath(string -> "entity/decorated_pot_trim_palettes/" + string.replace("waxed_", "")));
 			}

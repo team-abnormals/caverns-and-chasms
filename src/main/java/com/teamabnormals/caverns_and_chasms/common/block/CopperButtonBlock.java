@@ -6,7 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -19,15 +21,15 @@ public class CopperButtonBlock extends ButtonBlock {
 	protected final WeatherState weatherState;
 
 	public CopperButtonBlock(WeatheringCopper.WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
-		super(properties, CCProperties.COPPER_BLOCK_SET.get(), ticks, false);
+		super(CCProperties.COPPER_BLOCK_SET.get(), ticks, properties);
 		this.weatherState = weatherState;
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		if (!(this instanceof WeatheringCopperButtonBlock) && player.getItemInHand(hand).is(ItemTags.AXES) && !state.getValue(POWERED)) {
-			return InteractionResult.PASS;
+			return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
 		}
-		return super.use(state, level, pos, player, hand, result);
+		return super.useItemOn(stack, state, level, pos, player, hand, result);
 	}
 }

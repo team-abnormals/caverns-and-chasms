@@ -246,6 +246,6 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public String getDescriptionId() {
-		return Util.makeDescriptionId("item", new ResourceLocation(BuiltInRegistries.BLOCK.getKey(this).getPath()));
+		return Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(this).getPath()));
 	}
 }

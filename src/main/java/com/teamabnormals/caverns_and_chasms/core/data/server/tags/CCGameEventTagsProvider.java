@@ -6,7 +6,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.GameEventTagsProvider;
 import net.minecraft.tags.GameEventTags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -18,7 +18,7 @@ public class CCGameEventTagsProvider extends GameEventTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(GameEventTags.VIBRATIONS).add(CCGameEvents.TUNING_FORK_VIBRATE.get());
-		this.tag(GameEventTags.WARDEN_CAN_LISTEN).add(CCGameEvents.TUNING_FORK_VIBRATE.get());
+		this.tag(GameEventTags.VIBRATIONS).add(CCGameEvents.TUNING_FORK_VIBRATE.getKey());
+		this.tag(GameEventTags.WARDEN_CAN_LISTEN).add(CCGameEvents.TUNING_FORK_VIBRATE.getKey());
 	}
 }

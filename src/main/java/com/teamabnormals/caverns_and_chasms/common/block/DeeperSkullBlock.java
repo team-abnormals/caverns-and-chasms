@@ -23,7 +23,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class DeeperSkullBlock extends SkullBlock {
 	public static InteractionResult tryToAddHat(Level level, BlockPos pos, Player player, InteractionHand hand) {
 		if (player.getAbilities().mayBuild && level.getBlockEntity(pos) instanceof DeeperSkullBlockEntity blockentity) {
 			ItemStack itemstack = player.getItemInHand(hand);
-			if (itemstack.canPerformAction(ToolActions.SHEARS_CARVE)) {
+			if (itemstack.canPerformAction(ItemAbilities.SHEARS_CARVE)) {
 				DeeperHat hat = blockentity.getHat();
 				if (hat != DeeperHat.NONE) {
 					if (!level.isClientSide) {

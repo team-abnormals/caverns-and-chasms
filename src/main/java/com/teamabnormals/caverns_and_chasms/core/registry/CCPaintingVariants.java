@@ -1,22 +1,41 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
-public final class CCPaintingVariants {
-	public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, CavernsAndChasms.MOD_ID);
+public class CCPaintingVariants {
+	public static final ResourceKey<PaintingVariant> ISOLATION = create("isolation");
+	public static final ResourceKey<PaintingVariant> EXSANGUINATED = create("exsanguinated");
+	public static final ResourceKey<PaintingVariant> EMBEDDED = create("embedded");
+	public static final ResourceKey<PaintingVariant> STARRY_NIGHT = create("starry_night");
+	public static final ResourceKey<PaintingVariant> NOIR = create("noir");
+	public static final ResourceKey<PaintingVariant> KNIGHT = create("knight");
+	public static final ResourceKey<PaintingVariant> PROTOTYPE_701 = create("prototype_701");
+	public static final ResourceKey<PaintingVariant> SQUIRMY = create("squirmy");
+	public static final ResourceKey<PaintingVariant> THE_ENIGMA = create("the_enigma");
+	public static final ResourceKey<PaintingVariant> CHEF = create("chef");
 
-	public static final RegistryObject<PaintingVariant> ISOLATION = PAINTING_VARIANTS.register("isolation", () -> new PaintingVariant(32, 32));
-	public static final RegistryObject<PaintingVariant> EXSANGUINATED = PAINTING_VARIANTS.register("exsanguinated", () -> new PaintingVariant(64, 64));
-	public static final RegistryObject<PaintingVariant> EMBEDDED = PAINTING_VARIANTS.register("embedded", () -> new PaintingVariant(32, 64));
-	public static final RegistryObject<PaintingVariant> STARRY_NIGHT = PAINTING_VARIANTS.register("starry_night", () -> new PaintingVariant(16, 16));
-	public static final RegistryObject<PaintingVariant> NOIR = PAINTING_VARIANTS.register("noir", () -> new PaintingVariant(16, 32));
-	public static final RegistryObject<PaintingVariant> KNIGHT = PAINTING_VARIANTS.register("knight", () -> new PaintingVariant(48, 32));
-	public static final RegistryObject<PaintingVariant> PROTOTYPE_701 = PAINTING_VARIANTS.register("prototype_701", () -> new PaintingVariant(48, 32));
-	public static final RegistryObject<PaintingVariant> SQUIRMY = PAINTING_VARIANTS.register("squirmy", () -> new PaintingVariant(48, 16));
-	public static final RegistryObject<PaintingVariant> THE_ENIGMA = PAINTING_VARIANTS.register("the_enigma", () -> new PaintingVariant(64, 64));
-	public static final RegistryObject<PaintingVariant> CHEF = PAINTING_VARIANTS.register("chef", () -> new PaintingVariant(48, 64));
+	public static void bootstrap(BootstrapContext<PaintingVariant> context) {
+		register(context, ISOLATION, 2, 2);
+		register(context, EXSANGUINATED, 4, 4);
+		register(context, EMBEDDED, 2, 4);
+		register(context, STARRY_NIGHT, 1, 1);
+		register(context, NOIR, 1, 2);
+		register(context, KNIGHT, 3, 2);
+		register(context, PROTOTYPE_701, 3, 2);
+		register(context, SQUIRMY, 3, 1);
+		register(context, THE_ENIGMA, 4, 4);
+		register(context, CHEF, 3, 4);
+	}
+
+	private static ResourceKey<PaintingVariant> create(String name) {
+		return ResourceKey.create(Registries.PAINTING_VARIANT, CavernsAndChasms.location(name));
+	}
+
+	private static void register(BootstrapContext<PaintingVariant> context, ResourceKey<PaintingVariant> key, int width, int height) {
+		context.register(key, new PaintingVariant(width, height, key.location()));
+	}
 }

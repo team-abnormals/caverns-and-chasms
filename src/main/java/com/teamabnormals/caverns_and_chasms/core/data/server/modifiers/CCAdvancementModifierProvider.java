@@ -24,8 +24,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,14 +51,14 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		Collection<RegistryObject<Item>> items = CCItems.HELPER.getDeferredRegister().getEntries();
 		items.forEach(item -> {
 			if (item.get().isEdible()) {
-				balancedDiet.addCriterion(ForgeRegistries.ITEMS.getKey(item.get()).getPath(), ConsumeItemTrigger.TriggerInstance.usedItem(item.get()));
+				balancedDiet.addCriterion(BuiltInRegistries.ITEM.getKey(item.get()).getPath(), ConsumeItemTrigger.TriggerInstance.usedItem(item.get()));
 			}
 		});
 		this.entry("husbandry/balanced_diet").selects("husbandry/balanced_diet").addModifier(balancedDiet.requirements(RequirementsStrategy.AND).build());
 
 		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
 		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
-			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
+			breedAllAnimals.addCriterion(Registries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
 		}
 		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
 
@@ -81,13 +81,13 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId).addCriterion("necromium_hoe", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())).addIndexedRequirements(0, false, "necromium_hoe").build());
 
-		this.entry("adventure/smelt_copper_parent").selects("adventure/spyglass_at_parrot", "adventure/lightning_rod_with_villager_no_fire").addModifier(new ParentModifier(new ResourceLocation(this.modId, "adventure/smelt_copper")));
+		this.entry("adventure/smelt_copper_parent").selects("adventure/spyglass_at_parrot", "adventure/lightning_rod_with_villager_no_fire").addModifier(new ParentModifier(ResourceLocation.fromNamespaceAndPath(this.modId, "adventure/smelt_copper")));
 
 		CriteriaModifier.Builder killAMob = CriteriaModifier.builder(this.modId);
 		CriteriaModifier.Builder killAllMobs = CriteriaModifier.builder(this.modId);
 		ArrayList<String> names = Lists.newArrayList();
 		for (EntityType<?> entityType : MOBS_TO_KILL) {
-			String name = ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath();
+			String name = Registries.ENTITY_TYPES.getKey(entityType).getPath();
 			KilledTrigger.TriggerInstance triggerInstance = KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
 			killAMob.addCriterion(name, triggerInstance);
 			killAllMobs.addCriterion(name, triggerInstance);
@@ -100,7 +100,7 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		CriteriaModifier.Builder trimWithAnyPattern = CriteriaModifier.builder(this.modId);
 		ArrayList<String> smithingModifiers = Lists.newArrayList();
 		for (Item item : SMITHING_TEMPLATES) {
-			ResourceLocation trimName = BlueprintRecipeProvider.suffix(ForgeRegistries.ITEMS.getKey(item), "_smithing_trim");
+			ResourceLocation trimName = BlueprintRecipeProvider.suffix(BuiltInRegistries.ITEM.getKey(item), "_smithing_trim");
 			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName, RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
 			smithingModifiers.add("armor_trimmed_" + trimName);
 		}

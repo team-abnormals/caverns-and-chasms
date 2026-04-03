@@ -118,7 +118,7 @@ public class SpinelBoom extends Explosion {
 		int z2 = Mth.floor(this.z + f + 1.0D);
 
 		List<Entity> list = this.level.getEntities(this.source, new AABB(x1, y1, z1, x2, y2, z2));
-		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f);
+		net.neoforged.neoforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, list, f);
 		Vec3 vec3 = new Vec3(this.x, this.y, this.z);
 
 		for (int i = 0; i < list.size(); ++i) {

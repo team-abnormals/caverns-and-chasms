@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import java.util.function.Consumer;
 
@@ -43,8 +43,8 @@ public class AegisItem extends Item implements DyeableLeatherItem, Equipable {
 		return otherStack.is(CCItemTags.INGOTS_TIN) || super.isValidRepairItem(stack, otherStack);
 	}
 	@Override
-	public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-		return ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
+	public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility toolAction) {
+		return ItemAbilities.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
 	}
 
 	@Override

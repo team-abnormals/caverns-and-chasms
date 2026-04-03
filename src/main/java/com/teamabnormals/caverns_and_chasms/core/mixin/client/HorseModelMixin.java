@@ -43,7 +43,7 @@ public abstract class HorseModelMixin<T extends AbstractHorse> extends AgeableLi
 		ModelPart rod = head.getChild("rod");
 		ModelPart rodBase = head.getChild("rod_base");
 
-		boolean hasArmor = entity instanceof Horse horse && horse.getArmor().getItem() instanceof CopperHorseArmorItem;
+		boolean hasArmor = entity instanceof Horse horse && horse.getBodyArmorItem().getItem() instanceof CopperHorseArmorItem;
 		rod.visible = hasArmor;
 		rodBase.visible = hasArmor;
 	}

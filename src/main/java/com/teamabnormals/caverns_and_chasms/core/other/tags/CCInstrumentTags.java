@@ -18,6 +18,6 @@ public class CCInstrumentTags {
 	}
 
 	private static TagKey<Instrument> instrumentTag(String modid, String name) {
-		return TagKey.create(Registries.INSTRUMENT, new ResourceLocation(modid, name));
+		return TagKey.create(Registries.INSTRUMENT, ResourceLocation.fromNamespaceAndPath(modid, name));
 	}
 }

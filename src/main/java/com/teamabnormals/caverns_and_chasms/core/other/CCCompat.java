@@ -32,9 +32,9 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.fluids.FluidInteractionRegistry;
-import net.minecraftforge.fluids.FluidInteractionRegistry.InteractionInformation;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
+import net.neoforged.neoforge.fluids.FluidInteractionRegistry.InteractionInformation;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +56,7 @@ public class CCCompat {
 		CCSoundEvents.registerNoteBlocks();
 		CCCriteriaTriggers.registerPredicates();
 
-		FluidInteractionRegistry.addInteraction(ForgeMod.LAVA_TYPE.get(), new InteractionInformation((level, currentPos, relativePos, currentState) -> {
+		FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new InteractionInformation((level, currentPos, relativePos, currentState) -> {
 			return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);
 		}, CCBlocks.RHYOLITE.get().defaultBlockState()));
 	}

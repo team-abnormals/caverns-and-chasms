@@ -13,6 +13,7 @@ import com.teamabnormals.caverns_and_chasms.loot.FortuneEnchantFunction;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate.Builder;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
@@ -43,7 +44,7 @@ import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Map;
@@ -237,51 +238,6 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(WAXED_EXPOSED_TOOLBOX.get(), this::createToolboxDrop);
 			this.add(WAXED_WEATHERED_TOOLBOX.get(), this::createToolboxDrop);
 			this.add(WAXED_OXIDIZED_TOOLBOX.get(), this::createToolboxDrop);
-
-			this.dropSelf(CHISELED_COPPER.get());
-			this.dropSelf(EXPOSED_CHISELED_COPPER.get());
-			this.dropSelf(WEATHERED_CHISELED_COPPER.get());
-			this.dropSelf(OXIDIZED_CHISELED_COPPER.get());
-			this.dropSelf(WAXED_CHISELED_COPPER.get());
-			this.dropSelf(WAXED_EXPOSED_CHISELED_COPPER.get());
-			this.dropSelf(WAXED_WEATHERED_CHISELED_COPPER.get());
-			this.dropSelf(WAXED_OXIDIZED_CHISELED_COPPER.get());
-
-			this.dropSelf(COPPER_GRATE.get());
-			this.dropSelf(EXPOSED_COPPER_GRATE.get());
-			this.dropSelf(WEATHERED_COPPER_GRATE.get());
-			this.dropSelf(OXIDIZED_COPPER_GRATE.get());
-			this.dropSelf(WAXED_COPPER_GRATE.get());
-			this.dropSelf(WAXED_EXPOSED_COPPER_GRATE.get());
-			this.dropSelf(WAXED_WEATHERED_COPPER_GRATE.get());
-			this.dropSelf(WAXED_OXIDIZED_COPPER_GRATE.get());
-
-			this.dropSelf(COPPER_BULB.get());
-			this.dropSelf(EXPOSED_COPPER_BULB.get());
-			this.dropSelf(WEATHERED_COPPER_BULB.get());
-			this.dropSelf(OXIDIZED_COPPER_BULB.get());
-			this.dropSelf(WAXED_COPPER_BULB.get());
-			this.dropSelf(WAXED_EXPOSED_COPPER_BULB.get());
-			this.dropSelf(WAXED_WEATHERED_COPPER_BULB.get());
-			this.dropSelf(WAXED_OXIDIZED_COPPER_BULB.get());
-
-			this.add(COPPER_DOOR.get(), this::createDoorTable);
-			this.add(EXPOSED_COPPER_DOOR.get(), this::createDoorTable);
-			this.add(WEATHERED_COPPER_DOOR.get(), this::createDoorTable);
-			this.add(OXIDIZED_COPPER_DOOR.get(), this::createDoorTable);
-			this.add(WAXED_COPPER_DOOR.get(), this::createDoorTable);
-			this.add(WAXED_EXPOSED_COPPER_DOOR.get(), this::createDoorTable);
-			this.add(WAXED_WEATHERED_COPPER_DOOR.get(), this::createDoorTable);
-			this.add(WAXED_OXIDIZED_COPPER_DOOR.get(), this::createDoorTable);
-
-			this.dropSelf(COPPER_TRAPDOOR.get());
-			this.dropSelf(EXPOSED_COPPER_TRAPDOOR.get());
-			this.dropSelf(WEATHERED_COPPER_TRAPDOOR.get());
-			this.dropSelf(OXIDIZED_COPPER_TRAPDOOR.get());
-			this.dropSelf(WAXED_COPPER_TRAPDOOR.get());
-			this.dropSelf(WAXED_EXPOSED_COPPER_TRAPDOOR.get());
-			this.dropSelf(WAXED_WEATHERED_COPPER_TRAPDOOR.get());
-			this.dropSelf(WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
 
 			this.dropSelf(COPPER_BARS.get());
 			this.dropSelf(EXPOSED_COPPER_BARS.get());
@@ -571,7 +527,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public Iterable<Block> getKnownBlocks() {
-			return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> ForgeRegistries.BLOCKS.getKey(block).getNamespace().equals(CavernsAndChasms.MOD_ID)).collect(Collectors.toSet());
+			return BuiltInRegistries.BLOCK.getValues().stream().filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(CavernsAndChasms.MOD_ID)).collect(Collectors.toSet());
 		}
 	}
 
@@ -688,7 +644,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public Stream<EntityType<?>> getKnownEntityTypes() {
-			return ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entity -> entity == EntityType.SILVERFISH || ForgeRegistries.ENTITY_TYPES.getKey(entity).getNamespace().equals(CavernsAndChasms.MOD_ID));
+			return Registries.ENTITY_TYPES.getValues().stream().filter(entity -> entity == EntityType.SILVERFISH || Registries.ENTITY_TYPES.getKey(entity).getNamespace().equals(CavernsAndChasms.MOD_ID));
 		}
 
 		@Override

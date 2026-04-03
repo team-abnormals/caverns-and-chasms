@@ -19,7 +19,7 @@ import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.extensions.IForgeItemStack;
+import net.neoforged.neoforge.common.extensions.IForgeItemStack;
 
 import java.util.List;
 import java.util.stream.Collectors;

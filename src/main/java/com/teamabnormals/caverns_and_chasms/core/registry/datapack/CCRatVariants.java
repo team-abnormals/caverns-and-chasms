@@ -5,7 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant.
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
 import net.minecraft.Util;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +17,7 @@ public class CCRatVariants {
 	public static final ResourceKey<RatVariant> BLACK = createKey("black");
 	public static final ResourceKey<RatVariant> WHITE = createKey("white");
 
-	public static void bootstrap(BootstapContext<RatVariant> context) {
+	public static void bootstrap(BootstrapContext<RatVariant> context) {
 		registerVariant(context, BLUE, 7);
 		registerVariant(context, GRAY, 7);
 		registerVariant(context, BROWN, 5);
@@ -25,7 +25,7 @@ public class CCRatVariants {
 		registerVariant(context, WHITE, 1);
 	}
 
-	public static void registerVariant(BootstapContext<RatVariant> context, ResourceKey<RatVariant> key, int weight) {
+	public static void registerVariant(BootstrapContext<RatVariant> context, ResourceKey<RatVariant> key, int weight) {
 		Component component = Component.translatable(Util.makeDescriptionId("rat_variant", key.location()));
 		context.register(key, new RatVariant(component, createAssetGroup(key, ""), createAssetGroup(key, "_dirty"), weight));
 	}

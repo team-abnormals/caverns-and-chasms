@@ -31,9 +31,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.ForgeAdvancementProvider;
-import net.minecraftforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ForgeAdvancementProvider;
+import net.neoforged.neoforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -47,12 +47,12 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 
 	@Override
 	public void generate(Provider provider, Consumer<Advancement> consumer, ExistingFileHelper helper) {
-		createAdvancement("obtain_ancient_hoes", "husbandry", new ResourceLocation("husbandry/obtain_netherite_hoe"), CCItems.NECROMIUM_HOE.get(), FrameType.CHALLENGE, true, true, false)
+		createAdvancement("obtain_ancient_hoes", "husbandry", ResourceLocation.withDefaultNamespace("husbandry/obtain_netherite_hoe"), CCItems.NECROMIUM_HOE.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.addCriterion("ancient_hoes", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_HOE, CCItems.NECROMIUM_HOE.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_ancient_hoes");
 
-		Advancement boneFlute = createAdvancement("obtain_bone_flute", "husbandry", new ResourceLocation("husbandry/tame_an_animal"), CCItems.BONE_FLUTE.get(), FrameType.TASK, true, true, false)
+		Advancement boneFlute = createAdvancement("obtain_bone_flute", "husbandry", ResourceLocation.withDefaultNamespace("husbandry/tame_an_animal"), CCItems.BONE_FLUTE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("bone_flute", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.BONE_FLUTE.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_bone_flute");
 
@@ -64,12 +64,12 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("kill_guardian_with_rat", RatKilledEntityTrigger.TriggerInstance.ratKilledEntity(EntityPredicate.Builder.entity().of(EntityType.GUARDIAN)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/kill_guardian_with_rat");
 
-		createAdvancement("necromium_armor", "nether", new ResourceLocation("nether/obtain_ancient_debris"), CCItems.NECROMIUM_CHESTPLATE.get(), FrameType.CHALLENGE, true, true, false)
+		createAdvancement("necromium_armor", "nether", ResourceLocation.withDefaultNamespace("nether/obtain_ancient_debris"), CCItems.NECROMIUM_CHESTPLATE.get(), FrameType.CHALLENGE, true, true, false)
 				.rewards(AdvancementRewards.Builder.experience(100))
 				.addCriterion("necromium_armor", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HELMET.get(), CCItems.NECROMIUM_CHESTPLATE.get(), CCItems.NECROMIUM_LEGGINGS.get(), CCItems.NECROMIUM_BOOTS.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/necromium_armor");
 
-		Advancement smeltCopper = createAdvancement("smelt_copper", "adventure", new ResourceLocation("adventure/root"), Items.COPPER_INGOT, FrameType.TASK, true, true, false)
+		Advancement smeltCopper = createAdvancement("smelt_copper", "adventure", ResourceLocation.withDefaultNamespace("adventure/root"), Items.COPPER_INGOT, FrameType.TASK, true, true, false)
 				.addCriterion("copper", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_INGOT))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/smelt_copper");
 
@@ -93,25 +93,25 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("thunderstruck", new EntityHurtPlayerTrigger.TriggerInstance(EntityPredicate.wrap(EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().head(ItemPredicate.Builder.item().of(CCItemTags.COPPER_HELMETS).build()).build()).build()), DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTags.IS_LIGHTNING))).build()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/thunderstruck");
 
-		createAdvancement("ride_boat_with_deeper", "nether", new ResourceLocation("nether/root"), CCItems.DEEPER_HEAD.get(), FrameType.TASK, true, true, true)
+		createAdvancement("ride_boat_with_deeper", "nether", ResourceLocation.withDefaultNamespace("nether/root"), CCItems.DEEPER_HEAD.get(), FrameType.TASK, true, true, true)
 				.addCriterion("ride_boat_with_deeper", StartRidingTrigger.TriggerInstance.playerStartsRiding(EntityPredicate.Builder.entity().located(LocationPredicate.inDimension(Level.NETHER)).vehicle(EntityPredicate.Builder.entity().of(EntityType.BOAT).passenger(EntityPredicate.Builder.entity().of(CCEntityTypes.DEEPER.get()).build()).build())))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":nether/ride_boat_with_deeper");
 
-		createAdvancement("dont_move", "adventure", new ResourceLocation("adventure/kill_a_mob"), CCBlocks.PEEPER_HEAD.get(), FrameType.TASK, true, true, true)
+		createAdvancement("dont_move", "adventure", ResourceLocation.withDefaultNamespace("adventure/kill_a_mob"), CCBlocks.PEEPER_HEAD.get(), FrameType.TASK, true, true, true)
 				.addCriterion("spotted_by_peeper", CCCriteriaTriggers.SPOTTED_BY_PEEPER.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dont_move");
 
 		ItemStack stack = new ItemStack(Items.POTION);
 		PotionUtils.setPotion(stack, CCMobEffects.REVENANT.get());
-		createAdvancement("kill_bat_with_vampirism", "adventure", new ResourceLocation("adventure/kill_a_mob"), stack, FrameType.TASK, true, true, true)
+		createAdvancement("kill_bat_with_vampirism", "adventure", ResourceLocation.withDefaultNamespace("adventure/kill_a_mob"), stack, FrameType.TASK, true, true, true)
 				.addCriterion("kill_bat", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(EntityType.BAT), DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(CCDamageTypeTags.DRAINS_ENEMIES)).build()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/kill_bat_with_vampirism");
 
-		createAdvancement("dismantle_item", "adventure", new ResourceLocation("adventure/trim_with_any_armor_pattern"), CCBlocks.DISMANTLING_TABLE.get(), FrameType.TASK, true, true, false)
+		createAdvancement("dismantle_item", "adventure", ResourceLocation.withDefaultNamespace("adventure/trim_with_any_armor_pattern"), CCBlocks.DISMANTLING_TABLE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("dismantled_item", CCCriteriaTriggers.DISMANTLED_ITEM.createInstance())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/dismantle_item");
 
-		Advancement atoneItem = createAdvancement("atone_item", "adventure", new ResourceLocation("adventure/root"), CCBlocks.ATONING_TABLE.get(), FrameType.TASK, true, true, false)
+		Advancement atoneItem = createAdvancement("atone_item", "adventure", ResourceLocation.withDefaultNamespace("adventure/root"), CCBlocks.ATONING_TABLE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("atoned_item", AtonedItemTrigger.TriggerInstance.atonedItem())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/atone_item");
 
@@ -119,7 +119,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("broken_atonement", AtonedItemTrigger.TriggerInstance.brokenAtonement())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/break_item_atoning");
 
-		Advancement bejeweledAnvilRepair = createAdvancement("bejeweled_anvil_repair", "adventure", new ResourceLocation("adventure/root"), CCBlocks.BEJEWELED_ANVIL.get(), FrameType.TASK, true, true, false)
+		Advancement bejeweledAnvilRepair = createAdvancement("bejeweled_anvil_repair", "adventure", ResourceLocation.withDefaultNamespace("adventure/root"), CCBlocks.BEJEWELED_ANVIL.get(), FrameType.TASK, true, true, false)
 				.addCriterion("bejeweled_anvil_repair", RepairedItemTrigger.TriggerInstance.repairedItem())
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/bejeweled_anvil_repair");
 
@@ -131,7 +131,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("copy_music_disc", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/copy_music_disc");
 
-		Advancement monolith = createAdvancement("find_monolith", "adventure", new ResourceLocation("adventure/root"), CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
+		Advancement monolith = createAdvancement("find_monolith", "adventure", ResourceLocation.withDefaultNamespace("adventure/root"), CCItems.RAW_TIN.get(), FrameType.TASK, true, true, false)
 				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(CCStructures.TIN_MONOLITH)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
 
@@ -162,7 +162,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.addCriterion("ricochet_hit_yourself", PlayerHurtSelfTrigger.TriggerInstance.playerHurtSelf(DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType().direct(EntityPredicate.Builder.entity().subPredicate(RicochetPredicate.ricochets(Ints.atLeast(1))))).build()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/ricochet_hit_yourself");
 
-		Advancement turq = createAdvancement("obtain_turquoise", "adventure", new ResourceLocation("adventure/root"), CCItems.TURQUOISE.get(), FrameType.TASK, true, true, false)
+		Advancement turq = createAdvancement("obtain_turquoise", "adventure", ResourceLocation.withDefaultNamespace("adventure/root"), CCItems.TURQUOISE.get(), FrameType.TASK, true, true, false)
 				.addCriterion("turquoise", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.TURQUOISE.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/obtain_turquoise");
 

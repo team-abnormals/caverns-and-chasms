@@ -70,8 +70,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -290,7 +290,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public RatVariant getVariant() {
-		return this.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(new ResourceLocation(this.getStringVariant()));
+		return this.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.fromNamespaceAndPath(this.getStringVariant()));
 	}
 
 	public void setVariant(ResourceLocation variant) {
@@ -670,7 +670,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			if (!this.isRunningAway() && stack.is(CCItemTags.RAT_TAME_ITEMS)) {
 				this.usePlayerItem(player, hand, stack);
 				if (!this.level().isClientSide) {
-					if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+					if (this.random.nextInt(3) == 0 && !net.neoforged.neoforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
 						this.tame(player);
 						this.navigation.stop();
 						this.setTarget(null);
@@ -1040,8 +1040,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 		for (int i = 0; i < babies; ++i) {
 			AgeableMob ageablemob = this.getBreedOffspring(level, otherParent);
-			final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(this, otherParent, ageablemob);
-			final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
+			final net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent event = new net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent(this, otherParent, ageablemob);
+			final boolean cancelled = net.neoforged.neoforge.common.MinecraftForge.EVENT_BUS.post(event);
 			ageablemob = event.getChild();
 			if (cancelled) {
 				this.setAge(6000);
@@ -1114,8 +1114,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag dataTag) {
-		groupData = super.finalizeSpawn(level, difficulty, spawnType, groupData, dataTag);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData) {
+		groupData = super.finalizeSpawn(level, difficulty, spawnType, groupData);
 		this.setVariant(RatVariant.getSpawnVariant(level.registryAccess(), this.random).value());
 		this.setDirty(this.random.nextBoolean());
 		this.populateDefaultEquipmentSlots(this.random, difficulty);
@@ -1130,7 +1130,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				double d2 = this.getZ() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
 
 				if (rats.size() < ratCount) {
-					if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
+					if (level.noCollision(CCEntityTypes.RAT.get().getSpawnAABB(d0, d1, d2)) && SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
 						Rat rat = CCEntityTypes.RAT.get().create(level.getLevel());
 						if (rat != null) {
 							rats.add(Pair.of(rat, new Vec3(d0, d1, d2)));
@@ -1146,7 +1146,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					Rat rat = pair.getFirst();
 					Vec3 ratPos = pair.getSecond();
 					rat.moveTo(ratPos.x(), ratPos.y(), ratPos.z(), level.getRandom().nextFloat() * 360.0F, 0.0F);
-					groupData = rat.finalizeSpawn(level, level.getCurrentDifficultyAt(rat.blockPosition()), MobSpawnType.EVENT, groupData, null);
+					groupData = rat.finalizeSpawn(level, level.getCurrentDifficultyAt(rat.blockPosition()), MobSpawnType.EVENT, groupData);
 					level.addFreshEntity(rat);
 					rat.spawnAnim();
 				}

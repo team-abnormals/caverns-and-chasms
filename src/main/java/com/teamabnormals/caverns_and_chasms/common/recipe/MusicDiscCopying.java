@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 public class MusicDiscCopying extends CustomRecipe {
 
@@ -58,7 +58,7 @@ public class MusicDiscCopying extends CustomRecipe {
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
 				if (item instanceof RecordItem) {
-					returnStack.getOrCreateTag().putString("music_disc", ForgeRegistries.ITEMS.getKey(item).toString());
+					returnStack.getOrCreateTag().putString("music_disc", BuiltInRegistries.ITEM.getKey(item).toString());
 				}
 			}
 		}

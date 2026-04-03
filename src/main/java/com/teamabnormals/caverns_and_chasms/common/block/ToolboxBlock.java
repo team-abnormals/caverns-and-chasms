@@ -61,7 +61,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
 	public static final BooleanProperty HANGING = BooleanProperty.create("hanging");
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
+	public static final ResourceLocation CONTENTS = ResourceLocation.withDefaultNamespace("contents");
 	private final WeatherState weatherState;
 
 	public static final VoxelShape SHAPE_X = Block.box(4.0F, 0.0F, 0.0F, 12.0F, 8.0F, 16.0F);

@@ -12,7 +12,7 @@ import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public final class MusicDiscCopyRecipe {
 	public static CraftingRecipe createRecipes(Item record) {
 		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(record), Ingredient.of(CCItems.ZIRCONIA.get()));
 		ItemStack output = new ItemStack(CCItems.MUSIC_DISC_COPY.get());
-		output.getOrCreateTag().putString("music_disc", ForgeRegistries.ITEMS.getKey(record).toString());
+		output.getOrCreateTag().putString("music_disc", BuiltInRegistries.ITEM.getKey(record).toString());
 		ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
 		return new ShapelessRecipe(id, group, CraftingBookCategory.MISC, output, inputs);
 	}

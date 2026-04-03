@@ -8,13 +8,19 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet.Named;
+import net.minecraft.core.IdMap;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,13 +29,15 @@ import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraft.world.level.block.EnchantmentTableBlock;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraft.world.level.block.EnchantingTableBlock;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.EventHooks;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AtoningMenu extends AbstractContainerMenu {
 	private final Container enchantSlots = new SimpleContainer(3) {
@@ -100,10 +108,11 @@ public class AtoningMenu extends AbstractContainerMenu {
 			ItemStack stack = container.getItem(0);
 			if (!stack.isEmpty() && stack.isEnchantable()) {
 				this.access.execute((level, pos) -> {
+					IdMap<Holder<Enchantment>> idmap = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
 					float enchPower = 5;
 
-					for (BlockPos offset : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
-						if (EnchantmentTableBlock.isValidBookShelf(level, pos, offset)) {
+					for (BlockPos offset : EnchantingTableBlock.BOOKSHELF_OFFSETS) {
+						if (EnchantingTableBlock.isValidBookShelf(level, pos, offset)) {
 							enchPower += level.getBlockState(pos.offset(offset)).getEnchantPowerBonus(level, pos.offset(offset));
 						}
 					}
@@ -117,7 +126,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 						if (this.costs[i] < i + 1) {
 							this.costs[i] = 0;
 						}
-						this.costs[i] = ForgeEventFactory.onEnchantmentLevelSet(level, pos, i, (int) enchPower, stack, costs[i]);
+						this.costs[i] = EventHooks.onEnchantmentLevelSet(level, pos, i, (int) enchPower, stack, costs[i]);
 
 						if (stack.is(Items.BOOK))
 							this.costs[i] = 0;
@@ -125,10 +134,10 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 					for (int i = 0; i < 3; ++i) {
 						if (this.costs[i] > 0) {
-							List<EnchantmentInstance> list = this.getEnchantmentList(stack, i, this.costs[i]);
+							List<EnchantmentInstance> list = this.getEnchantmentList(level.registryAccess(), stack, i, this.costs[i]);
 							if (list != null && !list.isEmpty()) {
 								EnchantmentInstance enchantment = list.get(this.random.nextInt(list.size()));
-								this.enchantClue[i] = BuiltInRegistries.ENCHANTMENT.getId(enchantment.enchantment);
+								this.enchantClue[i] = idmap.getId(enchantment.enchantment);
 								this.levelClue[i] = enchantment.level;
 							}
 						}
@@ -150,9 +159,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 	public void doDurability(ItemStack output, int i, Player player) {
 		float durabilityPercent = Math.min(1.0F, 0.25F * i + this.random.nextFloat() * 0.275F);
 		float durabilityAmount = durabilityPercent * output.getMaxDamage();
-		output.hurtAndBreak((int) durabilityAmount, player, (entity) -> {
-			entity.broadcastBreakEvent(player.getUsedItemHand());
-		});
+		output.hurtAndBreak((int) durabilityAmount, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
 	}
 
 	public boolean clickMenuButton(Player player, int slot) {
@@ -168,7 +175,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 			} else {
 				this.access.execute((level, pos) -> {
 					ItemStack output = input;
-					List<EnchantmentInstance> list = this.getEnchantmentList(input, slot, this.costs[slot]);
+					List<EnchantmentInstance> list = this.getEnchantmentList(level.registryAccess(), input, slot, this.costs[slot]);
 					if (!list.isEmpty()) {
 						this.doDurability(output, i, player);
 						player.onEnchantmentPerformed(input, 0);
@@ -222,15 +229,20 @@ public class AtoningMenu extends AbstractContainerMenu {
 		}
 	}
 
-	private List<EnchantmentInstance> getEnchantmentList(ItemStack stack, int p_39473_, int p_39474_) {
-		this.random.setSeed(this.enchantmentSeed.get() + p_39473_);
-		List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, stack, p_39474_, false);
-		if (stack.is(Items.BOOK)) {// && list.size() > 1) {
-			return Lists.newArrayList();
-			// list.remove(this.random.nextInt(list.size()));
-		}
+	private List<EnchantmentInstance> getEnchantmentList(RegistryAccess registryAccess, ItemStack stack, int p_39473_, int p_39474_) {
+		Optional<Named<Enchantment>> optional = registryAccess.registryOrThrow(Registries.ENCHANTMENT).getTag(EnchantmentTags.IN_ENCHANTING_TABLE);
+		if (optional.isEmpty()) {
+			return List.of();
+		} else {
+			this.random.setSeed(this.enchantmentSeed.get() + p_39473_);
+			List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, stack, p_39474_, optional.get().stream());
+			if (stack.is(Items.BOOK)) {// && list.size() > 1) {
+				return Lists.newArrayList();
+				// list.remove(this.random.nextInt(list.size()));
+			}
 
-		return list;
+			return list;
+		}
 	}
 
 	public int getLapisCount() {

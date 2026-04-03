@@ -22,9 +22,9 @@ import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.function.Supplier;
 
@@ -34,27 +34,27 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 		super(parent);
 	}
 
-	public <B extends Block> RegistryObject<B> createToolboxBlock(String name, Supplier<? extends B> supplier) {
-		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
+	public <B extends Block> DeferredBlock<B> createToolboxBlock(String name, Supplier<? extends B> supplier) {
+		DeferredBlock<B> block = this.deferredRegister.register(name, supplier);
 		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(1), () -> () -> toolboxBEWLR()));
 		return block;
 	}
 
-	public <B extends Block> RegistryObject<B> createWinchBlock(String name, Supplier<? extends B> supplier) {
-		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
+	public <B extends Block> DeferredBlock<B> createWinchBlock(String name, Supplier<? extends B> supplier) {
+		DeferredBlock<B> block = this.deferredRegister.register(name, supplier);
 		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(64), () -> () -> winchBEWLR()));
 		return block;
 	}
 
-	public <B extends Block> RegistryObject<B> createPlacedItem(String name, Supplier<? extends B> supplier) {
-		RegistryObject<B> block = this.deferredRegister.register(name, supplier);
+	public <B extends Block> DeferredBlock<B> createPlacedItem(String name, Supplier<? extends B> supplier) {
+		DeferredBlock<B> block = this.deferredRegister.register(name, supplier);
 		this.itemRegister.register(name + "_placed", () -> new BlockItem(block.get(), new Item.Properties()));
 		return block;
 	}
 
-	public Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> createSparklerBlock(String name, String wallName, Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle) {
-		RegistryObject<SparklerBlock> block = this.deferredRegister.register(name, () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY), particle));
-		RegistryObject<WallSparklerBlock> wallBlock = this.deferredRegister.register(wallName, () -> new WallSparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY).lootFrom(block), particle));
+	public Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> createSparklerBlock(String name, String wallName, Pair<DeferredBlock<SimpleParticleType>, DeferredBlock<SimpleParticleType>> particle) {
+		DeferredBlock<SparklerBlock> block = this.deferredRegister.register(name, () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY), particle));
+		DeferredBlock<WallSparklerBlock> wallBlock = this.deferredRegister.register(wallName, () -> new WallSparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY).lootFrom(block), particle));
 		this.itemRegister.register(name, () -> new StandingAndWallBlockItem(block.get(), wallBlock.get(), new Item.Properties(), Direction.DOWN));
 		return Pair.of(block, wallBlock);
 	}

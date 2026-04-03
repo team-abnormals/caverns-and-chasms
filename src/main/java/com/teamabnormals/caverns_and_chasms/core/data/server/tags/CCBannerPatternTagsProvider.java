@@ -6,7 +6,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBannerPatterns;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BannerPatternTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -18,6 +18,6 @@ public class CCBannerPatternTagsProvider extends BannerPatternTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(CCBannerPatternTags.PATTERN_ITEM_ABNORMALS).add(CCBannerPatterns.ABNORMALS.getKey());
+		this.tag(CCBannerPatternTags.PATTERN_ITEM_ABNORMALS).add(CCBannerPatterns.ABNORMALS);
 	}
 }

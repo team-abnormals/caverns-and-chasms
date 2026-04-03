@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.mixin.brewing;
 
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.neoforged.neoforge.common.brewing.BrewingRecipeRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

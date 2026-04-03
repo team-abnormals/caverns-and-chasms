@@ -9,7 +9,7 @@ import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.advancements.critereon.EntitySubPredicate.Type;
 import net.minecraft.advancements.critereon.EntitySubPredicate.Types;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCCriteriaTriggers {

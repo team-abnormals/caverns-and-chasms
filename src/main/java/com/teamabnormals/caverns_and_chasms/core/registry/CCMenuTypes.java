@@ -6,26 +6,32 @@ import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.Dismant
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.ToolboxScreen;
 import com.teamabnormals.caverns_and_chasms.common.inventory.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.client.gui.screens.MenuScreens;
+import com.teamabnormals.clayworks.core.Clayworks;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
+@EventBusSubscriber(modid = Clayworks.MOD_ID, value = Dist.CLIENT)
 public class CCMenuTypes {
-	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, CavernsAndChasms.MOD_ID);
+	public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<MenuType<ToolboxMenu>> TOOLBOX = MENU_TYPES.register("toolbox", () -> new MenuType<>(ToolboxMenu::new, FeatureFlags.VANILLA_SET));
-	public static final RegistryObject<MenuType<StorageDuctMenu>> STORAGE_DUCT = MENU_TYPES.register("storage_duct", () -> new MenuType<>(StorageDuctMenu::new, FeatureFlags.VANILLA_SET));
-	public static final RegistryObject<MenuType<DismantlingMenu>> DISMANTLING = MENU_TYPES.register("dismantling", () -> new MenuType<>(DismantlingMenu::new, FeatureFlags.VANILLA_SET));
-	public static final RegistryObject<MenuType<BejeweledAnvilMenu>> BEJEWELED_ANVIL = MENU_TYPES.register("bejeweled_anvil", () -> new MenuType<>(BejeweledAnvilMenu::new, FeatureFlags.VANILLA_SET));
-	public static final RegistryObject<MenuType<AtoningMenu>> ATONING = MENU_TYPES.register("atoning", () -> new MenuType<>(AtoningMenu::new, FeatureFlags.VANILLA_SET));
+	public static final DeferredHolder<MenuType<?>, MenuType<ToolboxMenu>> TOOLBOX = MENUS.register("toolbox", () -> new MenuType<>(ToolboxMenu::new, FeatureFlags.VANILLA_SET));
+	public static final DeferredHolder<MenuType<?>, MenuType<StorageDuctMenu>> STORAGE_DUCT = MENUS.register("storage_duct", () -> new MenuType<>(StorageDuctMenu::new, FeatureFlags.VANILLA_SET));
+	public static final DeferredHolder<MenuType<?>, MenuType<DismantlingMenu>> DISMANTLING = MENUS.register("dismantling", () -> new MenuType<>(DismantlingMenu::new, FeatureFlags.VANILLA_SET));
+	public static final DeferredHolder<MenuType<?>, MenuType<BejeweledAnvilMenu>> BEJEWELED_ANVIL = MENUS.register("bejeweled_anvil", () -> new MenuType<>(BejeweledAnvilMenu::new, FeatureFlags.VANILLA_SET));
+	public static final DeferredHolder<MenuType<?>, MenuType<AtoningMenu>> ATONING = MENUS.register("atoning", () -> new MenuType<>(AtoningMenu::new, FeatureFlags.VANILLA_SET));
 
-	public static void registerScreenFactories() {
-		MenuScreens.register(TOOLBOX.get(), ToolboxScreen::new);
-		MenuScreens.register(DISMANTLING.get(), DismantlingScreen::new);
-		MenuScreens.register(BEJEWELED_ANVIL.get(), BejeweledAnvilScreen::new);
-		MenuScreens.register(ATONING.get(), AtoningScreen::new);
+	@SubscribeEvent
+	public static void registerScreens(RegisterMenuScreensEvent event) {
+		event.register(TOOLBOX.get(), ToolboxScreen::new);
+		event.register(DISMANTLING.get(), DismantlingScreen::new);
+		event.register(BEJEWELED_ANVIL.get(), BejeweledAnvilScreen::new);
+		event.register(ATONING.get(), AtoningScreen::new);
 	}
 }

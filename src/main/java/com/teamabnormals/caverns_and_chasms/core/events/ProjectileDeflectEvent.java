@@ -5,9 +5,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.eventbus.api.Cancelable;
+import net.neoforged.bus.api.ICancellableEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityEvent;
 
 /**
  * The two events in this class are fired when a projectile is about to be deflected by a Grazer's shell, the Aegis or a block with the {@link CCBlockTags#DEFLECTS_PROJECTILES} tag.
@@ -33,13 +33,13 @@ public abstract class ProjectileDeflectEvent extends EntityEvent {
 
 	public static ProjectileDeflectEvent.Pre onProjectileDeflectPre(Projectile projectile, HitResult ray, Vec3 deflectedMovement, Vec3 deflectLocation, SoundEvent soundEvent) {
 		ProjectileDeflectEvent.Pre event = new ProjectileDeflectEvent.Pre(projectile, ray, deflectedMovement, deflectLocation, soundEvent);
-		MinecraftForge.EVENT_BUS.post(event);
+		NeoForge.EVENT_BUS.post(event);
 		return event;
 	}
 
 	public static ProjectileDeflectEvent.Post onProjectileDeflectPost(Projectile projectile, HitResult ray, Vec3 deflectedMovement, Vec3 deflectLocation, SoundEvent soundEvent) {
 		ProjectileDeflectEvent.Post event = new ProjectileDeflectEvent.Post(projectile, ray, deflectedMovement, deflectLocation, soundEvent);
-		MinecraftForge.EVENT_BUS.post(event);
+		NeoForge.EVENT_BUS.post(event);
 		return event;
 	}
 
@@ -78,12 +78,11 @@ public abstract class ProjectileDeflectEvent extends EntityEvent {
 	/**
 	 * Fired when a projectile is about to be deflected.
 	 * <br>
-	 * This event is {@link Cancelable} and cancelling it causes the projectile to not deflect.
+	 * This event is {@link ICancellableEvent} and cancelling it causes the projectile to not deflect.
 	 * <br>
 	 * If the event is not cancelled, {@link ProjectileDeflectEvent.Post} is fired immediately after.
 	 */
-	@Cancelable
-	public static class Pre extends ProjectileDeflectEvent {
+	public static class Pre extends ProjectileDeflectEvent implements ICancellableEvent {
 		public Pre(Projectile projectile, HitResult ray, Vec3 deflectedMovement, Vec3 deflectLocation, SoundEvent soundEvent) {
 			super(projectile, ray, deflectedMovement, deflectLocation, soundEvent);
 		}
@@ -95,8 +94,7 @@ public abstract class ProjectileDeflectEvent extends EntityEvent {
 	 * Despite the name, the event occurs before the projectile is actually deflected.
 	 * The main purpose of the event is to allow modifying the deflected projectile without having to worry about the deflection being cancelled.
 	 * <br>
-	 * This event is not {@link Cancelable}.
-	 *
+	 * This event is not {@link ICancellableEvent}.
 	 */
 	public static class Post extends ProjectileDeflectEvent {
 		public Post(Projectile projectile, HitResult ray, Vec3 deflectedMovement, Vec3 deflectLocation, SoundEvent soundEvent) {

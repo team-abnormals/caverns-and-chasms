@@ -7,8 +7,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.List;
@@ -54,15 +54,15 @@ public class CCLanguageProvider extends LanguageProvider {
 	}
 
 	private void add(Block... blocks) {
-		List.of(blocks).forEach((block -> this.add(block, format(ForgeRegistries.BLOCKS.getKey(block)))));
+		List.of(blocks).forEach((block -> this.add(block, format(BuiltInRegistries.BLOCK.getKey(block)))));
 	}
 
 	private void add(Item... items) {
-		List.of(items).forEach((item -> this.add(item, format(ForgeRegistries.ITEMS.getKey(item)))));
+		List.of(items).forEach((item -> this.add(item, format(BuiltInRegistries.ITEM.getKey(item)))));
 	}
 
 	private void addStorageBlock(Block... blocks) {
-		List.of(blocks).forEach((block -> this.add(block, "Block of " + format(ForgeRegistries.BLOCKS.getKey(block)).replace(" Block", ""))));
+		List.of(blocks).forEach((block -> this.add(block, "Block of " + format(BuiltInRegistries.BLOCK.getKey(block)).replace(" Block", ""))));
 	}
 
 	private String format(ResourceLocation registryName) {

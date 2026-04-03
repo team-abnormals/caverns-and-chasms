@@ -4,7 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.RatVariant;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraftforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 
 public final class CCRegistries {
 	public static final ResourceKey<Registry<RatVariant>> RAT_VARIANT = key("rat_variant");

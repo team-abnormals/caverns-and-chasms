@@ -7,12 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
@@ -52,7 +52,7 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.overlayItem(TOOLBELT, "generated");
 		this.packingContainerItem(PACKING_CONTAINER, "generated");
 
-		this.withExistingParent(name(WAXED_COPPER_INGOT.get()), "item/generated").texture("layer0", new ResourceLocation("item/copper_ingot"));
+		this.withExistingParent(name(WAXED_COPPER_INGOT.get()), "item/generated").texture("layer0", ResourceLocation.withDefaultNamespace("item/copper_ingot"));
 
 		this.handheldItem(
 				COPPER_SWORD, COPPER_PICKAXE, COPPER_AXE, COPPER_SHOVEL, COPPER_HOE,
@@ -108,9 +108,9 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
 
 		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get()))
-				.override().model(filled).predicate(new ResourceLocation("dyed"), 0).predicate(new ResourceLocation("filled"), 0.0000001F).end()
-				.override().model(dyed).predicate(new ResourceLocation("dyed"), 1).end()
-				.override().model(dyedFilled).predicate(new ResourceLocation("dyed"), 1).predicate(new ResourceLocation("filled"), 0.0000001F).end();
+				.override().model(filled).predicate(ResourceLocation.withDefaultNamespace("dyed"), 0).predicate(ResourceLocation.withDefaultNamespace("filled"), 0.0000001F).end()
+				.override().model(dyed).predicate(ResourceLocation.withDefaultNamespace("dyed"), 1).end()
+				.override().model(dyedFilled).predicate(ResourceLocation.withDefaultNamespace("dyed"), 1).predicate(ResourceLocation.withDefaultNamespace("filled"), 0.0000001F).end();
 	}
 
 	@SafeVarargs
@@ -122,15 +122,15 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 	public final void trimmableCopperArmorItem(boolean darker, RegistryObject<? extends ItemLike>... items) {
 		for (RegistryObject<? extends ItemLike> item : items) {
 			if (item.get().asItem() instanceof ArmorItem armor) {
-				ResourceLocation location = ForgeRegistries.ITEMS.getKey(armor);
+				ResourceLocation location = BuiltInRegistries.ITEM.getKey(armor);
 				ItemModelBuilder itemModel = this.item(item, "generated");
 				int trimType = 1;
 				for (String trim : new String[]{"quartz", "iron", "netherite", "redstone", darker ? "caverns_and_chasms_copper_darker" : "copper", "gold", "emerald", "diamond", "lapis", "amethyst"}) {
-					ResourceLocation name = new ResourceLocation(location.getNamespace(), "item/" + location.getPath() + "_" + trim + "_trim");
-					itemModel.override().model(new UncheckedModelFile(name)).predicate(new ResourceLocation("trim_type"), (float) (trimType / 10.0));
-					ResourceLocation texture = new ResourceLocation("trims/items/" + armor.getType().getName() + "_trim_" + trim);
+					ResourceLocation name = ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "item/" + location.getPath() + "_" + trim + "_trim");
+					itemModel.override().model(new UncheckedModelFile(name)).predicate(ResourceLocation.withDefaultNamespace("trim_type"), (float) (trimType / 10.0));
+					ResourceLocation texture = ResourceLocation.withDefaultNamespace("trims/items/" + armor.getType().getName() + "_trim_" + trim);
 					this.existingFileHelper.trackGenerated(texture, PackType.CLIENT_RESOURCES, ".png", "textures");
-					withExistingParent(name.getPath(), "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + location.getPath().replace("waxed_", ""))).texture("layer1", texture);
+					withExistingParent(name.getPath(), "item/generated").texture("layer0", ResourceLocation.fromNamespaceAndPath(this.modid, "item/" + location.getPath().replace("waxed_", ""))).texture("layer1", texture);
 					trimType++;
 				}
 			}
