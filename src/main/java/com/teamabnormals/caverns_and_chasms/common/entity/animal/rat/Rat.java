@@ -517,11 +517,13 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	public void setHealth(float health) {
 		super.setHealth(health);
-		AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-		if (attributeinstance != null) {
-			attributeinstance.removeModifier(SPEED_MODIFIER_WOUNDED);
-			if (this.isWounded()) {
-				attributeinstance.addTransientModifier(SPEED_MODIFIER_WOUNDED);
+		if (this.isAlive() && this.isAddedToWorld() && !this.level().isClientSide()) {
+			AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+			if (attributeinstance != null) {
+				attributeinstance.removeModifier(SPEED_MODIFIER_WOUNDED);
+				if (this.isWounded()) {
+					attributeinstance.addTransientModifier(SPEED_MODIFIER_WOUNDED);
+				}
 			}
 		}
 	}
