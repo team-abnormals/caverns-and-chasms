@@ -20,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.NoSuchElementException;
+
 @Mixin(HorseModel.class)
 public abstract class HorseModelMixin<T extends AbstractHorse> extends AgeableListModel<T> {
 
@@ -38,13 +40,16 @@ public abstract class HorseModelMixin<T extends AbstractHorse> extends AgeableLi
 	}
 
 	@Inject(method = "setupAnim(Lnet/minecraft/world/entity/animal/horse/AbstractHorse;FFFFF)V", at = @At("TAIL"))
-	private void createBodyMesh(T entity, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-		ModelPart head = this.headParts.getChild("head");
-		ModelPart rod = head.getChild("rod");
-		ModelPart rodBase = head.getChild("rod_base");
+	private void setupAnim(T entity, float limbSwing, float limbSwingTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
+		try {
+			ModelPart head = this.headParts.getChild("head");
+			ModelPart rod = head.getChild("rod");
+			ModelPart rodBase = head.getChild("rod_base");
 
-		boolean hasArmor = entity instanceof Horse horse && horse.getArmor().getItem() instanceof CopperHorseArmorItem;
-		rod.visible = hasArmor;
-		rodBase.visible = hasArmor;
+			boolean hasArmor = entity instanceof Horse horse && horse.getArmor().getItem() instanceof CopperHorseArmorItem;
+			rod.visible = hasArmor;
+			rodBase.visible = hasArmor;
+		} catch (NoSuchElementException ignored) {
+		}
 	}
 }
