@@ -1,0 +1,78 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_copper",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_gold",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_iron",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:raw_tin",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:raw_silver",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:scaffolding",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bamboo",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tnt_minecart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:furnace_minecart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:minecart"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "caverns_and_chasms:zirconia"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "caverns_and_chasms:archaeology/forge_common"
+}

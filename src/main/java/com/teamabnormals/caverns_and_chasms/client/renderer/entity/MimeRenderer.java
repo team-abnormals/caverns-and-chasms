@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel> {
-	public static final ResourceLocation MIME_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/mime.png");
+	public static final ResourceLocation MIME_TEXTURE = CavernsAndChasms.location("textures/entity/mime.png");
 
 	public MimeRenderer(EntityRendererProvider.Context context) {
 		super(context, new MimeModel(context.bakeLayer(CCModelLayers.MIME)), 0.5F);

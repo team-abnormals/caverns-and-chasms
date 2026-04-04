@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "caverns_and_chasms:copper_bricks"
+  },
+  "result": "caverns_and_chasms:chiseled_copper_bricks"
+}

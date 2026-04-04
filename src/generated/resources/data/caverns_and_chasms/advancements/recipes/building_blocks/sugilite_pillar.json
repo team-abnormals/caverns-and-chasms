@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sugilite_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:sugilite_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sugilite_pillar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:sugilite_pillar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:sugilite_pillar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_sugilite_bricks",
+      "has_sugilite_pillar",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:sugilite_pillar"
+    ]
+  },
+  "sends_telemetry_event": false
+}

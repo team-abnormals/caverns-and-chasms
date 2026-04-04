@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "edge": "caverns_and_chasms:block/float_glass_pane_top",
+    "pane": "caverns_and_chasms:block/float_glass"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/chiseled_calcite_top",
+    "side": "caverns_and_chasms:block/chiseled_calcite_down",
+    "top": "caverns_and_chasms:block/chiseled_calcite_bottom"
+  }
+}

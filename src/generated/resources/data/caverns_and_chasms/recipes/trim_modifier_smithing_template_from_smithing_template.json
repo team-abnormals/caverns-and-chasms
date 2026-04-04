@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:gems/turquoise"
+    },
+    "X": {
+      "tag": "minecraft:trim_templates"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:trim_modifier_smithing_template"
+  },
+  "show_notification": true
+}

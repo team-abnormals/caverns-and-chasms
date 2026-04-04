@@ -12,19 +12,19 @@ import net.minecraft.world.item.ItemStack;
 public class ToolboxMenu extends AbstractContainerMenu {
 	private final Container container;
 
-	public ToolboxMenu(int p_40188_, Inventory p_40189_) {
-		this(p_40188_, p_40189_, new SimpleContainer(9));
+	public ToolboxMenu(int id, Inventory inventory) {
+		this(id, inventory, new SimpleContainer(14));
 	}
 
-	public ToolboxMenu(int p_40191_, Inventory inventory, Container container) {
-		super(CCMenuTypes.TOOLBOX.get(), p_40191_);
-		checkContainerSize(container, 9);
+	public ToolboxMenu(int id, Inventory inventory, Container container) {
+		super(CCMenuTypes.TOOLBOX.get(), id);
+		checkContainerSize(container, 14);
 		this.container = container;
 		container.startOpen(inventory.player);
 
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				this.addSlot(new ToolboxSlot(container, j + i * 3, 62 + j * 18, 17 + i * 18));
+		for (int i = 0; i < 2; ++i) {
+			for (int j = 0; j < 7; ++j) {
+				this.addSlot(new ToolboxSlot(container, j + i * 7, 26 + j * 18, 32 + i * 18));
 			}
 		}
 
@@ -39,17 +39,19 @@ public class ToolboxMenu extends AbstractContainerMenu {
 		}
 	}
 
+	@Override
 	public boolean stillValid(Player p_40195_) {
 		return this.container.stillValid(p_40195_);
 	}
 
-	public ItemStack quickMoveStack(Player player, int p_40200_) {
+	@Override
+	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.slots.get(p_40200_);
+		Slot slot = this.slots.get(index);
 		if (slot != null && slot.hasItem()) {
 			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
-			if (p_40200_ < this.container.getContainerSize()) {
+			if (index < this.container.getContainerSize()) {
 				if (!this.moveItemStackTo(itemstack1, this.container.getContainerSize(), this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
@@ -67,8 +69,9 @@ public class ToolboxMenu extends AbstractContainerMenu {
 		return itemstack;
 	}
 
-	public void removed(Player p_40197_) {
-		super.removed(p_40197_);
-		this.container.stopOpen(p_40197_);
+	@Override
+	public void removed(Player player) {
+		super.removed(player);
+		this.container.stopOpen(player);
 	}
 }

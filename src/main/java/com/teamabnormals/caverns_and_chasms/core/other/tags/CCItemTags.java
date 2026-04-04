@@ -12,32 +12,73 @@ public class CCItemTags {
 	public static final TagKey<Item> EXPERIENCE_BOOST_ITEMS = itemTag("experience_boost_items");
 	public static final TagKey<Item> SLOWNESS_INFLICTING_ITEMS = itemTag("slowness_inflicting_items");
 	public static final TagKey<Item> SILVER_ORES = itemTag("silver_ores");
+	public static final TagKey<Item> TIN_ORES = itemTag("tin_ores");
 	public static final TagKey<Item> SPINEL_ORES = itemTag("spinel_ores");
+	public static final TagKey<Item> TURQUOISE_ORES = itemTag("turquoise_ores");
 	public static final TagKey<Item> AZALEA_LOGS = itemTag("azalea_logs");
 	public static final TagKey<Item> ADDITIONAL_TOOLBOX_TOOLS = itemTag("additional_toolbox_tools");
+	public static final TagKey<Item> DISMANTLING_FUELS = itemTag("dismantling_fuels");
+	public static final TagKey<Item> DISMANTLING_TABLE_CANNOT_DISMANTLE = itemTag("dismantling_table_cannot_dismantle");
+	public static final TagKey<Item> ATONING_FUELS = itemTag("atoning_fuels");
+	public static final TagKey<Item> UNREPAIRABLE_BY_ZIRCONIA = itemTag("unrepairable_by_zirconia");
+	public static final TagKey<Item> PLACEABLE_ITEMS = itemTag("placeable_items");
+	public static final TagKey<Item> CHANGES_HOOP_SIZE = itemTag("changes_hoop_size");
+	public static final TagKey<Item> ROLLER_DOOR_LIFT_ITEMS = itemTag("roller_door_lift_items");
+	public static final TagKey<Item> TRIM_MODIFIERS = itemTag("trim_modifiers");
+	public static final TagKey<Item> SPARKLERS = itemTag("sparklers");
 
 	public static final TagKey<Item> GLARE_FOOD = itemTag("glare_food");
 	public static final TagKey<Item> RAT_FOOD = itemTag("rat_food");
 	public static final TagKey<Item> RAT_TAME_ITEMS = itemTag("rat_tame_items");
 
+	public static final TagKey<Item> COPPER_INGOTS = itemTag("copper_ingots");
+	public static final TagKey<Item> COPPER_HELMETS = itemTag("copper_helmets");
+	public static final TagKey<Item> COPPER_CHESTPLATES = itemTag("copper_chestplates");
+	public static final TagKey<Item> COPPER_LEGGINGS = itemTag("copper_leggings");
+	public static final TagKey<Item> COPPER_BOOTS = itemTag("copper_boots");
+	public static final TagKey<Item> COPPER_SWORDS = itemTag("copper_swords");
+	public static final TagKey<Item> COPPER_PICKAXES = itemTag("copper_pickaxes");
+	public static final TagKey<Item> COPPER_SHOVELS = itemTag("copper_shovels");
+	public static final TagKey<Item> COPPER_AXES = itemTag("copper_axes");
+	public static final TagKey<Item> COPPER_HOES = itemTag("copper_hoes");
+
+	public static final TagKey<Item> WAX = TagUtil.itemTag("forge", "wax");
+
+	public static final TagKey<Item> GEMS_SPINEL = TagUtil.itemTag("forge", "gems/spinel");
+	public static final TagKey<Item> GEMS_TURQUOISE = TagUtil.itemTag("forge", "gems/turquoise");
+	public static final TagKey<Item> GEMS_ZIRCONIA = TagUtil.itemTag("forge", "gems/zirconia");
+
+	public static final TagKey<Item> INGOTS_EXPOSED_COPPER = TagUtil.itemTag("forge", "ingots/exposed_copper");
+	public static final TagKey<Item> INGOTS_WEATHERED_COPPER = TagUtil.itemTag("forge", "ingots/weathered_copper");
+	public static final TagKey<Item> INGOTS_OXIDIZED_COPPER = TagUtil.itemTag("forge", "ingots/oxidized_copper");
 	public static final TagKey<Item> INGOTS_NECROMIUM = TagUtil.itemTag("forge", "ingots/necromium");
 	public static final TagKey<Item> INGOTS_SILVER = TagUtil.itemTag("forge", "ingots/silver");
+	public static final TagKey<Item> INGOTS_TIN = TagUtil.itemTag("forge", "ingots/tin");
 
 	public static final TagKey<Item> RAW_MATERIALS_SILVER = TagUtil.itemTag("forge", "raw_materials/silver");
+	public static final TagKey<Item> RAW_MATERIALS_TIN = TagUtil.itemTag("forge", "raw_materials/tin");
 
 	public static final TagKey<Item> NUGGETS_COPPER = TagUtil.itemTag("forge", "nuggets/copper");
 	public static final TagKey<Item> NUGGETS_NETHERITE = TagUtil.itemTag("forge", "nuggets/netherite");
 	public static final TagKey<Item> NUGGETS_SILVER = TagUtil.itemTag("forge", "nuggets/silver");
+	public static final TagKey<Item> NUGGETS_TIN = TagUtil.itemTag("forge", "nuggets/tin");
 	public static final TagKey<Item> NUGGETS_NECROMIUM = TagUtil.itemTag("forge", "nuggets/necromium");
 
 	public static final TagKey<Item> ORES_AMETHYST = TagUtil.itemTag("forge", "ores/amethyst");
 	public static final TagKey<Item> ORES_SILVER = TagUtil.itemTag("forge", "ores/silver");
+	public static final TagKey<Item> ORES_TIN = TagUtil.itemTag("forge", "ores/tin");
 	public static final TagKey<Item> ORES_SPINEL = TagUtil.itemTag("forge", "ores/spinel");
+	public static final TagKey<Item> ORES_TURQUOISE = TagUtil.itemTag("forge", "ores/turquoise");
 
 	public static final TagKey<Item> STORAGE_BLOCKS_SILVER = TagUtil.itemTag("forge", "storage_blocks/silver");
+	public static final TagKey<Item> STORAGE_BLOCKS_TIN = TagUtil.itemTag("forge", "storage_blocks/tin");
 	public static final TagKey<Item> STORAGE_BLOCKS_SPINEL = TagUtil.itemTag("forge", "storage_blocks/spinel");
+	public static final TagKey<Item> STORAGE_BLOCKS_ZIRCONIA = TagUtil.itemTag("forge", "storage_blocks/zirconia");
+	public static final TagKey<Item> STORAGE_BLOCKS_TURQUOISE = TagUtil.itemTag("forge", "storage_blocks/turquoise");
 	public static final TagKey<Item> STORAGE_BLOCKS_NECROMIUM = TagUtil.itemTag("forge", "storage_blocks/necromium");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.itemTag("forge", "storage_blocks/raw_silver");
+	public static final TagKey<Item> STORAGE_BLOCKS_RAW_TIN = TagUtil.itemTag("forge", "storage_blocks/raw_tin");
+	public static final TagKey<Item> STORAGE_BLOCKS_CHARCOAL = TagUtil.itemTag("forge", "storage_blocks/charcoal");
 
 	public static final TagKey<Item> BOTTLES_MILK = TagUtil.itemTag("forge", "bottles/milk");
 

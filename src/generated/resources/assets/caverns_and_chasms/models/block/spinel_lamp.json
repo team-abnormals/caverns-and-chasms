@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "end": "caverns_and_chasms:block/spinel_lamp_top",
-    "side": "caverns_and_chasms:block/spinel_lamp"
+    "all": "caverns_and_chasms:block/spinel_lamp"
   }
 }

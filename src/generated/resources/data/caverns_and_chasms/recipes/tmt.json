@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "S": {
-      "item": "caverns_and_chasms:spinel"
+      "tag": "forge:gems/spinel"
     },
     "T": {
       "item": "minecraft:tnt"

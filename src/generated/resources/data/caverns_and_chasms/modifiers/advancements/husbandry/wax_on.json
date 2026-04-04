@@ -20,9 +20,6 @@
                   "condition": "minecraft:location_check",
                   "predicate": {
                     "block": {
-                      "state": {
-                        "powered": "false"
-                      },
                       "tag": "forge:waxable_copper_blocks"
                     }
                   }
@@ -30,9 +27,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": [
-                      "minecraft:honeycomb"
-                    ]
+                    "tag": "forge:wax"
                   }
                 }
               ]

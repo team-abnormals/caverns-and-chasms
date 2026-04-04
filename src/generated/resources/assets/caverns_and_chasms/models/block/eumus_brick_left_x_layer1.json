@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_ingot_left_x_layer1",
+  "textures": {
+    "ingot": "caverns_and_chasms:block/eumus_brick"
+  }
+}

@@ -4,28 +4,35 @@ buildscript {
         maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
     }
     dependencies {
-        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
+        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "6.0.46", changing: true
         classpath group: "org.spongepowered", name: "mixingradle", version: "0.7-SNAPSHOT"
     }
 }
 
+plugins {
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0"
+}
+
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
+apply plugin: "idea"
 apply plugin: "maven-publish"
 apply plugin: "org.spongepowered.mixin"
 
 mixin {
-    add sourceSets.main, "${project.modId}.refmap.json"
+    add sourceSets.main, "${project.mod_id}.refmap.json"
 }
 
-version = "${project.minecraft}-${project.modVersion}"
+version = "${project.mc_version}-${project.mod_version}"
 group = "com.teambnormals"
-archivesBaseName = project.modId
+archivesBaseName = project.mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+jarJar.enable()
+
 minecraft {
-    mappings channel: "official", version: project.minecraft
+    mappings channel: "official", version: project.mc_version
     accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
     runs {
         client {
@@ -34,7 +41,7 @@ minecraft {
             property "forge.logging.console.level", "debug"
             property "mixin.env.remapRefMap", "true"
             property "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
-            arg "-mixin.config=" + project.modId + ".mixins.json"
+            arg "-mixin.config=" + project.mod_id + ".mixins.json"
             mods {
                 caverns_and_chasms {
                     source sourceSets.main
@@ -47,7 +54,7 @@ minecraft {
             property "forge.logging.console.level", "debug"
             property "mixin.env.remapRefMap", "true"
             property "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
-            arg "-mixin.config=" + project.modId + ".mixins.json"
+            arg "-mixin.config=" + project.mod_id + ".mixins.json"
             mods {
                 caverns_and_chasms {
                     source sourceSets.main
@@ -61,7 +68,7 @@ minecraft {
             property "mixin.env.remapRefMap", "true"
             property "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
             property "blueprint.indev", "true"
-            args "--mod", project.modId, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources"), "--existing-mod", "blueprint"
+            args "--mod", project.mod_id, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources"), "--existing-mod", "blueprint"
             mods {
                 caverns_and_chasms {
                     source sourceSets.main
@@ -76,40 +83,107 @@ sourceSets.main.resources {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${project.minecraft}-${project.forge}"
-    implementation fg.deobf("com.teamabnormals:blueprint:${project.minecraft}-${project.blueprint}")
+    minecraft "net.minecraftforge:forge:${project.mc_version}-${project.forge}"
+    implementation fg.deobf("com.teamabnormals:blueprint:${project.mc_version}-${project.blueprint}")
 
-    implementation fg.deobf("com.teamabnormals:boatload:${project.minecraft}-${project.boatload}")
-    implementation fg.deobf("com.teamabnormals:woodworks:${project.minecraft}-${project.woodworks}")
+    implementation fg.deobf("com.teamabnormals:boatload:${project.mc_version}-${project.boatload}")
+    implementation fg.deobf("com.teamabnormals:gallery:${project.mc_version}-${project.gallery}")
+    implementation fg.deobf("com.teamabnormals:woodworks:${project.mc_version}-${project.woodworks}")
+    implementation fg.deobf("com.teamabnormals:clayworks:${project.mc_version}-${project.clayworks}")
 
-    compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-common-api:${project.jei}")
-    compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge-api:${project.jei}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge:${project.jei}")
+    compileOnly fg.deobf("mezz.jei:jei-${project.mc_version}-common-api:${project.jei}")
+    compileOnly fg.deobf("mezz.jei:jei-${project.mc_version}-forge-api:${project.jei}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${project.mc_version}-forge:${project.jei}")
 
     compileOnly fg.deobf("curse.maven:quark-243121:${project.quark}")
     compileOnly fg.deobf("curse.maven:zeta-968868:${project.zeta}")
+    runtimeOnly fg.deobf("curse.maven:worldedit-225608:4586218")
+    implementation fg.deobf("curse.maven:endergetic-291509:6157658")
 
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")) {
+        jarJar.ranged(it, "[0.5.0,)")
+    }
 }
 
 repositories {
     maven { url "https://www.cursemaven.com" }
-    maven { url "https://maven.jaackson.me" }
+    maven { url "https://maven.teamabnormals.com" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url "https://modmaven.k-4u.nl" }
 }
 
+tasks.jar {
+    archiveClassifier.set("slim")
+}
+
+tasks.jarJar {
+    archiveClassifier.set("")
+    finalizedBy 'reobfJarJar'
+}
+
+tasks.build.dependsOn tasks.jarJar
+
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : project.modName,
+                "Specification-Title"     : project.mod_name,
                 "Specification-Vendor"    : "Team Abnormals",
                 "Specification-Version"   : "1",
-                "Implementation-Title"    : project.modName,
-                "Implementation-Version"  : project.modVersion,
+                "Implementation-Title"    : project.mod_name,
+                "Implementation-Version"  : project.mod_version,
                 "Implementation-Vendor"   : "Team Abnormals",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : project.modId + ".mixins.json"
+                "MixinConfigs"            : project.mod_id + ".mixins.json"
         ])
+    }
+}
+
+publishMods {
+    file = tasks.jarJar.archiveFile
+    changelog = providers.fileContents(layout.projectDirectory.file("changelog.md")).asText
+    type = STABLE
+    modLoaders.add("forge")
+    version = "${project.mod_version}"
+    displayName = "${project.mod_name} ${project.mc_version} - ${project.mod_version}"
+
+    modrinth {
+        announcementTitle = "<:modrinth:1428950505010364517> Download from Modrinth!"
+        accessToken = providers.gradleProperty("MODRINTH_API_KEY")
+        projectId = "${project.modrinth_id}"
+        minecraftVersions.add("${project.mc_version}")
+        requires("blueprint")
+    }
+
+    curseforge {
+        announcementTitle = "<:curseforge:1428950488358850581> Download from CurseForge!"
+        accessToken = providers.gradleProperty("CURSEFORGE_API_KEY")
+        projectId = "${project.curseforge_id}"
+        projectSlug = "${project.mod_id}"
+        minecraftVersions.add("${project.mc_version}")
+        requires("blueprint")
+    }
+
+    discord() {
+        webhookUrl = providers.gradleProperty("DISCORD_WEBHOOK")
+        dryRunWebhookUrl = providers.gradleProperty("DISCORD_WEBHOOK_ALT")
+        username = "Team Abnormals"
+        content = changelog.map {
+            "## ${project.mod_name} ${project.mc_version} - ${project.mod_version}\n" + it
+        }
+        style {
+            look = "MODERN"
+            thumbnailUrl = "https://github.com/team-abnormals/branding/blob/main/mods/icons_border/${project.mod_id}.png?raw=true"
+            color = "#537db5"
+        }
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }

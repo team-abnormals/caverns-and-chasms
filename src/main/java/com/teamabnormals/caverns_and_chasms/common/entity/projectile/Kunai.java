@@ -1,14 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
-import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -80,8 +80,8 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 				}
 
 				this.doPostHurtEffects(livingTarget);
-				if (livingTarget != shooter && livingTarget instanceof Player && shooter instanceof ServerPlayer && !this.isSilent()) {
-					((ServerPlayer) shooter).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+				if (livingTarget != shooter && livingTarget instanceof Player && shooter instanceof ServerPlayer serverPlayer && !this.isSilent()) {
+					serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
 				}
 
 				if (!target.isAlive() && this.piercedAndKilledEntities != null) {
@@ -90,6 +90,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 			}
 
 			this.playSound(this.getDefaultHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+			this.discard();
 		} else {
 			target.setRemainingFireTicks(target.getRemainingFireTicks());
 			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
@@ -128,7 +129,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 
 	@Override
 	protected SoundEvent getDefaultHitGroundSoundEvent() {
-		return SoundEvents.WOOD_BREAK;
+		return CCSoundEvents.KUNAI_HIT.get();
 	}
 
 	@Override

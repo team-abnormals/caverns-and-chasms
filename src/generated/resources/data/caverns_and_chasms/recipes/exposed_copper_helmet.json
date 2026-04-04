@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "exposed_copper_helmet",
+  "key": {
+    "X": {
+      "item": "minecraft:exposed_copper"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X X"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:exposed_copper_helmet"
+  },
+  "show_notification": true
+}

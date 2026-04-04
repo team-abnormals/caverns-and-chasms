@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "tag": "forge:nuggets/iron"
+    },
+    "Y": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "XYX",
+    "X#X",
+    "XRX"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:halt_rail"
+  },
+  "show_notification": true
+}

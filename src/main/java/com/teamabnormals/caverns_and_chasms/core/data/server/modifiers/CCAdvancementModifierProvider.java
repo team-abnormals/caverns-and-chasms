@@ -6,8 +6,10 @@ import com.teamabnormals.blueprint.common.advancement.modification.modifiers.Cri
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.DisplayInfoModifier;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.EffectsChangedModifier;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.ParentModifier;
+import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
@@ -18,10 +20,10 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -30,8 +32,9 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
-	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{}; //CCEntityTypes.RAT.get()};
-	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get()};
+	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{CCEntityTypes.RAT.get()};
+	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.EVENDEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get(), CCEntityTypes.GRAZER.get()};
+	private static final Item[] SMITHING_TEMPLATES = new Item[]{CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get()};
 
 	public CCAdvancementModifierProvider(PackOutput output, CompletableFuture<Provider> provider) {
 		super(CavernsAndChasms.MOD_ID, output, provider);
@@ -41,8 +44,8 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 	protected void registerEntries(Provider provider) {
 		this.entry("story/lava_bucket").selects("story/lava_bucket").addModifier(CriteriaModifier.builder(this.modId).addCriterion("golden_lava_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.GOLDEN_LAVA_BUCKET.get())).addIndexedRequirements(0, false, "golden_lava_bucket").build());
 
-		this.entry("nether/all_effects").selects("nether/all_effects").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
-		this.entry("nether/all_potions").selects("nether/all_potions").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get())));
+		this.entry("nether/all_effects").selects("nether/all_effects").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get()).and(CCMobEffects.VAMPIRISM.get())));
+		this.entry("nether/all_potions").selects("nether/all_potions").addModifier(new EffectsChangedModifier("all_effects", false, MobEffectsPredicate.effects().and(CCMobEffects.REWIND.get()).and(CCMobEffects.VAMPIRISM.get()).and(MobEffects.BLINDNESS)));
 
 		CriteriaModifier.Builder balancedDiet = CriteriaModifier.builder(this.modId);
 		Collection<RegistryObject<Item>> items = CCItems.HELPER.getDeferredRegister().getEntries();
@@ -53,23 +56,23 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 		});
 		this.entry("husbandry/balanced_diet").selects("husbandry/balanced_diet").addModifier(balancedDiet.requirements(RequirementsStrategy.AND).build());
 
-//		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
-//		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
-//			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
-//		}
-//		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
+		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
+		for (EntityType<?> entityType : BREEDABLE_ANIMALS) {
+			breedAllAnimals.addCriterion(ForgeRegistries.ENTITY_TYPES.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
+		}
+		this.entry("husbandry/bred_all_animals").selects("husbandry/bred_all_animals").addModifier(breedAllAnimals.requirements(RequirementsStrategy.AND).build());
 
 		this.entry("husbandry/wax_on").selects("husbandry/wax_on")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId)
-						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(Items.HONEYCOMB)))
+						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(CCItemTags.WAX)))
 						.addCriterion("wax_on_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
 						.addCriterion("wax_on_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(Items.HONEYCOMB), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
 						.addIndexedRequirements(0, false, "wax_on_blocks", "wax_on_golem", "wax_on_oxidized_golem").build());
 		this.entry("husbandry/wax_off").selects("husbandry/wax_off")
 				.addModifier(DisplayInfoModifier.builder().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_off.description")).build())
 				.addModifier(CriteriaModifier.builder(this.modId)
-						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ButtonBlock.POWERED, false).build()).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
+						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS).build()), ItemPredicate.Builder.item().of(ItemTags.AXES)))
 						.addCriterion("wax_off_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get()).build())))
 						.addCriterion("wax_off_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get()).build())))
 						.addIndexedRequirements(0, false, "wax_off_blocks", "wax_off_golem", "wax_off_oxidized_golem").build());
@@ -93,5 +96,16 @@ public class CCAdvancementModifierProvider extends AdvancementModifierProvider {
 
 		this.entry("adventure/kill_a_mob").selects("adventure/kill_a_mob").addModifier(killAMob.addIndexedRequirements(0, false, names.toArray(new String[0])).build());
 		this.entry("adventure/kill_all_mobs").selects("adventure/kill_all_mobs").addModifier(killAllMobs.requirements(RequirementsStrategy.AND).build());
+
+		CriteriaModifier.Builder trimWithAnyPattern = CriteriaModifier.builder(this.modId);
+		ArrayList<String> smithingModifiers = Lists.newArrayList();
+		for (Item item : SMITHING_TEMPLATES) {
+			ResourceLocation trimName = BlueprintRecipeProvider.suffix(ForgeRegistries.ITEMS.getKey(item), "_smithing_trim");
+			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName, RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
+			smithingModifiers.add("armor_trimmed_" + trimName);
+		}
+
+		this.entry("adventure/trim_with_any_armor_pattern").selects("adventure/trim_with_any_armor_pattern").addModifier(trimWithAnyPattern.addIndexedRequirements(0, false, smithingModifiers.toArray(new String[0])).build());
+
 	}
 }

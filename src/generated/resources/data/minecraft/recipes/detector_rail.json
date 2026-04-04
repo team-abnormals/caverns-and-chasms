@@ -9,7 +9,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "item": "minecraft:iron_nugget"
+      "tag": "forge:nuggets/iron"
     }
   },
   "pattern": [
@@ -18,7 +18,6 @@
     "XRX"
   ],
   "result": {
-    "count": 3,
     "item": "minecraft:detector_rail"
   },
   "show_notification": true

@@ -1,0 +1,7 @@
+{
+  "type": "caverns_and_chasms:lush_mineshaft",
+  "biomes": "#caverns_and_chasms:has_structure/mineshaft_lush",
+  "mineshaft_type": "lush",
+  "spawn_overrides": {},
+  "step": "underground_structures"
+}

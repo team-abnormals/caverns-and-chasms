@@ -1,7 +1,9 @@
 {
   "values": [
+    "#caverns_and_chasms:copper_leggings",
     "caverns_and_chasms:silver_leggings",
     "caverns_and_chasms:necromium_leggings",
+    "caverns_and_chasms:toolbelt",
     "caverns_and_chasms:sanguine_leggings"
   ]
 }

@@ -1,0 +1,89 @@
+{
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 8.0,
+                  "min": 4.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:large_arrow"
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:turquoise",
+            "weight": 3
+          }
+        ],
+        "index": 0,
+        "replace": false
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 6.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_ingot",
+            "weight": 2
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:silver_block",
+            "weight": 2
+          }
+        ],
+        "index": 1,
+        "replace": false
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 8.0,
+                  "min": 2.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_nugget"
+          }
+        ],
+        "index": 1,
+        "replace": false
+      }
+    }
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/bastion_other"
+}

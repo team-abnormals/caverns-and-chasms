@@ -1,0 +1,1090 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "off"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_on"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "none"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_left_on"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_center_on"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_right_on"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "1",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "1",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "2",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "2",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "3",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "north",
+        "left": "3",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 180
+      },
+      "when": {
+        "center": "0",
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 180
+      },
+      "when": {
+        "center": "1",
+        "facing": "north",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 180
+      },
+      "when": {
+        "center": "1",
+        "facing": "north",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 180
+      },
+      "when": {
+        "center": "2",
+        "facing": "north",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 180
+      },
+      "when": {
+        "center": "2",
+        "facing": "north",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 180
+      },
+      "when": {
+        "center": "3",
+        "facing": "north",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 180
+      },
+      "when": {
+        "center": "3",
+        "facing": "north",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "right": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "powered": "off|none|left|center",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "powered": "right",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "powered": "off|none|left|center",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "powered": "right",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "powered": "off|none|left|center",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "powered": "right",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "off"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "none"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_left_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_center_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_right_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "1",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "1",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "2",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "2",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "3",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "east",
+        "left": "3",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 270
+      },
+      "when": {
+        "center": "0",
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 270
+      },
+      "when": {
+        "center": "1",
+        "facing": "east",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 270
+      },
+      "when": {
+        "center": "1",
+        "facing": "east",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 270
+      },
+      "when": {
+        "center": "2",
+        "facing": "east",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 270
+      },
+      "when": {
+        "center": "2",
+        "facing": "east",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 270
+      },
+      "when": {
+        "center": "3",
+        "facing": "east",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 270
+      },
+      "when": {
+        "center": "3",
+        "facing": "east",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock"
+      },
+      "when": {
+        "facing": "east",
+        "right": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left"
+      },
+      "when": {
+        "facing": "east",
+        "powered": "off|none|left|center",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on"
+      },
+      "when": {
+        "facing": "east",
+        "powered": "right",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center"
+      },
+      "when": {
+        "facing": "east",
+        "powered": "off|none|left|center",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on"
+      },
+      "when": {
+        "facing": "east",
+        "powered": "right",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right"
+      },
+      "when": {
+        "facing": "east",
+        "powered": "off|none|left|center",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on"
+      },
+      "when": {
+        "facing": "east",
+        "powered": "right",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "off"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "none"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_left_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_center_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_right_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "1",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "1",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "2",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "2",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "3",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "south",
+        "left": "3",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock"
+      },
+      "when": {
+        "center": "0",
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left"
+      },
+      "when": {
+        "center": "1",
+        "facing": "south",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on"
+      },
+      "when": {
+        "center": "1",
+        "facing": "south",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center"
+      },
+      "when": {
+        "center": "2",
+        "facing": "south",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on"
+      },
+      "when": {
+        "center": "2",
+        "facing": "south",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right"
+      },
+      "when": {
+        "center": "3",
+        "facing": "south",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on"
+      },
+      "when": {
+        "center": "3",
+        "facing": "south",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "right": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "powered": "off|none|left|center",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "powered": "right",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "powered": "off|none|left|center",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "powered": "right",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "powered": "off|none|left|center",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "powered": "right",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "off"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "none"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_left_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_center_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_right_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock"
+      },
+      "when": {
+        "facing": "west",
+        "left": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left"
+      },
+      "when": {
+        "facing": "west",
+        "left": "1",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on"
+      },
+      "when": {
+        "facing": "west",
+        "left": "1",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center"
+      },
+      "when": {
+        "facing": "west",
+        "left": "2",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on"
+      },
+      "when": {
+        "facing": "west",
+        "left": "2",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right"
+      },
+      "when": {
+        "facing": "west",
+        "left": "3",
+        "powered": "off|none|center|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on"
+      },
+      "when": {
+        "facing": "west",
+        "left": "3",
+        "powered": "left"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 90
+      },
+      "when": {
+        "center": "0",
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 90
+      },
+      "when": {
+        "center": "1",
+        "facing": "west",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 90
+      },
+      "when": {
+        "center": "1",
+        "facing": "west",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 90
+      },
+      "when": {
+        "center": "2",
+        "facing": "west",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 90
+      },
+      "when": {
+        "center": "2",
+        "facing": "west",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 90
+      },
+      "when": {
+        "center": "3",
+        "facing": "west",
+        "powered": "off|none|left|right"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 90
+      },
+      "when": {
+        "center": "3",
+        "facing": "west",
+        "powered": "center"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_lock",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "right": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "powered": "off|none|left|center",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_left_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "powered": "right",
+        "right": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "powered": "off|none|left|center",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_center_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "powered": "right",
+        "right": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "powered": "off|none|left|center",
+        "right": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/refractor_torch_right_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "powered": "right",
+        "right": "3"
+      }
+    }
+  ]
+}

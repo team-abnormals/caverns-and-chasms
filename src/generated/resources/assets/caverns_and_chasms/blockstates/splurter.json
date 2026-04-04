@@ -1,0 +1,48 @@
+{
+  "variants": {
+    "facing=down,triggered=false": {
+      "model": "caverns_and_chasms:block/splurter_vertical",
+      "x": 180
+    },
+    "facing=down,triggered=true": {
+      "model": "caverns_and_chasms:block/splurter_vertical_on",
+      "x": 180
+    },
+    "facing=east,triggered=false": {
+      "model": "caverns_and_chasms:block/splurter",
+      "y": 90
+    },
+    "facing=east,triggered=true": {
+      "model": "caverns_and_chasms:block/splurter_on",
+      "y": 90
+    },
+    "facing=north,triggered=false": {
+      "model": "caverns_and_chasms:block/splurter"
+    },
+    "facing=north,triggered=true": {
+      "model": "caverns_and_chasms:block/splurter_on"
+    },
+    "facing=south,triggered=false": {
+      "model": "caverns_and_chasms:block/splurter",
+      "y": 180
+    },
+    "facing=south,triggered=true": {
+      "model": "caverns_and_chasms:block/splurter_on",
+      "y": 180
+    },
+    "facing=up,triggered=false": {
+      "model": "caverns_and_chasms:block/splurter_vertical"
+    },
+    "facing=up,triggered=true": {
+      "model": "caverns_and_chasms:block/splurter_vertical_on"
+    },
+    "facing=west,triggered=false": {
+      "model": "caverns_and_chasms:block/splurter",
+      "y": 270
+    },
+    "facing=west,triggered=true": {
+      "model": "caverns_and_chasms:block/splurter_on",
+      "y": 270
+    }
+  }
+}

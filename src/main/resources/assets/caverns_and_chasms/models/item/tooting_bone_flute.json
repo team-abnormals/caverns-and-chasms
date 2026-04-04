@@ -1,0 +1,28 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "caverns_and_chasms:item/bone_flute"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, -35, 65],
+			"translation": [-1.75, 1.5, 2.5],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, -35, -25],
+			"translation": [-1.75, 1.5, 2.5],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"firstperson_righthand": {
+			"rotation": [-100, 0, -135],
+			"translation": [-9, 3, 1],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-100, 0, 135],
+			"translation": [-9, 3, 1],
+			"scale": [0.68, 0.68, 0.68]
+		}
+	}
+}

@@ -8,6 +8,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.common.Tags;
 import org.joml.Vector3f;
 
 public class MimeModel extends PlayerModel<Mime> {
@@ -32,8 +34,8 @@ public class MimeModel extends PlayerModel<Mime> {
 		root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F, false), PartPose.offset(0.0F, 2.0F, 0.0F));
 		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 33).addBox(-3.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-5.0F, 0.0F, 0.0F));
 		root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(5.0F, 0.0F, 0.0F));
-		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-1.9F, 12.0F, 0.0F));
-		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(1.9F, 12.0F, 0.0F));
+		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, false), PartPose.offset(-2.0F, 12.0F, 0.0F));
+		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 33).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F, true), PartPose.offset(2.0F, 12.0F, 0.0F));
 		root.addOrReplaceChild("biped_cape", CubeListBuilder.create().texOffs(16, 33).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 21.0F, 1.0F, false), PartPose.offset(0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
@@ -64,9 +66,11 @@ public class MimeModel extends PlayerModel<Mime> {
 		if (mime.isShiftKeyDown())
 			f1 += 25.0F;
 
-		boolean showhorns = mime.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
+		boolean showhorns = !mime.getItemBySlot(EquipmentSlot.HEAD).is(Tags.Items.ARMORS_HELMETS);
 		this.rightHorn.visible = showhorns;
 		this.leftHorn.visible = showhorns;
+
+		this.bipedCape.visible = !mime.getItemBySlot(EquipmentSlot.CHEST).is(Items.ELYTRA);
 
 		this.bipedCape.xRot = (float) Math.toRadians(6.0F + f2 / 2.0F + f1);
 		this.bipedCape.yRot = (float) Math.toRadians(f3 / 2.0F);

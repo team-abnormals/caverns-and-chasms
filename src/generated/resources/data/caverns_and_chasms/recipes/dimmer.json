@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "forge:nuggets/tin"
+    },
+    "R": {
+      "item": "minecraft:redstone_torch"
+    },
+    "T": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NRN",
+    " T "
+  ],
+  "result": {
+    "item": "caverns_and_chasms:dimmer"
+  },
+  "show_notification": true
+}

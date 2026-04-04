@@ -1,0 +1,36 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "caverns_and_chasms:block/refractor",
+		"top": "caverns_and_chasms:block/refractor",
+		"bottom": "caverns_and_chasms:block/resistor_bottom",
+		"side": "caverns_and_chasms:block/resistor_side",
+		"cube": "caverns_and_chasms:block/refractor_cube"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "north"},
+				"east": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "east"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "south"},
+				"west": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [4, 2, 4],
+			"to": [12, 10, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 2, 4]},
+			"faces": {
+				"north": {"uv": [0, 0, 8, 8], "texture": "#cube"},
+				"east": {"uv": [0, 0, 8, 8], "texture": "#cube"},
+				"south": {"uv": [0, 0, 8, 8], "texture": "#cube"},
+				"west": {"uv": [0, 0, 8, 8], "texture": "#cube"},
+				"up": {"uv": [8, 0, 16, 8], "rotation": 180, "texture": "#cube"}
+			}
+		}
+	]
+}

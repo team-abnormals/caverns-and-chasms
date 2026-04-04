@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_goat_horn": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:goat_horn"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:fresh_nest_thought_copper_horn"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_goat_horn",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:fresh_nest_thought_copper_horn"
+    ]
+  },
+  "sends_telemetry_event": false
+}

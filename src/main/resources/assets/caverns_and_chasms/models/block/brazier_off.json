@@ -1,7 +1,7 @@
 {
 	"credit": "hatsondogs",
+	"ambientocclusion": false,
 	"textures": {
-		"0": "caverns_and_chasms:block/brazier_top",
 		"1": "caverns_and_chasms:block/brazier_base",
 		"2": "caverns_and_chasms:block/brazier_bottom",
 		"3": "caverns_and_chasms:block/brazier_side",
@@ -42,20 +42,22 @@
 			}
 		},
 		{
-			"from": [1, 8, 1],
-			"to": [15, 8, 15],
+			"from": [1, 7, 1],
+			"to": [15, 7, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, 0]},
 			"faces": {
-				"up": {"uv": [1, 1, 15, 15], "texture": "#0"}
+				"up": {"uv": [1, 1, 15, 15], "texture": "#particle"}
 			}
 		},
 		{
-			"from": [0.75, 8.75, 0.75],
-			"to": [15.25, 11.25, 15.25],
+			"from": [0.75, 9.75, 0.75],
+			"to": [15.25, 12.25, 15.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 0]},
 			"faces": {
-				"north": {"uv": [1, 5, 15, 7], "texture": "#3"},
-				"east": {"uv": [1, 5, 15, 7], "texture": "#3"},
-				"south": {"uv": [1, 5, 15, 7], "texture": "#3"},
-				"west": {"uv": [1, 5, 15, 7], "texture": "#3"}
+				"north": {"uv": [1, 4, 15, 6], "texture": "#3"},
+				"east": {"uv": [1, 4, 15, 6], "texture": "#3"},
+				"south": {"uv": [1, 4, 15, 6], "texture": "#3"},
+				"west": {"uv": [1, 4, 15, 6], "texture": "#3"}
 			}
 		},
 		{

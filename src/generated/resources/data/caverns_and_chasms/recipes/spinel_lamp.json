@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "caverns_and_chasms:spinel"
+      "tag": "forge:gems/spinel"
     },
     "G": {
       "item": "minecraft:glowstone"

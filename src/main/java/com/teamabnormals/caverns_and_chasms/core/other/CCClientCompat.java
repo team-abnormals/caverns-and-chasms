@@ -1,47 +1,173 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
+import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip.ClientPackingContainerTooltip;
+import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
-import com.teamabnormals.caverns_and_chasms.core.CCConfig;
+import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.PackingContainerTooltip;
+import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
+import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import net.minecraft.ChatFormatting;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.SmithingScreen;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class CCClientCompat {
 
 	public static void registerClientCompat() {
 		registerRenderLayers();
 		registerItemProperties();
+		CCTrimMaterials.registerArmorMaterialOverrides();
+		CCSkullTypes.registerSkullModels();
+
+		List<ResourceLocation> list = new ArrayList<>(SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES);
+		list.add(TrimModifierSmithingTemplateItem.EMPTY_SLOT_SMITHING_TEMPLATE_TRIM_MODIFIER);
+		SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES = list;
+	}
+
+	@SubscribeEvent
+	public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+		event.register(PackingContainerTooltip.class, ClientPackingContainerTooltip::new);
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SubscribeEvent
+	public static void registerLayers(EntityRenderersEvent.AddLayers event) {
+		EntityModelSet modelset = event.getEntityModels();
+		EntityRendererProvider.Context context = event.getContext();
+		ItemInHandRenderer iteminhandrenderer = context.getItemInHandRenderer();
+
+		event.getSkins().forEach(skin -> {
+			PlayerRenderer renderer = event.getSkin(skin);
+			renderer.addLayer(new RatOnShoulderLayer(renderer, modelset));
+		});
+
+		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {
+			if (renderer instanceof AbstractHorseRenderer<?, ?> horseRenderer) {
+				horseRenderer.addLayer(new UnicornHornLayer(horseRenderer, event.getEntityModels()));
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+		event.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1, CCBlocks.AMBIENT_BUBBLE_COLUMN.get());
+	}
+
+	@SubscribeEvent
+	public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.IMPACT_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TRAIL_POTION.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.TOOLBELT.get());
+		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.UNICORN_HORN.get());
+		event.register((stack, color) -> color != 1 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.PACKING_CONTAINER.get());
+	}
+
+	@SubscribeEvent
+	public static void createSkullModels(EntityRenderersEvent.CreateSkullModels event) {
+		event.registerSkullModel(CCSkullTypes.DEEPER, new DeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.DEEPER_HEAD)));
+		event.registerSkullModel(CCSkullTypes.EVENDEEPER, new EvendeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.EVENDEEPER_HEAD)));
+		event.registerSkullModel(CCSkullTypes.MIME, new MimeHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.MIME_HEAD)));
+		event.registerSkullModel(CCSkullTypes.PEEPER, new PeeperHeadModel(event.getEntityModelSet().bakeLayer(CCModelLayers.PEEPER_HEAD)));
+	}
+
+	@SubscribeEvent
+	public static void registerClientTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
+		if (ModList.get().isLoaded("quark")) {
+			event.register(ToolboxComponent.class, Function.identity());
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+		event.registerAbove(new ResourceLocation("spyglass"), "monocle", new MonocleGuiOverlay());
+		event.registerAbove(CavernsAndChasms.location("monocle"), "monocle_head", new MonocleHeadGuiOverlay());
+	}
+
+	@SubscribeEvent
+	public static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
+		event.registerReloadListener(AegisRenderer.INSTANCE);
 	}
 
 	public static void registerRenderLayers() {
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_DOOR.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
+
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_BARS.get(), RenderType.cutout());
@@ -52,7 +178,26 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.GOLDEN_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SILVER_BARS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.TIN_BARS.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_RAIL.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.HALT_RAIL.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SPIKED_RAIL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SLAUGHTER_RAIL.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COAL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CHARCOAL.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.REFRACTOR.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.RESISTOR.get(), RenderType.cutout());
 
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.BRAZIER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SOUL_BRAZIER.get(), RenderType.cutout());
@@ -68,25 +213,70 @@ public class CCClientCompat {
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_LADDER.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_DOOR.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AZALEA_TRAPDOOR.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FALSE_HOPE.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.MOSCHATEL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.LURID_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WISPY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.GRAINY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEIRD_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ZESTY_CAVE_GROWTHS.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_FALSE_HOPE.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_MOSCHATEL.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_LURID_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_WISPY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_GRAINY_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_WEIRD_CAVE_GROWTHS.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.POTTED_ZESTY_CAVE_GROWTHS.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FLOAT_GLASS_PANE.get(), RenderType.translucent());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FROSTED_GLASS.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.FROSTED_GLASS_PANE.get(), RenderType.translucent());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ORNATE_GLASS.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.ORNATE_GLASS_PANE.get(), RenderType.translucent());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.SADDLED_EGG.get(), RenderType.cutout());
+
+		ItemBlockRenderTypes.setRenderLayer(CCBlocks.AMBIENT_BUBBLE_COLUMN.get(), RenderType.translucent());
 	}
 
 	public static void registerItemProperties() {
-		ItemProperties.register(CCItems.GOLDEN_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_WATER_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_LAVA_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_MILK_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
-		ItemProperties.register(CCItems.GOLDEN_POWDER_SNOW_BUCKET.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "level"), (stack, level, entity, hash) -> stack.getOrCreateTag().getInt("FluidLevel"));
+		ItemProperties.register(Items.CROSSBOW, CavernsAndChasms.location("blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
-		ItemProperties.register(Items.CROSSBOW, new ResourceLocation(CavernsAndChasms.MOD_ID, "blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
+		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW, CCItems.TETHER_POTION.get(), CCItems.IMPACT_POTION.get(), CCItems.TRAIL_POTION.get())) {
+			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
+		}
 
-		ItemProperties.register(CCItems.LOST_GOAT_HORN.get(), new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+		for (Item item : List.of(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get())) {
+			ItemProperties.register(item, CavernsAndChasms.location("level"), (stack, level, entity, hash) -> GoldenBucketItem.getFluidLevel(stack));
+		}
 
-		ItemProperties.register(Items.BUNDLE, new ResourceLocation("dyed"), (stack, level, entity, hash) -> {
-			return ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F;
+		for (Item item : List.of(CCItems.LOST_GOAT_HORN.get(), CCItems.COPPER_HORN.get(), CCItems.BONE_FLUTE.get())) {
+			ItemProperties.register(item, new ResourceLocation("tooting"), (stack, level, entity, hash) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
+		}
+
+		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.PACKING_CONTAINER.get())) {
+			ItemProperties.register(item, new ResourceLocation("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
+		}
+
+		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), new ResourceLocation("filled"), (stack, p_174626_, p_174627_, p_174628_) -> {
+			return PackingContainerItem.getFullnessDisplay(stack);
 		});
 
-		ItemProperties.register(CCItems.TUNING_FORK.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
-		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "depth"), new ClampedItemPropertyFunction() {
+		ItemProperties.register(CCItems.AEGIS.get(), new ResourceLocation("blocking"), (stack, level, entity, hash) -> {
+			return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
+		});
+
+		ItemProperties.register(CCItems.TUNING_FORK.get(), CavernsAndChasms.location("holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
+		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), CavernsAndChasms.location("depth"), new ClampedItemPropertyFunction() {
 			private double rotation;
 			private double rota;
 			private long lastUpdateTick;
@@ -131,7 +321,7 @@ public class CCClientCompat {
 				return this.rotation;
 			}
 		});
-		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "charge"), (stack, level, entity, hash) -> {
+		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), CavernsAndChasms.location("charge"), (stack, level, entity, hash) -> {
 			if (entity != null && entity.getUseItem() == stack)
 				return (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
 			else if (stack.getOrCreateTag().contains("Life"))
@@ -139,7 +329,7 @@ public class CCClientCompat {
 			else
 				return 0.0F;
 		});
-		ItemProperties.register(CCItems.BAROMETER.get(), new ResourceLocation(CavernsAndChasms.MOD_ID, "weather"), (ClampedItemPropertyFunction) (stack, level, livingEntity, seed) -> {
+		ItemProperties.register(CCItems.BAROMETER.get(), CavernsAndChasms.location("weather"), (ClampedItemPropertyFunction) (stack, level, livingEntity, seed) -> {
 			Entity entity = livingEntity != null ? livingEntity : stack.getEntityRepresentation();
 			if (entity == null) {
 				return 0.4F;
@@ -158,110 +348,5 @@ public class CCClientCompat {
 				}
 			}
 		});
-	}
-
-	@SubscribeEvent
-	public static void onItemTooltip(ItemTooltipEvent event) {
-		ItemStack stack = event.getItemStack();
-		Item item = stack.getItem();
-		Player player = event.getEntity();
-
-		if (player != null && player.getInventory().contains(stack)) {
-			Level level = player.level();
-
-			if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("latitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getX())).withStyle(ChatFormatting.GRAY)));
-				event.getToolTip().add(createTooltip("longitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getZ())).withStyle(ChatFormatting.GRAY)));
-			}
-
-			if (item == Items.CLOCK) {
-				if (CCConfig.CLIENT.clocksDisplayTime.get()) {
-					event.getToolTip().add(Component.literal(calculateTime(level)).withStyle(ChatFormatting.GRAY));
-				}
-
-				if (CCConfig.CLIENT.clocksDisplayDay.get()) {
-					event.getToolTip().add(createTooltip("day").withStyle(ChatFormatting.GRAY).append(Component.literal(" " + level.getDayTime() / 24000L).withStyle(ChatFormatting.GRAY)));
-				}
-			}
-
-			if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
-				event.getToolTip().add(createTooltip("altitude").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getY())).withStyle(ChatFormatting.GRAY)));
-			}
-
-			if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
-				event.getToolTip().add(createTooltip("weather").withStyle(ChatFormatting.GRAY).append(": ").append(createTooltip(getWeather(player, level)).withStyle(ChatFormatting.GRAY)));
-			}
-		}
-	}
-
-	private static String getWeather(Player player, Level level) {
-		Precipitation precipitation = level.getBiome(player.blockPosition()).value().getPrecipitationAt(player.blockPosition());
-
-		if (precipitation != Precipitation.NONE) {
-			if (level.isThundering())
-				return "stormy";
-			else if (level.isRaining()) {
-				if (precipitation == Precipitation.SNOW)
-					return "snowy";
-				return "rainy";
-			}
-		}
-
-		return level.dimensionType().hasSkyLight() && !level.dimensionType().hasCeiling() ? "clear" : "null";
-	}
-
-	private static MutableComponent createTooltip(String identifier) {
-		return Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + "." + identifier);
-	}
-
-	private static String calculateTime(Level level) {
-		String addition = "";
-
-		int totalMinutes = (int) (level.dayTime() * 3 / 50);
-		int hour = 6 + (totalMinutes / 60);
-		if (hour >= 24) hour %= 24;
-		int minute = totalMinutes % 60;
-
-		if (!CCConfig.CLIENT.clocksUse24hrTime.get()) {
-			addition = " " + (hour > 11 ? createTooltip("pm").getString() : createTooltip("am").getString());
-			hour = hour > 12 ? hour - 12 : hour == 0 ? 12 : hour;
-		}
-
-		String stringMinute = (minute < 10 ? "0" : "") + minute;
-		return hour + ":" + stringMinute + addition;
-	}
-
-	@SubscribeEvent
-	public static void onItemUse(RightClickItem event) {
-		Player player = event.getEntity();
-		Item item = event.getItemStack().getItem();
-		Level level = player.level();
-		boolean displayTime = CCConfig.CLIENT.clocksDisplayTime.get();
-		boolean displayDay = CCConfig.CLIENT.clocksDisplayDay.get();
-		if (item == Items.COMPASS && CCConfig.CLIENT.compassesDisplayPosition.get()) {
-			player.displayClientMessage(createTooltip("latitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f, ", player.getX())).append(createTooltip("longitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getZ()))))), true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		} else if (item == Items.CLOCK && (displayDay || displayTime)) {
-			MutableComponent time = Component.literal(calculateTime(level));
-			MutableComponent day = createTooltip("day").append(Component.literal(" " + (level.getDayTime() + 6000) / 24000L));
-			MutableComponent message = Component.literal("");
-			if (CCConfig.CLIENT.clocksDisplayTime.get()) {
-				message.append(time);
-				if (displayDay) message.append(Component.literal(", "));
-			}
-			if (displayDay) message.append(day);
-			player.displayClientMessage(message, true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		} else if (item == CCItems.DEPTH_GAUGE.get() && CCConfig.CLIENT.depthGaugesDisplayPosition.get()) {
-			player.displayClientMessage(createTooltip("altitude").append(Component.literal(String.format(Locale.ROOT, ": %.3f", player.getY()))), true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		} else if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
-			player.displayClientMessage(createTooltip("weather").append(": ").append(createTooltip(getWeather(player, level))), true);
-			event.setCanceled(true);
-			event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
-		}
 	}
 }

@@ -1,0 +1,12 @@
+{
+  "type": "caverns_and_chasms:smithing_modifier",
+  "addition": {
+    "item": "minecraft:glow_ink_sac"
+  },
+  "base": {
+    "tag": "minecraft:trimmable_armor"
+  },
+  "template": {
+    "item": "caverns_and_chasms:trim_modifier_smithing_template"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "tag": "forge:nuggets/silver"
+    },
+    "Y": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    "XYX",
+    "X#X",
+    "XRX"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:slaughter_rail"
+  },
+  "show_notification": true
+}

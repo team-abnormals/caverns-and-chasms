@@ -1,0 +1,24 @@
+{
+  "feature": "caverns_and_chasms:ore_tin",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "caverns_and_chasms:tin_monolith_distance_filter",
+      "max_distance": 512
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": 48
+        },
+        "min_inclusive": {
+          "absolute": -16
+        }
+      }
+    }
+  ]
+}

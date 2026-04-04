@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
+  "group": "copper_button",
   "ingredients": [
     {
       "tag": "minecraft:wooden_buttons"
     },
     {
-      "tag": "forge:ingots/copper"
+      "item": "minecraft:copper_ingot"
     }
   ],
   "result": {

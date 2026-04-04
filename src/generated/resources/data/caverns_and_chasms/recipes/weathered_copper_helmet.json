@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "weathered_copper_helmet",
+  "key": {
+    "X": {
+      "item": "minecraft:weathered_copper"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X X"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:weathered_copper_helmet"
+  },
+  "show_notification": true
+}

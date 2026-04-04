@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "copper_grate",
+  "key": {
+    "M": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "pattern": [
+    " M ",
+    "M M",
+    " M "
+  ],
+  "result": {
+    "count": 4,
+    "item": "caverns_and_chasms:copper_grate"
+  },
+  "show_notification": true
+}

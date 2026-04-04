@@ -1,17 +1,16 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -38,7 +37,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
@@ -137,22 +135,24 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (state.getValue(LIT) && random.nextInt(10) == 0) {
-			level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
+		if (state.getValue(LIT)) {
+			if (random.nextInt(10) == 0) {
+				level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, CCSoundEvents.BRAZIER_CRACKLE.get(), SoundSource.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
+			}
+
+			double d0 = (double) pos.getX() + 0.5D + random.nextDouble() * 0.4D - random.nextDouble() * 0.4D;
+			double d1 = (double) pos.getY() + 0.5D + random.nextDouble() * 0.4D;
+			double d2 = (double) pos.getZ() + 0.5D + random.nextDouble() * 0.4D - random.nextDouble() * 0.4D;
+			level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
 	@Override
 	public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
-		if (!level.isClientSide && projectile.isOnFire()) {
-			Entity entity = projectile.getOwner();
-			boolean flag = entity == null || entity instanceof Player || ForgeEventFactory.getMobGriefingEvent(level, entity);
-			if (flag && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
-				BlockPos blockpos = hit.getBlockPos();
-				level.setBlock(blockpos, state.setValue(BlockStateProperties.LIT, true), 11);
-			}
+		BlockPos pos = hit.getBlockPos();
+		if (!level.isClientSide() && projectile.isOnFire() && projectile.mayInteract(level, pos) && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
+			level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
 		}
-
 	}
 
 	public static void spawnSmokeParticles(Level level, BlockPos pos) {

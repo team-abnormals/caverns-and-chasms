@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LostGoatRenderer extends MobRenderer<LostGoat, LostGoatModel<LostGoat>> {
-	private static final ResourceLocation LOST_GOAT_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/lost_goat.png");
+	private static final ResourceLocation LOST_GOAT_LOCATION = CavernsAndChasms.location("textures/entity/lost_goat.png");
 
 	public LostGoatRenderer(EntityRendererProvider.Context context) {
 		super(context, new LostGoatModel<>(context.bakeLayer(CCModelLayers.LOST_GOAT)), 0.7F);

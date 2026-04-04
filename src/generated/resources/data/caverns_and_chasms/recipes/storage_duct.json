@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:storage_blocks/tin"
+    },
+    "I": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "I I",
+    "B B",
+    "I I"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:storage_duct"
+  },
+  "show_notification": true
+}

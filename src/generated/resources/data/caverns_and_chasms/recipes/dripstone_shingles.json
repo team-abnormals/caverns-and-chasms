@@ -3,15 +3,14 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "minecraft:dripstone_block"
+      "item": "caverns_and_chasms:dripstone_slab"
     }
   },
   "pattern": [
-    "##",
-    "##"
+    "#",
+    "#"
   ],
   "result": {
-    "count": 4,
     "item": "caverns_and_chasms:dripstone_shingles"
   },
   "show_notification": true

@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class BluntArrowRenderer extends ArrowRenderer<BluntArrow> {
-	private static final ResourceLocation BLUNT_ARROW = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/projectiles/blunt_arrow.png");
+	private static final ResourceLocation BLUNT_ARROW = CavernsAndChasms.location("textures/entity/projectiles/blunt_arrow.png");
 
 	public BluntArrowRenderer(EntityRendererProvider.Context context) {
 		super(context);

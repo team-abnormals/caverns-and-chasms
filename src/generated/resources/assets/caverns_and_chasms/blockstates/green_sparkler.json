@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "caverns_and_chasms:block/green_sparkler"
+    },
+    "lit=true": {
+      "model": "caverns_and_chasms:block/green_sparkler_lit"
+    }
+  }
+}

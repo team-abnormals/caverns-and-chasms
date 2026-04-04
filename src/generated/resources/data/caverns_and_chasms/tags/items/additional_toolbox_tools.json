@@ -1,7 +1,12 @@
 {
   "values": [
     "minecraft:spyglass",
+    "caverns_and_chasms:monocle",
     "minecraft:totem_of_undying",
-    "caverns_and_chasms:tuning_fork"
+    "caverns_and_chasms:tuning_fork",
+    "minecraft:goat_horn",
+    "caverns_and_chasms:copper_horn",
+    "caverns_and_chasms:lost_goat_horn",
+    "caverns_and_chasms:bone_flute"
   ]
 }

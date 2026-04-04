@@ -24,14 +24,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
 public class ToolboxBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
-	private static final int[] SLOTS = IntStream.range(0, 9).toArray();
-	private NonNullList<ItemStack> itemStacks = NonNullList.withSize(9, ItemStack.EMPTY);
+	private static final int[] SLOTS = IntStream.range(0, 14).toArray();
+	private NonNullList<ItemStack> itemStacks = NonNullList.withSize(14, ItemStack.EMPTY);
 	private int openCount;
 	private ToolboxBlockEntity.AnimationStatus animationStatus = ToolboxBlockEntity.AnimationStatus.CLOSED;
 	private float progress;
@@ -41,11 +42,11 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 		super(CCBlockEntityTypes.TOOLBOX.get(), pos, state);
 	}
 
-	public static void tick(Level p_155673_, BlockPos p_155674_, BlockState p_155675_, ToolboxBlockEntity p_155676_) {
-		p_155676_.updateAnimation(p_155673_, p_155674_, p_155675_);
+	public static void tick(Level level, BlockPos pos, BlockState state, ToolboxBlockEntity entity) {
+		entity.updateAnimation(level, pos, state);
 	}
 
-	private void updateAnimation(Level p_155680_, BlockPos p_155681_, BlockState p_155682_) {
+	private void updateAnimation(Level level, BlockPos pos, BlockState state) {
 		this.progressOld = this.progress;
 		switch (this.animationStatus) {
 			case CLOSED -> this.progress = 0.0F;
@@ -54,7 +55,7 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 				if (this.progress >= 1.0F) {
 					this.animationStatus = AnimationStatus.OPENED;
 					this.progress = 1.0F;
-					doNeighborUpdates(p_155680_, p_155681_, p_155682_);
+					doNeighborUpdates(level, pos, state);
 				}
 			}
 			case CLOSING -> {
@@ -62,7 +63,7 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 				if (this.progress <= 0.0F) {
 					this.animationStatus = AnimationStatus.CLOSED;
 					this.progress = 0.0F;
-					doNeighborUpdates(p_155680_, p_155681_, p_155682_);
+					doNeighborUpdates(level, pos, state);
 				}
 			}
 			case OPENED -> this.progress = 1.0F;
@@ -80,31 +81,31 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 	}
 
 	@Override
-	public boolean triggerEvent(int p_59678_, int p_59679_) {
-		if (p_59678_ == 1) {
-			this.openCount = p_59679_;
-			if (p_59679_ == 0) {
+	public boolean triggerEvent(int id, int openCount) {
+		if (id == 1) {
+			this.openCount = openCount;
+			if (openCount == 0) {
 				this.animationStatus = ToolboxBlockEntity.AnimationStatus.CLOSING;
 				doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
 			}
 
-			if (p_59679_ == 1) {
+			if (openCount == 1) {
 				this.animationStatus = ToolboxBlockEntity.AnimationStatus.OPENING;
 				doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
 			}
 
 			return true;
 		} else {
-			return super.triggerEvent(p_59678_, p_59679_);
+			return super.triggerEvent(id, openCount);
 		}
 	}
 
-	private static void doNeighborUpdates(Level p_155688_, BlockPos p_155689_, BlockState p_155690_) {
-		p_155690_.updateNeighbourShapes(p_155688_, p_155689_, 3);
+	private static void doNeighborUpdates(Level level, BlockPos pos, BlockState state) {
+		state.updateNeighbourShapes(level, pos, 3);
 	}
 
-	public void startOpen(Player p_59692_) {
-		if (!p_59692_.isSpectator()) {
+	public void startOpen(Player player) {
+		if (!player.isSpectator()) {
 			if (this.openCount < 0) {
 				this.openCount = 0;
 			}
@@ -112,7 +113,7 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 			++this.openCount;
 			this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.openCount);
 			if (this.openCount == 1) {
-				this.level.gameEvent(p_59692_, GameEvent.CONTAINER_OPEN, this.worldPosition);
+				this.level.gameEvent(player, GameEvent.CONTAINER_OPEN, this.worldPosition);
 				this.level.playSound(null, this.worldPosition, CCSoundEvents.TOOLBOX_OPEN.get(), SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 			}
 		}
@@ -184,16 +185,17 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 		return true;
 	}
 
-	public float getProgress(float p_59658_) {
-		return Mth.lerp(p_59658_, this.progressOld, this.progress);
-	}
-
-	protected AbstractContainerMenu createMenu(int p_59660_, Inventory p_59661_) {
-		return new ToolboxMenu(p_59660_, p_59661_, this);
+	public float getProgress(float f) {
+		return Mth.lerp(f, this.progressOld, this.progress);
 	}
 
 	@Override
-	protected net.minecraftforge.items.IItemHandler createUnSidedHandler() {
+	protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
+		return new ToolboxMenu(id, inventory, this);
+	}
+
+	@Override
+	protected IItemHandler createUnSidedHandler() {
 		return new SidedInvWrapper(this, Direction.UP);
 	}
 

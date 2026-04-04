@@ -1,0 +1,53 @@
+{
+  "parent": "caverns_and_chasms:husbandry/obtain_turquoise",
+  "criteria": {
+    "monocle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:monocle"
+            ]
+          }
+        ],
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "head": {
+                  "items": [
+                    "caverns_and_chasms:monocle"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.equip_monocle.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:monocle"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.equip_monocle.title"
+    }
+  },
+  "requirements": [
+    [
+      "monocle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

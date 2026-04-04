@@ -1,5 +1,10 @@
 {
   "values": [
-    "caverns_and_chasms:exile_armor_trim_smithing_template"
+    "caverns_and_chasms:exile_armor_trim_smithing_template",
+    "caverns_and_chasms:forger_armor_trim_smithing_template",
+    "caverns_and_chasms:immolate_armor_trim_smithing_template",
+    "caverns_and_chasms:rim_armor_trim_smithing_template",
+    "caverns_and_chasms:plate_armor_trim_smithing_template",
+    "caverns_and_chasms:core_armor_trim_smithing_template"
   ]
 }

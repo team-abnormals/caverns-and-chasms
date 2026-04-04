@@ -1,0 +1,35 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"torch": "block/redstone_torch",
+		"particle": "block/redstone_torch"
+	},
+	"elements": [
+		{
+			"from": [7, 6, 1],
+			"to": [9, 6, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, -1]},
+			"faces": {
+				"up": {"uv": [7, 6, 9, 8], "texture": "#torch"}
+			}
+		},
+		{
+			"from": [7, 2, 0],
+			"to": [9, 7, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, -1]},
+			"faces": {
+				"east": {"uv": [6, 5, 10, 10], "texture": "#torch"},
+				"west": {"uv": [6, 5, 10, 10], "texture": "#torch"}
+			}
+		},
+		{
+			"from": [6, 2, 1],
+			"to": [10, 7, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, -1]},
+			"faces": {
+				"north": {"uv": [6, 5, 10, 10], "texture": "#torch"},
+				"south": {"uv": [6, 5, 10, 10], "texture": "#torch"}
+			}
+		}
+	]
+}

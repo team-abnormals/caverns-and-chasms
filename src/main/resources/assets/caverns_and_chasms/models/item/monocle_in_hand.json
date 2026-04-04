@@ -1,0 +1,47 @@
+{
+	"textures": {
+		"texture": "caverns_and_chasms:item/monocle_model"
+	},
+	"elements": [
+		{
+			"from": [6, 5.5, 7],
+			"to": [11, 10.5, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 4.5, 7]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#texture"},
+				"east": {"uv": [4, 0, 5, 5], "texture": "#texture"},
+				"south": {"uv": [0, 0, 5, 5], "texture": "#texture"},
+				"west": {"uv": [0, 0, 1, 5], "texture": "#texture"},
+				"up": {"uv": [5, 1, 0, 0], "texture": "#texture"},
+				"down": {"uv": [5, 4, 0, 5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [7, 0.5, 7.5],
+			"to": [9, 5.5, 7.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, -0.5, 7.5]},
+			"faces": {
+				"north": {"uv": [2, 5, 4, 10], "texture": "#texture"},
+				"south": {"uv": [2, 5, 4, 10], "texture": "#texture"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [-2, 2, 0.25]
+		},
+		"thirdperson_lefthand": {
+			"translation": [-2, 2, 0.25]
+		},
+		"firstperson_righthand": {
+			"translation": [0, 1, 0]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, 1, 0]
+		},
+		"head": {
+			"translation": [-5, 0, -6.5],
+			"scale": [1.66, 1.66, 1.66]
+		}
+	}
+}

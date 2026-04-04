@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ToolboxScreen extends AbstractContainerScreen<ToolboxMenu> {
-	private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/gui/container/toolbox.png");
+	private static final ResourceLocation CONTAINER_LOCATION = CavernsAndChasms.location("textures/gui/container/toolbox.png");
 
 	public ToolboxScreen(ToolboxMenu p_99240_, Inventory p_99241_, Component p_99242_) {
 		super(p_99240_, p_99241_, p_99242_);

@@ -9,13 +9,16 @@ import org.apache.commons.lang3.tuple.Pair;
 public class CCConfig {
 
 	public static class Common {
-		public final BooleanValue creepersDropAllBlocks;
 		public final BooleanValue creeperExplosionNerf;
 		public final DoubleValue creeperExplosionNerfFactor;
 
-		public final BooleanValue deepersDropAllBlocks;
 		public final IntValue deeperMaxSpawnHeight;
+		public final IntValue evendeeperMaxSpawnHeight;
+		public final IntValue grazerMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
+
+		public final BooleanValue fragileStoneDropsOres;
+		public boolean fragileStoneDropsOresEnabled;
 
 		public final BooleanValue chainmailArmorIncreasesDamage;
 		public final BooleanValue goldenArmorIncreasesSpeed;
@@ -23,19 +26,38 @@ public class CCConfig {
 		public final BooleanValue betterRailPlacement;
 		public final IntValue betterRailPlacementRange;
 
+		public final BooleanValue preventReplacingTrims;
+		public final BooleanValue zirconiaUniversalRepairing;
+
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("mobs");
 			builder.push("creeper");
-			creepersDropAllBlocks = builder.define("Creeper explosions drop all blocks", true);
 			creeperExplosionNerf = builder.comment("Creeper explosions have a weaker power").define("Creeper explosion nerf", true);
 			creeperExplosionNerfFactor = builder.comment("How much weaker Creeper explosions are").defineInRange("Creeper explosion nerf factor", 0.5D, 0, Double.MAX_VALUE);
 			builder.pop();
 			builder.push("deeper");
-			deepersDropAllBlocks = builder.define("Deeper explosions drop all blocks", true);
 			deeperMaxSpawnHeight = builder.defineInRange("Deeper max spawn height", 60, -64, 320);
+			builder.pop();
+			builder.push("evendeeper");
+			evendeeperMaxSpawnHeight = builder.defineInRange("Evendeeper max spawn height", -4, -64, 320);
+			builder.pop();
+			builder.push("grazer");
+			grazerMaxSpawnHeight = builder.defineInRange("Grazer max spawn height", -4, -64, 320);
 			builder.pop();
 			builder.push("peeper");
 			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);
+			builder.pop();
+			builder.pop();
+
+			builder.push("blocks");
+			builder.push("fragile_stone");
+			fragileStoneDropsOres = builder.comment("If ores next to or within Fragile Stone and Deepslate fall when the neighbor blocks crumble").define("Fragile stone collapses ores", true);
+			builder.pop();
+			builder.pop();
+
+			builder.push("items");
+			builder.push("zirconia");
+			zirconiaUniversalRepairing = builder.comment("If Zirconia can be used as a universal repair material").define("Zirconia universal repairing", true);
 			builder.pop();
 			builder.pop();
 
@@ -46,7 +68,17 @@ public class CCConfig {
 			betterRailPlacement = builder.comment("Rails can be placed in the direction you're looking at by clicking on another rail, similar to scaffolding").define("Better rail placement", true);
 			betterRailPlacementRange = builder.comment("The range in blocks that better rail placement can reach").defineInRange("Placement range", 7, 0, Integer.MAX_VALUE);
 			builder.pop();
+			builder.push("trims");
+			preventReplacingTrims = builder
+					.comment("Prevents replacing/applying a Trim Template & Material over a previously trimmed item")
+					.comment("This is to prevent the player from wasting materials that could be returned at a Dismantling Table")
+					.define("Prevent replacing trims", false);
 			builder.pop();
+			builder.pop();
+		}
+
+		public void load() {
+			this.fragileStoneDropsOresEnabled = this.fragileStoneDropsOres.get();
 		}
 	}
 

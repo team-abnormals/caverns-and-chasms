@@ -12,5 +12,5 @@ import java.util.HashSet;
 public final class CCPoiTypes {
 	public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, CavernsAndChasms.MOD_ID);
 
-	public static final RegistryObject<PoiType> LIGHTNING_ROD = POI_TYPES.register("beehive", () -> new PoiType(CCBlocks.HELPER.getDeferredRegister().getEntries().stream().filter(block -> block.get() instanceof LightningRodBlock).map(block -> block.get().getStateDefinition().getPossibleStates()).collect(HashSet::new, HashSet::addAll, HashSet::addAll), 0, 1));
+	public static final RegistryObject<PoiType> LIGHTNING_ROD = POI_TYPES.register("lightning_rod", () -> new PoiType(CCBlocks.HELPER.getDeferredRegister().getEntries().stream().filter(block -> block.get() instanceof LightningRodBlock).map(block -> block.get().getStateDefinition().getPossibleStates()).collect(HashSet::new, HashSet::addAll, HashSet::addAll), 0, 1));
 }

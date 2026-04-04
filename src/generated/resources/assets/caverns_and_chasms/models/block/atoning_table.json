@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/enchanting_table",
+  "textures": {
+    "bottom": "caverns_and_chasms:block/atoning_table_bottom",
+    "particle": "caverns_and_chasms:block/atoning_table_bottom",
+    "side": "caverns_and_chasms:block/atoning_table_side",
+    "top": "caverns_and_chasms:block/atoning_table_top"
+  }
+}

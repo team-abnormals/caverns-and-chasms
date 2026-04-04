@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 294502589,
+    "separation": 6,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "caverns_and_chasms:forge",
+      "weight": 1
+    }
+  ]
+}

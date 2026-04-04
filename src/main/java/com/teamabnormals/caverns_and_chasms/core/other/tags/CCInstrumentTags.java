@@ -9,6 +9,10 @@ import net.minecraft.world.item.Instrument;
 public class CCInstrumentTags {
 	public static final TagKey<Instrument> LOST_GOAT_HORNS = instrumentTag("lost_goat_horns");
 
+	public static final TagKey<Instrument> HARMONY_COPPER_HORNS = instrumentTag("harmony_copper_horns");
+	public static final TagKey<Instrument> MELODY_COPPER_HORNS = instrumentTag("melody_copper_horns");
+	public static final TagKey<Instrument> BASS_COPPER_HORNS = instrumentTag("bass_copper_horns");
+
 	private static TagKey<Instrument> instrumentTag(String name) {
 		return instrumentTag(CavernsAndChasms.MOD_ID, name);
 	}

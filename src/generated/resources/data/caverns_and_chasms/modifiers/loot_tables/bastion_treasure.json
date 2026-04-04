@@ -1,0 +1,74 @@
+{
+  "modifiers": [
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:turquoise",
+            "weight": 6
+          }
+        ],
+        "index": 0,
+        "replace": false
+      }
+    },
+    {
+      "type": "entries",
+      "config": {
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 9.0,
+                  "min": 3.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_ingot"
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 5.0,
+                  "min": 2.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:silver_block"
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 10.0,
+                  "min": 6.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:large_arrow"
+          }
+        ],
+        "index": 1,
+        "replace": false
+      }
+    }
+  ],
+  "priority": "normal",
+  "selector": "minecraft:chests/bastion_treasure"
+}

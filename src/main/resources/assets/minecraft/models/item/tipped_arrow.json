@@ -1,0 +1,15 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "item/tipped_arrow_head",
+    "layer1": "item/tipped_arrow_base"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "caverns_and_chasms:subtle": 1
+      },
+      "model": "caverns_and_chasms:item/subtle_tipped_arrow"
+    }
+  ]
+}

@@ -7,7 +7,7 @@
       "item": "caverns_and_chasms:weathered_copper_button"
     },
     {
-      "item": "minecraft:honeycomb"
+      "tag": "forge:wax"
     }
   ],
   "result": {

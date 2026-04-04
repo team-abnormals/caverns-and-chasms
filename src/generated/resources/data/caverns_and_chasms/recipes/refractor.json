@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "tag": "forge:ingots/tin"
+    },
+    "X": {
+      "item": "minecraft:amethyst_block"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    "III"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:refractor"
+  },
+  "show_notification": true
+}

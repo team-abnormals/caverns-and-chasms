@@ -24,7 +24,7 @@ public class NecromiumArmorItem extends ArmorItem {
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.putAll(super.getAttributeModifiers(slot, stack));
 		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(this.type);
-		builder.put(CCAttributes.WEAKNESS_AURA.get(), new AttributeModifier(uuid, "Weakness aura", 0.5D, AttributeModifier.Operation.ADDITION));
+		builder.put(CCAttributes.SLOWNESS_INFLICTION.get(), new AttributeModifier(uuid, "Slowness infliction", 1.0F, AttributeModifier.Operation.ADDITION));
 		return slot == this.getEquipmentSlot() ? builder.build() : super.getAttributeModifiers(slot, stack);
 	}
 }

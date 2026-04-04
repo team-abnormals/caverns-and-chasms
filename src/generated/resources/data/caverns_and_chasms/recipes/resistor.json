@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "tag": "forge:ingots/tin"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "#X#",
+    "III"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:resistor"
+  },
+  "show_notification": true
+}

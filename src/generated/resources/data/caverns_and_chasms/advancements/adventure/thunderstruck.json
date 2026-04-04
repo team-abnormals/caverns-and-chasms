@@ -1,0 +1,55 @@
+{
+  "parent": "caverns_and_chasms:adventure/smelt_copper",
+  "criteria": {
+    "thunderstruck": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "tags": [
+              {
+                "expected": true,
+                "id": "minecraft:is_lightning"
+              }
+            ]
+          }
+        },
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "head": {
+                  "tag": "caverns_and_chasms:copper_helmets"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:entity_hurt_player"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.thunderstruck.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:copper_helmet",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.thunderstruck.title"
+    }
+  },
+  "requirements": [
+    [
+      "thunderstruck"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

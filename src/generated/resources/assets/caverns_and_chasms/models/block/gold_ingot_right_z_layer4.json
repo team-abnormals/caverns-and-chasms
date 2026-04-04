@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_ingot_right_z_layer4",
+  "textures": {
+    "ingot": "caverns_and_chasms:block/gold_ingot"
+  }
+}

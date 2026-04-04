@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "waxed_copper_button",
+  "ingredients": [
+    {
+      "tag": "minecraft:wooden_buttons"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_ingot"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_copper_button"
+  }
+}

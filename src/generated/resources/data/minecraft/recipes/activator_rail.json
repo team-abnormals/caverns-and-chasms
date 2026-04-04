@@ -6,10 +6,10 @@
       "item": "minecraft:redstone_torch"
     },
     "S": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     },
     "X": {
-      "item": "minecraft:iron_nugget"
+      "tag": "forge:nuggets/iron"
     }
   },
   "pattern": [
@@ -18,7 +18,6 @@
     "XSX"
   ],
   "result": {
-    "count": 3,
     "item": "minecraft:activator_rail"
   },
   "show_notification": true

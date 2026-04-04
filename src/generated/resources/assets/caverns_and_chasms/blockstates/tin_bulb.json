@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "power=0,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_0"
+    },
+    "power=0,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_0"
+    },
+    "power=1,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_1"
+    },
+    "power=1,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_1"
+    },
+    "power=10,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_10"
+    },
+    "power=10,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_10"
+    },
+    "power=11,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_11"
+    },
+    "power=11,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_11"
+    },
+    "power=12,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_12"
+    },
+    "power=12,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_12"
+    },
+    "power=13,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_13"
+    },
+    "power=13,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_13"
+    },
+    "power=14,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_14"
+    },
+    "power=14,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_14"
+    },
+    "power=15,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_15"
+    },
+    "power=15,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_15"
+    },
+    "power=2,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_2"
+    },
+    "power=2,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_2"
+    },
+    "power=3,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_3"
+    },
+    "power=3,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_3"
+    },
+    "power=4,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_4"
+    },
+    "power=4,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_4"
+    },
+    "power=5,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_5"
+    },
+    "power=5,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_5"
+    },
+    "power=6,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_6"
+    },
+    "power=6,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_6"
+    },
+    "power=7,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_7"
+    },
+    "power=7,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_7"
+    },
+    "power=8,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_8"
+    },
+    "power=8,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_8"
+    },
+    "power=9,powered=false": {
+      "model": "caverns_and_chasms:block/tin_bulb_power_9"
+    },
+    "power=9,powered=true": {
+      "model": "caverns_and_chasms:block/tin_bulb_powered_power_9"
+    }
+  }
+}

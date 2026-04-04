@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class FlyRenderer extends MobRenderer<Fly, FlyModel<Fly>> {
-	private static final ResourceLocation FLY_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/fly.png");
+	private static final ResourceLocation FLY_TEXTURE = CavernsAndChasms.location("textures/entity/fly.png");
 
 	public FlyRenderer(EntityRendererProvider.Context context) {
 		super(context, new FlyModel<>(context.bakeLayer(CCModelLayers.FLY)), 0.3F);

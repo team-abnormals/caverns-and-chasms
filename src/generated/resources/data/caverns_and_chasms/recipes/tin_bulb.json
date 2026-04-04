@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "tin_bulb",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "C": {
+      "item": "caverns_and_chasms:tin_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " C ",
+    "CBC",
+    " R "
+  ],
+  "result": {
+    "count": 4,
+    "item": "caverns_and_chasms:tin_bulb"
+  },
+  "show_notification": true
+}

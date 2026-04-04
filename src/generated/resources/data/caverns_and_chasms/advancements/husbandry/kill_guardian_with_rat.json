@@ -1,0 +1,40 @@
+{
+  "parent": "caverns_and_chasms:husbandry/kill_with_rat",
+  "criteria": {
+    "kill_guardian_with_rat": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:guardian"
+            }
+          }
+        ]
+      },
+      "trigger": "caverns_and_chasms:rat_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.husbandry.kill_guardian_with_rat.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "caverns_and_chasms:bone_flute"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.husbandry.kill_guardian_with_rat.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_guardian_with_rat"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "caverns_and_chasms:block/lurid_cave_growths"
+  }
+}

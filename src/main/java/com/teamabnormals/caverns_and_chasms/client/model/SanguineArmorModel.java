@@ -21,17 +21,19 @@ public class SanguineArmorModel<T extends LivingEntity> extends HumanoidArmorMod
 		MeshDefinition meshDefinition = HumanoidArmorModel.createBodyLayer(deformation);
 		PartDefinition partDefinition = meshDefinition.getRoot();
 
-		CubeDeformation halved = new CubeDeformation(deformation.growX / 2.0F, deformation.growY / 2.0F, deformation.growZ / 2.0F);
+		CubeDeformation head = new CubeDeformation(deformation.growX / 4.0F, deformation.growY / 1.6F, deformation.growZ / 4.0F);
+		float hornX = deformation.growX * 1.25F;
+		float hornY = deformation.growY * -1.125F;
 
-		float hornX = deformation.growX * 1.5F;
-		float hornY = deformation.growY * -1.0F;
+		CubeDeformation shoulder = new CubeDeformation(deformation.growX / 2.0F, deformation.growY / 4.0F, deformation.growZ / 2.0F);
 		float shoulderX = deformation.growX * 0.5F;
-		float shoulderY = deformation.growY * -1.5F;
+		float shoulderY = deformation.growY * -1.25F;
 
-		partDefinition.getChild("head").addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F - hornX, -11.0F + hornY, -1.0F, 2.0F, 5.0F, 2.0F, halved), PartPose.ZERO);
-		partDefinition.getChild("head").addOrReplaceChild("right_horn", CubeListBuilder.create().texOffs(24, 0).addBox(4.0F + hornX, -11.0F + hornY, -1.0F, 2.0F, 5.0F, 2.0F, halved), PartPose.ZERO);
-		partDefinition.getChild("right_arm").addOrReplaceChild("right_shoulder_horn", CubeListBuilder.create().texOffs(32, 0).addBox(-3.0F - shoulderX, -5.0F + shoulderY, -1.0F, 2.0F, 3.0F, 2.0F, halved), PartPose.ZERO);
-		partDefinition.getChild("left_arm").addOrReplaceChild("left_shoulder_horn", CubeListBuilder.create().texOffs(56, 0).addBox(1.0F + shoulderX, -5.0F + shoulderY, -1.0F, 2.0F, 3.0F, 2.0F, halved), PartPose.ZERO);
+		partDefinition.getChild("head").addOrReplaceChild("left_horn", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F - hornX, -11.0F + hornY, -1.0F, 2.0F, 5.0F, 2.0F, head), PartPose.ZERO);
+		partDefinition.getChild("head").addOrReplaceChild("right_horn", CubeListBuilder.create().texOffs(24, 0).addBox(4.0F + hornX, -11.0F + hornY, -1.0F, 2.0F, 5.0F, 2.0F, head), PartPose.ZERO);
+
+		partDefinition.getChild("right_arm").addOrReplaceChild("right_shoulder_horn", CubeListBuilder.create().texOffs(32, 0).addBox(-3.0F - shoulderX, -5.0F + shoulderY, -1.0F, 2.0F, 3.0F, 2.0F, shoulder), PartPose.ZERO);
+		partDefinition.getChild("left_arm").addOrReplaceChild("left_shoulder_horn", CubeListBuilder.create().texOffs(56, 0).addBox(1.0F + shoulderX, -5.0F + shoulderY, -1.0F, 2.0F, 3.0F, 2.0F, shoulder), PartPose.ZERO);
 
 		return meshDefinition;
 	}

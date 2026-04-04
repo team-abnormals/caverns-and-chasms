@@ -1,0 +1,29 @@
+package com.teamabnormals.caverns_and_chasms.common.enchantment;
+
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.enchantment.Enchantment;
+
+public class ConcealEnchantment extends Enchantment {
+
+	public ConcealEnchantment(Enchantment.Rarity rarity, EquipmentSlot... slot) {
+		super(rarity, CCEnchantments.COWL, slot);
+	}
+
+	public int getMinCost(int p_45121_) {
+		return 10 * p_45121_;
+	}
+
+	public int getMaxCost(int p_45123_) {
+		return this.getMinCost(p_45123_) + 30;
+	}
+
+	public int getMaxLevel() {
+		return 3;
+	}
+
+	@Override
+	public boolean checkCompatibility(Enchantment enchantment) {
+		return super.checkCompatibility(enchantment) && enchantment != CCEnchantments.OBSCURITY.get();
+	}
+}

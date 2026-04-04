@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class GlareRenderer extends MobRenderer<Glare, GlareModel<Glare>> {
-	private static final ResourceLocation GLARE_TEXTURE = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/glare/glare.png");
+	private static final ResourceLocation GLARE_TEXTURE = CavernsAndChasms.location("textures/entity/glare/glare.png");
 
 	public GlareRenderer(EntityRendererProvider.Context context) {
 		super(context, new GlareModel<>(context.bakeLayer(CCModelLayers.GLARE)), 0.4F);

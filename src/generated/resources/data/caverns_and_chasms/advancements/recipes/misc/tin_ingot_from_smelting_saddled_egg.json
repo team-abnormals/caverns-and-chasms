@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_saddled_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:saddled_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:tin_ingot_from_smelting_saddled_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_saddled_egg",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:tin_ingot_from_smelting_saddled_egg"
+    ]
+  },
+  "sends_telemetry_event": false
+}

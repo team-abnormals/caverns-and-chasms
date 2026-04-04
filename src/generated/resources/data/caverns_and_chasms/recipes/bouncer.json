@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "S": {
+      "item": "minecraft:slime_ball"
+    },
+    "T": {
+      "tag": "forge:storage_blocks/tin"
+    }
+  },
+  "pattern": [
+    "SRS",
+    "STS",
+    "SRS"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:bouncer"
+  },
+  "show_notification": true
+}

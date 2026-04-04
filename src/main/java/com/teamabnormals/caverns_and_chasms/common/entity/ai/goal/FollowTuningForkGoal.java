@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;

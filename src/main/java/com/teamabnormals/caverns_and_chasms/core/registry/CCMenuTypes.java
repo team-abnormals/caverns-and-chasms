@@ -1,9 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.AtoningScreen;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.BejeweledAnvilScreen;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.DismantlingScreen;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.ToolboxScreen;
-import com.teamabnormals.caverns_and_chasms.common.inventory.DismantlingMenu;
-import com.teamabnormals.caverns_and_chasms.common.inventory.ToolboxMenu;
+import com.teamabnormals.caverns_and_chasms.common.inventory.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.flag.FeatureFlags;
@@ -16,10 +17,15 @@ public class CCMenuTypes {
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, CavernsAndChasms.MOD_ID);
 
 	public static final RegistryObject<MenuType<ToolboxMenu>> TOOLBOX = MENU_TYPES.register("toolbox", () -> new MenuType<>(ToolboxMenu::new, FeatureFlags.VANILLA_SET));
+	public static final RegistryObject<MenuType<StorageDuctMenu>> STORAGE_DUCT = MENU_TYPES.register("storage_duct", () -> new MenuType<>(StorageDuctMenu::new, FeatureFlags.VANILLA_SET));
 	public static final RegistryObject<MenuType<DismantlingMenu>> DISMANTLING = MENU_TYPES.register("dismantling", () -> new MenuType<>(DismantlingMenu::new, FeatureFlags.VANILLA_SET));
+	public static final RegistryObject<MenuType<BejeweledAnvilMenu>> BEJEWELED_ANVIL = MENU_TYPES.register("bejeweled_anvil", () -> new MenuType<>(BejeweledAnvilMenu::new, FeatureFlags.VANILLA_SET));
+	public static final RegistryObject<MenuType<AtoningMenu>> ATONING = MENU_TYPES.register("atoning", () -> new MenuType<>(AtoningMenu::new, FeatureFlags.VANILLA_SET));
 
 	public static void registerScreenFactories() {
-		MenuScreens.register(CCMenuTypes.TOOLBOX.get(), ToolboxScreen::new);
-		MenuScreens.register(CCMenuTypes.DISMANTLING.get(), DismantlingScreen::new);
+		MenuScreens.register(TOOLBOX.get(), ToolboxScreen::new);
+		MenuScreens.register(DISMANTLING.get(), DismantlingScreen::new);
+		MenuScreens.register(BEJEWELED_ANVIL.get(), BejeweledAnvilScreen::new);
+		MenuScreens.register(ATONING.get(), AtoningScreen::new);
 	}
 }

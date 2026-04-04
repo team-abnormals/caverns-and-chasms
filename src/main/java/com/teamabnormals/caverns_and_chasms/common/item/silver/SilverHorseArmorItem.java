@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -19,7 +18,7 @@ import java.util.UUID;
 public class SilverHorseArmorItem extends HorseArmorItem {
 
 	public SilverHorseArmorItem(Item.Properties builder) {
-		super(7, new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/horse/armor/horse_armor_silver.png"), builder);
+		super(7, CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_silver.png"), builder);
 	}
 
 	@Override

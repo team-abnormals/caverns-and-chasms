@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
@@ -28,6 +27,6 @@ public class CCSkullBlock extends SkullBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return !level.isClientSide || !state.is(CCBlocks.PEEPER_HEAD.get()) && !state.is(CCBlocks.PEEPER_WALL_HEAD.get()) && !state.is(CCBlocks.MIME_HEAD.get()) && !state.is(CCBlocks.MIME_WALL_HEAD.get()) ? null : createTickerHelper(type, CCBlockEntityTypes.SKULL.get(), SkullBlockEntity::animation);
+		return !level.isClientSide || !state.is(CCBlocks.PEEPER_HEAD.get()) && !state.is(CCBlocks.PEEPER_WALL_HEAD.get()) && !state.is(CCBlocks.MIME_HEAD.get()) && !state.is(CCBlocks.MIME_WALL_HEAD.get()) ? null : createTickerHelper(type, CCBlockEntityTypes.SKULL.get(), CCSkullBlockEntity::animation);
 	}
 }

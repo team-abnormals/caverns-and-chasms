@@ -1,5 +1,9 @@
 {
   "values": [
+    "#caverns_and_chasms:copper_helmets",
+    "#caverns_and_chasms:copper_chestplates",
+    "#caverns_and_chasms:copper_leggings",
+    "#caverns_and_chasms:copper_boots",
     "caverns_and_chasms:silver_helmet",
     "caverns_and_chasms:silver_chestplate",
     "caverns_and_chasms:silver_leggings",

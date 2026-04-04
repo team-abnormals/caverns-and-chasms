@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "waxed_weathered_copper_chestplate",
+  "key": {
+    "X": {
+      "item": "minecraft:waxed_weathered_copper"
+    }
+  },
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_weathered_copper_chestplate"
+  },
+  "show_notification": true
+}

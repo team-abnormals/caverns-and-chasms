@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "caverns_and_chasms:block/chiseled_calcite_down"
+    },
+    "facing=east": {
+      "model": "caverns_and_chasms:block/chiseled_calcite_north_east",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "caverns_and_chasms:block/chiseled_calcite_north_east",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "caverns_and_chasms:block/chiseled_calcite_south_west",
+      "x": 90
+    },
+    "facing=up": {
+      "model": "caverns_and_chasms:block/chiseled_calcite_up"
+    },
+    "facing=west": {
+      "model": "caverns_and_chasms:block/chiseled_calcite_south_west",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

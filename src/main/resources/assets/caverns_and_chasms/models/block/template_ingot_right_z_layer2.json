@@ -1,0 +1,20 @@
+{
+	"textures": {
+		"particle": "#ingot"
+	},
+	"elements": [
+		{
+			"from": [1, 4, 9],
+			"to": [16, 8, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8.5, 8, 8.5]},
+			"faces": {
+				"north": {"uv": [0, 7, 15, 11], "texture": "#ingot"},
+				"east": {"uv": [0, 11, 7, 15], "texture": "#ingot"},
+				"south": {"uv": [0, 7, 15, 11], "texture": "#ingot"},
+				"west": {"uv": [0, 11, 7, 15], "texture": "#ingot"},
+				"up": {"uv": [0, 0, 15, 7], "texture": "#ingot"},
+				"down": {"uv": [0, 0, 15, 7], "texture": "#ingot"}
+			}
+		}
+	]
+}

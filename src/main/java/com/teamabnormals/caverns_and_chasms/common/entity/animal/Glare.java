@@ -1,8 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowLikedPlayerGoal;
-import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.GoToDarkSpotGoal;
-import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.glare.FollowLikedPlayerGoal;
+import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.glare.GoToDarkSpotGoal;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -26,10 +25,12 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
@@ -60,6 +61,7 @@ public class Glare extends PathfinderMob {
 		super.registerGoals();
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.5F));
+		this.goalSelector.addGoal(2, new TemptGoal(this, 1.25D, Ingredient.of(CCItemTags.GLARE_FOOD), false));
 		this.goalSelector.addGoal(2, new FollowLikedPlayerGoal(this, 1.75F));
 		this.goalSelector.addGoal(3, new GoToDarkSpotGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -104,26 +106,11 @@ public class Glare extends PathfinderMob {
 
 
 	public static boolean checkGlareSpawnRules(EntityType<? extends Glare> glare, LevelAccessor level, MobSpawnType type, BlockPos pos, RandomSource random) {
-		if (pos.getY() < 48 && level.getBrightness(LightLayer.SKY, pos) == 0) {
-			int plants = 0;
-			int range = 5;
-
-			start:
-			for (int i = -range; i <= range; i++) {
-				for (int j = -range; j <= range; j++) {
-					for (int k = -range; k <= range; k++) {
-						if (level.getBlockState(pos.offset(i, j, k)).is(CCBlockTags.GLARE_SPAWNABLE_NEAR)) {
-							plants++;
-							if (plants > 10) {
-								break start;
-							}
-						}
-					}
-				}
-			}
-			return plants > 0 && (plants > 10 || random.nextInt(plants) != 0);
+		if (pos.getY() >= level.getSeaLevel()) {
+			return false;
+		} else {
+			return random.nextBoolean() && level.getMaxLocalRawBrightness(pos) <= random.nextInt(4) && checkMobSpawnRules(glare, level, type, pos, random);
 		}
-		return false;
 	}
 
 	@Override
@@ -171,7 +158,7 @@ public class Glare extends PathfinderMob {
 
 	@Override
 	public void travel(Vec3 p_218382_) {
-		if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
+		if (this.isControlledByLocalInstance()) {
 			if (this.isInWater()) {
 				this.moveRelative(0.02F, p_218382_);
 				this.move(MoverType.SELF, this.getDeltaMovement());
@@ -200,7 +187,7 @@ public class Glare extends PathfinderMob {
 		Entity attacker = source.getEntity();
 		if (attacker instanceof Player player) {
 			if (this.getOwnerUUID() != null && player.getUUID().equals(this.getOwnerUUID())) {
-				this.playSound(CCSoundEvents.ENTITY_GLARE_UNTAME.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.GLARE_UNTAME.get(), 1.0F, 1.0F);
 				this.addParticlesAroundSelf(ParticleTypes.ANGRY_VILLAGER);
 				this.setOwnerUUID(null);
 			}
@@ -224,17 +211,17 @@ public class Glare extends PathfinderMob {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isGrumpy() ? CCSoundEvents.ENTITY_GLARE_ANGRY.get() : CCSoundEvents.ENTITY_GLARE_AMBIENT.get();
+		return this.isGrumpy() ? CCSoundEvents.GLARE_ANGRY.get() : CCSoundEvents.GLARE_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_218369_) {
-		return CCSoundEvents.ENTITY_GLARE_HURT.get();
+		return CCSoundEvents.GLARE_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_GLARE_DEATH.get();
+		return CCSoundEvents.GLARE_DEATH.get();
 	}
 
 	@Override
@@ -261,19 +248,12 @@ public class Glare extends PathfinderMob {
 	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.is(CCItemTags.GLARE_FOOD)) {
-			this.level().playSound(player, this, CCSoundEvents.ENTITY_GLARE_EAT.get(), this.getSoundSource(), 1.0F, Mth.randomBetween(this.level().random, 0.8F, 1.2F));
+			this.level().playSound(player, this, CCSoundEvents.GLARE_EAT.get(), this.getSoundSource(), 1.0F, Mth.randomBetween(this.level().random, 0.8F, 1.2F));
 			this.addParticlesAroundSelf(ParticleTypes.HEART);
 			this.removeInteractionItem(player, stack);
 			this.setAngryAtUUID(null);
-			if (this.getOwnerUUID() == null) {
-				this.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
-				this.setOwnerUUID(player.getUUID());
-			}
-			return InteractionResult.SUCCESS;
-		} else if (this.getOwnerUUID() == null && this.getAngryAtUUID() != player.getUUID()) {
-			this.addParticlesAroundSelf(ParticleTypes.HEART);
+			this.playSound(CCSoundEvents.GLARE_TAME.get(), 1.0F, 1.0F);
 			this.setOwnerUUID(player.getUUID());
-			this.playSound(CCSoundEvents.ENTITY_GLARE_TAME.get(), 1.0F, 1.0F);
 			return InteractionResult.SUCCESS;
 		} else {
 			return super.mobInteract(player, hand);

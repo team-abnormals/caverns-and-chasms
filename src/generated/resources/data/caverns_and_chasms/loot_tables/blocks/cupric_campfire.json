@@ -40,7 +40,7 @@
                   "function": "minecraft:set_count"
                 }
               ],
-              "name": "minecraft:copper_block"
+              "name": "minecraft:raw_copper"
             }
           ]
         }

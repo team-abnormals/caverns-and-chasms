@@ -1,0 +1,20 @@
+{
+	"textures": {
+		"particle": "caverns_and_chasms:block/resistor_button",
+		"button": "caverns_and_chasms:block/resistor_button"
+	},
+	"elements": [
+		{
+			"from": [1.5, 2, 9],
+			"to": [3.5, 4, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 2, 9]},
+			"faces": {
+				"north": {"uv": [0, 2, 2, 4], "texture": "#button"},
+				"east": {"uv": [0, 2, 1, 4], "texture": "#button"},
+				"south": {"uv": [2, 2, 0, 4], "texture": "#button"},
+				"west": {"uv": [1, 2, 2, 4], "texture": "#button"},
+				"up": {"uv": [2, 2, 0, 3], "texture": "#button"}
+			}
+		}
+	]
+}

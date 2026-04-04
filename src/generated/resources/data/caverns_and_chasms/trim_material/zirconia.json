@@ -1,0 +1,9 @@
+{
+  "asset_name": "caverns_and_chasms_zirconia",
+  "description": {
+    "color": "#ADAFF1",
+    "translate": "trim_material.caverns_and_chasms.zirconia"
+  },
+  "ingredient": "caverns_and_chasms:zirconia",
+  "item_model_index": -1.0
+}

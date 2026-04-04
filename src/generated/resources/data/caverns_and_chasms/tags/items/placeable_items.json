@@ -1,0 +1,26 @@
+{
+  "values": [
+    "minecraft:coal",
+    "minecraft:charcoal",
+    "minecraft:brick",
+    "minecraft:nether_brick",
+    "minecraft:copper_ingot",
+    "caverns_and_chasms:exposed_copper_ingot",
+    "caverns_and_chasms:weathered_copper_ingot",
+    "caverns_and_chasms:oxidized_copper_ingot",
+    "caverns_and_chasms:waxed_copper_ingot",
+    "caverns_and_chasms:waxed_exposed_copper_ingot",
+    "caverns_and_chasms:waxed_weathered_copper_ingot",
+    "caverns_and_chasms:waxed_oxidized_copper_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:netherite_ingot",
+    "caverns_and_chasms:silver_ingot",
+    "caverns_and_chasms:tin_ingot",
+    "caverns_and_chasms:necromium_ingot",
+    {
+      "id": "endergetic:eumus_brick",
+      "required": false
+    }
+  ]
+}

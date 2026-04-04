@@ -1,12 +1,20 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "item/potion_overlay",
-        "layer1": "caverns_and_chasms:item/tether_potion"
-    },
-	"display": {
-		"head": {
-			"scale": [0, 0, 0]
-		}
-	}
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/potion_overlay",
+    "layer1": "caverns_and_chasms:item/tether_potion"
+  },
+  "display": {
+    "head": {
+      "scale": [0, 0, 0]
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "caverns_and_chasms:subtle": 1
+      },
+      "model": "caverns_and_chasms:item/subtle_tether_potion"
+    }
+  ]
 }

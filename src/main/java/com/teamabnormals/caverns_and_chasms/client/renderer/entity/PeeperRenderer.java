@@ -2,9 +2,10 @@ package com.teamabnormals.caverns_and_chasms.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.client.model.PeeperModel;
+import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperChargedLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPowerLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.PeeperPrimedLayer;
-import com.teamabnormals.caverns_and_chasms.common.entity.monster.Peeper;
+import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,12 +14,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
-	public static final ResourceLocation PEEPER = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper.png");
-	public static final ResourceLocation PEEPER_GLOW = new ResourceLocation(CavernsAndChasms.MOD_ID, "textures/entity/peeper/peeper_glow.png");
+	public static final ResourceLocation PEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/peeper/peeper.png");
+	public static final ResourceLocation PEEPER_GLOW = CavernsAndChasms.location("textures/entity/peeper/peeper_glow.png");
 
 	public PeeperRenderer(EntityRendererProvider.Context context) {
 		super(context, new PeeperModel<>(context.bakeLayer(CCModelLayers.PEEPER)), 0.5F);
-		this.addLayer(new PeeperPrimedLayer(this, context));
+		this.addLayer(new PeeperChargedLayer(this));
+		this.addLayer(new PeeperPrimedLayer(this));
 		this.addLayer(new PeeperPowerLayer(this, context.getModelSet()));
 	}
 
@@ -36,6 +38,6 @@ public class PeeperRenderer extends MobRenderer<Peeper, PeeperModel<Peeper>> {
 
 	@Override
 	public ResourceLocation getTextureLocation(Peeper entity) {
-		return PEEPER;
+		return PEEPER_TEXTURE;
 	}
 }

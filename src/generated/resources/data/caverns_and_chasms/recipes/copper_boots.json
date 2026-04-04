@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "copper_boots",
+  "key": {
+    "X": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "pattern": [
+    "X X",
+    "X X"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:copper_boots"
+  },
+  "show_notification": true
+}

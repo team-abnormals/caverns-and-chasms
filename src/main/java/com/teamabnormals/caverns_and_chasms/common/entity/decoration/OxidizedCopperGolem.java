@@ -26,9 +26,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -62,18 +62,18 @@ public class OxidizedCopperGolem extends LivingEntity {
 		this.entityData.define(WAXED, false);
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0D);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_HURT.get();
+		return CCSoundEvents.COPPER_GOLEM_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_DEATH.get();
+		return CCSoundEvents.COPPER_GOLEM_DEATH.get();
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 		ItemStack itemstack = player.getItemInHand(hand);
 		Item item = itemstack.getItem();
 		boolean success = false;
-		if (item == Items.HONEYCOMB) {
+		if (item instanceof HoneycombItem) {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);

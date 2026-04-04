@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "caverns_and_chasms:item/packing_container_filled",
+    "layer1": "caverns_and_chasms:item/packing_container_overlay"
+  }
+}

@@ -1,0 +1,772 @@
+{
+  "variants": {
+    "axis=x,power=0,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=0,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=0,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=0,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=1,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=1,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=1,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=1,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=10,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=10,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=10,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=10,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=11,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=11,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=11,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=11,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=12,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=12,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=12,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=12,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=13,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=13,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=13,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=13,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=14,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=14,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=14,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=14,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=15,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=15,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=15,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=15,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=2,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=2,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=2,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=2,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=3,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=3,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=3,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=3,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=4,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=4,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=4,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=4,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=5,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=5,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=5,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=5,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=6,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=6,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=6,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=6,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=7,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=7,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=7,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=7,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=8,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=8,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=8,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=8,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=9,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=9,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=9,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,power=9,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,power=0,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0"
+    },
+    "axis=y,power=0,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1"
+    },
+    "axis=y,power=0,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2"
+    },
+    "axis=y,power=0,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3"
+    },
+    "axis=y,power=1,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=1,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=1,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=1,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=10,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=10,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=10,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=10,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=11,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=11,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=11,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=11,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=12,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=12,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=12,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=12,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=13,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=13,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=13,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=13,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=14,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=14,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=14,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=14,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=15,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=15,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=15,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=15,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=2,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=2,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=2,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=2,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=3,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=3,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=3,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=3,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=4,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=4,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=4,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=4,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=5,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=5,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=5,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=5,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=6,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=6,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=6,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=6,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=7,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=7,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=7,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=7,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=8,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=8,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=8,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=8,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=y,power=9,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated"
+    },
+    "axis=y,power=9,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated"
+    },
+    "axis=y,power=9,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated"
+    },
+    "axis=y,power=9,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated"
+    },
+    "axis=z,power=0,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0",
+      "x": 90
+    },
+    "axis=z,power=0,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1",
+      "x": 90
+    },
+    "axis=z,power=0,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2",
+      "x": 90
+    },
+    "axis=z,power=0,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3",
+      "x": 90
+    },
+    "axis=z,power=1,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=1,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=1,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=1,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=10,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=10,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=10,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=10,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=11,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=11,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=11,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=11,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=12,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=12,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=12,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=12,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=13,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=13,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=13,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=13,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=14,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=14,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=14,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=14,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=15,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=15,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=15,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=15,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=2,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=2,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=2,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=2,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=3,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=3,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=3,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=3,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=4,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=4,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=4,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=4,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=5,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=5,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=5,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=5,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=6,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=6,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=6,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=6,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=7,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=7,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=7,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=7,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=8,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=8,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=8,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=8,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    },
+    "axis=z,power=9,size=0": {
+      "model": "caverns_and_chasms:block/hoop_size_0_activated",
+      "x": 90
+    },
+    "axis=z,power=9,size=1": {
+      "model": "caverns_and_chasms:block/hoop_size_1_activated",
+      "x": 90
+    },
+    "axis=z,power=9,size=2": {
+      "model": "caverns_and_chasms:block/hoop_size_2_activated",
+      "x": 90
+    },
+    "axis=z,power=9,size=3": {
+      "model": "caverns_and_chasms:block/hoop_size_3_activated",
+      "x": 90
+    }
+  }
+}

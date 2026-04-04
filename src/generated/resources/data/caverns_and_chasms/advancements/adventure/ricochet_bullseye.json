@@ -1,0 +1,49 @@
+{
+  "parent": "caverns_and_chasms:adventure/find_monolith",
+  "criteria": {
+    "ricochet_bullseye": {
+      "conditions": {
+        "projectile": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "ricochets",
+                "count": {
+                  "min": 3
+                }
+              }
+            }
+          }
+        ],
+        "signal_strength": 15
+      },
+      "trigger": "minecraft:target_hit"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.ricochet_bullseye.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:bouncer"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.ricochet_bullseye.title"
+    }
+  },
+  "requirements": [
+    [
+      "ricochet_bullseye"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

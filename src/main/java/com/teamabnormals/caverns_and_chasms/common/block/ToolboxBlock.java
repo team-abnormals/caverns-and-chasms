@@ -1,6 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
+import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -11,6 +13,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
@@ -24,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -223,13 +227,24 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 						++j;
 						if (i <= 4) {
 							++i;
-							components.add(itemstack.getHoverName().copy());
+
+							MutableComponent name = Component.empty().append(itemstack.getHoverName());
+							if (itemstack.hasCustomHoverName()) {
+								name.withStyle(ChatFormatting.ITALIC);
+							}
+							if (itemstack.getRarity() != Rarity.COMMON) {
+								name.withStyle(itemstack.getRarity().getStyleModifier());
+							} else {
+								name.withStyle(ChatFormatting.GRAY);
+							}
+
+							components.add(name);
 						}
 					}
 				}
 
 				if (j - i > 0) {
-					components.add(Component.translatable("container." + CavernsAndChasms.MOD_ID + ".toolbox.more", j - i).withStyle(ChatFormatting.ITALIC));
+					components.add(Component.translatable("container." + CavernsAndChasms.MOD_ID + ".toolbox.more", j - i).withStyle(ChatFormatting.GRAY));
 				}
 			}
 		}

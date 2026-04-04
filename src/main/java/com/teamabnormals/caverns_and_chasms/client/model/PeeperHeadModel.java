@@ -21,16 +21,15 @@ public class PeeperHeadModel extends SkullModel {
 		PartDefinition root = meshdefinition.getRoot();
 
 		PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -10.0F, -4.99F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)).texOffs(40, 0).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.25F)), PartPose.ZERO);
-		PartDefinition pupil = head.addOrReplaceChild("pupil", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.0F, -5.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.ZERO);
+		head.addOrReplaceChild("pupil", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.0F, -5.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.ZERO);
 
-		return LayerDefinition.create(meshdefinition, 128, 64);
+		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
 	@Override
 	public void setupAnim(float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(ageInTicks, netHeadYaw, headPitch);
-		if (ageInTicks < 0) {
+		if (ageInTicks < 0.0F)
 			this.head.yRot = ageInTicks;
-		}
 	}
 }

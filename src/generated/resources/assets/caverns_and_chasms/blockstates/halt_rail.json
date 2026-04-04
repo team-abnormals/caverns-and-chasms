@@ -1,0 +1,88 @@
+{
+  "variants": {
+    "bottom_powered=false,shape=ascending_east,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_raised_ne",
+      "y": 90
+    },
+    "bottom_powered=false,shape=ascending_east,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_ne",
+      "y": 90
+    },
+    "bottom_powered=false,shape=ascending_north,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_raised_ne"
+    },
+    "bottom_powered=false,shape=ascending_north,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_ne"
+    },
+    "bottom_powered=false,shape=ascending_south,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_raised_sw"
+    },
+    "bottom_powered=false,shape=ascending_south,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_sw"
+    },
+    "bottom_powered=false,shape=ascending_west,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_raised_sw",
+      "y": 90
+    },
+    "bottom_powered=false,shape=ascending_west,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on_raised_sw",
+      "y": 90
+    },
+    "bottom_powered=false,shape=east_west,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail",
+      "y": 90
+    },
+    "bottom_powered=false,shape=east_west,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on",
+      "y": 90
+    },
+    "bottom_powered=false,shape=north_south,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail"
+    },
+    "bottom_powered=false,shape=north_south,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_top_on"
+    },
+    "bottom_powered=true,shape=ascending_east,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_ne",
+      "y": 90
+    },
+    "bottom_powered=true,shape=ascending_east,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_on_raised_ne",
+      "y": 90
+    },
+    "bottom_powered=true,shape=ascending_north,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_ne"
+    },
+    "bottom_powered=true,shape=ascending_north,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_on_raised_ne"
+    },
+    "bottom_powered=true,shape=ascending_south,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_sw"
+    },
+    "bottom_powered=true,shape=ascending_south,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_on_raised_sw"
+    },
+    "bottom_powered=true,shape=ascending_west,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on_raised_sw",
+      "y": 90
+    },
+    "bottom_powered=true,shape=ascending_west,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_on_raised_sw",
+      "y": 90
+    },
+    "bottom_powered=true,shape=east_west,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on",
+      "y": 90
+    },
+    "bottom_powered=true,shape=east_west,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_on",
+      "y": 90
+    },
+    "bottom_powered=true,shape=north_south,top_powered=false": {
+      "model": "caverns_and_chasms:block/halt_rail_bottom_on"
+    },
+    "bottom_powered=true,shape=north_south,top_powered=true": {
+      "model": "caverns_and_chasms:block/halt_rail_on"
+    }
+  }
+}

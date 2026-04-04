@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "weathered_toolbox",
+  "key": {
+    "C": {
+      "item": "minecraft:weathered_copper"
+    },
+    "I": {
+      "item": "caverns_and_chasms:weathered_copper_ingot"
+    }
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "CCC"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:weathered_toolbox"
+  },
+  "show_notification": true
+}

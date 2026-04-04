@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "oxidized_copper_ingot",
+  "ingredients": [
+    {
+      "item": "minecraft:oxidized_copper"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "caverns_and_chasms:oxidized_copper_ingot"
+  }
+}

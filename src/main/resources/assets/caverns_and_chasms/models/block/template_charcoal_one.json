@@ -1,0 +1,21 @@
+{
+	"textures": {
+		"particle": "#coal"
+	},
+	"elements": [
+		{
+			"name": "charcoal1",
+			"from": [5, 0, 5],
+			"to": [10, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"east": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"south": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"west": {"uv": [0, 5, 5, 12], "texture": "#coal"},
+				"up": {"uv": [0, 0, 5, 5], "texture": "#coal"},
+				"down": {"uv": [5, 0, 10, 5], "texture": "#coal"}
+			}
+		}
+	]
+}

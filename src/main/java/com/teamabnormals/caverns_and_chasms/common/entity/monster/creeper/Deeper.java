@@ -1,0 +1,213 @@
+package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
+
+import com.google.common.collect.Lists;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.common.IForgeShearable;
+import net.minecraftforge.common.ToolActions;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
+
+public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
+	private static final EntityDataAccessor<Integer> HAT = SynchedEntityData.defineId(Deeper.class, EntityDataSerializers.INT);
+
+	public Deeper(EntityType<? extends Deeper> type, Level level) {
+		super(type, level);
+		this.explosionRadius = 4;
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(HAT, 0);
+	}
+
+	public static AttributeSupplier.Builder createAttributes() {
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 25.0D).add(Attributes.MOVEMENT_SPEED, 0.24D);
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+		return CCSoundEvents.DEEPER_HURT.get();
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return CCSoundEvents.DEEPER_DEATH.get();
+	}
+
+	@Override
+	protected SoundEvent getPrimedSound() {
+		return CCSoundEvents.DEEPER_PRIMED.get();
+	}
+
+	@Override
+	protected SoundEvent getExplosionSound() {
+		return CCSoundEvents.DEEPER_EXPLODE.get();
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putString("Hat", this.getHat().getSerializedName());
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.setHat(DeeperHat.byName(compound.getString("Hat")));
+	}
+
+	public DeeperHat getHat() {
+		return DeeperHat.byId(this.entityData.get(HAT));
+	}
+
+	public void setHat(DeeperHat hat) {
+		this.entityData.set(HAT, hat.getId());
+	}
+
+	@Override
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+		ItemStack itemstack = player.getItemInHand(hand);
+		DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
+
+		if (hat != DeeperHat.NONE && hat != this.getHat()) {
+			this.level().playSound(null, this, CCSoundEvents.CAVE_GROWTHS_PLACE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+			if (!this.level().isClientSide)
+				this.setHat(hat);
+			if (!player.getAbilities().instabuild)
+				itemstack.shrink(1);
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
+		}
+
+		return super.mobInteract(player, hand);
+	}
+
+	@Override
+	public void shear(SoundSource soundSource) {
+		// TODO: Replace SoundEvent
+		this.level().playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, soundSource, 1.0F, 1.0F);
+		if (!this.level().isClientSide()) {
+			this.spawnAtLocation(new ItemStack(this.getHat().getItem()), 1.7F);
+			this.setHat(DeeperHat.NONE);
+		}
+	}
+
+	@Override
+	public List<ItemStack> onSheared(Player player, ItemStack item, Level level, BlockPos pos, int fortune) {
+		level.playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+		this.gameEvent(GameEvent.SHEAR, player);
+		if (!level.isClientSide()) {
+			ItemStack itemstack = new ItemStack(this.getHat().getItem());
+			this.setHat(DeeperHat.NONE);
+			return Collections.singletonList(itemstack);
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public boolean readyForShearing() {
+		return this.isAlive() && this.getHat() != DeeperHat.NONE;
+	}
+
+	@Override
+	public boolean isShearable(ItemStack stack, Level level, BlockPos pos) {
+		return this.readyForShearing();
+	}
+
+	@Override
+	public boolean hurt(DamageSource source, float amount) {
+		if (!this.level().isClientSide() && source.getEntity() instanceof LivingEntity entity) {
+			ItemStack stack = entity.getMainHandItem();
+			if (stack.canPerformAction(ToolActions.PICKAXE_DIG)) {
+				amount *= 2.5F;
+				amount += Enchantments.SHARPNESS.getDamageBonus(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack), this.getMobType(), stack);
+			}
+		}
+		return super.hurt(source, amount);
+	}
+
+	@Override
+	protected void dropCustomDeathLoot(DamageSource source, int p_34292_, boolean p_34293_) {
+		super.dropCustomDeathLoot(source, p_34292_, p_34293_);
+
+		if (this.getHat() != DeeperHat.NONE && random.nextBoolean()) {
+			this.spawnAtLocation(this.getHat().getItem());
+		}
+	}
+
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag compound) {
+		if (level.getRandom().nextFloat() < 0.05F + level.getMoonBrightness() * 0.05F) {
+			if (level.getRandom().nextFloat() < 0.1F) {
+				this.setHat(DeeperHat.MOSCHATEL);
+			} else if (level.getRandom().nextFloat() < 0.7F) {
+				this.setHat(DeeperHat.STANDARD);
+			} else {
+				List<DeeperHat> possibleHats = Lists.newArrayList();
+				BlockPos blockpos = this.blockPosition();
+				Holder<Biome> biome = level.getBiome(blockpos);
+
+				if (blockpos.getY() < 0 || (biome.is(CCBiomeTags.HAS_GRAINY_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_GRAINY_CAVE_GROWTHS)))
+					possibleHats.add(DeeperHat.GRAINY);
+
+				if (biome.is(CCBiomeTags.HAS_ZESTY_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_ZESTY_CAVE_GROWTHS))
+					possibleHats.add(DeeperHat.ZESTY);
+
+				if (biome.is(CCBiomeTags.HAS_WISPY_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_WISPY_CAVE_GROWTHS))
+					possibleHats.add(DeeperHat.WISPY);
+
+				if (biome.is(CCBiomeTags.HAS_LURID_CAVE_GROWTHS) && !biome.is(CCBiomeTags.WITHOUT_LURID_CAVE_GROWTHS))
+					possibleHats.add(DeeperHat.LURID);
+
+				if (level.getLevel().structureManager().hasAnyStructureAt(this.blockPosition()))
+					possibleHats.add(DeeperHat.WEIRD);
+
+				if (!possibleHats.isEmpty())
+					this.setHat(possibleHats.get(level.getRandom().nextInt(possibleHats.size())));
+				else
+					this.setHat(DeeperHat.STANDARD);
+			}
+		}
+
+		return super.finalizeSpawn(level, difficulty, spawnType, groupData, compound);
+	}
+
+	@Override
+	protected ItemStack getSkull() {
+		return new ItemStack(CCItems.DEEPER_HEAD.get());
+	}
+
+	@Override
+	public boolean canDropMobsSkull() {
+		return this.isPowered() && (this.droppedSkulls < 1 || this.getRandom().nextBoolean());
+	}
+}

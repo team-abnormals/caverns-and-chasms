@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:zirconia_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_zirconia": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:zirconia"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_zirconia",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:zirconia_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

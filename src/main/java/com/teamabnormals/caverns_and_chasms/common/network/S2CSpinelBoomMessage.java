@@ -65,11 +65,13 @@ public class S2CSpinelBoomMessage {
 
 	public static void handle(S2CSpinelBoomMessage message, Supplier<NetworkEvent.Context> ctx) {
 		NetworkEvent.Context context = ctx.get();
-		LocalPlayer player = Minecraft.getInstance().player;
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-			SpinelBoom boom = new SpinelBoom(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength);
-			boom.finalizeExplosion(true);
-			context.setPacketHandled(true);
+			context.enqueueWork(() -> {
+				LocalPlayer player = Minecraft.getInstance().player;
+				SpinelBoom boom = new SpinelBoom(player.getCommandSenderWorld(), null, message.posX, message.posY, message.posZ, message.strength);
+				boom.finalizeExplosion(true);
+			});
 		}
+		context.setPacketHandled(true);
 	}
 }

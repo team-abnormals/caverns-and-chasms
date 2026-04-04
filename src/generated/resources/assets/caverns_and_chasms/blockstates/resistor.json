@@ -1,0 +1,628 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_on"
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_1"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_2"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_3"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_4"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_5"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_6"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_7"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_8"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "8"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_9"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "9"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_10"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "10"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_11"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "11"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_12"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "12"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_13"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "13"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_14"
+      },
+      "when": {
+        "facing": "north",
+        "resistance": "14"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_1",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_2",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_3",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_4",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_5",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_6",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_7",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_8",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "8"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_9",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "9"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_10",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "10"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_11",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "11"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_12",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "12"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_13",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "13"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_14",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "resistance": "14"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_1",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_2",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_3",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_4",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_5",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_6",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_7",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_8",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "8"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_9",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "9"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_10",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "10"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_11",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "11"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_12",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "12"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_13",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "13"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_14",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "resistance": "14"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_1",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_2",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_3",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_4",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_5",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_6",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_7",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_8",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "8"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_9",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "9"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_10",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "10"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_11",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "11"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_12",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "12"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_13",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "13"
+      }
+    },
+    {
+      "apply": {
+        "model": "caverns_and_chasms:block/resistor_button_14",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "resistance": "14"
+      }
+    }
+  ]
+}

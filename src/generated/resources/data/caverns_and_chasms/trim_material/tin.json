@@ -1,0 +1,9 @@
+{
+  "asset_name": "caverns_and_chasms_tin",
+  "description": {
+    "color": "#CEC0A3",
+    "translate": "trim_material.caverns_and_chasms.tin"
+  },
+  "ingredient": "caverns_and_chasms:tin_ingot",
+  "item_model_index": -1.0
+}

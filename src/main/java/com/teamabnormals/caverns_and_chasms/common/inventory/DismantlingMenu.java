@@ -1,9 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
@@ -37,7 +40,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 	protected CCItemCombinerMenuSlotDefinition createSlotDefinitions() {
 		return CCItemCombinerMenuSlotDefinition.create()
 				.withSlot(0, 8, 48, (stack) -> this.areResultsEmpty() && !this.getResultContainer(stack).isEmpty())
-				.withSlot(1, 26, 48, (stack) -> stack.is(CCItems.SPINEL.get()))
+				.withSlot(1, 26, 48, (stack) -> stack.is(CCItemTags.DISMANTLING_FUELS))
 				.withResultSlot(0, 80, 48)
 				.withResultSlot(1, 98, 48)
 				.withResultSlot(2, 116, 48)
@@ -64,8 +67,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		this.shrinkStackInSlot(0);
 		if (firstTake) {
 			this.shrinkStackInSlot(1);
-			this.access.execute((p_40263_, p_40264_) -> p_40263_.levelEvent(1044, p_40264_, 0));
-
+			this.access.execute((level, pos) -> level.levelEvent(1044, pos, 0));
 			if (player instanceof ServerPlayer serverPlayer) {
 				CCCriteriaTriggers.DISMANTLED_ITEM.trigger(serverPlayer);
 			}
@@ -85,7 +87,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		Container container = this.getResultContainer(this.inputSlots.getItem(0));
 		List<SmithingRecipe> list = this.level.getRecipeManager().getRecipesFor(RecipeType.SMITHING, container, this.level);
 
-		if (this.durabilityError() || ((list.isEmpty() || this.inputSlots.getItem(0).isEmpty() || this.inputSlots.getItem(1).isEmpty()) && this.areResultsFull())) {
+		if ((list.isEmpty() || this.inputSlots.getItem(0).isEmpty() || this.inputSlots.getItem(1).isEmpty()) && this.areResultsFull()) {
 			this.resultSlots.setItem(0, ItemStack.EMPTY);
 			this.resultSlots.setItem(1, ItemStack.EMPTY);
 			this.resultSlots.setItem(2, ItemStack.EMPTY);
@@ -96,31 +98,56 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 		}
 	}
 
-	public boolean durabilityError() {
-		ItemStack stack = this.getSlot(0).getItem();
-		return !stack.isEmpty() && stack.getMaxDamage() - stack.getDamageValue() < stack.getMaxDamage() / 2;
-	}
-
 	public Container getResultContainer(ItemStack stack) {
 		Container container = new SimpleContainer(3);
-		ItemStack armor = stack.copy();
+		ItemStack item = stack.copy();
 
-		Optional<ArmorTrim> trim = ArmorTrim.getTrim(level.registryAccess(), armor);
+		Optional<ArmorTrim> trim = ArmorTrim.getTrim(level.registryAccess(), item);
 		if (trim.isPresent()) {
-			ItemStack item = trim.get().material().get().ingredient().get().getDefaultInstance();
-			ItemStack template = trim.get().pattern().get().templateItem().get().getDefaultInstance();
-			armor.getOrCreateTag().remove("Trim");
-
-			container.setItem(0, template);
-			container.setItem(1, armor);
-			container.setItem(2, item);
-		} else {
+			CompoundTag tag = item.getOrCreateTag();
+			if (tag.getBoolean("PulseTrim")) {
+				item.getOrCreateTag().remove("PulseTrim");
+				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
+				container.setItem(1, item);
+				container.setItem(2, new ItemStack(Items.PRISMARINE));
+			} else if (tag.getBoolean("FadedTrim")) {
+				item.getOrCreateTag().remove("FadedTrim");
+				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
+				container.setItem(1, item);
+				container.setItem(2, new ItemStack(CCItems.SPINEL.get()));
+			} else if (tag.getBoolean("EmissiveTrim")) {
+				item.getOrCreateTag().remove("EmissiveTrim");
+				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
+				container.setItem(1, item);
+				container.setItem(2, new ItemStack(Items.GLOW_INK_SAC));
+			} else {
+				ItemStack ingredient = trim.get().material().get().ingredient().get().getDefaultInstance();
+				ItemStack template = trim.get().pattern().get().templateItem().get().getDefaultInstance();
+				template.getOrCreateTag();
+				item.getOrCreateTag().remove("Trim");
+				container.setItem(0, template);
+				container.setItem(1, item);
+				container.setItem(2, ingredient);
+			}
+		} else if (!item.is(CCItemTags.DISMANTLING_TABLE_CANNOT_DISMANTLE)) {
 			List<SmithingRecipe> list = this.level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING);
 			for (SmithingRecipe recipe : list) {
-				if (recipe instanceof SmithingTransformRecipe transform && transform.getResultItem(level.registryAccess()).is(armor.getItem())) {
-					container.setItem(0, transform.template.getItems()[0].copy());
-					container.setItem(1, transform.base.getItems()[0].copy());
-					container.setItem(2, transform.addition.getItems()[0].copy());
+				if (recipe instanceof SmithingTransformRecipe transform && transform.getResultItem(level.registryAccess()).is(item.getItem())) {
+					if (transform.template.getItems().length > 0) {
+						container.setItem(0, transform.template.getItems()[0].copy());
+					}
+
+					if (transform.base.getItems().length > 0) {
+						ItemStack base = transform.base.getItems()[0].copy();
+						base.setTag(item.getOrCreateTag().copy());
+						container.setItem(1, base);
+					}
+
+					if (transform.addition.getItems().length > 0) {
+						container.setItem(2, transform.addition.getItems()[0].copy());
+					}
+
+					break;
 				}
 			}
 		}
@@ -135,7 +162,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 
 	private Optional<Integer> findSlotMatchingIngredient(ItemStack ingredient) {
 		return this.areResultsEmpty() && !this.getResultContainer(ingredient).getItem(1).isEmpty() ? Optional.of(0) :
-				ingredient.is(CCItems.SPINEL.get()) ? Optional.of(1) : Optional.empty();
+				ingredient.is(CCItemTags.DISMANTLING_FUELS) ? Optional.of(1) : Optional.empty();
 	}
 
 	@Override

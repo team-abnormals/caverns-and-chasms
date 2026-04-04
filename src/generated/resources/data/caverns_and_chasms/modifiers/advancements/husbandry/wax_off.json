@@ -20,9 +20,6 @@
                   "condition": "minecraft:location_check",
                   "predicate": {
                     "block": {
-                      "state": {
-                        "powered": "false"
-                      },
                       "tag": "forge:waxed_copper_blocks"
                     }
                   }

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "caverns_and_chasms:waxed_copper_pickaxe"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_shovel"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_axe"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_hoe"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_sword"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_helmet"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_chestplate"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_leggings"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_copper_boots"
+    }
+  ],
+  "result": "caverns_and_chasms:waxed_copper_ingot"
+}

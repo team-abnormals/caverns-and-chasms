@@ -1,7 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.core.other.CCDamageTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -11,6 +12,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -24,10 +26,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import javax.annotation.Nullable;
 
 public class LavaLampBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
 	private static final VoxelShape X_LAVA_SHAPE = box(2.0D, 4.0D, 4.0D, 14.0D, 12.0D, 12.0D);
@@ -118,6 +123,9 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 				level.addParticle(CCParticleTypes.LAVA_LAMP_SMOKE.get(), pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0.0D, 0.0D, 0.0D);
 			}
 		}
+
+		if (random.nextInt(30) == 0)
+			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.LAVA_LAMP_GLUG.get(), SoundSource.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
 	}
 
 	@Override
@@ -148,5 +156,11 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	@Override
 	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
 		return false;
+	}
+
+	@Nullable
+	@Override
+	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
+		return BlockPathTypes.DAMAGE_FIRE;
 	}
 }

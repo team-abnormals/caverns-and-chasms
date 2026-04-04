@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "exposed_copper_ingot",
+  "ingredients": [
+    {
+      "item": "minecraft:exposed_copper"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "caverns_and_chasms:exposed_copper_ingot"
+  }
+}

@@ -6,6 +6,11 @@
     "caverns_and_chasms:golden_water_bucket",
     "caverns_and_chasms:golden_lava_bucket",
     "caverns_and_chasms:golden_milk_bucket",
-    "caverns_and_chasms:golden_powder_snow_bucket"
+    "caverns_and_chasms:golden_powder_snow_bucket",
+    "caverns_and_chasms:gold_bricks",
+    "caverns_and_chasms:gold_brick_stairs",
+    "caverns_and_chasms:gold_brick_slab",
+    "caverns_and_chasms:gold_brick_wall",
+    "caverns_and_chasms:chiseled_gold_bricks"
   ]
 }

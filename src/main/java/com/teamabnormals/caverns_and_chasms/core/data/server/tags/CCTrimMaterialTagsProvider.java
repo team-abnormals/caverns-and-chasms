@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintTrimMaterialTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCTrimMaterials;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -23,8 +23,15 @@ public class CCTrimMaterialTagsProvider extends TagsProvider<TrimMaterial> {
 		this.tag(BlueprintTrimMaterialTags.GENERATES_OVERRIDES).add(
 				CCTrimMaterials.SANGUINE,
 				CCTrimMaterials.SILVER,
+				CCTrimMaterials.TIN,
 				CCTrimMaterials.SPINEL,
-				CCTrimMaterials.NECROMIUM
+				CCTrimMaterials.ZIRCONIA,
+				CCTrimMaterials.TURQUOISE,
+				CCTrimMaterials.NECROMIUM,
+				CCTrimMaterials.WAXED_COPPER,
+				CCTrimMaterials.EXPOSED_COPPER, CCTrimMaterials.WAXED_EXPOSED_COPPER,
+				CCTrimMaterials.WEATHERED_COPPER, CCTrimMaterials.WAXED_WEATHERED_COPPER,
+				CCTrimMaterials.OXIDIZED_COPPER, CCTrimMaterials.WAXED_OXIDIZED_COPPER
 		);
 	}
 }

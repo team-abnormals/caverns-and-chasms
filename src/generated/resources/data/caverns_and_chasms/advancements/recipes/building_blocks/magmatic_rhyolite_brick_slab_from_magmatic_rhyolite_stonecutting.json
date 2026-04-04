@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_magmatic_rhyolite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:magmatic_rhyolite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:magmatic_rhyolite_brick_slab_from_magmatic_rhyolite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_magmatic_rhyolite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:magmatic_rhyolite_brick_slab_from_magmatic_rhyolite_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

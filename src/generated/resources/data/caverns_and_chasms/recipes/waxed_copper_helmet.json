@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "waxed_copper_helmet",
+  "key": {
+    "X": {
+      "item": "minecraft:waxed_copper_block"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X X"
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_copper_helmet"
+  },
+  "show_notification": true
+}

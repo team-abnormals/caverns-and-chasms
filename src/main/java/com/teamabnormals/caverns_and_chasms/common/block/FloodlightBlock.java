@@ -4,8 +4,11 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,6 +23,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -82,6 +86,15 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 				case WEATHERED -> CCParticleTypes.WEATHERED_FLOODLIGHT_DUST.get();
 				case OXIDIZED -> CCParticleTypes.OXIDIZED_FLOODLIGHT_DUST.get();
 			}, pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0, 0, 0);
+		}
+	}
+
+	@Override
+	public void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
+		if (!level.isClientSide && hitResult.getDirection() == state.getValue(FACING)) {
+			BlockPos blockpos = hitResult.getBlockPos();
+			level.playSound(null, blockpos, SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0F, 0.5F + level.random.nextFloat() * 1.2F);
+			level.playSound(null, blockpos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0F, 0.5F + level.random.nextFloat() * 1.2F);
 		}
 	}
 

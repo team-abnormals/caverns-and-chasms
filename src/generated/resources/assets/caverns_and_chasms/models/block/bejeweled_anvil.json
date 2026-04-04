@@ -1,0 +1,11 @@
+{
+  "parent": "caverns_and_chasms:block/template_bejeweled_anvil",
+  "textures": {
+    "base_bottom": "caverns_and_chasms:block/bejeweled_anvil_base_bottom",
+    "base_top": "caverns_and_chasms:block/bejeweled_anvil_base_top",
+    "bottom": "caverns_and_chasms:block/bejeweled_anvil_bottom",
+    "front": "caverns_and_chasms:block/bejeweled_anvil_front",
+    "side": "caverns_and_chasms:block/bejeweled_anvil_side",
+    "top": "caverns_and_chasms:block/bejeweled_anvil_top"
+  }
+}

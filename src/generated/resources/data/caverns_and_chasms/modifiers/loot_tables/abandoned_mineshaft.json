@@ -13,6 +13,11 @@
             "type": "minecraft:item",
             "name": "caverns_and_chasms:depth_gauge",
             "weight": 5
+          },
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:toolbelt",
+            "weight": 5
           }
         ],
         "index": 0,
@@ -54,6 +59,22 @@
             ],
             "name": "caverns_and_chasms:spinel",
             "weight": 5
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 3.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:tin_ingot",
+            "weight": 2
           }
         ],
         "index": 1,
@@ -64,6 +85,22 @@
       "type": "entries",
       "config": {
         "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 12.0,
+                  "min": 4.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:sparkler",
+            "weight": 15
+          },
           {
             "type": "minecraft:item",
             "functions": [

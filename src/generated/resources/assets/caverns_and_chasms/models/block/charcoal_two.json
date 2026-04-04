@@ -1,0 +1,6 @@
+{
+  "parent": "caverns_and_chasms:block/template_charcoal_two",
+  "textures": {
+    "coal": "caverns_and_chasms:block/charcoal"
+  }
+}

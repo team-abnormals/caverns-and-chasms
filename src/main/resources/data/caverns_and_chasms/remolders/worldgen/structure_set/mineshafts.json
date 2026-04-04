@@ -1,0 +1,12 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "add",
+    "target": "structures[]",
+    "value": {
+      "structure": "caverns_and_chasms:mineshaft_lush",
+      "weight": 1
+    }
+  },
+  "selector": "minecraft:worldgen/structure_set/mineshafts"
+}

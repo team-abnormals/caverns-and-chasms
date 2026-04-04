@@ -71,7 +71,7 @@ public class Mime extends Monster {
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 30.0F)
 				.add(Attributes.FOLLOW_RANGE, 35.0D)
@@ -84,8 +84,8 @@ public class Mime extends Monster {
 		return pos.getY() <= 48 && (random.nextInt(10) == 0 || pos.getY() <= 0) && checkUndergroundMonsterSpawnRules(type, level, reason, pos, random);
 	}
 
-	public static boolean checkUndergroundMonsterSpawnRules(EntityType<? extends Monster> monster, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource p_219018_) {
-		return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawnNoSkylight(level, pos, p_219018_) && checkMobSpawnRules(monster, level, reason, pos, p_219018_);
+	public static boolean checkUndergroundMonsterSpawnRules(EntityType<? extends Mob> monster, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+		return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawnNoSkylight(level, pos, random) && checkMobSpawnRules(monster, level, reason, pos, random);
 	}
 
 	public static boolean isDarkEnoughToSpawnNoSkylight(ServerLevelAccessor level, BlockPos pos, RandomSource random) {
@@ -105,12 +105,12 @@ public class Mime extends Monster {
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_MIME_DEATH.get();
+		return CCSoundEvents.MIME_DEATH.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return CCSoundEvents.ENTITY_MIME_HURT.get();
+		return CCSoundEvents.MIME_HURT.get();
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class Mime extends Monster {
 			}
 
 			if (mimed) {
-				this.playSound(CCSoundEvents.ENTITY_MIME_IMPERSONATE.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.MIME_IMPERSONATE.get(), 1.0F, 1.0F);
 			}
 		}
 		return result;
@@ -167,7 +167,7 @@ public class Mime extends Monster {
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
 						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem(this.level().registryAccess()).copy());
-						source.playSound(CCSoundEvents.ENTITY_MIME_MIME.get(), 1.0F, 1.0F);
+						this.level().playSound(null, this, CCSoundEvents.MIME_CONVERT.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 						return;
 					}
 				}
@@ -238,7 +238,7 @@ public class Mime extends Monster {
 							}
 
 							if (mimed)
-								this.level().playSound(null, this, CCSoundEvents.ENTITY_MIME_MIME.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+								this.level().playSound(null, this, CCSoundEvents.MIME_MIME.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
 						}
 					} else if (this.shouldCopyItem(this.getMainHandItem(), target.getMainHandItem()) || this.shouldCopyItem(this.getOffhandItem(), target.getOffhandItem())) {
 						this.copyTime = this.random.nextInt(3) + 4;

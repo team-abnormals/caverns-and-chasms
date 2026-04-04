@@ -6,6 +6,19 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type_specific": {
+                  "type": "copper_golem",
+                  "oxidation": 3,
+                  "waxed": false
+                }
+              }
+            }
+          ],
           "functions": [
             {
               "add": false,
@@ -17,7 +30,35 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:copper_ingot"
+          "name": "caverns_and_chasms:oxidized_copper_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type_specific": {
+                  "type": "copper_golem",
+                  "oxidation": 3,
+                  "waxed": true
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "caverns_and_chasms:waxed_oxidized_copper_ingot"
         }
       ],
       "rolls": 1.0

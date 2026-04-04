@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "group": "turquoise",
+  "ingredient": {
+    "item": "caverns_and_chasms:turquoise_ore"
+  },
+  "result": "caverns_and_chasms:turquoise"
+}

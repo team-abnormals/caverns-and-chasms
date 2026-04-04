@@ -1,0 +1,38 @@
+{
+  "modifiers": [
+    {
+      "type": "pools",
+      "config": {
+        "pools": [
+          {
+            "bonus_rolls": 0.0,
+            "entries": [
+              {
+                "type": "minecraft:item",
+                "conditions": [
+                  {
+                    "chance": 0.1,
+                    "condition": "minecraft:random_chance"
+                  }
+                ],
+                "functions": [
+                  {
+                    "add": false,
+                    "count": 1.0,
+                    "function": "minecraft:set_count"
+                  }
+                ],
+                "name": "caverns_and_chasms:turquoise"
+              }
+            ],
+            "name": "caverns_and_chasms:turquoise",
+            "rolls": 1.0
+          }
+        ],
+        "replace": false
+      }
+    }
+  ],
+  "priority": "normal",
+  "selector": "minecraft:entities/elder_guardian"
+}

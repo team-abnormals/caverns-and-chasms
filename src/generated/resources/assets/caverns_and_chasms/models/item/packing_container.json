@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "caverns_and_chasms:item/packing_container_filled",
+      "predicate": {
+        "minecraft:dyed": 0.0,
+        "minecraft:filled": 1.0E-7
+      }
+    },
+    {
+      "model": "caverns_and_chasms:item/packing_container_dyed",
+      "predicate": {
+        "minecraft:dyed": 1.0
+      }
+    },
+    {
+      "model": "caverns_and_chasms:item/packing_container_dyed_filled",
+      "predicate": {
+        "minecraft:dyed": 1.0,
+        "minecraft:filled": 1.0E-7
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "caverns_and_chasms:item/packing_container"
+  }
+}

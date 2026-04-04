@@ -1,0 +1,14 @@
+{
+  "assets": {
+    "hurt": "caverns_and_chasms:entity/rat/black_rat_hurt",
+    "normal": "caverns_and_chasms:entity/rat/black_rat"
+  },
+  "description": {
+    "translate": "rat_variant.caverns_and_chasms.black"
+  },
+  "dirty_assets": {
+    "hurt": "caverns_and_chasms:entity/rat/black_rat_hurt_dirty",
+    "normal": "caverns_and_chasms:entity/rat/black_rat_dirty"
+  },
+  "weight": 5
+}

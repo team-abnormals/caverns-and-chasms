@@ -1,0 +1,29 @@
+{
+  "parent": "caverns_and_chasms:adventure/find_monolith",
+  "criteria": {
+    "hatch_saddled_grazer": {
+      "trigger": "caverns_and_chasms:hatch_saddled_grazer"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.hatch_saddled_grazer.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "caverns_and_chasms:saddled_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.hatch_saddled_grazer.title"
+    }
+  },
+  "requirements": [
+    [
+      "hatch_saddled_grazer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -24,7 +24,12 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 				EXSANGUINATED.getKey(),
 				EMBEDDED.getKey(),
 				NOIR.getKey(),
-				STARRY_NIGHT.getKey()
+				STARRY_NIGHT.getKey(),
+				KNIGHT.getKey(),
+				PROTOTYPE_701.getKey(),
+				SQUIRMY.getKey(),
+				THE_ENIGMA.getKey(),
+				CHEF.getKey()
 		);
 	}
 }

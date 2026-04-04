@@ -1,0 +1,7 @@
+{
+  "asset_id": "caverns_and_chasms:core",
+  "description": {
+    "translate": "trim_pattern.caverns_and_chasms.core"
+  },
+  "template_item": "caverns_and_chasms:core_armor_trim_smithing_template"
+}

@@ -4,7 +4,7 @@
       "model": "caverns_and_chasms:block/polished_sugilite_slab"
     },
     "type=double": {
-      "model": "caverns_and_chasms:block/polished_sugilite"
+      "model": "caverns_and_chasms:block/polished_sugilite_slab_double"
     },
     "type=top": {
       "model": "caverns_and_chasms:block/polished_sugilite_slab_top"

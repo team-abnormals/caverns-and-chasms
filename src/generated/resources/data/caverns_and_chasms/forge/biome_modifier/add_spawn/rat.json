@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#caverns_and_chasms:has_animal/rat",
+  "spawners": {
+    "type": "caverns_and_chasms:rat",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 10
+  }
+}

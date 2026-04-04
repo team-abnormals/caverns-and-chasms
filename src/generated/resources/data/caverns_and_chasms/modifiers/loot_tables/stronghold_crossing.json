@@ -8,6 +8,16 @@
             "type": "minecraft:item",
             "functions": [
               {
+                "function": "minecraft:enchant_randomly"
+              }
+            ],
+            "name": "caverns_and_chasms:cowl",
+            "weight": 2
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
                 "add": false,
                 "count": {
                   "type": "minecraft:uniform",
@@ -19,6 +29,22 @@
             ],
             "name": "caverns_and_chasms:silver_ingot",
             "weight": 5
+          },
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "add": false,
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max": 3.0,
+                  "min": 1.0
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "caverns_and_chasms:bejeweled_apple",
+            "weight": 10
           }
         ],
         "index": 0,

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": {
+      "item": "minecraft:lever"
+    },
+    "T": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    " T ",
+    "TLT",
+    " T "
+  ],
+  "result": {
+    "item": "caverns_and_chasms:winch"
+  },
+  "show_notification": true
+}

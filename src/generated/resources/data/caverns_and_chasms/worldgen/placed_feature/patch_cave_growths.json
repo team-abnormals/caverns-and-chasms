@@ -1,0 +1,35 @@
+{
+  "feature": "caverns_and_chasms:patch_cave_growths",
+  "placement": [
+    {
+      "type": "caverns_and_chasms:noise_density",
+      "density": 2.5,
+      "noise": "caverns_and_chasms:cave_growths",
+      "noise_offset": 0.800000011920929
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "caverns_and_chasms:heightmap_random_offset",
+      "heightmap": "WORLD_SURFACE_WG",
+      "max_offset": -2,
+      "min_offset": -40
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:air"
+      },
+      "direction_of_search": "down",
+      "max_steps": 12,
+      "target_condition": {
+        "type": "minecraft:solid"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

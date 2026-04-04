@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_false_hope": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:false_hope"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:yellow_dye_from_false_hope"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_false_hope",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:yellow_dye_from_false_hope"
+    ]
+  },
+  "sends_telemetry_event": false
+}

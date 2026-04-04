@@ -18,6 +18,34 @@
             },
             "trigger": "minecraft:player_killed_entity"
           },
+          "caverns_and_chasms:evendeeper": {
+            "conditions": {
+              "entity": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "caverns_and_chasms:evendeeper"
+                  }
+                }
+              ]
+            },
+            "trigger": "minecraft:player_killed_entity"
+          },
+          "caverns_and_chasms:grazer": {
+            "conditions": {
+              "entity": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "caverns_and_chasms:grazer"
+                  }
+                }
+              ]
+            },
+            "trigger": "minecraft:player_killed_entity"
+          },
           "caverns_and_chasms:mime": {
             "conditions": {
               "entity": [
@@ -53,8 +81,10 @@
             "replace": false,
             "requirements": [
               "caverns_and_chasms:deeper",
+              "caverns_and_chasms:evendeeper",
               "caverns_and_chasms:mime",
-              "caverns_and_chasms:peeper"
+              "caverns_and_chasms:peeper",
+              "caverns_and_chasms:grazer"
             ]
           }
         ]

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tinplate",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:tinplate_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "caverns_and_chasms:tinplate"
+  }
+}

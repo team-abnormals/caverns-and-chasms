@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_exposed_copper_bulb",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:exposed_copper_bulb"
+    },
+    {
+      "tag": "forge:wax"
+    }
+  ],
+  "result": {
+    "item": "caverns_and_chasms:waxed_exposed_copper_bulb"
+  }
+}

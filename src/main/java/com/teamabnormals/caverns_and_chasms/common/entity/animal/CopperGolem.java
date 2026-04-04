@@ -2,9 +2,9 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
-import com.teamabnormals.caverns_and_chasms.common.entity.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
+import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -39,10 +39,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -89,23 +86,23 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		this.entityData.define(WAXED, false);
 	}
 
-	public static AttributeSupplier.Builder registerAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSource) {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_HURT.get();
+		return CCSoundEvents.COPPER_GOLEM_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return CCSoundEvents.ENTITY_COPPER_GOLEM_DEATH.get();
+		return CCSoundEvents.COPPER_GOLEM_DEATH.get();
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_STEP.get(), 1.0F, 1.0F);
+		this.playSound(CCSoundEvents.COPPER_GOLEM_STEP.get(), 1.0F, 1.0F);
 	}
 
 	@Override
@@ -194,13 +191,13 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			float f = this.getHealth();
 			this.heal(15.0F);
 			if (this.getHealth() != f) {
-				this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_REPAIR.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+				this.playSound(CCSoundEvents.COPPER_GOLEM_REPAIR.get(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
 				if (!player.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
 				success = true;
 			}
-		} else if (item == Items.HONEYCOMB) {
+		} else if (item instanceof HoneycombItem) {
 			if (!this.isWaxed()) {
 				this.setWaxed(true);
 				this.spawnSparkParticles(ParticleTypes.WAX_ON);
@@ -253,7 +250,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			this.spinHead();
 			this.level().broadcastEntityEvent(this, (byte) 4);
 			if (this.isDamaged() != damaged)
-				this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_DAMAGE.get(), 1.0F, 1.0F);
+				this.playSound(CCSoundEvents.COPPER_GOLEM_DAMAGE.get(), 1.0F, 1.0F);
 		}
 		return flag;
 	}
@@ -315,7 +312,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		if (this.headSpinTicks <= 10) {
 			this.headSpinTicks = 24;
 			this.headSpinTicksO = this.headSpinTicks;
-			this.playSound(CCSoundEvents.ENTITY_COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
+			this.playSound(CCSoundEvents.COPPER_GOLEM_GEAR.get(), 1.0F, 1.0F);
 		}
 	}
 
@@ -541,9 +538,9 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 					CopperGolem.this.level().broadcastEntityEvent(CopperGolem.this, (byte) 6);
 				} else if (this.pressWaitTicks <= 0) {
 					BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
-					if (state.getBlock() instanceof CopperButtonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
-						((CopperButtonBlock) state.getBlock()).press(state, CopperGolem.this.level(), this.blockPos);
-						CopperGolem.this.level().playSound(null, this.blockPos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
+					if (state.getBlock() instanceof CopperButtonBlock buttonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
+						buttonBlock.press(state, CopperGolem.this.level(), this.blockPos);
+						CopperGolem.this.level().playSound(null, this.blockPos, CCSoundEvents.COPPER_BUTTON_CLICK_ON.get(), SoundSource.BLOCKS, 0.3F, 0.6F);
 						CopperGolem.this.level().gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
 						CopperGolem.this.ticksSinceButtonPress = 80;
 					}

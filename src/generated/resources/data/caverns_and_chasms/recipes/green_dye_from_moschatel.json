@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "green_dye",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:moschatel"
+    }
+  ],
+  "result": {
+    "item": "minecraft:green_dye"
+  }
+}

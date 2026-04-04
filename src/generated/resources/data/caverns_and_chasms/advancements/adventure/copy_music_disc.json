@@ -1,0 +1,38 @@
+{
+  "parent": "caverns_and_chasms:adventure/repair_with_zirconia",
+  "criteria": {
+    "copy_music_disc": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "caverns_and_chasms:music_disc_copy"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.copy_music_disc.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "caverns_and_chasms:music_disc_copy"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.copy_music_disc.title"
+    }
+  },
+  "requirements": [
+    [
+      "copy_music_disc"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

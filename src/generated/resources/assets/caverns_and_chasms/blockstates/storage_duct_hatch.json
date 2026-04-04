@@ -1,0 +1,200 @@
+{
+  "variants": {
+    "facing=down,handle=down,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 90,
+      "y": 180
+    },
+    "facing=down,handle=down,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 90,
+      "y": 180
+    },
+    "facing=down,handle=left,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 90,
+      "y": 270
+    },
+    "facing=down,handle=left,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 90,
+      "y": 270
+    },
+    "facing=down,handle=right,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down,handle=right,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down,handle=up,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 90
+    },
+    "facing=down,handle=up,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 90
+    },
+    "facing=east,handle=down,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "y": 90
+    },
+    "facing=east,handle=down,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 90
+    },
+    "facing=east,handle=left,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_left",
+      "y": 90
+    },
+    "facing=east,handle=left,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 90
+    },
+    "facing=east,handle=right,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_right",
+      "y": 90
+    },
+    "facing=east,handle=right,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 90
+    },
+    "facing=east,handle=up,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_up",
+      "y": 90
+    },
+    "facing=east,handle=up,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 90
+    },
+    "facing=north,handle=down,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down"
+    },
+    "facing=north,handle=down,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open"
+    },
+    "facing=north,handle=left,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_left"
+    },
+    "facing=north,handle=left,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open"
+    },
+    "facing=north,handle=right,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_right"
+    },
+    "facing=north,handle=right,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open"
+    },
+    "facing=north,handle=up,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_up"
+    },
+    "facing=north,handle=up,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open"
+    },
+    "facing=south,handle=down,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "y": 180
+    },
+    "facing=south,handle=down,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 180
+    },
+    "facing=south,handle=left,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_left",
+      "y": 180
+    },
+    "facing=south,handle=left,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 180
+    },
+    "facing=south,handle=right,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_right",
+      "y": 180
+    },
+    "facing=south,handle=right,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 180
+    },
+    "facing=south,handle=up,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_up",
+      "y": 180
+    },
+    "facing=south,handle=up,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 180
+    },
+    "facing=up,handle=down,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 270
+    },
+    "facing=up,handle=down,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 270
+    },
+    "facing=up,handle=left,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 270,
+      "y": 90
+    },
+    "facing=up,handle=left,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 270,
+      "y": 90
+    },
+    "facing=up,handle=right,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 270,
+      "y": 270
+    },
+    "facing=up,handle=right,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 270,
+      "y": 270
+    },
+    "facing=up,handle=up,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "x": 270,
+      "y": 180
+    },
+    "facing=up,handle=up,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "x": 270,
+      "y": 180
+    },
+    "facing=west,handle=down,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_down",
+      "y": 270
+    },
+    "facing=west,handle=down,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 270
+    },
+    "facing=west,handle=left,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_left",
+      "y": 270
+    },
+    "facing=west,handle=left,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 270
+    },
+    "facing=west,handle=right,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_right",
+      "y": 270
+    },
+    "facing=west,handle=right,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 270
+    },
+    "facing=west,handle=up,open=false": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_up",
+      "y": 270
+    },
+    "facing=west,handle=up,open=true": {
+      "model": "caverns_and_chasms:block/storage_duct_hatch_open",
+      "y": 270
+    }
+  }
+}
