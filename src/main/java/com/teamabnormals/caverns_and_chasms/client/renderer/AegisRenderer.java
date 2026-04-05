@@ -43,7 +43,7 @@ public class AegisRenderer extends BlockEntityWithoutLevelRenderer {
 			poseStack.pushPose();
 			poseStack.scale(1.0F, -1.0F, -1.0F);
 
-			VertexConsumer consumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(AEGIS_LOCATION), true, stack.hasFoil());
+			VertexConsumer consumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(AEGIS_LOCATION), false, stack.hasFoil());
 			this.aegisModel.handle().render(poseStack, consumer, packedLight, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 			this.aegisModel.plate().render(poseStack, consumer, packedLight, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -53,7 +53,7 @@ public class AegisRenderer extends BlockEntityWithoutLevelRenderer {
 				float g = (float) (i >> 8 & 255) / 255.0F;
 				float b = (float) (i & 255) / 255.0F;
 
-				VertexConsumer overlayConsumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(OVERLAY_LOCATION), true, stack.hasFoil());
+				VertexConsumer overlayConsumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(OVERLAY_LOCATION), false, stack.hasFoil());
 				this.aegisModel.handle().render(poseStack, overlayConsumer, packedLight, overlay, r, g, b, 1.0F);
 				this.aegisModel.plate().render(poseStack, overlayConsumer, packedLight, overlay, r, g, b, 1.0F);
 			}
