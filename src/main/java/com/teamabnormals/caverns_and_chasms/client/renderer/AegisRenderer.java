@@ -45,15 +45,16 @@ public class AegisRenderer extends BlockEntityWithoutLevelRenderer {
 			poseStack.pushPose();
 			poseStack.scale(1.0F, -1.0F, -1.0F);
 
-			VertexConsumer consumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(AEGIS_LOCATION), true, stack.hasFoil());
+			VertexConsumer consumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(AEGIS_LOCATION), false, stack.hasFoil());
 			this.aegisModel.handle().render(poseStack, consumer, packedLight, overlay);
 			this.aegisModel.plate().render(poseStack, consumer, packedLight, overlay);
 
 			if (stack.is(ItemTags.DYEABLE)) {
 				int i = FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, -6265536));
-				VertexConsumer overlayConsumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(OVERLAY_LOCATION), true, stack.hasFoil());
+				VertexConsumer overlayConsumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(OVERLAY_LOCATION), false, stack.hasFoil());
 				this.aegisModel.handle().render(poseStack, overlayConsumer, packedLight, overlay, i);
 				this.aegisModel.plate().render(poseStack, overlayConsumer, packedLight, overlay, i);
+
 			}
 
 			poseStack.popPose();
