@@ -81,6 +81,10 @@ tasks.withType(ProcessResources).configureEach {
     }
 }
 
+tasks.compileJava {
+    options.encoding = 'UTF-8'
+}
+
 tasks.named("jar", Jar).configure {
     manifest {
         attributes([

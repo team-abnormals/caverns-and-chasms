@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.particle;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.AtoningTableSentences;
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.AtoningTableEnchantmentNames;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -53,7 +53,7 @@ public class AtoningLetterParticle extends UpFacingParticle {
 		@Override
 		public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double rotation, double letter, double zSpeed) {
 			AtoningLetterParticle particle = new AtoningLetterParticle(level, x, y, z, (float) rotation);
-			particle.setSprite(this.sprites.get((int) letter, AtoningTableSentences.LETTERS.length - 1));
+			particle.setSprite(this.sprites.get((int) letter, AtoningTableEnchantmentNames.LETTERS.length - 1));
 			return particle;
 		}
 	}
