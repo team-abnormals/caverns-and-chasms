@@ -3056,18 +3056,42 @@
   },
   "block.sugilite.fall": {
     "sounds": [
-      "caverns_and_chasms:block/sugilite/step1",
-      "caverns_and_chasms:block/sugilite/step2",
-      "caverns_and_chasms:block/sugilite/step3",
-      "caverns_and_chasms:block/sugilite/step4"
+      {
+        "name": "caverns_and_chasms:block/sugilite/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step4",
+        "volume": 1.4
+      }
     ]
   },
   "block.sugilite.hit": {
     "sounds": [
-      "caverns_and_chasms:block/sugilite/step1",
-      "caverns_and_chasms:block/sugilite/step2",
-      "caverns_and_chasms:block/sugilite/step3",
-      "caverns_and_chasms:block/sugilite/step4"
+      {
+        "name": "caverns_and_chasms:block/sugilite/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step4",
+        "volume": 1.4
+      }
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -3082,10 +3106,22 @@
   },
   "block.sugilite.step": {
     "sounds": [
-      "caverns_and_chasms:block/sugilite/step1",
-      "caverns_and_chasms:block/sugilite/step2",
-      "caverns_and_chasms:block/sugilite/step3",
-      "caverns_and_chasms:block/sugilite/step4"
+      {
+        "name": "caverns_and_chasms:block/sugilite/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/sugilite/step4",
+        "volume": 1.4
+      }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
