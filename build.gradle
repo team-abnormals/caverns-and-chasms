@@ -126,6 +126,10 @@ tasks.jarJar {
 
 tasks.build.dependsOn tasks.jarJar
 
+tasks.compileJava {
+    options.encoding = 'UTF-8'
+}
+
 jar {
     manifest {
         attributes([
