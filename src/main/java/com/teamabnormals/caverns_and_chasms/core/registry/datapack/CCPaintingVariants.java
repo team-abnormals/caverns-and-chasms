@@ -17,6 +17,7 @@ public class CCPaintingVariants {
 	public static final ResourceKey<PaintingVariant> SQUIRMY = create("squirmy");
 	public static final ResourceKey<PaintingVariant> THE_ENIGMA = create("the_enigma");
 	public static final ResourceKey<PaintingVariant> CHEF = create("chef");
+	public static final ResourceKey<PaintingVariant> PIT = create("pit");
 
 	public static void bootstrap(BootstrapContext<PaintingVariant> context) {
 		register(context, ISOLATION, 2, 2);
@@ -29,6 +30,7 @@ public class CCPaintingVariants {
 		register(context, SQUIRMY, 3, 1);
 		register(context, THE_ENIGMA, 4, 4);
 		register(context, CHEF, 3, 4);
+		register(context, PIT, 3, 2);
 	}
 
 	private static ResourceKey<PaintingVariant> create(String name) {

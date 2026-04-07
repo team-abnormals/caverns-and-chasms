@@ -29,7 +29,8 @@ public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 				PROTOTYPE_701,
 				SQUIRMY,
 				THE_ENIGMA,
-				CHEF
+				CHEF,
+				PIT
 		);
 	}
 }
