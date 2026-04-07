@@ -347,7 +347,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(DIORITE_PILLAR.get());
 			this.blockFamily(DIORITE_BRICKS_FAMILY);
 			this.blockFamily(DIORITE_TILES_FAMILY);
-			
+
 			this.dropSelf(POLISHED_ANDESITE_WALL.get());
 			this.dropSelf(CHISELED_POLISHED_ANDESITE.get());
 			this.dropSelf(ANDESITE_PILLAR.get());
@@ -426,7 +426,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
 			this.dropSelf(ZIRCONIA_LAMP.get());
-			
+
 			this.dropSelf(ORNATE_GLASS.get());
 			this.dropSelf(ORNATE_GLASS_PANE.get());
 

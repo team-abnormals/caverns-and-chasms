@@ -102,7 +102,7 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	private void hurt(Level level, Entity entity, byte b, Operation<Void> original) {
 		if (!this.useItem.is(CCItems.AEGIS.get())) {
 			original.call(level, entity, b);
-		} else if (entity instanceof Player player){
+		} else if (entity instanceof Player player) {
 			player.getCooldowns().addCooldown(CCItems.AEGIS.get(), 100);
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), CCSoundEvents.AEGIS_STUN.get(), player.getSoundSource(), 0.8F, 0.8F + level.random.nextFloat() * 0.4F);
 			player.releaseUsingItem();

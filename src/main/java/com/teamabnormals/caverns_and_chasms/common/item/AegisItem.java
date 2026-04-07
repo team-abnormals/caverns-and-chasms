@@ -42,6 +42,7 @@ public class AegisItem extends Item implements DyeableLeatherItem, Equipable {
 	public boolean isValidRepairItem(ItemStack stack, ItemStack otherStack) {
 		return otherStack.is(CCItemTags.INGOTS_TIN) || super.isValidRepairItem(stack, otherStack);
 	}
+
 	@Override
 	public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
 		return ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);

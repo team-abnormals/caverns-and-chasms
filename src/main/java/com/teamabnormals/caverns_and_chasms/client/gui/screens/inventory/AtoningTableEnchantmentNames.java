@@ -18,7 +18,7 @@ public class AtoningTableEnchantmentNames {
 	private static final Style ROOT_STYLE = Style.EMPTY.withFont(KOUKERI_FONT);
 	public static final char[] LETTERS = new char[]{
 			'i', 'u', 'ï', 'ŭ', '⋅',
-			'e', 'ə', 'o', 'ó', 'ë','ö', 'ŏ',
+			'e', 'ə', 'o', 'ó', 'ë', 'ö', 'ŏ',
 			'a', 'ʌ', 'á', 'ä', 'ă',
 			'm', 'n', 'ŋ',
 			'p', 'b', 't', 'd', 'k', 'g', 'ʔ',

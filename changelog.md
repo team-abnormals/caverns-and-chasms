@@ -13,4 +13,4 @@
 * Fixed Rats not being able to spawn when Apothic Attributes is present
 * Fixed a crash when Epic Knights is present
 * Fixed issues with Create item application with placeable items
-* Fixed Toolbox Tooltip when Quark is present rendering incorrectly
+* Fixed Toolbox tooltip when Quark is present rendering incorrectly

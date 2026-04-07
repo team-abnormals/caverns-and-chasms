@@ -19,12 +19,12 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class FalseHopeBlock extends FlowerBlock {
-	private static final VoxelShape UP_SHAPE    = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
-	private static final VoxelShape DOWN_SHAPE  = Block.box(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
+	private static final VoxelShape UP_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
+	private static final VoxelShape DOWN_SHAPE = Block.box(5.0D, 6.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 	private static final VoxelShape NORTH_SHAPE = Block.box(5.0D, 5.0D, 6.0D, 11.0D, 11.0D, 16.0D);
 	private static final VoxelShape SOUTH_SHAPE = Block.box(5.0D, 5.0D, 0.0D, 11.0D, 11.0D, 10.0D);
-	private static final VoxelShape WEST_SHAPE  = Block.box(6.0D, 5.0D, 5.0D, 16.0D, 11.0D, 11.0D);
-	private static final VoxelShape EAST_SHAPE  = Block.box(0.0D, 5.0D, 5.0D, 10.0D, 11.0D, 11.0D);
+	private static final VoxelShape WEST_SHAPE = Block.box(6.0D, 5.0D, 5.0D, 16.0D, 11.0D, 11.0D);
+	private static final VoxelShape EAST_SHAPE = Block.box(0.0D, 5.0D, 5.0D, 10.0D, 11.0D, 11.0D);
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
 	public FalseHopeBlock(Supplier<MobEffect> effect, int effectDuration, Properties properties) {

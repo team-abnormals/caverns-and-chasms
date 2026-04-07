@@ -62,7 +62,7 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 		float partialTicks = Minecraft.getInstance().getFrameTime();
 		float time = Minecraft.getInstance().level.getGameTime() + partialTicks;
 		float t = time * 0.03F;
-		float pulse = (float)(Math.sin(t) * 0.5F + 0.5F);
+		float pulse = (float) (Math.sin(t) * 0.5F + 0.5F);
 		return min + (max - min) * pulse;
 	}
 
