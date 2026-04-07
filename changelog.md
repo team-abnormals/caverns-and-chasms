@@ -1,4 +1,5 @@
 ### Improvements
+* Added a painting
 * Added a config option for Placeable Items (ingots, coal, etc)
 * Increased volume of Sugilite step sounds slightly
 * Made changes to the Atoning Table alphabet

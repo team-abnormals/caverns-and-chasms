@@ -105,6 +105,16 @@
           "caverns_and_chasms:chef": 1.0
         }
       }
+    },
+    {
+      "type": "add",
+      "target": "overrides[]",
+      "value": {
+        "model": "caverns_and_chasms:item/painting/pit",
+        "predicate": {
+          "caverns_and_chasms:pit": 1.0
+        }
+      }
     }
   ],
   "selector": "minecraft:models/item/painting"
