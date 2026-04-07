@@ -23,6 +23,8 @@ public class CCConfig {
 		public final BooleanValue chainmailArmorIncreasesDamage;
 		public final BooleanValue goldenArmorIncreasesSpeed;
 
+		public final BooleanValue placeableItems;
+
 		public final BooleanValue betterRailPlacement;
 		public final IntValue betterRailPlacementRange;
 
@@ -56,6 +58,7 @@ public class CCConfig {
 			builder.pop();
 
 			builder.push("items");
+			placeableItems = builder.comment("If items like Ingots, Bricks, Coal, and Charcoal can be placed", "Individual items can be disabled through the #caverns_and_chasms:placeable_items item tag").define("Placeable items", true);
 			builder.push("zirconia");
 			zirconiaUniversalRepairing = builder.comment("If Zirconia can be used as a universal repair material").define("Zirconia universal repairing", true);
 			builder.pop();

@@ -372,6 +372,44 @@ public class CCEvents {
 		}
 	}
 
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static void onItemPlaced(RightClickBlock event) {
+		Player player = event.getEntity();
+		BlockPos pos = event.getPos();
+		Level level = event.getLevel();
+		ItemStack stack = event.getItemStack();
+		BlockState state = level.getBlockState(pos);
+
+		if (stack.is(CCItemTags.PLACEABLE_ITEMS) && !event.isCanceled() && CCConfig.COMMON.placeableItems.get()) {
+			boolean sneakBypassesUse = !player.getMainHandItem().doesSneakBypassUse(player.level(), pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
+			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
+
+			if (event.getUseBlock() == Result.ALLOW || (event.getUseBlock() != Result.DENY && !isSneaking)) {
+				InteractionResult blockResult = state.use(level, player, event.getHand(), event.getHitVec());
+				if (blockResult.consumesAction()) {
+					event.setCanceled(true);
+					event.setCancellationResult(blockResult);
+					return;
+				}
+			}
+
+			UseOnContext context = new UseOnContext(level, player, event.getHand(), stack, event.getHitVec());
+			Optional<Registry<Item>> registry = level.registryAccess().registry(Registries.ITEM);
+			if (registry.isPresent()) {
+				for (Item item1 : registry.get()) {
+					if (item1 instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
+						InteractionResult itemResult = item1.useOn(context);
+						if (itemResult.consumesAction()) {
+							event.setCanceled(true);
+							event.setCancellationResult(itemResult);
+						}
+						return;
+					}
+				}
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public static void onEntityTracked(StartTracking event) {
 		ServerPlayer player = (ServerPlayer) event.getEntity();
