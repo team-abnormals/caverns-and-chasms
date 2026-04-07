@@ -8,6 +8,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,8 +18,9 @@ public abstract class AxeItemMixin {
 
 	@WrapOperation(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
 	private boolean useOn(Level level, BlockPos pos, BlockState state, int flags, Operation<Boolean> original) {
+		BlockEntity entity = level.getBlockEntity(pos);
 		boolean success = original.call(level, pos, state, flags);
-		if (level.getBlockEntity(pos) instanceof ToolboxBlockEntity toolbox) {
+		if (entity instanceof ToolboxBlockEntity toolbox) {
 			RegistryAccess access = level.registryAccess();
 			CompoundTag tag = toolbox.saveWithoutMetadata(access);
 			if (success) {
