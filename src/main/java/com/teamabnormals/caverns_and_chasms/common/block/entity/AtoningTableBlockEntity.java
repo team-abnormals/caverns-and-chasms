@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
+import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.AtoningTableEnchantmentNames;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -29,15 +30,15 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	public float rot;
 	public float oRot;
 	public float tRot;
-	private int[] sentence;
-	private int letterInSentence;
-	private int letter;
+	private int[] word;
+	private int letterIndex;
+	private int letterAngle;
 	private static final RandomSource RANDOM = RandomSource.create();
 	private Component name;
 
 	public AtoningTableBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.ATONING_TABLE.get(), pos, state);
-		this.sentence = AtoningTableSentences.pickRandomSentence(RANDOM);
+		this.word = AtoningTableEnchantmentNames.getInstance().getRandomNameAsLetterIds(RANDOM);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 		}
 	}
 
-	public static void bookAnimationTick(Level level, BlockPos pos, BlockState state, AtoningTableBlockEntity entity) {
+	public static void clientTick(Level level, BlockPos pos, BlockState state, AtoningTableBlockEntity blockEntity) {
 		if (level.getGameTime() % 60 == 0)
 			level.addParticle(CCParticleTypes.ATONING_DAGGER.get(), pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
 
@@ -69,17 +70,17 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 			int letters = Math.min((int) enchPower, 15) + 2;
 
 			if (level.getGameTime() % (160 / letters) == 0) {
-				double d0 = Math.PI * 2.0D * entity.letter / letters;
-				level.addParticle(CCParticleTypes.ATONING_LETTER.get(), pos.getX() + 0.5D + Math.cos(d0) * 1.1D, pos.getY(), pos.getZ() + 0.5D + Math.sin(d0) * 1.1D, d0 - Math.PI / 2.0F, entity.sentence[entity.letterInSentence], 0.0D);
+				double d0 = Math.PI * 2.0D * blockEntity.letterAngle / letters;
+				level.addParticle(CCParticleTypes.ATONING_LETTER.get(), pos.getX() + 0.5D + Math.cos(d0) * 1.1D, pos.getY(), pos.getZ() + 0.5D + Math.sin(d0) * 1.1D, d0 - Math.PI / 2.0F, blockEntity.word[blockEntity.letterIndex], 0.0D);
 
-				++entity.letter;
-				if (entity.letter >= letters)
-					entity.letter = 0;
+				++blockEntity.letterAngle;
+				if (blockEntity.letterAngle >= letters)
+					blockEntity.letterAngle = 0;
 
-				++entity.letterInSentence;
-				if (entity.letterInSentence >= entity.sentence.length) {
-					entity.letterInSentence = 0;
-					entity.sentence = AtoningTableSentences.pickRandomSentence(RANDOM);
+				++blockEntity.letterIndex;
+				if (blockEntity.letterIndex >= blockEntity.word.length) {
+					blockEntity.letterIndex = 0;
+					blockEntity.word = AtoningTableEnchantmentNames.getInstance().getRandomNameAsLetterIds(RANDOM);
 				}
 			}
 		}
@@ -87,59 +88,59 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 		if (level.getGameTime() % 240 == 0)
 			level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, CCSoundEvents.ATONING_TABLE_WHISPERS.get(), SoundSource.BLOCKS, 0.25F, 1.0F, false);
 
-		entity.oOpen = entity.open;
-		entity.oRot = entity.rot;
+		blockEntity.oOpen = blockEntity.open;
+		blockEntity.oRot = blockEntity.rot;
 		Player player = level.getNearestPlayer((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 3.0D, false);
 		if (player != null) {
 			double d0 = player.getX() - ((double) pos.getX() + 0.5D);
 			double d1 = player.getZ() - ((double) pos.getZ() + 0.5D);
-			entity.tRot = (float) Mth.atan2(d1, d0);
-			entity.open += 0.1F;
-			if (entity.open < 0.5F || RANDOM.nextInt(40) == 0) {
-				float f1 = entity.flipT;
+			blockEntity.tRot = (float) Mth.atan2(d1, d0);
+			blockEntity.open += 0.1F;
+			if (blockEntity.open < 0.5F || RANDOM.nextInt(40) == 0) {
+				float f1 = blockEntity.flipT;
 
 				do {
-					entity.flipT += (float) (RANDOM.nextInt(4) - RANDOM.nextInt(4));
-				} while (f1 == entity.flipT);
+					blockEntity.flipT += (float) (RANDOM.nextInt(4) - RANDOM.nextInt(4));
+				} while (f1 == blockEntity.flipT);
 			}
 		} else {
-			entity.tRot += 0.02F;
-			entity.open -= 0.1F;
+			blockEntity.tRot += 0.02F;
+			blockEntity.open -= 0.1F;
 		}
 
-		while (entity.rot >= (float) Math.PI) {
-			entity.rot -= ((float) Math.PI * 2F);
+		while (blockEntity.rot >= (float) Math.PI) {
+			blockEntity.rot -= ((float) Math.PI * 2F);
 		}
 
-		while (entity.rot < -(float) Math.PI) {
-			entity.rot += ((float) Math.PI * 2F);
+		while (blockEntity.rot < -(float) Math.PI) {
+			blockEntity.rot += ((float) Math.PI * 2F);
 		}
 
-		while (entity.tRot >= (float) Math.PI) {
-			entity.tRot -= ((float) Math.PI * 2F);
+		while (blockEntity.tRot >= (float) Math.PI) {
+			blockEntity.tRot -= ((float) Math.PI * 2F);
 		}
 
-		while (entity.tRot < -(float) Math.PI) {
-			entity.tRot += ((float) Math.PI * 2F);
+		while (blockEntity.tRot < -(float) Math.PI) {
+			blockEntity.tRot += ((float) Math.PI * 2F);
 		}
 
 		float f2;
-		for (f2 = entity.tRot - entity.rot; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2F)) {
+		for (f2 = blockEntity.tRot - blockEntity.rot; f2 >= (float) Math.PI; f2 -= ((float) Math.PI * 2F)) {
 		}
 
 		while (f2 < -(float) Math.PI) {
 			f2 += ((float) Math.PI * 2F);
 		}
 
-		entity.rot += f2 * 0.4F;
-		entity.open = Mth.clamp(entity.open, 0.0F, 1.0F);
-		++entity.time;
-		entity.oFlip = entity.flip;
-		float f = (entity.flipT - entity.flip) * 0.4F;
+		blockEntity.rot += f2 * 0.4F;
+		blockEntity.open = Mth.clamp(blockEntity.open, 0.0F, 1.0F);
+		++blockEntity.time;
+		blockEntity.oFlip = blockEntity.flip;
+		float f = (blockEntity.flipT - blockEntity.flip) * 0.4F;
 		float f3 = 0.2F;
 		f = Mth.clamp(f, -f3, f3);
-		entity.flipA += (f - entity.flipA) * 0.9F;
-		entity.flip += entity.flipA;
+		blockEntity.flipA += (f - blockEntity.flipA) * 0.9F;
+		blockEntity.flip += blockEntity.flipA;
 	}
 
 	@Override
