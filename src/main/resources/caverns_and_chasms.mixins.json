@@ -60,11 +60,10 @@
     "client.EntityRenderDispatcherMixin",
     "client.GameRendererMixin",
     "client.GuiMixin",
-    "client.HorseArmorLayerMixin",
-    "client.HorseModelMixin",
     "client.HumanoidArmorLayerMixin",
     "client.ItemInHandRendererMixin",
     "client.LevelRendererMixin",
+    "client.LivingEntityRendererAccessor",
     "client.MultiPlayerGameModeMixin"
   ],
   "injectors": {
