@@ -76,18 +76,19 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 				removeOne(stack).ifPresent((p_150740_) -> {
 					add(stack, slot.safeInsert(p_150740_));
 				});
+				return true;
 			} else if (otherStack.getItem().canFitInsideContainerItems() && (!tag.contains(TAG_ITEM) || ItemStack.isSameItemSameTags(ofLargeCount(tag.getCompound(TAG_ITEM)), otherStack))) {
-				int i = (MAX_WEIGHT - getContentWeight(stack)) / getWeight(otherStack);
-				int j = add(stack, slot.safeTake(otherStack.getCount(), i, player));
-				if (j > 0) {
-					this.playInsertSound(player);
-				} else {
-					this.playInsertFailSound(player);
+				int weight = getWeight(otherStack);
+				if (weight > 0) {
+					int i = (MAX_WEIGHT - getContentWeight(stack)) / weight;
+					int j = add(stack, slot.safeTake(otherStack.getCount(), i, player));
+					if (j > 0) {
+						this.playInsertSound(player);
+						return true;
+					}
 				}
-			} else {
-				this.playInsertFailSound(player);
 			}
-
+			this.playInsertFailSound(player);
 			return true;
 		}
 	}
@@ -146,10 +147,11 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 			CompoundTag tag = stack.getOrCreateTag();
 			int i = getContentWeight(stack);
 			int j = getWeight(otherStack);
-			int k = Math.min(otherStack.getCount(), (MAX_WEIGHT - i) / j);
-			if (k == 0) {
+			if (j == 0) {
 				return 0;
-			} else {
+			}
+			int k = Math.min(otherStack.getCount(), (MAX_WEIGHT - i) / j);
+			if (k != 0) {
 				if (tag.contains(TAG_ITEM)) {
 					CompoundTag itemTag = tag.getCompound(TAG_ITEM);
 					ItemStack itemstack = ofLargeCount(itemTag);
@@ -167,8 +169,8 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 					return k;
 				}
 
-				return 0;
 			}
+			return 0;
 		} else {
 			return 0;
 		}
@@ -181,11 +183,11 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 			if ((stack.is(Items.BEEHIVE) || stack.is(Items.BEE_NEST)) && stack.hasTag()) {
 				CompoundTag tag = BlockItem.getBlockEntityData(stack);
 				if (tag != null && !tag.getList("Bees", 10).isEmpty()) {
-					return 64;
+					return MAX_STACK_SIZE;
 				}
 			}
 
-			return 64 / stack.getMaxStackSize();
+			return MAX_STACK_SIZE / stack.getMaxStackSize();
 		}
 	}
 
