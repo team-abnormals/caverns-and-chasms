@@ -3,7 +3,10 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip.ClientPackingContainerTooltip;
-import com.teamabnormals.caverns_and_chasms.client.model.*;
+import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
 import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
@@ -14,7 +17,6 @@ import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.Pac
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.mixin.client.LivingEntityRendererAccessor;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -22,7 +24,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMateria
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.SmithingScreen;
-import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
@@ -30,8 +31,6 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.HorseArmorLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -39,7 +38,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
@@ -90,13 +88,6 @@ public class CCClientCompat {
 		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {
 			if (renderer instanceof AbstractHorseRenderer<?, ?> horseRenderer) {
 				horseRenderer.addLayer(new UnicornHornLayer(horseRenderer, event.getEntityModels()));
-
-				if (horseRenderer instanceof LivingEntityRendererAccessor<?, ?> accessor) {
-					if (accessor.getLayers().stream().anyMatch(layer -> layer instanceof HorseArmorLayer)) {
-						AbstractHorseRenderer<Horse, HorseModel<Horse>> typed = (AbstractHorseRenderer<Horse, HorseModel<Horse>>) horseRenderer;
-						typed.addLayer(new CopperHorseArmorLayer((RenderLayerParent<Horse, HorseModel<Horse>>) horseRenderer, event.getEntityModels()));
-					}
-				}
 			}
 		}
 	}
