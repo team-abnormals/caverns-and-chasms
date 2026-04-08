@@ -7,6 +7,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -14,6 +16,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
@@ -27,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -60,8 +64,8 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	}
 
 	@Override
-	public SoundEvent getEquipSound() {
-		return CCSoundEvents.TETHER_POTION_EQUIP.get();
+	public Holder<SoundEvent> getEquipSound() {
+		return CCSoundEvents.TETHER_POTION_EQUIP;
 	}
 
 	@Override
@@ -69,12 +73,12 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 		Component component = super.getName(stack);
 		if (component.getString().contains("item.")) {
 			MutableComponent intro = Component.translatable(this.getDescriptionId() + ".null");
-			Potion potion = PotionUtils.getPotion(stack.getTag());
+			Potion potion = stack.get(DataComponents.POTION_CONTENTS).potion().get().value();
 			if (potion instanceof SubtlePotion subtlePotion) {
 				potion = subtlePotion.getPotion();
 				intro = Component.translatable("item.caverns_and_chasms.potion.subtle").append(" ").append(intro);
 			}
-			ItemStack regularPotion = PotionUtils.setPotion(new ItemStack(Items.POTION), potion);
+			ItemStack regularPotion = PotionContents.createItemStack(Items.POTION, Holder.direct(potion));
 			String newComponent = regularPotion.getDescriptionId();
 			return intro.append(Component.translatable(newComponent));
 		} else {

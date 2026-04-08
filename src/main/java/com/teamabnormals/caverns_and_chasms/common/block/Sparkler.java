@@ -31,14 +31,14 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Map;
 import java.util.function.Supplier;
 
 public interface Sparkler {
 	BooleanProperty LIT = BlockStateProperties.LIT;
-	Map<DyeColor, Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>>> SPARKLER_BY_DYE = Util.make(Maps.newEnumMap(DyeColor.class), (map) -> {
+	Map<DyeColor, Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>>> SPARKLER_BY_DYE = Util.make(Maps.newEnumMap(DyeColor.class), (map) -> {
 		map.put(DyeColor.WHITE, CCBlocks.WHITE_SPARKLER);
 		map.put(DyeColor.ORANGE, CCBlocks.ORANGE_SPARKLER);
 		map.put(DyeColor.MAGENTA, CCBlocks.MAGENTA_SPARKLER);
@@ -79,7 +79,7 @@ public interface Sparkler {
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		} else if (stack.getItem() instanceof DyeItem dyeItem && SPARKLER_BY_DYE.get(dyeItem.getDyeColor()) != null) {
-			Pair<RegistryObject<SparklerBlock>, RegistryObject<WallSparklerBlock>> pair = SPARKLER_BY_DYE.get(dyeItem.getDyeColor());
+			Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> pair = SPARKLER_BY_DYE.get(dyeItem.getDyeColor());
 			Block newBlock = this instanceof SparklerBlock ? pair.getFirst().get() : pair.getSecond().get();
 			if (!state.is(newBlock)) {
 				level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);

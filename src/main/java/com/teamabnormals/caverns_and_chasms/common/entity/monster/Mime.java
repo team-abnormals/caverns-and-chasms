@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -114,8 +115,8 @@ public class Mime extends Monster {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int p_34292_, boolean p_34293_) {
-		super.dropCustomDeathLoot(source, p_34292_, p_34293_);
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
+		super.dropCustomDeathLoot(level, source, recentlyHit);
 		Entity entity = source.getEntity();
 		if (entity instanceof Creeper creeper) {
 			if (creeper.canDropMobsSkull()) {

@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractDimmer
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -19,17 +20,17 @@ public class DimmerBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
-		this.holdTime = compound.getShort("HoldTime");
-		this.unpowerTick = compound.getBoolean("UnpowerTick");
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
+		this.holdTime = tag.getShort("HoldTime");
+		this.unpowerTick = tag.getBoolean("UnpowerTick");
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag compound) {
-		super.saveAdditional(compound);
-		compound.putShort("HoldTime", (short) this.holdTime);
-		compound.putBoolean("UnpowerTick", this.unpowerTick);
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
+		tag.putShort("HoldTime", (short) this.holdTime);
+		tag.putBoolean("UnpowerTick", this.unpowerTick);
 	}
 
 	public void setHeld() {

@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
-import com.teamabnormals.blueprint.core.other.tags.BlueprintBiomeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -44,12 +43,12 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(HAS_TIN_MONOLITH).addTag(BiomeTags.IS_OVERWORLD);
 		this.tag(HAS_MINESHAFT_LUSH).add(Biomes.LUSH_CAVES);
 
-		this.tag(HAS_PEEPER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
-		this.tag(HAS_MIME).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
-		this.tag(HAS_GRAZER).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS).add(Biomes.MUSHROOM_FIELDS);
-		this.tag(HAS_RAT).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS).add(Biomes.MUSHROOM_FIELDS);
-		this.tag(HAS_CAVEFISH).addTag(BlueprintBiomeTags.WITH_DEFAULT_MONSTER_SPAWNS);
+		this.tag(HAS_PEEPER).addTag(BiomeTags.IS_OVERWORLD).remove(Tags.Biomes.NO_DEFAULT_MONSTERS);
+		this.tag(HAS_MIME).addTag(BiomeTags.IS_OVERWORLD).remove(Tags.Biomes.NO_DEFAULT_MONSTERS);
+		this.tag(HAS_GRAZER).addTag(BiomeTags.IS_OVERWORLD).remove(Biomes.DEEP_DARK);
+		this.tag(HAS_RAT).addTag(BiomeTags.IS_OVERWORLD).remove(Biomes.DEEP_DARK);
+		this.tag(HAS_CAVEFISH).addTag(BiomeTags.IS_OVERWORLD).remove(Biomes.DEEP_DARK);
 		this.tag(HAS_GLARE).add(Biomes.LUSH_CAVES);
-		this.tag(HAS_LOST_GOAT).addTag(Tags.Biomes.IS_PEAK).add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.SNOWY_SLOPES, Biomes.GROVE);
+		this.tag(HAS_LOST_GOAT).addTag(Tags.Biomes.IS_MOUNTAIN_PEAK).addTag(BiomeTags.IS_HILL).add(Biomes.SNOWY_SLOPES, Biomes.MEADOW, Biomes.GROVE);
 	}
 }

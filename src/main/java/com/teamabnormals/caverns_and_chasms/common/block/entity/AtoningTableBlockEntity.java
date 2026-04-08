@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -41,16 +42,16 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
 		if (this.hasCustomName()) {
 			tag.putString("CustomName", Component.Serializer.toJson(this.name));
 		}
 	}
 
 	@Override
-	public void load(CompoundTag tag) {
-		super.load(tag);
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
 		if (tag.contains("CustomName", 8)) {
 			this.name = Component.Serializer.fromJson(tag.getString("CustomName"));
 		}

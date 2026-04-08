@@ -17,7 +17,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Peeper
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.vehicle.MinecartTMT;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -30,37 +29,36 @@ import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEntityTypes {
-	public static final EntitySubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getEntitySubHelper();
-	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, CavernsAndChasms.MOD_ID);
+	public static final EntitySubRegistryHelper ENTITY_TYPES = CavernsAndChasms.REGISTRY_HELPER.getEntitySubHelper();
 
 	public static final MobCategory LOST_GOAT_CATEGORY = MobCategory.create(CavernsAndChasms.MOD_ID + ":lost_goat", "lost_goat", 1, false, false, 128);
 	public static final MobCategory UNDERGROUND_WATER_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_water_ambient", "underground_water_ambient", 20, true, false, 128);
 	public static final MobCategory UNDERGROUND_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_ambient", "underground_ambient", 16, true, false, 128);
 
-	public static final DeferredHolder<EntityType<?>, EntityType<Deeper>> DEEPER = HELPER.createLivingEntity("deeper", Deeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Evendeeper>> EVENDEEPER = HELPER.createLivingEntity("evendeeper", Evendeeper::new, MobCategory.MONSTER, 0.6F, 1.7F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Peeper>> PEEPER = HELPER.createLivingEntity("peeper", Peeper::new, MobCategory.MONSTER, 0.6F, 2.2F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Mime>> MIME = HELPER.createLivingEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
-	//	public static final DeferredHolder<EntityType<?>, EntityType<Fly>> FLY = HELPER.createLivingEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Rat>> RAT = HELPER.createLivingEntity("rat", Rat::new, UNDERGROUND_AMBIENT, 0.5F, 0.45F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Glare>> GLARE = HELPER.createLivingEntity("glare", Glare::new, MobCategory.AMBIENT, 0.6F, 0.95F);
-	public static final DeferredHolder<EntityType<?>, EntityType<CopperGolem>> COPPER_GOLEM = HELPER.createLivingEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
-	public static final DeferredHolder<EntityType<?>, EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.register("oxidized_copper_golem", () -> net.minecraft.world.entity.EntityType.Builder.<OxidizedCopperGolem>of(OxidizedCopperGolem::new, MobCategory.MISC).fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(CavernsAndChasms.location("oxidized_copper_golem").toString()));
-	public static final DeferredHolder<EntityType<?>, EntityType<Grazer>> GRAZER = HELPER.createLivingEntity("grazer", Grazer::new, MobCategory.MONSTER, 0.9F, 1.98F);
-	public static final DeferredHolder<EntityType<?>, EntityType<SaddledGrazer>> SADDLED_GRAZER = HELPER.createLivingEntity("saddled_grazer", SaddledGrazer::new, MobCategory.CREATURE, 0.9F, 1.98F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Cavefish>> CAVEFISH = HELPER.createEntity("cavefish", Cavefish::new, Cavefish::new, UNDERGROUND_WATER_AMBIENT, 0.4F, 0.3F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Kunai>> KUNAI = HELPER.createEntity("kunai", Kunai::new, Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
-	public static final DeferredHolder<EntityType<?>, EntityType<PrimedTmt>> TMT = ENTITY_TYPES.register("tmt", () -> EntityType.Builder.<PrimedTmt>of(PrimedTmt::new, MobCategory.MISC).fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10).build(CavernsAndChasms.location("tmt").toString()));
-	public static final DeferredHolder<EntityType<?>, EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = HELPER.createEntity("spinel_pearl", ThrownBejeweledPearl::new, ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);
-	public static final DeferredHolder<EntityType<?>, EntityType<BluntArrow>> BLUNT_ARROW = HELPER.createEntity("blunt_arrow", BluntArrow::new, BluntArrow::new, MobCategory.MISC, 0.5F, 0.5F);
-	public static final DeferredHolder<EntityType<?>, EntityType<RicochetArrow>> RICOCHET_ARROW = HELPER.createEntity("ricochet_arrow", RicochetArrow::new, RicochetArrow::new, MobCategory.MISC, 0.5F, 0.5F);
-	public static final DeferredHolder<EntityType<?>, EntityType<LargeArrow>> LARGE_ARROW = HELPER.createEntity("large_arrow", LargeArrow::new, LargeArrow::new, MobCategory.MISC, 0.75F, 0.75F);
-	public static final DeferredHolder<EntityType<?>, EntityType<LostGoat>> LOST_GOAT = HELPER.createLivingEntity("lost_goat", LostGoat::new, LOST_GOAT_CATEGORY, 0.9F, 1.3F);
-	public static final DeferredHolder<EntityType<?>, EntityType<MinecartTMT>> TMT_MINECART = HELPER.createEntity("tmt_minecart", MinecartTMT::new, MinecartTMT::new, MobCategory.MISC, 0.98F, 0.7F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Deeper>> DEEPER = ENTITY_TYPES.createEntity("deeper", Deeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Evendeeper>> EVENDEEPER = ENTITY_TYPES.createEntity("deeper", Evendeeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Peeper>> PEEPER = ENTITY_TYPES.createEntity("peeper", Peeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 2.2F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Mime>> MIME = ENTITY_TYPES.createEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
+	//	public static final DeferredHolder<EntityType<?>, EntityType<Fly>> FLY = HELPER.createEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Rat>> RAT = ENTITY_TYPES.createEntity("rat", Rat::new, UNDERGROUND_AMBIENT, 0.5F, 0.45F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Glare>> GLARE = ENTITY_TYPES.createEntity("glare", Glare::new, MobCategory.AMBIENT, 0.6F, 0.95F);
+	public static final DeferredHolder<EntityType<?>, EntityType<CopperGolem>> COPPER_GOLEM = ENTITY_TYPES.createEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
+	public static final DeferredHolder<EntityType<?>, EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.createEntity("oxidized_copper_golem", OxidizedCopperGolem::new, MobCategory.MISC, builder -> builder.fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10).build(CavernsAndChasms.location("oxidized_copper_golem").toString()));
+	public static final DeferredHolder<EntityType<?>, EntityType<Grazer>> GRAZER = ENTITY_TYPES.createEntity("grazer", Grazer::new, MobCategory.MONSTER, 0.9F, 1.98F);
+	public static final DeferredHolder<EntityType<?>, EntityType<SaddledGrazer>> SADDLED_GRAZER = ENTITY_TYPES.createEntity("saddled_grazer", SaddledGrazer::new, MobCategory.CREATURE, 0.9F, 1.98F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Cavefish>> CAVEFISH = ENTITY_TYPES.createEntity("cavefish", Cavefish::new, UNDERGROUND_WATER_AMBIENT, 0.4F, 0.3F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Kunai>> KUNAI = ENTITY_TYPES.createEntity("kunai", Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
+	public static final DeferredHolder<EntityType<?>, EntityType<PrimedTmt>> TMT = ENTITY_TYPES.createEntity("tmt", PrimedTmt::new, MobCategory.MISC, builder -> builder.fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10).build(CavernsAndChasms.location("tmt").toString()));
+	public static final DeferredHolder<EntityType<?>, EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = ENTITY_TYPES.createEntity("spinel_pearl", ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);
+	public static final DeferredHolder<EntityType<?>, EntityType<LostGoat>> LOST_GOAT = ENTITY_TYPES.createEntity("lost_goat", LostGoat::new, LOST_GOAT_CATEGORY, 0.9F, 1.3F);
+	public static final DeferredHolder<EntityType<?>, EntityType<MinecartTMT>> TMT_MINECART = ENTITY_TYPES.createEntity("tmt_minecart", MinecartTMT::new, MobCategory.MISC, 0.98F, 0.7F);
+
+	public static final DeferredHolder<EntityType<?>, EntityType<BluntArrow>> BLUNT_ARROW = ENTITY_TYPES.createEntity("blunt_arrow", BluntArrow::new, MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
+	public static final DeferredHolder<EntityType<?>, EntityType<RicochetArrow>> RICOCHET_ARROW = ENTITY_TYPES.createEntity("ricochet_arrow", RicochetArrow::new, MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
+	public static final DeferredHolder<EntityType<?>, EntityType<LargeArrow>> LARGE_ARROW = ENTITY_TYPES.createEntity("large_arrow", LargeArrow::new, MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
 
 	@SubscribeEvent
 	public static void registerAttributes(EntityAttributeCreationEvent event) {

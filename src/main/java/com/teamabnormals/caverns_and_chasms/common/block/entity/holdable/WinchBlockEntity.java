@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
@@ -27,25 +28,25 @@ public class WinchBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
-		this.holdTime = compound.getShort("HoldTime");
-		this.rotation = compound.getFloat("Rotation");
-		this.rewindSpeed = compound.getFloat("RewindSpeed");
-		this.forceRollBack = compound.getBoolean("ForceRollBack");
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
+		this.holdTime = tag.getShort("HoldTime");
+		this.rotation = tag.getFloat("Rotation");
+		this.rewindSpeed = tag.getFloat("RewindSpeed");
+		this.forceRollBack = tag.getBoolean("ForceRollBack");
 
-		if (!compound.getBoolean("UpdateTag")) {
+		if (!tag.getBoolean("UpdateTag")) {
 			this.visualRotation = this.rotation;
 		}
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag compound) {
-		super.saveAdditional(compound);
-		compound.putShort("HoldTime", (short) this.holdTime);
-		compound.putFloat("Rotation", this.rotation);
-		compound.putFloat("RewindSpeed", this.rewindSpeed);
-		compound.putBoolean("ForceRollBack", this.forceRollBack);
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
+		tag.putShort("HoldTime", (short) this.holdTime);
+		tag.putFloat("Rotation", this.rotation);
+		tag.putFloat("RewindSpeed", this.rewindSpeed);
+		tag.putBoolean("ForceRollBack", this.forceRollBack);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class WinchBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		CompoundTag compound = this.saveWithoutMetadata();
+	public CompoundTag getUpdateTag(Provider registries) {
+		CompoundTag compound = this.saveWithoutMetadata(registries);
 		compound.putBoolean("UpdateTag", true);
 		return compound;
 	}

@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -35,10 +36,10 @@ public class WallSparklerBlock extends WallTorchBlock implements Sparkler {
 			Direction.WEST, Block.box(11.0D, 3.0D, 5.5D, 16.0D, 15.0D, 10.5D),
 			Direction.EAST, Block.box(0.0D, 3.0D, 5.5D, 5.0D, 15.0D, 10.5D)
 	));
-	protected final Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle;
+	protected final Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle;
 
-	public WallSparklerBlock(Properties properties, Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle) {
-		super(properties, ParticleTypes.FLAME);
+	public WallSparklerBlock(Properties properties, Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle) {
+		super(ParticleTypes.FLAME, properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
 		this.particle = particle;
 	}

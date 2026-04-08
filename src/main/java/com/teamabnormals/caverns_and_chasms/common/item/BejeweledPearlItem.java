@@ -30,7 +30,7 @@ public class BejeweledPearlItem extends Item {
 
 	@Override
 	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int useItemRemainingTicks) {
-		int i = stack.getUseDuration() - useItemRemainingTicks;
+		int i = stack.getUseDuration(entity) - useItemRemainingTicks;
 		if (i % getChargeStageDuration() == 0) {
 			float j = (float) i / getMaxLifetime();
 			entity.playSound(CCSoundEvents.BEJEWELED_PEARL_CRUMBLE.get(), 0.8F + j * 0.2F, 0.8F + j * 0.2F);
@@ -39,7 +39,7 @@ public class BejeweledPearlItem extends Item {
 
 	@Override
 	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int releaseTime) {
-		this.throwPearl(stack, level, entity, this.getUseDuration(stack) - releaseTime);
+		this.throwPearl(stack, level, entity, this.getUseDuration(stack, entity) - releaseTime);
 	}
 
 	@Override

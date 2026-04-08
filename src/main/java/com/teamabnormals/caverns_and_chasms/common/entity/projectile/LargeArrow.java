@@ -3,8 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,32 +10,28 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.NetworkHooks;
-import net.neoforged.neoforge.network.PlayMessages;
+
+import javax.annotation.Nullable;
 
 public class LargeArrow extends AbstractArrow {
 
-	public LargeArrow(EntityType<? extends LargeArrow> type, Level worldIn) {
-		super(type, worldIn);
+	public LargeArrow(EntityType<? extends LargeArrow> entityType, Level level) {
+		super(entityType, level);
 		this.setBaseDamage(6.0D);
 	}
 
-	public LargeArrow(Level worldIn, double x, double y, double z) {
-		super(CCEntityTypes.LARGE_ARROW.get(), x, y, z, worldIn);
+	public LargeArrow(Level level, LivingEntity owner, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+		super(CCEntityTypes.LARGE_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
 		this.setBaseDamage(6.0D);
 	}
 
-	public LargeArrow(PlayMessages.SpawnEntity spawnEntity, Level world) {
-		this(CCEntityTypes.LARGE_ARROW.get(), world);
-	}
-
-	public LargeArrow(Level worldIn, LivingEntity shooter) {
-		super(CCEntityTypes.LARGE_ARROW.get(), shooter, worldIn);
+	public LargeArrow(Level level, double x, double y, double z, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+		super(CCEntityTypes.LARGE_ARROW.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
 		this.setBaseDamage(6.0D);
 	}
 
 	@Override
-	protected ItemStack getPickupItem() {
+	protected ItemStack getDefaultPickupItem() {
 		return new ItemStack(CCItems.LARGE_ARROW.get());
 	}
 
@@ -50,11 +44,6 @@ public class LargeArrow extends AbstractArrow {
 	@Override
 	protected SoundEvent getDefaultHitGroundSoundEvent() {
 		return CCSoundEvents.LARGE_ARROW_HIT.get();
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override

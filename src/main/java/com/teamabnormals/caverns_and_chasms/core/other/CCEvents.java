@@ -37,7 +37,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -95,6 +94,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
@@ -103,10 +103,13 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.StartTracking;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -243,7 +246,7 @@ public class CCEvents {
 					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					level.setBlock(pos, returnState, 11);
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
 				} else {
 					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 					level.setBlockAndUpdate(pos, returnState);
@@ -259,7 +262,7 @@ public class CCEvents {
 					level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 					sparklerBlock.explodeSparkler(state, level, pos);
 					level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
 				} else {
 					level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 					sparklerBlock.explodeSparkler(state, level, pos);
@@ -279,7 +282,7 @@ public class CCEvents {
 				if (!level.isClientSide()) {
 					level.levelEvent(null, 1009, pos, 0);
 					level.setBlock(pos, extinguishedState, 11);
-					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
 				}
 
 				event.setCanceled(true);
@@ -293,7 +296,7 @@ public class CCEvents {
 				if (!level.isClientSide()) {
 					level.levelEvent(null, 1009, pos, 0);
 					level.setBlock(pos, extinguishedState, 11);
-					stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
 				}
 
 				event.setCanceled(true);
@@ -306,7 +309,7 @@ public class CCEvents {
 					if (!level.isClientSide()) {
 						level.setBlock(pos, state.setValue(BrazierBlock.LIT, true), 11);
 						level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-						stack.hurtAndBreak(1, player, (entity) -> entity.broadcastBreakEvent(event.getHand()));
+						stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
 					}
 
 					event.setCanceled(true);
@@ -328,9 +331,8 @@ public class CCEvents {
 		}
 
 		if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get() && !event.isCanceled()) {
-			CompoundTag tag = stack.getOrCreateTag();
-			if (!player.isCrouching() && tag.contains("Note")) {
-				int note = tag.getInt("Note");
+			if (!player.isCrouching() && stack.has(CCDataComponents.NOTE)) {
+				int note = stack.get(CCDataComponents.NOTE);
 				level.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, Mth.clamp(note, 0, 24)));
 				player.displayClientMessage(Component.translatable(item.getDescriptionId() + ".change_note", Component.translatable(item.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 				if (!level.isClientSide() && level.getBlockState(pos.above()).isAir()) {
@@ -429,20 +431,20 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void bonusXPBlock(BlockEvent.BreakEvent event) {
-		Player player = event.getPlayer();
-		ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
+	public static void bonusXPBlock(BlockDropsEvent event) {
+		ItemStack stack = event.getTool();
 		Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
 		if (!experienceModifiers.isEmpty()) {
-			float experienceBoost = event.getExpToDrop() * (float) experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+			float experienceBoost = event.getDroppedExperience() * (float) experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
 			int base = Mth.floor(experienceBoost);
 			float bonus = Mth.frac(experienceBoost);
 			if (bonus != 0.0F && Math.random() < bonus) {
 				++base;
 			}
 
-			event.setExpToDrop(event.getExpToDrop() + base);
+			event.setDroppedExperience(event.getDroppedExperience() + base);
 		}
+
 	}
 
 	@SubscribeEvent
@@ -478,7 +480,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void potionAddedEvent(MobEffectEvent.Added event) {
 		LivingEntity entity = event.getEntity();
-		if (event.getEffectInstance().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND.get())) {
+		if (event.getEffectInstance().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND)) {
 			IDataManager data = ((IDataManager) entity);
 			data.setValue(CCDataProcessors.REWIND_DIMENSION, entity.getCommandSenderWorld().dimension().location());
 			data.setValue(CCDataProcessors.REWIND_X, entity.getX());
@@ -491,7 +493,7 @@ public class CCEvents {
 	public static void potionRemoveEvent(MobEffectEvent.Remove event) {
 		MobEffectInstance effectInstance = event.getEffectInstance();
 		if (effectInstance != null) {
-			MobEffect effect = effectInstance.getEffect();
+			MobEffect effect = effectInstance.getEffect().value();
 			LivingEntity entity = event.getEntity();
 			if (effect == CCMobEffects.REWIND.get())
 				rewindTeleport(entity);
@@ -502,7 +504,7 @@ public class CCEvents {
 	public static void potionExpireEvent(MobEffectEvent.Expired event) {
 		MobEffectInstance effectInstance = event.getEffectInstance();
 		if (effectInstance != null) {
-			MobEffect effect = effectInstance.getEffect();
+			MobEffect effect = effectInstance.getEffect().value();
 			LivingEntity entity = event.getEntity();
 			if (effect == CCMobEffects.REWIND.get())
 				rewindTeleport(entity);
@@ -510,7 +512,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingHurt(LivingHurtEvent event) {
+	public static void onLivingHurt(LivingDamageEvent.Pre event) {
 		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
 
@@ -527,7 +529,7 @@ public class CCEvents {
 			}
 
 			if (magicProtection > 0.0F) {
-				event.setAmount(event.getAmount() - event.getAmount() * magicProtection);
+				event.setNewDamage(event.getOriginalDamage() - event.getOriginalDamage() * magicProtection);
 				SilverItem.causeMagicProtectionEffects(target);
 			}
 		}
@@ -536,7 +538,7 @@ public class CCEvents {
 			ItemStack mainHandItem = attacker.getMainHandItem();
 
 			if (TuningForkItem.isTuningForkWithNote(mainHandItem)) {
-				int note = mainHandItem.getTag().getInt("Note");
+				int note = mainHandItem.get(CCDataComponents.NOTE);
 
 				TuningForkItem.playNote(target.level(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
 				NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
@@ -567,7 +569,7 @@ public class CCEvents {
 			}
 
 			if (lifeStealAmount > 0.0F) {
-				attacker.heal(lifeStealAmount * event.getAmount());
+				attacker.heal(lifeStealAmount * event.getOriginalDamage());
 				SanguineArmorItem.causeHealEffects(attacker, lifeStealAmount);
 			}
 
@@ -578,12 +580,12 @@ public class CCEvents {
 		}
 
 		if (source.getDirectEntity() instanceof BluntArrow) {
-			event.setAmount(0.0F);
+			event.setNewDamage(0.0F);
 		}
 	}
 
 	@SubscribeEvent
-	public static void onLivingDamage(LivingDamageEvent event) {
+	public static void onLivingDamage(LivingDamageEvent.Pre event) {
 		LivingEntity entity = event.getEntity();
 		DamageSource source = event.getSource();
 		Level level = entity.level();
@@ -617,13 +619,13 @@ public class CCEvents {
 		}
 
 		// TODO: Maybe use a tag?
-		if (entity instanceof Rat rat && source.getEntity() instanceof LivingEntity && !rat.isWounded() && rat.getHealth() - event.getAmount() <= 0.0F) {
-			event.setAmount(rat.getHealth() - 1.0F);
+		if (entity instanceof Rat rat && source.getEntity() instanceof LivingEntity && !rat.isWounded() && rat.getHealth() - event.getOriginalDamage() <= 0.0F) {
+			event.setNewDamage(rat.getHealth() - 1.0F);
 		}
 	}
 
 	@SubscribeEvent
-	public static void onShieldBlock(ShieldBlockEvent event) {
+	public static void onShieldBlock(LivingShieldBlockEvent event) {
 		LivingEntity entity = event.getEntity();
 		DamageSource source = event.getDamageSource();
 		if (source.getDirectEntity() instanceof Rat rat && rat.getAttachedEntity() == entity)
@@ -633,8 +635,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
 		LivingEntity entity = event.getEntity();
-		LivingEntity newtarget = event.getNewTarget();
-		if (newtarget instanceof Rat rat && rat.getAttachedEntity() == entity)
+		if (event.getNewAboutToBeSetTarget() instanceof Rat rat && rat.getAttachedEntity() == entity)
 			event.setCanceled(true);
 	}
 
@@ -815,14 +816,6 @@ public class CCEvents {
 		return false;
 	}
 
-	@SubscribeEvent
-	public static void onAegisBlock(ShieldBlockEvent event) {
-		LivingEntity entity = event.getEntity();
-		DamageSource source = event.getDamageSource();
-		if (entity instanceof Player player && player.getUseItem().is(CCItems.AEGIS.get()) && !(source.getDirectEntity() instanceof Projectile)) {
-		}
-	}
-
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		ItemStack stack = event.getItemStack();
@@ -865,7 +858,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onItemPickup(EntityItemPickupEvent event) {
+	public static void onItemPickup(ItemEntityPickupEvent.Pre event) {
 		if (!event.isCanceled()) {
 			ItemEntity itemEntity = event.getItem();
 			Player player = event.getEntity();
@@ -878,7 +871,7 @@ public class CCEvents {
 			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (event.getResult() == Result.ALLOW || i <= 0 || PackingContainerItem.addToContainer(player.getInventory(), stack))) {
 				i = copy.getCount() - stack.getCount();
 				copy.setCount(i);
-				ForgeEventFactory.firePlayerItemPickupEvent(player, itemEntity, copy);
+				EventHooks.fireItemPickupPre(itemEntity, player);
 				player.take(itemEntity, i);
 				if (stack.isEmpty()) {
 					itemEntity.discard();
@@ -895,83 +888,83 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-		LivingEntity entity = event.getEntity();
-		Level level = entity.level();
-
-		for (EquipmentSlot slot : EquipmentSlot.values()) {
-			ItemStack stack = entity.getItemBySlot(slot);
-			if (stack.getItem() instanceof WeatheringCopperItem item) {
-				boolean armor = slot.isArmor() && item instanceof ArmorItem;
-				boolean tool = !slot.isArmor() && item instanceof TieredItem;
-				if (armor || tool) {
-					item.updateOxidation(stack, level);
+	public static void onLivingTick(EntityTickEvent event) {
+		if (event.getEntity() instanceof LivingEntity entity) {
+			Level level = entity.level();
+			for (EquipmentSlot slot : EquipmentSlot.values()) {
+				ItemStack stack = entity.getItemBySlot(slot);
+				if (stack.getItem() instanceof WeatheringCopperItem item) {
+					boolean armor = slot.isArmor() && item instanceof ArmorItem;
+					boolean tool = !slot.isArmor() && item instanceof TieredItem;
+					if (armor || tool) {
+						item.updateOxidation(stack, level);
+					}
 				}
 			}
-		}
 
-		if (entity instanceof Player player) {
-			IDataManager data = (IDataManager) entity;
-			if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
-				ControllableGolem golem = TuningForkItem.findControlledGolem(player);
-				if (golem != null) {
-					int forgettime = TuningForkItem.getForgetGolemTime(player);
-					if (forgettime > 0) {
-						if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem())) TuningForkItem.setForgetGolemTime(player, forgettime - 1);
+			if (entity instanceof Player player) {
+				IDataManager data = (IDataManager) entity;
+				if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
+					ControllableGolem golem = TuningForkItem.findControlledGolem(player);
+					if (golem != null) {
+						int forgettime = TuningForkItem.getForgetGolemTime(player);
+						if (forgettime > 0) {
+							if (!TuningForkItem.isTuningForkWithNote(player.getMainHandItem()) && !TuningForkItem.isTuningForkWithNote(player.getOffhandItem())) TuningForkItem.setForgetGolemTime(player, forgettime - 1);
+						} else {
+							TuningForkItem.setControlledGolem(player, null);
+						}
 					} else {
 						TuningForkItem.setControlledGolem(player, null);
 					}
+				}
+			} else if (entity instanceof ControllableGolem golem) {
+				boolean controlled = golem.getTuningForkController() != null;
+				golem.setBeingTuningForkControlled(controlled);
+				if (controlled) {
+					golem.tungingForkControlTick();
 				} else {
-					TuningForkItem.setControlledGolem(player, null);
+					golem.setTuningForkPos(null);
+					golem.setTuningForkTarget(null);
 				}
 			}
-		} else if (entity instanceof ControllableGolem golem) {
-			boolean controlled = golem.getTuningForkController() != null;
-			golem.setBeingTuningForkControlled(controlled);
-			if (controlled) {
-				golem.tungingForkControlTick();
-			} else {
-				golem.setTuningForkPos(null);
-				golem.setTuningForkTarget(null);
-			}
-		}
 
-		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
-		if (!level.isClientSide && headstack.getItem() == CCItems.TETHER_POTION.get()) {
-			TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
+			ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
+			if (!level.isClientSide && headstack.getItem() == CCItems.TETHER_POTION.get()) {
+				TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 
-			for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
-				if (instance.getEffect().isInstantenous()) {
-					if (headstack.getTag().getInt("cooldown") > 0) {
-						headstack.getTag().putInt("cooldown", headstack.getTag().getInt("cooldown") - 1);
-					} else {
-						instance.getEffect().applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
-						TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
-						headstack.getTag().putInt("cooldown", 600);
+				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
+					if (instance.getEffect().isInstantenous()) {
+						if (headstack.getTag().getInt("cooldown") > 0) {
+							headstack.getTag().putInt("cooldown", headstack.getTag().getInt("cooldown") - 1);
+						} else {
+							instance.getEffect().applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
+							TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+							headstack.getTag().putInt("cooldown", 600);
+						}
 					}
 				}
 			}
-		}
-		if (!level.isClientSide && headstack.getItem() == CCItems.TRAIL_POTION.get()) {
-			MovingPlayer player = entity instanceof MovingPlayer ? (MovingPlayer) entity : null;
-			boolean moving = player == null && (!entity.getDeltaMovement().equals(new Vec3(0, -0.0784000015258789, 0)) && !entity.getDeltaMovement().equals(Vec3.ZERO));
-			if (entity.tickCount % 5 == 0) {
-				if (player != null && player.isMoving() || moving) {
-					TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, false);
+			if (!level.isClientSide && headstack.getItem() == CCItems.TRAIL_POTION.get()) {
+				MovingPlayer player = entity instanceof MovingPlayer ? (MovingPlayer) entity : null;
+				boolean moving = player == null && (!entity.getDeltaMovement().equals(new Vec3(0, -0.0784000015258789, 0)) && !entity.getDeltaMovement().equals(Vec3.ZERO));
+				if (entity.tickCount % 5 == 0) {
+					if (player != null && player.isMoving() || moving) {
+						TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, false);
+					}
 				}
 			}
-		}
 
-		if (headstack.is(CCItems.COWL.get()) && headstack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
-			entity.setInvisible(entity.isCrouching());
-			if (!entity.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
-				accessor.invokeUpdateInvisibilityStatus();
+			if (headstack.is(CCItems.COWL.get()) && headstack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
+				entity.setInvisible(entity.isCrouching());
+				if (!entity.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
+					accessor.invokeUpdateInvisibilityStatus();
+				}
 			}
-		}
 
-		if (!level.isClientSide && entity instanceof Mob mob && mob.getTarget() instanceof Rat rat && rat.isWounded() && mob.getLastHurtByMob() != null && mob.getLastHurtByMob() != rat) {
-			mob.setTarget(null);
-			mob.targetSelector.getRunningGoals().filter(wrappedGoal -> wrappedGoal.goal instanceof HurtByTargetGoal).findFirst().ifPresent(Goal::stop);
+			if (!level.isClientSide && entity instanceof Mob mob && mob.getTarget() instanceof Rat rat && rat.isWounded() && mob.getLastHurtByMob() != null && mob.getLastHurtByMob() != rat) {
+				mob.setTarget(null);
+				mob.targetSelector.getRunningGoals().filter(wrappedGoal -> wrappedGoal.goal instanceof HurtByTargetGoal).findFirst().ifPresent(Goal::stop);
+			}
 		}
 	}
 

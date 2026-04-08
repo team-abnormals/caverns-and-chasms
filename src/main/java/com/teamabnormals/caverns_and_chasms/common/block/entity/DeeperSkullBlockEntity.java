@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
@@ -23,14 +24,14 @@ public class DeeperSkullBlockEntity extends SkullBlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag compound) {
-		super.saveAdditional(compound);
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
 		compound.putString("hat", this.hat.getSerializedName());
 	}
 
 	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
 		this.hat = DeeperHat.byName(compound.getString("hat"));
 	}
 

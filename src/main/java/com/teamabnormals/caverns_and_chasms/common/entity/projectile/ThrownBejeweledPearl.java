@@ -6,8 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,8 +22,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.common.util.ITeleporter;
-import net.neoforged.neoforge.network.NetworkHooks;
-import net.neoforged.neoforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
 
@@ -38,10 +34,6 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 	public ThrownBejeweledPearl(Level level, LivingEntity entity) {
 		super(CCEntityTypes.BEJEWELED_PEARL.get(), entity, level);
-	}
-
-	public ThrownBejeweledPearl(PlayMessages.SpawnEntity spawnEntity, Level level) {
-		this(CCEntityTypes.BEJEWELED_PEARL.get(), level);
 	}
 
 	@Override
@@ -153,10 +145,5 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 		}
 
 		return super.changeDimension(level, teleporter);
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

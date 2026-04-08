@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 public class RatModel extends AgeableListModel<Rat> {
 	private static final RandomSource RANDOM = RandomSource.create();
@@ -296,7 +296,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 			for (int i = 0; i < attributes.size(); ++i) {
 				CompoundTag attributetag = attributes.getCompound(i);
-				if (attributetag.getString("Name").equals(Registries.ATTRIBUTES.getKey(attribute).toString())) {
+				if (attributetag.getString("Name").equals(BuiltInRegistries.ATTRIBUTE.getKey(attribute).toString())) {
 					double basevalue = attributetag.getDouble("Base");
 					double addition = 0.0D;
 					double multiplybase = 0.0D;
@@ -309,9 +309,9 @@ public class RatModel extends AgeableListModel<Rat> {
 							CompoundTag modifier = modifiers.getCompound(j);
 							AttributeModifier.Operation operation = AttributeModifier.Operation.fromValue(modifier.getInt("Operation"));
 							switch (operation) {
-								case ADDITION -> addition += modifier.getDouble("Amount");
-								case MULTIPLY_BASE -> multiplybase += modifier.getDouble("Amount");
-								case MULTIPLY_TOTAL -> multiplytotal *= (1.0D + modifier.getDouble("Amount"));
+								case ADD_VALUE -> addition += modifier.getDouble("Amount");
+								case ADD_MULTIPLIED_BASE -> multiplybase += modifier.getDouble("Amount");
+								case ADD_MULTIPLIED_TOTAL -> multiplytotal *= (1.0D + modifier.getDouble("Amount"));
 							}
 						}
 					}

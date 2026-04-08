@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
 import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 public abstract class CCCreeper extends Creeper {
 	public CCCreeper(EntityType<? extends Creeper> type, Level level) {
@@ -67,15 +68,16 @@ public abstract class CCCreeper extends Creeper {
 		if (!this.level().isClientSide && this.isAlive()) {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
-			BlockInteraction blockinteraction = !ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Explosion.BlockInteraction.KEEP : this.level().getGameRules().getBoolean(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY) ? Explosion.BlockInteraction.DESTROY_WITH_DECAY : Explosion.BlockInteraction.DESTROY;
+			BlockInteraction blockinteraction = !EventHooks.canEntityGrief(this.level(), this) ? Explosion.BlockInteraction.KEEP : this.level().getGameRules().getBoolean(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY) ? Explosion.BlockInteraction.DESTROY_WITH_DECAY : Explosion.BlockInteraction.DESTROY;
 			CustomExplosion.spawnExplosion(this.level(), this, this.getX(), this.getY(), this.getZ(), this.explosionRadius * f, this.isOnFire(), blockinteraction, this.getExplosionSound());
-			this.discard();
 			this.spawnLingeringCloud();
+			this.triggerOnDeathMobEffects(Entity.RemovalReason.KILLED);
+			this.discard();
 		}
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int p_34292_, boolean p_34293_) {
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean p_34293_) {
 		for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
 			ItemStack itemstack = this.getItemBySlot(equipmentslot);
 			float f = this.getEquipmentDropChance(equipmentslot);
@@ -107,7 +109,7 @@ public abstract class CCCreeper extends Creeper {
 	}
 
 	protected SoundEvent getExplosionSound() {
-		return SoundEvents.GENERIC_EXPLODE;
+		return SoundEvents.GENERIC_EXPLODE.value();
 	}
 
 	protected abstract ItemStack getSkull();

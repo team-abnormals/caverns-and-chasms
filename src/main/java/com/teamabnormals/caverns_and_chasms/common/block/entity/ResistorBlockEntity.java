@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,13 +14,14 @@ public class ResistorBlockEntity extends BlockEntity {
 		super(CCBlockEntityTypes.RESISTOR.get(), pos, state);
 	}
 
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
+	@Override
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
 		tag.putInt("OutputSignal", this.output);
 	}
 
-	public void load(CompoundTag tag) {
-		super.load(tag);
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
 		this.output = tag.getInt("OutputSignal");
 	}
 

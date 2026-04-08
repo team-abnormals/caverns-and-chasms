@@ -9,8 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -28,9 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.event.ForgeEventFactory;
-import net.neoforged.neoforge.network.NetworkHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.PlayMessages.SpawnEntity;
 
 import javax.annotation.Nullable;
 
@@ -44,10 +40,6 @@ public class MinecartTMT extends AbstractMinecart {
 
 	public MinecartTMT(Level p_38652_, double p_38653_, double p_38654_, double p_38655_) {
 		super(CCEntityTypes.TMT_MINECART.get(), p_38652_, p_38653_, p_38654_, p_38655_);
-	}
-
-	public MinecartTMT(SpawnEntity spawnEntity, Level level) {
-		this(CCEntityTypes.TMT_MINECART.get(), level);
 	}
 
 	@Override
@@ -206,10 +198,5 @@ public class MinecartTMT extends AbstractMinecart {
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(CCBlocks.TMT.get());
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

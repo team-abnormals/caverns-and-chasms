@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -66,7 +67,7 @@ public class MonocleItem extends SpyglassItem implements Equipable {
 	}
 
 	@Override
-	public SoundEvent getEquipSound() {
-		return CCSoundEvents.MONOCLE_EQUIP.get();
+	public Holder<SoundEvent> getEquipSound() {
+		return CCSoundEvents.MONOCLE_EQUIP;
 	}
 }

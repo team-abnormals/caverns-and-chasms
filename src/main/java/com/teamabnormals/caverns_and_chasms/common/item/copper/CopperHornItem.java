@@ -1,21 +1,21 @@
 package com.teamabnormals.caverns_and_chasms.common.item.copper;
 
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -27,10 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class CopperHornItem extends Item {
-	public static final String HARMONY = "harmony_instrument";
-	public static final String MELODY = "melody_instrument";
-	public static final String BASS = "bass_instrument";
-
 	private final TagKey<Instrument> harmonyInstruments;
 	private final TagKey<Instrument> melodyInstruments;
 	private final TagKey<Instrument> bassInstruments;
@@ -42,10 +38,11 @@ public class CopperHornItem extends Item {
 		this.bassInstruments = bassInstruments;
 	}
 
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-		Optional<ResourceKey<Instrument>> harmony = getInstrument(stack, "harmony", this.harmonyInstruments).flatMap(Holder::unwrapKey);
-		Optional<ResourceKey<Instrument>> melody = getInstrument(stack, "melody", this.melodyInstruments).flatMap(Holder::unwrapKey);
-		Optional<ResourceKey<Instrument>> bass = getInstrument(stack, "bass", this.bassInstruments).flatMap(Holder::unwrapKey);
+	@Override
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		Optional<ResourceKey<Instrument>> harmony = getInstrument(stack, CCDataComponents.HARMONY_INSTRUMENT.get(), this.harmonyInstruments).flatMap(Holder::unwrapKey);
+		Optional<ResourceKey<Instrument>> melody = getInstrument(stack, CCDataComponents.MELODY_INSTRUMENT.get(), this.melodyInstruments).flatMap(Holder::unwrapKey);
+		Optional<ResourceKey<Instrument>> bass = getInstrument(stack, CCDataComponents.BASS_INSTRUMENT.get(), this.bassInstruments).flatMap(Holder::unwrapKey);
 		if (harmony.isPresent()) {
 			MutableComponent harmonyTag = Component.translatable(Util.makeDescriptionId("instrument", harmony.get().location()));
 			MutableComponent melodyTag = Component.translatable(Util.makeDescriptionId("instrument", melody.get().location()));
@@ -57,15 +54,10 @@ public class CopperHornItem extends Item {
 
 	public static ItemStack create(Item item, Holder<Instrument> harmony, Holder<Instrument> melody, Holder<Instrument> bass) {
 		ItemStack stack = new ItemStack(item);
-		setSoundVariantId(stack, harmony, melody, bass);
+		stack.set(CCDataComponents.HARMONY_INSTRUMENT, harmony);
+		stack.set(CCDataComponents.MELODY_INSTRUMENT, melody);
+		stack.set(CCDataComponents.BASS_INSTRUMENT, bass);
 		return stack;
-	}
-
-	private static void setSoundVariantId(ItemStack stack, Holder<Instrument> harmony, Holder<Instrument> melody, Holder<Instrument> bass) {
-		CompoundTag tag = stack.getOrCreateTag();
-		tag.putString(HARMONY, harmony.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
-		tag.putString(MELODY, melody.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
-		tag.putString(BASS, bass.unwrapKey().orElseThrow(() -> new IllegalStateException("Invalid instrument")).location().toString());
 	}
 
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -91,27 +83,22 @@ public class CopperHornItem extends Item {
 
 	private Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack, @Nullable Player player) {
 		if (player != null && player.isCrouching()) {
-			return getInstrument(stack, "bass", this.bassInstruments);
+			return getInstrument(stack, CCDataComponents.BASS_INSTRUMENT.get(), this.bassInstruments);
 		} else if (player != null && player.getXRot() < -15.0F) {
-			return getInstrument(stack, "harmony", this.harmonyInstruments);
+			return getInstrument(stack, CCDataComponents.HARMONY_INSTRUMENT.get(), this.harmonyInstruments);
 		} else {
-			return getInstrument(stack, "melody", this.melodyInstruments);
+			return getInstrument(stack, CCDataComponents.MELODY_INSTRUMENT.get(), this.melodyInstruments);
 		}
 	}
 
-	private static Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack, String type, TagKey<Instrument> tagKey) {
-		String instrument = type + "_instrument";
-
-		CompoundTag tag = stack.getTag();
-		if (tag != null && tag.contains(instrument, 8)) {
-			ResourceLocation instrumentKey = ResourceLocation.tryParse(tag.getString(instrument));
-			if (instrumentKey != null) {
-				return BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, instrumentKey));
-			}
+	private static Optional<? extends Holder<Instrument>> getInstrument(ItemStack stack, DataComponentType<Holder<Instrument>> type, TagKey<Instrument> tagKey) {
+		Holder<Instrument> holder = stack.get(type);
+		if (holder != null) {
+			return Optional.of(holder);
+		} else {
+			Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(tagKey).iterator();
+			return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
 		}
-
-		Iterator<Holder<Instrument>> iterator = BuiltInRegistries.INSTRUMENT.getTagOrEmpty(tagKey).iterator();
-		return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
 	}
 
 	@Override

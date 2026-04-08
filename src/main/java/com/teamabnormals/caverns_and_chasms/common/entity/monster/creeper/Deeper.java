@@ -10,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -122,7 +123,7 @@ public class Deeper extends CCCreeper implements Shearable, IShearable {
 	}
 
 	@Override
-	public List<ItemStack> onSheared(Player player, ItemStack item, Level level, BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
 		level.playSound(null, this, SoundEvents.SNOW_GOLEM_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
 		this.gameEvent(GameEvent.SHEAR, player);
 		if (!level.isClientSide()) {
@@ -139,7 +140,7 @@ public class Deeper extends CCCreeper implements Shearable, IShearable {
 	}
 
 	@Override
-	public boolean isShearable(ItemStack stack, Level level, BlockPos pos) {
+	public boolean isShearable(@Nullable Player player, ItemStack stack, Level level, BlockPos pos) {
 		return this.readyForShearing();
 	}
 
@@ -156,9 +157,8 @@ public class Deeper extends CCCreeper implements Shearable, IShearable {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int p_34292_, boolean p_34293_) {
-		super.dropCustomDeathLoot(source, p_34292_, p_34293_);
-
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
+		super.dropCustomDeathLoot(level, source, recentlyHit);
 		if (this.getHat() != DeeperHat.NONE && random.nextBoolean()) {
 			this.spawnAtLocation(this.getHat().getItem());
 		}

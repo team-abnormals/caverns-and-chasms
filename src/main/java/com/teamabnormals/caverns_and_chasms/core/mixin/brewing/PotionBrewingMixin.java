@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.brewing;
 
 import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;

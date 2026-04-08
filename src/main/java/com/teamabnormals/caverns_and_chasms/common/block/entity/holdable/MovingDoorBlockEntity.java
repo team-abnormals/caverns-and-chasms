@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
@@ -42,34 +43,34 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
 
-		this.openness = compound.getDouble("Openness");
-		this.isBelowBottom = compound.getBoolean("BelowIsBottom");
-		MovingDoorType thisType = MovingDoorType.byName((compound.getString("DoorType")));
+		this.openness = tag.getDouble("Openness");
+		this.isBelowBottom = tag.getBoolean("BelowIsBottom");
+		MovingDoorType thisType = MovingDoorType.byName((tag.getString("DoorType")));
 		if (thisType != null) {
 			this.doorType = thisType;
 		}
-		MovingDoorType belowType = MovingDoorType.byName((compound.getString("BelowDoorType")));
+		MovingDoorType belowType = MovingDoorType.byName((tag.getString("BelowDoorType")));
 		this.belowDoorType = belowType;
 
-		this.forceSyncVisuals = compound.getBoolean("ForceSyncVisuals");
-		if (this.forceSyncVisuals || !compound.getBoolean("UpdateTag")) {
+		this.forceSyncVisuals = tag.getBoolean("ForceSyncVisuals");
+		if (this.forceSyncVisuals || !tag.getBoolean("UpdateTag")) {
 			this.syncVisuals();
 		}
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag compound) {
-		super.saveAdditional(compound);
-		compound.putDouble("Openness", this.openness);
-		compound.putBoolean("BelowIsBottom", this.isBelowBottom);
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
+		tag.putDouble("Openness", this.openness);
+		tag.putBoolean("BelowIsBottom", this.isBelowBottom);
 		if (this.doorType != null) {
-			compound.putString("DoorType", this.doorType.getRegistryName());
+			tag.putString("DoorType", this.doorType.getRegistryName());
 		}
 		if (this.belowDoorType != null) {
-			compound.putString("BelowDoorType", this.belowDoorType.getRegistryName());
+			tag.putString("BelowDoorType", this.belowDoorType.getRegistryName());
 		}
 	}
 
@@ -206,8 +207,8 @@ public class MovingDoorBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		CompoundTag compound = this.saveWithoutMetadata();
+	public CompoundTag getUpdateTag(Provider registries) {
+		CompoundTag compound = this.saveWithoutMetadata(registries);
 		compound.putBoolean("UpdateTag", true);
 		compound.putBoolean("ForceSyncVisuals", this.forceSyncVisuals);
 		return compound;

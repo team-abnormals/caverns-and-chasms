@@ -80,6 +80,7 @@ public class CavernsAndChasms {
 		CCEnchantments.ENCHANTMENTS.register(bus);
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
+		CCDataComponents.DATA_COMPONENTS.register(bus);
 
 		bus.addListener((ModConfigEvent event) -> {
 			final ModConfig config = event.getConfig();

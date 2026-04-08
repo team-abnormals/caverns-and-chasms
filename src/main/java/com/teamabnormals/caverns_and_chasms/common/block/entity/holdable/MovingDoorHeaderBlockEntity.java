@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -51,34 +52,33 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
-		ListTag listTag = compound.getList("StoredDoors", 8);
-		for (Tag tag : listTag) {
-			MovingDoorType storedBlock = MovingDoorType.byName(tag.getAsString());
+	public void loadAdditional(CompoundTag tag, Provider registries) {
+		super.loadAdditional(tag, registries);
+		ListTag listTag = tag.getList("StoredDoors", 8);
+		for (Tag entry : listTag) {
+			MovingDoorType storedBlock = MovingDoorType.byName(entry.getAsString());
 			if (storedBlock != null) {
 				this.storedBlocks.add(storedBlock);
 			}
 		}
-		this.holdTime = compound.getShort("HoldTime");
-
-		this.moveState = MoveState.byStep(compound.getInt("MoveState"));
+		this.holdTime = tag.getShort("HoldTime");
+		this.moveState = MoveState.byStep(tag.getInt("MoveState"));
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag compound) {
-		super.saveAdditional(compound);
+	protected void saveAdditional(CompoundTag tag, Provider registries) {
+		super.saveAdditional(tag, registries);
 		ListTag listTag = new ListTag();
 		for (MovingDoorType storedBlock : this.storedBlocks) {
 			listTag.add(StringTag.valueOf(storedBlock.getRegistryName()));
 		}
-		compound.put("StoredDoors", listTag);
-		compound.putShort("HoldTime", (short) this.holdTime);
+		tag.put("StoredDoors", listTag);
+		tag.putShort("HoldTime", (short) this.holdTime);
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		CompoundTag compound = super.getUpdateTag();
+	public CompoundTag getUpdateTag(Provider registries) {
+		CompoundTag compound = super.getUpdateTag(registries);
 		compound.putInt("MoveState", this.moveState.getStep());
 		return compound;
 	}
