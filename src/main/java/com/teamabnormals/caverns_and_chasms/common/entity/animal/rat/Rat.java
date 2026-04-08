@@ -1008,7 +1008,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public void awardKillScore(Entity target, int deathScore, DamageSource damageSource) {
 		super.awardKillScore(target, deathScore, damageSource);
 		if (target == this.commandedTarget && this.getOwner() instanceof ServerPlayer serverPlayer) {
-			CCCriteriaTriggers.RAT_KILLED_ENTITY.trigger(serverPlayer, this, target, damageSource);
+			CCCriteriaTriggers.RAT_KILLED_ENTITY.get().trigger(serverPlayer, this, target, damageSource);
 		}
 	}
 

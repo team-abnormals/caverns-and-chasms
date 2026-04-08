@@ -1,41 +1,53 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.google.common.collect.ImmutableBiMap;
-import com.teamabnormals.blueprint.common.advancement.EmptyTrigger;
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.advancement.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.EntitySubPredicate;
-import net.minecraft.advancements.critereon.EntitySubPredicate.Type;
-import net.minecraft.advancements.critereon.EntitySubPredicate.Types;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.fml.common.EventBusSubscriber;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.advancements.critereon.PlayerTrigger.TriggerInstance;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
+import java.util.Optional;
+
 public class CCCriteriaTriggers {
-	public static final EmptyTrigger USE_TUNING_FORK = CriteriaTriggers.register(new EmptyTrigger(prefix("use_tuning_fork")));
-	public static final EmptyTrigger SPOTTED_BY_PEEPER = CriteriaTriggers.register(new EmptyTrigger(prefix("spotted_by_peeper")));
-	public static final EmptyTrigger DISMANTLED_ITEM = CriteriaTriggers.register(new EmptyTrigger(prefix("dismantled_item")));
-	public static final AtonedItemTrigger ATONED_ITEM = CriteriaTriggers.register(new AtonedItemTrigger());
-	public static final RepairedItemTrigger REPAIRED_ITEM = CriteriaTriggers.register(new RepairedItemTrigger());
-	public static final PlayerHurtSelfTrigger PLAYER_HURT_SELF = CriteriaTriggers.register(new PlayerHurtSelfTrigger());
-	public static final OpenStorageDuctTrigger OPEN_STORAGE_DUCT = CriteriaTriggers.register(new OpenStorageDuctTrigger());
-	public static final RatKilledEntityTrigger RAT_KILLED_ENTITY = CriteriaTriggers.register(new RatKilledEntityTrigger());
-	public static final HoopTrigger HOOP_ENTERED = CriteriaTriggers.register(new HoopTrigger());
-	public static final EmptyTrigger HATCH_SADDLED_GRAZER = CriteriaTriggers.register(new EmptyTrigger(prefix("hatch_saddled_grazer")));
+	public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS = DeferredRegister.create(Registries.TRIGGER_TYPE, CavernsAndChasms.MOD_ID);
 
-	public static final EntitySubPredicate.Type RICOCHETS = RicochetPredicate::fromJson;
-	public static final EntitySubPredicate.Type COPPER_GOLEM = CopperGolemPredicate::fromJson;
+	public static final DeferredHolder<CriterionTrigger<?>, AtonedItemTrigger> ATONED_ITEM = TRIGGERS.register("atoned_item", AtonedItemTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, HoopTrigger> HOOP_ENTERED = TRIGGERS.register("hoop_entered", HoopTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, OpenStorageDuctTrigger> OPEN_STORAGE_DUCT = TRIGGERS.register("open_storage_duct", OpenStorageDuctTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, PlayerHurtSelfTrigger> PLAYER_HURT_SELF = TRIGGERS.register("player_hurt_self", PlayerHurtSelfTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, RatKilledEntityTrigger> RAT_KILLED_ENTITY = TRIGGERS.register("rat_killed_entity", RatKilledEntityTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, RepairedItemTrigger> REPAIRED_ITEM = TRIGGERS.register("repaired_item", RepairedItemTrigger::new);
 
-	public static void registerPredicates() {
-		ImmutableBiMap.Builder<String, Type> builder = ImmutableBiMap.builder();
-		Types.TYPES.forEach(builder::put);
-		builder.put("ricochets", RICOCHETS);
-		builder.put("copper_golem", COPPER_GOLEM);
-		Types.TYPES = builder.buildOrThrow();
+	public static final DeferredHolder<CriterionTrigger<?>, PlayerTrigger> USE_TUNING_FORK = TRIGGERS.register("use_tuning_fork", PlayerTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, PlayerTrigger> SPOTTED_BY_PEEPER = TRIGGERS.register("spotted_by_peeper", PlayerTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, PlayerTrigger> DISMANTLED_ITEM = TRIGGERS.register("dismantled_item", PlayerTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, PlayerTrigger> HATCH_SADDLED_GRAZER = TRIGGERS.register("hatch_saddled_grazer", PlayerTrigger::new);
+
+	public static Criterion<TriggerInstance> useTuningFork() {
+		return USE_TUNING_FORK.get().createCriterion(new PlayerTrigger.TriggerInstance(EntityPredicate.wrap(Optional.empty())));
 	}
 
-	private static ResourceLocation prefix(String name) {
-		return CavernsAndChasms.location(name);
+	public static Criterion<TriggerInstance> spottedByPeeper() {
+		return SPOTTED_BY_PEEPER.get().createCriterion(new PlayerTrigger.TriggerInstance(EntityPredicate.wrap(Optional.empty())));
 	}
+
+	public static Criterion<TriggerInstance> dismantledItem() {
+		return DISMANTLED_ITEM.get().createCriterion(new PlayerTrigger.TriggerInstance(EntityPredicate.wrap(Optional.empty())));
+	}
+
+	public static Criterion<TriggerInstance> hatchSaddledGrazer() {
+		return HATCH_SADDLED_GRAZER.get().createCriterion(new PlayerTrigger.TriggerInstance(EntityPredicate.wrap(Optional.empty())));
+	}
+
+	public static final DeferredRegister<MapCodec<? extends EntitySubPredicate>> ENTITY_SUB_PREDICATE_TYPES = DeferredRegister.create(Registries.ENTITY_SUB_PREDICATE_TYPE, CavernsAndChasms.MOD_ID);
+
+	public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<RicochetPredicate>> RICOCHETS = ENTITY_SUB_PREDICATE_TYPES.register("ricochets", () -> RicochetPredicate.CODEC);
+	public static final DeferredHolder<MapCodec<? extends EntitySubPredicate>, MapCodec<CopperGolemPredicate>> COPPER_GOLEM = ENTITY_SUB_PREDICATE_TYPES.register("copper_golem", () -> CopperGolemPredicate.CODEC);
 }

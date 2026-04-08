@@ -69,7 +69,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 			this.shrinkStackInSlot(1);
 			this.access.execute((level, pos) -> level.levelEvent(1044, pos, 0));
 			if (player instanceof ServerPlayer serverPlayer) {
-				CCCriteriaTriggers.DISMANTLED_ITEM.trigger(serverPlayer);
+				CCCriteriaTriggers.DISMANTLED_ITEM.get().trigger(serverPlayer);
 			}
 		}
 	}

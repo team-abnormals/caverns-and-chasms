@@ -1,60 +1,53 @@
 package com.teamabnormals.caverns_and_chasms.common.advancement;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.common.advancement.PlayerHurtSelfTrigger.TriggerInstance;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.resources.ResourceLocation;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.DamagePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
 
+import java.util.Optional;
+
 public class PlayerHurtSelfTrigger extends SimpleCriterionTrigger<TriggerInstance> {
-	static final ResourceLocation ID = CavernsAndChasms.location("player_hurt_self");
 
-	public ResourceLocation getId() {
-		return ID;
+	@Override
+	public Codec<TriggerInstance> codec() {
+		return TriggerInstance.CODEC;
 	}
 
-	public PlayerHurtSelfTrigger.TriggerInstance createInstance(JsonObject p_286442_, ContextAwarePredicate p_286426_, DeserializationContext p_286750_) {
-		DamagePredicate damagepredicate = DamagePredicate.fromJson(p_286442_.get("damage"));
-		return new PlayerHurtSelfTrigger.TriggerInstance(p_286426_, damagepredicate);
+	public void trigger(ServerPlayer player, Entity entity, DamageSource source, float amountDealt, float amountTaken, boolean blocked) {
+		LootContext lootcontext = EntityPredicate.createContext(player, entity);
+		this.trigger(player, instance -> instance.matches(player, lootcontext, source, amountDealt, amountTaken, blocked));
 	}
 
-	public void trigger(ServerPlayer p_60113_, Entity p_60114_, DamageSource p_60115_, float p_60116_, float p_60117_, boolean p_60118_) {
-		LootContext lootcontext = EntityPredicate.createContext(p_60113_, p_60114_);
-		this.trigger(p_60113_, (p_60126_) -> p_60126_.matches(p_60113_, lootcontext, p_60115_, p_60116_, p_60117_, p_60118_));
-	}
+	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<DamagePredicate> damage) implements SimpleCriterionTrigger.SimpleInstance {
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+				DamagePredicate.CODEC.optionalFieldOf("damage").forGetter(TriggerInstance::damage)
+		).apply(instance, TriggerInstance::new));
 
-	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-		private final DamagePredicate damage;
-
-		public TriggerInstance(ContextAwarePredicate p_286866_, DamagePredicate p_286225_) {
-			super(PlayerHurtSelfTrigger.ID, p_286866_);
-			this.damage = p_286225_;
+		public static Criterion<TriggerInstance> playerHurtSelf() {
+			return CCCriteriaTriggers.PLAYER_HURT_SELF.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty()));
 		}
 
-		public static PlayerHurtSelfTrigger.TriggerInstance playerHurtSelf() {
-			return new PlayerHurtSelfTrigger.TriggerInstance(ContextAwarePredicate.ANY, DamagePredicate.ANY);
+		public static Criterion<TriggerInstance> playerHurtSelfWithDamage(Optional<DamagePredicate> damage) {
+			return CCCriteriaTriggers.PLAYER_HURT_SELF.get().createCriterion(new TriggerInstance(Optional.empty(), damage));
 		}
 
-		public static PlayerHurtSelfTrigger.TriggerInstance playerHurtSelf(DamagePredicate p_156062_) {
-			return new PlayerHurtSelfTrigger.TriggerInstance(ContextAwarePredicate.ANY, p_156062_);
+		public static Criterion<TriggerInstance> playerHurtSelfWithDamage(DamagePredicate.Builder damage) {
+			return CCCriteriaTriggers.PLAYER_HURT_SELF.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.of(damage.build())));
 		}
 
-		public static PlayerHurtSelfTrigger.TriggerInstance playerHurtSelf(DamagePredicate.Builder p_60150_) {
-			return new PlayerHurtSelfTrigger.TriggerInstance(ContextAwarePredicate.ANY, p_60150_.build());
-		}
-
-		public boolean matches(ServerPlayer p_60143_, LootContext p_60144_, DamageSource p_60145_, float p_60146_, float p_60147_, boolean p_60148_) {
-			return this.damage.matches(p_60143_, p_60145_, p_60146_, p_60147_, p_60148_);
-		}
-
-		public JsonObject serializeToJson(SerializationContext p_60152_) {
-			JsonObject jsonobject = super.serializeToJson(p_60152_);
-			jsonobject.add("damage", this.damage.serializeToJson());
-			return jsonobject;
+		public boolean matches(ServerPlayer player, LootContext context, DamageSource damage, float dealt, float taken, boolean blocked) {
+			return this.damage.isPresent() && !this.damage.get().matches(player, damage, dealt, taken, blocked);
 		}
 	}
 }

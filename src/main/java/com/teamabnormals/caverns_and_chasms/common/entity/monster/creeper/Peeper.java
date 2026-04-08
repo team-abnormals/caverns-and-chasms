@@ -132,7 +132,7 @@ public class Peeper extends CCCreeper {
 	public void setTarget(@Nullable LivingEntity target) {
 		super.setTarget(target);
 		if (target instanceof ServerPlayer player) {
-			CCCriteriaTriggers.SPOTTED_BY_PEEPER.trigger(player);
+			CCCriteriaTriggers.SPOTTED_BY_PEEPER.get().trigger(player);
 		}
 	}
 

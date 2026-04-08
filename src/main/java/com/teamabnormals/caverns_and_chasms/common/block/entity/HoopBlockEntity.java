@@ -84,9 +84,9 @@ public class HoopBlockEntity extends BlockEntity {
 
 				for (Entity entity : entities) {
 					if (entity instanceof Projectile projectile && projectile.getOwner() instanceof ServerPlayer serverPlayer) {
-						CCCriteriaTriggers.HOOP_ENTERED.trigger(serverPlayer, entity, size, power);
+						CCCriteriaTriggers.HOOP_ENTERED.get().trigger(serverPlayer, entity, size, power);
 					} else if (entity instanceof ItemEntity itemEntity && itemEntity.getOwner() instanceof ServerPlayer serverPlayer) {
-						CCCriteriaTriggers.HOOP_ENTERED.trigger(serverPlayer, entity, size, power);
+						CCCriteriaTriggers.HOOP_ENTERED.get().trigger(serverPlayer, entity, size, power);
 					}
 				}
 

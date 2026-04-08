@@ -74,7 +74,7 @@ public class SaddledEggBlock extends HorizontalDirectionalBlock implements Simpl
 			level.removeBlock(pos, false);
 
 			if (entity instanceof ServerPlayer serverPlayer) {
-				CCCriteriaTriggers.HATCH_SADDLED_GRAZER.trigger(serverPlayer);
+				CCCriteriaTriggers.HATCH_SADDLED_GRAZER.get().trigger(serverPlayer);
 			}
 
 			SaddledGrazer saddledgrazer = CCEntityTypes.SADDLED_GRAZER.get().create(level);

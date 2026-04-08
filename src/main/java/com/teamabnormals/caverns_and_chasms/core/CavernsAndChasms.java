@@ -13,10 +13,7 @@ import com.teamabnormals.caverns_and_chasms.core.data.server.*;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
-import com.teamabnormals.caverns_and_chasms.core.other.CCClientCompat;
-import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
-import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
+import com.teamabnormals.caverns_and_chasms.core.other.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
@@ -81,6 +78,8 @@ public class CavernsAndChasms {
 		CCLootItemFunctions.LOOT_FUNCTION_TYPES.register(bus);
 		CCDecoratedPotPatterns.DECORATED_POT_PATTERNS.register(bus);
 		CCEnchantments.ENCHANTMENTS.register(bus);
+		CCCriteriaTriggers.TRIGGERS.register(bus);
+		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
 
 		bus.addListener((ModConfigEvent event) -> {
 			final ModConfig config = event.getConfig();

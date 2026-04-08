@@ -5,12 +5,12 @@ import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,25 +54,23 @@ public class TuningForkItem extends Item {
 		Player player = context.getPlayer();
 		BlockState state = level.getBlockState(pos);
 		ItemStack stack = context.getItemInHand();
-		CompoundTag tag = stack.getOrCreateTag();
 
 		if (player != null) {
 			if (state.getBlock() instanceof NoteBlock && player.isCrouching()) {
 				int note = state.getValue(NoteBlock.NOTE);
-
-				if (!tag.contains("Note") || tag.getInt("Note") != note) {
-					tag.putInt("Note", state.getValue(NoteBlock.NOTE));
+				if (!stack.has(CCDataComponents.NOTE) || stack.get(CCDataComponents.NOTE) != note) {
+					stack.set(CCDataComponents.NOTE, state.getValue(NoteBlock.NOTE));
 
 					player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".capture_note", Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 					playNote(level, player, player.getX(), player.getY(), player.getZ(), note);
-					if (player instanceof ServerPlayer)
-						CCCriteriaTriggers.USE_TUNING_FORK.trigger((ServerPlayer) player);
+					if (player instanceof ServerPlayer serverPlayer)
+						CCCriteriaTriggers.USE_TUNING_FORK.get().trigger(serverPlayer);
 				}
 
 				return InteractionResult.sidedSuccess(level.isClientSide());
-			} else if (tag.contains("Note")) {
+			} else if (stack.has(CCDataComponents.NOTE)) {
 				BlockPos targetpos = state.getCollisionShape(level, pos).isEmpty() ? pos : pos.relative(direction);
-				int note = tag.getInt("Note");
+				int note = stack.get(CCDataComponents.NOTE);
 
 				player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 				playNote(level, player, targetpos.getX() + 0.5D, targetpos.getY() + 0.5D, targetpos.getZ() + 0.5D, note);
@@ -93,10 +90,8 @@ public class TuningForkItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		CompoundTag tag = stack.getOrCreateTag();
-
-		if (tag.contains("Note")) {
-			int note = tag.getInt("Note");
+		if (stack.has(CCDataComponents.NOTE)) {
+			int note = stack.get(CCDataComponents.NOTE);
 			player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".note").append(": ").append(Component.translatable(this.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
 
 			Vec3 vec3 = player.getEyePosition().add(player.getViewVector(1.0F).normalize().scale(1.5D));
@@ -116,10 +111,9 @@ public class TuningForkItem extends Item {
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-		CompoundTag tag = stack.getOrCreateTag();
-		int note = tag.getInt("Note");
 
-		if (tag.contains("Note")) {
+		if (stack.has(CCDataComponents.NOTE)) {
+			int note = stack.get(CCDataComponents.NOTE);
 			playNote(player.level(), player, target.getX(), target.getEyeY(), target.getZ(), note);
 			if (player.level().isClientSide) {
 				player.level().addParticle(ParticleTypes.NOTE, target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
@@ -158,10 +152,9 @@ public class TuningForkItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-		CompoundTag tag = stack.getTag();
-		if (tag != null && tag.contains("Note")) {
-			int note = tag.getInt("Note");
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+		if (stack.has(CCDataComponents.NOTE)) {
+			int note = stack.get(CCDataComponents.NOTE);
 			tooltip.add(Component.translatable(this.getDescriptionId() + ".note." + note).append(" (" + note + ")").withStyle(ChatFormatting.GRAY));
 		}
 	}
@@ -173,7 +166,7 @@ public class TuningForkItem extends Item {
 	}
 
 	public static boolean isTuningForkWithNote(ItemStack stack) {
-		return stack.getItem() instanceof TuningForkItem && stack.getTag() != null && stack.getTag().contains("Note");
+		return stack.getItem() instanceof TuningForkItem && stack.has(CCDataComponents.NOTE);
 	}
 
 	public static void setControlledGolem(Player player, ControllableGolem golem) {
@@ -222,9 +215,8 @@ public class TuningForkItem extends Item {
 	}
 
 	public static int getNoteColor(ItemStack stack) {
-		CompoundTag tag = stack.getOrCreateTag();
-		if (tag.contains("Note")) {
-			int note = tag.getInt("Note");
+		if (stack.has(CCDataComponents.NOTE)) {
+			int note = stack.get(CCDataComponents.NOTE);
 			float f = note / 24.0F;
 			float r = Math.max(0.0F, Mth.sin((f + 0.0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);
 			float g = Math.max(0.0F, Mth.sin((f + 0.33333334F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F);

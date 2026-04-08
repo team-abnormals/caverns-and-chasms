@@ -71,7 +71,7 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 		this.access.execute((level, pos) -> {
 			BlockState state = level.getBlockState(pos);
 			if (player instanceof ServerPlayer serverPlayer) {
-				CCCriteriaTriggers.REPAIRED_ITEM.trigger(serverPlayer, input, ingredient, output);
+				CCCriteriaTriggers.REPAIRED_ITEM.get().trigger(serverPlayer, input, ingredient, output);
 			}
 
 			if (state.is(CCBlocks.BEJEWELED_ANVIL.get())) {

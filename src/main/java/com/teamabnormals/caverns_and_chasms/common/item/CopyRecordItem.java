@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +61,7 @@ public class CopyRecordItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		ItemStack disc = this.getDiscStack(stack);
 		if (!disc.isEmpty()) {
 			tooltip.add(Component.translatable(new ItemStack(this).getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));

@@ -1,26 +1,22 @@
 package com.teamabnormals.caverns_and_chasms.common.advancement;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.common.advancement.HoopTrigger.TriggerInstance;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
 
+import java.util.Optional;
+
 public class HoopTrigger extends SimpleCriterionTrigger<TriggerInstance> {
-	static final ResourceLocation ID = CavernsAndChasms.location("hoop_entered");
 
-	public ResourceLocation getId() {
-		return ID;
-	}
-
-	public HoopTrigger.TriggerInstance createInstance(JsonObject json, ContextAwarePredicate player, DeserializationContext context) {
-		MinMaxBounds.Ints hoopSize = MinMaxBounds.Ints.fromJson(json.get("hoop_size"));
-		MinMaxBounds.Ints signalStrength = MinMaxBounds.Ints.fromJson(json.get("signal_strength"));
-		ContextAwarePredicate projectile = EntityPredicate.fromJson(json, "projectile", context);
-		return new HoopTrigger.TriggerInstance(player, hoopSize, signalStrength, projectile);
+	@Override
+	public Codec<TriggerInstance> codec() {
+		return TriggerInstance.CODEC;
 	}
 
 	public void trigger(ServerPlayer player, Entity projectile, int hoopSize, int signalStrength) {
@@ -28,36 +24,31 @@ public class HoopTrigger extends SimpleCriterionTrigger<TriggerInstance> {
 		this.trigger(player, (instance) -> instance.matches(projectileContext, hoopSize, signalStrength));
 	}
 
-	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-		private final MinMaxBounds.Ints hoopSize;
-		private final MinMaxBounds.Ints signalStrength;
-		private final ContextAwarePredicate projectile;
+	public record TriggerInstance(Optional<ContextAwarePredicate> player, MinMaxBounds.Ints hoopSize, MinMaxBounds.Ints signalStrength, Optional<ContextAwarePredicate> projectile) implements SimpleCriterionTrigger.SimpleInstance {
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+						EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+						MinMaxBounds.Ints.CODEC.optionalFieldOf("hoop_size", MinMaxBounds.Ints.ANY).forGetter(TriggerInstance::hoopSize),
+						MinMaxBounds.Ints.CODEC.optionalFieldOf("signal_strength", MinMaxBounds.Ints.ANY).forGetter(TriggerInstance::signalStrength),
+						EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("projectile").forGetter(TriggerInstance::projectile)
+				).apply(instance, TriggerInstance::new)
+		);
 
-		public TriggerInstance(ContextAwarePredicate player, MinMaxBounds.Ints hoopSize, MinMaxBounds.Ints signalStrength, ContextAwarePredicate projectile) {
-			super(HoopTrigger.ID, player);
-			this.hoopSize = hoopSize;
-			this.signalStrength = signalStrength;
-			this.projectile = projectile;
-		}
-
-		public static HoopTrigger.TriggerInstance hoopEntered(MinMaxBounds.Ints hoopSize, MinMaxBounds.Ints signalStrength, ContextAwarePredicate projectile) {
-			return new HoopTrigger.TriggerInstance(ContextAwarePredicate.ANY, hoopSize, signalStrength, projectile);
-		}
-
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			json.add("hoop_size", this.hoopSize.serializeToJson());
-			json.add("signal_strength", this.signalStrength.serializeToJson());
-			json.add("projectile", this.projectile.toJson(context));
-			return json;
+		public static Criterion<TriggerInstance> hoopEntered(MinMaxBounds.Ints hoopSize, MinMaxBounds.Ints signalStrength, Optional<ContextAwarePredicate> projectile) {
+			return CCCriteriaTriggers.HOOP_ENTERED.get().createCriterion(new HoopTrigger.TriggerInstance(Optional.empty(), hoopSize, signalStrength, projectile));
 		}
 
 		public boolean matches(LootContext projectileContext, int hoopSize, int signalStrength) {
 			if (!this.hoopSize.matches(hoopSize) && !this.signalStrength.matches(signalStrength)) {
 				return false;
 			} else {
-				return this.projectile.matches(projectileContext);
+				return this.projectile.isPresent() && this.projectile.get().matches(projectileContext);
 			}
+		}
+
+		@Override
+		public void validate(CriterionValidator validator) {
+			SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
+			validator.validateEntity(this.projectile, ".projectile");
 		}
 	}
 }

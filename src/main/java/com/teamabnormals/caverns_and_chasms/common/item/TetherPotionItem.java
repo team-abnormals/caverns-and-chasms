@@ -84,7 +84,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		List<MobEffectInstance> list = PotionUtils.getMobEffects(stack);
 		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 
