@@ -25,7 +25,6 @@ public class CCModelLayers {
 	public static final ModelLayerLocation AEGIS = register("aegis");
 	public static final ModelLayerLocation CAVEFISH = register("cavefish");
 	public static final ModelLayerLocation COPPER_GOLEM = register("copper_golem");
-	public static final ModelLayerLocation COPPER_HORSE_ARMOR = register("copper_horse_armor");
 	public static final ModelLayerLocation DEEPER = register("deeper");
 	public static final ModelLayerLocation DEEPER_HEAD = register("deeper_head");
 	public static final ModelLayerLocation DEEPER_ARMOR = register("deeper", "armor");
@@ -73,7 +72,6 @@ public class CCModelLayers {
 		event.registerLayerDefinition(WINCH, WinchRenderer::createBodyLayer);
 		event.registerLayerDefinition(TMT_MINECART, MinecartModel::createBodyLayer);
 		event.registerLayerDefinition(LOST_GOAT, LostGoatModel::createBodyLayer);
-		event.registerLayerDefinition(COPPER_HORSE_ARMOR, () -> LayerDefinition.create(CopperHorseArmorModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
 		event.registerLayerDefinition(UNICORN_HORN, () -> LayerDefinition.create(UnicornHornModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
 	}
 
