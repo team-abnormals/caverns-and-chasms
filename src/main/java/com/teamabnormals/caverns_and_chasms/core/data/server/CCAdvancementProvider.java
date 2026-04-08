@@ -23,6 +23,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,6 +33,14 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.AdvancementProvider.AdvancementGenerator;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeAdvancementProvider;
+import net.minecraftforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
 
 import java.util.List;
 import java.util.Optional;
@@ -124,6 +133,12 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		createAdvancement("copy_music_disc", "adventure", zirconia, CCItems.MUSIC_DISC_COPY.get(), AdvancementType.TASK, true, true, false)
 				.addCriterion("copy_music_disc", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/copy_music_disc");
+
+		stack = new ItemStack(Items.DIAMOND_LEGGINGS);
+		stack.enchant(provider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 3);
+		createAdvancement("repair_pants_with_zirconia", "adventure", zirconia, stack, AdvancementType.TASK, true, true, true)
+				.addCriterion("repair_pants_with_zirconia", RepairedItemTrigger.TriggerInstance.repairedItemWith(ItemPredicate.Builder.item().of(ItemTags.LEG_ARMOR).build(), ItemPredicate.Builder.item().of(CCItems.ZIRCONIA.get()).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/repair_pants_with_zirconia");
 
 		AdvancementHolder monolith = createAdvancement("find_monolith", "adventure", ResourceLocation.withDefaultNamespace("adventure/root"), CCItems.RAW_TIN.get(), AdvancementType.TASK, true, true, false)
 				.addCriterion("find_monolith", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(provider.lookupOrThrow(Registries.STRUCTURE).getOrThrow(CCStructures.TIN_MONOLITH))))
