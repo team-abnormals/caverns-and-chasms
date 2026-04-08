@@ -29,8 +29,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import net.minecraftforge.common.data.ForgeAdvancementProvider.AdvancementGenerator;
@@ -126,6 +128,12 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 		Advancement zirconia = createAdvancement("repair_with_zirconia", "adventure", bejeweledAnvilRepair, CCItems.ZIRCONIA.get(), FrameType.TASK, true, true, false)
 				.addCriterion("repair_with_zirconia", RepairedItemTrigger.TriggerInstance.repairedItemWith(ItemPredicate.Builder.item().of(CCItems.ZIRCONIA.get()).build()))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/repair_with_zirconia");
+
+		stack = new ItemStack(Items.DIAMOND_LEGGINGS);
+		stack.enchant(Enchantments.UNBREAKING, 3);
+		createAdvancement("repair_pants_with_zirconia", "adventure", zirconia, stack, FrameType.TASK, true, true, true)
+				.addCriterion("repair_pants_with_zirconia", RepairedItemTrigger.TriggerInstance.repairedItemWith(ItemPredicate.Builder.item().of(Tags.Items.ARMORS_LEGGINGS).build(), ItemPredicate.Builder.item().of(CCItems.ZIRCONIA.get()).build()))
+				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/repair_pants_with_zirconia");
 
 		createAdvancement("copy_music_disc", "adventure", zirconia, CCItems.MUSIC_DISC_COPY.get(), FrameType.TASK, true, true, false)
 				.addCriterion("copy_music_disc", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.MUSIC_DISC_COPY.get()))
