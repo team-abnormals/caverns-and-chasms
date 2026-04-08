@@ -25,7 +25,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
@@ -114,7 +114,7 @@ public class MinecartTMT extends AbstractMinecart {
 			}
 
 			SpinelBoom boom = new SpinelBoom(this.level(), this, this.getX(), this.getY(), this.getZ(), (float) (4.0D + this.random.nextDouble() * 1.5D * d0));
-			if (ForgeEventFactory.onExplosionStart(this.level(), boom)) return;
+			if (EventHooks.onExplosionStart(this.level(), boom)) return;
 			boom.explode();
 			boom.finalizeExplosion(true);
 			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new S2CSpinelBoomMessage((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));

@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
+package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;

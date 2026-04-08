@@ -3,9 +3,9 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,12 +31,13 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -83,15 +84,15 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 	}
 
 
-	protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-		return sizeIn.height * 0.5F;
-	}
-
 	public boolean doHurtTarget(Entity entityIn) {
-		boolean flag = entityIn.hurt(this.damageSources().sting(this), (float) ((int) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
+		DamageSource damagesource = this.damageSources().sting(this);
+
+		boolean flag = entityIn.hurt(damagesource, (float) ((int) this.getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
 		if (flag) {
-			this.doEnchantDamageEffects(this, entityIn);
-			if (entityIn instanceof LivingEntity) {
+			if (this.level() instanceof ServerLevel serverlevel) {
+				EnchantmentHelper.doPostAttackEffects(serverlevel, entityIn, damagesource);
+			}
+			if (entityIn instanceof LivingEntity living) {
 				int i = 0;
 				if (this.level().getDifficulty() == Difficulty.NORMAL) {
 					i = 5;
@@ -100,7 +101,7 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 				}
 
 				if (i > 0) {
-					((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, i * 20, 0));
+					living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, i * 20, 0));
 				}
 			}
 
@@ -201,16 +202,9 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 		}
 	}
 
-	public MobType getMobType() {
-		return MobType.ARTHROPOD;
-	}
-
-	protected void handleFluidJump(TagKey<Fluid> fluidTag) {
+	@Override
+	public void jumpInFluid(FluidType fluid) {
 		this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-	}
-
-	public boolean canBeeContinueToUse() {
-		return false;
 	}
 
 	@Override

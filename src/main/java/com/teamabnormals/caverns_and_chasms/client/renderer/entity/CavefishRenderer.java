@@ -24,8 +24,8 @@ public class CavefishRenderer extends MobRenderer<Cavefish, CavefishModel<Cavefi
 	}
 
 	@Override
-	protected void setupRotations(Cavefish cavefish, PoseStack stack, float p_116228_, float p_116229_, float p_116230_) {
-		super.setupRotations(cavefish, stack, p_116228_, p_116229_, p_116230_);
+	protected void setupRotations(Cavefish cavefish, PoseStack stack, float p_116228_, float p_116229_, float p_116230_, float scale) {
+		super.setupRotations(cavefish, stack, p_116228_, p_116229_, p_116230_, scale);
 		float f = 4.3F * Mth.sin(0.6F * p_116228_);
 		stack.mulPose(Axis.YP.rotationDegrees(f));
 		if (!cavefish.isInWater()) {

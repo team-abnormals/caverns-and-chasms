@@ -5,24 +5,23 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class UnicornHornItem extends Item {
@@ -51,12 +50,12 @@ public class UnicornHornItem extends Item {
 					event.setCancellationResult(InteractionResult.sidedSuccess(player.level().isClientSide));
 					event.setCanceled(true);
 				}
-			} else if (stack.is(Tags.Items.SHEARS)) {
+			} else if (stack.is(Tags.Items.TOOLS_SHEAR)) {
 				horse.level().playSound(null, horse, CCSoundEvents.UNICORN_HORN_UNEQUIP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 				if (!player.level().isClientSide) {
 					entity.level().gameEvent(entity, GameEvent.SHEAR, entity.position());
 					entity.spawnAtLocation(dataManager.getValue(CCDataProcessors.UNICORN_HORN), 1.0F);
-					stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(event.getHand()));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
 				}
 				dataManager.setValue(CCDataProcessors.UNICORN_HORN, ItemStack.EMPTY);
 				dataManager.setValue(CCDataProcessors.GLOW_UNICORN_HORN, false);

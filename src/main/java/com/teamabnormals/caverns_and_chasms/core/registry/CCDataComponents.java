@@ -19,12 +19,18 @@ public class CCDataComponents {
 	public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, CavernsAndChasms.MOD_ID);
 
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> SUBTLE = register("subtle", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
+
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> EMISSIVE_TRIM = register("emissive_trim", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> FADED_TRIM = register("faded_trim", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> PULSE_TRIM = register("pulse_trim", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
+
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE = register("note", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIFE = register("life", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FLUID_LEVEL = register("fluid_level", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
-	public static final DeferredHolder<DataComponentType<Holder<Instrument>>, DataComponentType<Holder<Instrument>>> HARMONY_INSTRUMENT = register("harmony_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
-	public static final DeferredHolder<DataComponentType<Holder<Instrument>>, DataComponentType<Holder<Instrument>>> MELODY_INSTRUMENT = register("melody_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
-	public static final DeferredHolder<DataComponentType<Holder<Instrument>>, DataComponentType<Holder<Instrument>>> BASS_INSTRUMENT = register("bass_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Instrument>>> HARMONY_INSTRUMENT = register("harmony_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Instrument>>> MELODY_INSTRUMENT = register("melody_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Instrument>>> BASS_INSTRUMENT = register("bass_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
 
 	private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<Builder<T>> builder) {
 		return DATA_COMPONENTS.register(name, () -> builder.apply(DataComponentType.builder()).build());

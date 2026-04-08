@@ -2,35 +2,31 @@ package com.teamabnormals.caverns_and_chasms.common.recipe;
 
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.Item;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 public class MusicDiscCopying extends CustomRecipe {
 
-	public MusicDiscCopying(ResourceLocation id, CraftingBookCategory category) {
-		super(id, category);
+	public MusicDiscCopying(CraftingBookCategory category) {
+		super(category);
 	}
 
 	@Override
-	public boolean matches(CraftingContainer container, Level level) {
+	public boolean matches(CraftingInput input, Level level) {
 		int i = 0;
 		int j = 0;
 
-		for (int k = 0; k < container.getContainerSize(); ++k) {
-			ItemStack stack = container.getItem(k);
+		for (int k = 0; k < input.size(); ++k) {
+			ItemStack stack = input.getItem(k);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof RecordItem) {
+				if (stack.has(DataComponents.JUKEBOX_PLAYABLE)) {
 					++i;
 				} else {
 					if (!stack.is(CCItems.ZIRCONIA.get())) {
@@ -50,15 +46,14 @@ public class MusicDiscCopying extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
+	public ItemStack assemble(CraftingInput container, HolderLookup.Provider registries) {
 		ItemStack returnStack = new ItemStack(CCItems.MUSIC_DISC_COPY.get());
 
-		for (int i = 0; i < container.getContainerSize(); ++i) {
+		for (int i = 0; i < container.size(); ++i) {
 			ItemStack stack = container.getItem(i);
 			if (!stack.isEmpty()) {
-				Item item = stack.getItem();
-				if (item instanceof RecordItem) {
-					returnStack.getOrCreateTag().putString("music_disc", BuiltInRegistries.ITEM.getKey(item).toString());
+				if (stack.has(DataComponents.JUKEBOX_PLAYABLE)) {
+					returnStack.set(DataComponents.JUKEBOX_PLAYABLE, stack.get(DataComponents.JUKEBOX_PLAYABLE));
 				}
 			}
 		}
@@ -67,14 +62,14 @@ public class MusicDiscCopying extends CustomRecipe {
 	}
 
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
-		NonNullList<ItemStack> items = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
+	public NonNullList<ItemStack> getRemainingItems(CraftingInput container) {
+		NonNullList<ItemStack> items = NonNullList.withSize(container.size(), ItemStack.EMPTY);
 
 		for (int i = 0; i < items.size(); ++i) {
 			ItemStack item = container.getItem(i);
 			if (item.hasCraftingRemainingItem()) {
 				items.set(i, item.getCraftingRemainingItem());
-			} else if (item.is(ItemTags.MUSIC_DISCS)) {
+			} else if (item.has(DataComponents.JUKEBOX_PLAYABLE)) {
 				items.set(i, item.copyWithCount(1));
 			}
 		}

@@ -7,9 +7,9 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.TextureAtlasHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -25,7 +25,7 @@ public class GrazerSpriteUploader extends TextureAtlasHolder {
 
 	@SubscribeEvent
 	public static void registerReloadListeners(RegisterClientReloadListenersEvent event) {
-		event.registerReloadListener(uploader = new GrazerSpriteUploader(Minecraft.getInstance().textureManager));
+		event.registerReloadListener(uploader = new GrazerSpriteUploader(Minecraft.getInstance().getTextureManager()));
 	}
 
 	public static TextureAtlasSprite getDroolSprite() {

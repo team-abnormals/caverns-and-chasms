@@ -21,12 +21,12 @@ public class GrazerRenderer extends MobRenderer<AbstractGrazer, GrazerModel> {
 	}
 
 	@Override
-	protected void setupRotations(AbstractGrazer grazer, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+	protected void setupRotations(AbstractGrazer grazer, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float scale) {
 		if (grazer.isBaby()) {
 			rotationYaw += Mth.cos(ageInTicks * 3.25F) * Mth.PI * 0.4F * grazer.getVocalizeAmount(partialTick);
 		}
 
-		super.setupRotations(grazer, poseStack, ageInTicks, rotationYaw, partialTick);
+		super.setupRotations(grazer, poseStack, ageInTicks, rotationYaw, partialTick, scale);
 		float rot = -grazer.getCustomXRot(partialTick) + Mth.sin(ageInTicks * 0.6F) * 3.5F * grazer.getWiggleAmount(partialTick);
 		double ycenter = 21D / 16D * grazer.getScale();
 		double zcenter = 7D / 16D * grazer.getScale();

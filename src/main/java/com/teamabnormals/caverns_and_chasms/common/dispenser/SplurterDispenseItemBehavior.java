@@ -1,9 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.dispenser;
 
 import com.teamabnormals.caverns_and_chasms.common.block.ScattererBlock;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 public class SplurterDispenseItemBehavior extends DefaultDispenseItemBehavior {
 
 	protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
-		Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
+		Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
 		Position position = DispenserBlock.getDispensePosition(blockSource);
-		BlockState state = blockSource.getBlockState();
-		shootItem(blockSource.getLevel(), stack, 6, direction, position, ((ScattererBlock) state.getBlock()).powerLevel, true);
+		BlockState state = blockSource.state();
+		shootItem(blockSource.level(), stack, 6, direction, position, ((ScattererBlock) state.getBlock()).powerLevel, true);
 		return ItemStack.EMPTY;
 	}
 

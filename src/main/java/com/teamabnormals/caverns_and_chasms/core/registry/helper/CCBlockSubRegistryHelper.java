@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.registry.helper;
 
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.blueprint.client.MemoizedBEWLR;
 import com.teamabnormals.blueprint.client.renderer.block.TypedBlockEntityWithoutLevelRenderer;
-import com.teamabnormals.blueprint.common.item.BEWLRBlockItem;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.ToolboxBlockEntityWithoutLevelRenderer;
@@ -10,7 +10,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.SparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.WallSparklerBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import net.minecraft.core.BlockPos;
@@ -25,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -38,13 +39,19 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 
 	public <B extends Block> DeferredBlock<B> createToolboxBlock(String name, Supplier<? extends B> supplier) {
 		DeferredBlock<B> block = this.deferredRegister.register(name, supplier);
-		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(1), () -> () -> toolboxBEWLR()));
+		DeferredHolder<Item, BlockItem> item = this.itemRegister.register(name, () -> new BlockItem(block.get(), new Item.Properties().stacksTo(1)));
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			this.clientItemExtensions.put(item, toolboxBEWLR(block));
+		}
 		return block;
 	}
 
 	public <B extends Block> DeferredBlock<B> createWinchBlock(String name, Supplier<? extends B> supplier) {
 		DeferredBlock<B> block = this.deferredRegister.register(name, supplier);
-		this.itemRegister.register(name, () -> new BEWLRBlockItem(block.get(), new Item.Properties().stacksTo(64), () -> () -> winchBEWLR()));
+		DeferredHolder<Item, BlockItem> item = this.itemRegister.register(name, () -> new BlockItem(block.get(), new Item.Properties().stacksTo(64)));
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			this.clientItemExtensions.put(item, winchBEWLR(block));
+		}
 		return block;
 	}
 
@@ -62,12 +69,12 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private static BEWLRBlockItem.LazyBEWLR toolboxBEWLR() {
-		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> new ToolboxBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new ToolboxBlockEntity(BlockPos.ZERO, CCBlocks.TOOLBOX.get().defaultBlockState())));
+	private static IClientItemExtensions toolboxBEWLR(Supplier<? extends Block> block) {
+		return MemoizedBEWLR.asCustomItemRenderer((dispatcher, entityModelSet) -> new ToolboxBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new ToolboxBlockEntity(BlockPos.ZERO, block.get().defaultBlockState())));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private static BEWLRBlockItem.LazyBEWLR winchBEWLR() {
-		return new BEWLRBlockItem.LazyBEWLR((dispatcher, entityModelSet) -> new TypedBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new WinchBlockEntity(BlockPos.ZERO, CCBlocks.WINCH.get().defaultBlockState())));
+	private static IClientItemExtensions winchBEWLR(Supplier<? extends Block> block) {
+		return MemoizedBEWLR.asCustomItemRenderer((dispatcher, entityModelSet) -> new TypedBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, new WinchBlockEntity(BlockPos.ZERO, block.get().defaultBlockState())));
 	}
 }

@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.SaddledGrazer;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -31,7 +32,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 public class SaddledEggBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -40,6 +41,11 @@ public class SaddledEggBlock extends HorizontalDirectionalBlock implements Simpl
 	public SaddledEggBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return null;
 	}
 
 	@Override
@@ -91,7 +97,7 @@ public class SaddledEggBlock extends HorizontalDirectionalBlock implements Simpl
 
 	private boolean canDestroyEgg(Level level, Entity entity) {
 		if (entity instanceof LivingEntity && !(entity instanceof Bat))
-			return entity instanceof Player || ForgeEventFactory.getMobGriefingEvent(level, entity);
+			return entity instanceof Player || EventHooks.canEntityGrief(level, entity);
 		else
 			return false;
 	}

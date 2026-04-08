@@ -77,7 +77,7 @@ public class CavernsAndChasms {
 		CCPoiTypes.POI_TYPES.register(bus);
 		CCLootItemFunctions.LOOT_FUNCTION_TYPES.register(bus);
 		CCDecoratedPotPatterns.DECORATED_POT_PATTERNS.register(bus);
-		CCEnchantments.ENCHANTMENTS.register(bus);
+		CCEnchantmentEffects.COMPONENTS.register(bus);
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
 		CCDataComponents.DATA_COMPONENTS.register(bus);
@@ -138,6 +138,8 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCDamageTypeTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCTrimMaterialTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCStructureTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCEnchantmentTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCDataMapProvider(output, provider));
 		generator.addProvider(server, new CCRecipeProvider(output));
 		generator.addProvider(server, new CCLootTableProvider(output, provider));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));

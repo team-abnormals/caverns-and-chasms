@@ -21,8 +21,8 @@ import java.util.function.Supplier;
 
 public class TurquoiseOreBlock extends DropExperienceBlock {
 
-	public TurquoiseOreBlock(Properties properties, IntProvider provider) {
-		super(properties, provider);
+	public TurquoiseOreBlock(IntProvider provider, Properties properties) {
+		super(provider, properties);
 	}
 
 	@Override
@@ -32,9 +32,9 @@ public class TurquoiseOreBlock extends DropExperienceBlock {
 	}
 
 	@Override
-	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-		super.playerWillDestroy(level, pos, state, player);
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		this.breakParticles(level, pos);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	public void breakParticles(Level level, BlockPos pos) {

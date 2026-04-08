@@ -2,12 +2,15 @@ package com.teamabnormals.caverns_and_chasms.core.mixin.item;
 
 import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 @Mixin(ArmorTrim.class)
 public class ArmorTrimMixin implements CCArmorTrim {
@@ -71,20 +75,20 @@ public class ArmorTrimMixin implements CCArmorTrim {
 		return trim;
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 2, shift = Shift.AFTER), method = "appendUpgradeHoverText")
-	private static void appendHoverText(ItemStack stack, RegistryAccess access, List<Component> tooltip, CallbackInfo ci) {
+	@Inject(at = @At(value = "INVOKE", target = "Ljava/util/function/Consumer;accept(Ljava/lang/Object;)V", ordinal = 2, shift = Shift.AFTER), method = "addToTooltip")
+	private void appendHoverText(TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, CallbackInfo ci) {
 		Style style = ArmorTrim.getTrim(access, stack).get().material().value().description().getStyle();
 
-		if (stack.getOrCreateTag().getBoolean("FadedTrim")) {
-			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
+		if (stack.has(CCDataComponents.FADED_TRIM)) {
+			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
 		}
 
-		if (stack.getOrCreateTag().getBoolean("EmissiveTrim")) {
-			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
+		if (stack.has(CCDataComponents.EMISSIVE_TRIM)) {
+			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
 		}
 
-		if (stack.getOrCreateTag().getBoolean("PulseTrim")) {
-			tooltip.add(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".pulse_modifier").withStyle(style)));
+		if (stack.has(CCDataComponents.PULSE_TRIM)) {
+			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".pulse_modifier").withStyle(style)));
 		}
 	}
 }

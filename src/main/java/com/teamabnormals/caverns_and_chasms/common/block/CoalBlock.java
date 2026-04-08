@@ -12,7 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -88,8 +87,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		ItemStack stack = player.getItemInHand(hand);
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		if (stack.is(Items.STICK) && state.getValue(LIT)) {
 			if (!level.isClientSide) {
 				level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -115,15 +113,15 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 				player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 			}
 
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else {
-			return super.use(state, level, pos, player, hand, result);
+			return super.useItemOn(stack, state, level, pos, player, hand, result);
 		}
 	}
 
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		if ((state.getValue(WARM) || state.getValue(LIT)) && !entity.isSteppingCarefully() && entity instanceof LivingEntity living && !EnchantmentHelper.hasFrostWalker(living)) {
+		if ((state.getValue(WARM) || state.getValue(LIT)) && !entity.isSteppingCarefully()) {
 			entity.hurt(level.damageSources().hotFloor(), 0.125F * state.getValue(COAL));
 		}
 
@@ -132,11 +130,11 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (state.getValue(LIT)) {
+		if (state.getValue(LIT) && entity instanceof LivingEntity) {
 			if (!entity.fireImmune()) {
 				entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
 				if (entity.getRemainingFireTicks() == 0) {
-					entity.setSecondsOnFire(state.getValue(COAL) * 2);
+					entity.igniteForSeconds(state.getValue(COAL) * 2.0F);
 				}
 			}
 			entity.hurt(level.damageSources().inFire(), 0.25F * state.getValue(COAL));
@@ -235,7 +233,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType pathType) {
+	public boolean isPathfindable(BlockState state, PathComputationType pathType) {
 		return false;
 	}
 
@@ -246,6 +244,6 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public String getDescriptionId() {
-		return Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(BuiltInRegistries.BLOCK.getKey(this).getPath()));
+		return Util.makeDescriptionId("item", ResourceLocation.parse(BuiltInRegistries.BLOCK.getKey(this).getPath()));
 	}
 }

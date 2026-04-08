@@ -275,8 +275,8 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> ORNATE_GLASS = HELPER.createBlock("ornate_glass", () -> new OrnateGlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).sound(CCSoundTypes.ORNATE_GLASS)));
 	public static final DeferredBlock<Block> ORNATE_GLASS_PANE = HELPER.createBlock("ornate_glass_pane", () -> new OrnateGlassPaneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS_PANE).sound(CCSoundTypes.ORNATE_GLASS)));
 
-	public static final DeferredBlock<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
-	public static final DeferredBlock<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(4, 9)), CCProperties.FANCY);
+	public static final DeferredBlock<Block> TURQUOISE_ORE = HELPER.createBlock("turquoise_ore", () -> new TurquoiseOreBlock(UniformInt.of(4, 9), CCProperties.ORE), CCProperties.FANCY);
+	public static final DeferredBlock<Block> DEEPSLATE_TURQUOISE_ORE = HELPER.createBlock("deepslate_turquoise_ore", () -> new TurquoiseOreBlock(UniformInt.of(4, 9), CCProperties.DEEPSLATE_ORE), CCProperties.FANCY);
 	public static final DeferredBlock<Block> TURQUOISE_BLOCK = HELPER.createBlock("turquoise_block", () -> new TurquoiseBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final DeferredBlock<Block> TURQUOISE_TILES = HELPER.createBlock("turquoise_tiles", () -> new TurquoiseBlock(CCProperties.TURQUOISE), CCProperties.FANCY);
 	public static final DeferredBlock<Block> TURQUOISE_TILE_STAIRS = HELPER.createBlock("turquoise_tile_stairs", () -> new TurquoiseStairBlock(TURQUOISE_TILES.get().defaultBlockState(), CCProperties.TURQUOISE), CCProperties.FANCY);

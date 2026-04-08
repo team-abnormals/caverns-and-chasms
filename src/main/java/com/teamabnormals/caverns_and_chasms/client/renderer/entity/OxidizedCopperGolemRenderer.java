@@ -28,7 +28,7 @@ public class OxidizedCopperGolemRenderer extends LivingEntityRenderer<OxidizedCo
 	}
 
 	@Override
-	protected void setupRotations(OxidizedCopperGolem copperGolem, PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks) {
+	protected void setupRotations(OxidizedCopperGolem copperGolem, PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
 		matrixStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
 		float f = (float) (copperGolem.level().getGameTime() - copperGolem.lastHit) + partialTicks;
 		if (f < 5.0F) {

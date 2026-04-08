@@ -32,9 +32,9 @@ public class MimeRenderer extends HumanoidMobRenderer<Mime, MimeModel> {
 	}
 
 	@Override
-	protected void setupRotations(Mime mime, PoseStack stack, float ageInTicks, float rotationYaw, float partialTicks) {
+	protected void setupRotations(Mime mime, PoseStack stack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
 		float f = mime.getSwimAmount(partialTicks);
-		super.setupRotations(mime, stack, ageInTicks, rotationYaw, partialTicks);
+		super.setupRotations(mime, stack, ageInTicks, rotationYaw, partialTicks, scale);
 		if (f > 0.0F) {
 			float f3 = mime.isInWater() ? -90F - mime.getXRot() : -90F;
 			float f4 = Mth.lerp(f, 0.0F, f3);

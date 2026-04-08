@@ -26,7 +26,7 @@ public class PeeperSpriteUploader extends TextureAtlasHolder {
 
 	@SubscribeEvent
 	public static void registerReloadListeners(RegisterClientReloadListenersEvent event) {
-		event.registerReloadListener(uploader = new PeeperSpriteUploader(Minecraft.getInstance().textureManager));
+		event.registerReloadListener(uploader = new PeeperSpriteUploader(Minecraft.getInstance().getTextureManager()));
 	}
 
 	public static TextureAtlasSprite getChargedPeeperSprite() {

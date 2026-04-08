@@ -1,16 +1,17 @@
 package com.teamabnormals.caverns_and_chasms.common.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.armortrim.ArmorTrim;
@@ -20,46 +21,44 @@ import net.minecraft.world.item.armortrim.TrimPattern;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.ForgeHooks;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public class SmithingModifierRecipe implements SmithingRecipe {
-	private final ResourceLocation id;
 	public final Ingredient template;
 	public final Ingredient base;
 	public final Ingredient addition;
 
-	public SmithingModifierRecipe(ResourceLocation id, Ingredient template, Ingredient base, Ingredient addition) {
-		this.id = id;
+	public SmithingModifierRecipe(Ingredient template, Ingredient base, Ingredient addition) {
 		this.template = template;
 		this.base = base;
 		this.addition = addition;
 	}
 
 	@Override
-	public boolean matches(Container container, Level level) {
+	public boolean matches(SmithingRecipeInput container, Level level) {
 		return this.template.test(container.getItem(0)) && this.base.test(container.getItem(1)) && this.addition.test(container.getItem(2));
 	}
 
 	@Override
-	public ItemStack assemble(Container container, RegistryAccess registryAccess) {
-		ItemStack armor = container.getItem(1);
-		ItemStack modifier = container.getItem(2);
-		if (this.base.test(armor) && ArmorTrim.getTrim(registryAccess, armor).isPresent()) {
+	public ItemStack assemble(SmithingRecipeInput input, HolderLookup.Provider registries) {
+		ItemStack armor = input.base();
+		ItemStack modifier = input.addition();
+		ArmorTrim trim = armor.get(DataComponents.TRIM);
+		if (this.base.test(armor) && trim != null) {
 			ItemStack output = armor.copy();
 			output.setCount(1);
-			CompoundTag tag = armor.getOrCreateTag();
-			if (modifier.is(CCItems.SPINEL.get()) && !tag.getBoolean("FadedTrim")) {
-				output.getOrCreateTag().putBoolean("FadedTrim", true);
+			if (modifier.is(CCItems.SPINEL.get()) && !armor.has(CCDataComponents.FADED_TRIM)) {
+				output.set(CCDataComponents.FADED_TRIM, Unit.INSTANCE);
 				return output;
-			} else if (modifier.is(Items.GLOW_INK_SAC) && !tag.getBoolean("EmissiveTrim")) {
-				output.getOrCreateTag().putBoolean("EmissiveTrim", true);
+			} else if (modifier.is(Items.GLOW_INK_SAC) && !armor.has(CCDataComponents.EMISSIVE_TRIM)) {
+				output.set(CCDataComponents.EMISSIVE_TRIM, Unit.INSTANCE);
 				return output;
-			} else if (modifier.is(Items.PRISMARINE_SHARD) && !tag.getBoolean("PulseTrim")) {
-				output.getOrCreateTag().putBoolean("PulseTrim", true);
+			} else if (modifier.is(Items.PRISMARINE_SHARD) && !armor.has(CCDataComponents.PULSE_TRIM)) {
+				output.set(CCDataComponents.PULSE_TRIM, Unit.INSTANCE);
 				return output;
 			}
 		}
@@ -68,15 +67,14 @@ public class SmithingModifierRecipe implements SmithingRecipe {
 	}
 
 	@Override
-	public ItemStack getResultItem(RegistryAccess registryAccess) {
+	public ItemStack getResultItem(HolderLookup.Provider registries) {
 		ItemStack stack = new ItemStack(Items.IRON_CHESTPLATE);
-		Optional<Holder.Reference<TrimPattern>> optional = registryAccess.registryOrThrow(Registries.TRIM_PATTERN).holders().findFirst();
+		Optional<Holder.Reference<TrimPattern>> optional = registries.lookupOrThrow(Registries.TRIM_PATTERN).listElements().findFirst();
 		if (optional.isPresent()) {
-			Optional<Holder.Reference<TrimMaterial>> optional1 = registryAccess.registryOrThrow(Registries.TRIM_MATERIAL).getHolder(TrimMaterials.REDSTONE);
+			Optional<Holder.Reference<TrimMaterial>> optional1 = registries.lookupOrThrow(Registries.TRIM_MATERIAL).get(TrimMaterials.REDSTONE);
 			if (optional1.isPresent()) {
-				ArmorTrim armortrim = new ArmorTrim(optional1.get(), optional.get());
-				ArmorTrim.setTrim(registryAccess, stack, armortrim);
-				stack.getOrCreateTag().putBoolean("EmissiveTrim", true);
+				stack.set(DataComponents.TRIM, new ArmorTrim(optional1.get(), optional.get()));
+				stack.set(CCDataComponents.EMISSIVE_TRIM, Unit.INSTANCE);
 			}
 		}
 
@@ -99,39 +97,46 @@ public class SmithingModifierRecipe implements SmithingRecipe {
 	}
 
 	@Override
-	public ResourceLocation getId() {
-		return this.id;
-	}
-
-	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return CCRecipeSerializers.SMITHING_MODIFIER.get();
 	}
 
 	@Override
 	public boolean isIncomplete() {
-		return Stream.of(this.template, this.base, this.addition).anyMatch(ForgeHooks::hasNoElements);
+		return Stream.of(this.template, this.base, this.addition).anyMatch(Ingredient::hasNoItems);
 	}
 
 	public static class Serializer implements RecipeSerializer<SmithingModifierRecipe> {
-		public SmithingModifierRecipe fromJson(ResourceLocation id, JsonObject json) {
-			Ingredient ingredient = Ingredient.fromJson(GsonHelper.getNonNull(json, "template"));
-			Ingredient ingredient1 = Ingredient.fromJson(GsonHelper.getNonNull(json, "base"));
-			Ingredient ingredient2 = Ingredient.fromJson(GsonHelper.getNonNull(json, "addition"));
-			return new SmithingModifierRecipe(id, ingredient, ingredient1, ingredient2);
+		private static final MapCodec<SmithingModifierRecipe> CODEC = RecordCodecBuilder.mapCodec(p_301227_ -> p_301227_.group(
+						Ingredient.CODEC.fieldOf("template").forGetter(p_301070_ -> p_301070_.template),
+						Ingredient.CODEC.fieldOf("base").forGetter(p_300969_ -> p_300969_.base),
+						Ingredient.CODEC.fieldOf("addition").forGetter(p_300977_ -> p_300977_.addition)
+				).apply(p_301227_, SmithingModifierRecipe::new)
+		);
+
+		public static final StreamCodec<RegistryFriendlyByteBuf, SmithingModifierRecipe> STREAM_CODEC = StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
+
+		@Override
+		public MapCodec<SmithingModifierRecipe> codec() {
+			return CODEC;
 		}
 
-		public SmithingModifierRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-			Ingredient ingredient = Ingredient.fromNetwork(buf);
-			Ingredient ingredient1 = Ingredient.fromNetwork(buf);
-			Ingredient ingredient2 = Ingredient.fromNetwork(buf);
-			return new SmithingModifierRecipe(id, ingredient, ingredient1, ingredient2);
+		@Override
+		public StreamCodec<RegistryFriendlyByteBuf, SmithingModifierRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 
-		public void toNetwork(FriendlyByteBuf buf, SmithingModifierRecipe recipe) {
-			recipe.template.toNetwork(buf);
-			recipe.base.toNetwork(buf);
-			recipe.addition.toNetwork(buf);
+		private static SmithingModifierRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+			Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+			Ingredient ingredient1 = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+			Ingredient ingredient2 = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+			return new SmithingModifierRecipe(ingredient, ingredient1, ingredient2);
+		}
+
+		private static void toNetwork(RegistryFriendlyByteBuf buffer, SmithingModifierRecipe recipe) {
+			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
+			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+			Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
 		}
 	}
 }

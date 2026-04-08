@@ -4,13 +4,12 @@ import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringTo
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -18,16 +17,16 @@ import net.minecraft.world.level.block.Block;
 
 public class NBTWaxing extends CustomRecipe {
 
-	public NBTWaxing(ResourceLocation id, CraftingBookCategory category) {
-		super(id, category);
+	public NBTWaxing(CraftingBookCategory category) {
+		super(category);
 	}
 
 	@Override
-	public boolean matches(CraftingContainer container, Level level) {
+	public boolean matches(CraftingInput container, Level level) {
 		int i = 0;
 		int j = 0;
 
-		for (int k = 0; k < container.getContainerSize(); ++k) {
+		for (int k = 0; k < container.size(); ++k) {
 			ItemStack stack = container.getItem(k);
 			if (!stack.isEmpty()) {
 				if (Block.byItem(stack.getItem()) instanceof WeatheringToolboxBlock || stack.getItem() instanceof WeatheringCopperItem) {
@@ -50,9 +49,9 @@ public class NBTWaxing extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(CraftingContainer container, RegistryAccess access) {
+	public ItemStack assemble(CraftingInput container, HolderLookup.Provider registries) {
 		ItemStack returnStack = ItemStack.EMPTY;
-		for (int i = 0; i < container.getContainerSize(); ++i) {
+		for (int i = 0; i < container.size(); ++i) {
 			ItemStack stack = container.getItem(i);
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
@@ -70,10 +69,7 @@ public class NBTWaxing extends CustomRecipe {
 			waxedStack = WeatheringCopperItem.getWaxed(returnStack).get();
 		}
 
-		if (returnStack.hasTag()) {
-			waxedStack.setTag(returnStack.getTag().copy());
-		}
-
+		waxedStack.applyComponents(returnStack.getComponents());
 		return waxedStack;
 	}
 

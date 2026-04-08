@@ -31,7 +31,7 @@ public class OpenStorageDuctTrigger extends SimpleCriterionTrigger<TriggerInstan
 		).apply(instance, TriggerInstance::new));
 
 		public static Criterion<TriggerInstance> openStorageDuct(MinMaxBounds.Ints length) {
-			return CCCriteriaTriggers.OPEN_STORAGE_DUCT.get().trigger(new OpenStorageDuctTrigger.TriggerInstance(Optional.empty(), length));
+			return CCCriteriaTriggers.OPEN_STORAGE_DUCT.get().createCriterion(new OpenStorageDuctTrigger.TriggerInstance(Optional.empty(), length));
 		}
 
 		public boolean matches(int length) {

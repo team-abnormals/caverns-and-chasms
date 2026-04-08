@@ -150,7 +150,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		BlockEntity blockentity = level.getBlockEntity(pos);
 		if (blockentity instanceof ToolboxBlockEntity toolbox) {
 			if (!level.isClientSide && player.isCreative() && !toolbox.isEmpty()) {
@@ -168,7 +168,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 			}
 		}
 
-		super.playerWillDestroy(level, pos, state, player);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override

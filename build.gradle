@@ -54,6 +54,9 @@ dependencies {
 
     compileOnly("mezz.jei:jei-${project.mc_version}-neoforge-api:${project.jei}")
     runtimeOnly("mezz.jei:jei-${project.mc_version}-neoforge:${project.jei}")
+
+    compileOnly("curse.maven:quark-243121:${project.quark}")
+    compileOnly("curse.maven:zeta-968868:${project.zeta}")
 }
 
 subsystems {
@@ -64,9 +67,10 @@ subsystems {
 }
 
 repositories {
+    maven { url "https://www.cursemaven.com" }
     maven { url "https://maven.teamabnormals.com/" }
-    maven { url = "https://maven.blamejared.com/" }
-    maven { url = "https://modmaven.dev" }
+    maven { url "https://maven.blamejared.com/" }
+    maven { url "https://modmaven.dev" }
 }
 
 tasks.withType(ProcessResources).configureEach {

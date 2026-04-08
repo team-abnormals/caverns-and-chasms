@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctHatchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.inventory.StorageDuctContainer;
@@ -13,10 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
@@ -47,6 +45,11 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	public StorageDuctBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FIRST_END, Direction.UP).setValue(SECOND_END, Direction.DOWN));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Nullable
@@ -119,10 +122,16 @@ public class StorageDuctBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		BlockEntity blockentity = level.getBlockEntity(pos);
-		ItemStack itemstack = player.getItemInHand(hand);
-		if (!itemstack.is(CCBlocks.STORAGE_DUCT.get().asItem()) && !itemstack.is((CCBlocks.STORAGE_DUCT_HATCH).get().asItem()) && blockentity instanceof StorageDuctBlockEntity) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (stack.is(CCBlocks.STORAGE_DUCT.get().asItem()) || stack.is((CCBlocks.STORAGE_DUCT_HATCH).get().asItem())) {
+			return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
+
+	@Override
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
+		if (level.getBlockEntity(pos) instanceof StorageDuctBlockEntity) {
 			Direction direction = result.getDirection();
 			List<DuctEnd> openableends = getOpenableEnds(level, pos, state);
 			DuctEnd endtoopen = null;
@@ -154,10 +163,10 @@ public class StorageDuctBlock extends BaseEntityBlock {
 
 			player.nextContainerCounter();
 			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2COpenStorageDuctMessage(player.containerCounter, container.getContainerSize(), pos));
-			CCCriteriaTriggers.OPEN_STORAGE_DUCT.trigger(player, container.getContainerSize() / 9);
+			CCCriteriaTriggers.OPEN_STORAGE_DUCT.get().trigger(player, container.getContainerSize() / 9);
 			player.containerMenu = new StorageDuctMenu(player.containerCounter, player.getInventory(), container, hatch);
 			player.initMenu(player.containerMenu);
-			MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));
+			NeoForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));
 		}
 	}
 

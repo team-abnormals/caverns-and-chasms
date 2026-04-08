@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -40,9 +41,10 @@ public abstract class HoneycombItemMixin {
 					}
 
 					stack.shrink(1);
-					CompoundTag tag = toolbox.serializeNBT();
+					RegistryAccess access = level.registryAccess();
+					CompoundTag tag = toolbox.serializeAttachments(access);
 					level.setBlock(pos, newState, 11);
-					level.getBlockEntity(pos).deserializeNBT(tag);
+					level.getBlockEntity(pos).loadWithComponents(tag, access);
 
 					level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
 					level.levelEvent(player, 3003, pos, 0);

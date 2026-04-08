@@ -8,15 +8,15 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraft.world.item.armortrim.TrimPattern;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 
 import java.util.Optional;
 
@@ -63,21 +63,13 @@ public class SmithingModifierCategoryExtension<R extends SmithingModifierRecipe>
 					Optional<Holder.Reference<TrimMaterial>> material = registryAccess.registryOrThrow(Registries.TRIM_MATERIAL).getHolder(TrimMaterials.REDSTONE);
 					if (material.isPresent()) {
 						ArmorTrim trim = new ArmorTrim(material.get(), pattern.get());
-						ArmorTrim.setTrim(registryAccess, base, trim);
-						Container recipeInput = createInput(template, base, addition);
+						base.set(DataComponents.TRIM, trim);
+						SmithingRecipeInput recipeInput = new SmithingRecipeInput(template, base, addition);
 						ItemStack output = recipe.assemble(recipeInput, registryAccess);
 						ingredientAcceptor.addItemStack(output);
 					}
 				}
 			}
 		}
-	}
-
-	private static Container createInput(ItemStack template, ItemStack base, ItemStack addition) {
-		Container container = new SimpleContainer(3);
-		container.setItem(0, template);
-		container.setItem(1, base);
-		container.setItem(2, addition);
-		return container;
 	}
 }

@@ -226,7 +226,7 @@ public class CCItems {
 	public static final DeferredItem<Item> TMT_MINECART = HELPER.createItem("tmt_minecart", () -> new TmtMinecartItem(new Item.Properties().stacksTo(1)));
 
 	public static final DeferredItem<Item> ZIRCONIA = HELPER.createItem("zirconia", () -> new Item(new Item.Properties()));
-	public static final DeferredItem<Item> MUSIC_DISC_COPY = HELPER.createItem("music_disc_copy", () -> new CopyRecordItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+	public static final DeferredItem<Item> MUSIC_DISC_COPY = HELPER.createItem("music_disc_copy", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
 	public static final DeferredItem<Item> DEEPER_HEAD = HELPER.createItem("deeper_head", () -> new StandingAndWallBlockItem(CCBlocks.DEEPER_HEAD.get(), CCBlocks.DEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final DeferredItem<Item> EVENDEEPER_HEAD = HELPER.createItem("evendeeper_head", () -> new StandingAndWallBlockItem(CCBlocks.EVENDEEPER_HEAD.get(), CCBlocks.EVENDEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));

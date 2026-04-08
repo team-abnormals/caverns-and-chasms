@@ -33,8 +33,8 @@ public class RatRenderer extends MobRenderer<Rat, RatModel> {
 	}
 
 	@Override
-	protected void setupRotations(Rat rat, PoseStack stack, float ageInTicks, float rotationYaw, float partialTicks) {
-		super.setupRotations(rat, stack, ageInTicks, rotationYaw, partialTicks);
+	protected void setupRotations(Rat rat, PoseStack stack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+		super.setupRotations(rat, stack, ageInTicks, rotationYaw, partialTicks, scale);
 		if (rat.isAttachedToEntity()) {
 			stack.rotateAround(Axis.XP.rotationDegrees(90.0F), 0.0F, 0.25F, 0.0F);
 			stack.mulPose(Axis.YP.rotationDegrees(Mth.sin((ageInTicks + rat.getAnimTimeOffset()) * 0.75F) * -10.0F));

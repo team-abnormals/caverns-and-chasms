@@ -3,10 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.MonocleGuiOverlay.MonocleHeadGuiOverlay;
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip.ClientPackingContainerTooltip;
-import com.teamabnormals.caverns_and_chasms.client.model.DeeperHeadModel;
-import com.teamabnormals.caverns_and_chasms.client.model.EvendeeperHeadModel;
-import com.teamabnormals.caverns_and_chasms.client.model.MimeHeadModel;
-import com.teamabnormals.caverns_and_chasms.client.model.PeeperHeadModel;
+import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
@@ -21,10 +18,10 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.SmithingScreen;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
@@ -42,11 +39,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.CrossbowItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
@@ -56,6 +51,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
@@ -81,6 +78,16 @@ public class CCClientCompat {
 	@SubscribeEvent
 	public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
 		event.register(PackingContainerTooltip.class, ClientPackingContainerTooltip::new);
+	}
+
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
+			@Override
+			public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> properties) {
+				return slot == EquipmentSlot.LEGS ? (entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem ? ToolbeltModel.ARMOR_INSTANCE : ToolbeltModel.INSTANCE) : properties;
+			}
+		}, CCItems.TOOLBELT);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

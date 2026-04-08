@@ -2,9 +2,10 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.SplurterBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.SplurterDispenseItemBehavior;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSourceImpl;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
@@ -23,7 +24,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
 public class SplurterBlock extends ScattererBlock {
 	private static final DispenseItemBehavior DISPENSE_BEHAVIOUR = new SplurterDispenseItemBehavior();
 
@@ -31,7 +31,8 @@ public class SplurterBlock extends ScattererBlock {
 		super(properties);
 	}
 
-	protected DispenseItemBehavior getDispenseMethod(ItemStack p_52947_) {
+	@Override
+	protected DispenseItemBehavior getDispenseMethod(Level level, ItemStack p_52947_) {
 		return DISPENSE_BEHAVIOUR;
 	}
 
@@ -39,9 +40,10 @@ public class SplurterBlock extends ScattererBlock {
 		return new SplurterBlockEntity(pos, state);
 	}
 
-	protected void dispenseFrom(ServerLevel level, BlockPos pos) {
-		BlockSourceImpl source = new BlockSourceImpl(level, pos);
-		DispenserBlockEntity dispenser = source.getEntity();
+	@Override
+	protected void dispenseFrom(ServerLevel level, BlockState state, BlockPos pos) {
+		DispenserBlockEntity dispenser = level.getBlockEntity(pos, CCBlockEntityTypes.SPLURTER.get()).orElse(null);
+		BlockSource source = new BlockSource(level, pos, state, dispenser);
 
 		List<Integer> slots = IntStream.range(0, SplurterBlockEntity.CONTAINER_SIZE).boxed().collect(Collectors.toList());
 		Collections.shuffle(slots);
@@ -71,7 +73,7 @@ public class SplurterBlock extends ScattererBlock {
 	public static boolean splurterInsertHook(Level level, BlockPos pos, DispenserBlockEntity splurter, int slot, @NotNull ItemStack stack) {
 		Direction enumfacing = level.getBlockState(pos).getValue(SplurterBlock.FACING);
 		BlockPos blockpos = pos.relative(enumfacing);
-		return VanillaInventoryCodeHooks.getItemHandler(level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), enumfacing.getOpposite())
+		return VanillaInventoryCodeHooks.getItemHandlerAt(level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), enumfacing.getOpposite())
 				.map(destinationResult -> {
 					IItemHandler itemHandler = destinationResult.getKey();
 					Object destination = destinationResult.getValue();

@@ -2,6 +2,9 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCMobEffectTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Holder.Reference;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -11,7 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -41,10 +43,10 @@ public class BejeweledAppleItem extends Item {
 		entity.addEffect(new MobEffectInstance(getRandomEffect(random), 20 * (minSecs + random.nextInt(1 + maxSecs - minSecs)), level));
 	}
 
-	private static MobEffect getRandomEffect(RandomSource random) {
-		List<MobEffect> mobEffectList = Registries.MOB_EFFECTS.getValues().stream().toList();
-		MobEffect effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
-		while (Registries.MOB_EFFECTS.tags().getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).contains(effect) || effect.isInstantenous())
+	private static Holder<MobEffect> getRandomEffect(RandomSource random) {
+		List<Reference<MobEffect>> mobEffectList = BuiltInRegistries.MOB_EFFECT.holders().toList();
+		Reference<MobEffect> effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
+		while (BuiltInRegistries.MOB_EFFECT.getTag(CCMobEffectTags.BEJEWELED_APPLE_CANNOT_INFLICT).get().contains(effect) || effect.value().isInstantenous())
 			effect = mobEffectList.get(random.nextInt(mobEffectList.size()));
 		return effect;
 	}

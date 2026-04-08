@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.B
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBiomeModifierTypes.BlacklistedAddSpawnsBiomeModifier;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.OrePlacements;
@@ -22,6 +23,7 @@ import net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifi
 import net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers.RemoveFeaturesBiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers.RemoveSpawnsBiomeModifier;
+import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 
 import java.util.List;
 import java.util.Set;
@@ -87,11 +89,11 @@ public class CCBiomeModifiers {
 	}
 
 	private static void removeSpawn(BootstrapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, EntityType<?>... types) {
-		register(context, "remove_spawn/" + name, () -> new RemoveSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), HolderSet.direct(Stream.of(types).map(type -> Registries.ENTITY_TYPES.getHolder(type).get()).collect(Collectors.toList()))));
+		register(context, "remove_spawn/" + name, () -> new RemoveSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), HolderSet.direct(Stream.of(types).map(EntityType::builtInRegistryHolder).collect(Collectors.toList()))));
 	}
 
 	private static void register(BootstrapContext<BiomeModifier> context, String name, Supplier<? extends BiomeModifier> modifier) {
-		context.register(ResourceKey.create(Registries.Keys.BIOME_MODIFIERS, CavernsAndChasms.location(name)), modifier.get());
+		context.register(ResourceKey.create(Keys.BIOME_MODIFIERS, CavernsAndChasms.location(name)), modifier.get());
 	}
 
 	@SafeVarargs

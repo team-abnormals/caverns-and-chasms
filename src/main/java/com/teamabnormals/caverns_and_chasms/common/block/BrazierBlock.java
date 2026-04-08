@@ -13,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -57,12 +56,12 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entityIn) {
-		if (!entityIn.fireImmune() && state.getValue(LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-			entityIn.hurt(entityIn.damageSources().inFire(), this.fireDamage);
+	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (state.getValue(LIT) && entity instanceof LivingEntity) {
+			entity.hurt(entity.damageSources().campfire(), this.fireDamage);
 		}
 
-		super.entityInside(state, level, pos, entityIn);
+		super.entityInside(state, level, pos, entity);
 	}
 
 	@Nullable

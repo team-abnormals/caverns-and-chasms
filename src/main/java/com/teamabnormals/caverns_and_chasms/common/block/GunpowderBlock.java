@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -12,7 +13,7 @@ import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -45,24 +46,28 @@ public class GunpowderBlock extends FallingBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		ItemStack stack = player.getItemInHand(hand);
+	protected MapCodec<? extends FallingBlock> codec() {
+		return null;
+	}
+
+	@Override
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (!stack.is(Items.FLINT_AND_STEEL) && !stack.is(Items.FIRE_CHARGE)) {
-			return super.use(state, level, pos, player, hand, result);
+			return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 		} else {
-			this.onCaughtFire(state, level, pos, result.getDirection(), player);
+			this.onCaughtFire(state, level, pos, hitResult.getDirection(), player);
 			level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
 			Item item = stack.getItem();
 			if (!player.isCreative()) {
 				if (stack.is(Items.FLINT_AND_STEEL)) {
-					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+					stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				} else {
-					stack.shrink(1);
+					stack.consume(1, player);
 				}
 			}
 
 			player.awardStat(Stats.ITEM_USED.get(item));
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
 	}
 
@@ -103,12 +108,12 @@ public class GunpowderBlock extends FallingBlock {
 	}
 
 	@Override
-	public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player p_57448_) {
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player p_57448_) {
 		if (!level.isClientSide() && !p_57448_.isCreative() && state.getValue(UNSTABLE)) {
 			this.onCaughtFire(state, level, pos, null, null);
 		}
 
-		super.playerWillDestroy(level, pos, state, p_57448_);
+		return super.playerWillDestroy(level, pos, state, p_57448_);
 	}
 
 	@Override

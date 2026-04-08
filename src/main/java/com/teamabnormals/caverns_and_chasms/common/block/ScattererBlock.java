@@ -3,9 +3,10 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ScattererBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.FireChargeScattererBehavior;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.FireworkScattererBehavior;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSourceImpl;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -45,22 +45,24 @@ public class ScattererBlock extends DispenserBlock {
 	}
 
 	@Override
-	protected void dispenseFrom(ServerLevel level, BlockPos pos) {
-		BlockSourceImpl source = new BlockSourceImpl(level, pos);
-		DispenserBlockEntity dispenser = source.getEntity();
-		boolean success = false;
-		for (int i = 0; i < dispenser.getContainerSize(); i++) {
-			ItemStack stack = dispenser.getItem(i);
-			DispenseItemBehavior behavior = getScatterMethod(stack);
-			if (behavior != DispenseItemBehavior.NOOP && !stack.isEmpty()) {
-				dispenser.setItem(i, behavior.dispense(source, stack));
-				success = true;
+	protected void dispenseFrom(ServerLevel level, BlockState state, BlockPos pos) {
+		ScattererBlockEntity scatterer = level.getBlockEntity(pos, CCBlockEntityTypes.SCATTERER.get()).orElse(null);
+		if (scatterer != null) {
+			BlockSource source = new BlockSource(level, pos, state, scatterer);
+			boolean success = false;
+			for (int i = 0; i < scatterer.getContainerSize(); i++) {
+				ItemStack stack = scatterer.getItem(i);
+				DispenseItemBehavior behavior = getScatterMethod(level, stack);
+				if (behavior != DispenseItemBehavior.NOOP && !stack.isEmpty()) {
+					scatterer.setItem(i, behavior.dispense(source, stack));
+					success = true;
+				}
 			}
-		}
 
-		if (!success) {
-			level.levelEvent(1001, pos, 0);
-			level.gameEvent(GameEvent.BLOCK_ACTIVATE, pos, GameEvent.Context.of(dispenser.getBlockState()));
+			if (!success) {
+				level.levelEvent(1001, pos, 0);
+				level.gameEvent(GameEvent.BLOCK_ACTIVATE, pos, GameEvent.Context.of(scatterer.getBlockState()));
+			}
 		}
 	}
 
@@ -69,13 +71,13 @@ public class ScattererBlock extends DispenserBlock {
 		builder.add(TRIGGERED, FACING);
 	}
 
-	public DispenseItemBehavior getScatterMethod(ItemStack stack) {
+	public DispenseItemBehavior getScatterMethod(Level level, ItemStack stack) {
 		if (stack.is(Items.FIREWORK_ROCKET)) {
 			return new FireworkScattererBehavior();
 		} else if (stack.is(Items.FIRE_CHARGE)) {
 			return new FireChargeScattererBehavior();
 		} else {
-			return this.getDispenseMethod(stack);
+			return this.getDispenseMethod(level, stack);
 		}
 	}
 }

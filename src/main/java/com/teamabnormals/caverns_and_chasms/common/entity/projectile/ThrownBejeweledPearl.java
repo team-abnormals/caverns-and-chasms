@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.projectile;
 
 import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -9,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -20,8 +20,8 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.common.util.ITeleporter;
 
 import javax.annotation.Nullable;
 
@@ -70,7 +70,7 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	@Override
 	public ItemStack getItem() {
 		ItemStack itemstack = new ItemStack(this.getDefaultItem());
-		itemstack.getOrCreateTag().putInt("Life", this.getLife());
+		itemstack.set(CCDataComponents.LIFE, this.getLife());
 		return itemstack;
 	}
 
@@ -94,7 +94,7 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 				if (entity instanceof ServerPlayer) {
 					ServerPlayer player = (ServerPlayer) entity;
-					if (player.connection.connection.isConnected() && player.level() == this.level() && !player.isSleeping()) {
+					if (player.connection.getConnection().isConnected() && player.level() == this.level() && !player.isSleeping()) {
 						if (entity.isPassenger()) {
 							player.dismountTo(this.getX(), this.getY(), this.getZ());
 						} else {
@@ -138,12 +138,12 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 
 	@Nullable
 	@Override
-	public Entity changeDimension(ServerLevel level, ITeleporter teleporter) {
+	public Entity changeDimension(DimensionTransition transition) {
 		Entity entity = this.getOwner();
-		if (entity != null && entity.level().dimension() != level.dimension()) {
+		if (entity != null && entity.level().dimension() != transition.newLevel().dimension()) {
 			this.setOwner(null);
 		}
 
-		return super.changeDimension(level, teleporter);
+		return super.changeDimension(transition);
 	}
 }

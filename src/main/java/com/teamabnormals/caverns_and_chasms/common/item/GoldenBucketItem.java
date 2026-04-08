@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.google.common.collect.Maps;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -26,8 +27,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.common.ForgeMod;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.common.NeoForgeMod;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -39,13 +39,13 @@ public class GoldenBucketItem extends BucketItem {
 		map.put(state -> state.getFluidState().is(Fluids.WATER), CCItems.GOLDEN_WATER_BUCKET);
 		map.put(state -> state.getFluidState().is(Fluids.LAVA), CCItems.GOLDEN_LAVA_BUCKET);
 		map.put(state -> state.is(Blocks.POWDER_SNOW), CCItems.GOLDEN_POWDER_SNOW_BUCKET);
-		map.put(state -> ForgeMod.MILK.isPresent() && state.getFluidState().is(ForgeMod.MILK.get()), CCItems.GOLDEN_MILK_BUCKET);
+		map.put(state -> state.getFluidState().is(NeoForgeMod.MILK.get()), CCItems.GOLDEN_MILK_BUCKET);
 	});
 
 	public static final String NBT_TAG = "FluidLevel";
 
-	public GoldenBucketItem(Supplier<? extends Fluid> supplier, Item.Properties builder) {
-		super(supplier, builder);
+	public GoldenBucketItem(Fluid content, Item.Properties builder) {
+		super(content, builder);
 	}
 
 	@Override
@@ -65,12 +65,10 @@ public class GoldenBucketItem extends BucketItem {
 		BlockHitResult fillResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
 
 		BlockHitResult result = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-		if (empty || (canBeFilled(stack) && !player.isCrouching() && level.getBlockState(fillResult.getBlockPos()).getFluidState().is(this.getFluid()))) {
+		if (empty || (canBeFilled(stack) && !player.isCrouching() && level.getBlockState(fillResult.getBlockPos()).getFluidState().is(this.content))) {
 			result = fillResult;
 		}
 
-		InteractionResultHolder<ItemStack> ret = ForgeEventFactory.onBucketUse(player, level, stack, result);
-		if (ret != null) return ret;
 		if (result.getType() == HitResult.Type.MISS) {
 			return InteractionResultHolder.pass(stack);
 		} else if (result.getType() != HitResult.Type.BLOCK) {
@@ -81,9 +79,9 @@ public class GoldenBucketItem extends BucketItem {
 			BlockPos offsetPos = pos.relative(dir);
 			if (level.mayInteract(player, pos) && player.mayUseItemAt(offsetPos, dir, stack)) {
 				BlockState state = level.getBlockState(pos);
-				if (empty || (canBeFilled(stack) && state.getFluidState().is(this.getFluid()))) {
+				if (empty || (canBeFilled(stack) && state.getFluidState().is(this.content))) {
 					if (state.getBlock() instanceof BucketPickup pickup) {
-						ItemStack pickupStack = pickup.pickupBlock(level, pos, state);
+						ItemStack pickupStack = pickup.pickupBlock(player, level, pos, state);
 						if (!pickupStack.isEmpty()) {
 							ItemStack returnStack = getFilledBucket(state);
 							if (!returnStack.isEmpty()) {
@@ -108,7 +106,7 @@ public class GoldenBucketItem extends BucketItem {
 
 					return InteractionResultHolder.fail(stack);
 				} else {
-					BlockPos newPos = canBlockContainFluid(level, pos, state) ? pos : offsetPos;
+					BlockPos newPos = canBlockContainFluid(player, level, pos, state) ? pos : offsetPos;
 					if (this.emptyContents(player, level, newPos, result, stack)) {
 						this.checkExtraContent(player, level, stack, newPos);
 						if (player instanceof ServerPlayer serverPlayer) {
@@ -176,17 +174,17 @@ public class GoldenBucketItem extends BucketItem {
 	}
 
 	public static int getFluidLevel(ItemStack stack) {
-		return stack.getOrCreateTag().getInt(NBT_TAG);
+		return stack.getOrDefault(CCDataComponents.FLUID_LEVEL, 0);
 	}
 
 	public static ItemStack resetFluidLevel(ItemStack stack) {
-		stack.getOrCreateTag().putInt(NBT_TAG, 0);
+		stack.set(CCDataComponents.FLUID_LEVEL, 0);
 		return stack;
 	}
 
 	public static ItemStack setFluidLevel(ItemStack stack, int level) {
 		if (level <= 2) {
-			stack.getOrCreateTag().putInt(NBT_TAG, level);
+			stack.set(CCDataComponents.FLUID_LEVEL, level);
 		}
 		return stack;
 	}

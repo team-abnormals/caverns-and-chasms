@@ -88,6 +88,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.neoforged.bus.api.EventPriority;
@@ -1012,18 +1013,13 @@ public class CCEvents {
 		ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, data.getValue(CCDataProcessors.REWIND_DIMENSION));
 		ServerLevel level = entity.getServer().getLevel(key);
 
-		if (level != entity.getCommandSenderWorld()) {
-			entity.changeDimension(level, new ITeleporter() {
-				@Override
-				public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-					return repositionEntity.apply(false);
-				}
-			});
-		}
-
 		double x = data.getValue(CCDataProcessors.REWIND_X);
 		double y = data.getValue(CCDataProcessors.REWIND_Y);
 		double z = data.getValue(CCDataProcessors.REWIND_Z);
+
+		if (level != entity.getCommandSenderWorld()) {
+			entity.changeDimension(new DimensionTransition(level, new Vec3(x, y, z), Vec3.ZERO, entity.getXRot(), entity.getYRot(), false, DimensionTransition.DO_NOTHING));
+		}
 
 		if (entity.isPassenger())
 			entity.dismountTo(x, y, z);
