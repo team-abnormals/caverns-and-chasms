@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.client.model.UnicornHornModel;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -15,9 +14,11 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 
 public class UnicornHornLayer<T extends AbstractHorse, M extends HorseModel<T>> extends RenderLayer<T, M> {
 	public static final ResourceLocation HORN_TEXTURE = CavernsAndChasms.location("textures/entity/horse/unicorn_horn.png");
@@ -36,24 +37,15 @@ public class UnicornHornLayer<T extends AbstractHorse, M extends HorseModel<T>> 
 			this.getParentModel().copyPropertiesTo(this.model);
 			this.model.prepareMobModel(horse, limbSwing, limbSwingAmount, partialTicks);
 			this.model.setupAnim(horse, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-			float f;
-			float f1;
-			float f2;
-			if (stack.getItem() instanceof DyeableLeatherItem dyeable) {
-				int i = dyeable.getColor(stack);
-				f = (float) (i >> 16 & 255) / 255.0F;
-				f1 = (float) (i >> 8 & 255) / 255.0F;
-				f2 = (float) (i & 255) / 255.0F;
+			int i;
+			if (stack.is(ItemTags.DYEABLE)) {
+				i = FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, -6265536));
 			} else {
-				f = 1.0F;
-				f1 = 1.0F;
-				f2 = 1.0F;
+				i = -1;
 			}
-			VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(HORN_TEXTURE));
-			this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1.0F);
+			this.model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutoutNoCull(HORN_TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, i);
 			if (emissive) {
-				VertexConsumer emissiveConsumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(HORN_TEXTURE));
-				this.model.renderToBuffer(poseStack, emissiveConsumer, packedLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1.0F);
+				this.model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(HORN_TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, i);
 			}
 		}
 	}

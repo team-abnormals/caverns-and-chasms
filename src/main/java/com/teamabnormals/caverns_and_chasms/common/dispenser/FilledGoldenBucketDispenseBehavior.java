@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.dispenser;
 
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
@@ -18,8 +18,8 @@ public class FilledGoldenBucketDispenseBehavior extends DefaultDispenseItemBehav
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		DispensibleContainerItem container = (DispensibleContainerItem) stack.getItem();
-		BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-		Level level = source.getLevel();
+		BlockPos pos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+		Level level = source.level();
 		BlockState state = level.getBlockState(pos);
 		ItemStack filled = GoldenBucketItem.getFilledBucket(state);
 

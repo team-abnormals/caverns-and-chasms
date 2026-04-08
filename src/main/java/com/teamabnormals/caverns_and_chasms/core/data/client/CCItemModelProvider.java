@@ -2,17 +2,17 @@ package com.teamabnormals.caverns_and_chasms.core.data.client;
 
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
@@ -85,43 +85,43 @@ public class CCItemModelProvider extends BlueprintItemModelProvider {
 		this.trimmableArmorItem(SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS);
 	}
 
-	public ItemModelBuilder item(RegistryObject<? extends ItemLike> item, String type) {
-		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get()).toString().replace("waxed_", ""));
+	public ItemModelBuilder item(DeferredItem<Item> item, String type) {
+		return this.withExistingParent(name(item), "item/" + type).texture("layer0", itemTexture(item).toString().replace("waxed_", ""));
 	}
 
-	public ItemModelBuilder overlayItem(RegistryObject<? extends ItemLike> item, String type) {
-		return this.withExistingParent(name(item.get()), "item/" + type)
-				.texture("layer0", itemTexture(item.get()))
-				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
+	public ItemModelBuilder overlayItem(DeferredItem<Item> item, String type) {
+		return this.withExistingParent(name(item), "item/" + type)
+				.texture("layer0", itemTexture(item))
+				.texture("layer1", itemTexture(item).withSuffix("_overlay"));
 	}
 
-	public ItemModelBuilder packingContainerItem(RegistryObject<? extends ItemLike> item, String type) {
-		ModelFile dyed = this.withExistingParent(name(item.get()) + "_dyed", "item/" + type)
-				.texture("layer0", itemTexture(item.get()))
-				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
+	public ItemModelBuilder packingContainerItem(DeferredItem<Item> item, String type) {
+		ModelFile dyed = this.withExistingParent(name(item) + "_dyed", "item/" + type)
+				.texture("layer0", itemTexture(item))
+				.texture("layer1", itemTexture(item).withSuffix("_overlay"));
 
-		ModelFile filled = this.withExistingParent(name(item.get()) + "_filled", "item/" + type)
-				.texture("layer0", itemTexture(item.get()).withSuffix("_filled"));
+		ModelFile filled = this.withExistingParent(name(item) + "_filled", "item/" + type)
+				.texture("layer0", itemTexture(item).withSuffix("_filled"));
 
-		ModelFile dyedFilled = this.withExistingParent(name(item.get()) + "_dyed_filled", "item/" + type)
-				.texture("layer0", itemTexture(item.get()).withSuffix("_filled"))
-				.texture("layer1", itemTexture(item.get()).withSuffix("_overlay"));
+		ModelFile dyedFilled = this.withExistingParent(name(item) + "_dyed_filled", "item/" + type)
+				.texture("layer0", itemTexture(item).withSuffix("_filled"))
+				.texture("layer1", itemTexture(item).withSuffix("_overlay"));
 
-		return this.withExistingParent(name(item.get()), "item/" + type).texture("layer0", itemTexture(item.get()))
+		return this.withExistingParent(name(item), "item/" + type).texture("layer0", itemTexture(item))
 				.override().model(filled).predicate(ResourceLocation.withDefaultNamespace("dyed"), 0).predicate(ResourceLocation.withDefaultNamespace("filled"), 0.0000001F).end()
 				.override().model(dyed).predicate(ResourceLocation.withDefaultNamespace("dyed"), 1).end()
 				.override().model(dyedFilled).predicate(ResourceLocation.withDefaultNamespace("dyed"), 1).predicate(ResourceLocation.withDefaultNamespace("filled"), 0.0000001F).end();
 	}
 
 	@SafeVarargs
-	public final void trimmableCopperArmorItem(RegistryObject<? extends ItemLike>... items) {
+	public final void trimmableCopperArmorItem(DeferredItem<Item>... items) {
 		this.trimmableCopperArmorItem(false, items);
 	}
 
 	@SafeVarargs
-	public final void trimmableCopperArmorItem(boolean darker, RegistryObject<? extends ItemLike>... items) {
-		for (RegistryObject<? extends ItemLike> item : items) {
-			if (item.get().asItem() instanceof ArmorItem armor) {
+	public final void trimmableCopperArmorItem(boolean darker, DeferredItem<Item>... items) {
+		for (DeferredItem<Item> item : items) {
+			if (item.asItem() instanceof ArmorItem armor) {
 				ResourceLocation location = BuiltInRegistries.ITEM.getKey(armor);
 				ItemModelBuilder itemModel = this.item(item, "generated");
 				int trimType = 1;

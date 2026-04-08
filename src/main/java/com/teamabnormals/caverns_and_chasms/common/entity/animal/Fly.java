@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
@@ -34,7 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -48,13 +49,13 @@ public class Fly extends PathfinderMob implements FlyingAnimal {
 		super(fly, world);
 		this.moveControl = new FlyingMoveControl(this, 20, true);
 		this.lookControl = new LookControl(this);
-		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.COCOA, -1.0F);
-		this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0F);
+		this.setPathfindingMalus(PathType.WATER, -1.0F);
+		this.setPathfindingMalus(PathType.COCOA, -1.0F);
+		this.setPathfindingMalus(PathType.FENCE, -1.0F);
 	}
 
-	protected void defineSynchedData() {
-		super.defineSynchedData();
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
 	}
 
 	@SuppressWarnings("deprecation")

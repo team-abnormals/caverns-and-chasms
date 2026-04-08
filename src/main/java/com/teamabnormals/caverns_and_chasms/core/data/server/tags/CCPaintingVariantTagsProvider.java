@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.teamabnormals.caverns_and_chasms.core.registry.CCPaintingVariants.*;
+import static com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCPaintingVariants.*;
 
 public class CCPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 

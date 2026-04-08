@@ -13,8 +13,8 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class CopperHorseArmorItem extends AnimalArmorItem {
 
-	public CopperHorseArmorItem(Holder<ArmorMaterial> armorMaterial, AnimalArmorItem.BodyType bodyType, boolean hasOverlay, Properties builder) {
-		super(armorMaterial, bodyType, hasOverlay, builder);
+	public CopperHorseArmorItem(Holder<ArmorMaterial> armorMaterial, Properties builder) {
+		super(armorMaterial, BodyType.EQUESTRIAN, false, builder);
 	}
 
 	@Override

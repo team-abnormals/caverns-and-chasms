@@ -5,7 +5,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 public class CCGameEvents {
 	public static final DeferredRegister<GameEvent> GAME_EVENTS = DeferredRegister.create(Registries.GAME_EVENT, CavernsAndChasms.MOD_ID);

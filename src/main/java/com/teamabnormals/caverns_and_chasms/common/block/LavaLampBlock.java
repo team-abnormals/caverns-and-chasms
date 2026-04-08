@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
@@ -26,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -46,6 +47,11 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	public LavaLampBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends DirectionalBlock> codec() {
+		return null;
 	}
 
 	@Override
@@ -160,7 +166,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 
 	@Nullable
 	@Override
-	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
-		return BlockPathTypes.DAMAGE_FIRE;
+	public PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
+		return PathType.DAMAGE_FIRE;
 	}
 }

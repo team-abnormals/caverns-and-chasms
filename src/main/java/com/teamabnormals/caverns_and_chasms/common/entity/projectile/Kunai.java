@@ -37,9 +37,6 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 		super(CCEntityTypes.KUNAI.get(), x, y, z, worldIn);
 	}
 
-	public Kunai(PlayMessages.SpawnEntity spawnEntity, Level world) {
-		this(CCEntityTypes.KUNAI.get(), world);
-	}
 
 	public Kunai(Level worldIn, LivingEntity shooter) {
 		super(CCEntityTypes.KUNAI.get(), shooter, worldIn);
@@ -108,11 +105,6 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 
 	protected ItemStack getPickupItem() {
 		return new ItemStack(CCItems.KUNAI.get());
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	public ItemStack getItem() {

@@ -56,10 +56,10 @@ public class OxidizedCopperGolem extends LivingEntity {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(DAMAGED, false);
-		this.entityData.define(WAXED, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DAMAGED, false);
+		builder.define(WAXED, false);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

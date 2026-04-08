@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class PackingContainerItem extends Item implements DyeableLeatherItem {
+public class PackingContainerItem extends Item {
 	private static final String TAG_ITEM = "Item";
 	public static final int MAX_WEIGHT = 512;
 	private static final int CONTAINER_IN_CONTAINER_WEIGHT = 4;
@@ -42,12 +42,6 @@ public class PackingContainerItem extends Item implements DyeableLeatherItem {
 
 	public static float getFullnessDisplay(ItemStack stack) {
 		return (float) getContentWeight(stack) / (float) MAX_WEIGHT;
-	}
-
-	@Override
-	public int getColor(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement("display");
-		return tag != null && tag.contains("color", 99) ? tag.getInt("color") : -1;
 	}
 
 	@Override

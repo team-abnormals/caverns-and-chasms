@@ -1,7 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPoiTypes;
@@ -12,10 +10,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightningRodBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTickList;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
@@ -36,11 +30,6 @@ public final class ServerLevelMixin {
 	@Final
 	EntityTickList entityTickList;
 
-	@WrapOperation(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-	private boolean tickChunk(BlockState state, Block block, Operation<Boolean> original) {
-		return (block == Blocks.LIGHTNING_ROD && state.getBlock() instanceof LightningRodBlock) || original.call(state, block);
-	}
-
 	@Inject(method = "findLightningRod", at = @At("RETURN"), cancellable = true)
 	private void findLightningRod(BlockPos origin, CallbackInfoReturnable<Optional<BlockPos>> cir) {
 		ServerLevel level = (ServerLevel) (Object) this;
@@ -51,7 +40,7 @@ public final class ServerLevelMixin {
 			closestPos = optional.get().above(1);
 		}
 
-		AABB aabb = (new AABB(origin, new BlockPos(origin.getX(), level.getMaxBuildHeight(), origin.getZ()))).inflate(128.0D);
+		AABB aabb = AABB.encapsulatingFullBlocks(origin, new BlockPos(origin.atY(level.getMaxBuildHeight()))).inflate(128.0D);
 		List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, aabb, (entity) -> {
 			return entity != null && entity.isAlive() && level.canSeeSky(entity.blockPosition()) && entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItemTags.COPPER_HELMETS);
 		});

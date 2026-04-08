@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EnchantmentTableBlock;
+import net.minecraft.world.level.block.EnchantingTableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class AtoningTableBlock extends EnchantmentTableBlock {
+public class AtoningTableBlock extends EnchantingTableBlock {
 
 	public AtoningTableBlock(Properties properties) {
 		super(properties);

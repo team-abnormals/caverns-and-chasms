@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
@@ -20,16 +21,17 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
 public class SparklerBlock extends TorchBlock implements Sparkler {
 	protected static final VoxelShape AABB = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 12.0D, 10.0D);
-	protected final Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle;
+	protected final Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle;
 
-	public SparklerBlock(Properties properties, Pair<RegistryObject<SimpleParticleType>, RegistryObject<SimpleParticleType>> particle) {
-		super(properties, ParticleTypes.FLAME);
+	public SparklerBlock(Properties properties, Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle) {
+		super(ParticleTypes.FLAME, properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
 		this.particle = particle;
 	}

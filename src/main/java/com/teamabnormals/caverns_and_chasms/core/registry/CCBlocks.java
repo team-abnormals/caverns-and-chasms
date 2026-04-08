@@ -78,10 +78,10 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> SILVER_BLOCK = HELPER.createBlock("silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(CCSoundTypes.SILVER)));
 	public static final DeferredBlock<Block> SILVER_ORE = HELPER.createBlock("silver_ore", () -> new Block(CCProperties.ORE));
 	public static final DeferredBlock<Block> DEEPSLATE_SILVER_ORE = HELPER.createBlock("deepslate_silver_ore", () -> new Block(CCProperties.DEEPSLATE_ORE));
-	public static final DeferredBlock<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new DropExperienceBlock(CCProperties.SOUL_SILVER_ORE, UniformInt.of(0, 1)));
+	public static final DeferredBlock<Block> SOUL_SILVER_ORE = HELPER.createBlock("soul_silver_ore", () -> new DropExperienceBlock(UniformInt.of(0, 1), CCProperties.SOUL_SILVER_ORE));
 	public static final DeferredBlock<Block> RAW_SILVER_BLOCK = HELPER.createBlock("raw_silver_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 	public static final DeferredBlock<Block> SILVER_BARS = HELPER.createBlock("silver_bars", () -> new IronBarsBlock(CCProperties.SILVER_BARS));
-	public static final DeferredBlock<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_PRESSURE_PLATE, CCProperties.SILVER_BLOCK_SET.get()));
+	public static final DeferredBlock<Block> MEDIUM_WEIGHTED_PRESSURE_PLATE = HELPER.createBlock("medium_weighted_pressure_plate", () -> new WeightedPressurePlateBlock(75, CCProperties.SILVER_BLOCK_SET.get(), CCProperties.SILVER_PRESSURE_PLATE));
 
 	public static final DeferredBlock<Block> TIN_BLOCK = HELPER.createBlock("tin_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(CCSoundTypes.TIN)));
 	public static final DeferredBlock<Block> TIN_ORE = HELPER.createBlock("tin_ore", () -> new Block(CCProperties.TIN_ORE));
@@ -92,7 +92,7 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> TIN_BARS = HELPER.createBlock("tin_bars", () -> new IronBarsBlock(CCProperties.TIN_BARS));
 	public static final DeferredBlock<Block> TIN_CHAIN = HELPER.createBlock("tin_chain", () -> new ChainBlock(CCProperties.TIN_CHAIN));
 	public static final DeferredBlock<Block> TIN_BULB = HELPER.createBlock("tin_bulb", () -> new TinBulbBlock(CCProperties.TIN_BULB));
-	public static final DeferredBlock<Block> FLOAT_GLASS = HELPER.createBlock("float_glass", () -> new GlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).sound(CCSoundTypes.FLOAT_GLASS)));
+	public static final DeferredBlock<Block> FLOAT_GLASS = HELPER.createBlock("float_glass", () -> new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).sound(CCSoundTypes.FLOAT_GLASS)));
 	public static final DeferredBlock<Block> FLOAT_GLASS_PANE = HELPER.createBlock("float_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS_PANE).sound(CCSoundTypes.FLOAT_GLASS)));
 
 	public static final DeferredBlock<Block> HOLD_PLATE = HELPER.createBlock("hold_plate", () -> new HoldPlateBlock(CCProperties.HOLD_PLATE));
@@ -256,8 +256,8 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> LAPIS_LAZULI_PILLAR = HELPER.createBlock("lapis_pillar", () -> new RotatedPillarBlock(CCProperties.LAPIS_LAZULI));
 	public static final DeferredBlock<Block> LAPIS_LAZULI_LAMP = HELPER.createBlock("lapis_lamp", () -> new Block(CCProperties.LAMP));
 
-	public static final DeferredBlock<Block> SPINEL_ORE = HELPER.createBlock("spinel_ore", () -> new DropExperienceBlock(CCProperties.ORE, UniformInt.of(2, 5)));
-	public static final DeferredBlock<Block> DEEPSLATE_SPINEL_ORE = HELPER.createBlock("deepslate_spinel_ore", () -> new DropExperienceBlock(CCProperties.DEEPSLATE_ORE, UniformInt.of(2, 5)));
+	public static final DeferredBlock<Block> SPINEL_ORE = HELPER.createBlock("spinel_ore", () -> new DropExperienceBlock(UniformInt.of(2, 5), CCProperties.ORE));
+	public static final DeferredBlock<Block> DEEPSLATE_SPINEL_ORE = HELPER.createBlock("deepslate_spinel_ore", () -> new DropExperienceBlock(UniformInt.of(2, 5), CCProperties.DEEPSLATE_ORE));
 	public static final DeferredBlock<Block> SPINEL_BLOCK = HELPER.createBlock("spinel_block", () -> new Block(CCProperties.SPINEL));
 	public static final DeferredBlock<Block> SPINEL_BRICKS = HELPER.createBlock("spinel_bricks", () -> new Block(CCProperties.SPINEL));
 	public static final DeferredBlock<Block> SPINEL_BRICK_STAIRS = HELPER.createBlock("spinel_brick_stairs", () -> new StairBlock(SPINEL_BRICKS.get().defaultBlockState(), CCProperties.SPINEL));
@@ -287,7 +287,7 @@ public class CCBlocks {
 
 	public static final DeferredBlock<Block> CAVIAR = HELPER.createBlockNoItem("caviar", () -> new CaviarBlock(PropertyUtil.flowerPot().sound(CCSoundTypes.CAVIAR)));
 
-	public static final DeferredBlock<Block> FROSTED_GLASS = HELPER.createBlock("frosted_glass", () -> new GlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+	public static final DeferredBlock<Block> FROSTED_GLASS = HELPER.createBlock("frosted_glass", () -> new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 	public static final DeferredBlock<Block> FROSTED_GLASS_PANE = HELPER.createBlock("frosted_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS_PANE)));
 
 	public static final DeferredBlock<Block> QUARTZ_LAMP = HELPER.createBlock("quartz_lamp", () -> new Block(Properties.ofFullCopy(LAPIS_LAZULI_LAMP.get())));
@@ -531,25 +531,25 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> CHISELED_SILVER_BRICKS = HELPER.createBlock("chiseled_silver_bricks", () -> new Block(CCProperties.SILVER_PLATED_BRICKS));
 
 	public static final DeferredBlock<Block> COPPER_BRICKS = HELPER.createBlock("copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
-	public static final DeferredBlock<Block> COPPER_BRICK_STAIRS = HELPER.createBlock("copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.UNAFFECTED, () -> COPPER_BRICKS.get().defaultBlockState(), CCProperties.COPPER_PLATED_BRICKS));
+	public static final DeferredBlock<Block> COPPER_BRICK_STAIRS = HELPER.createBlock("copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.UNAFFECTED, COPPER_BRICKS.get().defaultBlockState(), CCProperties.COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> COPPER_BRICK_SLAB = HELPER.createBlock("copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> COPPER_BRICK_WALL = HELPER.createBlock("copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> CHISELED_COPPER_BRICKS = HELPER.createBlock("chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PLATED_BRICKS));
 
 	public static final DeferredBlock<Block> EXPOSED_COPPER_BRICKS = HELPER.createBlock("exposed_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
-	public static final DeferredBlock<Block> EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("exposed_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.EXPOSED, () -> EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
+	public static final DeferredBlock<Block> EXPOSED_COPPER_BRICK_STAIRS = HELPER.createBlock("exposed_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.EXPOSED, EXPOSED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> EXPOSED_COPPER_BRICK_SLAB = HELPER.createBlock("exposed_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> EXPOSED_COPPER_BRICK_WALL = HELPER.createBlock("exposed_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> EXPOSED_CHISELED_COPPER_BRICKS = HELPER.createBlock("exposed_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.EXPOSED, CCProperties.EXPOSED_COPPER_PLATED_BRICKS));
 
 	public static final DeferredBlock<Block> WEATHERED_COPPER_BRICKS = HELPER.createBlock("weathered_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
-	public static final DeferredBlock<Block> WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("weathered_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.WEATHERED, () -> WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
+	public static final DeferredBlock<Block> WEATHERED_COPPER_BRICK_STAIRS = HELPER.createBlock("weathered_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.WEATHERED, WEATHERED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> WEATHERED_COPPER_BRICK_SLAB = HELPER.createBlock("weathered_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> WEATHERED_COPPER_BRICK_WALL = HELPER.createBlock("weathered_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> WEATHERED_CHISELED_COPPER_BRICKS = HELPER.createBlock("weathered_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.WEATHERED, CCProperties.WEATHERED_COPPER_PLATED_BRICKS));
 
 	public static final DeferredBlock<Block> OXIDIZED_COPPER_BRICKS = HELPER.createBlock("oxidized_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
-	public static final DeferredBlock<Block> OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("oxidized_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.OXIDIZED, () -> OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
+	public static final DeferredBlock<Block> OXIDIZED_COPPER_BRICK_STAIRS = HELPER.createBlock("oxidized_copper_brick_stairs", () -> new CCWeatheringCopperStairBlock(WeatherState.OXIDIZED, OXIDIZED_COPPER_BRICKS.get().defaultBlockState(), CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> OXIDIZED_COPPER_BRICK_SLAB = HELPER.createBlock("oxidized_copper_brick_slab", () -> new CCWeatheringCopperSlabBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> OXIDIZED_COPPER_BRICK_WALL = HELPER.createBlock("oxidized_copper_brick_wall", () -> new CCWeatheringCopperWallBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
 	public static final DeferredBlock<Block> OXIDIZED_CHISELED_COPPER_BRICKS = HELPER.createBlock("oxidized_chiseled_copper_bricks", () -> new CCWeatheringCopperFullBlock(WeatherState.OXIDIZED, CCProperties.OXIDIZED_COPPER_PLATED_BRICKS));
@@ -583,28 +583,28 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> AZALEA_LOG = HELPER.createBlock("azalea_log", () -> new LogBlock(STRIPPED_AZALEA_LOG, CCProperties.AZALEA.log()));
 	public static final DeferredBlock<Block> AZALEA_WOOD = HELPER.createBlock("azalea_wood", () -> new LogBlock(STRIPPED_AZALEA_WOOD, CCProperties.AZALEA.log()));
 	public static final DeferredBlock<Block> AZALEA_PLANKS = HELPER.createBlock("azalea_planks", () -> new Block(CCProperties.AZALEA.planks()));
-	public static final DeferredBlock<Block> AZALEA_DOOR = HELPER.createBlock("azalea_door", () -> new DoorBlock(CCProperties.AZALEA.planks(), CCProperties.AZALEA_BLOCK_SET));
+	public static final DeferredBlock<Block> AZALEA_DOOR = HELPER.createBlock("azalea_door", () -> new DoorBlock(CCProperties.AZALEA_BLOCK_SET, CCProperties.AZALEA.planks()));
 	public static final DeferredBlock<Block> AZALEA_SLAB = HELPER.createBlock("azalea_slab", () -> new SlabBlock(CCProperties.AZALEA.planks()));
 	public static final DeferredBlock<Block> AZALEA_STAIRS = HELPER.createBlock("azalea_stairs", () -> new StairBlock(AZALEA_PLANKS.get().defaultBlockState(), CCProperties.AZALEA.planks()));
-	public static final DeferredBlock<Block> AZALEA_FENCE = HELPER.createFuelBlock("azalea_fence", () -> new FenceBlock(CCProperties.AZALEA.planks()), 300);
-	public static final DeferredBlock<Block> AZALEA_FENCE_GATE = HELPER.createFuelBlock("azalea_fence_gate", () -> new FenceGateBlock(CCProperties.AZALEA.planks(), CCProperties.AZALEA_WOOD_TYPE), 300);
-	public static final DeferredBlock<Block> AZALEA_PRESSURE_PLATE = HELPER.createBlock("azalea_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, CCProperties.AZALEA.pressurePlate(), CCProperties.AZALEA_BLOCK_SET));
-	public static final DeferredBlock<Block> AZALEA_BUTTON = HELPER.createBlock("azalea_button", () -> new ButtonBlock(CCProperties.AZALEA.button(), CCProperties.AZALEA_BLOCK_SET, 30, true));
-	public static final DeferredBlock<Block> AZALEA_TRAPDOOR = HELPER.createBlock("azalea_trapdoor", () -> new TrapDoorBlock(CCProperties.AZALEA.trapdoor(), CCProperties.AZALEA_BLOCK_SET));
+	public static final DeferredBlock<Block> AZALEA_FENCE = HELPER.createBlock("azalea_fence", () -> new FenceBlock(CCProperties.AZALEA.planks()));
+	public static final DeferredBlock<Block> AZALEA_FENCE_GATE = HELPER.createBlock("azalea_fence_gate", () -> new FenceGateBlock(CCProperties.AZALEA_WOOD_TYPE, CCProperties.AZALEA.planks()));
+	public static final DeferredBlock<Block> AZALEA_PRESSURE_PLATE = HELPER.createBlock("azalea_pressure_plate", () -> new PressurePlateBlock(CCProperties.AZALEA_BLOCK_SET, CCProperties.AZALEA.pressurePlate()));
+	public static final DeferredBlock<Block> AZALEA_BUTTON = HELPER.createBlock("azalea_button", () -> new ButtonBlock(CCProperties.AZALEA_BLOCK_SET, 30, CCProperties.AZALEA.button()));
+	public static final DeferredBlock<Block> AZALEA_TRAPDOOR = HELPER.createBlock("azalea_trapdoor", () -> new TrapDoorBlock(CCProperties.AZALEA_BLOCK_SET, CCProperties.AZALEA.trapdoor()));
 	public static final Pair<DeferredBlock<BlueprintStandingSignBlock>, DeferredBlock<BlueprintWallSignBlock>> AZALEA_SIGNS = HELPER.createSignBlock("azalea", CCProperties.AZALEA_WOOD_TYPE, CCProperties.AZALEA.sign());
 	public static final Pair<DeferredBlock<BlueprintCeilingHangingSignBlock>, DeferredBlock<BlueprintWallHangingSignBlock>> AZALEA_HANGING_SIGNS = HELPER.createHangingSignBlock("azalea", CCProperties.AZALEA_WOOD_TYPE, CCProperties.AZALEA.hangingSign());
 
-	public static final DeferredBlock<Block> AZALEA_BOARDS = HELPER.createFuelBlock("azalea_boards", () -> new RotatedPillarBlock(CCProperties.AZALEA.planks()), 300);
-	public static final DeferredBlock<Block> AZALEA_BOOKSHELF = HELPER.createFuelBlock("azalea_bookshelf", () -> new Block(CCProperties.AZALEA.bookshelf()), 300);
-	public static final DeferredBlock<Block> CHISELED_AZALEA_BOOKSHELF = HELPER.createFuelBlock("chiseled_azalea_bookshelf", () -> new ChiseledAzaleaBookShelfBlock(CCProperties.AZALEA.chiseledBookshelf()), 300);
-	public static final DeferredBlock<Block> AZALEA_LADDER = HELPER.createFuelBlock("azalea_ladder", () -> new LadderBlock(CCProperties.AZALEA.ladder()), 300);
+	public static final DeferredBlock<Block> AZALEA_BOARDS = HELPER.createBlock("azalea_boards", () -> new RotatedPillarBlock(CCProperties.AZALEA.planks()));
+	public static final DeferredBlock<Block> AZALEA_BOOKSHELF = HELPER.createBlock("azalea_bookshelf", () -> new Block(CCProperties.AZALEA.bookshelf()));
+	public static final DeferredBlock<Block> CHISELED_AZALEA_BOOKSHELF = HELPER.createBlock("chiseled_azalea_bookshelf", () -> new ChiseledAzaleaBookShelfBlock(CCProperties.AZALEA.chiseledBookshelf()));
+	public static final DeferredBlock<Block> AZALEA_LADDER = HELPER.createBlock("azalea_ladder", () -> new LadderBlock(CCProperties.AZALEA.ladder()));
 	public static final DeferredBlock<Block> AZALEA_BEEHIVE = HELPER.createBlock("azalea_beehive", () -> new BlueprintBeehiveBlock(CCProperties.AZALEA.beehive()));
 	public static final DeferredBlock<BlueprintChestBlock> AZALEA_CHEST = HELPER.createChestBlock("azalea", CCProperties.AZALEA.chest());
 	public static final DeferredBlock<BlueprintTrappedChestBlock> TRAPPED_AZALEA_CHEST = HELPER.createTrappedChestBlock("azalea", CCProperties.AZALEA.chest());
 
-	public static final DeferredBlock<Block> FALSE_HOPE = HELPER.createBlock("false_hope", () -> new FalseHopeBlock(() -> MobEffects.BLINDNESS, 8, CCProperties.FALSE_HOPE));
+	public static final DeferredBlock<Block> FALSE_HOPE = HELPER.createBlock("false_hope", () -> new FalseHopeBlock(MobEffects.BLINDNESS, 8, CCProperties.FALSE_HOPE));
 
-	public static final DeferredBlock<Block> MOSCHATEL = HELPER.createBlock("moschatel", () -> new MoschatelBlock(() -> MobEffects.NIGHT_VISION, 5, PropertyUtil.flower().sound(CCSoundTypes.MOSCHATEL)));
+	public static final DeferredBlock<Block> MOSCHATEL = HELPER.createBlock("moschatel", () -> new MoschatelBlock(MobEffects.NIGHT_VISION, 5, PropertyUtil.flower().sound(CCSoundTypes.MOSCHATEL)));
 	public static final DeferredBlock<Block> CAVE_GROWTHS = HELPER.createBlock("cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.TERRACOTTA_LIGHT_GREEN)));
 	public static final DeferredBlock<Block> LURID_CAVE_GROWTHS = HELPER.createBlock("lurid_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.GLOW_LICHEN)));
 	public static final DeferredBlock<Block> WISPY_CAVE_GROWTHS = HELPER.createBlock("wispy_cave_growths", () -> new CaveGrowthsBlock(CCProperties.caveGrowths(MapColor.STONE)));
@@ -646,7 +646,7 @@ public class CCBlocks {
 
 	public static final DeferredBlock<Block> BRICK = HELPER.createPlacedItem("brick", () -> new IngotBlock(() -> Items.BRICK, BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS)));
 	public static final DeferredBlock<Block> NETHER_BRICK = HELPER.createPlacedItem("nether_brick", () -> new IngotBlock(() -> Items.NETHER_BRICK, BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS)));
-	public static final DeferredBlock<Block> EUMUS_BRICK = HELPER.createPlacedItem("eumus_brick", () -> new IngotBlock(() -> BuiltInRegistries.ITEM.getValue(ResourceLocation.withDefaultNamespace("endergetic", "eumus_brick")), Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).sound(SoundType.STONE).strength(2, 30)));
+	public static final DeferredBlock<Block> EUMUS_BRICK = HELPER.createPlacedItem("eumus_brick", () -> new IngotBlock(() -> BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("endergetic", "eumus_brick")), Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).sound(SoundType.STONE).strength(2, 30)));
 
 	public static final DeferredBlock<Block> SADDLED_EGG = HELPER.createBlock("saddled_egg", () -> new SaddledEggBlock(CCProperties.SADDLED_EGG));
 
@@ -824,11 +824,11 @@ public class CCBlocks {
 	}
 
 	public static Predicate<ItemStack> ofID(ResourceLocation location, ItemLike fallback, String... modids) {
-		return stack -> (BlockSubRegistryHelper.areModsLoaded(modids) ? of(BuiltInRegistries.ITEM.getValue(location)) : of(fallback)).test(stack);
+		return stack -> (BlockSubRegistryHelper.areModsLoaded(modids) ? of(BuiltInRegistries.ITEM.get(location)) : of(fallback)).test(stack);
 	}
 
 	public static Predicate<ItemStack> ofID(ResourceLocation location, String... modids) {
-		return stack -> (BlockSubRegistryHelper.areModsLoaded(modids) && of(BuiltInRegistries.ITEM.getValue(location)).test(stack));
+		return stack -> (BlockSubRegistryHelper.areModsLoaded(modids) && of(BuiltInRegistries.ITEM.get(location)).test(stack));
 	}
 
 	public static class CCProperties {

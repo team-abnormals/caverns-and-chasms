@@ -14,9 +14,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 
 public class AegisRenderer extends BlockEntityWithoutLevelRenderer {
 	private static final ResourceLocation AEGIS_LOCATION = CavernsAndChasms.location("textures/entity/aegis/aegis_base.png");
@@ -44,18 +46,14 @@ public class AegisRenderer extends BlockEntityWithoutLevelRenderer {
 			poseStack.scale(1.0F, -1.0F, -1.0F);
 
 			VertexConsumer consumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(AEGIS_LOCATION), true, stack.hasFoil());
-			this.aegisModel.handle().render(poseStack, consumer, packedLight, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-			this.aegisModel.plate().render(poseStack, consumer, packedLight, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+			this.aegisModel.handle().render(poseStack, consumer, packedLight, overlay);
+			this.aegisModel.plate().render(poseStack, consumer, packedLight, overlay);
 
-			if (stack.getItem() instanceof DyeableLeatherItem dyeable) {
-				int i = dyeable.getColor(stack);
-				float r = (float) (i >> 16 & 255) / 255.0F;
-				float g = (float) (i >> 8 & 255) / 255.0F;
-				float b = (float) (i & 255) / 255.0F;
-
+			if (stack.is(ItemTags.DYEABLE)) {
+				int i = FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, -6265536));
 				VertexConsumer overlayConsumer = ItemRenderer.getFoilBufferDirect(buffer, this.aegisModel.renderType(OVERLAY_LOCATION), true, stack.hasFoil());
-				this.aegisModel.handle().render(poseStack, overlayConsumer, packedLight, overlay, r, g, b, 1.0F);
-				this.aegisModel.plate().render(poseStack, overlayConsumer, packedLight, overlay, r, g, b, 1.0F);
+				this.aegisModel.handle().render(poseStack, overlayConsumer, packedLight, overlay, i);
+				this.aegisModel.plate().render(poseStack, overlayConsumer, packedLight, overlay, i);
 			}
 
 			poseStack.popPose();

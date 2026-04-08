@@ -10,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolit
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCArchaeologyLoot;
+import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.rule.blockentity.AppendLoot;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -89,7 +91,7 @@ public class CCStructureTypes {
 
 							replaceGravelWith(Blocks.INFESTED_STONE, rare),
 							replaceGravelWith(CCBlocks.FLINT_BLOCK.get(), rare),
-							archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, rare),
+							archyLootProcessor(CCLootTables.FORGE_RARE, rare),
 
 							replaceGravelWith(Blocks.IRON_ORE, uncommon),
 							replaceGravelWith(Blocks.COBBLESTONE, uncommon),
@@ -97,11 +99,11 @@ public class CCStructureTypes {
 
 							replaceGravelWith(Blocks.COAL_ORE, common),
 							replaceGravelWith(CCBlocks.FRAGILE_STONE.get(), common),
-							archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, common)
+							archyLootProcessor(CCLootTables.FORGE_COMMON, common)
 					)),
 
-					archyLootProcessor(CCArchaeologyLoot.FORGE_RARE, 1),
-					archyLootProcessor(CCArchaeologyLoot.FORGE_COMMON, 5)
+					archyLootProcessor(CCLootTables.FORGE_RARE, 1),
+					archyLootProcessor(CCLootTables.FORGE_COMMON, 5)
 			));
 		}
 
@@ -109,11 +111,11 @@ public class CCStructureTypes {
 			return new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, block.defaultBlockState());
 		}
 
-		private static ProcessorRule archyLootProcessor(ResourceLocation lootTable, float chance) {
+		private static ProcessorRule archyLootProcessor(ResourceKey<LootTable> lootTable, float chance) {
 			return new ProcessorRule(new RandomBlockMatchTest(Blocks.GRAVEL, chance), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable));
 		}
 
-		private static CappedProcessor archyLootProcessor(ResourceLocation lootTable, int max) {
+		private static CappedProcessor archyLootProcessor(ResourceKey<LootTable> lootTable, int max) {
 			return new CappedProcessor(new RuleProcessor(ImmutableList.of(new ProcessorRule(new BlockMatchTest(Blocks.GRAVEL), AlwaysTrueTest.INSTANCE, PosAlwaysTrueTest.INSTANCE, Blocks.SUSPICIOUS_GRAVEL.defaultBlockState(), new AppendLoot(lootTable)))), ConstantInt.of(max));
 		}
 

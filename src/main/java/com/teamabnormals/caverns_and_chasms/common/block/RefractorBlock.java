@@ -1,12 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.ticks.TickPriority;
-import net.neoforged.neoforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ import java.util.EnumSet;
 import java.util.Optional;
 
 public class RefractorBlock extends DiodeBlock {
+	public static final MapCodec<RefractorBlock> CODEC = simpleCodec(RefractorBlock::new);
 	public static final IntegerProperty LEFT = IntegerProperty.create("left", 0, 3);
 	public static final IntegerProperty CENTER = IntegerProperty.create("center", 0, 3);
 	public static final IntegerProperty RIGHT = IntegerProperty.create("right", 0, 3);
@@ -44,10 +45,14 @@ public class RefractorBlock extends DiodeBlock {
 	}
 
 	@Override
+	protected MapCodec<? extends DiodeBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
 	protected int getDelay(BlockState state) {
 		return 2;
 	}
-
 
 	@Override
 	public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
@@ -64,7 +69,7 @@ public class RefractorBlock extends DiodeBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
 		if (!player.getAbilities().mayBuild) {
 			return InteractionResult.PASS;
 		} else {
@@ -196,7 +201,7 @@ public class RefractorBlock extends DiodeBlock {
 	public void updateNeighborInDirection(Level level, BlockPos pos, Direction... directions) {
 		for (Direction direction : directions) {
 			BlockPos blockpos = pos.relative(direction.getOpposite());
-			if (ForgeEventFactory.onNeighborNotify(level, pos, level.getBlockState(pos), EnumSet.of(direction.getOpposite()), false).isCanceled())
+			if (EventHooks.onNeighborNotify(level, pos, level.getBlockState(pos), EnumSet.of(direction.getOpposite()), false).isCanceled())
 				return;
 			level.neighborChanged(blockpos, this, pos);
 			level.updateNeighborsAtExceptFromFacing(blockpos, this, direction);

@@ -3,22 +3,19 @@ package com.teamabnormals.caverns_and_chasms.common.item.silver;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.HorseArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 
 import java.util.UUID;
 
-public class SilverHorseArmorItem extends HorseArmorItem {
+public class SilverHorseArmorItem extends AnimalArmorItem {
 
-	public SilverHorseArmorItem(Item.Properties builder) {
-		super(7, CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_silver.png"), builder);
+	public SilverHorseArmorItem(Holder<ArmorMaterial> armorMaterial, Item.Properties builder) {
+		super(armorMaterial, BodyType.EQUESTRIAN, false, builder);
 	}
 
 	@Override

@@ -29,14 +29,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.neoforged.neoforge.common.IForgeShearable;
+import net.neoforged.neoforge.common.IShearable;
 import net.neoforged.neoforge.common.ItemAbilities;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
+public class Deeper extends CCCreeper implements Shearable, IShearable {
 	private static final EntityDataAccessor<Integer> HAT = SynchedEntityData.defineId(Deeper.class, EntityDataSerializers.INT);
 
 	public Deeper(EntityType<? extends Deeper> type, Level level) {
@@ -45,9 +45,9 @@ public class Deeper extends CCCreeper implements Shearable, IForgeShearable {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(HAT, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(HAT, 0);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

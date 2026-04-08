@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCFeatures;
@@ -23,7 +24,7 @@ import java.util.Map;
 public class TinMonolithDistanceFilter extends PlacementFilter {
 	private static final Vector2i[] CLOSEST_MONOLITH_OFFSETS = {new Vector2i(-1, 0), new Vector2i(0, 0), new Vector2i(-1, -1), new Vector2i(0, -1)};
 
-	public static final Codec<TinMonolithDistanceFilter> CODEC = RecordCodecBuilder.create(instance -> {
+	public static final MapCodec<TinMonolithDistanceFilter> CODEC = RecordCodecBuilder.mapCodec(instance -> {
 		return instance.group(
 				Codec.INT.fieldOf("max_distance").forGetter((placement) -> placement.maxDistance)
 		).apply(instance, TinMonolithDistanceFilter::new);

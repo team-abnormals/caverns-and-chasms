@@ -31,9 +31,9 @@ public class SubtleTippedArrowRecipe {
 					Potion potion = ((SubtlePotion) PotionUtils.getPotion(arrow)).getPotion();
 
 					ItemStack input = PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion);
-					input.getOrCreateTag().putBoolean("Subtle", true);
+					input.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
 					ItemStack output = PotionUtils.setPotion(new ItemStack(Items.TIPPED_ARROW, 8), potion);
-					output.getOrCreateTag().putBoolean("Subtle", true);
+					output.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
 
 					Ingredient potionIngredient = Ingredient.of(input);
 					NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY,

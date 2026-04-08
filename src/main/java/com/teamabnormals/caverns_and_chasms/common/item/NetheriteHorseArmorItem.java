@@ -3,22 +3,23 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.HorseArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
 
-public class NetheriteHorseArmorItem extends HorseArmorItem {
+public class NetheriteHorseArmorItem extends AnimalArmorItem {
 
-	public NetheriteHorseArmorItem(int armorValue, String tierArmor, Properties builder) {
-		super(armorValue, CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_" + tierArmor + ".png"), builder);
+	public NetheriteHorseArmorItem(Holder<ArmorMaterial> armorMaterial, Properties builder) {
+		super(armorMaterial, BodyType.EQUESTRIAN, false, builder);
 	}
 
 	@Override

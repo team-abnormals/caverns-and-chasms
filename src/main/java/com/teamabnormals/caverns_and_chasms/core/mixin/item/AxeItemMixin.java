@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.Level;
@@ -18,9 +19,10 @@ public abstract class AxeItemMixin {
 	private boolean useOn(Level level, BlockPos pos, BlockState state, int flags, Operation<Boolean> original) {
 		boolean success = original.call(level, pos, state, flags);
 		if (level.getBlockEntity(pos) instanceof ToolboxBlockEntity toolbox) {
-			CompoundTag tag = toolbox.serializeNBT();
+			RegistryAccess access = level.registryAccess();
+			CompoundTag tag = toolbox.serializeAttachments(access);
 			if (success) {
-				level.getBlockEntity(pos).deserializeNBT(tag);
+				level.getBlockEntity(pos).loadWithComponents(tag, access);
 			}
 		}
 		return success;

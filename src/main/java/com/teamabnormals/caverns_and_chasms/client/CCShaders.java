@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public final class CCShaders {
 	@Nullable
 	private static ShaderInstance rendertypeArmorTranslucentNoCullShader;

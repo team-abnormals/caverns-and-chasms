@@ -163,18 +163,18 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(VARIANT, CCRatVariants.BLUE.location().toString());
-		this.entityData.define(COLLAR_COLOR, DyeColor.RED.getId());
-		this.entityData.define(DIRTY, false);
-		this.entityData.define(RUNNING_AWAY, false);
-		this.entityData.define(SITTING_BECAUSE_ORDERED, false);
-		this.entityData.define(EATING, false);
-		this.entityData.define(ATTACH_ANGLE, 0.0F);
-		this.entityData.define(ATTACH_HEIGHT, 0.0F);
-		this.entityData.define(FIRST_PERSON_POS, 0.0F);
-		this.entityData.define(REMAINING_ANGER_TIME, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(VARIANT, CCRatVariants.BLUE.location().toString());
+		builder.define(COLLAR_COLOR, DyeColor.RED.getId());
+		builder.define(DIRTY, false);
+		builder.define(RUNNING_AWAY, false);
+		builder.define(SITTING_BECAUSE_ORDERED, false);
+		builder.define(EATING, false);
+		builder.define(ATTACH_ANGLE, 0.0F);
+		builder.define(ATTACH_HEIGHT, 0.0F);
+		builder.define(FIRST_PERSON_POS, 0.0F);
+		builder.define(REMAINING_ANGER_TIME, 0);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

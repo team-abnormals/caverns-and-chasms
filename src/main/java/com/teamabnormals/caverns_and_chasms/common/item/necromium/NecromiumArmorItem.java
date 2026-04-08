@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 public class NecromiumArmorItem extends ArmorItem {
 
-	public NecromiumArmorItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties) {
+	public NecromiumArmorItem(Holder<ArmorMaterial> material, ArmorItem.Type slot, Properties properties) {
 		super(material, slot, properties);
 	}
 

@@ -45,9 +45,9 @@ public class ThrownBejeweledPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(LIFE, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(LIFE, 0);
 	}
 
 	@Override

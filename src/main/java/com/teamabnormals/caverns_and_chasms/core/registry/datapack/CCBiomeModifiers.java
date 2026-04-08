@@ -18,11 +18,10 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.neoforged.neoforge.common.world.BiomeModifier;
-import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
-import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;
-import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.RemoveFeaturesBiomeModifier;
-import net.neoforged.neoforge.common.world.ForgeBiomeModifiers.RemoveSpawnsBiomeModifier;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifier;
+import net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier;
+import net.neoforged.neoforge.common.world.BiomeModifiers.RemoveFeaturesBiomeModifier;
+import net.neoforged.neoforge.common.world.BiomeModifiers.RemoveSpawnsBiomeModifier;
 
 import java.util.List;
 import java.util.Set;

@@ -9,18 +9,19 @@ import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.Map;
 
-public class MovingDoorBlockItem extends BEWLRBlockItem {
+public class MovingDoorBlockItem extends BlockItem {
 	private final MovingDoorType doorType;
 	private String descriptionId;
 

@@ -29,7 +29,7 @@ public class PotionSubtypeInterpreter implements IIngredientSubtypeInterpreter<I
 			stringBuilder.append(";").append(effect);
 		}
 
-		if (itemStack.getOrCreateTag().getBoolean("Subtle"))
+		if (itemStack.has(CCDataComponents.SUBTLE))
 			stringBuilder.append(";subtle");
 
 		return stringBuilder.toString();

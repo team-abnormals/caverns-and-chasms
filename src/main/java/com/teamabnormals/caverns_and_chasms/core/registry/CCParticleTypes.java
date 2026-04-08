@@ -80,7 +80,7 @@ public class CCParticleTypes {
 		return Pair.of(registerSimpleParticleType(true, name), emitter);
 	}
 
-	@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+	@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 	public static class RegisterParticles {
 		@SubscribeEvent
 		public static void registerParticleTypes(RegisterParticleProvidersEvent event) {

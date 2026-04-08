@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.SanguineArmorModel;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -26,7 +27,7 @@ import java.util.function.Consumer;
 
 public class SanguineArmorItem extends ArmorItem {
 
-	public SanguineArmorItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties) {
+	public SanguineArmorItem(Holder<ArmorMaterial> material, ArmorItem.Type slot, Properties properties) {
 		super(material, slot, properties);
 	}
 

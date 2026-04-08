@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.teamabnormals.caverns_and_chasms.client.model.CopperArmorModel;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -22,7 +23,7 @@ import java.util.function.Consumer;
 
 public class CopperArmorItem extends ArmorItem {
 
-	public CopperArmorItem(ArmorMaterial material, Type slot, Properties properties) {
+	public CopperArmorItem(Holder<ArmorMaterial> material, Type slot, Properties properties) {
 		super(material, slot, properties);
 	}
 

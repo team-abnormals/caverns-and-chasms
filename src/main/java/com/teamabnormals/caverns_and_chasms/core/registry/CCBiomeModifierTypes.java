@@ -19,7 +19,7 @@ import net.neoforged.neoforge.common.world.MobSpawnSettingsBuilder;
 import net.neoforged.neoforge.common.world.ModifiableBiomeInfo.BiomeInfo.Builder;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoRegistries.Keys;
+import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 
 import java.util.List;
 import java.util.function.Function;

@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPlacementModifierTypes;
 import net.minecraft.core.BlockPos;
@@ -17,7 +18,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class NoiseDensityPlacement extends PlacementModifier {
-	public static final Codec<NoiseDensityPlacement> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+	public static final MapCodec<NoiseDensityPlacement> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
 					NoiseParameters.CODEC.fieldOf("noise").forGetter((placement) -> placement.noiseParameters),
 					Codec.DOUBLE.fieldOf("density").forGetter((placement) -> placement.density),
 					Codec.DOUBLE.fieldOf("noise_offset").orElse(0.0D).forGetter((placement) -> placement.noiseOffset))

@@ -23,7 +23,7 @@ public class RatEarsLayer extends RenderLayer<Rat, RatModel> {
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Rat rat, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!rat.isInvisible()) {
 			VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityCutout(this.getTextureLocation(rat)));
-			this.getParentModel().renderEars(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(rat, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+			this.getParentModel().renderEars(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(rat, 0.0F));
 		}
 	}
 }

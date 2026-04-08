@@ -31,8 +31,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -196,8 +196,8 @@ public class BrazierBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Nullable
 	@Override
-	public BlockPathTypes getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
-		return isLit(state) ? BlockPathTypes.DAMAGE_FIRE : super.getBlockPathType(state, level, pos, entity);
+	public PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob entity) {
+		return isLit(state) ? PathType.DAMAGE_FIRE : super.getBlockPathType(state, level, pos, entity);
 	}
 
 	@Override

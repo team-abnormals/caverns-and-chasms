@@ -80,10 +80,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(OXIDATION, 0);
-		this.entityData.define(WAXED, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(OXIDATION, 0);
+		builder.define(WAXED, false);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

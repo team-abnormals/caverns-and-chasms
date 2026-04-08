@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 import java.util.EnumSet;
@@ -79,8 +79,8 @@ public class RatTeleportToOwnerGoal extends Goal {
 	}
 
 	private boolean canTeleportTo(BlockPos pos) {
-		BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, pos.mutable());
-		if (blockpathtypes != BlockPathTypes.WALKABLE) {
+		PathType blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, pos.mutable());
+		if (blockpathtypes != PathType.WALKABLE) {
 			return false;
 		} else {
 			BlockState blockstate = this.level.getBlockState(pos.below());

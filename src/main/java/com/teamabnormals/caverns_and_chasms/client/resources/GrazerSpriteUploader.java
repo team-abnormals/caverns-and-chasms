@@ -12,7 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class GrazerSpriteUploader extends TextureAtlasHolder {
 	public static final ResourceLocation ATLAS_LOCATION = CavernsAndChasms.location("textures/atlas/grazer.png");
 	public static final ResourceLocation GRAZER_DROOL_SPRITE = CavernsAndChasms.location("grazer_drool");

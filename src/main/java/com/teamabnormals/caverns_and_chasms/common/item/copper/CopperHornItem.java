@@ -84,7 +84,7 @@ public class CopperHornItem extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		Optional<? extends Holder<Instrument>> optional = this.getInstrument(stack, null);
 		return optional.map(instrument -> instrument.value().useDuration()).orElse(0);
 	}

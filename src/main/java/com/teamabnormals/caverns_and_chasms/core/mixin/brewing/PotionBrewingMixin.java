@@ -42,16 +42,16 @@ public abstract class PotionBrewingMixin {
 				PotionBrewing.Mix<Item> mix = CONTAINER_MIXES.get(i);
 				if (mix.from.get() == item && mix.ingredient.test(ingredient)) {
 					if (ingredient.is(CCItems.TURQUOISE.get())) {
-						if (!stack.getOrCreateTag().getBoolean("Subtle")) {
+						if (!stack.has(CCDataComponents.SUBTLE)) {
 							ItemStack newStack = new ItemStack(mix.to.get());
-							newStack.getOrCreateTag().putBoolean("Subtle", true);
+							newStack.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
 							cir.setReturnValue(PotionUtils.setPotion(newStack, potion));
 						} else {
 							cir.setReturnValue(stack);
 						}
-					} else if (stack.getOrCreateTag().getBoolean("Subtle")) {
+					} else if (stack.has(CCDataComponents.SUBTLE)) {
 						ItemStack newStack = new ItemStack(mix.to.get());
-						newStack.getOrCreateTag().putBoolean("Subtle", true);
+						newStack.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
 						cir.setReturnValue(PotionUtils.setPotion(newStack, potion));
 					}
 
@@ -62,9 +62,9 @@ public abstract class PotionBrewingMixin {
 
 			for (int k = POTION_MIXES.size(); i < k; ++i) {
 				PotionBrewing.Mix<Potion> mix = POTION_MIXES.get(i);
-				if (mix.from.get() == potion && mix.ingredient.test(ingredient) && stack.getOrCreateTag().getBoolean("Subtle")) {
+				if (mix.from.get() == potion && mix.ingredient.test(ingredient) && stack.has(CCDataComponents.SUBTLE)) {
 					ItemStack newStack = new ItemStack(item);
-					newStack.getOrCreateTag().putBoolean("Subtle", true);
+					newStack.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
 					cir.setReturnValue(PotionUtils.setPotion(newStack, mix.to.get()));
 				}
 			}

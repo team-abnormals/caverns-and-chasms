@@ -6,6 +6,7 @@ import com.teamabnormals.caverns_and_chasms.common.advancement.CopperGolemPredic
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -13,6 +14,8 @@ import com.teamabnormals.caverns_and_chasms.loot.FortuneEnchantFunction;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate.Builder;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
@@ -23,9 +26,10 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
@@ -44,11 +48,10 @@ import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -59,18 +62,18 @@ import static com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes.*
 
 public class CCLootTableProvider extends LootTableProvider {
 
-	public CCLootTableProvider(PackOutput output) {
+	public CCLootTableProvider(PackOutput output, CompletableFuture<Provider> provider) {
 		super(output, BuiltInLootTables.all(), ImmutableList.of(
 				new LootTableProvider.SubProviderEntry(CCBlockLoot::new, LootContextParamSets.BLOCK),
 				new LootTableProvider.SubProviderEntry(CCEntityLoot::new, LootContextParamSets.ENTITY),
 				new LootTableProvider.SubProviderEntry(CCChestLoot::new, LootContextParamSets.CHEST),
 				new LootTableProvider.SubProviderEntry(CCArchaeologyLoot::new, LootContextParamSets.ARCHAEOLOGY),
 				new LootTableProvider.SubProviderEntry(CCGiftLoot::new, LootContextParamSets.GIFT)
-		));
+		), provider);
 	}
 
 	@Override
-	protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext context) {
+	protected void validate(WritableRegistry<LootTable> registry, ValidationContext context, ProblemReporter.Collector collector) {
 	}
 
 	private static class CCBlockLoot extends BlockLootSubProvider {
@@ -80,8 +83,8 @@ public class CCLootTableProvider extends LootTableProvider {
 		public static final LootItemCondition.Builder HAS_PICKAXE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.PICKAXES));
 		public static final LootItemCondition.Builder HAS_SHOVEL = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.SHOVELS));
 
-		protected CCBlockLoot() {
-			super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
+		protected CCBlockLoot(Provider provider) {
+			super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
 		}
 
 		@Override
@@ -303,7 +306,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(DIORITE_PILLAR.get());
 			this.blockFamily(DIORITE_BRICKS_FAMILY);
 			this.blockFamily(DIORITE_TILES_FAMILY);
-			
+
 			this.dropSelf(POLISHED_ANDESITE_WALL.get());
 			this.dropSelf(CHISELED_POLISHED_ANDESITE.get());
 			this.dropSelf(ANDESITE_PILLAR.get());
@@ -382,7 +385,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			this.dropSelf(ZIRCONIA_BLOCK.get());
 			this.dropSelf(ZIRCONIA_LAMP.get());
-			
+
 			this.dropSelf(ORNATE_GLASS.get());
 			this.dropSelf(ORNATE_GLASS_PANE.get());
 
@@ -527,15 +530,15 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public Iterable<Block> getKnownBlocks() {
-			return BuiltInRegistries.BLOCK.getValues().stream().filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(CavernsAndChasms.MOD_ID)).collect(Collectors.toSet());
+			return BuiltInRegistries.BLOCK.stream().filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(CavernsAndChasms.MOD_ID)).collect(Collectors.toSet());
 		}
 	}
 
 	private static class CCEntityLoot extends EntityLootSubProvider {
 		private static final Set<EntityType<?>> SPECIAL_LOOT_TABLE_TYPES = ImmutableSet.of(COPPER_GOLEM.get(), OXIDIZED_COPPER_GOLEM.get());
 
-		protected CCEntityLoot() {
-			super(FeatureFlags.REGISTRY.allFlags());
+		protected CCEntityLoot(Provider provider) {
+			super(FeatureFlags.REGISTRY.allFlags(), provider);
 		}
 
 		public static final LootItemCondition.Builder HAS_PICKAXE = LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER,
@@ -644,7 +647,7 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public Stream<EntityType<?>> getKnownEntityTypes() {
-			return Registries.ENTITY_TYPES.getValues().stream().filter(entity -> entity == EntityType.SILVERFISH || Registries.ENTITY_TYPES.getKey(entity).getNamespace().equals(CavernsAndChasms.MOD_ID));
+			return BuiltInRegistries.ENTITY_TYPE.stream().filter(entity -> BuiltInRegistries.ENTITY_TYPE.getKey(entity).getNamespace().equals(CavernsAndChasms.MOD_ID) || entity == EntityType.SILVERFISH);
 		}
 
 		@Override
@@ -653,10 +656,10 @@ public class CCLootTableProvider extends LootTableProvider {
 		}
 	}
 
-	private static class CCChestLoot implements LootTableSubProvider {
+	private record CCChestLoot(Provider provider) implements LootTableSubProvider {
 
 		@Override
-		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+		public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 			consumer.accept(CavernsAndChasms.location("chests/forge_dispenser"), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(EmptyLootItem.emptyItem().setWeight(25))
@@ -728,13 +731,11 @@ public class CCLootTableProvider extends LootTableProvider {
 		}
 	}
 
-	public static class CCArchaeologyLoot implements LootTableSubProvider {
-		public static final ResourceLocation FORGE_COMMON = CavernsAndChasms.location("archaeology/forge_common");
-		public static final ResourceLocation FORGE_RARE = CavernsAndChasms.location("archaeology/forge_rare");
+	public record CCArchaeologyLoot(Provider provider) implements LootTableSubProvider {
 
 		@Override
-		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
-			consumer.accept(FORGE_COMMON, LootTable.lootTable()
+		public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+			consumer.accept(CCLootTables.FORGE_COMMON, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(Items.RAW_COPPER).setWeight(3))
 							.add(LootItem.lootTableItem(Items.RAW_GOLD).setWeight(3))
@@ -752,7 +753,7 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get()))
 					));
 
-			consumer.accept(FORGE_RARE, LootTable.lootTable()
+			consumer.accept(CCLootTables.FORGE_RARE, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(CCItems.MUSIC_DISC_ANALOGUE.get()))
 							.add(LootItem.lootTableItem(CCItems.BOOM_POTTERY_SHERD.get()).setWeight(3))
@@ -768,12 +769,11 @@ public class CCLootTableProvider extends LootTableProvider {
 		}
 	}
 
-	public static class CCGiftLoot implements LootTableSubProvider {
-		public static final ResourceLocation RAT_SPAWN_ITEMS = CavernsAndChasms.location("equipment/rat_spawn_items");
+	public record CCGiftLoot(Provider provider) implements LootTableSubProvider {
 
 		@Override
-		public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
-			consumer.accept(RAT_SPAWN_ITEMS, LootTable.lootTable()
+		public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+			consumer.accept(CCLootTables.RAT_SPAWN_ITEMS, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(Items.ROTTEN_FLESH).setWeight(120))
 							.add(LootItem.lootTableItem(Items.BONE).setWeight(80))

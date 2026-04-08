@@ -23,7 +23,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeType
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructurePieceTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCStructureRepaletters;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
-import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,22 +30,19 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.common.MinecraftForge;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.DistExecutor;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.network.NetworkDirection;
 import net.neoforged.neoforge.network.NetworkRegistry;
 import net.neoforged.neoforge.network.simple.SimpleChannel;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -62,12 +58,7 @@ public class CavernsAndChasms {
 
 	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(MOD_ID, "net")).networkProtocolVersion(() -> NETWORK_PROTOCOL).clientAcceptedVersions(NETWORK_PROTOCOL::equals).serverAcceptedVersions(NETWORK_PROTOCOL::equals).simpleChannel();
 
-	public CavernsAndChasms() {
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		ModLoadingContext context = ModLoadingContext.get();
-		MinecraftForge.EVENT_BUS.register(this);
-
-		this.setupMessages();
+	public CavernsAndChasms(IEventBus bus, ModContainer container) {
 		CCDataProcessors.registerTrackedData();
 
 		REGISTRY_HELPER.register(bus);
@@ -105,13 +96,13 @@ public class CavernsAndChasms {
 		bus.addListener(this::dataSetup);
 
 		CCStructureRepaletters.registerRepaletters();
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+		if (FMLEnvironment.dist == Dist.CLIENT) {
 			CCItems.setupTabEditors();
 			CCBlocks.setupTabEditors();
-		});
+		}
 
-		context.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
-		context.registerConfig(ModConfig.Type.CLIENT, CCConfig.CLIENT_SPEC);
+		container.registerConfig(ModConfig.Type.COMMON, CCConfig.COMMON_SPEC);
+		container.registerConfig(ModConfig.Type.CLIENT, CCConfig.CLIENT_SPEC);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -148,7 +139,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCTrimMaterialTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCStructureTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCRecipeProvider(output));
-		generator.addProvider(server, new CCLootTableProvider(output));
+		generator.addProvider(server, new CCLootTableProvider(output, provider));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
 		generator.addProvider(server, new CCAdvancementModifierProvider(output, provider));
 		generator.addProvider(server, new CCLootModifierProvider(output, provider));
@@ -161,7 +152,6 @@ public class CavernsAndChasms {
 		//generator.addProvider(client, new CCLanguageProvider(generator));
 
 		generator.addProvider(client, new GalleryItemModelProvider(MOD_ID, output, helper));
-		generator.addProvider(client, new GalleryAssetsRemolderProvider(MOD_ID, output, provider));
 	}
 
 	private void setupMessages() {

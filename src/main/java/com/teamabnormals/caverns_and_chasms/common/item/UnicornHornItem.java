@@ -25,7 +25,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
-public class UnicornHornItem extends Item implements DyeableLeatherItem {
+public class UnicornHornItem extends Item {
 
 	public UnicornHornItem(Properties properties) {
 		super(properties);
@@ -84,11 +84,5 @@ public class UnicornHornItem extends Item implements DyeableLeatherItem {
 		if (event.getEntity() instanceof Horse horse && !((IDataManager) horse).getValue(CCDataProcessors.UNICORN_HORN).isEmpty()) {
 			horse.spawnAtLocation(((IDataManager) horse).getValue(CCDataProcessors.UNICORN_HORN), 1.0F);
 		}
-	}
-
-	@Override
-	public int getColor(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement("display");
-		return tag != null && tag.contains("color", 99) ? tag.getInt("color") : -1;
 	}
 }

@@ -20,7 +20,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class CCModelLayers {
 	public static final ModelLayerLocation AEGIS = register("aegis");
 	public static final ModelLayerLocation CAVEFISH = register("cavefish");

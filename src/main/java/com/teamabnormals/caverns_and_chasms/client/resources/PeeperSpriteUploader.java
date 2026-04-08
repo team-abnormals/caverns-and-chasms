@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class PeeperSpriteUploader extends TextureAtlasHolder {
 	public static final ResourceLocation ATLAS_LOCATION = CavernsAndChasms.location("textures/atlas/peeper.png");
 

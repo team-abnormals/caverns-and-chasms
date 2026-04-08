@@ -15,6 +15,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
@@ -52,7 +54,7 @@ public class CCBlockSubRegistryHelper extends BlockSubRegistryHelper {
 		return block;
 	}
 
-	public Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> createSparklerBlock(String name, String wallName, Pair<DeferredBlock<SimpleParticleType>, DeferredBlock<SimpleParticleType>> particle) {
+	public Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> createSparklerBlock(String name, String wallName, Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle) {
 		DeferredBlock<SparklerBlock> block = this.deferredRegister.register(name, () -> new SparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY), particle));
 		DeferredBlock<WallSparklerBlock> wallBlock = this.deferredRegister.register(wallName, () -> new WallSparklerBlock(BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(CCProperties.litBlockEmission(12)).sound(CCSoundTypes.SPARKLER).pushReaction(PushReaction.DESTROY).lootFrom(block), particle));
 		this.itemRegister.register(name, () -> new StandingAndWallBlockItem(block.get(), wallBlock.get(), new Item.Properties(), Direction.DOWN));

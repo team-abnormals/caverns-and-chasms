@@ -12,9 +12,11 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.CapeLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -30,11 +32,13 @@ public abstract class CapeLayerMixin extends RenderLayer<AbstractClientPlayer, P
 		ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
 		if (stack.is(CCItems.COWL.get())) {
 			this.getParentModel().renderCloak(p_116615_, vertexConsumer, p_116617_, OverlayTexture.NO_OVERLAY);
-			int i = ((DyeableLeatherItem) stack.getItem()).getColor(stack);
-			float f = (float) (i >> 16 & 255) / 255.0F;
-			float f1 = (float) (i >> 8 & 255) / 255.0F;
-			float f2 = (float) (i & 255) / 255.0F;
-			model.cloak.render(p_116615_, vertexConsumer, p_116617_, OverlayTexture.NO_OVERLAY, f, f1, f2, 1.0F);
+			int i;
+			if (stack.is(ItemTags.DYEABLE)) {
+				i = FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, DyedItemColor.LEATHER_COLOR));
+			} else {
+				i = -1;
+			}
+			model.cloak.render(p_116615_, vertexConsumer, p_116617_, OverlayTexture.NO_OVERLAY, i);
 		} else {
 			original.call(model, poseStack, vertexConsumer, p_103414_, p_103415_);
 		}

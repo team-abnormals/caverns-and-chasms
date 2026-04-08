@@ -1,8 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -37,6 +38,11 @@ public class CaveGrowthsBlock extends BushBlock {
 	public CaveGrowthsBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+	}
+
+	@Override
+	protected MapCodec<? extends BushBlock> codec() {
+		return null;
 	}
 
 	@Override
@@ -97,8 +103,8 @@ public class CaveGrowthsBlock extends BushBlock {
 	}
 
 	private void spawnCritter(Level level, BlockPos pos) {
-		Registries.ENTITY_TYPES.tags().getTag(CCEntityTypeTags.SPAWNS_FROM_CAVE_GROWTHS).getRandomElement(level.getRandom()).ifPresent((entityType) -> {
-			Entity entity = entityType.create(level);
+		BuiltInRegistries.ENTITY_TYPE.getTag(CCEntityTypeTags.SPAWNS_FROM_CAVE_GROWTHS).get().getRandomElement(level.getRandom()).ifPresent((entityType) -> {
+			Entity entity = entityType.value().create(level);
 			if (entity != null) {
 				entity.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
 				level.addFreshEntity(entity);

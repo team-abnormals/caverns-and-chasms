@@ -100,31 +100,31 @@ public class RatModel extends AgeableListModel<Rat> {
 		return ImmutableList.of(this.body, this.rightFrontLeg, this.leftFrontLeg, this.rightHindLeg, this.leftHindLeg, this.tail);
 	}
 
-	public void renderEars(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderEars(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay) {
 		if (this.head.visible) {
 			if (this.young) {
 				poseStack.pushPose();
 				poseStack.translate(0.0F, this.babyYHeadOffset / 16.0F, this.babyZHeadOffset / 16.0F);
-				this.renderEarsUnscaled(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+				this.renderEarsUnscaled(poseStack, vertexConsumer, packedLight, packedOverlay);
 				poseStack.popPose();
 			} else {
-				this.renderEarsUnscaled(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+				this.renderEarsUnscaled(poseStack, vertexConsumer, packedLight, packedOverlay);
 			}
 		}
 	}
 
-	private void renderEarsUnscaled(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	private void renderEarsUnscaled(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay) {
 		poseStack.pushPose();
 		this.head.translateAndRotate(poseStack);
-		this.leftEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		this.rightEar.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.leftEar.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+		this.rightEar.render(poseStack, vertexConsumer, packedLight, packedOverlay);
 		poseStack.popPose();
 	}
 
 	public void renderFromTag(CompoundTag compound, Level level, LivingEntity entity, ItemInHandRenderer itemInHandRenderer, PoseStack poseStack, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean hasOwner = compound.hasUUID("Owner");
 		boolean isBaby = compound.getInt("Age") < 0;
-		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.fromNamespaceAndPath(compound.getString("Variant")));
+		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.parse(compound.getString("Variant")));
 		ItemStack heldStack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
 		float health = compound.getFloat("Health");
 		boolean dirty = compound.getBoolean("Dirty");

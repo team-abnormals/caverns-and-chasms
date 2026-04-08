@@ -75,11 +75,11 @@ public class Glare extends PathfinderMob {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(DATA_GRUMPY, false);
-		this.entityData.define(DATA_OWNER_UUID, Optional.empty());
-		this.entityData.define(DATA_ANGRY_AT_UUID, Optional.empty());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DATA_GRUMPY, false);
+		builder.define(DATA_OWNER_UUID, Optional.empty());
+		builder.define(DATA_ANGRY_AT_UUID, Optional.empty());
 	}
 
 	@Override

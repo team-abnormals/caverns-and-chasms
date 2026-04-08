@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.feature.placement;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPlacementModifierTypes;
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import java.util.stream.Stream;
 
 public class HeightmapRandomOffsetPlacement extends PlacementModifier {
-	public static final Codec<HeightmapRandomOffsetPlacement> CODEC = RecordCodecBuilder.create(instance -> {
+	public static final MapCodec<HeightmapRandomOffsetPlacement> CODEC = RecordCodecBuilder.mapCodec(instance -> {
 		return instance.group(
 				Heightmap.Types.CODEC.fieldOf("heightmap").forGetter(placement -> placement.heightmap),
 				Codec.INT.fieldOf("min_offset").forGetter(placement -> placement.minOffset),

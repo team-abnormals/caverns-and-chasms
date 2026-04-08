@@ -19,6 +19,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimMaterials;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
@@ -36,19 +37,25 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.*;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
@@ -58,13 +65,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class CCClientCompat {
 
 	public static void registerClientCompat() {
 		registerRenderLayers();
 		registerItemProperties();
-		CCTrimMaterials.registerArmorMaterialOverrides();
 		CCSkullTypes.registerSkullModels();
 
 		List<ResourceLocation> list = new ArrayList<>(SmithingScreen.EMPTY_SLOT_SMITHING_TEMPLATES);
@@ -104,14 +110,10 @@ public class CCClientCompat {
 	@SubscribeEvent
 	public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
 		event.register((stack, color) -> color > 0 ? -1 : TuningForkItem.getNoteColor(stack), CCItems.TUNING_FORK.get());
-		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TETHER_POTION.get());
-		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.IMPACT_POTION.get());
-		event.register((stack, color) -> color > 0 ? -1 : PotionUtils.getColor(stack), CCItems.TRAIL_POTION.get());
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), Items.BUNDLE);
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.COWL.get());
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.TOOLBELT.get());
-		event.register((stack, color) -> color > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.UNICORN_HORN.get());
-		event.register((stack, color) -> color != 1 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack), CCItems.PACKING_CONTAINER.get());
+		event.register((stack, color) -> color > 0 ? -1 : FastColor.ARGB32.opaque(stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getColor()), CCItems.TETHER_POTION, CCItems.IMPACT_POTION, CCItems.TRAIL_POTION);
+		event.register((stack, color) -> color > 0 ? -1 : DyedItemColor.getOrDefault(stack, -1), Items.BUNDLE, CCItems.UNICORN_HORN);
+		event.register((stack, color) -> color != 1 ? -1 : DyedItemColor.getOrDefault(stack, -1), CCItems.PACKING_CONTAINER.get());
+		event.register((stack, color) -> color > 0 ? -1 : DyedItemColor.getOrDefault(stack, DyedItemColor.LEATHER_COLOR), CCItems.COWL, CCItems.TOOLBELT);
 	}
 
 	@SubscribeEvent
@@ -141,33 +143,6 @@ public class CCClientCompat {
 	}
 
 	public static void registerRenderLayers() {
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), RenderType.cutout());
-
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_DOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_DOOR.get(), RenderType.cutout());
-
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), RenderType.cutout());
-
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.EXPOSED_COPPER_BARS.get(), RenderType.cutout());
 		ItemBlockRenderTypes.setRenderLayer(CCBlocks.WEATHERED_COPPER_BARS.get(), RenderType.cutout());
@@ -252,7 +227,7 @@ public class CCClientCompat {
 		ItemProperties.register(Items.CROSSBOW, CavernsAndChasms.location("blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
 		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW, CCItems.TETHER_POTION.get(), CCItems.IMPACT_POTION.get(), CCItems.TRAIL_POTION.get())) {
-			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> stack.getOrCreateTag().getBoolean("Subtle") ? 1.0F : 0.0F);
+			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> stack.has(CCDataComponents.SUBTLE) ? 1.0F : 0.0F);
 		}
 
 		for (Item item : List.of(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get())) {
@@ -264,7 +239,7 @@ public class CCClientCompat {
 		}
 
 		for (Item item : List.of(Items.BUNDLE, CCItems.UNICORN_HORN.get(), CCItems.PACKING_CONTAINER.get())) {
-			ItemProperties.register(item, ResourceLocation.withDefaultNamespace("dyed"), (stack, level, entity, hash) -> ((DyeableLeatherItem) stack.getItem()).getColor(stack) > 0 ? 1.0F : 0.0F);
+			ItemProperties.register(item, ResourceLocation.withDefaultNamespace("dyed"), (stack, level, entity, hash) -> stack.has(DataComponents.DYED_COLOR) ? 1.0F : 0.0F);
 		}
 
 		ItemProperties.register(CCItems.PACKING_CONTAINER.get(), ResourceLocation.withDefaultNamespace("filled"), (stack, p_174626_, p_174627_, p_174628_) -> {
@@ -275,7 +250,7 @@ public class CCClientCompat {
 			return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
 		});
 
-		ItemProperties.register(CCItems.TUNING_FORK.get(), CavernsAndChasms.location("holding"), (stack, level, entity, hash) -> stack.getOrCreateTag().contains("Note") ? 1.0F : 0.0F);
+		ItemProperties.register(CCItems.TUNING_FORK.get(), CavernsAndChasms.location("holding"), (stack, level, entity, hash) -> stack.has(CCDataComponents.NOTE) ? 1.0F : 0.0F);
 		ItemProperties.register(CCItems.DEPTH_GAUGE.get(), CavernsAndChasms.location("depth"), new ClampedItemPropertyFunction() {
 			private double rotation;
 			private double rota;
@@ -323,9 +298,9 @@ public class CCClientCompat {
 		});
 		ItemProperties.register(CCItems.BEJEWELED_PEARL.get(), CavernsAndChasms.location("charge"), (stack, level, entity, hash) -> {
 			if (entity != null && entity.getUseItem() == stack)
-				return (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
-			else if (stack.getOrCreateTag().contains("Life"))
-				return (float) BejeweledPearlItem.getChargeStage(stack.getTag().getInt("Life")) / BejeweledPearlItem.getChargeStages();
+				return (float) BejeweledPearlItem.getChargeStage(stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / BejeweledPearlItem.getChargeStages();
+			else if (stack.has(CCDataComponents.LIFE))
+				return (float) BejeweledPearlItem.getChargeStage(stack.get(CCDataComponents.LIFE)) / BejeweledPearlItem.getChargeStages();
 			else
 				return 0.0F;
 		});

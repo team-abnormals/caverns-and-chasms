@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,7 +37,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 	}
 
 	@Override
-	protected void defineSynchedData() {
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 	}
 
 	@Override

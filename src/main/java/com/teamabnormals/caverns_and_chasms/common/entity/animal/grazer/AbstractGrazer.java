@@ -126,12 +126,12 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(STATE, (byte) 0);
-		this.entityData.define(BODY_LOWER_AMOUNT, 0.0F);
-		this.entityData.define(CUSTOM_X_ROT, 0.0F);
-		this.entityData.define(TARGET_X_ROT, 0.0F);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(STATE, (byte) 0);
+		builder.define(BODY_LOWER_AMOUNT, 0.0F);
+		builder.define(CUSTOM_X_ROT, 0.0F);
+		builder.define(TARGET_X_ROT, 0.0F);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
-import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -26,7 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.network.PlayMessages;
 
 import java.util.List;
 
@@ -36,10 +34,6 @@ public class Cavefish extends AbstractSchoolingFish {
 		super(p_30015_, p_30016_);
 		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 1.0F, 1.0F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
-	}
-
-	public Cavefish(PlayMessages.SpawnEntity message, Level level) {
-		this(CCEntityTypes.CAVEFISH.get(), level);
 	}
 
 	@Override

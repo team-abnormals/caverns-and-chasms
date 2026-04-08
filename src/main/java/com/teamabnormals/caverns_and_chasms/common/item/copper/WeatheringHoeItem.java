@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 public class WeatheringHoeItem extends HoeItem implements WeatheringCopperItem {
 	private final WeatherState weatherState;
 
-	public WeatheringHoeItem(WeatherState weatherState, Tier tier, int damage, float speed, Properties properties) {
-		super(tier, damage, speed, properties);
+	public WeatheringHoeItem(WeatherState weatherState, Tier tier, Properties properties) {
+		super(tier, properties);
 		this.weatherState = weatherState;
 	}
 

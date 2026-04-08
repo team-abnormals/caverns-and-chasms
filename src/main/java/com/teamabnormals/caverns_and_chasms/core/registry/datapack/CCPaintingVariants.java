@@ -1,4 +1,4 @@
-package com.teamabnormals.caverns_and_chasms.core.registry;
+package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.registries.Registries;

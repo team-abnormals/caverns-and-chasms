@@ -13,16 +13,17 @@ import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.sensing.VillagerHostilesSensor;
-import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.FireworkExplosion;
 import net.minecraft.world.item.crafting.FireworkStarRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -32,14 +33,22 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry.InteractionInformation;
 
 import java.util.List;
 import java.util.Optional;
 
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCCompat {
+
+	@SubscribeEvent
+	public static void onModifyComponents(ModifyDefaultComponentsEvent event) {
+	}
 
 	public static void registerCompat() {
 		registerCompostables();
@@ -62,15 +71,7 @@ public class CCCompat {
 	}
 
 	public static void registerCompostables() {
-		DataUtil.registerCompostable(CCBlocks.FALSE_HOPE.get(), 0.65F);
 
-		DataUtil.registerCompostable(CCBlocks.MOSCHATEL.get(), 0.65F);
-		DataUtil.registerCompostable(CCBlocks.CAVE_GROWTHS.get(), 0.30F);
-		DataUtil.registerCompostable(CCBlocks.LURID_CAVE_GROWTHS.get(), 0.30F);
-		DataUtil.registerCompostable(CCBlocks.WISPY_CAVE_GROWTHS.get(), 0.30F);
-		DataUtil.registerCompostable(CCBlocks.GRAINY_CAVE_GROWTHS.get(), 0.30F);
-		DataUtil.registerCompostable(CCBlocks.WEIRD_CAVE_GROWTHS.get(), 0.30F);
-		DataUtil.registerCompostable(CCBlocks.ZESTY_CAVE_GROWTHS.get(), 0.30F);
 	}
 
 	private static void registerFlammables() {
@@ -104,10 +105,11 @@ public class CCCompat {
 	}
 
 	private static void registerDispenserBehaviors() {
-		DispenserBlock.registerBehavior(CCItems.KUNAI.get(), new KunaiDispenseBehavior());
-		DispenserBlock.registerBehavior(CCItems.BLUNT_ARROW.get(), new BluntArrowDispenseBehavior());
-		DispenserBlock.registerBehavior(CCItems.RICOCHET_ARROW.get(), new RicochetArrowDispenseBehavior());
-		DispenserBlock.registerBehavior(CCItems.LARGE_ARROW.get(), new LargeArrowDispenserBehavior());
+		DispenserBlock.registerProjectileBehavior(CCItems.KUNAI.get());
+		DispenserBlock.registerProjectileBehavior(CCItems.BLUNT_ARROW.get());
+		DispenserBlock.registerProjectileBehavior(CCItems.RICOCHET_ARROW.get());
+		DispenserBlock.registerProjectileBehavior(CCItems.LARGE_ARROW.get());
+
 		DispenserBlock.registerBehavior(CCBlocks.TMT.get(), new TMTDispenseBehavior());
 		DispenserBlock.registerBehavior(CCItems.GOLDEN_BUCKET.get(), new GoldenBucketDispenseBehavior());
 
@@ -140,8 +142,8 @@ public class CCCompat {
 
 		DispenserBlock.registerBehavior(CCItems.TINPLATE.get(), new OptionalDispenseItemBehavior() {
 			public ItemStack execute(BlockSource source, ItemStack stack) {
-				BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-				Level level = source.getLevel();
+				BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+				Level level = source.level();
 				BlockState blockstate = level.getBlockState(blockpos);
 				Optional<BlockState> optional = HoneycombItem.getWaxed(blockstate);
 				if (optional.isPresent()) {
@@ -158,7 +160,7 @@ public class CCCompat {
 
 
 		DataUtil.registerAlternativeDispenseBehavior(new AlternativeDispenseBehavior(CavernsAndChasms.MOD_ID, Items.FLINT_AND_STEEL, (source, stack) -> {
-			BlockState state = source.getLevel().getBlockState(BlockUtil.offsetPos(source));
+			BlockState state = source.level().getBlockState(BlockUtil.offsetPos(source));
 			Block block = state.getBlock();
 			if (block instanceof CoalBlock || block instanceof BrazierBlock || block instanceof Sparkler) {
 				return state.hasProperty(BlockStateProperties.LIT) && (!state.getValue(BlockStateProperties.LIT) || block instanceof Sparkler) && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !state.getValue(BlockStateProperties.WATERLOGGED));
@@ -167,7 +169,7 @@ public class CCCompat {
 			}
 		}, new OptionalDispenseItemBehavior() {
 			protected ItemStack execute(BlockSource source, ItemStack stack) {
-				Level level = source.getLevel();
+				ServerLevel level = source.level();
 				BlockPos pos = BlockUtil.offsetPos(source);
 				BlockState state = level.getBlockState(pos);
 				if (!state.getValue(BlockStateProperties.LIT)) {
@@ -176,9 +178,8 @@ public class CCCompat {
 					sparkler.explodeSparkler(state, level, pos);
 				}
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
-				if (stack.hurt(1, level.random, null)) {
-					stack.setCount(0);
-				}
+				stack.hurtAndBreak(1, level, null, item -> {
+				});
 
 				return stack;
 			}
@@ -253,52 +254,16 @@ public class CCCompat {
 		builder.put(CCBlocks.EXPOSED_COPPER_LANTERN.get(), CCBlocks.WAXED_EXPOSED_COPPER_LANTERN.get());
 		builder.put(CCBlocks.WEATHERED_COPPER_LANTERN.get(), CCBlocks.WAXED_WEATHERED_COPPER_LANTERN.get());
 		builder.put(CCBlocks.OXIDIZED_COPPER_LANTERN.get(), CCBlocks.WAXED_OXIDIZED_COPPER_LANTERN.get());
-		builder.put(CCBlocks.CHISELED_COPPER.get(), CCBlocks.WAXED_CHISELED_COPPER.get());
-		builder.put(CCBlocks.EXPOSED_CHISELED_COPPER.get(), CCBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
-		builder.put(CCBlocks.WEATHERED_CHISELED_COPPER.get(), CCBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
-		builder.put(CCBlocks.OXIDIZED_CHISELED_COPPER.get(), CCBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
-		builder.put(CCBlocks.COPPER_GRATE.get(), CCBlocks.WAXED_COPPER_GRATE.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_GRATE.get(), CCBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_GRATE.get(), CCBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_GRATE.get(), CCBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
-		builder.put(CCBlocks.COPPER_BULB.get(), CCBlocks.WAXED_COPPER_BULB.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BULB.get(), CCBlocks.WAXED_EXPOSED_COPPER_BULB.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BULB.get(), CCBlocks.WAXED_WEATHERED_COPPER_BULB.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BULB.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
-		builder.put(CCBlocks.COPPER_DOOR.get(), CCBlocks.WAXED_COPPER_DOOR.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_DOOR.get(), CCBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_DOOR.get(), CCBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_DOOR.get(), CCBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
-		builder.put(CCBlocks.COPPER_TRAPDOOR.get(), CCBlocks.WAXED_COPPER_TRAPDOOR.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_TRAPDOOR.get(), CCBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_TRAPDOOR.get(), CCBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), CCBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
 		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 
 	private static void registerFireworkIngredients() {
 		FireworkStarRecipe.SHAPE_INGREDIENT = Ingredient.merge(List.of(FireworkStarRecipe.SHAPE_INGREDIENT, Ingredient.of(CCItems.DEEPER_HEAD.get(), CCItems.EVENDEEPER_HEAD.get(), CCItems.PEEPER_HEAD.get(), CCItems.MIME_HEAD.get())));
-		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.DEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
-		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.EVENDEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
-		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.PEEPER_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
-		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkRocketItem.Shape.CREEPER);
+		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.DEEPER_HEAD.get(), FireworkExplosion.Shape.CREEPER);
+		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.EVENDEEPER_HEAD.get(), FireworkExplosion.Shape.CREEPER);
+		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.PEEPER_HEAD.get(), FireworkExplosion.Shape.CREEPER);
+		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkExplosion.Shape.CREEPER);
 		FireworkStarRecipe.TRAIL_INGREDIENT = Ingredient.merge(List.of(FireworkStarRecipe.TRAIL_INGREDIENT, Ingredient.of(CCItems.ZIRCONIA.get())));
-	}
-
-	private static void registerParrotImitations() {
-		DataUtil.registerParrotImitation(CCEntityTypes.DEEPER.get(), CCSoundEvents.PARROT_IMITATE_DEEPER.get());
-		DataUtil.registerParrotImitation(CCEntityTypes.EVENDEEPER.get(), CCSoundEvents.PARROT_IMITATE_EVENDEEPER.get());
-		DataUtil.registerParrotImitation(CCEntityTypes.PEEPER.get(), CCSoundEvents.PARROT_IMITATE_PEEPER.get());
-		DataUtil.registerParrotImitation(CCEntityTypes.MIME.get(), CCSoundEvents.PARROT_IMITATE_MIME.get());
-		DataUtil.registerParrotImitation(CCEntityTypes.GRAZER.get(), CCSoundEvents.PARROT_IMITATE_GRAZER.get());
-		DataUtil.registerParrotImitation(CCEntityTypes.SADDLED_GRAZER.get(), CCSoundEvents.PARROT_IMITATE_GRAZER.get());
-	}
-
-	private static void registerVibrationFrequencies() {
-		//TODO: Convert to NeoForge's DataMap
-//		VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>((Object2IntMap) VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT), (map) -> {
-//			map.put(CCGameEvents.TUNING_FORK_VIBRATE.get(), 10);
-//		}));
 	}
 
 	private static void makeVillagersScaredOfRats() {

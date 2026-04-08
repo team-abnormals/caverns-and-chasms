@@ -12,7 +12,7 @@ public class OrnateGlassPaneBlock extends IronBarsBlock implements RainbowBeacon
 	}
 
 	@Override
-	public float[] getBeaconColorMultiplier(BlockState state, LevelReader reader, BlockPos pos, BlockPos beaconPos) {
+	public Integer getBeaconColorMultiplier(BlockState state, LevelReader reader, BlockPos pos, BlockPos beaconPos) {
 		return RainbowBeaconBeamBlock.getColor(reader);
 	}
 }

@@ -81,7 +81,6 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.Type;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -92,9 +91,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.util.ITeleporter;
-import net.neoforged.neoforge.event.ForgeEventFactory;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
@@ -103,16 +103,11 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
-import net.neoforged.neoforge.event.entity.player.EntityItemPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.StartTracking;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.neoforged.bus.api.Event.Result;
-import net.neoforged.bus.api.EventPriority;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
@@ -907,7 +902,7 @@ public class CCEvents {
 		for (EquipmentSlot slot : EquipmentSlot.values()) {
 			ItemStack stack = entity.getItemBySlot(slot);
 			if (stack.getItem() instanceof WeatheringCopperItem item) {
-				boolean armor = slot.isArmor() && (item instanceof HorseArmorItem || item instanceof ArmorItem);
+				boolean armor = slot.isArmor() && item instanceof ArmorItem;
 				boolean tool = !slot.isArmor() && item instanceof TieredItem;
 				if (armor || tool) {
 					item.updateOxidation(stack, level);

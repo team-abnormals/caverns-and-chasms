@@ -146,6 +146,10 @@ publishMods {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ["-Xmaxerrs", "3000", "-Xmaxwarns", "3000"]
+}
+
 idea {
     module {
         downloadSources = true

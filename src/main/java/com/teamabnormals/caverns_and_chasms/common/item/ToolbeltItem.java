@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.model.ToolbeltModel;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -14,21 +15,20 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.common.ForgeMod;
-import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
-public class ToolbeltItem extends DyeableArmorItem {
+public class ToolbeltItem extends ArmorItem {
 
-	public ToolbeltItem(ArmorMaterial material, Type slot, Properties properties) {
+	public ToolbeltItem(Holder<ArmorMaterial> material, ArmorItem.Type slot, Properties properties) {
 		super(material, slot, properties);
 	}
 

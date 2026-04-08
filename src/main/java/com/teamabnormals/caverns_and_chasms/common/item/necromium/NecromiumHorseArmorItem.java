@@ -3,22 +3,19 @@ package com.teamabnormals.caverns_and_chasms.common.item.necromium;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.HorseArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 
 import java.util.UUID;
 
-public class NecromiumHorseArmorItem extends HorseArmorItem {
+public class NecromiumHorseArmorItem extends AnimalArmorItem {
 
-	public NecromiumHorseArmorItem(int armorValue, String tierArmor, Item.Properties builder) {
-		super(armorValue, CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_" + tierArmor + ".png"), builder);
+	public NecromiumHorseArmorItem(Holder<ArmorMaterial> armorMaterial, Item.Properties builder) {
+		super(armorMaterial, BodyType.EQUESTRIAN, false, builder);
 	}
 
 	@Override

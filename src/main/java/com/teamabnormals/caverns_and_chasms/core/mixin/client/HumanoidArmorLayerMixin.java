@@ -190,7 +190,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			float b = (float) (i & 255) / 255.0F;
 
 			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, r, g, b, TETHER_POTION_LOCATION);
-			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, stack.getOrCreateTag().getBoolean("Subtle") ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
+			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, stack.has(CCDataComponents.SUBTLE) ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
 		}
 	}
 

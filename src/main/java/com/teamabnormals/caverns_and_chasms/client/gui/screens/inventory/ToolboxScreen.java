@@ -26,7 +26,7 @@ public class ToolboxScreen extends AbstractContainerScreen<ToolboxMenu> {
 
 	@Override
 	public void render(GuiGraphics p_283282_, int p_282467_, int p_282129_, float p_281965_) {
-		this.renderBackground(p_283282_);
+		this.renderBackground(p_283282_, p_282467_, p_282129_, p_281965_);
 		super.render(p_283282_, p_282467_, p_282129_, p_281965_);
 		this.renderTooltip(p_283282_, p_282467_, p_282129_);
 	}

@@ -11,7 +11,9 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -21,23 +23,22 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingTickEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.Collection;
 import java.util.UUID;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
-public class CowlItem extends DyeableArmorItem {
+public class CowlItem extends ArmorItem {
 
-	public CowlItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties) {
+	public CowlItem(Holder<ArmorMaterial> material, ArmorItem.Type slot, Properties properties) {
 		super(material, slot, properties);
 	}
 
@@ -71,16 +72,16 @@ public class CowlItem extends DyeableArmorItem {
 	}
 
 	@SubscribeEvent
-	public static void onLivingUpdate(LivingTickEvent event) {
-		LivingEntity entity = event.getEntity();
-		IDataManager dataManager = ((IDataManager) entity);
+	public static void onLivingUpdate(EntityTickEvent event) {
+		Entity entity = event.getEntity();
 		Level level = entity.level();
-		if (!level.isClientSide()) {
+		if (!level.isClientSide() && entity instanceof LivingEntity living) {
+			IDataManager dataManager = ((IDataManager) living);
 			boolean isInvisible = dataManager.getValue(CCDataProcessors.OBSCURITY_INVISIBILITY);
-			boolean shouldBeInvisible = shouldBeInvisible(entity);
-			if (isInvisible != shouldBeInvisible(entity)) {
+			boolean shouldBeInvisible = shouldBeInvisible(living);
+			if (isInvisible != shouldBeInvisible(living)) {
 				dataManager.setValue(CCDataProcessors.OBSCURITY_INVISIBILITY, shouldBeInvisible);
-				poofParticles(level, entity.getBoundingBox(), 6);
+				poofParticles(level, living.getBoundingBox(), 6);
 			}
 		}
 	}

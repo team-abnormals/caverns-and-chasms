@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBannerPatterns;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCBannerPatterns;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BannerPatternTagsProvider;

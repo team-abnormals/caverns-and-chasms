@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 public class WeatheringPickaxeItem extends PickaxeItem implements WeatheringCopperItem {
 	private final WeatherState weatherState;
 
-	public WeatheringPickaxeItem(WeatherState weatherState, Tier tier, int damage, float speed, Properties properties) {
-		super(tier, damage, speed, properties);
+	public WeatheringPickaxeItem(WeatherState weatherState, Tier tier, Properties properties) {
+		super(tier, properties);
 		this.weatherState = weatherState;
 	}
 
