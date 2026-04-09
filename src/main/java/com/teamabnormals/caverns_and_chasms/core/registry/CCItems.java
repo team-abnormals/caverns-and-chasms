@@ -16,6 +16,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.LargeArrowItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCEnums;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
@@ -23,6 +24,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCJukeboxSongs;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
+import it.unimi.dsi.fastutil.objects.ObjectSortedSet;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet.Named;
@@ -60,13 +62,11 @@ import static net.minecraft.world.item.crafting.Ingredient.of;
 public class CCItems {
 	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
 
-	public static final Rarity FANCY = Rarity.create(CavernsAndChasms.MOD_ID + ":fancy", style -> style.withColor(0x2BFF75));
-
 	public static final DeferredItem<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1)));
 	public static final DeferredItem<Item> BAROMETER = HELPER.createItem("barometer", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), false));
 	public static final DeferredItem<Item> WAXED_OXIDIZED_COPPER_GOLEM = HELPER.createItem("waxed_oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), true));
-	public static final DeferredItem<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties().rarity(CCEnums.FANCY.getValue())));
 
 	public static final DeferredItem<Item> EXPOSED_COPPER_INGOT = HELPER.createItem("exposed_copper_ingot", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> WEATHERED_COPPER_INGOT = HELPER.createItem("weathered_copper_ingot", () -> new Item(new Item.Properties()));
@@ -211,10 +211,10 @@ public class CCItems {
 	public static final DeferredItem<Item> PACKING_CONTAINER = HELPER.createItem("packing_container", () -> new PackingContainerItem(new Item.Properties().stacksTo(1)));
 	public static final DeferredItem<Item> AEGIS = HELPER.createItem("aegis", () -> new AegisItem(new Item.Properties().durability(945)));
 
-	public static final DeferredItem<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(FANCY)));
-	public static final DeferredItem<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(FANCY).food(CCFoods.CAVIAR)));
-	public static final DeferredItem<Item> MONOCLE = HELPER.createItem("monocle", () -> new MonocleItem(new Item.Properties().stacksTo(1).rarity(FANCY)));
-	public static final DeferredItem<Item> UNICORN_HORN = HELPER.createItem("unicorn_horn", () -> new UnicornHornItem((new Item.Properties()).stacksTo(1).rarity(FANCY)));
+	public static final DeferredItem<Item> TURQUOISE = HELPER.createItem("turquoise", () -> new Item(new Item.Properties().rarity(CCEnums.FANCY.getValue())));
+	public static final DeferredItem<Item> CAVIAR = HELPER.createItem("caviar", () -> new CaviarItem(new Item.Properties().stacksTo(1).rarity(CCEnums.FANCY.getValue()).food(CCFoods.CAVIAR)));
+	public static final DeferredItem<Item> MONOCLE = HELPER.createItem("monocle", () -> new MonocleItem(new Item.Properties().stacksTo(1).rarity(CCEnums.FANCY.getValue())));
+	public static final DeferredItem<Item> UNICORN_HORN = HELPER.createItem("unicorn_horn", () -> new UnicornHornItem((new Item.Properties()).stacksTo(1).rarity(CCEnums.FANCY.getValue())));
 
 	public static final DeferredItem<Item> SPINEL = HELPER.createItem("spinel", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> BEJEWELED_PEARL = HELPER.createItem("bejeweled_pearl", () -> new BejeweledPearlItem(new Item.Properties().stacksTo(16)));
@@ -233,9 +233,9 @@ public class CCItems {
 	public static final DeferredItem<Item> PEEPER_HEAD = HELPER.createItem("peeper_head", () -> new StandingAndWallBlockItem(CCBlocks.PEEPER_HEAD.get(), CCBlocks.PEEPER_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 	public static final DeferredItem<Item> MIME_HEAD = HELPER.createItem("mime_head", () -> new StandingAndWallBlockItem(CCBlocks.MIME_HEAD.get(), CCBlocks.MIME_WALL_HEAD.get(), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
 
-	public static final DeferredItem<Item> GOLDEN_BUCKET = HELPER.createItem("golden_bucket", () -> new GoldenBucketItem(() -> Fluids.EMPTY, new Item.Properties().stacksTo(16)));
-	public static final DeferredItem<Item> GOLDEN_WATER_BUCKET = HELPER.createItem("golden_water_bucket", () -> new GoldenBucketItem(() -> Fluids.WATER, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).stacksTo(1)));
-	public static final DeferredItem<Item> GOLDEN_LAVA_BUCKET = HELPER.createItem("golden_lava_bucket", () -> new GoldenBucketItem(() -> Fluids.LAVA, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).stacksTo(1)));
+	public static final DeferredItem<Item> GOLDEN_BUCKET = HELPER.createItem("golden_bucket", () -> new GoldenBucketItem(Fluids.EMPTY, new Item.Properties().stacksTo(16)));
+	public static final DeferredItem<Item> GOLDEN_WATER_BUCKET = HELPER.createItem("golden_water_bucket", () -> new GoldenBucketItem(Fluids.WATER, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).stacksTo(1)));
+	public static final DeferredItem<Item> GOLDEN_LAVA_BUCKET = HELPER.createItem("golden_lava_bucket", () -> new GoldenBucketItem(Fluids.LAVA, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).stacksTo(1)));
 	public static final DeferredItem<Item> GOLDEN_POWDER_SNOW_BUCKET = HELPER.createItem("golden_powder_snow_bucket", () -> new GoldenSolidBucketItem(Blocks.POWDER_SNOW, SoundEvents.POWDER_SNOW_PLACE, new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).stacksTo(1)));
 	public static final DeferredItem<Item> GOLDEN_MILK_BUCKET = HELPER.createItem("golden_milk_bucket", () -> new GoldenMilkBucketItem(new Item.Properties().craftRemainder(GOLDEN_BUCKET.get()).stacksTo(1)));
 
@@ -405,14 +405,13 @@ public class CCItems {
 		Optional<Named<Instrument>> melodyOptional = lookup.get(melodyTag);
 		Optional<Named<Instrument>> bassOptional = lookup.get(bassTag);
 
-		MutableHashedLinkedMap<ItemStack, TabVisibility> entries = event.getEntries();
+		ObjectSortedSet<ItemStack> entries = event.getParentEntries();
 		if (harmonyOptional.isPresent() && melodyOptional.isPresent() && bassOptional.isPresent()) {
-			for (Entry<ItemStack, TabVisibility> entry : entries) {
-				ItemStack stack = entry.getKey();
-				if (of(Items.GOAT_HORN).test(stack) && lookup.get(harmonyTag).isPresent()) {
+			for (ItemStack entry : entries) {
+				if (of(Items.GOAT_HORN).test(entry) && lookup.get(harmonyTag).isPresent()) {
 					for (int i = 0; i < lookup.get(harmonyTag).get().size(); i++) {
 						ItemStack horn = CopperHornItem.create(item, harmonyOptional.get().get(i), melodyOptional.get().get(i), bassOptional.get().get(i));
-						entries.putBefore(new ItemStack(Items.MUSIC_DISC_13), horn, visibility);
+						event.insertBefore(new ItemStack(Items.MUSIC_DISC_13), horn, visibility);
 					}
 					return;
 				}

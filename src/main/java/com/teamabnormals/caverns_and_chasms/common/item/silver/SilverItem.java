@@ -1,12 +1,16 @@
 package com.teamabnormals.caverns_and_chasms.common.item.silver;
 
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+
+import java.util.List;
 
 public class SilverItem {
 
@@ -30,8 +34,8 @@ public class SilverItem {
 		if (defensive) {
 			count += 3 + random.nextInt(2);
 		}
-		if (entity.level().isClientSide()) {
-			ParticleOptions particle = defensive ? CCParticleTypes.SILVER_SPARK.get() : CCParticleTypes.SILVER_HIT.get();
+		ParticleOptions particle = defensive ? CCParticleTypes.SILVER_SPARK.get() : CCParticleTypes.SILVER_HIT.get();
+		if (!(entity.level() instanceof ServerLevel serverLevel)) {
 			for (int i = 0; i < count; ++i) {
 				double d0 = random.nextGaussian() * 0.02D;
 				double d1 = random.nextGaussian() * 0.02D;
@@ -40,15 +44,12 @@ public class SilverItem {
 			}
 
 		} else {
-			String particle = CavernsAndChasms.MOD_ID + ":silver_" + (defensive ? "spark" : "hit");
 			for (int i = 0; i < count; ++i) {
 				double d0 = random.nextGaussian() * 0.02D;
 				double d1 = random.nextGaussian() * 0.02D;
 				double d2 = random.nextGaussian() * 0.02D;
-				NetworkUtil.spawnParticle(particle, entity.getRandomX(0.75D), entity.getRandomY() + (defensive ? 0.3F : 0.0F), entity.getRandomZ(0.75D), d0, d1, d2);
+				NetworkUtil.spawnParticle(serverLevel, particle, List.of(new ParticleInstance(entity.getRandomX(0.75D), entity.getRandomY() + (defensive ? 0.3F : 0.0F), entity.getRandomZ(0.75D), d0, d1, d2)));
 			}
 		}
-
-
 	}
 }

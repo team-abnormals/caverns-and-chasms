@@ -79,7 +79,7 @@ public class RatTeleportToOwnerGoal extends Goal {
 	}
 
 	private boolean canTeleportTo(BlockPos pos) {
-		PathType blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, pos.mutable());
+		PathType blockpathtypes = WalkNodeEvaluator.getPathTypeStatic(this.rat, pos);
 		if (blockpathtypes != PathType.WALKABLE) {
 			return false;
 		} else {

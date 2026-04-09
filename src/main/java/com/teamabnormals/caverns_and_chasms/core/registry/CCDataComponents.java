@@ -29,6 +29,7 @@ public class CCDataComponents {
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE = register("note", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIFE = register("life", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FLUID_LEVEL = register("fluid_level", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TETHER_COOLDOWN = register("tether_cooldown", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<PackingContainerContents>> PACKING_CONTAINER_CONTENTS = register("packing_container_contents", builder -> builder.persistent(PackingContainerContents.CODEC).networkSynchronized(PackingContainerContents.STREAM_CODEC).cacheEncoding());
 

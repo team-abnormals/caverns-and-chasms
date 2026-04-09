@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.structure;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamabnormals.blueprint.common.world.modification.structure.StructureModificationContext;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletter;
 import com.teamabnormals.blueprint.core.util.BlockUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,15 +14,17 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public record ChanceStructureRepaletter(Block replacesBlock, BlockState replacesWith, float chance) implements StructureRepaletter {
-	@SuppressWarnings("deprecation")
-	public static final Codec<ChanceStructureRepaletter> CODEC = RecordCodecBuilder.create(instance -> {
-		return instance.group(
-				BuiltInRegistries.BLOCK.byNameCodec().fieldOf("replaces_block").forGetter(repaletter -> repaletter.replacesBlock),
-				BlockState.CODEC.fieldOf("replaces_with").forGetter(repaletter -> repaletter.replacesWith),
-				Codec.FLOAT.fieldOf("chance").forGetter(repaletter -> repaletter.chance)
-		).apply(instance, ChanceStructureRepaletter::new);
-	});
+public record ChanceStructureRepaletter(Block replacesBlock, BlockState replacesWith, float chance) implements StructureRepaletter, StructureRepaletter.Replacer {
+	public static final MapCodec<ChanceStructureRepaletter> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("replaces_block").forGetter(repaletter -> repaletter.replacesBlock),
+			BlockState.CODEC.fieldOf("replaces_with").forGetter(repaletter -> repaletter.replacesWith),
+			Codec.FLOAT.fieldOf("chance").forGetter(repaletter -> repaletter.chance)
+	).apply(instance, ChanceStructureRepaletter::new));
+
+	@Override
+	public Replacer createReplacer(StructureModificationContext context) {
+		return this;
+	}
 
 	@Nullable
 	@Override
@@ -29,7 +33,12 @@ public record ChanceStructureRepaletter(Block replacesBlock, BlockState replaces
 	}
 
 	@Override
-	public Codec<? extends StructureRepaletter> codec() {
+	public MapCodec<? extends StructureRepaletter> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public MapCodec<? extends Replacer> savedTagCodec() {
 		return CODEC;
 	}
 }

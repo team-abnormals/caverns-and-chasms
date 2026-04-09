@@ -41,11 +41,6 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 		super(p_266834_, p_267043_, p_267048_, p_267278_, p_267090_, p_266755_, p_267060_);
 	}
 
-	@Override
-	public Rarity getRarity(ItemStack stack) {
-		return CCItems.FANCY;
-	}
-
 	public static TrimModifierSmithingTemplateItem createTrimModifierTemplate() {
 		return new TrimModifierSmithingTemplateItem(TRIM_MODIFIER_APPLIES_TO, TRIM_MODIFIER_INGREDIENTS, TRIM_MODIFIER, TRIM_MODIFIER_BASE_SLOT_DESCRIPTION, TRIM_MODIFIER_ADDITIONS_SLOT_DESCRIPTION, createTrimModifierIconList(), createTrimModifierMaterialList());
 	}
@@ -59,7 +54,7 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 	}
 
 	public static float getPulseAlpha(float min, float max) {
-		float partialTicks = Minecraft.getInstance().getFrameTime();
+		float partialTicks = Minecraft.getInstance().getFrameTimeNs();
 		float time = Minecraft.getInstance().level.getGameTime() + partialTicks;
 		float t = time * 0.03F;
 		float pulse = (float)(Math.sin(t) * 0.5F + 0.5F);

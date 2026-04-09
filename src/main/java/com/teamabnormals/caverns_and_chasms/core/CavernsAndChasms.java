@@ -149,7 +149,7 @@ public class CavernsAndChasms {
 		boolean client = event.includeClient();
 		generator.addProvider(client, new CCItemModelProvider(output, helper));
 		generator.addProvider(client, new CCBlockStateProvider(output, helper));
-		generator.addProvider(client, new CCSpriteSourceProvider(output, helper));
+		generator.addProvider(client, new CCSpriteSourceProvider(output, provider, helper));
 		//generator.addProvider(client, new CCLanguageProvider(generator));
 
 		generator.addProvider(client, new GalleryItemModelProvider(MOD_ID, output, helper, provider));

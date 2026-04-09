@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.caverns_and_chasms.core.mixin.item.ItemStackAccessor;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -108,15 +109,15 @@ public interface WeatheringCopperItem {
 	}
 
 	default Optional<ItemStack> getNext(ItemStack stack) {
-		return getNext(stack.getItem()).map((nextItem) -> new ItemStack(nextItem, stack.getCount(), stack.getOrCreateTag().copy()));
+		return getNext(stack.getItem()).map((nextItem) -> new ItemStack(Holder.direct(nextItem), stack.getCount(), stack.getComponentsPatch()));
 	}
 
 	static Optional<ItemStack> getPrevious(ItemStack stack) {
-		return getPrevious(stack.getItem()).map((prevStack) -> new ItemStack(prevStack, stack.getCount(), stack.getOrCreateTag().copy()));
+		return getPrevious(stack.getItem()).map((prevStack) -> new ItemStack(Holder.direct(prevStack), stack.getCount(), stack.getComponentsPatch()));
 	}
 
 	static ItemStack getFirst(ItemStack stack) {
-		return new ItemStack(getFirst(stack.getItem()), stack.getCount(), stack.getOrCreateTag().copy());
+		return new ItemStack(Holder.direct(getFirst(stack.getItem())), stack.getCount(), stack.getComponentsPatch());
 	}
 
 	static Optional<Item> getNext(Item item) {

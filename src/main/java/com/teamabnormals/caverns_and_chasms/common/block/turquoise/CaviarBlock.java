@@ -46,7 +46,7 @@ public class CaviarBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState p_53535_, BlockGetter p_53536_, BlockPos p_53537_, PathComputationType p_53538_) {
+	public boolean isPathfindable(BlockState p_53535_, PathComputationType p_53538_) {
 		return false;
 	}
 

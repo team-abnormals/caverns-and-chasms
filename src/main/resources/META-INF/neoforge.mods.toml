@@ -10,6 +10,7 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
     modId = "caverns_and_chasms"
     version = "${mod_version}"
     logoFile = "logo.png"
+    enumExtensions = "META-INF/enum_extensions.json"
     itemIcon = "caverns_and_chasms:silver_ore"
     configBackground = "caverns_and_chasms:textures/block/cobblestone_tiles.png"
     authors = "Team Abnormals"

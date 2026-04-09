@@ -13,7 +13,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPa
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
-import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
@@ -24,7 +23,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent;
+import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent.Post;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.mixin.entity.LivingEntityAccessor;
@@ -35,12 +34,16 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCEnchantments;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.Direction.Plane;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -57,6 +60,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -81,7 +85,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.ArmorItem.Type;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -97,21 +101,26 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent.Pre;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Added;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Expired;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Remove;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.StartTracking;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.neoforged.neoforge.event.level.BlockDropsEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.BlockEvent.EntityPlaceEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -152,11 +161,11 @@ public class CCEvents {
 
 	//TODO: Make work properly with Creeper weights and stuff
 	@SubscribeEvent
-	public static void onLivingSpawn(MobSpawnEvent.FinalizeSpawn event) {
+	public static void onLivingSpawn(FinalizeSpawnEvent event) {
 		LivingEntity entity = event.getEntity();
 		LevelAccessor level = event.getLevel();
 		boolean validSpawn = event.getSpawnType() == MobSpawnType.NATURAL || event.getSpawnType() == MobSpawnType.CHUNK_GENERATION;
-		if (event.getResult() != Result.DENY) {
+		if (!event.isCanceled()) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER) {
 				if (event.getY() < CCConfig.COMMON.evendeeperMaxSpawnHeight.get()) {
 					replaceCreeperSpawn((Creeper) entity, CCEntityTypes.EVENDEEPER.get(), level, event);
@@ -168,7 +177,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+	public static void onBlockPlace(EntityPlaceEvent event) {
 		if (event.getEntity() instanceof Player player && event.getPlacedBlock().is(CCBlockTags.RAT_FOOD_BLOCKS)) {
 			LevelAccessor level = event.getLevel();
 			BlockPos pos = event.getPos();
@@ -212,7 +221,7 @@ public class CCEvents {
 			boolean sneakBypassesUse = !player.getMainHandItem().doesSneakBypassUse(player.level(), pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
 			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
 
-			if (event.getUseBlock() == Result.ALLOW || (event.getUseBlock() != Result.DENY && !isSneaking)) {
+			if (event.getUseBlock() == TriState.TRUE || (event.getUseBlock() != TriState.FALSE && !isSneaking)) {
 				InteractionResult blockResult = state.use(level, player, event.getHand(), event.getHitVec());
 				if (blockResult.consumesAction()) {
 					event.setCanceled(true);
@@ -352,11 +361,11 @@ public class CCEvents {
 				Block block = ((BlockItem) item).getBlock();
 				if (block instanceof BaseRailBlock && !state.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {
 					Direction direction = player.getDirection();
-					BlockPos.MutableBlockPos currentPos = event.getPos().mutable().move(direction);
+					MutableBlockPos currentPos = event.getPos().mutable().move(direction);
 					for (int i = 0; i < CCConfig.COMMON.betterRailPlacementRange.get(); i++) {
 						BlockPos nextPos = null;
 						boolean isNextRail = false;
-						BlockPos.MutableBlockPos yCheckingPos = currentPos.mutable().move(Direction.DOWN);
+						MutableBlockPos yCheckingPos = currentPos.mutable().move(Direction.DOWN);
 						for (int j = 0; j < 3; j++) {
 							BlockState stateAtCheckPos = level.getBlockState(yCheckingPos);
 							if (stateAtCheckPos.getBlock() instanceof BaseRailBlock && !stateAtCheckPos.is(CCBlockTags.IGNORE_RAIL_PLACEMENT)) {
@@ -480,7 +489,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionAddedEvent(MobEffectEvent.Added event) {
+	public static void potionAddedEvent(Added event) {
 		LivingEntity entity = event.getEntity();
 		if (event.getEffectInstance().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND)) {
 			IDataManager data = ((IDataManager) entity);
@@ -492,7 +501,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionRemoveEvent(MobEffectEvent.Remove event) {
+	public static void potionRemoveEvent(Remove event) {
 		MobEffectInstance effectInstance = event.getEffectInstance();
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect().value();
@@ -503,7 +512,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void potionExpireEvent(MobEffectEvent.Expired event) {
+	public static void potionExpireEvent(Expired event) {
 		MobEffectInstance effectInstance = event.getEffectInstance();
 		if (effectInstance != null) {
 			MobEffect effect = effectInstance.getEffect().value();
@@ -514,7 +523,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingHurt(LivingDamageEvent.Pre event) {
+	public static void onLivingHurt(Pre event) {
 		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
 
@@ -587,7 +596,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingDamage(LivingDamageEvent.Pre event) {
+	public static void onLivingDamage(Pre event) {
 		LivingEntity entity = event.getEntity();
 		DamageSource source = event.getSource();
 		Level level = entity.level();
@@ -774,7 +783,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onProjectileDeflectPost(ProjectileDeflectEvent.Post event) {
+	public static void onProjectileDeflectPost(Post event) {
 		Projectile projectile = event.getProjectile();
 		Level level = projectile.level();
 		IDataManager data = (IDataManager) projectile;
@@ -821,56 +830,47 @@ public class CCEvents {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		ItemStack stack = event.getItemStack();
-		EquipmentSlot slot = event.getSlotType();
+		EquipmentSlot slot = stack.getEquipmentSlot();
 
-		ArmorItem.Type type = switch (slot) {
-			case HEAD -> Type.HELMET;
-			case CHEST -> Type.CHESTPLATE;
-			case LEGS -> Type.LEGGINGS;
-			case FEET -> Type.BOOTS;
-			case MAINHAND, OFFHAND -> null;
-		};
+		if (slot != null) {
+			EquipmentSlotGroup group = EquipmentSlotGroup.bySlot(slot);
+			ResourceLocation name = CavernsAndChasms.location("armor." + group.name());
 
-		if (type != null) {
-			UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
-
-			if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get() && (stack.is(Items.CHAINMAIL_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.CHAINMAIL_BOOTS) && slot == EquipmentSlot.FEET || stack.is(Items.CHAINMAIL_CHESTPLATE) && slot == EquipmentSlot.CHEST || stack.is(Items.CHAINMAIL_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Damage boost", 1.0D, AttributeModifier.Operation.ADDITION));
+			if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get() && (stack.is(Items.CHAINMAIL_HELMET) || stack.is(Items.CHAINMAIL_BOOTS) || stack.is(Items.CHAINMAIL_CHESTPLATE) || stack.is(Items.CHAINMAIL_LEGGINGS))) {
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(name, 1.0D, Operation.ADD_VALUE), group);
 			}
 
-			if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) && slot == EquipmentSlot.HEAD || stack.is(Items.GOLDEN_BOOTS) && slot == EquipmentSlot.FEET || (stack.is(Items.GOLDEN_CHESTPLATE) || stack.is(Items.GOLDEN_HORSE_ARMOR)) && slot == EquipmentSlot.CHEST || stack.is(Items.GOLDEN_LEGGINGS) && slot == EquipmentSlot.LEGS)) {
-				event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Speed boost", 0.1D, AttributeModifier.Operation.MULTIPLY_BASE));
+			if (CCConfig.COMMON.goldenArmorIncreasesSpeed.get() && (stack.is(Items.GOLDEN_HELMET) || stack.is(Items.GOLDEN_BOOTS) || (stack.is(Items.GOLDEN_CHESTPLATE) || stack.is(Items.GOLDEN_HORSE_ARMOR)) || stack.is(Items.GOLDEN_LEGGINGS))) {
+				event.addModifier(Attributes.MOVEMENT_SPEED, new AttributeModifier(name, 0.1D, Operation.ADD_MULTIPLIED_BASE), group);
 			}
-		}
 
-		if (slot == EquipmentSlot.MAINHAND) {
 			if (stack.is(CCItemTags.EXPERIENCE_BOOST_ITEMS)) {
-				event.addModifier(CCAttributes.EXPERIENCE_BOOST.get(), new AttributeModifier(UUID.fromString("1B1C193D-1484-4CB9-8DC7-FE226C77657A"), "Exerience boost", 0.75D, AttributeModifier.Operation.MULTIPLY_BASE));
+				event.addModifier(CCAttributes.EXPERIENCE_BOOST, new AttributeModifier(name, 0.75D, Operation.ADD_MULTIPLIED_BASE), group);
 			}
 
 			if (stack.is(CCItemTags.MAGIC_DAMAGE_ITEMS)) {
 				float damage = stack.getItem() instanceof AxeItem || stack.getItem() instanceof SwordItem ? 4.0F : 2.0F;
-				event.addModifier(CCAttributes.MAGIC_DAMAGE.get(), new AttributeModifier(UUID.fromString("b3406524-886c-49c3-94e6-88edd0e8e63b"), "Magic damage", damage, AttributeModifier.Operation.ADDITION));
+				event.addModifier(CCAttributes.MAGIC_DAMAGE, new AttributeModifier(name, damage, Operation.ADD_VALUE), group);
 			}
 
 			if (stack.is(CCItemTags.SLOWNESS_INFLICTING_ITEMS)) {
-				event.addModifier(CCAttributes.SLOWNESS_INFLICTION.get(), new AttributeModifier(UUID.fromString("47b62d26-2010-4a6a-9f87-ebe11c50f467"), "Slowness infliction", 1.0F, AttributeModifier.Operation.ADDITION));
+				event.addModifier(CCAttributes.SLOWNESS_INFLICTION, new AttributeModifier(name, 1.0F, Operation.ADD_VALUE), group);
 			}
 		}
 	}
 
 	@SubscribeEvent
 	public static void onItemPickup(ItemEntityPickupEvent.Pre event) {
-		if (!event.isCanceled()) {
-			ItemEntity itemEntity = event.getItem();
-			Player player = event.getEntity();
+		if (event.canPickup() != TriState.FALSE) {
+			ItemEntity itemEntity = event.getItemEntity();
+			Player player = event.getPlayer();
 
 			ItemStack stack = itemEntity.getItem();
 			int i = stack.getCount();
 			Item item = stack.getItem();
 
 			ItemStack copy = stack.copy();
-			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (event.getResult() == Result.ALLOW || i <= 0 || PackingContainerContents.addToContainer(player.getInventory(), stack))) {
+			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (i <= 0 || PackingContainerContents.addToContainer(player.getInventory(), stack))) {
 				i = copy.getCount() - stack.getCount();
 				copy.setCount(i);
 				EventHooks.fireItemPickupPre(itemEntity, player);
@@ -883,8 +883,7 @@ public class CCEvents {
 				player.awardStat(Stats.ITEM_PICKED_UP.get(item), i);
 				player.onItemPickup(itemEntity);
 
-				event.setResult(Result.DENY);
-				event.setCanceled(true);
+				event.setCanPickup(TriState.FALSE);
 			}
 		}
 	}
@@ -931,17 +930,20 @@ public class CCEvents {
 			}
 
 			ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
-			if (!level.isClientSide && headstack.getItem() == CCItems.TETHER_POTION.get()) {
+			if (!level.isClientSide && headstack.is(CCItems.TETHER_POTION)) {
 				TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 
-				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
-					if (instance.getEffect().isInstantenous()) {
-						if (headstack.getTag().getInt("cooldown") > 0) {
-							headstack.getTag().putInt("cooldown", headstack.getTag().getInt("cooldown") - 1);
+				PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
+				for (MobEffectInstance instance : contents.getAllEffects()) {
+					MobEffect effect = instance.getEffect().value();
+					if (effect.isInstantenous()) {
+						int cooldown = headstack.getOrDefault(CCDataComponents.TETHER_COOLDOWN, 0);
+						if (cooldown > 0) {
+							headstack.set(CCDataComponents.TETHER_COOLDOWN, cooldown - 1);
 						} else {
-							instance.getEffect().applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
-							TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
-							headstack.getTag().putInt("cooldown", 600);
+							effect.applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
+							TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), contents.getColor());
+							headstack.set(CCDataComponents.TETHER_COOLDOWN, 600);
 						}
 					}
 				}
@@ -951,7 +953,7 @@ public class CCEvents {
 				boolean moving = player == null && (!entity.getDeltaMovement().equals(new Vec3(0, -0.0784000015258789, 0)) && !entity.getDeltaMovement().equals(Vec3.ZERO));
 				if (entity.tickCount % 5 == 0) {
 					if (player != null && player.isMoving() || moving) {
-						TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, false);
+						TrailPotionItem.makeAreaOfEffectCloud(headstack.get(DataComponents.POTION_CONTENTS), entity, level, false);
 					}
 				}
 			}
@@ -975,7 +977,7 @@ public class CCEvents {
 		FallingBlockEntity entity = event.getEntity();
 		Level level = entity.level();
 		if (!level.isClientSide) {
-			for (Direction dir : Direction.Plane.HORIZONTAL) {
+			for (Direction dir : Plane.HORIZONTAL) {
 				BlockPos pos = entity.blockPosition().relative(dir);
 				if (level.getBlockState(pos).is(CCBlocks.FLINT_BLOCK.get())) {
 					FlintBlock.spark(level, pos, true);
@@ -1031,7 +1033,7 @@ public class CCEvents {
 		entity.playSound(CCSoundEvents.REWIND.get(), 1.0F, 1.0F);
 	}
 
-	private static void replaceCreeperSpawn(Creeper creeper, EntityType entityType, LevelAccessor level, MobSpawnEvent.FinalizeSpawn event) {
+	private static void replaceCreeperSpawn(Creeper creeper, EntityType entityType, LevelAccessor level, FinalizeSpawnEvent event) {
 		if (level.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
 			Entity entity = entityType.create((Level) level);
 			if (entity != null) {
@@ -1039,7 +1041,7 @@ public class CCEvents {
 				level.addFreshEntity(entity);
 			}
 			event.setSpawnCancelled(true);
-			event.setResult(Result.DENY);
+			event.setCanceled(true);
 		}
 	}
 }

@@ -11,8 +11,10 @@ import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.Sparkler;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
@@ -48,6 +50,7 @@ public class CCCompat {
 
 	@SubscribeEvent
 	public static void onModifyComponents(ModifyDefaultComponentsEvent event) {
+		event.modifyMatching(item -> new ItemStack(item).is(CCItemTags.INGOTS_SILVER), c -> c.set(DataComponents.RARITY, CCEnums.FANCY.getValue()));
 	}
 
 	public static void registerCompat() {
@@ -56,14 +59,11 @@ public class CCCompat {
 		registerDispenserBehaviors();
 		registerWaxables();
 		registerFireworkIngredients();
-		registerParrotImitations();
-		registerVibrationFrequencies();
 		changeLocalization();
 		makeVillagersScaredOfRats();
 		CCDecoratedPotPatterns.registerDecoratedPotPatterns();
 		CCCauldronInteractions.registerCauldronInteractions();
 		CCSoundEvents.registerNoteBlocks();
-		CCCriteriaTriggers.registerPredicates();
 
 		FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new InteractionInformation((level, currentPos, relativePos, currentState) -> {
 			return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);

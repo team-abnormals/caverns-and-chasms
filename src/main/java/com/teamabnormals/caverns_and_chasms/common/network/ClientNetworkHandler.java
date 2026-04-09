@@ -12,11 +12,11 @@ public class ClientNetworkHandler {
 	public static void handleOpenStorageDuct(OpenStorageDuctPayload packet) {
 		Player player = Minecraft.getInstance().player;
 		if (player != null) {
-			BlockEntity blockEntity = player.level().getBlockEntity(packet.getBlockPos());
+			BlockEntity blockEntity = player.level().getBlockEntity(packet.blockPos());
 			if (blockEntity instanceof StorageDuctBlockEntity storageDuct) {
-				StorageDuctMenu container = new StorageDuctMenu(packet.getWindowId(), player.getInventory(), new SimpleContainer(packet.getContainerSize()), null);
+				StorageDuctMenu container = new StorageDuctMenu(packet.windowId(), player.getInventory(), new SimpleContainer(packet.containerSize()), null);
 				player.containerMenu = container;
-				Minecraft.getInstance().setScreen(new StorageDuctScreen(container, player.getInventory(), storageDuct.getDisplayName(), Math.min(packet.getContainerSize(), 54)));
+				Minecraft.getInstance().setScreen(new StorageDuctScreen(container, player.getInventory(), storageDuct.getDisplayName(), Math.min(packet.containerSize(), 54)));
 			}
 		}
 	}

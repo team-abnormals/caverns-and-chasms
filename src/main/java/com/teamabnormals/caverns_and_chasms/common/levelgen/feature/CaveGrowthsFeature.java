@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -87,18 +88,18 @@ public class CaveGrowthsFeature extends Feature<NoneFeatureConfiguration> {
 			mutable.setWithOffset(origin, random.nextInt(xzRange) - random.nextInt(xzRange), random.nextInt(yRange) - random.nextInt(yRange), random.nextInt(xzRange) - random.nextInt(xzRange));
 			if (level.isEmptyBlock(mutable) && !isNextToLava(level, mutable)) {
 				if (random.nextFloat() < moschatelChance) {
-					if (level.getBlockState(mutable.below()).is(Tags.Blocks.STONE)) {
+					if (level.getBlockState(mutable.below()).is(BlockTags.BASE_STONE_OVERWORLD)) {
 						level.setBlock(mutable, CCBlocks.MOSCHATEL.get().defaultBlockState(), 2);
 					}
 				} else {
 					Direction direction = onlyGensOnGround ? Direction.DOWN : Direction.values()[random.nextInt(6)];
 
-					if (!level.getBlockState(mutable.relative(direction)).is(Tags.Blocks.STONE)) {
+					if (!level.getBlockState(mutable.relative(direction)).is(BlockTags.BASE_STONE_OVERWORLD)) {
 						if (direction == Direction.DOWN) {
 							continue;
 						} else {
 							direction = Direction.DOWN;
-							if (!level.getBlockState(mutable.relative(direction)).is(Tags.Blocks.STONE)) {
+							if (!level.getBlockState(mutable.relative(direction)).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								continue;
 							}
 						}

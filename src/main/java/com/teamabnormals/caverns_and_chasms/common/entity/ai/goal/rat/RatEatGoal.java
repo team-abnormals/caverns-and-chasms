@@ -38,7 +38,7 @@ public class RatEatGoal extends Goal {
 		} else if (this.stack != this.rat.getMainHandItem()) {
 			return false;
 		} else if (this.eatTime <= 0) {
-			this.rat.heal((float) this.stack.getItem().getFoodProperties().getNutrition());
+			this.rat.heal((float) this.stack.getFoodProperties(this.rat).nutrition());
 			ItemStack itemStack = this.stack.finishUsingItem(this.rat.level(), this.rat);
 			this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, this.rat.getRandom().nextFloat() * 0.1F + 0.9F);
 			if (!itemStack.isEmpty()) {

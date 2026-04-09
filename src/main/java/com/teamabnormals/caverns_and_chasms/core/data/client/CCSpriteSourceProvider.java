@@ -10,6 +10,7 @@ import com.teamabnormals.clayworks.core.Clayworks;
 import com.teamabnormals.clayworks.core.api.ClayworksTrims;
 import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister;
 import net.minecraft.client.renderer.texture.atlas.sources.SingleFile;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -20,15 +21,16 @@ import net.neoforged.neoforge.common.data.SpriteSourceProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public final class CCSpriteSourceProvider extends SpriteSourceProvider {
 
-	public CCSpriteSourceProvider(PackOutput output, ExistingFileHelper helper) {
-		super(output, helper, CavernsAndChasms.MOD_ID);
+	public CCSpriteSourceProvider(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
+		super(output, provider, CavernsAndChasms.MOD_ID, helper);
 	}
 
 	@Override
-	protected void addSources() {
+	protected void gather() {
 		this.atlas(BlueprintTrims.ARMOR_TRIMS_ATLAS)
 				.addSource(BlueprintTrims.patternPermutationsOfVanillaMaterials(CCTrimPatterns.EXILE, CCTrimPatterns.FORGER, CCTrimPatterns.IMMOLATE, CCTrimPatterns.RIM, CCTrimPatterns.PLATE, CCTrimPatterns.CORE, CCTrimPatterns.SANGUINE, CCTrimPatterns.COPPER))
 				.addSource(BlueprintTrims.materialPatternPermutations(

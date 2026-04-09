@@ -43,7 +43,7 @@ public class FalseHopeFeature extends Feature<NoneFeatureConfiguration> {
 										boolean covered = level.getBlockState(mutable.above()).isSolid();
 										level.setBlock(mutable, covered ? Blocks.DIRT.defaultBlockState() : Blocks.GRASS_BLOCK.defaultBlockState(), 2);
 										if (!covered && level.getBlockState(mutable.above()).isAir() && random.nextInt(3) == 0) {
-											level.setBlock(mutable.above(), Blocks.GRASS.defaultBlockState(), 2);
+											level.setBlock(mutable.above(), Blocks.SHORT_GRASS.defaultBlockState(), 2);
 										}
 									}
 								}

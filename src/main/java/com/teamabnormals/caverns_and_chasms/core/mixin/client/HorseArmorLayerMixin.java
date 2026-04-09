@@ -36,7 +36,7 @@ public abstract class HorseArmorLayerMixin extends RenderLayer<Horse, HorseModel
 
 	@Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/animal/horse/Horse;FFFFFF)V", at = @At("HEAD"))
 	private void init(PoseStack p_117032_, MultiBufferSource p_117033_, int p_117034_, Horse horse, float p_117036_, float p_117037_, float p_117038_, float p_117039_, float p_117040_, float p_117041_, CallbackInfo ci) {
-		if (horse.getArmor().getItem() instanceof CopperHorseArmorItem) {
+		if (horse.getBodyArmorItem().getItem() instanceof CopperHorseArmorItem) {
 			this.model = this.copperHorseArmorModel;
 		}
 	}

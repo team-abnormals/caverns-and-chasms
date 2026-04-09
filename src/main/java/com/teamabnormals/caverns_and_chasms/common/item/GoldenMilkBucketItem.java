@@ -14,13 +14,13 @@ import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.EffectCures;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class GoldenMilkBucketItem extends MilkBucketItem {
@@ -32,7 +32,7 @@ public class GoldenMilkBucketItem extends MilkBucketItem {
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
 		if (!level.isClientSide()) {
-			entity.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+			entity.removeEffectsCuredBy(EffectCures.MILK);
 		}
 
 		if (entity instanceof ServerPlayer player) {

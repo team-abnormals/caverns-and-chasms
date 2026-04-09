@@ -53,7 +53,7 @@ public class CaveGrowthGroveFeature extends Feature<NoneFeatureConfiguration> {
 					if (level.isEmptyBlock(mutable) && !CaveGrowthsFeature.isNextToLava(level, mutable)) {
 						for (int i = 0; i < 2; i++) {
 							Direction direction = Direction.values()[random.nextInt(6)];
-							if (level.getBlockState(mutable.relative(direction)).is(Tags.Blocks.STONE)) {
+							if (level.getBlockState(mutable.relative(direction)).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								double noisevalue = noise.getValue(x, y, z);
 								Block block = noisevalue < -0.55F ? CCBlocks.GRAINY_CAVE_GROWTHS.get() : noisevalue < -0.3F ? CCBlocks.ZESTY_CAVE_GROWTHS.get() : noisevalue < -0.0F ? CCBlocks.CAVE_GROWTHS.get() : noisevalue < 0.3F ? CCBlocks.LURID_CAVE_GROWTHS.get() : noisevalue < 0.55F ? CCBlocks.WISPY_CAVE_GROWTHS.get() : CCBlocks.WEIRD_CAVE_GROWTHS.get();
 								level.setBlock(mutable, block.defaultBlockState().setValue(CaveGrowthsBlock.FACING, direction.getOpposite()), 2);

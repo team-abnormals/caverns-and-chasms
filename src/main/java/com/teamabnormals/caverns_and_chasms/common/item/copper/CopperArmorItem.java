@@ -1,24 +1,23 @@
 package com.teamabnormals.caverns_and_chasms.common.item.copper;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.ImmutableMultimap.Builder;
-import com.google.common.collect.Multimap;
 import com.teamabnormals.caverns_and_chasms.client.model.CopperArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-import java.util.UUID;
 import java.util.function.Consumer;
 
 public class CopperArmorItem extends ArmorItem {
@@ -28,12 +27,12 @@ public class CopperArmorItem extends ArmorItem {
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-		builder.putAll(super.getAttributeModifiers(slot, stack));
-		UUID uuid = ArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(this.type);
-		builder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Copper armor slowness", -0.1F, AttributeModifier.Operation.MULTIPLY_TOTAL));
-		return slot == this.getEquipmentSlot() ? builder.build() : super.getAttributeModifiers(slot, stack);
+	public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
+		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers(stack);
+		EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
+		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
+		modifiers = modifiers.withModifierAdded(Attributes.MOVEMENT_SPEED, new AttributeModifier(name, -0.1F, Operation.ADD_MULTIPLIED_TOTAL), slot);
+		return modifiers;
 	}
 
 	@Override
