@@ -500,6 +500,8 @@
   "item.caverns_and_chasms.bone_flute": "Костяная флейта",
   "item.caverns_and_chasms.music_disc_epilogue": "Пластинка",
   "item.caverns_and_chasms.music_disc_analogue": "Пластинка",
+  "item.caverns_and_chasms.music_disc_analogue.desc": "hatsondogs - Аналог",
+   "item.caverns_and_chasms.music_disc_epilogue.desc": "RENREN - Эпилог",
 
 
 "_comment": "ОЧАГ, ЖАРОВНЯ И Т.Д",
@@ -1294,6 +1296,7 @@
 
 
 "_comment": "КАРТИНЫ",
+  "painting.caverns_and_chasms.pit.title": "Пропасть",
   "painting.caverns_and_chasms.embedded.title": "Воткнутый",
   "painting.caverns_and_chasms.exsanguinated.title": "Бескровный",
   "painting.caverns_and_chasms.isolation.title": "Изоляция",
@@ -1475,6 +1478,8 @@
   "advancements.caverns_and_chasms.nether.necromium_armor.description": "Получите полный комплект некромиевой брони",
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.title": "Юный техник",
   "advancements.caverns_and_chasms.adventure.summon_copper_golem.description": "Создайте медного голема, поместив громоотвод на вырезанную тыкву",
+  "advancements.caverns_and_chasms.adventure.repair_pants_with_zirconia.description": "Только в фианитовых штанах",
+  "advancements.caverns_and_chasms.adventure.repair_pants_with_zirconia.title": "Тебе нравится, как я танцую?",
   "advancements.caverns_and_chasms.husbandry.netherite_hoe.description": "Улучшите мотыгу с помощью незеритового или некромиевого слитка, а потом попробуйте переосмыслить свою жизнь",
   
   
