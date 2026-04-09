@@ -2,14 +2,14 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 
 import com.mojang.authlib.GameProfile;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.Optional;
 
 @Mixin(PlayerList.class)
 public abstract class PlayerListMixin {
@@ -32,22 +34,21 @@ public abstract class PlayerListMixin {
 			} else {
 				rat.detachFromEntity();
 			}
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(player.level()::dimension), new S2CUpdateAttachedRatsMessage((RatHolder) player));
+			PacketDistributor.sendToPlayersInDimension(player.serverLevel(), new UpdateAttachedRatsPayload((RatHolder) player));
 		}
 	}
 
 	@Inject(at = @At("RETURN"), method = "placeNewPlayer", locals = LocalCapture.CAPTURE_FAILSOFT)
-	private void spawnRats(Connection connection, ServerPlayer player, CallbackInfo info, GameProfile gameProfile, GameProfileCache gameProfileCache, String s, CompoundTag compoundTag) {
-		ServerLevel serverlevel = (ServerLevel) player.level();
-
-		if (compoundTag != null && compoundTag.contains("AttachedRats", 9)) {
-			ListTag ratstag = compoundTag.getList("AttachedRats", 10);
+	private void spawnRats(Connection connection, ServerPlayer player, CommonListenerCookie cookie, CallbackInfo info, GameProfile gameProfile, GameProfileCache gameProfileCache, String s, Optional<CompoundTag> compoundTag) {
+		ServerLevel serverlevel = player.serverLevel();
+		if (compoundTag.isPresent() && compoundTag.get().contains("AttachedRats", 9)) {
+			ListTag ratstag = compoundTag.get().getList("AttachedRats", 10);
 			if (!ratstag.isEmpty()) {
 				for (int i = 0; i < ratstag.size(); i++) {
 					Entity entity = EntityType.loadEntityRecursive(ratstag.getCompound(i), serverlevel, (rat -> !serverlevel.addWithUUID(rat) ? null : rat));
 					if (entity instanceof Rat rat) {
 						rat.setAttachedToEntity(player);
-						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(serverlevel::dimension), new S2CUpdateAttachedRatsMessage((RatHolder) player));
+						PacketDistributor.sendToPlayersInDimension(serverlevel, new UpdateAttachedRatsPayload((RatHolder) player));
 					}
 				}
 			}

@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.vehicle;
 
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -117,7 +117,7 @@ public class MinecartTMT extends AbstractMinecart {
 			if (EventHooks.onExplosionStart(this.level(), boom)) return;
 			boom.explode();
 			boom.finalizeExplosion(true);
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new S2CSpinelBoomMessage((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
+			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new SpinelBoomPayload((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
 			this.discard();
 		}
 

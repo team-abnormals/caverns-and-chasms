@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.mojang.serialization.MapCodec;
-import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -22,8 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FallingBlock;
@@ -132,7 +131,7 @@ public class GunpowderBlock extends FallingBlock {
 
 	public static void explode(Level level, BlockPos pos, @Nullable LivingEntity igniter) {
 		if (!level.isClientSide) {
-			CustomExplosion.spawnExplosion(level, igniter, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, BlockInteraction.DESTROY, CCSoundEvents.GUNPOWDER_EXPLODE.get(), CCParticleTypes.LARGE_SMOKE_EMITTER.get(), ParticleTypes.LARGE_SMOKE);
+			level.explode(null, Explosion.getDefaultDamageSource(level, null), null, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 4.0F, false, ExplosionInteraction.BLOCK, ParticleTypes.LARGE_SMOKE, CCParticleTypes.LARGE_SMOKE_EMITTER.get(), CCSoundEvents.GUNPOWDER_EXPLODE);
 		}
 	}
 

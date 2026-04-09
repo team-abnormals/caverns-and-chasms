@@ -29,6 +29,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -109,7 +110,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	public A renderArmorPieceForCowl(HumanoidArmorLayer layer, EquipmentSlot slot, Operation<A> original, PoseStack poseStack, MultiBufferSource source, int p_117098_, T entity) {
 		ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
 		if (stack.is(CCItems.COWL.get())) {
-			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(Tags.Items.ARMORS_CHESTPLATES)) {
+			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(ItemTags.CHEST_ARMOR)) {
 				return this.outerModel;
 			}
 			return this.innerModel;
@@ -124,7 +125,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			model.body.visible = true;
 			model.rightArm.visible = true;
 			model.leftArm.visible = true;
-			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(Tags.Items.ARMORS_CHESTPLATES)) {
+			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(ItemTags.CHEST_ARMOR)) {
 				setScale(model.head, 0.95F);
 			} else {
 				setScale(model.head, 1.02F);

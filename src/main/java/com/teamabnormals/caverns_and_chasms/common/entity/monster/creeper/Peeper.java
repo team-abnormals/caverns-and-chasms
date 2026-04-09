@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -80,8 +81,8 @@ public class Peeper extends CCCreeper {
 	}
 
 	@Override
-	protected SoundEvent getExplosionSound() {
-		return CCSoundEvents.PEEPER_EXPLODE.get();
+	protected Holder<SoundEvent> getExplosionSound() {
+		return CCSoundEvents.PEEPER_EXPLODE;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

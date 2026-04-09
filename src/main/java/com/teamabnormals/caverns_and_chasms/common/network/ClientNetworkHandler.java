@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class ClientNetworkHandler {
-	public static void handleOpenStorageDuct(S2COpenStorageDuctMessage packet) {
+	public static void handleOpenStorageDuct(OpenStorageDuctPayload packet) {
 		Player player = Minecraft.getInstance().player;
 		if (player != null) {
 			BlockEntity blockEntity = player.level().getBlockEntity(packet.getBlockPos());

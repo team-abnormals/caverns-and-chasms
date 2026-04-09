@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 
-import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
+import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.event.EventHooks;
 
@@ -69,7 +71,7 @@ public abstract class CCCreeper extends Creeper {
 			float f = this.isPowered() ? 2.0F : 1.0F;
 			this.dead = true;
 			BlockInteraction blockinteraction = !EventHooks.canEntityGrief(this.level(), this) ? Explosion.BlockInteraction.KEEP : this.level().getGameRules().getBoolean(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY) ? Explosion.BlockInteraction.DESTROY_WITH_DECAY : Explosion.BlockInteraction.DESTROY;
-			CustomExplosion.spawnExplosion(this.level(), this, this.getX(), this.getY(), this.getZ(), this.explosionRadius * f, this.isOnFire(), blockinteraction, this.getExplosionSound());
+			this.level().explode(this, Explosion.getDefaultDamageSource(this.level(), this), null, this.getX(), this.getY(), this.getZ(), this.explosionRadius * f, this.isOnFire(), ExplosionInteraction.MOB, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, this.getExplosionSound());
 			this.spawnLingeringCloud();
 			this.triggerOnDeathMobEffects(Entity.RemovalReason.KILLED);
 			this.discard();
@@ -108,8 +110,8 @@ public abstract class CCCreeper extends Creeper {
 		return SoundEvents.CREEPER_PRIMED;
 	}
 
-	protected SoundEvent getExplosionSound() {
-		return SoundEvents.GENERIC_EXPLODE.value();
+	protected Holder<SoundEvent> getExplosionSound() {
+		return SoundEvents.GENERIC_EXPLODE;
 	}
 
 	protected abstract ItemStack getSkull();

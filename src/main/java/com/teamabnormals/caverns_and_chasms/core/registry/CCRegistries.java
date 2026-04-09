@@ -10,7 +10,7 @@ public final class CCRegistries {
 	public static final ResourceKey<Registry<RatVariant>> RAT_VARIANT = key("rat_variant");
 
 	public static void registerRegistries(DataPackRegistryEvent.NewRegistry event) {
-		event.dataPackRegistry(RAT_VARIANT, RatVariant.CODEC, RatVariant.NETWORK_CODEC);
+		event.dataPackRegistry(RAT_VARIANT, RatVariant.DIRECT_CODEC, RatVariant.DIRECT_CODEC);
 	}
 
 	private static <T> ResourceKey<Registry<T>> key(String name) {

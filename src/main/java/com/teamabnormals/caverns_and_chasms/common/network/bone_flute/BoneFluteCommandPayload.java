@@ -6,32 +6,30 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.LogicalSide;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
 
-public abstract class C2SAbstractBoneFluteCommandMessage {
+public interface BoneFluteCommandPayload {
 
-	protected void handle(NetworkEvent.Context context) {
-		if (context.getDirection().getReceptionSide() == LogicalSide.SERVER) {
+	default void handleCommand(IPayloadContext context) {
+		if (context.connection().getDirection().isServerbound()) {
 			context.enqueueWork(() -> {
-				Player player = context.getSender();
+				Player player = context.player();
 				if (player != null) {
 					Level level = player.level();
 					level.playSound(null, player, this.getSound(), SoundSource.RECORDS, 3.0F, 1.0F);
 					this.executeCommand(level, player);
 				}
 			});
-			context.setPacketHandled(true);
 		}
 	}
 
-	protected abstract void executeCommand(Level level, Player player);
+	void executeCommand(Level level, Player player);
 
-	protected abstract SoundEvent getSound();
+	SoundEvent getSound();
 
-	protected static List<Rat> getNearbyPets(Level level, Player player) {
+	static List<Rat> getNearbyPets(Level level, Player player) {
 		return level.getEntitiesOfClass(Rat.class, player.getBoundingBox().inflate(BoneFluteItem.COMMAND_RANGE), (entity) -> entity.getOwner() == player && entity.distanceToSqr(player) <= BoneFluteItem.COMMAND_RANGE * BoneFluteItem.COMMAND_RANGE);
 	}
 }

@@ -1,8 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server.modifiers;
 
-import com.teamabnormals.blueprint.common.loot.modification.LootModifierProvider;
 import com.teamabnormals.blueprint.common.loot.modification.modifiers.LootPoolEntriesModifier;
 import com.teamabnormals.blueprint.common.loot.modification.modifiers.LootPoolsModifier;
+import com.teamabnormals.blueprint.common.remolder.data.RemolderProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
@@ -12,6 +12,7 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.MinMaxBounds.Doubles;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -37,10 +38,10 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
-public class CCLootModifierProvider extends LootModifierProvider {
+public class CCLootModifierProvider extends RemolderProvider {
 
 	public CCLootModifierProvider(PackOutput output, CompletableFuture<Provider> provider) {
-		super(CavernsAndChasms.MOD_ID, output, provider);
+		super(CavernsAndChasms.MOD_ID, Target.DATA_PACK, output, provider);
 	}
 
 	@Override

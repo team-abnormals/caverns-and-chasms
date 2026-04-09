@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
+import com.teamabnormals.caverns_and_chasms.common.item.component.PackingContainerContents;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -10,6 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.component.BundleContents;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -27,6 +29,8 @@ public class CCDataComponents {
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE = register("note", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LIFE = register("life", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FLUID_LEVEL = register("fluid_level", builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<PackingContainerContents>> PACKING_CONTAINER_CONTENTS = register("packing_container_contents", builder -> builder.persistent(PackingContainerContents.CODEC).networkSynchronized(PackingContainerContents.STREAM_CODEC).cacheEncoding());
 
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Instrument>>> HARMONY_INSTRUMENT = register("harmony_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Instrument>>> MELODY_INSTRUMENT = register("melody_instrument", builder -> builder.persistent(Instrument.CODEC).networkSynchronized(Instrument.STREAM_CODEC).cacheEncoding());

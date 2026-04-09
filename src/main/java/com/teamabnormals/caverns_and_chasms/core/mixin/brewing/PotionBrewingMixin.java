@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionBrewing.Mix;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,16 +21,12 @@ import java.util.List;
 @Mixin(PotionBrewing.class)
 public abstract class PotionBrewingMixin {
 
-	@Shadow
-	@Final
-	private static List<Mix<Item>> CONTAINER_MIXES;
+	@Shadow @Final private List<Mix<Item>> containerMixes;
 
-	@Shadow
-	@Final
-	private static List<Mix<Potion>> POTION_MIXES;
+	@Shadow @Final private List<Mix<Potion>> potionMixes;
 
 	@Inject(at = @At("RETURN"), method = "mix", cancellable = true)
-	private static void mix(ItemStack ingredient, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+	private void mix(ItemStack ingredient, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if (!stack.isEmpty()) {
 			Potion potion = PotionUtils.getPotion(stack);
 			if (potion instanceof SubtlePotion subtlePotion) {
@@ -40,8 +35,8 @@ public abstract class PotionBrewingMixin {
 
 			Item item = stack.getItem();
 			int i = 0;
-			for (int j = CONTAINER_MIXES.size(); i < j; ++i) {
-				PotionBrewing.Mix<Item> mix = CONTAINER_MIXES.get(i);
+			for (int j = containerMixes.size(); i < j; ++i) {
+				PotionBrewing.Mix<Item> mix = containerMixes.get(i);
 				if (mix.from.get() == item && mix.ingredient.test(ingredient)) {
 					if (ingredient.is(CCItems.TURQUOISE.get())) {
 						if (!stack.has(CCDataComponents.SUBTLE)) {
@@ -62,8 +57,8 @@ public abstract class PotionBrewingMixin {
 
 			i = 0;
 
-			for (int k = POTION_MIXES.size(); i < k; ++i) {
-				PotionBrewing.Mix<Potion> mix = POTION_MIXES.get(i);
+			for (int k = potionMixes.size(); i < k; ++i) {
+				PotionBrewing.Mix<Potion> mix = potionMixes.get(i);
 				if (mix.from.get() == potion && mix.ingredient.test(ingredient) && stack.has(CCDataComponents.SUBTLE)) {
 					ItemStack newStack = new ItemStack(item);
 					newStack.set(CCDataComponents.SUBTLE, Unit.INSTANCE);

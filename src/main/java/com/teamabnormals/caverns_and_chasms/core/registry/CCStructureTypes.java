@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.LushMinesh
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithPieces.TinMonolithPiece;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithStructure;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCArchaeologyLoot;
 import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBiomeTags;
 import net.minecraft.core.Holder;
@@ -19,7 +18,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +47,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -61,12 +60,20 @@ public class CCStructureTypes {
 	public static class CCStructurePieceTypes {
 		public static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE_TYPES = DeferredRegister.create(Registries.STRUCTURE_PIECE, CavernsAndChasms.MOD_ID);
 
-		public static final DeferredHolder<StructurePieceType, StructurePieceType> TIN_MONOLITH = STRUCTURE_PIECE_TYPES.register("tin_monolith", () -> TinMonolithPiece::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> TIN_MONOLITH = register("tin_monolith", TinMonolithPiece::new);
 
-		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_CORRIDOR = STRUCTURE_PIECE_TYPES.register("mscorridor", () -> LushMineshaftPieces.MineShaftCorridor::new);
-		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_CROSSING = STRUCTURE_PIECE_TYPES.register("mscrossing", () -> LushMineshaftPieces.MineShaftCrossing::new);
-		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_ROOM = STRUCTURE_PIECE_TYPES.register("msroom", () -> LushMineshaftPieces.MineShaftRoom::new);
-		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_STAIRS = STRUCTURE_PIECE_TYPES.register("msstairs", () -> LushMineshaftPieces.MineShaftStairs::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_CORRIDOR = register("mscorridor", LushMineshaftPieces.MineShaftCorridor::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_CROSSING = register("mscrossing", LushMineshaftPieces.MineShaftCrossing::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_ROOM = register("msroom", LushMineshaftPieces.MineShaftRoom::new);
+		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_STAIRS = register("msstairs", LushMineshaftPieces.MineShaftStairs::new);
+
+		private static DeferredHolder<StructurePieceType, StructurePieceType> register(String pieceId, StructurePieceType pieceType) {
+			return STRUCTURE_PIECE_TYPES.register(pieceId.toLowerCase(Locale.ROOT), () -> pieceType);
+		}
+
+		private static DeferredHolder<StructurePieceType, StructurePieceType> register(String key, StructurePieceType.ContextlessType type) {
+			return CCStructurePieceTypes.register(key, type);
+		}
 	}
 
 	public static class CCProcessorLists {

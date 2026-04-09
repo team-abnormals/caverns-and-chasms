@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -64,7 +64,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
 						if (!EventHooks.onExplosionStart(level, boom)) {
 							boom.explode();
 							boom.finalizeExplosion(true);
-							CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+							CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new SpinelBoomPayload(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
 						}
 					}
 				}

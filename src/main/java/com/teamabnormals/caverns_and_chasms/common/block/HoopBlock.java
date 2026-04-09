@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.HoopBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
@@ -11,8 +12,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -48,6 +50,11 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	public HoopBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Axis.Y).setValue(SIZE, 3).setValue(OUTPUT_POWER, 0).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Nullable
@@ -106,7 +113,7 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.getAbilities().mayBuild && player.getItemInHand(hand).is(CCItemTags.CHANGES_HOOP_SIZE)) {
 			int i = state.getValue(SIZE) - 1;
 			if (i < 0) {
@@ -116,9 +123,9 @@ public class HoopBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 				level.playSound(null, pos, CCSoundEvents.HOOP_SHRINK.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 			}
 			level.setBlock(pos, state.setValue(SIZE, i), 2);
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Nullable

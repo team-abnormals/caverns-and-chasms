@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -44,6 +45,11 @@ public class WinchBlock extends BaseEntityBlock implements HoldableBlock {
 	}
 
 	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
+	}
+
+	@Override
 	public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new WinchBlockEntity(pos, state);
 	}
@@ -79,7 +85,7 @@ public class WinchBlock extends BaseEntityBlock implements HoldableBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof WinchBlockEntity winch) {
 			winch.setHeld();

@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.levelgen.structure;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.TinMonolithPieces.TinMonolithPiece;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes;
 import net.minecraft.core.BlockPos;
@@ -18,7 +18,7 @@ public class TinMonolithStructure extends Structure {
 	public static final int NO_MONOLITHS_RANGE = 64;
 	public static final int SALT = 47621501;
 
-	public static final Codec<TinMonolithStructure> CODEC = simpleCodec(TinMonolithStructure::new);
+	public static final MapCodec<TinMonolithStructure> CODEC = simpleCodec(TinMonolithStructure::new);
 
 	public TinMonolithStructure(Structure.StructureSettings settings) {
 		super(settings);

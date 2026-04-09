@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.util.BlockUtil;
-import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.Util;
@@ -15,7 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -23,8 +22,8 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,8 +66,7 @@ public interface Sparkler {
 		}
 	}
 
-	default InteractionResult useSparkler(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
-		ItemStack stack = player.getItemInHand(hand);
+	default ItemInteractionResult useSparkler(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
 		if (player.getAbilities().mayBuild && stack.isEmpty() && state.getValue(LIT)) {
 			Vec3 vec3 = particlePos(state, pos);
 			level.addParticle(ParticleTypes.SMOKE, vec3.x, vec3.y, vec3.z, 0.0D, 0.1F, 0.0D);
@@ -77,7 +75,7 @@ public interface Sparkler {
 				level.setBlock(pos, state.setValue(LIT, false), 11);
 			}
 			level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else if (stack.getItem() instanceof DyeItem dyeItem && SPARKLER_BY_DYE.get(dyeItem.getDyeColor()) != null) {
 			Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> pair = SPARKLER_BY_DYE.get(dyeItem.getDyeColor());
 			Block newBlock = this instanceof SparklerBlock ? pair.getFirst().get() : pair.getSecond().get();
@@ -90,15 +88,15 @@ public interface Sparkler {
 					}
 				}
 				level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-				return InteractionResult.sidedSuccess(level.isClientSide);
+				return ItemInteractionResult.sidedSuccess(level.isClientSide);
 			}
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	default void explodeSparkler(BlockState state, Level level, BlockPos pos) {
 		Vec3 vec3 = particlePos(state, pos);
-		CustomExplosion.spawnExplosion(level, null, vec3.x, vec3.y, vec3.z, 1.0F, false, BlockInteraction.KEEP, CCSoundEvents.SPARKLER_EXPLODE.get(), getParticleEmitter().get(), getParticleEmitter().get());
+		level.explode(null, null, null, vec3.x, vec3.y, vec3.z, 1.0F, false, ExplosionInteraction.NONE, this.getParticleEmitter().get(), this.getParticleEmitter().get(), CCSoundEvents.SPARKLER_EXPLODE);
 		level.setBlock(pos, state.setValue(LIT, false), 11);
 	}
 

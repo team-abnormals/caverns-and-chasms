@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
-import com.teamabnormals.caverns_and_chasms.common.network.C2SGrazerJumpMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.GrazerJumpPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -79,7 +79,7 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 		if (this.isControlledByLocalInstance()) {
 			if (this.canExecuteJump()) {
 				if (this.playerJumpPendingScale > 0.0F) {
-					CavernsAndChasms.CHANNEL.sendToServer(new C2SGrazerJumpMessage(this.playerJumpPendingScale, player.getXRot()));
+					CavernsAndChasms.CHANNEL.sendToServer(new GrazerJumpPayload(this.playerJumpPendingScale, player.getXRot()));
 				}
 
 				this.playerJumpPendingScale = 0.0F;

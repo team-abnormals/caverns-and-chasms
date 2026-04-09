@@ -1,11 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
-import com.teamabnormals.caverns_and_chasms.common.network.*;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteAttackMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteMoveMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteRecallMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteSitMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.GrazerJumpPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.OpenStorageDuctPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteAttackPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteMovePayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteRecallPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteSitPayload;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
@@ -22,7 +25,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCStructureRe
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
 import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -37,23 +40,18 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.network.NetworkDirection;
-import net.neoforged.neoforge.network.NetworkRegistry;
-import net.neoforged.neoforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Mod(CavernsAndChasms.MOD_ID)
 public class CavernsAndChasms {
 	public static final String MOD_ID = "caverns_and_chasms";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID.toUpperCase());
-	public static final String NETWORK_PROTOCOL = "CC1";
-	public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MOD_ID, helper -> helper.putSubHelper(BuiltInRegistries.BLOCK, new CCBlockSubRegistryHelper(helper)));
-
-	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(MOD_ID, "net")).networkProtocolVersion(() -> NETWORK_PROTOCOL).clientAcceptedVersions(NETWORK_PROTOCOL::equals).serverAcceptedVersions(NETWORK_PROTOCOL::equals).simpleChannel();
+	public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MOD_ID, helper -> helper.putSubHelper(Registries.BLOCK, new CCBlockSubRegistryHelper(helper)));
 
 	public CavernsAndChasms(IEventBus bus, ModContainer container) {
 		CCDataProcessors.registerTrackedData();
@@ -89,6 +87,7 @@ public class CavernsAndChasms {
 			}
 		});
 
+		bus.addListener(this::registerPayloadHandlers);
 		bus.addListener(CCRegistries::registerRegistries);
 
 		bus.addListener(this::commonSetup);
@@ -153,20 +152,20 @@ public class CavernsAndChasms {
 		generator.addProvider(client, new CCSpriteSourceProvider(output, helper));
 		//generator.addProvider(client, new CCLanguageProvider(generator));
 
-		generator.addProvider(client, new GalleryItemModelProvider(MOD_ID, output, helper));
+		generator.addProvider(client, new GalleryItemModelProvider(MOD_ID, output, helper, provider));
 	}
 
-	private void setupMessages() {
-		int id = -1;
-		CHANNEL.registerMessage(id++, S2CSpinelBoomMessage.class, S2CSpinelBoomMessage::serialize, S2CSpinelBoomMessage::deserialize, S2CSpinelBoomMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(id++, S2CCustomSoundExplosionMessage.class, S2CCustomSoundExplosionMessage::serialize, S2CCustomSoundExplosionMessage::deserialize, S2CCustomSoundExplosionMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(id++, S2COpenStorageDuctMessage.class, S2COpenStorageDuctMessage::serialize, S2COpenStorageDuctMessage::deserialize, S2COpenStorageDuctMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(id++, S2CUpdateAttachedRatsMessage.class, S2CUpdateAttachedRatsMessage::serialize, S2CUpdateAttachedRatsMessage::deserialize, S2CUpdateAttachedRatsMessage::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(id++, C2SGrazerJumpMessage.class, C2SGrazerJumpMessage::serialize, C2SGrazerJumpMessage::deserialize, C2SGrazerJumpMessage::handle);
-		CHANNEL.registerMessage(id++, C2SBoneFluteSitMessage.class, C2SBoneFluteSitMessage::serialize, C2SBoneFluteSitMessage::deserialize, C2SBoneFluteSitMessage::handle);
-		CHANNEL.registerMessage(id++, C2SBoneFluteRecallMessage.class, C2SBoneFluteRecallMessage::serialize, C2SBoneFluteRecallMessage::deserialize, C2SBoneFluteRecallMessage::handle);
-		CHANNEL.registerMessage(id++, C2SBoneFluteMoveMessage.class, C2SBoneFluteMoveMessage::serialize, C2SBoneFluteMoveMessage::deserialize, C2SBoneFluteMoveMessage::handle);
-		CHANNEL.registerMessage(id++, C2SBoneFluteAttackMessage.class, C2SBoneFluteAttackMessage::serialize, C2SBoneFluteAttackMessage::deserialize, C2SBoneFluteAttackMessage::handle);
+	private void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
+		PayloadRegistrar registrar = event.registrar("1");
+		registrar.playToServer(GrazerJumpPayload.TYPE, GrazerJumpPayload.STREAM_CODEC, GrazerJumpPayload::handle);
+		registrar.playToServer(BoneFluteAttackPayload.TYPE, BoneFluteAttackPayload.STREAM_CODEC, BoneFluteAttackPayload::handle);
+		registrar.playToServer(BoneFluteMovePayload.TYPE, BoneFluteMovePayload.STREAM_CODEC, BoneFluteMovePayload::handle);
+		registrar.playToServer(BoneFluteRecallPayload.TYPE, BoneFluteRecallPayload.STREAM_CODEC, BoneFluteRecallPayload::handle);
+		registrar.playToServer(BoneFluteSitPayload.TYPE, BoneFluteSitPayload.STREAM_CODEC, BoneFluteSitPayload::handle);
+
+		registrar.playToClient(SpinelBoomPayload.TYPE, SpinelBoomPayload.STREAM_CODEC, SpinelBoomPayload::handle);
+		registrar.playToClient(OpenStorageDuctPayload.TYPE, OpenStorageDuctPayload.STREAM_CODEC, OpenStorageDuctPayload::handle);
+		registrar.playToClient(UpdateAttachedRatsPayload.TYPE, UpdateAttachedRatsPayload.STREAM_CODEC, UpdateAttachedRatsPayload::handle);
 	}
 
 	public static ResourceLocation location(String path) {

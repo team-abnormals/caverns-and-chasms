@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMoveSoundInstance;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
@@ -14,10 +15,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -233,5 +231,10 @@ public class RollerDoorBlock extends AbstractMovingDoorBlock {
 	@Override
 	public BlockState copyDirectionPropertiesTo(BlockState state, BlockState copyFromState) {
 		return state.setValue(RollerDoorBlock.FACING, copyFromState.getValue(RollerDoorBlock.FACING)).setValue(RollerDoorBlock.FACE, copyFromState.getValue(RollerDoorBlock.FACE));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 }

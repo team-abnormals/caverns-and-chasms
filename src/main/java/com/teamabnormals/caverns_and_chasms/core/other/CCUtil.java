@@ -1,10 +1,12 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.entity.PartEntity;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -83,7 +86,7 @@ public class CCUtil {
 			double d2 = normalizedMovement.y * 0.2D + random.nextGaussian() * 0.05D;
 			double d3 = normalizedMovement.z * 0.2D + random.nextGaussian() * 0.05D;
 			if (fromServer)
-				NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), location.x, location.y, location.z, d1, d2, d3);
+				NetworkUtil.spawnParticle((ServerLevel) level, CCParticleTypes.TIN_SPARK.get(), List.of(new ParticleInstance(location.x, location.y, location.z, d1, d2, d3)));
 			else
 				level.addParticle(CCParticleTypes.TIN_SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
 		}

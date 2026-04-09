@@ -13,6 +13,7 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -97,17 +98,17 @@ public abstract class AbstractMovingDoorBlock extends BaseEntityBlock implements
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		MovingDoorHeaderBlockEntity headerEntity = this.findHeaderBlockEntity(level, state, pos);
 		// boolean isItemCompatibleDoor = player.getItemInHand(hand).getItem() instanceof MovingDoorBlockItem doorItem && this.canBePartOfSameDoor(doorItem.getBlock());
 		if (headerEntity != null && player.getItemInHand(hand).is(CCItemTags.ROLLER_DOOR_LIFT_ITEMS) && level.getBlockEntity(pos) instanceof MovingDoorBlockEntity doorEntity && (doorEntity.isBottom() || (doorEntity.isBelowBottom() && this.isHitResultInLiftArea(state, doorEntity, pos, hitResult)))) {
 			if (!level.isClientSide)
 				headerEntity.setHeld();
 
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
 
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

@@ -3,12 +3,9 @@ package com.teamabnormals.caverns_and_chasms.core.mixin;
 import com.teamabnormals.caverns_and_chasms.common.block.CaveGrowthsBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.DeeperHat;
-import com.teamabnormals.caverns_and_chasms.common.level.CustomExplosion;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Explosion;
@@ -19,8 +16,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import javax.annotation.Nullable;
 
 @Mixin(Explosion.class)
 public abstract class ExplosionMixin {
@@ -49,11 +47,12 @@ public abstract class ExplosionMixin {
 	private ObjectArrayList<BlockPos> toBlow;
 
 	@Shadow
-	public abstract Entity getExploder();
+	@Nullable
+	public abstract Entity getDirectSourceEntity();
 
 	@Inject(method = "finalizeExplosion", at = @At("TAIL"))
 	public void finalizeExplosion(boolean p_46076_, CallbackInfo ci) {
-		if (this.getExploder() instanceof Deeper deeper && deeper.getHat() != DeeperHat.NONE) {
+		if (this.getDirectSourceEntity() instanceof Deeper deeper && deeper.getHat() != DeeperHat.NONE) {
 			DeeperHat hat = deeper.getHat();
 			boolean moschatel = hat == DeeperHat.MOSCHATEL;
 			BlockState blockstate = hat.getBlock().defaultBlockState();
@@ -65,20 +64,5 @@ public abstract class ExplosionMixin {
 				}
 			}
 		}
-	}
-
-	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V"), index = 3)
-	public SoundEvent setCustomExplosionSound(SoundEvent soundEvent) {
-		return ((Object) this) instanceof CustomExplosion customExplosion ? customExplosion.getSound() : soundEvent;
-	}
-
-	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 0), index = 0)
-	public ParticleOptions setEmitterParticle(ParticleOptions particle) {
-		return ((Object) this) instanceof CustomExplosion customExplosion ? customExplosion.getEmitter() : particle;
-	}
-
-	@ModifyArg(method = "finalizeExplosion", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 1), index = 0)
-	public ParticleOptions setParticle(ParticleOptions particle) {
-		return ((Object) this) instanceof CustomExplosion customExplosion ? customExplosion.getParticle() : particle;
 	}
 }

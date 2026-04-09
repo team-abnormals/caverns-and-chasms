@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -33,6 +34,11 @@ public class WallDimmerBlock extends AbstractDimmerBlock {
 	public WallDimmerBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(POWER, 0).setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Override

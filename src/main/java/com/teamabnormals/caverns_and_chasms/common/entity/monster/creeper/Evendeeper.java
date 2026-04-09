@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.EvendeeperSwellGoal;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -40,8 +41,8 @@ public class Evendeeper extends Deeper {
 	}
 
 	@Override
-	protected SoundEvent getExplosionSound() {
-		return CCSoundEvents.EVENDEEPER_EXPLODE.get();
+	protected Holder<SoundEvent> getExplosionSound() {
+		return CCSoundEvents.EVENDEEPER_EXPLODE;
 	}
 
 	@Override

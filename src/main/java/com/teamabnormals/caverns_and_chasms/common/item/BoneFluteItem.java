@@ -2,10 +2,10 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteAttackMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteMoveMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteRecallMessage;
-import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.C2SBoneFluteSitMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteAttackPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteMovePayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteRecallPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteSitPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
 import net.minecraft.client.model.HumanoidModel;
@@ -29,6 +29,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.joml.Matrix3f;
 import org.joml.Vector3f;
@@ -106,15 +107,15 @@ public class BoneFluteItem extends Item {
 
 	private static void broadcastCommand(BoneFluteCommand command, HitResult hitResult) {
 		if (command == BoneFluteCommand.SIT) {
-			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteSitMessage());
+			PacketDistributor.sendToServer(new BoneFluteSitPayload());
 		} else if (command == BoneFluteCommand.RECALL) {
-			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteRecallMessage());
+			PacketDistributor.sendToServer(new BoneFluteRecallPayload());
 		} else if (command == BoneFluteCommand.MOVE) {
 			BlockPos pos = hitResult.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) hitResult).getBlockPos() : BlockPos.containing(hitResult.getLocation());
-			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteMoveMessage(pos));
+			PacketDistributor.sendToServer(new BoneFluteMovePayload(pos));
 		} else if (command == BoneFluteCommand.ATTACK) {
 			LivingEntity target = (LivingEntity) ((EntityHitResult) hitResult).getEntity();
-			CavernsAndChasms.CHANNEL.sendToServer(new C2SBoneFluteAttackMessage(target));
+			PacketDistributor.sendToServer(new BoneFluteAttackPayload(target.getId()));
 		}
 	}
 

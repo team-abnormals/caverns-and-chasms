@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.inventory;
 
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CSpinelBoomMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -83,7 +83,7 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 					if (!EventHooks.onExplosionStart(level, boom)) {
 						boom.explode();
 						boom.finalizeExplosion(true);
-						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new S2CSpinelBoomMessage(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new SpinelBoomPayload(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
 					}
 				}
 			} else {

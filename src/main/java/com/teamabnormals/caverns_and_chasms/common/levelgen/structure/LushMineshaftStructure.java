@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.levelgen.structure;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes;
@@ -22,7 +23,7 @@ import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 public class LushMineshaftStructure extends Structure {
-	public static final Codec<LushMineshaftStructure> CODEC = RecordCodecBuilder.create((p_227971_) -> {
+	public static final MapCodec<LushMineshaftStructure> CODEC = RecordCodecBuilder.mapCodec((p_227971_) -> {
 		return p_227971_.group(settingsCodec(p_227971_), LushMineshaftStructure.Type.CODEC.fieldOf("mineshaft_type").forGetter((p_227969_) -> {
 			return p_227969_.type;
 		})).apply(p_227971_, LushMineshaftStructure::new);

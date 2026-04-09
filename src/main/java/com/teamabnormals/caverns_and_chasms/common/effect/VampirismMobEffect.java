@@ -14,7 +14,7 @@ public class VampirismMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(LivingEntity entity, int amplifier) {
+	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 		Level level = entity.level();
 		for (LivingEntity living : level.getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(0.3D))) {
 			if (living.isAlive() && living != entity && level.getGameTime() % 5 == 0) {
@@ -22,12 +22,14 @@ public class VampirismMobEffect extends MobEffect {
 				living.hurt(CCDamageTypes.draining(level, entity), damage);
 				entity.heal(damage * 0.5F);
 				entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), CCSoundEvents.DRAIN.get(), entity.getSoundSource(), 1.0F, 1.0F);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	@Override
-	public boolean isDurationEffectTick(int duration, int amplifier) {
+	public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
 		return true;
 	}
 }

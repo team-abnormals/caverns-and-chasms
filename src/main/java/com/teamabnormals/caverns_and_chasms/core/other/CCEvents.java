@@ -20,7 +20,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
-import com.teamabnormals.caverns_and_chasms.common.network.S2CUpdateAttachedRatsMessage;
+import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent;
@@ -115,7 +115,6 @@ import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
-import java.util.function.Function;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -395,10 +394,10 @@ public class CCEvents {
 		if (trackingentity instanceof Rat rat) {
 			LivingEntity attachedEntity = rat.getAttachedEntity();
 			if (attachedEntity != null) {
-				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CUpdateAttachedRatsMessage((RatHolder) attachedEntity));
+				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new UpdateAttachedRatsPayload((RatHolder) attachedEntity));
 			}
 		} else if (trackingentity instanceof RatHolder ratholder) {
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new S2CUpdateAttachedRatsMessage(ratholder));
+			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new UpdateAttachedRatsPayload(ratholder));
 		}
 	}
 

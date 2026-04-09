@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +27,11 @@ public class HaltRailBlock extends BaseRailBlock {
 	@Override
 	public Property<RailShape> getShapeProperty() {
 		return SHAPE;
+	}
+
+	@Override
+	protected MapCodec<? extends BaseRailBlock> codec() {
+		return null;
 	}
 
 	@Override

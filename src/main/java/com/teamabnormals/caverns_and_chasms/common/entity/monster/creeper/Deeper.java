@@ -71,8 +71,8 @@ public class Deeper extends CCCreeper implements Shearable, IShearable {
 	}
 
 	@Override
-	protected SoundEvent getExplosionSound() {
-		return CCSoundEvents.DEEPER_EXPLODE.get();
+	protected Holder<SoundEvent> getExplosionSound() {
+		return CCSoundEvents.DEEPER_EXPLODE;
 	}
 
 	@Override
