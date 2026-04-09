@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.tooltip;
 
 import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.PackingContainerTooltip;
+import com.teamabnormals.caverns_and_chasms.common.item.component.PackingContainerContents;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -10,10 +11,10 @@ import net.minecraft.world.item.ItemStack;
 
 public class ClientPackingContainerTooltip implements ClientTooltipComponent {
 	public static final ResourceLocation TEXTURE_LOCATION = CavernsAndChasms.location("textures/gui/container/packing_container.png");
-	private final ItemStack items;
+	private final PackingContainerContents contents;
 
 	public ClientPackingContainerTooltip(PackingContainerTooltip p_169873_) {
-		this.items = p_169873_.getItems();
+		this.contents = p_169873_.contents();
 	}
 
 	public int getHeight() {
@@ -32,8 +33,8 @@ public class ClientPackingContainerTooltip implements ClientTooltipComponent {
 
 	private void renderSlot(int p_283180_, int p_282972_, GuiGraphics p_283625_, Font p_281863_) {
 		this.blit(p_283625_, p_283180_, p_282972_);
-		if (!this.items.isEmpty()) {
-			ItemStack itemstack = this.items;
+		if (!this.contents.isEmpty()) {
+			ItemStack itemstack = this.contents.items();
 			this.blit(p_283625_, p_283180_, p_282972_);
 			p_283625_.renderItem(itemstack, p_283180_ + 2, p_282972_ + 2, 0);
 			p_283625_.renderItemDecorations(p_281863_, itemstack, p_283180_ + 2, p_282972_ + 2);

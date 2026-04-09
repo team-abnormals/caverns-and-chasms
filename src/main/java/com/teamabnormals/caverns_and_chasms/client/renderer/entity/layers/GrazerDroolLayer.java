@@ -21,6 +21,6 @@ public class GrazerDroolLayer extends RenderLayer<AbstractGrazer, GrazerModel> {
 	@Override
 	public void render(PoseStack stack, MultiBufferSource buffer, int packedLight, AbstractGrazer grazer, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (!grazer.isBaby())
-			this.getParentModel().renderOverlay(GrazerSpriteUploader.getDroolSprite(), stack, packedLight, LivingEntityRenderer.getOverlayCoords(grazer, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+			this.getParentModel().renderOverlay(GrazerSpriteUploader.getDroolSprite(), stack, packedLight, LivingEntityRenderer.getOverlayCoords(grazer, 0.0F), -1);
 	}
 }

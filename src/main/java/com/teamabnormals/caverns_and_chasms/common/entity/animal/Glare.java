@@ -178,11 +178,6 @@ public class Glare extends PathfinderMob {
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose p_218356_, EntityDimensions p_218357_) {
-		return p_218357_.height * 0.6F;
-	}
-
-	@Override
 	public boolean hurt(DamageSource source, float damage) {
 		Entity attacker = source.getEntity();
 		if (attacker instanceof Player player) {

@@ -1,10 +1,16 @@
 package com.teamabnormals.caverns_and_chasms.common.item.component;
 
 import com.mojang.serialization.Codec;
+import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -33,9 +39,9 @@ public record PackingContainerContents(ItemStack items, Fraction weight) impleme
 	}
 
 	static Fraction getWeight(ItemStack stack) {
-		PackingContainerContents bundlecontents = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS.get());
-		if (bundlecontents != null) {
-			return CONTAINER_IN_CONTAINER_WEIGHT.add(bundlecontents.weight());
+		PackingContainerContents contents = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS.get());
+		if (contents != null) {
+			return CONTAINER_IN_CONTAINER_WEIGHT.add(contents.weight());
 		} else {
 			List<BeehiveBlockEntity.Occupant> list = stack.getOrDefault(DataComponents.BEES, List.of());
 			return !list.isEmpty() ? Fraction.ONE : Fraction.getFraction(1, stack.getMaxStackSize() * 8);
@@ -152,5 +158,28 @@ public record PackingContainerContents(ItemStack items, Fraction weight) impleme
 		public PackingContainerContents toImmutable() {
 			return new PackingContainerContents(this.items.copy(), this.weight);
 		}
+	}
+
+
+	public static boolean addToContainer(Inventory inventory, ItemStack otherStack) {
+		for (NonNullList<ItemStack> list : inventory.compartments) {
+			for (ItemStack stack : list) {
+				PackingContainerContents contents = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS);
+				if (stack.getItem() instanceof PackingContainerItem item && contents != null) {
+					PackingContainerContents.Mutable mutable = new PackingContainerContents.Mutable(contents);
+					int i = mutable.tryInsert(otherStack);
+					if (i > 0) {
+						ServerPlayer player = (ServerPlayer) inventory.player;
+						ServerLevel level = (ServerLevel) player.level();
+						level.playSound(null, player.getX(), player.getY(), player.getZ(), item.getInsertSound(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+						otherStack.shrink(i);
+						stack.setPopTime(5);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 }

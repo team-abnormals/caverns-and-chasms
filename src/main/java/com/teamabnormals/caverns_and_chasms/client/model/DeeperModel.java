@@ -50,11 +50,11 @@ public class DeeperModel<T extends Deeper> extends ListModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	public void renderOverlay(DeeperSprite deeperSprite, boolean emissive, PoseStack matrixStack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderOverlay(DeeperSprite deeperSprite, boolean emissive, PoseStack matrixStack, int packedLight, int packedOverlay, int color) {
 		TextureAtlasSprite textureatlassprite = this.getTextureAtlasSprite(deeperSprite);
 		ResourceLocation textureatlaslocation = getTextureAtlasLocation();
 		RenderType render = emissive ? BlueprintRenderTypes.getUnshadedTranslucentEntity(textureatlaslocation, false) : RenderType.entityTranslucent(textureatlaslocation);
-		super.renderToBuffer(matrixStack, textureatlassprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(render)), emissive ? 15728880 : packedLight, packedOverlay, red, green, blue, alpha);
+		super.renderToBuffer(matrixStack, textureatlassprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(render)), emissive ? 15728880 : packedLight, packedOverlay, color);
 	}
 
 	protected TextureAtlasSprite getTextureAtlasSprite(DeeperSprite deeperSprite) {

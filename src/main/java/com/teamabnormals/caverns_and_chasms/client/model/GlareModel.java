@@ -50,9 +50,9 @@ public class GlareModel<T extends Glare> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		bottom.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+		bottom.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
 	@Override

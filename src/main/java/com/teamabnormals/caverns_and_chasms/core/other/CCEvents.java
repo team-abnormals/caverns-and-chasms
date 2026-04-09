@@ -17,6 +17,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
+import com.teamabnormals.caverns_and_chasms.common.item.component.PackingContainerContents;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
@@ -32,6 +33,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
+import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -868,7 +870,7 @@ public class CCEvents {
 			Item item = stack.getItem();
 
 			ItemStack copy = stack.copy();
-			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (event.getResult() == Result.ALLOW || i <= 0 || PackingContainerItem.addToContainer(player.getInventory(), stack))) {
+			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (event.getResult() == Result.ALLOW || i <= 0 || PackingContainerContents.addToContainer(player.getInventory(), stack))) {
 				i = copy.getCount() - stack.getCount();
 				copy.setCount(i);
 				EventHooks.fireItemPickupPre(itemEntity, player);

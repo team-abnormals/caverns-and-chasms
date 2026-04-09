@@ -51,11 +51,10 @@ public class PackingContainerItem extends Item {
 
 	@Override
 	public Component getName(ItemStack stack) {
-		CompoundTag tag = stack.getOrCreateTag();
-		if (tag.contains(TAG_ITEM)) {
-			ItemStack item = ofLargeCount(tag.getCompound(TAG_ITEM));
+		if (stack.has(CCDataComponents.PACKING_CONTAINER_CONTENTS)) {
+			ItemStack item = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS).items();
 			MutableComponent hoverName = Component.empty().append(item.getHoverName());
-			if (item.hasCustomHoverName()) {
+			if (item.has(DataComponents.CUSTOM_NAME)) {
 				hoverName.withStyle(ChatFormatting.ITALIC);
 			}
 			return Component.translatable("item.caverns_and_chasms.packing_container.full", hoverName);
@@ -220,28 +219,5 @@ public class PackingContainerItem extends Item {
 	}
 
 	public record PackingContainerTooltip(PackingContainerContents contents) implements TooltipComponent {
-	}
-
-	public static boolean addToContainer(Inventory inventory, ItemStack otherStack) {
-		for (NonNullList<ItemStack> list : inventory.compartments) {
-			for (ItemStack stack : list) {
-				if (stack.getItem() instanceof PackingContainerItem item) {
-					CompoundTag tag = stack.getOrCreateTag();
-					if (tag.contains(TAG_ITEM)) {
-						int i = add(stack, otherStack);
-						if (i > 0) {
-							ServerPlayer player = (ServerPlayer) inventory.player;
-							ServerLevel level = (ServerLevel) player.level();
-							level.playSound(null, player.getX(), player.getY(), player.getZ(), item.getInsertSound(), SoundSource.PLAYERS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
-							otherStack.shrink(i);
-							stack.setPopTime(5);
-							return true;
-						}
-					}
-				}
-			}
-		}
-
-		return false;
 	}
 }

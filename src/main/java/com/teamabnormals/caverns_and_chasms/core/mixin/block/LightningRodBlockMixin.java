@@ -11,15 +11,15 @@ import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.RodBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LightningRodBlock.class)
-public class LightningRodBlockMixin extends RodBlock implements CCWeatheringCopper {
+public abstract class LightningRodBlockMixin extends RodBlock implements CCWeatheringCopper {
 
 	public LightningRodBlockMixin(Properties properties) {
 		super(properties);

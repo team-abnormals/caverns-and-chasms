@@ -64,8 +64,8 @@ public class PeeperModel<T extends Peeper> extends ListModel<T> {
 		return ImmutableList.of(this.head, this.body, this.rightHindLeg, this.leftHindLeg, this.rightFrontLeg, this.leftFrontLeg);
 	}
 
-	public void renderOverlay(TextureAtlasSprite sprite, boolean emissive, PoseStack matrixStack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(emissive ? EMISSIVE_RENDER_TYPE : RENDER_TYPE)), packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderOverlay(TextureAtlasSprite sprite, boolean emissive, PoseStack matrixStack, int packedLight, int packedOverlay, int color) {
+		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(emissive ? EMISSIVE_RENDER_TYPE : RENDER_TYPE)), packedLight, packedOverlay, color);
 	}
 
 	@Override

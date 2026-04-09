@@ -154,8 +154,8 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 		this.drool.visible = grazer.shouldShowDroolModel();
 	}
 
-	public void renderOverlay(TextureAtlasSprite sprite, PoseStack matrixStack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RENDER_TYPE)), packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderOverlay(TextureAtlasSprite sprite, PoseStack matrixStack, int packedLight, int packedOverlay, int color) {
+		super.renderToBuffer(matrixStack, sprite.wrap(Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RENDER_TYPE)), packedLight, packedOverlay, color);
 	}
 
 	@Override

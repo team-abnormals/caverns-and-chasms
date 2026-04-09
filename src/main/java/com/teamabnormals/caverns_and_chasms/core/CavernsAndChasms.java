@@ -139,7 +139,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCStructureTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCEnchantmentTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCDataMapProvider(output, provider));
-		generator.addProvider(server, new CCRecipeProvider(output));
+		generator.addProvider(server, new CCRecipeProvider(output, provider));
 		generator.addProvider(server, new CCLootTableProvider(output, provider));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
 		generator.addProvider(server, new CCAdvancementModifierProvider(output, provider));

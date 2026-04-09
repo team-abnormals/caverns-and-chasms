@@ -57,8 +57,8 @@ public class FlyModel<T extends Fly> extends AgeableListModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrixStack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-		this.body.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack matrixStack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
+		this.body.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, color);
 	}
 
 	@Override

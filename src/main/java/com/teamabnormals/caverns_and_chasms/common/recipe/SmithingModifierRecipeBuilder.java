@@ -1,82 +1,55 @@
 package com.teamabnormals.caverns_and_chasms.common.recipe;
 
-import com.google.gson.JsonObject;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.CriterionTriggerInstance;
-import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import javax.annotation.Nullable;
-import java.util.function.Consumer;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SmithingModifierRecipeBuilder {
 	private final RecipeCategory category;
 	private final Ingredient template;
 	private final Ingredient base;
 	private final Ingredient addition;
-	private final Advancement.Builder advancement = Advancement.Builder.recipeAdvancement();
-	private final RecipeSerializer<?> type;
+	private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-	public SmithingModifierRecipeBuilder(RecipeSerializer<?> p_267085_, RecipeCategory p_267007_, Ingredient p_266712_, Ingredient p_267018_, Ingredient p_267264_) {
-		this.category = p_267007_;
-		this.type = p_267085_;
-		this.template = p_266712_;
-		this.base = p_267018_;
-		this.addition = p_267264_;
+	public SmithingModifierRecipeBuilder(RecipeCategory category, Ingredient template, Ingredient base, Ingredient addition) {
+		this.category = category;
+		this.template = template;
+		this.base = base;
+		this.addition = addition;
 	}
 
-	public static SmithingModifierRecipeBuilder smithingModifier(Ingredient p_266812_, Ingredient p_266843_, Ingredient p_267309_, RecipeCategory p_267269_) {
-		return new SmithingModifierRecipeBuilder(CCRecipeSerializers.SMITHING_MODIFIER.get(), p_267269_, p_266812_, p_266843_, p_267309_);
+	public static SmithingModifierRecipeBuilder smithingModifier(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category) {
+		return new SmithingModifierRecipeBuilder(category, template, base, addition);
 	}
 
-	public SmithingModifierRecipeBuilder unlocks(String p_266882_, CriterionTriggerInstance p_267233_) {
-		this.advancement.addCriterion(p_266882_, p_267233_);
+	public SmithingModifierRecipeBuilder unlocks(String key, Criterion<?> criterion) {
+		this.criteria.put(key, criterion);
 		return this;
 	}
 
-	public void save(Consumer<FinishedRecipe> p_267231_, ResourceLocation p_266718_) {
-		this.ensureValid(p_266718_);
-		this.advancement.parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(p_266718_)).rewards(AdvancementRewards.Builder.recipe(p_266718_)).requirements(RequirementsStrategy.OR);
-		p_267231_.accept(new SmithingModifierRecipeBuilder.Result(p_266718_, this.type, this.template, this.base, this.addition, this.advancement, p_266718_.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+	public void save(RecipeOutput recipeOutput, ResourceLocation recipeId) {
+		this.ensureValid(recipeId);
+		Advancement.Builder builder = recipeOutput.advancement()
+				.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
+				.rewards(AdvancementRewards.Builder.recipe(recipeId))
+				.requirements(AdvancementRequirements.Strategy.OR);
+		this.criteria.forEach(builder::addCriterion);
+		SmithingModifierRecipe recipe = new SmithingModifierRecipe(this.template, this.base, this.addition);
+		recipeOutput.accept(recipeId, recipe, builder.build(recipeId.withPrefix("recipes/" + this.category.getFolderName() + "/")));
 	}
 
-	private void ensureValid(ResourceLocation p_267040_) {
-		if (this.advancement.getCriteria().isEmpty()) {
-			throw new IllegalStateException("No way of obtaining recipe " + p_267040_);
-		}
-	}
-
-	public static record Result(ResourceLocation id, RecipeSerializer<?> type, Ingredient template, Ingredient base, Ingredient addition, Advancement.Builder advancement, ResourceLocation advancementId) implements FinishedRecipe {
-		public void serializeRecipeData(JsonObject p_267008_) {
-			p_267008_.add("template", this.template.toJson());
-			p_267008_.add("base", this.base.toJson());
-			p_267008_.add("addition", this.addition.toJson());
-		}
-
-		public ResourceLocation getId() {
-			return this.id;
-		}
-
-		public RecipeSerializer<?> getType() {
-			return this.type;
-		}
-
-		@Nullable
-		public JsonObject serializeAdvancement() {
-			return this.advancement.serializeToJson();
-		}
-
-		@Nullable
-		public ResourceLocation getAdvancementId() {
-			return this.advancementId;
+	private void ensureValid(ResourceLocation location) {
+		if (this.criteria.isEmpty()) {
+			throw new IllegalStateException("No way of obtaining recipe " + location);
 		}
 	}
 }

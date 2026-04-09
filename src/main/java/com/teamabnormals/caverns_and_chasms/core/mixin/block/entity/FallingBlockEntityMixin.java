@@ -2,10 +2,10 @@ package com.teamabnormals.caverns_and_chasms.core.mixin.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
 import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -59,12 +59,12 @@ public abstract class FallingBlockEntityMixin extends Entity {
 
 					level.playSound(null, pos, CCSoundEvents.BEJEWELED_ANVIL_SHATTER.get(), SoundSource.BLOCKS, 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
 
-					if (!level.isClientSide()) {
+					if (level instanceof ServerLevel serverLevel) {
 						SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
 						if (!EventHooks.onExplosionStart(level, boom)) {
 							boom.explode();
 							boom.finalizeExplosion(true);
-							CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new SpinelBoomPayload(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+							PacketDistributor.sendToPlayersInDimension(serverLevel, new SpinelBoomPayload(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
 						}
 					}
 				}
