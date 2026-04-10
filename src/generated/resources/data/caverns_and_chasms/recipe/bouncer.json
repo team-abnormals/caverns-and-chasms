@@ -9,7 +9,7 @@
       "item": "minecraft:slime_ball"
     },
     "T": {
-      "tag": "forge:storage_blocks/tin"
+      "tag": "c:storage_blocks/tin"
     }
   },
   "pattern": [

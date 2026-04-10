@@ -9,7 +9,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "tag": "forge:nuggets/silver"
+      "tag": "c:nuggets/silver"
     }
   },
   "pattern": [

@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#forge:ingots/tin"
+            "items": "#c:ingots/tin"
           }
         ]
       },

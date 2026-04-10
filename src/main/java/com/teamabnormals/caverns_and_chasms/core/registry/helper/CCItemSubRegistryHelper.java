@@ -45,7 +45,7 @@ public class CCItemSubRegistryHelper extends ItemSubRegistryHelper {
 	}
 
 	public DeferredItem<Item> createMovingDoorItem(String name, MovingDoorType doorType, Supplier<? extends Block> block) {
-		DeferredItem<Item> item = this.deferredRegister.register(name, () -> new MovingDoorBlockItem(block.get(), MovingDoorType.ROLLER_DOOR, new Item.Properties()));
+		DeferredItem<Item> item = this.deferredRegister.register(name, () -> new MovingDoorBlockItem(block.get(), doorType, new Item.Properties()));
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			this.clientItemExtensions.put(item, movingDoorBEWLR(doorType, block));
 		}

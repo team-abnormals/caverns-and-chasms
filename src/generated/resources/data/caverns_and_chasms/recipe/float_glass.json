@@ -9,7 +9,7 @@
       "item": "minecraft:amethyst_shard"
     },
     "T": {
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     }
   },
   "pattern": [

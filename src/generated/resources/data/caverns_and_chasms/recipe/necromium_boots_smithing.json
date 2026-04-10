@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "tag": "forge:ingots/necromium"
+    "tag": "c:ingots/necromium"
   },
   "base": {
     "item": "minecraft:diamond_boots"

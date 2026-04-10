@@ -6,7 +6,7 @@
       "item": "minecraft:ender_pearl"
     },
     "S": {
-      "tag": "forge:gems/spinel"
+      "tag": "c:gems/spinel"
     }
   },
   "pattern": [

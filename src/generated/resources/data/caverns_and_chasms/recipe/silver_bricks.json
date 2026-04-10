@@ -4,7 +4,7 @@
   "group": "silver_bricks",
   "key": {
     "#": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     "X": {
       "item": "minecraft:deepslate"

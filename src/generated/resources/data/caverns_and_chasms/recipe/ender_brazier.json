@@ -12,7 +12,7 @@
       "tag": "endergetic:ender_fire_base_blocks"
     },
     "S": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   },
   "pattern": [

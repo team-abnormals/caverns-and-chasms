@@ -19,14 +19,14 @@
                   "condition": "minecraft:location_check",
                   "predicate": {
                     "block": {
-                      "blocks": "#forge:waxable_copper_blocks"
+                      "blocks": "#c:waxable_copper_blocks"
                     }
                   }
                 },
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "#forge:wax"
+                    "items": "#c:wax"
                   }
                 }
               ]

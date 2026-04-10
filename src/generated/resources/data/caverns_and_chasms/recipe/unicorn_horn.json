@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "forge:gems/turquoise"
+      "tag": "c:gems/turquoise"
     },
     "X": {
       "item": "minecraft:end_rod"

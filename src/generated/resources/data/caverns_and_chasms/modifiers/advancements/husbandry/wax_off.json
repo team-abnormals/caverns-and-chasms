@@ -19,7 +19,7 @@
                   "condition": "minecraft:location_check",
                   "predicate": {
                     "block": {
-                      "blocks": "#forge:waxed_copper_blocks"
+                      "blocks": "#c:waxed_copper_blocks"
                     }
                   }
                 },

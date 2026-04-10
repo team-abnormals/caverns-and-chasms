@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.client.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.teamabnormals.caverns_and_chasms.common.item.MonocleItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.DeltaTracker;
@@ -46,7 +47,9 @@ public class MonocleGuiOverlay implements LayeredDraw.Layer {
 		int l = (screenHeight - j) / 2;
 		int i1 = k + i;
 		int j1 = l + j;
+		RenderSystem.enableBlend();
 		graphics.blit(MONOCLE_SCOPE_LOCATION, k, l, -90, 0.0F, 0.0F, i, j, i, j);
+		RenderSystem.disableBlend();
 		graphics.fill(RenderType.guiOverlay(), 0, j1, screenWidth, screenHeight, -90, -16777216);
 		graphics.fill(RenderType.guiOverlay(), 0, 0, screenWidth, l, -90, -16777216);
 		graphics.fill(RenderType.guiOverlay(), 0, l, k, j1, -90, -16777216);

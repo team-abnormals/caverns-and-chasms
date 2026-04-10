@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:bottles/milk"
+        "tag": "c:bottles/milk"
       }
     }
   ],
@@ -15,13 +15,13 @@
       "item": "caverns_and_chasms:golden_bucket"
     },
     {
-      "tag": "forge:bottles/milk"
+      "tag": "c:bottles/milk"
     },
     {
-      "tag": "forge:bottles/milk"
+      "tag": "c:bottles/milk"
     },
     {
-      "tag": "forge:bottles/milk"
+      "tag": "c:bottles/milk"
     }
   ],
   "result": {

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#forge:gems/spinel"
+            "items": "#c:gems/spinel"
           }
         ]
       },

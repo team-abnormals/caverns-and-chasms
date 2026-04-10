@@ -43,7 +43,6 @@
     "entity.ThrownPotionMixin",
     "entity.WitherSkeletonMixin",
     "entity.ai.goal.FollowFlockLeaderGoalMixin",
-    "entity.ai.goal.InteractWithDoorMixin",
     "item.ArmorTrimMixin",
     "item.AxeItemMixin",
     "item.BlockItemMixin",

@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "tag": "forge:gems/turquoise"
+      "tag": "c:gems/turquoise"
     },
     "G": {
       "item": "minecraft:glowstone"

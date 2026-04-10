@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#forge:storage_blocks/tin"
+            "items": "#c:storage_blocks/tin"
           }
         ]
       },

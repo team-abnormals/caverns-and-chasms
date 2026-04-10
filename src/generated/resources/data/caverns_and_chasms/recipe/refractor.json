@@ -6,7 +6,7 @@
       "item": "minecraft:redstone_torch"
     },
     "I": {
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     },
     "X": {
       "item": "minecraft:amethyst_block"

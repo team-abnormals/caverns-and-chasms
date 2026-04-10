@@ -6,6 +6,7 @@ import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,7 +23,7 @@ public class PotionSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> 
 		if (contents == null) {
 			return null;
 		}
-		return contents.potion().orElse(null);
+		return new PotionSubtypeData(contents.potion().orElse(null), ingredient.has(CCDataComponents.SUBTLE));
 	}
 
 	@Override
@@ -39,5 +40,12 @@ public class PotionSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> 
 		String potionEffectId = contents.potion().map(Holder::getRegisteredName).orElse("none");
 
 		return itemDescriptionId + ".effect_id." + potionEffectId + (itemStack.has(CCDataComponents.SUBTLE) ? ".subtle" : "");
+	}
+
+	record PotionSubtypeData(Holder<Potion> potion, boolean subtle) {
+		@Override
+		public String toString() {
+			return String.format("potion=%s, subtle=%s", potion, subtle);
+		}
 	}
 }

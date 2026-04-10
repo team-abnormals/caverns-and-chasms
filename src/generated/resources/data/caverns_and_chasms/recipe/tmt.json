@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "S": {
-      "tag": "forge:gems/spinel"
+      "tag": "c:gems/spinel"
     },
     "T": {
       "item": "minecraft:tnt"

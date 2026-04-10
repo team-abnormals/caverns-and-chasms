@@ -1,7 +1,7 @@
 {
   "values": [
-    "#forge:gems/spinel",
-    "#forge:gems/turquoise",
-    "#forge:gems/zirconia"
+    "#c:gems/spinel",
+    "#c:gems/turquoise",
+    "#c:gems/zirconia"
   ]
 }

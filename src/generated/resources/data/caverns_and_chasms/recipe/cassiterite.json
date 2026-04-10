@@ -6,7 +6,7 @@
       "item": "minecraft:granite"
     },
     {
-      "tag": "forge:raw_materials/tin"
+      "tag": "c:raw_materials/tin"
     }
   ],
   "result": {

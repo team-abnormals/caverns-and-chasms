@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#forge:ingots/necromium"
+            "items": "#c:ingots/necromium"
           }
         ]
       },

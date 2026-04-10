@@ -38,23 +38,22 @@ public class CCBlockTags {
 	public static final TagKey<Block> WALL_SPARKLERS = blockTag("wall_sparklers");
 	public static final TagKey<Block> RAT_FOOD_BLOCKS = blockTag("rat_food_blocks");
 
-	public static final TagKey<Block> MOB_INTERACTABLE_DOORS = TagUtil.blockTag("forge", "mob_interactable_doors");
-	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxable_copper_blocks");
-	public static final TagKey<Block> WAXED_COPPER_BLOCKS = TagUtil.blockTag("forge", "waxed_copper_blocks");
-	public static final TagKey<Block> ORES_AMETHYST = TagUtil.blockTag("forge", "ores/amethyst");
-	public static final TagKey<Block> ORES_SILVER = TagUtil.blockTag("forge", "ores/silver");
-	public static final TagKey<Block> ORES_TIN = TagUtil.blockTag("forge", "ores/tin");
-	public static final TagKey<Block> ORES_SPINEL = TagUtil.blockTag("forge", "ores/spinel");
-	public static final TagKey<Block> ORES_TURQUOISE = TagUtil.blockTag("forge", "ores/turquoise");
-	public static final TagKey<Block> STORAGE_BLOCKS_SILVER = TagUtil.blockTag("forge", "storage_blocks/silver");
-	public static final TagKey<Block> STORAGE_BLOCKS_TIN = TagUtil.blockTag("forge", "storage_blocks/tin");
-	public static final TagKey<Block> STORAGE_BLOCKS_SPINEL = TagUtil.blockTag("forge", "storage_blocks/spinel");
-	public static final TagKey<Block> STORAGE_BLOCKS_TURQUOISE = TagUtil.blockTag("forge", "storage_blocks/turquoise");
-	public static final TagKey<Block> STORAGE_BLOCKS_NECROMIUM = TagUtil.blockTag("forge", "storage_blocks/necromium");
-	public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = TagUtil.blockTag("forge", "storage_blocks/raw_silver");
-	public static final TagKey<Block> STORAGE_BLOCKS_RAW_TIN = TagUtil.blockTag("forge", "storage_blocks/raw_tin");
-	public static final TagKey<Block> STORAGE_BLOCKS_ZIRCONIA = TagUtil.blockTag("forge", "storage_blocks/zirconia");
-	public static final TagKey<Block> STORAGE_BLOCKS_CHARCOAL = TagUtil.blockTag("forge", "storage_blocks/charcoal");
+	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("c", "waxable_copper_blocks");
+	public static final TagKey<Block> WAXED_COPPER_BLOCKS = TagUtil.blockTag("c", "waxed_copper_blocks");
+	public static final TagKey<Block> ORES_AMETHYST = TagUtil.blockTag("c", "ores/amethyst");
+	public static final TagKey<Block> ORES_SILVER = TagUtil.blockTag("c", "ores/silver");
+	public static final TagKey<Block> ORES_TIN = TagUtil.blockTag("c", "ores/tin");
+	public static final TagKey<Block> ORES_SPINEL = TagUtil.blockTag("c", "ores/spinel");
+	public static final TagKey<Block> ORES_TURQUOISE = TagUtil.blockTag("c", "ores/turquoise");
+	public static final TagKey<Block> STORAGE_BLOCKS_SILVER = TagUtil.blockTag("c", "storage_blocks/silver");
+	public static final TagKey<Block> STORAGE_BLOCKS_TIN = TagUtil.blockTag("c", "storage_blocks/tin");
+	public static final TagKey<Block> STORAGE_BLOCKS_SPINEL = TagUtil.blockTag("c", "storage_blocks/spinel");
+	public static final TagKey<Block> STORAGE_BLOCKS_TURQUOISE = TagUtil.blockTag("c", "storage_blocks/turquoise");
+	public static final TagKey<Block> STORAGE_BLOCKS_NECROMIUM = TagUtil.blockTag("c", "storage_blocks/necromium");
+	public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = TagUtil.blockTag("c", "storage_blocks/raw_silver");
+	public static final TagKey<Block> STORAGE_BLOCKS_RAW_TIN = TagUtil.blockTag("c", "storage_blocks/raw_tin");
+	public static final TagKey<Block> STORAGE_BLOCKS_ZIRCONIA = TagUtil.blockTag("c", "storage_blocks/zirconia");
+	public static final TagKey<Block> STORAGE_BLOCKS_CHARCOAL = TagUtil.blockTag("c", "storage_blocks/charcoal");
 
 	private static TagKey<Block> blockTag(String name) {
 		return TagUtil.blockTag(CavernsAndChasms.MOD_ID, name);

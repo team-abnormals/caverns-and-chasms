@@ -10,13 +10,10 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Equipable;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.SpyglassItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
-public class MonocleItem extends SpyglassItem implements Equipable {
+public class MonocleItem extends Item implements Equipable {
 
 	public MonocleItem(Properties properties) {
 		super(properties);
@@ -32,6 +29,16 @@ public class MonocleItem extends SpyglassItem implements Equipable {
 
 	public static boolean isUsingMonocle(LivingEntity entity) {
 		return isScopingMonocle(entity) || isWearingMonocle(entity);
+	}
+
+	@Override
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
+		return 1200;
+	}
+
+	@Override
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.SPYGLASS;
 	}
 
 	@Override

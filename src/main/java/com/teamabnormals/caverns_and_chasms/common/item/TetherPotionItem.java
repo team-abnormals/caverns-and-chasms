@@ -18,6 +18,7 @@ import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
@@ -116,11 +117,9 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 			if (effect.getEffect().value().isInstantenous()) {
 				instanttooltip.add(mutablecomponent.withStyle(effect.getEffect().value().getCategory().getTooltipFormatting()));
 			} else {
-				mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(effect, durationFactor, ticksPerSecond));
+				mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(this instanceof ImpactPotionItem ? effect.getDuration() : getTetherPotionDuration(effect.getDuration()), ticksPerSecond));
 				continuoustooltip.add(mutablecomponent.withStyle(effect.getEffect().value().getCategory().getTooltipFormatting()));
 			}
-
-			tooltipAdder.accept(mutablecomponent.withStyle(holder.value().getCategory().getTooltipFormatting()));
 		}
 
 		if (flag) {

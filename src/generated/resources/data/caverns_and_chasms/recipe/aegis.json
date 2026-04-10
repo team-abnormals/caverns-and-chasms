@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "B": {
-      "tag": "forge:storage_blocks/tin"
+      "tag": "c:storage_blocks/tin"
     },
     "I": {
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     },
     "L": {
       "item": "minecraft:leather"

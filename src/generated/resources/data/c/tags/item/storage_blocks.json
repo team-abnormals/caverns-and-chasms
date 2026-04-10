@@ -1,13 +1,13 @@
 {
   "values": [
-    "#forge:storage_blocks/silver",
-    "#forge:storage_blocks/tin",
-    "#forge:storage_blocks/spinel",
-    "#forge:storage_blocks/necromium",
-    "#forge:storage_blocks/raw_silver",
-    "#forge:storage_blocks/raw_tin",
-    "#forge:storage_blocks/zirconia",
-    "#forge:storage_blocks/turquoise",
-    "#forge:storage_blocks/charcoal"
+    "#c:storage_blocks/silver",
+    "#c:storage_blocks/tin",
+    "#c:storage_blocks/spinel",
+    "#c:storage_blocks/necromium",
+    "#c:storage_blocks/raw_silver",
+    "#c:storage_blocks/raw_tin",
+    "#c:storage_blocks/zirconia",
+    "#c:storage_blocks/turquoise",
+    "#c:storage_blocks/charcoal"
   ]
 }

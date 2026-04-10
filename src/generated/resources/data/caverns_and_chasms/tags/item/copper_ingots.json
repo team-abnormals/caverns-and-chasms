@@ -1,8 +1,8 @@
 {
   "values": [
     "#c:ingots/copper",
-    "#forge:ingots/exposed_copper",
-    "#forge:ingots/weathered_copper",
-    "#forge:ingots/oxidized_copper"
+    "#c:ingots/exposed_copper",
+    "#c:ingots/weathered_copper",
+    "#c:ingots/oxidized_copper"
   ]
 }

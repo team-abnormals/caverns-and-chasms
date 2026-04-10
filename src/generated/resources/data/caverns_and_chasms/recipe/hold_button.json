@@ -6,7 +6,7 @@
       "tag": "minecraft:wooden_buttons"
     },
     {
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     }
   ],
   "result": {

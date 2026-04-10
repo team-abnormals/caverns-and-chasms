@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#forge:nuggets/copper"
+            "items": "#c:nuggets/copper"
           }
         ]
       },

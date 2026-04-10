@@ -447,7 +447,7 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockDropsEvent event) {
-		if (event.getBreaker() instanceof LivingEntity living) {
+		if (event.getBreaker() instanceof LivingEntity living && living.getAttribute(CCAttributes.EXPERIENCE_BOOST) != null) {
 			double experienceBoost = event.getDroppedExperience() * living.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
 			int base = Mth.floor(experienceBoost);
 			double bonus = Mth.frac(experienceBoost);
@@ -812,7 +812,11 @@ public class CCEvents {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onItemModify(ItemAttributeModifierEvent event) {
 		ItemStack stack = event.getItemStack();
-		EquipmentSlot slot = stack.getEquipmentSlot();
+		Equipable equipable = Equipable.get(stack);
+		EquipmentSlot slot = EquipmentSlot.MAINHAND;
+		if (equipable != null) {
+			slot = equipable.getEquipmentSlot();
+		}
 
 		if (slot != null) {
 			EquipmentSlotGroup group = EquipmentSlotGroup.bySlot(slot);

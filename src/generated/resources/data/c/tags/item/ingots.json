@@ -1,10 +1,10 @@
 {
   "values": [
-    "#forge:ingots/exposed_copper",
-    "#forge:ingots/weathered_copper",
-    "#forge:ingots/exposed_copper",
-    "#forge:ingots/silver",
-    "#forge:ingots/tin",
-    "#forge:ingots/necromium"
+    "#c:ingots/exposed_copper",
+    "#c:ingots/weathered_copper",
+    "#c:ingots/exposed_copper",
+    "#c:ingots/silver",
+    "#c:ingots/tin",
+    "#c:ingots/necromium"
   ]
 }

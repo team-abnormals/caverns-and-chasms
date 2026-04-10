@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:gems/spinel"
+      "tag": "c:gems/spinel"
     },
     "T": {
       "item": "minecraft:anvil"

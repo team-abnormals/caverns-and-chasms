@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:gems/turquoise"
+      "tag": "c:gems/turquoise"
     },
     "X": {
       "item": "minecraft:salmon_bucket"

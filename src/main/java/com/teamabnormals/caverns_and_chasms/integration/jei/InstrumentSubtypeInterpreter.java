@@ -3,7 +3,9 @@ package com.teamabnormals.caverns_and_chasms.integration.jei;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +22,14 @@ public class InstrumentSubtypeInterpreter implements ISubtypeInterpreter<ItemSta
 
 	@Override
 	public @Nullable Object getSubtypeData(ItemStack ingredient, UidContext context) {
-		return List.of(ingredient.get(CCDataComponents.HARMONY_INSTRUMENT), ingredient.get(CCDataComponents.MELODY_INSTRUMENT), ingredient.get(CCDataComponents.BASS_INSTRUMENT));
+		return new InstrumentSubtypeData(ingredient.get(CCDataComponents.HARMONY_INSTRUMENT), ingredient.get(CCDataComponents.MELODY_INSTRUMENT), ingredient.get(CCDataComponents.BASS_INSTRUMENT));
+	}
+
+	record InstrumentSubtypeData(Holder<Instrument> harmony, Holder<Instrument> melody, Holder<Instrument> bass) {
+		@Override
+		public String toString() {
+			return String.format("harmony=%s, melody=%s, bass=%s", harmony, melody, bass);
+		}
 	}
 
 	@Override

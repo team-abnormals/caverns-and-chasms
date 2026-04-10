@@ -9,10 +9,10 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "tag": "forge:nuggets/silver"
+      "tag": "c:nuggets/silver"
     },
     "Y": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   },
   "pattern": [

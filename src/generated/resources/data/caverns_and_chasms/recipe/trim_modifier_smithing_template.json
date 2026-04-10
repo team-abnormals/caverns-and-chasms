@@ -6,7 +6,7 @@
       "item": "minecraft:diamond"
     },
     "C": {
-      "tag": "forge:gems/turquoise"
+      "tag": "c:gems/turquoise"
     },
     "S": {
       "item": "caverns_and_chasms:trim_modifier_smithing_template"

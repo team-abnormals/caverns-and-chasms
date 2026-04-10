@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:bottles/milk"
+        "tag": "c:bottles/milk"
       }
     }
   ],
@@ -14,7 +14,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#forge:bottles/milk"
+            "items": "#c:bottles/milk"
           }
         ]
       },

@@ -6,7 +6,7 @@
       "item": "minecraft:golden_apple"
     },
     "S": {
-      "tag": "forge:gems/spinel"
+      "tag": "c:gems/spinel"
     }
   },
   "pattern": [
