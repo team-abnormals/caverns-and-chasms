@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,19 +17,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
-public final class AbstractFurnaceBlockEntityMixin {
+public abstract class AbstractFurnaceBlockEntityMixin {
 
 	@Shadow
 	protected NonNullList<ItemStack> items;
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V", shift = Shift.BEFORE), method = "burn")
-	private void burn(RegistryAccess p_266740_, Recipe<?> p_266780_, NonNullList<ItemStack> p_267073_, int p_267157_, CallbackInfoReturnable<Boolean> cir) {
-		ItemStack stack = items.get(1);
-		if (items.get(0).is(Blocks.WET_SPONGE.asItem()) && !stack.isEmpty()) {
+	private static void burn(RegistryAccess registryAccess, RecipeHolder<?> recipe, NonNullList<ItemStack> inventory, int maxStackSize, AbstractFurnaceBlockEntity furnace, CallbackInfoReturnable<Boolean> cir) {
+		ItemStack stack = inventory.get(1);
+		if (inventory.get(0).is(Blocks.WET_SPONGE.asItem()) && !stack.isEmpty()) {
 			if (stack.is(CCItems.GOLDEN_BUCKET.get())) {
-				items.set(1, new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get()));
+				inventory.set(1, new ItemStack(CCItems.GOLDEN_WATER_BUCKET.get()));
 			} else if (stack.is(CCItems.GOLDEN_WATER_BUCKET.get()) && GoldenBucketItem.canBeFilled(stack)) {
-				items.set(1, GoldenBucketItem.increaseFluidLevel(stack));
+				inventory.set(1, GoldenBucketItem.increaseFluidLevel(stack));
 			}
 		}
 	}

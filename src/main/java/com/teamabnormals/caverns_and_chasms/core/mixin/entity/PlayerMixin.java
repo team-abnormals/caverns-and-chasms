@@ -25,19 +25,9 @@ import java.util.List;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity implements MovingPlayer {
-	private boolean moving;
 
 	protected PlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
 		super(p_20966_, p_20967_);
-	}
-
-	@Inject(method = "checkMovementStatistics", at = @At("HEAD"))
-	private void checkMovementStatistics(double x, double y, double z, CallbackInfo ci) {
-		this.moving = Math.sqrt(x * x + y * y + z * z) > 0;
-	}
-
-	public boolean isMoving() {
-		return this.moving;
 	}
 
 	@Inject(at = @At("RETURN"), method = "addAdditionalSaveData")

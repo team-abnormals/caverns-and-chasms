@@ -21,6 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.class)
 public class BlockBehaviourMixin {
+	
+	@Inject(method = "isRandomlyTicking", at = @At("RETURN"), cancellable = true)
+	private void isRandomlyTicking(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+		if (!cir.getReturnValue() && (Object) this instanceof LightningRodBlock && CCWeatheringCopper.getNext(state.getBlock()).isPresent()) {
+			cir.setReturnValue(true);
+		}
+	}
 
 	@Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
 	private void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {

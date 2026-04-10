@@ -30,16 +30,6 @@ public abstract class LightningBoltMixin {
 		}
 	}
 
-	@WrapOperation(method = "powerLightningRod", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-	private boolean powerLightningRod(BlockState state, Block block, Operation<Boolean> original) {
-		return state.getBlock() instanceof LightningRodBlock || original.call(state, block);
-	}
-
-	@WrapOperation(method = "clearCopperOnLightningStrike", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-	private static boolean clearCopperOnLightningStrike(BlockState state, Block block, Operation<Boolean> original) {
-		return state.getBlock() instanceof LightningRodBlock || original.call(state, block);
-	}
-
 	@WrapOperation(method = "clearCopperOnLightningStrike", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/WeatheringCopper;getFirst(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;"))
 	private static BlockState clearCopperOnLightningStrike(BlockState state, Operation<BlockState> original) {
 		if (state.getBlock() instanceof CCWeatheringCopper) {

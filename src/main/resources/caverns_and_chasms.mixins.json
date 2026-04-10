@@ -1,12 +1,12 @@
 {
   "required": true,
   "package": "com.teamabnormals.caverns_and_chasms.core.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "mixinextras": {
-    "minVersion": "0.5.0"
-  },
   "refmap": "caverns_and_chasms.refmap.json",
+  "mixinextras": {
+    "minVersion": "0.5.3"
+  },
   "mixins": [
     "DamageSourceMixin",
     "ExplosionMixin",
@@ -19,18 +19,15 @@
     "block.BaseFireBlockMixin",
     "block.BlockBehaviourAccessor",
     "block.BlockBehaviourMixin",
-    "block.BlockMixin",
     "block.CarvedPumpkinBlockMixin",
     "block.LightningRodBlockMixin",
     "block.PowderSnowBlockMixin",
     "block.entity.AbstractFurnaceBlockEntityMixin",
     "block.entity.FallingBlockEntityMixin",
     "brewing.BrewingRecipeRegistryMixin",
-    "brewing.PotionBrewingMixin",
     "brewing.PotionUtilsMixin",
     "dispenser.AbstractProjectileDispenseBehaviorMixin",
     "dispenser.DefaultDispenseItemBehaviorMixin",
-    "enchantment.EnchantmentHelperMixin",
     "entity.AbstractMinecartMixin",
     "entity.CreeperMixin",
     "entity.EntityHitResultMixin",
@@ -43,6 +40,7 @@
     "entity.PlayerMixin",
     "entity.ProjectileMixin",
     "entity.ServerEntityMixin",
+    "entity.ServerPlayerMixin",
     "entity.ThrownPotionMixin",
     "entity.WitherSkeletonMixin",
     "entity.ai.goal.FollowFlockLeaderGoalMixin",
@@ -54,7 +52,6 @@
     "item.HoneycombItemMixin",
     "item.ItemCooldownsMixin",
     "item.ItemMixin",
-    "item.ItemStackAccessor",
     "item.PotionItemMixin",
     "item.SmithingTemplateItemMixin",
     "recipe.SmithingTrimRecipeMixin",

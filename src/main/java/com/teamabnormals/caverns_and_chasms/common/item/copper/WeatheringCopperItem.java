@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.item.copper;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.teamabnormals.caverns_and_chasms.core.mixin.item.ItemStackAccessor;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -105,7 +104,7 @@ public interface WeatheringCopperItem {
 	}
 
 	static void copyStackToNewItem(ItemStack original, ItemStack newItem) {
-		((ItemStackAccessor) (Object) original).setDelegate(((ItemStackAccessor) (Object) newItem).getDelegate());
+		newItem.applyComponents(original.getComponentsPatch());
 	}
 
 	default Optional<ItemStack> getNext(ItemStack stack) {
