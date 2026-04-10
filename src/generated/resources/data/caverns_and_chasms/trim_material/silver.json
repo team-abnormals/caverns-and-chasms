@@ -7,6 +7,6 @@
   "ingredient": "caverns_and_chasms:silver_ingot",
   "item_model_index": -1.0,
   "override_armor_materials": {
-    "caverns_and_chasms:silver": "caverns_and_chasms:silver_darker"
+    "caverns_and_chasms:silver": "caverns_and_chasms_silver_darker"
   }
 }

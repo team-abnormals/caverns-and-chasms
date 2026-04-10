@@ -48,21 +48,21 @@ public class CCTrimMaterials {
 	public static void bootstrap(BootstrapContext<TrimMaterial> context) {
 		register(context, SPINEL, CCItems.SPINEL.get(), Style.EMPTY.withColor(0xD684AC), Map.of());
 		register(context, ZIRCONIA, CCItems.ZIRCONIA.get(), Style.EMPTY.withColor(0xADAFF1), Map.of());
-		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), Map.of(CCArmorMaterials.SILVER, SILVER_DARKER.location().toString()));
+		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), Map.of(CCArmorMaterials.SILVER, SILVER_DARKER.location().toString().replace(':', '_')));
 		register(context, TIN, CCItems.TIN_INGOT.get(), Style.EMPTY.withColor(0xCEC0A3), Map.of());
 		register(context, TURQUOISE, CCItems.TURQUOISE.get(), Style.EMPTY.withColor(0x2BFF75), Map.of());
-		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of(CCArmorMaterials.NECROMIUM, NECROMIUM_DARKER.location().toString()));
-		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of(CCArmorMaterials.SANGUINE, SANGUINE_DARKER.location().toString()));
+		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of(CCArmorMaterials.NECROMIUM, NECROMIUM_DARKER.location().toString().replace(':', '_')));
+		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of(CCArmorMaterials.SANGUINE, SANGUINE_DARKER.location().toString().replace(':', '_')));
 
-		register(context, TrimMaterials.COPPER, Items.COPPER_INGOT, Style.EMPTY.withColor(11823181), 0.5F, Map.of(CCArmorMaterials.COPPER, COPPER_DARKER.location().toString()));
-		register(context, EXPOSED_COPPER, CCItems.EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER.location().toString()));
-		register(context, WEATHERED_COPPER, CCItems.WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER.location().toString()));
-		register(context, OXIDIZED_COPPER, CCItems.OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER.location().toString()));
+		register(context, TrimMaterials.COPPER, Items.COPPER_INGOT, Style.EMPTY.withColor(11823181), 0.5F, Map.of(CCArmorMaterials.COPPER, COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, EXPOSED_COPPER, CCItems.EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, WEATHERED_COPPER, CCItems.WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, OXIDIZED_COPPER, CCItems.OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER.location().toString().replace(':', '_')));
 
-		register(context, WAXED_COPPER, CCItems.WAXED_COPPER_INGOT.get(), Style.EMPTY.withColor(0xB4684D), Map.of(CCArmorMaterials.COPPER, COPPER_DARKER.location().toString()));
-		register(context, WAXED_EXPOSED_COPPER, CCItems.WAXED_EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER.location().toString()));
-		register(context, WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER.location().toString()));
-		register(context, WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER.location().toString()));
+		register(context, WAXED_COPPER, CCItems.WAXED_COPPER_INGOT.get(), Style.EMPTY.withColor(0xB4684D), Map.of(CCArmorMaterials.COPPER, COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, WAXED_EXPOSED_COPPER, CCItems.WAXED_EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER.location().toString().replace(':', '_')));
 	}
 
 	private static ResourceKey<TrimMaterial> createKey(String name) {

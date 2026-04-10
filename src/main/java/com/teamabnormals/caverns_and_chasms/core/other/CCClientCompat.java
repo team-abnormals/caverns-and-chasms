@@ -53,6 +53,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
@@ -140,7 +141,7 @@ public class CCClientCompat {
 
 	@SubscribeEvent
 	public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
-		event.registerAbove(ResourceLocation.withDefaultNamespace("spyglass"), CavernsAndChasms.location("monocle"), new MonocleGuiOverlay());
+		event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, CavernsAndChasms.location("monocle"), new MonocleGuiOverlay());
 		event.registerAbove(CavernsAndChasms.location("monocle"), CavernsAndChasms.location("monocle_head"), new MonocleHeadGuiOverlay());
 	}
 

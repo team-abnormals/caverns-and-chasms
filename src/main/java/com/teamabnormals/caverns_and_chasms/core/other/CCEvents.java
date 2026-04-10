@@ -127,6 +127,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -815,7 +816,7 @@ public class CCEvents {
 
 		if (slot != null) {
 			EquipmentSlotGroup group = EquipmentSlotGroup.bySlot(slot);
-			ResourceLocation name = CavernsAndChasms.location("armor." + group.name());
+			ResourceLocation name = CavernsAndChasms.location("armor." + group.name().toLowerCase(Locale.ROOT));
 
 			if (CCConfig.COMMON.chainmailArmorIncreasesDamage.get() && (stack.is(Items.CHAINMAIL_HELMET) || stack.is(Items.CHAINMAIL_BOOTS) || stack.is(Items.CHAINMAIL_CHESTPLATE) || stack.is(Items.CHAINMAIL_LEGGINGS))) {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(name, 1.0D, Operation.ADD_VALUE), group);

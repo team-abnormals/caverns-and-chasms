@@ -7,6 +7,6 @@
   "ingredient": "minecraft:copper_ingot",
   "item_model_index": 0.5,
   "override_armor_materials": {
-    "caverns_and_chasms:copper": "caverns_and_chasms:copper_darker"
+    "caverns_and_chasms:copper": "caverns_and_chasms_copper_darker"
   }
 }

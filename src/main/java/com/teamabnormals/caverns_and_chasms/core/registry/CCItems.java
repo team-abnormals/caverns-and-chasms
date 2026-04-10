@@ -385,7 +385,7 @@ public class CCItems {
 				for (ItemStack itemValue : items) {
 					if (subtle)
 						itemValue.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
-					entries.add(itemValue);
+					event.accept(itemValue, visibility);
 				}
 				return;
 			}

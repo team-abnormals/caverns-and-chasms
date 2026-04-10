@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.client.renderer.block.RollerDoorBloc
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
 import com.teamabnormals.caverns_and_chasms.common.item.MovingDoorBlockItem;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -54,7 +55,7 @@ public class CCItemSubRegistryHelper extends ItemSubRegistryHelper {
 	@OnlyIn(Dist.CLIENT)
 	private static IClientItemExtensions movingDoorBEWLR(MovingDoorType doorType, Supplier<? extends Block> block) {
 		return MemoizedBEWLR.asCustomItemRenderer((dispatcher, entityModelSet) -> {
-			MovingDoorHeaderBlockEntity blockEntity = new MovingDoorHeaderBlockEntity(BlockPos.ZERO, block.get().defaultBlockState());
+			MovingDoorHeaderBlockEntity blockEntity = new MovingDoorHeaderBlockEntity(BlockPos.ZERO, CCBlocks.ROLLER_DOOR_HEADER.get().defaultBlockState());
 			blockEntity.setDoorType(doorType);
 			blockEntity.syncVisuals();
 			return new RollerDoorBlockEntityWithoutLevelRenderer<>(dispatcher, entityModelSet, blockEntity);
