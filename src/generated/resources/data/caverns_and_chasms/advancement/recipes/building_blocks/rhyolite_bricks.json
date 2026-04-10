@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_rhyolite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "caverns_and_chasms:polished_rhyolite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:rhyolite_bricks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polished_rhyolite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:rhyolite_bricks"
+    ]
+  }
+}

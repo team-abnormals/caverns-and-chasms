@@ -1,0 +1,40 @@
+{
+  "parent": "caverns_and_chasms:adventure/find_monolith",
+  "criteria": {
+    "ricochet_hit": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type_specific": {
+                "type": "caverns_and_chasms:ricochets",
+                "ricochets": {
+                  "min": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.ricochet_hit.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:ricochet_arrow"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.ricochet_hit.title"
+    }
+  },
+  "requirements": [
+    [
+      "ricochet_hit"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

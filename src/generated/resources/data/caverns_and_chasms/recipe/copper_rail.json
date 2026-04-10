@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:rods/wooden"
+    },
+    "X": {
+      "tag": "forge:nuggets/copper"
+    }
+  },
+  "pattern": [
+    "X X",
+    "X#X",
+    "X X"
+  ],
+  "result": {
+    "count": 3,
+    "id": "caverns_and_chasms:copper_rail"
+  }
+}

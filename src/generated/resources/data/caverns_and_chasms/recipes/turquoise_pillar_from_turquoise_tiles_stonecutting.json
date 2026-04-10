@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "caverns_and_chasms:turquoise_tiles"
-  },
-  "result": "caverns_and_chasms:turquoise_pillar"
-}

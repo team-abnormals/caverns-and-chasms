@@ -1,0 +1,22 @@
+{
+  "values": {
+    "caverns_and_chasms:deeper": {
+      "sound": "caverns_and_chasms:entity.parrot.imitate.deeper"
+    },
+    "caverns_and_chasms:evendeeper": {
+      "sound": "caverns_and_chasms:entity.parrot.imitate.evendeeper"
+    },
+    "caverns_and_chasms:grazer": {
+      "sound": "caverns_and_chasms:entity.parrot.imitate.grazer"
+    },
+    "caverns_and_chasms:mime": {
+      "sound": "caverns_and_chasms:entity.parrot.imitate.mime"
+    },
+    "caverns_and_chasms:peeper": {
+      "sound": "caverns_and_chasms:entity.parrot.imitate.peeper"
+    },
+    "caverns_and_chasms:saddled_grazer": {
+      "sound": "caverns_and_chasms:entity.parrot.imitate.grazer"
+    }
+  }
+}

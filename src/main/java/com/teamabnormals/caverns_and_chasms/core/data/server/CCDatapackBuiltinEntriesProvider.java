@@ -35,6 +35,7 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(Registries.ENCHANTMENT, CCEnchantments::bootstrap)
 			.add(Registries.JUKEBOX_SONG, CCJukeboxSongs::bootstrap)
 			.add(Registries.PAINTING_VARIANT, CCPaintingVariants::bootstrap)
+			.add(Registries.BANNER_PATTERN, CCBannerPatterns::bootstrap)
 			.add(CCRegistries.RAT_VARIANT, CCRatVariants::bootstrap)
 			.add(BlueprintDataPackRegistries.STRUCTURE_REPALETTERS, CCStructureRepaletters::bootstrap);
 

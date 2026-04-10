@@ -1,0 +1,47 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "blueprint:and",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "clayworks"
+        },
+        {
+          "type": "clayworks:config",
+          "value": "kiln"
+        }
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:smooth_tuff_from_baking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tuff": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:tuff"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tuff"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:smooth_tuff_from_baking"
+    ]
+  }
+}

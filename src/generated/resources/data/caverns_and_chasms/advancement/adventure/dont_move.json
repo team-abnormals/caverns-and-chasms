@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:adventure/kill_a_mob",
+  "criteria": {
+    "spotted_by_peeper": {
+      "trigger": "caverns_and_chasms:spotted_by_peeper"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.dont_move.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:peeper_head"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.dont_move.title"
+    }
+  },
+  "requirements": [
+    [
+      "spotted_by_peeper"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

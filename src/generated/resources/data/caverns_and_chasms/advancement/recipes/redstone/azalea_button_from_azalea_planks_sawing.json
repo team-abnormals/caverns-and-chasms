@@ -1,0 +1,47 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "blueprint:and",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "woodworks"
+        },
+        {
+          "type": "woodworks:config",
+          "value": "sawmill"
+        }
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_azalea_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "caverns_and_chasms:azalea_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:azalea_button_from_azalea_planks_sawing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_azalea_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:azalea_button_from_azalea_planks_sawing"
+    ]
+  }
+}

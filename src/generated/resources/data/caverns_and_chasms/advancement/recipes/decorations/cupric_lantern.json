@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cupric_torch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "caverns_and_chasms:cupric_torch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:cupric_lantern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cupric_torch"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:cupric_lantern"
+    ]
+  }
+}

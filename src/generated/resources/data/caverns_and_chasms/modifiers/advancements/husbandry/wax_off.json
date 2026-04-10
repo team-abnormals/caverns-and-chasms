@@ -5,8 +5,7 @@
       "config": {
         "description": {
           "translate": "advancements.caverns_and_chasms.husbandry.wax_off.description"
-        },
-        "mode": "modify"
+        }
       }
     },
     {
@@ -20,14 +19,14 @@
                   "condition": "minecraft:location_check",
                   "predicate": {
                     "block": {
-                      "tag": "forge:waxed_copper_blocks"
+                      "blocks": "#forge:waxed_copper_blocks"
                     }
                   }
                 },
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "tag": "minecraft:axes"
+                    "items": "#minecraft:axes"
                   }
                 }
               ]
@@ -46,7 +45,7 @@
                 }
               ],
               "item": {
-                "tag": "minecraft:axes"
+                "items": "#minecraft:axes"
               }
             },
             "trigger": "minecraft:player_interacted_with_entity"
@@ -63,7 +62,7 @@
                 }
               ],
               "item": {
-                "tag": "minecraft:axes"
+                "items": "#minecraft:axes"
               }
             },
             "trigger": "minecraft:player_interacted_with_entity"
@@ -79,7 +78,8 @@
               "caverns_and_chasms:wax_off_oxidized_golem"
             ]
           }
-        ]
+        ],
+        "should_replace_requirements": false
       }
     }
   ],

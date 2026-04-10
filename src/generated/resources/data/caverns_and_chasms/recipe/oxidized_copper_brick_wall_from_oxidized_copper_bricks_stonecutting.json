@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "caverns_and_chasms:oxidized_copper_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:oxidized_copper_brick_wall"
+  }
+}

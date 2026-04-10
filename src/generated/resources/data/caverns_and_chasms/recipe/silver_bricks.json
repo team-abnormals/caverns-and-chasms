@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "silver_bricks",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/silver"
+    },
+    "X": {
+      "item": "minecraft:deepslate"
+    }
+  },
+  "pattern": [
+    "#X",
+    "X#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "caverns_and_chasms:silver_bricks"
+  }
+}

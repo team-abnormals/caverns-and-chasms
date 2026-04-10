@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#caverns_and_chasms:has_monster/grazer",
+  "spawners": {
+    "type": "caverns_and_chasms:grazer",
+    "maxCount": 4,
+    "minCount": 1,
+    "weight": 100
+  }
+}

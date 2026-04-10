@@ -30,15 +30,10 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.copyWoodenTags();
-		this.copyWoodworksTags();
-
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
-		this.copy(BlockTags.DOORS, ItemTags.DOORS);
-		this.copy(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS);
 		this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get(), TURQUOISE.get(), ZIRCONIA.get());
 		this.tag(Tags.Items.MUSIC_DISCS).add(MUSIC_DISC_ANALOGUE.get(), MUSIC_DISC_EPILOGUE.get(), MUSIC_DISC_COPY.get());

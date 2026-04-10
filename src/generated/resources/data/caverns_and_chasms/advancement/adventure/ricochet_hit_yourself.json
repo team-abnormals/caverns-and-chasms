@@ -1,0 +1,40 @@
+{
+  "parent": "caverns_and_chasms:adventure/ricochet_hit",
+  "criteria": {
+    "ricochet_hit_yourself": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type_specific": {
+                "type": "caverns_and_chasms:ricochets",
+                "ricochets": {
+                  "min": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "trigger": "caverns_and_chasms:player_hurt_self"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.ricochet_hit_yourself.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:ricochet_arrow"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.ricochet_hit_yourself.title"
+    }
+  },
+  "requirements": [
+    [
+      "ricochet_hit_yourself"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

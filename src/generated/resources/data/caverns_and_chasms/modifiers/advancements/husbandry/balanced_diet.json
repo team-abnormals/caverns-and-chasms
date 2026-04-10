@@ -7,9 +7,7 @@
           "caverns_and_chasms:bejeweled_apple": {
             "conditions": {
               "item": {
-                "items": [
-                  "caverns_and_chasms:bejeweled_apple"
-                ]
+                "items": "caverns_and_chasms:bejeweled_apple"
               }
             },
             "trigger": "minecraft:consume_item"
@@ -17,9 +15,7 @@
           "caverns_and_chasms:cavefish": {
             "conditions": {
               "item": {
-                "items": [
-                  "caverns_and_chasms:cavefish"
-                ]
+                "items": "caverns_and_chasms:cavefish"
               }
             },
             "trigger": "minecraft:consume_item"
@@ -27,14 +23,13 @@
           "caverns_and_chasms:caviar": {
             "conditions": {
               "item": {
-                "items": [
-                  "caverns_and_chasms:caviar"
-                ]
+                "items": "caverns_and_chasms:caviar"
               }
             },
             "trigger": "minecraft:consume_item"
           }
         },
+        "indexed_requirements": [],
         "requirements": [
           [
             "caverns_and_chasms:caviar"

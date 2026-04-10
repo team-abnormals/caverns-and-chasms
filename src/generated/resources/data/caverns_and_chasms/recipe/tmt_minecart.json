@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:tmt"
+    },
+    {
+      "item": "minecraft:minecart"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:tmt_minecart"
+  }
+}

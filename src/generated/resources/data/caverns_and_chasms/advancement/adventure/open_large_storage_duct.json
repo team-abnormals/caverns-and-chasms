@@ -1,0 +1,32 @@
+{
+  "parent": "caverns_and_chasms:adventure/find_monolith",
+  "criteria": {
+    "open_large_storage_duct": {
+      "conditions": {
+        "length": {
+          "min": 100
+        }
+      },
+      "trigger": "caverns_and_chasms:open_storage_duct"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.open_large_storage_duct.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:storage_duct"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.open_large_storage_duct.title"
+    }
+  },
+  "requirements": [
+    [
+      "open_large_storage_duct"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

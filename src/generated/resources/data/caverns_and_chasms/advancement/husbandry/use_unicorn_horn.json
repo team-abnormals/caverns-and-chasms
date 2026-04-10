@@ -1,0 +1,31 @@
+{
+  "parent": "caverns_and_chasms:husbandry/obtain_turquoise",
+  "criteria": {
+    "unicorn_horn": {
+      "conditions": {
+        "item": {
+          "items": "caverns_and_chasms:unicorn_horn"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.use_unicorn_horn.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:unicorn_horn"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.use_unicorn_horn.title"
+    }
+  },
+  "requirements": [
+    [
+      "unicorn_horn"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spinel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#forge:gems/spinel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:tmt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tnt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:tnt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spinel",
+      "has_tnt"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:tmt"
+    ]
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "minecraft:exposed_cut_copper"
-  },
-  "result": "caverns_and_chasms:exposed_chiseled_copper"
-}

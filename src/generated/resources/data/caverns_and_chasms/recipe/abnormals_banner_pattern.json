@@ -1,0 +1,10 @@
+{
+  "type": "caverns_and_chasms:miming",
+  "ingredient": {
+    "item": "minecraft:mojang_banner_pattern"
+  },
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:abnormals_banner_pattern"
+  }
+}

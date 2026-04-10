@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "atoned_item": {
+      "trigger": "caverns_and_chasms:atoned_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.atone_item.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:atoning_table"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.atone_item.title"
+    }
+  },
+  "requirements": [
+    [
+      "atoned_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

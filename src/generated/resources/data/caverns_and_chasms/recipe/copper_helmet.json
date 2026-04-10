@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "copper_helmet",
+  "key": {
+    "X": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:copper_helmet"
+  }
+}

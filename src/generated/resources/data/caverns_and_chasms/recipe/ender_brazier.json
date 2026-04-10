@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "endergetic"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "endergetic:ender_fire_base_blocks"
+    },
+    "S": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    "S#S",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:ender_brazier"
+  }
+}

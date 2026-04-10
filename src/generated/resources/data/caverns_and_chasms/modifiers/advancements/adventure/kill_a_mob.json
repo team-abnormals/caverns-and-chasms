@@ -87,7 +87,8 @@
               "caverns_and_chasms:grazer"
             ]
           }
-        ]
+        ],
+        "should_replace_requirements": false
       }
     }
   ],

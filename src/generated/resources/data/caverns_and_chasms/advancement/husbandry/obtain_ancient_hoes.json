@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:husbandry/obtain_netherite_hoe",
+  "criteria": {
+    "ancient_hoes": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_hoe"
+          },
+          {
+            "items": "caverns_and_chasms:necromium_hoe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:necromium_hoe"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.husbandry.obtain_ancient_hoes.title"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_hoes"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

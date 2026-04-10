@@ -43,6 +43,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import net.neoforged.neoforge.registries.datamaps.builtin.Waxable;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
@@ -708,6 +709,26 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 				ShapelessRecipeBuilder.shapeless(MISC, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
 			}
 		});
+	}
+
+	@Override
+	public void smeltingRecipe(RecipeOutput recipeOutput, List<ItemLike> inputs, RecipeCategory category, ItemLike output, float xp, int cookTime, String group) {
+		for (ItemLike item : inputs) {
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(item), category, output, xp, cookTime)
+					.unlockedBy(getHasName(item), has(item))
+					.group(group)
+					.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(this.getModID(), getItemName(output) + "_from_smelting_" + getItemName(item)));
+		}
+	}
+
+	@Override
+	public void blastingRecipe(RecipeOutput recipeOutput, List<ItemLike> inputs, RecipeCategory category, ItemLike output, float xp, int cookTime, String group) {
+		for (ItemLike item : inputs) {
+			SimpleCookingRecipeBuilder.blasting(Ingredient.of(item), category, output, xp, cookTime)
+					.unlockedBy(getHasName(item), has(item))
+					.group(group)
+					.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(this.getModID(), getItemName(output) + "_from_blasting_" + getItemName(item)));
+		}
 	}
 
 	public static SingleItemRecipeBuilder mimingRecipeBuilder(RecipeCategory category, Ingredient input, ItemLike output, int count) {

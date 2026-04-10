@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_right_open",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/weathered_copper_door_bottom",
-    "top": "caverns_and_chasms:block/weathered_copper_door_top"
-  }
-}

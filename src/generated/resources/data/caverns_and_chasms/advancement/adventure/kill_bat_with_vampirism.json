@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:adventure/kill_a_mob",
+  "criteria": {
+    "kill_bat": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:bat"
+            }
+          }
+        ],
+        "killing_blow": {
+          "tags": [
+            {
+              "expected": true,
+              "id": "caverns_and_chasms:drains_enemies"
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.kill_bat_with_vampirism.description"
+    },
+    "hidden": true,
+    "icon": {
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "caverns_and_chasms:revenant"
+        }
+      },
+      "count": 1,
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.kill_bat_with_vampirism.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_bat"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

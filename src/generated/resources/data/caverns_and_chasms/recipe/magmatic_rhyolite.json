@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:rhyolite"
+    },
+    "X": {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "pattern": [
+    "#X",
+    "X#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "caverns_and_chasms:magmatic_rhyolite"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "values": {
+    "caverns_and_chasms:chiseled_copper_bricks": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_chiseled_copper_bricks"
+    },
+    "caverns_and_chasms:copper_bars": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_bars"
+    },
+    "caverns_and_chasms:copper_brick_slab": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_brick_slab"
+    },
+    "caverns_and_chasms:copper_brick_stairs": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_brick_stairs"
+    },
+    "caverns_and_chasms:copper_brick_wall": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_brick_wall"
+    },
+    "caverns_and_chasms:copper_bricks": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_bricks"
+    },
+    "caverns_and_chasms:copper_button": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_button"
+    },
+    "caverns_and_chasms:copper_chain": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_chain"
+    },
+    "caverns_and_chasms:copper_ingot": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_ingot"
+    },
+    "caverns_and_chasms:copper_lantern": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_lantern"
+    },
+    "caverns_and_chasms:copper_rail": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_rail"
+    },
+    "caverns_and_chasms:exposed_chiseled_copper_bricks": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_chiseled_copper_bricks"
+    },
+    "caverns_and_chasms:exposed_copper_bars": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_bars"
+    },
+    "caverns_and_chasms:exposed_copper_brick_slab": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_brick_slab"
+    },
+    "caverns_and_chasms:exposed_copper_brick_stairs": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_brick_stairs"
+    },
+    "caverns_and_chasms:exposed_copper_brick_wall": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_brick_wall"
+    },
+    "caverns_and_chasms:exposed_copper_bricks": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_bricks"
+    },
+    "caverns_and_chasms:exposed_copper_button": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_button"
+    },
+    "caverns_and_chasms:exposed_copper_chain": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_chain"
+    },
+    "caverns_and_chasms:exposed_copper_ingot": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_ingot"
+    },
+    "caverns_and_chasms:exposed_copper_lantern": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_lantern"
+    },
+    "caverns_and_chasms:exposed_copper_rail": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_rail"
+    },
+    "caverns_and_chasms:exposed_floodlight": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_floodlight"
+    },
+    "caverns_and_chasms:exposed_lightning_rod": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_lightning_rod"
+    },
+    "caverns_and_chasms:exposed_toolbox": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_toolbox"
+    },
+    "caverns_and_chasms:floodlight": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_floodlight"
+    },
+    "caverns_and_chasms:toolbox": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_toolbox"
+    },
+    "caverns_and_chasms:weathered_chiseled_copper_bricks": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_chiseled_copper_bricks"
+    },
+    "caverns_and_chasms:weathered_copper_bars": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_bars"
+    },
+    "caverns_and_chasms:weathered_copper_brick_slab": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_brick_slab"
+    },
+    "caverns_and_chasms:weathered_copper_brick_stairs": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_brick_stairs"
+    },
+    "caverns_and_chasms:weathered_copper_brick_wall": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_brick_wall"
+    },
+    "caverns_and_chasms:weathered_copper_bricks": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_bricks"
+    },
+    "caverns_and_chasms:weathered_copper_button": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_button"
+    },
+    "caverns_and_chasms:weathered_copper_chain": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_chain"
+    },
+    "caverns_and_chasms:weathered_copper_ingot": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_ingot"
+    },
+    "caverns_and_chasms:weathered_copper_lantern": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_lantern"
+    },
+    "caverns_and_chasms:weathered_copper_rail": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_rail"
+    },
+    "caverns_and_chasms:weathered_floodlight": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_floodlight"
+    },
+    "caverns_and_chasms:weathered_lightning_rod": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_lightning_rod"
+    },
+    "caverns_and_chasms:weathered_toolbox": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_toolbox"
+    },
+    "minecraft:lightning_rod": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_lightning_rod"
+    }
+  }
+}

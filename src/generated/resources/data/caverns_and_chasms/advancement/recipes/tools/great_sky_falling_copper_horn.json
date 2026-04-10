@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_goat_horn": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:goat_horn"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:great_sky_falling_copper_horn"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_goat_horn"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:great_sky_falling_copper_horn"
+    ]
+  }
+}

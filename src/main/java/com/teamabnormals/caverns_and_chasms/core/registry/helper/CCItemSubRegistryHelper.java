@@ -18,6 +18,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -26,7 +27,7 @@ public class CCItemSubRegistryHelper extends ItemSubRegistryHelper {
 	protected final HashMap<DeferredHolder<? extends Item, ?>, IClientItemExtensions> clientItemExtensions = new HashMap<>();
 
 	public CCItemSubRegistryHelper(RegistryHelper parent) {
-		super(parent);
+		super(parent, (DeferredRegister.Items) parent.getItemSubHelper().getDeferredRegister());
 	}
 
 	@Override

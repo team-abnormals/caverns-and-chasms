@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "gold_bricks",
+  "key": {
+    "#": {
+      "tag": "c:ingots/gold"
+    },
+    "X": {
+      "item": "minecraft:deepslate"
+    }
+  },
+  "pattern": [
+    "#X",
+    "X#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "caverns_and_chasms:gold_bricks"
+  }
+}

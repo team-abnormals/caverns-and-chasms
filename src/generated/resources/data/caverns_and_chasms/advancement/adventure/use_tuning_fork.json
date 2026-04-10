@@ -1,0 +1,26 @@
+{
+  "parent": "caverns_and_chasms:adventure/smelt_copper",
+  "criteria": {
+    "use_tuning_fork": {
+      "trigger": "caverns_and_chasms:use_tuning_fork"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.use_tuning_fork.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:tuning_fork"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.use_tuning_fork.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_tuning_fork"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

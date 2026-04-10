@@ -249,7 +249,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 	}
 
 	public Entry lootRemolder(ResourceLocation location) {
-		String name = location.toString();
+		String name = location.getPath();
 		return this.entry(name).path(name);
 	}
 

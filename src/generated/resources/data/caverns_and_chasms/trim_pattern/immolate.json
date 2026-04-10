@@ -1,5 +1,6 @@
 {
   "asset_id": "caverns_and_chasms:immolate",
+  "decal": false,
   "description": {
     "translate": "trim_pattern.caverns_and_chasms.immolate"
   },

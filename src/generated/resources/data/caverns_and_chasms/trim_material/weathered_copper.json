@@ -5,5 +5,8 @@
     "translate": "trim_material.caverns_and_chasms.weathered_copper"
   },
   "ingredient": "caverns_and_chasms:weathered_copper_ingot",
-  "item_model_index": -1.0
+  "item_model_index": -1.0,
+  "override_armor_materials": {
+    "caverns_and_chasms:weathered_copper": "caverns_and_chasms:weathered_copper_darker"
+  }
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "tag": "c:gems/lapis"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#G#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:lapis_lamp"
+  }
+}

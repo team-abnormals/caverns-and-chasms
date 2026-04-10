@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "T": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "TQT",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:hoop"
+  }
+}

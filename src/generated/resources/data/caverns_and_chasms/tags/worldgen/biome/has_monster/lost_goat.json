@@ -1,11 +1,9 @@
 {
   "values": [
-    "#forge:is_peak",
-    "minecraft:windswept_hills",
-    "minecraft:windswept_gravelly_hills",
-    "minecraft:windswept_forest",
-    "minecraft:meadow",
+    "#c:is_mountain/peak",
+    "#minecraft:is_hill",
     "minecraft:snowy_slopes",
+    "minecraft:meadow",
     "minecraft:grove"
   ]
 }

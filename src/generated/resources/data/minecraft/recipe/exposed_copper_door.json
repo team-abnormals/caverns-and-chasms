@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "exposed_copper_door",
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:exposed_copper_ingot"
+    }
+  },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "minecraft:exposed_copper_door"
+  }
+}

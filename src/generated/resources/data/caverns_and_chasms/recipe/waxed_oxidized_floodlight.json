@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "waxed_oxidized_floodlight",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "C": {
+      "item": "caverns_and_chasms:waxed_oxidized_copper_ingot"
+    }
+  },
+  "pattern": [
+    " C ",
+    "CCC",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_oxidized_floodlight"
+  }
+}

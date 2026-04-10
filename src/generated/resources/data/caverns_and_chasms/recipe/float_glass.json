@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "T": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    " T ",
+    "SGS",
+    " T "
+  ],
+  "result": {
+    "count": 2,
+    "id": "caverns_and_chasms:float_glass"
+  }
+}

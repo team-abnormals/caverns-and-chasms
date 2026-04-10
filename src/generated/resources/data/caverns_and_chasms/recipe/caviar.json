@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:gems/turquoise"
+    },
+    "X": {
+      "item": "minecraft:salmon_bucket"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:caviar"
+  }
+}

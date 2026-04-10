@@ -1,0 +1,51 @@
+{
+  "parent": "caverns_and_chasms:adventure/use_tuning_fork",
+  "criteria": {
+    "attack_fish": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#c:fishes"
+            }
+          }
+        ],
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "mainhand": {
+                  "items": "caverns_and_chasms:tuning_fork"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.tune_a_fish.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:tuning_fork"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.tune_a_fish.title"
+    }
+  },
+  "requirements": [
+    [
+      "attack_fish"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

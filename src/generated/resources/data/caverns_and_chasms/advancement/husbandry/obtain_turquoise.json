@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "turquoise": {
+      "conditions": {
+        "items": [
+          {
+            "items": "caverns_and_chasms:turquoise"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.adventure.obtain_turquoise.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:turquoise"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.adventure.obtain_turquoise.title"
+    }
+  },
+  "requirements": [
+    [
+      "turquoise"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

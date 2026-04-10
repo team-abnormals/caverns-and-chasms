@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/silver"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "pattern": [
+    " B ",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:brewing_stand"
+  }
+}

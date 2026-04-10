@@ -1,0 +1,133 @@
+{
+  "molding": "json",
+  "remolder": [
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "minecraft:bundle",
+        "weight": 5
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:depth_gauge",
+        "weight": 5
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:toolbelt",
+        "weight": 5
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 3.0,
+              "min": 1.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:silver_ingot",
+        "weight": 5
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 11.0,
+              "min": 6.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:spinel",
+        "weight": 5
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 3.0,
+              "min": 1.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:tin_ingot",
+        "weight": 2
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[2].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 12.0,
+              "min": 4.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:sparkler",
+        "weight": 15
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[2].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 4.0,
+              "min": 1.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:spiked_rail",
+        "weight": 5
+      }
+    }
+  ],
+  "selector": "minecraft:chests/abandoned_mineshaft"
+}

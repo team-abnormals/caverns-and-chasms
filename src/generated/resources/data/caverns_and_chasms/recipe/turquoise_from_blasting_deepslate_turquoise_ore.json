@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 1.0,
+  "group": "turquoise",
+  "ingredient": {
+    "item": "caverns_and_chasms:deepslate_turquoise_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:turquoise"
+  }
+}

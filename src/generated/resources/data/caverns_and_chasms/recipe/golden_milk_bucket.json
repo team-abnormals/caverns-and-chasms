@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:bottles/milk"
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:golden_bucket"
+    },
+    {
+      "tag": "forge:bottles/milk"
+    },
+    {
+      "tag": "forge:bottles/milk"
+    },
+    {
+      "tag": "forge:bottles/milk"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:golden_milk_bucket"
+  }
+}

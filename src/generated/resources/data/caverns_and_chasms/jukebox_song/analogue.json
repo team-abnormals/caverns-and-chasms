@@ -1,0 +1,8 @@
+{
+  "comparator_output": 1,
+  "description": {
+    "translate": "jukebox_song.caverns_and_chasms.analogue"
+  },
+  "length_in_seconds": 141.0,
+  "sound_event": "caverns_and_chasms:music.record.analogue"
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "exposed_toolbox",
+  "key": {
+    "C": {
+      "item": "minecraft:exposed_copper"
+    },
+    "I": {
+      "item": "caverns_and_chasms:exposed_copper_ingot"
+    }
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:exposed_toolbox"
+  }
+}

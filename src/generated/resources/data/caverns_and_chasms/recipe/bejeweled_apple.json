@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:golden_apple"
+    },
+    "S": {
+      "tag": "forge:gems/spinel"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "SAS",
+    "SSS"
+  ],
+  "result": {
+    "count": 2,
+    "id": "caverns_and_chasms:bejeweled_apple"
+  }
+}

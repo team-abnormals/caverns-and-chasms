@@ -1,0 +1,12 @@
+{
+  "asset_name": "minecraft_copper",
+  "description": {
+    "color": "#B4684D",
+    "translate": "trim_material.minecraft.copper"
+  },
+  "ingredient": "minecraft:copper_ingot",
+  "item_model_index": 0.5,
+  "override_armor_materials": {
+    "caverns_and_chasms:copper": "caverns_and_chasms:copper_darker"
+  }
+}

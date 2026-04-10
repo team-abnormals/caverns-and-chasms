@@ -1,0 +1,35 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.caverns_and_chasms.conceal"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.1,
+          "per_level_above_first": 0.1
+        },
+        "attribute": "caverns_and_chasms:stealth",
+        "id": "caverns_and_chasms:enchantment.conceal",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "exclusive_set": "#caverns_and_chasms:exclusive_set/cowl",
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 10
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "head"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 2
+}

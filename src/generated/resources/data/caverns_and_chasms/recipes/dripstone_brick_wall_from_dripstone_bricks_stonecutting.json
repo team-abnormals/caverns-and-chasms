@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "caverns_and_chasms:dripstone_bricks"
-  },
-  "result": "caverns_and_chasms:dripstone_brick_wall"
-}

@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:nether/root",
+  "criteria": {
+    "ride_boat_with_deeper": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "dimension": "minecraft:the_nether"
+              },
+              "vehicle": {
+                "type": "minecraft:boat",
+                "passenger": {
+                  "type": "caverns_and_chasms:deeper"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:started_riding"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.nether.ride_boat_with_deeper.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:deeper_head"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.nether.ride_boat_with_deeper.title"
+    }
+  },
+  "requirements": [
+    [
+      "ride_boat_with_deeper"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

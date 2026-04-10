@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "caverns_and_chasms:granite_tiles"
-  },
-  "result": "caverns_and_chasms:granite_tile_stairs"
-}

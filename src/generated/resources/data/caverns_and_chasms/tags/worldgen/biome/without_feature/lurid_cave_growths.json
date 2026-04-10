@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:is_snowy",
+    "#c:is_snowy",
     "#minecraft:is_ocean"
   ]
 }

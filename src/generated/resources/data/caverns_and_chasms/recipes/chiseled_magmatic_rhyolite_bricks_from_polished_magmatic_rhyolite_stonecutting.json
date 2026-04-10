@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "caverns_and_chasms:polished_magmatic_rhyolite"
-  },
-  "result": "caverns_and_chasms:chiseled_magmatic_rhyolite_bricks"
-}

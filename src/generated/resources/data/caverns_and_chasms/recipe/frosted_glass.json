@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "T": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    " T ",
+    "SGS",
+    " T "
+  ],
+  "result": {
+    "count": 2,
+    "id": "caverns_and_chasms:frosted_glass"
+  }
+}

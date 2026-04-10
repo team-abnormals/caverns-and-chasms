@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:waxed_weathered_copper_brick_slab"
+    }
+  },
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_weathered_chiseled_copper_bricks"
+  }
+}

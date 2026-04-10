@@ -1,0 +1,34 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.caverns_and_chasms.extending"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 1.0,
+          "per_level_above_first": 1.0
+        },
+        "attribute": "minecraft:player.block_interaction_range",
+        "id": "caverns_and_chasms:enchantment.extending",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 10
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "legs"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 2
+}

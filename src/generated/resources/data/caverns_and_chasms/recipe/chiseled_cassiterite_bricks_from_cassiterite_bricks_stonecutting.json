@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "caverns_and_chasms:cassiterite_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:chiseled_cassiterite_bricks"
+  }
+}

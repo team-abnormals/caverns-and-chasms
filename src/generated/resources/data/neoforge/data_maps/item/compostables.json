@@ -1,0 +1,28 @@
+{
+  "values": {
+    "caverns_and_chasms:cave_growths": {
+      "chance": 0.3
+    },
+    "caverns_and_chasms:false_hope": {
+      "chance": 0.65
+    },
+    "caverns_and_chasms:grainy_cave_growths": {
+      "chance": 0.3
+    },
+    "caverns_and_chasms:lurid_cave_growths": {
+      "chance": 0.3
+    },
+    "caverns_and_chasms:moschatel": {
+      "chance": 0.65
+    },
+    "caverns_and_chasms:weird_cave_growths": {
+      "chance": 0.3
+    },
+    "caverns_and_chasms:wispy_cave_growths": {
+      "chance": 0.3
+    },
+    "caverns_and_chasms:zesty_cave_growths": {
+      "chance": 0.3
+    }
+  }
+}

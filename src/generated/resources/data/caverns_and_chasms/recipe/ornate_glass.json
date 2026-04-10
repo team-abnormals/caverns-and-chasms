@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks"
+    },
+    "Z": {
+      "tag": "forge:gems/zirconia"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GZG",
+    "GGG"
+  ],
+  "result": {
+    "count": 8,
+    "id": "caverns_and_chasms:ornate_glass"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "comparator_output": 11,
+  "description": {
+    "translate": "jukebox_song.caverns_and_chasms.epilogue"
+  },
+  "length_in_seconds": 77.0,
+  "sound_event": "caverns_and_chasms:music.record.epilogue"
+}

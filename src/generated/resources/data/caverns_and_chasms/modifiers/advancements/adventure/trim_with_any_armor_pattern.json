@@ -54,7 +54,8 @@
               "caverns_and_chasms:armor_trimmed_caverns_and_chasms:core_armor_trim_smithing_template_smithing_trim"
             ]
           }
-        ]
+        ],
+        "should_replace_requirements": false
       }
     }
   ],

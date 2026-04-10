@@ -1,0 +1,26 @@
+{
+  "parent": "caverns_and_chasms:husbandry/obtain_bone_flute",
+  "criteria": {
+    "kill_with_rat": {
+      "trigger": "caverns_and_chasms:rat_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.caverns_and_chasms.husbandry.kill_with_rat.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "caverns_and_chasms:bone_flute"
+    },
+    "title": {
+      "translate": "advancements.caverns_and_chasms.husbandry.kill_with_rat.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_with_rat"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -5,5 +5,8 @@
     "translate": "trim_material.caverns_and_chasms.sanguine"
   },
   "ingredient": "caverns_and_chasms:living_flesh",
-  "item_model_index": -1.0
+  "item_model_index": -1.0,
+  "override_armor_materials": {
+    "caverns_and_chasms:sanguine": "caverns_and_chasms:sanguine_darker"
+  }
 }

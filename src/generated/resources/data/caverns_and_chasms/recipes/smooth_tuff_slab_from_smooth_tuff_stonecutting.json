@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "caverns_and_chasms:smooth_tuff"
-  },
-  "result": "caverns_and_chasms:smooth_tuff_slab"
-}

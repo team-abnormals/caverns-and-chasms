@@ -1,0 +1,10 @@
+{
+  "type": "caverns_and_chasms:miming",
+  "ingredient": {
+    "item": "minecraft:music_disc_11"
+  },
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:music_disc_epilogue"
+  }
+}
