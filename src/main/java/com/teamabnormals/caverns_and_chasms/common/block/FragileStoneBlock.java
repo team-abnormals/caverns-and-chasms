@@ -1,7 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -19,13 +20,13 @@ public class FragileStoneBlock extends Block implements FragileBlock {
 	}
 
 	@Override
-	public String getDustParticle() {
-		return CavernsAndChasms.MOD_ID + ":stone_dust";
+	public ParticleOptions getDustParticle() {
+		return CCParticleTypes.STONE_DUST.get();
 	}
 
 	@Override
-	public String getChipParticle() {
-		return CavernsAndChasms.MOD_ID + ":stone_chip";
+	public ParticleOptions getChipParticle() {
+		return CCParticleTypes.STONE_CHIP.get();
 	}
 
 	@Override

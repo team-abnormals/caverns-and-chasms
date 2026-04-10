@@ -1,37 +1,43 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
-public class PotionSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
+public class PotionSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
 	public static final PotionSubtypeInterpreter INSTANCE = new PotionSubtypeInterpreter();
 
 	private PotionSubtypeInterpreter() {
 	}
 
 	@Override
-	public String apply(ItemStack itemStack, UidContext context) {
-		if (!itemStack.hasTag()) {
-			return IIngredientSubtypeInterpreter.NONE;
+	@Nullable
+	public Object getSubtypeData(ItemStack ingredient, UidContext context) {
+		PotionContents contents = ingredient.get(DataComponents.POTION_CONTENTS);
+		if (contents == null) {
+			return null;
 		}
+		return contents.potion().orElse(null);
+	}
 
-		Potion potionType = PotionUtils.getPotion(itemStack);
-		String potionTypeString = potionType.getName("");
-		StringBuilder stringBuilder = new StringBuilder(potionTypeString);
-		List<MobEffectInstance> effects = PotionUtils.getMobEffects(itemStack);
-		for (MobEffectInstance effect : effects) {
-			stringBuilder.append(";").append(effect);
+	@Override
+	public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+		return getStringName(ingredient);
+	}
+
+	public String getStringName(ItemStack itemStack) {
+		if (itemStack.getComponentsPatch().isEmpty()) {
+			return "";
 		}
+		PotionContents contents = itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+		String itemDescriptionId = itemStack.getItem().getDescriptionId();
+		String potionEffectId = contents.potion().map(Holder::getRegisteredName).orElse("none");
 
-		if (itemStack.has(CCDataComponents.SUBTLE))
-			stringBuilder.append(";subtle");
-
-		return stringBuilder.toString();
+		return itemDescriptionId + ".effect_id." + potionEffectId + (itemStack.has(CCDataComponents.SUBTLE) ? ".subtle" : "");
 	}
 }

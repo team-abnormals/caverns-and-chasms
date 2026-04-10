@@ -4,7 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCop
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -45,28 +45,29 @@ public class OxidizedCopperGolemItem extends Item {
 			AABB aabb = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 			if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty()) {
 				if (level instanceof ServerLevel serverlevel) {
-					Component customname = itemstack.hasCustomHoverName() ? itemstack.getHoverName() : null;
+					Component customname = itemstack.has(DataComponents.CUSTOM_NAME) ? itemstack.getHoverName() : null;
 					Consumer<OxidizedCopperGolem> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, context.getPlayer());
-					OxidizedCopperGolem golem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
+					OxidizedCopperGolem golem = CCEntityTypes.OXIDIZED_COPPER_GOLEM.get().create(serverlevel, consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
 					if (golem == null) {
 						return InteractionResult.FAIL;
 					}
 
 					golem.setWaxed(waxed);
 
-					CompoundTag compound = itemstack.getOrCreateTag();
-					if (compound.contains("NoAI"))
-						golem.setNoAi(compound.getBoolean("NoAI"));
-					if (compound.contains("Silent"))
-						golem.setSilent(compound.getBoolean("Silent"));
-					if (compound.contains("NoGravity"))
-						golem.setNoGravity(compound.getBoolean("NoGravity"));
-					if (compound.contains("Glowing"))
-						golem.setGlowingTag(compound.getBoolean("Glowing"));
-					if (compound.contains("Invulnerable"))
-						golem.setInvulnerable(compound.getBoolean("Invulnerable"));
-					if (compound.contains("PersistenceRequired"))
-						golem.setPersistenceRequired(compound.getBoolean("PersistenceRequired"));
+					//TODO: Reimplement?
+//					CompoundTag compound = itemstack.getOrCreateTag();
+//					if (compound.contains("NoAI"))
+//						golem.setNoAi(compound.getBoolean("NoAI"));
+//					if (compound.contains("Silent"))
+//						golem.setSilent(compound.getBoolean("Silent"));
+//					if (compound.contains("NoGravity"))
+//						golem.setNoGravity(compound.getBoolean("NoGravity"));
+//					if (compound.contains("Glowing"))
+//						golem.setGlowingTag(compound.getBoolean("Glowing"));
+//					if (compound.contains("Invulnerable"))
+//						golem.setInvulnerable(compound.getBoolean("Invulnerable"));
+//					if (compound.contains("PersistenceRequired"))
+//						golem.setPersistenceRequired(compound.getBoolean("PersistenceRequired"));
 
 					float yRot = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
 					golem.moveTo(golem.getX(), golem.getY(), golem.getZ(), yRot, 0.0F);

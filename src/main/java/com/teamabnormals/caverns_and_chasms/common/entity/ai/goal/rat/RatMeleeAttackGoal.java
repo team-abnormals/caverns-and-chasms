@@ -26,7 +26,7 @@ public class RatMeleeAttackGoal extends MeleeAttackGoal {
 	}
 
 	@Override
-	protected void checkAndPerformAttack(LivingEntity target, double distanceSqr) {
+	protected void checkAndPerformAttack(LivingEntity target) {
 		if (((RatHolder) target).getMaxRats() == 0) {
 			double d0 = this.getAttackReachSqr(target);
 			if (distanceSqr <= d0 && this.isTimeToAttack()) {

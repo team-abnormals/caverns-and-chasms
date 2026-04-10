@@ -1,11 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ResistorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -31,7 +31,12 @@ public class ResistorBlock extends DiodeBlock implements EntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+	protected MapCodec<? extends DiodeBlock> codec() {
+		return null;
+	}
+
+	@Override
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
 		if (!player.getAbilities().mayBuild) {
 			return InteractionResult.PASS;
 		} else {

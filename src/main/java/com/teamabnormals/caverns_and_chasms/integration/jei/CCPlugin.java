@@ -19,7 +19,6 @@ import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.common.extensions.IForgeItemStack;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,13 +61,13 @@ public class CCPlugin implements IModPlugin {
 	}
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {
-		Stream<ItemStack> items = registration.getIngredientManager().getAllItemStacks().stream().filter(IForgeItemStack::isRepairable);
+		Stream<ItemStack> items = registration.getIngredientManager().getAllItemStacks().stream().filter(ItemStack::isDamageableItem);
 		return Stream.of(
 				new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), items.collect(Collectors.toList())),
 				new RepairData(Ingredient.of(CCItemTags.INGOTS_TIN), new ItemStack(CCItems.AEGIS.get())),
-				new RepairData(CCArmorMaterials.COWL.getRepairIngredient(), new ItemStack(CCItems.COWL.get())),
-				new RepairData(CCArmorMaterials.TOOLBELT.getRepairIngredient(), new ItemStack(CCItems.TOOLBELT.get())),
-				new RepairData(CCArmorMaterials.SANGUINE.getRepairIngredient(),
+				new RepairData(CCArmorMaterials.COWL.get().repairIngredient().get(), new ItemStack(CCItems.COWL.get())),
+				new RepairData(CCArmorMaterials.TOOLBELT.get().repairIngredient().get(), new ItemStack(CCItems.TOOLBELT.get())),
+				new RepairData(CCArmorMaterials.SANGUINE.get().repairIngredient().get(),
 						new ItemStack(CCItems.SANGUINE_HELMET.get()),
 						new ItemStack(CCItems.SANGUINE_CHESTPLATE.get()),
 						new ItemStack(CCItems.SANGUINE_LEGGINGS.get()),
@@ -79,7 +78,7 @@ public class CCPlugin implements IModPlugin {
 						new ItemStack(CCItems.SILVER_AXE.get()),
 						new ItemStack(CCItems.SILVER_SHOVEL.get()),
 						new ItemStack(CCItems.SILVER_HOE.get())),
-				new RepairData(CCArmorMaterials.SILVER.getRepairIngredient(),
+				new RepairData(CCArmorMaterials.SILVER.get().repairIngredient().get(),
 						new ItemStack(CCItems.SILVER_HELMET.get()),
 						new ItemStack(CCItems.SILVER_CHESTPLATE.get()),
 						new ItemStack(CCItems.SILVER_LEGGINGS.get()),
@@ -90,7 +89,7 @@ public class CCPlugin implements IModPlugin {
 						new ItemStack(CCItems.NECROMIUM_HOE.get()),
 						new ItemStack(CCItems.NECROMIUM_SHOVEL.get()),
 						new ItemStack(CCItems.NECROMIUM_PICKAXE.get())),
-				new RepairData(CCArmorMaterials.NECROMIUM.getRepairIngredient(),
+				new RepairData(CCArmorMaterials.NECROMIUM.get().repairIngredient().get(),
 						new ItemStack(CCItems.NECROMIUM_BOOTS.get()),
 						new ItemStack(CCItems.NECROMIUM_HELMET.get()),
 						new ItemStack(CCItems.NECROMIUM_LEGGINGS.get()),

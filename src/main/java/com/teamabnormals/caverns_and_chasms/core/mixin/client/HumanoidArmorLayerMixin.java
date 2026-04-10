@@ -26,19 +26,20 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor.ARGB32;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.armortrim.ArmorTrim;
-import net.neoforged.neoforge.common.Tags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -57,13 +58,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	private A outerModel;
 
 	@Shadow
-	protected abstract void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, ArmorItem p_289650_, Model p_289658_, boolean p_289668_, float p_289678_, float p_289674_, float p_289693_, ResourceLocation armorResource);
-
-	@Shadow
 	protected abstract boolean usesInnerModel(EquipmentSlot p_117129_);
-
-	@Shadow
-	protected abstract void renderTrim(ArmorMaterial p_289690_, PoseStack p_289687_, MultiBufferSource p_289643_, int p_289683_, ArmorTrim p_289692_, Model p_289663_, boolean p_289651_);
 
 	@Shadow
 	protected abstract Model getArmorModelHook(T entity, ItemStack itemStack, EquipmentSlot slot, A model);
@@ -76,7 +71,16 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	private A innerModel;
 
 	@Shadow
-	protected abstract void renderArmorPiece(PoseStack p_117119_, MultiBufferSource p_117120_, T p_117121_, EquipmentSlot p_117122_, int p_117123_, A p_117124_);
+	protected abstract void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, Model p_289658_, int p_350798_, ResourceLocation p_324344_);
+
+	@Shadow
+	protected abstract void renderGlint(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, A model);
+
+	@Shadow
+	protected abstract void renderTrim(Holder<ArmorMaterial> armorMaterial, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, ArmorTrim trim, A model, boolean innerTexture);
+
+	@Shadow
+	protected abstract void renderTrim(Holder<ArmorMaterial> p_323506_, PoseStack p_289687_, MultiBufferSource p_289643_, int p_289683_, ArmorTrim p_289692_, Model p_289663_, boolean p_289651_);
 
 	@Unique
 	private static final ResourceLocation TETHER_POTION_LOCATION = CavernsAndChasms.location("textures/models/armor/tether_potion.png");
@@ -94,8 +98,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 		this.renderWornPotion(stack, source, packedLight, entity);
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = At.Shift.BEFORE), method = "renderArmorPiece")
-	public void renderArmorPiece(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, CallbackInfo ci) {
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = At.Shift.BEFORE), method = "renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;FFFFFF)V")
+	public void renderArmorPiece(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int packedLight, A model, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		if (entity instanceof Mime) {
 			if (slot == EquipmentSlot.LEGS) {
 				this.verticallyOffsetModelPart(this.getParentModel().body, model.body, 1.0F);
@@ -118,8 +122,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 		return original.call(layer, slot);
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = Shift.AFTER), method = "renderArmorPiece")
-	public void renderArmorPieceForCowl(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, CallbackInfo ci) {
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;setPartVisibility(Lnet/minecraft/client/model/HumanoidModel;Lnet/minecraft/world/entity/EquipmentSlot;)V", shift = Shift.AFTER), method = "renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;FFFFFF)V")
+	public void renderArmorPieceForCowl(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		ItemStack stack = entity.getItemBySlot(slot);
 		if (stack.is(CCItems.COWL.get())) {
 			model.body.visible = true;
@@ -140,28 +144,28 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 		part.zScale = scale;
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hasFoil()Z", shift = At.Shift.BEFORE), method = "renderArmorPiece")
-	public void renderSanguineTrim(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, CallbackInfo ci) {
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hasFoil()Z", shift = At.Shift.BEFORE), method = "renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;FFFFFF)V")
+	public void renderSanguineTrim(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		ItemStack stack = entity.getItemBySlot(slot);
 		if (stack.getItem() instanceof ArmorItem armorItem) {
-			boolean copper = armorItem.getMaterial() == CCArmorMaterials.COPPER || armorItem.getMaterial() == CCArmorMaterials.EXPOSED_COPPER
-					|| armorItem.getMaterial() == CCArmorMaterials.WEATHERED_COPPER || armorItem.getMaterial() == CCArmorMaterials.OXIDIZED_COPPER;
+			boolean copper = armorItem.getMaterial() == CCArmorMaterials.COPPER || armorItem.getMaterial() == CCArmorMaterials.EXPOSED_COPPER || armorItem.getMaterial() == CCArmorMaterials.WEATHERED_COPPER || armorItem.getMaterial() == CCArmorMaterials.OXIDIZED_COPPER;
 			boolean sanguine = armorItem.getMaterial() == CCArmorMaterials.SANGUINE;
 			if (copper || sanguine) {
 				RegistryAccess access = entity.level().registryAccess();
-				ArmorTrim.getTrim(access, stack).ifPresent(armorTrim -> {
+				ArmorTrim armorTrim = stack.get(DataComponents.TRIM);
+				if (armorTrim != null) {
 					ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(copper ? CCTrimPatterns.COPPER : CCTrimPatterns.SANGUINE));
 					((CCArmorTrim) trim).setFaded(((CCArmorTrim) armorTrim).isFaded());
 					((CCArmorTrim) trim).setEmissive(((CCArmorTrim) armorTrim).isEmissive());
 					((CCArmorTrim) trim).setPulse(((CCArmorTrim) armorTrim).isPulse());
 					this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
-				});
+				}
 			}
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "renderTrim(Lnet/minecraft/world/item/ArmorMaterial;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/Model;Z)V", cancellable = true, remap = false)
-	public void renderTrim(ArmorMaterial material, PoseStack stack, MultiBufferSource source, int i, ArmorTrim trim, Model model, boolean inner, CallbackInfo ci) {
+	@Inject(at = @At("HEAD"), method = "renderTrim(Lnet/minecraft/core/Holder;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/Model;Z)V", cancellable = true, remap = false)
+	public void renderTrim(Holder<ArmorMaterial> material, PoseStack stack, MultiBufferSource source, int i, ArmorTrim trim, Model model, boolean inner, CallbackInfo ci) {
 		CCArmorTrim armorTrim = (CCArmorTrim) trim;
 		boolean faded = armorTrim.isFaded();
 		boolean emissive = armorTrim.isEmissive();
@@ -170,7 +174,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			TextureAtlasSprite sprite = this.armorTrimAtlas.getSprite(inner ? trim.innerTexture(material) : trim.outerTexture(material));
 			Function<ResourceLocation, RenderType> type = emissive ? CCRenderTypes.ARMOR_CUTOUT_NO_CULL_EMISSIVE : CCRenderTypes.ARMOR_TRANSLUCENT_NO_CULL;
 			VertexConsumer vertexconsumer = sprite.wrap(source.getBuffer(type.apply(Sheets.ARMOR_TRIMS_SHEET)));
-			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, TrimModifierSmithingTemplateItem.getTrimAlpha(faded, emissive, pulse));
+			model.renderToBuffer(stack, vertexconsumer, i, OverlayTexture.NO_OVERLAY, ARGB32.colorFromFloat(TrimModifierSmithingTemplateItem.getTrimAlpha(faded, emissive, pulse), 1.0F, 1.0F, 1.0F));
 			ci.cancel();
 		}
 	}
@@ -186,13 +190,14 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			this.outerModel.hat.visible = true;
 
 			boolean flag = stack.hasFoil();
-			int i = PotionUtils.getColor(stack);
+			int i = stack.get(DataComponents.POTION_CONTENTS).getColor();
 			float r = (float) (i >> 16 & 255) / 255.0F;
 			float g = (float) (i >> 8 & 255) / 255.0F;
 			float b = (float) (i & 255) / 255.0F;
 
-			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, r, g, b, TETHER_POTION_LOCATION);
-			this.renderModel(poseStack, source, packedLight, null, this.outerModel, flag, 1.0F, 1.0F, 1.0F, stack.has(CCDataComponents.SUBTLE) ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
+			this.renderModel(poseStack, source, packedLight, this.outerModel, ARGB32.colorFromFloat(1.0F, r, g, b), TETHER_POTION_LOCATION);
+			this.renderModel(poseStack, source, packedLight, this.outerModel, ARGB32.colorFromFloat(1.0F, 1.0F, 1.0F, 1.0F), stack.has(CCDataComponents.SUBTLE) ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
+			if (flag) this.renderGlint(poseStack, source, packedLight, this.outerModel);
 		}
 	}
 

@@ -13,7 +13,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class CupricTorchBlock extends TorchBlock {
 
 	public CupricTorchBlock(Properties properties) {
-		super(properties, ParticleTypes.FLAME);
+		super(ParticleTypes.FLAME, properties);
 	}
 
 	@OnlyIn(Dist.CLIENT)

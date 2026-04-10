@@ -27,7 +27,7 @@ public abstract class MobMixin extends LivingEntity {
 	private void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty, CallbackInfo info) {
 		if (random.nextFloat() < 0.5F) {
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
-				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
+				if (slot.isArmor()) {
 					ItemStack stack = this.getItemBySlot(slot);
 					Item silverItem = replaceSilverWithGold(stack);
 					if (silverItem != null) {

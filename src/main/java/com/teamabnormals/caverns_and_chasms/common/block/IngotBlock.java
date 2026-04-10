@@ -179,7 +179,7 @@ public class IngotBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState p_56104_, BlockGetter p_56105_, BlockPos p_56106_, PathComputationType p_56107_) {
+	public boolean isPathfindable(BlockState p_56104_, PathComputationType p_56107_) {
 		return false;
 	}
 

@@ -25,23 +25,18 @@ public class SubtlePotion extends Potion {
 	}
 
 	@Override
-	public String getName(String name) {
-		return this.potion.getName(name);
-	}
-
-	@Override
 	public boolean hasInstantEffects() {
 		return this.potion.hasInstantEffects();
 	}
 
-	public static ImmutableList<MobEffectInstance> setSubtleEffects(List<MobEffectInstance> list) {
+	public static ImmutableList<MobEffectInstance> setSubtleEffects(Iterable<MobEffectInstance> list) {
 		ArrayList<MobEffectInstance> effects = new ArrayList<>();
 		list.forEach(effect -> {
 			MobEffectInstance clone = new MobEffectInstance(
 					effect.getEffect(), effect.getDuration(), effect.getAmplifier(), effect.isAmbient(), false,
-					effect.showIcon(), null, effect.getFactorData()
+					effect.showIcon(), null
 			);
-			clone.setCurativeItems(effect.getCurativeItems());
+			effect.getEffect().value().fillEffectCures(effect.getCures(), clone);
 			((SubtleMobEffectInstance) clone).setSubtle(true);
 
 			effects.add(clone);

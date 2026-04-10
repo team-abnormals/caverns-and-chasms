@@ -31,7 +31,9 @@ import com.teamabnormals.caverns_and_chasms.common.block.holdable.*;
 import com.teamabnormals.caverns_and_chasms.common.block.turquoise.*;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.mixin.block.BlockBehaviourAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
+import com.teamabnormals.caverns_and_chasms.core.other.CCEnums;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents.CCSoundTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
@@ -46,6 +48,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -626,7 +629,7 @@ public class CCBlocks {
 
 	public static final DeferredBlock<Block> COAL = HELPER.createPlacedItem("coal", () -> new CoalBlock(CCProperties.placedCoal(6)));
 	public static final DeferredBlock<Block> CHARCOAL = HELPER.createPlacedItem("charcoal", () -> new CoalBlock(CCProperties.placedCoal(4).sound(CCSoundTypes.CHARCOAL)));
-	public static final DeferredBlock<Block> CHARCOAL_BLOCK = HELPER.createFuelBlock("charcoal_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK).sound(CCSoundTypes.CHARCOAL)), 12800);
+	public static final DeferredBlock<Block> CHARCOAL_BLOCK = HELPER.createBlock("charcoal_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK).sound(CCSoundTypes.CHARCOAL)));
 
 	public static final DeferredBlock<Block> COPPER_INGOT = HELPER.createPlacedItem("copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.UNAFFECTED, () -> Items.COPPER_INGOT, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)));
 	public static final DeferredBlock<Block> EXPOSED_COPPER_INGOT = HELPER.createPlacedItem("exposed_copper_ingot", () -> new CCWeatheringIngotBlock(WeatherState.EXPOSED, CCItems.EXPOSED_COPPER_INGOT, BlockBehaviour.Properties.ofFullCopy(Blocks.EXPOSED_COPPER)));
@@ -710,7 +713,7 @@ public class CCBlocks {
 						COBBLED_DEEPSLATE_BRICKS, COBBLED_DEEPSLATE_BRICK_STAIRS, COBBLED_DEEPSLATE_BRICK_SLAB, COBBLED_DEEPSLATE_BRICK_WALL,
 						COBBLED_DEEPSLATE_TILES, COBBLED_DEEPSLATE_TILE_STAIRS, COBBLED_DEEPSLATE_TILE_SLAB, COBBLED_DEEPSLATE_TILE_WALL
 				)
-				.editor(event -> event.getEntries().remove(new ItemStack(Blocks.CHISELED_DEEPSLATE)))
+				.editor(event -> event.remove(new ItemStack(Blocks.CHISELED_DEEPSLATE), TabVisibility.PARENT_AND_SEARCH_TABS))
 				.addItemsBefore(of(Blocks.DEEPSLATE_TILES), () -> Blocks.CHISELED_DEEPSLATE)
 				.addItemsBefore(of(Blocks.BASALT), SANGUINE_BLOCK, SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL, FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL)
 				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL, AMETHYST_LAMP)
@@ -934,7 +937,7 @@ public class CCBlocks {
 
 		public static final BlockBehaviour.Properties SADDLED_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().strength(0.5F).sound(CCSoundTypes.SADDLED_EGG).randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
 
-		public static final Item.Properties FANCY = new Item.Properties().rarity(CCItems.FANCY);
+		public static final Item.Properties FANCY = new Item.Properties().rarity(CCEnums.FANCY.getValue());
 
 		public static final WoodSetProperties AZALEA = WoodSetProperties.builder(MapColor.TERRACOTTA_PURPLE).leavesSound(SoundType.AZALEA_LEAVES).build();
 
@@ -969,9 +972,10 @@ public class CCBlocks {
 		private static BlockBehaviour.Properties modifyOffset(BlockBehaviour.Properties properties) {
 			properties.offsetFunction = (state, level, pos) -> {
 				Block block = state.getBlock();
+				BlockBehaviourAccessor accessor = (BlockBehaviourAccessor) block;
 				long i = Mth.getSeed(pos.getX(), pos.getY(), pos.getZ());
-				double d0 = ((double) ((float) (i >> 4 & 15L) / 15.0F) - 1.0D) * (double) block.getMaxVerticalOffset();
-				float f = block.getMaxHorizontalOffset();
+				double d0 = ((double) ((float) (i >> 4 & 15L) / 15.0F) - 1.0D) * (double) accessor.invokeGetMaxVerticalOffset();
+				float f = accessor.invokeGetMaxHorizontalOffset();
 				double d1 = Mth.clamp(((double) ((float) (i & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
 				double d2 = Mth.clamp(((double) ((float) (i >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -f, f);
 

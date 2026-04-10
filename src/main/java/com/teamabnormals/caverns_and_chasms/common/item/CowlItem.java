@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.mixin.entity.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEnchantmentEffects;
@@ -77,6 +78,14 @@ public class CowlItem extends ArmorItem {
 		Entity entity = event.getEntity();
 		Level level = entity.level();
 		if (level instanceof ServerLevel serverLevel && entity instanceof LivingEntity living) {
+			ItemStack headstack = living.getItemBySlot(EquipmentSlot.HEAD);
+			if (headstack.is(CCItems.COWL.get()) && EnchantmentHelper.has(headstack, CCEnchantmentEffects.INVISIBLE_WHEN_CROUCHING.get())) {
+				living.setInvisible(living.isCrouching());
+				if (!living.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
+					accessor.invokeUpdateInvisibilityStatus();
+				}
+			}
+
 			IDataManager dataManager = ((IDataManager) living);
 			boolean isInvisible = dataManager.getValue(CCDataProcessors.OBSCURITY_INVISIBILITY);
 			boolean shouldBeInvisible = shouldBeInvisible(living);

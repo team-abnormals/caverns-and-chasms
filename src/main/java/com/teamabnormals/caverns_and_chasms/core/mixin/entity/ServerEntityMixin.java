@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
@@ -41,7 +40,7 @@ public final class ServerEntityMixin {
 			if (!currentrats.equals(this.prevRats)) {
 				this.prevRats = currentrats;
 				// TODO: Try to figure out what the problem with tracking entity is. Might also be a problem in PlayerListMixin, which is why I set it to dimension too.
-				CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level.dimension()), new UpdateAttachedRatsPayload(ratholder));
+				PacketDistributor.sendToPlayersInDimension(this.level, new UpdateAttachedRatsPayload(ratholder));
 			}
 		}
 	}

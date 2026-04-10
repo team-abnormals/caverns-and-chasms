@@ -2,16 +2,19 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.Sets;
 import com.teamabnormals.blueprint.common.entity.BlueprintFallingBlockEntity;
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FallingBlock;
@@ -23,13 +26,14 @@ import net.neoforged.neoforge.common.Tags;
 import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 
 public interface FragileBlock {
 	@Nonnull
-	String getDustParticle();
+	ParticleOptions getDustParticle();
 
 	@Nonnull
-	String getChipParticle();
+	ParticleOptions getChipParticle();
 
 	default void breakNeighbors(Level level, BlockPos pos) {
 		HashSet<BlockPos> positions = Sets.newHashSet();
@@ -115,22 +119,24 @@ public interface FragileBlock {
 	}
 
 	default void crack(Level level, BlockState state, BlockPos pos, RandomSource random) {
-		double d0 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
-		double d1 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
-		double d2 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
-		double d3 = random.nextGaussian() * 0.04D;
-		double d4 = random.nextGaussian() * 0.04D;
-		double d5 = random.nextGaussian() * 0.04D;
-		NetworkUtil.spawnParticle(this.getDustParticle(), d0, d1, d2, d3, d4, d5);
+		if (level instanceof ServerLevel serverLevel) {
+			double d0 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
+			double d1 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
+			double d2 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
+			double d3 = random.nextGaussian() * 0.04D;
+			double d4 = random.nextGaussian() * 0.04D;
+			double d5 = random.nextGaussian() * 0.04D;
+			NetworkUtil.spawnParticle(serverLevel, this.getDustParticle(), List.of(new ParticleInstance(d0, d1, d2, d3, d4, d5)));
 
-		int i = random.nextInt(2) + 1;
-		for (int j = 0; j < i; ++j) {
-			double d6 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
-			double d7 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
-			double d8 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
-			double d9 = ((double) random.nextFloat() - 0.5D) * 0.02D;
-			double d10 = ((double) random.nextFloat() - 0.5D) * 0.02D;
-			NetworkUtil.spawnParticle(this.getChipParticle(), d6, d7, d8, d9, -0.4D, d10);
+			int i = random.nextInt(2) + 1;
+			for (int j = 0; j < i; ++j) {
+				double d6 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
+				double d7 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
+				double d8 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
+				double d9 = ((double) random.nextFloat() - 0.5D) * 0.02D;
+				double d10 = ((double) random.nextFloat() - 0.5D) * 0.02D;
+				NetworkUtil.spawnParticle(serverLevel, this.getChipParticle(), List.of(new ParticleInstance(d6, d7, d8, d9, -0.4D, d10)));
+			}
 		}
 
 		SoundType soundtype = state.getSoundType(level, pos, null);
@@ -141,6 +147,6 @@ public interface FragileBlock {
 	}
 
 	default boolean shouldBreakNeighbors(Player player, ItemStack stack) {
-		return !player.isCreative() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0;
+		return !player.isCreative() && stack.getEnchantmentLevel(player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.SILK_TOUCH)) == 0;
 	}
 }

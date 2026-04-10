@@ -21,7 +21,7 @@ public class PeeperChargedLayer extends RenderLayer<Peeper, PeeperModel<Peeper>>
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, Peeper peeper, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		if (peeper.isPowered()) {
-			this.getParentModel().renderOverlay(PeeperSpriteUploader.getChargedPeeperSprite(), true, poseStack, 15728880, LivingEntityRenderer.getOverlayCoords(peeper, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+			this.getParentModel().renderOverlay(PeeperSpriteUploader.getChargedPeeperSprite(), true, poseStack, 15728880, LivingEntityRenderer.getOverlayCoords(peeper, 0.0F), -1);
 		}
 	}
 }

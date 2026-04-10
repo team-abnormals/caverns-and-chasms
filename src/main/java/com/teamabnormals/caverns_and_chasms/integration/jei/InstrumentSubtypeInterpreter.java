@@ -1,20 +1,17 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
-import com.teamabnormals.caverns_and_chasms.common.item.copper.CopperHornItem;
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class InstrumentSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
+public class InstrumentSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
 	public static final InstrumentSubtypeInterpreter INSTANCE = new InstrumentSubtypeInterpreter();
 
 	private InstrumentSubtypeInterpreter() {
@@ -22,21 +19,21 @@ public class InstrumentSubtypeInterpreter implements IIngredientSubtypeInterpret
 	}
 
 	@Override
-	public String apply(ItemStack itemStack, UidContext context) {
-		CompoundTag tag = itemStack.getTag();
-		if (tag != null && tag.contains(CopperHornItem.HARMONY, 8)) {
-			ResourceLocation harmonyLocation = ResourceLocation.tryParse(tag.getString(CopperHornItem.HARMONY));
-			ResourceLocation melodyLocation = ResourceLocation.tryParse(tag.getString(CopperHornItem.MELODY));
-			ResourceLocation bassLocation = ResourceLocation.tryParse(tag.getString(CopperHornItem.BASS));
+	public @Nullable Object getSubtypeData(ItemStack ingredient, UidContext context) {
+		return List.of(ingredient.get(CCDataComponents.HARMONY_INSTRUMENT), ingredient.get(CCDataComponents.MELODY_INSTRUMENT), ingredient.get(CCDataComponents.BASS_INSTRUMENT));
+	}
+
+	@Override
+	public String getLegacyStringSubtypeInfo(ItemStack stack, UidContext context) {
+		if (stack.has(CCDataComponents.HARMONY_INSTRUMENT)) {
+			ResourceLocation harmonyLocation = stack.get(CCDataComponents.HARMONY_INSTRUMENT).getKey().location();
+			ResourceLocation melodyLocation = stack.get(CCDataComponents.MELODY_INSTRUMENT).getKey().location();
+			ResourceLocation bassLocation = stack.get(CCDataComponents.BASS_INSTRUMENT).getKey().location();
 
 			List<String> strings = new ArrayList<>();
-
-			if (harmonyLocation != null && melodyLocation != null && bassLocation != null) {
-				strings.add(BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, harmonyLocation)).map(holder -> holder.key().location().toString()).orElse(IIngredientSubtypeInterpreter.NONE));
-				strings.add(BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, melodyLocation)).map(holder -> holder.key().location().toString()).orElse(IIngredientSubtypeInterpreter.NONE));
-				strings.add(BuiltInRegistries.INSTRUMENT.getHolder(ResourceKey.create(Registries.INSTRUMENT, bassLocation)).map(holder -> holder.key().location().toString()).orElse(IIngredientSubtypeInterpreter.NONE));
-			}
-
+			strings.add(harmonyLocation.toString());
+			strings.add(melodyLocation.toString());
+			strings.add(bassLocation.toString());
 			StringJoiner joiner = new StringJoiner(",", "[", "]");
 			strings.sort(null);
 			for (String s : strings) {
@@ -47,6 +44,6 @@ public class InstrumentSubtypeInterpreter implements IIngredientSubtypeInterpret
 		}
 
 
-		return IIngredientSubtypeInterpreter.NONE;
+		return "";
 	}
 }

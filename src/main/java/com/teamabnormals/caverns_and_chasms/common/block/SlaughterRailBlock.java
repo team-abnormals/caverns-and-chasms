@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
@@ -39,6 +40,11 @@ public class SlaughterRailBlock extends BaseRailBlock {
 	@Override
 	public Property<RailShape> getShapeProperty() {
 		return SHAPE;
+	}
+
+	@Override
+	protected MapCodec<? extends BaseRailBlock> codec() {
+		return null;
 	}
 
 	@Override

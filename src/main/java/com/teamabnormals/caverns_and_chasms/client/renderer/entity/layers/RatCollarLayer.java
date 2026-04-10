@@ -31,9 +31,9 @@ public class RatCollarLayer extends RenderLayer<Rat, RatModel> {
 	}
 
 	public static void renderCollar(RatModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, DyeColor collarColor, int hurtTime, int deathTime) {
-		float[] afloat = collarColor.getTextureDiffuseColors();
+		int color = collarColor.getTextureDiffuseColor();
 		int overlaycoords = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(hurtTime > 0 || deathTime > 0));
 		VertexConsumer ivertexbuilder = buffer.getBuffer(RenderType.entityCutoutNoCull(RAT_COLLAR_LOCATION));
-		model.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlaycoords, afloat[0], afloat[1], afloat[2], 1.0F);
+		model.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlaycoords, color);
 	}
 }

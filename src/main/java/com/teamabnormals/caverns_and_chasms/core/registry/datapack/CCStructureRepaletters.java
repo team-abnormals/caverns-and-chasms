@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterEntry;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterManager;
-import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepalleterManager;
 import com.teamabnormals.blueprint.core.registry.BlueprintDataPackRegistries;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotLayer;

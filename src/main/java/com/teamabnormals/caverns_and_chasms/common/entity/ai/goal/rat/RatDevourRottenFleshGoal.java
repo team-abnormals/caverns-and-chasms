@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
@@ -8,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import java.util.EnumSet;
+import java.util.List;
 
 public class RatDevourRottenFleshGoal extends Goal {
 	private final Rat rat;
@@ -77,11 +80,13 @@ public class RatDevourRottenFleshGoal extends Goal {
 			this.rat.setCommandedTarget(null);
 			this.rat.setDirty(false);
 
-			for (int i = 0; i < 4; ++i) {
-				double d0 = random.nextGaussian() * 0.02D;
-				double d1 = random.nextGaussian() * 0.02D;
-				double d2 = random.nextGaussian() * 0.02D;
-				NetworkUtil.spawnParticle(ParticleTypes.HEART.writeToString(), this.rat.getRandomX(1.0D), this.rat.getRandomY() + 0.15D, this.rat.getRandomZ(1.0D), d0, d1, d2);
+			if (this.rat.level() instanceof ServerLevel level) {
+				for (int i = 0; i < 4; ++i) {
+					double d0 = random.nextGaussian() * 0.02D;
+					double d1 = random.nextGaussian() * 0.02D;
+					double d2 = random.nextGaussian() * 0.02D;
+					NetworkUtil.spawnParticle(level, ParticleTypes.HEART, List.of(new ParticleInstance(this.rat.getRandomX(1.0D), this.rat.getRandomY() + 0.15D, this.rat.getRandomZ(1.0D), d0, d1, d2)));
+				}
 			}
 
 			if (this.rat.level().getEntitiesOfClass(Rat.class, this.rat.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), (entity) -> entity != this.rat && entity.getTamer() != null && entity.getRottenFleshPos() == this.rat.getRottenFleshPos()).isEmpty()) {

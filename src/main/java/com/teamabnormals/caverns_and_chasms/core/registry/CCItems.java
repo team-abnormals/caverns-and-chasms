@@ -5,7 +5,6 @@ import com.teamabnormals.blueprint.common.item.BlueprintBoatItem;
 import com.teamabnormals.blueprint.core.util.item.CreativeModeTabContentsPopulator;
 import com.teamabnormals.blueprint.core.util.item.ItemStackUtil;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
-import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.MovingDoorType;
 import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.*;
@@ -23,6 +22,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBannerPatternTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCInstrumentTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCJukeboxSongs;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
+import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCItemSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import it.unimi.dsi.fastutil.objects.ObjectSortedSet;
 import net.minecraft.core.Direction;
@@ -39,20 +39,17 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
-import net.neoforged.neoforge.common.util.MutableHashedLinkedMap;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -60,7 +57,7 @@ import static net.minecraft.world.item.CreativeModeTabs.*;
 import static net.minecraft.world.item.crafting.Ingredient.of;
 
 public class CCItems {
-	public static final ItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
+	public static final CCItemSubRegistryHelper HELPER = CavernsAndChasms.REGISTRY_HELPER.getItemSubHelper();
 
 	public static final DeferredItem<Item> TUNING_FORK = HELPER.createItem("tuning_fork", () -> new TuningForkItem(new Item.Properties().stacksTo(1)));
 	public static final DeferredItem<Item> BAROMETER = HELPER.createItem("barometer", () -> new Item(new Item.Properties()));
@@ -268,8 +265,8 @@ public class CCItems {
 	public static final DeferredItem<Item> STALKER_POTTERY_SHERD = HELPER.createItem("stalker_pottery_sherd", () -> new Item(new Item.Properties()));
 
 	public static final DeferredItem<Item> DIMMER = HELPER.createItem("dimmer", () -> new DimmerBlockItem(CCBlocks.DIMMER.get(), CCBlocks.WALL_DIMMER.get(), new Item.Properties()));
-	public static final DeferredItem<Item> ROLLER_DOOR = HELPER.createItem("roller_door", () -> new MovingDoorBlockItem(CCBlocks.ROLLER_DOOR.get(), MovingDoorType.ROLLER_DOOR, new Item.Properties().stacksTo(64)));
-	public static final DeferredItem<Item> ROLLER_WINDOW = HELPER.createItem("roller_window", () -> new MovingDoorBlockItem(CCBlocks.ROLLER_DOOR.get(), MovingDoorType.ROLLER_WINDOW, new Item.Properties().stacksTo(64)));
+	public static final DeferredItem<Item> ROLLER_DOOR = HELPER.createMovingDoorItem("roller_door", MovingDoorType.ROLLER_DOOR, CCBlocks.ROLLER_DOOR);
+	public static final DeferredItem<Item> ROLLER_WINDOW = HELPER.createMovingDoorItem("roller_window", MovingDoorType.ROLLER_WINDOW, CCBlocks.ROLLER_DOOR);
 
 	public static final DeferredItem<Item> CAVEFISH = HELPER.createItem("cavefish", () -> new Item(new Item.Properties().food(CCFoods.CAVEFISH)));
 	public static final DeferredItem<Item> CAVEFISH_BUCKET = HELPER.createItem("cavefish_bucket", () -> new MobBucketItem(CCEntityTypes.CAVEFISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
@@ -380,18 +377,15 @@ public class CCItems {
 
 	private static void generatePotionEffectTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Potion> potion, Item potionItem, boolean subtle) {
 		TabVisibility visibility = TabVisibility.PARENT_AND_SEARCH_TABS;
-		List<ItemStack> items = potion.listElements().filter((potions) -> !potions.is(Potions.EMPTY_ID)).map((p_269986_) -> {
-			return PotionUtils.setPotion(new ItemStack(potionItem), p_269986_.value());
-		}).toList();
+		List<ItemStack> items = potion.listElements().map((p_269986_) -> PotionContents.createItemStack(potionItem, p_269986_)).toList();
 
-		MutableHashedLinkedMap<ItemStack, TabVisibility> entries = event.getEntries();
-		for (Entry<ItemStack, TabVisibility> entry : entries) {
-			ItemStack stack = entry.getKey();
-			if (predicate.test(stack)) {
+		ObjectSortedSet<ItemStack> entries = event.getParentEntries();
+		for (ItemStack entry : entries) {
+			if (predicate.test(entry)) {
 				for (ItemStack itemValue : items) {
 					if (subtle)
 						itemValue.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
-					entries.put(itemValue, visibility);
+					entries.add(itemValue);
 				}
 				return;
 			}

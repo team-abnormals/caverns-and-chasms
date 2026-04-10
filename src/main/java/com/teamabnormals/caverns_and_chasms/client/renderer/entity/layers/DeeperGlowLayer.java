@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.util.FastColor.ARGB32;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -24,7 +25,8 @@ public class DeeperGlowLayer<T extends Deeper, M extends DeeperModel<T>> extends
 		boolean charged = deeper.isPowered();
 		float emission = DeeperRenderer.getExplosionEmissionProgress(deeper, partialTick, charged);
 		float alpha = charged ? 1.0F : emission;
-		this.getParentModel().renderOverlay(charged ? DeeperSprite.CHARGED : DeeperSprite.PRIMED, false, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, charged ? emission : 0.0F), 1.0F, 1.0F, 1.0F, alpha);
-		this.getParentModel().renderOverlay(charged ? DeeperSprite.CHARGED_EMISSIVE : DeeperSprite.EMISSIVE, true, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, 0.0F), 1.0F, 1.0F, 1.0F, alpha);
+		int color = ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F);
+		this.getParentModel().renderOverlay(charged ? DeeperSprite.CHARGED : DeeperSprite.PRIMED, false, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, charged ? emission : 0.0F), color);
+		this.getParentModel().renderOverlay(charged ? DeeperSprite.CHARGED_EMISSIVE : DeeperSprite.EMISSIVE, true, stack, packedLightIn, LivingEntityRenderer.getOverlayCoords(deeper, 0.0F), color);
 	}
 }

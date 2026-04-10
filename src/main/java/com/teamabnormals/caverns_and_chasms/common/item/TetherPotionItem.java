@@ -11,18 +11,18 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -31,18 +31,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.common.util.AttributeUtil;
 
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 public class TetherPotionItem extends PotionItem implements Equipable {
+	private static final Component NO_EFFECT = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
 
 	public TetherPotionItem(Properties properties) {
 		super(properties);
@@ -89,77 +89,60 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-		List<MobEffectInstance> list = PotionUtils.getMobEffects(stack);
-		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
+		PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+		if (contents != null) {
+			this.addPotionTooltip(contents.getAllEffects(), tooltip::add, 1.0F, context.tickRate());
+		}
+	}
+
+	public void addPotionTooltip(Iterable<MobEffectInstance> effects, Consumer<Component> tooltipAdder, float durationFactor, float ticksPerSecond) {
+		List<Pair<Holder<Attribute>, AttributeModifier>> list = Lists.newArrayList();
+		boolean flag = true;
 
 		List<Component> instanttooltip = Lists.newArrayList();
 		List<Component> continuoustooltip = Lists.newArrayList();
 
-		if (list.isEmpty()) {
-			continuoustooltip.add((Component.translatable("effect.none")).withStyle(ChatFormatting.GRAY));
-		} else {
-			for (MobEffectInstance mobeffectinstance : list) {
-				MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
-				MobEffect effect = mobeffectinstance.getEffect();
-				Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
-				if (!map.isEmpty()) {
-					for (Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-						AttributeModifier attributemodifier = entry.getValue();
-						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
-					}
-				}
-
-				if (mobeffectinstance.getAmplifier() > 0) {
-					mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier()));
-				}
-
-				if (effect.isInstantenous()) {
-					instanttooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
-				} else {
-					mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, StringUtil.formatTickDuration(shortDuration() ? getTetherPotionDuration(mobeffectinstance.getDuration()) : mobeffectinstance.getDuration()));
-					continuoustooltip.add(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
-				}
+		for (MobEffectInstance effect : effects) {
+			flag = false;
+			MutableComponent mutablecomponent = Component.translatable(effect.getDescriptionId());
+			Holder<MobEffect> holder = effect.getEffect();
+			holder.value().createModifiers(effect.getAmplifier(), (p_331556_, p_330860_) -> list.add(new Pair<>(p_331556_, p_330860_)));
+			if (effect.getAmplifier() > 0) {
+				mutablecomponent = Component.translatable(
+						"potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + effect.getAmplifier())
+				);
 			}
+
+			if (effect.getEffect().value().isInstantenous()) {
+				instanttooltip.add(mutablecomponent.withStyle(effect.getEffect().value().getCategory().getTooltipFormatting()));
+			} else {
+				mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(effect, durationFactor, ticksPerSecond));
+				continuoustooltip.add(mutablecomponent.withStyle(effect.getEffect().value().getCategory().getTooltipFormatting()));
+			}
+
+			tooltipAdder.accept(mutablecomponent.withStyle(holder.value().getCategory().getTooltipFormatting()));
 		}
 
-		tooltip.addAll(instanttooltip);
+		if (flag) {
+			tooltipAdder.accept(NO_EFFECT);
+		}
+
+		instanttooltip.forEach(tooltipAdder);
 		if (!continuoustooltip.isEmpty()) {
-			tooltip.add(Component.empty());
-			tooltip.add((toolTipHeader()).withStyle(ChatFormatting.GRAY));
-			tooltip.addAll(continuoustooltip);
+			tooltipAdder.accept(Component.empty());
+			tooltipAdder.accept((toolTipHeader()).withStyle(ChatFormatting.GRAY));
+			continuoustooltip.forEach(tooltipAdder);
 		}
 
-		if (!list1.isEmpty()) {
-			tooltip.add(Component.empty());
-			tooltip.add((Component.translatable("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
-
-			for (Pair<Attribute, AttributeModifier> pair : list1) {
-				AttributeModifier attributemodifier2 = pair.getSecond();
-				double d0 = attributemodifier2.getAmount();
-				double d1;
-				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-					d1 = attributemodifier2.getAmount();
-				} else {
-					d1 = attributemodifier2.getAmount() * 100.0D;
-				}
-
-				if (d0 > 0.0D) {
-					tooltip.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
-				} else if (d0 < 0.0D) {
-					d1 *= -1.0D;
-					tooltip.add((Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
-				}
-			}
+		if (!list.isEmpty()) {
+			tooltipAdder.accept(CommonComponents.EMPTY);
+			tooltipAdder.accept(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
+			AttributeUtil.addPotionTooltip(list, tooltipAdder);
 		}
 	}
 
 	public MutableComponent toolTipHeader() {
 		return Component.translatable("item.modifiers." + EquipmentSlot.HEAD.getName());
-	}
-
-	public boolean shortDuration() {
-		return true;
 	}
 
 	public static int getTetherPotionDuration(int originalDuration) {
@@ -168,8 +151,8 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	}
 
 	public static void updateTetherPotionEffects(LivingEntity entity, ItemStack stack, boolean infiniteDuration) {
-		for (MobEffectInstance instance : PotionUtils.getMobEffects(stack)) {
-			if (!instance.getEffect().isInstantenous()) {
+		for (MobEffectInstance instance : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
+			if (!instance.getEffect().value().isInstantenous()) {
 				int i = infiniteDuration ? -1 : getTetherPotionDuration(instance.getDuration());
 				MobEffectInstance currentinstance = entity.getEffect(instance.getEffect());
 				MobEffectInstance newinstance = new MobEffectInstance(instance.getEffect(), i, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon());
@@ -178,8 +161,8 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 					entity.addEffect(newinstance);
 				} else if (currentinstance.getAmplifier() == instance.getAmplifier()) {
 					entity.getActiveEffectsMap().put(instance.getEffect(), newinstance);
-					if (entity instanceof ServerPlayer)
-						((ServerPlayer) entity).connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), newinstance));
+					if (entity instanceof ServerPlayer serverPlayer)
+						serverPlayer.connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), newinstance, false));
 				}
 			}
 		}

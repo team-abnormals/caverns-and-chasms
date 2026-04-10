@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -19,6 +20,11 @@ public class CopperRailBlock extends BaseRailBlock {
 		super(true, properties);
 		this.weatherState = weatherState;
 		this.registerDefaultState(this.stateDefinition.any().setValue(SHAPE, RailShape.NORTH_SOUTH).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseRailBlock> codec() {
+		return null;
 	}
 
 	@Override

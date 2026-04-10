@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.StorageDuctBlock.DuctEnd;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctHatchBlockEntity;
@@ -11,7 +12,6 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
@@ -51,6 +51,11 @@ public class StorageDuctHatchBlock extends BaseEntityBlock implements SimpleWate
 	public StorageDuctHatchBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HANDLE, RelativeDirection.DOWN).setValue(OPEN, false).setValue(WATERLOGGED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Override
@@ -151,12 +156,12 @@ public class StorageDuctHatchBlock extends BaseEntityBlock implements SimpleWate
 	@Override
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		BlockEntity blockentity = level.getBlockEntity(pos);
-		if (blockentity instanceof StorageDuctHatchBlockEntity)
-			((StorageDuctHatchBlockEntity) blockentity).recheckOpen();
+		if (blockentity instanceof StorageDuctHatchBlockEntity hatch)
+			hatch.recheckOpen();
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
 		if (level.getBlockEntity(pos) instanceof StorageDuctHatchBlockEntity hatch) {
 			BlockPos ductpos = pos.relative(state.getValue(FACING).getOpposite());
 			if (level.getBlockEntity(ductpos) instanceof StorageDuctBlockEntity) {

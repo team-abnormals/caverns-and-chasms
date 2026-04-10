@@ -7,7 +7,10 @@ import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
-import com.teamabnormals.caverns_and_chasms.common.recipe.*;
+import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
+import com.teamabnormals.caverns_and_chasms.common.recipe.MusicDiscCopying;
+import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
+import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCompat;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
@@ -655,7 +658,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		outputStack.set(CCDataComponents.BASS_INSTRUMENT, output.get(2));
 
 		String recipeName = (harmonyID + melodyID + bassID).replace("copper_horn", "");
-		CCShapedRecipeBuilder.shaped(TOOLS, DataComponentIngredient.of(false, outputStack)).define('#', DataComponentIngredient.of(false, inputStack)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).group("copper_horn").save(consumer, CavernsAndChasms.location(recipeName + "copper_horn"));
+		ShapedRecipeBuilder.shaped(TOOLS, outputStack).define('#', DataComponentIngredient.of(false, inputStack)).define('C', Tags.Items.INGOTS_COPPER).pattern("C#C").pattern(" C ").unlockedBy("has_goat_horn", has(Items.GOAT_HORN)).group("copper_horn").save(consumer, CavernsAndChasms.location(recipeName + "copper_horn"));
 	}
 
 	public static void lampRecipe(RecipeOutput consumer, ItemLike output, TagKey<Item> input) {

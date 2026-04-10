@@ -27,8 +27,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -99,10 +99,10 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
 		if (this.isEntityTouchingLava(state, pos, entity)) {
 			if (!entity.fireImmune()) {
-				entity.setSecondsOnFire(15);
-				if (entity.hurt(CCDamageTypes.lavaLamp(level), 2.0F)) {
-					entity.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + level.getRandom().nextFloat() * 0.4F);
-				}
+				entity.igniteForSeconds(15.0F);
+			}
+			if (entity.hurt(CCDamageTypes.lavaLamp(level), 2.0F)) {
+				entity.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + level.getRandom().nextFloat() * 0.4F);
 			}
 		}
 	}

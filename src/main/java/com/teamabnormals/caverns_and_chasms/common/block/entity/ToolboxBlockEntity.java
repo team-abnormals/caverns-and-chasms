@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.inventory.ToolboxMenu;
+import com.teamabnormals.caverns_and_chasms.common.inventory.ToolboxSlot;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
@@ -142,22 +143,22 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 	@Override
 	public void loadAdditional(CompoundTag tag, Provider registries) {
 		super.loadAdditional(tag, registries);
-		this.loadFromTag(tag);
+		this.loadFromTag(tag, registries);
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag tag, Provider registries) {
 		super.saveAdditional(tag, registries);
 		if (!this.trySaveLootTable(tag)) {
-			ContainerHelper.saveAllItems(tag, this.itemStacks, false);
+			ContainerHelper.saveAllItems(tag, this.itemStacks, false, registries);
 		}
 
 	}
 
-	public void loadFromTag(CompoundTag tag) {
+	public void loadFromTag(CompoundTag tag, Provider registries) {
 		this.itemStacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 		if (!this.tryLoadLootTable(tag) && tag.contains("Items", 9)) {
-			ContainerHelper.loadAllItems(tag, this.itemStacks);
+			ContainerHelper.loadAllItems(tag, this.itemStacks, registries);
 		}
 	}
 
@@ -178,7 +179,7 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 
 	@Override
 	public boolean canPlaceItemThroughFace(int p_59663_, ItemStack stack, @Nullable Direction direction) {
-		return !(Block.byItem(stack.getItem()) instanceof ToolboxBlock) && (stack.getItem().canBeDepleted() || stack.is(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS));
+		return ToolboxSlot.canPlaceInToolbox(stack);
 	}
 
 	@Override
@@ -193,11 +194,6 @@ public class ToolboxBlockEntity extends RandomizableContainerBlockEntity impleme
 	@Override
 	protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
 		return new ToolboxMenu(id, inventory, this);
-	}
-
-	@Override
-	protected IItemHandler createUnSidedHandler() {
-		return new SidedInvWrapper(this, Direction.UP);
 	}
 
 	public enum AnimationStatus {

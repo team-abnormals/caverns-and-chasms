@@ -2,13 +2,12 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal.rat;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
-import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCGiftLoot;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
+import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRegistries;
@@ -43,6 +42,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -56,6 +56,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -72,6 +73,10 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -86,7 +91,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
-	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(UUID.fromString("5317A396-A13A-4019-92EA-F2BBB84769E2"), "Wounded speed reduction", -0.1D, AttributeModifier.Operation.MULTIPLY_BASE);
+	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(CavernsAndChasms.location("wounded_speed_reduction"), -0.1D, Operation.ADD_MULTIPLIED_BASE);
 
 	private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.STRING);
 	private static final EntityDataAccessor<Integer> COLLAR_COLOR = SynchedEntityData.defineId(Rat.class, EntityDataSerializers.INT);
@@ -290,7 +295,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public RatVariant getVariant() {
-		return this.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.fromNamespaceAndPath(this.getStringVariant()));
+		return this.level().registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.parse(this.getStringVariant()));
 	}
 
 	public void setVariant(ResourceLocation variant) {
@@ -415,8 +420,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	public void tickAttached() {
 		this.setDeltaMovement(Vec3.ZERO);
-		if (this.canUpdate())
+		if (!EventHooks.fireEntityTickPre(this).isCanceled()) {
 			this.tick();
+			EventHooks.fireEntityTickPost(this);
+		}
 		this.updateAttachedPosition();
 	}
 
@@ -641,7 +648,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		if (this.isTame()) {
 			if (this.isFood(stack) && this.getHealth() < this.getMaxHealth()) {
 				this.usePlayerItem(player, hand, stack);
-				this.heal((float) item.getFoodProperties().getNutrition());
+				this.heal((float) stack.getFoodProperties(this).nutrition());
 				this.gameEvent(GameEvent.EAT, this);
 
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -670,7 +677,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			if (!this.isRunningAway() && stack.is(CCItemTags.RAT_TAME_ITEMS)) {
 				this.usePlayerItem(player, hand, stack);
 				if (!this.level().isClientSide) {
-					if (this.random.nextInt(3) == 0 && !net.neoforged.neoforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+					if (this.random.nextInt(3) == 0 && !EventHooks.onAnimalTame(this, player)) {
 						this.tame(player);
 						this.navigation.stop();
 						this.setTarget(null);
@@ -684,7 +691,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				}
 
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
-			} else if (this.isDirty() && stack.is(BlueprintItemTags.BUCKETS_WATER)) {
+			} else if (this.isDirty() && stack.is(Tags.Items.BUCKETS_WATER)) {
 				this.level().playSound(null, this, SoundEvents.GENERIC_SPLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
 				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, stack.getCraftingRemainingItem()));
 				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
@@ -710,8 +717,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public boolean doHurtTarget(Entity entity) {
 		DamageSource source = entity == this.getAttachedEntity() ? this.damageSources().noAggroMobAttack(this) : this.damageSources().mobAttack(this);
 		boolean flag = entity.hurt(source, (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-		if (flag) {
-			this.doEnchantDamageEffects(this, entity);
+		if (flag && this.level() instanceof ServerLevel serverlevel1) {
+			EnchantmentHelper.doPostAttackEffects(serverlevel1, entity, source);
 		}
 
 		return flag;
@@ -916,7 +923,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		if (random.nextFloat() < 0.2F) {
 			ServerLevel serverLevel = (ServerLevel) this.level();
-			LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(CCGiftLoot.RAT_SPAWN_ITEMS);
+			LootTable lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(CCLootTables.RAT_SPAWN_ITEMS);
 			LootParams lootParams = (new LootParams.Builder(serverLevel)).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.GIFT);
 			List<ItemStack> list = lootTable.getRandomItems(lootParams);
 
@@ -934,25 +941,25 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public boolean canTakeItem(ItemStack stack) {
-		EquipmentSlot equipmentslottype = Mob.getEquipmentSlotForItem(stack);
-		if (!this.getItemBySlot(equipmentslottype).isEmpty()) {
+		EquipmentSlot type = this.getEquipmentSlotForItem(stack);
+		if (!this.getItemBySlot(type).isEmpty()) {
 			return false;
 		} else {
-			return equipmentslottype == EquipmentSlot.MAINHAND && super.canTakeItem(stack);
+			return type == EquipmentSlot.MAINHAND && super.canTakeItem(stack);
 		}
 	}
 
 	@Override
 	public boolean canHoldItem(ItemStack stack) {
 		ItemStack currentStack = this.getMainHandItem();
-		return stack.getItem().isEdible() && (currentStack.isEmpty() || !currentStack.getItem().isEdible());
+		return stack.getFoodProperties(this) != null && (currentStack.isEmpty() || currentStack.getFoodProperties(this) == null);
 	}
 
 	private void spitOutItem(ItemStack stackIn) {
 		if (!stackIn.isEmpty() && !this.level().isClientSide) {
 			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, stackIn);
 			itementity.setPickUpDelay(40);
-			itementity.setThrower(this.getUUID());
+			itementity.setThrower(this);
 			this.playSound(CCSoundEvents.RAT_SPIT.get(), 1.0F, 1.0F);
 			this.level().addFreshEntity(itementity);
 		}
@@ -1000,8 +1007,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-		return this.isSitting() ? size.height : size.height * 0.5F;
+	protected EntityDimensions getDefaultDimensions(Pose pose) {
+		return this.isSitting() ? super.getDefaultDimensions(pose) : super.getDefaultDimensions(pose).scale(1.0F, 0.5F);
 	}
 
 	@Override
@@ -1040,8 +1047,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 		for (int i = 0; i < babies; ++i) {
 			AgeableMob ageablemob = this.getBreedOffspring(level, otherParent);
-			final net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent event = new net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent(this, otherParent, ageablemob);
-			final boolean cancelled = net.neoforged.neoforge.common.MinecraftForge.EVENT_BUS.post(event);
+			final BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, otherParent, ageablemob);
+			final boolean cancelled = NeoForge.EVENT_BUS.post(event).isCanceled();
 			ageablemob = event.getChild();
 			if (cancelled) {
 				this.setAge(6000);
@@ -1092,7 +1099,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			child.setVariant(this.random.nextBoolean() ? rat.getVariant() : this.getVariant());
 			if (this.isTame()) {
 				child.setOwnerUUID(this.getOwnerUUID());
-				child.setTame(true);
+				child.setTame(true, true);
 				child.setTameAttributes(true);
 				child.setCollarColor(this.random.nextBoolean() ? rat.getCollarColor() : this.getCollarColor());
 			}

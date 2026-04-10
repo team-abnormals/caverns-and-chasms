@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.common.effect.BlueprintMobEffect;
 import com.teamabnormals.caverns_and_chasms.common.effect.VampirismMobEffect;
+import com.teamabnormals.caverns_and_chasms.common.recipe.SubtleBrewingRecipe;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
@@ -67,5 +68,7 @@ public class CCMobEffects {
 		builder.addMix(Potions.AWKWARD, CCItems.LIVING_FLESH.get(), REVENANT);
 		builder.addMix(REVENANT, Items.REDSTONE, LONG_REVENANT);
 		builder.addMix(REVENANT, Items.GLOWSTONE_DUST, STRONG_REVENANT);
+
+		builder.addRecipe(new SubtleBrewingRecipe());
 	}
 }

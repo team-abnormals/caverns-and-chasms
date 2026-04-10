@@ -94,7 +94,7 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	private void playerHurtSelf(PlayerHurtEntityTrigger instance, ServerPlayer player, Entity entity, DamageSource source, float f, float f1, boolean flag, Operation<Void> original) {
 		original.call(instance, player, entity, source, f, f1, flag);
 		if (player.is(entity)) {
-			CCCriteriaTriggers.PLAYER_HURT_SELF.trigger(player, entity, source, f, f1, flag);
+			CCCriteriaTriggers.PLAYER_HURT_SELF.get().trigger(player, entity, source, f, f1, flag);
 		}
 	}
 

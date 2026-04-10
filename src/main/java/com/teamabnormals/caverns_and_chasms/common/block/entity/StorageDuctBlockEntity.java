@@ -20,14 +20,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
+import javax.annotation.Nullable;
+
 public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
-	private LazyOptional<IItemHandlerModifiable> ductHandler;
+	private Lazy<IItemHandlerModifiable> ductHandler;
 	private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
 
 	public StorageDuctBlockEntity(BlockPos pos, BlockState state) {
@@ -38,7 +39,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 	protected void saveAdditional(CompoundTag tag, Provider registries) {
 		super.saveAdditional(tag, registries);
 		if (!this.trySaveLootTable(tag))
-			ContainerHelper.saveAllItems(tag, this.items);
+			ContainerHelper.saveAllItems(tag, this.items, registries);
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 		super.loadAdditional(tag, registries);
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 		if (!this.tryLoadLootTable(tag))
-			ContainerHelper.loadAllItems(tag, this.items);
+			ContainerHelper.loadAllItems(tag, this.items, registries);
 	}
 
 	@Override
@@ -86,14 +87,10 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 		this.resetHandler();
 	}
 
-	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-		if (!this.remove && cap == ForgeCapabilities.ITEM_HANDLER) {
-			if (this.ductHandler == null)
-				this.ductHandler = LazyOptional.of(this::createHandler);
-			return this.ductHandler.cast();
-		}
-		return super.getCapability(cap, side);
+	public IItemHandler getCapability(@Nullable Direction side) {
+		if (this.ductHandler == null)
+			this.ductHandler = Lazy.of(this::createHandler);
+		return this.ductHandler.get();
 	}
 
 	private IItemHandlerModifiable createHandler() {
@@ -113,8 +110,8 @@ public class StorageDuctBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void invalidateCaps() {
-		super.invalidateCaps();
+	public void invalidateCapabilities() {
+		super.invalidateCapabilities();
 		this.resetHandler();
 	}
 }

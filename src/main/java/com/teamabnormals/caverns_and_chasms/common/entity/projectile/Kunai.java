@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -22,20 +23,21 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class Kunai extends AbstractArrow implements ItemSupplier {
 
-	public Kunai(EntityType<? extends Kunai> type, Level worldIn) {
-		super(type, worldIn);
+	public Kunai(EntityType<? extends Kunai> type, Level level) {
+		super(type, level);
 	}
 
-	public Kunai(Level worldIn, double x, double y, double z) {
-		super(CCEntityTypes.KUNAI.get(), x, y, z, worldIn);
+	public Kunai(Level level, LivingEntity owner, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+		super(CCEntityTypes.KUNAI.get(), owner, level, pickupItemStack, firedFromWeapon);
 	}
 
-
-	public Kunai(Level worldIn, LivingEntity shooter) {
-		super(CCEntityTypes.KUNAI.get(), shooter, worldIn);
+	public Kunai(Level level, double x, double y, double z, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
+		super(CCEntityTypes.KUNAI.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
 	}
 
 	@Override
@@ -58,18 +60,17 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 		}
 
 		boolean isEnderman = target.getType() == EntityType.ENDERMAN;
+		int i = target.getRemainingFireTicks();
 		if (this.isOnFire() && !isEnderman) {
-			target.setSecondsOnFire(5);
+			target.igniteForSeconds(5.0F);
 		}
 
 		if (target.hurt(damagesource, (float) damage)) {
 			if (isEnderman) return;
 
 			if (target instanceof LivingEntity livingTarget) {
-
-				if (!this.level().isClientSide() && shooter instanceof LivingEntity) {
-					EnchantmentHelper.doPostHurtEffects(livingTarget, shooter);
-					EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, livingTarget);
+				if (this.level() instanceof ServerLevel serverLevel) {
+					EnchantmentHelper.doPostAttackEffectsWithItemSource(serverLevel, livingTarget, damagesource, this.getWeaponItem());
 				}
 
 				this.doPostHurtEffects(livingTarget);
@@ -85,7 +86,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 			this.playSound(this.getDefaultHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 			this.discard();
 		} else {
-			target.setRemainingFireTicks(target.getRemainingFireTicks());
+			target.setRemainingFireTicks(i);
 			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
 			this.setYRot(this.getYRot() + 180.0F);
 			this.yRotO += 180.0F;
@@ -99,7 +100,7 @@ public class Kunai extends AbstractArrow implements ItemSupplier {
 		}
 	}
 
-	protected ItemStack getPickupItem() {
+	protected ItemStack getDefaultPickupItem() {
 		return new ItemStack(CCItems.KUNAI.get());
 	}
 

@@ -25,6 +25,6 @@ public class DeeperHatLayer<T extends Deeper, M extends DeeperModel<T>> extends 
 		if (hat == DeeperHat.NONE)
 			return;
 		VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(deeper instanceof Evendeeper ? hat.getEvendeeperTexture() : hat.getDeeperTexture()));
-		this.getParentModel().renderToBuffer(stack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(deeper, deeper.isPowered() ? DeeperRenderer.getExplosionEmissionProgress(deeper, partialTick, true) : 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+		this.getParentModel().renderToBuffer(stack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(deeper, deeper.isPowered() ? DeeperRenderer.getExplosionEmissionProgress(deeper, partialTick, true) : 0.0F));
 	}
 }

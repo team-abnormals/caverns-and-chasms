@@ -146,10 +146,10 @@ public class RatModel extends AgeableListModel<Rat> {
 		ResourceLocation textureLocation = variant.getTexture(this.wounded, dirty);
 
 		VertexConsumer vertexConsumer = buffer.getBuffer(this.renderType(textureLocation));
-		this.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY);
 
 		VertexConsumer vertexConsumerEars = buffer.getBuffer(RenderType.entityCutout(textureLocation));
-		this.renderEars(poseStack, vertexConsumerEars, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.renderEars(poseStack, vertexConsumerEars, packedLight, OverlayTexture.NO_OVERLAY);
 
 		if (hasOwner) {
 			DyeColor collarColor = compound.contains("CollarColor", 99) ? DyeColor.byId(compound.getInt("CollarColor")) : DyeColor.RED;

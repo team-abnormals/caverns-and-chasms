@@ -24,7 +24,7 @@ public class GlareEyesLayer<T extends Glare, M extends GlareModel<T>> extends Ey
 
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		VertexConsumer consumer = buffer.getBuffer(this.renderType(entity.isGrumpy()));
-		this.getParentModel().renderToBuffer(poseStack, consumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.getParentModel().renderToBuffer(poseStack, consumer, 15728640, OverlayTexture.NO_OVERLAY);
 	}
 
 	public RenderType renderType(boolean grumpy) {

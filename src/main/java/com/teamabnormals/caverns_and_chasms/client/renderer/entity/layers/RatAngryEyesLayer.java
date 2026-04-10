@@ -32,6 +32,6 @@ public class RatAngryEyesLayer extends RenderLayer<Rat, RatModel> {
 	public static void renderAngryEyes(RatModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int hurtTime, int deathTime) {
 		int overlaycoords = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(hurtTime > 0 || deathTime > 0));
 		VertexConsumer ivertexbuilder = buffer.getBuffer(RenderType.entityCutoutNoCull(ANGRY_EYES_LOCATION));
-		model.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlaycoords, 1.0F, 1.0F, 1.0F, 1.0F);
+		model.renderToBuffer(poseStack, ivertexbuilder, packedLight, overlaycoords);
 	}
 }

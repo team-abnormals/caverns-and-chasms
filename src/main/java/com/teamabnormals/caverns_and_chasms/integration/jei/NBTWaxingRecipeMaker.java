@@ -10,25 +10,22 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.item.crafting.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 public final class NBTWaxingRecipeMaker {
 
-	public static List<CraftingRecipe> createRecipes() {
-		List<CraftingRecipe> recipes = Lists.newArrayList();
+	public static List<RecipeHolder<CraftingRecipe>> createRecipes() {
+		List<RecipeHolder<CraftingRecipe>> recipes = Lists.newArrayList();
 		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
 			if (base instanceof WeatheringCopperItem) {
 				NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(base), Ingredient.of(CCItemTags.WAX));
 				ItemStack output = new ItemStack(waxed);
 				ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
 				String name = base.builtInRegistryHolder().key().location().getPath().replace("exposed_|weathered_|oxidized_", "");
-				recipes.add(new ShapelessRecipe(id, "caverns_and_chasms." + name + ".wax", CraftingBookCategory.EQUIPMENT, output, inputs));
+				recipes.add(new RecipeHolder<>(id, new ShapelessRecipe("caverns_and_chasms." + name + ".wax", CraftingBookCategory.EQUIPMENT, output, inputs)));
 			}
 		});
 
@@ -44,10 +41,10 @@ public final class NBTWaxingRecipeMaker {
 
 	private static final String group = "caverns_and_chasms.toolbox.wax";
 
-	private static CraftingRecipe createRecipe(WeatheringToolboxBlock toolbox) {
+	private static RecipeHolder<CraftingRecipe> createRecipe(WeatheringToolboxBlock toolbox) {
 		NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(toolbox), Ingredient.of(CCItemTags.WAX));
 		ItemStack output = ToolboxBlock.getWeatheredItemStack(toolbox.getWeatherState(), false);
 		ResourceLocation id = CavernsAndChasms.location(group + "." + output.getDescriptionId());
-		return new ShapelessRecipe(id, group, CraftingBookCategory.EQUIPMENT, output, inputs);
+		return new RecipeHolder<>(id, new ShapelessRecipe(group, CraftingBookCategory.EQUIPMENT, output, inputs));
 	}
 }

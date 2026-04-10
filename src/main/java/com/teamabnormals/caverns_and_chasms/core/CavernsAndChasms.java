@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.network.GrazerJumpPayload;
 import com.teamabnormals.caverns_and_chasms.common.network.OpenStorageDuctPayload;
 import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
@@ -23,6 +24,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeType
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructurePieceTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCStructureRepaletters;
 import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCBlockSubRegistryHelper;
+import com.teamabnormals.caverns_and_chasms.core.registry.helper.CCItemSubRegistryHelper;
 import com.teamabnormals.gallery.core.data.client.GalleryItemModelProvider;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
@@ -38,8 +40,11 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.apache.logging.log4j.LogManager;
@@ -51,7 +56,10 @@ import java.util.concurrent.CompletableFuture;
 public class CavernsAndChasms {
 	public static final String MOD_ID = "caverns_and_chasms";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID.toUpperCase());
-	public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MOD_ID, helper -> helper.putSubHelper(Registries.BLOCK, new CCBlockSubRegistryHelper(helper)));
+	public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MOD_ID, helper -> {
+		helper.putSubHelper(Registries.BLOCK, new CCBlockSubRegistryHelper(helper));
+		helper.putSubHelper(Registries.ITEM, new CCItemSubRegistryHelper(helper));
+	});
 
 	public CavernsAndChasms(IEventBus bus, ModContainer container) {
 		CCDataProcessors.registerTrackedData();
@@ -88,6 +96,7 @@ public class CavernsAndChasms {
 		});
 
 		bus.addListener(this::registerPayloadHandlers);
+		bus.addListener(this::registerCapabilities);
 		bus.addListener(CCRegistries::registerRegistries);
 
 		bus.addListener(this::commonSetup);
@@ -166,6 +175,11 @@ public class CavernsAndChasms {
 		registrar.playToClient(SpinelBoomPayload.TYPE, SpinelBoomPayload.STREAM_CODEC, SpinelBoomPayload::handle);
 		registrar.playToClient(OpenStorageDuctPayload.TYPE, OpenStorageDuctPayload.STREAM_CODEC, OpenStorageDuctPayload::handle);
 		registrar.playToClient(UpdateAttachedRatsPayload.TYPE, UpdateAttachedRatsPayload.STREAM_CODEC, UpdateAttachedRatsPayload::handle);
+	}
+
+	private void registerCapabilities(RegisterCapabilitiesEvent event) {
+		event.registerBlockEntity(ItemHandler.BLOCK, CCBlockEntityTypes.STORAGE_DUCT.get(), StorageDuctBlockEntity::getCapability);
+		event.registerBlockEntity(ItemHandler.BLOCK, CCBlockEntityTypes.TOOLBOX.get(), SidedInvWrapper::new);
 	}
 
 	public static ResourceLocation location(String path) {

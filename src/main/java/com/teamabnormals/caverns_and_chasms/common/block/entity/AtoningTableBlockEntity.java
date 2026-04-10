@@ -13,7 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EnchantmentTableBlock;
+import net.minecraft.world.level.block.EnchantingTableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -45,7 +45,7 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	protected void saveAdditional(CompoundTag tag, Provider registries) {
 		super.saveAdditional(tag, registries);
 		if (this.hasCustomName()) {
-			tag.putString("CustomName", Component.Serializer.toJson(this.name));
+			tag.putString("CustomName", Component.Serializer.toJson(this.name, registries));
 		}
 	}
 
@@ -53,7 +53,7 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 	public void loadAdditional(CompoundTag tag, Provider registries) {
 		super.loadAdditional(tag, registries);
 		if (tag.contains("CustomName", 8)) {
-			this.name = Component.Serializer.fromJson(tag.getString("CustomName"));
+			this.name = Component.Serializer.fromJson(tag.getString("CustomName"), registries);
 		}
 	}
 
@@ -62,8 +62,8 @@ public class AtoningTableBlockEntity extends BlockEntity implements Nameable {
 			level.addParticle(CCParticleTypes.ATONING_DAGGER.get(), pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
 
 		float enchPower = 0;
-		for (BlockPos offset : EnchantmentTableBlock.BOOKSHELF_OFFSETS)
-			if (EnchantmentTableBlock.isValidBookShelf(level, pos, offset))
+		for (BlockPos offset : EnchantingTableBlock.BOOKSHELF_OFFSETS)
+			if (EnchantingTableBlock.isValidBookShelf(level, pos, offset))
 				enchPower += level.getBlockState(pos.offset(offset)).getEnchantPowerBonus(level, pos.offset(offset));
 
 		if (enchPower > 0) {

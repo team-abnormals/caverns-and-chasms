@@ -39,12 +39,12 @@ public abstract class GuiMixin {
 		}
 	}
 
-	@WrapOperation(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V", ordinal = 0))
-	private void renderCrosshair(GuiGraphics guiGraphics, ResourceLocation location, int x, int y, int uOffset, int vOffset, int uWidth, int vHeight, Operation<Void> original) {
+	@WrapOperation(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 0))
+	private void renderCrosshair(GuiGraphics guiGraphics, ResourceLocation sprite, int x, int y, int width, int height, Operation<Void> original) {
 		if (this.minecraft.player.getMainHandItem().is(CCItems.BONE_FLUTE.get()) || this.minecraft.player.getOffhandItem().is(CCItems.BONE_FLUTE.get())) {
 			BoneFluteCommand command = BoneFluteItem.getCommand(this.minecraft.player, BoneFluteItem.getHitResult(this.minecraft.player));
 			if (command != null) {
-				float cooldown = this.minecraft.player.getCooldowns().getCooldownPercent(CCItems.BONE_FLUTE.get(), this.minecraft.getFrameTime());
+				float cooldown = this.minecraft.player.getCooldowns().getCooldownPercent(CCItems.BONE_FLUTE.get(), this.minecraft.getTimer().getGameTimeDeltaPartialTick(true));
 				int i = 7 - Mth.ceil(cooldown * 7);
 				guiGraphics.blit(BONE_FLUTE_CROSSHAIR_FRAME, x - 1, y - 1, 0.0F, 0.0F, 17, 17, 17, 17);
 				guiGraphics.blit(command.getCrosshairIconBackground(), x + 4 + i, y + 4, i, 0.0F, 7 - i, 7, 7, 7);
@@ -52,6 +52,6 @@ public abstract class GuiMixin {
 				return;
 			}
 		}
-		original.call(guiGraphics, location, x, y, uOffset, vOffset, uWidth, vHeight);
+		original.call(guiGraphics, sprite, x, y, width, height);
 	}
 }

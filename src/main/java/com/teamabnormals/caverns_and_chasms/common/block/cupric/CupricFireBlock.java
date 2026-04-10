@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.cupric;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,6 +32,11 @@ public class CupricFireBlock extends BaseFireBlock {
 
 	public static boolean canSurviveOnBlock(BlockState state) {
 		return state.is(CCBlockTags.CUPRIC_FIRE_BASE_BLOCKS);
+	}
+
+	@Override
+	protected MapCodec<? extends BaseFireBlock> codec() {
+		return null;
 	}
 
 	@Override

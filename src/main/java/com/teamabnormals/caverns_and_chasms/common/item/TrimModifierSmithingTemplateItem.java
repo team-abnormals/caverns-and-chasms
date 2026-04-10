@@ -54,7 +54,7 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 	}
 
 	public static float getPulseAlpha(float min, float max) {
-		float partialTicks = Minecraft.getInstance().getFrameTimeNs();
+		float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 		float time = Minecraft.getInstance().level.getGameTime() + partialTicks;
 		float t = time * 0.03F;
 		float pulse = (float)(Math.sin(t) * 0.5F + 0.5F);

@@ -6,6 +6,7 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Items;
@@ -66,7 +67,7 @@ public class MimeModel extends PlayerModel<Mime> {
 		if (mime.isShiftKeyDown())
 			f1 += 25.0F;
 
-		boolean showhorns = !mime.getItemBySlot(EquipmentSlot.HEAD).is(Tags.Items.ARMORS_HELMETS);
+		boolean showhorns = !mime.getItemBySlot(EquipmentSlot.HEAD).is(ItemTags.HEAD_ARMOR);
 		this.rightHorn.visible = showhorns;
 		this.leftHorn.visible = showhorns;
 

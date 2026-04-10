@@ -20,6 +20,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.FastColor.ARGB32;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.Block;
@@ -75,7 +77,7 @@ public class WinchRenderer<T extends WinchBlockEntity> implements BlockEntityRen
 			VertexConsumer vertexConsumer = WINCH_MATERIAL.buffer(buffer, RenderType::entitySolid);
 			this.base.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
 			this.crank.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
-			this.base.render(poseStack, GLOW_MATERIAL.buffer(buffer, RenderType::entityTranslucentCull), combinedLight, combinedOverlay, 1.0F, 1.0F, 1.0F, winch.getPower() / 15F);
+			this.base.render(poseStack, GLOW_MATERIAL.buffer(buffer, RenderType::entityTranslucentCull), combinedLight, combinedOverlay, ARGB32.colorFromFloat(winch.getPower() / 15F, 1.0F, 1.0F, 1.0F));
 
 			// System.out.println("G: " + winch.time + ", P: " + partialTick + ", R0: " + winch.getRotation(0) + ", R1: " + winch.getRotation(1) + ", R: " + winch.getRotation(partialTick));
 

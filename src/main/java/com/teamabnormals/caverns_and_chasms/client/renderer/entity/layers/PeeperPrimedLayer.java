@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.util.FastColor.ARGB32;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -24,10 +25,11 @@ public class PeeperPrimedLayer extends RenderLayer<Peeper, PeeperModel<Peeper>> 
 	@Override
 	public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Peeper entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		float alpha = getExplosionEmissionProgress(entity, partialTicks);
+		int color = ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F);
 		if (entity.isPowered()) {
-			this.getParentModel().renderOverlay(PeeperSpriteUploader.getChargedPeeperGlowSprite(), true, poseStack, 15728880, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, alpha);
+			this.getParentModel().renderOverlay(PeeperSpriteUploader.getChargedPeeperGlowSprite(), true, poseStack, 15728880, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), color);
 		} else {
-			this.getParentModel().renderToBuffer(poseStack, buffer.getBuffer(BlueprintRenderTypes.getUnshadedTranslucentEntity(PeeperRenderer.PEEPER_GLOW, false)), packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, alpha);
+			this.getParentModel().renderToBuffer(poseStack, buffer.getBuffer(BlueprintRenderTypes.getUnshadedTranslucentEntity(PeeperRenderer.PEEPER_GLOW, false)), packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), color);
 		}
 
 	}

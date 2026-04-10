@@ -7,10 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DataMapProvider;
-import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
-import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
-import net.neoforged.neoforge.registries.datamaps.builtin.ParrotImitation;
-import net.neoforged.neoforge.registries.datamaps.builtin.VibrationFrequency;
+import net.neoforged.neoforge.registries.datamaps.builtin.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -33,7 +30,8 @@ public class CCDataMapProvider extends DataMapProvider {
 		this.builder(NeoForgeDataMaps.VIBRATION_FREQUENCIES)
 				.add(CCGameEvents.TUNING_FORK_VIBRATE, new VibrationFrequency(10), false);
 
-		this.builder(NeoForgeDataMaps.FURNACE_FUELS);
+		this.builder(NeoForgeDataMaps.FURNACE_FUELS)
+				.add(CCBlocks.CHARCOAL_BLOCK.getId(), new FurnaceFuel(12800), false);
 
 		this.builder(NeoForgeDataMaps.COMPOSTABLES)
 				.add(CCBlocks.FALSE_HOPE.getId(), new Compostable(0.65F), false)

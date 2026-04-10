@@ -7,9 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EnchantingTableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,14 +47,5 @@ public class AtoningTableBlock extends EnchantingTableBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-	}
-
-	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		if (stack.hasCustomHoverName()) {
-			if (level.getBlockEntity(pos) instanceof AtoningTableBlockEntity table) {
-				table.setCustomName(stack.getHoverName());
-			}
-		}
 	}
 }

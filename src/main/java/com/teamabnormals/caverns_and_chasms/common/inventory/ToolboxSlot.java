@@ -14,6 +14,10 @@ public class ToolboxSlot extends Slot {
 
 	@Override
 	public boolean mayPlace(ItemStack stack) {
+		return canPlaceInToolbox(stack);
+	}
+
+	public static boolean canPlaceInToolbox(ItemStack stack) {
 		return stack.isDamageableItem() || stack.getItem() instanceof AnimalArmorItem || stack.is(CCItemTags.ADDITIONAL_TOOLBOX_TOOLS);
 	}
 }

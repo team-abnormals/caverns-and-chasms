@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTickEvent;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
@@ -26,13 +27,11 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent.Post;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
-import com.teamabnormals.caverns_and_chasms.core.mixin.entity.LivingEntityAccessor;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -40,6 +39,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -64,6 +64,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
@@ -75,7 +76,6 @@ import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -125,7 +125,9 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
@@ -222,7 +224,8 @@ public class CCEvents {
 			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
 
 			if (event.getUseBlock() == TriState.TRUE || (event.getUseBlock() != TriState.FALSE && !isSneaking)) {
-				InteractionResult blockResult = state.use(level, player, event.getHand(), event.getHitVec());
+				//TODO: Check
+				InteractionResult blockResult = state.useItemOn(stack, level, player, event.getHand(), event.getHitVec()).result();
 				if (blockResult.consumesAction()) {
 					event.setCanceled(true);
 					event.setCancellationResult(blockResult);
@@ -405,10 +408,10 @@ public class CCEvents {
 		if (trackingentity instanceof Rat rat) {
 			LivingEntity attachedEntity = rat.getAttachedEntity();
 			if (attachedEntity != null) {
-				CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new UpdateAttachedRatsPayload((RatHolder) attachedEntity));
+				PacketDistributor.sendToPlayer(player, new UpdateAttachedRatsPayload((RatHolder) attachedEntity));
 			}
 		} else if (trackingentity instanceof RatHolder ratholder) {
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new UpdateAttachedRatsPayload(ratholder));
+			PacketDistributor.sendToPlayer(player, new UpdateAttachedRatsPayload(ratholder));
 		}
 	}
 
@@ -443,37 +446,30 @@ public class CCEvents {
 
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockDropsEvent event) {
-		ItemStack stack = event.getTool();
-		Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
-		if (!experienceModifiers.isEmpty()) {
-			float experienceBoost = event.getDroppedExperience() * (float) experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
+		if (event.getBreaker() instanceof LivingEntity living) {
+			double experienceBoost = event.getDroppedExperience() * living.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
 			int base = Mth.floor(experienceBoost);
-			float bonus = Mth.frac(experienceBoost);
+			double bonus = Mth.frac(experienceBoost);
 			if (bonus != 0.0F && Math.random() < bonus) {
 				++base;
 			}
 
 			event.setDroppedExperience(event.getDroppedExperience() + base);
 		}
-
 	}
 
 	@SubscribeEvent
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		Player player = event.getAttackingPlayer();
 		if (player != null) {
-			ItemStack stack = player.getItemBySlot(EquipmentSlot.MAINHAND);
-			Collection<AttributeModifier> experienceModifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(CCAttributes.EXPERIENCE_BOOST.get());
-			if (!experienceModifiers.isEmpty()) {
-				float experienceBoost = (float) (event.getDroppedExperience() * experienceModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum());
-				int base = Mth.floor(experienceBoost);
-				float bonus = Mth.frac(experienceBoost);
-				if (bonus != 0.0F && Math.random() < bonus) {
-					++base;
-				}
-
-				event.setDroppedExperience(event.getDroppedExperience() + base);
+			double experienceBoost = event.getDroppedExperience() * player.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
+			int base = Mth.floor(experienceBoost);
+			double bonus = Mth.frac(experienceBoost);
+			if (bonus != 0.0F && Math.random() < bonus) {
+				++base;
 			}
+
+			event.setDroppedExperience(event.getDroppedExperience() + base);
 		}
 	}
 
@@ -483,7 +479,7 @@ public class CCEvents {
 			ItemStack stack = event.getFrom();
 			if (stack.getItem() == CCItems.TETHER_POTION.get()) {
 				TetherPotionItem.updateTetherPotionEffects(event.getEntity(), stack, false);
-				stack.getOrCreateTag().putInt("cooldown", 600);
+				stack.set(CCDataComponents.TETHER_COOLDOWN, 600);
 			}
 		}
 	}
@@ -528,19 +524,9 @@ public class CCEvents {
 		DamageSource source = event.getSource();
 
 		if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
-			float magicProtection = 0.0F;
-			for (EquipmentSlot slot : EquipmentSlot.values()) {
-				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
-					ItemStack stack = target.getItemBySlot(slot);
-					Collection<AttributeModifier> magicProt = stack.getAttributeModifiers(slot).get(CCAttributes.MAGIC_PROTECTION.get());
-					if (!magicProt.isEmpty()) {
-						magicProtection += magicProt.stream().mapToDouble(AttributeModifier::getAmount).sum();
-					}
-				}
-			}
-
-			if (magicProtection > 0.0F) {
-				event.setNewDamage(event.getOriginalDamage() - event.getOriginalDamage() * magicProtection);
+			double magicProtection = target.getAttributeValue(CCAttributes.MAGIC_PROTECTION);
+			if (magicProtection > 0.0D) {
+				event.setNewDamage((float) (event.getOriginalDamage() - event.getOriginalDamage() * magicProtection));
 				SilverItem.causeMagicProtectionEffects(target);
 			}
 		}
@@ -552,7 +538,8 @@ public class CCEvents {
 				int note = mainHandItem.get(CCDataComponents.NOTE);
 
 				TuningForkItem.playNote(target.level(), attacker, target.getX(), target.getEyeY(), target.getZ(), note);
-				NetworkUtil.spawnParticle("minecraft:note", target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D);
+				if (attacker.level() instanceof ServerLevel serverLevel)
+					NetworkUtil.spawnParticle(serverLevel, ParticleTypes.NOTE, List.of(new ParticleInstance(target.getX(), target.getEyeY(), target.getZ(), (double) note / 24.0D, 0.0D, 0.0D)));
 
 				if (attacker instanceof Player player) {
 					player.displayClientMessage(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note").append(": ").append(Component.translatable(CCItems.TUNING_FORK.get().getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
@@ -560,30 +547,13 @@ public class CCEvents {
 				}
 			}
 
-			float slownessInfliction = 0.0F;
-			float lifeStealAmount = 0.0F;
-
-			for (EquipmentSlot slot : EquipmentSlot.values()) {
-				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
-					ItemStack stack = target.getItemBySlot(slot);
-
-					Collection<AttributeModifier> slownessModifiers = stack.getAttributeModifiers(slot).get(CCAttributes.SLOWNESS_INFLICTION.get());
-					if (!slownessModifiers.isEmpty()) {
-						slownessInfliction += slownessModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-					}
-
-					Collection<AttributeModifier> lifeStealModifiers = attacker.getItemBySlot(slot).getAttributeModifiers(slot).get(CCAttributes.LIFESTEAL.get());
-					if (!lifeStealModifiers.isEmpty() && (target instanceof Enemy || target instanceof Player)) {
-						lifeStealAmount += lifeStealModifiers.stream().mapToDouble(AttributeModifier::getAmount).sum();
-					}
-				}
-			}
-
+			float lifeStealAmount = (float) target.getAttributeValue(CCAttributes.LIFESTEAL);
 			if (lifeStealAmount > 0.0F) {
 				attacker.heal(lifeStealAmount * event.getOriginalDamage());
 				SanguineArmorItem.causeHealEffects(attacker, lifeStealAmount);
 			}
 
+			double slownessInfliction = target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
 			if (slownessInfliction > 0.0F) {
 				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
 				attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
@@ -604,29 +574,24 @@ public class CCEvents {
 
 		if (headstack.getItem() instanceof TetherPotionItem && !source.is(DamageTypeTags.BYPASSES_ARMOR) && !source.is(CCDamageTypeTags.BYPASSES_TETHER_POTIONS)) {
 			Player player = entity instanceof Player ? (Player) entity : null;
-			entity.broadcastBreakEvent(EquipmentSlot.HEAD);
+			entity.onEquippedItemBroken(headstack.getItem(), EquipmentSlot.HEAD);
 			entity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+			PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
 
-			if (headstack.getItem() == CCItems.IMPACT_POTION.get()) {
-				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
-					if (instance.getEffect().isInstantenous()) {
-						instance.getEffect().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
-					} else {
+			if (headstack.is(CCItems.IMPACT_POTION) || headstack.is(CCItems.TETHER_POTION)) {
+				for (MobEffectInstance instance : contents.getAllEffects()) {
+					if (instance.getEffect().value().isInstantenous()) {
+						instance.getEffect().value().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
+					} else if (!headstack.is(CCItems.TETHER_POTION)) {
 						entity.addEffect(new MobEffectInstance(instance));
 					}
 				}
-			} else if (headstack.getItem() == CCItems.TRAIL_POTION.get()) {
-				TrailPotionItem.makeAreaOfEffectCloud(headstack, PotionUtils.getPotion(headstack), entity, level, true);
-			} else {
-				for (MobEffectInstance instance : PotionUtils.getMobEffects(headstack)) {
-					if (instance.getEffect().isInstantenous()) {
-						instance.getEffect().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
-					}
-				}
+			} else if (headstack.is(CCItems.TRAIL_POTION)) {
+				TrailPotionItem.makeAreaOfEffectCloud(contents, entity, level, true);
 			}
 
-			int i = PotionUtils.getPotion(headstack).hasInstantEffects() ? 2007 : 2002;
-			level.levelEvent(i, BlockPos.containing(entity.getEyePosition(1.0F)), PotionUtils.getColor(headstack));
+			int i = headstack.get(DataComponents.POTION_CONTENTS).potion().get().value().hasInstantEffects() ? 2007 : 2002;
+			level.levelEvent(i, BlockPos.containing(entity.getEyePosition(1.0F)), contents.getColor());
 		}
 
 		// TODO: Maybe use a tag?
@@ -800,11 +765,10 @@ public class CCEvents {
 			}
 		}
 
+		//TODO: Make sure works
 		if (projectile instanceof AbstractHurtingProjectile hurtingProjectile) {
-			Vec3 scaledMovement = deflectMovement.normalize().scale(0.1D);
-			hurtingProjectile.xPower = scaledMovement.x;
-			hurtingProjectile.yPower = scaledMovement.y;
-			hurtingProjectile.zPower = scaledMovement.z;
+			hurtingProjectile.setDeltaMovement(deflectMovement.normalize().scale(0.1D));
+			hurtingProjectile.hasImpulse = true;
 		}
 	}
 
@@ -958,16 +922,9 @@ public class CCEvents {
 				}
 			}
 
-			if (headstack.is(CCItems.COWL.get()) && headstack.getEnchantmentLevel(CCEnchantments.OBSCURITY.get()) > 0) {
-				entity.setInvisible(entity.isCrouching());
-				if (!entity.isCrouching() && entity instanceof LivingEntityAccessor accessor) {
-					accessor.invokeUpdateInvisibilityStatus();
-				}
-			}
-
 			if (!level.isClientSide && entity instanceof Mob mob && mob.getTarget() instanceof Rat rat && rat.isWounded() && mob.getLastHurtByMob() != null && mob.getLastHurtByMob() != rat) {
 				mob.setTarget(null);
-				mob.targetSelector.getRunningGoals().filter(wrappedGoal -> wrappedGoal.goal instanceof HurtByTargetGoal).findFirst().ifPresent(Goal::stop);
+				mob.targetSelector.getAvailableGoals().stream().filter(WrappedGoal::isRunning).filter(wrappedGoal -> wrappedGoal.getGoal() instanceof HurtByTargetGoal).findFirst().ifPresent(Goal::stop);
 			}
 		}
 	}

@@ -1,39 +1,36 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -88,17 +85,26 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
+	}
+
+	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
+	@Override
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+		if (!(this instanceof WeatheringToolboxBlock) && player.getItemInHand(hand).is(ItemTags.AXES)) {
+			return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		}
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		if (!(this instanceof WeatheringToolboxBlock) && player.getItemInHand(hand).is(ItemTags.AXES)) {
-			return InteractionResult.PASS;
-		}
-
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
 		if (level.isClientSide) {
 			return InteractionResult.SUCCESS;
 		} else if (player.isSpectator()) {
@@ -140,7 +146,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType pathComputationType) {
+	public boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
 		return false;
 	}
 
@@ -155,11 +161,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 		if (blockentity instanceof ToolboxBlockEntity toolbox) {
 			if (!level.isClientSide && player.isCreative() && !toolbox.isEmpty()) {
 				ItemStack itemstack = getWeatheredItemStack(this.getWeatherState(), this instanceof CCWeatheringCopper);
-				blockentity.saveToItem(itemstack);
-				if (toolbox.hasCustomName()) {
-					itemstack.setHoverName(toolbox.getCustomName());
-				}
-
+				itemstack.applyComponents(blockentity.collectComponents());
 				ItemEntity itemEntity = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, itemstack);
 				itemEntity.setDefaultPickUpDelay();
 				level.addFreshEntity(itemEntity);
@@ -187,16 +189,6 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		if (stack.hasCustomHoverName()) {
-			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof ToolboxBlockEntity toolbox) {
-				toolbox.setCustomName(stack.getHoverName());
-			}
-		}
-	}
-
-	@Override
 	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState p_56237_, boolean p_56238_) {
 		if (!state.is(p_56237_.getBlock())) {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
@@ -208,48 +200,29 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 		}
 	}
 
+	private static final Component UNKNOWN_CONTENTS = Component.translatable("container.toolbox.unknownContents");
+
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag flag) {
-		super.appendHoverText(stack, context, components, flag);
-		CompoundTag tag = BlockItem.getBlockEntityData(stack);
-		if (tag != null) {
-			if (tag.contains("LootTable", 8)) {
-				components.add(Component.literal("???????"));
-			}
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+		super.appendHoverText(stack, context, tooltipComponents, flag);
+		if (stack.has(DataComponents.CONTAINER_LOOT)) {
+			tooltipComponents.add(UNKNOWN_CONTENTS);
+		}
 
-			if (tag.contains("Items", 9)) {
-				NonNullList<ItemStack> nonnulllist = NonNullList.withSize(27, ItemStack.EMPTY);
-				ContainerHelper.loadAllItems(tag, nonnulllist);
-				int i = 0;
-				int j = 0;
+		int i = 0;
+		int j = 0;
 
-				for (ItemStack itemstack : nonnulllist) {
-					if (!itemstack.isEmpty()) {
-						++j;
-						if (i <= 4) {
-							++i;
-
-							MutableComponent name = Component.empty().append(itemstack.getHoverName());
-							if (itemstack.hasCustomHoverName()) {
-								name.withStyle(ChatFormatting.ITALIC);
-							}
-							if (itemstack.getRarity() != Rarity.COMMON) {
-								name.withStyle(itemstack.getRarity().getStyleModifier());
-							} else {
-								name.withStyle(ChatFormatting.GRAY);
-							}
-
-							components.add(name);
-						}
-					}
-				}
-
-				if (j - i > 0) {
-					components.add(Component.translatable("container." + CavernsAndChasms.MOD_ID + ".toolbox.more", j - i).withStyle(ChatFormatting.GRAY));
-				}
+		for (ItemStack itemstack : stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).nonEmptyItems()) {
+			j++;
+			if (i <= 4) {
+				i++;
+				tooltipComponents.add(Component.translatable("container.toolbox.itemCount", itemstack.getHoverName(), itemstack.getCount()));
 			}
 		}
 
+		if (j - i > 0) {
+			tooltipComponents.add(Component.translatable("container.toolbox.more", j - i).withStyle(ChatFormatting.ITALIC));
+		}
 	}
 
 	@Override
@@ -274,9 +247,9 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
 		ItemStack stack = super.getCloneItemStack(level, pos, state);
-		level.getBlockEntity(pos, CCBlockEntityTypes.TOOLBOX.get()).ifPresent(block -> block.saveToItem(stack));
+		level.getBlockEntity(pos, CCBlockEntityTypes.TOOLBOX.get()).ifPresent(block -> block.saveToItem(stack, level.registryAccess()));
 		return stack;
 	}
 
