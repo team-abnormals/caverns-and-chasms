@@ -29,7 +29,7 @@ public record PackingContainerContents(ItemStack items, Fraction weight) impleme
 	private static final int NO_STACK_INDEX = -1;
 
 	public PackingContainerContents(ItemStack items) {
-		this(items, computeContentWeight(items));
+		this(items, items.isEmpty() ? Fraction.ZERO : computeContentWeight(items));
 	}
 
 	private static Fraction computeContentWeight(ItemStack content) {
@@ -38,8 +38,8 @@ public record PackingContainerContents(ItemStack items, Fraction weight) impleme
 		return fraction;
 	}
 
-	static Fraction getWeight(ItemStack stack) {
-		PackingContainerContents contents = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS.get());
+	public static Fraction getWeight(ItemStack stack) {
+		PackingContainerContents contents = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS);
 		if (contents != null) {
 			return CONTAINER_IN_CONTAINER_WEIGHT.add(contents.weight());
 		} else {
@@ -73,7 +73,7 @@ public record PackingContainerContents(ItemStack items, Fraction weight) impleme
 		if (this == other) {
 			return true;
 		} else {
-			return other instanceof PackingContainerContents(ItemStack items1, Fraction weight1) && this.weight.equals(weight1) && ItemStack.matches(this.items, items1);
+			return other instanceof PackingContainerContents contents && this.weight.equals(contents.weight) && ItemStack.matches(this.items, contents.items);
 		}
 	}
 

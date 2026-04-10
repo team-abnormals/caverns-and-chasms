@@ -74,7 +74,7 @@ public class CowlItem extends ArmorItem {
 	}
 
 	@SubscribeEvent
-	public static void onLivingUpdate(EntityTickEvent event) {
+	public static void onLivingUpdate(EntityTickEvent.Post event) {
 		Entity entity = event.getEntity();
 		Level level = entity.level();
 		if (level instanceof ServerLevel serverLevel && entity instanceof LivingEntity living) {

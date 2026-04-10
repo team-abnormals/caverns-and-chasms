@@ -67,12 +67,13 @@ public class CCStructureTypes {
 		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_ROOM = register("msroom", LushMineshaftPieces.MineShaftRoom::new);
 		public static final DeferredHolder<StructurePieceType, StructurePieceType> MINE_SHAFT_STAIRS = register("msstairs", LushMineshaftPieces.MineShaftStairs::new);
 
-		private static DeferredHolder<StructurePieceType, StructurePieceType> register(String pieceId, StructurePieceType pieceType) {
+
+		private static DeferredHolder<StructurePieceType, StructurePieceType> setFullContextPieceId(StructurePieceType pieceType, String pieceId) {
 			return STRUCTURE_PIECE_TYPES.register(pieceId.toLowerCase(Locale.ROOT), () -> pieceType);
 		}
 
 		private static DeferredHolder<StructurePieceType, StructurePieceType> register(String key, StructurePieceType.ContextlessType type) {
-			return CCStructurePieceTypes.register(key, type);
+			return setFullContextPieceId(type, key);
 		}
 	}
 

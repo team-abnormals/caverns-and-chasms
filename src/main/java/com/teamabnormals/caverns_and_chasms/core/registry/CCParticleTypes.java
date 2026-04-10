@@ -11,14 +11,11 @@ import net.minecraft.client.particle.PlayerCloudParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class CCParticleTypes {
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Registries.PARTICLE_TYPE, CavernsAndChasms.MOD_ID);
 
@@ -80,63 +77,60 @@ public class CCParticleTypes {
 		return Pair.of(registerSimpleParticleType(true, name), emitter);
 	}
 
-	@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
-	public static class RegisterParticles {
-		@SubscribeEvent
-		public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
-			event.registerSpriteSet(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
-			event.registerSpriteSet(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
-			event.registerSpriteSet(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
-			event.registerSpriteSet(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
-			event.registerSpriteSet(SILVER_HIT.get(), DamageProvider::new);
-			event.registerSpriteSet(SILVER_SPARK.get(), SparkProvider::new);
-			event.registerSpriteSet(STONE_DUST.get(), StoneDustParticle.Provider::new);
-			event.registerSpriteSet(DEEPSLATE_DUST.get(), StoneDustParticle.Provider::new);
-			event.registerSpriteSet(STONE_CHIP.get(), ChipParticle.Provider::new);
-			event.registerSpriteSet(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
-			event.registerSpriteSet(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
-			event.registerSpriteSet(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
-			event.registerSpriteSet(EXPOSED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
-			event.registerSpriteSet(WEATHERED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
-			event.registerSpriteSet(OXIDIZED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
-			event.registerSpriteSet(SPINEL_BOOM_CIRCLE.get(), HugeExplosionParticle.Provider::new);
-			event.registerSpriteSet(SPINEL_BOOM_STAR.get(), HugeExplosionParticle.Provider::new);
-			event.registerSpecial(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());
-			event.registerSpriteSet(GOLEM_NOTE.get(), GolemNoteParticle.Provider::new);
-			event.registerSpriteSet(TIN_SPARK.get(), TinSparkParticle.Provider::new);
-			event.registerSpriteSet(FLINT.get(), FlintParticle.Provider::new);
-			event.registerSpriteSet(TURQUOISE_BLUE.get(), TurquoiseParticle.Provider::new);
-			event.registerSpriteSet(TURQUOISE_GREEN.get(), TurquoiseParticle.Provider::new);
-			event.registerSpriteSet(TURQUOISE_BLUE_STEP.get(), TurquoiseParticle.StepProvider::new);
-			event.registerSpriteSet(TURQUOISE_GREEN_STEP.get(), TurquoiseParticle.StepProvider::new);
-			event.registerSpriteSet(ATONING_DAGGER.get(), AtoningDaggerParticle.Provider::new);
-			event.registerSpriteSet(ATONING_LETTER.get(), AtoningLetterParticle.Provider::new);
-			event.registerSpriteSet(DROOL_PUDDLE.get(), DroolPuddleParticle.Provider::new);
-			event.registerSpriteSet(DROOL.get(), DroolParticle.Provider::new);
-			event.registerSpecial(LARGE_SMOKE_EMITTER.get(), new LargeSmokeSeedParticle.Provider());
+	@SubscribeEvent
+	public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
+		event.registerSpriteSet(CUPRIC_FIRE_FLAME.get(), FlameParticle.Provider::new);
+		event.registerSpriteSet(SMALL_CUPRIC_FIRE_FLAME.get(), FlameParticle.SmallFlameProvider::new);
+		event.registerSpriteSet(MIME_ENERGY.get(), MimeEnergyParticle.Provider::new);
+		event.registerSpriteSet(MIME_SPARK.get(), PlayerCloudParticle.Provider::new);
+		event.registerSpriteSet(SILVER_HIT.get(), DamageProvider::new);
+		event.registerSpriteSet(SILVER_SPARK.get(), SparkProvider::new);
+		event.registerSpriteSet(STONE_DUST.get(), StoneDustParticle.Provider::new);
+		event.registerSpriteSet(DEEPSLATE_DUST.get(), StoneDustParticle.Provider::new);
+		event.registerSpriteSet(STONE_CHIP.get(), ChipParticle.Provider::new);
+		event.registerSpriteSet(DEEPSLATE_CHIP.get(), ChipParticle.Provider::new);
+		event.registerSpriteSet(LAVA_LAMP_SMOKE.get(), LavaLampSmokeParticle.Provider::new);
+		event.registerSpriteSet(FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+		event.registerSpriteSet(EXPOSED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+		event.registerSpriteSet(WEATHERED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+		event.registerSpriteSet(OXIDIZED_FLOODLIGHT_DUST.get(), FloodlightDustParticle.Provider::new);
+		event.registerSpriteSet(SPINEL_BOOM_CIRCLE.get(), HugeExplosionParticle.Provider::new);
+		event.registerSpriteSet(SPINEL_BOOM_STAR.get(), HugeExplosionParticle.Provider::new);
+		event.registerSpecial(SPINEL_BOOM_EMITTER.get(), new SpinelBoomParticle.Provider());
+		event.registerSpriteSet(GOLEM_NOTE.get(), GolemNoteParticle.Provider::new);
+		event.registerSpriteSet(TIN_SPARK.get(), TinSparkParticle.Provider::new);
+		event.registerSpriteSet(FLINT.get(), FlintParticle.Provider::new);
+		event.registerSpriteSet(TURQUOISE_BLUE.get(), TurquoiseParticle.Provider::new);
+		event.registerSpriteSet(TURQUOISE_GREEN.get(), TurquoiseParticle.Provider::new);
+		event.registerSpriteSet(TURQUOISE_BLUE_STEP.get(), TurquoiseParticle.StepProvider::new);
+		event.registerSpriteSet(TURQUOISE_GREEN_STEP.get(), TurquoiseParticle.StepProvider::new);
+		event.registerSpriteSet(ATONING_DAGGER.get(), AtoningDaggerParticle.Provider::new);
+		event.registerSpriteSet(ATONING_LETTER.get(), AtoningLetterParticle.Provider::new);
+		event.registerSpriteSet(DROOL_PUDDLE.get(), DroolPuddleParticle.Provider::new);
+		event.registerSpriteSet(DROOL.get(), DroolParticle.Provider::new);
+		event.registerSpecial(LARGE_SMOKE_EMITTER.get(), new LargeSmokeSeedParticle.Provider());
 
-			registerSparkler(event, SPARKLER_SPARK);
-			registerSparkler(event, WHITE_SPARKLER_SPARK);
-			registerSparkler(event, ORANGE_SPARKLER_SPARK);
-			registerSparkler(event, MAGENTA_SPARKLER_SPARK);
-			registerSparkler(event, LIGHT_BLUE_SPARKLER_SPARK);
-			registerSparkler(event, YELLOW_SPARKLER_SPARK);
-			registerSparkler(event, LIME_SPARKLER_SPARK);
-			registerSparkler(event, PINK_SPARKLER_SPARK);
-			registerSparkler(event, GRAY_SPARKLER_SPARK);
-			registerSparkler(event, LIGHT_GRAY_SPARKLER_SPARK);
-			registerSparkler(event, CYAN_SPARKLER_SPARK);
-			registerSparkler(event, PURPLE_SPARKLER_SPARK);
-			registerSparkler(event, BLUE_SPARKLER_SPARK);
-			registerSparkler(event, BROWN_SPARKLER_SPARK);
-			registerSparkler(event, GREEN_SPARKLER_SPARK);
-			registerSparkler(event, RED_SPARKLER_SPARK);
-			registerSparkler(event, BLACK_SPARKLER_SPARK);
-		}
+		registerSparkler(event, SPARKLER_SPARK);
+		registerSparkler(event, WHITE_SPARKLER_SPARK);
+		registerSparkler(event, ORANGE_SPARKLER_SPARK);
+		registerSparkler(event, MAGENTA_SPARKLER_SPARK);
+		registerSparkler(event, LIGHT_BLUE_SPARKLER_SPARK);
+		registerSparkler(event, YELLOW_SPARKLER_SPARK);
+		registerSparkler(event, LIME_SPARKLER_SPARK);
+		registerSparkler(event, PINK_SPARKLER_SPARK);
+		registerSparkler(event, GRAY_SPARKLER_SPARK);
+		registerSparkler(event, LIGHT_GRAY_SPARKLER_SPARK);
+		registerSparkler(event, CYAN_SPARKLER_SPARK);
+		registerSparkler(event, PURPLE_SPARKLER_SPARK);
+		registerSparkler(event, BLUE_SPARKLER_SPARK);
+		registerSparkler(event, BROWN_SPARKLER_SPARK);
+		registerSparkler(event, GREEN_SPARKLER_SPARK);
+		registerSparkler(event, RED_SPARKLER_SPARK);
+		registerSparkler(event, BLACK_SPARKLER_SPARK);
+	}
 
-		public static void registerSparkler(RegisterParticleProvidersEvent event, Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle) {
-			event.registerSpriteSet(particle.getFirst().get(), SparklerParticle.Provider::new);
-			event.registerSpecial(particle.getSecond().get(), new SparklerSeedParticle.Provider(() -> particle.getFirst().get()));
-		}
+	public static void registerSparkler(RegisterParticleProvidersEvent event, Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> particle) {
+		event.registerSpriteSet(particle.getFirst().get(), SparklerParticle.Provider::new);
+		event.registerSpecial(particle.getSecond().get(), new SparklerSeedParticle.Provider(() -> particle.getFirst().get()));
 	}
 }

@@ -870,7 +870,7 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingTick(EntityTickEvent event) {
+	public static void onLivingTick(EntityTickEvent.Post event) {
 		if (event.getEntity() instanceof LivingEntity entity) {
 			Level level = entity.level();
 			for (EquipmentSlot slot : EquipmentSlot.values()) {

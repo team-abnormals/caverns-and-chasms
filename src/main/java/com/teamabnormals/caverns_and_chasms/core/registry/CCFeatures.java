@@ -16,7 +16,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.joml.Vector2i;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCFeatures {
 	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, CavernsAndChasms.MOD_ID);
 

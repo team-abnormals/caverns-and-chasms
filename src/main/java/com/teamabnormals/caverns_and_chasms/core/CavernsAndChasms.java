@@ -15,9 +15,9 @@ import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.*;
 import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
-import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCLootModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.*;
+import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeSerializers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
@@ -64,8 +64,13 @@ public class CavernsAndChasms {
 	public CavernsAndChasms(IEventBus bus, ModContainer container) {
 		CCDataProcessors.registerTrackedData();
 
-		REGISTRY_HELPER.register(bus);
+		CCBlocks.HELPER.register(bus);
+		CCItems.HELPER.register(bus);
+		CCArmorMaterials.ARMOR_MATERIALS.register(bus);
 		CCEntityTypes.ENTITY_TYPES.register(bus);
+		CCBlockEntityTypes.HELPER.register(bus);
+		CCSoundEvents.SOUNDS.register(bus);
+		CCDataComponents.DATA_COMPONENTS.register(bus);
 		CCAttributes.ATTRIBUTES.register(bus);
 		CCMobEffects.POTIONS.register(bus);
 		CCMobEffects.MOB_EFFECTS.register(bus);
@@ -85,7 +90,6 @@ public class CavernsAndChasms {
 		CCEnchantmentEffects.COMPONENTS.register(bus);
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
-		CCDataComponents.DATA_COMPONENTS.register(bus);
 
 		bus.addListener((ModConfigEvent event) -> {
 			final ModConfig config = event.getConfig();
@@ -151,7 +155,6 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCLootTableProvider(output, provider));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
 		generator.addProvider(server, new CCAdvancementModifierProvider(output, provider));
-		generator.addProvider(server, new CCLootModifierProvider(output, provider));
 		generator.addProvider(server, new CCDataRemolderProvider(output, provider));
 
 		boolean client = event.includeClient();

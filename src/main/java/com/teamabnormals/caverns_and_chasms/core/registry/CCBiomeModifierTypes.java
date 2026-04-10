@@ -24,7 +24,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 import java.util.List;
 import java.util.function.Function;
 
-@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCBiomeModifierTypes {
 	public static final DeferredRegister<MapCodec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(Keys.BIOME_MODIFIER_SERIALIZERS, CavernsAndChasms.MOD_ID);
 
