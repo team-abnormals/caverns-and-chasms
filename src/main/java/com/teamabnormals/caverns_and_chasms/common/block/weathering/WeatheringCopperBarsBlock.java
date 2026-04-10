@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.ItemAbilities;
 
-public class WeatheringCopperBarsBlock extends IronBarsBlock implements CCWeatheringCopper {
+public class WeatheringCopperBarsBlock extends IronBarsBlock implements WeatheringCopper {
 	private final WeatheringCopper.WeatherState weatherState;
 
 	public WeatheringCopperBarsBlock(WeatheringCopper.WeatherState weatherState, Properties properties) {
@@ -20,7 +20,7 @@ public class WeatheringCopperBarsBlock extends IronBarsBlock implements CCWeathe
 
 	@Override
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility action, boolean simulate) {
-		return action == ItemAbilities.AXE_SCRAPE ? CCWeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
+		return action == ItemAbilities.AXE_SCRAPE ? WeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class WeatheringCopperBarsBlock extends IronBarsBlock implements CCWeathe
 
 	@Override
 	public boolean isRandomlyTicking(BlockState state) {
-		return CCWeatheringCopper.getNext(state.getBlock()).isPresent();
+		return WeatheringCopper.getNext(state.getBlock()).isPresent();
 	}
 
 	@Override

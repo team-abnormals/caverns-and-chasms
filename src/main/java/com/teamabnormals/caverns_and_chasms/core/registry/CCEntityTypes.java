@@ -40,7 +40,7 @@ public class CCEntityTypes {
 //	public static final MobCategory UNDERGROUND_AMBIENT = MobCategory.create(CavernsAndChasms.MOD_ID + ":underground_ambient", "underground_ambient", 16, true, false, 128);
 
 	public static final DeferredHolder<EntityType<?>, EntityType<Deeper>> DEEPER = ENTITY_TYPES.createEntity("deeper", Deeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
-	public static final DeferredHolder<EntityType<?>, EntityType<Evendeeper>> EVENDEEPER = ENTITY_TYPES.createEntity("deeper", Evendeeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Evendeeper>> EVENDEEPER = ENTITY_TYPES.createEntity("evendeeper", Evendeeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
 	public static final DeferredHolder<EntityType<?>, EntityType<Peeper>> PEEPER = ENTITY_TYPES.createEntity("peeper", Peeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 2.2F).clientTrackingRange(8));
 	public static final DeferredHolder<EntityType<?>, EntityType<Mime>> MIME = ENTITY_TYPES.createEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
 	//	public static final DeferredHolder<EntityType<?>, EntityType<Fly>> FLY = HELPER.createEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);

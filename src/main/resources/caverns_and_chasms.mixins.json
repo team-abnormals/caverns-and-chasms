@@ -33,7 +33,6 @@
     "entity.EntityHitResultMixin",
     "entity.EntityMixin",
     "entity.IronGolemMixin",
-    "entity.LightningBoltMixin",
     "entity.LivingEntityAccessor",
     "entity.LivingEntityMixin",
     "entity.MobMixin",

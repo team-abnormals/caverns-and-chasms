@@ -1,7 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
-import com.google.common.base.Suppliers;
-import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
 import com.teamabnormals.blueprint.core.util.BlockUtil;
 import com.teamabnormals.blueprint.core.util.DataUtil;
@@ -43,7 +41,6 @@ import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry.InteractionInformation;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -59,7 +56,6 @@ public class CCCompat {
 		registerCompostables();
 		registerFlammables();
 		registerDispenserBehaviors();
-		registerWaxables();
 		registerFireworkIngredients();
 		changeLocalization();
 		makeVillagersScaredOfRats();
@@ -195,68 +191,6 @@ public class CCCompat {
 		DataUtil.changeBlockLocalization(Blocks.DRIPSTONE_BLOCK, CavernsAndChasms.MOD_ID, "dripstone");
 		DataUtil.changeBlockLocalization(CCBlocks.AMETHYST_BLOCK.get(), "minecraft", "amethyst_block");
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_DEEPSLATE, CavernsAndChasms.MOD_ID, "chiseled_deepslate_bricks");
-	}
-
-	public static void registerWaxables() {
-		ImmutableBiMap.Builder<Block, Block> builder = ImmutableBiMap.builder();
-		HoneycombItem.WAXABLES.get().forEach(builder::put);
-		builder.put(CCBlocks.COPPER_BARS.get(), CCBlocks.WAXED_COPPER_BARS.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BARS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BARS.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BARS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BARS.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BARS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BARS.get());
-		builder.put(CCBlocks.COPPER_BUTTON.get(), CCBlocks.WAXED_COPPER_BUTTON.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BUTTON.get(), CCBlocks.WAXED_EXPOSED_COPPER_BUTTON.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BUTTON.get(), CCBlocks.WAXED_WEATHERED_COPPER_BUTTON.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BUTTON.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BUTTON.get());
-		builder.put(CCBlocks.TOOLBOX.get(), CCBlocks.WAXED_TOOLBOX.get());
-		builder.put(CCBlocks.EXPOSED_TOOLBOX.get(), CCBlocks.WAXED_EXPOSED_TOOLBOX.get());
-		builder.put(CCBlocks.WEATHERED_TOOLBOX.get(), CCBlocks.WAXED_WEATHERED_TOOLBOX.get());
-		builder.put(CCBlocks.OXIDIZED_TOOLBOX.get(), CCBlocks.WAXED_OXIDIZED_TOOLBOX.get());
-		builder.put(Blocks.LIGHTNING_ROD, CCBlocks.WAXED_LIGHTNING_ROD.get());
-		builder.put(CCBlocks.EXPOSED_LIGHTNING_ROD.get(), CCBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
-		builder.put(CCBlocks.WEATHERED_LIGHTNING_ROD.get(), CCBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
-		builder.put(CCBlocks.OXIDIZED_LIGHTNING_ROD.get(), CCBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
-		builder.put(CCBlocks.FLOODLIGHT.get(), CCBlocks.WAXED_FLOODLIGHT.get());
-		builder.put(CCBlocks.EXPOSED_FLOODLIGHT.get(), CCBlocks.WAXED_EXPOSED_FLOODLIGHT.get());
-		builder.put(CCBlocks.WEATHERED_FLOODLIGHT.get(), CCBlocks.WAXED_WEATHERED_FLOODLIGHT.get());
-		builder.put(CCBlocks.OXIDIZED_FLOODLIGHT.get(), CCBlocks.WAXED_OXIDIZED_FLOODLIGHT.get());
-		builder.put(CCBlocks.COPPER_RAIL.get(), CCBlocks.WAXED_COPPER_RAIL.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_RAIL.get(), CCBlocks.WAXED_EXPOSED_COPPER_RAIL.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_RAIL.get(), CCBlocks.WAXED_WEATHERED_COPPER_RAIL.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_RAIL.get(), CCBlocks.WAXED_OXIDIZED_COPPER_RAIL.get());
-		builder.put(CCBlocks.COPPER_BRICKS.get(), CCBlocks.WAXED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BRICKS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BRICKS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BRICKS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_COPPER_BRICK_STAIRS.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICK_STAIRS.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICK_STAIRS.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BRICK_STAIRS.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICK_STAIRS.get());
-		builder.put(CCBlocks.COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_COPPER_BRICK_SLAB.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICK_SLAB.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICK_SLAB.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BRICK_SLAB.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICK_SLAB.get());
-		builder.put(CCBlocks.COPPER_BRICK_WALL.get(), CCBlocks.WAXED_COPPER_BRICK_WALL.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_BRICK_WALL.get(), CCBlocks.WAXED_EXPOSED_COPPER_BRICK_WALL.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_BRICK_WALL.get(), CCBlocks.WAXED_WEATHERED_COPPER_BRICK_WALL.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_BRICK_WALL.get(), CCBlocks.WAXED_OXIDIZED_COPPER_BRICK_WALL.get());
-		builder.put(CCBlocks.CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_CHISELED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.EXPOSED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_EXPOSED_CHISELED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.WEATHERED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_WEATHERED_CHISELED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.OXIDIZED_CHISELED_COPPER_BRICKS.get(), CCBlocks.WAXED_OXIDIZED_CHISELED_COPPER_BRICKS.get());
-		builder.put(CCBlocks.COPPER_INGOT.get(), CCBlocks.WAXED_COPPER_INGOT.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_INGOT.get(), CCBlocks.WAXED_EXPOSED_COPPER_INGOT.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_INGOT.get(), CCBlocks.WAXED_WEATHERED_COPPER_INGOT.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_INGOT.get(), CCBlocks.WAXED_OXIDIZED_COPPER_INGOT.get());
-		builder.put(CCBlocks.COPPER_CHAIN.get(), CCBlocks.WAXED_COPPER_CHAIN.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_CHAIN.get(), CCBlocks.WAXED_EXPOSED_COPPER_CHAIN.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_CHAIN.get(), CCBlocks.WAXED_WEATHERED_COPPER_CHAIN.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_CHAIN.get(), CCBlocks.WAXED_OXIDIZED_COPPER_CHAIN.get());
-		builder.put(CCBlocks.COPPER_LANTERN.get(), CCBlocks.WAXED_COPPER_LANTERN.get());
-		builder.put(CCBlocks.EXPOSED_COPPER_LANTERN.get(), CCBlocks.WAXED_EXPOSED_COPPER_LANTERN.get());
-		builder.put(CCBlocks.WEATHERED_COPPER_LANTERN.get(), CCBlocks.WAXED_WEATHERED_COPPER_LANTERN.get());
-		builder.put(CCBlocks.OXIDIZED_COPPER_LANTERN.get(), CCBlocks.WAXED_OXIDIZED_COPPER_LANTERN.get());
-		HoneycombItem.WAXABLES = Suppliers.memoize(builder::build);
 	}
 
 	private static void registerFireworkIngredients() {

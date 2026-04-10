@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.ToolboxBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.weathering.CCWeatheringCopper;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -160,7 +159,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 		BlockEntity blockentity = level.getBlockEntity(pos);
 		if (blockentity instanceof ToolboxBlockEntity toolbox) {
 			if (!level.isClientSide && player.isCreative() && !toolbox.isEmpty()) {
-				ItemStack itemstack = getWeatheredItemStack(this.getWeatherState(), this instanceof CCWeatheringCopper);
+				ItemStack itemstack = getWeatheredItemStack(this.getWeatherState(), this instanceof WeatheringCopper);
 				itemstack.applyComponents(blockentity.collectComponents());
 				ItemEntity itemEntity = new ItemEntity(level, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, itemstack);
 				itemEntity.setDefaultPickUpDelay();

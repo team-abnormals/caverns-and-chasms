@@ -6,23 +6,24 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 import java.util.function.Supplier;
 
-public class CCWeatheringIngotBlock extends IngotBlock implements CCWeatheringCopper {
+public class WeatheringIngotBlock extends IngotBlock implements WeatheringCopper {
 	private final WeatherState weatherState;
 
-	public CCWeatheringIngotBlock(WeatherState weatherState, Supplier<Item> item, Properties properties) {
+	public WeatheringIngotBlock(WeatherState weatherState, Supplier<Item> item, Properties properties) {
 		super(item, properties);
 		this.weatherState = weatherState;
 	}
 
 	@Override
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility action, boolean simulate) {
-		return action == ItemAbilities.AXE_SCRAPE ? CCWeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
+		return action == ItemAbilities.AXE_SCRAPE ? WeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class CCWeatheringIngotBlock extends IngotBlock implements CCWeatheringCo
 
 	@Override
 	public boolean isRandomlyTicking(BlockState state) {
-		return CCWeatheringCopper.getNext(state.getBlock()).isPresent();
+		return WeatheringCopper.getNext(state.getBlock()).isPresent();
 	}
 
 	@Override

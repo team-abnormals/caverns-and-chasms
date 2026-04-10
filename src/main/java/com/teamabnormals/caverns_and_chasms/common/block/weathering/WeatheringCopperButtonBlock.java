@@ -19,7 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 
-public class WeatheringCopperButtonBlock extends CopperButtonBlock implements CCWeatheringCopper {
+public class WeatheringCopperButtonBlock extends CopperButtonBlock implements WeatheringCopper {
 
 	public WeatheringCopperButtonBlock(WeatheringCopper.WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
 		super(weatherState, ticks, properties);
@@ -34,7 +34,7 @@ public class WeatheringCopperButtonBlock extends CopperButtonBlock implements CC
 
 	@Override
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility action, boolean simulate) {
-		return action == ItemAbilities.AXE_SCRAPE ? CCWeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
+		return action == ItemAbilities.AXE_SCRAPE ? WeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class WeatheringCopperButtonBlock extends CopperButtonBlock implements CC
 
 	@Override
 	public boolean isRandomlyTicking(BlockState state) {
-		return CCWeatheringCopper.getNext(state.getBlock()).isPresent();
+		return WeatheringCopper.getNext(state.getBlock()).isPresent();
 	}
 
 	@Override

@@ -4,22 +4,23 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.ItemAbilities;
 
-public class CCWeatheringCopperFullBlock extends Block implements CCWeatheringCopper {
+public class WeatheringCopperWallBlock extends WallBlock implements WeatheringCopper {
 	private final WeatherState weatherState;
 
-	public CCWeatheringCopperFullBlock(WeatherState weatherState, Properties properties) {
+	public WeatheringCopperWallBlock(WeatherState weatherState, Properties properties) {
 		super(properties);
 		this.weatherState = weatherState;
 	}
 
 	@Override
 	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility action, boolean simulate) {
-		return action == ItemAbilities.AXE_SCRAPE ? CCWeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
+		return action == ItemAbilities.AXE_SCRAPE ? WeatheringCopper.getPrevious(state).orElse(null) : super.getToolModifiedState(state, context, action, simulate);
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class CCWeatheringCopperFullBlock extends Block implements CCWeatheringCo
 
 	@Override
 	public boolean isRandomlyTicking(BlockState state) {
-		return CCWeatheringCopper.getNext(state.getBlock()).isPresent();
+		return WeatheringCopper.getNext(state.getBlock()).isPresent();
 	}
 
 	@Override
