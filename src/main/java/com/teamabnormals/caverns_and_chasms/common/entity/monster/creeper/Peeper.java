@@ -4,11 +4,13 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.PeeperSwellGoa
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -33,12 +35,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class Peeper extends CCCreeper {
-	private static final UUID FREEZE_MODIFIER_UUID = UUID.fromString("113f0691-d920-423d-acd2-9ca0c577991f");
-	private static final UUID SPEED_UP_MODIFIER_UUID = UUID.fromString("6866925d-f410-42b9-b2f2-7a22c60a6380");
-	private static final AttributeModifier FREEZE_MODIFIER = new AttributeModifier(FREEZE_MODIFIER_UUID, "Peeper frozen", -100.0D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+	private static final ResourceLocation FREEZE_MODIFIER_ID = CavernsAndChasms.location("peeper_frozen");
+	private static final ResourceLocation SPEED_UP_MODIFIER = CavernsAndChasms.location("peeper_speed_up");
+	private static final AttributeModifier FREEZE_MODIFIER = new AttributeModifier(FREEZE_MODIFIER_ID, -100.0D, Operation.ADD_MULTIPLIED_TOTAL);
 
 	private int followingTicks;
 
@@ -97,8 +98,8 @@ public class Peeper extends CCCreeper {
 	public void tick() {
 		if (this.isAlive()) {
 			AttributeInstance speedAttribute = this.getAttribute(Attributes.MOVEMENT_SPEED);
-			if (speedAttribute.getModifier(FREEZE_MODIFIER_UUID) != null) {
-				speedAttribute.removeModifier(FREEZE_MODIFIER_UUID);
+			if (speedAttribute.getModifier(FREEZE_MODIFIER_ID) != null) {
+				speedAttribute.removeModifier(FREEZE_MODIFIER_ID);
 			}
 
 			if (this.getTarget() instanceof MovingPlayer player) {
@@ -107,13 +108,13 @@ public class Peeper extends CCCreeper {
 					this.getLookControl().setLookAt(this.getTarget().getX(), this.getTarget().getEyeY(), this.getTarget().getZ());
 				} else {
 					this.followingTicks++;
-					speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
-					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER_UUID, "Peeper speed boost", Math.min(this.followingTicks * 0.0004D, 0.23D), Operation.ADDITION));
+					speedAttribute.removeModifier(SPEED_UP_MODIFIER);
+					speedAttribute.addTransientModifier(new AttributeModifier(SPEED_UP_MODIFIER, Math.min(this.followingTicks * 0.0004D, 0.23D), Operation.ADD_VALUE));
 				}
 			}
 
 			if (this.getTarget() == null) {
-				speedAttribute.removeModifier(SPEED_UP_MODIFIER_UUID);
+				speedAttribute.removeModifier(SPEED_UP_MODIFIER);
 			}
 		}
 

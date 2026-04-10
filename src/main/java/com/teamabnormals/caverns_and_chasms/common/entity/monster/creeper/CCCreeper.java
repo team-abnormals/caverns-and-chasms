@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Explosion.BlockInteraction;
@@ -79,12 +80,12 @@ public abstract class CCCreeper extends Creeper {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean p_34293_) {
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
 		for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
 			ItemStack itemstack = this.getItemBySlot(equipmentslot);
 			float f = this.getEquipmentDropChance(equipmentslot);
 			boolean flag = f > 1.0F;
-			if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack) && (p_34293_ || flag) && Math.max(this.random.nextFloat() - (float) p_34292_ * 0.01F, 0.0F) < f) {
+			if (!itemstack.isEmpty() && !EnchantmentHelper.has(itemstack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP) && (recentlyHit || flag) && this.random.nextFloat() < f) {
 				if (!flag && itemstack.isDamageableItem()) {
 					itemstack.setDamageValue(itemstack.getMaxDamage() - this.random.nextInt(1 + this.random.nextInt(Math.max(itemstack.getMaxDamage() - 3, 1))));
 				}

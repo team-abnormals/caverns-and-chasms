@@ -162,7 +162,7 @@ public class StorageDuctBlock extends BaseEntityBlock {
 				player.closeContainer();
 
 			player.nextContainerCounter();
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenStorageDuctPayload(player.containerCounter, container.getContainerSize(), pos));
+			PacketDistributor.sendToPlayer(player, new OpenStorageDuctPayload(player.containerCounter, container.getContainerSize(), pos));
 			CCCriteriaTriggers.OPEN_STORAGE_DUCT.get().trigger(player, container.getContainerSize() / 9);
 			player.containerMenu = new StorageDuctMenu(player.containerCounter, player.getInventory(), container, hatch);
 			player.initMenu(player.containerMenu);
@@ -218,17 +218,6 @@ public class StorageDuctBlock extends BaseEntityBlock {
 		}
 
 		return this.defaultBlockState().setValue(FIRST_END, firstend).setValue(SECOND_END, secondend);
-	}
-
-
-	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		if (stack.hasCustomHoverName()) {
-			BlockEntity blockEntity = level.getBlockEntity(pos);
-			if (blockEntity instanceof StorageDuctBlockEntity storageDuctBlockEntity) {
-				storageDuctBlockEntity.setCustomName(stack.getHoverName());
-			}
-		}
 	}
 
 	@Override

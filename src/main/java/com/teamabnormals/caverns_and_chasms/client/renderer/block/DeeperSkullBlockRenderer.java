@@ -65,10 +65,10 @@ public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
 		VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(skullblocktype == CCSkullTypes.EVENDEEPER ? EVENDEEPER_TEXTURE : DEEPER_TEXTURE));
 		SkullModelBase model = skullblocktype == CCSkullTypes.EVENDEEPER ? this.evendeeperModel : this.deeperModel;
 		model.setupAnim(anim, rot, 0.0F);
-		model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
 		if (hat != DeeperHat.NONE) {
 			vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(skullblocktype == CCSkullTypes.EVENDEEPER ? hat.getEvendeeperTexture() : hat.getDeeperTexture()));
-			model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+			model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
 		}
 		poseStack.popPose();
 	}

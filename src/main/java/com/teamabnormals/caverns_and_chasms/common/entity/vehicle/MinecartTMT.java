@@ -2,13 +2,13 @@ package com.teamabnormals.caverns_and_chasms.common.entity.vehicle;
 
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
 import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -107,7 +107,7 @@ public class MinecartTMT extends AbstractMinecart {
 	}
 
 	protected void explode(@Nullable DamageSource p_259539_, double p_260287_) {
-		if (!this.level().isClientSide) {
+		if (this.level() instanceof ServerLevel serverLevel) {
 			double d0 = Math.sqrt(p_260287_);
 			if (d0 > 5.0D) {
 				d0 = 5.0D;
@@ -117,7 +117,7 @@ public class MinecartTMT extends AbstractMinecart {
 			if (EventHooks.onExplosionStart(this.level(), boom)) return;
 			boom.explode();
 			boom.finalizeExplosion(true);
-			CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(() -> this.level().dimension()), new SpinelBoomPayload((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
+			PacketDistributor.sendToPlayersInDimension(serverLevel, new SpinelBoomPayload((float) this.getX(), (float) this.getY(0.0625D), (float) this.getZ(), 4.0F, boom.getToBlow()));
 			this.discard();
 		}
 

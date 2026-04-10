@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.blueprint.common.block.BlueprintFallingBlock;
 import com.teamabnormals.blueprint.common.entity.BlueprintFallingBlockEntity;
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
@@ -24,6 +25,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FlintBlock extends BlueprintFallingBlock {
@@ -78,26 +82,34 @@ public class FlintBlock extends BlueprintFallingBlock {
 				BlockPos randomPos = pos.offset(i, 0, j);
 				BlockState firestate = BaseFireBlock.getState(level, randomPos);
 
-				Vec3 direction = new Vec3(randomPos.getX() - pos.getX(), randomPos.getY(), randomPos.getZ() - pos.getZ()).normalize();
-				for (int l = 0; l < 10; ++l) {
-					double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
-					double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
-					double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
-					double d3 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
-					double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
-					double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
+				if (level instanceof ServerLevel serverLevel) {
+					Vec3 direction = new Vec3(randomPos.getX() - pos.getX(), randomPos.getY(), randomPos.getZ() - pos.getZ()).normalize();
 
-					NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), d0, d1, d2, d3, d4, d5);
-				}
-				for (int m = 0; m < (!grazing ? 25 : 10); ++m) {
-					double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
-					double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
-					double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
-					double d3 = direction.x + level.random.nextGaussian() * 0.02D;
-					double d4 = direction.y * 0.3D + level.random.nextGaussian() * 0.02D;
-					double d5 = direction.z + level.random.nextGaussian() * 0.02D;
+					List<ParticleInstance> sparkParticles = new ArrayList<>();
+					for (int l = 0; l < 10; ++l) {
+						double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
+						double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
+						double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
+						double d3 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
+						double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
+						double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
+						sparkParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
+					}
 
-					NetworkUtil.spawnParticle(CCParticleTypes.FLINT.getId().toString(), d0, d1, d2, d3, d4, d5);
+					NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), sparkParticles);
+
+					List<ParticleInstance> flintParticles = new ArrayList<>();
+					for (int m = 0; m < (!grazing ? 25 : 10); ++m) {
+						double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
+						double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
+						double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
+						double d3 = direction.x + level.random.nextGaussian() * 0.02D;
+						double d4 = direction.y * 0.3D + level.random.nextGaussian() * 0.02D;
+						double d5 = direction.z + level.random.nextGaussian() * 0.02D;
+						sparkParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
+					}
+
+					NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.FLINT.get(), flintParticles);
 				}
 				if (!grazing) {
 					level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_STRIKE.get(), SoundSource.BLOCKS, 1F, 1F);

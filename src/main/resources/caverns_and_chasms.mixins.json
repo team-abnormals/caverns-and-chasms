@@ -15,6 +15,7 @@
     "PlayerListMixin",
     "ServerGamePacketListenerImplMixin",
     "ServerLevelMixin",
+    "VanillaInventoryCodeHooksAccessor",
     "block.BaseFireBlockMixin",
     "block.BlockBehaviourAccessor",
     "block.BlockBehaviourMixin",

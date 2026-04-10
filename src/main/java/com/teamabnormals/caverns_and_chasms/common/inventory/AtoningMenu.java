@@ -211,7 +211,7 @@ public class AtoningMenu extends AbstractContainerMenu {
 
 						player.awardStat(Stats.ENCHANT_ITEM);
 						if (player instanceof ServerPlayer) {
-							CCCriteriaTriggers.ATONED_ITEM.trigger((ServerPlayer) player, output, i);
+							CCCriteriaTriggers.ATONED_ITEM.get().trigger((ServerPlayer) player, output, i);
 						}
 
 						this.enchantSlots.setChanged();

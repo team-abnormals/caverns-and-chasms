@@ -2,37 +2,37 @@ package com.teamabnormals.caverns_and_chasms.common.inventory;
 
 import com.teamabnormals.caverns_and_chasms.common.level.SpinelBoom;
 import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMenuTypes;
-import net.minecraft.Util;
+import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.Map;
-
 public class BejeweledAnvilMenu extends AnvilMenu {
 
-	public BejeweledAnvilMenu(int p_39005_, Inventory p_39006_) {
-		this(p_39005_, p_39006_, ContainerLevelAccess.NULL);
+	public BejeweledAnvilMenu(int containerId, Inventory playerInventory) {
+		this(containerId, playerInventory, ContainerLevelAccess.NULL);
 	}
 
-	public BejeweledAnvilMenu(int p_39008_, Inventory p_39009_, ContainerLevelAccess p_39010_) {
-		super(p_39008_, p_39009_, p_39010_);
+	public BejeweledAnvilMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
+		super(containerId, playerInventory, access);
 		this.menuType = CCMenuTypes.BEJEWELED_ANVIL.get();
 	}
 
@@ -42,7 +42,7 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 	}
 
 	@Override
-	protected boolean mayPickup(Player player, boolean p_39024_) {
+	protected boolean mayPickup(Player player, boolean hasStack) {
 		return true;
 	}
 
@@ -78,12 +78,12 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 				level.removeBlock(pos, false);
 				level.levelEvent(1029, pos, 0);
 
-				if (!level.isClientSide()) {
+				if (level instanceof ServerLevel serverLevel) {
 					SpinelBoom boom = new SpinelBoom(level, null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 2.0F);
 					if (!EventHooks.onExplosionStart(level, boom)) {
 						boom.explode();
 						boom.finalizeExplosion(true);
-						CavernsAndChasms.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), new SpinelBoomPayload(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
+						PacketDistributor.sendToPlayersInDimension(serverLevel, new SpinelBoomPayload(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, 2.0F, boom.getToBlow()));
 					}
 				}
 			} else {
@@ -103,13 +103,13 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 		} else {
 			ItemStack item1Copy = item1.copy();
 			ItemStack item2 = this.inputSlots.getItem(1);
-			Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(item1Copy);
+			ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(EnchantmentHelper.getEnchantmentsForCrafting(item1Copy));
 			this.repairItemCountCost = 0;
 			boolean flag = false;
 
 			if (!CommonHooks.onAnvilChange(this, item1, item2, resultSlots, itemName, j, this.player)) return;
 			if (!item2.isEmpty()) {
-				flag = item2.getItem() == Items.ENCHANTED_BOOK && !EnchantedBookItem.getEnchantments(item2).isEmpty();
+				flag = item2.has(DataComponents.STORED_ENCHANTMENTS);
 				if (item1Copy.isDamageableItem() && item1Copy.getItem().isValidRepairItem(item1, item2)) {
 					int l2 = Math.min(item1Copy.getDamageValue(), item1Copy.getMaxDamage() / 4);
 					if (l2 <= 0) {
@@ -148,22 +148,24 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 						}
 					}
 
-					Map<Enchantment, Integer> map1 = EnchantmentHelper.getEnchantments(item2);
+					ItemEnchantments map1 = EnchantmentHelper.getEnchantmentsForCrafting(item2);
 					boolean flag2 = false;
 					boolean flag3 = false;
 
-					for (Enchantment enchantment1 : map1.keySet()) {
-						if (enchantment1 != null) {
-							int i2 = map.getOrDefault(enchantment1, 0);
-							int j2 = map1.get(enchantment1);
+					for (Entry<Holder<Enchantment>> entry : map1.entrySet()) {
+						Holder<Enchantment> holder1 = entry.getKey();
+						if (holder1 != null) {
+							int i2 = mutable.getLevel(holder1);
+							int j2 = entry.getIntValue();
 							j2 = i2 == j2 ? j2 + 1 : Math.max(j2, i2);
-							boolean flag1 = enchantment1.canEnchant(item1);
-							if (this.player.getAbilities().instabuild || item1.is(Items.ENCHANTED_BOOK)) {
+							Enchantment enchantment1 = holder1.value();
+							boolean flag1 = item1.supportsEnchantment(holder1);
+							if (this.player.getAbilities().instabuild) {
 								flag1 = true;
 							}
 
-							for (Enchantment enchantment : map.keySet()) {
-								if (enchantment != enchantment1 && !enchantment1.isCompatibleWith(enchantment)) {
+							for (Holder<Enchantment> holder2 : mutable.keySet()) {
+								if (!holder2.equals(holder1) && !Enchantment.areCompatible(holder1, holder2)) {
 									flag1 = false;
 									++i;
 								}
@@ -177,14 +179,8 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 									j2 = enchantment1.getMaxLevel();
 								}
 
-								map.put(enchantment1, j2);
-								int k3 = switch (enchantment1.getRarity()) {
-									case COMMON -> 1;
-									case UNCOMMON -> 2;
-									case RARE -> 4;
-									case VERY_RARE -> 8;
-								};
-
+								mutable.set(holder1, j2);
+								int k3 = enchantment1.getAnvilCost();
 								if (flag) {
 									k3 = Math.max(1, k3 / 2);
 								}
@@ -204,16 +200,16 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 				}
 			}
 
-			if (this.itemName != null && !Util.isBlank(this.itemName)) {
+			if (this.itemName != null && !StringUtil.isBlank(this.itemName)) {
 				if (!this.itemName.equals(item1.getHoverName().getString())) {
 					k = 1;
 					i += k;
-					item1Copy.setHoverName(Component.literal(this.itemName));
+					item1Copy.set(DataComponents.CUSTOM_NAME, Component.literal(this.itemName));
 				}
-			} else if (item1.hasCustomHoverName()) {
+			} else if (item1.has(DataComponents.CUSTOM_NAME)) {
 				k = 1;
 				i += k;
-				item1Copy.resetHoverName();
+				item1Copy.remove(DataComponents.CUSTOM_NAME);
 			}
 			if (flag && !item1Copy.isBookEnchantable(item2)) item1Copy = ItemStack.EMPTY;
 
@@ -222,17 +218,17 @@ public class BejeweledAnvilMenu extends AnvilMenu {
 			}
 
 			if (!item1Copy.isEmpty()) {
-				int k2 = item1Copy.getBaseRepairCost();
-				if (!item2.isEmpty() && k2 < item2.getBaseRepairCost()) {
-					k2 = item2.getBaseRepairCost();
+				int k2 = item1Copy.getOrDefault(DataComponents.REPAIR_COST, 0);
+				if (!item2.isEmpty() && k2 < item2.getOrDefault(DataComponents.REPAIR_COST, 0)) {
+					k2 = item2.getOrDefault(DataComponents.REPAIR_COST, 0);
 				}
 
 				if (k != i || k == 0) {
 					k2 = calculateIncreasedRepairCost(k2);
 				}
 
-				item1Copy.setRepairCost(k2);
-				EnchantmentHelper.setEnchantments(map, item1Copy);
+				item1Copy.set(DataComponents.REPAIR_COST, k2);
+				EnchantmentHelper.setEnchantments(item1Copy, mutable.toImmutable());
 			}
 
 			this.resultSlots.setItem(0, item1Copy);

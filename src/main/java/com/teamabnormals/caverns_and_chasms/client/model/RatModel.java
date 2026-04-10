@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
@@ -125,7 +125,7 @@ public class RatModel extends AgeableListModel<Rat> {
 		boolean hasOwner = compound.hasUUID("Owner");
 		boolean isBaby = compound.getInt("Age") < 0;
 		RatVariant variant = level.registryAccess().registryOrThrow(CCRegistries.RAT_VARIANT).get(ResourceLocation.parse(compound.getString("Variant")));
-		ItemStack heldStack = ItemStack.of(compound.getList("HandItems", 10).getCompound(0));
+		ItemStack heldStack = ItemStack.parseOptional(level.registryAccess(), compound.getList("HandItems", 10).getCompound(0));
 		float health = compound.getFloat("Health");
 		boolean dirty = compound.getBoolean("Dirty");
 
@@ -290,28 +290,28 @@ public class RatModel extends AgeableListModel<Rat> {
 		ATTACHED;
 	}
 
-	private static double getAttributeValue(CompoundTag entityData, Attribute attribute) {
-		if (entityData.contains("Attributes", 9)) {
-			ListTag attributes = entityData.getList("Attributes", 10);
+	private static double getAttributeValue(CompoundTag entityData, Holder<Attribute> attribute) {
+		if (entityData.contains("attributes", 9)) {
+			ListTag attributes = entityData.getList("attributes", 10);
 
 			for (int i = 0; i < attributes.size(); ++i) {
 				CompoundTag attributetag = attributes.getCompound(i);
-				if (attributetag.getString("Name").equals(BuiltInRegistries.ATTRIBUTE.getKey(attribute).toString())) {
-					double basevalue = attributetag.getDouble("Base");
+				if (attributetag.getString("id").equals(attribute.getKey().location().toString())) {
+					double basevalue = attributetag.getDouble("base");
 					double addition = 0.0D;
 					double multiplybase = 0.0D;
 					double multiplytotal = 1.0D;
 
-					if (attributetag.contains("Modifiers", 9)) {
-						ListTag modifiers = attributetag.getList("Modifiers", 10);
+					if (attributetag.contains("modifiers", 9)) {
+						ListTag modifiers = attributetag.getList("modifiers", 10);
 
 						for (int j = 0; j < modifiers.size(); ++j) {
 							CompoundTag modifier = modifiers.getCompound(j);
-							AttributeModifier.Operation operation = AttributeModifier.Operation.fromValue(modifier.getInt("Operation"));
+							AttributeModifier.Operation operation = AttributeModifier.Operation.valueOf(modifier.getString("operation"));
 							switch (operation) {
-								case ADD_VALUE -> addition += modifier.getDouble("Amount");
-								case ADD_MULTIPLIED_BASE -> multiplybase += modifier.getDouble("Amount");
-								case ADD_MULTIPLIED_TOTAL -> multiplytotal *= (1.0D + modifier.getDouble("Amount"));
+								case ADD_VALUE -> addition += modifier.getDouble("amount");
+								case ADD_MULTIPLIED_BASE -> multiplybase += modifier.getDouble("amount");
+								case ADD_MULTIPLIED_TOTAL -> multiplytotal *= (1.0D + modifier.getDouble("amount"));
 							}
 						}
 					}

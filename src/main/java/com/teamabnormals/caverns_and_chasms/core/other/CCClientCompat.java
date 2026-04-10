@@ -231,7 +231,7 @@ public class CCClientCompat {
 	}
 
 	public static void registerItemProperties() {
-		ItemProperties.register(Items.CROSSBOW, CavernsAndChasms.location("blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
+		ItemProperties.register(Items.CROSSBOW, CavernsAndChasms.location("blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && stack.get(DataComponents.CHARGED_PROJECTILES).contains(CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
 		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW, CCItems.TETHER_POTION.get(), CCItems.IMPACT_POTION.get(), CCItems.TRAIL_POTION.get())) {
 			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> stack.has(CCDataComponents.SUBTLE) ? 1.0F : 0.0F);

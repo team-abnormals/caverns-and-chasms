@@ -26,13 +26,13 @@ public class DeeperSkullBlockEntity extends SkullBlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag tag, Provider registries) {
 		super.saveAdditional(tag, registries);
-		compound.putString("hat", this.hat.getSerializedName());
+		tag.putString("hat", this.hat.getSerializedName());
 	}
 
 	@Override
 	public void loadAdditional(CompoundTag tag, Provider registries) {
 		super.loadAdditional(tag, registries);
-		this.hat = DeeperHat.byName(compound.getString("hat"));
+		this.hat = DeeperHat.byName(tag.getString("hat"));
 	}
 
 	@NonNull

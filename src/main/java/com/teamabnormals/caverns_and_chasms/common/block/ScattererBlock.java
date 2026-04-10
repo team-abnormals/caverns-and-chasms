@@ -73,7 +73,7 @@ public class ScattererBlock extends DispenserBlock {
 
 	public DispenseItemBehavior getScatterMethod(Level level, ItemStack stack) {
 		if (stack.is(Items.FIREWORK_ROCKET)) {
-			return new FireworkScattererBehavior();
+			return new FireworkScattererBehavior(stack.getItem());
 		} else if (stack.is(Items.FIRE_CHARGE)) {
 			return new FireChargeScattererBehavior();
 		} else {

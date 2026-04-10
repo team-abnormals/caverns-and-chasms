@@ -49,7 +49,7 @@ public class AtoningTableRenderer implements BlockEntityRenderer<AtoningTableBlo
 		float f6 = Mth.lerp(p_112419_, block.oOpen, block.open);
 		this.bookModel.setupAnim(f, Mth.clamp(f4, 0.0F, 1.0F), Mth.clamp(f5, 0.0F, 1.0F), f6);
 		VertexConsumer vertexconsumer = BOOK_LOCATION.buffer(p_112421_, RenderType::entitySolid);
-		this.bookModel.render(stack, vertexconsumer, p_112422_, p_112423_, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.bookModel.render(stack, vertexconsumer, p_112422_, p_112423_, -1);
 		stack.popPose();
 	}
 }

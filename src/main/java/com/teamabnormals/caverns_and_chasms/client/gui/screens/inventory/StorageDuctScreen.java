@@ -30,7 +30,7 @@ public class StorageDuctScreen extends AbstractContainerScreen<StorageDuctMenu> 
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int partialTick, int mouseX, float mouseY) {
-		this.renderBackground(guiGraphics);
+		this.renderBackground(guiGraphics, partialTick, mouseX, mouseY);
 		super.render(guiGraphics, partialTick, mouseX, mouseY);
 		this.renderTooltip(guiGraphics, partialTick, mouseX);
 	}
@@ -45,11 +45,11 @@ public class StorageDuctScreen extends AbstractContainerScreen<StorageDuctMenu> 
 	}
 
 	@Override
-	public boolean mouseScrolled(double p_98527_, double p_98528_, double p_98529_) {
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
 		if (!this.canScroll()) {
 			return false;
 		} else {
-			this.scrollOffset = this.menu.subtractInputFromScroll(this.scrollOffset, p_98529_);
+			this.scrollOffset = this.menu.subtractInputFromScroll(this.scrollOffset, scrollY);
 			this.menu.scrollTo(this.scrollOffset);
 			return true;
 		}

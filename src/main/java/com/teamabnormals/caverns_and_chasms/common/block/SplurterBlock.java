@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.SplurterBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.SplurterDispenseItemBehavior;
+import com.teamabnormals.caverns_and_chasms.core.mixin.VanillaInventoryCodeHooksAccessor;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +17,6 @@ import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.VanillaInventoryCodeHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -73,7 +73,7 @@ public class SplurterBlock extends ScattererBlock {
 	public static boolean splurterInsertHook(Level level, BlockPos pos, DispenserBlockEntity splurter, int slot, @NotNull ItemStack stack) {
 		Direction enumfacing = level.getBlockState(pos).getValue(SplurterBlock.FACING);
 		BlockPos blockpos = pos.relative(enumfacing);
-		return VanillaInventoryCodeHooks.getItemHandlerAt(level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), enumfacing.getOpposite())
+		return VanillaInventoryCodeHooksAccessor.invokeGetItemHandlerAt(level, blockpos.getX(), blockpos.getY(), blockpos.getZ(), enumfacing.getOpposite())
 				.map(destinationResult -> {
 					IItemHandler itemHandler = destinationResult.getKey();
 					Object destination = destinationResult.getValue();

@@ -11,6 +11,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.core.Holder.Reference;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -25,6 +27,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
+import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
@@ -138,24 +141,27 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		Lighting.setupFor3DItems();
 	}
 
-	public void render(GuiGraphics p_283462_, int p_282491_, int p_281953_, float p_282182_) {
-		p_282182_ = this.minecraft.getFrameTime();
-		this.renderBackground(p_283462_);
-		super.render(p_283462_, p_282491_, p_281953_, p_282182_);
-		this.renderTooltip(p_283462_, p_282491_, p_281953_);
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
+		this.renderTooltip(guiGraphics, mouseX, mouseY);
 		boolean flag = this.minecraft.player.getAbilities().instabuild;
 		int lapis = this.menu.getLapisCount();
 		int spinel = this.menu.getLapisCount();
 
 		for (int j = 0; j < 3; ++j) {
 			int k = (this.menu).costs[j];
-			Enchantment enchantment = Enchantment.byId((this.menu).enchantClue[j]);
+			Optional<Reference<Enchantment>> optional = this.minecraft
+					.level
+					.registryAccess()
+					.registryOrThrow(Registries.ENCHANTMENT)
+					.getHolder(this.menu.enchantClue[j]);
+
 			int l = (this.menu).levelClue[j];
 			int slot = j + 1;
-			if (this.isHovering(60, 14 + 19 * j, 108, 17, p_282491_, p_281953_) && k > 0) {
+			if (this.isHovering(60, 14 + 19 * j, 108, 17, mouseX, mouseY) && k > 0) {
 				List<Component> list = Lists.newArrayList();
-				list.add((Component.translatable("container.enchant.clue", enchantment == null ? "" : enchantment.getFullname(l))).withStyle(ChatFormatting.WHITE));
-				if (enchantment == null) {
+				list.add((Component.translatable("container.enchant.clue", optional.isEmpty() ? "" : Enchantment.getFullname(optional.get(), l))).withStyle(ChatFormatting.WHITE));
+				if (optional.isEmpty()) {
 					list.add(Component.literal(""));
 					list.add(Component.translatable("forge.container.enchant.limitedEnchantability").withStyle(ChatFormatting.RED));
 				} else if (!flag) {
@@ -180,7 +186,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 					list.add(durabilityText.withStyle(color));
 				}
 
-				p_283462_.renderComponentTooltip(this.font, list, p_282491_, p_281953_);
+				guiGraphics.renderComponentTooltip(this.font, list, mouseX, mouseY);
 				break;
 			}
 		}

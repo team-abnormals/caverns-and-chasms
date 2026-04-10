@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.google.common.base.Predicates;
+import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBeStupidGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
@@ -41,7 +42,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractGrazer extends Animal {
@@ -281,12 +284,7 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
-		return dimensions.height * 0.55F;
-	}
-
-	@Override
-	public EntityDimensions getDimensions(Pose pose) {
+	public EntityDimensions getDefaultDimensions(Pose pose) {
 		if (this.isBaby()) {
 			return BABY_DIMENSIONS.scale(this.getScale());
 		} else {
@@ -308,21 +306,21 @@ public abstract class AbstractGrazer extends Animal {
 	public int getMaxHeadYRot() {
 		return 1;
 	}
+//TODO: Reimplement
+//	@Override
+//	public float getStepHeight() {
+//		GrazerState state = this.getState();
+//		return state == GrazerState.RUNNING || state == GrazerState.SLOWING_DOWN || state == GrazerState.BOUNCING ? 1.0F : super.getStepHeight();
+//	}
 
-	@Override
-	public float getStepHeight() {
-		GrazerState state = this.getState();
-		return state == GrazerState.RUNNING || state == GrazerState.SLOWING_DOWN || state == GrazerState.BOUNCING ? 1.0F : super.getStepHeight();
-	}
-
-	@Override
-	public float maxUpStep() {
-		if (this.getControllingPassenger() instanceof Player && this.isIdleState(this.getState())) {
-			return Math.max(this.maxUpStep, 1.0F);
-		} else {
-			return this.maxUpStep;
-		}
-	}
+//	@Override
+//	public float maxUpStep() {
+//		if (this.getControllingPassenger() instanceof Player && this.isIdleState(this.getState())) {
+//			return Math.max(this.maxUpStep, 1.0F);
+//		} else {
+//			return this.maxUpStep;
+//		}
+//	}
 
 	@Override
 	public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
@@ -350,18 +348,19 @@ public abstract class AbstractGrazer extends Animal {
 		return false;
 	}
 
-	@Override
-	public double getPassengersRidingOffset() {
-		return this.shellCenterY(1.0F) + this.shellRadius() - 0.3D + Math.abs(Mth.sin(this.tickCount * 0.3F)) * 0.75D * this.passengerBounceAmount;
-	}
-
-	@Override
-	protected void positionRider(Entity rider, Entity.MoveFunction function) {
-		if (this.hasPassenger(rider)) {
-			Vec3 vec3 = new Vec3(0.0D, this.getPassengersRidingOffset() + rider.getMyRidingOffset(), this.shellCenterZ(1.0F) - 0.3F).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
-			function.accept(rider, this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
-		}
-	}
+	//TODO: Reimplement
+//	@Override
+//	public double getPassengersRidingOffset() {
+//		return this.shellCenterY(1.0F) + this.shellRadius() - 0.3D + Math.abs(Mth.sin(this.tickCount * 0.3F)) * 0.75D * this.passengerBounceAmount;
+//	}
+//
+//	@Override
+//	protected void positionRider(Entity rider, Entity.MoveFunction function) {
+//		if (this.hasPassenger(rider)) {
+//			Vec3 vec3 = new Vec3(0.0D, this.getPassengersRidingOffset() + rider.getMyRidingOffset(), this.shellCenterZ(1.0F) - 0.3F).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
+//			function.accept(rider, this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
+//		}
+//	}
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
@@ -679,7 +678,7 @@ public abstract class AbstractGrazer extends Animal {
 				float f1 = this.getYRot() * Mth.DEG_TO_RAD;
 				Vec3 offset = new Vec3(-5.0D / 16.0D, -12.0D / 16.0D, 9.5D / 16.0D).scale(this.getScale());
 				Vec3 offsetrotated = offset.xRot(-f).yRot(-f1);
-				Vec3 shellcenter = new Vec3(0.0D, this.shellCenterY(1.0F) - this.getDimensions(net.minecraft.world.entity.Pose.STANDING).height * 0.5D, this.shellCenterZ(1.0F)).yRot(-f1);
+				Vec3 shellcenter = new Vec3(0.0D, this.shellCenterY(1.0F) - this.getDimensions(Pose.STANDING).height() * 0.5D, this.shellCenterZ(1.0F)).yRot(-f1);
 				Vec3 pos = offsetrotated.add(shellcenter).add(this.position());
 				double tangentialspeed = Mth.TWO_PI * 18.0D / BOUNCE_ROT_SPEED * Math.sqrt(offset.y * offset.y + offset.z * offset.z) * Mth.DEG_TO_RAD;
 				Vec3 tangentialvelcity = new Vec3(0.0D, offsetrotated.z, -offsetrotated.y).normalize().scale(tangentialspeed).add(this.getDeltaMovement());
@@ -739,11 +738,16 @@ public abstract class AbstractGrazer extends Animal {
 						Vec3 collpoint = new Vec3(this.position().x + posdiff.x * d0, (this.position().y + this.getBbHeight() + other.position().y) * 0.5D, this.position().z + posdiff.z * d0);
 						CCUtil.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
 
-						for (int i = 0; i < 4; i++) {
-							double d1 = this.random.nextGaussian() * 0.05D;
-							double d2 = 0.3D + this.random.nextGaussian() * 0.05D;
-							double d3 = this.random.nextGaussian() * 0.05D;
-							NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), collpoint.x, collpoint.y, collpoint.z, d1, d2, d3);
+						if (this.level() instanceof ServerLevel serverLevel) {
+							List<ParticleInstance> particles = new ArrayList<>();
+							for (int i = 0; i < 4; i++) {
+								double d1 = this.random.nextGaussian() * 0.05D;
+								double d2 = 0.3D + this.random.nextGaussian() * 0.05D;
+								double d3 = this.random.nextGaussian() * 0.05D;
+								particles.add(new ParticleInstance(collpoint.x, collpoint.y, collpoint.z, d1, d2, d3));
+							}
+
+							NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), particles);
 						}
 					}
 				} else {
@@ -857,15 +861,19 @@ public abstract class AbstractGrazer extends Animal {
 				Vec3 vec31 = oldMotion.reverse().normalize();
 				CCUtil.playRicochetSound(this.level(), vec3, newMotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
 
-				for (int i = 0; i < 8; i++) {
-					double d1 = vec31.x * 0.3D + this.random.nextGaussian() * 0.05D;
-					double d2 = vec31.y * 0.3D + this.random.nextGaussian() * 0.05D;
-					double d3 = vec31.z * 0.3D + this.random.nextGaussian() * 0.05D;
-					double d7 = 1.0D + this.random.nextDouble() * 2.0D;
-					double d4 = vec3.x + vec31.x * d7 + this.random.nextGaussian() * 0.2D;
-					double d5 = vec3.y + vec31.y + this.random.nextGaussian() * 0.2D;
-					double d6 = vec3.z + vec31.z * d7 + this.random.nextGaussian() * 0.2D;
-					NetworkUtil.spawnParticle(CCParticleTypes.TIN_SPARK.getId().toString(), d4, d5, d6, d1, d2, d3);
+				if (this.level() instanceof ServerLevel serverLevel) {
+					List<ParticleInstance> particles = new ArrayList<>();
+					for (int i = 0; i < 8; i++) {
+						double d1 = vec31.x * 0.3D + this.random.nextGaussian() * 0.05D;
+						double d2 = vec31.y * 0.3D + this.random.nextGaussian() * 0.05D;
+						double d3 = vec31.z * 0.3D + this.random.nextGaussian() * 0.05D;
+						double d7 = 1.0D + this.random.nextDouble() * 2.0D;
+						double d4 = vec3.x + vec31.x * d7 + this.random.nextGaussian() * 0.2D;
+						double d5 = vec3.y + vec31.y + this.random.nextGaussian() * 0.2D;
+						double d6 = vec3.z + vec31.z * d7 + this.random.nextGaussian() * 0.2D;
+						particles.add(new ParticleInstance(d4, d5, d6, d1, d2, d3));
+					}
+					NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), particles);
 				}
 			}
 		}

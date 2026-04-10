@@ -5,6 +5,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.CopperGolem.Oxi
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,6 +30,7 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ItemAbilities;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,7 +55,6 @@ public class OxidizedCopperGolem extends LivingEntity {
 
 	public OxidizedCopperGolem(EntityType<? extends OxidizedCopperGolem> entity, Level level) {
 		super(entity, level);
-		this.setMaxUpStep(0.0F);
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0D);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.STEP_HEIGHT, 0.0D);
 	}
 
 	@Override
@@ -124,9 +126,7 @@ public class OxidizedCopperGolem extends LivingEntity {
 			}
 
 			if (success && !this.level().isClientSide) {
-				itemstack.hurtAndBreak(1, player, (entity) -> {
-					entity.broadcastBreakEvent(hand);
-				});
+				itemstack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			}
 		}
 
@@ -135,22 +135,22 @@ public class OxidizedCopperGolem extends LivingEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (!this.level().isClientSide && !this.isRemoved()) {
+		if (this.level() instanceof ServerLevel level && !this.isRemoved()) {
 			Entity directentity = source.getDirectEntity();
 			if (this.damageSources().fellOutOfWorld().equals(source)) {
 				this.removeStatue();
 				return false;
 			} else if (!this.isInvulnerableTo(source)) {
 				if (source.is(DamageTypeTags.IS_EXPLOSION)) {
-					this.breakStatue(source, true, false);
+					this.breakStatue(level, null, source, true, false);
 					return false;
-				} else if ("player".equals(source.getMsgId()) && directentity instanceof Player && ((Player) directentity).getAbilities().mayBuild) {
+				} else if ("player".equals(source.getMsgId()) && directentity instanceof Player player && player.getAbilities().mayBuild) {
 					if (source.isCreativePlayer()) {
-						this.breakStatue(source, false, false);
+						this.breakStatue(level, player, source, false, false);
 						return true;
-					} else if (((Player) directentity).getMainHandItem().canPerformAction(ItemAbilities.PICKAXE_DIG)) {
+					} else if (player.getMainHandItem().canPerformAction(ItemAbilities.PICKAXE_DIG)) {
 						if (this.isDamaged()) {
-							this.breakStatue(source, true, true);
+							this.breakStatue(level, player, source, true, true);
 						} else {
 							this.setDamaged(true);
 							this.gameEvent(GameEvent.ENTITY_DAMAGE, directentity);
@@ -174,30 +174,21 @@ public class OxidizedCopperGolem extends LivingEntity {
 		}
 	}
 
-	private void breakStatue(DamageSource source, boolean dropLoot, boolean brokenWithPickaxe) {
+	private void breakStatue(ServerLevel level, @Nullable Player player, DamageSource source, boolean dropLoot, boolean brokenWithPickaxe) {
 		if (dropLoot) {
 			if (brokenWithPickaxe) {
 				ItemStack itemstack = this.isWaxed() ? new ItemStack(CCItems.WAXED_OXIDIZED_COPPER_GOLEM.get()) : new ItemStack(CCItems.OXIDIZED_COPPER_GOLEM.get());
 
-				CompoundTag compound = itemstack.getOrCreateTag();
+				CustomData customdata = itemstack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
 				if (this.hasCustomName())
-					itemstack.setHoverName(this.getCustomName());
-				if (this.isNoAi())
-					compound.putBoolean("NoAI", true);
-				if (this.isSilent())
-					compound.putBoolean("Silent", true);
-				if (this.isNoGravity())
-					compound.putBoolean("NoGravity", true);
-				if (this.hasGlowingTag())
-					compound.putBoolean("Glowing", true);
-				if (this.isInvulnerable())
-					compound.putBoolean("Invulnerable", true);
-				if (this.isPersistenceRequired())
-					compound.putBoolean("PersistenceRequired", true);
+					itemstack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
+				if (!customdata.isEmpty()) {
+					EntityType.updateCustomEntityTag(level, player, this, customdata);
+				}
 
 				Block.popResource(this.level(), this.blockPosition(), itemstack);
 			} else {
-				this.dropAllDeathLoot(source);
+				this.dropAllDeathLoot(level, source);
 			}
 		}
 
@@ -312,11 +303,6 @@ public class OxidizedCopperGolem extends LivingEntity {
 	@Override
 	public HumanoidArm getMainArm() {
 		return HumanoidArm.RIGHT;
-	}
-
-	@Override
-	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-		return size.height * 0.8F;
 	}
 
 	@Override

@@ -81,7 +81,6 @@ public class CavernsAndChasms {
 		CCInstruments.INSTRUMENTS.register(bus);
 		CCGameEvents.GAME_EVENTS.register(bus);
 		CCPoiTypes.POI_TYPES.register(bus);
-		CCLootItemFunctions.LOOT_FUNCTION_TYPES.register(bus);
 		CCDecoratedPotPatterns.DECORATED_POT_PATTERNS.register(bus);
 		CCEnchantmentEffects.COMPONENTS.register(bus);
 		CCCriteriaTriggers.TRIGGERS.register(bus);

@@ -15,6 +15,7 @@ import net.minecraft.world.item.*;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -22,7 +23,9 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
+	private static final ResourceLocation ERROR_SPRITE = ResourceLocation.withDefaultNamespace("container/smithing/error");
 	private static final ResourceLocation SMITHING_LOCATION = CavernsAndChasms.location("textures/gui/container/dismantling.png");
+
 	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM = ResourceLocation.withDefaultNamespace("item/empty_slot_smithing_template_armor_trim");
 	private static final ResourceLocation EMPTY_SLOT_SMITHING_TEMPLATE_NETHERITE_UPGRADE = ResourceLocation.withDefaultNamespace("item/empty_slot_smithing_template_netherite_upgrade");
 	private static final ResourceLocation EMPTY_SLOT_SPINEL = CavernsAndChasms.location("item/empty_slot_spinel");
@@ -31,6 +34,7 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 	private static final Component MISSING_SPINEL = Component.translatable("container.caverns_and_chasms.dismantle.missing_spinel");
 	private static final Component RESULT_ERROR_TOOLTIP = Component.translatable("container.caverns_and_chasms.dismantle.result_error_tooltip");
 	private static final List<ResourceLocation> EMPTY_SLOT_SMITHING_TEMPLATES = List.of(EMPTY_SLOT_SMITHING_TEMPLATE_ARMOR_TRIM, EMPTY_SLOT_SMITHING_TEMPLATE_NETHERITE_UPGRADE);
+	private static final Vector3f ARMOR_STAND_TRANSLATION = new Vector3f();
 	public static final Quaternionf ARMOR_STAND_ANGLE = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float) Math.PI);
 	private final CyclingSlotBackground smithingIcon = new CyclingSlotBackground(0);
 	private final CyclingSlotBackground spinelIcon = new CyclingSlotBackground(1);
@@ -71,7 +75,7 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 		super.renderBg(p_283264_, p_267158_, p_267266_, p_266722_);
 		this.smithingIcon.render(this.menu, p_283264_, p_267158_, this.leftPos, this.topPos);
 		this.spinelIcon.render(this.menu, p_283264_, p_267158_, this.leftPos, this.topPos);
-		InventoryScreen.renderEntityInInventory(p_283264_, this.leftPos + 153, this.topPos + 75, 25, ARMOR_STAND_ANGLE, null, this.armorStandPreview);
+		InventoryScreen.renderEntityInInventory(p_283264_, this.leftPos + 153, this.topPos + 75, 25.0F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ANGLE, null, this.armorStandPreview);
 	}
 
 	public void slotChanged(AbstractContainerMenu p_267217_, int p_266842_, ItemStack p_267208_) {
@@ -80,29 +84,27 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 		}
 	}
 
-	private void updateArmorStandPreview(ItemStack p_268225_) {
+	private void updateArmorStandPreview(ItemStack stack) {
 		if (this.armorStandPreview != null) {
 			for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
 				this.armorStandPreview.setItemSlot(equipmentslot, ItemStack.EMPTY);
 			}
 
-			if (!p_268225_.isEmpty()) {
-				ItemStack itemstack = p_268225_.copy();
-				Item item = p_268225_.getItem();
-				if (item instanceof ArmorItem) {
-					ArmorItem armoritem = (ArmorItem) item;
+			if (!stack.isEmpty()) {
+				ItemStack itemstack = stack.copy();
+				if (stack.getItem() instanceof ArmorItem armoritem) {
 					this.armorStandPreview.setItemSlot(armoritem.getEquipmentSlot(), itemstack);
 				} else {
 					this.armorStandPreview.setItemSlot(EquipmentSlot.OFFHAND, itemstack);
 				}
 			}
-
 		}
 	}
 
-	protected void renderErrorIcon(GuiGraphics p_281835_, int p_283389_, int p_282634_) {
+	@Override
+	protected void renderErrorIcon(GuiGraphics guiGraphics, int x, int y) {
 		if (this.hasRecipeError()) {
-			p_281835_.blit(SMITHING_LOCATION, p_283389_ + 47, p_282634_ + 46, this.imageWidth, 0, 28, 21);
+			guiGraphics.blitSprite(ERROR_SPRITE, x + 65, y + 46, 28, 21);
 		}
 	}
 

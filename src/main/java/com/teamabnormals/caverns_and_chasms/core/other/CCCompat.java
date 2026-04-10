@@ -42,8 +42,10 @@ import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry.InteractionInformation;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCCompat {
@@ -258,12 +260,12 @@ public class CCCompat {
 	}
 
 	private static void registerFireworkIngredients() {
-		FireworkStarRecipe.SHAPE_INGREDIENT = Ingredient.merge(List.of(FireworkStarRecipe.SHAPE_INGREDIENT, Ingredient.of(CCItems.DEEPER_HEAD.get(), CCItems.EVENDEEPER_HEAD.get(), CCItems.PEEPER_HEAD.get(), CCItems.MIME_HEAD.get())));
+		FireworkStarRecipe.SHAPE_INGREDIENT = Ingredient.of(Stream.concat(Arrays.stream(FireworkStarRecipe.SHAPE_INGREDIENT.getItems()), Stream.of(new ItemStack(CCItems.DEEPER_HEAD.get()), new ItemStack(CCItems.EVENDEEPER_HEAD.get()), new ItemStack(CCItems.PEEPER_HEAD.get()), new ItemStack(CCItems.MIME_HEAD.get()))));
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.DEEPER_HEAD.get(), FireworkExplosion.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.EVENDEEPER_HEAD.get(), FireworkExplosion.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.PEEPER_HEAD.get(), FireworkExplosion.Shape.CREEPER);
 		FireworkStarRecipe.SHAPE_BY_ITEM.put(CCItems.MIME_HEAD.get(), FireworkExplosion.Shape.CREEPER);
-		FireworkStarRecipe.TRAIL_INGREDIENT = Ingredient.merge(List.of(FireworkStarRecipe.TRAIL_INGREDIENT, Ingredient.of(CCItems.ZIRCONIA.get())));
+		FireworkStarRecipe.TRAIL_INGREDIENT = Ingredient.of(Stream.concat(Arrays.stream(FireworkStarRecipe.TRAIL_INGREDIENT.getItems()), Stream.of(new ItemStack(CCItems.ZIRCONIA.get()))));
 	}
 
 	private static void makeVillagersScaredOfRats() {

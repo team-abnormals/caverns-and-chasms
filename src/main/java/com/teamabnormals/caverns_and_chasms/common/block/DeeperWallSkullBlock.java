@@ -4,7 +4,9 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.DeeperSkullBlock
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SkullBlock.Type;
 import net.minecraft.world.level.block.WallSkullBlock;
@@ -31,7 +33,7 @@ public class DeeperWallSkullBlock extends WallSkullBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		return DeeperSkullBlock.tryToAddHat(level, pos, player, hand);
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+		return DeeperSkullBlock.tryToAddHat(stack, level, pos, player, hand);
 	}
 }

@@ -7,7 +7,7 @@ public class RatFollowOwnerGoal extends FollowOwnerGoal {
 	private final Rat rat;
 
 	public RatFollowOwnerGoal(Rat rat, double speedModifier, float startDistance, float stopDistance) {
-		super(rat, speedModifier, startDistance, stopDistance, false);
+		super(rat, speedModifier, startDistance, stopDistance);
 		this.rat = rat;
 	}
 
@@ -19,9 +19,5 @@ public class RatFollowOwnerGoal extends FollowOwnerGoal {
 	@Override
 	public boolean canContinueToUse() {
 		return this.rat.shouldFollowOwner() && super.canContinueToUse();
-	}
-
-	@Override
-	protected void teleportToOwner() {
 	}
 }

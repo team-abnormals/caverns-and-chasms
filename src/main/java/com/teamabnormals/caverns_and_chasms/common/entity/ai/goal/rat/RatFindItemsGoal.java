@@ -15,7 +15,7 @@ public class RatFindItemsGoal extends Goal {
 
 	public RatFindItemsGoal(Rat rat) {
 		this.rat = rat;
-		this.pickablePredicate = entity -> !entity.hasPickUpDelay() && entity.isAlive() && entity.getItem().isEdible();
+		this.pickablePredicate = entity -> !entity.hasPickUpDelay() && entity.isAlive() && entity.getItem().getFoodProperties(this.rat) != null;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE));
 	}
 
@@ -25,7 +25,7 @@ public class RatFindItemsGoal extends Goal {
 			return false;
 		} else {
 			ItemStack currentItem = this.rat.getMainHandItem();
-			if (currentItem.isEmpty() && currentItem.isEdible()) {
+			if (currentItem.isEmpty() && currentItem.getFoodProperties(this.rat) != null) {
 				return false;
 			} else if (this.rat.getTarget() == null && this.rat.getLastHurtByMob() == null) {
 				if (this.rat.getRandom().nextInt(10) != 0) {

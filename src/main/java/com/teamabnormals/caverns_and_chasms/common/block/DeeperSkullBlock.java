@@ -9,6 +9,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -44,13 +46,12 @@ public class DeeperSkullBlock extends SkullBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		return tryToAddHat(level, pos, player, hand);
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+		return tryToAddHat(stack, level, pos, player, hand);
 	}
 
-	public static InteractionResult tryToAddHat(Level level, BlockPos pos, Player player, InteractionHand hand) {
+	public static ItemInteractionResult tryToAddHat(ItemStack itemstack, Level level, BlockPos pos, Player player, InteractionHand hand) {
 		if (player.getAbilities().mayBuild && level.getBlockEntity(pos) instanceof DeeperSkullBlockEntity blockentity) {
-			ItemStack itemstack = player.getItemInHand(hand);
 			if (itemstack.canPerformAction(ItemAbilities.SHEARS_CARVE)) {
 				DeeperHat hat = blockentity.getHat();
 				if (hat != DeeperHat.NONE) {
@@ -58,11 +59,11 @@ public class DeeperSkullBlock extends SkullBlock {
 						level.playSound(null, pos, SoundEvents.SNOW_GOLEM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 						blockentity.setHat(DeeperHat.NONE);
 						popResource(level, pos, new ItemStack(hat.getItem()));
-						itemstack.hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(hand));
+						itemstack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 						level.gameEvent(player, GameEvent.SHEAR, pos);
 						player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 					}
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					return ItemInteractionResult.sidedSuccess(level.isClientSide);
 				}
 			} else {
 				DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
@@ -73,12 +74,12 @@ public class DeeperSkullBlock extends SkullBlock {
 					}
 					if (!player.getAbilities().instabuild)
 						itemstack.shrink(1);
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					return ItemInteractionResult.sidedSuccess(level.isClientSide);
 				}
 			}
 		}
 
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

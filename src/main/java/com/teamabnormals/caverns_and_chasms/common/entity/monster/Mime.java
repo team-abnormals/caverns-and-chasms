@@ -2,11 +2,13 @@ package com.teamabnormals.caverns_and_chasms.common.entity.monster;
 
 import com.google.common.collect.ImmutableMap;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCRecipes.CCRecipeTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -17,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -26,6 +29,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -36,11 +40,10 @@ import org.joml.Vector3f;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class Mime extends Monster {
-	private static final UUID SPEED_MODIFIER_SNEAKING_UUID = UUID.fromString("D0DEF8EE-3E50-4FFC-A20D-3B9B27F4A3F3");
-	private static final AttributeModifier SPEED_MODIFIER_SNEAKING = new AttributeModifier(SPEED_MODIFIER_SNEAKING_UUID, "Sneaking speed boost", (double) -0.3F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+	private static final ResourceLocation SPEED_MODIFIER_ID = CavernsAndChasms.location("sneaking_speed_boost");
+	private static final AttributeModifier SPEED_MODIFIER_SNEAKING = new AttributeModifier(SPEED_MODIFIER_ID, -0.3F, Operation.ADD_MULTIPLIED_TOTAL);
 	public static final EntityDimensions STANDING_SIZE = EntityDimensions.scalable(0.6F, 2.1F);
 	private static final Map<Pose, EntityDimensions> SIZE_BY_POSE = ImmutableMap.<Pose, EntityDimensions>builder().put(Pose.STANDING, STANDING_SIZE).put(Pose.SWIMMING, EntityDimensions.scalable(0.6F, 0.6F)).put(Pose.CROUCHING, EntityDimensions.scalable(0.6F, 1.8F)).build();
 	public final Vector3f[] armPositions = new Vector3f[]{new Vector3f(-5.0F, 2.0F, 0.0F), new Vector3f(5.0F, 2.0F, 0.0F)};
@@ -139,7 +142,7 @@ public class Mime extends Monster {
 		if (entityIn instanceof LivingEntity entity) {
 			boolean mimed = false;
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
-				if (slot.getType() == EquipmentSlot.Type.ARMOR) {
+				if (slot.isArmor()) {
 					ItemStack stack = entity.getItemBySlot(slot);
 					if (this.shouldCopyItem(this.getItemBySlot(slot), stack)) {
 						this.setItemSlot(slot, stack.copy());
@@ -162,9 +165,10 @@ public class Mime extends Monster {
 
 		if (!this.level().isClientSide() && source instanceof LivingEntity attacker) {
 			ItemStack stack = attacker.getItemBySlot(EquipmentSlot.OFFHAND);
-			List<MimingRecipe> recipes = this.level().getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
+			List<RecipeHolder<MimingRecipe>> recipes = this.level().getRecipeManager().getAllRecipesFor(CCRecipeTypes.MIMING.get());
 
-			for (MimingRecipe recipe : recipes) {
+			for (RecipeHolder<MimingRecipe> holder : recipes) {
+				MimingRecipe recipe = holder.value();
 				for (Ingredient ingredient : recipe.getIngredients()) {
 					if (stack.getCount() == 1 && ingredient.test(stack)) {
 						attacker.setItemSlot(EquipmentSlot.OFFHAND, recipe.getResultItem(this.level().registryAccess()).copy());
@@ -250,8 +254,8 @@ public class Mime extends Monster {
 
 				Pose pose = target != null ? target.getPose() : Pose.STANDING;
 				if (!this.isPassenger() && (pose == Pose.SWIMMING || pose == Pose.CROUCHING || pose == Pose.STANDING)) {
-					if (!this.canEnterPose(pose)) {
-						if (this.canEnterPose(Pose.CROUCHING)) pose = Pose.CROUCHING;
+					if (!this.wouldNotSuffocateAtTargetPose(pose)) {
+						if (this.wouldNotSuffocateAtTargetPose(Pose.CROUCHING)) pose = Pose.CROUCHING;
 						else pose = Pose.SWIMMING;
 					}
 				} else {
@@ -287,7 +291,7 @@ public class Mime extends Monster {
 
 	private void handleSneakingSpeed() {
 		AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-		if (attributeinstance.getModifier(SPEED_MODIFIER_SNEAKING_UUID) != null) {
+		if (attributeinstance.getModifier(SPEED_MODIFIER_ID) != null) {
 			attributeinstance.removeModifier(SPEED_MODIFIER_SNEAKING);
 		}
 
@@ -302,12 +306,7 @@ public class Mime extends Monster {
 	}
 
 	@Override
-	public double getMyRidingOffset() {
-		return -0.45D;
-	}
-
-	@Override
-	public EntityDimensions getDimensions(Pose pose) {
+	public EntityDimensions getDefaultDimensions(Pose pose) {
 		return SIZE_BY_POSE.getOrDefault(pose, STANDING_SIZE);
 	}
 

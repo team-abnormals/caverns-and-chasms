@@ -85,7 +85,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 		float f = xRot * Mth.DEG_TO_RAD;
 		float f1 = yRot * Mth.DEG_TO_RAD;
 		Vec3 vec3 = new Vec3(0.0D, this.getYOffset(), this.getZOffset()).scale(this.getScale()).xRot(-f).yRot(-f1);
-		Vec3 vec31 = new Vec3(0.0D, this.getParent().shellCenterY(1.0F) - this.getDimensions(Pose.STANDING).height * 0.5D, this.getParent().shellCenterZ(1.0F)).yRot(-f1);
+		Vec3 vec31 = new Vec3(0.0D, this.getParent().shellCenterY(1.0F) - this.getDimensions(Pose.STANDING).height() * 0.5D, this.getParent().shellCenterZ(1.0F)).yRot(-f1);
 		return vec3.add(vec31).add(x, y, z);
 	}
 
@@ -116,7 +116,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 				Vec3 attackerpos = directentity.getEyePosition();
 				Vec3 partpos = new Vec3(this.getX(), this.getY(0.5D), this.getZ());
 
-				Vec3 location = aabb.clip(attackerpos, attackerpos.add(directentity.getViewVector(1.0F).scale(partpos.subtract(attackerpos).length() + this.getDimensions(Pose.STANDING).height * 0.5D + 0.3D))).or(() -> aabb.clip(attackerpos, partpos)).orElse(partpos);
+				Vec3 location = aabb.clip(attackerpos, attackerpos.add(directentity.getViewVector(1.0F).scale(partpos.subtract(attackerpos).length() + this.getDimensions(Pose.STANDING).height() * 0.5D + 0.3D))).or(() -> aabb.clip(attackerpos, partpos)).orElse(partpos);
 				Vec3 normal = grazer.calculateDeflectionNormal(location);
 
 				if (!this.level().isClientSide)

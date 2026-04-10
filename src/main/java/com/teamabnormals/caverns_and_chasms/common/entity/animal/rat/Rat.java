@@ -362,6 +362,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return !this.isSittingBecauseOrdered() && this.getCommandedPos() == null;
 	}
 
+	@Override //TODO: Fix this
+	public boolean shouldTryTeleportToOwner() {
+		return false;
+	}
+
 	// Attach to entity stuff
 	public void setAttachedToEntity(LivingEntity target) {
 		((RatHolder) target).attachRat(this);
@@ -1108,16 +1113,17 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		return child;
 	}
 
-	@Override
-	public void positionRider(Entity passenger, Entity.MoveFunction function) {
-		super.positionRider(passenger, function);
-		float f = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-		float f1 = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-		function.accept(passenger, this.getX() + (double) (0.1F * f), this.getY(0.5D) + passenger.getMyRidingOffset() + 0.0D, this.getZ() - (double) (0.1F * f1));
-		if (passenger instanceof LivingEntity living) {
-			living.yBodyRot = this.yBodyRot;
-		}
-	}
+	//TODO: Reimplement
+//	@Override
+//	public void positionRider(Entity passenger, Entity.MoveFunction function) {
+//		super.positionRider(passenger, function);
+//		float f = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+//		float f1 = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+//		function.accept(passenger, this.getX() + (double) (0.1F * f), this.getY(0.5D) + passenger.getMyRidingOffset() + 0.0D, this.getZ() - (double) (0.1F * f1));
+//		if (passenger instanceof LivingEntity living) {
+//			living.yBodyRot = this.yBodyRot;
+//		}
+//	}
 
 	@Nullable
 	@Override

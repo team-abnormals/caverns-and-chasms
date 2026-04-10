@@ -3,20 +3,25 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.teamabnormals.caverns_and_chasms.common.advancement.CopperGolemPredicate;
-import com.teamabnormals.caverns_and_chasms.common.block.*;
-import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
+import com.teamabnormals.caverns_and_chasms.common.block.CoalBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.IngotLayer;
+import com.teamabnormals.caverns_and_chasms.common.block.TmtBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.loot.FortuneEnchantFunction;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate.Builder;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.WritableRegistry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
@@ -24,8 +29,6 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
-import net.minecraft.data.loot.packs.VanillaBlockLoot;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -35,18 +38,18 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
@@ -77,9 +80,12 @@ public class CCLootTableProvider extends LootTableProvider {
 	}
 
 	private static class CCBlockLoot extends BlockLootSubProvider {
-		private static final Set<Item> EXPLOSION_RESISTANT = Stream.of(Blocks.DRAGON_EGG, Blocks.BEACON, Blocks.CONDUIT, Blocks.SKELETON_SKULL, Blocks.WITHER_SKELETON_SKULL, Blocks.PLAYER_HEAD, Blocks.ZOMBIE_HEAD, Blocks.CREEPER_HEAD, Blocks.DRAGON_HEAD, Blocks.PIGLIN_HEAD, Blocks.SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.LIGHT_GRAY_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.WHITE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX).map(ItemLike::asItem).collect(Collectors.toSet());
 
-		public static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+		protected LootItemCondition.Builder hasSilkTouch() {
+			RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+			return MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))));
+		}
+
 		public static final LootItemCondition.Builder HAS_PICKAXE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.PICKAXES));
 		public static final LootItemCondition.Builder HAS_SHOVEL = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.SHOVELS));
 
@@ -89,9 +95,11 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public void generate() {
+			RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 			this.add(SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
 			this.add(DEEPSLATE_SILVER_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_SILVER.get()));
-			this.add(SOUL_SILVER_ORE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))));
+			this.add(SOUL_SILVER_ORE.get(), (block) -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))).apply(ApplyBonusCount.addOreBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE))))));
 			this.add(TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
 			this.add(DEEPSLATE_TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
 			this.add(CYLINDRITE_TIN_ORE.get(), (block) -> createOreDrop(block, CCItems.RAW_TIN.get()));
@@ -104,9 +112,9 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropWhenSilkTouch(FRAGILE_STONE.get());
 			this.dropWhenSilkTouch(FRAGILE_DEEPSLATE.get());
 			this.add(ROCKY_DIRT.get(), (block) -> LootTable.lootTable().withPool(LootPool.lootPool().add(AlternativesEntry.alternatives(
-					LootItem.lootTableItem(ROCKY_DIRT.get()).when(HAS_SILK_TOUCH),
+					LootItem.lootTableItem(ROCKY_DIRT.get()).when(this.hasSilkTouch()),
 					LootItem.lootTableItem(Items.COBBLESTONE).when(HAS_PICKAXE),
-					LootItem.lootTableItem(Items.FLINT).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).otherwise(LootItem.lootTableItem(Items.DIRT)).when(HAS_SHOVEL),
+					LootItem.lootTableItem(Items.FLINT).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), 0.1F, 0.14285715F, 0.25F, 1.0F)).otherwise(LootItem.lootTableItem(Items.DIRT)).when(HAS_SHOVEL),
 					applyExplosionCondition(ROCKY_DIRT.get(), LootItem.lootTableItem(ROCKY_DIRT.get()))))));
 			this.add(FLINT_BLOCK.get(), (block -> createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(Items.FLINT)).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))))));
 			this.dropSelf(CHARCOAL_BLOCK.get());
@@ -428,7 +436,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(AZALEA_BOARDS.get());
 			this.dropSelf(AZALEA_LADDER.get());
 			this.add(AZALEA_DOOR.get(), this::createDoorTable);
-			this.add(AZALEA_BEEHIVE.get(), VanillaBlockLoot::createBeeHiveDrop);
+			this.add(AZALEA_BEEHIVE.get(), this::createBeeHiveDrop);
 			this.add(AZALEA_CHEST.get(), this::createNameableBlockEntityTable);
 			this.add(TRAPPED_AZALEA_CHEST.get(), this::createNameableBlockEntityTable);
 			this.add(AZALEA_BOOKSHELF.get(), (block) -> createSingleItemTableWithSilkTouch(block, Items.BOOK, ConstantValue.exactly(3.0F)));
@@ -516,12 +524,16 @@ public class CCLootTableProvider extends LootTableProvider {
 					);
 		}
 
-		protected LootTable.Builder createToolboxDrop(Block p_124295_) {
-			return LootTable.lootTable().withPool(applyExplosionCondition(p_124295_, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(p_124295_).apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Lock", "BlockEntityTag.Lock").copy("LootTable", "BlockEntityTag.LootTable").copy("LootTableSeed", "BlockEntityTag.LootTableSeed")).apply(SetContainerContents.setContents(CCBlockEntityTypes.TOOLBOX.get()).withEntry(DynamicLoot.dynamicEntry(ToolboxBlock.CONTENTS))))));
+		protected LootTable.Builder createToolboxDrop(Block block) {
+			return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+					.include(DataComponents.CUSTOM_NAME)
+					.include(DataComponents.CONTAINER)
+					.include(DataComponents.LOCK)
+					.include(DataComponents.CONTAINER_LOOT)))));
 		}
 
 		protected LootTable.Builder createSpinelOreDrops(Block block) {
-			return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SPINEL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+			return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(CCItems.SPINEL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE)))));
 		}
 
 		protected LootTable.Builder createTurquoiseOreDrops(Block block) {
@@ -541,17 +553,23 @@ public class CCLootTableProvider extends LootTableProvider {
 			super(FeatureFlags.REGISTRY.allFlags(), provider);
 		}
 
-		public static final LootItemCondition.Builder HAS_PICKAXE = LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER,
+		public static final LootItemCondition.Builder HAS_PICKAXE = LootItemEntityPropertyCondition.hasProperties(EntityTarget.ATTACKER,
 				EntityPredicate.Builder.entity().equipment(Builder.equipment()
-						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES).build()).build()));
+						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES)).build()));
 
-		public static final LootItemCondition.Builder HAS_SILK_TOUCH = LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER,
-				EntityPredicate.Builder.entity().equipment(Builder.equipment()
-						.mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES)
-								.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, Ints.ANY)).build()).build()));
+		protected LootItemCondition.Builder hasSilkTouch() {
+			HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+			return LootItemEntityPropertyCondition.hasProperties(EntityTarget.ATTACKER, EntityPredicate.Builder.entity().equipment(Builder.equipment().mainhand(ItemPredicate.Builder.item().of(ItemTags.PICKAXES)
+					.withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(registrylookup.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))))));
+		}
 
 		public static LootPoolSingletonContainer.Builder<?> copperIngot(ItemLike copperIngot, int oxidation, boolean waxed) {
 			return LootItem.lootTableItem(copperIngot).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(CopperGolemPredicate.copperGolem(Ints.exactly(oxidation), waxed))));
+		}
+
+		public static EnchantedCountIncreaseFunction.Builder fortuneMultiplier(HolderLookup.Provider registries, NumberProvider count) {
+			HolderLookup.RegistryLookup<Enchantment> registrylookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
+			return new EnchantedCountIncreaseFunction.Builder(registrylookup.getOrThrow(Enchantments.FORTUNE), count);
 		}
 
 		@Override
@@ -569,62 +587,62 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(DEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
-							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
-							.apply(FortuneEnchantFunction.fortuneMultiplier(UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
-							.when(HAS_SILK_TOUCH.invert())
+							.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+							.apply(fortuneMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
+							.when(this.hasSilkTouch().invert())
 					))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.STONE)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
-							.when(HAS_SILK_TOUCH))
+							.when(this.hasSilkTouch()))
 					)
 					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(EVENDEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F)))
-							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
-							.apply(FortuneEnchantFunction.fortuneMultiplier(UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
-							.when(HAS_SILK_TOUCH.invert())
+							.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+							.apply(fortuneMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)).when(HAS_PICKAXE))
+							.when(this.hasSilkTouch().invert())
 					))
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.DEEPSLATE)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
-							.when(HAS_SILK_TOUCH))
+							.when(this.hasSilkTouch()))
 					)
 					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(PEEPER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.GUNPOWDER)
 							.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 8.0F)))
-							.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+							.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
 					.withPool(LootPool.lootPool().add(TagEntry.expandTag(ItemTags.CREEPER_DROP_MUSIC_DISCS))
-							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.KILLER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
+							.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.ATTACKER, EntityPredicate.Builder.entity().of(EntityTypeTags.SKELETONS)))));
 			this.add(MIME.get(), LootTable.lootTable()
-					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(CCItems.SPINEL.get())
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
-									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+											.add(LootItem.lootTableItem(CCItems.SPINEL.get())
+//									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+															.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+											)
 							)
-					)
-					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-							.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get())
-									.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-									.when(LootItemKilledByPlayerCondition.killedByPlayer())
-									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.15F, 0.05F))
+							.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+									.add(LootItem.lootTableItem(CCItems.ZIRCONIA.get())
+											.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+											.when(LootItemKilledByPlayerCondition.killedByPlayer())
+											.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.15F, 0.05F))
+									)
 							)
-					)
 			);
 			this.add(GRAZER.get(), LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(CCItems.TIN_INGOT.get())
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
 							)
 					)
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(CCBlocks.SADDLED_EGG.get())
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
 									.when(LootItemKilledByPlayerCondition.killedByPlayer())
-									.when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.1F, 0.03F))
+									.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.1F, 0.03F))
 							)
 					)
 			);
@@ -632,7 +650,7 @@ public class CCLootTableProvider extends LootTableProvider {
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(LootItem.lootTableItem(CCItems.TIN_INGOT.get())
 									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
-									.apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
 							)
 					)
 			);
@@ -642,7 +660,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.add(GLARE.get(), LootTable.lootTable());
 			this.add(LOST_GOAT.get(), LootTable.lootTable());
 
-			this.add(EntityType.SILVERFISH, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
+			this.add(EntityType.SILVERFISH, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.SILVER_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
 		}
 
 		@Override
@@ -660,18 +678,18 @@ public class CCLootTableProvider extends LootTableProvider {
 
 		@Override
 		public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
-			consumer.accept(CavernsAndChasms.location("chests/forge_dispenser"), LootTable.lootTable()
+			consumer.accept(CCLootTables.FORGE_DISPENSER, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 							.add(EmptyLootItem.emptyItem().setWeight(25))
 							.add(LootItem.lootTableItem(Items.BUCKET).setWeight(10))
 							.add(LootItem.lootTableItem(Items.LAVA_BUCKET).setWeight(15))
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_BUCKET.get()).setWeight(4))
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(3))
-							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(2).apply(fluidLevelTag(1)))
-							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).apply(fluidLevelTag(2)))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).setWeight(2).apply(fluidLevel(1)))
+							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).apply(fluidLevel(2)))
 					));
 
-			consumer.accept(CavernsAndChasms.location("chests/vault"), LootTable.lootTable()
+			consumer.accept(CCLootTables.VAULT, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3.0F, 5.0F))
 							.add(lootEntry(Items.MUSIC_DISC_MELLOHI, 5))
 							.add(lootEntry(Items.MUSIC_DISC_WAIT, 5))
@@ -712,10 +730,8 @@ public class CCLootTableProvider extends LootTableProvider {
 			);
 		}
 
-		public static LootItemConditionalFunction.Builder<?> fluidLevelTag(int level) {
-			CompoundTag tag = new CompoundTag();
-			tag.putInt(GoldenBucketItem.NBT_TAG, level);
-			return SetNbtFunction.setTag(tag);
+		public static LootItemConditionalFunction.Builder<?> fluidLevel(int level) {
+			return SetComponentsFunction.setComponent(CCDataComponents.FLUID_LEVEL.get(), level);
 		}
 
 		public static LootPoolSingletonContainer.Builder<?> lootEntry(ItemLike item, float min, float max, int weight) {

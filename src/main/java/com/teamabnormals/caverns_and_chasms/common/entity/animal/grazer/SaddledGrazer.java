@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
 import com.teamabnormals.caverns_and_chasms.common.network.GrazerJumpPayload;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +12,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumping {
 	private float playerJumpPendingScale;
@@ -79,7 +79,7 @@ public class SaddledGrazer extends AbstractGrazer implements PlayerRideableJumpi
 		if (this.isControlledByLocalInstance()) {
 			if (this.canExecuteJump()) {
 				if (this.playerJumpPendingScale > 0.0F) {
-					CavernsAndChasms.CHANNEL.sendToServer(new GrazerJumpPayload(this.playerJumpPendingScale, player.getXRot()));
+					PacketDistributor.sendToServer(new GrazerJumpPayload(this.playerJumpPendingScale, player.getXRot()));
 				}
 
 				this.playerJumpPendingScale = 0.0F;

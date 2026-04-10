@@ -30,7 +30,7 @@ public class GoldenBucketDispenseBehavior extends DefaultDispenseItemBehavior {
 				return super.execute(source, stack);
 			} else {
 				level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-				this.consumeWithRemainder(source, stack, pickupStack.copy());
+				return this.consumeWithRemainder(source, stack, pickupStack.copy());
 			}
 		} else {
 			return super.execute(source, stack);

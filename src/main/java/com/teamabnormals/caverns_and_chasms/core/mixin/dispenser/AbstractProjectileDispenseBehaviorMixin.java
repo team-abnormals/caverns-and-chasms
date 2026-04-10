@@ -4,22 +4,24 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.teamabnormals.caverns_and_chasms.common.block.ScattererBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(AbstractProjectileDispenseBehavior.class)
+@Mixin(ProjectileDispenseBehavior.class)
 public abstract class AbstractProjectileDispenseBehaviorMixin {
 
-	@WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/Projectile;shoot(DDDFF)V"))
-	private void modifyShoot(Projectile projectile, double x, double y, double z, float power, float uncertainty, Operation<Void> original, BlockSource source) {
-		BlockState state = source.getBlockState();
+	@WrapOperation(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileItem;shoot(Lnet/minecraft/world/entity/projectile/Projectile;DDDFF)V"))
+	private void modifyShoot(ProjectileItem item, Projectile projectile, double x, double y, double z, float power, float uncertainty, Operation<ItemStack> original, BlockSource source) {
+		BlockState state = source.state();
 		Direction dir = state.getValue(BlockStateProperties.FACING);
 		if (state.getBlock() == CCBlocks.SCATTERER.get()) {
 			ScattererBlock scatterer = (ScattererBlock) state.getBlock();
@@ -38,6 +40,6 @@ public abstract class AbstractProjectileDispenseBehaviorMixin {
 			uncertainty -= (float) scatterer.powerLevel / 10;
 		}
 
-		original.call(projectile, x, y, z, power, uncertainty);
+		original.call(item, projectile, x, y, z, power, uncertainty);
 	}
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
@@ -19,6 +20,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -28,9 +30,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -51,10 +57,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
 
 public class CopperGolem extends AbstractGolem implements ControllableGolem {
-	private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("A8EF581F-B1E8-4950-860C-06FA72505003");
+	private static final ResourceLocation SPEED_MODIFIER_ID = CavernsAndChasms.location("golem_speed");
 	private static final EntityDataAccessor<Integer> OXIDATION = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
 
@@ -131,10 +140,10 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		this.entityData.set(OXIDATION, oxidation.getId());
 
 		AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-		attributeinstance.removeModifier(SPEED_MODIFIER_UUID);
+		attributeinstance.removeModifier(SPEED_MODIFIER_ID);
 		if (oxidation != Oxidation.UNAFFECTED) {
 			double penalty = oxidation == Oxidation.EXPOSED ? -0.075D : oxidation == Oxidation.WEATHERED ? -0.15D : -0.25D;
-			attributeinstance.addTransientModifier(new AttributeModifier(SPEED_MODIFIER_UUID, "Weathering speed penalty", penalty, AttributeModifier.Operation.ADDITION));
+			attributeinstance.addTransientModifier(new AttributeModifier(SPEED_MODIFIER_ID, penalty, Operation.ADD_VALUE));
 		}
 	}
 
@@ -223,9 +232,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			}
 
 			if (success && !this.level().isClientSide) {
-				itemstack.hurtAndBreak(1, player, (entity) -> {
-					entity.broadcastBreakEvent(hand);
-				});
+				itemstack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			}
 		}
 
@@ -282,11 +289,6 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 	public boolean isDamaged() {
 		return this.getHealth() / this.getMaxHealth() < 0.5F;
-	}
-
-	@Override
-	protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-		return size.height * 0.8F;
 	}
 
 	@Override
@@ -539,7 +541,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				} else if (this.pressWaitTicks <= 0) {
 					BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
 					if (state.getBlock() instanceof CopperButtonBlock buttonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
-						buttonBlock.press(state, CopperGolem.this.level(), this.blockPos);
+						buttonBlock.press(state, CopperGolem.this.level(), this.blockPos, null);
 						CopperGolem.this.level().playSound(null, this.blockPos, CCSoundEvents.COPPER_BUTTON_CLICK_ON.get(), SoundSource.BLOCKS, 0.3F, 0.6F);
 						CopperGolem.this.level().gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
 						CopperGolem.this.ticksSinceButtonPress = 80;

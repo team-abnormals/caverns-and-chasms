@@ -65,30 +65,32 @@ public class ArmorTrimMixin implements CCArmorTrim {
 		this.caverns_and_chasms$isPulse = pulse;
 	}
 
-	@ModifyVariable(method = "getTrim", at = @At("STORE"))
-	private static ArmorTrim getTrim(ArmorTrim trim, RegistryAccess access, ItemStack stack) {
-		CompoundTag tag = stack.getOrCreateTag();
-		CCArmorTrim armorTrim = (CCArmorTrim) trim;
-		armorTrim.setFaded(tag.getBoolean("FadedTrim"));
-		armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
-		armorTrim.setPulse(tag.getBoolean("PulseTrim"));
-		return trim;
-	}
+	//TODO: reimplement
+//	@ModifyVariable(method = "getTrim", at = @At("STORE"))
+//	private static ArmorTrim getTrim(ArmorTrim trim, RegistryAccess access, ItemStack stack) {
+//		CompoundTag tag = stack.getOrCreateTag();
+//		CCArmorTrim armorTrim = (CCArmorTrim) trim;
+//		armorTrim.setFaded(tag.getBoolean("FadedTrim"));
+//		armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
+//		armorTrim.setPulse(tag.getBoolean("PulseTrim"));
+//		return trim;
+//	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Ljava/util/function/Consumer;accept(Ljava/lang/Object;)V", ordinal = 2, shift = Shift.AFTER), method = "addToTooltip")
-	private void appendHoverText(TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, CallbackInfo ci) {
-		Style style = ArmorTrim.getTrim(access, stack).get().material().value().description().getStyle();
 
-		if (stack.has(CCDataComponents.FADED_TRIM)) {
-			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
-		}
-
-		if (stack.has(CCDataComponents.EMISSIVE_TRIM)) {
-			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
-		}
-
-		if (stack.has(CCDataComponents.PULSE_TRIM)) {
-			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".pulse_modifier").withStyle(style)));
-		}
-	}
+//	@Inject(at = @At(value = "INVOKE", target = "Ljava/util/function/Consumer;accept(Ljava/lang/Object;)V", ordinal = 2, shift = Shift.AFTER), method = "addToTooltip")
+//	private void appendHoverText(TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, CallbackInfo ci) {
+//		Style style = ArmorTrim.getTrim(access, stack).get().material().value().description().getStyle();
+//
+//		if (stack.has(CCDataComponents.FADED_TRIM)) {
+//			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
+//		}
+//
+//		if (stack.has(CCDataComponents.EMISSIVE_TRIM)) {
+//			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
+//		}
+//
+//		if (stack.has(CCDataComponents.PULSE_TRIM)) {
+//			tooltipAdder.accept(CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".pulse_modifier").withStyle(style)));
+//		}
+//	}
 }

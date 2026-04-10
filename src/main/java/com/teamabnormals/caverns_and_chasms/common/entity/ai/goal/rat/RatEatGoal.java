@@ -67,6 +67,6 @@ public class RatEatGoal extends Goal {
 	}
 
 	private boolean canBeEaten(ItemStack stack) {
-		return stack.getItem().isEdible();
+		return stack.getFoodProperties(this.rat) != null;
 	}
 }
