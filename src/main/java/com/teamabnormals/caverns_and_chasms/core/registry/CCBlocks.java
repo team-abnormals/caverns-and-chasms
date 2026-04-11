@@ -443,16 +443,16 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> SMOOTH_CASSITERITE = HELPER.createBlock("smooth_cassiterite", () -> new Block(CCProperties.CASSITERITE));
 	public static final DeferredBlock<Block> SMOOTH_CASSITERITE_STAIRS = HELPER.createBlock("smooth_cassiterite_stairs", () -> new StairBlock(CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
 	public static final DeferredBlock<Block> SMOOTH_CASSITERITE_SLAB = HELPER.createBlock("smooth_cassiterite_slab", () -> new SlabBlock(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> CASSITERITE_BRICKS = HELPER.createBlock("cassiterite_bricks", () -> new Block(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> CASSITERITE_BRICK_STAIRS = HELPER.createBlock("cassiterite_brick_stairs", () -> new StairBlock(CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> CASSITERITE_BRICK_SLAB = HELPER.createBlock("cassiterite_brick_slab", () -> new SlabBlock(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> CASSITERITE_BRICK_WALL = HELPER.createBlock("cassiterite_brick_wall", () -> new WallBlock(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> CASSITERITE_PILLAR = HELPER.createBlock("cassiterite_pillar", () -> new RotatedPillarBlock(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> CHISELED_CASSITERITE_BRICKS = HELPER.createBlock("chiseled_cassiterite_bricks", () -> new Block(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> POLISHED_CASSITERITE = HELPER.createBlock("polished_cassiterite", () -> new Block(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> POLISHED_CASSITERITE_STAIRS = HELPER.createBlock("polished_cassiterite_stairs", () -> new StairBlock(POLISHED_CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> POLISHED_CASSITERITE_SLAB = HELPER.createBlock("polished_cassiterite_slab", () -> new SlabBlock(CCProperties.CASSITERITE));
-	public static final DeferredBlock<Block> POLISHED_CASSITERITE_WALL = HELPER.createBlock("polished_cassiterite_wall", () -> new WallBlock(CCProperties.CASSITERITE));
+	public static final DeferredBlock<Block> CASSITERITE_BRICKS = HELPER.createBlock("cassiterite_bricks", () -> new Block(CCProperties.CASSITERITE_BRICKS));
+	public static final DeferredBlock<Block> CASSITERITE_BRICK_STAIRS = HELPER.createBlock("cassiterite_brick_stairs", () -> new StairBlock(CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE_BRICKS));
+	public static final DeferredBlock<Block> CASSITERITE_BRICK_SLAB = HELPER.createBlock("cassiterite_brick_slab", () -> new SlabBlock(CCProperties.CASSITERITE_BRICKS));
+	public static final DeferredBlock<Block> CASSITERITE_BRICK_WALL = HELPER.createBlock("cassiterite_brick_wall", () -> new WallBlock(CCProperties.CASSITERITE_BRICKS));
+	public static final DeferredBlock<Block> CASSITERITE_PILLAR = HELPER.createBlock("cassiterite_pillar", () -> new RotatedPillarBlock(CCProperties.CASSITERITE_BRICKS));
+	public static final DeferredBlock<Block> CHISELED_CASSITERITE_BRICKS = HELPER.createBlock("chiseled_cassiterite_bricks", () -> new Block(CCProperties.CASSITERITE_BRICKS));
+	public static final DeferredBlock<Block> POLISHED_CASSITERITE = HELPER.createBlock("polished_cassiterite", () -> new Block(CCProperties.POLISHED_CASSITERITE));
+	public static final DeferredBlock<Block> POLISHED_CASSITERITE_STAIRS = HELPER.createBlock("polished_cassiterite_stairs", () -> new StairBlock(POLISHED_CASSITERITE.get().defaultBlockState(), CCProperties.POLISHED_CASSITERITE));
+	public static final DeferredBlock<Block> POLISHED_CASSITERITE_SLAB = HELPER.createBlock("polished_cassiterite_slab", () -> new SlabBlock(CCProperties.POLISHED_CASSITERITE));
+	public static final DeferredBlock<Block> POLISHED_CASSITERITE_WALL = HELPER.createBlock("polished_cassiterite_wall", () -> new WallBlock(CCProperties.POLISHED_CASSITERITE));
 
 	public static final DeferredBlock<Block> RHYOLITE = HELPER.createBlock("rhyolite", () -> new Block(CCProperties.RHYOLITE));
 	public static final DeferredBlock<Block> RHYOLITE_STAIRS = HELPER.createBlock("rhyolite_stairs", () -> new StairBlock(RHYOLITE.get().defaultBlockState(), CCProperties.RHYOLITE));
@@ -890,6 +890,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CYLINDRITE).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
+		public static final BlockBehaviour.Properties POLISHED_CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.POLISHED_CASSITERITE).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
+		public static final BlockBehaviour.Properties CASSITERITE_BRICKS = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE_BRICKS).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
 		public static final BlockBehaviour.Properties COBBLESTONE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE);
 		public static final BlockBehaviour.Properties COBBLED_DEEPSLATE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE);
 		public static final BlockBehaviour.Properties DRIPSTONE_SHINGLES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.DRIPSTONE_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 1.0F);

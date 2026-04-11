@@ -591,6 +591,110 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.polished_cassiterite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cassiterite/place1",
+      "caverns_and_chasms:block/polished_cassiterite/place2",
+      "caverns_and_chasms:block/polished_cassiterite/place3",
+      "caverns_and_chasms:block/polished_cassiterite/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_cassiterite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cassiterite/place1",
+      "caverns_and_chasms:block/polished_cassiterite/place2",
+      "caverns_and_chasms:block/polished_cassiterite/place3",
+      "caverns_and_chasms:block/polished_cassiterite/place4"
+    ]
+  },
+  "block.polished_cassiterite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cassiterite/step1",
+      "caverns_and_chasms:block/polished_cassiterite/step2",
+      "caverns_and_chasms:block/polished_cassiterite/step3",
+      "caverns_and_chasms:block/polished_cassiterite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_cassiterite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cassiterite/place1",
+      "caverns_and_chasms:block/polished_cassiterite/place2",
+      "caverns_and_chasms:block/polished_cassiterite/place3",
+      "caverns_and_chasms:block/polished_cassiterite/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_cassiterite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cassiterite/step1",
+      "caverns_and_chasms:block/polished_cassiterite/step2",
+      "caverns_and_chasms:block/polished_cassiterite/step3",
+      "caverns_and_chasms:block/polished_cassiterite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.polished_cassiterite.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cassiterite/place1",
+      "caverns_and_chasms:block/polished_cassiterite/place2",
+      "caverns_and_chasms:block/polished_cassiterite/place3",
+      "caverns_and_chasms:block/polished_cassiterite/place4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
+  "block.cassiterite_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/cassiterite_bricks/place1",
+      "caverns_and_chasms:block/cassiterite_bricks/place2",
+      "caverns_and_chasms:block/cassiterite_bricks/place3",
+      "caverns_and_chasms:block/cassiterite_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cassiterite_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/cassiterite_bricks/place1",
+      "caverns_and_chasms:block/cassiterite_bricks/place2",
+      "caverns_and_chasms:block/cassiterite_bricks/place3",
+      "caverns_and_chasms:block/cassiterite_bricks/place4"
+    ]
+  },
+  "block.cassiterite_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/cassiterite_bricks/step1",
+      "caverns_and_chasms:block/cassiterite_bricks/step2",
+      "caverns_and_chasms:block/cassiterite_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cassiterite_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/cassiterite_bricks/place1",
+      "caverns_and_chasms:block/cassiterite_bricks/place2",
+      "caverns_and_chasms:block/cassiterite_bricks/place3",
+      "caverns_and_chasms:block/cassiterite_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cassiterite_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/cassiterite_bricks/step1",
+      "caverns_and_chasms:block/cassiterite_bricks/step2",
+      "caverns_and_chasms:block/cassiterite_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.cassiterite_bricks.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/cassiterite_bricks/place1",
+      "caverns_and_chasms:block/cassiterite_bricks/place2",
+      "caverns_and_chasms:block/cassiterite_bricks/place3",
+      "caverns_and_chasms:block/cassiterite_bricks/place4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.cylindrite.break": {
     "sounds": [
       "caverns_and_chasms:block/cylindrite/break1",
