@@ -52,7 +52,7 @@ public class CCCompat {
 
 	@SubscribeEvent
 	public static void onModifyComponents(ModifyDefaultComponentsEvent event) {
-		event.modifyMatching(item -> new ItemStack(item).is(CCItemTags.INGOTS_SILVER), c -> c.set(DataComponents.RARITY, CCEnums.FANCY.getValue()));
+		event.modifyMatching(item -> item == CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get(), c -> c.set(DataComponents.RARITY, CCEnums.FANCY.getValue()));
 	}
 
 	public static void registerCompat() {

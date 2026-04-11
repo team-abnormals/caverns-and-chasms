@@ -7,17 +7,15 @@ import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.RatOnShoulderLayer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.layers.UnicornHornLayer;
-import com.teamabnormals.caverns_and_chasms.common.item.BejeweledPearlItem;
-import com.teamabnormals.caverns_and_chasms.common.item.GoldenBucketItem;
-import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem;
+import com.teamabnormals.caverns_and_chasms.common.item.*;
 import com.teamabnormals.caverns_and_chasms.common.item.PackingContainerItem.PackingContainerTooltip;
-import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.TuningForkItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips.ToolboxComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.SmithingScreen;
@@ -235,7 +233,7 @@ public class CCClientCompat {
 		ItemProperties.register(Items.CROSSBOW, CavernsAndChasms.location("blunt_arrow"), (stack, level, entity, hash) -> entity != null && CrossbowItem.isCharged(stack) && stack.get(DataComponents.CHARGED_PROJECTILES).contains(CCItems.BLUNT_ARROW.get()) ? 1.0F : 0.0F);
 
 		for (Item item : List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW, CCItems.TETHER_POTION.get(), CCItems.IMPACT_POTION.get(), CCItems.TRAIL_POTION.get())) {
-			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> stack.has(CCDataComponents.SUBTLE) ? 1.0F : 0.0F);
+			ItemProperties.register(item, CavernsAndChasms.location("subtle"), (stack, level, entity, hash) -> SubtlePotion.isSubtle(stack) ? 1.0F : 0.0F);
 		}
 
 		for (Item item : List.of(CCItems.GOLDEN_BUCKET.get(), CCItems.GOLDEN_WATER_BUCKET.get(), CCItems.GOLDEN_LAVA_BUCKET.get(), CCItems.GOLDEN_MILK_BUCKET.get(), CCItems.GOLDEN_POWDER_SNOW_BUCKET.get())) {

@@ -606,7 +606,7 @@ public class CCEvents {
 			PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
 
 			if (headstack.is(CCItems.IMPACT_POTION) || headstack.is(CCItems.TETHER_POTION)) {
-				for (MobEffectInstance instance : SubtlePotion.updateEffects(headstack, contents.getAllEffects())) {
+				for (MobEffectInstance instance : contents.getAllEffects()) {
 					if (instance.getEffect().value().isInstantenous()) {
 						instance.getEffect().value().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
 					} else if (!headstack.is(CCItems.TETHER_POTION)) {
@@ -928,7 +928,7 @@ public class CCEvents {
 				TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 
 				PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
-				for (MobEffectInstance instance : SubtlePotion.getAllEffects(headstack)) {
+				for (MobEffectInstance instance : contents.getAllEffects()) {
 					MobEffect effect = instance.getEffect().value();
 					if (effect.isInstantenous()) {
 						int cooldown = headstack.getOrDefault(CCDataComponents.TETHER_COOLDOWN, 0);

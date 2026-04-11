@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamabnormals.caverns_and_chasms.client.CCRenderTypes;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
 import com.teamabnormals.caverns_and_chasms.common.item.CCArmorTrim;
+import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -205,7 +206,7 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			float b = (float) (i & 255) / 255.0F;
 
 			this.renderModel(poseStack, source, packedLight, this.outerModel, ARGB32.colorFromFloat(1.0F, r, g, b), TETHER_POTION_LOCATION);
-			this.renderModel(poseStack, source, packedLight, this.outerModel, ARGB32.colorFromFloat(1.0F, 1.0F, 1.0F, 1.0F), stack.has(CCDataComponents.SUBTLE) ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
+			this.renderModel(poseStack, source, packedLight, this.outerModel, ARGB32.colorFromFloat(1.0F, 1.0F, 1.0F, 1.0F), SubtlePotion.isSubtle(stack) ? SUBTLE_TETHER_POTION_OVERLAY_LOCATION : TETHER_POTION_OVERLAY_LOCATION);
 			if (flag) this.renderGlint(poseStack, source, packedLight, this.outerModel);
 		}
 	}

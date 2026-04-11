@@ -57,10 +57,8 @@ public class CCPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		registration.addRecipes(RecipeTypes.ANVIL, getRepairRecipes(registration).toList());
-		registration.addRecipes(RecipeTypes.CRAFTING, SubtleTippedArrowRecipe.createRecipes(registration));
 		registration.addRecipes(RecipeTypes.CRAFTING, NBTWaxingRecipeMaker.createRecipes());
 		registration.addRecipes(RecipeTypes.CRAFTING, MusicDiscCopyRecipe.createRecipes());
-		registration.addRecipes(RecipeTypes.BREWING, SubtlePotionRecipe.createRecipes(registration));
 	}
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {

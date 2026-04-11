@@ -75,10 +75,6 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 		if (component.getString().contains("item.")) {
 			MutableComponent intro = Component.translatable(this.getDescriptionId() + ".null");
 			Potion potion = stack.get(DataComponents.POTION_CONTENTS).potion().get().value();
-			if (potion instanceof SubtlePotion subtlePotion) {
-				potion = subtlePotion.getPotion();
-				intro = Component.translatable("item.caverns_and_chasms.potion.subtle").append(" ").append(intro);
-			}
 			ItemStack regularPotion = PotionContents.createItemStack(Items.POTION, Holder.direct(potion));
 			String newComponent = regularPotion.getDescriptionId();
 			return intro.append(Component.translatable(newComponent));
@@ -150,7 +146,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	}
 
 	public static void updateTetherPotionEffects(LivingEntity entity, ItemStack stack, boolean infiniteDuration) {
-		for (MobEffectInstance instance : SubtlePotion.getAllEffects(stack)) {
+		for (MobEffectInstance instance : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
 			if (!instance.getEffect().value().isInstantenous()) {
 				int i = infiniteDuration ? -1 : getTetherPotionDuration(instance.getDuration());
 				MobEffectInstance currentinstance = entity.getEffect(instance.getEffect());

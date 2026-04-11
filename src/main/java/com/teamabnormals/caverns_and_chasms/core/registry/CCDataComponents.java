@@ -11,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.component.BundleContents;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -19,8 +18,6 @@ import java.util.function.UnaryOperator;
 
 public class CCDataComponents {
 	public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, CavernsAndChasms.MOD_ID);
-
-	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> SUBTLE = register("subtle", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
 
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> EMISSIVE_TRIM = register("emissive_trim", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> FADED_TRIM = register("faded_trim", builder -> builder.persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));

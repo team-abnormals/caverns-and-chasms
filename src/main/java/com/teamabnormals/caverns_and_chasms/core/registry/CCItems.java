@@ -29,12 +29,10 @@ import it.unimi.dsi.fastutil.objects.ObjectSortedSet;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet.Named;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -292,11 +290,6 @@ public class CCItems {
 				.addItemsBefore(of(Items.GOLDEN_APPLE), BEJEWELED_APPLE)
 				.addItemsBefore(of(Items.MILK_BUCKET), CAVIAR)
 				.addItemsAfter(of(Items.MILK_BUCKET), GOLDEN_MILK_BUCKET)
-				.editor(event -> event.getParameters().holders().lookup(Registries.POTION).ifPresent(registry -> {
-					generatePotionEffectTypes(event, of(Items.LINGERING_POTION), registry, Items.POTION, true);
-					generatePotionEffectTypes(event, of(Items.LINGERING_POTION), registry, Items.SPLASH_POTION, true);
-					generatePotionEffectTypes(event, of(Items.LINGERING_POTION), registry, Items.LINGERING_POTION, true);
-				}))
 				.tab(FUNCTIONAL_BLOCKS)
 				.addItemsAfter(of(Items.ARMOR_STAND), OXIDIZED_COPPER_GOLEM, WAXED_OXIDIZED_COPPER_GOLEM)
 				.addItemsAfter(of(Items.CREEPER_HEAD), DEEPER_HEAD, EVENDEEPER_HEAD, PEEPER_HEAD, MIME_HEAD)
@@ -358,10 +351,6 @@ public class CCItems {
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get());
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get());
 					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TRAIL_POTION.get());
-					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, Items.TIPPED_ARROW, true);
-					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TETHER_POTION.get(), true);
-					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, IMPACT_POTION.get(), true);
-					generatePotionEffectTypes(event, of(Items.TIPPED_ARROW), registry, TRAIL_POTION.get(), true);
 				}))
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
@@ -374,10 +363,6 @@ public class CCItems {
 	}
 
 	private static void generatePotionEffectTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Potion> potion, Item potionItem) {
-		generatePotionEffectTypes(event, predicate, potion, potionItem, false);
-	}
-
-	private static void generatePotionEffectTypes(BuildCreativeModeTabContentsEvent event, Predicate<ItemStack> predicate, HolderLookup<Potion> potion, Item potionItem, boolean subtle) {
 		TabVisibility visibility = TabVisibility.PARENT_AND_SEARCH_TABS;
 		List<ItemStack> items = potion.listElements().map((p_269986_) -> PotionContents.createItemStack(potionItem, p_269986_)).toList();
 
@@ -385,9 +370,6 @@ public class CCItems {
 		for (ItemStack entry : entries) {
 			if (predicate.test(entry)) {
 				for (ItemStack itemValue : items) {
-					if (subtle) {
-						SubtlePotion.setSubtle(itemValue);
-					}
 					event.accept(itemValue, visibility);
 				}
 				return;
