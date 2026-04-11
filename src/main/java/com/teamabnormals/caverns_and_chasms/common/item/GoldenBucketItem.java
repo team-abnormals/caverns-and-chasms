@@ -39,10 +39,8 @@ public class GoldenBucketItem extends BucketItem {
 		map.put(state -> state.getFluidState().is(Fluids.WATER), CCItems.GOLDEN_WATER_BUCKET);
 		map.put(state -> state.getFluidState().is(Fluids.LAVA), CCItems.GOLDEN_LAVA_BUCKET);
 		map.put(state -> state.is(Blocks.POWDER_SNOW), CCItems.GOLDEN_POWDER_SNOW_BUCKET);
-		map.put(state -> state.getFluidState().is(NeoForgeMod.MILK.get()), CCItems.GOLDEN_MILK_BUCKET);
+		map.put(state -> NeoForgeMod.MILK.get() != null && state.getFluidState().is(NeoForgeMod.MILK.get()), CCItems.GOLDEN_MILK_BUCKET);
 	});
-
-	public static final String NBT_TAG = "FluidLevel";
 
 	public GoldenBucketItem(Fluid content, Item.Properties builder) {
 		super(content, builder);
