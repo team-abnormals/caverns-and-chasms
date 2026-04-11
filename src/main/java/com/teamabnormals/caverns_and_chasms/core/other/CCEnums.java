@@ -5,6 +5,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.neoforge.client.IArmPoseTransformer;
@@ -14,6 +15,10 @@ import org.joml.Vector3f;
 import java.util.function.UnaryOperator;
 
 public class CCEnums {
+	public static final EnumProxy<MobCategory> UNDERGROUND_AMBIENT = new EnumProxy<>(MobCategory.class, CavernsAndChasms.MOD_ID + ":underground_ambient", 16, true, false, 128);
+	public static final EnumProxy<MobCategory> UNDERGROUND_WATER_AMBIENT = new EnumProxy<>(MobCategory.class, CavernsAndChasms.MOD_ID + ":underground_water_ambient", 20, true, false, 128);
+	public static final EnumProxy<MobCategory> LOST_GOAT = new EnumProxy<>(MobCategory.class, CavernsAndChasms.MOD_ID + ":lost_goat", 1, false, false, 128);
+
 	public static final EnumProxy<Rarity> FANCY = new EnumProxy<>(Rarity.class, -1, CavernsAndChasms.MOD_ID + ":fancy", (UnaryOperator<Style>) style -> style.withColor(0x2BFF75));
 
 	public static final EnumProxy<HumanoidModel.ArmPose> FLUTE_ARM_POSE = new EnumProxy<>(HumanoidModel.ArmPose.class, true, (IArmPoseTransformer) (model, entity, arm) -> {

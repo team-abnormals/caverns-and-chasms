@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.core.other.tags;
 import com.teamabnormals.blueprint.core.util.TagUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class CCBlockTags {
@@ -37,6 +38,10 @@ public class CCBlockTags {
 	public static final TagKey<Block> STANDING_SPARKLERS = blockTag("standing_sparklers");
 	public static final TagKey<Block> WALL_SPARKLERS = blockTag("wall_sparklers");
 	public static final TagKey<Block> RAT_FOOD_BLOCKS = blockTag("rat_food_blocks");
+
+	public static final TagKey<Block> INCORRECT_FOR_COPPER_TOOL = blockTag("incorrect_for_copper_tool");
+	public static final TagKey<Block> INCORRECT_FOR_SILVER_TOOL = blockTag("incorrect_for_silver_tool");
+	public static final TagKey<Block> INCORRECT_FOR_NECROMIUM_TOOL = blockTag("incorrect_for_necromium_tool");
 
 	public static final TagKey<Block> WAXABLE_COPPER_BLOCKS = TagUtil.blockTag("c", "waxable_copper_blocks");
 	public static final TagKey<Block> WAXED_COPPER_BLOCKS = TagUtil.blockTag("c", "waxed_copper_blocks");

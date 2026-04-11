@@ -1,9 +1,9 @@
 {
   "entries": [
     {
-      "enum": "net/minecraft/client/model/HumanoidMode$ArmPose",
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
       "name": "CAVERNS_AND_CHASMS_FLUTE_ARM_POSE",
-      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
         "class": "com/teamabnormals/caverns_and_chasms/core/other/CCEnums",
         "field": "FLUTE_ARM_POSE"
@@ -16,6 +16,33 @@
       "parameters": {
         "class": "com/teamabnormals/caverns_and_chasms/core/other/CCEnums",
         "field": "FANCY"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/MobCategory",
+      "name": "CAVERNS_AND_CHASMS_UNDERGROUND_AMBIENT",
+      "constructor": "(Ljava/lang/String;IZZI)V",
+      "parameters": {
+        "class": "com/teamabnormals/caverns_and_chasms/core/other/CCEnums",
+        "field": "UNDERGROUND_AMBIENT"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/MobCategory",
+      "name": "CAVERNS_AND_CHASMS_UNDERGROUND_WATER_AMBIENT",
+      "constructor": "(Ljava/lang/String;IZZI)V",
+      "parameters": {
+        "class": "com/teamabnormals/caverns_and_chasms/core/other/CCEnums",
+        "field": "UNDERGROUND_WATER_AMBIENT"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/MobCategory",
+      "name": "CAVERNS_AND_CHASMS_LOST_GOAT",
+      "constructor": "(Ljava/lang/String;IZZI)V",
+      "parameters": {
+        "class": "com/teamabnormals/caverns_and_chasms/core/other/CCEnums",
+        "field": "LOST_GOAT"
       }
     }
   ]

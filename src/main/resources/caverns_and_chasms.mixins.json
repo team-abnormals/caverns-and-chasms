@@ -54,8 +54,7 @@
     "item.SmithingTemplateItemMixin",
     "recipe.SmithingTrimRecipeMixin",
     "recipe.TippedArrowRecipeMixin",
-    "structure.MineshaftCorridorMixin",
-    "structure.MineshaftStructureMixin"
+    "structure.MineshaftCorridorMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",

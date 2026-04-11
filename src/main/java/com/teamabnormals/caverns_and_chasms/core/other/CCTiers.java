@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.blueprint.core.api.BlueprintItemTier;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -76,11 +77,11 @@ public class CCTiers {
 		public static final Tier WEATHERED_COPPER = createCopperTier(CCItemTags.INGOTS_WEATHERED_COPPER);
 		public static final Tier OXIDIZED_COPPER = createCopperTier(CCItemTags.INGOTS_OXIDIZED_COPPER);
 
-		public static final Tier SILVER = new BlueprintItemTier(BlockTags.INCORRECT_FOR_IRON_TOOL, 157, 9.0F, 1.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
-		public static final Tier NECROMIUM = new BlueprintItemTier(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0F, 3.0F, 15, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
+		public static final Tier SILVER = new BlueprintItemTier(CCBlockTags.INCORRECT_FOR_SILVER_TOOL, 157, 9.0F, 1.0F, 18, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
+		public static final Tier NECROMIUM = new BlueprintItemTier(CCBlockTags.INCORRECT_FOR_NECROMIUM_TOOL, 2031, 9.0F, 3.0F, 15, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
 
 		public static BlueprintItemTier createCopperTier(TagKey<Item> repairTag) {
-			return new BlueprintItemTier(BlockTags.INCORRECT_FOR_IRON_TOOL, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(repairTag));
+			return new BlueprintItemTier(CCBlockTags.INCORRECT_FOR_COPPER_TOOL, 191 + 3000, 5.0F, 1.0F, 13, () -> Ingredient.of(repairTag));
 		}
 	}
 }
