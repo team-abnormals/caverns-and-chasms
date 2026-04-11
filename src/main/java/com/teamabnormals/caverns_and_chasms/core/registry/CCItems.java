@@ -42,7 +42,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
@@ -386,8 +385,9 @@ public class CCItems {
 		for (ItemStack entry : entries) {
 			if (predicate.test(entry)) {
 				for (ItemStack itemValue : items) {
-					if (subtle)
-						itemValue.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
+					if (subtle) {
+						SubtlePotion.setSubtle(itemValue);
+					}
 					event.accept(itemValue, visibility);
 				}
 				return;

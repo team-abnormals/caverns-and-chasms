@@ -14,8 +14,11 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,6 +31,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +42,11 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 
 	@Shadow
 	protected ItemStack useItem;
+
+	@Shadow
+	@Nullable
+	public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
+
 	@Unique
 	private List<Rat> attachedRats = Lists.newArrayList();
 
@@ -102,7 +111,7 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	private void hurt(Level level, Entity entity, byte b, Operation<Void> original) {
 		if (!this.useItem.is(CCItems.AEGIS.get())) {
 			original.call(level, entity, b);
-		} else if (entity instanceof Player player){
+		} else if (entity instanceof Player player) {
 			player.getCooldowns().addCooldown(CCItems.AEGIS.get(), 100);
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), CCSoundEvents.AEGIS_STUN.get(), player.getSoundSource(), 0.8F, 0.8F + level.random.nextFloat() * 0.4F);
 			player.releaseUsingItem();

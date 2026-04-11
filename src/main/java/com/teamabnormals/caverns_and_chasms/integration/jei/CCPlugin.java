@@ -18,6 +18,7 @@ import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class CCPlugin implements IModPlugin {
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
 		registration.registerSubtypeInterpreter(CCItems.COPPER_HORN.get(), InstrumentSubtypeInterpreter.INSTANCE);
+		registration.registerSubtypeInterpreter(Items.POTION, PotionSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.TETHER_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.IMPACT_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.TRAIL_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
@@ -58,6 +60,7 @@ public class CCPlugin implements IModPlugin {
 		registration.addRecipes(RecipeTypes.CRAFTING, SubtleTippedArrowRecipe.createRecipes(registration));
 		registration.addRecipes(RecipeTypes.CRAFTING, NBTWaxingRecipeMaker.createRecipes());
 		registration.addRecipes(RecipeTypes.CRAFTING, MusicDiscCopyRecipe.createRecipes());
+		registration.addRecipes(RecipeTypes.BREWING, SubtlePotionRecipe.createRecipes(registration));
 	}
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {

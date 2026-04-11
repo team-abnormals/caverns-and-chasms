@@ -15,6 +15,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
+import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.component.PackingContainerContents;
@@ -605,7 +606,7 @@ public class CCEvents {
 			PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
 
 			if (headstack.is(CCItems.IMPACT_POTION) || headstack.is(CCItems.TETHER_POTION)) {
-				for (MobEffectInstance instance : contents.getAllEffects()) {
+				for (MobEffectInstance instance : SubtlePotion.updateEffects(headstack, contents.getAllEffects())) {
 					if (instance.getEffect().value().isInstantenous()) {
 						instance.getEffect().value().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
 					} else if (!headstack.is(CCItems.TETHER_POTION)) {
@@ -927,7 +928,7 @@ public class CCEvents {
 				TetherPotionItem.updateTetherPotionEffects(entity, headstack, true);
 
 				PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
-				for (MobEffectInstance instance : contents.getAllEffects()) {
+				for (MobEffectInstance instance : SubtlePotion.getAllEffects(headstack)) {
 					MobEffect effect = instance.getEffect().value();
 					if (effect.isInstantenous()) {
 						int cooldown = headstack.getOrDefault(CCDataComponents.TETHER_COOLDOWN, 0);

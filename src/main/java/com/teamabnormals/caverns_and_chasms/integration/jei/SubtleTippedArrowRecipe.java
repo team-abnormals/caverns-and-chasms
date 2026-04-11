@@ -27,18 +27,18 @@ public class SubtleTippedArrowRecipe {
 		Ingredient arrowIngredient = Ingredient.of(arrowStack);
 
 		Stream<ItemStack> arrows = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> {
-			return stack.getItem() instanceof TippedArrowItem && stack.has(DataComponents.POTION_CONTENTS) && stack.get(DataComponents.POTION_CONTENTS).potion().get().value() instanceof SubtlePotion;
+			return stack.getItem() instanceof TippedArrowItem && SubtlePotion.isSubtle(stack);
 		});
 
 		return arrows.<RecipeHolder<CraftingRecipe>>map(arrow -> {
 			Holder<Potion> potion = arrow.get(DataComponents.POTION_CONTENTS).potion().get();
 
 			ItemStack input = PotionContents.createItemStack(Items.LINGERING_POTION, potion);
-			input.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
+			SubtlePotion.setSubtle(input);
 
 			ItemStack output = PotionContents.createItemStack(Items.TIPPED_ARROW, potion);
 			output.setCount(8);
-			output.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
+			SubtlePotion.setSubtle(output);
 
 			Ingredient potionIngredient = Ingredient.of(input);
 

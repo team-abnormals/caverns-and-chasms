@@ -150,7 +150,7 @@ public class TetherPotionItem extends PotionItem implements Equipable {
 	}
 
 	public static void updateTetherPotionEffects(LivingEntity entity, ItemStack stack, boolean infiniteDuration) {
-		for (MobEffectInstance instance : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
+		for (MobEffectInstance instance : SubtlePotion.getAllEffects(stack)) {
 			if (!instance.getEffect().value().isInstantenous()) {
 				int i = infiniteDuration ? -1 : getTetherPotionDuration(instance.getDuration());
 				MobEffectInstance currentinstance = entity.getEffect(instance.getEffect());

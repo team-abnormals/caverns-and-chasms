@@ -24,7 +24,7 @@ public abstract class TippedArrowRecipeMixin {
 			ItemStack potion = input.getItem(1, 1);
 			if (potion.has(CCDataComponents.SUBTLE) && potion.get(DataComponents.POTION_CONTENTS).potion().get().value() instanceof SubtlePotion subtlePotion) {
 				ItemStack returnStack = cir.getReturnValue();
-				returnStack.set(CCDataComponents.SUBTLE, Unit.INSTANCE);
+				SubtlePotion.setSubtle(returnStack);
 				returnStack.set(DataComponents.POTION_CONTENTS, new PotionContents(Holder.direct(subtlePotion)));
 			}
 		}

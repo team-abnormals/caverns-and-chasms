@@ -24,6 +24,8 @@ public class CCMobEffects {
 	public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, CavernsAndChasms.MOD_ID);
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, CavernsAndChasms.MOD_ID);
 
+	public static final DeferredHolder<MobEffect, MobEffect> SUBTLE = MOB_EFFECTS.register("subtle", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0xCE65B4));
+
 	public static final DeferredHolder<MobEffect, MobEffect> REWIND = MOB_EFFECTS.register("rewind", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0xCE65B4));
 	public static final DeferredHolder<MobEffect, MobEffect> VAMPIRISM = MOB_EFFECTS.register("vampirism", VampirismMobEffect::new);
 
@@ -51,13 +53,6 @@ public class CCMobEffects {
 		builder.addContainer(CCItems.TRAIL_POTION.get());
 		builder.addContainerRecipe(Items.LINGERING_POTION, CCItems.SPINEL.get(), CCItems.TRAIL_POTION.get());
 		builder.addContainerRecipe(CCItems.IMPACT_POTION.get(), Items.DRAGON_BREATH, CCItems.TRAIL_POTION.get());
-
-		builder.addContainerRecipe(Items.POTION, CCItems.TURQUOISE.get(), Items.POTION);
-		builder.addContainerRecipe(Items.SPLASH_POTION, CCItems.TURQUOISE.get(), Items.SPLASH_POTION);
-		builder.addContainerRecipe(Items.LINGERING_POTION, CCItems.TURQUOISE.get(), Items.LINGERING_POTION);
-		builder.addContainerRecipe(CCItems.TETHER_POTION.get(), CCItems.TURQUOISE.get(), CCItems.TETHER_POTION.get());
-		builder.addContainerRecipe(CCItems.IMPACT_POTION.get(), CCItems.TURQUOISE.get(), CCItems.IMPACT_POTION.get());
-		builder.addContainerRecipe(CCItems.TRAIL_POTION.get(), CCItems.TURQUOISE.get(), CCItems.TRAIL_POTION.get());
 
 		builder.addMix(Potions.AWKWARD, CCItems.BEJEWELED_PEARL.get(), REWIND_NORMAL);
 		builder.addMix(REWIND_NORMAL, Items.REDSTONE, REWIND_LONG);
