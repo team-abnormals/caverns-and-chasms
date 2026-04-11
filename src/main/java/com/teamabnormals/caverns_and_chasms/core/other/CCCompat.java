@@ -191,6 +191,18 @@ public class CCCompat {
 		DataUtil.changeBlockLocalization(Blocks.DRIPSTONE_BLOCK, CavernsAndChasms.MOD_ID, "dripstone");
 		DataUtil.changeBlockLocalization(CCBlocks.AMETHYST_BLOCK.get(), "minecraft", "amethyst_block");
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_DEEPSLATE, CavernsAndChasms.MOD_ID, "chiseled_deepslate_bricks");
+
+
+		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF, CavernsAndChasms.MOD_ID, "chiseled_polished_shale");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF, CavernsAndChasms.MOD_ID, "polished_shale");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_STAIRS, CavernsAndChasms.MOD_ID, "polished_shale_stairs");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_SLAB, CavernsAndChasms.MOD_ID, "polished_shale_slab");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_WALL, CavernsAndChasms.MOD_ID, "polished_shale_wall");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICKS, CavernsAndChasms.MOD_ID, "shale_bricks");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_STAIRS, CavernsAndChasms.MOD_ID, "shale_brick_stairs");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_SLAB, CavernsAndChasms.MOD_ID, "shale_brick_slab");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_WALL, CavernsAndChasms.MOD_ID, "shale_brick_wall");
+		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF_BRICKS, CavernsAndChasms.MOD_ID, "chiseled_shale_bricks");
 	}
 
 	private static void registerFireworkIngredients() {

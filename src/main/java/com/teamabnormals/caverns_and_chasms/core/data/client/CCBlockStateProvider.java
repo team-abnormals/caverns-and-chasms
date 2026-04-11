@@ -205,12 +205,16 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.logBlock(CALCITE_PILLAR);
 		this.chiseledCalciteBlock(CHISELED_POLISHED_CALCITE);
 
-		this.baseBlockVariants(Blocks.TUFF, TUFF_STAIRS, TUFF_SLAB, TUFF_WALL);
-		this.cubeColumnBlock(CHISELED_POLISHED_TUFF);
-		this.cubeColumnBlock(CHISELED_TUFF_BRICKS);
+		this.block(CHISELED_TUFF_BRICKS);
 		this.blockFamily(TUFF_BRICKS_FAMILY);
+		this.blockFamily(TUFF_TILES_FAMILY);
 		this.blockFamily(SMOOTH_TUFF_FAMILY);
 		this.blockFamily(POLISHED_TUFF_FAMILY);
+		this.logBlock(TUFF_PILLAR);
+
+		this.logBlock(SHALE);
+		this.blockFamily(SMOOTH_SHALE_FAMILY);
+		this.logBlock(SHALE_PILLAR);
 
 		this.blockFamily(SUGILITE_FAMILY);
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
@@ -343,10 +347,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.saddledEggBlock(SADDLED_EGG);
 
 		this.vanillaSlabBlock(Blocks.SANDSTONE, Blocks.SANDSTONE_SLAB, "_top", "_bottom");
-		this.vanillaSlabBlock(Blocks.CUT_SANDSTONE, Blocks.CUT_SANDSTONE_SLAB, "sandstone_top");
+		this.vanillaSlabBlock(Blocks.CUT_SANDSTONE_SLAB, "sandstone_top");
 		this.vanillaSlabBlock(Blocks.RED_SANDSTONE, Blocks.RED_SANDSTONE_SLAB, "_top", "_bottom");
-		this.vanillaSlabBlock(Blocks.CUT_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE_SLAB, "red_sandstone_top");
-		this.vanillaSlabBlock(Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_SLAB, "quartz_block_top");
+		this.vanillaSlabBlock(Blocks.CUT_RED_SANDSTONE_SLAB, "red_sandstone_top");
+		this.vanillaSlabBlock(Blocks.QUARTZ_SLAB, "quartz_block_top");
 
 		this.vanillaSlabBlock(Blocks.POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB);
 		this.vanillaSlabBlock(Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_SLAB);
@@ -354,6 +358,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.vanillaSlabBlock(Blocks.POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB);
 		this.vanillaSlabBlock(Blocks.POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB);
 		this.vanillaSlabBlock(Blocks.PRISMARINE_BRICKS, Blocks.PRISMARINE_BRICK_SLAB);
+		this.vanillaSlabBlock(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, "polished_shale_slab");
 	}
 
 	public void sparklerBlock(Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> pair) {
@@ -1012,7 +1017,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 	}
 
 	public static final DeferredBlock<Block>[] DOUBLE_SLABS = new DeferredBlock[]{
-			POLISHED_CALCITE_SLAB, POLISHED_TUFF_SLAB, SMOOTH_TUFF_SLAB,
+			POLISHED_CALCITE_SLAB, POLISHED_TUFF_SLAB,
 			POLISHED_SUGILITE_SLAB, POLISHED_DRIPSTONE_SLAB,
 			POLISHED_CYLINDRITE_SLAB, POLISHED_CASSITERITE_SLAB,
 			POLISHED_RHYOLITE_SLAB, POLISHED_MAGMATIC_RHYOLITE_SLAB
@@ -1039,6 +1044,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		}
 	}
 
+	public void vanillaSlabBlock(Block block, Block slab, String sideName) {
+		if (slab instanceof SlabBlock slabBlock) {
+			ResourceLocation name = BuiltInRegistries.BLOCK.getKey(slab);
+			ResourceLocation side = CavernsAndChasms.location(ModelProvider.BLOCK_FOLDER + "/" + sideName);
+			ResourceLocation full = blockTexture(block);
+			this.slabBlock(slabBlock, models().slab(name.toString(), side, full, full), models().slabTop(name + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));
+		}
+	}
+
 	public void vanillaSlabBlock(Block block, Block slab, String topSuffix, String bottomSuffix) {
 		if (slab instanceof SlabBlock slabBlock) {
 			ResourceLocation name = BuiltInRegistries.BLOCK.getKey(slab);
@@ -1049,7 +1063,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		}
 	}
 
-	public void vanillaSlabBlock(Block block, Block slab, String topTexture) {
+	public void vanillaSlabBlock(Block slab, String topTexture) {
 		if (slab instanceof SlabBlock slabBlock) {
 			ResourceLocation name = BuiltInRegistries.BLOCK.getKey(slab);
 			ResourceLocation side = CavernsAndChasms.location(ModelProvider.BLOCK_FOLDER + "/" + name.getPath());

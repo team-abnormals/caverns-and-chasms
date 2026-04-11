@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "caverns_and_chasms:shale"
+  },
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:smooth_shale"
+  }
+}

@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "end": "caverns_and_chasms:block/chiseled_tuff_bricks_top",
-    "side": "caverns_and_chasms:block/chiseled_tuff_bricks"
+    "all": "caverns_and_chasms:block/chiseled_tuff_bricks"
   }
 }

@@ -4,7 +4,7 @@
       "model": "caverns_and_chasms:block/smooth_tuff_slab"
     },
     "type=double": {
-      "model": "caverns_and_chasms:block/smooth_tuff_slab_double"
+      "model": "caverns_and_chasms:block/smooth_tuff"
     },
     "type=top": {
       "model": "caverns_and_chasms:block/smooth_tuff_slab_top"

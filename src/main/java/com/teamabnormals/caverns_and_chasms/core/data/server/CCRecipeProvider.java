@@ -22,6 +22,7 @@ import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
 import net.minecraft.data.PackOutput;
@@ -399,14 +400,31 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, TUFF_FAMILY);
 		generateRecipes(consumer, POLISHED_TUFF_FAMILY);
 		generateRecipes(consumer, TUFF_BRICKS_FAMILY);
+		generateRecipes(consumer, TUFF_TILES_FAMILY);
 		stonecutterRecipes(consumer, TUFF_FAMILY);
 		stonecutterRecipes(consumer, POLISHED_TUFF_FAMILY, Blocks.TUFF, POLISHED_TUFF);
 		stonecutterRecipes(consumer, TUFF_BRICKS_FAMILY, Blocks.TUFF, POLISHED_TUFF, TUFF_BRICKS);
+		stonecutterRecipes(consumer, TUFF_TILES_FAMILY, Blocks.TUFF, POLISHED_TUFF, TUFF_BRICKS, TUFF_TILES);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TUFF_PILLAR, 2).define('#', POLISHED_TUFF).pattern("#").pattern("#").unlockedBy(getHasName(POLISHED_TUFF), has(POLISHED_TUFF)).unlockedBy(getHasName(TUFF_PILLAR), has(TUFF_PILLAR)).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TUFF_PILLAR, Blocks.TUFF);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, TUFF_PILLAR, POLISHED_TUFF);
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Blocks.TUFF), BUILDING_BLOCKS, SMOOTH_TUFF, 0.1F, 200).unlockedBy("has_tuff", has(Blocks.TUFF)).save(consumer);
 		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, Blocks.TUFF, SMOOTH_TUFF, 0.1F, 100, CavernsAndChasms.MOD_ID);
 		generateRecipes(consumer, SMOOTH_TUFF_FAMILY);
 		stonecutterRecipes(consumer, SMOOTH_TUFF_FAMILY);
+
+		generateRecipes(consumer, SHALE_FAMILY);
+		stonecutterRecipes(consumer, SHALE_FAMILY);
+		stonecutterRecipes(consumer, BlockFamilies.POLISHED_TUFF, SHALE.get());
+		stonecutterRecipes(consumer, BlockFamilies.TUFF_BRICKS, SHALE.get());
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(SHALE), BUILDING_BLOCKS, SMOOTH_SHALE, 0.1F, 200).unlockedBy("has_shale", has(SHALE)).save(consumer);
+		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, SHALE, SMOOTH_SHALE, 0.1F, 100, CavernsAndChasms.MOD_ID);
+		generateRecipes(consumer, SMOOTH_SHALE_FAMILY);
+		stonecutterRecipes(consumer, SMOOTH_SHALE_FAMILY);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SHALE_PILLAR, 2).define('#', Blocks.POLISHED_TUFF).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.POLISHED_TUFF), has(Blocks.POLISHED_TUFF)).unlockedBy(getHasName(SHALE_PILLAR), has(SHALE_PILLAR)).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.TUFF);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.POLISHED_TUFF);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE).requires(Blocks.GRANITE).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer);
 		generateRecipes(consumer, SUGILITE_FAMILY);
