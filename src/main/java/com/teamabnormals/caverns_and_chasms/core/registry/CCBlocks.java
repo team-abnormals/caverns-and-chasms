@@ -391,7 +391,7 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> TUFF_BRICK_SLAB = HELPER.createBlock("tuff_brick_slab", () -> new SlabBlock(CCProperties.TUFF_BRICKS));
 	public static final DeferredBlock<Block> TUFF_BRICK_WALL = HELPER.createBlock("tuff_brick_wall", () -> new WallBlock(CCProperties.TUFF_BRICKS));
 	public static final DeferredBlock<Block> CHISELED_TUFF_BRICKS = HELPER.createBlock("chiseled_tuff_bricks", () -> new Block(CCProperties.TUFF_BRICKS));
-	public static final DeferredBlock<Block> TUFF_PILLAR = HELPER.createBlock("tuff_pillar", () -> new RotatedPillarBlock(CCProperties.POLISHED_TUFF));
+	public static final DeferredBlock<Block> TUFF_PILLAR = HELPER.createBlock("tuff_pillar", () -> new RotatedPillarBlock(CCProperties.TUFF_BRICKS));
 	public static final DeferredBlock<Block> TUFF_TILES = HELPER.createBlock("tuff_tiles", () -> new Block(CCProperties.TUFF_BRICKS));
 	public static final DeferredBlock<Block> TUFF_TILE_STAIRS = HELPER.createBlock("tuff_tile_stairs", () -> new StairBlock(TUFF_TILES.get().defaultBlockState(), CCProperties.TUFF_BRICKS));
 	public static final DeferredBlock<Block> TUFF_TILE_SLAB = HELPER.createBlock("tuff_tile_slab", () -> new SlabBlock(CCProperties.TUFF_BRICKS));
@@ -400,11 +400,11 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> SMOOTH_TUFF_STAIRS = HELPER.createBlock("smooth_tuff_stairs", () -> new StairBlock(SMOOTH_TUFF.get().defaultBlockState(), CCProperties.TUFF));
 	public static final DeferredBlock<Block> SMOOTH_TUFF_SLAB = HELPER.createBlock("smooth_tuff_slab", () -> new SlabBlock(CCProperties.TUFF));
 
-	public static final DeferredBlock<Block> SHALE = HELPER.createBlock("shale", () -> new RotatedPillarBlock(CCProperties.TUFF));
-	public static final DeferredBlock<Block> SMOOTH_SHALE = HELPER.createBlock("smooth_shale", () -> new Block(CCProperties.TUFF));
-	public static final DeferredBlock<Block> SMOOTH_SHALE_STAIRS = HELPER.createBlock("smooth_shale_stairs", () -> new StairBlock(SHALE.get().defaultBlockState(), CCProperties.TUFF));
-	public static final DeferredBlock<Block> SMOOTH_SHALE_SLAB = HELPER.createBlock("smooth_shale_slab", () -> new SlabBlock(CCProperties.TUFF));
-	public static final DeferredBlock<Block> SHALE_PILLAR = HELPER.createBlock("shale_pillar", () -> new RotatedPillarBlock(CCProperties.TUFF));
+	public static final DeferredBlock<Block> SHALE = HELPER.createBlock("shale", () -> new RotatedPillarBlock(CCProperties.SHALE));
+	public static final DeferredBlock<Block> SMOOTH_SHALE = HELPER.createBlock("smooth_shale", () -> new Block(CCProperties.SHALE));
+	public static final DeferredBlock<Block> SMOOTH_SHALE_STAIRS = HELPER.createBlock("smooth_shale_stairs", () -> new StairBlock(SHALE.get().defaultBlockState(), CCProperties.SHALE));
+	public static final DeferredBlock<Block> SMOOTH_SHALE_SLAB = HELPER.createBlock("smooth_shale_slab", () -> new SlabBlock(CCProperties.SHALE));
+	public static final DeferredBlock<Block> SHALE_PILLAR = HELPER.createBlock("shale_pillar", () -> new RotatedPillarBlock(CCProperties.SHALE_BRICKS));
 
 	public static final DeferredBlock<Block> SUGILITE = HELPER.createBlock("sugilite", () -> new Block(CCProperties.SUGILITE));
 	public static final DeferredBlock<Block> SUGILITE_STAIRS = HELPER.createBlock("sugilite_stairs", () -> new StairBlock(SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE));
@@ -883,6 +883,9 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF);
 		public static final BlockBehaviour.Properties POLISHED_TUFF = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(SoundType.POLISHED_TUFF);
 		public static final BlockBehaviour.Properties TUFF_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(SoundType.TUFF_BRICKS);
+		public static final BlockBehaviour.Properties SHALE = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(CCSoundTypes.SHALE);
+		public static final BlockBehaviour.Properties POLISHED_SHALE = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(CCSoundTypes.POLISHED_SHALE);
+		public static final BlockBehaviour.Properties SHALE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(CCSoundTypes.SHALE_BRICKS);
 		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CYLINDRITE).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
