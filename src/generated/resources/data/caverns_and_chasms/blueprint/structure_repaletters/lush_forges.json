@@ -1,0 +1,33 @@
+{
+  "condition": {
+    "type": "blueprint:biome",
+    "biomes": "minecraft:lush_caves"
+  },
+  "repaletter": [
+    {
+      "type": "caverns_and_chasms:chance",
+      "chance": 0.6,
+      "replaces_block": "minecraft:stone_bricks",
+      "replaces_with": {
+        "Name": "minecraft:mossy_stone_bricks"
+      }
+    },
+    {
+      "type": "caverns_and_chasms:chance",
+      "chance": 0.6,
+      "replaces_block": "caverns_and_chasms:cobblestone_bricks",
+      "replaces_with": {
+        "Name": "caverns_and_chasms:mossy_cobblestone_bricks"
+      }
+    },
+    {
+      "type": "caverns_and_chasms:chance",
+      "chance": 0.6,
+      "replaces_block": "caverns_and_chasms:cobblestone_tiles",
+      "replaces_with": {
+        "Name": "caverns_and_chasms:mossy_cobblestone_tiles"
+      }
+    }
+  ],
+  "structures": "caverns_and_chasms:forge"
+}
