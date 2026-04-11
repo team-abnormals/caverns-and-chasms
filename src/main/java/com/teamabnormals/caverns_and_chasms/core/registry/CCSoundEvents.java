@@ -224,38 +224,6 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_LANTERN_HIT = SOUNDS.createSoundEvent("block.copper_lantern.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_LANTERN_FALL = SOUNDS.createSoundEvent("block.copper_lantern.fall");
 
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_BREAK = SOUNDS.createSoundEvent("block.copper_bulb.break");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_STEP = SOUNDS.createSoundEvent("block.copper_bulb.step");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_PLACE = SOUNDS.createSoundEvent("block.copper_bulb.place");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_HIT = SOUNDS.createSoundEvent("block.copper_bulb.hit");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_FALL = SOUNDS.createSoundEvent("block.copper_bulb.fall");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_TURN_ON = SOUNDS.createSoundEvent("block.copper_bulb.turn_on");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BULB_TURN_OFF = SOUNDS.createSoundEvent("block.copper_bulb.turn_off");
-
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_DOOR_CLOSE = SOUNDS.createSoundEvent("block.copper_door.close");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_DOOR_OPEN = SOUNDS.createSoundEvent("block.copper_door.open");
-
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_GRATE_BREAK = SOUNDS.createSoundEvent("block.copper_grate.break");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_GRATE_STEP = SOUNDS.createSoundEvent("block.copper_grate.step");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_GRATE_PLACE = SOUNDS.createSoundEvent("block.copper_grate.place");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_GRATE_HIT = SOUNDS.createSoundEvent("block.copper_grate.hit");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_GRATE_FALL = SOUNDS.createSoundEvent("block.copper_grate.fall");
-
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_TRAPDOOR_CLOSE = SOUNDS.createSoundEvent("block.copper_trapdoor.close");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_TRAPDOOR_OPEN = SOUNDS.createSoundEvent("block.copper_trapdoor.open");
-
-	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_TUFF_BREAK = SOUNDS.createSoundEvent("block.polished_tuff.break");
-	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_TUFF_FALL = SOUNDS.createSoundEvent("block.polished_tuff.fall");
-	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_TUFF_HIT = SOUNDS.createSoundEvent("block.polished_tuff.hit");
-	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_TUFF_PLACE = SOUNDS.createSoundEvent("block.polished_tuff.place");
-	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_TUFF_STEP = SOUNDS.createSoundEvent("block.polished_tuff.step");
-
-	public static final DeferredHolder<SoundEvent, SoundEvent> TUFF_BRICKS_BREAK = SOUNDS.createSoundEvent("block.tuff_bricks.break");
-	public static final DeferredHolder<SoundEvent, SoundEvent> TUFF_BRICKS_FALL = SOUNDS.createSoundEvent("block.tuff_bricks.fall");
-	public static final DeferredHolder<SoundEvent, SoundEvent> TUFF_BRICKS_HIT = SOUNDS.createSoundEvent("block.tuff_bricks.hit");
-	public static final DeferredHolder<SoundEvent, SoundEvent> TUFF_BRICKS_PLACE = SOUNDS.createSoundEvent("block.tuff_bricks.place");
-	public static final DeferredHolder<SoundEvent, SoundEvent> TUFF_BRICKS_STEP = SOUNDS.createSoundEvent("block.tuff_bricks.step");
-
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_BREAK = SOUNDS.createSoundEvent("block.silver.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_FALL = SOUNDS.createSoundEvent("block.silver.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_HIT = SOUNDS.createSoundEvent("block.silver.hit");
@@ -633,8 +601,6 @@ public class CCSoundEvents {
 		public static final DeferredSoundType FLOODLIGHT = new DeferredSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);
 		public static final DeferredSoundType COPPER_LANTERN = new DeferredSoundType(1.0F, 1.0F, COPPER_LANTERN_BREAK, COPPER_LANTERN_STEP, COPPER_LANTERN_PLACE, COPPER_LANTERN_HIT, COPPER_LANTERN_FALL);
 		public static final DeferredSoundType COPPER_CHAIN = new DeferredSoundType(1.0F, 1.0F, COPPER_CHAIN_BREAK, COPPER_CHAIN_STEP, COPPER_CHAIN_PLACE, COPPER_CHAIN_HIT, COPPER_CHAIN_FALL);
-		public static final DeferredSoundType COPPER_BULB = new DeferredSoundType(1.0F, 1.0F, COPPER_BULB_BREAK, COPPER_BULB_STEP, COPPER_BULB_PLACE, COPPER_BULB_HIT, COPPER_BULB_FALL);
-		public static final DeferredSoundType COPPER_GRATE = new DeferredSoundType(1.0F, 1.0F, COPPER_GRATE_BREAK, COPPER_GRATE_STEP, COPPER_GRATE_PLACE, COPPER_GRATE_HIT, COPPER_GRATE_FALL);
 		public static final DeferredSoundType SILVER = new DeferredSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);
 		public static final DeferredSoundType TIN = new TinSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL, TIN_DEFLECT);
 		public static final DeferredSoundType TINPLATE = new TinSoundType(1.0F, 1.0F, TINPLATE_BREAK, TINPLATE_STEP, TINPLATE_PLACE, TINPLATE_HIT, TINPLATE_FALL, TINPLATE_DEFLECT);
@@ -652,8 +618,6 @@ public class CCSoundEvents {
 		public static final DeferredSoundType ROLLER_DOOR = new TinSoundType(1.0F, 1.0F, ROLLER_DOOR_BREAK, ROLLER_DOOR_STEP, ROLLER_DOOR_PLACE, ROLLER_DOOR_HIT, ROLLER_DOOR_FALL, ROLLER_DOOR_DEFLECT);
 		public static final DeferredSoundType ATONING_TABLE = new DeferredSoundType(1.0F, 1.0F, ATONING_TABLE_BREAK, ATONING_TABLE_STEP, ATONING_TABLE_PLACE, ATONING_TABLE_HIT, ATONING_TABLE_FALL);
 		public static final DeferredSoundType BEJEWELED_ANVIL = new DeferredSoundType(1.0F, 1.0F, BEJEWELED_ANVIL_BREAK, BEJEWELED_ANVIL_STEP, BEJEWELED_ANVIL_PLACE, BEJEWELED_ANVIL_HIT, BEJEWELED_ANVIL_FALL);
-		public static final DeferredSoundType POLISHED_TUFF = new DeferredSoundType(1.0F, 1.0F, POLISHED_TUFF_BREAK, POLISHED_TUFF_STEP, POLISHED_TUFF_PLACE, POLISHED_TUFF_HIT, POLISHED_TUFF_FALL);
-		public static final DeferredSoundType TUFF_BRICKS = new DeferredSoundType(1.0F, 1.0F, TUFF_BRICKS_BREAK, TUFF_BRICKS_STEP, TUFF_BRICKS_PLACE, TUFF_BRICKS_HIT, TUFF_BRICKS_FALL);
 	}
 
 	public static void registerNoteBlocks() {
