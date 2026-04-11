@@ -548,33 +548,41 @@ public class CCEvents {
 				}
 			}
 
-			float magicDamageAmount = (float) target.getAttributeValue(CCAttributes.MAGIC_DAMAGE);
-			if (magicDamageAmount > 0.0F) {
-				if (target.getType().is(CCEntityTypeTags.SILVER_HURTS_EXTRA_TYPES)) {
-					magicDamageAmount *= 3.0F;
+			if (target.getAttribute(CCAttributes.MAGIC_DAMAGE) != null) {
+				float magicDamageAmount = (float) target.getAttributeValue(CCAttributes.MAGIC_DAMAGE);
+				if (magicDamageAmount > 0.0F) {
+					if (target.getType().is(CCEntityTypeTags.SILVER_HURTS_EXTRA_TYPES)) {
+						magicDamageAmount *= 3.0F;
+					}
+
+					target.invulnerableTime = 0;
+					target.hurt(target.damageSources().magic(), magicDamageAmount);
+					SilverItem.causeMagicDamageEffects(attacker, target);
 				}
-
-				target.invulnerableTime = 0;
-				target.hurt(target.damageSources().magic(), magicDamageAmount);
-				SilverItem.causeMagicDamageEffects(attacker, target);
 			}
 
-			// TODO: Seperate into a different attribute
-			int targetSlownessInfliction = (int) target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
-			if (targetSlownessInfliction > 0) {
-				target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, targetSlownessInfliction));
+			if (target.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
+				// TODO: Seperate into a different attribute
+				int targetSlownessInfliction = (int) target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
+				if (targetSlownessInfliction > 0) {
+					target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, targetSlownessInfliction));
+				}
 			}
 
-			float lifeStealAmount = (float) target.getAttributeValue(CCAttributes.LIFESTEAL);
-			if (lifeStealAmount > 0.0F) {
-				attacker.heal(lifeStealAmount * event.getOriginalDamage());
-				SanguineArmorItem.causeHealEffects(attacker, lifeStealAmount);
+			if (target.getAttribute(CCAttributes.LIFESTEAL) != null) {
+				float lifeStealAmount = (float) target.getAttributeValue(CCAttributes.LIFESTEAL);
+				if (lifeStealAmount > 0.0F) {
+					attacker.heal(lifeStealAmount * event.getOriginalDamage());
+					SanguineArmorItem.causeHealEffects(attacker, lifeStealAmount);
+				}
 			}
 
-			double slownessInfliction = target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
-			if (slownessInfliction > 0.0D) {
-				attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
-				attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
+			if (target.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
+				double slownessInfliction = target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
+				if (slownessInfliction > 0.0D) {
+					attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
+					attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
+				}
 			}
 		}
 

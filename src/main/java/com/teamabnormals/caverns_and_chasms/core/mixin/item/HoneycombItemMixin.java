@@ -42,7 +42,7 @@ public abstract class HoneycombItemMixin {
 
 					stack.shrink(1);
 					RegistryAccess access = level.registryAccess();
-					CompoundTag tag = toolbox.serializeAttachments(access);
+					CompoundTag tag = toolbox.saveWithoutMetadata(access);
 					level.setBlock(pos, newState, 11);
 					level.getBlockEntity(pos).loadWithComponents(tag, access);
 

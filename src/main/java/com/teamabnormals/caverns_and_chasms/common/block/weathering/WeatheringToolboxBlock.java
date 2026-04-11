@@ -50,7 +50,7 @@ public class WeatheringToolboxBlock extends ToolboxBlock implements WeatheringCo
 		BlockEntity toolbox = level.getBlockEntity(pos);
 		if (toolbox != null) {
 			RegistryAccess access = level.registryAccess();
-			CompoundTag tag = toolbox.serializeAttachments(access);
+			CompoundTag tag = toolbox.saveWithoutMetadata(access);
 			WeatheringCopper.super.changeOverTime(state, level, pos, random);
 			level.getBlockEntity(pos).loadWithComponents(tag, access);
 		} else {

@@ -20,7 +20,7 @@ public abstract class AxeItemMixin {
 		boolean success = original.call(level, pos, state, flags);
 		if (level.getBlockEntity(pos) instanceof ToolboxBlockEntity toolbox) {
 			RegistryAccess access = level.registryAccess();
-			CompoundTag tag = toolbox.serializeAttachments(access);
+			CompoundTag tag = toolbox.saveWithoutMetadata(access);
 			if (success) {
 				level.getBlockEntity(pos).loadWithComponents(tag, access);
 			}

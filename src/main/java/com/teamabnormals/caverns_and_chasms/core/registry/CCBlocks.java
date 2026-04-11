@@ -66,6 +66,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.function.Predicate;
@@ -690,11 +691,19 @@ public class CCBlocks {
 						ANDESITE_BRICKS, ANDESITE_BRICK_STAIRS, ANDESITE_BRICK_SLAB, ANDESITE_BRICK_WALL, ANDESITE_PILLAR,
 						ANDESITE_TILES, ANDESITE_TILE_STAIRS, ANDESITE_TILE_SLAB, ANDESITE_TILE_WALL
 				)
+				.editor(CCBlocks::removeTuff)
 				.addItemsBefore(of(Blocks.DEEPSLATE),
 						() -> Blocks.CALCITE, CALCITE_STAIRS, CALCITE_SLAB, CALCITE_WALL,
 						POLISHED_CALCITE, POLISHED_CALCITE_STAIRS, POLISHED_CALCITE_SLAB, POLISHED_CALCITE_WALL, CHISELED_POLISHED_CALCITE, CALCITE_PILLAR, CALCITE_BRICKS, CALCITE_BRICK_STAIRS, CALCITE_BRICK_SLAB, CALCITE_BRICK_WALL, CHISELED_CALCITE_BRICKS,
+						() -> Blocks.TUFF, () -> Blocks.TUFF_STAIRS, () -> Blocks.TUFF_SLAB, () -> Blocks.TUFF_WALL,
 						SMOOTH_TUFF, SMOOTH_TUFF_STAIRS, SMOOTH_TUFF_SLAB,
-						POLISHED_TUFF, POLISHED_TUFF_STAIRS, POLISHED_TUFF_SLAB, POLISHED_TUFF_WALL, TUFF_PILLAR, TUFF_BRICKS, TUFF_BRICK_STAIRS, TUFF_BRICK_SLAB, TUFF_BRICK_WALL, CHISELED_TUFF_BRICKS,
+						POLISHED_TUFF, POLISHED_TUFF_STAIRS, POLISHED_TUFF_SLAB, POLISHED_TUFF_WALL, TUFF_PILLAR, 
+						TUFF_BRICKS, TUFF_BRICK_STAIRS, TUFF_BRICK_SLAB, TUFF_BRICK_WALL, CHISELED_TUFF_BRICKS,
+						TUFF_TILES, TUFF_TILE_STAIRS, TUFF_TILE_SLAB, TUFF_TILE_WALL,
+						SHALE,
+						SMOOTH_SHALE, SMOOTH_SHALE_STAIRS, SMOOTH_SHALE_SLAB,
+						() -> Blocks.POLISHED_TUFF, () -> Blocks.POLISHED_TUFF_STAIRS, () -> Blocks.POLISHED_TUFF_SLAB,() -> Blocks.POLISHED_TUFF_WALL, () -> Blocks.CHISELED_TUFF,
+						() -> Blocks.TUFF_BRICKS, () -> Blocks.TUFF_BRICK_STAIRS, () -> Blocks.TUFF_BRICK_SLAB,() -> Blocks.TUFF_BRICK_WALL, () -> Blocks.CHISELED_TUFF_BRICKS,
 						() -> Blocks.DRIPSTONE_BLOCK, DRIPSTONE_STAIRS, DRIPSTONE_SLAB, DRIPSTONE_WALL,
 						SMOOTH_DRIPSTONE, SMOOTH_DRIPSTONE_STAIRS, SMOOTH_DRIPSTONE_SLAB,
 						POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB, POLISHED_DRIPSTONE_WALL,
@@ -827,6 +836,18 @@ public class CCBlocks {
 				.addItemsBefore(ofID(CCConstants.BAMBOO_CLOSET), AZALEA_CHEST)
 				.tab(REDSTONE_BLOCKS)
 				.addItemsBefore(ofID(CCConstants.TRAPPED_BAMBOO_CLOSET), TRAPPED_AZALEA_CHEST);
+	}
+
+	public static void removeTuff(BuildCreativeModeTabContentsEvent event) {
+		Block[] toRemove = new Block[] {
+				Blocks.TUFF, Blocks.TUFF_STAIRS, Blocks.TUFF_SLAB, Blocks.TUFF_WALL, Blocks.CHISELED_TUFF,
+				Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_STAIRS, Blocks.POLISHED_TUFF_SLAB, Blocks.POLISHED_TUFF_WALL,
+				Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_STAIRS, Blocks.TUFF_BRICK_SLAB, Blocks.TUFF_BRICK_WALL, Blocks.CHISELED_TUFF_BRICKS
+		};
+
+		for (Block block : toRemove) {
+			event.remove(new ItemStack(block.asItem()), TabVisibility.PARENT_AND_SEARCH_TABS);
+		}
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {
