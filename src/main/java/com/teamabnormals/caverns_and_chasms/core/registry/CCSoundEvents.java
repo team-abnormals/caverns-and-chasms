@@ -180,6 +180,12 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_HIT = SOUNDS.createSoundEvent("block.polished_calcite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_PLACE = SOUNDS.createSoundEvent("block.polished_calcite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_STEP = SOUNDS.createSoundEvent("block.polished_calcite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.dripstone_bricks.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_FALL = SOUNDS.createSoundEvent("block.dripstone_bricks.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_HIT = SOUNDS.createSoundEvent("block.dripstone_bricks.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.dripstone_bricks.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_STEP = SOUNDS.createSoundEvent("block.dripstone_bricks.step");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_DRIPSTONE_BREAK = SOUNDS.createSoundEvent("block.polished_dripstone.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_DRIPSTONE_FALL = SOUNDS.createSoundEvent("block.polished_dripstone.fall");
@@ -624,6 +630,7 @@ public class CCSoundEvents {
 		public static final DeferredSoundType NECROMIUM = new DeferredSoundType(1.0F, 1.0F, NECROMIUM_BREAK, NECROMIUM_STEP, NECROMIUM_PLACE, NECROMIUM_HIT, NECROMIUM_FALL);
 		public static final DeferredSoundType CALCITE_BRICKS = new DeferredSoundType(1.0F, 1.0F, CALCITE_BRICKS_BREAK, CALCITE_BRICKS_STEP, CALCITE_BRICKS_PLACE, CALCITE_BRICKS_HIT, CALCITE_BRICKS_FALL);
 		public static final DeferredSoundType POLISHED_CALCITE = new DeferredSoundType(1.0F, 1.0F, POLISHED_CALCITE_BREAK, POLISHED_CALCITE_STEP, POLISHED_CALCITE_PLACE, POLISHED_CALCITE_HIT, POLISHED_CALCITE_FALL);
+		public static final DeferredSoundType DRIPSTONE_BRICKS = new DeferredSoundType(1.0F, 1.0F, DRIPSTONE_BRICKS_BREAK, DRIPSTONE_BRICKS_STEP, DRIPSTONE_BRICKS_PLACE, DRIPSTONE_BRICKS_HIT, DRIPSTONE_BRICKS_FALL);
 		public static final DeferredSoundType POLISHED_DRIPSTONE = new DeferredSoundType(1.0F, 1.0F, POLISHED_DRIPSTONE_BREAK, POLISHED_DRIPSTONE_STEP, POLISHED_DRIPSTONE_PLACE, POLISHED_DRIPSTONE_HIT, POLISHED_DRIPSTONE_FALL);
 		public static final DeferredSoundType FALSE_HOPE = new DeferredSoundType(1.0F, 1.0F, FALSE_HOPE_BREAK, FALSE_HOPE_STEP, FALSE_HOPE_PLACE, FALSE_HOPE_HIT, FALSE_HOPE_FALL);
 		public static final DeferredSoundType CAVE_GROWTHS = new DeferredSoundType(1.0F, 1.0F, CAVE_GROWTHS_BREAK, CAVE_GROWTHS_STEP, CAVE_GROWTHS_PLACE, CAVE_GROWTHS_HIT, CAVE_GROWTHS_FALL);

@@ -2861,6 +2861,50 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.dripstone_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/dripstone_bricks/place1",
+      "caverns_and_chasms:block/dripstone_bricks/place2",
+      "caverns_and_chasms:block/dripstone_bricks/place3",
+      "caverns_and_chasms:block/dripstone_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dripstone_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/dripstone_bricks/step1",
+      "caverns_and_chasms:block/dripstone_bricks/step2",
+      "caverns_and_chasms:block/dripstone_bricks/step3",
+      "caverns_and_chasms:block/dripstone_bricks/step4"
+    ]
+  },
+  "block.dripstone_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/dripstone_bricks/step1",
+      "caverns_and_chasms:block/dripstone_bricks/step2",
+      "caverns_and_chasms:block/dripstone_bricks/step3",
+      "caverns_and_chasms:block/dripstone_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.dripstone_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/dripstone_bricks/place1",
+      "caverns_and_chasms:block/dripstone_bricks/place2",
+      "caverns_and_chasms:block/dripstone_bricks/place3",
+      "caverns_and_chasms:block/dripstone_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dripstone_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/dripstone_bricks/step1",
+      "caverns_and_chasms:block/dripstone_bricks/step2",
+      "caverns_and_chasms:block/dripstone_bricks/step3",
+      "caverns_and_chasms:block/dripstone_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.polished_dripstone.break": {
     "sounds": [
       {

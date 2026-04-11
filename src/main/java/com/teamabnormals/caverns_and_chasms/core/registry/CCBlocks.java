@@ -494,12 +494,12 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> POLISHED_DRIPSTONE_STAIRS = HELPER.createBlock("polished_dripstone_stairs", () -> new StairBlock(POLISHED_DRIPSTONE.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
 	public static final DeferredBlock<Block> POLISHED_DRIPSTONE_SLAB = HELPER.createBlock("polished_dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
 	public static final DeferredBlock<Block> POLISHED_DRIPSTONE_WALL = HELPER.createBlock("polished_dripstone_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> DRIPSTONE_BRICKS = HELPER.createBlock("dripstone_bricks", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> DRIPSTONE_BRICK_STAIRS = HELPER.createBlock("dripstone_brick_stairs", () -> new StairBlock(DRIPSTONE_BRICKS.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> DRIPSTONE_BRICK_SLAB = HELPER.createBlock("dripstone_brick_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> DRIPSTONE_BRICK_WALL = HELPER.createBlock("dripstone_brick_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> CHISELED_DRIPSTONE_BRICKS = HELPER.createBlock("chiseled_dripstone_bricks", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> CRACKED_DRIPSTONE_BRICKS = HELPER.createBlock("cracked_dripstone_bricks", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
+	public static final DeferredBlock<Block> DRIPSTONE_BRICKS = HELPER.createBlock("dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE_BRICKS));
+	public static final DeferredBlock<Block> DRIPSTONE_BRICK_STAIRS = HELPER.createBlock("dripstone_brick_stairs", () -> new StairBlock(DRIPSTONE_BRICKS.get().defaultBlockState(), CCProperties.DRIPSTONE_BRICKS));
+	public static final DeferredBlock<Block> DRIPSTONE_BRICK_SLAB = HELPER.createBlock("dripstone_brick_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_BRICKS));
+	public static final DeferredBlock<Block> DRIPSTONE_BRICK_WALL = HELPER.createBlock("dripstone_brick_wall", () -> new WallBlock(CCProperties.DRIPSTONE_BRICKS));
+	public static final DeferredBlock<Block> CHISELED_DRIPSTONE_BRICKS = HELPER.createBlock("chiseled_dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE_BRICKS));
+	public static final DeferredBlock<Block> CRACKED_DRIPSTONE_BRICKS = HELPER.createBlock("cracked_dripstone_bricks", () -> new Block(CCProperties.DRIPSTONE_BRICKS));
 	public static final DeferredBlock<Block> DRIPSTONE_SHINGLES = HELPER.createBlock("dripstone_shingles", () -> new Block(CCProperties.DRIPSTONE_SHINGLES));
 	public static final DeferredBlock<Block> DRIPSTONE_SHINGLE_STAIRS = HELPER.createBlock("dripstone_shingle_stairs", () -> new StairBlock(DRIPSTONE_SHINGLES.get().defaultBlockState(), CCProperties.DRIPSTONE_SHINGLES));
 	public static final DeferredBlock<Block> DRIPSTONE_SHINGLE_SLAB = HELPER.createBlock("dripstone_shingle_slab", () -> new SlabBlock(CCProperties.DRIPSTONE_SHINGLES));
@@ -873,6 +873,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).sound(CCSoundTypes.ROCKY_DIRT).requiresCorrectToolForDrops().strength(1.5F);
 		public static final BlockBehaviour.Properties FRAGILE_STONE = BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).sound(CCSoundTypes.FRAGILE_STONE);
 		public static final BlockBehaviour.Properties FRAGILE_DEEPSLATE = BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE).sound(CCSoundTypes.FRAGILE_DEEPSLATE);
+		public static final BlockBehaviour.Properties DRIPSTONE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK).sound(CCSoundTypes.DRIPSTONE_BRICKS);
 		public static final BlockBehaviour.Properties POLISHED_DRIPSTONE = BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK).sound(CCSoundTypes.POLISHED_DRIPSTONE);
 		public static final BlockBehaviour.Properties GRANITE = BlockBehaviour.Properties.ofFullCopy(Blocks.GRANITE);
 		public static final BlockBehaviour.Properties ANDESITE = BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE);
