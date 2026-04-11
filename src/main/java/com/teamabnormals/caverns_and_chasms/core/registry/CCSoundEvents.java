@@ -124,6 +124,20 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_PLACE = SOUNDS.createSoundEvent("block.cylindrite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_STEP = SOUNDS.createSoundEvent("block.cylindrite.step");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_DEFLECT = SOUNDS.createSoundEvent("block.cylindrite.deflect");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_BREAK = SOUNDS.createSoundEvent("block.polished_cylindrite.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_FALL = SOUNDS.createSoundEvent("block.polished_cylindrite.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_HIT = SOUNDS.createSoundEvent("block.polished_cylindrite.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_PLACE = SOUNDS.createSoundEvent("block.polished_cylindrite.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_STEP = SOUNDS.createSoundEvent("block.polished_cylindrite.step");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_DEFLECT = SOUNDS.createSoundEvent("block.polished_cylindrite.deflect");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.cylindrite_bricks.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.cylindrite_bricks.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.cylindrite_bricks.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.cylindrite_bricks.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_STEP = SOUNDS.createSoundEvent("block.cylindrite_bricks.step");
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_DEFLECT = SOUNDS.createSoundEvent("block.cylindrite_bricks.deflect");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> FLINT_BLOCK_BREAK = SOUNDS.createSoundEvent("block.flint_block.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> FLINT_BLOCK_FALL = SOUNDS.createSoundEvent("block.flint_block.fall");
@@ -634,6 +648,8 @@ public class CCSoundEvents {
 		public static final DeferredSoundType CASSITERITE_BRICKS = new TinSoundType(1.0F, 1.0F, CASSITERITE_BRICKS_BREAK, CASSITERITE_BRICKS_STEP, CASSITERITE_BRICKS_PLACE, CASSITERITE_BRICKS_HIT, CASSITERITE_BRICKS_FALL, CASSITERITE_BRICKS_DEFLECT);
 		public static final DeferredSoundType POLISHED_CASSITERITE = new TinSoundType(1.0F, 1.0F, POLISHED_CASSITERITE_BREAK, POLISHED_CASSITERITE_STEP, POLISHED_CASSITERITE_PLACE, POLISHED_CASSITERITE_HIT, POLISHED_CASSITERITE_FALL, POLISHED_CASSITERITE_DEFLECT);
 		public static final DeferredSoundType CYLINDRITE = new TinSoundType(1.0F, 1.0F, CYLINDRITE_BREAK, CYLINDRITE_STEP, CYLINDRITE_PLACE, CYLINDRITE_HIT, CYLINDRITE_FALL, CYLINDRITE_DEFLECT);
+		public static final DeferredSoundType CYLINDRITE_BRICKS = new TinSoundType(1.0F, 1.0F, CYLINDRITE_BRICKS_BREAK, CYLINDRITE_BRICKS_STEP, CYLINDRITE_BRICKS_PLACE, CYLINDRITE_BRICKS_HIT, CYLINDRITE_BRICKS_FALL, CYLINDRITE_BRICKS_DEFLECT);
+		public static final DeferredSoundType POLISHED_CYLINDRITE = new TinSoundType(1.0F, 1.0F, POLISHED_CYLINDRITE_BREAK, POLISHED_CYLINDRITE_STEP, POLISHED_CYLINDRITE_PLACE, POLISHED_CYLINDRITE_HIT, POLISHED_CYLINDRITE_FALL, POLISHED_CYLINDRITE_DEFLECT);
 		public static final DeferredSoundType FLINT_BLOCK = new DeferredSoundType(1.0F, 1.0F, FLINT_BLOCK_BREAK, FLINT_BLOCK_STEP, FLINT_BLOCK_PLACE, FLINT_BLOCK_HIT, FLINT_BLOCK_FALL);
 		public static final DeferredSoundType SOUL_SILVER_ORE = new DeferredSoundType(1.0F, 1.0F, SOUL_SILVER_ORE_BREAK, SOUL_SILVER_ORE_STEP, SOUL_SILVER_ORE_PLACE, SOUL_SILVER_ORE_HIT, SOUL_SILVER_ORE_FALL);
 		public static final DeferredSoundType SPINEL = new DeferredSoundType(1.0F, 1.0F, SPINEL_BREAK, SPINEL_STEP, SPINEL_PLACE, SPINEL_HIT, SPINEL_FALL);

@@ -784,6 +784,106 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
   },
+  "block.polished_cylindrite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cylindrite/place1",
+      "caverns_and_chasms:block/polished_cylindrite/place2",
+      "caverns_and_chasms:block/polished_cylindrite/place3",
+      "caverns_and_chasms:block/polished_cylindrite/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_cylindrite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cylindrite/place1",
+      "caverns_and_chasms:block/polished_cylindrite/place2",
+      "caverns_and_chasms:block/polished_cylindrite/place3",
+      "caverns_and_chasms:block/polished_cylindrite/place4"
+    ]
+  },
+  "block.polished_cylindrite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cylindrite/step1",
+      "caverns_and_chasms:block/polished_cylindrite/step2",
+      "caverns_and_chasms:block/polished_cylindrite/step3",
+      "caverns_and_chasms:block/polished_cylindrite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_cylindrite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cylindrite/place1",
+      "caverns_and_chasms:block/polished_cylindrite/place2",
+      "caverns_and_chasms:block/polished_cylindrite/place3",
+      "caverns_and_chasms:block/polished_cylindrite/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_cylindrite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cylindrite/step1",
+      "caverns_and_chasms:block/polished_cylindrite/step2",
+      "caverns_and_chasms:block/polished_cylindrite/step3",
+      "caverns_and_chasms:block/polished_cylindrite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.polished_cylindrite.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_cylindrite/place1",
+      "caverns_and_chasms:block/polished_cylindrite/place2",
+      "caverns_and_chasms:block/polished_cylindrite/place3",
+      "caverns_and_chasms:block/polished_cylindrite/place4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
+  "block.cylindrite_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/cylindrite_bricks/place1",
+      "caverns_and_chasms:block/cylindrite_bricks/place2",
+      "caverns_and_chasms:block/cylindrite_bricks/place3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cylindrite_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/cylindrite_bricks/place1",
+      "caverns_and_chasms:block/cylindrite_bricks/place2",
+      "caverns_and_chasms:block/cylindrite_bricks/place3"
+    ]
+  },
+  "block.cylindrite_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/cylindrite_bricks/step1",
+      "caverns_and_chasms:block/cylindrite_bricks/step2",
+      "caverns_and_chasms:block/cylindrite_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cylindrite_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/cylindrite_bricks/place1",
+      "caverns_and_chasms:block/cylindrite_bricks/place2",
+      "caverns_and_chasms:block/cylindrite_bricks/place3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cylindrite_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/cylindrite_bricks/step1",
+      "caverns_and_chasms:block/cylindrite_bricks/step2",
+      "caverns_and_chasms:block/cylindrite_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.cylindrite_bricks.deflect": {
+    "sounds": [
+      "caverns_and_chasms:block/cylindrite_bricks/place1",
+      "caverns_and_chasms:block/cylindrite_bricks/place2",
+      "caverns_and_chasms:block/cylindrite_bricks/place3"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.tin.deflect"
+  },
   "block.dimmer.break": {
     "sounds": [
       "caverns_and_chasms:block/dimmer/break1",

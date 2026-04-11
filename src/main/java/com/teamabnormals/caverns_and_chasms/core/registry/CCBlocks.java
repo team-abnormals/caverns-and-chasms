@@ -425,16 +425,16 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE = HELPER.createBlock("smooth_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE_STAIRS = HELPER.createBlock("smooth_cylindrite_stairs", () -> new StairBlock(CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE_SLAB = HELPER.createBlock("smooth_cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> CYLINDRITE_BRICKS = HELPER.createBlock("cylindrite_bricks", () -> new Block(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> CYLINDRITE_BRICK_STAIRS = HELPER.createBlock("cylindrite_brick_stairs", () -> new StairBlock(CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> CYLINDRITE_BRICK_SLAB = HELPER.createBlock("cylindrite_brick_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> CYLINDRITE_BRICK_WALL = HELPER.createBlock("cylindrite_brick_wall", () -> new WallBlock(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> CYLINDRITE_PILLAR = HELPER.createBlock("cylindrite_pillar", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> CHISELED_CYLINDRITE_BRICKS = HELPER.createBlock("chiseled_cylindrite_bricks", () -> new Block(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> POLISHED_CYLINDRITE = HELPER.createBlock("polished_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> POLISHED_CYLINDRITE_STAIRS = HELPER.createBlock("polished_cylindrite_stairs", () -> new StairBlock(POLISHED_CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> POLISHED_CYLINDRITE_SLAB = HELPER.createBlock("polished_cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
-	public static final DeferredBlock<Block> POLISHED_CYLINDRITE_WALL = HELPER.createBlock("polished_cylindrite_wall", () -> new WallBlock(CCProperties.CYLINDRITE));
+	public static final DeferredBlock<Block> CYLINDRITE_BRICKS = HELPER.createBlock("cylindrite_bricks", () -> new Block(CCProperties.CYLINDRITE_BRICKS));
+	public static final DeferredBlock<Block> CYLINDRITE_BRICK_STAIRS = HELPER.createBlock("cylindrite_brick_stairs", () -> new StairBlock(CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE_BRICKS));
+	public static final DeferredBlock<Block> CYLINDRITE_BRICK_SLAB = HELPER.createBlock("cylindrite_brick_slab", () -> new SlabBlock(CCProperties.CYLINDRITE_BRICKS));
+	public static final DeferredBlock<Block> CYLINDRITE_BRICK_WALL = HELPER.createBlock("cylindrite_brick_wall", () -> new WallBlock(CCProperties.CYLINDRITE_BRICKS));
+	public static final DeferredBlock<Block> CYLINDRITE_PILLAR = HELPER.createBlock("cylindrite_pillar", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE_BRICKS));
+	public static final DeferredBlock<Block> CHISELED_CYLINDRITE_BRICKS = HELPER.createBlock("chiseled_cylindrite_bricks", () -> new Block(CCProperties.CYLINDRITE_BRICKS));
+	public static final DeferredBlock<Block> POLISHED_CYLINDRITE = HELPER.createBlock("polished_cylindrite", () -> new Block(CCProperties.POLISHED_CYLINDRITE));
+	public static final DeferredBlock<Block> POLISHED_CYLINDRITE_STAIRS = HELPER.createBlock("polished_cylindrite_stairs", () -> new StairBlock(POLISHED_CYLINDRITE.get().defaultBlockState(), CCProperties.POLISHED_CYLINDRITE));
+	public static final DeferredBlock<Block> POLISHED_CYLINDRITE_SLAB = HELPER.createBlock("polished_cylindrite_slab", () -> new SlabBlock(CCProperties.POLISHED_CYLINDRITE));
+	public static final DeferredBlock<Block> POLISHED_CYLINDRITE_WALL = HELPER.createBlock("polished_cylindrite_wall", () -> new WallBlock(CCProperties.POLISHED_CYLINDRITE));
 
 	public static final DeferredBlock<Block> CASSITERITE = HELPER.createBlock("cassiterite", () -> new Block(CCProperties.CASSITERITE));
 	public static final DeferredBlock<Block> CASSITERITE_STAIRS = HELPER.createBlock("cassiterite_stairs", () -> new StairBlock(CASSITERITE.get().defaultBlockState(), CCProperties.CASSITERITE));
@@ -889,6 +889,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties SHALE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(CCSoundTypes.SHALE_BRICKS);
 		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CYLINDRITE).requiresCorrectToolForDrops().strength(0.75F);
+		public static final BlockBehaviour.Properties POLISHED_CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.POLISHED_CYLINDRITE).requiresCorrectToolForDrops().strength(0.75F);
+		public static final BlockBehaviour.Properties CYLINDRITE_BRICKS = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CYLINDRITE_BRICKS).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
 		public static final BlockBehaviour.Properties POLISHED_CASSITERITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.POLISHED_CASSITERITE).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
 		public static final BlockBehaviour.Properties CASSITERITE_BRICKS = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CASSITERITE_BRICKS).requiresCorrectToolForDrops().strength(4.0F, 4.0F);
