@@ -1040,7 +1040,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 			ResourceLocation name = BuiltInRegistries.BLOCK.getKey(slab);
 			ResourceLocation side = CavernsAndChasms.location(ModelProvider.BLOCK_FOLDER + "/" + name.getPath());
 			ResourceLocation full = blockTexture(block);
-			this.slabBlock(slabBlock, models().slab(name.toString(), side, full, full), models().slabTop(name + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));
+			this.slabBlock(slabBlock,
+					models().slab(name.toString(), side, full, full),
+					models().slabTop(name + "_top", side, full, full),
+					models().cubeColumn(name(slab) + "_double", side, full));
 		}
 	}
 
@@ -1049,7 +1052,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 			ResourceLocation name = BuiltInRegistries.BLOCK.getKey(slab);
 			ResourceLocation side = CavernsAndChasms.location(ModelProvider.BLOCK_FOLDER + "/" + sideName);
 			ResourceLocation full = blockTexture(block);
-			this.slabBlock(slabBlock, models().slab(name.toString(), side, full, full), models().slabTop(name + "_top", side, full, full), models().cubeColumn(name(slab) + "_double", side, full));
+			this.slabBlock(slabBlock,
+					models().slab(name.toString(), side, full, full),
+					models().slabTop(name + "_top", side, full, full),
+					models().cubeColumn(CavernsAndChasms.location(sideName) + "_double", side, full));
 		}
 	}
 

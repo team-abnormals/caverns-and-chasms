@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.levelgen.structure;
 
 import com.google.common.collect.Lists;
 import com.mojang.logging.LogUtils;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructurePieceTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -368,8 +369,8 @@ public class LushMineshaftPieces extends MineshaftPieces {
 					this.generateBox(level, box, maxX, maxY, z, maxX, maxY, z, blockstate, CAVE_AIR, false);
 				} else {
 					this.generateBox(level, box, minX, maxY, z, maxX, maxY, z, blockstate, CAVE_AIR, false);
-					this.maybeGenerateBlock(level, box, random, 0.05F, minX + 1, maxY, z - 1, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, Direction.SOUTH));
-					this.maybeGenerateBlock(level, box, random, 0.05F, minX + 1, maxY, z + 1, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH));
+					this.maybeGenerateBlock(level, box, random, 0.05F, minX + 1, maxY, z - 1, CCBlocks.PINK_SPARKLER.getSecond().get().defaultBlockState().setValue(WallTorchBlock.FACING, Direction.SOUTH));
+					this.maybeGenerateBlock(level, box, random, 0.05F, minX + 1, maxY, z + 1, CCBlocks.PINK_SPARKLER.getSecond().get().defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH));
 				}
 			}
 		}
