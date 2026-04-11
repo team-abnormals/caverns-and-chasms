@@ -66,6 +66,24 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SPARKLER_SPARKLE = SOUNDS.createSoundEvent("block.sparkler.sparkle");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SPARKLER_FIZZLE = SOUNDS.createSoundEvent("block.sparkler.fizzle");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SPARKLER_EXPLODE = SOUNDS.createSoundEvent("block.sparkler.explode");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_BREAK = SOUNDS.createSoundEvent("block.shale.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_FALL = SOUNDS.createSoundEvent("block.shale.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_HIT = SOUNDS.createSoundEvent("block.shale.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_PLACE = SOUNDS.createSoundEvent("block.shale.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_STEP = SOUNDS.createSoundEvent("block.shale.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SHALE_BREAK = SOUNDS.createSoundEvent("block.polished_shale.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SHALE_FALL = SOUNDS.createSoundEvent("block.polished_shale.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SHALE_HIT = SOUNDS.createSoundEvent("block.polished_shale.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SHALE_PLACE = SOUNDS.createSoundEvent("block.polished_shale.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SHALE_STEP = SOUNDS.createSoundEvent("block.polished_shale.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.shale_bricks.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_BRICKS_FALL = SOUNDS.createSoundEvent("block.shale_bricks.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_BRICKS_HIT = SOUNDS.createSoundEvent("block.shale_bricks.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.shale_bricks.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SHALE_BRICKS_STEP = SOUNDS.createSoundEvent("block.shale_bricks.step");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BREAK = SOUNDS.createSoundEvent("block.rhyolite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_FALL = SOUNDS.createSoundEvent("block.rhyolite.fall");
@@ -575,6 +593,9 @@ public class CCSoundEvents {
 		public static final DeferredSoundType ECHO_BLOCK = new DeferredSoundType(1.0F, 1.0F, ECHO_BLOCK_BREAK, ECHO_BLOCK_STEP, ECHO_BLOCK_PLACE, ECHO_BLOCK_HIT, ECHO_BLOCK_FALL);
 		public static final DeferredSoundType GUNPOWDER = new DeferredSoundType(1.0F, 1.0F, GUNPOWDER_BREAK, GUNPOWDER_STEP, GUNPOWDER_PLACE, GUNPOWDER_HIT, GUNPOWDER_FALL);
 		public static final DeferredSoundType SPARKLER = new DeferredSoundType(1.0F, 1.0F, SPARKLER_BREAK, SPARKLER_STEP, SPARKLER_PLACE, SPARKLER_HIT, SPARKLER_FALL);
+		public static final DeferredSoundType SHALE = new DeferredSoundType(1.0F, 1.0F, SHALE_BREAK, SHALE_STEP, SHALE_PLACE, SHALE_HIT, SHALE_FALL);
+		public static final DeferredSoundType POLISHED_SHALE = new DeferredSoundType(1.0F, 1.0F, POLISHED_SHALE_BREAK, POLISHED_SHALE_STEP, POLISHED_SHALE_PLACE, POLISHED_SHALE_HIT, POLISHED_SHALE_FALL);
+		public static final DeferredSoundType SHALE_BRICKS = new DeferredSoundType(1.0F, 1.0F, SHALE_BRICKS_BREAK, SHALE_BRICKS_STEP, SHALE_BRICKS_PLACE, SHALE_BRICKS_HIT, SHALE_BRICKS_FALL);
 		public static final DeferredSoundType RHYOLITE = new DeferredSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
 		public static final DeferredSoundType MAGMATIC_RHYOLITE = new DeferredSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BREAK, MAGMATIC_RHYOLITE_STEP, MAGMATIC_RHYOLITE_PLACE, MAGMATIC_RHYOLITE_HIT, MAGMATIC_RHYOLITE_FALL);
 		public static final DeferredSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);
