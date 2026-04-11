@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCGiftLoot;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
@@ -1123,7 +1124,16 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.populateDefaultEquipmentSlots(this.random, difficulty);
 		if (spawnType == MobSpawnType.NATURAL && this.random.nextFloat() < 0.2F) {
 			List<Pair<Rat, Vec3>> rats = Lists.newArrayList();
-			int ratCount = 6 + random.nextInt(3) + random.nextInt(3);
+			//int ratCount = 6 + random.nextInt(3) + random.nextInt(3);
+			int ratCount = CCConfig.COMMON.ratGroupSize.get();
+			int ratGroupVariance = CCConfig.COMMON.ratGroupVarianceSize.get();
+
+			if(ratGroupVariance > 0)
+			{
+				//plus one since random.nextInt is bound exclusive
+				ratCount += random.nextInt(ratGroupVariance + 1);
+				ratCount += random.nextInt(ratGroupVariance + 1);
+			}
 
 			for (int i = 0; i < 64; ++i) {
 				int spawnRange = 6;
@@ -1131,7 +1141,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				double d1 = this.getY() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange / 2;
 				double d2 = this.getZ() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
 
-				if (rats.size() < ratCount) {
+				if ( rats.size() < ratCount && d1 <= CCConfig.COMMON.ratMaxSpawnHeight.get() ) {
 					if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
 						Rat rat = CCEntityTypes.RAT.get().create(level.getLevel());
 						if (rat != null) {

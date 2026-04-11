@@ -12,6 +12,10 @@ public class CCConfig {
 		public final BooleanValue creeperExplosionNerf;
 		public final DoubleValue creeperExplosionNerfFactor;
 
+		public final IntValue ratMaxSpawnHeight;
+		public final IntValue ratGroupSize;
+		public final IntValue ratGroupVarianceSize;
+
 		public final IntValue deeperMaxSpawnHeight;
 		public final IntValue evendeeperMaxSpawnHeight;
 		public final IntValue grazerMaxSpawnHeight;
@@ -48,6 +52,11 @@ public class CCConfig {
 			builder.pop();
 			builder.push("peeper");
 			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);
+			builder.pop();
+			builder.push("rat");
+			ratMaxSpawnHeight = builder.defineInRange("Rat max spawn height", 40, -64, 320);
+			ratGroupSize = builder.defineInRange("Rat initial group size", 6, 0, 100);
+			ratGroupVarianceSize = builder.comment("Variance in Rat group sizes. E.g 3 = variance between 0 and 3").defineInRange("Rat group variance size", 3, 0, 100);
 			builder.pop();
 			builder.pop();
 
