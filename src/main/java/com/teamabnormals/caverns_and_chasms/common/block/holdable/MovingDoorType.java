@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 public class MovingDoorType {
 	private static final Map<String, MovingDoorType> TYPES = new HashMap<>();
 
-	public static final MovingDoorType ROLLER_DOOR = new MovingDoorType(CavernsAndChasms.MOD_ID, "roller_door", "roller_door", CCItems.ROLLER_DOOR);
-	public static final MovingDoorType ROLLER_WINDOW = new MovingDoorType(CavernsAndChasms.MOD_ID, "roller_window", "roller_door", CCItems.ROLLER_WINDOW);
+	public static final MovingDoorType ROLLER_DOOR = new MovingDoorType(CavernsAndChasms.MOD_ID, "roller_door", "roller_door", () -> CCItems.ROLLER_DOOR.get());
+	public static final MovingDoorType ROLLER_WINDOW = new MovingDoorType(CavernsAndChasms.MOD_ID, "roller_window", "roller_door", () -> CCItems.ROLLER_WINDOW.get());
 
 	private final String registryName;
 	private Material material;

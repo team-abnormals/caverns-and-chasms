@@ -3,11 +3,15 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.integration.quark.ToolboxTooltips;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.neoforged.api.distmarker.Dist;
@@ -28,6 +33,7 @@ import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 
+import java.util.List;
 import java.util.Locale;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -61,6 +67,7 @@ public class CCClientEvents {
 		ItemStack stack = event.getItemStack();
 		Item item = stack.getItem();
 		Player player = event.getEntity();
+		List<Component> tooltip = event.getToolTip();
 
 		if (player != null && player.getInventory().contains(stack)) {
 			Level level = player.level();
@@ -86,6 +93,34 @@ public class CCClientEvents {
 
 			if (item == CCItems.BAROMETER.get() && CCConfig.CLIENT.barometersDisplayWeather.get()) {
 				event.getToolTip().add(createTooltip("weather").withStyle(ChatFormatting.GRAY).append(": ").append(createTooltip(getWeather(player, level)).withStyle(ChatFormatting.GRAY)));
+			}
+		}
+
+		if (stack.has(DataComponents.TRIM)) {
+			ArmorTrim trim = stack.get(DataComponents.TRIM);
+			Style style = trim.material().value().description().getStyle();
+
+			int insertIndex = -1;
+			for (int i = 0; i < tooltip.size(); i++) {
+				Component line = tooltip.get(i);
+				if (line.getString().equals(" " + trim.material().value().description().getString())) {
+					insertIndex = i + 1;
+					break;
+				}
+			}
+
+			if (insertIndex != -1) {
+				if (stack.has(CCDataComponents.FADED_TRIM)) {
+					event.getToolTip().add(insertIndex++, CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".faded_modifier").withStyle(style)));
+				}
+
+				if (stack.has(CCDataComponents.EMISSIVE_TRIM)) {
+					event.getToolTip().add(insertIndex++, CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".emissive_modifier").withStyle(style)));
+				}
+
+				if (stack.has(CCDataComponents.PULSE_TRIM)) {
+					event.getToolTip().add(insertIndex++, CommonComponents.space().append(Component.translatable("tooltip." + CavernsAndChasms.MOD_ID + ".pulse_modifier").withStyle(style)));
+				}
 			}
 		}
 	}

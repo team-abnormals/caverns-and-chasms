@@ -47,6 +47,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Function;
@@ -152,16 +153,24 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 			boolean sanguine = armorItem.getMaterial() == CCArmorMaterials.SANGUINE;
 			if (copper || sanguine) {
 				RegistryAccess access = entity.level().registryAccess();
-				ArmorTrim armorTrim = stack.get(DataComponents.TRIM);
+				CCArmorTrim armorTrim = CCArmorTrim.create(stack);
+
 				if (armorTrim != null) {
-					ArmorTrim trim = new ArmorTrim(armorTrim.material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(copper ? CCTrimPatterns.COPPER : CCTrimPatterns.SANGUINE));
-					((CCArmorTrim) trim).setFaded(((CCArmorTrim) armorTrim).isFaded());
-					((CCArmorTrim) trim).setEmissive(((CCArmorTrim) armorTrim).isEmissive());
-					((CCArmorTrim) trim).setPulse(((CCArmorTrim) armorTrim).isPulse());
+					ArmorTrim trim = new ArmorTrim(((ArmorTrim) armorTrim).material(), access.registryOrThrow(Registries.TRIM_PATTERN).getHolderOrThrow(copper ? CCTrimPatterns.COPPER : CCTrimPatterns.SANGUINE));
+					((CCArmorTrim) trim).setFaded(armorTrim.isFaded());
+					((CCArmorTrim) trim).setEmissive(armorTrim.isEmissive());
+					((CCArmorTrim) trim).setPulse(armorTrim.isPulse());
 					this.renderTrim(armorItem.getMaterial(), poseStack, source, num, trim, this.getArmorModelHook(entity, stack, slot, model), this.usesInnerModel(slot));
 				}
 			}
 		}
+	}
+
+	@ModifyVariable(method = "renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;FFFFFF)V", at = @At("STORE"), ordinal = 0)
+	private ArmorTrim modifyArmorTrim(ArmorTrim original, PoseStack poseStack, MultiBufferSource bufferSource, T livingEntity, EquipmentSlot slot) {
+		if (original == null) return null;
+		ItemStack stack = livingEntity.getItemBySlot(slot);
+		return (ArmorTrim) CCArmorTrim.create(stack);
 	}
 
 	@Inject(at = @At("HEAD"), method = "renderTrim(Lnet/minecraft/core/Holder;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/Model;Z)V", cancellable = true, remap = false)
