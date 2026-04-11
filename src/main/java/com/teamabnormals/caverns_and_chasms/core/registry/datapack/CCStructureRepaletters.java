@@ -1,5 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
+import com.teamabnormals.blueprint.common.world.modification.structure.SimpleStructureRepaletter;
+import com.teamabnormals.blueprint.common.world.modification.structure.SimpleTagStructureRepaletter;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterEntry;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterManager;
 import com.teamabnormals.blueprint.core.registry.BlueprintDataPackRegistries;
@@ -16,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +40,13 @@ public final class CCStructureRepaletters {
 				.setValue(IngotBlock.LAYERS, 3)
 				.setValue(IngotBlock.TOP_INGOT, IngotLayer.BOTH), 0.4F))
 		);
+
+		context.register(create("trial_chambers"), new StructureRepaletterEntry.Builder()
+				.repaletters(
+						new SimpleStructureRepaletter(Blocks.WAXED_COPPER_BLOCK, CCBlocks.SHALE_PILLAR.get()),
+						new SimpleStructureRepaletter(Blocks.WAXED_OXIDIZED_COPPER, CCBlocks.SHALE_PILLAR.get()),
+						new SimpleStructureRepaletter(Blocks.OAK_BUTTON, CCBlocks.WAXED_COPPER_BUTTON.get())
+				).select(HolderSet.direct(Stream.of(BuiltinStructures.TRIAL_CHAMBERS).map(structures::getOrThrow).collect(Collectors.toList()))));
 	}
 
 	private static ResourceKey<StructureRepaletterEntry> create(String name) {

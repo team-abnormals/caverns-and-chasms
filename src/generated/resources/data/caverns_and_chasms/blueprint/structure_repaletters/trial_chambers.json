@@ -1,0 +1,20 @@
+{
+  "repaletter": [
+    {
+      "type": "blueprint:simple",
+      "replaces_block": "minecraft:waxed_copper_block",
+      "replaces_with": "caverns_and_chasms:shale_pillar"
+    },
+    {
+      "type": "blueprint:simple",
+      "replaces_block": "minecraft:waxed_oxidized_copper",
+      "replaces_with": "caverns_and_chasms:shale_pillar"
+    },
+    {
+      "type": "blueprint:simple",
+      "replaces_block": "minecraft:oak_button",
+      "replaces_with": "caverns_and_chasms:waxed_copper_button"
+    }
+  ],
+  "structures": "minecraft:trial_chambers"
+}
