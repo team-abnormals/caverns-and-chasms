@@ -2965,6 +2965,103 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.calcite_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/calcite_bricks/place1",
+      "caverns_and_chasms:block/calcite_bricks/place2",
+      "caverns_and_chasms:block/calcite_bricks/place3",
+      "caverns_and_chasms:block/calcite_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.calcite_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/calcite_bricks/step1",
+      "caverns_and_chasms:block/calcite_bricks/step2",
+      "caverns_and_chasms:block/calcite_bricks/step3",
+      "caverns_and_chasms:block/calcite_bricks/step4"
+    ]
+  },
+  "block.calcite_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/calcite_bricks/step1",
+      "caverns_and_chasms:block/calcite_bricks/step2",
+      "caverns_and_chasms:block/calcite_bricks/step3",
+      "caverns_and_chasms:block/calcite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.calcite_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/calcite_bricks/place1",
+      "caverns_and_chasms:block/calcite_bricks/place2",
+      "caverns_and_chasms:block/calcite_bricks/place3",
+      "caverns_and_chasms:block/calcite_bricks/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.calcite_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/calcite_bricks/step1",
+      "caverns_and_chasms:block/calcite_bricks/step2",
+      "caverns_and_chasms:block/calcite_bricks/step3",
+      "caverns_and_chasms:block/calcite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.polished_calcite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_calcite/place1",
+      "caverns_and_chasms:block/polished_calcite/place2",
+      "caverns_and_chasms:block/polished_calcite/place3",
+      "caverns_and_chasms:block/polished_calcite/place4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_calcite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_calcite/step1",
+      "caverns_and_chasms:block/polished_calcite/step2",
+      "caverns_and_chasms:block/polished_calcite/step3",
+      "caverns_and_chasms:block/polished_calcite/step4",
+      "caverns_and_chasms:block/polished_calcite/step5",
+      "caverns_and_chasms:block/polished_calcite/step6",
+      "caverns_and_chasms:block/polished_calcite/step7"
+    ]
+  },
+  "block.polished_calcite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_calcite/step1",
+      "caverns_and_chasms:block/polished_calcite/step2",
+      "caverns_and_chasms:block/polished_calcite/step3",
+      "caverns_and_chasms:block/polished_calcite/step4",
+      "caverns_and_chasms:block/polished_calcite/step5",
+      "caverns_and_chasms:block/polished_calcite/step6",
+      "caverns_and_chasms:block/polished_calcite/step7"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_calcite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_calcite/place1",
+      "caverns_and_chasms:block/polished_calcite/place2",
+      "caverns_and_chasms:block/polished_calcite/place3",
+      "caverns_and_chasms:block/polished_calcite/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_calcite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_calcite/step1",
+      "caverns_and_chasms:block/polished_calcite/step2",
+      "caverns_and_chasms:block/polished_calcite/step3",
+      "caverns_and_chasms:block/polished_calcite/step4",
+      "caverns_and_chasms:block/polished_calcite/step5",
+      "caverns_and_chasms:block/polished_calcite/step6",
+      "caverns_and_chasms:block/polished_calcite/step7"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.zirconia.break": {
     "sounds": [
       "caverns_and_chasms:block/zirconia/break1",

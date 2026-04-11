@@ -375,7 +375,7 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> POLISHED_CALCITE_SLAB = HELPER.createBlock("polished_calcite_slab", () -> new SlabBlock(CCProperties.POLISHED_CALCITE));
 	public static final DeferredBlock<Block> POLISHED_CALCITE_WALL = HELPER.createBlock("polished_calcite_wall", () -> new WallBlock(CCProperties.POLISHED_CALCITE));
 	public static final DeferredBlock<Block> CHISELED_POLISHED_CALCITE = HELPER.createBlock("chiseled_calcite", () -> new BlueprintDirectionalBlock(CCProperties.POLISHED_CALCITE));
-	public static final DeferredBlock<Block> CALCITE_PILLAR = HELPER.createBlock("calcite_pillar", () -> new RotatedPillarBlock(CCProperties.POLISHED_CALCITE));
+	public static final DeferredBlock<Block> CALCITE_PILLAR = HELPER.createBlock("calcite_pillar", () -> new RotatedPillarBlock(CCProperties.CALCITE_BRICKS));
 	public static final DeferredBlock<Block> CALCITE_BRICKS = HELPER.createBlock("calcite_bricks", () -> new Block(CCProperties.CALCITE_BRICKS));
 	public static final DeferredBlock<Block> CALCITE_BRICK_STAIRS = HELPER.createBlock("calcite_brick_stairs", () -> new StairBlock(CALCITE_BRICKS.get().defaultBlockState(), CCProperties.CALCITE_BRICKS));
 	public static final DeferredBlock<Block> CALCITE_BRICK_SLAB = HELPER.createBlock("calcite_brick_slab", () -> new SlabBlock(CCProperties.CALCITE_BRICKS));
@@ -878,8 +878,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ANDESITE = BlockBehaviour.Properties.ofFullCopy(Blocks.ANDESITE);
 		public static final BlockBehaviour.Properties DIORITE = BlockBehaviour.Properties.ofFullCopy(Blocks.DIORITE);
 		public static final BlockBehaviour.Properties CALCITE = BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE);
-		public static final BlockBehaviour.Properties POLISHED_CALCITE = BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE);
-		public static final BlockBehaviour.Properties CALCITE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE);
+		public static final BlockBehaviour.Properties POLISHED_CALCITE = BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).sound(CCSoundTypes.POLISHED_CALCITE);
+		public static final BlockBehaviour.Properties CALCITE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.CALCITE).sound(CCSoundTypes.CALCITE_BRICKS);
 		public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF);
 		public static final BlockBehaviour.Properties POLISHED_TUFF = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(SoundType.POLISHED_TUFF);
 		public static final BlockBehaviour.Properties TUFF_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(SoundType.TUFF_BRICKS);
