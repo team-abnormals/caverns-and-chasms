@@ -4,15 +4,11 @@ import com.teamabnormals.caverns_and_chasms.common.item.component.PackingContain
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -20,7 +16,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
@@ -29,7 +24,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.math.Fraction;
 
@@ -53,11 +47,13 @@ public class PackingContainerItem extends Item {
 	public Component getName(ItemStack stack) {
 		if (stack.has(CCDataComponents.PACKING_CONTAINER_CONTENTS)) {
 			ItemStack item = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS).items();
-			MutableComponent hoverName = Component.empty().append(item.getHoverName());
-			if (item.has(DataComponents.CUSTOM_NAME)) {
-				hoverName.withStyle(ChatFormatting.ITALIC);
+			if (!item.isEmpty()) {
+				MutableComponent hoverName = Component.empty().append(item.getHoverName());
+				if (item.has(DataComponents.CUSTOM_NAME)) {
+					hoverName.withStyle(ChatFormatting.ITALIC);
+				}
+				return Component.translatable("item.caverns_and_chasms.packing_container.full", hoverName);
 			}
-			return Component.translatable("item.caverns_and_chasms.packing_container.full", hoverName);
 		}
 		return super.getName(stack);
 	}
@@ -162,10 +158,13 @@ public class PackingContainerItem extends Item {
 	private static boolean dropContents(ItemStack stack, Player player) {
 		PackingContainerContents contents = stack.get(CCDataComponents.PACKING_CONTAINER_CONTENTS);
 		if (contents != null && !contents.isEmpty()) {
-			stack.set(CCDataComponents.PACKING_CONTAINER_CONTENTS, PackingContainerContents.EMPTY);
+			PackingContainerContents.Mutable mutable = new PackingContainerContents.Mutable(contents);
+			ItemStack removeStack = mutable.removeOne();
 			if (player instanceof ServerPlayer) {
-				player.drop(contents.itemsCopy(), true);
+				player.drop(removeStack, true);
 			}
+
+			stack.set(CCDataComponents.PACKING_CONTAINER_CONTENTS, mutable.toImmutable());
 
 			return true;
 		} else {

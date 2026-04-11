@@ -860,14 +860,13 @@ public class CCEvents {
 			Player player = event.getPlayer();
 
 			ItemStack stack = itemEntity.getItem();
-			int i = stack.getCount();
 			Item item = stack.getItem();
-
 			ItemStack copy = stack.copy();
-			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && (i <= 0 || PackingContainerContents.addToContainer(player.getInventory(), stack))) {
-				i = copy.getCount() - stack.getCount();
-				copy.setCount(i);
-				EventHooks.fireItemPickupPre(itemEntity, player);
+			if (itemEntity.pickupDelay == 0 && (itemEntity.target == null || itemEntity.target.equals(player.getUUID())) && PackingContainerContents.addToContainer(player.getInventory(), stack)) {
+
+				EventHooks.fireItemPickupPost(itemEntity, player, copy);
+				int i = copy.getCount() - stack.getCount();
+
 				player.take(itemEntity, i);
 				if (stack.isEmpty()) {
 					itemEntity.discard();
