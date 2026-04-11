@@ -42,10 +42,13 @@ import net.neoforged.neoforge.fluids.FluidInteractionRegistry.InteractionInforma
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCCompat {
+	public static final Set<Block> POLISHED_SHALE_SOUNDS = Set.of(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_STAIRS, Blocks.POLISHED_TUFF_SLAB, Blocks.POLISHED_TUFF_WALL, Blocks.CHISELED_TUFF);
+	public static final Set<Block> SHALE_BRICKS_SOUNDS = Set.of(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_STAIRS, Blocks.TUFF_BRICK_SLAB, Blocks.TUFF_BRICK_WALL, Blocks.CHISELED_TUFF_BRICKS);
 
 	@SubscribeEvent
 	public static void onModifyComponents(ModifyDefaultComponentsEvent event) {
@@ -53,7 +56,6 @@ public class CCCompat {
 	}
 
 	public static void registerCompat() {
-		registerCompostables();
 		registerFlammables();
 		registerDispenserBehaviors();
 		registerFireworkIngredients();
@@ -66,10 +68,6 @@ public class CCCompat {
 		FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new InteractionInformation((level, currentPos, relativePos, currentState) -> {
 			return level.getBlockState(currentPos.below()).is(Blocks.BUBBLE_COLUMN);
 		}, CCBlocks.RHYOLITE.get().defaultBlockState()));
-	}
-
-	public static void registerCompostables() {
-
 	}
 
 	private static void registerFlammables() {
@@ -191,7 +189,6 @@ public class CCCompat {
 		DataUtil.changeBlockLocalization(Blocks.DRIPSTONE_BLOCK, CavernsAndChasms.MOD_ID, "dripstone");
 		DataUtil.changeBlockLocalization(CCBlocks.AMETHYST_BLOCK.get(), "minecraft", "amethyst_block");
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_DEEPSLATE, CavernsAndChasms.MOD_ID, "chiseled_deepslate_bricks");
-
 
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF, CavernsAndChasms.MOD_ID, "chiseled_polished_shale");
 		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF, CavernsAndChasms.MOD_ID, "polished_shale");

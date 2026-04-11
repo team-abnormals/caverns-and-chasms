@@ -292,7 +292,7 @@ public abstract class AbstractGrazer extends Animal {
 			if (this.isBouncingState(state) || state == GrazerState.WIGGLING) {
 				return BOUNCING_DIMENSIONS.scale(this.getScale());
 			} else {
-				return super.getDimensions(pose);
+				return super.getDefaultDimensions(pose);
 			}
 		}
 	}
