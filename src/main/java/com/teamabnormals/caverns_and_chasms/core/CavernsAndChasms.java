@@ -14,7 +14,6 @@ import com.teamabnormals.caverns_and_chasms.core.data.client.CCBlockStateProvide
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.client.CCSpriteSourceProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.*;
-import com.teamabnormals.caverns_and_chasms.core.data.server.modifiers.CCAdvancementModifierProvider;
 import com.teamabnormals.caverns_and_chasms.core.data.server.tags.*;
 import com.teamabnormals.caverns_and_chasms.core.other.*;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
@@ -154,7 +153,6 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCRecipeProvider(output, provider));
 		generator.addProvider(server, new CCLootTableProvider(output, provider));
 		generator.addProvider(server, CCAdvancementProvider.create(output, provider, helper));
-		generator.addProvider(server, new CCAdvancementModifierProvider(output, provider));
 		generator.addProvider(server, new CCDataRemolderProvider(output, provider));
 
 		boolean client = event.includeClient();

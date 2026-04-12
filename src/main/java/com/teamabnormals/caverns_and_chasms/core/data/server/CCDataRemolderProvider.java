@@ -1,17 +1,26 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
+import com.google.common.collect.Lists;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.CriteriaModifier;
+import com.teamabnormals.blueprint.common.advancement.modification.modifiers.DisplayInfoModifier;
+import com.teamabnormals.blueprint.common.advancement.modification.modifiers.ParentModifier;
+import com.teamabnormals.blueprint.common.remolder.Remolder;
 import com.teamabnormals.blueprint.common.remolder.data.RemolderProvider;
 import com.teamabnormals.blueprint.common.remolder.util.AdvancementRemolders;
-import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
+import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import net.minecraft.advancements.AdvancementRequirements.Strategy;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.EntityPredicate.Builder;
+import net.minecraft.advancements.critereon.KilledTrigger.TriggerInstance;
 import net.minecraft.advancements.critereon.MinMaxBounds.Doubles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -21,10 +30,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -57,6 +67,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
@@ -95,14 +106,43 @@ public class CCDataRemolderProvider extends RemolderProvider {
 
 
 	public void registerAdvancementRemolders(Provider provider) {
+		this.allEffects(CCMobEffects.MOB_EFFECTS);
+		this.allPotions(CCMobEffects.POTIONS);
+		this.balancedDiet(CCItems.HELPER.getDeferredRegister());
+		this.killMobs(MOBS_TO_KILL);
+		this.breedAllAnimals(BREEDABLE_ANIMALS);
+		this.trimWithAnyArmorPattern(SMITHING_TEMPLATES);
+
 		this.advancementRemolder("story/lava_bucket").remolder(AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId)
 				.addCriterion("golden_lava_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.GOLDEN_LAVA_BUCKET))
 				.addIndexedRequirements(0, false, "golden_lava_bucket").build())
 		);
 
-		this.allEffects(CCMobEffects.MOB_EFFECTS);
-		this.allPotions(CCMobEffects.POTIONS);
-		this.balancedDiet(CCItems.HELPER.getDeferredRegister());
+		Remolder replaceCopperParent = AdvancementRemolders.replaceParent(CavernsAndChasms.location("adventure/smelt_copper"));
+		this.advancementRemolder("adventure/spyglass_at_parrot").remolder(replaceCopperParent);
+		this.advancementRemolder("adventure/lightning_rod_with_villager_no_fire").remolder(replaceCopperParent);
+
+
+		this.advancementRemolder("husbandry/obtain_netherite_hoe").remolder(sequence(
+				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build()),
+				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId).addCriterion("necromium_hoe", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())).addIndexedRequirements(0, false, "necromium_hoe").build()));
+
+		this.advancementRemolder("husbandry/wax_on").remolder(sequence(
+				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build(),
+				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId)
+						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS)), ItemPredicate.Builder.item().of(CCItemTags.WAX)))
+						.addCriterion("wax_on_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(CCItemTags.WAX), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))))
+						.addCriterion("wax_on_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(CCItemTags.WAX), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get())))))
+						.addIndexedRequirements(0, false, "wax_on_blocks", "wax_on_golem", "wax_on_oxidized_golem").build())));
+
+		this.advancementRemolder("husbandry/wax_off").remolder(sequence(
+				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_off.description")).build(),
+				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId)
+						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS)), ItemPredicate.Builder.item().of(ItemTags.AXES)))
+						.addCriterion("wax_off_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))))
+						.addCriterion("wax_off_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get())))))
+						.addIndexedRequirements(0, false, "wax_off_blocks", "wax_off_golem", "wax_off_oxidized_golem").build())));
+
 	}
 
 	public Entry advancementRemolder(String key) {
@@ -112,6 +152,42 @@ public class CCDataRemolderProvider extends RemolderProvider {
 	public Entry advancementRemolder(ResourceLocation location) {
 		String name = "advancement/" + location.getPath();
 		return this.entry(name).path(name);
+	}
+
+	public Entry breedAllAnimals(EntityType<?>... entityTypes) {
+		CriteriaModifier.Builder breedAllAnimals = CriteriaModifier.builder(this.modId);
+		for (EntityType<?> entityType : entityTypes) {
+			breedAllAnimals.addCriterion(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).getPath(), BredAnimalsTrigger.TriggerInstance.bredAnimals(EntityPredicate.Builder.entity().of(entityType)));
+		}
+		return this.advancementRemolder("husbandry/bred_all_animals").remolder(AdvancementRemolders.criteria(breedAllAnimals.requirements(Strategy.AND).build()));
+	}
+
+	public void killMobs(EntityType<?>... entityTypes) {
+		CriteriaModifier.Builder killAMob = CriteriaModifier.builder(this.modId);
+		CriteriaModifier.Builder killAllMobs = CriteriaModifier.builder(this.modId);
+		ArrayList<String> names = Lists.newArrayList();
+		for (EntityType<?> entityType : entityTypes) {
+			String name = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).getPath();
+			Criterion<TriggerInstance> triggerInstance = KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityType));
+			killAMob.addCriterion(name, triggerInstance);
+			killAllMobs.addCriterion(name, triggerInstance);
+			names.add(name);
+		}
+
+		this.advancementRemolder("adventure/kill_a_mob").remolder(AdvancementRemolders.criteria(killAMob.addIndexedRequirements(0, false, names.toArray(new String[0])).build()));
+		this.advancementRemolder("adventure/kill_all_mobs").remolder(AdvancementRemolders.criteria(killAllMobs.requirements(Strategy.AND).build()));
+	}
+
+	public Entry trimWithAnyArmorPattern(Item... smithingTemplates) {
+		CriteriaModifier.Builder trimWithAnyPattern = CriteriaModifier.builder(this.modId);
+		ArrayList<String> smithingModifiers = Lists.newArrayList();
+		for (Item item : smithingTemplates) {
+			ResourceLocation trimName = BuiltInRegistries.ITEM.getKey(item).withSuffix("_smithing_trim");
+			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName, RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
+			smithingModifiers.add("armor_trimmed_" + trimName);
+		}
+
+		return this.advancementRemolder("adventure/trim_with_any_armor_pattern").remolder(AdvancementRemolders.criteria(trimWithAnyPattern.addIndexedRequirements(0, false, smithingModifiers.toArray(new String[0])).build()));
 	}
 
 	public Entry allEffects(DeferredRegister<MobEffect> register) {

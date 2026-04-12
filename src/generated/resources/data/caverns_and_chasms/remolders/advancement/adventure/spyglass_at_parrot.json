@@ -1,0 +1,9 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "replace",
+    "target": "parent",
+    "value": "caverns_and_chasms:adventure/smelt_copper"
+  },
+  "selector": "minecraft:advancement/adventure/spyglass_at_parrot"
+}

@@ -1,0 +1,233 @@
+{
+  "molding": "json",
+  "remolder": [
+    {
+      "type": "replace",
+      "target": "$criteria",
+      "value": {
+        "caverns_and_chasms:deeper": {
+          "conditions": {
+            "entity": [
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "caverns_and_chasms:deeper"
+                }
+              }
+            ]
+          },
+          "trigger": "minecraft:player_killed_entity"
+        },
+        "caverns_and_chasms:evendeeper": {
+          "conditions": {
+            "entity": [
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "caverns_and_chasms:evendeeper"
+                }
+              }
+            ]
+          },
+          "trigger": "minecraft:player_killed_entity"
+        },
+        "caverns_and_chasms:grazer": {
+          "conditions": {
+            "entity": [
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "caverns_and_chasms:grazer"
+                }
+              }
+            ]
+          },
+          "trigger": "minecraft:player_killed_entity"
+        },
+        "caverns_and_chasms:mime": {
+          "conditions": {
+            "entity": [
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "caverns_and_chasms:mime"
+                }
+              }
+            ]
+          },
+          "trigger": "minecraft:player_killed_entity"
+        },
+        "caverns_and_chasms:peeper": {
+          "conditions": {
+            "entity": [
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "caverns_and_chasms:peeper"
+                }
+              }
+            ]
+          },
+          "trigger": "minecraft:player_killed_entity"
+        }
+      }
+    },
+    {
+      "type": "replace",
+      "expressed_value": "#map(criteria)",
+      "target": "$safe_criteria"
+    },
+    {
+      "type": "replace",
+      "expressed_value": "#entries(#map($criteria))",
+      "target": "$generic_adding_iterator"
+    },
+    {
+      "type": "loop",
+      "remold": [
+        {
+          "type": "replace",
+          "expressed_value": "#nextEntry($generic_adding_iterator)",
+          "target": "$next_entry"
+        },
+        {
+          "type": "replace",
+          "expressed_value": "#getValue($next_entry)",
+          "target": "$safe_criteria[#getKey($next_entry)]"
+        }
+      ],
+      "while": "#hasNext($generic_adding_iterator)"
+    },
+    {
+      "type": "replace",
+      "target": "$requirements_to_add",
+      "value": [
+        [
+          "caverns_and_chasms:deeper"
+        ],
+        [
+          "caverns_and_chasms:evendeeper"
+        ],
+        [
+          "caverns_and_chasms:mime"
+        ],
+        [
+          "caverns_and_chasms:peeper"
+        ],
+        [
+          "caverns_and_chasms:grazer"
+        ]
+      ]
+    },
+    {
+      "type": "conditional",
+      "#isList(requirements)": [
+        {
+          "type": "replace",
+          "expressed_value": "#list(requirements)",
+          "target": "$safe_requirements"
+        },
+        {
+          "type": "replace",
+          "expressed_value": "#elements(#list($requirements_to_add))",
+          "target": "$generic_adding_iterator"
+        },
+        {
+          "type": "loop",
+          "remold": {
+            "type": "add",
+            "expressed_value": "(#) #next($generic_adding_iterator)",
+            "target": "$safe_requirements"
+          },
+          "while": "#hasNext($generic_adding_iterator)"
+        }
+      ],
+      "else": {
+        "type": "replace",
+        "expressed_value": "$requirements_to_add",
+        "target": "requirements"
+      }
+    },
+    {
+      "type": "replace",
+      "target": "$indexed_requirements",
+      "value": []
+    },
+    {
+      "type": "conditional",
+      "#isList(requirements)": [
+        {
+          "type": "replace",
+          "expressed_value": "#list(requirements)",
+          "target": "$requirements"
+        },
+        {
+          "type": "replace",
+          "expressed_value": "#size($requirements)",
+          "target": "$length"
+        },
+        {
+          "type": "replace",
+          "expressed_value": "#elements(#list($indexed_requirements))",
+          "target": "$index_requirements_iterator"
+        },
+        {
+          "type": "loop",
+          "remold": [
+            {
+              "type": "replace",
+              "expressed_value": "#map((#) #next($index_requirements_iterator))",
+              "target": "$entry"
+            },
+            {
+              "type": "replace",
+              "expressed_value": "(int) $entry[\"index\"]",
+              "target": "$index"
+            },
+            {
+              "type": "conditional",
+              "$index < $length": [
+                {
+                  "type": "conditional",
+                  "$entry[\"replace\"]": {
+                    "type": "replace",
+                    "expressed_value": "$entry[\"requirements\"]",
+                    "target": "$requirements[$index]"
+                  },
+                  "else": [
+                    {
+                      "type": "replace",
+                      "expressed_value": "#list($requirements[$index])",
+                      "target": "$requirements_at_index"
+                    },
+                    {
+                      "type": "replace",
+                      "expressed_value": "#elements(#list($entry[\"requirements\"]))",
+                      "target": "$generic_adding_iterator"
+                    },
+                    {
+                      "type": "loop",
+                      "remold": {
+                        "type": "add",
+                        "expressed_value": "(#) #next($generic_adding_iterator)",
+                        "target": "$requirements_at_index"
+                      },
+                      "while": "#hasNext($generic_adding_iterator)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "while": "#hasNext($index_requirements_iterator)"
+        }
+      ]
+    }
+  ],
+  "selector": "minecraft:advancement/adventure/kill_all_mobs"
+}
