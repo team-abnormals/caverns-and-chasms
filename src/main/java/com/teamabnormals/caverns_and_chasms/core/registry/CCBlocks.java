@@ -410,16 +410,16 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> SUGILITE_STAIRS = HELPER.createBlock("sugilite_stairs", () -> new StairBlock(SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE));
 	public static final DeferredBlock<Block> SUGILITE_SLAB = HELPER.createBlock("sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE));
 	public static final DeferredBlock<Block> SUGILITE_WALL = HELPER.createBlock("sugilite_wall", () -> new WallBlock(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> POLISHED_SUGILITE = HELPER.createBlock("polished_sugilite", () -> new Block(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> POLISHED_SUGILITE_STAIRS = HELPER.createBlock("polished_sugilite_stairs", () -> new StairBlock(POLISHED_SUGILITE.get().defaultBlockState(), CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> POLISHED_SUGILITE_SLAB = HELPER.createBlock("polished_sugilite_slab", () -> new SlabBlock(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> POLISHED_SUGILITE_WALL = HELPER.createBlock("polished_sugilite_wall", () -> new WallBlock(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> SUGILITE_BRICKS = HELPER.createBlock("sugilite_bricks", () -> new Block(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> SUGILITE_BRICK_STAIRS = HELPER.createBlock("sugilite_brick_stairs", () -> new StairBlock(SUGILITE_BRICKS.get().defaultBlockState(), CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> SUGILITE_BRICK_SLAB = HELPER.createBlock("sugilite_brick_slab", () -> new SlabBlock(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> SUGILITE_BRICK_WALL = HELPER.createBlock("sugilite_brick_wall", () -> new WallBlock(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> SUGILITE_PILLAR = HELPER.createBlock("sugilite_pillar", () -> new RotatedPillarBlock(CCProperties.SUGILITE));
-	public static final DeferredBlock<Block> CHISELED_SUGILITE_BRICKS = HELPER.createBlock("chiseled_sugilite_bricks", () -> new Block(CCProperties.SUGILITE));
+	public static final DeferredBlock<Block> POLISHED_SUGILITE = HELPER.createBlock("polished_sugilite", () -> new Block(CCProperties.POLISHED_SUGILITE));
+	public static final DeferredBlock<Block> POLISHED_SUGILITE_STAIRS = HELPER.createBlock("polished_sugilite_stairs", () -> new StairBlock(POLISHED_SUGILITE.get().defaultBlockState(), CCProperties.POLISHED_SUGILITE));
+	public static final DeferredBlock<Block> POLISHED_SUGILITE_SLAB = HELPER.createBlock("polished_sugilite_slab", () -> new SlabBlock(CCProperties.POLISHED_SUGILITE));
+	public static final DeferredBlock<Block> POLISHED_SUGILITE_WALL = HELPER.createBlock("polished_sugilite_wall", () -> new WallBlock(CCProperties.POLISHED_SUGILITE));
+	public static final DeferredBlock<Block> SUGILITE_BRICKS = HELPER.createBlock("sugilite_bricks", () -> new Block(CCProperties.SUGILITE_BRICKS));
+	public static final DeferredBlock<Block> SUGILITE_BRICK_STAIRS = HELPER.createBlock("sugilite_brick_stairs", () -> new StairBlock(SUGILITE_BRICKS.get().defaultBlockState(), CCProperties.SUGILITE_BRICKS));
+	public static final DeferredBlock<Block> SUGILITE_BRICK_SLAB = HELPER.createBlock("sugilite_brick_slab", () -> new SlabBlock(CCProperties.SUGILITE_BRICKS));
+	public static final DeferredBlock<Block> SUGILITE_BRICK_WALL = HELPER.createBlock("sugilite_brick_wall", () -> new WallBlock(CCProperties.SUGILITE_BRICKS));
+	public static final DeferredBlock<Block> SUGILITE_PILLAR = HELPER.createBlock("sugilite_pillar", () -> new RotatedPillarBlock(CCProperties.SUGILITE_BRICKS));
+	public static final DeferredBlock<Block> CHISELED_SUGILITE_BRICKS = HELPER.createBlock("chiseled_sugilite_bricks", () -> new Block(CCProperties.SUGILITE_BRICKS));
 
 	public static final DeferredBlock<Block> CYLINDRITE = HELPER.createBlock("cylindrite", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE));
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE = HELPER.createBlock("smooth_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
@@ -888,6 +888,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties POLISHED_SHALE = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(CCSoundTypes.POLISHED_SHALE);
 		public static final BlockBehaviour.Properties SHALE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).sound(CCSoundTypes.SHALE_BRICKS);
 		public static final BlockBehaviour.Properties SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final BlockBehaviour.Properties POLISHED_SUGILITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.POLISHED_SUGILITE).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
+		public static final BlockBehaviour.Properties SUGILITE_BRICKS = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.SUGILITE_BRICKS).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
 		public static final BlockBehaviour.Properties CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CYLINDRITE).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties POLISHED_CYLINDRITE = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.POLISHED_CYLINDRITE).requiresCorrectToolForDrops().strength(0.75F);
 		public static final BlockBehaviour.Properties CYLINDRITE_BRICKS = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).sound(CCSoundTypes.CYLINDRITE_BRICKS).requiresCorrectToolForDrops().strength(0.75F);

@@ -189,6 +189,18 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_HIT = SOUNDS.createSoundEvent("block.sugilite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_PLACE = SOUNDS.createSoundEvent("block.sugilite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_STEP = SOUNDS.createSoundEvent("block.sugilite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_BREAK = SOUNDS.createSoundEvent("block.polished_sugilite.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_FALL = SOUNDS.createSoundEvent("block.polished_sugilite.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_HIT = SOUNDS.createSoundEvent("block.polished_sugilite.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_PLACE = SOUNDS.createSoundEvent("block.polished_sugilite.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_STEP = SOUNDS.createSoundEvent("block.polished_sugilite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.sugilite_bricks.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.sugilite_bricks.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.sugilite_bricks.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.sugilite_bricks.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_STEP = SOUNDS.createSoundEvent("block.sugilite_bricks.step");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> ZIRCONIA_BREAK = SOUNDS.createSoundEvent("block.zirconia.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> ZIRCONIA_FALL = SOUNDS.createSoundEvent("block.zirconia.fall");
@@ -682,6 +694,8 @@ public class CCSoundEvents {
 		public static final DeferredSoundType SOUL_SILVER_ORE = new DeferredSoundType(1.0F, 1.0F, SOUL_SILVER_ORE_BREAK, SOUL_SILVER_ORE_STEP, SOUL_SILVER_ORE_PLACE, SOUL_SILVER_ORE_HIT, SOUL_SILVER_ORE_FALL);
 		public static final DeferredSoundType SPINEL = new DeferredSoundType(1.0F, 1.0F, SPINEL_BREAK, SPINEL_STEP, SPINEL_PLACE, SPINEL_HIT, SPINEL_FALL);
 		public static final DeferredSoundType SUGILITE = new DeferredSoundType(1.0F, 1.0F, SUGILITE_BREAK, SUGILITE_STEP, SUGILITE_PLACE, SUGILITE_HIT, SUGILITE_FALL);
+		public static final DeferredSoundType POLISHED_SUGILITE = new DeferredSoundType(1.0F, 1.0F, POLISHED_SUGILITE_BREAK, POLISHED_SUGILITE_STEP, POLISHED_SUGILITE_PLACE, POLISHED_SUGILITE_HIT, POLISHED_SUGILITE_FALL);
+		public static final DeferredSoundType SUGILITE_BRICKS = new DeferredSoundType(1.0F, 1.0F, SUGILITE_BRICKS_BREAK, SUGILITE_BRICKS_STEP, SUGILITE_BRICKS_PLACE, SUGILITE_BRICKS_HIT, SUGILITE_BRICKS_FALL);
 		public static final DeferredSoundType ZIRCONIA = new DeferredSoundType(1.0F, 1.0F, ZIRCONIA_BREAK, ZIRCONIA_STEP, ZIRCONIA_PLACE, ZIRCONIA_HIT, ZIRCONIA_FALL);
 		public static final DeferredSoundType TURQUOISE = new DeferredSoundType(1.0F, 1.0F, TURQUOISE_BREAK, TURQUOISE_STEP, TURQUOISE_PLACE, TURQUOISE_HIT, TURQUOISE_FALL);
 		public static final DeferredSoundType CAVIAR = new DeferredSoundType(1.0F, 1.0F, CAVIAR_BREAK, CAVIAR_STEP, CAVIAR_PLACE, CAVIAR_HIT, CAVIAR_FALL);

@@ -3232,42 +3232,18 @@
   },
   "block.sugilite.fall": {
     "sounds": [
-      {
-        "name": "caverns_and_chasms:block/sugilite/step1",
-        "volume": 1.4
-      },
-      {
-        "name": "caverns_and_chasms:block/sugilite/step2",
-        "volume": 1.4
-      },
-      {
-        "name": "caverns_and_chasms:block/sugilite/step3",
-        "volume": 1.4
-      },
-      {
-        "name": "caverns_and_chasms:block/sugilite/step4",
-        "volume": 1.4
-      }
+      "caverns_and_chasms:block/sugilite/step1",
+      "caverns_and_chasms:block/sugilite/step2",
+      "caverns_and_chasms:block/sugilite/step3",
+      "caverns_and_chasms:block/sugilite/step4"
     ]
   },
   "block.sugilite.hit": {
     "sounds": [
-      {
-        "name": "caverns_and_chasms:block/sugilite/step1",
-        "volume": 1.4
-      },
-      {
-        "name": "caverns_and_chasms:block/sugilite/step2",
-        "volume": 1.4
-      },
-      {
-        "name": "caverns_and_chasms:block/sugilite/step3",
-        "volume": 1.4
-      },
-      {
-        "name": "caverns_and_chasms:block/sugilite/step4",
-        "volume": 1.4
-      }
+      "caverns_and_chasms:block/sugilite/step1",
+      "caverns_and_chasms:block/sugilite/step2",
+      "caverns_and_chasms:block/sugilite/step3",
+      "caverns_and_chasms:block/sugilite/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -3282,20 +3258,153 @@
   },
   "block.sugilite.step": {
     "sounds": [
+      "caverns_and_chasms:block/sugilite/step1",
+      "caverns_and_chasms:block/sugilite/step2",
+      "caverns_and_chasms:block/sugilite/step3",
+      "caverns_and_chasms:block/sugilite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sugilite_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/sugilite_bricks/break1",
+      "caverns_and_chasms:block/sugilite_bricks/break2",
+      "caverns_and_chasms:block/sugilite_bricks/break3",
+      "caverns_and_chasms:block/sugilite_bricks/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sugilite_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/sugilite_bricks/step1",
+      "caverns_and_chasms:block/sugilite_bricks/step2",
+      "caverns_and_chasms:block/sugilite_bricks/step3"
+    ]
+  },
+  "block.sugilite_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/sugilite_bricks/step1",
+      "caverns_and_chasms:block/sugilite_bricks/step2",
+      "caverns_and_chasms:block/sugilite_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sugilite_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/sugilite_bricks/break1",
+      "caverns_and_chasms:block/sugilite_bricks/break2",
+      "caverns_and_chasms:block/sugilite_bricks/break3",
+      "caverns_and_chasms:block/sugilite_bricks/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sugilite_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/sugilite_bricks/step1",
+      "caverns_and_chasms:block/sugilite_bricks/step2",
+      "caverns_and_chasms:block/sugilite_bricks/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.polished_sugilite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_sugilite/break1",
+      "caverns_and_chasms:block/polished_sugilite/break2",
+      "caverns_and_chasms:block/polished_sugilite/break3",
+      "caverns_and_chasms:block/polished_sugilite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_sugilite.fall": {
+    "sounds": [
       {
-        "name": "caverns_and_chasms:block/sugilite/step1",
+        "name": "caverns_and_chasms:block/polished_sugilite/step1",
         "volume": 1.4
       },
       {
-        "name": "caverns_and_chasms:block/sugilite/step2",
+        "name": "caverns_and_chasms:block/polished_sugilite/step2",
         "volume": 1.4
       },
       {
-        "name": "caverns_and_chasms:block/sugilite/step3",
+        "name": "caverns_and_chasms:block/polished_sugilite/step3",
         "volume": 1.4
       },
       {
-        "name": "caverns_and_chasms:block/sugilite/step4",
+        "name": "caverns_and_chasms:block/polished_sugilite/step4",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step5",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step6",
+        "volume": 1.4
+      }
+    ]
+  },
+  "block.polished_sugilite.hit": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step4",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step5",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step6",
+        "volume": 1.4
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_sugilite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_sugilite/break1",
+      "caverns_and_chasms:block/polished_sugilite/break2",
+      "caverns_and_chasms:block/polished_sugilite/break3",
+      "caverns_and_chasms:block/polished_sugilite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_sugilite.step": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step4",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step5",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/polished_sugilite/step6",
         "volume": 1.4
       }
     ],
