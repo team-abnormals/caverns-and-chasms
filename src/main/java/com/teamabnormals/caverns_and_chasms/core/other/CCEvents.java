@@ -99,6 +99,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
@@ -415,7 +416,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockDropsEvent event) {
 		if (event.getBreaker() instanceof LivingEntity living && living.getAttribute(CCAttributes.EXPERIENCE_BOOST) != null) {
-			double experienceBoost = event.getDroppedExperience() * living.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
+			double experienceBoost = event.getDroppedExperience() * (living.getAttributeValue(CCAttributes.EXPERIENCE_BOOST) - 1.0D);
 			int base = Mth.floor(experienceBoost);
 			double bonus = Mth.frac(experienceBoost);
 			if (bonus != 0.0F && Math.random() < bonus) {
@@ -430,7 +431,7 @@ public class CCEvents {
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		Player player = event.getAttackingPlayer();
 		if (player != null && player.getAttribute(CCAttributes.EXPERIENCE_BOOST) != null) {
-			double experienceBoost = event.getDroppedExperience() * player.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
+			double experienceBoost = event.getDroppedExperience() * (player.getAttributeValue(CCAttributes.EXPERIENCE_BOOST) - 1.0D);
 			int base = Mth.floor(experienceBoost);
 			double bonus = Mth.frac(experienceBoost);
 			if (bonus != 0.0F && Math.random() < bonus) {
@@ -489,8 +490,8 @@ public class CCEvents {
 		LivingEntity target = event.getEntity();
 		DamageSource source = event.getSource();
 
-		if (source.is(DamageTypeTags.WITCH_RESISTANT_TO)) {
-			double magicProtection = target.getAttributeValue(CCAttributes.MAGIC_PROTECTION);
+		if (source.is(Tags.DamageTypes.IS_MAGIC) && target.getAttribute(CCAttributes.MAGIC_PROTECTION) != null) {
+			double magicProtection = target.getAttributeValue(CCAttributes.MAGIC_PROTECTION) - 1.0D;
 			if (magicProtection > 0.0D) {
 				event.setNewDamage((float) (event.getOriginalDamage() - event.getOriginalDamage() * magicProtection));
 				SilverItem.causeMagicProtectionEffects(target);
@@ -513,8 +514,8 @@ public class CCEvents {
 				}
 			}
 
-			if (target.getAttribute(CCAttributes.MAGIC_DAMAGE) != null) {
-				float magicDamageAmount = (float) target.getAttributeValue(CCAttributes.MAGIC_DAMAGE);
+			if (attacker.getAttribute(CCAttributes.MAGIC_DAMAGE) != null) {
+				float magicDamageAmount = (float) attacker.getAttributeValue(CCAttributes.MAGIC_DAMAGE);
 				if (magicDamageAmount > 0.0F) {
 					if (target.getType().is(CCEntityTypeTags.SILVER_HURTS_EXTRA_TYPES)) {
 						magicDamageAmount *= 3.0F;
@@ -535,10 +536,10 @@ public class CCEvents {
 			}
 
 			if (target.getAttribute(CCAttributes.LIFESTEAL) != null) {
-				float lifeStealAmount = (float) target.getAttributeValue(CCAttributes.LIFESTEAL);
+				float lifeStealAmount = (float) (target.getAttributeValue(CCAttributes.LIFESTEAL) - 1.0F);
 				if (lifeStealAmount > 0.0F) {
 					attacker.heal(lifeStealAmount * event.getOriginalDamage());
-					SanguineArmorItem.causeHealEffects(attacker, lifeStealAmount);
+					SanguineArmorItem.causeHealEffects(attacker);
 				}
 			}
 

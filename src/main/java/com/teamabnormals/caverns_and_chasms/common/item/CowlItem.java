@@ -50,7 +50,7 @@ public class CowlItem extends ArmorItem {
 		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers(stack);
 		EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
 		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-		modifiers = modifiers.withModifierAdded(CCAttributes.STEALTH, new AttributeModifier(name, 0.4F, Operation.ADD_VALUE), slot);
+		modifiers = modifiers.withModifierAdded(CCAttributes.STEALTH, new AttributeModifier(name, 0.4F, Operation.ADD_MULTIPLIED_BASE), slot);
 		return modifiers;
 	}
 
@@ -109,10 +109,13 @@ public class CowlItem extends ArmorItem {
 	@SubscribeEvent
 	public static void onLivingVisiblity(LivingVisibilityEvent event) {
 		LivingEntity entity = event.getEntity();
-		double stealth = 1.0D;
+		double stealth;
 
 		if (entity.getAttribute(CCAttributes.STEALTH) != null) {
-			stealth -= entity.getAttribute(CCAttributes.STEALTH).getValue();
+			stealth = entity.getAttribute(CCAttributes.STEALTH).getBaseValue();
+			stealth -= (entity.getAttributeValue(CCAttributes.STEALTH) - 1.0D);
+		} else {
+			stealth = 1.0D;
 		}
 
 		if (entity.isCrouching() && EnchantmentHelper.has(entity.getItemBySlot(EquipmentSlot.HEAD), CCEnchantmentEffects.INVISIBLE_WHEN_CROUCHING.get())) {

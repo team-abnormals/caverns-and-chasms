@@ -46,7 +46,7 @@ public class SanguineArmorItem extends ArmorItem {
 		return modifiers;
 	}
 
-	public static void causeHealEffects(LivingEntity entity, float amount) {
+	public static void causeHealEffects(LivingEntity entity) {
 		RandomSource random = entity.getRandom();
 		if (entity.level() instanceof ServerLevel serverLevel) {
 			int count = 3;
