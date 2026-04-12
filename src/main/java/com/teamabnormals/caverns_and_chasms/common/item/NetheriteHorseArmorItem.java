@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class NetheriteHorseArmorItem extends AnimalArmorItem {
+	public static final ResourceLocation LOCATION = CavernsAndChasms.location("textures/entity/horse/armor/horse_armor_netherite.png");
 
 	public NetheriteHorseArmorItem(Holder<ArmorMaterial> armorMaterial, Properties builder) {
 		super(armorMaterial, BodyType.EQUESTRIAN, false, builder);
@@ -24,5 +26,9 @@ public class NetheriteHorseArmorItem extends AnimalArmorItem {
 		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
 		modifiers = modifiers.withModifierAdded(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(name, 0.4F, Operation.ADD_VALUE), slot);
 		return modifiers;
+	}
+
+	public ResourceLocation getTexture() {
+		return LOCATION;
 	}
 }
