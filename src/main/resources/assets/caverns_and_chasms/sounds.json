@@ -494,6 +494,94 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.polished_rhyolite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/break1",
+      "caverns_and_chasms:block/polished_rhyolite/break2",
+      "caverns_and_chasms:block/polished_rhyolite/break3",
+      "caverns_and_chasms:block/polished_rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_rhyolite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/step1",
+      "caverns_and_chasms:block/polished_rhyolite/step2",
+      "caverns_and_chasms:block/polished_rhyolite/step3",
+      "caverns_and_chasms:block/polished_rhyolite/step4"
+    ]
+  },
+  "block.polished_rhyolite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/step1",
+      "caverns_and_chasms:block/polished_rhyolite/step2",
+      "caverns_and_chasms:block/polished_rhyolite/step3",
+      "caverns_and_chasms:block/polished_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_rhyolite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/break1",
+      "caverns_and_chasms:block/polished_rhyolite/break2",
+      "caverns_and_chasms:block/polished_rhyolite/break3",
+      "caverns_and_chasms:block/polished_rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_rhyolite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/step1",
+      "caverns_and_chasms:block/polished_rhyolite/step2",
+      "caverns_and_chasms:block/polished_rhyolite/step3",
+      "caverns_and_chasms:block/polished_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.rhyolite_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/break1",
+      "caverns_and_chasms:block/rhyolite_bricks/break2",
+      "caverns_and_chasms:block/rhyolite_bricks/break3",
+      "caverns_and_chasms:block/rhyolite_bricks/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.rhyolite_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/step1",
+      "caverns_and_chasms:block/rhyolite_bricks/step2",
+      "caverns_and_chasms:block/rhyolite_bricks/step3",
+      "caverns_and_chasms:block/rhyolite_bricks/step4"
+    ]
+  },
+  "block.rhyolite_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/step1",
+      "caverns_and_chasms:block/rhyolite_bricks/step2",
+      "caverns_and_chasms:block/rhyolite_bricks/step3",
+      "caverns_and_chasms:block/rhyolite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.rhyolite_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/break1",
+      "caverns_and_chasms:block/rhyolite_bricks/break2",
+      "caverns_and_chasms:block/rhyolite_bricks/break3",
+      "caverns_and_chasms:block/rhyolite_bricks/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.rhyolite_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/step1",
+      "caverns_and_chasms:block/rhyolite_bricks/step2",
+      "caverns_and_chasms:block/rhyolite_bricks/step3",
+      "caverns_and_chasms:block/rhyolite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.magmatic_rhyolite.break": {
     "sounds": [
       "caverns_and_chasms:block/magmatic_rhyolite/break1",
@@ -535,6 +623,94 @@
       "caverns_and_chasms:block/magmatic_rhyolite/step2",
       "caverns_and_chasms:block/magmatic_rhyolite/step3",
       "caverns_and_chasms:block/magmatic_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.polished_magmatic_rhyolite.break": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/break1",
+      "caverns_and_chasms:block/polished_rhyolite/break2",
+      "caverns_and_chasms:block/polished_rhyolite/break3",
+      "caverns_and_chasms:block/polished_rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.polished_magmatic_rhyolite.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/step1",
+      "caverns_and_chasms:block/polished_rhyolite/step2",
+      "caverns_and_chasms:block/polished_rhyolite/step3",
+      "caverns_and_chasms:block/polished_rhyolite/step4"
+    ]
+  },
+  "block.polished_magmatic_rhyolite.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/step1",
+      "caverns_and_chasms:block/polished_rhyolite/step2",
+      "caverns_and_chasms:block/polished_rhyolite/step3",
+      "caverns_and_chasms:block/polished_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.polished_magmatic_rhyolite.place": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/break1",
+      "caverns_and_chasms:block/polished_rhyolite/break2",
+      "caverns_and_chasms:block/polished_rhyolite/break3",
+      "caverns_and_chasms:block/polished_rhyolite/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.polished_magmatic_rhyolite.step": {
+    "sounds": [
+      "caverns_and_chasms:block/polished_rhyolite/step1",
+      "caverns_and_chasms:block/polished_rhyolite/step2",
+      "caverns_and_chasms:block/polished_rhyolite/step3",
+      "caverns_and_chasms:block/polished_rhyolite/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.magmatic_rhyolite_bricks.break": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/break1",
+      "caverns_and_chasms:block/rhyolite_bricks/break2",
+      "caverns_and_chasms:block/rhyolite_bricks/break3",
+      "caverns_and_chasms:block/rhyolite_bricks/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.magmatic_rhyolite_bricks.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/step1",
+      "caverns_and_chasms:block/rhyolite_bricks/step2",
+      "caverns_and_chasms:block/rhyolite_bricks/step3",
+      "caverns_and_chasms:block/rhyolite_bricks/step4"
+    ]
+  },
+  "block.magmatic_rhyolite_bricks.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/step1",
+      "caverns_and_chasms:block/rhyolite_bricks/step2",
+      "caverns_and_chasms:block/rhyolite_bricks/step3",
+      "caverns_and_chasms:block/rhyolite_bricks/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.magmatic_rhyolite_bricks.place": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/break1",
+      "caverns_and_chasms:block/rhyolite_bricks/break2",
+      "caverns_and_chasms:block/rhyolite_bricks/break3",
+      "caverns_and_chasms:block/rhyolite_bricks/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.magmatic_rhyolite_bricks.step": {
+    "sounds": [
+      "caverns_and_chasms:block/rhyolite_bricks/step1",
+      "caverns_and_chasms:block/rhyolite_bricks/step2",
+      "caverns_and_chasms:block/rhyolite_bricks/step3",
+      "caverns_and_chasms:block/rhyolite_bricks/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

@@ -90,12 +90,36 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_HIT = SOUNDS.createSoundEvent("block.rhyolite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.rhyolite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_STEP = SOUNDS.createSoundEvent("block.rhyolite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_BREAK = SOUNDS.createSoundEvent("block.polished_rhyolite.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_FALL = SOUNDS.createSoundEvent("block.polished_rhyolite.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_HIT = SOUNDS.createSoundEvent("block.polished_rhyolite.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.polished_rhyolite.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_STEP = SOUNDS.createSoundEvent("block.polished_rhyolite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.rhyolite_bricks.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.rhyolite_bricks.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.rhyolite_bricks.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.rhyolite_bricks.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_STEP = SOUNDS.createSoundEvent("block.rhyolite_bricks.step");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BREAK = SOUNDS.createSoundEvent("block.magmatic_rhyolite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_FALL = SOUNDS.createSoundEvent("block.magmatic_rhyolite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_HIT = SOUNDS.createSoundEvent("block.magmatic_rhyolite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.magmatic_rhyolite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_STEP = SOUNDS.createSoundEvent("block.magmatic_rhyolite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_BREAK = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_FALL = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_HIT = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_STEP = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.fall");
+	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_STEP = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.step");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_BREAK = SOUNDS.createSoundEvent("block.cassiterite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_FALL = SOUNDS.createSoundEvent("block.cassiterite.fall");
@@ -643,7 +667,11 @@ public class CCSoundEvents {
 		public static final DeferredSoundType POLISHED_SHALE = new DeferredSoundType(1.0F, 1.0F, POLISHED_SHALE_BREAK, POLISHED_SHALE_STEP, POLISHED_SHALE_PLACE, POLISHED_SHALE_HIT, POLISHED_SHALE_FALL);
 		public static final DeferredSoundType SHALE_BRICKS = new DeferredSoundType(1.0F, 1.0F, SHALE_BRICKS_BREAK, SHALE_BRICKS_STEP, SHALE_BRICKS_PLACE, SHALE_BRICKS_HIT, SHALE_BRICKS_FALL);
 		public static final DeferredSoundType RHYOLITE = new DeferredSoundType(1.0F, 1.0F, RHYOLITE_BREAK, RHYOLITE_STEP, RHYOLITE_PLACE, RHYOLITE_HIT, RHYOLITE_FALL);
+		public static final DeferredSoundType POLISHED_RHYOLITE = new DeferredSoundType(1.0F, 1.0F, POLISHED_RHYOLITE_BREAK, POLISHED_RHYOLITE_STEP, POLISHED_RHYOLITE_PLACE, POLISHED_RHYOLITE_HIT, POLISHED_RHYOLITE_FALL);
+		public static final DeferredSoundType RHYOLITE_BRICKS = new DeferredSoundType(1.0F, 1.0F, RHYOLITE_BRICKS_BREAK, RHYOLITE_BRICKS_STEP, RHYOLITE_BRICKS_PLACE, RHYOLITE_BRICKS_HIT, RHYOLITE_BRICKS_FALL);
 		public static final DeferredSoundType MAGMATIC_RHYOLITE = new DeferredSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BREAK, MAGMATIC_RHYOLITE_STEP, MAGMATIC_RHYOLITE_PLACE, MAGMATIC_RHYOLITE_HIT, MAGMATIC_RHYOLITE_FALL);
+		public static final DeferredSoundType POLISHED_MAGMATIC_RHYOLITE = new DeferredSoundType(1.0F, 1.0F, POLISHED_MAGMATIC_RHYOLITE_BREAK, POLISHED_MAGMATIC_RHYOLITE_STEP, POLISHED_MAGMATIC_RHYOLITE_PLACE, POLISHED_MAGMATIC_RHYOLITE_HIT, POLISHED_MAGMATIC_RHYOLITE_FALL);
+		public static final DeferredSoundType MAGMATIC_RHYOLITE_BRICKS = new DeferredSoundType(1.0F, 1.0F, MAGMATIC_RHYOLITE_BRICKS_BREAK, MAGMATIC_RHYOLITE_BRICKS_STEP, MAGMATIC_RHYOLITE_BRICKS_PLACE, MAGMATIC_RHYOLITE_BRICKS_HIT, MAGMATIC_RHYOLITE_BRICKS_FALL);
 		public static final DeferredSoundType CASSITERITE = new TinSoundType(1.0F, 1.0F, CASSITERITE_BREAK, CASSITERITE_STEP, CASSITERITE_PLACE, CASSITERITE_HIT, CASSITERITE_FALL, CASSITERITE_DEFLECT);
 		public static final DeferredSoundType CASSITERITE_BRICKS = new TinSoundType(1.0F, 1.0F, CASSITERITE_BRICKS_BREAK, CASSITERITE_BRICKS_STEP, CASSITERITE_BRICKS_PLACE, CASSITERITE_BRICKS_HIT, CASSITERITE_BRICKS_FALL, CASSITERITE_BRICKS_DEFLECT);
 		public static final DeferredSoundType POLISHED_CASSITERITE = new TinSoundType(1.0F, 1.0F, POLISHED_CASSITERITE_BREAK, POLISHED_CASSITERITE_STEP, POLISHED_CASSITERITE_PLACE, POLISHED_CASSITERITE_HIT, POLISHED_CASSITERITE_FALL, POLISHED_CASSITERITE_DEFLECT);
