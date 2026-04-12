@@ -1,7 +1,7 @@
 ### Improvements 
 * Added an advancement
 * Added a config to control additional Rat pack spawning behavior
-* Updated the following translations:
+* Updated the following translations thanks to community contribution:
   * uk_ua
   * ru_ru
   * it_it
