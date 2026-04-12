@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintItemTags;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.Mime;
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.data.server.CCLootTableProvider.CCGiftLoot;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
@@ -1121,25 +1122,30 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		this.setVariant(RatVariant.getSpawnVariant(level.registryAccess(), this.random).value());
 		this.setDirty(this.random.nextBoolean());
 		this.populateDefaultEquipmentSlots(this.random, difficulty);
-		if (spawnType == MobSpawnType.NATURAL && this.random.nextFloat() < 0.2F) {
+		if (spawnType == MobSpawnType.NATURAL && this.random.nextDouble() < CCConfig.COMMON.ratPackSpawnChance.get()) {
 			List<Pair<Rat, Vec3>> rats = Lists.newArrayList();
-			int ratCount = 6 + random.nextInt(3) + random.nextInt(3);
+			int min = CCConfig.COMMON.minimumRatPackSize.get();
+			int max = CCConfig.COMMON.maximumRatPackSize.get();
+			if (max >= min) {
+				int range = max - min;
+				int ratCount = min + random.nextInt(range / 2 + 1) + random.nextInt(range / 2 + 1);
 
-			for (int i = 0; i < 64; ++i) {
-				int spawnRange = 6;
-				double d0 = this.getX() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
-				double d1 = this.getY() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange / 2;
-				double d2 = this.getZ() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
+				for (int i = 0; i < 64; ++i) {
+					int spawnRange = 6;
+					double d0 = this.getX() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
+					double d1 = this.getY() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange / 2;
+					double d2 = this.getZ() + (random.nextDouble() - random.nextDouble()) * (double) spawnRange;
 
-				if (rats.size() < ratCount) {
-					if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
-						Rat rat = CCEntityTypes.RAT.get().create(level.getLevel());
-						if (rat != null) {
-							rats.add(Pair.of(rat, new Vec3(d0, d1, d2)));
+					if (rats.size() < ratCount) {
+						if (level.noCollision(CCEntityTypes.RAT.get().getAABB(d0, d1, d2)) && SpawnPlacements.checkSpawnRules(CCEntityTypes.RAT.get(), level, MobSpawnType.NATURAL, BlockPos.containing(d0, d1, d2), random)) {
+							Rat rat = CCEntityTypes.RAT.get().create(level.getLevel());
+							if (rat != null) {
+								rats.add(Pair.of(rat, new Vec3(d0, d1, d2)));
+							}
 						}
+					} else {
+						break;
 					}
-				} else {
-					break;
 				}
 			}
 
