@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "caverns_and_chasms:tuff_slab_from_shale_stonecutting"
+        "recipe": "caverns_and_chasms:chiseled_tuff_from_shale_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "caverns_and_chasms:tuff_slab_from_shale_stonecutting"
+      "caverns_and_chasms:chiseled_tuff_from_shale_stonecutting"
     ]
   }
 }

@@ -1,32 +1,32 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_shale": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:chiseled_tuff_from_tuff_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tuff": {
       "conditions": {
         "items": [
           {
-            "items": "caverns_and_chasms:shale"
+            "items": "minecraft:tuff"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "minecraft:tuff_slab"
-      },
-      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe",
-      "has_shale"
+      "has_tuff"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:tuff_slab"
+      "minecraft:chiseled_tuff_from_tuff_stonecutting"
     ]
   }
 }

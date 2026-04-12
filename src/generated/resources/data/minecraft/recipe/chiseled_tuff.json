@@ -3,16 +3,15 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "caverns_and_chasms:shale"
+      "item": "minecraft:polished_tuff_slab"
     }
   },
   "pattern": [
-    "#  ",
-    "## ",
-    "###"
+    "#",
+    "#"
   ],
   "result": {
-    "count": 4,
-    "id": "minecraft:tuff_stairs"
+    "count": 1,
+    "id": "minecraft:chiseled_tuff"
   }
 }

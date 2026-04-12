@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
 import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCInstruments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -45,6 +46,7 @@ import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import net.neoforged.neoforge.registries.datamaps.builtin.Waxable;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static com.teamabnormals.caverns_and_chasms.core.other.CCBlockFamilies.*;
@@ -424,9 +426,12 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, SMOOTH_SHALE_FAMILY);
 		stonecutterRecipes(consumer, SMOOTH_SHALE_FAMILY);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SHALE_PILLAR, 2).define('#', Blocks.TUFF_BRICKS).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.TUFF_BRICKS), has(Blocks.TUFF_BRICKS)).unlockedBy(getHasName(SHALE_PILLAR), has(SHALE_PILLAR)).save(consumer);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.TUFF);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, SHALE.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.POLISHED_TUFF);
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.TUFF_BRICKS);
+		chiseledBuilder(BUILDING_BLOCKS, Blocks.CHISELED_TUFF, Ingredient.of(Blocks.POLISHED_TUFF_SLAB)).unlockedBy("has_polished_shale_slab", has(Blocks.POLISHED_TUFF_SLAB)).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_TUFF, SHALE.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_TUFF, Blocks.POLISHED_TUFF);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE).requires(Blocks.GRANITE).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer);
 		generateRecipes(consumer, SUGILITE_FAMILY);
@@ -652,6 +657,18 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 				stonecutterRecipe(consumer, BUILDING_BLOCKS, family.get(Variant.CHISELED), input);
 			}
 		}
+	}
+
+	public static final Set<Item> REPLACE_RECIPES = Set.of(POLISHED_TUFF.asItem(), POLISHED_TUFF_STAIRS.asItem(), POLISHED_TUFF_SLAB.asItem(), POLISHED_TUFF_WALL.asItem(), TUFF_PILLAR.asItem(), TUFF_BRICKS.asItem(), TUFF_BRICK_STAIRS.asItem(), TUFF_BRICK_SLAB.asItem(), TUFF_BRICK_WALL.asItem(), CHISELED_TUFF_BRICKS.asItem());
+
+	@Override
+	public void stonecutterRecipe(RecipeOutput recipeOutput, RecipeCategory category, ItemLike output, ItemLike input, int count) {
+		String name = this.getModConversionRecipeName(output, input) + "_stonecutting";
+		if (input.asItem() == Items.TUFF && REPLACE_RECIPES.contains(output.asItem())) {
+			name = "minecraft:" + getConversionRecipeName(output, input) + "_stonecutting";
+			name = name.replace("tuff_pillar_from", "chiseled_tuff_from");
+		}
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), category, output, count).unlockedBy(getHasName(input), has(input)).save(recipeOutput, name);
 	}
 
 	protected void necromiumSmithingRecipe(RecipeOutput consumer, ItemLike input, RecipeCategory category, ItemLike output) {
