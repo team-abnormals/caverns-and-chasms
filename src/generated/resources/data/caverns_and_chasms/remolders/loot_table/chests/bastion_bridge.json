@@ -1,0 +1,92 @@
+{
+  "molding": "json",
+  "remolder": [
+    {
+      "type": "add",
+      "target": "pools[]",
+      "value": {
+        "bonus_rolls": 0.0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:golden_bucket"
+          }
+        ],
+        "name": "caverns_and_chasms:golden_bucket",
+        "rolls": 1.0
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "function": "minecraft:enchant_randomly",
+            "options": "#minecraft:on_random_loot"
+          }
+        ],
+        "name": "caverns_and_chasms:toolbelt"
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 9.0,
+              "min": 4.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:silver_ingot"
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 12.0,
+              "min": 4.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:large_arrow"
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[2].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 6.0,
+              "min": 2.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:silver_nugget"
+      }
+    }
+  ],
+  "selector": "minecraft:loot_table/chests/bastion_bridge"
+}

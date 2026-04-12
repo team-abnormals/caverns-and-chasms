@@ -1,0 +1,70 @@
+{
+  "molding": "json",
+  "remolder": [
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 9.0,
+              "min": 3.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:bejeweled_apple",
+        "weight": 5
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "functions": [
+          {
+            "add": false,
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 7.0,
+              "min": 2.0
+            },
+            "function": "minecraft:set_count"
+          }
+        ],
+        "name": "caverns_and_chasms:silver_ingot",
+        "weight": 15
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:silver_horse_armor"
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:copper_horse_armor"
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[0].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:turquoise"
+      }
+    }
+  ],
+  "selector": "minecraft:loot_table/chests/end_city_treasure"
+}

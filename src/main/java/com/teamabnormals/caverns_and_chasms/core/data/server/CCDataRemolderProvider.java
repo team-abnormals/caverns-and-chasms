@@ -1,22 +1,41 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
+import com.teamabnormals.blueprint.common.advancement.modification.modifiers.CriteriaModifier;
 import com.teamabnormals.blueprint.common.remolder.data.RemolderProvider;
+import com.teamabnormals.blueprint.common.remolder.util.AdvancementRemolders;
+import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
+import net.minecraft.advancements.AdvancementRequirements.Strategy;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.advancements.critereon.MinMaxBounds.Doubles;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.StructureSet.StructureSelectionEntry;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -32,11 +51,19 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Predicate;
 
+import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.add;
 import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.sequence;
+import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.target;
+import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.value;
 import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addEntry;
 import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addPool;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
@@ -49,14 +76,82 @@ public class CCDataRemolderProvider extends RemolderProvider {
 
 	@Override
 	protected void registerEntries(Provider provider) {
+		this.registerLootRemolders(provider);
+		this.registerAdvancementRemolders(provider);
 
-//		HolderGetter<Structure> structures = provider.lookupOrThrow(Registries.STRUCTURE);
-//		this.entry("worldgen/structure_set/mineshafts")
-//				.path("worldgen/structure_set/mineshafts")
-//				.remolder(add(target("structures[]"), value(
-//						StructureSet.entry(structures.getOrThrow(CCStructures.MINESHAFT_LUSH), 1), StructureSelectionEntry.CODEC)
-//				));
+		HolderGetter<Structure> structures = provider.lookupOrThrow(Registries.STRUCTURE);
+		this.entry("worldgen/structure_set/mineshafts")
+				.path("worldgen/structure_set/mineshafts")
+				.remolder(add(target("structures[]"), value(
+						StructureSet.entry(structures.getOrThrow(CCStructures.MINESHAFT_LUSH), 1), StructureSelectionEntry.CODEC)
+				));
 
+
+	}
+
+	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{CCEntityTypes.RAT.get()};
+	private static final EntityType<?>[] MOBS_TO_KILL = new EntityType[]{CCEntityTypes.DEEPER.get(), CCEntityTypes.EVENDEEPER.get(), CCEntityTypes.MIME.get(), CCEntityTypes.PEEPER.get(), CCEntityTypes.GRAZER.get()};
+	private static final Item[] SMITHING_TEMPLATES = new Item[]{CCItems.EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.FORGER_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.RIM_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.PLATE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), CCItems.CORE_ARMOR_TRIM_SMITHING_TEMPLATE.get()};
+
+
+	public void registerAdvancementRemolders(Provider provider) {
+		this.advancementRemolder("story/lava_bucket").remolder(AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId)
+				.addCriterion("golden_lava_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.GOLDEN_LAVA_BUCKET))
+				.addIndexedRequirements(0, false, "golden_lava_bucket").build())
+		);
+
+		this.allEffects(CCMobEffects.MOB_EFFECTS);
+		this.allPotions(CCMobEffects.POTIONS);
+		this.balancedDiet(CCItems.HELPER.getDeferredRegister());
+	}
+
+	public Entry advancementRemolder(String key) {
+		return this.advancementRemolder(ResourceLocation.parse(key));
+	}
+
+	public Entry advancementRemolder(ResourceLocation location) {
+		String name = "advancement/" + location.getPath();
+		return this.entry(name).path(name);
+	}
+
+	public Entry allEffects(DeferredRegister<MobEffect> register) {
+		MobEffectsPredicate.Builder builder = MobEffectsPredicate.Builder.effects();
+		register.getEntries().forEach(builder::and);
+		return this.advancementRemolder("nether/all_effects").remolder(AdvancementRemolders.addToEffectsChanged("all_effects", builder.build().get()));
+	}
+
+	public Entry allPotions(DeferredRegister<Potion> register) {
+		MobEffectsPredicate.Builder builder = MobEffectsPredicate.Builder.effects();
+		List<Holder<MobEffect>> dupes = new ArrayList<>();
+		register.getEntries().forEach(potion -> {
+			potion.get().effects.stream().filter(e -> !dupes.contains(e.getEffect())).forEach(instance -> {
+				builder.and(instance.getEffect());
+				dupes.add(instance.getEffect());
+			});
+		});
+		return this.advancementRemolder("nether/all_potions").remolder(AdvancementRemolders.addToEffectsChanged("all_effects", builder.build().get()));
+	}
+
+	public Entry balancedDiet(DeferredRegister<Item> register) {
+		return this.advancementRemolder("husbandry/balanced_diet").remolder(AdvancementRemolders.criteria(this.buildBalancedDiet(register)));
+	}
+
+	public CriteriaModifier buildBalancedDiet(DeferredRegister<Item> register) {
+		return this.buildBalancedDiet(register, item -> true);
+	}
+
+	public CriteriaModifier buildBalancedDiet(DeferredRegister<Item> register, Predicate<DeferredHolder<Item, ? extends Item>> predicate) {
+		CriteriaModifier.Builder balancedDiet = CriteriaModifier.builder(this.modId);
+		Collection<DeferredHolder<Item, ? extends Item>> items = register.getEntries().stream()
+				.filter(i -> i.get().getDefaultInstance().getFoodProperties(null) != null)
+				.filter(predicate).toList();
+		items.forEach(item -> {
+			balancedDiet.addCriterion(BuiltInRegistries.ITEM.getKey(item.get()).getPath(), ConsumeItemTrigger.TriggerInstance.usedItem(item.get()));
+		});
+		return balancedDiet.requirements(Strategy.AND).build();
+	}
+
+	public void registerLootRemolders(Provider provider) {
 		LootItemCondition.Builder hasSilkTouch = hasSilkTouch(provider);
 		this.lootRemolder(BuiltInLootTables.SIMPLE_DUNGEON).remolder(sequence(
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 15)),
@@ -249,7 +344,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 	}
 
 	public Entry lootRemolder(ResourceLocation location) {
-		String name = location.getPath();
+		String name = "loot_table/" + location.getPath();
 		return this.entry(name).path(name);
 	}
 

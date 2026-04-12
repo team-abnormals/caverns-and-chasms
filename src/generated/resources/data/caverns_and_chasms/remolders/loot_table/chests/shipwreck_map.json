@@ -1,0 +1,22 @@
+{
+  "molding": "json",
+  "remolder": [
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:barometer"
+      }
+    },
+    {
+      "type": "add",
+      "target": "pools[1].entries[]",
+      "value": {
+        "type": "minecraft:item",
+        "name": "caverns_and_chasms:depth_gauge"
+      }
+    }
+  ],
+  "selector": "minecraft:loot_table/chests/shipwreck_map"
+}
