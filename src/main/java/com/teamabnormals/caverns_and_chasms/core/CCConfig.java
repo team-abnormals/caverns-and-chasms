@@ -17,6 +17,10 @@ public class CCConfig {
 		public final IntValue grazerMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
+		public final DoubleValue ratPackSpawnChance;
+		public final IntValue minimumRatPackSize;
+		public final IntValue maximumRatPackSize;
+
 		public final BooleanValue fragileStoneDropsOres;
 		public boolean fragileStoneDropsOresEnabled;
 
@@ -48,6 +52,11 @@ public class CCConfig {
 			builder.pop();
 			builder.push("peeper");
 			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);
+			builder.pop();
+			builder.push("rat");
+			ratPackSpawnChance = builder.comment("The chance a pack of Rats has to spawn with a regular Rat spawn").defineInRange("Rat pack spawn chance", 0.2D, 0, Double.MAX_VALUE);
+			minimumRatPackSize = builder.defineInRange("Minimum rat pack size", 6, 0, Integer.MAX_VALUE);
+			maximumRatPackSize = builder.defineInRange("Maximum rat pack size", 10, 0, Integer.MAX_VALUE);
 			builder.pop();
 			builder.pop();
 
