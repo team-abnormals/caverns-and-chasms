@@ -5,7 +5,7 @@
       "name": "CAVERNS_AND_CHASMS_FLUTE_ARM_POSE",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "com/teamabnormals/caverns_and_chasms/core/other/CCEnums",
+        "class": "com/teamabnormals/caverns_and_chasms/core/other/CCClientEnums",
         "field": "FLUTE_ARM_POSE"
       }
     },

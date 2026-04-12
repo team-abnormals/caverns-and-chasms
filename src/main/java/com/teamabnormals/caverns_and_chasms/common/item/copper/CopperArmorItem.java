@@ -1,6 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.common.item.copper;
 
 import com.teamabnormals.caverns_and_chasms.client.model.CopperArmorModel;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -15,11 +17,12 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
-import java.util.function.Consumer;
-
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class CopperArmorItem extends ArmorItem {
 
 	public CopperArmorItem(Holder<ArmorMaterial> material, Type slot, Properties properties) {
@@ -35,14 +38,13 @@ public class CopperArmorItem extends ArmorItem {
 		return modifiers;
 	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(new IClientItemExtensions() {
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> properties) {
-				return slot == EquipmentSlot.HEAD ? CopperArmorModel.INSTANCE : properties;
+				return CopperArmorModel.INSTANCE;
 			}
-		});
+		}, CCItems.COPPER_HELMET, CCItems.EXPOSED_COPPER_HELMET, CCItems.WEATHERED_COPPER_HELMET, CCItems.OXIDIZED_COPPER_HELMET, CCItems.WAXED_COPPER_HELMET, CCItems.WAXED_EXPOSED_COPPER_HELMET, CCItems.WAXED_WEATHERED_COPPER_HELMET, CCItems.WAXED_OXIDIZED_COPPER_HELMET);
 	}
 }

@@ -81,7 +81,7 @@ public abstract class VanillaInventoryCodeHooksMixin {
 			ItemStack remainder = destInventory.insertItem(slot, toInsert, false);
 			stack.shrink(insertedAmount - remainder.getCount());
 		}
-		
+
 		return stack;
 	}
 }

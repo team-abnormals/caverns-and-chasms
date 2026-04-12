@@ -6,8 +6,11 @@ import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteA
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteMovePayload;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteRecallPayload;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteSitPayload;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCClientEnums;
 import com.teamabnormals.caverns_and_chasms.core.other.CCEnums;
 import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.LocalPlayer;
@@ -25,14 +28,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.function.Consumer;
-
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class BoneFluteItem extends Item {
 	public static final double MAX_SEND_DIST = 64.0D;
 	public static final double COMMAND_RANGE = 128.0D;
@@ -60,14 +64,13 @@ public class BoneFluteItem extends Item {
 		return UseAnim.CUSTOM;
 	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(new IClientItemExtensions() {
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
 
 			@Override
 			public HumanoidModel.ArmPose getArmPose(LivingEntity living, InteractionHand hand, ItemStack stack) {
-				return living.getUsedItemHand() == hand && living.getUseItemRemainingTicks() > 0 ? CCEnums.FLUTE_ARM_POSE.getValue() : ArmPose.ITEM;
+				return living.getUsedItemHand() == hand && living.getUseItemRemainingTicks() > 0 ? CCClientEnums.FLUTE_ARM_POSE.getValue() : ArmPose.ITEM;
 			}
 
 			@Override
@@ -80,7 +83,7 @@ public class BoneFluteItem extends Item {
 					return false;
 				}
 			}
-		});
+		}, CCItems.BONE_FLUTE);
 	}
 
 	@Override

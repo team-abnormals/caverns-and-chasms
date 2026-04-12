@@ -42,6 +42,9 @@ public class CCItemTags {
 	public static final TagKey<Item> COPPER_AXES = itemTag("copper_axes");
 	public static final TagKey<Item> COPPER_HOES = itemTag("copper_hoes");
 
+	public static final TagKey<Item> USES_SANGUINE_ARMOR_MODEL = itemTag("uses_sanguine_armor_model");
+	public static final TagKey<Item> USES_COPPER_ARMOR_MODEL = itemTag("uses_copper_armor_model");
+
 	public static final TagKey<Item> WAX = TagUtil.itemTag("c", "wax");
 
 	public static final TagKey<Item> GEMS_SPINEL = TagUtil.itemTag("c", "gems/spinel");

@@ -11,7 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrimModifierSmithingTemplateItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCTrimPatterns;
 import net.minecraft.client.model.HumanoidModel;
@@ -149,8 +149,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	public void renderSanguineTrim(PoseStack poseStack, MultiBufferSource source, T entity, EquipmentSlot slot, int num, A model, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
 		ItemStack stack = entity.getItemBySlot(slot);
 		if (stack.getItem() instanceof ArmorItem armorItem) {
-			boolean copper = armorItem.getMaterial() == CCArmorMaterials.COPPER || armorItem.getMaterial() == CCArmorMaterials.EXPOSED_COPPER || armorItem.getMaterial() == CCArmorMaterials.WEATHERED_COPPER || armorItem.getMaterial() == CCArmorMaterials.OXIDIZED_COPPER;
-			boolean sanguine = armorItem.getMaterial() == CCArmorMaterials.SANGUINE;
+			boolean copper = stack.is(CCItemTags.USES_COPPER_ARMOR_MODEL);
+			boolean sanguine = stack.is(CCItemTags.USES_SANGUINE_ARMOR_MODEL);
 			if (copper || sanguine) {
 				RegistryAccess access = entity.level().registryAccess();
 				CCArmorTrim armorTrim = CCArmorTrim.create(stack);

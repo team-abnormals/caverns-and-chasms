@@ -3,7 +3,9 @@ package com.teamabnormals.caverns_and_chasms.common.item;
 import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
 import com.teamabnormals.caverns_and_chasms.client.model.SanguineArmorModel;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCAttributes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
@@ -21,12 +23,14 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 import java.util.List;
-import java.util.function.Consumer;
 
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class SanguineArmorItem extends ArmorItem {
 
 	public SanguineArmorItem(Holder<ArmorMaterial> material, ArmorItem.Type slot, Properties properties) {
@@ -56,14 +60,13 @@ public class SanguineArmorItem extends ArmorItem {
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), CCSoundEvents.SANGUINE_HEAL.get(), entity.getSoundSource(), 1.0F, 1.0F);
 	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(new IClientItemExtensions() {
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> properties) {
-				return slot == EquipmentSlot.HEAD || slot == EquipmentSlot.CHEST ? SanguineArmorModel.INSTANCE : properties;
+				return SanguineArmorModel.INSTANCE;
 			}
-		});
+		}, CCItems.SANGUINE_HELMET, CCItems.SANGUINE_CHESTPLATE);
 	}
 }

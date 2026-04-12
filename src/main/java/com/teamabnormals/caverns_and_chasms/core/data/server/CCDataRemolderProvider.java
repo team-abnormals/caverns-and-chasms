@@ -2,12 +2,9 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.CriteriaModifier;
-import com.teamabnormals.blueprint.common.advancement.modification.modifiers.DisplayInfoModifier;
-import com.teamabnormals.blueprint.common.advancement.modification.modifiers.ParentModifier;
 import com.teamabnormals.blueprint.common.remolder.Remolder;
 import com.teamabnormals.blueprint.common.remolder.data.RemolderProvider;
 import com.teamabnormals.blueprint.common.remolder.util.AdvancementRemolders;
-import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;

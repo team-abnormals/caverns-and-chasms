@@ -1,7 +1,9 @@
 package com.teamabnormals.caverns_and_chasms.common.item;
 
 import com.teamabnormals.caverns_and_chasms.client.renderer.AegisRenderer;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,11 +13,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 
-import java.util.function.Consumer;
-
+@EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class AegisItem extends Item implements Equipable {
 
 	public AegisItem(Properties properties) {
@@ -43,6 +48,7 @@ public class AegisItem extends Item implements Equipable {
 	public boolean isValidRepairItem(ItemStack stack, ItemStack otherStack) {
 		return otherStack.is(CCItemTags.INGOTS_TIN) || super.isValidRepairItem(stack, otherStack);
 	}
+
 	@Override
 	public boolean canPerformAction(ItemStack stack, net.neoforged.neoforge.common.ItemAbility toolAction) {
 		return ItemAbilities.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
@@ -53,13 +59,13 @@ public class AegisItem extends Item implements Equipable {
 		return EquipmentSlot.OFFHAND;
 	}
 
-	@Override
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(new IClientItemExtensions() {
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
 			@Override
 			public BlockEntityWithoutLevelRenderer getCustomRenderer() {
 				return AegisRenderer.INSTANCE;
 			}
-		});
+		}, CCItems.AEGIS);
 	}
 }

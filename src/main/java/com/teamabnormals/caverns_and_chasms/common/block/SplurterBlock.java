@@ -2,7 +2,6 @@ package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.SplurterBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.dispenser.SplurterDispenseItemBehavior;
-import com.teamabnormals.caverns_and_chasms.core.mixin.VanillaInventoryCodeHooksMixin;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,9 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.VanillaInventoryCodeHooks;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
