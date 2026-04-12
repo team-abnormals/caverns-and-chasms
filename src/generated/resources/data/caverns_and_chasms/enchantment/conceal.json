@@ -30,6 +30,6 @@
   "slots": [
     "head"
   ],
-  "supported_items": "#minecraft:enchantable/armor",
+  "supported_items": "#caverns_and_chasms:enchantable/cowl",
   "weight": 2
 }

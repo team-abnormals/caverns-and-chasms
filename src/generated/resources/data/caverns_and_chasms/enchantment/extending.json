@@ -29,6 +29,6 @@
   "slots": [
     "legs"
   ],
-  "supported_items": "#minecraft:enchantable/armor",
+  "supported_items": "#caverns_and_chasms:enchantable/toolbelt",
   "weight": 2
 }

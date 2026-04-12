@@ -1,12 +1,11 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.caverns_and_chasms.obscurity"
+    "translate": "enchantment.caverns_and_chasms.angelic"
   },
   "effects": {
-    "caverns_and_chasms:turn_invisible_when_crouching": {}
+    "caverns_and_chasms:can_place_midair": {}
   },
-  "exclusive_set": "#caverns_and_chasms:exclusive_set/cowl",
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0
@@ -17,8 +16,8 @@
     "per_level_above_first": 0
   },
   "slots": [
-    "head"
+    "legs"
   ],
-  "supported_items": "#caverns_and_chasms:enchantable/cowl",
+  "supported_items": "#caverns_and_chasms:enchantable/toolbelt",
   "weight": 1
 }
