@@ -220,37 +220,6 @@ public class CCEvents {
 			}
 		}
 
-		placeableItems:
-		if (stack.is(CCItemTags.PLACEABLE_ITEMS) && !event.isCanceled()) {
-			boolean sneakBypassesUse = !player.getMainHandItem().doesSneakBypassUse(player.level(), pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
-			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
-
-			if (event.getUseBlock() == TriState.TRUE || (event.getUseBlock() != TriState.FALSE && !isSneaking)) {
-				//TODO: Check
-				InteractionResult blockResult = state.useItemOn(stack, level, player, event.getHand(), event.getHitVec()).result();
-				if (blockResult.consumesAction()) {
-					event.setCanceled(true);
-					event.setCancellationResult(blockResult);
-					break placeableItems;
-				}
-			}
-
-			UseOnContext context = new UseOnContext(level, player, event.getHand(), stack, event.getHitVec());
-			Optional<Registry<Item>> registry = level.registryAccess().registry(Registries.ITEM);
-			if (registry.isPresent()) {
-				for (Item item1 : registry.get()) {
-					if (item1 instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
-						InteractionResult itemResult = item1.useOn(context);
-						if (itemResult.consumesAction()) {
-							event.setCanceled(true);
-							event.setCancellationResult(itemResult);
-						}
-						break;
-					}
-				}
-			}
-		}
-
 		boolean fireCharge = stack.getItem() instanceof FireChargeItem;
 		boolean flintAndSteel = stack.getItem() instanceof FlintAndSteelItem;
 		if ((fireCharge || flintAndSteel) && !event.isCanceled()) {
@@ -463,7 +432,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		Player player = event.getAttackingPlayer();
-		if (player != null) {
+		if (player != null && player.getAttribute(CCAttributes.EXPERIENCE_BOOST) != null) {
 			double experienceBoost = event.getDroppedExperience() * player.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
 			int base = Mth.floor(experienceBoost);
 			double bonus = Mth.frac(experienceBoost);
