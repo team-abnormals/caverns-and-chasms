@@ -6,7 +6,7 @@ import com.teamabnormals.blueprint.common.world.storage.tracking.TrackedDataMana
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -17,25 +17,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class CCDataProcessors {
-	public static final StreamCodec<ByteBuf, Optional<UUID>> OPTIONAL_UUID = new StreamCodec<>() {
-		public Optional<UUID> decode(ByteBuf buf) {
-			return Optional.ofNullable(FriendlyByteBuf.readUUID(buf));
-		}
-
-		public void encode(ByteBuf buf, Optional<UUID> optional) {
-			FriendlyByteBuf.writeUUID(buf, optional.orElse(null));
-		}
-	};
-
-	public static final StreamCodec<ByteBuf, Optional<BlockPos>> OPTIONAL_BLOCK_POS = new StreamCodec<>() {
-		public Optional<BlockPos> decode(ByteBuf buf) {
-			return Optional.ofNullable(FriendlyByteBuf.readBlockPos(buf));
-		}
-
-		public void encode(ByteBuf buf, Optional<BlockPos> optional) {
-			FriendlyByteBuf.writeBlockPos(buf, optional.orElse(null));
-		}
-	};
+	public static final StreamCodec<ByteBuf, Optional<UUID>> OPTIONAL_UUID = ByteBufCodecs.optional(UUIDUtil.STREAM_CODEC);
+	public static final StreamCodec<ByteBuf, Optional<BlockPos>> OPTIONAL_BLOCK_POS = ByteBufCodecs.optional(BlockPos.STREAM_CODEC);
 
 	public static final TrackedData<Optional<UUID>> CONTROLLED_GOLEM_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
 	public static final TrackedData<Boolean> IS_BEING_CONTROLLED = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).build();
