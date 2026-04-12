@@ -37,13 +37,6 @@ public abstract class GameRendererMixin {
 	@Final
 	private LightTexture lightTexture;
 
-	//TODO: Make sure this no longer needed
-//	@Inject(method = "pick(Lnet/minecraft/world/entity/Entity;DDF)Lnet/minecraft/world/phys/HitResult;", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;hitResult:Lnet/minecraft/world/phys/HitResult;", shift = At.Shift.AFTER, ordinal = 8), locals = LocalCapture.CAPTURE_FAILSOFT)
-//	private void pick(float p_109088_, CallbackInfo ci, Entity entity, double d0, double entityReach, Vec3 vec3, boolean flag, int i, double d1, Vec3 vec31, Vec3 vec32, float f, AABB aabb, EntityHitResult entityhitresult, Entity entity1) {
-//		if (entity1 instanceof GrazerPart)
-//			this.minecraft.crosshairPickEntity = entity1;
-//	}
-
 	@ModifyArg(method = "pick(Lnet/minecraft/world/entity/Entity;DDF)Lnet/minecraft/world/phys/HitResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/ProjectileUtil;getEntityHitResult(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;D)Lnet/minecraft/world/phys/EntityHitResult;"), index = 4)
 	private Predicate<Entity> modifyEntityPickPredicate(Predicate<Entity> predicate) {
 		return predicate.and(entity -> !(entity instanceof Rat rat && rat.getAttachedEntity() == this.minecraft.getCameraEntity()));
@@ -51,7 +44,7 @@ public abstract class GameRendererMixin {
 
 	@Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.BEFORE))
 	private void renderLevel(DeltaTracker deltaTracker, CallbackInfo ci) {
-		Entity cameraentity = this.minecraft.getCameraEntity(); //TODO: maybe fix
+		Entity cameraentity = this.minecraft.getCameraEntity();
 		if (cameraentity instanceof LivingEntity livingentity && this.minecraft.options.getCameraType().isFirstPerson()) {
 			float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
 			PoseStack posestack = new PoseStack();

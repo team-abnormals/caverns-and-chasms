@@ -744,7 +744,6 @@ public class CCEvents {
 		Level level = projectile.level();
 		IDataManager data = (IDataManager) projectile;
 		HitResult hitResult = event.getRayTraceResult();
-		Vec3 deflectMovement = event.getDeflectedMovement();
 
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
@@ -754,12 +753,6 @@ public class CCEvents {
 			} else if (blockState.is(CCBlockTags.HAS_BONUS_DEFLECT)) {
 				data.setValue(CCDataProcessors.BONUS_DEFLECT, true);
 			}
-		}
-
-		//TODO: Make sure works
-		if (projectile instanceof AbstractHurtingProjectile hurtingProjectile) {
-			hurtingProjectile.setDeltaMovement(deflectMovement.normalize().scale(0.1D));
-			hurtingProjectile.hasImpulse = true;
 		}
 	}
 

@@ -37,8 +37,8 @@ public class CCTiers {
 		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> NECROMIUM = register("necromium", defense(3, 6, 8, 3, 12), 15, CCSoundEvents.ARMOR_EQUIP_NECROMIUM, 2.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
 		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> SANGUINE = register("sanguine", defense(2, 5, 7, 3, 7), 17, CCSoundEvents.ARMOR_EQUIP_SANGUINE, 1.0F, 0.0F, () -> Ingredient.of(CCItems.LIVING_FLESH.get()));
 
-		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COWL = register("cowl", defense(1, 2, 3, 1, 3), 15, CCSoundEvents.ARMOR_EQUIP_COWL, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
-		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TOOLBELT = register("toolbelt", defense(1, 2, 3, 1, 3), 15, CCSoundEvents.ARMOR_EQUIP_TOOLBELT, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER));
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COWL = register("cowl", defense(1, 2, 3, 1, 3), 15, CCSoundEvents.ARMOR_EQUIP_COWL, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER), true);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TOOLBELT = register("toolbelt", defense(1, 2, 3, 1, 3), 15, CCSoundEvents.ARMOR_EQUIP_TOOLBELT, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER), true);
 
 		public static DeferredHolder<ArmorMaterial, ArmorMaterial> registerCopper(String name, TagKey<Item> repairTag) {
 			return register(name, defense(1, 4, 5, 2, 15), 8, CCSoundEvents.ARMOR_EQUIP_COPPER, 0.0F, 0.05F, () -> Ingredient.of(repairTag));
@@ -55,7 +55,16 @@ public class CCTiers {
 		}
 
 		private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(String name, EnumMap<Type, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
-			List<Layer> list = List.of(new ArmorMaterial.Layer(CavernsAndChasms.location(name)));
+			return register(name, defense, enchantmentValue, equipSound, toughness, knockbackResistance, repairIngredient, false);
+		}
+
+		private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(String name, EnumMap<Type, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient, boolean dyeable) {
+			List<Layer> list;
+			if (dyeable) {
+				list = List.of(new ArmorMaterial.Layer(CavernsAndChasms.location(name), "", true), new ArmorMaterial.Layer(CavernsAndChasms.location(name), "_overlay", false));
+			} else {
+				list = List.of(new ArmorMaterial.Layer(CavernsAndChasms.location(name)));
+			}
 			return register(name, defense, enchantmentValue, equipSound, toughness, knockbackResistance, repairIngredient, list);
 		}
 

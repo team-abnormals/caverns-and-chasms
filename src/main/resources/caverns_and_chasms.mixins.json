@@ -29,6 +29,7 @@
     "entity.CreeperMixin",
     "entity.EntityHitResultMixin",
     "entity.EntityMixin",
+    "entity.GhastMixin",
     "entity.IronGolemMixin",
     "entity.LivingEntityAccessor",
     "entity.LivingEntityMixin",

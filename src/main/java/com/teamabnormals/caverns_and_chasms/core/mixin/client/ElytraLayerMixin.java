@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FastColor;
@@ -39,6 +40,15 @@ public abstract class ElytraLayerMixin<T extends LivingEntity> {
 			return RenderType.armorCutoutNoCull(MIME_WINGS_LOCATION);
 		} else {
 			return original.call(texture);
+		}
+	}
+
+	@WrapOperation(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/resources/PlayerSkin;capeTexture()Lnet/minecraft/resources/ResourceLocation;"))
+	private ResourceLocation capeTexture(PlayerSkin skin, Operation<ResourceLocation> original, PoseStack poseStack, MultiBufferSource buffer, int packedLight, T entity) {
+		if (entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItems.COWL.get())) {
+			return CavernsAndChasms.location("textures/models/armor/cowl_cloak.png");
+		} else {
+			return original.call(skin);
 		}
 	}
 
