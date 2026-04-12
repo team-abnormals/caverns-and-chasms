@@ -149,6 +149,7 @@ public class CavernsAndChasms {
 		generator.addProvider(server, new CCTrimMaterialTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCStructureTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCEnchantmentTagsProvider(output, provider, helper));
+		generator.addProvider(server, new CCArmorMaterialTagsProvider(output, provider, helper));
 		generator.addProvider(server, new CCDataMapProvider(output, provider));
 		generator.addProvider(server, new CCRecipeProvider(output, provider));
 		generator.addProvider(server, new CCLootTableProvider(output, provider));

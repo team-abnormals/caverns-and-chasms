@@ -1,13 +1,8 @@
 {
   "repaletter": [
     {
-      "type": "blueprint:simple",
-      "replaces_block": "minecraft:waxed_copper_block",
-      "replaces_with": "caverns_and_chasms:shale_pillar"
-    },
-    {
-      "type": "blueprint:simple",
-      "replaces_block": "minecraft:waxed_oxidized_copper",
+      "type": "blueprint:simple_tag",
+      "replaces_block": "c:storage_blocks/all_copper",
       "replaces_with": "caverns_and_chasms:shale_pillar"
     },
     {

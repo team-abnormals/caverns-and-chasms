@@ -58,6 +58,14 @@ public class CCBlockTags {
 	public static final TagKey<Block> STORAGE_BLOCKS_RAW_TIN = TagUtil.blockTag("c", "storage_blocks/raw_tin");
 	public static final TagKey<Block> STORAGE_BLOCKS_ZIRCONIA = TagUtil.blockTag("c", "storage_blocks/zirconia");
 	public static final TagKey<Block> STORAGE_BLOCKS_CHARCOAL = TagUtil.blockTag("c", "storage_blocks/charcoal");
+	public static final TagKey<Block> STORAGE_BLOCKS_ALL_COPPER = TagUtil.blockTag("c", "storage_blocks/all_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_EXPOSED_COPPER = TagUtil.blockTag("c", "storage_blocks/exposed_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_WEATHERED_COPPER = TagUtil.blockTag("c", "storage_blocks/weathered_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_OXIDIZED_COPPER = TagUtil.blockTag("c", "storage_blocks/oxidized_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_WAXED_COPPER = TagUtil.blockTag("c", "storage_blocks/waxed_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_WAXED_EXPOSED_COPPER = TagUtil.blockTag("c", "storage_blocks/waxed_exposed_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_WAXED_WEATHERED_COPPER = TagUtil.blockTag("c", "storage_blocks/waxed_weathered_copper");
+	public static final TagKey<Block> STORAGE_BLOCKS_WAXED_OXIDIZED_COPPER = TagUtil.blockTag("c", "storage_blocks/waxed_oxidized_copper");
 
 	private static TagKey<Block> blockTag(String name) {
 		return TagUtil.blockTag(CavernsAndChasms.MOD_ID, name);

@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry.datapack;
 
 import com.teamabnormals.blueprint.common.world.modification.structure.SimpleStructureRepaletter;
+import com.teamabnormals.blueprint.common.world.modification.structure.SimpleTagStructureRepaletter;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterEntry;
 import com.teamabnormals.blueprint.common.world.modification.structure.StructureRepaletterManager;
 import com.teamabnormals.blueprint.common.world.modification.structure.condition.BiomeStructureCondition;
@@ -9,6 +10,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotLayer;
 import com.teamabnormals.caverns_and_chasms.common.levelgen.structure.ChanceStructureRepaletter;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCStructureTypes.CCStructures;
 import net.minecraft.core.HolderGetter;
@@ -50,8 +52,7 @@ public final class CCStructureRepaletters {
 				.select(HolderSet.direct(Stream.of(CCStructures.FORGE).map(structures::getOrThrow).collect(Collectors.toList()))));
 
 		context.register(create("trial_chambers"), new StructureRepaletterEntry.Builder().repaletters(
-						new SimpleStructureRepaletter(Blocks.WAXED_COPPER_BLOCK, CCBlocks.SHALE_PILLAR.get()),
-						new SimpleStructureRepaletter(Blocks.WAXED_OXIDIZED_COPPER, CCBlocks.SHALE_PILLAR.get()),
+						new SimpleTagStructureRepaletter(CCBlockTags.STORAGE_BLOCKS_ALL_COPPER, CCBlocks.SHALE_PILLAR.get()),
 						new SimpleStructureRepaletter(Blocks.OAK_BUTTON, CCBlocks.WAXED_COPPER_BUTTON.get()))
 				.select(HolderSet.direct(Stream.of(BuiltinStructures.TRIAL_CHAMBERS).map(structures::getOrThrow).collect(Collectors.toList()))));
 	}

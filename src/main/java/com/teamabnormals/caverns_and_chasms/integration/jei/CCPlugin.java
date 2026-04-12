@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCArmorMaterialTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -17,6 +18,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -63,7 +65,8 @@ public class CCPlugin implements IModPlugin {
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {
 		Stream<ItemStack> items = registration.getIngredientManager().getAllItemStacks().stream().filter(ItemStack::isDamageableItem);
-		return Stream.of(
+		Stream<RepairData> copperData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof ArmorItem item && item.getMaterial().is(CCArmorMaterialTags.COPPER)).map(stack -> (ArmorItem) stack.getItem()).map(armor -> new RepairData(armor.getMaterial().value().repairIngredient().get(), new ItemStack(armor)));
+		return Stream.concat(copperData, Stream.of(
 				new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), items.collect(Collectors.toList())),
 				new RepairData(Ingredient.of(CCItemTags.INGOTS_TIN), new ItemStack(CCItems.AEGIS.get())),
 				new RepairData(CCArmorMaterials.COWL.get().repairIngredient().get(), new ItemStack(CCItems.COWL.get())),
@@ -95,7 +98,7 @@ public class CCPlugin implements IModPlugin {
 						new ItemStack(CCItems.NECROMIUM_HELMET.get()),
 						new ItemStack(CCItems.NECROMIUM_LEGGINGS.get()),
 						new ItemStack(CCItems.NECROMIUM_CHESTPLATE.get()))
-		);
+		));
 	}
 
 	private static Stream<IJeiAnvilRecipe> getRepairRecipes(IRecipeRegistration registration) {

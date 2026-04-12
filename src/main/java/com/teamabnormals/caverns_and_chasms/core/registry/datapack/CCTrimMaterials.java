@@ -54,15 +54,20 @@ public class CCTrimMaterials {
 		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of(CCArmorMaterials.NECROMIUM, NECROMIUM_DARKER.location().toString().replace(':', '_')));
 		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of(CCArmorMaterials.SANGUINE, SANGUINE_DARKER.location().toString().replace(':', '_')));
 
-		register(context, TrimMaterials.COPPER, Items.COPPER_INGOT, Style.EMPTY.withColor(11823181), 0.5F, Map.of(CCArmorMaterials.COPPER, COPPER_DARKER.location().toString().replace(':', '_')));
-		register(context, EXPOSED_COPPER, CCItems.EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER.location().toString().replace(':', '_')));
-		register(context, WEATHERED_COPPER, CCItems.WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER.location().toString().replace(':', '_')));
-		register(context, OXIDIZED_COPPER, CCItems.OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER.location().toString().replace(':', '_')));
+		Map<Holder<ArmorMaterial>, String> copperOverrides = copperOverrides(CCArmorMaterials.COPPER, CCArmorMaterials.WAXED_COPPER, COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> exposedOverrides = copperOverrides(CCArmorMaterials.EXPOSED_COPPER, CCArmorMaterials.WAXED_EXPOSED_COPPER, EXPOSED_COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> weatheredOverrides = copperOverrides(CCArmorMaterials.WEATHERED_COPPER, CCArmorMaterials.WAXED_WEATHERED_COPPER, WEATHERED_COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> oxidizedOverrides = copperOverrides(CCArmorMaterials.OXIDIZED_COPPER, CCArmorMaterials.WAXED_OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER);
 
-		register(context, WAXED_COPPER, CCItems.WAXED_COPPER_INGOT.get(), Style.EMPTY.withColor(0xB4684D), Map.of(CCArmorMaterials.COPPER, COPPER_DARKER.location().toString().replace(':', '_')));
-		register(context, WAXED_EXPOSED_COPPER, CCItems.WAXED_EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), Map.of(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER.location().toString().replace(':', '_')));
-		register(context, WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), Map.of(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER.location().toString().replace(':', '_')));
-		register(context, WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), Map.of(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER.location().toString().replace(':', '_')));
+		register(context, TrimMaterials.COPPER, Items.COPPER_INGOT, Style.EMPTY.withColor(11823181), 0.5F, copperOverrides);
+		register(context, EXPOSED_COPPER, CCItems.EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), exposedOverrides);
+		register(context, WEATHERED_COPPER, CCItems.WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), weatheredOverrides);
+		register(context, OXIDIZED_COPPER, CCItems.OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), oxidizedOverrides);
+
+		register(context, WAXED_COPPER, CCItems.WAXED_COPPER_INGOT.get(), Style.EMPTY.withColor(0xB4684D), copperOverrides);
+		register(context, WAXED_EXPOSED_COPPER, CCItems.WAXED_EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), exposedOverrides);
+		register(context, WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x747757), weatheredOverrides);
+		register(context, WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x458B6B), oxidizedOverrides);
 	}
 
 	private static ResourceKey<TrimMaterial> createKey(String name) {
@@ -78,5 +83,10 @@ public class CCTrimMaterials {
 		boolean waxedCopper = key.equals(WAXED_COPPER);
 		String path = location.getPath().replace("waxed_", "");
 		context.register(key, new TrimMaterial((!waxedCopper ? location.getNamespace() + "_" : "") + path, item.builtInRegistryHolder(), index, overrides, Component.translatable(Util.makeDescriptionId("trim_material", ResourceLocation.fromNamespaceAndPath(waxedCopper ? "minecraft" : location.getNamespace(), path))).withStyle(style)));
+	}
+
+	public static Map<Holder<ArmorMaterial>, String> copperOverrides(Holder<ArmorMaterial> regularMaterial, Holder<ArmorMaterial> waxedMaterial, ResourceKey<TrimMaterial> darker) {
+		String str = darker.location().toString().replace(':', '_');
+		return Map.of(regularMaterial, str, waxedMaterial, str);
 	}
 }

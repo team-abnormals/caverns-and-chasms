@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#c:storage_blocks/copper",
+    "#c:storage_blocks/waxed_copper",
+    "#c:storage_blocks/exposed_copper",
+    "#c:storage_blocks/waxed_exposed_copper",
+    "#c:storage_blocks/weathered_copper",
+    "#c:storage_blocks/waxed_weathered_copper",
+    "#c:storage_blocks/oxidized_copper",
+    "#c:storage_blocks/waxed_oxidized_copper"
+  ]
+}

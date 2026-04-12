@@ -7,6 +7,7 @@
   "ingredient": "caverns_and_chasms:waxed_copper_ingot",
   "item_model_index": -1.0,
   "override_armor_materials": {
-    "caverns_and_chasms:copper": "caverns_and_chasms_copper_darker"
+    "caverns_and_chasms:copper": "caverns_and_chasms_copper_darker",
+    "caverns_and_chasms:waxed_copper": "caverns_and_chasms_copper_darker"
   }
 }

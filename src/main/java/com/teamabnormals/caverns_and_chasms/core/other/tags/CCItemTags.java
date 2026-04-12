@@ -4,6 +4,7 @@ import com.teamabnormals.blueprint.core.util.TagUtil;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class CCItemTags {
 	public static final TagKey<Item> IGNORE_RAIL_PLACEMENT = itemTag("ignore_rail_placement");
@@ -85,6 +86,14 @@ public class CCItemTags {
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_SILVER = TagUtil.itemTag("c", "storage_blocks/raw_silver");
 	public static final TagKey<Item> STORAGE_BLOCKS_RAW_TIN = TagUtil.itemTag("c", "storage_blocks/raw_tin");
 	public static final TagKey<Item> STORAGE_BLOCKS_CHARCOAL = TagUtil.itemTag("c", "storage_blocks/charcoal");
+	public static final TagKey<Item> STORAGE_BLOCKS_ALL_COPPER = TagUtil.itemTag("c", "storage_blocks/all_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_EXPOSED_COPPER = TagUtil.itemTag("c", "storage_blocks/exposed_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_WEATHERED_COPPER = TagUtil.itemTag("c", "storage_blocks/weathered_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_OXIDIZED_COPPER = TagUtil.itemTag("c", "storage_blocks/oxidized_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_WAXED_COPPER = TagUtil.itemTag("c", "storage_blocks/waxed_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_WAXED_EXPOSED_COPPER = TagUtil.itemTag("c", "storage_blocks/waxed_exposed_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_WAXED_WEATHERED_COPPER = TagUtil.itemTag("c", "storage_blocks/waxed_weathered_copper");
+	public static final TagKey<Item> STORAGE_BLOCKS_WAXED_OXIDIZED_COPPER = TagUtil.itemTag("c", "storage_blocks/waxed_oxidized_copper");
 
 	public static final TagKey<Item> BOTTLES_MILK = TagUtil.itemTag("c", "bottles/milk");
 

@@ -28,10 +28,14 @@ public class CCTiers {
 	public static class CCArmorMaterials {
 		public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, CavernsAndChasms.MOD_ID);
 
-		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COPPER = registerCopper("copper", Tags.Items.INGOTS_COPPER);
-		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> EXPOSED_COPPER = registerCopper("exposed_copper", CCItemTags.INGOTS_EXPOSED_COPPER);
-		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WEATHERED_COPPER = registerCopper("weathered_copper", CCItemTags.INGOTS_WEATHERED_COPPER);
-		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> OXIDIZED_COPPER = registerCopper("oxidized_copper", CCItemTags.INGOTS_OXIDIZED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COPPER = registerCopper("copper", Tags.Items.STORAGE_BLOCKS_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> EXPOSED_COPPER = registerCopper("exposed_copper", CCItemTags.STORAGE_BLOCKS_EXPOSED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WEATHERED_COPPER = registerCopper("weathered_copper", CCItemTags.STORAGE_BLOCKS_WEATHERED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> OXIDIZED_COPPER = registerCopper("oxidized_copper", CCItemTags.STORAGE_BLOCKS_OXIDIZED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WAXED_COPPER = registerCopper("waxed_copper", CCItemTags.STORAGE_BLOCKS_WAXED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WAXED_EXPOSED_COPPER = registerCopper("waxed_exposed_copper", CCItemTags.STORAGE_BLOCKS_WAXED_EXPOSED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WAXED_WEATHERED_COPPER = registerCopper("waxed_weathered_copper", CCItemTags.STORAGE_BLOCKS_WAXED_WEATHERED_COPPER);
+		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WAXED_OXIDIZED_COPPER = registerCopper("waxed_oxidized_copper", CCItemTags.STORAGE_BLOCKS_WAXED_OXIDIZED_COPPER);
 
 		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> SILVER = register("silver", defense(2, 4, 6, 2, 9), 17, CCSoundEvents.ARMOR_EQUIP_SILVER, 0.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_SILVER));
 		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> NECROMIUM = register("necromium", defense(3, 6, 8, 3, 12), 15, CCSoundEvents.ARMOR_EQUIP_NECROMIUM, 2.0F, 0.0F, () -> Ingredient.of(CCItemTags.INGOTS_NECROMIUM));
