@@ -15,7 +15,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
 import com.teamabnormals.caverns_and_chasms.common.item.SanguineArmorItem;
-import com.teamabnormals.caverns_and_chasms.common.item.SubtlePotion;
 import com.teamabnormals.caverns_and_chasms.common.item.TetherPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.TrailPotionItem;
 import com.teamabnormals.caverns_and_chasms.common.item.component.PackingContainerContents;
@@ -38,7 +37,6 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.Plane;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -88,7 +86,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
@@ -366,44 +363,6 @@ public class CCEvents {
 						} else {
 							currentPos.set(nextPos);
 						}
-					}
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void onItemPlaced(RightClickBlock event) {
-		Player player = event.getEntity();
-		BlockPos pos = event.getPos();
-		Level level = event.getLevel();
-		ItemStack stack = event.getItemStack();
-		BlockState state = level.getBlockState(pos);
-
-		if (stack.is(CCItemTags.PLACEABLE_ITEMS) && !event.isCanceled() && CCConfig.COMMON.placeableItems.get()) {
-			boolean sneakBypassesUse = !player.getMainHandItem().doesSneakBypassUse(player.level(), pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
-			boolean isSneaking = player.isSecondaryUseActive() && sneakBypassesUse;
-
-			if (event.getUseBlock() == Result.ALLOW || (event.getUseBlock() != Result.DENY && !isSneaking)) {
-				InteractionResult blockResult = state.use(level, player, event.getHand(), event.getHitVec());
-				if (blockResult.consumesAction()) {
-					event.setCanceled(true);
-					event.setCancellationResult(blockResult);
-					return;
-				}
-			}
-
-			UseOnContext context = new UseOnContext(level, player, event.getHand(), stack, event.getHitVec());
-			Optional<Registry<Item>> registry = level.registryAccess().registry(Registries.ITEM);
-			if (registry.isPresent()) {
-				for (Item item1 : registry.get()) {
-					if (item1 instanceof BlockItem blockItem && stack.is(blockItem.getBlock().asItem())) {
-						InteractionResult itemResult = item1.useOn(context);
-						if (itemResult.consumesAction()) {
-							event.setCanceled(true);
-							event.setCancellationResult(itemResult);
-						}
-						return;
 					}
 				}
 			}

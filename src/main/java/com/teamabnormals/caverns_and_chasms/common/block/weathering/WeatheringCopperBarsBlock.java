@@ -7,8 +7,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 public class WeatheringCopperBarsBlock extends IronBarsBlock implements WeatheringCopper {
 	private final WeatheringCopper.WeatherState weatherState;

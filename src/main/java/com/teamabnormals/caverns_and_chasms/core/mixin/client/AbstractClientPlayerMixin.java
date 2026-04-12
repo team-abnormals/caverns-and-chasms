@@ -2,12 +2,10 @@ package com.teamabnormals.caverns_and_chasms.core.mixin.client;
 
 import com.mojang.authlib.GameProfile;
 import com.teamabnormals.caverns_and_chasms.common.item.MonocleItem;
-import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

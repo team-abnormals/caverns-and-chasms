@@ -4,29 +4,31 @@
     "repair_pants_with_zirconia": {
       "conditions": {
         "ingredient": {
-          "items": [
-            "caverns_and_chasms:zirconia"
-          ]
+          "items": "caverns_and_chasms:zirconia"
         },
         "input": {
-          "tag": "forge:armors/leggings"
+          "items": "#minecraft:leg_armor"
         }
       },
       "trigger": "caverns_and_chasms:repaired_item"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.caverns_and_chasms.adventure.repair_pants_with_zirconia.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
-      "item": "minecraft:diamond_leggings",
-      "nbt": "{Damage:0,Enchantments:[{id:\"minecraft:unbreaking\",lvl:3s}]}"
+      "components": {
+        "minecraft:enchantments": {
+          "levels": {
+            "minecraft:unbreaking": 3
+          }
+        }
+      },
+      "count": 1,
+      "id": "minecraft:diamond_leggings"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.caverns_and_chasms.adventure.repair_pants_with_zirconia.title"
     }

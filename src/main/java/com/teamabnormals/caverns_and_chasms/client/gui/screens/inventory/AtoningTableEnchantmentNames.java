@@ -8,8 +8,8 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.ArrayUtils;
 
 @OnlyIn(Dist.CLIENT)
@@ -18,7 +18,7 @@ public class AtoningTableEnchantmentNames {
 	private static final Style ROOT_STYLE = Style.EMPTY.withFont(KOUKERI_FONT);
 	public static final char[] LETTERS = new char[]{
 			'i', 'u', 'ï', 'ŭ', '⋅',
-			'e', 'ə', 'o', 'ó', 'ë','ö', 'ŏ',
+			'e', 'ə', 'o', 'ó', 'ë', 'ö', 'ŏ',
 			'a', 'ʌ', 'á', 'ä', 'ă',
 			'm', 'n', 'ŋ',
 			'p', 'b', 't', 'd', 'k', 'g', 'ʔ',

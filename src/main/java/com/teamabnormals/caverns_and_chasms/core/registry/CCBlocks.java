@@ -98,7 +98,7 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> TIN_BULB = HELPER.createBlock("tin_bulb", () -> new TinBulbBlock(CCProperties.TIN_BULB));
 	public static final DeferredBlock<Block> FLOAT_GLASS = HELPER.createBlock("float_glass", () -> new TransparentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).sound(CCSoundTypes.FLOAT_GLASS)));
 	public static final DeferredBlock<Block> FLOAT_GLASS_PANE = HELPER.createBlock("float_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS_PANE).sound(CCSoundTypes.FLOAT_GLASS)));
-Rat
+
 	public static final DeferredBlock<Block> HOLD_PLATE = HELPER.createBlock("hold_plate", () -> new HoldPlateBlock(CCProperties.HOLD_PLATE));
 	public static final DeferredBlock<Block> HOLD_BUTTON = HELPER.createBlock("hold_button", () -> new HoldButtonBlock(CCProperties.HOLD_BUTTON));
 	public static final DeferredBlock<Block> WINCH = HELPER.createWinchBlock("winch", () -> new WinchBlock(CCProperties.WINCH));

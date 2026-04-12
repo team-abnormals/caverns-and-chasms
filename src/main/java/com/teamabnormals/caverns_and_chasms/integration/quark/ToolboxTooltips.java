@@ -11,25 +11,15 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ShulkerBoxBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
@@ -89,7 +79,7 @@ public class ToolboxTooltips {
 				int size = Math.toIntExact(contents.nonEmptyStream().count());
 				int[] dims = new int[]{Math.min(size, 7), 1 + (size - 1) / 7};
 
-				for(int[] testAgainst : TARGET_RATIOS) {
+				for (int[] testAgainst : TARGET_RATIOS) {
 					if (testAgainst[0] * testAgainst[1] == size) {
 						dims = testAgainst;
 						break;
@@ -110,7 +100,7 @@ public class ToolboxTooltips {
 				ShulkerComponent.renderTooltipBackground(guiGraphics, mc, pose, currentX, currentY, dims[0], dims[1], color);
 				Iterator<ItemStack> stackIterator = contents.nonEmptyItems().iterator();
 
-				for(int i = 0; i < size; ++i) {
+				for (int i = 0; i < size; ++i) {
 					ItemStack itemstack = stackIterator.next();
 					int xp = currentX + 6 + i % 9 * 18;
 					int yp = currentY + 6 + i / 9 * 18;

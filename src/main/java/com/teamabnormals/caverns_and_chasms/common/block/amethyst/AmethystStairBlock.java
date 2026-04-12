@@ -9,8 +9,6 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-import java.util.function.Supplier;
-
 public class AmethystStairBlock extends StairBlock {
 
 	public AmethystStairBlock(BlockState stateSupplier, Properties properties) {

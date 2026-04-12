@@ -10,7 +10,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.common.Tags;
 import org.joml.Vector3f;
 
 public class MimeModel extends PlayerModel<Mime> {

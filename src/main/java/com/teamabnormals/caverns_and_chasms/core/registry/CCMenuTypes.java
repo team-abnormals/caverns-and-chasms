@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.Dismant
 import com.teamabnormals.caverns_and_chasms.client.gui.screens.inventory.ToolboxScreen;
 import com.teamabnormals.caverns_and_chasms.common.inventory.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.clayworks.core.Clayworks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;

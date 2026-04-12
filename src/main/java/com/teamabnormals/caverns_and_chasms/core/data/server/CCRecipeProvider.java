@@ -11,7 +11,6 @@ import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
 import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCInstruments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
