@@ -67,7 +67,7 @@ public class HoopBlockEntity extends BlockEntity {
 					Vec3 vec31;
 					if (entity instanceof Projectile && ((IDataManager) entity).getValue(CCDataProcessors.SHOULD_DEFLECT)) {
 						IDataManager data = (IDataManager) entity;
-						vec31 = new Vec3(data.getValue(CCDataProcessors.DEFLECT_X), data.getValue(CCDataProcessors.DEFLECT_Y), data.getValue(CCDataProcessors.DEFLECT_Z));
+						vec31 = data.getValue(CCDataProcessors.DEFLECT_VEC);
 					} else {
 						vec31 = entity.getDeltaMovement();
 					}

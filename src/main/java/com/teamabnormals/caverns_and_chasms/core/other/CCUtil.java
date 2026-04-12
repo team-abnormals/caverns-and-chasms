@@ -17,6 +17,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.entity.PartEntity;
+import org.joml.Vector3f;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,12 +52,10 @@ public class CCUtil {
 		return entity1 == null ? null : new EntityHitResult(entity1, vec3);
 	}
 
-	public static void deflectProjectileRaw(Entity projectile, double xMovement, double yMovement, double zMovement, double x, double y, double z) {
+	public static void deflectProjectileRaw(Entity projectile, Vec3 deflectVec, double x, double y, double z) {
 		IDataManager data = (IDataManager) projectile;
 		data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
-		data.setValue(CCDataProcessors.DEFLECT_X, xMovement);
-		data.setValue(CCDataProcessors.DEFLECT_Y, yMovement);
-		data.setValue(CCDataProcessors.DEFLECT_Z, zMovement);
+		data.setValue(CCDataProcessors.DEFLECT_VEC, deflectVec);
 		data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
 		projectile.setDeltaMovement(Vec3.ZERO);
 		projectile.setPos(x, y, z);
@@ -64,7 +63,7 @@ public class CCUtil {
 	}
 
 	public static void deflectProjectileRaw(Entity projectile, Vec3 deflectMovement, Vec3 deflectLocation) {
-		deflectProjectileRaw(projectile, deflectMovement.x, deflectMovement.y, deflectMovement.z, deflectLocation.x, deflectLocation.y, deflectLocation.z);
+		deflectProjectileRaw(projectile, deflectMovement, deflectLocation.x, deflectLocation.y, deflectLocation.z);
 	}
 
 	public static boolean deflectProjectile(Level level, Projectile projectile, HitResult hitResult, Vec3 oldMovement, Vec3 deflectMovement, Vec3 deflectLocation, SoundEvent soundEvent) {

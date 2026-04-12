@@ -122,7 +122,6 @@ public class CCDataRemolderProvider extends RemolderProvider {
 		this.advancementRemolder("adventure/spyglass_at_parrot").remolder(replaceCopperParent);
 		this.advancementRemolder("adventure/lightning_rod_with_villager_no_fire").remolder(replaceCopperParent);
 
-
 		this.advancementRemolder("husbandry/obtain_netherite_hoe").remolder(sequence(
 				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build()),
 				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId).addCriterion("necromium_hoe", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())).addIndexedRequirements(0, false, "necromium_hoe").build()));

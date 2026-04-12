@@ -455,12 +455,10 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void potionAddedEvent(Added event) {
 		LivingEntity entity = event.getEntity();
-		if (event.getEffectInstance().getEffect() == CCMobEffects.REWIND.get() && !entity.hasEffect(CCMobEffects.REWIND)) {
+		if (event.getEffectInstance().getEffect().is(CCMobEffects.REWIND) && !entity.hasEffect(CCMobEffects.REWIND)) {
 			IDataManager data = ((IDataManager) entity);
 			data.setValue(CCDataProcessors.REWIND_DIMENSION, entity.getCommandSenderWorld().dimension().location());
-			data.setValue(CCDataProcessors.REWIND_X, entity.getX());
-			data.setValue(CCDataProcessors.REWIND_Y, entity.getY());
-			data.setValue(CCDataProcessors.REWIND_Z, entity.getZ());
+			data.setValue(CCDataProcessors.REWIND_POS, entity.position());
 		}
 	}
 
@@ -969,12 +967,13 @@ public class CCEvents {
 		ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, data.getValue(CCDataProcessors.REWIND_DIMENSION));
 		ServerLevel level = entity.getServer().getLevel(key);
 
-		double x = data.getValue(CCDataProcessors.REWIND_X);
-		double y = data.getValue(CCDataProcessors.REWIND_Y);
-		double z = data.getValue(CCDataProcessors.REWIND_Z);
+		Vec3 rewindPos = data.getValue(CCDataProcessors.REWIND_POS);
+		double x = rewindPos.x();
+		double y = rewindPos.y();
+		double z = rewindPos.z();
 
 		if (level != entity.getCommandSenderWorld()) {
-			entity.changeDimension(new DimensionTransition(level, new Vec3(x, y, z), Vec3.ZERO, entity.getXRot(), entity.getYRot(), false, DimensionTransition.DO_NOTHING));
+			entity.changeDimension(new DimensionTransition(level, rewindPos, Vec3.ZERO, entity.getXRot(), entity.getYRot(), false, DimensionTransition.DO_NOTHING));
 		}
 
 		if (entity.isPassenger())
@@ -983,7 +982,7 @@ public class CCEvents {
 			entity.teleportTo(x, y, z);
 
 		entity.resetFallDistance();
-		entity.playSound(CCSoundEvents.REWIND.get(), 1.0F, 1.0F);
+		level.playSound(null, x, y, z, CCSoundEvents.REWIND.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 	}
 
 	private static void replaceCreeperSpawn(Creeper creeper, EntityType entityType, LevelAccessor level, FinalizeSpawnEvent event) {

@@ -10,8 +10,11 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +22,7 @@ import java.util.UUID;
 public class CCDataProcessors {
 	public static final StreamCodec<ByteBuf, Optional<UUID>> OPTIONAL_UUID = ByteBufCodecs.optional(UUIDUtil.STREAM_CODEC);
 	public static final StreamCodec<ByteBuf, Optional<BlockPos>> OPTIONAL_BLOCK_POS = ByteBufCodecs.optional(BlockPos.STREAM_CODEC);
+	public static final StreamCodec<ByteBuf, Vec3> VEC3 = StreamCodec.composite(ByteBufCodecs.DOUBLE, Vec3::x, ByteBufCodecs.DOUBLE, Vec3::y, ByteBufCodecs.DOUBLE, Vec3::z, Vec3::new);
 
 	public static final TrackedData<Optional<UUID>> CONTROLLED_GOLEM_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
 	public static final TrackedData<Boolean> IS_BEING_CONTROLLED = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).build();
@@ -26,17 +30,11 @@ public class CCDataProcessors {
 	public static final TrackedData<Optional<BlockPos>> TUNING_FORK_POS = TrackedData.Builder.create(OPTIONAL_BLOCK_POS, () -> Optional.empty()).build();
 	public static final TrackedData<Optional<UUID>> TUNING_FORK_TARGET_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
 	public static final TrackedData<ResourceLocation> REWIND_DIMENSION = TrackedData.Builder.create(ResourceLocation.STREAM_CODEC, () -> Level.OVERWORLD.location()).enableSaving(ResourceLocation.CODEC.fieldOf("ResourceLocation")).build();
-	//TODO: Convert into one tracked Vec3?
-	public static final TrackedData<Double> REWIND_X = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
-	public static final TrackedData<Double> REWIND_Y = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
-	public static final TrackedData<Double> REWIND_Z = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Vec3> REWIND_POS = TrackedData.Builder.create(VEC3, () -> Vec3.ZERO).enableSaving(Vec3.CODEC.fieldOf("x").fieldOf("y").fieldOf("z")).build();
 	public static final TrackedData<Boolean> SHOULD_DEFLECT = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 	public static final TrackedData<Boolean> BONUS_DEFLECT = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 	public static final TrackedData<Integer> RICOCHETS = TrackedData.Builder.create(ByteBufCodecs.INT, () -> 0).enableSaving(Codec.INT.fieldOf("Integer")).build();
-	//TODO: Convert into one tracked Vec3?
-	public static final TrackedData<Double> DEFLECT_X = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
-	public static final TrackedData<Double> DEFLECT_Y = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
-	public static final TrackedData<Double> DEFLECT_Z = TrackedData.Builder.create(ByteBufCodecs.DOUBLE, () -> 0.0D).enableSaving(Codec.DOUBLE.fieldOf("Double")).build();
+	public static final TrackedData<Vec3> DEFLECT_VEC = TrackedData.Builder.create(VEC3, () -> Vec3.ZERO).enableSaving(Vec3.CODEC.fieldOf("x").fieldOf("y").fieldOf("z")).build();
 	public static final TrackedData<ItemStack> UNICORN_HORN = TrackedData.Builder.create(ItemStack.OPTIONAL_STREAM_CODEC, () -> ItemStack.EMPTY).enableSaving(ItemStack.OPTIONAL_CODEC.fieldOf("id").fieldOf("count").fieldOf("components")).build();
 	public static final TrackedData<Boolean> GLOW_UNICORN_HORN = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 	public static final TrackedData<Boolean> OBSCURITY_INVISIBILITY = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
@@ -48,15 +46,11 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("tuning_fork_pos"), TUNING_FORK_POS);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("tuning_fork_target_uuid"), TUNING_FORK_TARGET_UUID);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_dimension"), REWIND_DIMENSION);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_x"), REWIND_X);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_y"), REWIND_Y);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_z"), REWIND_Z);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_pos"), REWIND_POS);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("should_deflect"), SHOULD_DEFLECT);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("bonus_deflect"), BONUS_DEFLECT);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("ricochets"), RICOCHETS);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_x"), DEFLECT_X);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_y"), DEFLECT_Y);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_z"), DEFLECT_Z);
+		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_vec"), DEFLECT_VEC);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("unicorn_horn"), UNICORN_HORN);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("glow_unicorn_horn"), GLOW_UNICORN_HORN);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("obscurity_invisibility"), OBSCURITY_INVISIBILITY);
