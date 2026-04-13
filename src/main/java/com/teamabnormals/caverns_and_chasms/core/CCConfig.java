@@ -103,8 +103,13 @@ public class CCConfig {
 		public final BooleanValue clocksDisplayDay;
 		public final BooleanValue clocksUse24hrTime;
 
+		public final BooleanValue creativeTab;
+		public final BooleanValue copperCreativeTab;
+
 		public Client(ModConfigSpec.Builder builder) {
 			builder.push("items");
+			creativeTab = builder.comment("If there is a creative mode tab for Caverns & Chasms").define("(WIP) Creative mode tab", false);
+			copperCreativeTab = builder.comment("If there is a creative mode tab full of all variants of weathering copper items").define("(WIP) Copper creative mode tab", false);
 			builder.push("compass");
 			compassesDisplayPosition = builder.comment("Compasses display X and Z coordinates in the item description").define("Compasses display position", true);
 			builder.pop();

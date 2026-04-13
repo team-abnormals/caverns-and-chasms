@@ -89,6 +89,7 @@ public class CavernsAndChasms {
 		CCEnchantmentEffects.COMPONENTS.register(bus);
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
+		CCCreativeTabs.CREATIVE_TABS.register(bus);
 
 		bus.addListener((ModConfigEvent event) -> {
 			final ModConfig config = event.getConfig();
