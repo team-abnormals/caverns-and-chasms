@@ -22,7 +22,7 @@ public class CopperHorseArmorItem extends AnimalArmorItem {
 		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers(stack);
 		EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
 		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-		modifiers = modifiers.withModifierAdded(Attributes.MOVEMENT_SPEED, new AttributeModifier(name, -0.2F, Operation.ADD_MULTIPLIED_TOTAL), slot);
+		modifiers = modifiers.withModifierAdded(Attributes.MOVEMENT_SPEED, new AttributeModifier(name, -0.2F, Operation.ADD_MULTIPLIED_BASE), slot);
 		return modifiers;
 	}
 }
