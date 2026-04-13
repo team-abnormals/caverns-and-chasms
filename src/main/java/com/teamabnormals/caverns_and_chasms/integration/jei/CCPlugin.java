@@ -48,7 +48,6 @@ public class CCPlugin implements IModPlugin {
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
 		registration.registerSubtypeInterpreter(CCItems.COPPER_HORN.get(), InstrumentSubtypeInterpreter.INSTANCE);
-		registration.registerSubtypeInterpreter(Items.POTION, PotionSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.TETHER_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.IMPACT_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(CCItems.TRAIL_POTION.get(), PotionSubtypeInterpreter.INSTANCE);
