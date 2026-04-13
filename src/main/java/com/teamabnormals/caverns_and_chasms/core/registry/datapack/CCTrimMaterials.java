@@ -48,16 +48,16 @@ public class CCTrimMaterials {
 	public static void bootstrap(BootstrapContext<TrimMaterial> context) {
 		register(context, SPINEL, CCItems.SPINEL.get(), Style.EMPTY.withColor(0xD684AC), Map.of());
 		register(context, ZIRCONIA, CCItems.ZIRCONIA.get(), Style.EMPTY.withColor(0xADAFF1), Map.of());
-		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), Map.of(CCArmorMaterials.SILVER, SILVER_DARKER.location().toString().replace(':', '_')));
+		register(context, SILVER, CCItems.SILVER_INGOT.get(), Style.EMPTY.withColor(0xC7D8E6), overrides(CCArmorMaterials.SILVER, SILVER_DARKER));
 		register(context, TIN, CCItems.TIN_INGOT.get(), Style.EMPTY.withColor(0xCEC0A3), Map.of());
 		register(context, TURQUOISE, CCItems.TURQUOISE.get(), Style.EMPTY.withColor(0x2BFF75), Map.of());
-		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), Map.of(CCArmorMaterials.NECROMIUM, NECROMIUM_DARKER.location().toString().replace(':', '_')));
-		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), Map.of(CCArmorMaterials.SANGUINE, SANGUINE_DARKER.location().toString().replace(':', '_')));
+		register(context, NECROMIUM, CCItems.NECROMIUM_INGOT.get(), Style.EMPTY.withColor(0x627C6E), overrides(CCArmorMaterials.NECROMIUM, NECROMIUM_DARKER));
+		register(context, SANGUINE, CCItems.LIVING_FLESH.get(), Style.EMPTY.withColor(0x6D353A), overrides(CCArmorMaterials.SANGUINE, SANGUINE_DARKER));
 
-		Map<Holder<ArmorMaterial>, String> copperOverrides = copperOverrides(CCArmorMaterials.COPPER, CCArmorMaterials.WAXED_COPPER, COPPER_DARKER);
-		Map<Holder<ArmorMaterial>, String> exposedOverrides = copperOverrides(CCArmorMaterials.EXPOSED_COPPER, CCArmorMaterials.WAXED_EXPOSED_COPPER, EXPOSED_COPPER_DARKER);
-		Map<Holder<ArmorMaterial>, String> weatheredOverrides = copperOverrides(CCArmorMaterials.WEATHERED_COPPER, CCArmorMaterials.WAXED_WEATHERED_COPPER, WEATHERED_COPPER_DARKER);
-		Map<Holder<ArmorMaterial>, String> oxidizedOverrides = copperOverrides(CCArmorMaterials.OXIDIZED_COPPER, CCArmorMaterials.WAXED_OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> copperOverrides = overrides(CCArmorMaterials.COPPER, COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> exposedOverrides = overrides(CCArmorMaterials.EXPOSED_COPPER, EXPOSED_COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> weatheredOverrides = overrides(CCArmorMaterials.WEATHERED_COPPER, WEATHERED_COPPER_DARKER);
+		Map<Holder<ArmorMaterial>, String> oxidizedOverrides = overrides(CCArmorMaterials.OXIDIZED_COPPER, OXIDIZED_COPPER_DARKER);
 
 		register(context, TrimMaterials.COPPER, Items.COPPER_INGOT, Style.EMPTY.withColor(11823181), 0.5F, copperOverrides);
 		register(context, EXPOSED_COPPER, CCItems.EXPOSED_COPPER_INGOT.get(), Style.EMPTY.withColor(0x99715D), exposedOverrides);
@@ -85,8 +85,7 @@ public class CCTrimMaterials {
 		context.register(key, new TrimMaterial((!waxedCopper ? location.getNamespace() + "_" : "") + path, item.builtInRegistryHolder(), index, overrides, Component.translatable(Util.makeDescriptionId("trim_material", ResourceLocation.fromNamespaceAndPath(waxedCopper ? "minecraft" : location.getNamespace(), path))).withStyle(style)));
 	}
 
-	public static Map<Holder<ArmorMaterial>, String> copperOverrides(Holder<ArmorMaterial> regularMaterial, Holder<ArmorMaterial> waxedMaterial, ResourceKey<TrimMaterial> darker) {
-		String str = darker.location().toString().replace(':', '_');
-		return Map.of(regularMaterial, str, waxedMaterial, str);
+	public static Map<Holder<ArmorMaterial>, String> overrides(Holder<ArmorMaterial> regularMaterial, ResourceKey<TrimMaterial> darker) {
+		return Map.of(regularMaterial, darker.location().toString().replace(':', '_'));
 	}
 }

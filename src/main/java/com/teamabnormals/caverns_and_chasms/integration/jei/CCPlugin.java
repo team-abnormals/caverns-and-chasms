@@ -1,10 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.integration.jei;
 
+import com.teamabnormals.blueprint.core.api.BlueprintItemTier;
 import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipe;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
-import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCItemTiers;
-import com.teamabnormals.caverns_and_chasms.core.other.tags.CCArmorMaterialTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -21,10 +19,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @JeiPlugin
@@ -64,40 +62,14 @@ public class CCPlugin implements IModPlugin {
 	}
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {
-		Stream<ItemStack> items = registration.getIngredientManager().getAllItemStacks().stream().filter(ItemStack::isDamageableItem);
-		Stream<RepairData> copperData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof ArmorItem item && item.getMaterial().is(CCArmorMaterialTags.COPPER)).map(stack -> (ArmorItem) stack.getItem()).map(armor -> new RepairData(armor.getMaterial().value().repairIngredient().get(), new ItemStack(armor)));
-		return Stream.concat(copperData, Stream.of(
-				new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), items.collect(Collectors.toList())),
-				new RepairData(Ingredient.of(CCItemTags.INGOTS_TIN), new ItemStack(CCItems.AEGIS.get())),
-				new RepairData(CCArmorMaterials.COWL.get().repairIngredient().get(), new ItemStack(CCItems.COWL.get())),
-				new RepairData(CCArmorMaterials.TOOLBELT.get().repairIngredient().get(), new ItemStack(CCItems.TOOLBELT.get())),
-				new RepairData(CCArmorMaterials.SANGUINE.get().repairIngredient().get(),
-						new ItemStack(CCItems.SANGUINE_HELMET.get()),
-						new ItemStack(CCItems.SANGUINE_CHESTPLATE.get()),
-						new ItemStack(CCItems.SANGUINE_LEGGINGS.get()),
-						new ItemStack(CCItems.SANGUINE_BOOTS.get())),
-				new RepairData(CCItemTiers.SILVER.getRepairIngredient(),
-						new ItemStack(CCItems.SILVER_SWORD.get()),
-						new ItemStack(CCItems.SILVER_PICKAXE.get()),
-						new ItemStack(CCItems.SILVER_AXE.get()),
-						new ItemStack(CCItems.SILVER_SHOVEL.get()),
-						new ItemStack(CCItems.SILVER_HOE.get())),
-				new RepairData(CCArmorMaterials.SILVER.get().repairIngredient().get(),
-						new ItemStack(CCItems.SILVER_HELMET.get()),
-						new ItemStack(CCItems.SILVER_CHESTPLATE.get()),
-						new ItemStack(CCItems.SILVER_LEGGINGS.get()),
-						new ItemStack(CCItems.SILVER_BOOTS.get())),
-				new RepairData(CCItemTiers.NECROMIUM.getRepairIngredient(),
-						new ItemStack(CCItems.NECROMIUM_SWORD.get()),
-						new ItemStack(CCItems.NECROMIUM_AXE.get()),
-						new ItemStack(CCItems.NECROMIUM_HOE.get()),
-						new ItemStack(CCItems.NECROMIUM_SHOVEL.get()),
-						new ItemStack(CCItems.NECROMIUM_PICKAXE.get())),
-				new RepairData(CCArmorMaterials.NECROMIUM.get().repairIngredient().get(),
-						new ItemStack(CCItems.NECROMIUM_BOOTS.get()),
-						new ItemStack(CCItems.NECROMIUM_HELMET.get()),
-						new ItemStack(CCItems.NECROMIUM_LEGGINGS.get()),
-						new ItemStack(CCItems.NECROMIUM_CHESTPLATE.get()))
+		Stream<RepairData> armorData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof ArmorItem item && item.getMaterial().getKey().location().getNamespace().equals(CavernsAndChasms.MOD_ID)).map(stack -> (ArmorItem) stack.getItem()).map(armor -> new RepairData(armor.getMaterial().value().repairIngredient().get(), new ItemStack(armor)));
+		Stream<RepairData> toolData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof TieredItem item && item.getTier() instanceof BlueprintItemTier).map(stack -> (TieredItem) stack.getItem()).map(tool -> new RepairData(tool.getTier().getRepairIngredient(), new ItemStack(tool)));
+
+		Stream<RepairData> allRepairs = Stream.concat(armorData, toolData);
+
+		return Stream.concat(allRepairs, Stream.of(
+				new RepairData(Ingredient.of(CCItems.ZIRCONIA.get()), registration.getIngredientManager().getAllItemStacks().stream().filter(ItemStack::isDamageableItem).toList()),
+				new RepairData(Ingredient.of(CCItemTags.INGOTS_TIN), new ItemStack(CCItems.AEGIS.get()))
 		));
 	}
 

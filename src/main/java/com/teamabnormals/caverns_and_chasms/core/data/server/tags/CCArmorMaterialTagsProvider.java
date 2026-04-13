@@ -21,10 +21,10 @@ public class CCArmorMaterialTagsProvider extends TagsProvider<ArmorMaterial> {
 	@Override
 	public void addTags(Provider provider) {
 		this.tag(CCArmorMaterialTags.COPPER).add(
-				CCArmorMaterials.COPPER.getKey(), CCArmorMaterials.WAXED_COPPER.getKey(),
-				CCArmorMaterials.EXPOSED_COPPER.getKey(), CCArmorMaterials.WAXED_EXPOSED_COPPER.getKey(),
-				CCArmorMaterials.WEATHERED_COPPER.getKey(), CCArmorMaterials.WAXED_EXPOSED_COPPER.getKey(),
-				CCArmorMaterials.OXIDIZED_COPPER.getKey(), CCArmorMaterials.WAXED_OXIDIZED_COPPER.getKey()
+				CCArmorMaterials.COPPER.getKey(),
+				CCArmorMaterials.EXPOSED_COPPER.getKey(),
+				CCArmorMaterials.WEATHERED_COPPER.getKey(),
+				CCArmorMaterials.OXIDIZED_COPPER.getKey()
 		);
 	}
 }
