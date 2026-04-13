@@ -41,6 +41,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
@@ -90,6 +92,8 @@ public class CavernsAndChasms {
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
 		CCCreativeTabs.CREATIVE_TABS.register(bus);
+
+		NeoForgeMod.enableMergedAttributeTooltips();
 
 		bus.addListener((ModConfigEvent event) -> {
 			final ModConfig config = event.getConfig();

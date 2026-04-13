@@ -23,7 +23,7 @@ public class SilverHorseArmorItem extends AnimalArmorItem {
 		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers(stack);
 		EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
 		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-		modifiers = modifiers.withModifierAdded(CCAttributes.MAGIC_PROTECTION, new AttributeModifier(name, 0.4D, Operation.ADD_MULTIPLIED_BASE), slot);
+		modifiers = modifiers.withModifierAdded(CCAttributes.MAGIC_PROTECTION, new AttributeModifier(name, 0.4D, Operation.ADD_VALUE), slot);
 		return modifiers;
 	}
 }

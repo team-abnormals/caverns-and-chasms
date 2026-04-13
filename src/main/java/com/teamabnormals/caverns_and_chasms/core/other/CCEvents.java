@@ -81,7 +81,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -416,7 +415,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void bonusXPBlock(BlockDropsEvent event) {
 		if (event.getBreaker() instanceof LivingEntity living && living.getAttribute(CCAttributes.EXPERIENCE_BOOST) != null) {
-			double experienceBoost = event.getDroppedExperience() * (living.getAttributeValue(CCAttributes.EXPERIENCE_BOOST) - 1.0D);
+			double experienceBoost = event.getDroppedExperience() * living.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
 			int base = Mth.floor(experienceBoost);
 			double bonus = Mth.frac(experienceBoost);
 			if (bonus != 0.0F && Math.random() < bonus) {
@@ -431,7 +430,7 @@ public class CCEvents {
 	public static void bonusXPMobs(LivingExperienceDropEvent event) {
 		Player player = event.getAttackingPlayer();
 		if (player != null && player.getAttribute(CCAttributes.EXPERIENCE_BOOST) != null) {
-			double experienceBoost = event.getDroppedExperience() * (player.getAttributeValue(CCAttributes.EXPERIENCE_BOOST) - 1.0D);
+			double experienceBoost = event.getDroppedExperience() * player.getAttributeValue(CCAttributes.EXPERIENCE_BOOST);
 			int base = Mth.floor(experienceBoost);
 			double bonus = Mth.frac(experienceBoost);
 			if (bonus != 0.0F && Math.random() < bonus) {
@@ -491,7 +490,7 @@ public class CCEvents {
 		DamageSource source = event.getSource();
 
 		if (source.is(Tags.DamageTypes.IS_MAGIC) && target.getAttribute(CCAttributes.MAGIC_PROTECTION) != null) {
-			double magicProtection = target.getAttributeValue(CCAttributes.MAGIC_PROTECTION) - 1.0D;
+			double magicProtection = target.getAttributeValue(CCAttributes.MAGIC_PROTECTION);
 			if (magicProtection > 0.0D) {
 				event.setNewDamage((float) (event.getOriginalDamage() - event.getOriginalDamage() * magicProtection));
 				SilverItem.causeMagicProtectionEffects(target);
@@ -528,7 +527,6 @@ public class CCEvents {
 			}
 
 			if (target.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
-				// TODO: Seperate into a different attribute
 				int targetSlownessInfliction = (int) target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
 				if (targetSlownessInfliction > 0) {
 					target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, targetSlownessInfliction));
@@ -536,15 +534,15 @@ public class CCEvents {
 			}
 
 			if (target.getAttribute(CCAttributes.LIFESTEAL) != null) {
-				float lifeStealAmount = (float) (target.getAttributeValue(CCAttributes.LIFESTEAL) - 1.0F);
+				float lifeStealAmount = (float) target.getAttributeValue(CCAttributes.LIFESTEAL);
 				if (lifeStealAmount > 0.0F) {
-					attacker.heal(lifeStealAmount * event.getOriginalDamage());
+					attacker.heal(event.getOriginalDamage() * lifeStealAmount);
 					SanguineArmorItem.causeHealEffects(attacker);
 				}
 			}
 
-			if (target.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
-				double slownessInfliction = target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
+			if (target.getAttribute(CCAttributes.SLOWNESS_RETRIBUTION) != null) {
+				double slownessInfliction = target.getAttributeValue(CCAttributes.SLOWNESS_RETRIBUTION);
 				if (slownessInfliction > 0.0D) {
 					attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
 					attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);

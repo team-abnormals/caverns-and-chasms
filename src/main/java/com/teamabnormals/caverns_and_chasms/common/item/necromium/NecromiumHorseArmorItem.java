@@ -23,7 +23,7 @@ public class NecromiumHorseArmorItem extends AnimalArmorItem {
 		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers(stack);
 		EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
 		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-		modifiers = modifiers.withModifierAdded(CCAttributes.SLOWNESS_INFLICTION, new AttributeModifier(name, 4.0F, Operation.ADD_VALUE), slot);
+		modifiers = modifiers.withModifierAdded(CCAttributes.SLOWNESS_RETRIBUTION, new AttributeModifier(name, 4.0F, Operation.ADD_VALUE), slot);
 		return modifiers;
 	}
 }
