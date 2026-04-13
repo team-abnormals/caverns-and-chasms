@@ -64,7 +64,7 @@ public class CCItems {
 	public static final DeferredItem<Item> BAROMETER = HELPER.createItem("barometer", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), false));
 	public static final DeferredItem<Item> WAXED_OXIDIZED_COPPER_GOLEM = HELPER.createItem("waxed_oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), true));
-	public static final DeferredItem<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties().rarity(CCEnums.FANCY.getValue())));
+	public static final DeferredItem<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties()));
 
 	public static final DeferredItem<Item> EXPOSED_COPPER_INGOT = HELPER.createItem("exposed_copper_ingot", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> WEATHERED_COPPER_INGOT = HELPER.createItem("weathered_copper_ingot", () -> new Item(new Item.Properties()));
