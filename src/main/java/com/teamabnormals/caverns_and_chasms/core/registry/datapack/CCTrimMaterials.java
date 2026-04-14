@@ -80,7 +80,7 @@ public class CCTrimMaterials {
 
 	private static void register(BootstrapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Item item, Style style, float index, Map<Holder<ArmorMaterial>, String> overrides) {
 		ResourceLocation location = key.location();
-		boolean waxedCopper = key.equals(WAXED_COPPER);
+		boolean waxedCopper = key.equals(WAXED_COPPER) || key.equals(TrimMaterials.COPPER);
 		String path = location.getPath().replace("waxed_", "");
 		context.register(key, new TrimMaterial((!waxedCopper ? location.getNamespace() + "_" : "") + path, item.builtInRegistryHolder(), index, overrides, Component.translatable(Util.makeDescriptionId("trim_material", ResourceLocation.fromNamespaceAndPath(waxedCopper ? "minecraft" : location.getNamespace(), path))).withStyle(style)));
 	}
