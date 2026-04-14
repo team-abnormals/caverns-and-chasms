@@ -14,6 +14,9 @@ public class CCLootTables {
 	public static final ResourceKey<LootTable> FORGE_DISPENSER = create("chests/forge_dispenser");
 	public static final ResourceKey<LootTable> VAULT = create("chests/vault");
 
+	public static final ResourceKey<LootTable> SPAWNER_TRIAL_CHAMBER_TOKEN = create("spawners/trial_chamber/token");
+	public static final ResourceKey<LootTable> SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN = create("spawners/ominous/trial_chamber/token");
+
 	private static ResourceKey<LootTable> create(String name) {
 		return ResourceKey.create(Registries.LOOT_TABLE, CavernsAndChasms.location(name));
 	}

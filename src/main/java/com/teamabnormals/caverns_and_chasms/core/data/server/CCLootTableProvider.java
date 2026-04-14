@@ -692,6 +692,12 @@ public class CCLootTableProvider extends LootTableProvider {
 							.add(LootItem.lootTableItem(CCItems.GOLDEN_LAVA_BUCKET.get()).apply(fluidLevel(2)))
 					));
 
+			consumer.accept(CCLootTables.SPAWNER_TRIAL_CHAMBER_TOKEN, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.TRIAL_TOKEN))));
+
+			consumer.accept(CCLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN, LootTable.lootTable()
+					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.OMINOUS_TRIAL_TOKEN))));
+
 			consumer.accept(CCLootTables.VAULT, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3.0F, 5.0F))
 							.add(lootEntry(Items.MUSIC_DISC_MELLOHI, 5))

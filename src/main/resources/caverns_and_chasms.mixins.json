@@ -23,6 +23,7 @@
     "block.PowderSnowBlockMixin",
     "block.entity.AbstractFurnaceBlockEntityMixin",
     "block.entity.FallingBlockEntityMixin",
+    "block.entity.TrialSpawnerStateMixin",
     "dispenser.AbstractProjectileDispenseBehaviorMixin",
     "dispenser.DefaultDispenseItemBehaviorMixin",
     "entity.AbstractMinecartMixin",

@@ -376,12 +376,6 @@ public class CCDataRemolderProvider extends RemolderProvider {
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)),
 				addEntry(0, entry(TURQUOISE.get(), 1))));
 
-		this.lootRemolder(BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES).remolder(replacePools(
-				pool("trial_token").setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TRIAL_TOKEN)).build()));
-
-		this.lootRemolder(BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES).remolder(replacePools(
-				pool("ominous_trial_token").setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(OMINOUS_TRIAL_TOKEN)).build()));
-
 		this.lootRemolder(ResourceLocation.fromNamespaceAndPath("atmospheric", "chests/kousa_sanctum")).remolder(sequence(
 				addEntry(0, entry(SILVER_INGOT.get(), 15, 2, 7)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)), addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1))));
