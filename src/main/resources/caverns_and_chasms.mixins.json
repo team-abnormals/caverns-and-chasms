@@ -25,7 +25,6 @@
     "block.entity.FallingBlockEntityMixin",
     "block.entity.TrialSpawnerStateMixin",
     "block.entity.VaultBlockEntityMixin",
-    "block.entity.VaultServerDataAccessor",
     "block.entity.VaultServerDataMixin",
     "block.entity.VaultSharedDataMixin",
     "dispenser.AbstractProjectileDispenseBehaviorMixin",
