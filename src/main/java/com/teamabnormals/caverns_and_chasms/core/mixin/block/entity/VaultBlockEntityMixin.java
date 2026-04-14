@@ -43,17 +43,24 @@ public abstract class VaultBlockEntityMixin {
 	}
 
 	@WrapOperation(method = "tryInsertKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/vault/VaultBlockEntity$Server;resolveItemsToEject(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/block/entity/vault/VaultConfig;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;)Ljava/util/List;"))
-	private static List<ItemStack> tryInsertKey(ServerLevel level, VaultConfig config, BlockPos pos, Player player, Operation<List<ItemStack>> original, ServerLevel level1, BlockPos pos1, BlockState state, VaultConfig config1, VaultServerData serverData, VaultSharedData sharedData, Player player1, ItemStack stack) {
-		if (stack.is(CCItems.TRIAL_TOKEN.get())) {
+	private static List<ItemStack> resolveItemsToEject(ServerLevel level, VaultConfig config, BlockPos pos, Player player, Operation<List<ItemStack>> original, ServerLevel level1, BlockPos pos1, BlockState state, VaultConfig config1, VaultServerData serverData, VaultSharedData sharedData, Player player1, ItemStack stack) {
+		if (stack.is(CCItems.TRIAL_TOKEN)) {
 			return resolveTokenItemsToEject(level, BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES, pos, player);
 		}
 
-		if (stack.is(CCItems.OMINOUS_TRIAL_TOKEN.get())) {
+		if (stack.is(CCItems.OMINOUS_TRIAL_TOKEN)) {
 
 			return resolveTokenItemsToEject(level, BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES, pos, player);
 		}
 
 		return original.call(level, config, pos, player);
+	}
+
+	@WrapOperation(method = "tryInsertKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/vault/VaultServerData;addToRewardedPlayers(Lnet/minecraft/world/entity/player/Player;)V"))
+	private static void addToRewardedPlayers(VaultServerData instance, Player player, Operation<Void> original, ServerLevel level, BlockPos pos, BlockState state, VaultConfig config, VaultServerData serverData, VaultSharedData sharedData, Player player1, ItemStack stack) {
+		if (!stack.is(CCItems.TRIAL_TOKEN) && !stack.is(CCItems.OMINOUS_TRIAL_TOKEN)) {
+			original.call(instance, player);
+		}
 	}
 
 	@Unique
