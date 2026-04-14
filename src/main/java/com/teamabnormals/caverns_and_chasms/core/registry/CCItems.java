@@ -65,6 +65,8 @@ public class CCItems {
 	public static final DeferredItem<Item> OXIDIZED_COPPER_GOLEM = HELPER.createItem("oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), false));
 	public static final DeferredItem<Item> WAXED_OXIDIZED_COPPER_GOLEM = HELPER.createItem("waxed_oxidized_copper_golem", () -> new OxidizedCopperGolemItem(new Item.Properties().stacksTo(1), true));
 	public static final DeferredItem<Item> COPPER_NUGGET = HELPER.createItem("copper_nugget", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> TRIAL_TOKEN = HELPER.createItem("trial_token", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> OMINOUS_TRIAL_TOKEN = HELPER.createItem("ominous_trial_token", () -> new Item(new Item.Properties()));
 
 	public static final DeferredItem<Item> EXPOSED_COPPER_INGOT = HELPER.createItem("exposed_copper_ingot", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> WEATHERED_COPPER_INGOT = HELPER.createItem("weathered_copper_ingot", () -> new Item(new Item.Properties()));
@@ -306,6 +308,8 @@ public class CCItems {
 				.addItemsAfter(of(Items.MOJANG_BANNER_PATTERN), ABNORMALS_BANNER_PATTERN)
 				.addItemsAfter(of(Items.HONEYCOMB), TINPLATE)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
+				.addItemsAfter(of(Items.TRIAL_KEY), TRIAL_TOKEN)
+				.addItemsAfter(of(Items.OMINOUS_TRIAL_KEY), OMINOUS_TRIAL_TOKEN)
 				.addItemsAfter(of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), TRIM_MODIFIER_SMITHING_TEMPLATE)
 				.addItemsBefore(of(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE), CORE_ARMOR_TRIM_SMITHING_TEMPLATE, FORGER_ARMOR_TRIM_SMITHING_TEMPLATE, IMMOLATE_ARMOR_TRIM_SMITHING_TEMPLATE, PLATE_ARMOR_TRIM_SMITHING_TEMPLATE, RIM_ARMOR_TRIM_SMITHING_TEMPLATE)
 				.addItemsAfter(of(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE), EXILE_ARMOR_TRIM_SMITHING_TEMPLATE)

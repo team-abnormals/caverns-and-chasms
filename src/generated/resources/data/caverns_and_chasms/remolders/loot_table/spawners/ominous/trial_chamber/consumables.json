@@ -1,0 +1,21 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "replace",
+    "target": "pools",
+    "value": [
+      {
+        "bonus_rolls": 0.0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "caverns_and_chasms:ominous_trial_token"
+          }
+        ],
+        "name": "caverns_and_chasms:ominous_trial_token",
+        "rolls": 1.0
+      }
+    ]
+  },
+  "selector": "minecraft:loot_table/spawners/ominous/trial_chamber/consumables"
+}

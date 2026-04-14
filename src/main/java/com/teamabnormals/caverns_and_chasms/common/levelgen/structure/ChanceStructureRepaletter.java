@@ -15,11 +15,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 public record ChanceStructureRepaletter(Block replacesBlock, BlockState replacesWith, float chance) implements StructureRepaletter, StructureRepaletter.Replacer {
-	public static final MapCodec<ChanceStructureRepaletter> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-			BuiltInRegistries.BLOCK.byNameCodec().fieldOf("replaces_block").forGetter(repaletter -> repaletter.replacesBlock),
-			BlockState.CODEC.fieldOf("replaces_with").forGetter(repaletter -> repaletter.replacesWith),
-			Codec.FLOAT.fieldOf("chance").forGetter(repaletter -> repaletter.chance)
-	).apply(instance, ChanceStructureRepaletter::new));
+	public static final MapCodec<ChanceStructureRepaletter> CODEC = RecordCodecBuilder.mapCodec(instance ->
+			instance.group(
+					BuiltInRegistries.BLOCK.byNameCodec().fieldOf("replaces_block").forGetter(repaletter -> repaletter.replacesBlock),
+					BlockState.CODEC.fieldOf("replaces_with").forGetter(repaletter -> repaletter.replacesWith),
+					Codec.FLOAT.fieldOf("chance").forGetter(repaletter -> repaletter.chance)
+			).apply(instance, ChanceStructureRepaletter::new));
 
 	@Override
 	public Replacer createReplacer(StructureModificationContext context) {

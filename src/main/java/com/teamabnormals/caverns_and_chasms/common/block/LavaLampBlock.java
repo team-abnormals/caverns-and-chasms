@@ -36,6 +36,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class LavaLampBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<LavaLampBlock> CODEC = simpleCodec(LavaLampBlock::new);
+
 	private static final VoxelShape X_LAVA_SHAPE = box(2.0D, 4.0D, 4.0D, 14.0D, 12.0D, 12.0D);
 	private static final VoxelShape Y_LAVA_SHAPE = box(4.0D, 2.0D, 4.0D, 12.0D, 14.0D, 12.0D);
 	private static final VoxelShape Z_LAVA_SHAPE = box(4.0D, 4.0D, 2.0D, 12.0D, 12.0D, 14.0D);
@@ -51,7 +53,7 @@ public class LavaLampBlock extends DirectionalBlock implements SimpleWaterlogged
 
 	@Override
 	protected MapCodec<? extends DirectionalBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	@Override

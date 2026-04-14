@@ -72,8 +72,7 @@ import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.add;
 import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.sequence;
 import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.target;
 import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.value;
-import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addEntry;
-import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addPool;
+import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.*;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
 public class CCDataRemolderProvider extends RemolderProvider {
@@ -376,6 +375,12 @@ public class CCDataRemolderProvider extends RemolderProvider {
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)),
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)),
 				addEntry(0, entry(TURQUOISE.get(), 1))));
+
+		this.lootRemolder(BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES).remolder(replacePools(
+				pool("trial_token").setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TRIAL_TOKEN)).build()));
+
+		this.lootRemolder(BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES).remolder(replacePools(
+				pool("ominous_trial_token").setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(OMINOUS_TRIAL_TOKEN)).build()));
 
 		this.lootRemolder(ResourceLocation.fromNamespaceAndPath("atmospheric", "chests/kousa_sanctum")).remolder(sequence(
 				addEntry(0, entry(SILVER_INGOT.get(), 15, 2, 7)),

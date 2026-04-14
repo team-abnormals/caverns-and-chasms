@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,16 +31,10 @@ public final class CCStructureRepaletters {
 	public static void bootstrap(BootstrapContext<StructureRepaletterEntry> context) {
 		HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
 
-		context.register(create("lava_lamps_in_bastions"), new StructureRepaletterEntry(
-				HolderSet.direct(Stream.of(BuiltinStructures.BASTION_REMNANT).map(structures::getOrThrow).collect(Collectors.toList())),
-				Optional.empty(), false, new ChanceStructureRepaletter(Blocks.LANTERN, CCBlocks.LAVA_LAMP.get().defaultBlockState(), 0.2F))
-		);
-
-		context.register(create("gold_ingots_in_bastions"), new StructureRepaletterEntry(
-				HolderSet.direct(Stream.of(BuiltinStructures.BASTION_REMNANT).map(structures::getOrThrow).collect(Collectors.toList())),
-				Optional.empty(), false, new ChanceStructureRepaletter(Blocks.GOLD_BLOCK, CCBlocks.GOLD_INGOT.get().defaultBlockState()
-				.setValue(IngotBlock.LAYERS, 3)
-				.setValue(IngotBlock.TOP_INGOT, IngotLayer.BOTH), 0.4F))
+		context.register(create("bastion_additions"), new StructureRepaletterEntry.Builder().repaletters(
+						new ChanceStructureRepaletter(Blocks.LANTERN, CCBlocks.LAVA_LAMP.get().defaultBlockState(), 0.2F),
+						new ChanceStructureRepaletter(Blocks.GOLD_BLOCK, CCBlocks.GOLD_INGOT.get().defaultBlockState().setValue(IngotBlock.LAYERS, 3).setValue(IngotBlock.TOP_INGOT, IngotLayer.BOTH), 0.4F))
+				.select(HolderSet.direct(Stream.of(BuiltinStructures.BASTION_REMNANT).map(structures::getOrThrow).collect(Collectors.toList())))
 		);
 
 		context.register(create("lush_forges"), new StructureRepaletterEntry.Builder().repaletters(
@@ -62,6 +55,6 @@ public final class CCStructureRepaletters {
 	}
 
 	public static void registerRepaletters() {
-		StructureRepaletterManager.registerRepalleter(CavernsAndChasms.location("chance"), ChanceStructureRepaletter.CODEC);
+		StructureRepaletterManager.registerRepalleter(CavernsAndChasms.location("chance"), ChanceStructureRepaletter.CODEC, ChanceStructureRepaletter.CODEC);
 	}
 }

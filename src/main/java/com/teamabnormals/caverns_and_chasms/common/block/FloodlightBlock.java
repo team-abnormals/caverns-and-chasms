@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +31,11 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FloodlightBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
+	public static final MapCodec<FloodlightBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+					WeatheringCopper.WeatherState.CODEC.fieldOf("weathering_state").forGetter(FloodlightBlock::getWeatherState),
+					propertiesCodec())
+			.apply(instance, FloodlightBlock::new));
+
 	private final WeatheringCopper.WeatherState weatherState;
 
 	private static final VoxelShape DOWN_SHAPE = Shapes.or(box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), box(7.0D, 4.0D, 7.0D, 9.0D, 16.0D, 9.0D));
@@ -135,6 +141,6 @@ public class FloodlightBlock extends DirectionalBlock implements SimpleWaterlogg
 
 	@Override
 	protected MapCodec<? extends DirectionalBlock> codec() {
-		return null;
+		return CODEC;
 	}
 }

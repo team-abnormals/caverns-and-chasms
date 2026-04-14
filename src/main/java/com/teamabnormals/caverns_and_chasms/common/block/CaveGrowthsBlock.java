@@ -27,6 +27,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class CaveGrowthsBlock extends BushBlock {
+	public static final MapCodec<CaveGrowthsBlock> CODEC = simpleCodec(CaveGrowthsBlock::new);
+
 	private static final VoxelShape DOWN_SHAPE = Block.box(2.0D, 10.0D, 2.0D, 14.0D, 16.0D, 14.0D);
 	private static final VoxelShape UP_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 6.0D, 14.0D);
 	private static final VoxelShape NORTH_SHAPE = Block.box(2.0D, 2.0D, 10.0D, 14.0D, 14.0D, 16.0D);
@@ -42,7 +44,7 @@ public class CaveGrowthsBlock extends BushBlock {
 
 	@Override
 	protected MapCodec<? extends BushBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	@Override

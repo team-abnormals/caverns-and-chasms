@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -12,6 +13,11 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
 public class CopperRailBlock extends BaseRailBlock {
+	public static final MapCodec<CopperRailBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+					WeatheringCopper.WeatherState.CODEC.fieldOf("weathering_state").forGetter(CopperRailBlock::getWeatherState),
+					propertiesCodec())
+			.apply(instance, CopperRailBlock::new));
+
 	private final WeatheringCopper.WeatherState weatherState;
 
 	public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;
@@ -24,7 +30,7 @@ public class CopperRailBlock extends BaseRailBlock {
 
 	@Override
 	protected MapCodec<? extends BaseRailBlock> codec() {
-		return null;
+		return CODEC;
 	}
 
 	@Override
