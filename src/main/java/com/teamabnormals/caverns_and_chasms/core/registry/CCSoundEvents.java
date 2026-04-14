@@ -329,6 +329,18 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_HIT = SOUNDS.createSoundEvent("block.silver.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_PLACE = SOUNDS.createSoundEvent("block.silver.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_STEP = SOUNDS.createSoundEvent("block.silver.step");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> GOLD_CHAIN_BREAK = SOUNDS.createSoundEvent("block.gold_chain.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> GOLD_CHAIN_STEP = SOUNDS.createSoundEvent("block.gold_chain.step");
+	public static final DeferredHolder<SoundEvent, SoundEvent> GOLD_CHAIN_PLACE = SOUNDS.createSoundEvent("block.gold_chain.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> GOLD_CHAIN_HIT = SOUNDS.createSoundEvent("block.gold_chain.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> GOLD_CHAIN_FALL = SOUNDS.createSoundEvent("block.gold_chain.fall");
+
+	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_CHAIN_BREAK = SOUNDS.createSoundEvent("block.silver_chain.break");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_CHAIN_STEP = SOUNDS.createSoundEvent("block.silver_chain.step");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_CHAIN_PLACE = SOUNDS.createSoundEvent("block.silver_chain.place");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_CHAIN_HIT = SOUNDS.createSoundEvent("block.silver_chain.hit");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_CHAIN_FALL = SOUNDS.createSoundEvent("block.silver_chain.fall");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> BRAZIER_CRACKLE = SOUNDS.createSoundEvent("block.brazier.crackle");
 
@@ -723,6 +735,8 @@ public class CCSoundEvents {
 		public static final DeferredSoundType FLOODLIGHT = new DeferredSoundType(1.0F, 1.0F, FLOODLIGHT_BREAK, FLOODLIGHT_STEP, FLOODLIGHT_PLACE, FLOODLIGHT_HIT, FLOODLIGHT_FALL);
 		public static final DeferredSoundType COPPER_LANTERN = new DeferredSoundType(1.0F, 1.0F, COPPER_LANTERN_BREAK, COPPER_LANTERN_STEP, COPPER_LANTERN_PLACE, COPPER_LANTERN_HIT, COPPER_LANTERN_FALL);
 		public static final DeferredSoundType COPPER_CHAIN = new DeferredSoundType(1.0F, 1.0F, COPPER_CHAIN_BREAK, COPPER_CHAIN_STEP, COPPER_CHAIN_PLACE, COPPER_CHAIN_HIT, COPPER_CHAIN_FALL);
+		public static final DeferredSoundType GOLD_CHAIN = new DeferredSoundType(1.0F, 1.0F, GOLD_CHAIN_BREAK, GOLD_CHAIN_STEP, GOLD_CHAIN_PLACE, GOLD_CHAIN_HIT, GOLD_CHAIN_FALL);
+		public static final DeferredSoundType SILVER_CHAIN = new DeferredSoundType(1.0F, 1.0F, SILVER_CHAIN_BREAK, SILVER_CHAIN_STEP, SILVER_CHAIN_PLACE, SILVER_CHAIN_HIT, SILVER_CHAIN_FALL);
 		public static final DeferredSoundType SILVER = new DeferredSoundType(1.0F, 1.0F, SILVER_BREAK, SILVER_STEP, SILVER_PLACE, SILVER_HIT, SILVER_FALL);
 		public static final DeferredSoundType TIN = new TinSoundType(1.0F, 1.0F, TIN_BREAK, TIN_STEP, TIN_PLACE, TIN_HIT, TIN_FALL, TIN_DEFLECT);
 		public static final DeferredSoundType TINPLATE = new TinSoundType(1.0F, 1.0F, TINPLATE_BREAK, TINPLATE_STEP, TINPLATE_PLACE, TINPLATE_HIT, TINPLATE_FALL, TINPLATE_DEFLECT);

@@ -4370,6 +4370,96 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.gold_chain.break": {
+    "sounds": [
+      "caverns_and_chasms:block/gold_chain/break1",
+      "caverns_and_chasms:block/gold_chain/break2",
+      "caverns_and_chasms:block/gold_chain/break3",
+      "caverns_and_chasms:block/gold_chain/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.gold_chain.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/gold_chain/step1",
+      "caverns_and_chasms:block/gold_chain/step2",
+      "caverns_and_chasms:block/gold_chain/step3",
+      "caverns_and_chasms:block/gold_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.gold_chain.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/gold_chain/step1",
+      "caverns_and_chasms:block/gold_chain/step2",
+      "caverns_and_chasms:block/gold_chain/step3",
+      "caverns_and_chasms:block/gold_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.gold_chain.place": {
+    "sounds": [
+      "caverns_and_chasms:block/gold_chain/break1",
+      "caverns_and_chasms:block/gold_chain/break2",
+      "caverns_and_chasms:block/gold_chain/break3",
+      "caverns_and_chasms:block/gold_chain/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.gold_chain.step": {
+    "sounds": [
+      "caverns_and_chasms:block/gold_chain/step1",
+      "caverns_and_chasms:block/gold_chain/step2",
+      "caverns_and_chasms:block/gold_chain/step3",
+      "caverns_and_chasms:block/gold_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.silver_chain.break": {
+    "sounds": [
+      "caverns_and_chasms:block/silver_chain/break1",
+      "caverns_and_chasms:block/silver_chain/break2",
+      "caverns_and_chasms:block/silver_chain/break3",
+      "caverns_and_chasms:block/silver_chain/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.silver_chain.fall": {
+    "sounds": [
+      "caverns_and_chasms:block/silver_chain/step1",
+      "caverns_and_chasms:block/silver_chain/step2",
+      "caverns_and_chasms:block/silver_chain/step3",
+      "caverns_and_chasms:block/silver_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.silver_chain.hit": {
+    "sounds": [
+      "caverns_and_chasms:block/silver_chain/step1",
+      "caverns_and_chasms:block/silver_chain/step2",
+      "caverns_and_chasms:block/silver_chain/step3",
+      "caverns_and_chasms:block/silver_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.silver_chain.place": {
+    "sounds": [
+      "caverns_and_chasms:block/silver_chain/break1",
+      "caverns_and_chasms:block/silver_chain/break2",
+      "caverns_and_chasms:block/silver_chain/break3",
+      "caverns_and_chasms:block/silver_chain/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.silver_chain.step": {
+    "sounds": [
+      "caverns_and_chasms:block/silver_chain/step1",
+      "caverns_and_chasms:block/silver_chain/step2",
+      "caverns_and_chasms:block/silver_chain/step3",
+      "caverns_and_chasms:block/silver_chain/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.silver.break": {
     "sounds": [
       "caverns_and_chasms:block/silver/break1",
