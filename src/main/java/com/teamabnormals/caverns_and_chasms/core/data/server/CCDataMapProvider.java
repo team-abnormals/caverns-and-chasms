@@ -1,11 +1,18 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
+import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.*;
 
@@ -28,6 +35,10 @@ public class CCDataMapProvider extends DataMapProvider {
 				.add(CCEntityTypes.MIME, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_MIME.get()), false)
 				.add(CCEntityTypes.GRAZER, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_GRAZER.get()), false)
 				.add(CCEntityTypes.SADDLED_GRAZER, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_GRAZER.get()), false);
+
+		this.builder(CCDataMaps.TRIAL_TOKENS)
+				.add(CCItems.TRIAL_TOKEN, new TrialToken(new ItemStack(Items.TRIAL_KEY), CCLootTables.SPAWNER_TRIAL_CHAMBER_TOKEN, BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES), false)
+				.add(CCItems.OMINOUS_TRIAL_TOKEN, new TrialToken(new ItemStack(Items.OMINOUS_TRIAL_KEY), CCLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN, BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES), false);
 
 		this.builder(NeoForgeDataMaps.VIBRATION_FREQUENCIES)
 				.add(CCGameEvents.TUNING_FORK_VIBRATE, new VibrationFrequency(10), false);

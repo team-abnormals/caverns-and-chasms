@@ -1,0 +1,20 @@
+{
+  "values": {
+    "caverns_and_chasms:ominous_trial_token": {
+      "key_item": {
+        "count": 1,
+        "id": "minecraft:ominous_trial_key"
+      },
+      "loot_table": "minecraft:spawners/ominous/trial_chamber/consumables",
+      "token_loot_table": "caverns_and_chasms:spawners/ominous/trial_chamber/token"
+    },
+    "caverns_and_chasms:trial_token": {
+      "key_item": {
+        "count": 1,
+        "id": "minecraft:trial_key"
+      },
+      "loot_table": "minecraft:spawners/trial_chamber/consumables",
+      "token_loot_table": "caverns_and_chasms:spawners/trial_chamber/token"
+    }
+  }
+}
