@@ -526,10 +526,10 @@ public class CCEvents {
 				}
 			}
 
-			if (target.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
-				int targetSlownessInfliction = (int) target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
-				if (targetSlownessInfliction > 0) {
-					target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, targetSlownessInfliction));
+			if (attacker.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
+				int slownessInfliction = (int) target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
+				if (slownessInfliction > 0) {
+					target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, slownessInfliction));
 				}
 			}
 
@@ -542,9 +542,9 @@ public class CCEvents {
 			}
 
 			if (target.getAttribute(CCAttributes.SLOWNESS_RETRIBUTION) != null) {
-				double slownessInfliction = target.getAttributeValue(CCAttributes.SLOWNESS_RETRIBUTION);
-				if (slownessInfliction > 0.0D) {
-					attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessInfliction), (int) slownessInfliction / 2 - 1));
+				double slownessRetribution = target.getAttributeValue(CCAttributes.SLOWNESS_RETRIBUTION);
+				if (slownessRetribution > 0.0D) {
+					attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (60 * slownessRetribution), (int) slownessRetribution / 2 - 1));
 					attacker.playSound(CCSoundEvents.NECROMIUM_INFLICT.get(), 1.0F, 1.0F);
 				}
 			}
