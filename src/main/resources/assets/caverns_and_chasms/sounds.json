@@ -4552,6 +4552,26 @@
     ],
     "subtitle": "subtitles.block.button.click"
   },
+  "block.timed_pressure_plate.click_off": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/timed_pressure_plate/click",
+        "pitch": 0.7,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
+  "block.timed_pressure_plate.click_on": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:block/timed_pressure_plate/click",
+        "pitch": 0.8,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.pressure_plate.click"
+  },
   "block.medium_weighted_pressure_plate.click_off": {
     "sounds": [
       {
@@ -4683,6 +4703,24 @@
       "caverns_and_chasms:block/winch/lock"
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.winch.lock"
+  },
+  "block.vault.insert_token": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:item/trial_token/insert",
+        "volume": 1.1
+      } 
+    ],
+    "subtitle": "subtitles.block.vault.insert_item"
+  },
+  "block.vault.open_token": {
+    "sounds": [
+      {
+        "name": "caverns_and_chasms:item/trial_token/open",
+        "volume": 1.1
+      } 
+    ],
+    "subtitle": "subtitles.block.vault.open_shutter"
   },
   "entity.deeper.primed": {
     "sounds": [
