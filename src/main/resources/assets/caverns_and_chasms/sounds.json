@@ -345,11 +345,26 @@
   },
   "block.shale.place": {
     "sounds": [
-      "caverns_and_chasms:block/shale/place1",
-      "caverns_and_chasms:block/shale/place2",
-      "caverns_and_chasms:block/shale/place3",
-      "caverns_and_chasms:block/shale/place4",
-      "caverns_and_chasms:block/shale/place5"
+      {
+        "name": "caverns_and_chasms:block/shale/place1",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/place2",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/place5",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/place4",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/place5",
+        "volume": 1.5
+      }
     ],
     "subtitle": "subtitles.block.generic.place"
   },
