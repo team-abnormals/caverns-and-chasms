@@ -12,8 +12,8 @@ import net.neoforged.neoforge.common.ItemAbility;
 
 public class WeatheringLiftPlateBlock extends LiftPlateBlock implements WeatheringCopper {
 
-	public WeatheringLiftPlateBlock(WeatherState weatherState, Properties properties) {
-		super(weatherState, properties);
+	public WeatheringLiftPlateBlock(WeatherState weatherState, int ticks, Properties properties) {
+		super(weatherState, ticks, properties);
 	}
 
 	@Override

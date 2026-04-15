@@ -5,7 +5,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -30,11 +29,13 @@ import javax.annotation.Nullable;
 public class LiftButtonBlock extends ButtonBlock implements EntityBlock, HoldableBlock {
 	public static final BooleanProperty PRESSED = BooleanProperty.create("pressed");
 	protected final WeatherState weatherState;
+	private final int ticksToStayPressed;
 
 	public LiftButtonBlock(WeatherState weatherState, int ticks, Properties properties) {
 		super(CCProperties.COPPER_BLOCK_SET.get(), ticks, properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(PRESSED, false));
 		this.weatherState = weatherState;
+		this.ticksToStayPressed = ticks;
 	}
 
 	@Nullable
@@ -84,31 +85,35 @@ public class LiftButtonBlock extends ButtonBlock implements EntityBlock, Holdabl
 			liftButton.setHeld();
 			if (!state.getValue(PRESSED)) {
 				level.setBlock(pos, state.setValue(PRESSED, true), 3);
-				level.playSound(player, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOn(), SoundSource.BLOCKS);
+				this.updateNeighbours(state, level, pos);
+				this.playSound(player, level, pos, true);
 				level.gameEvent(player, GameEvent.BLOCK_ACTIVATE, pos);
 			}
+		}
+	}
+
+	public void deactivate(BlockState state, Level level, BlockPos pos, @Nullable Player player) {
+		if (state.getValue(PRESSED)) {
+			level.setBlock(pos, state.setValue(PRESSED, false).setValue(LiftButtonBlock.POWERED, true), 3);
+			this.updateNeighbours(state, level, pos);
+			level.scheduleTick(new BlockPos(pos), this, this.ticksToStayPressed);
+			this.playSound(player, level, pos, false);
+			level.gameEvent(player, GameEvent.BLOCK_DEACTIVATE, pos);
 		}
 	}
 
 	@Override
-	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof LiftButtonBlockEntity holdButtonBlockEntity) {
-			holdButtonBlockEntity.setHeld();
-			if (!state.getValue(PRESSED)) {
-				level.setBlock(pos, state.setValue(PRESSED, true), 3);
-				level.playSound(player, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOn(), SoundSource.BLOCKS);
-				level.gameEvent(player, GameEvent.BLOCK_ACTIVATE, pos);
-				return InteractionResult.sidedSuccess(level.isClientSide);
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+		if (state.getValue(PRESSED)) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof LiftButtonBlockEntity liftButton) {
+				liftButton.setHeld();
 			}
 			return InteractionResult.CONSUME;
+		} else {
+			this.press(state, level, pos, player);
+			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
-		return InteractionResult.PASS;
-	}
-
-	public void updateNeighbours(BlockState state, Level level, BlockPos pos) {
-		level.updateNeighborsAt(pos, this);
-		level.updateNeighborsAt(pos.relative(getConnectedDirection(state).getOpposite()), this);
 	}
 
 	@Override

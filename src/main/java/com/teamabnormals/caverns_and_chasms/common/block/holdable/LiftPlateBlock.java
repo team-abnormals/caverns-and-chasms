@@ -4,6 +4,10 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.LiftPla
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -16,26 +20,23 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
-	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final BooleanProperty PRESSED = BooleanProperty.create("pressed");
-	protected static final VoxelShape PRESSED_AABB = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 0.5D, 15.0D);
-	protected static final VoxelShape AABB = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.0D, 15.0D);
-	protected static final net.minecraft.world.phys.AABB TOUCH_AABB = new AABB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.25D, 0.9375D);
 	protected final WeatherState weatherState;
+	private final int ticksToStayPressed;
 
-	public LiftPlateBlock(WeatherState weatherState, BlockBehaviour.Properties properties) {
+	public LiftPlateBlock(WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
 		super(CCProperties.COPPER_BLOCK_SET.get(), properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(PRESSED, false));
 		this.weatherState = weatherState;
+		this.ticksToStayPressed = ticks;
 	}
 
 	@Nullable
@@ -55,11 +56,57 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 		return state.getValue(PRESSED) ? PRESSED_AABB : AABB;
 	}
 
-	public void updateNeighbours(Level level, BlockPos pos) {
-		level.updateNeighborsAt(pos, this);
-		level.updateNeighborsAt(pos.below(), this);
+	@Override
+	protected BlockState setSignalForState(BlockState state, int strength) {
+		return state.setValue(PRESSED, strength > 0);
 	}
 
+	@Override
+	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (state.getValue(POWERED)) {
+			level.setBlock(pos, state.setValue(POWERED, false), 2);
+			this.updateNeighbours(level, pos);
+		}
+	}
+
+	@Override
+	protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+		if (!level.isClientSide) {
+			this.checkPressed(entity, level, pos, state, -1);
+		}
+	}
+
+	@Override
+	public void checkPressed(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int signalStrength) {
+		int i = this.getSignalStrength(level, pos);
+		boolean isPressed = state.getValue(PRESSED);
+		boolean shouldBePressed = i > 0;
+		if (!isPressed && shouldBePressed) {
+			BlockState newState = this.setSignalForState(state, i);
+			level.setBlock(pos, newState, 2);
+			this.updateNeighbours(level, pos);
+			level.setBlocksDirty(pos, state, newState);
+			level.playSound(null, pos, this.type.pressurePlateClickOn(), SoundSource.BLOCKS);
+			level.gameEvent(entity, GameEvent.BLOCK_ACTIVATE, pos);
+		}
+	}
+
+	public void deactivate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state) {
+		int i = this.getSignalStrength(level, pos);
+		boolean isPressed = state.getValue(PRESSED);
+		boolean shouldBePressed = i > 0;
+		if (isPressed && !shouldBePressed) {
+			BlockState newState = this.setSignalForState(state, i).setValue(POWERED, true);
+			level.setBlock(pos, newState, 2);
+			this.updateNeighbours(level, pos);
+			level.setBlocksDirty(pos, state, newState);
+			level.scheduleTick(new BlockPos(pos), this, this.ticksToStayPressed);
+			level.playSound(null, pos, this.type.pressurePlateClickOff(), SoundSource.BLOCKS);
+			level.gameEvent(entity, GameEvent.BLOCK_DEACTIVATE, pos);
+		}
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(POWERED, PRESSED);
 	}

@@ -215,23 +215,23 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_BARS = HELPER.createBlock("waxed_weathered_copper_bars", () -> new IronBarsBlock(CCProperties.COPPER_BARS));
 	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_BARS = HELPER.createBlock("waxed_oxidized_copper_bars", () -> new IronBarsBlock(CCProperties.COPPER_BARS));
 
-	public static final DeferredBlock<Block> COPPER_BUTTON = HELPER.createBlock("copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.UNAFFECTED, 20, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> EXPOSED_COPPER_BUTTON = HELPER.createBlock("exposed_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.EXPOSED, 30, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WEATHERED_COPPER_BUTTON = HELPER.createBlock("weathered_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.WEATHERED, 40, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> OXIDIZED_COPPER_BUTTON = HELPER.createBlock("oxidized_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.OXIDIZED, 50, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_COPPER_BUTTON = HELPER.createBlock("waxed_copper_button", () -> new LiftButtonBlock(WeatherState.UNAFFECTED, 20, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_EXPOSED_COPPER_BUTTON = HELPER.createBlock("waxed_exposed_copper_button", () -> new LiftButtonBlock(WeatherState.EXPOSED, 30, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_BUTTON = HELPER.createBlock("waxed_weathered_copper_button", () -> new LiftButtonBlock(WeatherState.WEATHERED, 40, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_BUTTON = HELPER.createBlock("waxed_oxidized_copper_button", () -> new LiftButtonBlock(WeatherState.OXIDIZED, 50, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> COPPER_BUTTON = HELPER.createBlock("copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> EXPOSED_COPPER_BUTTON = HELPER.createBlock("exposed_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> WEATHERED_COPPER_BUTTON = HELPER.createBlock("weathered_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> OXIDIZED_COPPER_BUTTON = HELPER.createBlock("oxidized_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> WAXED_COPPER_BUTTON = HELPER.createBlock("waxed_copper_button", () -> new LiftButtonBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> WAXED_EXPOSED_COPPER_BUTTON = HELPER.createBlock("waxed_exposed_copper_button", () -> new LiftButtonBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_BUTTON = HELPER.createBlock("waxed_weathered_copper_button", () -> new LiftButtonBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_BUTTON = HELPER.createBlock("waxed_oxidized_copper_button", () -> new LiftButtonBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_BUTTON));
 
-	public static final DeferredBlock<Block> COPPER_PRESSURE_PLATE = HELPER.createBlock("copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> EXPOSED_COPPER_PRESSURE_PLATE = HELPER.createBlock("exposed_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.EXPOSED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WEATHERED_COPPER_PRESSURE_PLATE = HELPER.createBlock("weathered_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.WEATHERED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> OXIDIZED_COPPER_PRESSURE_PLATE = HELPER.createBlock("oxidized_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.OXIDIZED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.UNAFFECTED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_exposed_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.EXPOSED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_weathered_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.WEATHERED, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_oxidized_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.OXIDIZED, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> COPPER_PRESSURE_PLATE = HELPER.createBlock("copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> EXPOSED_COPPER_PRESSURE_PLATE = HELPER.createBlock("exposed_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WEATHERED_COPPER_PRESSURE_PLATE = HELPER.createBlock("weathered_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> OXIDIZED_COPPER_PRESSURE_PLATE = HELPER.createBlock("oxidized_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_exposed_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_weathered_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_oxidized_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_PRESSURE_PLATE));
 
 	public static final DeferredBlock<Block> EXPOSED_LIGHTNING_ROD = HELPER.createBlock("exposed_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(Blocks.LIGHTNING_ROD)));
 	public static final DeferredBlock<Block> WEATHERED_LIGHTNING_ROD = HELPER.createBlock("weathered_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(Blocks.LIGHTNING_ROD)));
