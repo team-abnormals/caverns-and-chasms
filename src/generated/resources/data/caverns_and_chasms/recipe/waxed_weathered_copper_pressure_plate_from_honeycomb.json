@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "waxed_weathered_copper_pressure_plate",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:weathered_copper_pressure_plate"
+    },
+    {
+      "tag": "c:wax"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_weathered_copper_pressure_plate"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_exposed_toolbox",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:exposed_toolbox"
+    },
+    {
+      "tag": "c:wax"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_exposed_toolbox"
+  }
+}

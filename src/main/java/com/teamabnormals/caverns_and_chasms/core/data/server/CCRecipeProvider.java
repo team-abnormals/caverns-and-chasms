@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.boatload.core.data.server.BoatloadRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
-import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
+import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MusicDiscCopying;
 import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
@@ -18,10 +18,8 @@ import com.teamabnormals.caverns_and_chasms.integration.boatload.CCBoatTypes;
 import com.teamabnormals.clayworks.core.data.server.ClayworksRecipeProvider;
 import com.teamabnormals.woodworks.core.data.server.WoodworksRecipeProvider;
 import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.BlockFamily.Variant;
@@ -41,8 +39,6 @@ import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
-import net.neoforged.neoforge.registries.datamaps.builtin.Waxable;
 
 import java.util.List;
 import java.util.Set;
@@ -736,26 +732,17 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	}
 
 	protected void ccWaxRecipes(RecipeOutput consumer, Provider provider) {
-		RegistryLookup<Block> blocks = provider.lookupOrThrow(Registries.BLOCK);
-		blocks.listElementIds().forEach(id -> {
-			Waxable waxable = blocks.getData(NeoForgeDataMaps.WAXABLES, id);
-			if (waxable != null) {
-				Block base = BuiltInRegistries.BLOCK.get(id);
-				Block waxed = waxable.waxed();
-				if (BuiltInRegistries.BLOCK.getKey(waxable.waxed()).getNamespace().equals(this.getModID())) {
-					RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS : waxed instanceof ButtonBlock ? REDSTONE : BUILDING_BLOCKS;
-					ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
-				} else {
-					ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getConversionRecipeName(waxed, Items.HONEYCOMB));
-				}
-			}
-		});
+		HoneycombItem.WAXABLES.get().forEach((base, waxed) -> addWaxRecipe(consumer, base, waxed));
+		CCDataMapProvider.WAXABLE_BLOCKS.get().forEach((base, waxed) -> addWaxRecipe(consumer, base, waxed));
+	}
 
-		WeatheringCopperItem.WAXABLES.get().forEach((base, waxed) -> {
-			if (!(base instanceof WeatheringCopperItem)) {
-				ShapelessRecipeBuilder.shapeless(MISC, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, getModConversionRecipeName(waxed, Items.HONEYCOMB));
-			}
-		});
+	private void addWaxRecipe(RecipeOutput consumer, Block base, Block waxed) {
+		boolean vanilla = !BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID());
+		RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS :
+				(waxed instanceof ButtonBlock || waxed instanceof PressurePlateBlock) ? REDSTONE :
+						(waxed instanceof IngotBlock) ? MISC : BUILDING_BLOCKS;
+
+		ShapelessRecipeBuilder.shapeless(category, waxed).requires(base).requires(CCItemTags.WAX).group(getItemName(waxed)).unlockedBy(getHasName(base), has(base)).save(consumer, vanilla ? ResourceLocation.parse(getConversionRecipeName(waxed, Items.HONEYCOMB)) : getModConversionRecipeName(waxed, Items.HONEYCOMB));
 	}
 
 	@Override

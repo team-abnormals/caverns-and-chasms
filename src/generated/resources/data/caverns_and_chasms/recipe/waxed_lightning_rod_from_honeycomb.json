@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "waxed_lightning_rod",
+  "ingredients": [
+    {
+      "item": "minecraft:lightning_rod"
+    },
+    {
+      "tag": "c:wax"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_lightning_rod"
+  }
+}

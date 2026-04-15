@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "waxed_weathered_floodlight",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:weathered_floodlight"
+    },
+    {
+      "tag": "c:wax"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_weathered_floodlight"
+  }
+}

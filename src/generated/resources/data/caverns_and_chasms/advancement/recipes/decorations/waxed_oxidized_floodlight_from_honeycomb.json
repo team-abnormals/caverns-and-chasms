@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oxidized_floodlight": {
+      "conditions": {
+        "items": [
+          {
+            "items": "caverns_and_chasms:oxidized_floodlight"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "caverns_and_chasms:waxed_oxidized_floodlight_from_honeycomb"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_oxidized_floodlight"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "caverns_and_chasms:waxed_oxidized_floodlight_from_honeycomb"
+    ]
+  }
+}

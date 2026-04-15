@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_copper_bulb",
+  "ingredients": [
+    {
+      "item": "minecraft:copper_bulb"
+    },
+    {
+      "tag": "c:wax"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:waxed_copper_bulb"
+  }
+}

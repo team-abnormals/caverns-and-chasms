@@ -1,5 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
@@ -11,12 +14,14 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.*;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.*;
 
@@ -111,66 +116,27 @@ public class CCDataMapProvider extends DataMapProvider {
 				.add(EXPOSED_COPPER_LANTERN, new Oxidizable(WEATHERED_COPPER_LANTERN.get()), false)
 				.add(WEATHERED_COPPER_LANTERN, new Oxidizable(OXIDIZED_COPPER_LANTERN.get()), false);
 
-		this.builder(NeoForgeDataMaps.WAXABLES)
-				.add(COPPER_BARS, new Waxable(WAXED_COPPER_BARS.get()), false)
-				.add(EXPOSED_COPPER_BARS, new Waxable(WAXED_EXPOSED_COPPER_BARS.get()), false)
-				.add(WEATHERED_COPPER_BARS, new Waxable(WAXED_WEATHERED_COPPER_BARS.get()), false)
-				.add(OXIDIZED_COPPER_BARS, new Waxable(WAXED_OXIDIZED_COPPER_BARS.get()), false)
-				.add(COPPER_BUTTON, new Waxable(WAXED_COPPER_BUTTON.get()), false)
-				.add(EXPOSED_COPPER_BUTTON, new Waxable(WAXED_EXPOSED_COPPER_BUTTON.get()), false)
-				.add(WEATHERED_COPPER_BUTTON, new Waxable(WAXED_WEATHERED_COPPER_BUTTON.get()), false)
-				.add(OXIDIZED_COPPER_BUTTON, new Waxable(WAXED_OXIDIZED_COPPER_BUTTON.get()), false)
-				.add(COPPER_PRESSURE_PLATE, new Waxable(WAXED_COPPER_PRESSURE_PLATE.get()), false)
-				.add(EXPOSED_COPPER_PRESSURE_PLATE, new Waxable(WAXED_EXPOSED_COPPER_PRESSURE_PLATE.get()), false)
-				.add(WEATHERED_COPPER_PRESSURE_PLATE, new Waxable(WAXED_WEATHERED_COPPER_PRESSURE_PLATE.get()), false)
-				.add(OXIDIZED_COPPER_PRESSURE_PLATE, new Waxable(WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.get()), false)
-				.add(TOOLBOX, new Waxable(WAXED_TOOLBOX.get()), false)
-				.add(EXPOSED_TOOLBOX, new Waxable(WAXED_EXPOSED_TOOLBOX.get()), false)
-				.add(WEATHERED_TOOLBOX, new Waxable(WAXED_WEATHERED_TOOLBOX.get()), false)
-				.add(OXIDIZED_TOOLBOX, new Waxable(WAXED_OXIDIZED_TOOLBOX.get()), false)
-				.add(Blocks.LIGHTNING_ROD.builtInRegistryHolder(), new Waxable(WAXED_LIGHTNING_ROD.get()), false)
-				.add(EXPOSED_LIGHTNING_ROD, new Waxable(WAXED_EXPOSED_LIGHTNING_ROD.get()), false)
-				.add(WEATHERED_LIGHTNING_ROD, new Waxable(WAXED_WEATHERED_LIGHTNING_ROD.get()), false)
-				.add(OXIDIZED_LIGHTNING_ROD, new Waxable(WAXED_OXIDIZED_LIGHTNING_ROD.get()), false)
-				.add(FLOODLIGHT, new Waxable(WAXED_FLOODLIGHT.get()), false)
-				.add(EXPOSED_FLOODLIGHT, new Waxable(WAXED_EXPOSED_FLOODLIGHT.get()), false)
-				.add(WEATHERED_FLOODLIGHT, new Waxable(WAXED_WEATHERED_FLOODLIGHT.get()), false)
-				.add(OXIDIZED_FLOODLIGHT, new Waxable(WAXED_OXIDIZED_FLOODLIGHT.get()), false)
-				.add(COPPER_RAIL, new Waxable(WAXED_COPPER_RAIL.get()), false)
-				.add(EXPOSED_COPPER_RAIL, new Waxable(WAXED_EXPOSED_COPPER_RAIL.get()), false)
-				.add(WEATHERED_COPPER_RAIL, new Waxable(WAXED_WEATHERED_COPPER_RAIL.get()), false)
-				.add(OXIDIZED_COPPER_RAIL, new Waxable(WAXED_OXIDIZED_COPPER_RAIL.get()), false)
-				.add(COPPER_BRICKS, new Waxable(WAXED_COPPER_BRICKS.get()), false)
-				.add(EXPOSED_COPPER_BRICKS, new Waxable(WAXED_EXPOSED_COPPER_BRICKS.get()), false)
-				.add(WEATHERED_COPPER_BRICKS, new Waxable(WAXED_WEATHERED_COPPER_BRICKS.get()), false)
-				.add(OXIDIZED_COPPER_BRICKS, new Waxable(WAXED_OXIDIZED_COPPER_BRICKS.get()), false)
-				.add(COPPER_BRICK_STAIRS, new Waxable(WAXED_COPPER_BRICK_STAIRS.get()), false)
-				.add(EXPOSED_COPPER_BRICK_STAIRS, new Waxable(WAXED_EXPOSED_COPPER_BRICK_STAIRS.get()), false)
-				.add(WEATHERED_COPPER_BRICK_STAIRS, new Waxable(WAXED_WEATHERED_COPPER_BRICK_STAIRS.get()), false)
-				.add(OXIDIZED_COPPER_BRICK_STAIRS, new Waxable(WAXED_OXIDIZED_COPPER_BRICK_STAIRS.get()), false)
-				.add(COPPER_BRICK_SLAB, new Waxable(WAXED_COPPER_BRICK_SLAB.get()), false)
-				.add(EXPOSED_COPPER_BRICK_SLAB, new Waxable(WAXED_EXPOSED_COPPER_BRICK_SLAB.get()), false)
-				.add(WEATHERED_COPPER_BRICK_SLAB, new Waxable(WAXED_WEATHERED_COPPER_BRICK_SLAB.get()), false)
-				.add(OXIDIZED_COPPER_BRICK_SLAB, new Waxable(WAXED_OXIDIZED_COPPER_BRICK_SLAB.get()), false)
-				.add(COPPER_BRICK_WALL, new Waxable(WAXED_COPPER_BRICK_WALL.get()), false)
-				.add(EXPOSED_COPPER_BRICK_WALL, new Waxable(WAXED_EXPOSED_COPPER_BRICK_WALL.get()), false)
-				.add(WEATHERED_COPPER_BRICK_WALL, new Waxable(WAXED_WEATHERED_COPPER_BRICK_WALL.get()), false)
-				.add(OXIDIZED_COPPER_BRICK_WALL, new Waxable(WAXED_OXIDIZED_COPPER_BRICK_WALL.get()), false)
-				.add(CHISELED_COPPER_BRICKS, new Waxable(WAXED_CHISELED_COPPER_BRICKS.get()), false)
-				.add(EXPOSED_CHISELED_COPPER_BRICKS, new Waxable(WAXED_EXPOSED_CHISELED_COPPER_BRICKS.get()), false)
-				.add(WEATHERED_CHISELED_COPPER_BRICKS, new Waxable(WAXED_WEATHERED_CHISELED_COPPER_BRICKS.get()), false)
-				.add(OXIDIZED_CHISELED_COPPER_BRICKS, new Waxable(WAXED_OXIDIZED_CHISELED_COPPER_BRICKS.get()), false)
-				.add(COPPER_INGOT, new Waxable(WAXED_COPPER_INGOT.get()), false)
-				.add(EXPOSED_COPPER_INGOT, new Waxable(WAXED_EXPOSED_COPPER_INGOT.get()), false)
-				.add(WEATHERED_COPPER_INGOT, new Waxable(WAXED_WEATHERED_COPPER_INGOT.get()), false)
-				.add(OXIDIZED_COPPER_INGOT, new Waxable(WAXED_OXIDIZED_COPPER_INGOT.get()), false)
-				.add(COPPER_CHAIN, new Waxable(WAXED_COPPER_CHAIN.get()), false)
-				.add(EXPOSED_COPPER_CHAIN, new Waxable(WAXED_EXPOSED_COPPER_CHAIN.get()), false)
-				.add(WEATHERED_COPPER_CHAIN, new Waxable(WAXED_WEATHERED_COPPER_CHAIN.get()), false)
-				.add(OXIDIZED_COPPER_CHAIN, new Waxable(WAXED_OXIDIZED_COPPER_CHAIN.get()), false)
-				.add(COPPER_LANTERN, new Waxable(WAXED_COPPER_LANTERN.get()), false)
-				.add(EXPOSED_COPPER_LANTERN, new Waxable(WAXED_EXPOSED_COPPER_LANTERN.get()), false)
-				.add(WEATHERED_COPPER_LANTERN, new Waxable(WAXED_WEATHERED_COPPER_LANTERN.get()), false)
-				.add(OXIDIZED_COPPER_LANTERN, new Waxable(WAXED_OXIDIZED_COPPER_LANTERN.get()), false);
+		Builder<Waxable, Block> builder = this.builder(NeoForgeDataMaps.WAXABLES);
+
+		WAXABLE_BLOCKS.get().forEach((unwaxed, waxed) -> builder.add(unwaxed.builtInRegistryHolder(), new Waxable(waxed), false));
 	}
+
+	public static final Supplier<BiMap<Block, Block>> WAXABLE_BLOCKS = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()
+			.put(COPPER_BARS.get(), WAXED_COPPER_BARS.get()).put(EXPOSED_COPPER_BARS.get(), WAXED_EXPOSED_COPPER_BARS.get()).put(WEATHERED_COPPER_BARS.get(), WAXED_WEATHERED_COPPER_BARS.get()).put(OXIDIZED_COPPER_BARS.get(), WAXED_OXIDIZED_COPPER_BARS.get())
+			.put(COPPER_BUTTON.get(), WAXED_COPPER_BUTTON.get()).put(EXPOSED_COPPER_BUTTON.get(), WAXED_EXPOSED_COPPER_BUTTON.get()).put(WEATHERED_COPPER_BUTTON.get(), WAXED_WEATHERED_COPPER_BUTTON.get()).put(OXIDIZED_COPPER_BUTTON.get(), WAXED_OXIDIZED_COPPER_BUTTON.get())
+			.put(COPPER_PRESSURE_PLATE.get(), WAXED_COPPER_PRESSURE_PLATE.get()).put(EXPOSED_COPPER_PRESSURE_PLATE.get(), WAXED_EXPOSED_COPPER_PRESSURE_PLATE.get()).put(WEATHERED_COPPER_PRESSURE_PLATE.get(), WAXED_WEATHERED_COPPER_PRESSURE_PLATE.get()).put(OXIDIZED_COPPER_PRESSURE_PLATE.get(), WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.get())
+			.put(TOOLBOX.get(), WAXED_TOOLBOX.get()).put(EXPOSED_TOOLBOX.get(), WAXED_EXPOSED_TOOLBOX.get()).put(WEATHERED_TOOLBOX.get(), WAXED_WEATHERED_TOOLBOX.get()).put(OXIDIZED_TOOLBOX.get(), WAXED_OXIDIZED_TOOLBOX.get())
+			.put(Blocks.LIGHTNING_ROD, WAXED_LIGHTNING_ROD.get()).put(EXPOSED_LIGHTNING_ROD.get(), WAXED_EXPOSED_LIGHTNING_ROD.get()).put(WEATHERED_LIGHTNING_ROD.get(), WAXED_WEATHERED_LIGHTNING_ROD.get()).put(OXIDIZED_LIGHTNING_ROD.get(), WAXED_OXIDIZED_LIGHTNING_ROD.get())
+			.put(FLOODLIGHT.get(), WAXED_FLOODLIGHT.get()).put(EXPOSED_FLOODLIGHT.get(), WAXED_EXPOSED_FLOODLIGHT.get()).put(WEATHERED_FLOODLIGHT.get(), WAXED_WEATHERED_FLOODLIGHT.get()).put(OXIDIZED_FLOODLIGHT.get(), WAXED_OXIDIZED_FLOODLIGHT.get())
+			.put(COPPER_RAIL.get(), WAXED_COPPER_RAIL.get()).put(EXPOSED_COPPER_RAIL.get(), WAXED_EXPOSED_COPPER_RAIL.get()).put(WEATHERED_COPPER_RAIL.get(), WAXED_WEATHERED_COPPER_RAIL.get()).put(OXIDIZED_COPPER_RAIL.get(), WAXED_OXIDIZED_COPPER_RAIL.get())
+			.put(COPPER_BRICKS.get(), WAXED_COPPER_BRICKS.get()).put(EXPOSED_COPPER_BRICKS.get(), WAXED_EXPOSED_COPPER_BRICKS.get()).put(WEATHERED_COPPER_BRICKS.get(), WAXED_WEATHERED_COPPER_BRICKS.get()).put(OXIDIZED_COPPER_BRICKS.get(), WAXED_OXIDIZED_COPPER_BRICKS.get())
+			.put(COPPER_BRICK_STAIRS.get(), WAXED_COPPER_BRICK_STAIRS.get()).put(EXPOSED_COPPER_BRICK_STAIRS.get(), WAXED_EXPOSED_COPPER_BRICK_STAIRS.get()).put(WEATHERED_COPPER_BRICK_STAIRS.get(), WAXED_WEATHERED_COPPER_BRICK_STAIRS.get()).put(OXIDIZED_COPPER_BRICK_STAIRS.get(), WAXED_OXIDIZED_COPPER_BRICK_STAIRS.get())
+			.put(COPPER_BRICK_SLAB.get(), WAXED_COPPER_BRICK_SLAB.get()).put(EXPOSED_COPPER_BRICK_SLAB.get(), WAXED_EXPOSED_COPPER_BRICK_SLAB.get()).put(WEATHERED_COPPER_BRICK_SLAB.get(), WAXED_WEATHERED_COPPER_BRICK_SLAB.get()).put(OXIDIZED_COPPER_BRICK_SLAB.get(), WAXED_OXIDIZED_COPPER_BRICK_SLAB.get())
+			.put(COPPER_BRICK_WALL.get(), WAXED_COPPER_BRICK_WALL.get()).put(EXPOSED_COPPER_BRICK_WALL.get(), WAXED_EXPOSED_COPPER_BRICK_WALL.get()).put(WEATHERED_COPPER_BRICK_WALL.get(), WAXED_WEATHERED_COPPER_BRICK_WALL.get()).put(OXIDIZED_COPPER_BRICK_WALL.get(), WAXED_OXIDIZED_COPPER_BRICK_WALL.get())
+			.put(CHISELED_COPPER_BRICKS.get(), WAXED_CHISELED_COPPER_BRICKS.get()).put(EXPOSED_CHISELED_COPPER_BRICKS.get(), WAXED_EXPOSED_CHISELED_COPPER_BRICKS.get()).put(WEATHERED_CHISELED_COPPER_BRICKS.get(), WAXED_WEATHERED_CHISELED_COPPER_BRICKS.get()).put(OXIDIZED_CHISELED_COPPER_BRICKS.get(), WAXED_OXIDIZED_CHISELED_COPPER_BRICKS.get())
+			.put(COPPER_INGOT.get(), WAXED_COPPER_INGOT.get()).put(EXPOSED_COPPER_INGOT.get(), WAXED_EXPOSED_COPPER_INGOT.get()).put(WEATHERED_COPPER_INGOT.get(), WAXED_WEATHERED_COPPER_INGOT.get()).put(OXIDIZED_COPPER_INGOT.get(), WAXED_OXIDIZED_COPPER_INGOT.get())
+			.put(COPPER_CHAIN.get(), WAXED_COPPER_CHAIN.get()).put(EXPOSED_COPPER_CHAIN.get(), WAXED_EXPOSED_COPPER_CHAIN.get()).put(WEATHERED_COPPER_CHAIN.get(), WAXED_WEATHERED_COPPER_CHAIN.get()).put(OXIDIZED_COPPER_CHAIN.get(), WAXED_OXIDIZED_COPPER_CHAIN.get())
+			.put(COPPER_LANTERN.get(), WAXED_COPPER_LANTERN.get()).put(EXPOSED_COPPER_LANTERN.get(), WAXED_EXPOSED_COPPER_LANTERN.get()).put(WEATHERED_COPPER_LANTERN.get(), WAXED_WEATHERED_COPPER_LANTERN.get()).put(OXIDIZED_COPPER_LANTERN.get(), WAXED_OXIDIZED_COPPER_LANTERN.get())
+			.build()
+	);
 }

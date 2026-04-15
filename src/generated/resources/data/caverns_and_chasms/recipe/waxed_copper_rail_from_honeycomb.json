@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "waxed_copper_rail",
+  "ingredients": [
+    {
+      "item": "caverns_and_chasms:copper_rail"
+    },
+    {
+      "tag": "c:wax"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_copper_rail"
+  }
+}
