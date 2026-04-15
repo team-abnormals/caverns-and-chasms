@@ -1928,12 +1928,26 @@
   },
   "block.brazier.crackle": {
     "sounds": [
-      "block/campfire/crackle1",
-      "block/campfire/crackle2",
-      "block/campfire/crackle3",
-      "block/campfire/crackle4",
-      "block/campfire/crackle5",
-      "block/campfire/crackle6"
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle1",
+        "volume": 0.2,
+        "attenuation_distance": 12
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle2",
+        "volume": 0.2,
+        "attenuation_distance": 12
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle3",
+        "volume": 0.2,
+        "attenuation_distance": 12
+      },
+      {
+        "name": "caverns_and_chasms:block/brazier/crackle4",
+        "volume": 0.2,
+        "attenuation_distance": 12
+      }
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.brazier.crackle"
   },
