@@ -5,6 +5,8 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -27,7 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class LiftButtonBlock extends ButtonBlock implements EntityBlock, HoldableBlock {
-	public static final BooleanProperty PRESSED = BooleanProperty.create("pressed");
+	public static final BooleanProperty PRESSED = LiftPlateBlock.PRESSED;
 	protected final WeatherState weatherState;
 	private final int ticksToStayPressed;
 
@@ -99,6 +101,14 @@ public class LiftButtonBlock extends ButtonBlock implements EntityBlock, Holdabl
 			level.scheduleTick(new BlockPos(pos), this, this.ticksToStayPressed);
 			this.playSound(player, level, pos, false);
 			level.gameEvent(player, GameEvent.BLOCK_DEACTIVATE, pos);
+		}
+	}
+
+	@Override
+	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (state.getValue(POWERED)) {
+			level.setBlock(pos, state.setValue(POWERED, false), 3);
+			this.updateNeighbours(state, level, pos);
 		}
 	}
 

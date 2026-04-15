@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftButtonBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftPlateBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -53,7 +54,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -68,7 +68,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 	private static final EntityDataAccessor<Boolean> WAXED = SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
 
 	private int oxidationTime = this.nextOxidationTime();
-	private int ticksSinceButtonPress;
+	private int ticksSinceInteraction;
 
 	private int headSpinTicks;
 	private int headSpinTicksO;
@@ -185,8 +185,8 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				this.level().addParticle(ParticleTypes.WAX_ON, this.getRandomX(0.8D), this.getY(0.1D), this.getRandomZ(0.8D), d0, d1, d2);
 			}
 		} else {
-			if (this.ticksSinceButtonPress > 0) {
-				--this.ticksSinceButtonPress;
+			if (this.ticksSinceInteraction > 0) {
+				--this.ticksSinceInteraction;
 			}
 		}
 	}
@@ -420,7 +420,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 
 		@Override
 		public boolean canUse() {
-			return CopperGolem.this.ticksSinceButtonPress <= 0 && super.canUse();
+			return CopperGolem.this.ticksSinceInteraction <= 0 && super.canUse();
 		}
 
 		@Override
@@ -498,7 +498,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 				return false;
 			} else {
 				this.nextStartTicks = 20;
-				return !CopperGolem.this.isBeingTuningForkControlled() && this.findRandomButton();
+				return !CopperGolem.this.isBeingTuningForkControlled() && this.findRandomButtonOrPlate();
 			}
 		}
 
@@ -509,7 +509,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			} else if (this.tryTicks < -this.maxStayTicks || this.tryTicks > 1200) {
 				return false;
 			} else {
-				return this.isUnpressedButton(CopperGolem.this.level(), this.blockPos);
+				return this.isUnpressedButtonOrPlate(CopperGolem.this.level(), this.blockPos);
 			}
 		}
 
@@ -542,9 +542,9 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 					BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
 					if (state.getBlock() instanceof LiftButtonBlock buttonBlock && !state.getValue(LiftButtonBlock.POWERED)) {
 						buttonBlock.press(state, CopperGolem.this.level(), this.blockPos, null);
-						CopperGolem.this.level().playSound(null, this.blockPos, CCSoundEvents.COPPER_BUTTON_CLICK_ON.get(), SoundSource.BLOCKS, 0.3F, 0.6F);
-						CopperGolem.this.level().gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
-						CopperGolem.this.ticksSinceButtonPress = 80;
+						CopperGolem.this.ticksSinceInteraction = 80;
+					} else if (state.getBlock() instanceof LiftPlateBlock && !state.getValue(LiftPlateBlock.POWERED)) {
+						CopperGolem.this.ticksSinceInteraction = 80;
 					}
 				}
 			}
@@ -564,32 +564,38 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			CopperGolem.this.getNavigation().moveTo(CopperGolem.this.getNavigation().createPath(this.blockPos.getX(), this.blockPos.getY(), this.blockPos.getZ(), 0), 1.0D);
 		}
 
-		private boolean findRandomButton() {
-			List<BlockPos> buttonpositions = Lists.newArrayList();
+		private boolean findRandomButtonOrPlate() {
+			List<BlockPos> positions = Lists.newArrayList();
 
 			for (BlockPos pos : BlockPos.betweenClosed(Mth.floor(CopperGolem.this.getX() - 8.0D), Mth.floor(CopperGolem.this.getY() - 4.0D), Mth.floor(CopperGolem.this.getZ() - 8.0D), Mth.floor(CopperGolem.this.getX() + 8.0D), Mth.floor(CopperGolem.this.getY() + 4.0D), Mth.floor(CopperGolem.this.getZ() + 8.0D))) {
-				if (CopperGolem.this.isWithinRestriction(pos) && this.isUnpressedButton(CopperGolem.this.level(), pos)) {
-					buttonpositions.add(new BlockPos(pos));
+				if (CopperGolem.this.isWithinRestriction(pos) && this.isUnpressedButtonOrPlate(CopperGolem.this.level(), pos)) {
+					positions.add(new BlockPos(pos));
 				}
 			}
 
-			if (buttonpositions.size() > 0) {
-				this.blockPos = buttonpositions.get(CopperGolem.this.getRandom().nextInt(buttonpositions.size()));
+			if (!positions.isEmpty()) {
+				this.blockPos = positions.get(CopperGolem.this.getRandom().nextInt(positions.size()));
 				BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
-				AttachFace face = state.getValue(LiftButtonBlock.FACE);
-				Direction direction = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(LiftButtonBlock.FACING).getOpposite();
-				this.buttonNormal = direction.getNormal();
+				if (state.getBlock() instanceof LiftButtonBlock) {
+					AttachFace face = state.getValue(LiftButtonBlock.FACE);
+					Direction direction = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(LiftButtonBlock.FACING).getOpposite();
+					this.buttonNormal = direction.getNormal();
+				} else {
+					this.buttonNormal = Direction.DOWN.getNormal();
+				}
 				return true;
 			}
 
 			return false;
 		}
 
-		private boolean isUnpressedButton(LevelReader level, BlockPos pos) {
+		private boolean isUnpressedButtonOrPlate(LevelReader level, BlockPos pos) {
 			BlockState state = level.getBlockState(pos);
 			BlockPos belowpos = pos.below();
-			BlockState belowstate = level.getBlockState(belowpos);
-			return state.getBlock() instanceof LiftButtonBlock && !state.getValue(LiftButtonBlock.PRESSED) && belowstate.entityCanStandOn(level, belowpos, CopperGolem.this);
+			if ((state.getBlock() instanceof LiftButtonBlock || state.getBlock() instanceof LiftPlateBlock) && !state.getValue(LiftButtonBlock.PRESSED)) {
+				return level.getBlockState(belowpos).entityCanStandOn(level, belowpos, CopperGolem.this);
+			}
+			return false;
 		}
 	}
 
