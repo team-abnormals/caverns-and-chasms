@@ -305,6 +305,15 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.buttonBlock(Blocks.WEATHERED_COPPER, WAXED_WEATHERED_COPPER_BUTTON.get());
 		this.buttonBlock(Blocks.OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_BUTTON.get());
 
+		this.pressurePlateBlock(Blocks.COPPER_BLOCK, COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.WEATHERED_COPPER, WEATHERED_COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.OXIDIZED_COPPER, OXIDIZED_COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.COPPER_BLOCK, WAXED_COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.EXPOSED_COPPER, WAXED_EXPOSED_COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.WEATHERED_COPPER, WAXED_WEATHERED_COPPER_PRESSURE_PLATE.get());
+		this.pressurePlateBlock(Blocks.OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.get());
+
 		this.floodlightBlock(FLOODLIGHT.get(), FLOODLIGHT.get());
 		this.floodlightBlock(EXPOSED_FLOODLIGHT.get(), EXPOSED_FLOODLIGHT.get());
 		this.floodlightBlock(WEATHERED_FLOODLIGHT.get(), WEATHERED_FLOODLIGHT.get());

@@ -30,6 +30,9 @@
     "caverns_and_chasms:copper_lantern": {
       "next_oxidation_stage": "caverns_and_chasms:exposed_copper_lantern"
     },
+    "caverns_and_chasms:copper_pressure_plate": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_pressure_plate"
+    },
     "caverns_and_chasms:copper_rail": {
       "next_oxidation_stage": "caverns_and_chasms:exposed_copper_rail"
     },
@@ -62,6 +65,9 @@
     },
     "caverns_and_chasms:exposed_copper_lantern": {
       "next_oxidation_stage": "caverns_and_chasms:weathered_copper_lantern"
+    },
+    "caverns_and_chasms:exposed_copper_pressure_plate": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_pressure_plate"
     },
     "caverns_and_chasms:exposed_copper_rail": {
       "next_oxidation_stage": "caverns_and_chasms:weathered_copper_rail"
@@ -110,6 +116,9 @@
     },
     "caverns_and_chasms:weathered_copper_lantern": {
       "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_lantern"
+    },
+    "caverns_and_chasms:weathered_copper_pressure_plate": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_pressure_plate"
     },
     "caverns_and_chasms:weathered_copper_rail": {
       "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_rail"

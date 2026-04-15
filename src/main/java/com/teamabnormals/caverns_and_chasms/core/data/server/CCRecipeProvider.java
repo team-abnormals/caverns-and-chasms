@@ -127,14 +127,14 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		copperGearRecipes(consumer, CCItems.WAXED_WEATHERED_COPPER_INGOT, Blocks.WAXED_WEATHERED_COPPER, CCItems.WAXED_WEATHERED_COPPER_HELMET, CCItems.WAXED_WEATHERED_COPPER_CHESTPLATE, CCItems.WAXED_WEATHERED_COPPER_LEGGINGS, CCItems.WAXED_WEATHERED_COPPER_BOOTS, CCItems.WAXED_WEATHERED_COPPER_SWORD, CCItems.WAXED_WEATHERED_COPPER_PICKAXE, CCItems.WAXED_WEATHERED_COPPER_AXE, CCItems.WAXED_WEATHERED_COPPER_SHOVEL, CCItems.WAXED_WEATHERED_COPPER_HOE);
 		copperGearRecipes(consumer, CCItems.WAXED_OXIDIZED_COPPER_INGOT, Blocks.WAXED_OXIDIZED_COPPER, CCItems.WAXED_OXIDIZED_COPPER_HELMET, CCItems.WAXED_OXIDIZED_COPPER_CHESTPLATE, CCItems.WAXED_OXIDIZED_COPPER_LEGGINGS, CCItems.WAXED_OXIDIZED_COPPER_BOOTS, CCItems.WAXED_OXIDIZED_COPPER_SWORD, CCItems.WAXED_OXIDIZED_COPPER_PICKAXE, CCItems.WAXED_OXIDIZED_COPPER_AXE, CCItems.WAXED_OXIDIZED_COPPER_SHOVEL, CCItems.WAXED_OXIDIZED_COPPER_HOE);
 
-		copperIngotRecipes(consumer, Items.COPPER_INGOT, Blocks.COPPER_BLOCK, Blocks.COPPER_DOOR, Blocks.COPPER_TRAPDOOR, COPPER_BARS, COPPER_BUTTON, Blocks.LIGHTNING_ROD, FLOODLIGHT, TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.EXPOSED_COPPER_INGOT, Blocks.EXPOSED_COPPER, Blocks.EXPOSED_COPPER_DOOR, Blocks.EXPOSED_COPPER_TRAPDOOR, EXPOSED_COPPER_BARS, EXPOSED_COPPER_BUTTON, EXPOSED_LIGHTNING_ROD, EXPOSED_FLOODLIGHT, EXPOSED_TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.WEATHERED_COPPER_INGOT, Blocks.WEATHERED_COPPER, Blocks.WEATHERED_COPPER_DOOR, Blocks.WEATHERED_COPPER_TRAPDOOR, WEATHERED_COPPER_BARS, WEATHERED_COPPER_BUTTON, WEATHERED_LIGHTNING_ROD, WEATHERED_FLOODLIGHT, WEATHERED_TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.OXIDIZED_COPPER_INGOT, Blocks.OXIDIZED_COPPER, Blocks.OXIDIZED_COPPER_DOOR, Blocks.OXIDIZED_COPPER_TRAPDOOR, OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_BUTTON, OXIDIZED_LIGHTNING_ROD, OXIDIZED_FLOODLIGHT, OXIDIZED_TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.WAXED_COPPER_INGOT, Blocks.WAXED_COPPER_BLOCK, Blocks.WAXED_COPPER_DOOR, Blocks.WAXED_COPPER_TRAPDOOR, WAXED_COPPER_BARS, WAXED_COPPER_BUTTON, WAXED_LIGHTNING_ROD, WAXED_FLOODLIGHT, WAXED_TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.WAXED_EXPOSED_COPPER_INGOT, Blocks.WAXED_EXPOSED_COPPER, Blocks.WAXED_EXPOSED_COPPER_DOOR, Blocks.WAXED_EXPOSED_COPPER_TRAPDOOR, WAXED_EXPOSED_COPPER_BARS, WAXED_EXPOSED_COPPER_BUTTON, WAXED_EXPOSED_LIGHTNING_ROD, WAXED_EXPOSED_FLOODLIGHT, WAXED_EXPOSED_TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.WAXED_WEATHERED_COPPER_INGOT, Blocks.WAXED_WEATHERED_COPPER, Blocks.WAXED_WEATHERED_COPPER_DOOR, Blocks.WAXED_WEATHERED_COPPER_TRAPDOOR, WAXED_WEATHERED_COPPER_BARS, WAXED_WEATHERED_COPPER_BUTTON, WAXED_WEATHERED_LIGHTNING_ROD, WAXED_WEATHERED_FLOODLIGHT, WAXED_WEATHERED_TOOLBOX);
-		copperIngotRecipes(consumer, CCItems.WAXED_OXIDIZED_COPPER_INGOT, Blocks.WAXED_OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_COPPER_DOOR, Blocks.WAXED_OXIDIZED_COPPER_TRAPDOOR, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_COPPER_BUTTON, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_FLOODLIGHT, WAXED_OXIDIZED_TOOLBOX);
+		copperIngotRecipes(consumer, Items.COPPER_INGOT, Blocks.COPPER_BLOCK, Blocks.COPPER_DOOR, Blocks.COPPER_TRAPDOOR, COPPER_BARS, COPPER_PRESSURE_PLATE, COPPER_BUTTON, Blocks.LIGHTNING_ROD, FLOODLIGHT, TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.EXPOSED_COPPER_INGOT, Blocks.EXPOSED_COPPER, Blocks.EXPOSED_COPPER_DOOR, Blocks.EXPOSED_COPPER_TRAPDOOR, EXPOSED_COPPER_BARS, EXPOSED_COPPER_PRESSURE_PLATE, EXPOSED_COPPER_BUTTON, EXPOSED_LIGHTNING_ROD, EXPOSED_FLOODLIGHT, EXPOSED_TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.WEATHERED_COPPER_INGOT, Blocks.WEATHERED_COPPER, Blocks.WEATHERED_COPPER_DOOR, Blocks.WEATHERED_COPPER_TRAPDOOR, WEATHERED_COPPER_BARS, WEATHERED_COPPER_PRESSURE_PLATE, WEATHERED_COPPER_BUTTON, WEATHERED_LIGHTNING_ROD, WEATHERED_FLOODLIGHT, WEATHERED_TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.OXIDIZED_COPPER_INGOT, Blocks.OXIDIZED_COPPER, Blocks.OXIDIZED_COPPER_DOOR, Blocks.OXIDIZED_COPPER_TRAPDOOR, OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_PRESSURE_PLATE, OXIDIZED_COPPER_BUTTON, OXIDIZED_LIGHTNING_ROD, OXIDIZED_FLOODLIGHT, OXIDIZED_TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.WAXED_COPPER_INGOT, Blocks.WAXED_COPPER_BLOCK, Blocks.WAXED_COPPER_DOOR, Blocks.WAXED_COPPER_TRAPDOOR, WAXED_COPPER_BARS, WAXED_COPPER_PRESSURE_PLATE, WAXED_COPPER_BUTTON, WAXED_LIGHTNING_ROD, WAXED_FLOODLIGHT, WAXED_TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.WAXED_EXPOSED_COPPER_INGOT, Blocks.WAXED_EXPOSED_COPPER, Blocks.WAXED_EXPOSED_COPPER_DOOR, Blocks.WAXED_EXPOSED_COPPER_TRAPDOOR, WAXED_EXPOSED_COPPER_BARS, WAXED_EXPOSED_COPPER_PRESSURE_PLATE, WAXED_EXPOSED_COPPER_BUTTON, WAXED_EXPOSED_LIGHTNING_ROD, WAXED_EXPOSED_FLOODLIGHT, WAXED_EXPOSED_TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.WAXED_WEATHERED_COPPER_INGOT, Blocks.WAXED_WEATHERED_COPPER, Blocks.WAXED_WEATHERED_COPPER_DOOR, Blocks.WAXED_WEATHERED_COPPER_TRAPDOOR, WAXED_WEATHERED_COPPER_BARS, WAXED_WEATHERED_COPPER_PRESSURE_PLATE, WAXED_WEATHERED_COPPER_BUTTON, WAXED_WEATHERED_LIGHTNING_ROD, WAXED_WEATHERED_FLOODLIGHT, WAXED_WEATHERED_TOOLBOX);
+		copperIngotRecipes(consumer, CCItems.WAXED_OXIDIZED_COPPER_INGOT, Blocks.WAXED_OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_COPPER_DOOR, Blocks.WAXED_OXIDIZED_COPPER_TRAPDOOR, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_COPPER_PRESSURE_PLATE, WAXED_OXIDIZED_COPPER_BUTTON, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_FLOODLIGHT, WAXED_OXIDIZED_TOOLBOX);
 
 		SpecialRecipeBuilder.special(MusicDiscCopying::new).save(consumer, CavernsAndChasms.MOD_ID + ":music_disc_copying");
 		SpecialRecipeBuilder.special(NBTWaxing::new).save(consumer, CavernsAndChasms.MOD_ID + ":nbt_waxing");
@@ -521,7 +521,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, BASALT_TILES_FAMILY, Blocks.BASALT, Blocks.POLISHED_BASALT, BASALT_BRICKS, BASALT_TILES);
 		generateRecipes(consumer, SMOOTH_BASALT_FAMILY);
 		stonecutterRecipes(consumer, SMOOTH_BASALT_FAMILY);
-		
+
 		storageRecipesWithCustomUnpacking(consumer, MISC, Items.AMETHYST_SHARD, BUILDING_BLOCKS, AMETHYST_BLOCK, "amethyst_from_amethyst_block", "amethyst_shard");
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CUT_AMETHYST, 4).define('#', Blocks.AMETHYST_BLOCK).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.AMETHYST_BLOCK), has(Blocks.AMETHYST_BLOCK)).save(consumer);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CUT_AMETHYST_BRICKS, 4).define('#', CUT_AMETHYST).pattern("##").pattern("##").unlockedBy(getHasName(CUT_AMETHYST), has(CUT_AMETHYST)).save(consumer);
@@ -618,7 +618,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		SimpleCookingRecipeBuilder.blasting(Ingredient.of(pickaxe, shovel, axe, hoe, sword, helmet, chestplate, leggings, boots), MISC, ingot, 0.1F, 100).unlockedBy(getHasName(pickaxe), has(pickaxe)).unlockedBy(getHasName(shovel), has(shovel)).unlockedBy(getHasName(axe), has(axe)).unlockedBy(getHasName(hoe), has(hoe)).unlockedBy(getHasName(sword), has(sword)).unlockedBy(getHasName(helmet), has(helmet)).unlockedBy(getHasName(chestplate), has(chestplate)).unlockedBy(getHasName(leggings), has(leggings)).unlockedBy(getHasName(boots), has(boots)).save(consumer, CavernsAndChasms.location(getBlastingRecipeName(ingot)));
 	}
 
-	public void copperIngotRecipes(RecipeOutput consumer, ItemLike ingot, ItemLike block, ItemLike door, ItemLike trapdoor, ItemLike bars, ItemLike button, ItemLike lightningRod, ItemLike floodlight, ItemLike toolbox) {
+	public void copperIngotRecipes(RecipeOutput consumer, ItemLike ingot, ItemLike block, ItemLike door, ItemLike trapdoor, ItemLike bars, ItemLike pressurePlate, ItemLike button, ItemLike lightningRod, ItemLike floodlight, ItemLike toolbox) {
 		if (ingot != Items.COPPER_INGOT) {
 			storageRecipesWithCustomUnpacking(consumer, MISC, ingot, BUILDING_BLOCKS, block, getSimpleRecipeName(ingot), getItemName(ingot));
 			ShapedRecipeBuilder.shaped(REDSTONE, lightningRod).define('#', ingot).pattern("#").pattern("#").pattern("#").group(getItemName(lightningRod)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
@@ -627,6 +627,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		doorBuilder(door, Ingredient.of(ingot)).group(getItemName(door)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(REDSTONE, trapdoor).define('#', ingot).pattern("##").pattern("##").group(getItemName(trapdoor)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, bars, 16).define('#', ingot).pattern("###").pattern("###").group(getItemName(bars)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
+		pressurePlateBuilder(REDSTONE, pressurePlate, Ingredient.of(ingot)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapelessRecipeBuilder.shapeless(REDSTONE, button).requires(ItemTags.WOODEN_BUTTONS).requires(ingot).group(getItemName(button)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, floodlight).define('C', ingot).define('A', Items.AMETHYST_SHARD).pattern(" C ").pattern("CCC").pattern(" A ").group(getItemName(floodlight)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, toolbox).define('C', block).define('I', ingot).pattern(" I ").pattern("I I").pattern("CCC").group(getItemName(toolbox)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
