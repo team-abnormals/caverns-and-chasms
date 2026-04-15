@@ -3900,6 +3900,14 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.tmt.explode": {
+    "sounds": [
+      "caverns_and_chasms:block/tmt/explode1",
+      "caverns_and_chasms:block/tmt/explode2",
+      "caverns_and_chasms:block/tmt/explode3"
+    ],
+    "subtitle": "subtitles.entity.generic.explode"
+  },
   "block.sanguine.break": {
     "sounds": [
       "caverns_and_chasms:block/sanguine/break1",
@@ -4642,20 +4650,20 @@
     ],
     "subtitle": "subtitles.block.button.click"
   },
-  "block.timed_pressure_plate.click_off": {
+  "block.copper_pressure_plate.click_off": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/timed_pressure_plate/click",
+        "name": "caverns_and_chasms:block/copper_pressure_plate/click",
         "pitch": 0.7,
         "volume": 0.3
       }
     ],
     "subtitle": "subtitles.block.pressure_plate.click"
   },
-  "block.timed_pressure_plate.click_on": {
+  "block.copper_pressure_plate.click_on": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/timed_pressure_plate/click",
+        "name": "caverns_and_chasms:block/copper_pressure_plate/click",
         "pitch": 0.8,
         "volume": 0.3
       }

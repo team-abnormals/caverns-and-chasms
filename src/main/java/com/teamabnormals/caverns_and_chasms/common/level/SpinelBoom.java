@@ -3,6 +3,7 @@ package com.teamabnormals.caverns_and_chasms.common.level;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -47,7 +48,7 @@ public class SpinelBoom extends Explosion {
 	private final Map<Player, Vec3> hitPlayers = Maps.newHashMap();
 
 	public SpinelBoom(Level level, @Nullable Entity source, double x, double y, double z, float radius) {
-		super(level, source, null, null, x, y, z, radius, false, BlockInteraction.DESTROY, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, SoundEvents.GENERIC_EXPLODE);
+		super(level, source, null, null, x, y, z, radius, false, BlockInteraction.DESTROY, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, CCSoundEvents.TMT_EXPLODE);
 		this.level = level;
 		this.source = source;
 		this.radius = radius;
@@ -169,7 +170,7 @@ public class SpinelBoom extends Explosion {
 
 	@Override
 	public void finalizeExplosion(boolean spawnParticles) {
-		if (this.level.isClientSide) this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
+		if (this.level.isClientSide) this.level.playLocalSound(this.x, this.y, this.z, CCSoundEvents.TMT_EXPLODE.value(), SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
 
 		boolean flag = this.interactsWithBlocks();
 		if (spawnParticles) {

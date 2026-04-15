@@ -280,6 +280,7 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> TMT_HIT = SOUNDS.createSoundEvent("block.tmt.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> TMT_PLACE = SOUNDS.createSoundEvent("block.tmt.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> TMT_STEP = SOUNDS.createSoundEvent("block.tmt.step");
+	public static final DeferredHolder<SoundEvent, SoundEvent> TMT_EXPLODE = SOUNDS.createSoundEvent("block.tmt.explode");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> SANGUINE_BREAK = SOUNDS.createSoundEvent("block.sanguine.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SANGUINE_FALL = SOUNDS.createSoundEvent("block.sanguine.fall");
@@ -480,6 +481,9 @@ public class CCSoundEvents {
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BUTTON_CLICK_OFF = SOUNDS.createSoundEvent("block.copper_button.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BUTTON_CLICK_ON = SOUNDS.createSoundEvent("block.copper_button.click_on");
+	
+	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.copper_pressure_plate.click_off");
+	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.copper_pressure_plate.click_on");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> TIN_BUTTON_CLICK_OFF = SOUNDS.createSoundEvent("block.tin_button.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> TIN_BUTTON_CLICK_ON = SOUNDS.createSoundEvent("block.tin_button.click_on");
@@ -495,9 +499,6 @@ public class CCSoundEvents {
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
-	
-	public static final DeferredHolder<SoundEvent, SoundEvent> TIMED_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.timed_pressure_plate.click_off");
-	public static final DeferredHolder<SoundEvent, SoundEvent> TIMED_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.timed_pressure_plate.click_on");
 	
 	public static final DeferredHolder<SoundEvent, SoundEvent> INSERT_TOKEN = SOUNDS.createSoundEvent("block.vault.insert_token");
 	public static final DeferredHolder<SoundEvent, SoundEvent> OPEN_TOKEN = SOUNDS.createSoundEvent("block.vault.open_token");
