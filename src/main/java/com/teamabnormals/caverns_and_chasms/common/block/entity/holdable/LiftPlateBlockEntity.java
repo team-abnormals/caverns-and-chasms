@@ -22,9 +22,6 @@ public class LiftPlateBlockEntity extends BlockEntity {
 			if (state.getValue(LiftPlateBlock.PRESSED)) {
 				blockEntity.timePressed++;
 				level.blockUpdated(pos, state.getBlock());
-				if (level.getGameTime() % 2 == 0) {
-					level.playSound(null, pos, CCSoundEvents.TIN_PRESSURE_PLATE_HOLD.get(), SoundSource.BLOCKS);
-				}
 			} else if (blockEntity.timePressed != 0) {
 				blockEntity.timePressed = 0;
 				level.blockUpdated(pos, state.getBlock());
