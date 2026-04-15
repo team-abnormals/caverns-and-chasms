@@ -8,7 +8,6 @@ import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteR
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteSitPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientEnums;
-import com.teamabnormals.caverns_and_chasms.core.other.CCEnums;
 import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;

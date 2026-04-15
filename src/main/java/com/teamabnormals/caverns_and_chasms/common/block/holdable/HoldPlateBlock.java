@@ -32,12 +32,7 @@ public class HoldPlateBlock extends PressurePlateBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-		return createTickerHelper(entityType, CCBlockEntityTypes.HOLD_PLATE.get(), HoldPlateBlockEntity::tick);
-	}
-
-	@Nullable
-	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker) {
-		return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
+		return HoldButtonBlock.createTickerHelper(entityType, CCBlockEntityTypes.HOLD_PLATE.get(), HoldPlateBlockEntity::tick);
 	}
 
 	public static int getOutputSpeed(BlockState state) {

@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.HoldButtonBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;

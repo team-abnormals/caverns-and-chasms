@@ -14,10 +14,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 public class LiftPlateBlockEntity extends BlockEntity {
 	private int timePressed;
 
-	public int getTimePressed() {
-		return this.timePressed;
-	}
-
 	public LiftPlateBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.LIFT_PLATE.get(), pos, state);
 	}
@@ -33,11 +29,12 @@ public class LiftPlateBlockEntity extends BlockEntity {
 				level.blockUpdated(pos, state.getBlock());
 			}
 
-			if (state.getValue(LiftPlateBlock.PRESSED) && LiftPlateBlock.getEntityCount(level, pos) == 0) {
+			LiftPlateBlock liftPlateBlock = (LiftPlateBlock) state.getBlock();
+			if (state.getValue(LiftPlateBlock.PRESSED) && liftPlateBlock.getSignalStrength(level, pos) == 0) {
 				BlockState blockState = state.setValue(LiftPlateBlock.PRESSED, false).setValue(LiftPlateBlock.POWERED, true);
 				level.setBlock(pos, blockState, 2);
 				level.setBlocksDirty(pos, state, blockState);
-				((LiftPlateBlock) state.getBlock()).updateNeighbours(level, pos);
+				liftPlateBlock.updateNeighbours(level, pos);
 				level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
 				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().pressurePlateClickOff(), SoundSource.BLOCKS);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);

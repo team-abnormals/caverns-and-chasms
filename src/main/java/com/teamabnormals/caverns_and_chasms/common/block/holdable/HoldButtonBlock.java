@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.HoldButtonBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.LiftButtonBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
@@ -79,7 +78,7 @@ public class HoldButtonBlock extends ButtonBlock implements EntityBlock, Holdabl
 
 	public int getSignalBasedOnTime(BlockState state, BlockGetter level, BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof HoldButtonBlockEntity blockEntity && blockEntity.getTimePressed() > 0) {
-			return Math.min(1 + blockEntity.getTimePressed() / LiftPlateBlock.getOutputSpeed(level.getBlockState(pos.relative(getConnectedDirection(state).getOpposite()))), 15);
+			return Math.min(1 + blockEntity.getTimePressed() / HoldPlateBlock.getOutputSpeed(level.getBlockState(pos.relative(getConnectedDirection(state).getOpposite()))), 15);
 		}
 		return 0;
 	}

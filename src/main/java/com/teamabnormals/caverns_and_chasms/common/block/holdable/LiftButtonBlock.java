@@ -1,29 +1,25 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.LiftButtonBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -31,38 +27,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class LiftButtonBlock extends BaseEntityBlock implements HoldableBlock {
-	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
-	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+public class LiftButtonBlock extends ButtonBlock implements EntityBlock, HoldableBlock {
 	public static final BooleanProperty PRESSED = BooleanProperty.create("pressed");
-	private static final VoxelShape CEILING_AABB_X = Block.box(6.0D, 14.0D, 5.0D, 10.0D, 16.0D, 11.0D);
-	private static final VoxelShape CEILING_AABB_Z = Block.box(5.0D, 14.0D, 6.0D, 11.0D, 16.0D, 10.0D);
-	private static final VoxelShape FLOOR_AABB_X = Block.box(6.0D, 0.0D, 5.0D, 10.0D, 2.0D, 11.0D);
-	private static final VoxelShape FLOOR_AABB_Z = Block.box(5.0D, 0.0D, 6.0D, 11.0D, 2.0D, 10.0D);
-	private static final VoxelShape NORTH_AABB = Block.box(5.0D, 6.0D, 14.0D, 11.0D, 10.0D, 16.0D);
-	private static final VoxelShape SOUTH_AABB = Block.box(5.0D, 6.0D, 0.0D, 11.0D, 10.0D, 2.0D);
-	private static final VoxelShape WEST_AABB = Block.box(14.0D, 6.0D, 5.0D, 16.0D, 10.0D, 11.0D);
-	private static final VoxelShape EAST_AABB = Block.box(0.0D, 6.0D, 5.0D, 2.0D, 10.0D, 11.0D);
-	private static final VoxelShape PRESSED_CEILING_AABB_X = Block.box(6.0D, 15.0D, 5.0D, 10.0D, 16.0D, 11.0D);
-	private static final VoxelShape PRESSED_CEILING_AABB_Z = Block.box(5.0D, 15.0D, 6.0D, 11.0D, 16.0D, 10.0D);
-	private static final VoxelShape PRESSED_FLOOR_AABB_X = Block.box(6.0D, 0.0D, 5.0D, 10.0D, 1.0D, 11.0D);
-	private static final VoxelShape PRESSED_FLOOR_AABB_Z = Block.box(5.0D, 0.0D, 6.0D, 11.0D, 1.0D, 10.0D);
-	private static final VoxelShape PRESSED_NORTH_AABB = Block.box(5.0D, 6.0D, 15.0D, 11.0D, 10.0D, 16.0D);
-	private static final VoxelShape PRESSED_SOUTH_AABB = Block.box(5.0D, 6.0D, 0.0D, 11.0D, 10.0D, 1.0D);
-	private static final VoxelShape PRESSED_WEST_AABB = Block.box(15.0D, 6.0D, 5.0D, 16.0D, 10.0D, 11.0D);
-	private static final VoxelShape PRESSED_EAST_AABB = Block.box(0.0D, 6.0D, 5.0D, 1.0D, 10.0D, 11.0D);
 	protected final WeatherState weatherState;
 
 	public LiftButtonBlock(WeatherState weatherState, int ticks, Properties properties) {
-		super(properties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(PRESSED, false).setValue(FACE, AttachFace.WALL));
+		super(CCProperties.COPPER_BLOCK_SET.get(), ticks, properties);
+		this.registerDefaultState(this.defaultBlockState().setValue(PRESSED, false));
 		this.weatherState = weatherState;
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return null;
 	}
 
 	@Nullable
@@ -74,12 +46,7 @@ public class LiftButtonBlock extends BaseEntityBlock implements HoldableBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-		return createTickerHelper(entityType, CCBlockEntityTypes.LIFT_BUTTON.get(), LiftButtonBlockEntity::tick);
-	}
-
-	@Override
-	public RenderShape getRenderShape(BlockState state) {
-		return RenderShape.MODEL;
+		return HoldButtonBlock.createTickerHelper(entityType, CCBlockEntityTypes.LIFT_BUTTON.get(), LiftButtonBlockEntity::tick);
 	}
 
 	@Override
@@ -110,28 +77,16 @@ public class LiftButtonBlock extends BaseEntityBlock implements HoldableBlock {
 		}
 	}
 
+	@Override
 	public void press(BlockState state, Level level, BlockPos pos, @Nullable Player player) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof LiftButtonBlockEntity holdButtonBlockEntity) {
-			holdButtonBlockEntity.setHeld();
+		if (blockEntity instanceof LiftButtonBlockEntity liftButton) {
+			liftButton.setHeld();
 			if (!state.getValue(PRESSED)) {
 				level.setBlock(pos, state.setValue(PRESSED, true), 3);
 				level.playSound(player, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOn(), SoundSource.BLOCKS);
 				level.gameEvent(player, GameEvent.BLOCK_ACTIVATE, pos);
 			}
-		}
-	}
-
-	@Override
-	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return FaceAttachedHorizontalDirectionalBlock.canAttach(level, pos, getConnectedDirection(state).getOpposite());
-	}
-
-	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (state.getValue(POWERED)) {
-			level.setBlock(pos, state.setValue(POWERED, false), 3);
-			this.updateNeighbours(state, level, pos);
 		}
 	}
 
@@ -151,81 +106,13 @@ public class LiftButtonBlock extends BaseEntityBlock implements HoldableBlock {
 		return InteractionResult.PASS;
 	}
 
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!isMoving && !state.is(newState.getBlock())) {
-			if (state.getValue(POWERED)) {
-				this.updateNeighbours(state, level, pos);
-			}
-
-			super.onRemove(state, level, pos, newState, isMoving);
-		}
-	}
-
 	public void updateNeighbours(BlockState state, Level level, BlockPos pos) {
 		level.updateNeighborsAt(pos, this);
 		level.updateNeighborsAt(pos.relative(getConnectedDirection(state).getOpposite()), this);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		for (Direction direction : context.getNearestLookingDirections()) {
-			BlockState blockstate;
-			if (direction.getAxis() == Direction.Axis.Y) {
-				blockstate = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, context.getHorizontalDirection());
-			} else {
-				blockstate = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite());
-			}
-
-			if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
-				return blockstate;
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState offsetState, LevelAccessor level, BlockPos pos, BlockPos offsetPos) {
-		return getConnectedDirection(state).getOpposite() == direction && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, offsetState, level, pos, offsetPos);
-	}
-
-	@Override
-	public BlockState rotate(BlockState state, Rotation rotation) {
-		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-	}
-
-	@Override
-	public BlockState mirror(BlockState state, Mirror mirror) {
-		return state.rotate(mirror.getRotation(state.getValue(FACING)));
-	}
-
-	@Override
-	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return state.getValue(POWERED) ? 15 : 0;
-	}
-
-	@Override
-	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return state.getValue(POWERED) && getConnectedDirection(state) == direction ? 15 : 0;
-	}
-
-	@Override
-	public boolean isSignalSource(BlockState state) {
-		return true;
-	}
-
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, POWERED, PRESSED, FACE);
-	}
-
-	private static Direction getConnectedDirection(BlockState state) {
-		return switch (state.getValue(FACE)) {
-			case CEILING -> Direction.DOWN;
-			case FLOOR -> Direction.UP;
-			default -> state.getValue(FACING);
-		};
 	}
 }
