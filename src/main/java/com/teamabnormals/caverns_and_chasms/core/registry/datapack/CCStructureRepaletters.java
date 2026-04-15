@@ -34,8 +34,7 @@ public final class CCStructureRepaletters {
 		context.register(create("bastion_additions"), new StructureRepaletterEntry.Builder().repaletters(
 						new ChanceStructureRepaletter(Blocks.LANTERN, CCBlocks.LAVA_LAMP.get().defaultBlockState(), 0.2F),
 						new ChanceStructureRepaletter(Blocks.GOLD_BLOCK, CCBlocks.GOLD_INGOT.get().defaultBlockState().setValue(IngotBlock.LAYERS, 3).setValue(IngotBlock.TOP_INGOT, IngotLayer.BOTH), 0.4F))
-				.select(HolderSet.direct(Stream.of(BuiltinStructures.BASTION_REMNANT).map(structures::getOrThrow).collect(Collectors.toList())))
-		);
+				.select(HolderSet.direct(Stream.of(BuiltinStructures.BASTION_REMNANT).map(structures::getOrThrow).collect(Collectors.toList()))));
 
 		context.register(create("lush_forges"), new StructureRepaletterEntry.Builder().repaletters(
 						new ChanceStructureRepaletter(Blocks.STONE_BRICKS, Blocks.MOSSY_STONE_BRICKS.defaultBlockState(), 0.6F),
@@ -46,7 +45,8 @@ public final class CCStructureRepaletters {
 
 		context.register(create("trial_chambers"), new StructureRepaletterEntry.Builder().repaletters(
 						new SimpleTagStructureRepaletter(CCBlockTags.STORAGE_BLOCKS_ALL_COPPER, CCBlocks.SHALE_PILLAR.get()),
-						new SimpleStructureRepaletter(Blocks.OAK_BUTTON, CCBlocks.WAXED_COPPER_BUTTON.get()))
+						new SimpleStructureRepaletter(Blocks.OAK_BUTTON, CCBlocks.WAXED_COPPER_BUTTON.get()),
+						new SimpleStructureRepaletter(Blocks.OAK_PRESSURE_PLATE, CCBlocks.WAXED_COPPER_PRESSURE_PLATE.get()))
 				.select(HolderSet.direct(Stream.of(BuiltinStructures.TRIAL_CHAMBERS).map(structures::getOrThrow).collect(Collectors.toList()))));
 	}
 

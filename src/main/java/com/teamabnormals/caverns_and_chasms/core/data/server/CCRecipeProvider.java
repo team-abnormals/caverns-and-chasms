@@ -595,7 +595,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		modifierRecipe(consumer, CCItems.SPINEL, "faded");
 		copySmithingTemplate(consumer, CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE, CCItemTags.GEMS_TURQUOISE);
 
-		ccWaxRecipes(consumer, provider);
+		ccWaxRecipes(consumer);
 	}
 
 	public static void copperGearRecipes(RecipeOutput consumer, ItemLike ingot, ItemLike block, ItemLike helmet, ItemLike chestplate, ItemLike leggings, ItemLike boots, ItemLike sword, ItemLike pickaxe, ItemLike axe, ItemLike shovel, ItemLike hoe) {
@@ -731,7 +731,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		mimingRecipeBuilder(category, Ingredient.of(input), output, 1).unlockedBy(getHasName(input), has(input)).save(consumer);
 	}
 
-	protected void ccWaxRecipes(RecipeOutput consumer, Provider provider) {
+	protected void ccWaxRecipes(RecipeOutput consumer) {
 		HoneycombItem.WAXABLES.get().forEach((base, waxed) -> addWaxRecipe(consumer, base, waxed));
 		CCDataMapProvider.WAXABLE_BLOCKS.get().forEach((base, waxed) -> addWaxRecipe(consumer, base, waxed));
 	}
