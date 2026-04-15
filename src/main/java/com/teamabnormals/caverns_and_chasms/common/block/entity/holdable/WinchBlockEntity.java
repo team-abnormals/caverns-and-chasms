@@ -72,7 +72,7 @@ public class WinchBlockEntity extends BlockEntity {
 		if (this.holdTime <= 0) {
 			this.forceRollBack = this.isFullyPowered();
 		}
-		this.holdTime = 2;
+		this.holdTime = 4;
 	}
 
 	public float getVisualRotation(float partialTick) {
