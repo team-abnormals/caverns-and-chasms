@@ -592,7 +592,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 		private boolean isUnpressedButtonOrPlate(LevelReader level, BlockPos pos) {
 			BlockState state = level.getBlockState(pos);
 			BlockPos belowpos = pos.below();
-			if ((state.getBlock() instanceof LiftButtonBlock || state.getBlock() instanceof LiftPlateBlock) && !state.getValue(LiftButtonBlock.PRESSED)) {
+			if ((state.getBlock() instanceof LiftButtonBlock || state.getBlock() instanceof LiftPlateBlock) && !state.getValue(LiftButtonBlock.SIGNAL)) {
 				return level.getBlockState(belowpos).entityCanStandOn(level, belowpos, CopperGolem.this);
 			}
 			return false;

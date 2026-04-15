@@ -11,8 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DimmerBlockEntity extends BlockEntity {
-	private int holdTime;
+public class DimmerBlockEntity extends AbstractHoldableBlockEntity {
 	private boolean unpowerTick;
 
 	public DimmerBlockEntity(BlockPos pos, BlockState state) {
@@ -22,17 +21,16 @@ public class DimmerBlockEntity extends BlockEntity {
 	@Override
 	public void loadAdditional(CompoundTag tag, Provider registries) {
 		super.loadAdditional(tag, registries);
-		this.holdTime = tag.getShort("HoldTime");
 		this.unpowerTick = tag.getBoolean("UnpowerTick");
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag tag, Provider registries) {
 		super.saveAdditional(tag, registries);
-		tag.putShort("HoldTime", (short) this.holdTime);
 		tag.putBoolean("UnpowerTick", this.unpowerTick);
 	}
 
+	@Override
 	public void setHeld() {
 		this.holdTime = 5;
 	}

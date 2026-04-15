@@ -68,8 +68,7 @@
     "client.HorseModelMixin",
     "client.HumanoidArmorLayerMixin",
     "client.ItemInHandRendererMixin",
-    "client.LevelRendererMixin",
-    "client.MultiPlayerGameModeMixin"
+    "client.LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

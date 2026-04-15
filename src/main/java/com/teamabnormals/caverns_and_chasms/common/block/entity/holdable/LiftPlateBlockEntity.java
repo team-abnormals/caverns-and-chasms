@@ -19,7 +19,7 @@ public class LiftPlateBlockEntity extends BlockEntity {
 	public static void tick(Level level, BlockPos pos, BlockState state, LiftPlateBlockEntity blockEntity) {
 		if (!level.isClientSide) {
 			// TODO: Should probably update the block below too like in HoldPlateBlock.updateNeighbors
-			if (state.getValue(LiftPlateBlock.PRESSED)) {
+			if (state.getValue(LiftPlateBlock.POWERED)) {
 				blockEntity.timePressed++;
 				level.blockUpdated(pos, state.getBlock());
 			} else if (blockEntity.timePressed != 0) {

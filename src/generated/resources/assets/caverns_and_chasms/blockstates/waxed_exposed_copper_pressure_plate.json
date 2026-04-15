@@ -1,15 +1,9 @@
 {
   "variants": {
-    "powered=false,pressed=false": {
+    "powered=false": {
       "model": "caverns_and_chasms:block/waxed_exposed_copper_pressure_plate"
     },
-    "powered=false,pressed=true": {
-      "model": "caverns_and_chasms:block/waxed_exposed_copper_pressure_plate_down"
-    },
-    "powered=true,pressed=false": {
-      "model": "caverns_and_chasms:block/waxed_exposed_copper_pressure_plate"
-    },
-    "powered=true,pressed=true": {
+    "powered=true": {
       "model": "caverns_and_chasms:block/waxed_exposed_copper_pressure_plate_down"
     }
   }

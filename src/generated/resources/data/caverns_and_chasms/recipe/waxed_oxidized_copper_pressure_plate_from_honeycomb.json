@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "building",
+  "category": "redstone",
   "group": "waxed_oxidized_copper_pressure_plate",
   "ingredients": [
     {

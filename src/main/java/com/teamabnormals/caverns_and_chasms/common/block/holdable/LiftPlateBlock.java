@@ -4,6 +4,7 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.LiftPla
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -28,13 +29,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
-	public static final BooleanProperty PRESSED = BooleanProperty.create("pressed");
+	public static final BooleanProperty SIGNAL = BooleanProperty.create("signal");
 	protected final WeatherState weatherState;
 	private final int ticksToStayPressed;
 
 	public LiftPlateBlock(WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
 		super(CCProperties.COPPER_BLOCK_SET.get(), properties);
-		this.registerDefaultState(this.defaultBlockState().setValue(PRESSED, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(SIGNAL, false));
 		this.weatherState = weatherState;
 		this.ticksToStayPressed = ticks;
 	}
@@ -52,19 +53,9 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return state.getValue(PRESSED) ? PRESSED_AABB : AABB;
-	}
-
-	@Override
-	protected BlockState setSignalForState(BlockState state, int strength) {
-		return state.setValue(PRESSED, strength > 0);
-	}
-
-	@Override
 	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (state.getValue(POWERED)) {
-			level.setBlock(pos, state.setValue(POWERED, false), 2);
+		if (state.getValue(SIGNAL)) {
+			level.setBlock(pos, state.setValue(SIGNAL, false), 2);
 			this.updateNeighbours(level, pos);
 		}
 	}
@@ -79,10 +70,10 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 	@Override
 	public void checkPressed(@Nullable Entity entity, Level level, BlockPos pos, BlockState state, int signalStrength) {
 		int i = this.getSignalStrength(level, pos);
-		boolean isPressed = state.getValue(PRESSED);
+		boolean isPressed = state.getValue(POWERED);
 		boolean shouldBePressed = i > 0;
 		if (!isPressed && shouldBePressed) {
-			BlockState newState = this.setSignalForState(state, i);
+			BlockState newState = state.setValue(POWERED, true);
 			level.setBlock(pos, newState, 2);
 			this.updateNeighbours(level, pos);
 			level.setBlocksDirty(pos, state, newState);
@@ -93,10 +84,10 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 
 	public void deactivate(@Nullable Entity entity, Level level, BlockPos pos, BlockState state) {
 		int i = this.getSignalStrength(level, pos);
-		boolean isPressed = state.getValue(PRESSED);
+		boolean isPressed = state.getValue(POWERED);
 		boolean shouldBePressed = i > 0;
 		if (isPressed && !shouldBePressed) {
-			BlockState newState = this.setSignalForState(state, i).setValue(POWERED, true);
+			BlockState newState = state.setValue(POWERED, false).setValue(SIGNAL, true);
 			level.setBlock(pos, newState, 2);
 			this.updateNeighbours(level, pos);
 			level.setBlocksDirty(pos, state, newState);
@@ -107,12 +98,17 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(POWERED, PRESSED);
+	protected int getSignalForState(BlockState state) {
+		return state.getValue(SIGNAL) ? 15 : 0;
 	}
 
 	@Override
-	public int getSignalStrength(Level level, BlockPos pos) {
-		return super.getSignalStrength(level, pos);
+	protected BlockState setSignalForState(BlockState state, int strength) {
+		return state.setValue(SIGNAL, Boolean.valueOf(strength > 0));
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(POWERED, SIGNAL);
 	}
 }

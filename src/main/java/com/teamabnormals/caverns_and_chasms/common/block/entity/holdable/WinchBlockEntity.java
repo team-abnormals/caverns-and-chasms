@@ -12,11 +12,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class WinchBlockEntity extends BlockEntity {
-	private int holdTime;
+public class WinchBlockEntity extends AbstractHoldableBlockEntity {
 	private float rotation;
 	private float visualRotation;
 	private float visualRotationOld;
@@ -30,7 +28,6 @@ public class WinchBlockEntity extends BlockEntity {
 	@Override
 	public void loadAdditional(CompoundTag tag, Provider registries) {
 		super.loadAdditional(tag, registries);
-		this.holdTime = tag.getShort("HoldTime");
 		this.rotation = tag.getFloat("Rotation");
 		this.rewindSpeed = tag.getFloat("RewindSpeed");
 		this.forceRollBack = tag.getBoolean("ForceRollBack");
@@ -43,7 +40,6 @@ public class WinchBlockEntity extends BlockEntity {
 	@Override
 	protected void saveAdditional(CompoundTag tag, Provider registries) {
 		super.saveAdditional(tag, registries);
-		tag.putShort("HoldTime", (short) this.holdTime);
 		tag.putFloat("Rotation", this.rotation);
 		tag.putFloat("RewindSpeed", this.rewindSpeed);
 		tag.putBoolean("ForceRollBack", this.forceRollBack);
@@ -68,11 +64,12 @@ public class WinchBlockEntity extends BlockEntity {
 		return compound;
 	}
 
+	@Override
 	public void setHeld() {
 		if (this.holdTime <= 0) {
 			this.forceRollBack = this.isFullyPowered();
 		}
-		this.holdTime = 4;
+		super.setHeld();
 	}
 
 	public float getVisualRotation(float partialTick) {
@@ -101,7 +98,7 @@ public class WinchBlockEntity extends BlockEntity {
 				blockEntity.rotation = Math.max(blockEntity.rotation - blockEntity.rewindSpeed, 0F);
 			} else if (isPressed) {
 				blockEntity.rewindSpeed = 0F;
-				blockEntity.rotation = Math.min(blockEntity.rotation + getRewindSpeed(level, pos, state), 360F);
+				blockEntity.rotation = Math.min(blockEntity.rotation + getWindSpeed(level, pos, state), 360F);
 			}
 
 			if (isPressed) {
@@ -133,7 +130,7 @@ public class WinchBlockEntity extends BlockEntity {
 		}
 	}
 
-	public static float getRewindSpeed(Level level, BlockPos pos, BlockState state) {
+	public static float getWindSpeed(Level level, BlockPos pos, BlockState state) {
 		BlockState onState = level.getBlockState(pos.relative(WinchBlock.getConnectedDirection(state).getOpposite()));
 		if (onState.is(CCBlockTags.WINCH_WINDS_FASTER_ON)) {
 			return 6F;

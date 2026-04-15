@@ -20,7 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 
-public abstract class AbstractDimmerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public abstract class AbstractDimmerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, HoldableBlock {
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -49,10 +49,15 @@ public abstract class AbstractDimmerBlock extends BaseEntityBlock implements Sim
 	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
 		if (blockEntity instanceof DimmerBlockEntity dimmerBlockEntity) {
-			dimmerBlockEntity.setHeld();
+			this.setHeld(level, dimmerBlockEntity);
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 		return InteractionResult.PASS;
+	}
+
+	@Override
+	public boolean shouldResetRightClickDelay() {
+		return false;
 	}
 
 	@Override

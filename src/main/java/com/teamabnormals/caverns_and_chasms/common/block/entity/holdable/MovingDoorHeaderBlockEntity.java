@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
+public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity implements HoldableBlockEntity {
 	private static final double MOVE_SPEED = 0.0625D;
 
 	private List<MovingDoorType> storedBlocks = Lists.newArrayList();
@@ -119,6 +119,7 @@ public class MovingDoorHeaderBlockEntity extends MovingDoorBlockEntity {
 		}
 	}
 
+	@Override
 	public void setHeld() {
 		this.holdTime = 2;
 	}
