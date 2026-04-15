@@ -42,7 +42,7 @@ public abstract class VaultBlockEntityMixin {
 	private static List<ItemStack> resolveItemsToEject(ServerLevel level, VaultConfig config, BlockPos pos, Player player, Operation<List<ItemStack>> original, ServerLevel level1, BlockPos pos1, BlockState state, VaultConfig config1, VaultServerData serverData, VaultSharedData sharedData, Player player1, ItemStack stack) {
 		TrialToken trialToken = stack.getItemHolder().getData(CCDataMaps.TRIAL_TOKENS);
 		if (trialToken != null) {
-			return resolveTokenItemsToEject(level, trialToken.lootTable(), pos, player);
+			return resolveTokenItemsToEject(level, trialToken.vaultLootTable(), pos, player);
 		}
 		return original.call(level, config, pos, player);
 	}

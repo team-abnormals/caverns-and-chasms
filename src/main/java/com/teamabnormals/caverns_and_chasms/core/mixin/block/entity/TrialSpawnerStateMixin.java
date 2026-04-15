@@ -27,7 +27,7 @@ public abstract class TrialSpawnerStateMixin {
 		if (lootTable.isPresent()) {
 			ResourceKey<LootTable> key = lootTable.get();
 			for (TrialToken token : BuiltInRegistries.ITEM.getDataMap(CCDataMaps.TRIAL_TOKENS).values()) {
-				if (key.equals(token.lootTable())) {
+				if (key.equals(token.replaceLootTable())) {
 					return Optional.of(token.tokenLootTable());
 				}
 			}

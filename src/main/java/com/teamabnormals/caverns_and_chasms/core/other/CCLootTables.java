@@ -14,6 +14,11 @@ public class CCLootTables {
 	public static final ResourceKey<LootTable> FORGE_DISPENSER = create("chests/forge_dispenser");
 	public static final ResourceKey<LootTable> VAULT = create("chests/vault");
 
+	public static final ResourceKey<LootTable> TRIAL_CHAMBERS_TOKEN = create("chests/trial_chambers/token");
+	public static final ResourceKey<LootTable> TRIAL_CHAMBERS_TOKEN_RARE = create("chests/trial_chambers/token_rare");
+	public static final ResourceKey<LootTable> TRIAL_CHAMBERS_TOKEN_OMINOUS = create("chests/trial_chambers/token_ominous");
+	public static final ResourceKey<LootTable> TRIAL_CHAMBERS_TOKEN_OMINOUS_RARE = create("chests/trial_chambers/token_ominous_rare");
+
 	public static final ResourceKey<LootTable> SPAWNER_TRIAL_CHAMBER_TOKEN = create("spawners/trial_chamber/token");
 	public static final ResourceKey<LootTable> SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN = create("spawners/ominous/trial_chamber/token");
 

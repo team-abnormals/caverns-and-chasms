@@ -38,6 +38,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -705,6 +706,54 @@ public class CCLootTableProvider extends LootTableProvider {
 
 			consumer.accept(CCLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(CCItems.OMINOUS_TRIAL_TOKEN))));
+
+			consumer.accept(CCLootTables.TRIAL_CHAMBERS_TOKEN_RARE, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+					.add(LootItem.lootTableItem(Items.ARROW).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
+					.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
+							.setWeight(4)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F)))
+							.apply(SetPotionFunction.setPotion(Potions.POISON)))
+					.add(LootItem.lootTableItem(Items.EMERALD).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))))
+					.add(LootItem.lootTableItem(Items.WIND_CHARGE).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+					.add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+					.add(LootItem.lootTableItem(Items.HONEY_BOTTLE).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+					.add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
+							.setWeight(2)
+							.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+							.apply(SetOminousBottleAmplifierFunction.setAmplifier(UniformGenerator.between(0.0F, 1.0F))))
+					.add(LootItem.lootTableItem(Items.WIND_CHARGE).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 12.0F))))
+					.add(LootItem.lootTableItem(CCItems.TURQUOISE).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
+
+			consumer.accept(CCLootTables.TRIAL_CHAMBERS_TOKEN, LootTable.lootTable().withPool(LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1.0F))
+							.add(NestedLootTable.lootTableReference(CCLootTables.TRIAL_CHAMBERS_TOKEN_RARE).setWeight(8))
+							.add(NestedLootTable.lootTableReference(BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES).setWeight(2)))
+					.withPool(LootPool.lootPool()
+							.setRolls(UniformGenerator.between(1.0F, 2.0F))
+							.add(NestedLootTable.lootTableReference(BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES))));
+
+			consumer.accept(CCLootTables.TRIAL_CHAMBERS_TOKEN_OMINOUS_RARE, LootTable.lootTable().withPool(LootPool.lootPool()
+					.setRolls(ConstantValue.exactly(1.0F))
+					.add(LootItem.lootTableItem(Items.EMERALD).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 10.0F))))
+					.add(LootItem.lootTableItem(Items.WIND_CHARGE).setWeight(4).apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 12.0F))))
+					.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
+							.setWeight(3)
+							.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 12.0F)))
+							.apply(SetPotionFunction.setPotion(Potions.STRONG_SLOWNESS)))
+					.add(LootItem.lootTableItem(CCItems.TURQUOISE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))))
+					.add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE)
+							.setWeight(1)
+							.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+							.apply(SetOminousBottleAmplifierFunction.setAmplifier(UniformGenerator.between(2.0F, 4.0F))))));
+
+			consumer.accept(CCLootTables.TRIAL_CHAMBERS_TOKEN_OMINOUS, LootTable.lootTable()
+					.withPool(LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1.0F))
+							.add(NestedLootTable.lootTableReference(CCLootTables.TRIAL_CHAMBERS_TOKEN_OMINOUS_RARE).setWeight(8))
+							.add(NestedLootTable.lootTableReference(BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES).setWeight(2)))
+					.withPool(LootPool.lootPool()
+							.setRolls(UniformGenerator.between(1.0F, 2.0F))
+							.add(NestedLootTable.lootTableReference(BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES))));
 
 			consumer.accept(CCLootTables.VAULT, LootTable.lootTable()
 					.withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3.0F, 5.0F))

@@ -427,7 +427,6 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		ModelFile northEast = this.cubeBottomTopHorizontal(name(block) + "_north_east", blockTexture(block).withSuffix("_up"), blockTexture(block).withSuffix("_bottom"), blockTexture(block).withSuffix("_top"));
 		ModelFile southWest = this.cubeBottomTopHorizontal(name(block) + "_south_west", blockTexture(block).withSuffix("_down"), blockTexture(block).withSuffix("_top"), blockTexture(block).withSuffix("_bottom"));
 
-
 		this.getVariantBuilder(block)
 				.partialState().with(BlockStateProperties.FACING, Direction.UP).modelForState().modelFile(up).addModel()
 				.partialState().with(BlockStateProperties.FACING, Direction.DOWN).modelForState().modelFile(down).addModel()

@@ -23,11 +23,12 @@ public class CCDataMaps {
 		event.register(TRIAL_TOKENS);
 	}
 
-	public record TrialToken(ItemStack keyItem, ResourceKey<LootTable> tokenLootTable, ResourceKey<LootTable> lootTable) {
+	public record TrialToken(ItemStack keyItem, ResourceKey<LootTable> tokenLootTable, ResourceKey<LootTable> replaceLootTable, ResourceKey<LootTable> vaultLootTable) {
 		public static final Codec<TrialToken> CODEC = RecordCodecBuilder.create(in -> in.group(
 				ItemStack.CODEC.fieldOf("key_item").forGetter(TrialToken::keyItem),
 				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("token_loot_table").forGetter(TrialToken::tokenLootTable),
-				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("loot_table").forGetter(TrialToken::lootTable)
+				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("replace_loot_table").forGetter(TrialToken::replaceLootTable),
+				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("vault_loot_table").forGetter(TrialToken::vaultLootTable)
 		).apply(in, TrialToken::new));
 	}
 }
