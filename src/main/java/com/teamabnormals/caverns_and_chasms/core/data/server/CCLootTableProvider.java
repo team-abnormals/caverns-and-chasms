@@ -302,6 +302,9 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
 
 			this.dropSelf(STONE_WALL.get());
+			this.dropSelf(DEEPSLATE_STAIRS.get());
+			this.dropSelf(DEEPSLATE_WALL.get());
+			this.add(DEEPSLATE_SLAB.get(), this::createSlabItemTable);
 
 			this.dropSelf(POLISHED_GRANITE_WALL.get());
 			this.dropSelf(CHISELED_POLISHED_GRANITE.get());
@@ -372,6 +375,11 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(CRACKED_DRIPSTONE_BRICKS.get());
 			this.blockFamily(DRIPSTONE_SHINGLES_FAMILY);
 			this.dropSelf(FLOODED_DRIPSTONE_SHINGLES.get());
+
+			this.dropSelf(SMOOTH_BASALT_STAIRS.get());
+			this.add(SMOOTH_BASALT_SLAB.get(), this::createSlabItemTable);
+			this.blockFamily(BASALT_BRICKS_FAMILY);
+			this.blockFamily(BASALT_TILES_FAMILY);
 
 			this.dropSelf(AMETHYST_BLOCK.get());
 			this.dropSelf(CUT_AMETHYST.get());

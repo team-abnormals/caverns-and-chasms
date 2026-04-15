@@ -67,14 +67,14 @@ public class CCBlockFamilies {
 	public static final BlockFamily WAXED_WEATHERED_COPPER_BRICKS_FAMILY = new BlockFamily.Builder(WAXED_WEATHERED_COPPER_BRICKS.get()).slab(WAXED_WEATHERED_COPPER_BRICK_SLAB.get()).stairs(WAXED_WEATHERED_COPPER_BRICK_STAIRS.get()).wall(WAXED_WEATHERED_COPPER_BRICK_WALL.get()).chiseled(WAXED_WEATHERED_CHISELED_COPPER_BRICKS.get()).getFamily();
 	public static final BlockFamily WAXED_OXIDIZED_COPPER_BRICKS_FAMILY = new BlockFamily.Builder(WAXED_OXIDIZED_COPPER_BRICKS.get()).slab(WAXED_OXIDIZED_COPPER_BRICK_SLAB.get()).stairs(WAXED_OXIDIZED_COPPER_BRICK_STAIRS.get()).wall(WAXED_OXIDIZED_COPPER_BRICK_WALL.get()).chiseled(WAXED_OXIDIZED_CHISELED_COPPER_BRICKS.get()).getFamily();
 
-	public static final BlockFamily CYLINDRITE_FAMILY = new BlockFamily.Builder(CYLINDRITE.get()).polished(POLISHED_CYLINDRITE.get()).getFamily();
+	public static final BlockFamily CYLINDRITE_FAMILY = new BlockFamily.Builder(CYLINDRITE.get()).slab(CYLINDRITE_SLAB.get()).stairs(CYLINDRITE_STAIRS.get()).wall(CYLINDRITE_WALL.get()).polished(POLISHED_CYLINDRITE.get()).getFamily();
+	public static final BlockFamily POLISHED_CYLINDRITE_FAMILY = new BlockFamily.Builder(POLISHED_CYLINDRITE.get()).slab(POLISHED_CYLINDRITE_SLAB.get()).stairs(POLISHED_CYLINDRITE_STAIRS.get()).wall(POLISHED_CYLINDRITE_WALL.get()).polished(CYLINDRITE_BRICKS.get()).getFamily();
 	public static final BlockFamily CYLINDRITE_BRICKS_FAMILY = new BlockFamily.Builder(CYLINDRITE_BRICKS.get()).slab(CYLINDRITE_BRICK_SLAB.get()).stairs(CYLINDRITE_BRICK_STAIRS.get()).wall(CYLINDRITE_BRICK_WALL.get()).chiseled(CHISELED_CYLINDRITE_BRICKS.get()).getFamily();
-	public static final BlockFamily POLISHED_CYLINDRITE_FAMILY = new BlockFamily.Builder(POLISHED_CYLINDRITE.get()).slab(POLISHED_CYLINDRITE_SLAB.get()).stairs(POLISHED_CYLINDRITE_STAIRS.get()).wall(POLISHED_CYLINDRITE_WALL.get()).getFamily();
 	public static final BlockFamily SMOOTH_CYLINDRITE_FAMILY = new BlockFamily.Builder(SMOOTH_CYLINDRITE.get()).slab(SMOOTH_CYLINDRITE_SLAB.get()).stairs(SMOOTH_CYLINDRITE_STAIRS.get()).getFamily();
 
 	public static final BlockFamily CASSITERITE_FAMILY = new BlockFamily.Builder(CASSITERITE.get()).slab(CASSITERITE_SLAB.get()).stairs(CASSITERITE_STAIRS.get()).wall(CASSITERITE_WALL.get()).polished(POLISHED_CASSITERITE.get()).getFamily();
-	public static final BlockFamily CASSITERITE_BRICKS_FAMILY = new BlockFamily.Builder(CASSITERITE_BRICKS.get()).slab(CASSITERITE_BRICK_SLAB.get()).stairs(CASSITERITE_BRICK_STAIRS.get()).wall(CASSITERITE_BRICK_WALL.get()).chiseled(CHISELED_CASSITERITE_BRICKS.get()).getFamily();
 	public static final BlockFamily POLISHED_CASSITERITE_FAMILY = new BlockFamily.Builder(POLISHED_CASSITERITE.get()).slab(POLISHED_CASSITERITE_SLAB.get()).stairs(POLISHED_CASSITERITE_STAIRS.get()).wall(POLISHED_CASSITERITE_WALL.get()).polished(CASSITERITE_BRICKS.get()).getFamily();
+	public static final BlockFamily CASSITERITE_BRICKS_FAMILY = new BlockFamily.Builder(CASSITERITE_BRICKS.get()).slab(CASSITERITE_BRICK_SLAB.get()).stairs(CASSITERITE_BRICK_STAIRS.get()).wall(CASSITERITE_BRICK_WALL.get()).chiseled(CHISELED_CASSITERITE_BRICKS.get()).getFamily();
 	public static final BlockFamily SMOOTH_CASSITERITE_FAMILY = new BlockFamily.Builder(SMOOTH_CASSITERITE.get()).slab(SMOOTH_CASSITERITE_SLAB.get()).stairs(SMOOTH_CASSITERITE_STAIRS.get()).getFamily();
 
 	public static final BlockFamily RHYOLITE_FAMILY = new BlockFamily.Builder(RHYOLITE.get()).wall(RHYOLITE_WALL.get()).stairs(RHYOLITE_STAIRS.get()).slab(RHYOLITE_SLAB.get()).polished(POLISHED_RHYOLITE.get()).getFamily();
@@ -84,5 +84,10 @@ public class CCBlockFamilies {
 	public static final BlockFamily MAGMATIC_RHYOLITE_FAMILY = new BlockFamily.Builder(MAGMATIC_RHYOLITE.get()).wall(MAGMATIC_RHYOLITE_WALL.get()).stairs(MAGMATIC_RHYOLITE_STAIRS.get()).slab(MAGMATIC_RHYOLITE_SLAB.get()).polished(POLISHED_MAGMATIC_RHYOLITE.get()).getFamily();
 	public static final BlockFamily POLISHED_MAGMATIC_RHYOLITE_FAMILY = new BlockFamily.Builder(POLISHED_MAGMATIC_RHYOLITE.get()).wall(POLISHED_MAGMATIC_RHYOLITE_WALL.get()).stairs(POLISHED_MAGMATIC_RHYOLITE_STAIRS.get()).slab(POLISHED_MAGMATIC_RHYOLITE_SLAB.get()).polished(MAGMATIC_RHYOLITE_BRICKS.get()).getFamily();
 	public static final BlockFamily MAGMATIC_RHYOLITE_BRICKS_FAMILY = new BlockFamily.Builder(MAGMATIC_RHYOLITE_BRICKS.get()).wall(MAGMATIC_RHYOLITE_BRICK_WALL.get()).stairs(MAGMATIC_RHYOLITE_BRICK_STAIRS.get()).slab(MAGMATIC_RHYOLITE_BRICK_SLAB.get()).chiseled(CHISELED_MAGMATIC_RHYOLITE_BRICKS.get()).getFamily();
+
+	public static final BlockFamily BASALT_BRICKS_FAMILY = new BlockFamily.Builder(BASALT_BRICKS.get()).slab(BASALT_BRICK_SLAB.get()).stairs(BASALT_BRICK_STAIRS.get()).wall(BASALT_BRICK_WALL.get()).chiseled(CHISELED_BASALT_BRICKS.get()).polished(BASALT_TILES.get()).getFamily();
+	public static final BlockFamily BASALT_TILES_FAMILY = new BlockFamily.Builder(BASALT_TILES.get()).slab(BASALT_TILE_SLAB.get()).stairs(BASALT_TILE_STAIRS.get()).wall(BASALT_TILE_WALL.get()).getFamily();
+	public static final BlockFamily SMOOTH_BASALT_FAMILY = new BlockFamily.Builder(Blocks.SMOOTH_BASALT).slab(SMOOTH_BASALT_SLAB.get()).stairs(SMOOTH_BASALT_STAIRS.get()).getFamily();
+	public static final BlockFamily DEEPSLATE_FAMILY = new BlockFamily.Builder(Blocks.DEEPSLATE).wall(DEEPSLATE_WALL.get()).stairs(DEEPSLATE_STAIRS.get()).slab(DEEPSLATE_SLAB.get()).getFamily();
 }
 

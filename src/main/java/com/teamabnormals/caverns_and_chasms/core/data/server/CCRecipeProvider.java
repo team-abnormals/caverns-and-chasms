@@ -150,7 +150,6 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, LAVA_LAMP).define('G', Tags.Items.INGOTS_GOLD).define('B', Tags.Items.BUCKETS_LAVA).pattern("GGG").pattern(" B ").pattern("GGG").unlockedBy("has_gold_ingot", has(Tags.Items.INGOTS_GOLD)).save(consumer);
 
-
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_TORCH, 4).define('X', Ingredient.of(Items.COAL, Items.CHARCOAL)).define('#', Tags.Items.RODS_WOODEN).define('C', CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).pattern("X").pattern("#").pattern("C").unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_CAMPFIRE).define('L', ItemTags.LOGS).define('S', Tags.Items.RODS_WOODEN).define('#', CCItemTags.CUPRIC_FIRE_BASE_BLOCKS).pattern(" S ").pattern("S#S").pattern("LLL").unlockedBy("has_copper", has(CCItemTags.CUPRIC_FIRE_BASE_BLOCKS)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, CUPRIC_LANTERN).define('#', CUPRIC_TORCH).define('X', Tags.Items.NUGGETS_IRON).pattern("XXX").pattern("X#X").pattern("XXX").unlockedBy("has_cupric_torch", has(CUPRIC_TORCH)).save(consumer);
@@ -512,6 +511,17 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		stonecutterRecipes(consumer, DRIPSTONE_SHINGLES_FAMILY, Blocks.DRIPSTONE_BLOCK, DRIPSTONE_SHINGLES);
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, FLOODED_DRIPSTONE_SHINGLES, 8).requires(Tags.Items.BUCKETS_WATER).requires(DRIPSTONE_SHINGLES, 8).unlockedBy("has_dripstone_shingles", has(DRIPSTONE_SHINGLES)).save(consumer);
 
+		generateRecipes(consumer, DEEPSLATE_FAMILY);
+		stonecutterRecipes(consumer, DEEPSLATE_FAMILY);
+
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, BASALT_BRICKS, 4).define('#', Blocks.POLISHED_BASALT).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.POLISHED_BASALT), has(Blocks.POLISHED_BASALT)).save(consumer);
+		generateRecipes(consumer, BASALT_BRICKS_FAMILY);
+		stonecutterRecipes(consumer, BASALT_BRICKS_FAMILY, Blocks.BASALT, Blocks.POLISHED_BASALT, BASALT_BRICKS);
+		generateRecipes(consumer, BASALT_TILES_FAMILY);
+		stonecutterRecipes(consumer, BASALT_TILES_FAMILY, Blocks.BASALT, Blocks.POLISHED_BASALT, BASALT_BRICKS, BASALT_TILES);
+		generateRecipes(consumer, SMOOTH_BASALT_FAMILY);
+		stonecutterRecipes(consumer, SMOOTH_BASALT_FAMILY);
+		
 		storageRecipesWithCustomUnpacking(consumer, MISC, Items.AMETHYST_SHARD, BUILDING_BLOCKS, AMETHYST_BLOCK, "amethyst_from_amethyst_block", "amethyst_shard");
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CUT_AMETHYST, 4).define('#', Blocks.AMETHYST_BLOCK).pattern("##").pattern("##").unlockedBy(getHasName(Blocks.AMETHYST_BLOCK), has(Blocks.AMETHYST_BLOCK)).save(consumer);
 		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, CUT_AMETHYST_BRICKS, 4).define('#', CUT_AMETHYST).pattern("##").pattern("##").unlockedBy(getHasName(CUT_AMETHYST), has(CUT_AMETHYST)).save(consumer);

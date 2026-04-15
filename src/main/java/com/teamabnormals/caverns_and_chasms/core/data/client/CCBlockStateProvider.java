@@ -179,6 +179,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(COBBLED_DEEPSLATE_TILES_FAMILY);
 
 		this.wallBlock(Blocks.STONE, STONE_WALL.get());
+		this.pillarBlockFamily(DEEPSLATE_FAMILY);
 
 		this.wallBlock(Blocks.POLISHED_GRANITE, POLISHED_GRANITE_WALL.get());
 		this.block(CHISELED_POLISHED_GRANITE);
@@ -222,6 +223,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.logBlock(SUGILITE_PILLAR);
 
 		this.logBlock(CYLINDRITE);
+		this.pillarBlockFamily(CYLINDRITE_FAMILY);
 		this.blockFamily(SMOOTH_CYLINDRITE_FAMILY);
 		this.blockFamilyWithChiseled(CYLINDRITE_BRICKS_FAMILY);
 		this.blockFamily(POLISHED_CYLINDRITE_FAMILY);
@@ -248,6 +250,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(POLISHED_DRIPSTONE_FAMILY);
 		this.blockFamilyWithChiseled(DRIPSTONE_BRICKS_FAMILY);
 		this.block(CRACKED_DRIPSTONE_BRICKS);
+
+		this.stairsBlock(Blocks.SMOOTH_BASALT, SMOOTH_BASALT_STAIRS.get());
+		this.slabBlock(Blocks.SMOOTH_BASALT, SMOOTH_BASALT_SLAB.get());
+		this.logBlock(BASALT_BRICKS);
+		this.pillarBlockFamily(BASALT_BRICKS_FAMILY);
+		this.logBlock(CHISELED_BASALT_BRICKS);
+		this.logBlock(BASALT_TILES);
+		this.pillarBlockFamily(BASALT_TILES_FAMILY);
 
 		this.block(SANGUINE_BLOCK);
 		this.blockFamily(SANGUINE_TILES_FAMILY);
@@ -387,6 +397,27 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.directionalBlock(caveGrowths.get(), this.models().cross(name(caveGrowths.get()), this.blockTexture(caveGrowths.get())));
 		this.generatedItem(caveGrowths.get(), "block");
 		this.simpleBlock(flowerPot.get(), this.models().singleTexture(name(flowerPot.get()), ResourceLocation.withDefaultNamespace("block/flower_pot_cross"), "plant", CavernsAndChasms.location("block/potted_" + name(caveGrowths.get()))));
+	}
+
+	public void pillarBlockFamily(BlockFamily family) {
+		Block block = family.getBaseBlock();
+		this.pillarStairsBlock(block, family.get(Variant.STAIRS));
+		this.pillarSlabBlock(block, family.get(Variant.SLAB));
+		this.wallBlock(block, family.get(Variant.WALL));
+	}
+
+	public void pillarStairsBlock(Block block, Block stairs) {
+		ResourceLocation texture = blockTexture(block);
+		ResourceLocation textureTop = texture.withSuffix("_top");
+		this.stairsBlock((StairBlock) stairs, texture, textureTop, textureTop);
+		this.blockItem(stairs);
+	}
+
+	public void pillarSlabBlock(Block block, Block slab) {
+		ResourceLocation texture = blockTexture(block);
+		ResourceLocation textureTop = texture.withSuffix("_top");
+		this.slabBlock((SlabBlock) slab, texture, texture, textureTop, textureTop);
+		this.blockItem(slab);
 	}
 
 	public void chiseledCalciteBlock(DeferredBlock<Block> chiseled) {

@@ -330,6 +330,9 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> COBBLED_DEEPSLATE_TILE_WALL = HELPER.createBlock("cobbled_deepslate_tile_wall", () -> new WallBlock(CCProperties.COBBLED_DEEPSLATE_BRICKS));
 
 	public static final DeferredBlock<Block> STONE_WALL = HELPER.createBlock("stone_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+	public static final DeferredBlock<Block> DEEPSLATE_STAIRS = HELPER.createBlock("deepslate_stairs", () -> new StairBlock(Blocks.DEEPSLATE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE)));
+	public static final DeferredBlock<Block> DEEPSLATE_SLAB = HELPER.createBlock("deepslate_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE)));
+	public static final DeferredBlock<Block> DEEPSLATE_WALL = HELPER.createBlock("deepslate_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE)));
 
 	public static final DeferredBlock<Block> POLISHED_GRANITE_WALL = HELPER.createBlock("polished_granite_wall", () -> new WallBlock(CCProperties.GRANITE));
 	public static final DeferredBlock<Block> CHISELED_POLISHED_GRANITE = HELPER.createBlock("chiseled_polished_granite", () -> new Block(CCProperties.GRANITE));
@@ -422,6 +425,9 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> CHISELED_SUGILITE_BRICKS = HELPER.createBlock("chiseled_sugilite_bricks", () -> new Block(CCProperties.SUGILITE_BRICKS));
 
 	public static final DeferredBlock<Block> CYLINDRITE = HELPER.createBlock("cylindrite", () -> new RotatedPillarBlock(CCProperties.CYLINDRITE));
+	public static final DeferredBlock<Block> CYLINDRITE_STAIRS = HELPER.createBlock("cylindrite_stairs", () -> new StairBlock(CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
+	public static final DeferredBlock<Block> CYLINDRITE_SLAB = HELPER.createBlock("cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
+	public static final DeferredBlock<Block> CYLINDRITE_WALL = HELPER.createBlock("cylindrite_wall", () -> new WallBlock(CCProperties.CYLINDRITE));
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE = HELPER.createBlock("smooth_cylindrite", () -> new Block(CCProperties.CYLINDRITE));
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE_STAIRS = HELPER.createBlock("smooth_cylindrite_stairs", () -> new StairBlock(CYLINDRITE.get().defaultBlockState(), CCProperties.CYLINDRITE));
 	public static final DeferredBlock<Block> SMOOTH_CYLINDRITE_SLAB = HELPER.createBlock("smooth_cylindrite_slab", () -> new SlabBlock(CCProperties.CYLINDRITE));
@@ -506,6 +512,18 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> DRIPSTONE_SHINGLE_WALL = HELPER.createBlock("dripstone_shingle_wall", () -> new WallBlock(CCProperties.DRIPSTONE_SHINGLES));
 	public static final DeferredBlock<Block> CHISELED_DRIPSTONE_SHINGLES = HELPER.createBlock("chiseled_dripstone_shingles", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE_SHINGLES));
 	public static final DeferredBlock<Block> FLOODED_DRIPSTONE_SHINGLES = HELPER.createBlock("flooded_dripstone_shingles", () -> new DripstoneShingleBlock(CCProperties.DRIPSTONE_SHINGLES));
+
+	public static final DeferredBlock<Block> SMOOTH_BASALT_STAIRS = HELPER.createBlock("smooth_basalt_stairs", () -> new StairBlock(Blocks.SMOOTH_BASALT.defaultBlockState(), CCProperties.BASALT));
+	public static final DeferredBlock<Block> SMOOTH_BASALT_SLAB = HELPER.createBlock("smooth_basalt_slab", () -> new SlabBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_BRICKS = HELPER.createBlock("basalt_bricks", () -> new RotatedPillarBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_BRICK_STAIRS = HELPER.createBlock("basalt_brick_stairs", () -> new StairBlock(BASALT_BRICKS.get().defaultBlockState(), CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_BRICK_SLAB = HELPER.createBlock("basalt_brick_slab", () -> new SlabBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_BRICK_WALL = HELPER.createBlock("basalt_brick_wall", () -> new WallBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> CHISELED_BASALT_BRICKS = HELPER.createBlock("chiseled_basalt_bricks", () -> new RotatedPillarBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_TILES = HELPER.createBlock("basalt_tiles", () -> new RotatedPillarBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_TILE_STAIRS = HELPER.createBlock("basalt_tile_stairs", () -> new StairBlock(BASALT_TILES.get().defaultBlockState(), CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_TILE_SLAB = HELPER.createBlock("basalt_tile_slab", () -> new SlabBlock(CCProperties.BASALT));
+	public static final DeferredBlock<Block> BASALT_TILE_WALL = HELPER.createBlock("basalt_tile_wall", () -> new WallBlock(CCProperties.BASALT));
 
 	public static final DeferredBlock<Block> AMETHYST_BLOCK = HELPER.createBlock("amethyst_block", () -> new AmethystBlock(CCProperties.AMETHYST));
 	public static final DeferredBlock<Block> CUT_AMETHYST = HELPER.createBlock("cut_amethyst", () -> new AmethystBlock(CCProperties.AMETHYST));
@@ -711,7 +729,7 @@ public class CCBlocks {
 						DRIPSTONE_SHINGLES, FLOODED_DRIPSTONE_SHINGLES, DRIPSTONE_SHINGLE_STAIRS, DRIPSTONE_SHINGLE_SLAB, DRIPSTONE_SHINGLE_WALL, CHISELED_DRIPSTONE_SHINGLES,
 						SUGILITE, SUGILITE_STAIRS, SUGILITE_SLAB, SUGILITE_WALL, POLISHED_SUGILITE, POLISHED_SUGILITE_STAIRS, POLISHED_SUGILITE_SLAB, POLISHED_SUGILITE_WALL,
 						SUGILITE_BRICKS, SUGILITE_BRICK_STAIRS, SUGILITE_BRICK_SLAB, SUGILITE_BRICK_WALL, CHISELED_SUGILITE_BRICKS, SUGILITE_PILLAR,
-						CYLINDRITE, SMOOTH_CYLINDRITE, SMOOTH_CYLINDRITE_STAIRS, SMOOTH_CYLINDRITE_SLAB,
+						CYLINDRITE, CYLINDRITE_STAIRS, CYLINDRITE_SLAB, CYLINDRITE_WALL, SMOOTH_CYLINDRITE, SMOOTH_CYLINDRITE_STAIRS, SMOOTH_CYLINDRITE_SLAB,
 						POLISHED_CYLINDRITE, POLISHED_CYLINDRITE_STAIRS, POLISHED_CYLINDRITE_SLAB, POLISHED_CYLINDRITE_WALL,
 						CYLINDRITE_BRICKS, CYLINDRITE_BRICK_STAIRS, CYLINDRITE_BRICK_SLAB, CYLINDRITE_BRICK_WALL, CHISELED_CYLINDRITE_BRICKS, CYLINDRITE_PILLAR,
 						CASSITERITE, CASSITERITE_STAIRS, CASSITERITE_SLAB, CASSITERITE_WALL,
@@ -725,6 +743,7 @@ public class CCBlocks {
 						POLISHED_MAGMATIC_RHYOLITE, POLISHED_MAGMATIC_RHYOLITE_STAIRS, POLISHED_MAGMATIC_RHYOLITE_SLAB, POLISHED_MAGMATIC_RHYOLITE_WALL,
 						MAGMATIC_RHYOLITE_BRICKS, MAGMATIC_RHYOLITE_BRICK_STAIRS, MAGMATIC_RHYOLITE_BRICK_SLAB, MAGMATIC_RHYOLITE_BRICK_WALL, CHISELED_MAGMATIC_RHYOLITE_BRICKS
 				)
+				.addItemsAfter(of(Blocks.DEEPSLATE), DEEPSLATE_STAIRS, DEEPSLATE_SLAB, DEEPSLATE_WALL)
 				.addItemsBefore(of(Blocks.CHISELED_DEEPSLATE),
 						COBBLED_DEEPSLATE_BRICKS, COBBLED_DEEPSLATE_BRICK_STAIRS, COBBLED_DEEPSLATE_BRICK_SLAB, COBBLED_DEEPSLATE_BRICK_WALL,
 						COBBLED_DEEPSLATE_TILES, COBBLED_DEEPSLATE_TILE_STAIRS, COBBLED_DEEPSLATE_TILE_SLAB, COBBLED_DEEPSLATE_TILE_WALL
@@ -732,6 +751,8 @@ public class CCBlocks {
 				.editor(event -> event.remove(new ItemStack(Blocks.CHISELED_DEEPSLATE), TabVisibility.PARENT_AND_SEARCH_TABS))
 				.addItemsBefore(of(Blocks.DEEPSLATE_TILES), () -> Blocks.CHISELED_DEEPSLATE)
 				.addItemsBefore(of(Blocks.BASALT), SANGUINE_BLOCK, SANGUINE_TILES, SANGUINE_TILE_STAIRS, SANGUINE_TILE_SLAB, SANGUINE_TILE_WALL, FORTIFIED_SANGUINE_TILES, FORTIFIED_SANGUINE_TILE_STAIRS, FORTIFIED_SANGUINE_TILE_SLAB, FORTIFIED_SANGUINE_TILE_WALL)
+				.addItemsAfter(of(Blocks.POLISHED_BASALT), BASALT_BRICKS, BASALT_BRICK_STAIRS, BASALT_BRICK_SLAB, BASALT_BRICK_WALL, CHISELED_BASALT_BRICKS, BASALT_TILES, BASALT_TILE_STAIRS, BASALT_TILE_SLAB, BASALT_TILE_WALL)
+				.addItemsAfter(of(Blocks.SMOOTH_BASALT), SMOOTH_BASALT_STAIRS, SMOOTH_BASALT_SLAB)
 				.addItemsAfter(of(Blocks.AMETHYST_BLOCK), AMETHYST_BLOCK, CUT_AMETHYST, CUT_AMETHYST_BRICKS, CUT_AMETHYST_BRICK_STAIRS, CUT_AMETHYST_BRICK_SLAB, CUT_AMETHYST_BRICK_WALL, AMETHYST_LAMP)
 				.addItemsAfter(of(Blocks.COAL_BLOCK), CHARCOAL_BLOCK)
 				.addItemsAfter(of(Blocks.IRON_BLOCK), IRON_BRICKS, IRON_BRICK_STAIRS, IRON_BRICK_SLAB, IRON_BRICK_WALL, CHISELED_IRON_BRICKS)
@@ -907,6 +928,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 3).sound(CCSoundTypes.MAGMATIC_RHYOLITE);
 		public static final BlockBehaviour.Properties POLISHED_MAGMATIC_RHYOLITE = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0F, 6.0F).lightLevel(state -> 3).sound(CCSoundTypes.POLISHED_MAGMATIC_RHYOLITE);
 		public static final BlockBehaviour.Properties MAGMATIC_RHYOLITE_BRICKS = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F).lightLevel(state -> 3).sound(CCSoundTypes.MAGMATIC_RHYOLITE_BRICKS);
+		public static final BlockBehaviour.Properties BASALT = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.25F, 4.2F).sound(SoundType.BASALT);
 
 		public static final BlockBehaviour.Properties IRON_PLATED_BRICKS = platedBricks(MapColor.RAW_IRON, SoundType.METAL);
 		public static final BlockBehaviour.Properties TIN_PLATED_BRICKS = platedBricks(MapColor.TERRACOTTA_WHITE, CCSoundTypes.TIN);
