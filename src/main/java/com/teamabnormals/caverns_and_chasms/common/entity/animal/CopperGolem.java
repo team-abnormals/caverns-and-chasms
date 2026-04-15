@@ -1,7 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal;
 
 import com.google.common.collect.Lists;
-import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.decoration.OxidizedCopperGolem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
@@ -540,7 +540,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 					CopperGolem.this.level().broadcastEntityEvent(CopperGolem.this, (byte) 6);
 				} else if (this.pressWaitTicks <= 0) {
 					BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
-					if (state.getBlock() instanceof CopperButtonBlock buttonBlock && !state.getValue(CopperButtonBlock.POWERED)) {
+					if (state.getBlock() instanceof LiftButtonBlock buttonBlock && !state.getValue(LiftButtonBlock.POWERED)) {
 						buttonBlock.press(state, CopperGolem.this.level(), this.blockPos, null);
 						CopperGolem.this.level().playSound(null, this.blockPos, CCSoundEvents.COPPER_BUTTON_CLICK_ON.get(), SoundSource.BLOCKS, 0.3F, 0.6F);
 						CopperGolem.this.level().gameEvent(CopperGolem.this, GameEvent.BLOCK_ACTIVATE, this.blockPos);
@@ -576,8 +576,8 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			if (buttonpositions.size() > 0) {
 				this.blockPos = buttonpositions.get(CopperGolem.this.getRandom().nextInt(buttonpositions.size()));
 				BlockState state = CopperGolem.this.level().getBlockState(this.blockPos);
-				AttachFace face = state.getValue(CopperButtonBlock.FACE);
-				Direction direction = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(CopperButtonBlock.FACING).getOpposite();
+				AttachFace face = state.getValue(LiftButtonBlock.FACE);
+				Direction direction = face == AttachFace.CEILING ? Direction.UP : face == AttachFace.FLOOR ? Direction.DOWN : state.getValue(LiftButtonBlock.FACING).getOpposite();
 				this.buttonNormal = direction.getNormal();
 				return true;
 			}
@@ -589,7 +589,7 @@ public class CopperGolem extends AbstractGolem implements ControllableGolem {
 			BlockState state = level.getBlockState(pos);
 			BlockPos belowpos = pos.below();
 			BlockState belowstate = level.getBlockState(belowpos);
-			return state.getBlock() instanceof CopperButtonBlock && !state.getValue(CopperButtonBlock.POWERED) && belowstate.entityCanStandOn(level, belowpos, CopperGolem.this);
+			return state.getBlock() instanceof LiftButtonBlock && !state.getValue(LiftButtonBlock.PRESSED) && belowstate.entityCanStandOn(level, belowpos, CopperGolem.this);
 		}
 	}
 

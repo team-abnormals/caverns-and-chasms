@@ -1,6 +1,5 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.holdable.HoldButtonBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftButtonBlock;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
@@ -14,16 +13,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class HoldButtonBlockEntity extends BlockEntity {
+public class LiftButtonBlockEntity extends BlockEntity {
 	private int holdTime;
 	private int timePressed;
 
-	public int getTimePressed() {
-		return this.timePressed;
-	}
-
-	public HoldButtonBlockEntity(BlockPos pos, BlockState state) {
-		super(CCBlockEntityTypes.HOLD_BUTTON.get(), pos, state);
+	public LiftButtonBlockEntity(BlockPos pos, BlockState state) {
+		super(CCBlockEntityTypes.LIFT_BUTTON.get(), pos, state);
 	}
 
 	@Override
@@ -42,14 +37,11 @@ public class HoldButtonBlockEntity extends BlockEntity {
 		this.holdTime = 4;
 	}
 
-	public static void tick(Level level, BlockPos pos, BlockState state, HoldButtonBlockEntity blockEntity) {
+	public static void tick(Level level, BlockPos pos, BlockState state, LiftButtonBlockEntity blockEntity) {
 		if (!level.isClientSide) {
-			if (state.getValue(HoldButtonBlock.POWERED)) {
+			if (state.getValue(LiftButtonBlock.PRESSED)) {
 				blockEntity.timePressed++;
 				level.blockUpdated(pos, state.getBlock());
-				if (level.getGameTime() % 2 == 0) {
-					level.playSound(null, pos, CCSoundEvents.TIN_BUTTON_HOLD.get(), SoundSource.BLOCKS);
-				}
 			} else if (blockEntity.timePressed != 0) {
 				blockEntity.timePressed = 0;
 				level.blockUpdated(pos, state.getBlock());
@@ -57,13 +49,16 @@ public class HoldButtonBlockEntity extends BlockEntity {
 
 			if (blockEntity.holdTime > 0) {
 				--blockEntity.holdTime;
-			} else if (state.getValue(HoldButtonBlock.POWERED)) {
-				HoldButtonBlock holdButtonBlock = (HoldButtonBlock) state.getBlock();
-				level.setBlock(pos, state.setValue(HoldButtonBlock.POWERED, false), 3);
-				holdButtonBlock.updateNeighbours(state, level, pos);
+			} else if (state.getValue(LiftButtonBlock.PRESSED)) {
+				LiftButtonBlock liftButtonBlock = (LiftButtonBlock) state.getBlock();
+				level.setBlock(pos, state.setValue(LiftButtonBlock.PRESSED, false).setValue(LiftButtonBlock.POWERED, true), 3);
+				liftButtonBlock.updateNeighbours(state, level, pos);
 				level.scheduleTick(new BlockPos(pos), state.getBlock(), 8);
 				level.playSound(null, pos, CCProperties.TIN_BLOCK_SET.get().buttonClickOff(), SoundSource.BLOCKS);
 				level.gameEvent(null, GameEvent.BLOCK_DEACTIVATE, pos);
+			}
+			if (state.getValue(LiftButtonBlock.PRESSED) && level.getGameTime() % 2 == 0) {
+				level.playSound(null, pos, CCSoundEvents.TIN_BUTTON_HOLD.get(), SoundSource.BLOCKS);
 			}
 		}
 	}

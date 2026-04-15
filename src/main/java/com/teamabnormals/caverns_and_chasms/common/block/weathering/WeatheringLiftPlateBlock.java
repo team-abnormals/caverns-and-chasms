@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.weathering;
 
-import com.teamabnormals.caverns_and_chasms.common.block.CopperPressurePlateBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftPlateBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 
-public class WeatheringCopperPressurePlateBlock extends CopperPressurePlateBlock implements WeatheringCopper {
+public class WeatheringLiftPlateBlock extends LiftPlateBlock implements WeatheringCopper {
 
-	public WeatheringCopperPressurePlateBlock(WeatherState weatherState, Properties properties) {
+	public WeatheringLiftPlateBlock(WeatherState weatherState, Properties properties) {
 		super(weatherState, properties);
 	}
 

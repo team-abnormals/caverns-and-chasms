@@ -62,8 +62,8 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(FROSTED_GLASS);
 		this.glassPaneBlock(FROSTED_GLASS_PANE, FROSTED_GLASS);
 
-		this.holdPlateBlock(HOLD_PLATE, TIN_BLOCK);
-		this.holdButtonBlock(TIN_BLOCK, HOLD_BUTTON);
+		this.pressurePlateBlock(TIN_BLOCK.get(), HOLD_PLATE.get());
+		this.buttonBlock(TIN_BLOCK.get(), HOLD_BUTTON.get());
 		this.winchBlock(WINCH, TIN_BLOCK);
 		this.dimmerBlock(DIMMER, WALL_DIMMER);
 		this.block(BOUNCER);
@@ -296,23 +296,23 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.toolboxBlocks(WEATHERED_TOOLBOX, WAXED_WEATHERED_TOOLBOX, Blocks.WEATHERED_COPPER);
 		this.toolboxBlocks(OXIDIZED_TOOLBOX, WAXED_OXIDIZED_TOOLBOX, Blocks.OXIDIZED_COPPER);
 
-		this.buttonBlock(Blocks.COPPER_BLOCK, COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.WEATHERED_COPPER, WEATHERED_COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.OXIDIZED_COPPER, OXIDIZED_COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.COPPER_BLOCK, WAXED_COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.EXPOSED_COPPER, WAXED_EXPOSED_COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.WEATHERED_COPPER, WAXED_WEATHERED_COPPER_BUTTON.get());
-		this.buttonBlock(Blocks.OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_BUTTON.get());
+		this.liftButtonBlock(Blocks.COPPER_BLOCK, COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.WEATHERED_COPPER, WEATHERED_COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.OXIDIZED_COPPER, OXIDIZED_COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.COPPER_BLOCK, WAXED_COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.EXPOSED_COPPER, WAXED_EXPOSED_COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.WEATHERED_COPPER, WAXED_WEATHERED_COPPER_BUTTON);
+		this.liftButtonBlock(Blocks.OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_BUTTON);
 
-		this.pressurePlateBlock(Blocks.COPPER_BLOCK, COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.WEATHERED_COPPER, WEATHERED_COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.OXIDIZED_COPPER, OXIDIZED_COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.COPPER_BLOCK, WAXED_COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.EXPOSED_COPPER, WAXED_EXPOSED_COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.WEATHERED_COPPER, WAXED_WEATHERED_COPPER_PRESSURE_PLATE.get());
-		this.pressurePlateBlock(Blocks.OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.get());
+		this.liftPlateBlock(Blocks.COPPER_BLOCK, COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.EXPOSED_COPPER, EXPOSED_COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.WEATHERED_COPPER, WEATHERED_COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.OXIDIZED_COPPER, OXIDIZED_COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.COPPER_BLOCK, WAXED_COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.EXPOSED_COPPER, WAXED_EXPOSED_COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.WEATHERED_COPPER, WAXED_WEATHERED_COPPER_PRESSURE_PLATE);
+		this.liftPlateBlock(Blocks.OXIDIZED_COPPER, WAXED_OXIDIZED_COPPER_PRESSURE_PLATE);
 
 		this.floodlightBlock(FLOODLIGHT.get(), FLOODLIGHT.get());
 		this.floodlightBlock(EXPOSED_FLOODLIGHT.get(), EXPOSED_FLOODLIGHT.get());
@@ -737,25 +737,25 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockItem(block);
 	}
 
-	public void holdPlateBlock(DeferredBlock<Block> block, DeferredBlock<Block> base) {
-		ModelFile pressurePlate = models().pressurePlate(name(block.get()), blockTexture(base.get()));
-		ModelFile pressurePlateDown = models().pressurePlateDown(name(block.get()) + "_down", blockTexture(base.get()));
-		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(!state.getValue(HoldPlateBlock.PRESSED) ? pressurePlate : pressurePlateDown).build());
+	public void liftPlateBlock(Block base, DeferredBlock<Block> block) {
+		ModelFile pressurePlate = models().pressurePlate(name(block.get()), blockTexture(base));
+		ModelFile pressurePlateDown = models().pressurePlateDown(name(block.get()) + "_down", blockTexture(base));
+		this.getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(!state.getValue(LiftPlateBlock.PRESSED) ? pressurePlate : pressurePlateDown).build());
 		this.blockItem(block);
 	}
 
-	public void holdButtonBlock(DeferredBlock<Block> textureBlock, DeferredBlock<Block> DeferredBlock) {
+	public void liftButtonBlock(Block textureBlock, DeferredBlock<Block> DeferredBlock) {
 		Block block = DeferredBlock.get();
 
-		ResourceLocation texture = blockTexture(textureBlock.get());
+		ResourceLocation texture = blockTexture(textureBlock);
 		ModelFile button = models().button(name(block), texture);
 		ModelFile buttonPressed = models().buttonPressed(name(block) + "_pressed", texture);
 		ModelFile buttonInventoryModel = models().buttonInventory(name(block) + "_inventory", texture);
 
 		getVariantBuilder(block).forAllStatesExcept(state -> {
-			Direction facing = state.getValue(HoldButtonBlock.FACING);
-			AttachFace face = state.getValue(HoldButtonBlock.FACE);
-			boolean pressed = state.getValue(HoldButtonBlock.PRESSED);
+			Direction facing = state.getValue(LiftButtonBlock.FACING);
+			AttachFace face = state.getValue(LiftButtonBlock.FACE);
+			boolean pressed = state.getValue(LiftButtonBlock.PRESSED);
 
 			return ConfiguredModel.builder()
 					.modelFile(pressed ? buttonPressed : button)
@@ -763,7 +763,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 					.rotationY((int) (face == AttachFace.CEILING ? facing : facing.getOpposite()).toYRot())
 					.uvLock(face == AttachFace.WALL)
 					.build();
-		}, HoldButtonBlock.POWERED);
+		}, LiftButtonBlock.POWERED);
 
 		this.itemModels().getBuilder(name(block)).parent(buttonInventoryModel);
 	}

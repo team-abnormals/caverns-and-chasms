@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.weathering;
 
-import com.teamabnormals.caverns_and_chasms.common.block.CopperButtonBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.LiftButtonBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -19,9 +19,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 
-public class WeatheringCopperButtonBlock extends CopperButtonBlock implements WeatheringCopper {
+public class WeatheringLiftButtonBlock extends LiftButtonBlock implements WeatheringCopper {
 
-	public WeatheringCopperButtonBlock(WeatheringCopper.WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
+	public WeatheringLiftButtonBlock(WeatheringCopper.WeatherState weatherState, int ticks, BlockBehaviour.Properties properties) {
 		super(weatherState, ticks, properties);
 	}
 

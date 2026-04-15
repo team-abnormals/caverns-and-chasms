@@ -1,9 +1,15 @@
 {
   "variants": {
-    "powered=false": {
+    "powered=false,pressed=false": {
       "model": "caverns_and_chasms:block/copper_pressure_plate"
     },
-    "powered=true": {
+    "powered=false,pressed=true": {
+      "model": "caverns_and_chasms:block/copper_pressure_plate_down"
+    },
+    "powered=true,pressed=false": {
+      "model": "caverns_and_chasms:block/copper_pressure_plate"
+    },
+    "powered=true,pressed=true": {
       "model": "caverns_and_chasms:block/copper_pressure_plate_down"
     }
   }
