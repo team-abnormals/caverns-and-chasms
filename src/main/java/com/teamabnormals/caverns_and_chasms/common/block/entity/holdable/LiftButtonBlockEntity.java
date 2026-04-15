@@ -40,9 +40,7 @@ public class LiftButtonBlockEntity extends BlockEntity {
 			if (state.getValue(LiftButtonBlock.PRESSED)) {
 				blockEntity.timePressed++;
 				level.blockUpdated(pos, state.getBlock());
-				if (level.getGameTime() % 2 == 0) {
-					level.playSound(null, pos, CCSoundEvents.TIN_BUTTON_HOLD.get(), SoundSource.BLOCKS);
-				}
+				
 			} else if (blockEntity.timePressed != 0) {
 				blockEntity.timePressed = 0;
 				level.blockUpdated(pos, state.getBlock());
