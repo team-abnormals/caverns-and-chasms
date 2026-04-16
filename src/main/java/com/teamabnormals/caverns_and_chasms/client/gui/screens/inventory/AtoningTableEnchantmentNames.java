@@ -12,7 +12,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.ArrayUtils;
 
-@OnlyIn(Dist.CLIENT)
 public class AtoningTableEnchantmentNames {
 	private static final ResourceLocation KOUKERI_FONT = CavernsAndChasms.location("koukeri");
 	private static final Style ROOT_STYLE = Style.EMPTY.withFont(KOUKERI_FONT);
