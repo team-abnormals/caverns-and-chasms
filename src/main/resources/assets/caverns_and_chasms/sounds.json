@@ -328,18 +328,42 @@
   },
   "block.shale.fall": {
     "sounds": [
-      "caverns_and_chasms:block/shale/step1",
-      "caverns_and_chasms:block/shale/step2",
-      "caverns_and_chasms:block/shale/step3",
-      "caverns_and_chasms:block/shale/step4"
+      {
+        "name": "caverns_and_chasms:block/shale/step1",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step2",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step5",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step4",
+        "volume": 1.5
+      }
     ]
   },
   "block.shale.hit": {
     "sounds": [
-      "caverns_and_chasms:block/shale/step1",
-      "caverns_and_chasms:block/shale/step2",
-      "caverns_and_chasms:block/shale/step3",
-      "caverns_and_chasms:block/shale/step4"
+      {
+        "name": "caverns_and_chasms:block/shale/step1",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step2",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step5",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step4",
+        "volume": 1.5
+      }
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
@@ -370,10 +394,22 @@
   },
   "block.shale.step": {
     "sounds": [
-      "caverns_and_chasms:block/shale/step1",
-      "caverns_and_chasms:block/shale/step2",
-      "caverns_and_chasms:block/shale/step3",
-      "caverns_and_chasms:block/shale/step4"
+      {
+        "name": "caverns_and_chasms:block/shale/step1",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step2",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step5",
+        "volume": 1.5
+      },
+      {
+        "name": "caverns_and_chasms:block/shale/step4",
+        "volume": 1.5
+      }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
