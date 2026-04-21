@@ -45,20 +45,20 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> CHARCOAL_HIT = HELPER.createSoundEvent("block.charcoal.hit");
 	public static final RegistryObject<SoundEvent> CHARCOAL_PLACE = HELPER.createSoundEvent("block.charcoal.place");
 	public static final RegistryObject<SoundEvent> CHARCOAL_STEP = HELPER.createSoundEvent("block.charcoal.step");
-	
+
 	public static final RegistryObject<SoundEvent> ECHO_BLOCK_BREAK = HELPER.createSoundEvent("block.echo_block.break");
 	public static final RegistryObject<SoundEvent> ECHO_BLOCK_FALL = HELPER.createSoundEvent("block.echo_block.fall");
 	public static final RegistryObject<SoundEvent> ECHO_BLOCK_HIT = HELPER.createSoundEvent("block.echo_block.hit");
 	public static final RegistryObject<SoundEvent> ECHO_BLOCK_PLACE = HELPER.createSoundEvent("block.echo_block.place");
 	public static final RegistryObject<SoundEvent> ECHO_BLOCK_STEP = HELPER.createSoundEvent("block.echo_block.step");
-	
+
 	public static final RegistryObject<SoundEvent> GUNPOWDER_BREAK = HELPER.createSoundEvent("block.gunpowder.break");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_FALL = HELPER.createSoundEvent("block.gunpowder.fall");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_HIT = HELPER.createSoundEvent("block.gunpowder.hit");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_PLACE = HELPER.createSoundEvent("block.gunpowder.place");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_STEP = HELPER.createSoundEvent("block.gunpowder.step");
 	public static final RegistryObject<SoundEvent> GUNPOWDER_EXPLODE = HELPER.createSoundEvent("block.gunpowder.explode");
-	
+
 	public static final RegistryObject<SoundEvent> SPARKLER_BREAK = HELPER.createSoundEvent("block.sparkler.break");
 	public static final RegistryObject<SoundEvent> SPARKLER_FALL = HELPER.createSoundEvent("block.sparkler.fall");
 	public static final RegistryObject<SoundEvent> SPARKLER_HIT = HELPER.createSoundEvent("block.sparkler.hit");
@@ -86,7 +86,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> CASSITERITE_PLACE = HELPER.createSoundEvent("block.cassiterite.place");
 	public static final RegistryObject<SoundEvent> CASSITERITE_STEP = HELPER.createSoundEvent("block.cassiterite.step");
 	public static final RegistryObject<SoundEvent> CASSITERITE_DEFLECT = HELPER.createSoundEvent("block.cassiterite.deflect");
-	
+
 	public static final RegistryObject<SoundEvent> CYLINDRITE_BREAK = HELPER.createSoundEvent("block.cylindrite.break");
 	public static final RegistryObject<SoundEvent> CYLINDRITE_FALL = HELPER.createSoundEvent("block.cylindrite.fall");
 	public static final RegistryObject<SoundEvent> CYLINDRITE_HIT = HELPER.createSoundEvent("block.cylindrite.hit");
@@ -341,7 +341,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_PLACE = HELPER.createSoundEvent("block.deepslate_tin_ore.place");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_STEP = HELPER.createSoundEvent("block.deepslate_tin_ore.step");
 	public static final RegistryObject<SoundEvent> DEEPSLATE_TIN_ORE_DEFLECT = HELPER.createSoundEvent("block.deepslate_tin_ore.deflect");
-	
+
 	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_BREAK = HELPER.createSoundEvent("block.cylindrite_tin_ore.break");
 	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_FALL = HELPER.createSoundEvent("block.cylindrite_tin_ore.fall");
 	public static final RegistryObject<SoundEvent> CYLINDRITE_TIN_ORE_HIT = HELPER.createSoundEvent("block.cylindrite_tin_ore.hit");
@@ -362,7 +362,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_PLACE = HELPER.createSoundEvent("block.storage_duct.place");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_STEP = HELPER.createSoundEvent("block.storage_duct.step");
 	public static final RegistryObject<SoundEvent> STORAGE_DUCT_DEFLECT = HELPER.createSoundEvent("block.storage_duct.deflect");
-	
+
 	public static final RegistryObject<SoundEvent> CAVIAR_BREAK = HELPER.createSoundEvent("block.caviar.break");
 	public static final RegistryObject<SoundEvent> CAVIAR_FALL = HELPER.createSoundEvent("block.caviar.fall");
 	public static final RegistryObject<SoundEvent> CAVIAR_HIT = HELPER.createSoundEvent("block.caviar.hit");
@@ -443,7 +443,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_EVENDEEPER = HELPER.createSoundEvent("block.note_block.imitate.evendeeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_PEEPER = HELPER.createSoundEvent("block.note_block.imitate.peeper");
 	public static final RegistryObject<SoundEvent> NOTE_BLOCK_IMITATE_WARDEN = HELPER.createSoundEvent("block.note_block.imitate.warden");
-	
+
 	public static final RegistryObject<SoundEvent> CAVIAR_EAT = HELPER.createSoundEvent("item.caviar.eat");
 	public static final RegistryObject<SoundEvent> CAVIAR_BURP = HELPER.createSoundEvent("item.caviar.burp");
 
@@ -582,7 +582,7 @@ public class CCSoundEvents {
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_RECALL = HELPER.createSoundEvent("item.bone_flute.recall");
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_MOVE = HELPER.createSoundEvent("item.bone_flute.move");
 	public static final RegistryObject<SoundEvent> BONE_FLUTE_ATTACK = HELPER.createSoundEvent("item.bone_flute.attack");
-	
+
 	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_DROP_CONTENTS = HELPER.createSoundEvent("item.packing_container.drop_contents");
 	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_INSERT = HELPER.createSoundEvent("item.packing_container.insert");
 	public static final RegistryObject<SoundEvent> PACKING_CONTAINER_INSERT_FAIL = HELPER.createSoundEvent("item.packing_container.insert_fail");

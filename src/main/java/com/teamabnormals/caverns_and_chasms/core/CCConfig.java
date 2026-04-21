@@ -17,11 +17,17 @@ public class CCConfig {
 		public final IntValue grazerMaxSpawnHeight;
 		public final IntValue peeperMaxSpawnHeight;
 
+		public final DoubleValue ratPackSpawnChance;
+		public final IntValue minimumRatPackSize;
+		public final IntValue maximumRatPackSize;
+
 		public final BooleanValue fragileStoneDropsOres;
 		public boolean fragileStoneDropsOresEnabled;
 
 		public final BooleanValue chainmailArmorIncreasesDamage;
 		public final BooleanValue goldenArmorIncreasesSpeed;
+
+		public final BooleanValue placeableItems;
 
 		public final BooleanValue betterRailPlacement;
 		public final IntValue betterRailPlacementRange;
@@ -47,6 +53,11 @@ public class CCConfig {
 			builder.push("peeper");
 			peeperMaxSpawnHeight = builder.defineInRange("Peeper max spawn height", -4, -64, 320);
 			builder.pop();
+			builder.push("rat");
+			ratPackSpawnChance = builder.comment("The chance a pack of Rats has to spawn with a regular Rat spawn").defineInRange("Rat pack spawn chance", 0.2D, 0, Double.MAX_VALUE);
+			minimumRatPackSize = builder.defineInRange("Minimum rat pack size", 6, 0, Integer.MAX_VALUE);
+			maximumRatPackSize = builder.defineInRange("Maximum rat pack size", 10, 0, Integer.MAX_VALUE);
+			builder.pop();
 			builder.pop();
 
 			builder.push("blocks");
@@ -56,6 +67,7 @@ public class CCConfig {
 			builder.pop();
 
 			builder.push("items");
+			placeableItems = builder.comment("If items like Ingots, Bricks, Coal, and Charcoal can be placed", "Individual items can be disabled through the #caverns_and_chasms:placeable_items item tag").define("Placeable items", true);
 			builder.push("zirconia");
 			zirconiaUniversalRepairing = builder.comment("If Zirconia can be used as a universal repair material").define("Zirconia universal repairing", true);
 			builder.pop();

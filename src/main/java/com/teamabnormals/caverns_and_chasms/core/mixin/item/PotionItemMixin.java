@@ -26,7 +26,7 @@ public abstract class PotionItemMixin extends Item {
 	public Component getName(ItemStack stack) {
 		Component component = super.getName(stack);
 		if (stack.getOrCreateTag().getBoolean("Subtle")) {
-			return Component.translatable("item.caverns_and_chasms.potion.subtle").append(" ").append(component);
+			return Component.translatable("item.caverns_and_chasms.potion.subtle", component);
 		}
 
 		return component;

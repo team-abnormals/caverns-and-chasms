@@ -28,11 +28,9 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -80,13 +78,11 @@ public class CCClientCompat {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@SubscribeEvent
 	public static void registerLayers(EntityRenderersEvent.AddLayers event) {
-		EntityModelSet modelset = event.getEntityModels();
-		EntityRendererProvider.Context context = event.getContext();
-		ItemInHandRenderer iteminhandrenderer = context.getItemInHandRenderer();
+		EntityModelSet models = event.getEntityModels();
 
 		event.getSkins().forEach(skin -> {
 			PlayerRenderer renderer = event.getSkin(skin);
-			renderer.addLayer(new RatOnShoulderLayer(renderer, modelset));
+			renderer.addLayer(new RatOnShoulderLayer(renderer, models));
 		});
 
 		for (EntityRenderer<?> renderer : Minecraft.getInstance().getEntityRenderDispatcher().renderers.values()) {

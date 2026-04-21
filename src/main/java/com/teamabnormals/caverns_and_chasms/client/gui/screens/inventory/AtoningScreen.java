@@ -76,7 +76,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 		int j = (this.height - this.imageHeight) / 2;
 		gui.blit(ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
 		this.renderBook(gui, i, j, p_282530_);
-		AtonementTableEnchantmentNames.getInstance().initSeed(this.menu.getEnchantmentSeed());
+		AtoningTableEnchantmentNames.getInstance().initSeed(this.menu.getEnchantmentSeed());
 		int lapis = this.menu.getLapisCount();
 		int spinel = this.menu.getSpinelCount();
 
@@ -89,7 +89,7 @@ public class AtoningScreen extends AbstractContainerScreen<AtoningMenu> {
 			} else {
 				String s = "" + k1;
 				int l1 = 86 - this.font.width(s);
-				FormattedText name = AtonementTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
+				FormattedText name = AtoningTableEnchantmentNames.getInstance().getRandomName(this.font, l1);
 				int i2 = 6839882;
 				if (((lapis < slot + 1 || spinel < slot + 1) && !this.minecraft.player.getAbilities().instabuild) || this.menu.enchantClue[slot] == -1) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
 					// gui.blit(ENCHANTING_TABLE_LOCATION, i1, j + 14 + 19 * slot, 0, 185, 108, 19);

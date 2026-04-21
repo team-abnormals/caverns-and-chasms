@@ -96,7 +96,6 @@ public abstract class ProjectileDeflectEvent extends EntityEvent {
 	 * The main purpose of the event is to allow modifying the deflected projectile without having to worry about the deflection being cancelled.
 	 * <br>
 	 * This event is not {@link Cancelable}.
-	 *
 	 */
 	public static class Post extends ProjectileDeflectEvent {
 		public Post(Projectile projectile, HitResult ray, Vec3 deflectedMovement, Vec3 deflectLocation, SoundEvent soundEvent) {

@@ -63,11 +63,13 @@ public class ArmorTrimMixin implements CCArmorTrim {
 
 	@ModifyVariable(method = "getTrim", at = @At("STORE"))
 	private static ArmorTrim getTrim(ArmorTrim trim, RegistryAccess access, ItemStack stack) {
-		CompoundTag tag = stack.getOrCreateTag();
-		CCArmorTrim armorTrim = (CCArmorTrim) trim;
-		armorTrim.setFaded(tag.getBoolean("FadedTrim"));
-		armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
-		armorTrim.setPulse(tag.getBoolean("PulseTrim"));
+		if (trim != null) {
+			CompoundTag tag = stack.getOrCreateTag();
+			CCArmorTrim armorTrim = (CCArmorTrim) trim;
+			armorTrim.setFaded(tag.getBoolean("FadedTrim"));
+			armorTrim.setEmissive(tag.getBoolean("EmissiveTrim"));
+			armorTrim.setPulse(tag.getBoolean("PulseTrim"));
+		}
 		return trim;
 	}
 
