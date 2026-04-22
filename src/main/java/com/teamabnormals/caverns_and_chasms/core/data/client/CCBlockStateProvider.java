@@ -214,6 +214,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.logBlock(TUFF_PILLAR);
 
 		this.logBlock(SHALE);
+		this.pillarBlockFamily(SHALE_FAMILY);
 		this.blockFamily(SMOOTH_SHALE_FAMILY);
 		this.logBlock(SHALE_PILLAR);
 
@@ -253,6 +254,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 
 		this.stairsBlock(Blocks.SMOOTH_BASALT, SMOOTH_BASALT_STAIRS.get());
 		this.slabBlock(Blocks.SMOOTH_BASALT, SMOOTH_BASALT_SLAB.get());
+		this.wallBlock(Blocks.SMOOTH_BASALT, SMOOTH_BASALT_WALL.get());
 		this.logBlock(BASALT_BRICKS);
 		this.pillarBlockFamily(BASALT_BRICKS_FAMILY);
 		this.logBlock(CHISELED_BASALT_BRICKS);
