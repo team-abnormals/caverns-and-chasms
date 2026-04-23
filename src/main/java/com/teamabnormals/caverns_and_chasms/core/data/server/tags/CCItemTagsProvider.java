@@ -40,8 +40,8 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get(), TURQUOISE.get(), ZIRCONIA.get());
 		this.tag(Tags.Items.MUSIC_DISCS).add(MUSIC_DISC_ANALOGUE.get(), MUSIC_DISC_EPILOGUE.get(), MUSIC_DISC_COPY.get());
-		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.get().asItem(), CCBlocks.GOLDEN_BARS.get().asItem(), GOLDEN_BUCKET.get(), GOLDEN_WATER_BUCKET.get(), GOLDEN_LAVA_BUCKET.get(), GOLDEN_MILK_BUCKET.get(), GOLDEN_POWDER_SNOW_BUCKET.get(), CCBlocks.GOLD_BRICKS.get().asItem(), CCBlocks.GOLD_BRICK_STAIRS.get().asItem(), CCBlocks.GOLD_BRICK_SLAB.get().asItem(), CCBlocks.GOLD_BRICK_WALL.get().asItem(), CCBlocks.CHISELED_GOLD_BRICKS.get().asItem());
-		this.tag(ItemTags.PIGLIN_REPELLENTS).add(CCBlocks.SOUL_BRAZIER.get().asItem());
+		this.tag(ItemTags.PIGLIN_LOVED).add(CCBlocks.LAVA_LAMP.asItem(), CCBlocks.GOLDEN_BARS.asItem(), CCBlocks.GOLDEN_CHAIN.asItem(), GOLDEN_BUCKET.get(), GOLDEN_WATER_BUCKET.get(), GOLDEN_LAVA_BUCKET.get(), GOLDEN_MILK_BUCKET.get(), GOLDEN_POWDER_SNOW_BUCKET.get(), CCBlocks.GOLD_BRICKS.asItem(), CCBlocks.GOLD_BRICK_STAIRS.asItem(), CCBlocks.GOLD_BRICK_SLAB.asItem(), CCBlocks.GOLD_BRICK_WALL.asItem(), CCBlocks.CHISELED_GOLD_BRICKS.asItem());
+		this.tag(ItemTags.PIGLIN_REPELLENTS).add(CCBlocks.SOUL_BRAZIER.asItem());
 		this.tag(ItemTags.BOATS).add(AZALEA_BOAT.getFirst().get());
 		this.tag(ItemTags.CHEST_BOATS).add(AZALEA_BOAT.getSecond().get());
 		this.tag(BlueprintItemTags.FURNACE_BOATS).add(AZALEA_FURNACE_BOAT.get());
