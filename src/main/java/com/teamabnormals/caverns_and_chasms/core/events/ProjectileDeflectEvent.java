@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.events;
 
-import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.HitResult;
@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityEvent;
 
 /**
- * The two events in this class are fired when a projectile is about to be deflected by a Grazer's shell, the Aegis or a block with the {@link CCBlockTags#DEFLECTS_PROJECTILES} tag.
+ * The two events in this class are fired when a projectile is about to be deflected by a Grazer's shell, the Aegis or a block with a deflection defined in the {@link CCDataMaps#TIN_DEFLECTIONS} datamap.
  * They can be used to modify the deflected projectile, change its course and to change the deflect sound.
  * <br>
  * See {@link ProjectileDeflectEvent.Pre} and {@link ProjectileDeflectEvent.Post} for documentation about their differences.

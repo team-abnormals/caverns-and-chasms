@@ -4,10 +4,11 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +21,8 @@ import net.neoforged.neoforge.registries.datamaps.DataMapType;
 import net.neoforged.neoforge.registries.datamaps.DataMapValueMerger;
 import net.neoforged.neoforge.registries.datamaps.DataMapValueRemover.Default;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCDataMaps {
@@ -33,16 +36,21 @@ public class CCDataMaps {
 		event.register(TRIAL_TOKENS);
 	}
 
-	public record TinDeflection(double horizontalFactor, double verticalFactor, boolean hasBonusDeflect) {
+	public record TinDeflection(double horizontalFactor, double verticalFactor, boolean hasBonusDeflect, @NotNull SoundEvent sound) {
 
-		public TinDeflection(double horizontalFactor, double verticalFactor) {
-			this(horizontalFactor, verticalFactor, false);
+		public TinDeflection(SoundEvent sound) {
+			this(0.75D, 0.65D, false, sound);
+		}
+
+		public TinDeflection(double horizontalFactor, double verticalFactor, SoundEvent sound) {
+			this(horizontalFactor, verticalFactor, false, sound);
 		}
 
 		public static final Codec<TinDeflection> CODEC = RecordCodecBuilder.create(in -> in.group(
 				Codec.DOUBLE.fieldOf("horizontal_factor").forGetter(TinDeflection::horizontalFactor),
 				Codec.DOUBLE.fieldOf("vertical_factor").forGetter(TinDeflection::verticalFactor),
-				Codec.BOOL.optionalFieldOf("has_bonus_deflect", false).forGetter(TinDeflection::hasBonusDeflect)
+				Codec.BOOL.optionalFieldOf("has_bonus_deflect", false).forGetter(TinDeflection::hasBonusDeflect),
+				BuiltInRegistries.SOUND_EVENT.byNameCodec().fieldOf("sound").forGetter(TinDeflection::sound)
 		).apply(in, TinDeflection::new));
 	}
 
@@ -59,13 +67,7 @@ public class CCDataMaps {
 
 		@Override
 		public TinDeflection merge(Registry<Block> registry, Either<TagKey<Block>, ResourceKey<Block>> first, TinDeflection firstValue, Either<TagKey<Block>, ResourceKey<Block>> second, TinDeflection secondValue) {
-			if (first.left().isPresent() && first.left().get().equals(CCBlockTags.DEFLECTS_PROJECTILES)) {
-				return secondValue;
-			} else if (second.left().isPresent() && second.left().get().equals(CCBlockTags.DEFLECTS_PROJECTILES)) {
-				return firstValue;
-			}
-
-			return new TinDeflection((firstValue.horizontalFactor + secondValue.horizontalFactor) * 0.5D, (firstValue.verticalFactor + secondValue.verticalFactor) * 0.5D, firstValue.hasBonusDeflect || secondValue.hasBonusDeflect);
+			return new TinDeflection((firstValue.horizontalFactor + secondValue.horizontalFactor) * 0.5D, (firstValue.verticalFactor + secondValue.verticalFactor) * 0.5D, firstValue.hasBonusDeflect || secondValue.hasBonusDeflect, secondValue.sound);
 		}
 	}
 }

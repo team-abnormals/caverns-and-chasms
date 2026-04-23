@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -37,11 +36,50 @@ public class CCDataMapProvider extends DataMapProvider {
 	@Override
 	protected void gather(Provider provider) {
 		this.builder(CCDataMaps.TIN_DEFLECTIONS)
-				.add(CCBlockTags.DEFLECTS_PROJECTILES, new TinDeflection(0.75D, 0.65D), false)
-				.add(CCBlockTags.WEAKER_DEFLECT_VELOCITY, new TinDeflection(0.4D, 0.5D), false)
-				.add(CCBlockTags.WEAKEST_DEFLECT_VELOCITY, new TinDeflection(0.3D, 0.4D), false)
-				.add(BOUNCER, new TinDeflection(0.9D, 0.9D), false)
-				.add(TINPLATE_BLOCK, new TinDeflection(0.75D, 0.65D, true), false);
+				// Default deflection parameters
+				.add(TIN_BLOCK, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(TIN_INGOT, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(SCATTERER, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(SPLURTER, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(TIN_BRICKS, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(TIN_BRICK_STAIRS, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(TIN_BRICK_SLAB, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(TIN_BRICK_WALL, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(CHISELED_TIN_BRICKS, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(TIN_BARS, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(HOLD_PLATE, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(HOLD_BUTTON, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(WINCH, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(HOOP, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(STORAGE_DUCT_HATCH, new TinDeflection(CCSoundEvents.TIN_DEFLECT.get()), false)
+				.add(RAW_TIN_BLOCK, new TinDeflection(CCSoundEvents.TIN_ORE_DEFLECT.get()), false)
+				.add(DIMMER, new TinDeflection(CCSoundEvents.DIMMER_DEFLECT.get()), false)
+				.add(WALL_DIMMER, new TinDeflection(CCSoundEvents.DIMMER_DEFLECT.get()), false)
+				.add(RESISTOR, new TinDeflection(CCSoundEvents.DIMMER_DEFLECT.get()), false)
+				.add(REFRACTOR, new TinDeflection(CCSoundEvents.REFRACTOR_DEFLECT.get()), false)
+				.add(SADDLED_EGG, new TinDeflection(CCSoundEvents.SADDLED_EGG_DEFLECT.get()), false)
+				.add(TIN_BULB, new TinDeflection(CCSoundEvents.TIN_BULB_DEFLECT.get()), false)
+				.add(TIN_CHAIN, new TinDeflection(CCSoundEvents.TIN_CHAIN_DEFLECT.get()), false)
+				.add(STORAGE_DUCT, new TinDeflection(CCSoundEvents.STORAGE_DUCT_DEFLECT.get()), false)
+				.add(ROLLER_DOOR, new TinDeflection(CCSoundEvents.ROLLER_DOOR_DEFLECT.get()), false)
+				.add(ROLLER_DOOR_HEADER, new TinDeflection(CCSoundEvents.ROLLER_DOOR_DEFLECT.get()), false)
+				.add(FLOAT_GLASS, new TinDeflection(CCSoundEvents.FLOAT_GLASS_DEFLECT.get()), false)
+				.add(FLOAT_GLASS_PANE, new TinDeflection(CCSoundEvents.FLOAT_GLASS_DEFLECT.get()), false)
+				// Weaker deflections
+				.add(CCBlockTags.CASSITERITE_BLOCKS, new TinDeflection(0.4D, 0.5D, CCSoundEvents.CASSITERITE_DEFLECT.get()), false)
+				.add(CCBlockTags.CASSITERITE_POLISHED_BLOCKS, new TinDeflection(0.4D, 0.5D, CCSoundEvents.POLISHED_CASSITERITE_DEFLECT.get()), false)
+				.add(CCBlockTags.CASSITERITE_BRICK_BLOCKS, new TinDeflection(0.4D, 0.5D, CCSoundEvents.CASSITERITE_BRICKS_DEFLECT.get()), false)
+				.add(TIN_ORE, new TinDeflection(0.4D, 0.5D, CCSoundEvents.TIN_ORE_DEFLECT.get()), false)
+				.add(DEEPSLATE_TIN_ORE, new TinDeflection(0.4D, 0.5D, CCSoundEvents.DEEPSLATE_TIN_ORE_DEFLECT.get()), false)
+				.add(CYLINDRITE_TIN_ORE, new TinDeflection(0.4D, 0.5D, CCSoundEvents.CYLINDRITE_TIN_ORE_DEFLECT.get()), false)
+				.add(CASSITERITE_TIN_ORE, new TinDeflection(0.4D, 0.5D, CCSoundEvents.CASSITERITE_TIN_ORE_DEFLECT.get()), false)
+				// Weakest deflections
+				.add(CCBlockTags.CYLINDRITE_BLOCKS, new TinDeflection(0.3D, 0.4D, CCSoundEvents.CYLINDRITE_DEFLECT.get()), false)
+				.add(CCBlockTags.CYLINDRITE_POLISHED_BLOCKS, new TinDeflection(0.3D, 0.4D, CCSoundEvents.POLISHED_CYLINDRITE_DEFLECT.get()), false)
+				.add(CCBlockTags.CYLINDRITE_BRICK_BLOCKS, new TinDeflection(0.3D, 0.4D, CCSoundEvents.CYLINDRITE_BRICKS_DEFLECT.get()), false)
+				// Other deflection parameters
+				.add(BOUNCER, new TinDeflection(0.9D, 0.9D, CCSoundEvents.BOUNCER_DEFLECT.get()), false)
+				.add(TINPLATE_BLOCK, new TinDeflection(0.75D, 0.65D, true, CCSoundEvents.TINPLATE_DEFLECT.get()), false);
 
 		this.builder(NeoForgeDataMaps.PARROT_IMITATIONS)
 				.add(CCEntityTypes.DEEPER, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_DEEPER.get()), false)

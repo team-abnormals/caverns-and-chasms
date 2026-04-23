@@ -18,9 +18,12 @@ public class CCBlockTags {
 	public static final TagKey<Block> CAVE_GROWTHS = blockTag("cave_growths");
 	public static final TagKey<Block> COPPER_RAILS = blockTag("copper_rails");
 	public static final TagKey<Block> FLOODLIGHTS = blockTag("floodlights");
-	public static final TagKey<Block> DEFLECTS_PROJECTILES = blockTag("deflects_projectiles");
-	public static final TagKey<Block> WEAKER_DEFLECT_VELOCITY = blockTag("weaker_deflect_velocity");
-	public static final TagKey<Block> WEAKEST_DEFLECT_VELOCITY = blockTag("weakest_deflect_velocity");
+	public static final TagKey<Block> CYLINDRITE_BLOCKS = blockTag("cylindrite/blocks");
+	public static final TagKey<Block> CYLINDRITE_POLISHED_BLOCKS = blockTag("cylindrite/polished_blocks");
+	public static final TagKey<Block> CYLINDRITE_BRICK_BLOCKS = blockTag("cylindrite/brick_blocks");
+	public static final TagKey<Block> CASSITERITE_BLOCKS = blockTag("cassiterite/blocks");
+	public static final TagKey<Block> CASSITERITE_POLISHED_BLOCKS = blockTag("cassiterite/polished_blocks");
+	public static final TagKey<Block> CASSITERITE_BRICK_BLOCKS = blockTag("cassiterite/brick_blocks");
 	public static final TagKey<Block> STATIC_NOTE_BLOCKS = blockTag("static_note_blocks");
 	public static final TagKey<Block> ALARM_NOTE_BLOCKS = blockTag("alarm_note_blocks");
 	public static final TagKey<Block> WARDEN_NOTE_BLOCKS = blockTag("warden_note_blocks");
