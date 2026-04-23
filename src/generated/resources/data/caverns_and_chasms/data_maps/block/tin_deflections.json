@@ -1,204 +1,204 @@
 {
   "values": {
-    "#caverns_and_chasms:cassiterite/blocks": {
+    "#caverns_and_chasms:cassiterite_blocks/bricks": {
+      "deflect_sound": "caverns_and_chasms:block.cassiterite_bricks.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.cassiterite.deflect",
       "vertical_factor": 0.5
     },
-    "#caverns_and_chasms:cassiterite/brick_blocks": {
+    "#caverns_and_chasms:cassiterite_blocks/normal": {
+      "deflect_sound": "caverns_and_chasms:block.cassiterite.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.cassiterite_bricks.deflect",
       "vertical_factor": 0.5
     },
-    "#caverns_and_chasms:cassiterite/polished_blocks": {
+    "#caverns_and_chasms:cassiterite_blocks/polished": {
+      "deflect_sound": "caverns_and_chasms:block.polished_cassiterite.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.polished_cassiterite.deflect",
       "vertical_factor": 0.5
     },
-    "#caverns_and_chasms:cylindrite/blocks": {
+    "#caverns_and_chasms:cylindrite_blocks/bricks": {
+      "deflect_sound": "caverns_and_chasms:block.cylindrite_bricks.deflect",
       "horizontal_factor": 0.3,
-      "sound": "caverns_and_chasms:block.cylindrite.deflect",
       "vertical_factor": 0.4
     },
-    "#caverns_and_chasms:cylindrite/brick_blocks": {
+    "#caverns_and_chasms:cylindrite_blocks/normal": {
+      "deflect_sound": "caverns_and_chasms:block.cylindrite.deflect",
       "horizontal_factor": 0.3,
-      "sound": "caverns_and_chasms:block.cylindrite_bricks.deflect",
       "vertical_factor": 0.4
     },
-    "#caverns_and_chasms:cylindrite/polished_blocks": {
+    "#caverns_and_chasms:cylindrite_blocks/polished": {
+      "deflect_sound": "caverns_and_chasms:block.polished_cylindrite.deflect",
       "horizontal_factor": 0.3,
-      "sound": "caverns_and_chasms:block.polished_cylindrite.deflect",
       "vertical_factor": 0.4
     },
     "caverns_and_chasms:bouncer": {
+      "deflect_sound": "caverns_and_chasms:block.bouncer.deflect",
       "horizontal_factor": 0.9,
-      "sound": "caverns_and_chasms:block.bouncer.deflect",
       "vertical_factor": 0.9
     },
     "caverns_and_chasms:cassiterite_tin_ore": {
+      "deflect_sound": "caverns_and_chasms:block.cassiterite_tin_ore.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.cassiterite_tin_ore.deflect",
       "vertical_factor": 0.5
     },
     "caverns_and_chasms:chiseled_tin_bricks": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:cylindrite_tin_ore": {
+      "deflect_sound": "caverns_and_chasms:block.cylindrite_tin_ore.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.cylindrite_tin_ore.deflect",
       "vertical_factor": 0.5
     },
     "caverns_and_chasms:deepslate_tin_ore": {
+      "deflect_sound": "caverns_and_chasms:block.deepslate_tin_ore.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.deepslate_tin_ore.deflect",
       "vertical_factor": 0.5
     },
     "caverns_and_chasms:dimmer": {
+      "deflect_sound": "caverns_and_chasms:block.dimmer.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.dimmer.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:float_glass": {
+      "deflect_sound": "caverns_and_chasms:block.float_glass.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.float_glass.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:float_glass_pane": {
+      "deflect_sound": "caverns_and_chasms:block.float_glass.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.float_glass.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:hold_button": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:hold_plate": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:hoop": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:raw_tin_block": {
+      "deflect_sound": "caverns_and_chasms:block.tin_ore.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin_ore.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:refractor": {
+      "deflect_sound": "caverns_and_chasms:block.refractor.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.refractor.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:resistor": {
+      "deflect_sound": "caverns_and_chasms:block.dimmer.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.dimmer.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:roller_door": {
+      "deflect_sound": "caverns_and_chasms:block.roller_door.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.roller_door.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:roller_door_header": {
+      "deflect_sound": "caverns_and_chasms:block.roller_door.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.roller_door.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:saddled_egg": {
+      "deflect_sound": "caverns_and_chasms:block.saddled_egg.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.saddled_egg.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:scatterer": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:splurter": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:storage_duct": {
+      "deflect_sound": "caverns_and_chasms:block.storage_duct.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.storage_duct.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:storage_duct_hatch": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_bars": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_block": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_brick_slab": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_brick_stairs": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_brick_wall": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_bricks": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_bulb": {
+      "deflect_sound": "caverns_and_chasms:block.tin_bulb.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin_bulb.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_chain": {
+      "deflect_sound": "caverns_and_chasms:block.tin_chain.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin_chain.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_ingot": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:tin_ore": {
+      "deflect_sound": "caverns_and_chasms:block.tin_ore.deflect",
       "horizontal_factor": 0.4,
-      "sound": "caverns_and_chasms:block.tin_ore.deflect",
       "vertical_factor": 0.5
     },
     "caverns_and_chasms:tinplate_block": {
+      "deflect_sound": "caverns_and_chasms:block.tinplate.deflect",
       "has_bonus_deflect": true,
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tinplate.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:wall_dimmer": {
+      "deflect_sound": "caverns_and_chasms:block.dimmer.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.dimmer.deflect",
       "vertical_factor": 0.65
     },
     "caverns_and_chasms:winch": {
+      "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
-      "sound": "caverns_and_chasms:block.tin.deflect",
       "vertical_factor": 0.65
     }
   }

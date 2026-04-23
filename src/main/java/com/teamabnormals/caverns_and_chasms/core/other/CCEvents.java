@@ -709,7 +709,7 @@ public class CCEvents {
 						reflectLoc = location.add(0.0D, 0.0D, 0.01D * i);
 					}
 
-					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : deflection.sound();
+					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : deflection.deflectSound().value();
 
 					if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, soundEvent)) {
 						originalState.onProjectileHit(level, originalState, blockHitResult, projectile);
