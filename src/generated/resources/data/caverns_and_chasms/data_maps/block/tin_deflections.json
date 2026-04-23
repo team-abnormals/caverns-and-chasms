@@ -1,0 +1,25 @@
+{
+  "values": {
+    "#caverns_and_chasms:deflects_projectiles": {
+      "horizontal_factor": 0.75,
+      "vertical_factor": 0.65
+    },
+    "#caverns_and_chasms:weaker_deflect_velocity": {
+      "horizontal_factor": 0.4,
+      "vertical_factor": 0.5
+    },
+    "#caverns_and_chasms:weakest_deflect_velocity": {
+      "horizontal_factor": 0.3,
+      "vertical_factor": 0.4
+    },
+    "caverns_and_chasms:bouncer": {
+      "horizontal_factor": 0.9,
+      "vertical_factor": 0.9
+    },
+    "caverns_and_chasms:tinplate_block": {
+      "has_bonus_deflect": true,
+      "horizontal_factor": 0.75,
+      "vertical_factor": 0.65
+    }
+  }
+}

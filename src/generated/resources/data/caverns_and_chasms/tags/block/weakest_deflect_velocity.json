@@ -1,9 +1,13 @@
 {
   "values": [
     "caverns_and_chasms:cylindrite",
+    "caverns_and_chasms:cylindrite_stairs",
+    "caverns_and_chasms:cylindrite_slab",
+    "caverns_and_chasms:cylindrite_wall",
     "caverns_and_chasms:smooth_cylindrite",
     "caverns_and_chasms:smooth_cylindrite_stairs",
     "caverns_and_chasms:smooth_cylindrite_slab",
+    "caverns_and_chasms:smooth_cylindrite_wall",
     "caverns_and_chasms:cylindrite_bricks",
     "caverns_and_chasms:cylindrite_brick_stairs",
     "caverns_and_chasms:cylindrite_brick_slab",

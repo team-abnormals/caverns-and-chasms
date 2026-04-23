@@ -4,9 +4,12 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TinDeflection;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -33,6 +36,13 @@ public class CCDataMapProvider extends DataMapProvider {
 
 	@Override
 	protected void gather(Provider provider) {
+		this.builder(CCDataMaps.TIN_DEFLECTIONS)
+				.add(CCBlockTags.DEFLECTS_PROJECTILES, new TinDeflection(0.75D, 0.65D), false)
+				.add(CCBlockTags.WEAKER_DEFLECT_VELOCITY, new TinDeflection(0.4D, 0.5D), false)
+				.add(CCBlockTags.WEAKEST_DEFLECT_VELOCITY, new TinDeflection(0.3D, 0.4D), false)
+				.add(BOUNCER, new TinDeflection(0.9D, 0.9D), false)
+				.add(TINPLATE_BLOCK, new TinDeflection(0.75D, 0.65D, true), false);
+
 		this.builder(NeoForgeDataMaps.PARROT_IMITATIONS)
 				.add(CCEntityTypes.DEEPER, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_DEEPER.get()), false)
 				.add(CCEntityTypes.EVENDEEPER, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_EVENDEEPER.get()), false)

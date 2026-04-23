@@ -27,6 +27,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent.Post;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TinDeflection;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
@@ -39,6 +40,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -620,6 +622,10 @@ public class CCEvents {
 		}
 	}
 
+	public static TinDeflection getTinDeflection(BlockState state) {
+		return BuiltInRegistries.BLOCK.getData(CCDataMaps.TIN_DEFLECTIONS, state.getBlock().builtInRegistryHolder().getKey());
+	}
+
 	@SubscribeEvent
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
 		Level level = event.getEntity().level();
@@ -638,12 +644,12 @@ public class CCEvents {
 			BlockState state = level.getBlockState(pos);
 			Direction direction = blockHitResult.getDirection();
 
-			boolean flag = state.is(CCBlockTags.DEFLECTS_PROJECTILES);
+			boolean flag = getTinDeflection(state) != null;
 
 			if (!flag) {
 				BlockPos blockpos1 = pos.relative(direction.getOpposite());
 				BlockState blockstate1 = level.getBlockState(blockpos1);
-				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.isFaceSturdy(level, blockpos1, direction)) {
+				if (getTinDeflection(blockstate1) != null && blockstate1.isFaceSturdy(level, blockpos1, direction)) {
 					flag = true;
 					pos = blockpos1;
 					state = blockstate1;
@@ -653,7 +659,7 @@ public class CCEvents {
 			if (!flag) {
 				BlockPos blockpos1 = pos.relative(direction);
 				BlockState blockstate1 = level.getBlockState(blockpos1);
-				if (blockstate1.is(CCBlockTags.DEFLECTS_PROJECTILES) && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(1.0E-7D).move(blockpos1).contains(blockHitResult.getLocation())) {
+				if (getTinDeflection(blockstate1) != null && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(1.0E-7D).move(blockpos1).contains(blockHitResult.getLocation())) {
 					flag = true;
 					pos = blockpos1;
 					state = blockstate1;
@@ -668,20 +674,25 @@ public class CCEvents {
 					Axis axis = direction.getAxis();
 					int i = blockHitResult.getDirection().getAxisDirection().getStep();
 
-					double j = 0.65D;
-					double k = 0.75D;
+					double j;
+					double k;
 
-					if (state.is(CCBlockTags.MAINTAINS_DEFLECT_VELOCITY)) {
-						j = 0.9D;
-						k = 0.9D;
+					TinDeflection deflection = getTinDeflection(state);
+					if (deflection == null) {  // TODO: Make this more elegant?
+						deflection = getTinDeflection(CCBlocks.TIN_BLOCK.get().defaultBlockState());
 					}
 
-					if (state.is(CCBlockTags.WEAKER_DEFLECT_VELOCITY) || bonus) {
+					if (deflection == null) {
+						j = 0.65D;
+						k = 0.75D;
+					} else {
+						j = deflection.verticalFactor();
+						k = deflection.horizontalFactor();
+					}
+
+					if (bonus) {
 						j -= 0.25D;
 						k -= 0.25D;
-					} else if (state.is(CCBlockTags.WEAKEST_DEFLECT_VELOCITY)) {
-						j -= 0.35D;
-						k -= 0.35D;
 					}
 
 					Vec3 reflect;
@@ -698,7 +709,7 @@ public class CCEvents {
 						reflectLoc = location.add(0.0D, 0.0D, 0.01D * i);
 					}
 
-					SoundType soundType = state.getBlock().getSoundType(state, level, pos, null);
+					SoundType soundType = state.getBlock().getSoundType(state, level, pos, null); // TODO: Should we remove TinSoundType and add to the Tin Deflections DataMap?
 					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : soundType instanceof TinSoundType tinSoundType ? tinSoundType.getDeflectSound() : CCSoundEvents.TIN_DEFLECT.get();
 
 					if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, soundEvent)) {
@@ -745,13 +756,10 @@ public class CCEvents {
 		HitResult hitResult = event.getRayTraceResult();
 
 		if (hitResult.getType() == HitResult.Type.BLOCK) {
-			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-			BlockState blockState = level.getBlockState(blockPos);
-			if (!blockState.is(CCBlockTags.DEFLECTS_PROJECTILES)) {
-				data.setValue(CCDataProcessors.BONUS_DEFLECT, false);
-			} else if (blockState.is(CCBlockTags.HAS_BONUS_DEFLECT)) {
-				data.setValue(CCDataProcessors.BONUS_DEFLECT, true);
-			}
+			BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
+			BlockState state = level.getBlockState(pos);
+			TinDeflection deflection = getTinDeflection(state);
+			data.setValue(CCDataProcessors.BONUS_DEFLECT, deflection != null && deflection.hasBonusDeflect());
 		}
 	}
 
