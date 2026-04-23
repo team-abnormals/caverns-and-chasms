@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.entity.PartEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -79,14 +80,18 @@ public class CCUtil {
 	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normalizedMovement, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random, boolean fromServer) {
 		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
 
+		List<ParticleInstance> particles = new ArrayList<>();
 		for (int i = 0; i < 4; ++i) {
 			double d1 = normalizedMovement.x * 0.2D + random.nextGaussian() * 0.05D;
 			double d2 = normalizedMovement.y * 0.2D + random.nextGaussian() * 0.05D;
 			double d3 = normalizedMovement.z * 0.2D + random.nextGaussian() * 0.05D;
 			if (fromServer)
-				NetworkUtil.spawnParticle((ServerLevel) level, CCParticleTypes.TIN_SPARK.get(), List.of(new ParticleInstance(location.x, location.y, location.z, d1, d2, d3)));
+				particles.add(new ParticleInstance(location.x, location.y, location.z, d1, d2, d3));
 			else
 				level.addParticle(CCParticleTypes.TIN_SPARK.get(), location.x, location.y, location.z, d1, d2, d3);
+		}
+		if (fromServer) {
+			NetworkUtil.spawnParticle((ServerLevel) level, CCParticleTypes.TIN_SPARK.get(), particles);
 		}
 	}
 

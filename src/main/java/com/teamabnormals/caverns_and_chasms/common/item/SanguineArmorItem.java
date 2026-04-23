@@ -28,6 +28,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
@@ -48,14 +49,21 @@ public class SanguineArmorItem extends ArmorItem {
 
 	public static void causeHealEffects(LivingEntity entity) {
 		RandomSource random = entity.getRandom();
+
 		if (entity.level() instanceof ServerLevel serverLevel) {
-			int count = 3;
-			for (int i = 0; i < count; ++i) {
-				double d0 = random.nextGaussian() * 0.02D;
-				double d1 = random.nextGaussian() * 0.02D;
-				double d2 = random.nextGaussian() * 0.02D;
-				NetworkUtil.spawnParticle(serverLevel, ParticleTypes.HEART, List.of(new ParticleInstance(entity.getRandomX(0.75D), entity.getEyeY() + 0.1F + random.nextDouble() * 0.3F, entity.getRandomZ(0.75D), d0, d1, d2)));
+			List<ParticleInstance> particles = new ArrayList<>();
+			for (int i = 0; i < 3; ++i) {
+				double d0 = entity.getRandomX(0.75D);
+				double d1 = entity.getEyeY() + 0.1F + random.nextDouble() * 0.3F;
+				double d2 = entity.getRandomZ(0.75D);
+
+				double d3 = random.nextGaussian() * 0.02D;
+				double d4 = random.nextGaussian() * 0.02D;
+				double d5 = random.nextGaussian() * 0.02D;
+
+				particles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
 			}
+			NetworkUtil.spawnParticle(serverLevel, ParticleTypes.HEART, particles);
 		}
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), CCSoundEvents.SANGUINE_HEAL.get(), entity.getSoundSource(), 1.0F, 1.0F);
 	}

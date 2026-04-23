@@ -24,6 +24,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -120,14 +121,17 @@ public interface FragileBlock {
 
 	default void crack(Level level, BlockState state, BlockPos pos, RandomSource random) {
 		if (level instanceof ServerLevel serverLevel) {
+			List<ParticleInstance> dustParticles = new ArrayList<>();
 			double d0 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
 			double d1 = pos.getY() + random.nextDouble() * 0.8D + 0.1D;
 			double d2 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
 			double d3 = random.nextGaussian() * 0.04D;
 			double d4 = random.nextGaussian() * 0.04D;
 			double d5 = random.nextGaussian() * 0.04D;
-			NetworkUtil.spawnParticle(serverLevel, this.getDustParticle(), List.of(new ParticleInstance(d0, d1, d2, d3, d4, d5)));
+			dustParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
+			NetworkUtil.spawnParticle(serverLevel, this.getDustParticle(), dustParticles);
 
+			List<ParticleInstance> chipParticles = new ArrayList<>();
 			int i = random.nextInt(2) + 1;
 			for (int j = 0; j < i; ++j) {
 				double d6 = pos.getX() + random.nextDouble() * 0.8D + 0.1D;
@@ -135,8 +139,9 @@ public interface FragileBlock {
 				double d8 = pos.getZ() + random.nextDouble() * 0.8D + 0.1D;
 				double d9 = ((double) random.nextFloat() - 0.5D) * 0.02D;
 				double d10 = ((double) random.nextFloat() - 0.5D) * 0.02D;
-				NetworkUtil.spawnParticle(serverLevel, this.getChipParticle(), List.of(new ParticleInstance(d6, d7, d8, d9, -0.4D, d10)));
+				chipParticles.add(new ParticleInstance(d6, d7, d8, d9, -0.4D, d10));
 			}
+			NetworkUtil.spawnParticle(serverLevel, this.getChipParticle(), chipParticles);
 		}
 
 		SoundType soundtype = state.getSoundType(level, pos, null);

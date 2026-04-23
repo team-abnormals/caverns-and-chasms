@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SilverItem {
@@ -43,12 +44,14 @@ public class SilverItem {
 			}
 
 		} else {
+			List<ParticleInstance> particles = new ArrayList<>();
 			for (int i = 0; i < count; ++i) {
 				double d0 = random.nextGaussian() * 0.02D;
 				double d1 = random.nextGaussian() * 0.02D;
 				double d2 = random.nextGaussian() * 0.02D;
-				NetworkUtil.spawnParticle(serverLevel, particle, List.of(new ParticleInstance(entity.getRandomX(0.75D), entity.getRandomY() + (defensive ? 0.3F : 0.0F), entity.getRandomZ(0.75D), d0, d1, d2)));
+				particles.add(new ParticleInstance(entity.getRandomX(0.75D), entity.getRandomY() + (defensive ? 0.3F : 0.0F), entity.getRandomZ(0.75D), d0, d1, d2));
 			}
+			NetworkUtil.spawnParticle(serverLevel, particle, particles);
 		}
 	}
 }

@@ -36,6 +36,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
@@ -98,12 +99,14 @@ public class CowlItem extends ArmorItem {
 
 	public static void poofParticles(ServerLevel level, AABB box, int loops) {
 		RandomSource random = level.getRandom();
+		List<ParticleInstance> particles = new ArrayList<>();
 		for (int i = 0; i < loops; i++) {
 			double x = box.min(Direction.Axis.X) + (random.nextFloat() * box.getXsize());
 			double y = box.min(Direction.Axis.Y) + (random.nextFloat() * box.getYsize());
 			double z = box.min(Direction.Axis.Z) + (random.nextFloat() * box.getZsize());
-			NetworkUtil.spawnParticle(level, ParticleTypes.POOF, List.of(new ParticleInstance(x, y, z, 0.0D, 0.0D, 0.0D)));
+			particles.add(new ParticleInstance(x, y, z, 0.0D, 0.0D, 0.0D));
 		}
+		NetworkUtil.spawnParticle(level, ParticleTypes.POOF, particles);
 	}
 
 	@SubscribeEvent

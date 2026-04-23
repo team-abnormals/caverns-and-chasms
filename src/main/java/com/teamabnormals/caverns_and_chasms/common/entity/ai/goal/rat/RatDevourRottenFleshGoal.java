@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -80,12 +81,14 @@ public class RatDevourRottenFleshGoal extends Goal {
 			this.rat.setDirty(false);
 
 			if (this.rat.level() instanceof ServerLevel level) {
+				List<ParticleInstance> particles = new ArrayList<>();
 				for (int i = 0; i < 4; ++i) {
 					double d0 = random.nextGaussian() * 0.02D;
 					double d1 = random.nextGaussian() * 0.02D;
 					double d2 = random.nextGaussian() * 0.02D;
-					NetworkUtil.spawnParticle(level, ParticleTypes.HEART, List.of(new ParticleInstance(this.rat.getRandomX(1.0D), this.rat.getRandomY() + 0.15D, this.rat.getRandomZ(1.0D), d0, d1, d2)));
+					particles.add(new ParticleInstance(this.rat.getRandomX(1.0D), this.rat.getRandomY() + 0.15D, this.rat.getRandomZ(1.0D), d0, d1, d2));
 				}
+				NetworkUtil.spawnParticle(level, ParticleTypes.HEART, particles);
 			}
 
 			if (this.rat.level().getEntitiesOfClass(Rat.class, this.rat.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), (entity) -> entity != this.rat && entity.getTamer() != null && entity.getRottenFleshPos() == this.rat.getRottenFleshPos()).isEmpty()) {
