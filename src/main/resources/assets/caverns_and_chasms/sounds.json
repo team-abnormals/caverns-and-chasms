@@ -3244,45 +3244,105 @@
   },
   "block.turquoise.break": {
     "sounds": [
-      "caverns_and_chasms:block/turquoise/break1",
-      "caverns_and_chasms:block/turquoise/break2",
-      "caverns_and_chasms:block/turquoise/break3",
-      "caverns_and_chasms:block/turquoise/break4"
+      {
+        "name": "caverns_and_chasms:block/turquoise/break1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/break2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/break3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/break4",
+        "volume": 1.4
+      }
     ],
     "subtitle": "subtitles.block.generic.break"
   },
   "block.turquoise.fall": {
     "sounds": [
-      "caverns_and_chasms:block/turquoise/step1",
-      "caverns_and_chasms:block/turquoise/step2",
-      "caverns_and_chasms:block/turquoise/step3",
-      "caverns_and_chasms:block/turquoise/step4"
+      {
+        "name": "caverns_and_chasms:block/turquoise/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step4",
+        "volume": 1.4
+      }
     ]
   },
   "block.turquoise.hit": {
     "sounds": [
-      "caverns_and_chasms:block/turquoise/step1",
-      "caverns_and_chasms:block/turquoise/step2",
-      "caverns_and_chasms:block/turquoise/step3",
-      "caverns_and_chasms:block/turquoise/step4"
+      {
+        "name": "caverns_and_chasms:block/turquoise/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step4",
+        "volume": 1.4
+      }
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
   "block.turquoise.place": {
     "sounds": [
-      "caverns_and_chasms:block/turquoise/break1",
-      "caverns_and_chasms:block/turquoise/break2",
-      "caverns_and_chasms:block/turquoise/break3",
-      "caverns_and_chasms:block/turquoise/break4"
+      {
+        "name": "caverns_and_chasms:block/turquoise/break1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/break2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/break3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/break4",
+        "volume": 1.4
+      }
     ],
     "subtitle": "subtitles.block.generic.place"
   },
   "block.turquoise.step": {
     "sounds": [
-      "caverns_and_chasms:block/turquoise/step1",
-      "caverns_and_chasms:block/turquoise/step2",
-      "caverns_and_chasms:block/turquoise/step3",
-      "caverns_and_chasms:block/turquoise/step4"
+      {
+        "name": "caverns_and_chasms:block/turquoise/step1",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step2",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step3",
+        "volume": 1.4
+      },
+      {
+        "name": "caverns_and_chasms:block/turquoise/step4",
+        "volume": 1.4
+      }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
