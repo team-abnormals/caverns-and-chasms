@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
+import com.teamabnormals.blueprint.core.annotations.ConfigKey;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
@@ -34,6 +35,10 @@ public class CCConfig {
 
 		public final BooleanValue preventReplacingTrims;
 		public final BooleanValue zirconiaUniversalRepairing;
+
+		@ConfigKey("trial_chambers_repalette")
+		public final BooleanValue trialChambersRepalette;
+		public final BooleanValue trialTokens;
 
 		public Common(ModConfigSpec.Builder builder) {
 			builder.push("mobs");
@@ -85,6 +90,10 @@ public class CCConfig {
 					.comment("Prevents replacing/applying a Trim Template & Material over a previously trimmed item")
 					.comment("This is to prevent the player from wasting materials that could be returned at a Dismantling Table")
 					.define("Prevent replacing trims", false);
+			builder.pop();
+			builder.push("trial_chambers");
+			this.trialChambersRepalette = builder.comment("If Copper Blocks are replaced with Shale Pillars in Trial Chambers", "This prevents Trial Chambers from giving access to insane amounts of Copper Ingots and gives them a more gloomy vibe").define("Trial Chambers repalette", true);
+			this.trialTokens = builder.comment("If Trial Tokens should be given instead of miscellaneous loot from Trial Spawners").define("Trial Tokens", true);
 			builder.pop();
 			builder.pop();
 		}

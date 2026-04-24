@@ -1,20 +1,14 @@
 {
-  "repaletter": [
+  "neoforge:conditions": [
     {
-      "type": "blueprint:simple_tag",
-      "replaces_block": "c:storage_blocks/all_copper",
-      "replaces_with": "caverns_and_chasms:shale_pillar"
-    },
-    {
-      "type": "blueprint:simple",
-      "replaces_block": "minecraft:oak_button",
-      "replaces_with": "caverns_and_chasms:waxed_copper_button"
-    },
-    {
-      "type": "blueprint:simple",
-      "replaces_block": "minecraft:oak_pressure_plate",
-      "replaces_with": "caverns_and_chasms:waxed_copper_pressure_plate"
+      "type": "caverns_and_chasms:config",
+      "value": "trial_chambers_repalette"
     }
   ],
+  "repaletter": {
+    "type": "blueprint:simple_tag",
+    "replaces_block": "c:storage_blocks/all_copper",
+    "replaces_with": "caverns_and_chasms:shale_pillar"
+  },
   "structures": "minecraft:trial_chambers"
 }

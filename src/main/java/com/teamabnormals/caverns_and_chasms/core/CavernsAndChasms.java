@@ -41,7 +41,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -92,6 +91,7 @@ public class CavernsAndChasms {
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
 		CCCreativeTabs.CREATIVE_TABS.register(bus);
+		CCConditionSerializers.CONDITION_SERIALIZERS.register(bus);
 
 		NeoForgeMod.enableMergedAttributeTooltips();
 
@@ -136,7 +136,7 @@ public class CavernsAndChasms {
 
 		boolean server = event.includeServer();
 
-		CCDatapackBuiltinEntriesProvider datapackEntries = new CCDatapackBuiltinEntriesProvider(output, provider);
+		CCDatapackProvider datapackEntries = new CCDatapackProvider(output, provider);
 		generator.addProvider(server, datapackEntries);
 		provider = datapackEntries.getRegistryProvider();
 

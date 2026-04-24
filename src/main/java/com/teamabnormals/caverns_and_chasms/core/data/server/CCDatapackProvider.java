@@ -18,7 +18,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProvider {
+public class CCDatapackProvider extends DatapackBuiltinEntriesProvider {
 
 	public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
 			.add(Keys.BIOME_MODIFIERS, CCBiomeModifiers::bootstrap)
@@ -39,7 +39,7 @@ public class CCDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 			.add(CCRegistries.RAT_VARIANT, CCRatVariants::bootstrap)
 			.add(BlueprintDataPackRegistries.STRUCTURE_REPALETTERS, CCStructureRepaletters::bootstrap);
 
-	public CCDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<Provider> provider) {
-		super(output, provider, BUILDER, Set.of(CavernsAndChasms.MOD_ID, "minecraft"));
+	public CCDatapackProvider(PackOutput output, CompletableFuture<Provider> provider) {
+		super(output, provider, BUILDER, CCStructureRepaletters::applyConditions, Set.of(CavernsAndChasms.MOD_ID, "minecraft"));
 	}
 }
