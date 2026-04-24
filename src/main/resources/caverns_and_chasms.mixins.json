@@ -27,6 +27,7 @@
     "block.entity.VaultBlockEntityMixin",
     "block.entity.VaultServerDataMixin",
     "block.entity.VaultSharedDataMixin",
+    "block.entity.VaultStateMixin",
     "dispenser.AbstractProjectileDispenseBehaviorMixin",
     "dispenser.DefaultDispenseItemBehaviorMixin",
     "entity.AbstractMinecartMixin",

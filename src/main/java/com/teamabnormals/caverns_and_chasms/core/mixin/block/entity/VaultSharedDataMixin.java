@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin.block.entity;
 
+import com.teamabnormals.caverns_and_chasms.common.block.entity.CCVaultSharedData;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Mixin(VaultSharedData.class)
-public abstract class VaultSharedDataMixin {
+public abstract class VaultSharedDataMixin implements CCVaultSharedData {
+
+	@Unique
+	private ItemStack caverns_and_chasms$insertStack = ItemStack.EMPTY;
 
 	@Shadow
 	private Set<UUID> connectedPlayers;
@@ -50,5 +54,15 @@ public abstract class VaultSharedDataMixin {
 		ItemStack stack = player.getMainHandItem();
 		TrialToken token = stack.getItemHolder().getData(CCDataMaps.TRIAL_TOKENS);
 		return token != null && VaultBlockEntity.Server.isValidToInsert(config, stack);
+	}
+
+	@Override
+	public ItemStack getInsertStack() {
+		return this.caverns_and_chasms$insertStack;
+	}
+
+	@Override
+	public void setInsertStack(ItemStack lastUsedItem) {
+		this.caverns_and_chasms$insertStack = lastUsedItem;
 	}
 }

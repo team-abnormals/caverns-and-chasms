@@ -4931,7 +4931,7 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:item/trial_token/insert",
-        "volume": 1.1
+        "volume": 2.8
       } 
     ],
     "subtitle": "subtitles.block.vault.insert_item"

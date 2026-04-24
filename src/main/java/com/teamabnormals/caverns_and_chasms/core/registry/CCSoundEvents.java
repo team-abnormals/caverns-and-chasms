@@ -499,7 +499,7 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
 	
-	public static final DeferredHolder<SoundEvent, SoundEvent> INSERT_TOKEN = SOUNDS.createSoundEvent("block.vault.insert_token");
+	public static final DeferredHolder<SoundEvent, SoundEvent> VAULT_INSERT_TOKEN = SOUNDS.createSoundEvent("block.vault.insert_token");
 	public static final DeferredHolder<SoundEvent, SoundEvent> OPEN_TOKEN = SOUNDS.createSoundEvent("block.vault.open_token");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> WINCH_WIND = SOUNDS.createSoundEvent("block.winch.wind");

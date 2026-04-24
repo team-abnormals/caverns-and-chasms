@@ -4,6 +4,8 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TinDeflection.DeflectionMerger;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken.TrialTokenMerger;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -23,11 +25,14 @@ import net.neoforged.neoforge.registries.datamaps.DataMapValueMerger;
 import net.neoforged.neoforge.registries.datamaps.DataMapValueRemover.Default;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCDataMaps {
 
-	public static final AdvancedDataMapType<Block, TinDeflection, Default<TinDeflection, Block>> TIN_DEFLECTIONS = AdvancedDataMapType.builder(CavernsAndChasms.location("tin_deflections"), Registries.BLOCK, TinDeflection.CODEC).synced(TinDeflection.CODEC, false).merger(new DeflectionMerger()).build();
-	public static final DataMapType<Item, TrialToken> TRIAL_TOKENS = DataMapType.builder(CavernsAndChasms.location("trial_tokens"), Registries.ITEM, TrialToken.CODEC).synced(TrialToken.CODEC, false).build();
+	public static final DataMapType<Block, TinDeflection> TIN_DEFLECTIONS = AdvancedDataMapType.builder(CavernsAndChasms.location("tin_deflections"), Registries.BLOCK, TinDeflection.CODEC).synced(TinDeflection.CODEC, false).merger(new DeflectionMerger()).build();
+	public static final DataMapType<Item, TrialToken> TRIAL_TOKENS = AdvancedDataMapType.builder(CavernsAndChasms.location("trial_tokens"), Registries.ITEM, TrialToken.CODEC).synced(TrialToken.CODEC, false).merger(new TrialTokenMerger()).build();
 
 	@SubscribeEvent
 	public static void registerDataMaps(RegisterDataMapTypesEvent event) {
@@ -55,22 +60,34 @@ public class CCDataMaps {
 				Codec.BOOL.optionalFieldOf("has_bonus_deflect", false).forGetter(TinDeflection::hasBonusDeflect),
 				SoundEvent.CODEC.fieldOf("deflect_sound").forGetter(TinDeflection::deflectSound)
 		).apply(in, TinDeflection::new));
+
+		public static class DeflectionMerger implements DataMapValueMerger<Block, TinDeflection> {
+
+			@Override
+			public TinDeflection merge(Registry<Block> registry, Either<TagKey<Block>, ResourceKey<Block>> first, TinDeflection firstValue, Either<TagKey<Block>, ResourceKey<Block>> second, TinDeflection secondValue) {
+				return new TinDeflection((firstValue.horizontalFactor + secondValue.horizontalFactor) * 0.5D, (firstValue.verticalFactor + secondValue.verticalFactor) * 0.5D, firstValue.hasBonusDeflect || secondValue.hasBonusDeflect, secondValue.deflectSound);
+			}
+		}
 	}
 
-	public record TrialToken(ItemStack keyItem, ResourceKey<LootTable> tokenLootTable, ResourceKey<LootTable> replaceLootTable, ResourceKey<LootTable> vaultLootTable) {
+	public record TrialToken(ItemStack keyItem, Holder<SoundEvent> tokenSound, Map<ResourceKey<LootTable>, ResourceKey<LootTable>> trialSpawnerLootTables, Map<ResourceKey<LootTable>, ResourceKey<LootTable>> vaultLootTables) {
 		public static final Codec<TrialToken> CODEC = RecordCodecBuilder.create(in -> in.group(
 				ItemStack.CODEC.fieldOf("key_item").forGetter(TrialToken::keyItem),
-				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("token_loot_table").forGetter(TrialToken::tokenLootTable),
-				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("replace_loot_table").forGetter(TrialToken::replaceLootTable),
-				ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("vault_loot_table").forGetter(TrialToken::vaultLootTable)
+				SoundEvent.CODEC.fieldOf("token_sound").forGetter(TrialToken::tokenSound),
+				Codec.unboundedMap(ResourceKey.codec(Registries.LOOT_TABLE), ResourceKey.codec(Registries.LOOT_TABLE)).fieldOf("trial_spawner_loot_tables").forGetter(TrialToken::trialSpawnerLootTables),
+				Codec.unboundedMap(ResourceKey.codec(Registries.LOOT_TABLE), ResourceKey.codec(Registries.LOOT_TABLE)).fieldOf("vault_loot_tables").forGetter(TrialToken::vaultLootTables)
 		).apply(in, TrialToken::new));
-	}
 
-	public static class DeflectionMerger implements DataMapValueMerger<Block, TinDeflection> {
+		public static class TrialTokenMerger implements DataMapValueMerger<Item, TrialToken> {
 
-		@Override
-		public TinDeflection merge(Registry<Block> registry, Either<TagKey<Block>, ResourceKey<Block>> first, TinDeflection firstValue, Either<TagKey<Block>, ResourceKey<Block>> second, TinDeflection secondValue) {
-			return new TinDeflection((firstValue.horizontalFactor + secondValue.horizontalFactor) * 0.5D, (firstValue.verticalFactor + secondValue.verticalFactor) * 0.5D, firstValue.hasBonusDeflect || secondValue.hasBonusDeflect, secondValue.deflectSound);
+			@Override
+			public TrialToken merge(Registry<Item> registry, Either<TagKey<Item>, ResourceKey<Item>> first, TrialToken firstValue, Either<TagKey<Item>, ResourceKey<Item>> second, TrialToken secondValue) {
+				Map<ResourceKey<LootTable>, ResourceKey<LootTable>> mergedTrialSpawner = new HashMap<>(firstValue.trialSpawnerLootTables());
+				mergedTrialSpawner.putAll(secondValue.trialSpawnerLootTables());
+				Map<ResourceKey<LootTable>, ResourceKey<LootTable>> mergedVault = new HashMap<>(firstValue.vaultLootTables());
+				mergedVault.putAll(secondValue.vaultLootTables());
+				return new TrialToken(firstValue.keyItem(), firstValue.tokenSound(), mergedTrialSpawner, mergedVault);
+			}
 		}
 	}
 }

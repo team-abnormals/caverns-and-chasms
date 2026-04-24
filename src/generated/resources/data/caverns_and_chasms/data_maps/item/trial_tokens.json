@@ -5,18 +5,26 @@
         "count": 1,
         "id": "minecraft:ominous_trial_key"
       },
-      "replace_loot_table": "minecraft:spawners/ominous/trial_chamber/consumables",
-      "token_loot_table": "caverns_and_chasms:spawners/ominous/trial_chamber/token",
-      "vault_loot_table": "caverns_and_chasms:chests/trial_chambers/token_ominous"
+      "token_sound": "caverns_and_chasms:block.vault.insert_token",
+      "trial_spawner_loot_tables": {
+        "minecraft:spawners/ominous/trial_chamber/consumables": "caverns_and_chasms:spawners/ominous/trial_chamber/token"
+      },
+      "vault_loot_tables": {
+        "minecraft:chests/trial_chambers/reward_ominous": "caverns_and_chasms:chests/trial_chambers/token_ominous"
+      }
     },
     "caverns_and_chasms:trial_token": {
       "key_item": {
         "count": 1,
         "id": "minecraft:trial_key"
       },
-      "replace_loot_table": "minecraft:spawners/trial_chamber/consumables",
-      "token_loot_table": "caverns_and_chasms:spawners/trial_chamber/token",
-      "vault_loot_table": "caverns_and_chasms:chests/trial_chambers/token"
+      "token_sound": "caverns_and_chasms:block.vault.insert_token",
+      "trial_spawner_loot_tables": {
+        "minecraft:spawners/trial_chamber/consumables": "caverns_and_chasms:spawners/trial_chamber/token"
+      },
+      "vault_loot_tables": {
+        "minecraft:chests/trial_chambers/reward": "caverns_and_chasms:chests/trial_chambers/token"
+      }
     }
   }
 }

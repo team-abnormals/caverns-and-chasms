@@ -22,6 +22,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.*;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -90,15 +91,15 @@ public class CCDataMapProvider extends DataMapProvider {
 				.add(CCEntityTypes.SADDLED_GRAZER, new ParrotImitation(CCSoundEvents.PARROT_IMITATE_GRAZER.get()), false);
 
 		this.builder(CCDataMaps.TRIAL_TOKENS)
-				.add(CCItems.TRIAL_TOKEN, new TrialToken(new ItemStack(Items.TRIAL_KEY),
-						CCLootTables.SPAWNER_TRIAL_CHAMBER_TOKEN,
-						BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES,
-						CCLootTables.TRIAL_CHAMBERS_TOKEN
+				.add(CCItems.TRIAL_TOKEN, new TrialToken(
+						new ItemStack(Items.TRIAL_KEY), CCSoundEvents.VAULT_INSERT_TOKEN,
+						Map.of(BuiltInLootTables.SPAWNER_TRIAL_CHAMBER_CONSUMABLES, CCLootTables.SPAWNER_TRIAL_CHAMBER_TOKEN),
+						Map.of(BuiltInLootTables.TRIAL_CHAMBERS_REWARD, CCLootTables.TRIAL_CHAMBERS_TOKEN)
 				), false)
-				.add(CCItems.OMINOUS_TRIAL_TOKEN, new TrialToken(new ItemStack(Items.OMINOUS_TRIAL_KEY),
-						CCLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN,
-						BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES,
-						CCLootTables.TRIAL_CHAMBERS_TOKEN_OMINOUS
+				.add(CCItems.OMINOUS_TRIAL_TOKEN, new TrialToken(
+						new ItemStack(Items.OMINOUS_TRIAL_KEY), CCSoundEvents.VAULT_INSERT_TOKEN,
+						Map.of(BuiltInLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_CONSUMABLES, CCLootTables.SPAWNER_OMINOUS_TRIAL_CHAMBER_TOKEN),
+						Map.of(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, CCLootTables.TRIAL_CHAMBERS_TOKEN_OMINOUS)
 				), false);
 
 		this.builder(NeoForgeDataMaps.VIBRATION_FREQUENCIES)
