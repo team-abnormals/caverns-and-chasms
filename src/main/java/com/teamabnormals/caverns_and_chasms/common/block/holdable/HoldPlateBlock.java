@@ -46,6 +46,11 @@ public class HoldPlateBlock extends PressurePlateBlock implements EntityBlock {
 	}
 
 	@Override
+	protected int getPressedTime() {
+		return 0;
+	}
+
+	@Override
 	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
 		return state.getValue(POWERED) ? this.getSignalBasedOnTime(level, pos) : 0;
 	}
