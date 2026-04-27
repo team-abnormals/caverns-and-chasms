@@ -337,7 +337,7 @@
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step5",
+        "name": "caverns_and_chasms:block/shale/step3",
         "volume": 1.5
       },
       {
@@ -357,7 +357,7 @@
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step5",
+        "name": "caverns_and_chasms:block/shale/step3",
         "volume": 1.5
       },
       {
@@ -403,7 +403,7 @@
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step5",
+        "name": "caverns_and_chasms:block/shale/step3",
         "volume": 1.5
       },
       {
@@ -4931,7 +4931,7 @@
     "sounds": [
       {
         "name": "caverns_and_chasms:item/trial_token/insert",
-        "volume": 2.8
+        "volume": 0.9
       } 
     ],
     "subtitle": "subtitles.block.vault.insert_item"
