@@ -131,28 +131,6 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
-	private static final ProjectileDeflection AEGIS_DEFLECT = (projectile, entity, random) -> {
-		Vec3 movement = projectile.getDeltaMovement().normalize();
-		ProjectileDeflection.AIM_DEFLECT.deflect(projectile, entity, random);
-		SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
-		CCProjectileUtil.incrementRicochetCounter(projectile);
-		CCProjectileUtil.setBonusDeflect(projectile, false);
-		CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, true);
-	};
-
-	private static final ProjectileDeflection SHIELD_TIN_DEFLECT = (projectile, entity, random) -> {
-		if (entity != null) {
-			Vec3 movement = projectile.getDeltaMovement();
-			Vec3 normal = entity.getLookAngle().normalize();
-			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.0D, 0.0D);
-			projectile.hasImpulse = true;
-			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.TIN_DEFLECT.get());
-			CCProjectileUtil.incrementRicochetCounter(projectile);
-			CCProjectileUtil.setBonusDeflect(projectile, false);
-			CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, false);
-		}
-	};
-
 	@SubscribeEvent
 	public static void onVillagerTradesEvent(VillagerTradesEvent event) {
 		TradeUtil.addVillagerTrades(event, VillagerProfession.MASON, TradeUtil.MASTER, new BlueprintTrade(24, CCItems.TOOLBELT.get(), 1, 1, 30));
@@ -712,6 +690,7 @@ public class CCEvents {
 
 						projectile.setDeltaMovement(deflectVector);
 						projectile.hasImpulse = true;
+
 						SoundEvent soundEvent = CCProjectileUtil.decideUsedDeflectSound(projectile, blockDeflection ? tinDeflection.deflectSound().value() : CCSoundEvents.TIN_DEFLECT.get());
 						CCProjectileUtil.incrementRicochetCounter(projectile);
 						CCProjectileUtil.setBonusDeflect(projectile, tinDeflection != null && tinDeflection.hasBonusDeflect());
@@ -725,10 +704,10 @@ public class CCEvents {
 				EntityHitResult entityHitResult = (EntityHitResult) hitResult;
 				if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && isProjectileBlocked(living, projectile)) {
 					if (living.getUseItem().is(CCItems.AEGIS.get())) {
-						projectile.deflect(AEGIS_DEFLECT, living, living, living instanceof Player);
+						projectile.deflect(CCProjectileUtil.AEGIS_DEFLECT, living, living, living instanceof Player);
 						event.setCanceled(true);
 					} else if (ricochetArrow || bonus) {
-						projectile.deflect(SHIELD_TIN_DEFLECT, living, projectile.getOwner(), living instanceof Player);
+						projectile.deflect(CCProjectileUtil.SHIELD_TIN_DEFLECT, living, projectile.getOwner(), living instanceof Player);
 						event.setCanceled(true);
 					}
 				}

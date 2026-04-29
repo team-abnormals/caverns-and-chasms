@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
+import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -14,6 +15,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
@@ -25,6 +27,49 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class CCProjectileUtil {
+	public static final ProjectileDeflection AEGIS_DEFLECT = (projectile, entity, random) -> {
+		Vec3 movement = projectile.getDeltaMovement().normalize();
+
+		ProjectileDeflection.AIM_DEFLECT.deflect(projectile, entity, random);
+
+		SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
+		CCProjectileUtil.incrementRicochetCounter(projectile);
+		CCProjectileUtil.setBonusDeflect(projectile, false);
+		CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+	};
+
+	public static final ProjectileDeflection SHIELD_TIN_DEFLECT = (projectile, entity, random) -> {
+		if (entity != null) {
+			Vec3 movement = projectile.getDeltaMovement();
+			Vec3 normal = entity.getLookAngle().normalize();
+
+			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.0D, 0.0D);
+			projectile.hasImpulse = true;
+
+			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.TIN_DEFLECT.get());
+			CCProjectileUtil.incrementRicochetCounter(projectile);
+			CCProjectileUtil.setBonusDeflect(projectile, false);
+			CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, false);
+		}
+	};
+
+	public static final ProjectileDeflection GRAZER_DEFLECT = (projectile, entity, random) -> {
+		if (entity instanceof GrazerPart grazerPart) {
+			AABB aabb = grazerPart.getBoundingBox().inflate(0.3D);
+			Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerPart.getX(), grazerPart.getY(0.5D), grazerPart.getZ()))).orElse(projectile.position());
+			Vec3 movement = projectile.getDeltaMovement();
+			Vec3 normal = grazerPart.getParent().calculateDeflectionNormal(location);
+
+			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.65D, 0.75D);
+			projectile.hasImpulse = true;
+
+			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.GRAZER_DEFLECT.get());
+			CCProjectileUtil.incrementRicochetCounter(projectile);
+			CCProjectileUtil.setBonusDeflect(projectile, false);
+			CCProjectileUtil.playRicochetEffects(entity.level(), location, movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+		}
+	};
+
 	public static EntityHitResult getExaggeratedHitboxEntityHitResult(Entity entity, Vec3 startLoc, Vec3 endLoc, AABB aabb, Predicate<Entity> predicate, double range, boolean returnParent) {
 		Level level = entity.level();
 		double d0 = range;
