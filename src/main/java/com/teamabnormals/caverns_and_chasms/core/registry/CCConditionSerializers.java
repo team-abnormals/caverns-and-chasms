@@ -20,6 +20,7 @@ public class CCConditionSerializers {
 
 	public static class CCConditions {
 		public static final ConfigValueCondition TRIAL_CHAMBERS_REPALETTE = config(CCConfig.COMMON.trialChambersRepalette, "trial_chambers_repalette");
+		public static final ConfigValueCondition TRIAL_TOKENS = config(CCConfig.COMMON.trialTokens, "trial_tokens");
 
 		public static ConfigValueCondition config(ModConfigSpec.ConfigValue<?> value, String key, boolean inverted) {
 			return new ConfigValueCondition(CONFIG.get(), value, key, Maps.newHashMap(), inverted);

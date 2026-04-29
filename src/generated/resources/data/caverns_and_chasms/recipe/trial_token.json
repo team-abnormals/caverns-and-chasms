@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "caverns_and_chasms:config",
+      "value": "trial_tokens"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "trial_token",
+  "key": {
+    "#": {
+      "item": "minecraft:trial_key"
+    },
+    "C": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    " C ",
+    "C#C",
+    " C "
+  ],
+  "result": {
+    "count": 2,
+    "id": "caverns_and_chasms:trial_token"
+  }
+}

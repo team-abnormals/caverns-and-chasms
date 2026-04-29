@@ -11,6 +11,7 @@ import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
 import com.teamabnormals.caverns_and_chasms.common.recipe.SmithingModifierRecipeBuilder;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCConditionSerializers.CCConditions;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCDataComponents;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCInstruments;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
@@ -79,6 +80,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		copperHornRecipe(consumer, provider, Instruments.DREAM_GOAT_HORN, CCInstruments.SECRET_LAKE_TEAR_COPPER_HORN);
 		copperHornRecipe(consumer, provider, CCInstruments.FLY_GOAT_HORN.getKey(), CCInstruments.FEARLESS_RIVER_GIFT_COPPER_HORN);
 		copperHornRecipe(consumer, provider, CCInstruments.RESIST_GOAT_HORN.getKey(), CCInstruments.SWEET_MOON_LOVE_COPPER_HORN);
+
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.TRIAL_TOKEN, 2).define('#', Items.TRIAL_KEY).define('C', Tags.Items.INGOTS_COPPER).pattern(" C ").pattern("C#C").pattern(" C ").unlockedBy("has_trial_key", has(Items.TRIAL_KEY)).group("trial_token").save(consumer.withConditions(CCConditions.TRIAL_TOKENS));
+		ShapedRecipeBuilder.shaped(TOOLS, CCItems.OMINOUS_TRIAL_TOKEN, 2).define('#', Items.OMINOUS_TRIAL_KEY).define('C', CCItemTags.INGOTS_OXIDIZED_COPPER).pattern(" C ").pattern("C#C").pattern(" C ").unlockedBy("has_ominous_trial_key", has(Items.OMINOUS_TRIAL_KEY)).group("trial_token").save(consumer.withConditions(CCConditions.TRIAL_TOKENS));
+
 
 		ShapelessRecipeBuilder.shapeless(MISC, Items.BONE_MEAL, 3).requires(CCItems.BONE_FLUTE).group("bonemeal").unlockedBy("has_bone_flute", has(CCItems.BONE_FLUTE)).save(consumer, getModConversionRecipeName(Items.BONE_MEAL, CCItems.BONE_FLUTE));
 

@@ -38,6 +38,7 @@ public class CCConfig {
 
 		@ConfigKey("trial_chambers_repalette")
 		public final BooleanValue trialChambersRepalette;
+		@ConfigKey("trial_tokens")
 		public final BooleanValue trialTokens;
 
 		public Common(ModConfigSpec.Builder builder) {
