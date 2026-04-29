@@ -18,7 +18,7 @@ public class CCGameEventTagsProvider extends GameEventTagsProvider {
 
 	@Override
 	public void addTags(Provider provider) {
-		this.tag(GameEventTags.VIBRATIONS).add(CCGameEvents.TUNING_FORK_VIBRATE.getKey());
-		this.tag(GameEventTags.WARDEN_CAN_LISTEN).add(CCGameEvents.TUNING_FORK_VIBRATE.getKey());
+		this.tag(GameEventTags.VIBRATIONS).add(CCGameEvents.TIN_DEFLECT.getKey(), CCGameEvents.TUNING_FORK_VIBRATE.getKey());
+		this.tag(GameEventTags.WARDEN_CAN_LISTEN).add(CCGameEvents.TIN_DEFLECT.getKey(), CCGameEvents.TUNING_FORK_VIBRATE.getKey());
 	}
 }

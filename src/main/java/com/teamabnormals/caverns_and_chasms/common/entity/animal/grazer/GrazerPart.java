@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
+import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCProjectileUtil;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
@@ -122,8 +124,10 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 				Vec3 location = aabb.clip(attackerpos, attackerpos.add(directentity.getViewVector(1.0F).scale(partpos.subtract(attackerpos).length() + this.getDimensions(Pose.STANDING).height() * 0.5D + 0.3D))).or(() -> aabb.clip(attackerpos, partpos)).orElse(partpos);
 				Vec3 normal = grazer.calculateDeflectionNormal(location);
 
-				if (!this.level().isClientSide)
+				if (!this.level().isClientSide) {
 					CCProjectileUtil.playRicochetEffects(this.level(), location, normal, 0.8F, CCSoundEvents.GRAZER_DEFLECT.get(), this.random, true);
+					this.level().gameEvent(CCGameEvents.TIN_DEFLECT, location, GameEvent.Context.of(source.getDirectEntity()));
+				}
 
 				return false;
 			}

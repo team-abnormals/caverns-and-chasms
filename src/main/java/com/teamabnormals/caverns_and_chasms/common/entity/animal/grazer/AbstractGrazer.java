@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerB
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerFloatGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
+import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCProjectileUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
@@ -737,6 +739,7 @@ public abstract class AbstractGrazer extends Animal {
 
 						Vec3 collpoint = new Vec3(this.position().x + posdiff.x * d0, (this.position().y + this.getBbHeight() + other.position().y) * 0.5D, this.position().z + posdiff.z * d0);
 						CCProjectileUtil.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get());
+						this.level().gameEvent(CCGameEvents.TIN_DEFLECT, collpoint, GameEvent.Context.of(this));
 
 						if (this.level() instanceof ServerLevel serverLevel) {
 							List<ParticleInstance> particles = new ArrayList<>();
@@ -860,6 +863,7 @@ public abstract class AbstractGrazer extends Animal {
 				Vec3 vec3 = this.position().add(collPoint);
 				Vec3 vec31 = oldMotion.reverse().normalize();
 				CCProjectileUtil.playRicochetSound(this.level(), vec3, newMotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get());
+				this.level().gameEvent(CCGameEvents.TIN_DEFLECT, vec3, GameEvent.Context.of(this));
 
 				if (this.level() instanceof ServerLevel serverLevel) {
 					List<ParticleInstance> particles = new ArrayList<>();

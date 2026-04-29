@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class CCGameEvents {
 	public static final DeferredRegister<GameEvent> GAME_EVENTS = DeferredRegister.create(Registries.GAME_EVENT, CavernsAndChasms.MOD_ID);
 
+	public static final DeferredHolder<GameEvent, GameEvent> TIN_DEFLECT = register("tin_deflect", 2);
 	public static final DeferredHolder<GameEvent, GameEvent> TUNING_FORK_VIBRATE = register("tuning_fork_vibrate", 16);
 
 	public static DeferredHolder<GameEvent, GameEvent> register(String name, int radius) {

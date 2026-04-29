@@ -18,6 +18,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.entity.PartEntity;
 
@@ -30,13 +31,15 @@ public class CCProjectileUtil {
 	public static final ProjectileDeflection AEGIS_DEFLECT = (projectile, entity, random) -> {
 		if (entity != null) {
 			Vec3 movement = projectile.getDeltaMovement().normalize();
+			Vec3 location = projectile.position();
 
 			ProjectileDeflection.AIM_DEFLECT.deflect(projectile, entity, random);
 
-			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
-			CCProjectileUtil.incrementRicochetCounter(projectile);
-			CCProjectileUtil.setBonusDeflect(projectile, false);
-			CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+			SoundEvent deflectSound = decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
+			incrementRicochetCounter(projectile);
+			setBonusDeflect(projectile, false);
+			playRicochetEffects(entity.level(), location, movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+			entity.level().gameEvent(CCGameEvents.TIN_DEFLECT, location, GameEvent.Context.of(projectile));
 		}
 	};
 
@@ -44,14 +47,16 @@ public class CCProjectileUtil {
 		if (entity != null) {
 			Vec3 movement = projectile.getDeltaMovement();
 			Vec3 normal = entity.getLookAngle().normalize();
+			Vec3 location = projectile.position();
 
-			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.0D, 0.0D);
+			deflectAccordingToNormal(projectile, movement, normal, 0.0D, 0.0D);
 			projectile.hasImpulse = true;
 
-			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.TIN_DEFLECT.get());
-			CCProjectileUtil.incrementRicochetCounter(projectile);
-			CCProjectileUtil.setBonusDeflect(projectile, false);
-			CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, false);
+			SoundEvent deflectSound = decideUsedDeflectSound(projectile, CCSoundEvents.TIN_DEFLECT.get());
+			incrementRicochetCounter(projectile);
+			setBonusDeflect(projectile, false);
+			playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, false);
+			entity.level().gameEvent(CCGameEvents.TIN_DEFLECT, location, GameEvent.Context.of(projectile));
 		}
 	};
 
@@ -62,13 +67,14 @@ public class CCProjectileUtil {
 			Vec3 movement = projectile.getDeltaMovement();
 			Vec3 normal = grazerPart.getParent().calculateDeflectionNormal(location);
 
-			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.65D, 0.75D);
+			deflectAccordingToNormal(projectile, movement, normal, 0.65D, 0.75D);
 			projectile.hasImpulse = true;
 
-			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.GRAZER_DEFLECT.get());
-			CCProjectileUtil.incrementRicochetCounter(projectile);
-			CCProjectileUtil.setBonusDeflect(projectile, false);
-			CCProjectileUtil.playRicochetEffects(entity.level(), location, movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+			SoundEvent deflectSound = decideUsedDeflectSound(projectile, CCSoundEvents.GRAZER_DEFLECT.get());
+			incrementRicochetCounter(projectile);
+			setBonusDeflect(projectile, false);
+			playRicochetEffects(entity.level(), location, movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+			entity.level().gameEvent(CCGameEvents.TIN_DEFLECT, location, GameEvent.Context.of(projectile));
 		}
 	};
 

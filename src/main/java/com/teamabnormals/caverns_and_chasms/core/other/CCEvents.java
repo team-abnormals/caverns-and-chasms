@@ -695,6 +695,7 @@ public class CCEvents {
 						CCProjectileUtil.incrementRicochetCounter(projectile);
 						CCProjectileUtil.setBonusDeflect(projectile, tinDeflection != null && tinDeflection.hasBonusDeflect());
 						CCProjectileUtil.playRicochetEffects(level, location, movement.reverse().normalize(), movement.length(), soundEvent, projectile.getRandom(), false);
+						level.gameEvent(CCGameEvents.TIN_DEFLECT, location, GameEvent.Context.of(projectile, originState));
 
 						projectile.deflect(ProjectileDeflection.NONE, null, projectile.getOwner(), false);
 						event.setCanceled(true);
