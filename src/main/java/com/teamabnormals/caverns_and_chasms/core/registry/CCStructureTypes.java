@@ -34,10 +34,7 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.level.levelgen.structure.pools.EmptyPoolElement;
-import net.minecraft.world.level.levelgen.structure.pools.LegacySinglePoolElement;
-import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
-import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.*;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
@@ -49,6 +46,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class CCStructureTypes {
@@ -236,11 +234,13 @@ public class CCStructureTypes {
 
 			context.register(FORGE, new JigsawStructure(
 					new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_FORGE), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BEARD_THIN),
-					pools.getOrThrow(CCTemplatePools.FORGE), 6, UniformHeight.of(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(16)), false));
+					pools.getOrThrow(CCTemplatePools.FORGE), Optional.empty(), 6, UniformHeight.of(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(16)),
+					false, Optional.empty(), 80, List.of(), DimensionPadding.ZERO, LiquidSettings.IGNORE_WATERLOGGING));
 
 			context.register(VAULT, new JigsawStructure(
 					new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_VAULT), Map.of(), Decoration.UNDERGROUND_STRUCTURES, TerrainAdjustment.BURY),
-					pools.getOrThrow(CCTemplatePools.VAULT), 6, UniformHeight.of(VerticalAnchor.absolute(-60), VerticalAnchor.absolute(-16)), false));
+					pools.getOrThrow(CCTemplatePools.VAULT), Optional.empty(), 6, UniformHeight.of(VerticalAnchor.absolute(-60), VerticalAnchor.absolute(-16)),
+					false, Optional.empty(), 80, List.of(), DimensionPadding.ZERO, LiquidSettings.IGNORE_WATERLOGGING));
 
 			context.register(TIN_MONOLITH, new TinMonolithStructure(new StructureSettings(biomes.getOrThrow(CCBiomeTags.HAS_TIN_MONOLITH), Map.of(), GenerationStep.Decoration.RAW_GENERATION, TerrainAdjustment.NONE)));
 		}
