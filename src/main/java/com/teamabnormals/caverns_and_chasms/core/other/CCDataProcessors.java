@@ -29,10 +29,8 @@ public class CCDataProcessors {
 	public static final TrackedData<Optional<UUID>> TUNING_FORK_TARGET_UUID = TrackedData.Builder.create(OPTIONAL_UUID, () -> Optional.empty()).build();
 	public static final TrackedData<ResourceLocation> REWIND_DIMENSION = TrackedData.Builder.create(ResourceLocation.STREAM_CODEC, () -> Level.OVERWORLD.location()).enableSaving(ResourceLocation.CODEC.fieldOf("ResourceLocation")).build();
 	public static final TrackedData<Vec3> REWIND_POS = TrackedData.Builder.create(VEC3, () -> Vec3.ZERO).enableSaving(Vec3.CODEC.fieldOf("x").fieldOf("y").fieldOf("z")).build();
-	public static final TrackedData<Boolean> SHOULD_DEFLECT = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 	public static final TrackedData<Boolean> BONUS_DEFLECT = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 	public static final TrackedData<Integer> RICOCHETS = TrackedData.Builder.create(ByteBufCodecs.INT, () -> 0).enableSaving(Codec.INT.fieldOf("Integer")).build();
-	public static final TrackedData<Vec3> DEFLECT_VEC = TrackedData.Builder.create(VEC3, () -> Vec3.ZERO).enableSaving(Vec3.CODEC.fieldOf("x").fieldOf("y").fieldOf("z")).build();
 	public static final TrackedData<ItemStack> UNICORN_HORN = TrackedData.Builder.create(ItemStack.OPTIONAL_STREAM_CODEC, () -> ItemStack.EMPTY).enableSaving(ItemStack.OPTIONAL_CODEC.fieldOf("id").fieldOf("count").fieldOf("components")).build();
 	public static final TrackedData<Boolean> GLOW_UNICORN_HORN = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
 	public static final TrackedData<Boolean> OBSCURITY_INVISIBILITY = TrackedData.Builder.create(ByteBufCodecs.BOOL, () -> false).enableSaving(Codec.BOOL.fieldOf("Boolean")).build();
@@ -45,10 +43,8 @@ public class CCDataProcessors {
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("tuning_fork_target_uuid"), TUNING_FORK_TARGET_UUID);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_dimension"), REWIND_DIMENSION);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("rewind_pos"), REWIND_POS);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("should_deflect"), SHOULD_DEFLECT);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("bonus_deflect"), BONUS_DEFLECT);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("ricochets"), RICOCHETS);
-		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("deflect_vec"), DEFLECT_VEC);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("unicorn_horn"), UNICORN_HORN);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("glow_unicorn_horn"), GLOW_UNICORN_HORN);
 		TrackedDataManager.INSTANCE.registerData(CavernsAndChasms.location("obscurity_invisibility"), OBSCURITY_INVISIBILITY);

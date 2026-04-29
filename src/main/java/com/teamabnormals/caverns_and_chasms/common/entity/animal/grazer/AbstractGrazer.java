@@ -7,7 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerB
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerFloatGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
-import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
+import com.teamabnormals.caverns_and_chasms.core.other.CCProjectileUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import com.teamabnormals.caverns_and_chasms.core.registry.datapack.CCDamageTypes;
@@ -736,7 +736,7 @@ public abstract class AbstractGrazer extends Animal {
 						double d0 = (horizontaldist + this.getBbWidth() * 0.5D - other.getBbWidth() * 0.5D) / horizontaldist * 0.5D;
 
 						Vec3 collpoint = new Vec3(this.position().x + posdiff.x * d0, (this.position().y + this.getBbHeight() + other.position().y) * 0.5D, this.position().z + posdiff.z * d0);
-						CCUtil.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+						CCProjectileUtil.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get());
 
 						if (this.level() instanceof ServerLevel serverLevel) {
 							List<ParticleInstance> particles = new ArrayList<>();
@@ -859,7 +859,7 @@ public abstract class AbstractGrazer extends Animal {
 
 				Vec3 vec3 = this.position().add(collPoint);
 				Vec3 vec31 = oldMotion.reverse().normalize();
-				CCUtil.playRicochetSound(this.level(), vec3, newMotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get(), 1.0F);
+				CCProjectileUtil.playRicochetSound(this.level(), vec3, newMotion.lengthSqr(), CCSoundEvents.GRAZER_RICOCHET.get());
 
 				if (this.level() instanceof ServerLevel serverLevel) {
 					List<ParticleInstance> particles = new ArrayList<>();

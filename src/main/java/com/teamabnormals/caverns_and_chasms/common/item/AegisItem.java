@@ -22,7 +22,6 @@ import net.neoforged.neoforge.common.ItemAbilities;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID, value = Dist.CLIENT)
 public class AegisItem extends Item implements Equipable {
-
 	public AegisItem(Properties properties) {
 		super(properties);
 		DispenserBlock.registerBehavior(this, ArmorItem.DISPENSE_ITEM_BEHAVIOR);

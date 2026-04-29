@@ -1,9 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer;
 
-import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
+import com.teamabnormals.caverns_and_chasms.core.other.CCProjectileUtil;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,6 +15,8 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
@@ -23,6 +27,23 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class GrazerPart extends PartEntity<AbstractGrazer> {
+	private static final ProjectileDeflection GRAZER_DEFLECT = (projectile, entity, random) -> {
+		if (entity instanceof GrazerPart grazerPart) {
+			AABB aabb = grazerPart.getBoundingBox().inflate(0.3D);
+			Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerPart.getX(), grazerPart.getY(0.5D), grazerPart.getZ()))).orElse(projectile.position());
+			Vec3 movement = projectile.getDeltaMovement();
+			Vec3 normal = grazerPart.getParent().calculateDeflectionNormal(location);
+
+			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.65D, 0.75D);
+			projectile.hasImpulse = true;
+
+			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.GRAZER_DEFLECT.get());
+			CCProjectileUtil.incrementRicochetCounter(projectile);
+			CCProjectileUtil.setBonusDeflect(projectile, false);
+			CCProjectileUtil.playRicochetEffects(entity.level(), location, movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+		}
+	};
+
 	protected final EntityDimensions dimensions;
 	protected final double zOffset;
 	protected final double yOffset;
@@ -120,7 +141,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 				Vec3 normal = grazer.calculateDeflectionNormal(location);
 
 				if (!this.level().isClientSide)
-					CCUtil.playRicochetEffects(this.level(), location, normal, 0.8F, CCSoundEvents.GRAZER_DEFLECT.get(), 1.0F, this.random, true);
+					CCProjectileUtil.playRicochetEffects(this.level(), location, normal, 0.8F, CCSoundEvents.GRAZER_DEFLECT.get(), this.random, true);
 
 				return false;
 			}
@@ -128,6 +149,17 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 		return grazer.hurt(source, amount);
 	}
 
+	@Override
+	public ProjectileDeflection deflection(Projectile projectile) {
+		if (this.deflectsAttacks() && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
+			AbstractGrazer grazer = this.getParent();
+			boolean shouldDeflect = !grazer.projectileJustDeflected(projectile);
+			grazer.addDeflectedProjectile(projectile);
+			return shouldDeflect ? GRAZER_DEFLECT : ProjectileDeflection.NONE;
+		} else {
+			return ProjectileDeflection.NONE;
+		}
+	}
 
 	@Override
 	public boolean isPickable() {

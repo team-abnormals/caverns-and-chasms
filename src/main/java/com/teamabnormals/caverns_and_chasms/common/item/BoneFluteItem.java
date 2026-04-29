@@ -8,7 +8,7 @@ import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteR
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteSitPayload;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCClientEnums;
-import com.teamabnormals.caverns_and_chasms.core.other.CCUtil;
+import com.teamabnormals.caverns_and_chasms.core.other.CCProjectileUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
@@ -134,7 +134,7 @@ public class BoneFluteItem extends Item {
 		Vec3 clipTargetLoc = eyeLoc.add(viewVector.x * MAX_SEND_DIST, viewVector.y * MAX_SEND_DIST, viewVector.z * MAX_SEND_DIST);
 		AABB aabb = player.getBoundingBox().expandTowards(viewVector.scale(MAX_SEND_DIST)).inflate(1.0D);
 
-		EntityHitResult entityHitResult = CCUtil.getExaggeratedHitboxEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
+		EntityHitResult entityHitResult = CCProjectileUtil.getExaggeratedHitboxEntityHitResult(player, eyeLoc, clipTargetLoc, aabb, entity -> {
 			if (entity.isPickable()) {
 				LivingEntity living = entity instanceof LivingEntity ? (LivingEntity) entity : entity instanceof PartEntity<?> partEntity && partEntity.getParent() instanceof LivingEntity ? (LivingEntity) partEntity.getParent() : null;
 				return living != null && !living.isSpectator() && living != player.getVehicle() && Rat.canRatsAttack(living, player) && !(entity instanceof Rat rat && rat.getAttachedEntity() == player);

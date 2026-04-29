@@ -40,7 +40,6 @@
     "entity.LivingEntityMixin",
     "entity.MobMixin",
     "entity.PlayerMixin",
-    "entity.ProjectileMixin",
     "entity.ServerEntityMixin",
     "entity.ServerPlayerMixin",
     "entity.ThrownPotionMixin",

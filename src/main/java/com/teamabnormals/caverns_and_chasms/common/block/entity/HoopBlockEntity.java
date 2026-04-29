@@ -1,9 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.common.block.entity;
 
-import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.caverns_and_chasms.common.block.HoopBlock;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataProcessors;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -64,15 +62,7 @@ public class HoopBlockEntity extends BlockEntity {
 				}
 
 				if (Math.max(Math.abs(d2), Math.abs(d3)) <= radius) {
-					Vec3 vec31;
-					if (entity instanceof Projectile && ((IDataManager) entity).getValue(CCDataProcessors.SHOULD_DEFLECT)) {
-						IDataManager data = (IDataManager) entity;
-						vec31 = data.getValue(CCDataProcessors.DEFLECT_VEC);
-					} else {
-						vec31 = entity.getDeltaMovement();
-					}
-
-					power = Math.max(Math.min((int) Math.ceil(vec31.length() * 5.0D), 15), power);
+					power = Math.max(Math.min((int) Math.ceil(entity.getDeltaMovement().length() * 5.0D), 15), power);
 				}
 			}
 

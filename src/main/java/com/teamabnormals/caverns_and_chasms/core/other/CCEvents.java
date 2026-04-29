@@ -1,5 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.events.FallingBlockEvent.FallingBlockTickEvent;
@@ -9,8 +10,6 @@ import com.teamabnormals.blueprint.core.util.TradeUtil.BlueprintTrade;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.FollowTuningForkGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.Fly;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.AbstractGrazer;
-import com.teamabnormals.caverns_and_chasms.common.entity.animal.grazer.GrazerPart;
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
 import com.teamabnormals.caverns_and_chasms.common.entity.monster.MovingPlayer;
 import com.teamabnormals.caverns_and_chasms.common.entity.projectile.BluntArrow;
@@ -24,7 +23,6 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverItem;
 import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
 import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent.Post;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.ControllableGolem;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TinDeflection;
@@ -84,6 +82,7 @@ import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -132,6 +131,27 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCEvents {
+	private static final ProjectileDeflection AEGIS_DEFLECT = (projectile, entity, random) -> {
+		Vec3 movement = projectile.getDeltaMovement().normalize();
+		ProjectileDeflection.AIM_DEFLECT.deflect(projectile, entity, random);
+		SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
+		CCProjectileUtil.incrementRicochetCounter(projectile);
+		CCProjectileUtil.setBonusDeflect(projectile, false);
+		CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+	};
+
+	private static final ProjectileDeflection SHIELD_TIN_DEFLECT = (projectile, entity, random) -> {
+		if (entity != null) {
+			Vec3 movement = projectile.getDeltaMovement();
+			Vec3 normal = entity.getLookAngle().normalize();
+			CCProjectileUtil.deflectAccordingToNormal(projectile, movement, normal, 0.0D, 0.0D);
+			projectile.hasImpulse = true;
+			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.TIN_DEFLECT.get());
+			CCProjectileUtil.incrementRicochetCounter(projectile);
+			CCProjectileUtil.setBonusDeflect(projectile, false);
+			CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, false);
+		}
+	};
 
 	@SubscribeEvent
 	public static void onVillagerTradesEvent(VillagerTradesEvent event) {
@@ -622,7 +642,7 @@ public class CCEvents {
 		}
 	}
 
-	public static TinDeflection getTinDeflection(BlockState state) {
+	private static TinDeflection getTinDeflection(BlockState state) {
 		return BuiltInRegistries.BLOCK.getData(CCDataMaps.TIN_DEFLECTIONS, state.getBlock().builtInRegistryHolder().getKey());
 	}
 
@@ -634,131 +654,85 @@ public class CCEvents {
 		HitResult hitResult = event.getRayTraceResult();
 		Vec3 movement = projectile.getDeltaMovement();
 
-		boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
-		if (hitResult.getType() == HitResult.Type.BLOCK && !projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
-			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			BlockPos origin = blockHitResult.getBlockPos();
-			BlockState originalState = level.getBlockState(origin);
-
-			BlockPos pos = blockHitResult.getBlockPos();
-			BlockState state = level.getBlockState(pos);
-			Direction direction = blockHitResult.getDirection();
-
-			boolean flag = getTinDeflection(state) != null;
-
-			if (!flag) {
-				BlockPos blockpos1 = pos.relative(direction.getOpposite());
-				BlockState blockstate1 = level.getBlockState(blockpos1);
-				if (getTinDeflection(blockstate1) != null && blockstate1.isFaceSturdy(level, blockpos1, direction)) {
-					flag = true;
-					pos = blockpos1;
-					state = blockstate1;
-				}
-			}
-
-			if (!flag) {
-				BlockPos blockpos1 = pos.relative(direction);
-				BlockState blockstate1 = level.getBlockState(blockpos1);
-				if (getTinDeflection(blockstate1) != null && blockstate1.getCollisionShape(level, blockpos1, CollisionContext.of(projectile)).isEmpty() && blockstate1.getShape(level, blockpos1).bounds().inflate(1.0E-7D).move(blockpos1).contains(blockHitResult.getLocation())) {
-					flag = true;
-					pos = blockpos1;
-					state = blockstate1;
-				}
-			}
-
+		if (!projectile.getType().is(CCEntityTypeTags.NOT_DEFLECTED_BY_TIN)) {
+			boolean ricochetArrow = projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get();
 			boolean bonus = data.getValue(CCDataProcessors.BONUS_DEFLECT);
-			if (flag || bonus || ricochetArrow) {
-				double speed = movement.lengthSqr();
-				if (direction != Direction.UP || speed > 0.04D) {
-					Vec3 location = hitResult.getLocation();
-					Axis axis = direction.getAxis();
-					int i = blockHitResult.getDirection().getAxisDirection().getStep();
 
-					double j;
-					double k;
+			if (hitResult.getType() == HitResult.Type.BLOCK) {
+				BlockHitResult blockHitResult = (BlockHitResult) hitResult;
+				BlockPos origin = blockHitResult.getBlockPos();
+				BlockState originState = level.getBlockState(origin);
+				Direction direction = blockHitResult.getDirection();
 
-					TinDeflection deflection = getTinDeflection(state);
-					if (deflection == null) {  // TODO: Make this more elegant?
-						deflection = getTinDeflection(CCBlocks.TIN_BLOCK.get().defaultBlockState());
+				TinDeflection tinDeflection = getTinDeflection(originState);
+
+				if (tinDeflection == null) {
+					BlockPos blockPos = origin.relative(direction.getOpposite());
+					BlockState blockState = level.getBlockState(blockPos);
+					TinDeflection deflection1 = getTinDeflection(blockState);
+					if (deflection1 != null && blockState.isFaceSturdy(level, blockPos, direction)) {
+						tinDeflection = deflection1;
 					}
+				}
 
-					if (deflection == null) {
-						j = 0.65D;
-						k = 0.75D;
-					} else {
-						j = deflection.verticalFactor();
-						k = deflection.horizontalFactor();
+				if (tinDeflection == null) {
+					BlockPos blockPos = origin.relative(direction);
+					BlockState blockState = level.getBlockState(blockPos);
+					TinDeflection deflection1 = getTinDeflection(blockState);
+					if (deflection1 != null && blockState.getCollisionShape(level, blockPos, CollisionContext.of(projectile)).isEmpty() && blockState.getShape(level, blockPos).bounds().inflate(1.0E-7D).move(blockPos).contains(blockHitResult.getLocation())) {
+						tinDeflection = deflection1;
 					}
+				}
 
-					if (bonus) {
-						j -= 0.25D;
-						k -= 0.25D;
+				boolean blockDeflection = tinDeflection != null;
+
+				if (blockDeflection || bonus || ricochetArrow) {
+					if (direction != Direction.UP || movement.lengthSqr() > 0.04D) {
+						Vec3 location = hitResult.getLocation();
+						Axis axis = direction.getAxis();
+
+						double vf = 0.0D;
+						double hf = 0.0D;
+						if (blockDeflection) {
+							vf = tinDeflection.verticalFactor();
+							hf = tinDeflection.horizontalFactor();
+						}
+						Pair<Double, Double> deflectFactors = CCProjectileUtil.decideUsedDeflectFactors(projectile, vf, hf);
+						vf = deflectFactors.getFirst();
+						hf = deflectFactors.getSecond();
+
+						Vec3 deflectVector;
+						if (axis == Axis.X) {
+							deflectVector = movement.multiply(-vf, hf, hf);
+						} else if (axis == Axis.Y) {
+							deflectVector = movement.multiply(hf, -vf, hf);
+						} else {
+							deflectVector = movement.multiply(hf, hf, -vf);
+						}
+
+						projectile.setDeltaMovement(deflectVector);
+						projectile.hasImpulse = true;
+						SoundEvent soundEvent = CCProjectileUtil.decideUsedDeflectSound(projectile, blockDeflection ? tinDeflection.deflectSound().value() : CCSoundEvents.TIN_DEFLECT.get());
+						CCProjectileUtil.incrementRicochetCounter(projectile);
+						CCProjectileUtil.setBonusDeflect(projectile, tinDeflection != null && tinDeflection.hasBonusDeflect());
+						CCProjectileUtil.playRicochetEffects(level, location, movement.reverse().normalize(), movement.length(), soundEvent, projectile.getRandom(), false);
+
+						projectile.deflect(ProjectileDeflection.NONE, null, projectile.getOwner(), false);
+						event.setCanceled(true);
 					}
-
-					Vec3 reflect;
-					Vec3 reflectLoc;
-
-					if (axis == Axis.X) {
-						reflect = movement.multiply(-j, k, k);
-						reflectLoc = location.add(0.01D * i, 0.0D, 0.0D);
-					} else if (axis == Axis.Y) {
-						reflect = movement.multiply(k, -j, k);
-						reflectLoc = location.add(0.0D, i == 1 ? 0.0D : -0.01D, 0.0D);
-					} else {
-						reflect = movement.multiply(k, k, -j);
-						reflectLoc = location.add(0.0D, 0.0D, 0.01D * i);
-					}
-
-					SoundEvent soundEvent = ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : bonus ? CCSoundEvents.TINPLATE_SECOND_DEFLECT.get() : deflection.deflectSound().value();
-
-					if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, soundEvent)) {
-						originalState.onProjectileHit(level, originalState, blockHitResult, projectile);
+				}
+			} else if (hitResult.getType() == HitResult.Type.ENTITY) {
+				EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+				if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && isProjectileBlocked(living, projectile)) {
+					if (living.getUseItem().is(CCItems.AEGIS.get())) {
+						projectile.deflect(AEGIS_DEFLECT, living, living, living instanceof Player);
+						event.setCanceled(true);
+					} else if (ricochetArrow || bonus) {
+						projectile.deflect(SHIELD_TIN_DEFLECT, living, projectile.getOwner(), living instanceof Player);
 						event.setCanceled(true);
 					}
 				}
 			}
-		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
-			EntityHitResult entityHitResult = (EntityHitResult) hitResult;
-			if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && isProjectileBlocked(living, projectile) && (living.getUseItem().is(CCItems.AEGIS.get()) || ricochetArrow)) {
-				AABB aabb = living.getBoundingBox().inflate(0.3D);
-				Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(living.getX(), living.getY(0.5D), living.getZ()))).orElse(projectile.position());
-				Vec3 reflect = living.getLookAngle();
-
-				if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, location, ricochetArrow ? CCSoundEvents.RICOCHET_ARROW_DEFLECT.get() : CCSoundEvents.AEGIS_DEFLECT.get())) {
-					event.setCanceled(true);
-				}
-			} else if (entityHitResult.getEntity() instanceof GrazerPart grazerpart && grazerpart.deflectsAttacks()) {
-				AbstractGrazer grazer = grazerpart.getParent();
-
-				if (!grazer.projectileJustDeflected(projectile)) {
-					AABB aabb = grazerpart.getBoundingBox().inflate(0.3D);
-					Vec3 location = aabb.clip(projectile.position(), projectile.position().add(projectile.getDeltaMovement())).or(() -> aabb.clip(projectile.position(), new Vec3(grazerpart.getX(), grazerpart.getY(0.5D), grazerpart.getZ()))).orElse(projectile.position());
-					Vec3 normal = grazer.calculateDeflectionNormal(location);
-					Vec3 reflect = movement.subtract(normal.scale(movement.dot(normal) * 2.0D)).scale(0.65D);
-					Vec3 reflectLoc = location.add(normal.scale(0.01D));
-
-					if (CCUtil.deflectProjectile(level, projectile, hitResult, movement, reflect, reflectLoc, CCSoundEvents.GRAZER_DEFLECT.get())) {
-						event.setCanceled(true);
-					}
-				}
-
-				grazer.addDeflectedProjectile(projectile);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void onProjectileDeflectPost(Post event) {
-		Projectile projectile = event.getProjectile();
-		Level level = projectile.level();
-		IDataManager data = (IDataManager) projectile;
-		HitResult hitResult = event.getRayTraceResult();
-
-		if (hitResult.getType() == HitResult.Type.BLOCK) {
-			BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
-			BlockState state = level.getBlockState(pos);
-			TinDeflection deflection = getTinDeflection(state);
-			data.setValue(CCDataProcessors.BONUS_DEFLECT, deflection != null && deflection.hasBonusDeflect());
 		}
 	}
 

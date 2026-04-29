@@ -1,9 +1,10 @@
 package com.teamabnormals.caverns_and_chasms.core.other;
 
+import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.blueprint.common.network.particle.SpawnParticlesPayload.ParticleInstance;
 import com.teamabnormals.blueprint.common.world.storage.tracking.IDataManager;
 import com.teamabnormals.blueprint.core.util.NetworkUtil;
-import com.teamabnormals.caverns_and_chasms.core.events.ProjectileDeflectEvent;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.server.level.ServerLevel;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class CCUtil {
+public class CCProjectileUtil {
 	public static EntityHitResult getExaggeratedHitboxEntityHitResult(Entity entity, Vec3 startLoc, Vec3 endLoc, AABB aabb, Predicate<Entity> predicate, double range, boolean returnParent) {
 		Level level = entity.level();
 		double d0 = range;
@@ -52,39 +53,51 @@ public class CCUtil {
 		return entity1 == null ? null : new EntityHitResult(entity1, vec3);
 	}
 
-	public static void deflectProjectileRaw(Entity projectile, Vec3 deflectVec, double x, double y, double z) {
+	public static void incrementRicochetCounter(Projectile projectile) {
 		IDataManager data = (IDataManager) projectile;
 		data.setValue(CCDataProcessors.RICOCHETS, data.getValue(CCDataProcessors.RICOCHETS) + 1);
-		data.setValue(CCDataProcessors.DEFLECT_VEC, deflectVec);
-		data.setValue(CCDataProcessors.SHOULD_DEFLECT, true);
-		projectile.setDeltaMovement(Vec3.ZERO);
-		projectile.setPos(x, y, z);
-		projectile.checkInsideBlocks();
 	}
 
-	public static void deflectProjectileRaw(Entity projectile, Vec3 deflectMovement, Vec3 deflectLocation) {
-		deflectProjectileRaw(projectile, deflectMovement, deflectLocation.x, deflectLocation.y, deflectLocation.z);
+	public static void setBonusDeflect(Projectile projectile, boolean bonusDeflect) {
+		IDataManager data = (IDataManager) projectile;
+		data.setValue(CCDataProcessors.BONUS_DEFLECT, bonusDeflect);
 	}
 
-	public static boolean deflectProjectile(Level level, Projectile projectile, HitResult hitResult, Vec3 oldMovement, Vec3 deflectMovement, Vec3 deflectLocation, SoundEvent soundEvent) {
-		ProjectileDeflectEvent.Pre deflectEventPre = ProjectileDeflectEvent.onProjectileDeflectPre(projectile, hitResult, deflectMovement, deflectLocation, soundEvent);
-		if (!deflectEventPre.isCanceled()) {
-			ProjectileDeflectEvent.Post deflectEventPost = ProjectileDeflectEvent.onProjectileDeflectPost(projectile, hitResult, deflectEventPre.getDeflectedMovement(), deflectEventPre.getDeflectLocation(), deflectEventPre.getSoundEvent());
-			CCUtil.deflectProjectileRaw(projectile, deflectEventPost.getDeflectedMovement(), deflectEventPost.getDeflectLocation());
-			playRicochetEffects(level, deflectLocation, oldMovement.reverse().normalize(), oldMovement.lengthSqr(), deflectEventPost.getSoundEvent(), soundEvent == CCSoundEvents.STORAGE_DUCT_DEFLECT.get() ? 0.5F : 1.0F, level.random, false);
-			return true;
+	public static Pair<Double, Double> decideUsedDeflectFactors(Projectile projectile, double minVerticalFactor, double minHorizontalFactor) {
+		IDataManager data = (IDataManager) projectile;
+		if (projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get()) {
+			return Pair.of(Math.max(0.65D, minVerticalFactor), Math.max(0.75D, minHorizontalFactor));
+		} else if (data.getValue(CCDataProcessors.BONUS_DEFLECT)) {
+			return Pair.of(Math.max(0.40D, minVerticalFactor), Math.max(0.50D, minHorizontalFactor));
 		}
-		return false;
+		return Pair.of(minVerticalFactor, minHorizontalFactor);
 	}
 
-	public static void playRicochetEffects(Level level, Vec3 location, Vec3 normalizedMovement, double speed, SoundEvent soundEvent, float pitchMultiplier, RandomSource random, boolean fromServer) {
-		playRicochetSound(level, location, speed, soundEvent, pitchMultiplier);
+	public static SoundEvent decideUsedDeflectSound(Projectile projectile, SoundEvent soundEvent) {
+		IDataManager data = (IDataManager) projectile;
+		if (projectile.getType() == CCEntityTypes.RICOCHET_ARROW.get()) {
+			return CCSoundEvents.RICOCHET_ARROW_DEFLECT.get();
+		} else if (data.getValue(CCDataProcessors.BONUS_DEFLECT)) {
+			return CCSoundEvents.TINPLATE_SECOND_DEFLECT.get();
+		}
+		return soundEvent;
+	}
+
+	public static void deflectAccordingToNormal(Projectile projectile, Vec3 movement, Vec3 normal, double minVerticalFactor, double minHorizontalFactor) {
+		Vec3 vComponent = normal.scale(movement.dot(normal));
+		Vec3 hComponent = movement.subtract(vComponent);
+		Pair<Double, Double> deflectFactors = CCProjectileUtil.decideUsedDeflectFactors(projectile, minVerticalFactor, minHorizontalFactor);
+		projectile.setDeltaMovement(vComponent.scale(-deflectFactors.getFirst()).add(hComponent.scale(deflectFactors.getSecond())));
+	}
+
+	public static void playRicochetEffects(Level level, Vec3 location, Vec3 sparkDir, double speed, SoundEvent soundEvent, RandomSource random, boolean fromServer) {
+		playRicochetSound(level, location, speed, soundEvent);
 
 		List<ParticleInstance> particles = new ArrayList<>();
 		for (int i = 0; i < 4; ++i) {
-			double d1 = normalizedMovement.x * 0.2D + random.nextGaussian() * 0.05D;
-			double d2 = normalizedMovement.y * 0.2D + random.nextGaussian() * 0.05D;
-			double d3 = normalizedMovement.z * 0.2D + random.nextGaussian() * 0.05D;
+			double d1 = sparkDir.x * 0.2D + random.nextGaussian() * 0.05D;
+			double d2 = sparkDir.y * 0.2D + random.nextGaussian() * 0.05D;
+			double d3 = sparkDir.z * 0.2D + random.nextGaussian() * 0.05D;
 			if (fromServer)
 				particles.add(new ParticleInstance(location.x, location.y, location.z, d1, d2, d3));
 			else
@@ -95,7 +108,7 @@ public class CCUtil {
 		}
 	}
 
-	public static void playRicochetSound(Level level, Vec3 location, double speed, SoundEvent soundEvent, float pitchMultiplier) {
-		level.playSound(null, location.x, location.y, location.z, soundEvent, SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F * pitchMultiplier, 1.8F));
+	public static void playRicochetSound(Level level, Vec3 location, double speed, SoundEvent soundEvent) {
+		level.playSound(null, location.x, location.y, location.z, soundEvent, SoundSource.BLOCKS, Math.min((float) speed * 0.7F + 0.2F, 1.0F), Math.min(0.5F + (float) speed * 0.8F, 1.8F));
 	}
 }
