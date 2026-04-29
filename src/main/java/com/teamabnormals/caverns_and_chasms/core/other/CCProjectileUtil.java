@@ -28,14 +28,16 @@ import java.util.function.Predicate;
 
 public class CCProjectileUtil {
 	public static final ProjectileDeflection AEGIS_DEFLECT = (projectile, entity, random) -> {
-		Vec3 movement = projectile.getDeltaMovement().normalize();
+		if (entity != null) {
+			Vec3 movement = projectile.getDeltaMovement().normalize();
 
-		ProjectileDeflection.AIM_DEFLECT.deflect(projectile, entity, random);
+			ProjectileDeflection.AIM_DEFLECT.deflect(projectile, entity, random);
 
-		SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
-		CCProjectileUtil.incrementRicochetCounter(projectile);
-		CCProjectileUtil.setBonusDeflect(projectile, false);
-		CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+			SoundEvent deflectSound = CCProjectileUtil.decideUsedDeflectSound(projectile, CCSoundEvents.AEGIS_DEFLECT.get());
+			CCProjectileUtil.incrementRicochetCounter(projectile);
+			CCProjectileUtil.setBonusDeflect(projectile, false);
+			CCProjectileUtil.playRicochetEffects(entity.level(), projectile.position(), movement.reverse().normalize(), movement.length(), deflectSound, random, true);
+		}
 	};
 
 	public static final ProjectileDeflection SHIELD_TIN_DEFLECT = (projectile, entity, random) -> {
