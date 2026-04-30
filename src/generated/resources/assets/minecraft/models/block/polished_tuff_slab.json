@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab",
   "textures": {
     "bottom": "minecraft:block/polished_tuff",
-    "side": "caverns_and_chasms:block/polished_shale_slab",
+    "side": "caverns_and_chasms:block/polished_schist_slab",
     "top": "minecraft:block/polished_tuff"
   }
 }

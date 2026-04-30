@@ -212,10 +212,10 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.blockFamily(POLISHED_TUFF_FAMILY);
 		this.logBlock(TUFF_PILLAR);
 
-		this.logBlock(SHALE);
-		this.pillarBlockFamily(SHALE_FAMILY);
-		this.blockFamily(SMOOTH_SHALE_FAMILY);
-		this.logBlock(SHALE_PILLAR);
+		this.logBlock(SCHIST);
+		this.pillarBlockFamily(SCHIST_FAMILY);
+		this.blockFamily(SMOOTH_SCHIST_FAMILY);
+		this.logBlock(SCHIST_PILLAR);
 
 		this.blockFamily(SUGILITE_FAMILY);
 		this.blockFamily(POLISHED_SUGILITE_FAMILY);
@@ -383,7 +383,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.vanillaSlabBlock(Blocks.POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB);
 		this.vanillaSlabBlock(Blocks.POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB);
 		this.vanillaSlabBlock(Blocks.PRISMARINE_BRICKS, Blocks.PRISMARINE_BRICK_SLAB);
-		this.vanillaSlabBlock(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, "polished_shale_slab");
+		this.vanillaSlabBlock(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, "polished_schist_slab");
 	}
 
 	public void sparklerBlock(Pair<DeferredBlock<SparklerBlock>, DeferredBlock<WallSparklerBlock>> pair) {

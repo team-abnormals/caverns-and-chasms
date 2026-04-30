@@ -317,187 +317,187 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.shale.break": {
+  "block.schist.break": {
     "sounds": [
-      "caverns_and_chasms:block/shale/break1",
-      "caverns_and_chasms:block/shale/break2",
-      "caverns_and_chasms:block/shale/break3",
-      "caverns_and_chasms:block/shale/break4"
+      "caverns_and_chasms:block/schist/break1",
+      "caverns_and_chasms:block/schist/break2",
+      "caverns_and_chasms:block/schist/break3",
+      "caverns_and_chasms:block/schist/break4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.shale.fall": {
+  "block.schist.fall": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/shale/step1",
+        "name": "caverns_and_chasms:block/schist/step1",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step2",
+        "name": "caverns_and_chasms:block/schist/step2",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step3",
+        "name": "caverns_and_chasms:block/schist/step3",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step4",
+        "name": "caverns_and_chasms:block/schist/step4",
         "volume": 1.5
       }
     ]
   },
-  "block.shale.hit": {
+  "block.schist.hit": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/shale/step1",
+        "name": "caverns_and_chasms:block/schist/step1",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step2",
+        "name": "caverns_and_chasms:block/schist/step2",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step3",
+        "name": "caverns_and_chasms:block/schist/step3",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step4",
+        "name": "caverns_and_chasms:block/schist/step4",
         "volume": 1.5
       }
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.shale.place": {
+  "block.schist.place": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/shale/place1",
+        "name": "caverns_and_chasms:block/schist/place1",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/place2",
+        "name": "caverns_and_chasms:block/schist/place2",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/place5",
+        "name": "caverns_and_chasms:block/schist/place5",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/place4",
+        "name": "caverns_and_chasms:block/schist/place4",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/place5",
+        "name": "caverns_and_chasms:block/schist/place5",
         "volume": 1.5
       }
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.shale.step": {
+  "block.schist.step": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/shale/step1",
+        "name": "caverns_and_chasms:block/schist/step1",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step2",
+        "name": "caverns_and_chasms:block/schist/step2",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step3",
+        "name": "caverns_and_chasms:block/schist/step3",
         "volume": 1.5
       },
       {
-        "name": "caverns_and_chasms:block/shale/step4",
+        "name": "caverns_and_chasms:block/schist/step4",
         "volume": 1.5
       }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.polished_shale.break": {
+  "block.polished_schist.break": {
     "sounds": [
-      "caverns_and_chasms:block/polished_shale/place1",
-      "caverns_and_chasms:block/polished_shale/place2",
-      "caverns_and_chasms:block/polished_shale/place3",
-      "caverns_and_chasms:block/polished_shale/place4"
+      "caverns_and_chasms:block/polished_schist/place1",
+      "caverns_and_chasms:block/polished_schist/place2",
+      "caverns_and_chasms:block/polished_schist/place3",
+      "caverns_and_chasms:block/polished_schist/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.polished_shale.fall": {
+  "block.polished_schist.fall": {
     "sounds": [
-      "caverns_and_chasms:block/polished_shale/step1",
-      "caverns_and_chasms:block/polished_shale/step2",
-      "caverns_and_chasms:block/polished_shale/step3",
-      "caverns_and_chasms:block/polished_shale/step4"
+      "caverns_and_chasms:block/polished_schist/step1",
+      "caverns_and_chasms:block/polished_schist/step2",
+      "caverns_and_chasms:block/polished_schist/step3",
+      "caverns_and_chasms:block/polished_schist/step4"
     ]
   },
-  "block.polished_shale.hit": {
+  "block.polished_schist.hit": {
     "sounds": [
-      "caverns_and_chasms:block/polished_shale/step1",
-      "caverns_and_chasms:block/polished_shale/step2",
-      "caverns_and_chasms:block/polished_shale/step3",
-      "caverns_and_chasms:block/polished_shale/step4"
+      "caverns_and_chasms:block/polished_schist/step1",
+      "caverns_and_chasms:block/polished_schist/step2",
+      "caverns_and_chasms:block/polished_schist/step3",
+      "caverns_and_chasms:block/polished_schist/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.polished_shale.place": {
+  "block.polished_schist.place": {
     "sounds": [
-      "caverns_and_chasms:block/polished_shale/place1",
-      "caverns_and_chasms:block/polished_shale/place2",
-      "caverns_and_chasms:block/polished_shale/place3",
-      "caverns_and_chasms:block/polished_shale/place4"
+      "caverns_and_chasms:block/polished_schist/place1",
+      "caverns_and_chasms:block/polished_schist/place2",
+      "caverns_and_chasms:block/polished_schist/place3",
+      "caverns_and_chasms:block/polished_schist/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.polished_shale.step": {
+  "block.polished_schist.step": {
     "sounds": [
-      "caverns_and_chasms:block/polished_shale/step1",
-      "caverns_and_chasms:block/polished_shale/step2",
-      "caverns_and_chasms:block/polished_shale/step3",
-      "caverns_and_chasms:block/polished_shale/step4"
+      "caverns_and_chasms:block/polished_schist/step1",
+      "caverns_and_chasms:block/polished_schist/step2",
+      "caverns_and_chasms:block/polished_schist/step3",
+      "caverns_and_chasms:block/polished_schist/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.shale_bricks.break": {
+  "block.schist_bricks.break": {
     "sounds": [
-      "caverns_and_chasms:block/shale_bricks/place1",
-      "caverns_and_chasms:block/shale_bricks/place2",
-      "caverns_and_chasms:block/shale_bricks/place3",
-      "caverns_and_chasms:block/shale_bricks/place4"
+      "caverns_and_chasms:block/schist_bricks/place1",
+      "caverns_and_chasms:block/schist_bricks/place2",
+      "caverns_and_chasms:block/schist_bricks/place3",
+      "caverns_and_chasms:block/schist_bricks/place4"
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.shale_bricks.fall": {
+  "block.schist_bricks.fall": {
     "sounds": [
-      "caverns_and_chasms:block/shale_bricks/step1",
-      "caverns_and_chasms:block/shale_bricks/step2",
-      "caverns_and_chasms:block/shale_bricks/step3",
-      "caverns_and_chasms:block/shale_bricks/step4"
+      "caverns_and_chasms:block/schist_bricks/step1",
+      "caverns_and_chasms:block/schist_bricks/step2",
+      "caverns_and_chasms:block/schist_bricks/step3",
+      "caverns_and_chasms:block/schist_bricks/step4"
     ]
   },
-  "block.shale_bricks.hit": {
+  "block.schist_bricks.hit": {
     "sounds": [
-      "caverns_and_chasms:block/shale_bricks/step1",
-      "caverns_and_chasms:block/shale_bricks/step2",
-      "caverns_and_chasms:block/shale_bricks/step3",
-      "caverns_and_chasms:block/shale_bricks/step4"
+      "caverns_and_chasms:block/schist_bricks/step1",
+      "caverns_and_chasms:block/schist_bricks/step2",
+      "caverns_and_chasms:block/schist_bricks/step3",
+      "caverns_and_chasms:block/schist_bricks/step4"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.shale_bricks.place": {
+  "block.schist_bricks.place": {
     "sounds": [
-      "caverns_and_chasms:block/shale_bricks/place1",
-      "caverns_and_chasms:block/shale_bricks/place2",
-      "caverns_and_chasms:block/shale_bricks/place3",
-      "caverns_and_chasms:block/shale_bricks/place4"
+      "caverns_and_chasms:block/schist_bricks/place1",
+      "caverns_and_chasms:block/schist_bricks/place2",
+      "caverns_and_chasms:block/schist_bricks/place3",
+      "caverns_and_chasms:block/schist_bricks/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.shale_bricks.step": {
+  "block.schist_bricks.step": {
     "sounds": [
-      "caverns_and_chasms:block/shale_bricks/step1",
-      "caverns_and_chasms:block/shale_bricks/step2",
-      "caverns_and_chasms:block/shale_bricks/step3",
-      "caverns_and_chasms:block/shale_bricks/step4"
+      "caverns_and_chasms:block/schist_bricks/step1",
+      "caverns_and_chasms:block/schist_bricks/step2",
+      "caverns_and_chasms:block/schist_bricks/step3",
+      "caverns_and_chasms:block/schist_bricks/step4"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_polished_shale_slab": {
+    "has_polished_schist_slab": {
       "conditions": {
         "items": [
           {
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_polished_shale_slab"
+      "has_polished_schist_slab"
     ]
   ],
   "rewards": {

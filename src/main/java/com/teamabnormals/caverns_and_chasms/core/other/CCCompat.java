@@ -46,8 +46,8 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCCompat {
-	public static final Set<Block> POLISHED_SHALE_SOUNDS = Set.of(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_STAIRS, Blocks.POLISHED_TUFF_SLAB, Blocks.POLISHED_TUFF_WALL, Blocks.CHISELED_TUFF);
-	public static final Set<Block> SHALE_BRICKS_SOUNDS = Set.of(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_STAIRS, Blocks.TUFF_BRICK_SLAB, Blocks.TUFF_BRICK_WALL, Blocks.CHISELED_TUFF_BRICKS);
+	public static final Set<Block> POLISHED_SCHIST_SOUNDS = Set.of(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_STAIRS, Blocks.POLISHED_TUFF_SLAB, Blocks.POLISHED_TUFF_WALL, Blocks.CHISELED_TUFF);
+	public static final Set<Block> SCHIST_BRICKS_SOUNDS = Set.of(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_STAIRS, Blocks.TUFF_BRICK_SLAB, Blocks.TUFF_BRICK_WALL, Blocks.CHISELED_TUFF_BRICKS);
 
 	@SubscribeEvent
 	public static void onModifyComponents(ModifyDefaultComponentsEvent event) {
@@ -189,16 +189,16 @@ public class CCCompat {
 		DataUtil.changeBlockLocalization(CCBlocks.AMETHYST_BLOCK.get(), "minecraft", "amethyst_block");
 		DataUtil.changeBlockLocalization(Blocks.CHISELED_DEEPSLATE, CavernsAndChasms.MOD_ID, "chiseled_deepslate_bricks");
 
-		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF, CavernsAndChasms.MOD_ID, "chiseled_polished_shale");
-		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF, CavernsAndChasms.MOD_ID, "polished_shale");
-		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_STAIRS, CavernsAndChasms.MOD_ID, "polished_shale_stairs");
-		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_SLAB, CavernsAndChasms.MOD_ID, "polished_shale_slab");
-		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_WALL, CavernsAndChasms.MOD_ID, "polished_shale_wall");
-		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICKS, CavernsAndChasms.MOD_ID, "shale_bricks");
-		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_STAIRS, CavernsAndChasms.MOD_ID, "shale_brick_stairs");
-		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_SLAB, CavernsAndChasms.MOD_ID, "shale_brick_slab");
-		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_WALL, CavernsAndChasms.MOD_ID, "shale_brick_wall");
-		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF_BRICKS, CavernsAndChasms.MOD_ID, "chiseled_shale_bricks");
+		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF, CavernsAndChasms.MOD_ID, "chiseled_polished_schist");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF, CavernsAndChasms.MOD_ID, "polished_schist");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_STAIRS, CavernsAndChasms.MOD_ID, "polished_schist_stairs");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_SLAB, CavernsAndChasms.MOD_ID, "polished_schist_slab");
+		DataUtil.changeBlockLocalization(Blocks.POLISHED_TUFF_WALL, CavernsAndChasms.MOD_ID, "polished_schist_wall");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICKS, CavernsAndChasms.MOD_ID, "schist_bricks");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_STAIRS, CavernsAndChasms.MOD_ID, "schist_brick_stairs");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_SLAB, CavernsAndChasms.MOD_ID, "schist_brick_slab");
+		DataUtil.changeBlockLocalization(Blocks.TUFF_BRICK_WALL, CavernsAndChasms.MOD_ID, "schist_brick_wall");
+		DataUtil.changeBlockLocalization(Blocks.CHISELED_TUFF_BRICKS, CavernsAndChasms.MOD_ID, "chiseled_schist_bricks");
 	}
 
 	private static void registerFireworkIngredients() {

@@ -26,10 +26,10 @@ public abstract class BlockBehaviourMixin {
 
 	@Inject(method = "getSoundType", at = @At("RETURN"), cancellable = true)
 	private void getSoundType(BlockState state, CallbackInfoReturnable<SoundType> cir) {
-		if (CCCompat.POLISHED_SHALE_SOUNDS.contains(this.asBlock())) {
-			cir.setReturnValue(CCSoundTypes.POLISHED_SHALE);
-		} else if (CCCompat.SHALE_BRICKS_SOUNDS.contains(this.asBlock())) {
-			cir.setReturnValue(CCSoundTypes.SHALE_BRICKS);
+		if (CCCompat.POLISHED_SCHIST_SOUNDS.contains(this.asBlock())) {
+			cir.setReturnValue(CCSoundTypes.POLISHED_SCHIST);
+		} else if (CCCompat.SCHIST_BRICKS_SOUNDS.contains(this.asBlock())) {
+			cir.setReturnValue(CCSoundTypes.SCHIST_BRICKS);
 		}
 	}
 

@@ -418,20 +418,20 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, SMOOTH_TUFF_FAMILY);
 		stonecutterRecipes(consumer, SMOOTH_TUFF_FAMILY);
 
-		generateRecipes(consumer, SHALE_FAMILY);
-		stonecutterRecipes(consumer, SHALE_FAMILY);
-		stonecutterRecipes(consumer, BlockFamilies.POLISHED_TUFF, SHALE.get());
-		stonecutterRecipes(consumer, BlockFamilies.TUFF_BRICKS, SHALE.get());
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(SHALE), BUILDING_BLOCKS, SMOOTH_SHALE, 0.1F, 200).unlockedBy("has_shale", has(SHALE)).save(consumer);
-		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, SHALE, SMOOTH_SHALE, 0.1F, 100, CavernsAndChasms.MOD_ID);
-		generateRecipes(consumer, SMOOTH_SHALE_FAMILY);
-		stonecutterRecipes(consumer, SMOOTH_SHALE_FAMILY);
-		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SHALE_PILLAR, 2).define('#', Blocks.TUFF_BRICKS).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.TUFF_BRICKS), has(Blocks.TUFF_BRICKS)).unlockedBy(getHasName(SHALE_PILLAR), has(SHALE_PILLAR)).save(consumer);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, SHALE.get());
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.POLISHED_TUFF);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, SHALE_PILLAR, Blocks.TUFF_BRICKS);
-		chiseledBuilder(BUILDING_BLOCKS, Blocks.CHISELED_TUFF, Ingredient.of(Blocks.POLISHED_TUFF_SLAB)).unlockedBy("has_polished_shale_slab", has(Blocks.POLISHED_TUFF_SLAB)).save(consumer);
-		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_TUFF, SHALE.get());
+		generateRecipes(consumer, SCHIST_FAMILY);
+		stonecutterRecipes(consumer, SCHIST_FAMILY);
+		stonecutterRecipes(consumer, BlockFamilies.POLISHED_TUFF, SCHIST.get());
+		stonecutterRecipes(consumer, BlockFamilies.TUFF_BRICKS, SCHIST.get());
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(SCHIST), BUILDING_BLOCKS, SMOOTH_SCHIST, 0.1F, 200).unlockedBy("has_schist", has(SCHIST)).save(consumer);
+		ClayworksRecipeProvider.bakingRecipe(consumer, BUILDING_BLOCKS, SCHIST, SMOOTH_SCHIST, 0.1F, 100, CavernsAndChasms.MOD_ID);
+		generateRecipes(consumer, SMOOTH_SCHIST_FAMILY);
+		stonecutterRecipes(consumer, SMOOTH_SCHIST_FAMILY);
+		ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, SCHIST_PILLAR, 2).define('#', Blocks.TUFF_BRICKS).pattern("#").pattern("#").unlockedBy(getHasName(Blocks.TUFF_BRICKS), has(Blocks.TUFF_BRICKS)).unlockedBy(getHasName(SCHIST_PILLAR), has(SCHIST_PILLAR)).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SCHIST_PILLAR, SCHIST.get());
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SCHIST_PILLAR, Blocks.POLISHED_TUFF);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, SCHIST_PILLAR, Blocks.TUFF_BRICKS);
+		chiseledBuilder(BUILDING_BLOCKS, Blocks.CHISELED_TUFF, Ingredient.of(Blocks.POLISHED_TUFF_SLAB)).unlockedBy("has_polished_schist_slab", has(Blocks.POLISHED_TUFF_SLAB)).save(consumer);
+		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_TUFF, SCHIST.get());
 		stonecutterRecipe(consumer, BUILDING_BLOCKS, Blocks.CHISELED_TUFF, Blocks.POLISHED_TUFF);
 
 		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SUGILITE).requires(Blocks.GRANITE).requires(CCItemTags.GEMS_SPINEL).unlockedBy("has_spinel", has(CCItemTags.GEMS_SPINEL)).save(consumer);

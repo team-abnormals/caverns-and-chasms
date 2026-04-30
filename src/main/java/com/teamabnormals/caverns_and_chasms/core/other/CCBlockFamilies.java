@@ -31,8 +31,8 @@ public class CCBlockFamilies {
 	public static final BlockFamily TUFF_TILES_FAMILY = new BlockFamily.Builder(TUFF_TILES.get()).slab(TUFF_TILE_SLAB.get()).stairs(TUFF_TILE_STAIRS.get()).wall(TUFF_TILE_WALL.get()).getFamily();
 	public static final BlockFamily SMOOTH_TUFF_FAMILY = new BlockFamily.Builder(SMOOTH_TUFF.get()).slab(SMOOTH_TUFF_SLAB.get()).stairs(SMOOTH_TUFF_STAIRS.get()).wall(SMOOTH_TUFF_WALL.get()).getFamily();
 
-	public static final BlockFamily SHALE_FAMILY = new BlockFamily.Builder(SHALE.get()).slab(SHALE_SLAB.get()).stairs(SHALE_STAIRS.get()).wall(SHALE_WALL.get()).polished(Blocks.POLISHED_TUFF).getFamily();
-	public static final BlockFamily SMOOTH_SHALE_FAMILY = new BlockFamily.Builder(SMOOTH_SHALE.get()).slab(SMOOTH_SHALE_SLAB.get()).stairs(SMOOTH_SHALE_STAIRS.get()).wall(SMOOTH_SHALE_WALL.get()).getFamily();
+	public static final BlockFamily SCHIST_FAMILY = new BlockFamily.Builder(SCHIST.get()).slab(SCHIST_SLAB.get()).stairs(SCHIST_STAIRS.get()).wall(SCHIST_WALL.get()).polished(Blocks.POLISHED_TUFF).getFamily();
+	public static final BlockFamily SMOOTH_SCHIST_FAMILY = new BlockFamily.Builder(SMOOTH_SCHIST.get()).slab(SMOOTH_SCHIST_SLAB.get()).stairs(SMOOTH_SCHIST_STAIRS.get()).wall(SMOOTH_SCHIST_WALL.get()).getFamily();
 
 	public static final BlockFamily SUGILITE_FAMILY = new BlockFamily.Builder(SUGILITE.get()).slab(SUGILITE_SLAB.get()).stairs(SUGILITE_STAIRS.get()).wall(SUGILITE_WALL.get()).polished(POLISHED_SUGILITE.get()).getFamily();
 	public static final BlockFamily POLISHED_SUGILITE_FAMILY = new BlockFamily.Builder(POLISHED_SUGILITE.get()).slab(POLISHED_SUGILITE_SLAB.get()).stairs(POLISHED_SUGILITE_STAIRS.get()).wall(POLISHED_SUGILITE_WALL.get()).polished(SUGILITE_BRICKS.get()).getFamily();

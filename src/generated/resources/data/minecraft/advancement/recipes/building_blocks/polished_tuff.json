@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_shale": {
+    "has_schist": {
       "conditions": {
         "items": [
           {
-            "items": "caverns_and_chasms:shale"
+            "items": "caverns_and_chasms:schist"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_shale"
+      "has_schist"
     ]
   ],
   "rewards": {

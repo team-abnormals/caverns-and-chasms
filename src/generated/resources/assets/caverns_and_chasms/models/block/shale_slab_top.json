@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "caverns_and_chasms:block/shale_top",
-    "side": "caverns_and_chasms:block/shale",
-    "top": "caverns_and_chasms:block/shale_top"
-  }
-}

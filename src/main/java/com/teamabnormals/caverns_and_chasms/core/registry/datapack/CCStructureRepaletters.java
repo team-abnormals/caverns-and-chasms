@@ -51,7 +51,7 @@ public final class CCStructureRepaletters {
 				.select(HolderSet.direct(Stream.of(CCStructures.FORGE).map(structures::getOrThrow).collect(Collectors.toList()))));
 
 		context.register(TRIAL_CHAMBERS, new StructureRepaletterEntry.Builder().repaletters(
-						new SimpleTagStructureRepaletter(CCBlockTags.STORAGE_BLOCKS_ALL_COPPER, CCBlocks.SHALE_PILLAR.get()))
+						new SimpleTagStructureRepaletter(CCBlockTags.STORAGE_BLOCKS_ALL_COPPER, CCBlocks.SCHIST_PILLAR.get()))
 				.select(HolderSet.direct(Stream.of(BuiltinStructures.TRIAL_CHAMBERS).map(structures::getOrThrow).collect(Collectors.toList()))));
 
 		context.register(TRIAL_CHAMBERS_MISC, new StructureRepaletterEntry.Builder().repaletters(
