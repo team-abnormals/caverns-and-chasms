@@ -75,7 +75,7 @@
       "horizontal_factor": 0.75,
       "vertical_factor": 0.65
     },
-    "caverns_and_chasms:hold_plate": {
+    "caverns_and_chasms:hold_pressure_plate": {
       "deflect_sound": "caverns_and_chasms:block.tin.deflect",
       "horizontal_factor": 0.75,
       "vertical_factor": 0.65

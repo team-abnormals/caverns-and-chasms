@@ -34,7 +34,7 @@
   "block.caverns_and_chasms.tin_bars": "Оловянные прутья",
 
   "block.caverns_and_chasms.hold_button": "Удерживаемая кнопка",
-  "block.caverns_and_chasms.hold_plate": "Удерживаемая пластина",
+  "block.caverns_and_chasms.hold_pressure_plate": "Удерживаемая пластина",
   "block.caverns_and_chasms.float_glass": "Термополированное стекло",
   "block.caverns_and_chasms.float_glass_pane": "Термополированная стеклянная панель",
   "block.caverns_and_chasms.tin_bulb": "Оловянная лампа",
@@ -1407,7 +1407,7 @@
   "subtitles.caverns_and_chasms.block.halt_rail.extend": "Останавливающиеся рельсы деактивируются",
   "subtitles.caverns_and_chasms.block.halt_rail.halt": "Вагонетка останавливается",
   "subtitles.caverns_and_chasms.block.hold_button.hold": "Кнопка удерживается",
-  "subtitles.caverns_and_chasms.block.hold_plate.hold": "Нажимная плита удерживается",
+  "subtitles.caverns_and_chasms.block.hold_pressure_plate.hold": "Нажимная плита удерживается",
   "subtitles.caverns_and_chasms.block.hoop.expand": "Кольцо увеличено",
   "subtitles.caverns_and_chasms.block.hoop.shrink": "Кольцо уменьшено",
   

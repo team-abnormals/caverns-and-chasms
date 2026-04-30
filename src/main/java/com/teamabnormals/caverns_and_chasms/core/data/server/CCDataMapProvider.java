@@ -48,7 +48,7 @@ public class CCDataMapProvider extends DataMapProvider {
 				.add(TIN_BRICK_WALL, new TinDeflection(), false)
 				.add(CHISELED_TIN_BRICKS, new TinDeflection(), false)
 				.add(TIN_BARS, new TinDeflection(), false)
-				.add(HOLD_PLATE, new TinDeflection(), false)
+				.add(HOLD_PRESSURE_PLATE, new TinDeflection(), false)
 				.add(HOLD_BUTTON, new TinDeflection(), false)
 				.add(WINCH, new TinDeflection(), false)
 				.add(HOOP, new TinDeflection(), false)

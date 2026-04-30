@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "caverns_and_chasms:hold_plate"
+          "name": "caverns_and_chasms:hold_pressure_plate"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "caverns_and_chasms:blocks/hold_plate"
+  "random_sequence": "caverns_and_chasms:blocks/hold_pressure_plate"
 }

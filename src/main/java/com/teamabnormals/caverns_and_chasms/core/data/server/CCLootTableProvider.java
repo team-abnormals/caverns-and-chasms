@@ -190,7 +190,7 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(FROSTED_GLASS.get());
 			this.dropSelf(FROSTED_GLASS_PANE.get());
 
-			this.dropSelf(HOLD_PLATE.get());
+			this.dropSelf(HOLD_PRESSURE_PLATE.get());
 			this.dropSelf(HOLD_BUTTON.get());
 			this.dropSelf(WINCH.get());
 			this.dropSelf(DIMMER.get());

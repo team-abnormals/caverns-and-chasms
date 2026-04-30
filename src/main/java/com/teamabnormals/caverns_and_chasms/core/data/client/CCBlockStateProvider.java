@@ -61,7 +61,7 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		this.block(FROSTED_GLASS);
 		this.glassPaneBlock(FROSTED_GLASS_PANE, FROSTED_GLASS);
 
-		this.pressurePlateBlock(TIN_BLOCK.get(), HOLD_PLATE.get());
+		this.pressurePlateBlock(TIN_BLOCK.get(), HOLD_PRESSURE_PLATE.get());
 		this.buttonBlock(TIN_BLOCK.get(), HOLD_BUTTON.get());
 		this.winchBlock(WINCH, TIN_BLOCK);
 		this.dimmerBlock(DIMMER, WALL_DIMMER);

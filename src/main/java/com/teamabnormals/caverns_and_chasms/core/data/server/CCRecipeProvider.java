@@ -224,7 +224,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(MISC, CCItems.GOLDEN_MILK_BUCKET).requires(CCItems.GOLDEN_BUCKET).requires(Ingredient.of(CCItemTags.BOTTLES_MILK), 3).unlockedBy("has_milk_bottle", has(CCItemTags.BOTTLES_MILK)).save(consumer.withConditions(new NotCondition(new TagEmptyCondition(CCItemTags.BOTTLES_MILK.location()))));
 
 		ShapedRecipeBuilder.shaped(DECORATIONS, TIN_BARS, 16).define('#', CCItemTags.INGOTS_TIN).pattern("###").pattern("###").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
-		pressurePlateBuilder(REDSTONE, HOLD_PLATE, Ingredient.of(CCItemTags.INGOTS_TIN)).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
+		pressurePlateBuilder(REDSTONE, HOLD_PRESSURE_PLATE, Ingredient.of(CCItemTags.INGOTS_TIN)).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapelessRecipeBuilder.shapeless(REDSTONE, HOLD_BUTTON).requires(ItemTags.WOODEN_BUTTONS).requires(CCItemTags.INGOTS_TIN).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(REDSTONE, WINCH).define('T', CCItemTags.INGOTS_TIN).define('L', Items.LEVER).pattern(" T ").pattern("TLT").pattern(" T ").unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, DIMMER).define('T', CCItemTags.INGOTS_TIN).define('N', CCItemTags.NUGGETS_TIN).define('R', Items.REDSTONE_TORCH).pattern("NNN").pattern("NRN").pattern(" T ").unlockedBy("has_tin_nuggets", has(CCItemTags.NUGGETS_TIN)).unlockedBy("has_tin_ingot", has(CCItemTags.INGOTS_TIN)).save(consumer);

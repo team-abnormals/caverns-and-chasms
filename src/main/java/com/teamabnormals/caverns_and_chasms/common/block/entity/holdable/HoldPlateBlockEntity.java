@@ -17,7 +17,7 @@ public class HoldPlateBlockEntity extends BlockEntity {
 	}
 
 	public HoldPlateBlockEntity(BlockPos pos, BlockState state) {
-		super(CCBlockEntityTypes.HOLD_PLATE.get(), pos, state);
+		super(CCBlockEntityTypes.HOLD_PRESSURE_PLATE.get(), pos, state);
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, HoldPlateBlockEntity blockEntity) {
