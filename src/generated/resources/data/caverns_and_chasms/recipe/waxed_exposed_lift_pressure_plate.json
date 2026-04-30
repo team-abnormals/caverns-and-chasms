@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "caverns_and_chasms:waxed_exposed_copper_ingot"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_exposed_lift_pressure_plate"
+  }
+}

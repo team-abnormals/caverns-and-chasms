@@ -478,11 +478,11 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> BEJEWELED_ANVIL_LAND = SOUNDS.createSoundEvent("block.bejeweled_anvil.land");
 	public static final DeferredHolder<SoundEvent, SoundEvent> BEJEWELED_ANVIL_SHATTER = SOUNDS.createSoundEvent("block.bejeweled_anvil.shatter");
 
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BUTTON_CLICK_OFF = SOUNDS.createSoundEvent("block.copper_button.click_off");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_BUTTON_CLICK_ON = SOUNDS.createSoundEvent("block.copper_button.click_on");
+	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_BUTTON_CLICK_OFF = SOUNDS.createSoundEvent("block.lift_button.click_off");
+	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_BUTTON_CLICK_ON = SOUNDS.createSoundEvent("block.lift_button.click_on");
 	
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.copper_pressure_plate.click_off");
-	public static final DeferredHolder<SoundEvent, SoundEvent> COPPER_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.copper_pressure_plate.click_on");
+	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.lift_pressure_plate.click_off");
+	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.lift_pressure_plate.click_on");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> TIN_BUTTON_CLICK_OFF = SOUNDS.createSoundEvent("block.tin_button.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> TIN_BUTTON_CLICK_ON = SOUNDS.createSoundEvent("block.tin_button.click_on");

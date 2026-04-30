@@ -18,9 +18,6 @@
     "caverns_and_chasms:copper_bricks": {
       "waxed": "caverns_and_chasms:waxed_copper_bricks"
     },
-    "caverns_and_chasms:copper_button": {
-      "waxed": "caverns_and_chasms:waxed_copper_button"
-    },
     "caverns_and_chasms:copper_chain": {
       "waxed": "caverns_and_chasms:waxed_copper_chain"
     },
@@ -29,9 +26,6 @@
     },
     "caverns_and_chasms:copper_lantern": {
       "waxed": "caverns_and_chasms:waxed_copper_lantern"
-    },
-    "caverns_and_chasms:copper_pressure_plate": {
-      "waxed": "caverns_and_chasms:waxed_copper_pressure_plate"
     },
     "caverns_and_chasms:copper_rail": {
       "waxed": "caverns_and_chasms:waxed_copper_rail"
@@ -54,9 +48,6 @@
     "caverns_and_chasms:exposed_copper_bricks": {
       "waxed": "caverns_and_chasms:waxed_exposed_copper_bricks"
     },
-    "caverns_and_chasms:exposed_copper_button": {
-      "waxed": "caverns_and_chasms:waxed_exposed_copper_button"
-    },
     "caverns_and_chasms:exposed_copper_chain": {
       "waxed": "caverns_and_chasms:waxed_exposed_copper_chain"
     },
@@ -66,14 +57,17 @@
     "caverns_and_chasms:exposed_copper_lantern": {
       "waxed": "caverns_and_chasms:waxed_exposed_copper_lantern"
     },
-    "caverns_and_chasms:exposed_copper_pressure_plate": {
-      "waxed": "caverns_and_chasms:waxed_exposed_copper_pressure_plate"
-    },
     "caverns_and_chasms:exposed_copper_rail": {
       "waxed": "caverns_and_chasms:waxed_exposed_copper_rail"
     },
     "caverns_and_chasms:exposed_floodlight": {
       "waxed": "caverns_and_chasms:waxed_exposed_floodlight"
+    },
+    "caverns_and_chasms:exposed_lift_button": {
+      "waxed": "caverns_and_chasms:waxed_exposed_lift_button"
+    },
+    "caverns_and_chasms:exposed_lift_pressure_plate": {
+      "waxed": "caverns_and_chasms:waxed_exposed_lift_pressure_plate"
     },
     "caverns_and_chasms:exposed_lightning_rod": {
       "waxed": "caverns_and_chasms:waxed_exposed_lightning_rod"
@@ -83,6 +77,12 @@
     },
     "caverns_and_chasms:floodlight": {
       "waxed": "caverns_and_chasms:waxed_floodlight"
+    },
+    "caverns_and_chasms:lift_button": {
+      "waxed": "caverns_and_chasms:waxed_lift_button"
+    },
+    "caverns_and_chasms:lift_pressure_plate": {
+      "waxed": "caverns_and_chasms:waxed_lift_pressure_plate"
     },
     "caverns_and_chasms:oxidized_chiseled_copper_bricks": {
       "waxed": "caverns_and_chasms:waxed_oxidized_chiseled_copper_bricks"
@@ -102,9 +102,6 @@
     "caverns_and_chasms:oxidized_copper_bricks": {
       "waxed": "caverns_and_chasms:waxed_oxidized_copper_bricks"
     },
-    "caverns_and_chasms:oxidized_copper_button": {
-      "waxed": "caverns_and_chasms:waxed_oxidized_copper_button"
-    },
     "caverns_and_chasms:oxidized_copper_chain": {
       "waxed": "caverns_and_chasms:waxed_oxidized_copper_chain"
     },
@@ -114,14 +111,17 @@
     "caverns_and_chasms:oxidized_copper_lantern": {
       "waxed": "caverns_and_chasms:waxed_oxidized_copper_lantern"
     },
-    "caverns_and_chasms:oxidized_copper_pressure_plate": {
-      "waxed": "caverns_and_chasms:waxed_oxidized_copper_pressure_plate"
-    },
     "caverns_and_chasms:oxidized_copper_rail": {
       "waxed": "caverns_and_chasms:waxed_oxidized_copper_rail"
     },
     "caverns_and_chasms:oxidized_floodlight": {
       "waxed": "caverns_and_chasms:waxed_oxidized_floodlight"
+    },
+    "caverns_and_chasms:oxidized_lift_button": {
+      "waxed": "caverns_and_chasms:waxed_oxidized_lift_button"
+    },
+    "caverns_and_chasms:oxidized_lift_pressure_plate": {
+      "waxed": "caverns_and_chasms:waxed_oxidized_lift_pressure_plate"
     },
     "caverns_and_chasms:oxidized_lightning_rod": {
       "waxed": "caverns_and_chasms:waxed_oxidized_lightning_rod"
@@ -150,9 +150,6 @@
     "caverns_and_chasms:weathered_copper_bricks": {
       "waxed": "caverns_and_chasms:waxed_weathered_copper_bricks"
     },
-    "caverns_and_chasms:weathered_copper_button": {
-      "waxed": "caverns_and_chasms:waxed_weathered_copper_button"
-    },
     "caverns_and_chasms:weathered_copper_chain": {
       "waxed": "caverns_and_chasms:waxed_weathered_copper_chain"
     },
@@ -162,14 +159,17 @@
     "caverns_and_chasms:weathered_copper_lantern": {
       "waxed": "caverns_and_chasms:waxed_weathered_copper_lantern"
     },
-    "caverns_and_chasms:weathered_copper_pressure_plate": {
-      "waxed": "caverns_and_chasms:waxed_weathered_copper_pressure_plate"
-    },
     "caverns_and_chasms:weathered_copper_rail": {
       "waxed": "caverns_and_chasms:waxed_weathered_copper_rail"
     },
     "caverns_and_chasms:weathered_floodlight": {
       "waxed": "caverns_and_chasms:waxed_weathered_floodlight"
+    },
+    "caverns_and_chasms:weathered_lift_button": {
+      "waxed": "caverns_and_chasms:waxed_weathered_lift_button"
+    },
+    "caverns_and_chasms:weathered_lift_pressure_plate": {
+      "waxed": "caverns_and_chasms:waxed_weathered_lift_pressure_plate"
     },
     "caverns_and_chasms:weathered_lightning_rod": {
       "waxed": "caverns_and_chasms:waxed_weathered_lightning_rod"

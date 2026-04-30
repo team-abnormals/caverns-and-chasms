@@ -262,23 +262,23 @@ public class CCLootTableProvider extends LootTableProvider {
 			this.dropSelf(WAXED_WEATHERED_COPPER_BARS.get());
 			this.dropSelf(WAXED_OXIDIZED_COPPER_BARS.get());
 
-			this.dropSelf(COPPER_BUTTON.get());
-			this.dropSelf(EXPOSED_COPPER_BUTTON.get());
-			this.dropSelf(WEATHERED_COPPER_BUTTON.get());
-			this.dropSelf(OXIDIZED_COPPER_BUTTON.get());
-			this.dropSelf(WAXED_COPPER_BUTTON.get());
-			this.dropSelf(WAXED_EXPOSED_COPPER_BUTTON.get());
-			this.dropSelf(WAXED_WEATHERED_COPPER_BUTTON.get());
-			this.dropSelf(WAXED_OXIDIZED_COPPER_BUTTON.get());
+			this.dropSelf(LIFT_BUTTON.get());
+			this.dropSelf(EXPOSED_LIFT_BUTTON.get());
+			this.dropSelf(WEATHERED_LIFT_BUTTON.get());
+			this.dropSelf(OXIDIZED_LIFT_BUTTON.get());
+			this.dropSelf(WAXED_LIFT_BUTTON.get());
+			this.dropSelf(WAXED_EXPOSED_LIFT_BUTTON.get());
+			this.dropSelf(WAXED_WEATHERED_LIFT_BUTTON.get());
+			this.dropSelf(WAXED_OXIDIZED_LIFT_BUTTON.get());
 
-			this.dropSelf(COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(EXPOSED_COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(WEATHERED_COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(OXIDIZED_COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(WAXED_COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(WAXED_EXPOSED_COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(WAXED_WEATHERED_COPPER_PRESSURE_PLATE.get());
-			this.dropSelf(WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.get());
+			this.dropSelf(LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(EXPOSED_LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(WEATHERED_LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(OXIDIZED_LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(WAXED_LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(WAXED_EXPOSED_LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(WAXED_WEATHERED_LIFT_PRESSURE_PLATE.get());
+			this.dropSelf(WAXED_OXIDIZED_LIFT_PRESSURE_PLATE.get());
 
 			this.dropSelf(EXPOSED_LIGHTNING_ROD.get());
 			this.dropSelf(WEATHERED_LIGHTNING_ROD.get());

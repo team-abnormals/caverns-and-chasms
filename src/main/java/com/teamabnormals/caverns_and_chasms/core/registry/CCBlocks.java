@@ -216,23 +216,23 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_BARS = HELPER.createBlock("waxed_weathered_copper_bars", () -> new IronBarsBlock(CCProperties.COPPER_BARS));
 	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_BARS = HELPER.createBlock("waxed_oxidized_copper_bars", () -> new IronBarsBlock(CCProperties.COPPER_BARS));
 
-	public static final DeferredBlock<Block> COPPER_BUTTON = HELPER.createBlock("copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> EXPOSED_COPPER_BUTTON = HELPER.createBlock("exposed_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WEATHERED_COPPER_BUTTON = HELPER.createBlock("weathered_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> OXIDIZED_COPPER_BUTTON = HELPER.createBlock("oxidized_copper_button", () -> new WeatheringLiftButtonBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_COPPER_BUTTON = HELPER.createBlock("waxed_copper_button", () -> new LiftButtonBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_EXPOSED_COPPER_BUTTON = HELPER.createBlock("waxed_exposed_copper_button", () -> new LiftButtonBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_BUTTON = HELPER.createBlock("waxed_weathered_copper_button", () -> new LiftButtonBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_BUTTON));
-	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_BUTTON = HELPER.createBlock("waxed_oxidized_copper_button", () -> new LiftButtonBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_BUTTON));
+	public static final DeferredBlock<Block> LIFT_BUTTON = HELPER.createBlock("lift_button", () -> new WeatheringLiftButtonBlock(WeatherState.UNAFFECTED, 10, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> EXPOSED_LIFT_BUTTON = HELPER.createBlock("exposed_lift_button", () -> new WeatheringLiftButtonBlock(WeatherState.EXPOSED, 20, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> WEATHERED_LIFT_BUTTON = HELPER.createBlock("weathered_lift_button", () -> new WeatheringLiftButtonBlock(WeatherState.WEATHERED, 30, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> OXIDIZED_LIFT_BUTTON = HELPER.createBlock("oxidized_lift_button", () -> new WeatheringLiftButtonBlock(WeatherState.OXIDIZED, 40, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> WAXED_LIFT_BUTTON = HELPER.createBlock("waxed_lift_button", () -> new LiftButtonBlock(WeatherState.UNAFFECTED, 10, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> WAXED_EXPOSED_LIFT_BUTTON = HELPER.createBlock("waxed_exposed_lift_button", () -> new LiftButtonBlock(WeatherState.EXPOSED, 20, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> WAXED_WEATHERED_LIFT_BUTTON = HELPER.createBlock("waxed_weathered_lift_button", () -> new LiftButtonBlock(WeatherState.WEATHERED, 30, CCProperties.LIFT_BUTTON));
+	public static final DeferredBlock<Block> WAXED_OXIDIZED_LIFT_BUTTON = HELPER.createBlock("waxed_oxidized_lift_button", () -> new LiftButtonBlock(WeatherState.OXIDIZED, 40, CCProperties.LIFT_BUTTON));
 
-	public static final DeferredBlock<Block> COPPER_PRESSURE_PLATE = HELPER.createBlock("copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> EXPOSED_COPPER_PRESSURE_PLATE = HELPER.createBlock("exposed_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WEATHERED_COPPER_PRESSURE_PLATE = HELPER.createBlock("weathered_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> OXIDIZED_COPPER_PRESSURE_PLATE = HELPER.createBlock("oxidized_copper_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.UNAFFECTED, 10, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_EXPOSED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_exposed_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.EXPOSED, 20, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_WEATHERED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_weathered_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.WEATHERED, 30, CCProperties.COPPER_PRESSURE_PLATE));
-	public static final DeferredBlock<Block> WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = HELPER.createBlock("waxed_oxidized_copper_pressure_plate", () -> new LiftPlateBlock(WeatherState.OXIDIZED, 40, CCProperties.COPPER_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> LIFT_PRESSURE_PLATE = HELPER.createBlock("lift_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.UNAFFECTED, 10, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> EXPOSED_LIFT_PRESSURE_PLATE = HELPER.createBlock("exposed_lift_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.EXPOSED, 20, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WEATHERED_LIFT_PRESSURE_PLATE = HELPER.createBlock("weathered_lift_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.WEATHERED, 30, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> OXIDIZED_LIFT_PRESSURE_PLATE = HELPER.createBlock("oxidized_lift_pressure_plate", () -> new WeatheringLiftPlateBlock(WeatherState.OXIDIZED, 40, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_LIFT_PRESSURE_PLATE = HELPER.createBlock("waxed_lift_pressure_plate", () -> new LiftPlateBlock(WeatherState.UNAFFECTED, 10, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_EXPOSED_LIFT_PRESSURE_PLATE = HELPER.createBlock("waxed_exposed_lift_pressure_plate", () -> new LiftPlateBlock(WeatherState.EXPOSED, 20, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_WEATHERED_LIFT_PRESSURE_PLATE = HELPER.createBlock("waxed_weathered_lift_pressure_plate", () -> new LiftPlateBlock(WeatherState.WEATHERED, 30, CCProperties.LIFT_PRESSURE_PLATE));
+	public static final DeferredBlock<Block> WAXED_OXIDIZED_LIFT_PRESSURE_PLATE = HELPER.createBlock("waxed_oxidized_lift_pressure_plate", () -> new LiftPlateBlock(WeatherState.OXIDIZED, 40, CCProperties.LIFT_PRESSURE_PLATE));
 
 	public static final DeferredBlock<Block> EXPOSED_LIGHTNING_ROD = HELPER.createBlock("exposed_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(Blocks.LIGHTNING_ROD)));
 	public static final DeferredBlock<Block> WEATHERED_LIGHTNING_ROD = HELPER.createBlock("weathered_lightning_rod", () -> new WeatheringLightningRodBlock(WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(Blocks.LIGHTNING_ROD)));
@@ -790,21 +790,21 @@ public class CCBlocks {
 				.addItemsAfter(of(Blocks.NETHERITE_BLOCK), NECROMIUM_BLOCK)
 				.addItemsAfter(of(Blocks.SMOOTH_QUARTZ_SLAB), QUARTZ_LAMP)
 				.addItemsAfter(of(Blocks.CUT_COPPER_SLAB), COPPER_BRICKS, COPPER_BRICK_STAIRS, COPPER_BRICK_SLAB, COPPER_BRICK_WALL, CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.COPPER_BULB), COPPER_PRESSURE_PLATE, COPPER_BUTTON, () -> Blocks.LIGHTNING_ROD, COPPER_BARS, COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.COPPER_BULB), LIFT_PRESSURE_PLATE, LIFT_BUTTON, () -> Blocks.LIGHTNING_ROD, COPPER_BARS, COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.EXPOSED_CUT_COPPER_SLAB), EXPOSED_COPPER_BRICKS, EXPOSED_COPPER_BRICK_STAIRS, EXPOSED_COPPER_BRICK_SLAB, EXPOSED_COPPER_BRICK_WALL, EXPOSED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.EXPOSED_COPPER_BULB), EXPOSED_COPPER_PRESSURE_PLATE, EXPOSED_COPPER_BUTTON, EXPOSED_LIGHTNING_ROD, EXPOSED_COPPER_BARS, EXPOSED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.EXPOSED_COPPER_BULB), EXPOSED_LIFT_PRESSURE_PLATE, EXPOSED_LIFT_BUTTON, EXPOSED_LIGHTNING_ROD, EXPOSED_COPPER_BARS, EXPOSED_COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.WEATHERED_CUT_COPPER_SLAB), WEATHERED_COPPER_BRICKS, WEATHERED_COPPER_BRICK_STAIRS, WEATHERED_COPPER_BRICK_SLAB, WEATHERED_COPPER_BRICK_WALL, WEATHERED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.WEATHERED_COPPER_BULB), WEATHERED_COPPER_PRESSURE_PLATE, WEATHERED_COPPER_BUTTON, WEATHERED_LIGHTNING_ROD, WEATHERED_COPPER_BARS, WEATHERED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.WEATHERED_COPPER_BULB), WEATHERED_LIFT_PRESSURE_PLATE, WEATHERED_LIFT_BUTTON, WEATHERED_LIGHTNING_ROD, WEATHERED_COPPER_BARS, WEATHERED_COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.OXIDIZED_CUT_COPPER_SLAB), OXIDIZED_COPPER_BRICKS, OXIDIZED_COPPER_BRICK_STAIRS, OXIDIZED_COPPER_BRICK_SLAB, OXIDIZED_COPPER_BRICK_WALL, OXIDIZED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.OXIDIZED_COPPER_BULB), OXIDIZED_COPPER_PRESSURE_PLATE, OXIDIZED_COPPER_BUTTON, OXIDIZED_LIGHTNING_ROD, OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.OXIDIZED_COPPER_BULB), OXIDIZED_LIFT_PRESSURE_PLATE, OXIDIZED_LIFT_BUTTON, OXIDIZED_LIGHTNING_ROD, OXIDIZED_COPPER_BARS, OXIDIZED_COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.WAXED_CUT_COPPER_SLAB), WAXED_COPPER_BRICKS, WAXED_COPPER_BRICK_STAIRS, WAXED_COPPER_BRICK_SLAB, WAXED_COPPER_BRICK_WALL, WAXED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.WAXED_COPPER_BULB), WAXED_COPPER_PRESSURE_PLATE, WAXED_COPPER_BUTTON, WAXED_LIGHTNING_ROD, WAXED_COPPER_BARS, WAXED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.WAXED_COPPER_BULB), WAXED_LIFT_PRESSURE_PLATE, WAXED_LIFT_BUTTON, WAXED_LIGHTNING_ROD, WAXED_COPPER_BARS, WAXED_COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB), WAXED_EXPOSED_COPPER_BRICKS, WAXED_EXPOSED_COPPER_BRICK_STAIRS, WAXED_EXPOSED_COPPER_BRICK_SLAB, WAXED_EXPOSED_COPPER_BRICK_WALL, WAXED_EXPOSED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.WAXED_EXPOSED_COPPER_BULB), WAXED_EXPOSED_COPPER_PRESSURE_PLATE, WAXED_EXPOSED_COPPER_BUTTON, WAXED_EXPOSED_LIGHTNING_ROD, WAXED_EXPOSED_COPPER_BARS, WAXED_EXPOSED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.WAXED_EXPOSED_COPPER_BULB), WAXED_EXPOSED_LIFT_PRESSURE_PLATE, WAXED_EXPOSED_LIFT_BUTTON, WAXED_EXPOSED_LIGHTNING_ROD, WAXED_EXPOSED_COPPER_BARS, WAXED_EXPOSED_COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB), WAXED_WEATHERED_COPPER_BRICKS, WAXED_WEATHERED_COPPER_BRICK_STAIRS, WAXED_WEATHERED_COPPER_BRICK_SLAB, WAXED_WEATHERED_COPPER_BRICK_WALL, WAXED_WEATHERED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.WAXED_WEATHERED_COPPER_BULB), WAXED_WEATHERED_COPPER_PRESSURE_PLATE, WAXED_WEATHERED_COPPER_BUTTON, WAXED_WEATHERED_LIGHTNING_ROD, WAXED_WEATHERED_COPPER_BARS, WAXED_WEATHERED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.WAXED_WEATHERED_COPPER_BULB), WAXED_WEATHERED_LIFT_PRESSURE_PLATE, WAXED_WEATHERED_LIFT_BUTTON, WAXED_WEATHERED_LIGHTNING_ROD, WAXED_WEATHERED_COPPER_BARS, WAXED_WEATHERED_COPPER_CHAIN)
 				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB), WAXED_OXIDIZED_COPPER_BRICKS, WAXED_OXIDIZED_COPPER_BRICK_STAIRS, WAXED_OXIDIZED_COPPER_BRICK_SLAB, WAXED_OXIDIZED_COPPER_BRICK_WALL, WAXED_OXIDIZED_CHISELED_COPPER_BRICKS)
-				.addItemsBefore(of(Blocks.WAXED_OXIDIZED_COPPER_BULB), WAXED_OXIDIZED_COPPER_PRESSURE_PLATE, WAXED_OXIDIZED_COPPER_BUTTON, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_COPPER_CHAIN)
+				.addItemsBefore(of(Blocks.WAXED_OXIDIZED_COPPER_BULB), WAXED_OXIDIZED_LIFT_PRESSURE_PLATE, WAXED_OXIDIZED_LIFT_BUTTON, WAXED_OXIDIZED_LIGHTNING_ROD, WAXED_OXIDIZED_COPPER_BARS, WAXED_OXIDIZED_COPPER_CHAIN)
 				.tab(COLORED_BLOCKS)
 				.addItemsAfter(of(Blocks.TINTED_GLASS), FROSTED_GLASS, FLOAT_GLASS, ORNATE_GLASS)
 				.addItemsAfter(of(Blocks.GLASS_PANE), FROSTED_GLASS_PANE, FLOAT_GLASS_PANE, ORNATE_GLASS_PANE)
@@ -852,8 +852,8 @@ public class CCBlocks {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Blocks.WAXED_OXIDIZED_COPPER_BULB), TIN_BULB)
 				.addItemsAfter(of(Blocks.COMPARATOR), REFRACTOR, RESISTOR)
-				.addItemsAfter(of(Blocks.STONE_PRESSURE_PLATE), WAXED_COPPER_PRESSURE_PLATE, WAXED_EXPOSED_COPPER_PRESSURE_PLATE, WAXED_WEATHERED_COPPER_PRESSURE_PLATE, WAXED_OXIDIZED_COPPER_PRESSURE_PLATE)
-				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON, WAXED_OXIDIZED_COPPER_BUTTON, HOLD_BUTTON)
+				.addItemsAfter(of(Blocks.STONE_PRESSURE_PLATE), WAXED_LIFT_PRESSURE_PLATE, WAXED_EXPOSED_LIFT_PRESSURE_PLATE, WAXED_WEATHERED_LIFT_PRESSURE_PLATE, WAXED_OXIDIZED_LIFT_PRESSURE_PLATE)
+				.addItemsAfter(of(Blocks.STONE_BUTTON), WAXED_LIFT_BUTTON, WAXED_EXPOSED_LIFT_BUTTON, WAXED_WEATHERED_LIFT_BUTTON, WAXED_OXIDIZED_LIFT_BUTTON, HOLD_BUTTON)
 				.addItemsAfter(of(Blocks.TARGET), BOUNCER)
 				.addItemsAfter(of(Blocks.LIGHTNING_ROD), DIMMER, HOOP, WINCH)
 				.addItemsAfter(of(Blocks.TNT), TMT)
@@ -906,7 +906,7 @@ public class CCBlocks {
 
 	public static class CCProperties {
 		public static final BlockSetType AZALEA_BLOCK_SET = BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":azalea"));
-		public static final Supplier<BlockSetType> COPPER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", true, true, true, BlockSetType.PressurePlateSensitivity.EVERYTHING, SoundType.COPPER, SoundEvents.COPPER_DOOR_CLOSE, SoundEvents.COPPER_DOOR_OPEN, SoundEvents.COPPER_TRAPDOOR_CLOSE, SoundEvents.COPPER_TRAPDOOR_OPEN, CCSoundEvents.COPPER_PRESSURE_PLATE_CLICK_OFF.get(), CCSoundEvents.COPPER_PRESSURE_PLATE_CLICK_ON.get(), CCSoundEvents.COPPER_BUTTON_CLICK_OFF.get(), CCSoundEvents.COPPER_BUTTON_CLICK_ON.get()));
+		public static final Supplier<BlockSetType> COPPER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":copper", true, true, true, BlockSetType.PressurePlateSensitivity.EVERYTHING, SoundType.COPPER, SoundEvents.COPPER_DOOR_CLOSE, SoundEvents.COPPER_DOOR_OPEN, SoundEvents.COPPER_TRAPDOOR_CLOSE, SoundEvents.COPPER_TRAPDOOR_OPEN, CCSoundEvents.LIFT_PRESSURE_PLATE_CLICK_OFF.get(), CCSoundEvents.LIFT_PRESSURE_PLATE_CLICK_ON.get(), CCSoundEvents.LIFT_BUTTON_CLICK_OFF.get(), CCSoundEvents.LIFT_BUTTON_CLICK_ON.get()));
 		public static final Supplier<BlockSetType> SILVER_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":silver", false, false, false, BlockSetType.PressurePlateSensitivity.EVERYTHING, CCSoundTypes.SILVER, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, CCSoundEvents.MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF.get(), CCSoundEvents.MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON.get(), SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON));
 		public static final Supplier<BlockSetType> TIN_BLOCK_SET = () -> BlockSetType.register(new BlockSetType(CavernsAndChasms.MOD_ID + ":tin", false, false, false, BlockSetType.PressurePlateSensitivity.EVERYTHING, CCSoundTypes.TIN, SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN, CCSoundEvents.TIN_PRESSURE_PLATE_CLICK_OFF.get(), CCSoundEvents.TIN_PRESSURE_PLATE_CLICK_ON.get(), CCSoundEvents.TIN_BUTTON_CLICK_OFF.get(), CCSoundEvents.TIN_BUTTON_CLICK_ON.get()));
 
@@ -984,8 +984,8 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties GOLDEN_BARS = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion();
 		public static final BlockBehaviour.Properties GOLDEN_CHAIN = BlockBehaviour.Properties.of().forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(CCSoundTypes.GOLDEN_CHAIN).noOcclusion();
 		public static final BlockBehaviour.Properties SILVER_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(CCSoundTypes.SILVER).pushReaction(PushReaction.DESTROY);
-		public static final BlockBehaviour.Properties COPPER_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
-		public static final BlockBehaviour.Properties COPPER_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties LIFT_PRESSURE_PLATE = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
+		public static final BlockBehaviour.Properties LIFT_BUTTON = BlockBehaviour.Properties.of().noCollission().strength(0.5F).sound(SoundType.COPPER).pushReaction(PushReaction.DESTROY);
 		public static final BlockBehaviour.Properties SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0F, 6.0F).sound(CCSoundTypes.SANGUINE);
 		public static final BlockBehaviour.Properties FORTIFIED_SANGUINE_TILES = Block.Properties.of().mapColor(MapColor.COLOR_RED).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0F, 9.0F).sound(CCSoundTypes.FORTIFIED_SANGUINE);
 

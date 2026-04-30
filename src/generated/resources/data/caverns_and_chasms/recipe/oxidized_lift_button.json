@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "oxidized_lift_button",
+  "ingredients": [
+    {
+      "tag": "minecraft:wooden_buttons"
+    },
+    {
+      "item": "caverns_and_chasms:oxidized_copper_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:oxidized_lift_button"
+  }
+}

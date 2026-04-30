@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "waxed_exposed_lift_button",
+  "ingredients": [
+    {
+      "tag": "minecraft:wooden_buttons"
+    },
+    {
+      "item": "caverns_and_chasms:waxed_exposed_copper_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "caverns_and_chasms:waxed_exposed_lift_button"
+  }
+}

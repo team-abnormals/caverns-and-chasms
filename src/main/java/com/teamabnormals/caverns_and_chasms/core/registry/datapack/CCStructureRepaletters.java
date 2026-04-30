@@ -55,8 +55,8 @@ public final class CCStructureRepaletters {
 				.select(HolderSet.direct(Stream.of(BuiltinStructures.TRIAL_CHAMBERS).map(structures::getOrThrow).collect(Collectors.toList()))));
 
 		context.register(TRIAL_CHAMBERS_MISC, new StructureRepaletterEntry.Builder().repaletters(
-						new SimpleStructureRepaletter(Blocks.OAK_BUTTON, CCBlocks.WAXED_COPPER_BUTTON.get()),
-						new SimpleStructureRepaletter(Blocks.OAK_PRESSURE_PLATE, CCBlocks.WAXED_COPPER_PRESSURE_PLATE.get()))
+						new SimpleStructureRepaletter(Blocks.OAK_BUTTON, CCBlocks.WAXED_LIFT_BUTTON.get()),
+						new SimpleStructureRepaletter(Blocks.OAK_PRESSURE_PLATE, CCBlocks.WAXED_LIFT_PRESSURE_PLATE.get()))
 				.select(HolderSet.direct(Stream.of(BuiltinStructures.TRIAL_CHAMBERS).map(structures::getOrThrow).collect(Collectors.toList()))));
 	}
 

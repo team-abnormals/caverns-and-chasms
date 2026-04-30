@@ -240,14 +240,14 @@
 
 
 "_comment": "МЕДНЫЕ БЛОКИ",
-  "block.caverns_and_chasms.copper_button": "Медная кнопка",
-  "block.caverns_and_chasms.exposed_copper_button": "Потемневшая медная кнопка",
-  "block.caverns_and_chasms.weathered_copper_button": "Состаренная медная кнопка",
-  "block.caverns_and_chasms.oxidized_copper_button": "Окисленная медная кнопка",
-  "block.caverns_and_chasms.waxed_copper_button": "Вощёная медная кнопка",
-  "block.caverns_and_chasms.waxed_exposed_copper_button": "Вощёная потемневшая медная кнопка",
-  "block.caverns_and_chasms.waxed_weathered_copper_button": "Вощёная состаренная медная кнопка",
-  "block.caverns_and_chasms.waxed_oxidized_copper_button": "Вощёная окисленная медная кнопка",
+  "block.caverns_and_chasms.lift_button": "Медная кнопка",
+  "block.caverns_and_chasms.exposed_lift_button": "Потемневшая медная кнопка",
+  "block.caverns_and_chasms.weathered_lift_button": "Состаренная медная кнопка",
+  "block.caverns_and_chasms.oxidized_lift_button": "Окисленная медная кнопка",
+  "block.caverns_and_chasms.waxed_lift_button": "Вощёная медная кнопка",
+  "block.caverns_and_chasms.waxed_exposed_lift_button": "Вощёная потемневшая медная кнопка",
+  "block.caverns_and_chasms.waxed_weathered_lift_button": "Вощёная состаренная медная кнопка",
+  "block.caverns_and_chasms.waxed_oxidized_lift_button": "Вощёная окисленная медная кнопка",
 
   "block.caverns_and_chasms.copper_rail": "Медные рельсы",
   "block.caverns_and_chasms.exposed_copper_rail": "Потемневшие медные рельсы",

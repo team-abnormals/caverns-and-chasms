@@ -4755,40 +4755,40 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.dismantling_table.use"
   },
-  "block.copper_button.click_off": {
+  "block.lift_button.click_off": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/copper_button/click_off",
+        "name": "caverns_and_chasms:block/lift_button/click_off",
         "pitch": 0.5,
         "volume": 0.3
       }
     ],
     "subtitle": "subtitles.block.button.click"
   },
-  "block.copper_button.click_on": {
+  "block.lift_button.click_on": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/copper_button/click_on",
+        "name": "caverns_and_chasms:block/lift_button/click_on",
         "pitch": 0.5,
         "volume": 0.3
       }
     ],
     "subtitle": "subtitles.block.button.click"
   },
-  "block.copper_pressure_plate.click_off": {
+  "block.lift_pressure_plate.click_off": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/copper_pressure_plate/click",
+        "name": "caverns_and_chasms:block/lift_pressure_plate/click",
         "pitch": 0.7,
         "volume": 0.3
       }
     ],
     "subtitle": "subtitles.block.pressure_plate.click"
   },
-  "block.copper_pressure_plate.click_on": {
+  "block.lift_pressure_plate.click_on": {
     "sounds": [
       {
-        "name": "caverns_and_chasms:block/copper_pressure_plate/click",
+        "name": "caverns_and_chasms:block/lift_pressure_plate/click",
         "pitch": 0.8,
         "volume": 0.3
       }
