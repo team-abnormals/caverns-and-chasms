@@ -103,6 +103,7 @@ public class CCDataMapProvider extends DataMapProvider {
 				), false);
 
 		this.builder(NeoForgeDataMaps.VIBRATION_FREQUENCIES)
+				.add(CCGameEvents.TIN_DEFLECT, new VibrationFrequency(2), false)
 				.add(CCGameEvents.TUNING_FORK_VIBRATE, new VibrationFrequency(10), false);
 
 		this.builder(NeoForgeDataMaps.FURNACE_FUELS)

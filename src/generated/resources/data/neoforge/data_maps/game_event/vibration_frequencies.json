@@ -1,5 +1,8 @@
 {
   "values": {
+    "caverns_and_chasms:tin_deflect": {
+      "frequency": 2
+    },
     "caverns_and_chasms:tuning_fork_vibrate": {
       "frequency": 10
     }
