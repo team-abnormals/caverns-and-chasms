@@ -160,7 +160,6 @@ public class CCEvents {
 		}
 	}
 
-	//TODO: Make work properly with Creeper weights and stuff
 	@SubscribeEvent
 	public static void onLivingSpawn(FinalizeSpawnEvent event) {
 		LivingEntity entity = event.getEntity();

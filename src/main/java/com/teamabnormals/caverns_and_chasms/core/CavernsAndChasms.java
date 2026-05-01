@@ -64,8 +64,8 @@ public class CavernsAndChasms {
 	public CavernsAndChasms(IEventBus bus, ModContainer container) {
 		CCDataProcessors.registerTrackedData();
 
-		CCBlocks.HELPER.register(bus);
-		CCItems.HELPER.register(bus);
+		CCBlocks.BLOCKS.register(bus);
+		CCItems.ITEMS.register(bus);
 		CCArmorMaterials.ARMOR_MATERIALS.register(bus);
 		CCEntityTypes.ENTITY_TYPES.register(bus);
 		CCBlockEntityTypes.HELPER.register(bus);

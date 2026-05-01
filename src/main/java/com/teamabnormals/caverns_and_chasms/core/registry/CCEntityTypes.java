@@ -23,6 +23,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -38,20 +39,19 @@ public class CCEntityTypes {
 	public static final DeferredHolder<EntityType<?>, EntityType<Deeper>> DEEPER = ENTITY_TYPES.createEntity("deeper", Deeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
 	public static final DeferredHolder<EntityType<?>, EntityType<Evendeeper>> EVENDEEPER = ENTITY_TYPES.createEntity("evendeeper", Evendeeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 1.7F).clientTrackingRange(8));
 	public static final DeferredHolder<EntityType<?>, EntityType<Peeper>> PEEPER = ENTITY_TYPES.createEntity("peeper", Peeper::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 2.2F).clientTrackingRange(8));
-	public static final DeferredHolder<EntityType<?>, EntityType<Mime>> MIME = ENTITY_TYPES.createEntity("mime", Mime::new, MobCategory.MONSTER, 0.6F, 2.1F);
-	//	public static final DeferredHolder<EntityType<?>, EntityType<Fly>> FLY = HELPER.createEntity("fly", Fly::new, MobCategory.CREATURE, 0.4F, 0.4F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Rat>> RAT = ENTITY_TYPES.createEntity("rat", Rat::new, CCEnums.UNDERGROUND_AMBIENT.getValue(), 0.5F, 0.45F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Glare>> GLARE = ENTITY_TYPES.createEntity("glare", Glare::new, MobCategory.AMBIENT, 0.6F, 0.95F);
-	public static final DeferredHolder<EntityType<?>, EntityType<CopperGolem>> COPPER_GOLEM = ENTITY_TYPES.createEntity("copper_golem", CopperGolem::new, MobCategory.MISC, 0.6F, 0.9F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Mime>> MIME = ENTITY_TYPES.createEntity("mime", Mime::new, MobCategory.MONSTER, builder -> builder.sized(0.6F, 2.1F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-0.7F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Rat>> RAT = ENTITY_TYPES.createEntity("rat", Rat::new, CCEnums.UNDERGROUND_AMBIENT.getValue(), builder -> builder.sized(0.5F, 0.45F).eyeHeight(0.22F).passengerAttachments(0.3F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Glare>> GLARE = ENTITY_TYPES.createEntity("glare", Glare::new, MobCategory.AMBIENT, builder -> builder.sized(0.6F, 0.95F).eyeHeight(0.6F).passengerAttachments(0.7F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<CopperGolem>> COPPER_GOLEM = ENTITY_TYPES.createEntity("copper_golem", CopperGolem::new, MobCategory.MISC, builder -> builder.sized(0.6F, 0.9F).clientTrackingRange(10));
 	public static final DeferredHolder<EntityType<?>, EntityType<OxidizedCopperGolem>> OXIDIZED_COPPER_GOLEM = ENTITY_TYPES.createEntity("oxidized_copper_golem", OxidizedCopperGolem::new, MobCategory.MISC, builder -> builder.fireImmune().sized(0.6F, 0.9F).clientTrackingRange(10));
-	public static final DeferredHolder<EntityType<?>, EntityType<Grazer>> GRAZER = ENTITY_TYPES.createEntity("grazer", Grazer::new, MobCategory.MONSTER, 0.9F, 1.98F);
-	public static final DeferredHolder<EntityType<?>, EntityType<SaddledGrazer>> SADDLED_GRAZER = ENTITY_TYPES.createEntity("saddled_grazer", SaddledGrazer::new, MobCategory.CREATURE, 0.9F, 1.98F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Cavefish>> CAVEFISH = ENTITY_TYPES.createEntity("cavefish", Cavefish::new, CCEnums.UNDERGROUND_WATER_AMBIENT.getValue(), 0.4F, 0.3F);
-	public static final DeferredHolder<EntityType<?>, EntityType<Kunai>> KUNAI = ENTITY_TYPES.createEntity("kunai", Kunai::new, MobCategory.MISC, 0.5F, 0.5F);
-	public static final DeferredHolder<EntityType<?>, EntityType<PrimedTmt>> TMT = ENTITY_TYPES.createEntity("tmt", PrimedTmt::new, MobCategory.MISC, builder -> builder.fireImmune().sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10));
-	public static final DeferredHolder<EntityType<?>, EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = ENTITY_TYPES.createEntity("spinel_pearl", ThrownBejeweledPearl::new, MobCategory.MISC, 0.25F, 0.25F);
-	public static final DeferredHolder<EntityType<?>, EntityType<LostGoat>> LOST_GOAT = ENTITY_TYPES.createEntity("lost_goat", LostGoat::new, CCEnums.LOST_GOAT.getValue(), 0.9F, 1.3F);
-	public static final DeferredHolder<EntityType<?>, EntityType<MinecartTMT>> TMT_MINECART = ENTITY_TYPES.createEntity("tmt_minecart", MinecartTMT::new, MobCategory.MISC, 0.98F, 0.7F);
+	public static final DeferredHolder<EntityType<?>, EntityType<Grazer>> GRAZER = ENTITY_TYPES.createEntity("grazer", Grazer::new, MobCategory.MONSTER, builder -> builder.sized(0.9F, 1.98F).eyeHeight(1.2F).passengerAttachments(2.1F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<SaddledGrazer>> SADDLED_GRAZER = ENTITY_TYPES.createEntity("saddled_grazer", SaddledGrazer::new, MobCategory.CREATURE, builder -> builder.sized(0.9F, 1.98F).eyeHeight(1.2F).passengerAttachments(2.1F).clientTrackingRange(8));
+	public static final DeferredHolder<EntityType<?>, EntityType<Cavefish>> CAVEFISH = ENTITY_TYPES.createEntity("cavefish", Cavefish::new, CCEnums.UNDERGROUND_WATER_AMBIENT.getValue(), builder -> builder.sized(0.4F, 0.3F).eyeHeight(0.26F).clientTrackingRange(4));
+	public static final DeferredHolder<EntityType<?>, EntityType<Kunai>> KUNAI = ENTITY_TYPES.createEntity("kunai", Kunai::new, MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
+	public static final DeferredHolder<EntityType<?>, EntityType<PrimedTmt>> TMT = ENTITY_TYPES.createEntity("tmt", PrimedTmt::new, MobCategory.MISC, builder -> builder.fireImmune().sized(0.98F, 0.98F).eyeHeight(0.15F).clientTrackingRange(10).updateInterval(10));
+	public static final DeferredHolder<EntityType<?>, EntityType<ThrownBejeweledPearl>> BEJEWELED_PEARL = ENTITY_TYPES.createEntity("bejeweled_pearl", ThrownBejeweledPearl::new, MobCategory.MISC, builder -> builder.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
+	public static final DeferredHolder<EntityType<?>, EntityType<LostGoat>> LOST_GOAT = ENTITY_TYPES.createEntity("lost_goat", LostGoat::new, CCEnums.LOST_GOAT.getValue(), builder -> builder.sized(0.9F, 1.3F).passengerAttachments(1.1125F).clientTrackingRange(10));
+	public static final DeferredHolder<EntityType<?>, EntityType<MinecartTMT>> TMT_MINECART = ENTITY_TYPES.createEntity("tmt_minecart", MinecartTMT::new, MobCategory.MISC, builder -> builder.sized(0.98F, 0.7F).passengerAttachments(0.1875F).clientTrackingRange(8));
 
 	public static final DeferredHolder<EntityType<?>, EntityType<BluntArrow>> BLUNT_ARROW = ENTITY_TYPES.createEntity("blunt_arrow", BluntArrow::new, MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
 	public static final DeferredHolder<EntityType<?>, EntityType<RicochetArrow>> RICOCHET_ARROW = ENTITY_TYPES.createEntity("ricochet_arrow", RicochetArrow::new, MobCategory.MISC, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20));
@@ -63,7 +63,6 @@ public class CCEntityTypes {
 		event.put(EVENDEEPER.get(), Evendeeper.createAttributes().build());
 		event.put(PEEPER.get(), Peeper.createAttributes().build());
 		event.put(MIME.get(), Mime.createAttributes().build());
-//		event.put(FLY.get(), Fly.createAttributes().build());
 		event.put(RAT.get(), Rat.createAttributes().build());
 		event.put(CAVEFISH.get(), Cavefish.createAttributes().build());
 		event.put(GLARE.get(), Glare.createAttributes().build());
@@ -72,11 +71,6 @@ public class CCEntityTypes {
 		event.put(GRAZER.get(), Grazer.createAttributes().build());
 		event.put(SADDLED_GRAZER.get(), SaddledGrazer.createAttributes().build());
 		event.put(LOST_GOAT.get(), LostGoat.createAttributes().build());
-	}
-
-	@SubscribeEvent
-	public static void registerAttributes(EntityAttributeModificationEvent event) {
-//		event.add(EntityType.SKELETON, Attributes.MAX_HEALTH, 10.0D);
 	}
 
 	@SubscribeEvent

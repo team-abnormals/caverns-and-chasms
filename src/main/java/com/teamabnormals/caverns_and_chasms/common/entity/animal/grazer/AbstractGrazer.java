@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerB
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerBounceGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerFloatGoal;
 import com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.grazer.GrazerRunGoal;
+import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCProjectileUtil;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
@@ -22,6 +23,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -61,6 +65,8 @@ public abstract class AbstractGrazer extends Animal {
 	private static final TargetingConditions HIT_TARGETING = TargetingConditions.forCombat().selector(livingentity -> {
 		return livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox()) && !livingentity.isPassenger();
 	});
+
+	private static final AttributeModifier STEP_HEIGHT_MODIFIER = new AttributeModifier(CavernsAndChasms.location("grazer_step_height"), 0.4D, Operation.ADD_VALUE);
 
 	private static final EntityDataAccessor<Byte> STATE = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> BODY_LOWER_AMOUNT = SynchedEntityData.defineId(AbstractGrazer.class, EntityDataSerializers.FLOAT);
@@ -143,7 +149,8 @@ public abstract class AbstractGrazer extends Animal {
 		return Monster.createMonsterAttributes()
 				.add(Attributes.MAX_HEALTH, 26.0D)
 				.add(Attributes.MOVEMENT_SPEED, 0.2F)
-				.add(Attributes.ATTACK_DAMAGE, 3.0D);
+				.add(Attributes.ATTACK_DAMAGE, 3.0D)
+				.add(Attributes.STEP_HEIGHT, 0.6D);
 	}
 
 	@Override
@@ -211,6 +218,10 @@ public abstract class AbstractGrazer extends Animal {
 		this.entityData.set(STATE, state.getId());
 		this.setSprinting(state == GrazerState.RUNNING);
 		this.setDiscardFriction(this.isBouncingState(state));
+	}
+
+	public boolean shouldIncreaseStepHeight(GrazerState state) {
+		return state == GrazerState.RUNNING || state == GrazerState.SLOWING_DOWN || state == GrazerState.BOUNCING;
 	}
 
 	public boolean isBouncingState(GrazerState state) {
@@ -308,21 +319,16 @@ public abstract class AbstractGrazer extends Animal {
 	public int getMaxHeadYRot() {
 		return 1;
 	}
-//TODO: Reimplement
-//	@Override
-//	public float getStepHeight() {
-//		GrazerState state = this.getState();
-//		return state == GrazerState.RUNNING || state == GrazerState.SLOWING_DOWN || state == GrazerState.BOUNCING ? 1.0F : super.getStepHeight();
-//	}
 
-//	@Override
-//	public float maxUpStep() {
-//		if (this.getControllingPassenger() instanceof Player && this.isIdleState(this.getState())) {
-//			return Math.max(this.maxUpStep, 1.0F);
-//		} else {
-//			return this.maxUpStep;
-//		}
-//	}
+	@Override
+	public float maxUpStep() {
+		float f = (float) this.getAttributeValue(Attributes.STEP_HEIGHT);
+		if (this.getControllingPassenger() instanceof Player && this.isIdleState(this.getState())) {
+			return Math.max(f, 1.0F);
+		} else {
+			return f;
+		}
+	}
 
 	@Override
 	public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
@@ -350,19 +356,20 @@ public abstract class AbstractGrazer extends Animal {
 		return false;
 	}
 
-	//TODO: Reimplement
-//	@Override
-//	public double getPassengersRidingOffset() {
-//		return this.shellCenterY(1.0F) + this.shellRadius() - 0.3D + Math.abs(Mth.sin(this.tickCount * 0.3F)) * 0.75D * this.passengerBounceAmount;
-//	}
-//
-//	@Override
-//	protected void positionRider(Entity rider, Entity.MoveFunction function) {
-//		if (this.hasPassenger(rider)) {
-//			Vec3 vec3 = new Vec3(0.0D, this.getPassengersRidingOffset() + rider.getMyRidingOffset(), this.shellCenterZ(1.0F) - 0.3F).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
-//			function.accept(rider, this.getX() + vec3.x, this.getY() + vec3.y, this.getZ() + vec3.z);
-//		}
-//	}
+	@Override
+	protected void positionRider(Entity rider, Entity.MoveFunction function) {
+		super.positionRider(rider, function);
+		if (this.hasPassenger(rider)) {
+			double bounce = Math.abs(Mth.sin(this.tickCount * 0.3F)) * 0.75D * this.passengerBounceAmount;
+
+			Vec3 vanillaPos = this.getPassengerRidingPosition(rider);
+			Vec3 attachOffset = rider.getVehicleAttachmentPoint(this);
+			Vec3 base = new Vec3(vanillaPos.x - attachOffset.x, vanillaPos.y - attachOffset.y, vanillaPos.z - attachOffset.z);
+
+			Vec3 shellOffset = new Vec3(0.0D, bounce, this.shellCenterZ(1.0F) - 0.3F).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
+			function.accept(rider, base.x + shellOffset.x, base.y + shellOffset.y, base.z + shellOffset.z);
+		}
+	}
 
 	@Override
 	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
@@ -537,6 +544,19 @@ public abstract class AbstractGrazer extends Animal {
 		GrazerState state = this.getState();
 
 		if (this.level().isClientSide) {
+			if (this.isAlive()) {
+				AttributeInstance stepHeight = this.getAttribute(Attributes.STEP_HEIGHT);
+				if (stepHeight != null) {
+					boolean hasModifier = stepHeight.getModifier(STEP_HEIGHT_MODIFIER.id()) != null;
+					boolean shouldHaveModifier = this.shouldIncreaseStepHeight(state);
+					if (!hasModifier && shouldHaveModifier) {
+						stepHeight.addTransientModifier(STEP_HEIGHT_MODIFIER);
+					} else if (hasModifier && !shouldHaveModifier) {
+						stepHeight.removeModifier(STEP_HEIGHT_MODIFIER.id());
+					}
+				}
+			}
+
 			this.runAmountO = this.runAmount;
 			if (state == GrazerState.RUNNING_STILL || state == GrazerState.RUNNING)
 				this.runAmount = Math.min(1.0F, this.runAmount + 0.2F);

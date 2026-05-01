@@ -101,7 +101,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 	public void registerAdvancementRemolders(Provider provider) {
 		this.allEffects(CCMobEffects.MOB_EFFECTS);
 		this.allPotions(CCMobEffects.POTIONS);
-		this.balancedDiet(CCItems.HELPER.getDeferredRegister());
+		this.balancedDiet(CCItems.ITEMS.getDeferredRegister());
 		this.killMobs(MOBS_TO_KILL);
 		this.breedAllAnimals(BREEDABLE_ANIMALS);
 		this.trimWithAnyArmorPattern(SMITHING_TEMPLATES);

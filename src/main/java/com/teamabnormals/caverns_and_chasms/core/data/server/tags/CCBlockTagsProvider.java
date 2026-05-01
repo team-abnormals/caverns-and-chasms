@@ -316,6 +316,6 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 	}
 
 	public IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> collect(TagKey<Block> tag, Predicate<? super Block> predicate, Block... exclude) {
-		return this.tag(tag).add(HELPER.getDeferredRegister().getEntries().stream().map(DeferredHolder::get).filter(predicate).filter(block -> !Arrays.stream(exclude).toList().contains(block)).toList().toArray(new Block[0]));
+		return this.tag(tag).add(BLOCKS.getDeferredRegister().getEntries().stream().map(DeferredHolder::get).filter(predicate).filter(block -> !Arrays.stream(exclude).toList().contains(block)).toList().toArray(new Block[0]));
 	}
 }
