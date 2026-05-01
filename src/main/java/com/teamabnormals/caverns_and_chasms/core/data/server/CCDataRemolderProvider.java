@@ -1,12 +1,14 @@
 package com.teamabnormals.caverns_and_chasms.core.data.server;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
 import com.teamabnormals.blueprint.common.advancement.modification.modifiers.CriteriaModifier;
 import com.teamabnormals.blueprint.common.remolder.Remolder;
 import com.teamabnormals.blueprint.common.remolder.data.RemolderProvider;
 import com.teamabnormals.blueprint.common.remolder.util.AdvancementRemolders;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
+import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
@@ -36,14 +38,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.AddValue;
+import net.minecraft.world.item.enchantment.effects.EnchantmentValueEffect;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureSet.StructureSelectionEntry;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
@@ -52,10 +59,8 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -72,7 +77,8 @@ import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.add;
 import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.sequence;
 import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.target;
 import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.value;
-import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.*;
+import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addEntry;
+import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addPool;
 import static com.teamabnormals.caverns_and_chasms.core.registry.CCItems.*;
 
 public class CCDataRemolderProvider extends RemolderProvider {
@@ -92,6 +98,11 @@ public class CCDataRemolderProvider extends RemolderProvider {
 				.remolder(add(target("structures[]"), value(
 						StructureSet.entry(structures.getOrThrow(CCStructures.MINESHAFT_LUSH), 1), StructureSelectionEntry.CODEC)
 				));
+
+		this.entry("enchantment/efficiency").path("enchantment/efficiency").remolder(add(target("effects[\"minecraft:damage\"]"), value(List.of(new ConditionalEffect<>(
+				new AddValue(LevelBasedValue.perLevel(1.0F, 0.5F)),
+				Optional.of(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(CCEntityTypeTags.SENSITIVE_TO_EFFICIENCY))).build()))), Codec.list(ConditionalEffect.codec(EnchantmentValueEffect.CODEC, LootContextParamSets.ENCHANTED_DAMAGE))))
+		);
 	}
 
 	private static final EntityType<?>[] BREEDABLE_ANIMALS = new EntityType[]{CCEntityTypes.RAT.get()};
@@ -116,7 +127,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 		this.advancementRemolder("adventure/lightning_rod_with_villager_no_fire").remolder(replaceCopperParent);
 
 		this.advancementRemolder("husbandry/obtain_netherite_hoe").remolder(sequence(
-				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build()),
+						AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build()),
 				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId).addCriterion("necromium_hoe", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())).addIndexedRequirements(0, false, "necromium_hoe").build()));
 
 		this.advancementRemolder("husbandry/wax_on").remolder(sequence(

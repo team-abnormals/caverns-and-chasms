@@ -147,8 +147,7 @@ public class Deeper extends CCCreeper implements Shearable, IShearable {
 		if (!this.level().isClientSide() && source.getEntity() instanceof LivingEntity entity) {
 			ItemStack stack = entity.getMainHandItem();
 			if (stack.canPerformAction(ItemAbilities.PICKAXE_DIG)) {
-				amount *= 2.5F; //TODO: Reimplement
-				//amount += this.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SHARPNESS).getDamageBonus(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack), this.getMobType(), stack);
+				amount *= 2.5F;
 			}
 		}
 		return super.hurt(source, amount);
