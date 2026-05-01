@@ -1,0 +1,27 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "add",
+    "target": "effects[\"minecraft:damage\"]",
+    "value": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 1.0,
+            "per_level_above_first": 0.5
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "type": "#caverns_and_chasms:sensitive_to_efficiency"
+          }
+        }
+      }
+    ]
+  },
+  "selector": "minecraft:enchantment/efficiency"
+}

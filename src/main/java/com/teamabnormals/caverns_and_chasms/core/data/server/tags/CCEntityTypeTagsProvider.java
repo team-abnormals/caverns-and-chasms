@@ -28,6 +28,7 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(EntityTypeTags.DISMOUNTS_UNDERWATER).add(SADDLED_GRAZER.get());
 		this.tag(BlueprintEntityTypeTags.FISHES).add(CAVEFISH.get());
 
+		this.tag(SENSITIVE_TO_EFFICIENCY).add(DEEPER.get(), EVENDEEPER.get());
 		this.tag(SPAWNS_FROM_CAVE_GROWTHS).add(EntityType.BAT, EntityType.SILVERFISH);
 		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.WITHER_SKULL);
 		this.tag(SILVER_HURTS_EXTRA_TYPES).add(EntityType.WITHER);
