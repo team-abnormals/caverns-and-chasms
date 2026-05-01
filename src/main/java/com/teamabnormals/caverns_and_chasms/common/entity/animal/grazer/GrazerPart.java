@@ -169,7 +169,7 @@ public class GrazerPart extends PartEntity<AbstractGrazer> {
 	}
 
 	protected float getScale() {
-		return this.getParent().getScale();
+		return this.getParent().getTrueScale();
 	}
 
 	@Override

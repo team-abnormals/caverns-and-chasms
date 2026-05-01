@@ -28,9 +28,9 @@ public class GrazerRenderer extends MobRenderer<AbstractGrazer, GrazerModel> {
 
 		super.setupRotations(grazer, poseStack, ageInTicks, rotationYaw, partialTick, scale);
 		float rot = -grazer.getCustomXRot(partialTick) + Mth.sin(ageInTicks * 0.6F) * 3.5F * grazer.getWiggleAmount(partialTick);
-		double ycenter = 21D / 16D * grazer.getScale();
-		double zcenter = 7D / 16D * grazer.getScale();
-		poseStack.translate(0.0D, grazer.shellCenterY(partialTick) - ycenter, -grazer.shellCenterZ(partialTick) + zcenter);
+		double ycenter = 21D / 16D * grazer.getAgeScale();
+		double zcenter = 7D / 16D * grazer.getAgeScale();
+		poseStack.translate(0.0D, grazer.shellCenterY(partialTick) / grazer.getScale() - ycenter, -grazer.shellCenterZ(partialTick) / grazer.getScale() + zcenter);
 		poseStack.rotateAround(Axis.XP.rotationDegrees(rot), 0.0F, (float) ycenter, (float) -zcenter);
 	}
 

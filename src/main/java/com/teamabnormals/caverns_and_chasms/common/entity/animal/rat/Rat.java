@@ -90,6 +90,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public static final float WOUNDED_THRESHOLD = 1.0F;
 	public static final int SHAKE_TIME = 16;
 
+	private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.7F).withEyeHeight(0.59F);
+
 	private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
 	private static final AttributeModifier SPEED_MODIFIER_WOUNDED = new AttributeModifier(CavernsAndChasms.location("wounded_speed_reduction"), -0.1D, Operation.ADD_MULTIPLIED_BASE);
@@ -365,7 +367,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override //TODO: Check if this is correct
 	public boolean shouldTryTeleportToOwner() {
-		return !this.isSittingBecauseOrdered() && this.getCommandedPos() == null && super.shouldTryTeleportToOwner();
+		return this.shouldFollowOwner() && super.shouldTryTeleportToOwner();
 	}
 
 	// Attach to entity stuff
@@ -1016,7 +1018,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	protected EntityDimensions getDefaultDimensions(Pose pose) {
-		return this.isSitting() ? super.getDefaultDimensions(pose) : super.getDefaultDimensions(pose).scale(1.0F, 0.5F);
+		return this.isSitting() ? SITTING_DIMENSIONS.scale(this.getAgeScale()) : super.getDefaultDimensions(pose);
 	}
 
 	@Override
@@ -1114,17 +1116,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		}
 
 		return child;
-	}
-
-	@Override
-	public void positionRider(Entity passenger, Entity.MoveFunction function) {
-		super.positionRider(passenger, function);
-		float sin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-		float cos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-		function.accept(passenger, passenger.getX() + (double) (0.1F * sin), passenger.getY(), passenger.getZ() - (double) (0.1F * cos));
-		if (passenger instanceof LivingEntity living) {
-			living.yBodyRot = this.yBodyRot;
-		}
 	}
 
 	@Nullable

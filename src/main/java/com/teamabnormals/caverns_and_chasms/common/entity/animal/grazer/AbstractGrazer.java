@@ -59,8 +59,8 @@ public abstract class AbstractGrazer extends Animal {
 	private static final byte BABY_WIGGLE_LEGS_ANIM = 7;
 	private static final byte VOCALIZE_ANIM = 8;
 
-	private static final EntityDimensions BOUNCING_DIMENSIONS = EntityDimensions.scalable(0.9F, 1.625F);
-	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(1.8F, 1.98F);
+	private static final EntityDimensions BOUNCING_DIMENSIONS = EntityDimensions.scalable(0.9F, 1.625F).withEyeHeight(0.8125F);
+	private static final EntityDimensions BABY_DIMENSIONS = EntityDimensions.scalable(1.8F, 1.98F).withEyeHeight(1.0F);
 
 	private static final TargetingConditions HIT_TARGETING = TargetingConditions.forCombat().selector(livingentity -> {
 		return livingentity.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox()) && !livingentity.isPassenger();
@@ -299,15 +299,19 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public EntityDimensions getDefaultDimensions(Pose pose) {
 		if (this.isBaby()) {
-			return BABY_DIMENSIONS.scale(this.getScale());
+			return BABY_DIMENSIONS.scale(this.getAgeScale());
 		} else {
 			GrazerState state = this.getState();
 			if (this.isBouncingState(state) || state == GrazerState.WIGGLING) {
-				return BOUNCING_DIMENSIONS.scale(this.getScale());
+				return BOUNCING_DIMENSIONS.scale(this.getAgeScale());
 			} else {
 				return super.getDefaultDimensions(pose);
 			}
 		}
+	}
+
+	public float getTrueScale() {
+		return this.getAgeScale() * this.getScale();
 	}
 
 	@Override
@@ -377,23 +381,23 @@ public abstract class AbstractGrazer extends Animal {
 	}
 
 	public double shellWidth() {
-		return 12D / 16D * this.getScale();
+		return 12D / 16D * this.getTrueScale();
 	}
 
 	public double shellRadius() {
-		return 13D / 16D * this.getScale();
+		return 13D / 16D * this.getTrueScale();
 	}
 
 	public double shellCenterZ(float partialTick) {
 		if (this.isBaby())
 			return 0D;
 		else
-			return 7D / 16D * (1.0F - this.getBodyLowerAmount(partialTick)) * this.getScale();
+			return 7D / 16D * (1.0F - this.getBodyLowerAmount(partialTick)) * this.getTrueScale();
 	}
 
 	public double shellCenterY(float partialTick) {
 		float f = this.getBodyLowerAmount(partialTick);
-		return 21D / 16D * (1.0F - f) * this.getScale() + this.shellRadius() * f;
+		return 21D / 16D * (1.0F - f) * this.getTrueScale() + this.shellRadius() * f;
 	}
 
 	public Vec3 calculateDeflectionNormal(Vec3 hitLocation) {
@@ -698,7 +702,7 @@ public abstract class AbstractGrazer extends Animal {
 			if (this.isBouncingState(this.getState())) {
 				float f = this.getCustomXRot() * Mth.DEG_TO_RAD;
 				float f1 = this.getYRot() * Mth.DEG_TO_RAD;
-				Vec3 offset = new Vec3(-5.0D / 16.0D, -12.0D / 16.0D, 9.5D / 16.0D).scale(this.getScale());
+				Vec3 offset = new Vec3(-5.0D / 16.0D, -12.0D / 16.0D, 9.5D / 16.0D).scale(this.getAgeScale() * this.getScale());
 				Vec3 offsetrotated = offset.xRot(-f).yRot(-f1);
 				Vec3 shellcenter = new Vec3(0.0D, this.shellCenterY(1.0F) - this.getDimensions(Pose.STANDING).height() * 0.5D, this.shellCenterZ(1.0F)).yRot(-f1);
 				Vec3 pos = offsetrotated.add(shellcenter).add(this.position());
