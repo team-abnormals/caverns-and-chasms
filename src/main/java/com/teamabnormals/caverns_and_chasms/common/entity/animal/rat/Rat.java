@@ -128,7 +128,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	private final float animTimeOffset = this.random.nextFloat() * 10F;
 
 	private int shakeAnim;
-	private boolean wasWounded;
+	private boolean isVisuallyWounded;
 
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 	private UUID persistentAngerTarget;
@@ -272,15 +272,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			this.setCommandedPos(new BlockPos(tag.getInt("CommandedPosX"), tag.getInt("CommandedPosY"), tag.getInt("CommandedPosZ")));
 		}
 		this.readPersistentAngerSaveData(this.level(), tag);
-	}
-
-	@Override
-	public void handleEntityEvent(byte id) {
-		if (id == 8) {
-			this.shakeAnim = SHAKE_TIME;
-		} else {
-			super.handleEntityEvent(id);
-		}
 	}
 
 	public String getStringVariant() {
@@ -520,7 +511,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	public void setHealth(float health) {
 		super.setHealth(health);
-		if (this.isAlive() && this.isAddedToLevel() && !this.level().isClientSide()) {
+		if (this.isAlive() && this.isAddedToLevel() && !this.level().isClientSide) {
 			AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
 			if (attributeinstance != null) {
 				attributeinstance.removeModifier(SPEED_MODIFIER_WOUNDED);
@@ -584,6 +575,8 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			}
 
 			this.attachedEntityUUID = null;
+		} else {
+			this.handleShakeAnim();
 		}
 	}
 
@@ -598,14 +591,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					this.heal(1.0F);
 				}
 
-				boolean wounded = this.isWounded();
-
-				if (this.wasWounded && !wounded) {
-					this.level().broadcastEntityEvent(this, (byte) 8);
-				}
-
-				this.wasWounded = wounded;
-
 				if (this.commandedTarget != null && !this.commandedTarget.isAlive()) {
 					this.commandedTarget = null;
 				}
@@ -617,10 +602,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 				List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
 				this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
-			}
-
-			if (this.level().isClientSide) {
-				this.shakeAnim = Math.max(0, this.shakeAnim - 1);
 			}
 
 			if (this.tickCount % 5 == 0 && this.isEating()) {
@@ -647,6 +628,18 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 		if (!this.level().isClientSide) {
 			this.updatePersistentAnger((ServerLevel) this.level(), true);
+		}
+	}
+
+	public void handleShakeAnim() {
+		this.shakeAnim = Math.max(0, this.shakeAnim - 1);
+
+		if (this.shakeAnim == SHAKE_TIME / 2) {
+			this.isVisuallyWounded = false;
+		}
+
+		if (this.shakeAnim <= 0 && this.isVisuallyWounded && !this.isWounded()) {
+			this.shakeAnim = SHAKE_TIME;
 		}
 	}
 
@@ -811,7 +804,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	public boolean isVisuallyWounded() {
-		return this.isWounded() || this.shakeAnim > SHAKE_TIME / 2;
+		return this.isVisuallyWounded;
 	}
 
 	public boolean isScaredOf(LivingEntity entity) {
@@ -1019,7 +1012,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		if (DATA_FLAGS_ID.equals(key)) {
 			this.refreshDimensions();
+		} else if (DATA_HEALTH_ID.equals(key)) {
+			if (this.isWounded()) {
+				this.isVisuallyWounded = true;
+			}
 		}
+
 		super.refreshDimensions();
 	}
 
