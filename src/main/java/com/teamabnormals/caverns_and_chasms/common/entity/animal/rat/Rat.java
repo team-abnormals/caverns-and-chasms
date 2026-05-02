@@ -664,6 +664,20 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
+			} else if (this.isDirty() && stack.is(Tags.Items.BUCKETS_WATER)) {
+				this.level().playSound(null, this, SoundEvents.GENERIC_SPLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
+				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, stack.getCraftingRemainingItem()));
+				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+				this.setDirty(false);
+				if (!this.level().isClientSide) {
+					ServerLevel serverlevel = (ServerLevel) this.level();
+					for (int i = 0; i < 15; ++i) {
+						serverlevel.sendParticles(ParticleTypes.SPLASH, this.getX() + (random.nextDouble() - random.nextDouble()) * 0.4F, this.getY() + random.nextDouble() * 0.3F, this.getZ() + (random.nextDouble() - random.nextDouble()) * 0.4F, 1, 0.0D, 0.0D, 0.0D, 1.0D);
+					}
+				}
+
+				this.level().playSound(null, this, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			} else {
 				InteractionResult interactionresult = super.mobInteract(player, hand);
 				if (interactionresult.consumesAction()) {
@@ -691,27 +705,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 						this.setTarget(null);
 						this.setCommandedTarget(null);
 						this.setOrderedToSit(true);
-						this.setDirty(false);
 						this.level().broadcastEntityEvent(this, (byte) 7);
 					} else {
 						this.level().broadcastEntityEvent(this, (byte) 6);
 					}
 				}
 
-				return InteractionResult.sidedSuccess(this.level().isClientSide);
-			} else if (this.isDirty() && stack.is(Tags.Items.BUCKETS_WATER)) {
-				this.level().playSound(null, this, SoundEvents.GENERIC_SPLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
-				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, stack.getCraftingRemainingItem()));
-				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-				this.setDirty(false);
-				if (!this.level().isClientSide) {
-					ServerLevel serverlevel = (ServerLevel) this.level();
-					for (int i = 0; i < 15; ++i) {
-						serverlevel.sendParticles(ParticleTypes.SPLASH, this.getX() + (random.nextDouble() - random.nextDouble()) * 0.4F, this.getY() + random.nextDouble() * 0.3F, this.getZ() + (random.nextDouble() - random.nextDouble()) * 0.4F, 1, 0.0D, 0.0D, 0.0D, 1.0D);
-					}
-				}
-
-				this.level().playSound(null, this, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			}
 		}
