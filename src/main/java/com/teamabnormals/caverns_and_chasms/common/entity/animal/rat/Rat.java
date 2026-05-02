@@ -660,6 +660,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				this.usePlayerItem(player, hand, stack);
 				this.heal((float) stack.getFoodProperties(this).nutrition());
 				this.gameEvent(GameEvent.EAT, this);
+				this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
 
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			} else if (item instanceof DyeItem) {
@@ -672,7 +673,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				}
 			} else {
 				InteractionResult interactionresult = super.mobInteract(player, hand);
-				if (!interactionresult.consumesAction() && this.isOwnedBy(player)) {
+				if (interactionresult.consumesAction()) {
+					this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
+				} else if (this.isOwnedBy(player)) {
 					this.jumping = false;
 					this.navigation.stop();
 					this.setTarget(null);
@@ -684,8 +687,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				return interactionresult;
 			}
 		} else if (!this.isAngry()) {
-			if (!this.isRunningAway() && stack.is(CCItemTags.RAT_TAME_ITEMS)) {
+			if (!this.isRunningAway() && this.isFood(stack)) {
 				this.usePlayerItem(player, hand, stack);
+				this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
+
 				if (!this.level().isClientSide) {
 					if (this.random.nextInt(3) == 0 && !EventHooks.onAnimalTame(this, player)) {
 						this.tame(player);
@@ -716,8 +721,6 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				this.level().playSound(null, this, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			}
-
-			return super.mobInteract(player, hand);
 		}
 
 		return InteractionResult.PASS;

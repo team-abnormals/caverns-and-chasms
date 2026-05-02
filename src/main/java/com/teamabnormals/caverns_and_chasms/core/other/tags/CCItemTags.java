@@ -30,7 +30,6 @@ public class CCItemTags {
 
 	public static final TagKey<Item> GLARE_FOOD = itemTag("glare_food");
 	public static final TagKey<Item> RAT_FOOD = itemTag("rat_food");
-	public static final TagKey<Item> RAT_TAME_ITEMS = itemTag("rat_tame_items");
 
 	public static final TagKey<Item> COPPER_INGOTS = itemTag("copper_ingots");
 	public static final TagKey<Item> COPPER_HELMETS = itemTag("copper_helmets");
