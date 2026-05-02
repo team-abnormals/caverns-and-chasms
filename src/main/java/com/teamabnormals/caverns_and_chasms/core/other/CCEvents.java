@@ -623,8 +623,8 @@ public class CCEvents {
 		return BuiltInRegistries.BLOCK.getData(CCDataMaps.TIN_DEFLECTIONS, state.getBlock().builtInRegistryHolder().getKey());
 	}
 
-	@SubscribeEvent
-	public static void onProjectileImpact(ProjectileImpactEvent event) {
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void handleTinDeflection(ProjectileImpactEvent event) {
 		Level level = event.getEntity().level();
 		Projectile projectile = event.getProjectile();
 		IDataManager data = (IDataManager) projectile;
@@ -710,6 +710,29 @@ public class CCEvents {
 						projectile.deflect(CCProjectileUtil.SHIELD_TIN_DEFLECT, living, projectile.getOwner(), living instanceof Player);
 						event.setCanceled(true);
 					}
+				}
+			}
+		}
+
+		if (projectile.getType().is(CCEntityTypeTags.MUDDY_PROJECTILES)) {
+			if (event.getRayTraceResult().getType() == HitResult.Type.ENTITY) {
+				EntityHitResult entity = (EntityHitResult) event.getRayTraceResult();
+				if (entity.getEntity() instanceof Rat rat) {
+					rat.setDirty(true);
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onProjectileImpact(ProjectileImpactEvent event) {
+		Projectile projectile = event.getProjectile();
+
+		if (projectile.getType().is(CCEntityTypeTags.MUDDY_PROJECTILES)) {
+			if (event.getRayTraceResult().getType() == HitResult.Type.ENTITY) {
+				EntityHitResult entity = (EntityHitResult) event.getRayTraceResult();
+				if (entity.getEntity() instanceof Rat rat) {
+					rat.setDirty(true);
 				}
 			}
 		}

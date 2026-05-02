@@ -11,6 +11,7 @@ public class CCEntityTypeTags {
 	public static final TagKey<EntityType<?>> SILVER_HURTS_EXTRA_TYPES = entityTypeTag("silver_hurts_extra_types");
 	public static final TagKey<EntityType<?>> RATS_CANNOT_ATTACH_EXTRA_TYPES = entityTypeTag("rats_cannot_attach_extra_types");
 	public static final TagKey<EntityType<?>> SENSITIVE_TO_EFFICIENCY = entityTypeTag("sensitive_to_efficiency");
+	public static final TagKey<EntityType<?>> MUDDY_PROJECTILES = TagUtil.entityTypeTag("environmental", "muddy_projectiles");
 
 	private static TagKey<EntityType<?>> entityTypeTag(String tagName) {
 		return TagUtil.entityTypeTag(CavernsAndChasms.MOD_ID, tagName);

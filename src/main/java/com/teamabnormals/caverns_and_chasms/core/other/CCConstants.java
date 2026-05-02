@@ -8,4 +8,5 @@ public class CCConstants {
 	public static final ResourceLocation BAMBOO_BOOKSHELF = ResourceLocation.fromNamespaceAndPath("woodworks", "bamboo_bookshelf");
 	public static final ResourceLocation BAMBOO_CLOSET = ResourceLocation.fromNamespaceAndPath("woodworks", "bamboo_closet");
 	public static final ResourceLocation TRAPPED_BAMBOO_CLOSET = ResourceLocation.fromNamespaceAndPath("woodworks", "trapped_bamboo_closet");
+	public static final ResourceLocation MUD_BALL = ResourceLocation.fromNamespaceAndPath("environmental", "mud_ball");
 }

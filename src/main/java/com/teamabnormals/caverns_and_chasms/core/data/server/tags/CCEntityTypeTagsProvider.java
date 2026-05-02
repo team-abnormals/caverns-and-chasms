@@ -2,6 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
+import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -33,5 +34,6 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(NOT_DEFLECTED_BY_TIN).add(EntityType.WITHER_SKULL);
 		this.tag(SILVER_HURTS_EXTRA_TYPES).add(EntityType.WITHER);
 		this.tag(RATS_CANNOT_ATTACH_EXTRA_TYPES).add(EntityType.BAT, EntityType.PARROT, EntityType.VEX);
+		this.tag(MUDDY_PROJECTILES).addOptional(CCConstants.MUD_BALL);
 	}
 }
