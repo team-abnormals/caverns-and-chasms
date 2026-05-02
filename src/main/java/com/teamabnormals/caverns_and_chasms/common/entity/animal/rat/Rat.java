@@ -656,7 +656,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 		Item item = stack.getItem();
 
 		if (this.isTame()) {
-			if (this.isFood(stack) && this.getHealth() < this.getMaxHealth()) {
+			if (this.isHealingItem(stack) && this.getHealth() < this.getMaxHealth()) {
 				this.usePlayerItem(player, hand, stack);
 				this.heal((float) stack.getFoodProperties(this).nutrition());
 				this.gameEvent(GameEvent.EAT, this);
@@ -945,8 +945,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
-	public boolean isFood(ItemStack itemstack) {
-		return itemstack.is(CCItemTags.RAT_FOOD);
+	public boolean isFood(ItemStack stack) {
+		return stack.is(CCItemTags.RAT_FOOD);
+	}
+
+	public boolean isHealingItem(ItemStack stack) {
+		return stack.getFoodProperties(this) != null;
 	}
 
 	@Override

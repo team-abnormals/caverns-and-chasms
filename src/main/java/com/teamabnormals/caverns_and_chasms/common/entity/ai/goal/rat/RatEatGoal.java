@@ -22,7 +22,7 @@ public class RatEatGoal extends Goal {
 	public boolean canUse() {
 		if (this.rat.canSit() && this.rat.getHealth() < this.rat.getMaxHealth()) {
 			ItemStack itemStack = this.rat.getMainHandItem();
-			if (!itemStack.isEmpty() && this.canBeEaten(itemStack) && this.rat.getRandom().nextInt(reducedTickDelay(50)) == 0) {
+			if (!itemStack.isEmpty() && this.rat.isHealingItem(itemStack) && this.rat.getRandom().nextInt(reducedTickDelay(50)) == 0) {
 				this.stack = itemStack;
 				return true;
 			}
@@ -64,9 +64,5 @@ public class RatEatGoal extends Goal {
 	@Override
 	public void tick() {
 		this.eatTime--;
-	}
-
-	private boolean canBeEaten(ItemStack stack) {
-		return stack.getFoodProperties(this.rat) != null;
 	}
 }
