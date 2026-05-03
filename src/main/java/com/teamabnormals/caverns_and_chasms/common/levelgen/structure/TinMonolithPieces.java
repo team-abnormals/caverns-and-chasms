@@ -82,9 +82,9 @@ public class TinMonolithPieces {
 							double veinNoiseAtPos = Math.abs(veinNoise.getValue(levelX, levelY, levelZ));
 							double oreDensity = veinNoiseAtPos > 0.3D ? 0.0D : (0.3D - veinNoiseAtPos) * 3.5D;
 
-							if (random.nextFloat() * oreDensity > Math.max(0.4D + relativeDistFromCenter, 0.6D))
+							if (isInside && random.nextFloat() * oreDensity > Math.max(0.4D + relativeDistFromCenter, 0.8D))
 								level.setBlock(mutable, CCBlocks.RAW_TIN_BLOCK.get().defaultBlockState(), 2);
-							else if (random.nextFloat() * oreDensity > Math.min(0.3D + relativeDistFromCenter * 0.3D, 0.5D))
+							else if (random.nextFloat() * oreDensity > Math.min(0.4D + relativeDistFromCenter * 0.4D, 0.6D))
 								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE_TIN_ORE.get().defaultBlockState() : CCBlocks.CYLINDRITE_TIN_ORE.get().defaultBlockState(), 2);
 							else
 								level.setBlock(mutable, isInside ? CCBlocks.CASSITERITE.get().defaultBlockState() : (computeDeepslateGradient(levelY, random) ? CCBlocks.CYLINDRITE : CCBlocks.SMOOTH_CYLINDRITE).get().defaultBlockState(), 2);
