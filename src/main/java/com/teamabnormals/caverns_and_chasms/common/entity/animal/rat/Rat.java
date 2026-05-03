@@ -504,6 +504,11 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	}
 
 	@Override
+	public boolean canBeLeashed() {
+		return !this.isAngry();
+	}
+
+	@Override
 	public boolean startRiding(Entity entity, boolean p_19967_) {
 		return !this.isAttachedToEntity() && super.startRiding(entity, p_19967_);
 	}
