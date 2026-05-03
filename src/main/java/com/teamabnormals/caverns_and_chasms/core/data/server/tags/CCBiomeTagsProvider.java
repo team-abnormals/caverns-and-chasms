@@ -28,6 +28,8 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 		this.tag(HAS_SOUL_SILVER_ORE).add(Biomes.SOUL_SAND_VALLEY);
 		this.tag(HAS_ROCKY_DIRT).addTag(BiomeTags.IS_OVERWORLD);
 		this.tag(HAS_FRAGILE_STONE).addTag(BiomeTags.IS_OVERWORLD);
+		this.tag(HAS_RHYOLITE).addTag(BiomeTags.IS_OVERWORLD);
+		this.tag(HAS_SCHIST).addTag(BiomeTags.IS_OVERWORLD);
 
 		this.tag(HAS_LURID_CAVE_GROWTHS).addTag(Tags.Biomes.IS_COLD);
 		this.tag(HAS_WISPY_CAVE_GROWTHS).addTag(Tags.Biomes.IS_SNOWY).addTag(BiomeTags.IS_OCEAN);

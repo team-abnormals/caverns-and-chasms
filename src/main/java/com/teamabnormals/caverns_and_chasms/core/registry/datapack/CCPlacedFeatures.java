@@ -40,6 +40,7 @@ public class CCPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> ORE_FRAGILE_STONE = createKey("ore_fragile_stone");
 	public static final ResourceKey<PlacedFeature> ORE_FRAGILE_STONE_BURIED = createKey("ore_fragile_stone_buried");
 	public static final ResourceKey<PlacedFeature> ORE_RHYOLITE = createKey("ore_rhyolite");
+	public static final ResourceKey<PlacedFeature> ORE_SCHIST = createKey("ore_schist");
 
 	public static final ResourceKey<PlacedFeature> PATCH_CAVE_GROWTHS = createKey("patch_cave_growths");
 	public static final ResourceKey<PlacedFeature> PATCH_CAVE_GROWTHS_DEEP = createKey("patch_cave_growths_deep");
@@ -69,6 +70,7 @@ public class CCPlacedFeatures {
 		register(context, ORE_FRAGILE_STONE, CCConfiguredFeatures.ORE_FRAGILE_STONE, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
 		register(context, ORE_FRAGILE_STONE_BURIED, CCConfiguredFeatures.ORE_FRAGILE_STONE_BURIED, commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64))));
 		register(context, ORE_RHYOLITE, CCConfiguredFeatures.ORE_RHYOLITE, commonOrePlacement(15, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(32))));
+		register(context, ORE_SCHIST, CCConfiguredFeatures.ORE_SCHIST, rareOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(8))));
 
 		register(context, PATCH_CAVE_GROWTHS, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new NoiseDensityPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 2.5F, 0.8F), InSquarePlacement.spread(), HeightmapRandomOffsetPlacement.of(Heightmap.Types.WORLD_SURFACE_WG, -40, -2), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
 		register(context, PATCH_CAVE_GROWTHS_DEEP, CCConfiguredFeatures.PATCH_CAVE_GROWTHS, new NoiseDensityPlacement(noise.get(CCNoiseParameters.CAVE_GROWTHS).get(), 0.35F, 0.75F), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(172)), SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, Integer.MIN_VALUE, -40), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), BiomeFilter.biome());
@@ -83,6 +85,10 @@ public class CCPlacedFeatures {
 
 	private static List<PlacementModifier> commonOrePlacement(int count, PlacementModifier modifier) {
 		return orePlacement(CountPlacement.of(count), modifier);
+	}
+
+	private static List<PlacementModifier> rareOrePlacement(int chance, PlacementModifier modifier) {
+		return orePlacement(RarityFilter.onAverageOnceEvery(chance), modifier);
 	}
 
 	public static ResourceKey<PlacedFeature> createKey(String name) {

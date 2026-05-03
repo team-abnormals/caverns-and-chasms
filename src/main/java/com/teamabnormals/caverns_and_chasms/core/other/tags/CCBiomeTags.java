@@ -12,6 +12,8 @@ public class CCBiomeTags {
 	public static final TagKey<Biome> HAS_SOUL_SILVER_ORE = biomeTag("has_feature/soul_silver_ore");
 	public static final TagKey<Biome> HAS_ROCKY_DIRT = biomeTag("has_feature/rocky_dirt");
 	public static final TagKey<Biome> HAS_FRAGILE_STONE = biomeTag("has_feature/fragile_stone");
+	public static final TagKey<Biome> HAS_RHYOLITE = biomeTag("has_feature/has_rhyolite");
+	public static final TagKey<Biome> HAS_SCHIST = biomeTag("has_feature/has_schist");
 
 	public static final TagKey<Biome> HAS_LURID_CAVE_GROWTHS = biomeTag("has_feature/lurid_cave_growths");
 	public static final TagKey<Biome> HAS_WISPY_CAVE_GROWTHS = biomeTag("has_feature/wispy_cave_growths");
