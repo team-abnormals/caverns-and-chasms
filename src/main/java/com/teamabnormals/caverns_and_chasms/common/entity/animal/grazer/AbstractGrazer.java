@@ -549,16 +549,7 @@ public abstract class AbstractGrazer extends Animal {
 
 		if (this.level().isClientSide) {
 			if (this.isAlive()) {
-				AttributeInstance stepHeight = this.getAttribute(Attributes.STEP_HEIGHT);
-				if (stepHeight != null) {
-					boolean hasModifier = stepHeight.getModifier(STEP_HEIGHT_MODIFIER.id()) != null;
-					boolean shouldHaveModifier = this.shouldIncreaseStepHeight(state);
-					if (!hasModifier && shouldHaveModifier) {
-						stepHeight.addTransientModifier(STEP_HEIGHT_MODIFIER);
-					} else if (hasModifier && !shouldHaveModifier) {
-						stepHeight.removeModifier(STEP_HEIGHT_MODIFIER.id());
-					}
-				}
+				this.handleStepHeight();
 			}
 
 			this.runAmountO = this.runAmount;
@@ -629,6 +620,19 @@ public abstract class AbstractGrazer extends Animal {
 
 		for (GrazerPart part : this.parts)
 			part.updatePosition();
+	}
+
+	private void handleStepHeight() {
+		AttributeInstance attributeInstance = this.getAttribute(Attributes.STEP_HEIGHT);
+		if (attributeInstance != null) {
+			boolean hasModifier = attributeInstance.hasModifier(STEP_HEIGHT_MODIFIER.id());
+			boolean shouldHaveModifier = this.shouldIncreaseStepHeight(this.getState());
+			if (!hasModifier && shouldHaveModifier) {
+				attributeInstance.addTransientModifier(STEP_HEIGHT_MODIFIER);
+			} else if (hasModifier && !shouldHaveModifier) {
+				attributeInstance.removeModifier(STEP_HEIGHT_MODIFIER.id());
+			}
+		}
 	}
 
 	@Override
@@ -728,53 +732,55 @@ public abstract class AbstractGrazer extends Animal {
 		if (this.getState() == GrazerState.RUNNING || this.getState() == GrazerState.BOUNCING) {
 			LivingEntity livingentity = this.level().getNearestEntity(LivingEntity.class, HIT_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(0.55D, 0.0D, 0.55D));
 			if (livingentity != null) {
-				if (livingentity instanceof AbstractGrazer other && !other.isBaby()) {
-					Vec3 posdiff = other.position().subtract(this.position());
-					double distance = posdiff.length();
-					double distancechange = this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement())) - distance;
+				if (livingentity instanceof AbstractGrazer other) {
+					if (!other.isBaby()) {
+						Vec3 posdiff = other.position().subtract(this.position());
+						double distance = posdiff.length();
+						double distancechange = this.position().add(this.getDeltaMovement()).distanceTo(other.position().add(other.getDeltaMovement())) - distance;
 
-					if (distancechange < 0.0D) {
-						Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
+						if (distancechange < 0.0D) {
+							Vec3 motion = this.getState() == GrazerState.RUNNING ? this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(0.55D) : this.getDeltaMovement();
 
-						Vec3 collvector = posdiff.scale(motion.dot(posdiff) / posdiff.dot(posdiff));
-						Vec3 othercollvector = posdiff.scale(other.getDeltaMovement().dot(posdiff) / posdiff.dot(posdiff));
+							Vec3 collvector = posdiff.scale(motion.dot(posdiff) / posdiff.dot(posdiff));
+							Vec3 othercollvector = posdiff.scale(other.getDeltaMovement().dot(posdiff) / posdiff.dot(posdiff));
 
-						Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
-						Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
+							Vec3 newmotion = motion.subtract(collvector).add(othercollvector);
+							Vec3 othernewmotion = other.getDeltaMovement().subtract(othercollvector).add(collvector);
 
-						if (this.getState() == GrazerState.RUNNING) {
-							this.setState(GrazerState.BOUNCING);
-							this.bounceHeight = 0.8D;
-							this.bouncingBackwards = true;
-							newmotion.add(0.0D, this.bounceHeight, 0.0D);
-						}
-
-						if (other.getState() != GrazerState.BOUNCING) {
-							other.setState(GrazerState.BOUNCING);
-							other.bounceHeight = this.bounceHeight;
-							othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
-						}
-
-						this.setDeltaMovement(newmotion);
-						other.setDeltaMovement(othernewmotion);
-
-						double horizontaldist = Math.sqrt(posdiff.x * posdiff.x + posdiff.z * posdiff.z);
-						double d0 = (horizontaldist + this.getBbWidth() * 0.5D - other.getBbWidth() * 0.5D) / horizontaldist * 0.5D;
-
-						Vec3 collpoint = new Vec3(this.position().x + posdiff.x * d0, (this.position().y + this.getBbHeight() + other.position().y) * 0.5D, this.position().z + posdiff.z * d0);
-						CCProjectileUtil.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get());
-						this.level().gameEvent(CCGameEvents.TIN_DEFLECT, collpoint, GameEvent.Context.of(this));
-
-						if (this.level() instanceof ServerLevel serverLevel) {
-							List<ParticleInstance> particles = new ArrayList<>();
-							for (int i = 0; i < 4; i++) {
-								double d1 = this.random.nextGaussian() * 0.05D;
-								double d2 = 0.3D + this.random.nextGaussian() * 0.05D;
-								double d3 = this.random.nextGaussian() * 0.05D;
-								particles.add(new ParticleInstance(collpoint.x, collpoint.y, collpoint.z, d1, d2, d3));
+							if (this.getState() == GrazerState.RUNNING) {
+								this.setState(GrazerState.BOUNCING);
+								this.bounceHeight = 0.8D;
+								this.bouncingBackwards = true;
+								newmotion.add(0.0D, this.bounceHeight, 0.0D);
 							}
 
-							NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), particles);
+							if (other.getState() != GrazerState.BOUNCING) {
+								other.setState(GrazerState.BOUNCING);
+								other.bounceHeight = this.bounceHeight;
+								othernewmotion.add(0.0D, other.bounceHeight, 0.0D);
+							}
+
+							this.setDeltaMovement(newmotion);
+							other.setDeltaMovement(othernewmotion);
+
+							double horizontaldist = Math.sqrt(posdiff.x * posdiff.x + posdiff.z * posdiff.z);
+							double d0 = (horizontaldist + this.getBbWidth() * 0.5D - other.getBbWidth() * 0.5D) / horizontaldist * 0.5D;
+
+							Vec3 collpoint = new Vec3(this.position().x + posdiff.x * d0, (this.position().y + this.getBbHeight() + other.position().y) * 0.5D, this.position().z + posdiff.z * d0);
+							CCProjectileUtil.playRicochetSound(this.level(), collpoint, distancechange, CCSoundEvents.GRAZER_RICOCHET.get());
+							this.level().gameEvent(CCGameEvents.TIN_DEFLECT, collpoint, GameEvent.Context.of(this));
+
+							if (this.level() instanceof ServerLevel serverLevel) {
+								List<ParticleInstance> particles = new ArrayList<>();
+								for (int i = 0; i < 4; i++) {
+									double d1 = this.random.nextGaussian() * 0.05D;
+									double d2 = 0.3D + this.random.nextGaussian() * 0.05D;
+									double d3 = this.random.nextGaussian() * 0.05D;
+									particles.add(new ParticleInstance(collpoint.x, collpoint.y, collpoint.z, d1, d2, d3));
+								}
+
+								NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), particles);
+							}
 						}
 					}
 				} else {
