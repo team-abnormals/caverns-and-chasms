@@ -27,15 +27,15 @@ public class RatMeleeAttackGoal extends MeleeAttackGoal {
 
 	@Override
 	protected void checkAndPerformAttack(LivingEntity target) {
-		if (((RatHolder) target).getMaxRats() == 0) {
-			if (this.isTimeToAttack()) {
+		if (this.canPerformAttack(target)) {
+			if (((RatHolder) target).getMaxRats() == 0) {
 				this.resetAttackCooldown();
 				this.mob.swing(InteractionHand.MAIN_HAND);
 				this.mob.doHurtTarget(target);
 				this.rat.playSound(CCSoundEvents.RAT_ATTACK.get(), 1.0F, 1.0F);
+			} else if (this.rat.isFloatingInWater() && !this.rat.isAttachedToEntity() && !this.rat.isOnAttachCooldown()) {
+				this.rat.tryToAttachToEntity(target);
 			}
-		} else if (this.rat.isFloatingInWater() && !this.rat.isAttachedToEntity() && !this.rat.isOnAttachCooldown()) {
-			this.rat.tryToAttachToEntity(target);
 		}
 	}
 }
