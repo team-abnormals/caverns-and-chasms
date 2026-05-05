@@ -111,6 +111,7 @@ public abstract class AbstractGrazer extends Animal {
 		super(type, level);
 		this.lookControl = new GrazerLookControl();
 		this.moveControl = new GrazerMoveControl();
+		this.xpReward = 5;
 		this.parts[0] = new GrazerPart(this, 12F, 7D, 7D);
 		this.parts[1] = new GrazerPart(this, 12F, 0D, 7D);
 		this.parts[2] = new GrazerPart(this, 12F, -7D, 7D);
@@ -358,6 +359,11 @@ public abstract class AbstractGrazer extends Animal {
 	@Override
 	public boolean isFood(ItemStack stack) {
 		return false;
+	}
+
+	@Override
+	protected int getBaseExperienceReward() {
+		return this.xpReward;
 	}
 
 	@Override
