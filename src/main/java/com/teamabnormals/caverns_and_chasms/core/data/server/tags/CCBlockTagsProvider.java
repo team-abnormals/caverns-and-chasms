@@ -312,7 +312,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(Tags.Blocks.FENCES_WOODEN).add(AZALEA_FENCE.get());
 		this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(AZALEA_FENCE_GATE.get());
 		this.tag(Tags.Blocks.BOOKSHELVES).add(AZALEA_BOOKSHELF.get());
-		this.tag(Tags.Blocks.STONES).add(POLISHED_CALCITE.get(), POLISHED_TUFF.get(), SUGILITE.get(), POLISHED_SUGILITE.get(), CYLINDRITE.get(), SMOOTH_CYLINDRITE.get(), POLISHED_CYLINDRITE.get(), CASSITERITE.get(), SMOOTH_CASSITERITE.get(), POLISHED_CASSITERITE.get(), RHYOLITE.get(), POLISHED_RHYOLITE.get(), SCHIST.get(), SMOOTH_SCHIST.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
+		this.tag(Tags.Blocks.STONES).add(SUGILITE.get(), CYLINDRITE.get(), CASSITERITE.get(), RHYOLITE.get(), SCHIST.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 		this.tag(Tags.Blocks.GLASS_BLOCKS).add(FLOAT_GLASS.get(), FROSTED_GLASS.get(), ORNATE_GLASS.get());
 		this.tag(Tags.Blocks.GLASS_PANES).add(FLOAT_GLASS_PANE.get(), FROSTED_GLASS_PANE.get(), ORNATE_GLASS_PANE.get());
 	}
