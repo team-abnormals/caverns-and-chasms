@@ -90,7 +90,7 @@ public class CCConfiguredFeatures {
 		register(context, ORE_FRAGILE_STONE, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(stoneOre, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState())), 48, 0.1F));
 		register(context, ORE_FRAGILE_STONE_BURIED, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(stoneOre, CCBlocks.FRAGILE_STONE.get().defaultBlockState()), OreConfiguration.target(deepslateOre, CCBlocks.FRAGILE_DEEPSLATE.get().defaultBlockState())), 48, 1.0F));
 		register(context, ORE_RHYOLITE, CCFeatures.RHYOLITE.get(), new OreConfiguration(baseStone, CCBlocks.RHYOLITE.get().defaultBlockState(), 64));
-		register(context, ORE_SCHIST, Feature.ORE, new OreConfiguration(stoneOre, CCBlocks.SCHIST.get().defaultBlockState(), 64));
+		register(context, ORE_SCHIST, CCFeatures.SCHIST.get(), new OreConfiguration(stoneOre, CCBlocks.SCHIST.get().defaultBlockState(), 64));
 
 		register(context, TreeFeatures.AZALEA_TREE, Feature.TREE, (new TreeConfigurationBuilder(BlockStateProvider.simple(CCBlocks.AZALEA_LOG.get()), new BendingTrunkPlacer(4, 2, 0, 3, UniformInt.of(1, 2)), new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(Blocks.AZALEA_LEAVES.defaultBlockState(), 3).add(Blocks.FLOWERING_AZALEA_LEAVES.defaultBlockState(), 1)), new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 50), new TwoLayersFeatureSize(1, 0, 1))).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build());
 

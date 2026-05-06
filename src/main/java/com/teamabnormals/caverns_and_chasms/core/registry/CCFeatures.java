@@ -25,6 +25,7 @@ public class CCFeatures {
 	public static final DeferredHolder<Feature<?>, Feature<LakeFeature.Configuration>> MAGMA_LAKE = FEATURES.register("magma_lake", () -> new MagmaLakeFeature(LakeFeature.Configuration.CODEC));
 	public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> FALSE_HOPE = FEATURES.register("false_hope", () -> new FalseHopeFeature(NoneFeatureConfiguration.CODEC));
 	public static final DeferredHolder<Feature<?>, Feature<OreConfiguration>> RHYOLITE = FEATURES.register("rhyolite", () -> new RhyoliteFeature(OreConfiguration.CODEC));
+	public static final DeferredHolder<Feature<?>, Feature<OreConfiguration>> SCHIST = FEATURES.register("schist_feature", () -> new SchistFeature(OreConfiguration.CODEC));
 
 	public static final LevelConcurrentHashMapReceiver<Vector2i, Vector2i[]> CLOSEST_MONOLITH_POSITIONS_AT = new LevelConcurrentHashMapReceiver<>();
 	public static final LevelNoiseReceiver MOSCHATEL_NOISE = new LevelNoiseReceiver(WorldgenRandom.Algorithm.LEGACY, CCNoiseParameters.CAVE_GROWTHS_MOSCHATEL);
