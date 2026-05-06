@@ -1,7 +1,7 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.caverns_and_chasms.angelic"
+    "translate": "enchantment.caverns_and_chasms.sky_set"
   },
   "effects": {
     "caverns_and_chasms:can_place_midair": {}

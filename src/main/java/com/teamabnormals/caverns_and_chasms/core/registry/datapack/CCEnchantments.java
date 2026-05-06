@@ -9,7 +9,6 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,7 +23,7 @@ public class CCEnchantments {
 	public static final ResourceKey<Enchantment> OBSCURITY = create("obscurity");
 
 	public static final ResourceKey<Enchantment> EXTENDING = create("extending");
-	public static final ResourceKey<Enchantment> ANGELIC = create("angelic");
+	public static final ResourceKey<Enchantment> SKY_SET = create("sky_set");
 
 	public static void bootstrap(BootstrapContext<Enchantment> context) {
 		HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -36,7 +35,7 @@ public class CCEnchantments {
 				new EnchantmentAttributeEffect(CavernsAndChasms.location("enchantment.extending"), Attributes.BLOCK_INTERACTION_RANGE, LevelBasedValue.perLevel(1.0F), AttributeModifier.Operation.ADD_VALUE)
 		));
 
-		register(context, ANGELIC, Enchantment.enchantment(Enchantment.definition(
+		register(context, SKY_SET, Enchantment.enchantment(Enchantment.definition(
 				items.getOrThrow(CCItemTags.TOOLBELT_ENCHANTABLE), 1, 1, Enchantment.constantCost(25), Enchantment.constantCost(50), 8, EquipmentSlotGroup.LEGS
 		)).withEffect(CCEnchantmentEffects.CAN_PLACE_MIDAIR.get()));
 
