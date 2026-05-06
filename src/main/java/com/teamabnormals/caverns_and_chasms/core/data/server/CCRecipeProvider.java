@@ -418,6 +418,7 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 		generateRecipes(consumer, SMOOTH_TUFF_FAMILY);
 		stonecutterRecipes(consumer, SMOOTH_TUFF_FAMILY);
 
+		ShapelessRecipeBuilder.shapeless(BUILDING_BLOCKS, SCHIST, 2).requires(Blocks.TUFF).requires(Blocks.COBBLESTONE).unlockedBy("has_tuff", has(Blocks.TUFF)).save(consumer);
 		generateRecipes(consumer, SCHIST_FAMILY);
 		stonecutterRecipes(consumer, SCHIST_FAMILY);
 		stonecutterRecipes(consumer, BlockFamilies.POLISHED_TUFF, SCHIST.get());
