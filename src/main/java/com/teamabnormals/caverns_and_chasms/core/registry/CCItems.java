@@ -15,6 +15,7 @@ import com.teamabnormals.caverns_and_chasms.common.item.silver.KunaiItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.LargeArrowItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverArmorItem;
 import com.teamabnormals.caverns_and_chasms.common.item.silver.SilverHorseArmorItem;
+import com.teamabnormals.caverns_and_chasms.core.CCConfig;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCEnums;
 import com.teamabnormals.caverns_and_chasms.core.other.CCTiers.CCArmorMaterials;
@@ -324,7 +325,9 @@ public class CCItems {
 				.addItemsBefore(of(Items.TROPICAL_FISH_BUCKET), CAVEFISH_BUCKET)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.editor(event -> event.remove(new ItemStack(Items.BUNDLE), TabVisibility.PARENT_AND_SEARCH_TABS))
-				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET, () -> Items.BUNDLE, PACKING_CONTAINER)
+				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET)
+				.addItemsBefore(stack -> CCConfig.CLIENT.addBundleToCreative.get() && stack.is(Items.FISHING_ROD), () -> Items.BUNDLE)
+				.addItemsBefore(of(Items.FISHING_ROD), PACKING_CONTAINER)
 				.addItemsAfter(of(Items.ENDER_EYE), BEJEWELED_PEARL)
 				.addItemsBefore(of(Items.MUSIC_DISC_PIGSTEP), MUSIC_DISC_ANALOGUE, MUSIC_DISC_EPILOGUE)
 				.addItemsBefore(of(Items.BAMBOO_RAFT), AZALEA_BOAT.getFirst(), AZALEA_BOAT.getSecond())
