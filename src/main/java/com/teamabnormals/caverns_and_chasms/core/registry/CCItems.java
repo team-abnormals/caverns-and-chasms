@@ -324,7 +324,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.SPYGLASS), MONOCLE, UNICORN_HORN, DEPTH_GAUGE)
 				.addItemsBefore(of(Items.TROPICAL_FISH_BUCKET), CAVEFISH_BUCKET)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
-				.editor(event -> event.remove(new ItemStack(Items.BUNDLE), TabVisibility.PARENT_AND_SEARCH_TABS))
+				.editor(event -> CCBlocks.remove(event, Items.BUNDLE))
 				.addItemsBefore(of(Items.FISHING_ROD), GOLDEN_BUCKET, GOLDEN_WATER_BUCKET, GOLDEN_LAVA_BUCKET, GOLDEN_POWDER_SNOW_BUCKET, GOLDEN_MILK_BUCKET)
 				.addItemsBefore(stack -> CCConfig.CLIENT.addBundleToCreative.get() && stack.is(Items.FISHING_ROD), () -> Items.BUNDLE)
 				.addItemsBefore(of(Items.FISHING_ROD), PACKING_CONTAINER)
@@ -349,8 +349,7 @@ public class CCItems {
 				.addItemsAfter(of(Items.NETHERITE_AXE), NECROMIUM_AXE)
 				.addItemsAfter(of(Items.NETHERITE_BOOTS),
 						NECROMIUM_HELMET, NECROMIUM_CHESTPLATE, NECROMIUM_LEGGINGS, NECROMIUM_BOOTS,
-						SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS
-				)
+						SANGUINE_HELMET, SANGUINE_CHESTPLATE, SANGUINE_LEGGINGS, SANGUINE_BOOTS)
 				.addItemsBefore(of(Items.TURTLE_HELMET), COWL, TOOLBELT)
 				.addItemsAfter(of(Items.SHIELD), AEGIS)
 				.addItemsAfter(of(Items.DIAMOND_HORSE_ARMOR), NETHERITE_HORSE_ARMOR, NECROMIUM_HORSE_ARMOR)
@@ -364,7 +363,7 @@ public class CCItems {
 				.tab(REDSTONE_BLOCKS)
 				.addItemsAfter(of(Items.TNT_MINECART), TMT_MINECART)
 				.tab(SPAWN_EGGS)
-				.addItemsAlphabetically(ItemStackUtil.is(SpawnEggItem.class), "spawn_egg|_", DEEPER_SPAWN_EGG, EVENDEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, CAVEFISH_SPAWN_EGG, GRAZER_SPAWN_EGG, SADDLED_GRAZER_SPAWN_EGG);
+				.addSpawnEggsAlphabetically(DEEPER_SPAWN_EGG, EVENDEEPER_SPAWN_EGG, PEEPER_SPAWN_EGG, MIME_SPAWN_EGG, GLARE_SPAWN_EGG, COPPER_GOLEM_SPAWN_EGG, RAT_SPAWN_EGG, CAVEFISH_SPAWN_EGG, GRAZER_SPAWN_EGG, SADDLED_GRAZER_SPAWN_EGG);
 	}
 
 	public static Predicate<ItemStack> modLoaded(ItemLike item, String... modids) {
