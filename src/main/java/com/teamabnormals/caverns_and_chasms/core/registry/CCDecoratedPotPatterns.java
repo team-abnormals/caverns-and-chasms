@@ -11,10 +11,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class CCDecoratedPotPatterns {
 	public static final DeferredRegister<DecoratedPotPattern> DECORATED_POT_PATTERNS = DeferredRegister.create(Registries.DECORATED_POT_PATTERN, CavernsAndChasms.MOD_ID);
 
-	public static final DeferredHolder<DecoratedPotPattern, ?> BOOM = register("boom_pottery_pattern");
-	public static final DeferredHolder<DecoratedPotPattern, ?> CAST = register("cast_pottery_pattern");
-	public static final DeferredHolder<DecoratedPotPattern, ?> RIDE = register("ride_pottery_pattern");
-	public static final DeferredHolder<DecoratedPotPattern, ?> STALKER = register("stalker_pottery_pattern");
+	public static final DeferredHolder<DecoratedPotPattern, ?> BOOM = register("boom");
+	public static final DeferredHolder<DecoratedPotPattern, ?> CAST = register("cast");
+	public static final DeferredHolder<DecoratedPotPattern, ?> RIDE = register("ride");
+	public static final DeferredHolder<DecoratedPotPattern, ?> STALKER = register("stalker");
 
 	public static DeferredHolder<DecoratedPotPattern, ?> register(String name) {
 		return DECORATED_POT_PATTERNS.register(name, () -> new DecoratedPotPattern(CavernsAndChasms.location(name + "_pottery_pattern")));
