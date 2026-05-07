@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#caverns_and_chasms:has_monster/has_peeper",
+  "biomes": "#caverns_and_chasms:has_monster/peeper",
   "spawners": {
     "type": "caverns_and_chasms:peeper",
     "maxCount": 4,

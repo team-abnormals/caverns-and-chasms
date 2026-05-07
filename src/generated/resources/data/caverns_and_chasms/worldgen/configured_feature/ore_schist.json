@@ -1,5 +1,5 @@
 {
-  "type": "caverns_and_chasms:schist_feature",
+  "type": "caverns_and_chasms:schist",
   "config": {
     "discard_chance_on_air_exposure": 0.0,
     "size": 64,

@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#caverns_and_chasms:has_feature/has_rhyolite",
+  "biomes": "#caverns_and_chasms:has_feature/rhyolite",
   "features": "caverns_and_chasms:ore_rhyolite",
   "step": "underground_ores"
 }
