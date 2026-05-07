@@ -164,11 +164,11 @@ public class GoldenBucketItem extends BucketItem {
 
 	@Override
 	public int getBurnTime(ItemStack stack, RecipeType<?> recipeType) {
-		return stack.getItem() == CCItems.GOLDEN_LAVA_BUCKET.get() ? 20000 : super.getBurnTime(stack, recipeType);
+		return stack.is(CCItems.GOLDEN_LAVA_BUCKET) ? 20000 : super.getBurnTime(stack, recipeType);
 	}
 
 	public static ItemStack getEmptyBucket() {
-		return resetFluidLevel(new ItemStack(CCItems.GOLDEN_BUCKET.get()));
+		return new ItemStack(CCItems.GOLDEN_BUCKET.get());
 	}
 
 	public static int getFluidLevel(ItemStack stack) {
