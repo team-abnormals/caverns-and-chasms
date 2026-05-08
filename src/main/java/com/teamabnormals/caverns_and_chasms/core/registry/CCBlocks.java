@@ -508,13 +508,13 @@ public class CCBlocks {
 
 	public static final DeferredBlock<Block> AMBIENT_BUBBLE_COLUMN = BLOCKS.createBlockNoItem("ambient_bubble_column", () -> new AmbientBubbleColumnBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_COLUMN).noLootTable()));
 
-	public static final DeferredBlock<Block> DRIPSTONE_STAIRS = BLOCKS.createBlock("dripstone_stairs", () -> new StairBlock(Blocks.DRIPSTONE_BLOCK.defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> DRIPSTONE_SLAB = BLOCKS.createBlock("dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> DRIPSTONE_WALL = BLOCKS.createBlock("dripstone_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE = BLOCKS.createBlock("smooth_dripstone", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE_STAIRS = BLOCKS.createBlock("smooth_dripstone_stairs", () -> new StairBlock(SMOOTH_DRIPSTONE.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE_SLAB = BLOCKS.createBlock("smooth_dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
-	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE_WALL = BLOCKS.createBlock("smooth_dripstone_wall", () -> new WallBlock(CCProperties.POLISHED_DRIPSTONE));
+	public static final DeferredBlock<Block> DRIPSTONE_STAIRS = BLOCKS.createBlock("dripstone_stairs", () -> new StairBlock(Blocks.DRIPSTONE_BLOCK.defaultBlockState(), CCProperties.DRIPSTONE));
+	public static final DeferredBlock<Block> DRIPSTONE_SLAB = BLOCKS.createBlock("dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
+	public static final DeferredBlock<Block> DRIPSTONE_WALL = BLOCKS.createBlock("dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
+	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE = BLOCKS.createBlock("smooth_dripstone", () -> new Block(CCProperties.DRIPSTONE));
+	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE_STAIRS = BLOCKS.createBlock("smooth_dripstone_stairs", () -> new StairBlock(SMOOTH_DRIPSTONE.get().defaultBlockState(), CCProperties.DRIPSTONE));
+	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE_SLAB = BLOCKS.createBlock("smooth_dripstone_slab", () -> new SlabBlock(CCProperties.DRIPSTONE));
+	public static final DeferredBlock<Block> SMOOTH_DRIPSTONE_WALL = BLOCKS.createBlock("smooth_dripstone_wall", () -> new WallBlock(CCProperties.DRIPSTONE));
 	public static final DeferredBlock<Block> POLISHED_DRIPSTONE = BLOCKS.createBlock("polished_dripstone", () -> new Block(CCProperties.POLISHED_DRIPSTONE));
 	public static final DeferredBlock<Block> POLISHED_DRIPSTONE_STAIRS = BLOCKS.createBlock("polished_dripstone_stairs", () -> new StairBlock(POLISHED_DRIPSTONE.get().defaultBlockState(), CCProperties.POLISHED_DRIPSTONE));
 	public static final DeferredBlock<Block> POLISHED_DRIPSTONE_SLAB = BLOCKS.createBlock("polished_dripstone_slab", () -> new SlabBlock(CCProperties.POLISHED_DRIPSTONE));
@@ -920,6 +920,7 @@ public class CCBlocks {
 		public static final BlockBehaviour.Properties ROCKY_DIRT = BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).sound(CCSoundTypes.ROCKY_DIRT).requiresCorrectToolForDrops().strength(1.5F);
 		public static final BlockBehaviour.Properties FRAGILE_STONE = BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).sound(CCSoundTypes.FRAGILE_STONE);
 		public static final BlockBehaviour.Properties FRAGILE_DEEPSLATE = BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE).sound(CCSoundTypes.FRAGILE_DEEPSLATE);
+		public static final BlockBehaviour.Properties DRIPSTONE = BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK);
 		public static final BlockBehaviour.Properties DRIPSTONE_BRICKS = BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK).sound(CCSoundTypes.DRIPSTONE_BRICKS);
 		public static final BlockBehaviour.Properties POLISHED_DRIPSTONE = BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK).sound(CCSoundTypes.POLISHED_DRIPSTONE);
 		public static final BlockBehaviour.Properties GRANITE = BlockBehaviour.Properties.ofFullCopy(Blocks.GRANITE);
