@@ -53,6 +53,11 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 	}
 
 	@Override
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return state.getValue(POWERED) ? PRESSED_AABB : AABB;
+	}
+
+	@Override
 	protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(SIGNAL)) {
 			level.setBlock(pos, state.setValue(SIGNAL, false), 2);
@@ -104,7 +109,7 @@ public class LiftPlateBlock extends PressurePlateBlock implements EntityBlock {
 
 	@Override
 	protected BlockState setSignalForState(BlockState state, int strength) {
-		return state.setValue(SIGNAL, Boolean.valueOf(strength > 0));
+		return state.setValue(SIGNAL, strength > 0);
 	}
 
 	@Override
