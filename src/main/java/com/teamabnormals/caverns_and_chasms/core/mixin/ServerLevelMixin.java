@@ -42,7 +42,7 @@ public final class ServerLevelMixin {
 
 		AABB aabb = AABB.encapsulatingFullBlocks(origin, new BlockPos(origin.atY(level.getMaxBuildHeight()))).inflate(128.0D);
 		List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, aabb, (entity) -> {
-			return entity != null && entity.isAlive() && level.canSeeSky(entity.blockPosition()) && entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItemTags.COPPER_HELMETS);
+			return entity != null && entity.isAlive() && !entity.isSpectator() && level.canSeeSky(entity.blockPosition()) && entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItemTags.COPPER_HELMETS);
 		});
 
 		if (!list.isEmpty()) {
