@@ -115,8 +115,12 @@ public record PackingContainerContents(ItemStack items, int count, Fraction weig
 			return this;
 		}
 
-		private boolean hasStack(ItemStack stack) {
+		public boolean hasStack(ItemStack stack) {
 			return ItemStack.isSameItemSameComponents(this.items, stack);
+		}
+
+		public boolean canAddStack(ItemStack stack) {
+			return this.hasStack(stack) || this.items.isEmpty();
 		}
 
 		private int getMaxAmountToAdd(ItemStack stack) {
@@ -129,7 +133,7 @@ public record PackingContainerContents(ItemStack items, int count, Fraction weig
 				int i = Math.min(stack.getCount(), this.getMaxAmountToAdd(stack));
 				if (i == 0) {
 					return 0;
-				} else if (this.hasStack(stack) || this.items.isEmpty()){
+				} else if (this.canAddStack(stack)) {
 					this.weight = this.weight.add(PackingContainerContents.getWeight(stack).multiplyBy(Fraction.getFraction(i, 1)));
 					if (this.hasStack(stack)) {
 						this.count += i;
