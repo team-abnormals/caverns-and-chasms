@@ -38,10 +38,10 @@ public class HoopTrigger extends SimpleCriterionTrigger<TriggerInstance> {
 		}
 
 		public boolean matches(LootContext projectileContext, int hoopSize, int signalStrength) {
-			if (!this.hoopSize.matches(hoopSize) && !this.signalStrength.matches(signalStrength)) {
+			if (!this.hoopSize.matches(hoopSize) || !this.signalStrength.matches(signalStrength)) {
 				return false;
 			} else {
-				return this.projectile.isPresent() && this.projectile.get().matches(projectileContext);
+				return this.projectile.isEmpty() || this.projectile.get().matches(projectileContext);
 			}
 		}
 

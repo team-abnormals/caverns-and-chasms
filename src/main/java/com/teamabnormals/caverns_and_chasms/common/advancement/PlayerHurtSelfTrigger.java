@@ -47,7 +47,7 @@ public class PlayerHurtSelfTrigger extends SimpleCriterionTrigger<TriggerInstanc
 		}
 
 		public boolean matches(ServerPlayer player, LootContext context, DamageSource damage, float dealt, float taken, boolean blocked) {
-			return this.damage.isPresent() && !this.damage.get().matches(player, damage, dealt, taken, blocked);
+			return this.damage.isEmpty() || this.damage.get().matches(player, damage, dealt, taken, blocked);
 		}
 	}
 }

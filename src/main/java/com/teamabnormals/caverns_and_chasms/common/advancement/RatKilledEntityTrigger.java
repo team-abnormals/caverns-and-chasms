@@ -50,7 +50,7 @@ public class RatKilledEntityTrigger extends SimpleCriterionTrigger<TriggerInstan
 			} else if (this.ratPredicate.isPresent() && !this.ratPredicate.get().matches(ratContext)) {
 				return false;
 			}
-			return this.entityPredicate.isPresent() && this.entityPredicate.get().matches(context);
+			return this.entityPredicate.isEmpty() || this.entityPredicate.get().matches(context);
 		}
 
 		@Override

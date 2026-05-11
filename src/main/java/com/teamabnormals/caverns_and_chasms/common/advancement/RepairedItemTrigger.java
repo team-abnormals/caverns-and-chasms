@@ -53,7 +53,7 @@ public class RepairedItemTrigger extends SimpleCriterionTrigger<TriggerInstance>
 			} else if (this.ingredient.isPresent() && !this.ingredient.get().test(ingredient)) {
 				return false;
 			} else {
-				return this.output.isPresent() && !this.output.get().test(output);
+				return this.output.isEmpty() || this.output.get().test(output);
 			}
 		}
 	}
