@@ -199,7 +199,7 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 		}
 	}
 
-	private static final Component UNKNOWN_CONTENTS = Component.translatable("container.toolbox.unknownContents");
+	private static final Component UNKNOWN_CONTENTS = Component.translatable("container.caverns_and_chasms.toolbox.unknownContents").withStyle(ChatFormatting.GRAY);
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
@@ -215,12 +215,16 @@ public class ToolboxBlock extends BaseEntityBlock implements SimpleWaterloggedBl
 			j++;
 			if (i <= 4) {
 				i++;
-				tooltipComponents.add(Component.translatable("container.toolbox.itemCount", itemstack.getHoverName(), itemstack.getCount()));
+				if (itemstack.getCount() > 1) {
+					tooltipComponents.add(Component.translatable("container.caverns_and_chasms.toolbox.itemCount", itemstack.getHoverName(), itemstack.getCount()).withStyle(ChatFormatting.GRAY));
+				} else {
+					tooltipComponents.add(Component.literal(itemstack.getHoverName().getString()).withStyle(ChatFormatting.GRAY));
+				}
 			}
 		}
 
 		if (j - i > 0) {
-			tooltipComponents.add(Component.translatable("container.toolbox.more", j - i).withStyle(ChatFormatting.ITALIC));
+			tooltipComponents.add(Component.translatable("container.caverns_and_chasms.toolbox.more", j - i).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 		}
 	}
 
