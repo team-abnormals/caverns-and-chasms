@@ -1,5 +1,8 @@
 package com.teamabnormals.caverns_and_chasms.core.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCPoiTypes;
@@ -10,6 +13,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.level.EntityGetter;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.GameRules.BooleanValue;
+import net.minecraft.world.level.GameRules.Key;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.entity.EntityTickList;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
@@ -56,6 +64,11 @@ public final class ServerLevelMixin {
 		if (closestPos != null) {
 			cir.setReturnValue(Optional.of(closestPos));
 		}
+	}
+
+	@WrapOperation(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"))
+	private boolean findLightningRod(GameRules instance, Key<BooleanValue> key, Operation<Boolean> original, LevelChunk chunk, int randomTickSpeed, @Local BlockPos blockpos) {
+		return original.call(instance, key) && ((EntityGetter) (Object) this).getEntitiesOfClass(LivingEntity.class, new AABB(blockpos), p -> p.getItemBySlot(EquipmentSlot.HEAD).is(CCItemTags.COPPER_HELMETS)).isEmpty();
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", ordinal = 0, shift = At.Shift.AFTER), method = "tickNonPassenger")
