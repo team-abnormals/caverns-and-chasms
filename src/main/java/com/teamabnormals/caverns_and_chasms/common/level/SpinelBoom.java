@@ -135,10 +135,6 @@ public class SpinelBoom extends Explosion {
 						d5 /= d12;
 						d7 /= d12;
 						d9 /= d12;
-						if (this.damageCalculator.shouldDamageEntity(this, entity)) {
-							entity.hurt(this.level.damageSources().explosion(this), this.damageCalculator.getEntityDamageAmount(this, entity));
-						}
-
 						double d13 = (1.0 - d11) * (double) getSeenPercent(vec3, entity) * (double) this.damageCalculator.getKnockbackMultiplier(entity);
 						double d10;
 						if (entity instanceof LivingEntity livingentity) {
