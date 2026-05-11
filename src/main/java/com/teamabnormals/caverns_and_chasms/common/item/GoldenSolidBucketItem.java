@@ -25,7 +25,7 @@ public class GoldenSolidBucketItem extends SolidBucketItem {
 		InteractionHand hand = context.getHand();
 		Level level = context.getLevel();
 		ItemStack stack = context.getItemInHand();
-		if (GoldenBucketItem.canBeFilled(stack) && player != null && !player.isCrouching()) {
+		if (GoldenBucketItem.canBeFilled(stack) && player != null && !player.isSecondaryUseActive()) {
 			InteractionResultHolder<ItemStack> result = CCItems.GOLDEN_BUCKET.get().use(level, player, hand);
 			if (result.getResult().consumesAction()) {
 				player.setItemInHand(hand, result.getObject());

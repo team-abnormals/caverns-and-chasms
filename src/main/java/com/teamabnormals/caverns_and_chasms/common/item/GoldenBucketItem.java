@@ -63,7 +63,7 @@ public class GoldenBucketItem extends BucketItem {
 		BlockHitResult fillResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
 
 		BlockHitResult result = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-		if (empty || (canBeFilled(stack) && !player.isCrouching() && level.getBlockState(fillResult.getBlockPos()).getFluidState().is(this.content))) {
+		if (empty || (canBeFilled(stack) && !player.isSecondaryUseActive() && level.getBlockState(fillResult.getBlockPos()).getFluidState().is(this.content))) {
 			result = fillResult;
 		}
 

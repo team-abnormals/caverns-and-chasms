@@ -57,7 +57,7 @@ public class TuningForkItem extends Item {
 		ItemStack stack = context.getItemInHand();
 
 		if (player != null) {
-			if (state.getBlock() instanceof NoteBlock && player.isCrouching()) {
+			if (state.getBlock() instanceof NoteBlock && player.isSecondaryUseActive()) {
 				int note = state.getValue(NoteBlock.NOTE);
 				if (!stack.has(CCDataComponents.NOTE) || stack.get(CCDataComponents.NOTE) != note) {
 					stack.set(CCDataComponents.NOTE, state.getValue(NoteBlock.NOTE));

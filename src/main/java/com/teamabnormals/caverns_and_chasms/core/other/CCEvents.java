@@ -313,7 +313,7 @@ public class CCEvents {
 		}
 
 		if (state.getBlock() instanceof NoteBlock && item == CCItems.TUNING_FORK.get() && !event.isCanceled()) {
-			if (!player.isCrouching() && stack.has(CCDataComponents.NOTE)) {
+			if (!player.isSecondaryUseActive() && stack.has(CCDataComponents.NOTE)) {
 				int note = stack.get(CCDataComponents.NOTE);
 				level.setBlockAndUpdate(pos, state.setValue(NoteBlock.NOTE, Mth.clamp(note, 0, 24)));
 				player.displayClientMessage(Component.translatable(item.getDescriptionId() + ".change_note", Component.translatable(item.getDescriptionId() + ".note." + note)).append(" (" + note + ")"), true);
@@ -325,7 +325,6 @@ public class CCEvents {
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 			}
 		}
-
 
 		if (CCConfig.COMMON.betterRailPlacement.get() && state.getBlock() instanceof BaseRailBlock && !event.isCanceled()) {
 			if (!stack.is(CCItemTags.IGNORE_RAIL_PLACEMENT) && item instanceof BlockItem) {
