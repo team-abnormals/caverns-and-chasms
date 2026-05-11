@@ -117,8 +117,8 @@ public class PackingContainerItem extends Item {
 					}
 				}
 
-				player.containerMenu.slotsChanged(player.getInventory());
 				stack.set(CCDataComponents.PACKING_CONTAINER_CONTENTS, mutable.toImmutable());
+				player.containerMenu.slotsChanged(player.getInventory());
 				return true;
 			}
 		} else {
