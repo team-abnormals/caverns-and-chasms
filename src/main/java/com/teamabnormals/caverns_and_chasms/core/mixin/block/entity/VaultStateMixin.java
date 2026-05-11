@@ -23,7 +23,6 @@ public abstract class VaultStateMixin {
 			TrialToken token = data.getInsertStack().getItemHolder().getData(CCDataMaps.TRIAL_TOKENS);
 			if (token != null && token.tokenSound() != null) {
 				level.playSound(null, pos, token.tokenSound().value(), SoundSource.BLOCKS);
-				data.setInsertStack(ItemStack.EMPTY);
 				ci.cancel();
 			}
 		}

@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.vault.VaultBlockEntity;
@@ -50,18 +51,20 @@ public abstract class VaultBlockEntityMixin {
 		return original.call(level, config, pos, player);
 	}
 
-	@WrapOperation(method = "tryInsertKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/vault/VaultBlockEntity$Server;unlock(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/vault/VaultConfig;Lnet/minecraft/world/level/block/entity/vault/VaultServerData;Lnet/minecraft/world/level/block/entity/vault/VaultSharedData;Ljava/util/List;)V"))
-	private static void resolveItemsToEject(ServerLevel level, BlockState state, BlockPos pos, VaultConfig config, VaultServerData serverData, VaultSharedData sharedData, List<ItemStack> itemsToEject, Operation<Void> original, ServerLevel level1, BlockPos pos1, BlockState state1, VaultConfig config1, VaultServerData serverData1, VaultSharedData sharedData1, Player player, ItemStack stack) {
+	@WrapOperation(method = "tryInsertKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
+	private static void resolveItemsToEject(ItemStack stack, int amount, LivingEntity entity, Operation<Void> original, ServerLevel level, BlockPos pos, BlockState state, VaultConfig config, VaultServerData serverData, VaultSharedData sharedData, Player player, ItemStack stack1) {
 		CCVaultSharedData data = (CCVaultSharedData) sharedData;
-		data.setInsertStack(stack);
-		original.call(level, state, pos, config, serverData, sharedData, itemsToEject);
+		data.setInsertStack(stack.copy());
+		original.call(stack, amount, entity);
 	}
 
 	@WrapOperation(method = "tryInsertKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/vault/VaultServerData;addToRewardedPlayers(Lnet/minecraft/world/entity/player/Player;)V"))
 	private static void addToRewardedPlayers(VaultServerData instance, Player player, Operation<Void> original, ServerLevel level, BlockPos pos, BlockState state, VaultConfig config, VaultServerData serverData, VaultSharedData sharedData, Player player1, ItemStack stack) {
-		if (stack.getItemHolder().getData(CCDataMaps.TRIAL_TOKENS) == null) {
+		CCVaultSharedData data = (CCVaultSharedData) sharedData;
+		if (data.getInsertStack().getItemHolder().getData(CCDataMaps.TRIAL_TOKENS) == null) {
 			original.call(instance, player);
 		}
+		data.setInsertStack(ItemStack.EMPTY);
 	}
 
 	@Unique
