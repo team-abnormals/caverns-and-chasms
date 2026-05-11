@@ -8,6 +8,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.particle.PlayerCloudParticle;
+import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
@@ -51,6 +52,7 @@ public class CCParticleTypes {
 	public static final DeferredHolder<ParticleType<?>, SimpleParticleType> DROOL_PUDDLE = registerSimpleParticleType(true, "drool_puddle");
 	public static final DeferredHolder<ParticleType<?>, SimpleParticleType> DROOL = registerSimpleParticleType(true, "drool");
 	public static final DeferredHolder<ParticleType<?>, SimpleParticleType> LARGE_SMOKE_EMITTER = registerSimpleParticleType(true, "large_smoke_emitter");
+	public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SUBTLE_EFFECT = registerSimpleParticleType(false, "subtle_effect");
 
 	public static final Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> SPARKLER_SPARK = registerSparklerParticles("sparkler_spark");
 	public static final Pair<DeferredHolder<ParticleType<?>, SimpleParticleType>, DeferredHolder<ParticleType<?>, SimpleParticleType>> WHITE_SPARKLER_SPARK = registerSparklerParticles("white_sparkler_spark");
@@ -112,6 +114,7 @@ public class CCParticleTypes {
 			event.registerSpriteSet(ATONING_LETTER.get(), AtoningLetterParticle.Provider::new);
 			event.registerSpriteSet(DROOL_PUDDLE.get(), DroolPuddleParticle.Provider::new);
 			event.registerSpriteSet(DROOL.get(), DroolParticle.Provider::new);
+			event.registerSpriteSet(SUBTLE_EFFECT.get(), SpellParticle.Provider::new);
 			event.registerSpecial(LARGE_SMOKE_EMITTER.get(), new LargeSmokeSeedParticle.Provider());
 
 			registerSparkler(event, SPARKLER_SPARK);

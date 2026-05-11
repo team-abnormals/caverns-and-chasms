@@ -1,6 +1,7 @@
 package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.common.effect.BlueprintMobEffect;
+import com.teamabnormals.caverns_and_chasms.common.effect.SubtleMobEffect;
 import com.teamabnormals.caverns_and_chasms.common.effect.VampirismMobEffect;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +25,7 @@ public class CCMobEffects {
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, CavernsAndChasms.MOD_ID);
 
 	public static final DeferredHolder<MobEffect, MobEffect> REWIND = MOB_EFFECTS.register("rewind", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0xCE65B4));
-	public static final DeferredHolder<MobEffect, MobEffect> SUBTLE = MOB_EFFECTS.register("subtle", () -> new BlueprintMobEffect(MobEffectCategory.BENEFICIAL, 0x8ED2E5));
+	public static final DeferredHolder<MobEffect, MobEffect> SUBTLE = MOB_EFFECTS.register("subtle", SubtleMobEffect::new);
 	public static final DeferredHolder<MobEffect, MobEffect> VAMPIRISM = MOB_EFFECTS.register("vampirism", VampirismMobEffect::new);
 
 	public static final DeferredHolder<Potion, Potion> REWIND_NORMAL = POTIONS.register("rewind", () -> new Potion("rewind", new MobEffectInstance(REWIND, 400)));
