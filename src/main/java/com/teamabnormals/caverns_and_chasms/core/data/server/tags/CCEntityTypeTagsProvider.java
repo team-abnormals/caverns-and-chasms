@@ -3,11 +3,13 @@ package com.teamabnormals.caverns_and_chasms.core.data.server.tags;
 import com.teamabnormals.blueprint.core.other.tags.BlueprintEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCEntityTypes;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,6 +29,7 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(EntityTypeTags.ARROWS).add(LARGE_ARROW.get(), BLUNT_ARROW.get(), RICOCHET_ARROW.get());
 		this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(KUNAI.get());
 		this.tag(EntityTypeTags.DISMOUNTS_UNDERWATER).add(SADDLED_GRAZER.get());
+		this.tag(Tags.EntityTypes.MINECARTS).add(TMT_MINECART.get());
 		this.tag(BlueprintEntityTypeTags.FISHES).add(CAVEFISH.get());
 
 		this.tag(SENSITIVE_TO_EFFICIENCY).add(DEEPER.get(), EVENDEEPER.get());
