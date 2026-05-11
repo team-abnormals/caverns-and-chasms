@@ -198,8 +198,9 @@ public class CCEvents {
 		RandomSource random = level.getRandom();
 
 		if (state.getBlock() instanceof GrindstoneBlock && player.isSecondaryUseActive() && !event.isCanceled() && stack.getItem() instanceof WeatheringCopperItem) {
+			EquipmentSlot slot = LivingEntity.getSlotForHand(event.getHand());
 			if (WeatheringCopperItem.getUnwaxed(stack).isPresent()) {
-				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getUnwaxed(stack).get());
+				WeatheringCopperItem.copyStackToNewItem(player, slot, stack, WeatheringCopperItem.getUnwaxed(stack).get());
 				level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
 				level.levelEvent(player, 3004, pos, 0);
 
@@ -207,7 +208,7 @@ public class CCEvents {
 				event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide()));
 
 			} else if (WeatheringCopperItem.getPrevious(stack).isPresent()) {
-				WeatheringCopperItem.copyStackToNewItem(stack, WeatheringCopperItem.getPrevious(stack).get());
+				WeatheringCopperItem.copyStackToNewItem(player, slot, stack, WeatheringCopperItem.getPrevious(stack).get());
 				level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				level.levelEvent(player, 3005, pos, 0);
 
@@ -387,7 +388,7 @@ public class CCEvents {
 		if (event.getEntity() instanceof LivingEntity entity && !entity.level().isClientSide()) {
 			ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
 			if (helmet.getItem() instanceof WeatheringCopperItem) {
-				WeatheringCopperItem.copyStackToNewItem(helmet, WeatheringCopperItem.getFirst(helmet));
+				WeatheringCopperItem.copyStackToNewItem(entity, EquipmentSlot.HEAD, helmet, WeatheringCopperItem.getFirst(helmet));
 			}
 
 			Level level = entity.level();
@@ -398,7 +399,7 @@ public class CCEvents {
 				ItemStack stack = entity.getItemBySlot(slot);
 				if (stack.getItem() instanceof WeatheringCopperItem) {
 					Optional<ItemStack> previous = WeatheringCopperItem.getPrevious(stack);
-					previous.ifPresent(itemStack -> WeatheringCopperItem.copyStackToNewItem(stack, itemStack));
+					previous.ifPresent(itemStack -> WeatheringCopperItem.copyStackToNewItem(entity, slot, stack, itemStack));
 				}
 			}
 		}
@@ -831,7 +832,7 @@ public class CCEvents {
 					boolean armor = slot.isArmor() && item instanceof ArmorItem;
 					boolean tool = !slot.isArmor() && item instanceof TieredItem;
 					if (armor || tool) {
-						item.updateOxidation(stack, level);
+						item.updateOxidation(entity, slot, stack, level);
 					}
 				}
 			}

@@ -5,6 +5,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -84,7 +86,7 @@ public interface WeatheringCopperItem {
 
 	WeatherState getAge();
 
-	default void updateOxidation(ItemStack stack, Level level) {
+	default void updateOxidation(LivingEntity entity, EquipmentSlot slot, ItemStack stack, Level level) {
 		if (!level.isClientSide() && this.getNext(stack).isPresent() && level.getGameTime() % 60 == 0) {
 			for (int i = 0; i < level.getGameRules().getRule(GameRules.RULE_RANDOMTICKING).get(); i++) {
 				Optional<ItemStack> next = this.getNext(stack);
@@ -96,15 +98,16 @@ public interface WeatheringCopperItem {
 					}
 
 					if (random.nextFloat() < chance) {
-						copyStackToNewItem(stack, next.get());
+						copyStackToNewItem(entity, slot, stack, next.get());
 					}
 				}
 			}
 		}
 	}
 
-	static void copyStackToNewItem(ItemStack original, ItemStack newItem) {
+	static void copyStackToNewItem(LivingEntity entity, EquipmentSlot slot, ItemStack original, ItemStack newItem) {
 		newItem.applyComponents(original.getComponentsPatch());
+		entity.setItemSlot(slot, newItem);
 	}
 
 	default Optional<ItemStack> getNext(ItemStack stack) {
