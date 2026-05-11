@@ -156,6 +156,8 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(Tags.Items.NUGGETS).addTag(CCItemTags.NUGGETS_SILVER).addTag(CCItemTags.NUGGETS_TIN).addTag(CCItemTags.NUGGETS_COPPER).addTag(CCItemTags.NUGGETS_NETHERITE).addTag(CCItemTags.NUGGETS_NECROMIUM);
 		this.copy(BlueprintBlockTags.NOTE_BLOCK_TOP_INSTRUMENTS, ItemTags.NOTE_BLOCK_TOP_INSTRUMENTS);
 		this.tag(CCItemTags.WAX).add(Items.HONEYCOMB, TINPLATE.get());
+		this.copy(CCBlockTags.COPPER_CHAINS, CCItemTags.COPPER_CHAINS);
+		this.copy(Tags.Blocks.CHAINS, Tags.Items.CHAINS);
 
 		this.tag(CCItemTags.USES_SANGUINE_ARMOR_MODEL).add(SANGUINE_HELMET.get(), SANGUINE_CHESTPLATE.get());
 		this.tag(CCItemTags.USES_COPPER_ARMOR_MODEL).addTag(CCItemTags.COPPER_HELMETS);

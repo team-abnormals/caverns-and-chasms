@@ -315,6 +315,8 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(Tags.Blocks.STONES).add(SUGILITE.get(), CYLINDRITE.get(), CASSITERITE.get(), RHYOLITE.get(), SCHIST.get(), FRAGILE_STONE.get(), FRAGILE_DEEPSLATE.get());
 		this.tag(Tags.Blocks.GLASS_BLOCKS).add(FLOAT_GLASS.get(), FROSTED_GLASS.get(), ORNATE_GLASS.get());
 		this.tag(Tags.Blocks.GLASS_PANES).add(FLOAT_GLASS_PANE.get(), FROSTED_GLASS_PANE.get(), ORNATE_GLASS_PANE.get());
+		this.tag(CCBlockTags.COPPER_CHAINS).add(COPPER_CHAIN.get(), EXPOSED_COPPER_CHAIN.get(), WEATHERED_COPPER_CHAIN.get(), OXIDIZED_COPPER_CHAIN.get(), WAXED_COPPER_CHAIN.get(), WAXED_EXPOSED_COPPER_CHAIN.get(), WAXED_WEATHERED_COPPER_CHAIN.get(), WAXED_OXIDIZED_COPPER_CHAIN.get());
+		this.tag(Tags.Blocks.CHAINS).addTag(CCBlockTags.COPPER_CHAINS).add(SILVER_CHAIN.get(), GOLDEN_CHAIN.get(), TIN_CHAIN.get());
 	}
 
 	public IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block> collect(TagKey<Block> tag, Predicate<? super Block> predicate, Block... exclude) {
