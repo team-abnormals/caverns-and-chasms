@@ -1,6 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.AbstractHoldableButtonBlockEntity;
+import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.AbstractHoldableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,8 +24,8 @@ public abstract class AbstractHoldableButtonBlock extends ButtonBlock implements
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof AbstractHoldableButtonBlockEntity holdableButton) {
-			this.setHeld(level, holdableButton);
+		if (blockEntity instanceof AbstractHoldableBlockEntity holdable) {
+			this.setHeld(level, holdable);
 			if (!state.getValue(POWERED)) {
 				this.press(state, level, pos, player);
 			}
@@ -37,8 +37,8 @@ public abstract class AbstractHoldableButtonBlock extends ButtonBlock implements
 	@Override
 	public void press(BlockState state, Level level, BlockPos pos, @Nullable Player player) {
 		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof AbstractHoldableButtonBlockEntity holdableButton) {
-			this.setHeld(level, holdableButton);
+		if (blockEntity instanceof AbstractHoldableBlockEntity holdable) {
+			this.setHeld(level, holdable);
 		}
 		level.setBlock(pos, state.setValue(POWERED, true), 3);
 		this.updateNeighbours(state, level, pos);

@@ -40,17 +40,17 @@ public class HoldButtonBlock extends AbstractHoldableButtonBlock implements Enti
 
 	@Override
 	public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return state.getValue(POWERED) ? this.getSignalBasedOnTime(state, level, pos) : 0;
+		return state.getValue(POWERED) ? this.getSignalBasedOnTime(level, pos) : 0;
 	}
 
 	@Override
 	public int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return state.getValue(POWERED) && getConnectedDirection(state) == direction ? this.getSignalBasedOnTime(state, level, pos) : 0;
+		return state.getValue(POWERED) && getConnectedDirection(state) == direction ? this.getSignalBasedOnTime(level, pos) : 0;
 	}
 
-	public int getSignalBasedOnTime(BlockState state, BlockGetter level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof HoldButtonBlockEntity blockEntity && blockEntity.getTimePressed() > 0) {
-			return Math.min(1 + blockEntity.getTimePressed() / HoldPlateBlock.getOutputSpeed(level.getBlockState(pos.relative(getConnectedDirection(state).getOpposite()))), 15);
+	public int getSignalBasedOnTime(BlockGetter level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof HoldButtonBlockEntity blockEntity) {
+			return blockEntity.getSignal();
 		}
 		return 0;
 	}

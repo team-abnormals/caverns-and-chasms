@@ -4,7 +4,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.LiftPla
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCProperties;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;

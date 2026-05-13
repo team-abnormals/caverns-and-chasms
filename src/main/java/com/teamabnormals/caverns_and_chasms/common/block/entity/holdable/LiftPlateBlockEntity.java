@@ -10,23 +10,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LiftPlateBlockEntity extends BlockEntity {
-	private int timePressed;
-
 	public LiftPlateBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.LIFT_PLATE.get(), pos, state);
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, LiftPlateBlockEntity blockEntity) {
 		if (!level.isClientSide) {
-			// TODO: Should probably update the block below too like in HoldPlateBlock.updateNeighbors
-			if (state.getValue(LiftPlateBlock.POWERED)) {
-				blockEntity.timePressed++;
-				level.blockUpdated(pos, state.getBlock());
-			} else if (blockEntity.timePressed != 0) {
-				blockEntity.timePressed = 0;
-				level.blockUpdated(pos, state.getBlock());
-			}
-
 			LiftPlateBlock liftPlateBlock = (LiftPlateBlock) state.getBlock();
 			liftPlateBlock.deactivate(null, level, pos, state);
 		}

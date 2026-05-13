@@ -62,7 +62,7 @@ public class HoldPlateBlock extends PressurePlateBlock implements EntityBlock {
 
 	public int getSignalBasedOnTime(BlockGetter level, BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof HoldPlateBlockEntity blockEntity) {
-			return Math.min(1 + blockEntity.getTimePressed() / getOutputSpeed(level.getBlockState(pos.below())), 15);
+			return blockEntity.getSignal();
 		}
 		return 0;
 	}
