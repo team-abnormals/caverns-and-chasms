@@ -526,7 +526,7 @@ public class CCEvents {
 			}
 
 			if (attacker.getAttribute(CCAttributes.SLOWNESS_INFLICTION) != null) {
-				int slownessInfliction = (int) target.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
+				int slownessInfliction = (int) attacker.getAttributeValue(CCAttributes.SLOWNESS_INFLICTION);
 				if (slownessInfliction > 0) {
 					target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, slownessInfliction));
 				}
