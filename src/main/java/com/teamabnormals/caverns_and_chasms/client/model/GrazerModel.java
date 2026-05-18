@@ -68,11 +68,16 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 	public void setupAnim(AbstractGrazer grazer, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float partialtick = ageInTicks - (float) grazer.tickCount;
 
+		this.body.xRot = 0.0F;
+		this.jaw.xRot = 0.0F;
+
 		if (grazer.isBaby()) {
 			float wiggleamount = grazer.getBabyWiggleLegsAmount(partialtick);
 
-			this.body.xRot = 0.0F;
-			this.jaw.xRot = 0.0F;
+			this.rightHindLeg.y = 13.0F;
+			this.leftHindLeg.y = 13.0F;
+			this.rightFrontLeg.y = 13.0F;
+			this.leftFrontLeg.y = 13.0F;
 			this.rightWing.yRot = -0.3F - Mth.cos(ageInTicks * 0.2F) * 0.3F;
 			this.leftWing.yRot = 0.3F + Mth.cos(ageInTicks * 0.2F) * 0.3F;
 			this.rightHindLeg.xRot = Mth.cos(ageInTicks * 0.5F) * -0.2F * wiggleamount;
@@ -91,14 +96,12 @@ public class GrazerModel extends AgeableListModel<AbstractGrazer> {
 
 			float wingflapanim = grazer.getWingFlapAnim(partialtick);
 
-			this.body.xRot = 0.0F;
-			this.jaw.xRot = 0.0F;
-			this.rightWing.yRot = 0.0F;
-			this.leftWing.yRot = 0.0F;
 			this.rightHindLeg.y = 15.0F;
 			this.leftHindLeg.y = 15.0F;
 			this.rightFrontLeg.y = 15.0F;
 			this.leftFrontLeg.y = 15.0F;
+			this.rightWing.yRot = 0.0F;
+			this.leftWing.yRot = 0.0F;
 			this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * walkamount;
 			this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + Mth.PI) * 1.4F * limbSwingAmount * walkamount;
 			this.rightFrontLeg.xRot = this.leftHindLeg.xRot;
