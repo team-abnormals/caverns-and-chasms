@@ -625,9 +625,9 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	public void copperIngotRecipes(RecipeOutput consumer, ItemLike ingot, ItemLike block, ItemLike door, ItemLike trapdoor, ItemLike bars, ItemLike pressurePlate, ItemLike button, ItemLike lightningRod, ItemLike floodlight, ItemLike toolbox) {
 		if (ingot != Items.COPPER_INGOT) {
 			storageRecipesWithCustomUnpacking(consumer, MISC, ingot, BUILDING_BLOCKS, block, getSimpleRecipeName(ingot), getItemName(ingot));
-			ShapedRecipeBuilder.shaped(REDSTONE, lightningRod).define('#', ingot).pattern("#").pattern("#").pattern("#").group(getItemName(lightningRod)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		}
 
+		ShapedRecipeBuilder.shaped(REDSTONE, lightningRod).define('#', ingot).pattern("#").pattern("#").pattern("#").group(getItemName(lightningRod)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		doorBuilder(door, Ingredient.of(ingot)).group(getItemName(door)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(REDSTONE, trapdoor).define('#', ingot).pattern("##").pattern("##").group(getItemName(trapdoor)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
 		ShapedRecipeBuilder.shaped(DECORATIONS, bars, 16).define('#', ingot).pattern("###").pattern("###").group(getItemName(bars)).unlockedBy(getHasName(ingot), has(ingot)).save(consumer);
