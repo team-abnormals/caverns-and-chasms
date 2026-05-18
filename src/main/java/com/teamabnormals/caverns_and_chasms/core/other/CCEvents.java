@@ -836,6 +836,19 @@ public class CCEvents {
 				}
 			}
 
+			Vec3 pos = entity.position().add(0.0D, 2.125D, 0.0D);
+			if (level.isThundering() && entity.getItemBySlot(EquipmentSlot.HEAD).is(CCItemTags.COPPER_HELMETS)) {
+				if ((long) level.random.nextInt(2000) <= level.getGameTime() % 200L && level.canSeeSky(entity.blockPosition())) {
+					int i = level.random.nextInt(2) + 1;
+					for (int j = 0; j < i; j++) {
+						double d0 = pos.x + Mth.nextDouble(level.random, -1.0, 1.0) * 0.125;
+						double d1 = pos.y + Mth.nextDouble(level.random, -1.0, 1.0) * 0.125;
+						double d2 = pos.z + Mth.nextDouble(level.random, -1.0, 1.0) * 0.125;
+						level.addParticle(ParticleTypes.ELECTRIC_SPARK, d0, d1, d2, 0.0, Mth.nextDouble(level.random, -1.0, 1.0), 0.0);
+					}
+				}
+			}
+
 			if (entity instanceof Player player) {
 				IDataManager data = (IDataManager) entity;
 				if (data.getValue(CCDataProcessors.CONTROLLED_GOLEM_UUID).isPresent()) {
