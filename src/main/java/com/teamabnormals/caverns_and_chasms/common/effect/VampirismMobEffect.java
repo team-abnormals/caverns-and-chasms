@@ -22,10 +22,9 @@ public class VampirismMobEffect extends MobEffect {
 				living.hurt(CCDamageTypes.draining(level, entity), damage);
 				entity.heal(damage * 0.5F);
 				entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), CCSoundEvents.DRAIN.get(), entity.getSoundSource(), 1.0F, 1.0F);
-				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override
