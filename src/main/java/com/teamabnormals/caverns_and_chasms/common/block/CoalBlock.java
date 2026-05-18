@@ -126,21 +126,6 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-		if (state.getValue(LIT) && entity instanceof LivingEntity) {
-			if (!entity.fireImmune()) {
-				entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
-				if (entity.getRemainingFireTicks() == 0) {
-					entity.igniteForSeconds(state.getValue(COAL) * 2.0F);
-				}
-			}
-			entity.hurt(level.damageSources().inFire(), 0.25F * state.getValue(COAL));
-		}
-
-		super.entityInside(state, level, pos, entity);
-	}
-
-	@Override
 	public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
 		if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getType() == Fluids.WATER) {
 			if (state.getValue(LIT)) {
