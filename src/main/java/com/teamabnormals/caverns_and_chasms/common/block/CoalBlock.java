@@ -108,9 +108,6 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 				} else if (!player.getInventory().add(torchStack)) {
 					player.drop(torchStack, false);
 				}
-
-				level.gameEvent(player, GameEvent.SHEAR, pos);
-				player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
 			}
 
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
