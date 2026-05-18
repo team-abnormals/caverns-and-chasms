@@ -197,10 +197,10 @@ public class CCEvents {
 		Direction face = event.getFace();
 		RandomSource random = level.getRandom();
 
-		if (state.getBlock() instanceof GrindstoneBlock && player.isSecondaryUseActive() && !event.isCanceled() && stack.getItem() instanceof WeatheringCopperItem) {
+		if (state.getBlock() instanceof GrindstoneBlock && player.isSecondaryUseActive() && !event.isCanceled()) {
 			EquipmentSlot slot = LivingEntity.getSlotForHand(event.getHand());
-			if (WeatheringCopperItem.getUnwaxed(stack).isPresent()) {
-				WeatheringCopperItem.copyStackToNewItem(player, slot, stack, WeatheringCopperItem.getUnwaxed(stack).get());
+			if (WeatheringCopperItem.getUnwaxed(stack.getItem()).isPresent()) {
+				WeatheringCopperItem.copyStackToNewItem(player, slot, stack, WeatheringCopperItem.getUnwaxed(stack.getItem()).get().getDefaultInstance());
 				level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
 				level.levelEvent(player, 3004, pos, 0);
 

@@ -9,6 +9,7 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken.Tri
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
@@ -19,17 +20,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.registries.datamaps.AdvancedDataMapType;
-import net.neoforged.neoforge.registries.datamaps.DataMapType;
-import net.neoforged.neoforge.registries.datamaps.DataMapValueMerger;
-import net.neoforged.neoforge.registries.datamaps.DataMapValueRemover.Default;
-import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+import net.neoforged.neoforge.registries.datamaps.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @EventBusSubscriber(modid = CavernsAndChasms.MOD_ID)
 public class CCDataMaps {
+	public static final DataMapType<Item, OxidizableItem> OXIDIZABLES = DataMapType.builder(CavernsAndChasms.location("oxidizables"), Registries.ITEM, OxidizableItem.CODEC).synced(OxidizableItem.OXIDIZABLE_CODEC, false).build();
+	public static final DataMapType<Item, WaxableItem> WAXABLES = DataMapType.builder(CavernsAndChasms.location("waxables"), Registries.ITEM, WaxableItem.CODEC).synced(WaxableItem.WAXABLE_CODEC, false).build();
 
 	public static final DataMapType<Block, TinDeflection> TIN_DEFLECTIONS = AdvancedDataMapType.builder(CavernsAndChasms.location("tin_deflections"), Registries.BLOCK, TinDeflection.CODEC).synced(TinDeflection.CODEC, false).merger(new DeflectionMerger()).build();
 	public static final DataMapType<Item, TrialToken> TRIAL_TOKENS = AdvancedDataMapType.builder(CavernsAndChasms.location("trial_tokens"), Registries.ITEM, TrialToken.CODEC).synced(TrialToken.CODEC, false).merger(new TrialTokenMerger()).build();
@@ -38,6 +38,8 @@ public class CCDataMaps {
 	public static void registerDataMaps(RegisterDataMapTypesEvent event) {
 		event.register(TIN_DEFLECTIONS);
 		event.register(TRIAL_TOKENS);
+		event.register(OXIDIZABLES);
+		event.register(WAXABLES);
 	}
 
 	public record TinDeflection(double horizontalFactor, double verticalFactor, boolean hasBonusDeflect, Holder<SoundEvent> deflectSound) {
@@ -89,5 +91,32 @@ public class CCDataMaps {
 				return new TrialToken(firstValue.keyItem(), firstValue.tokenSound(), mergedTrialSpawner, mergedVault);
 			}
 		}
+	}
+
+	public record OxidizableItem(Item nextOxidationStage) {
+		public static final Codec<OxidizableItem> OXIDIZABLE_CODEC = BuiltInRegistries.ITEM.byNameCodec().xmap(OxidizableItem::new, OxidizableItem::nextOxidationStage);
+		public static final Codec<OxidizableItem> CODEC = Codec.withAlternative(RecordCodecBuilder.create(in -> in.group(BuiltInRegistries.ITEM.byNameCodec().fieldOf("next_oxidation_stage").forGetter(OxidizableItem::nextOxidationStage)).apply(in, OxidizableItem::new)), OXIDIZABLE_CODEC);
+	}
+
+	public record WaxableItem(Item waxed) {
+		public static final Codec<WaxableItem> WAXABLE_CODEC = BuiltInRegistries.ITEM.byNameCodec().xmap(WaxableItem::new, WaxableItem::waxed);
+		public static final Codec<WaxableItem> CODEC = Codec.withAlternative(RecordCodecBuilder.create(in -> in.group(BuiltInRegistries.ITEM.byNameCodec().fieldOf("waxed").forGetter(WaxableItem::waxed)).apply(in, WaxableItem::new)), WAXABLE_CODEC);
+	}
+
+	public static final Map<Item, Item> INVERSE_OXIDIZABLES_DATAMAP_INTERNAL = new HashMap<>();
+	public static final Map<Item, Item> INVERSE_WAXABLES_DATAMAP_INTERNAL = new HashMap<>();
+
+	public static final Map<Item, Item> INVERSE_OXIDIZABLES_DATAMAP = Collections.unmodifiableMap(INVERSE_OXIDIZABLES_DATAMAP_INTERNAL);
+	public static final Map<Item, Item> INVERSE_WAXABLES_DATAMAP = Collections.unmodifiableMap(INVERSE_WAXABLES_DATAMAP_INTERNAL);
+
+	@SubscribeEvent
+	public static void onDataMapsUpdated(DataMapsUpdatedEvent event) {
+		event.ifRegistry(Registries.ITEM, registry -> {
+			INVERSE_OXIDIZABLES_DATAMAP_INTERNAL.clear();
+			INVERSE_WAXABLES_DATAMAP_INTERNAL.clear();
+
+			registry.getDataMap(OXIDIZABLES).forEach((resourceKey, oxidizable) -> INVERSE_OXIDIZABLES_DATAMAP_INTERNAL.put(oxidizable.nextOxidationStage(), BuiltInRegistries.ITEM.get(resourceKey)));
+			registry.getDataMap(WAXABLES).forEach((resourceKey, waxable) -> INVERSE_WAXABLES_DATAMAP_INTERNAL.put(waxable.waxed(), BuiltInRegistries.ITEM.get(resourceKey)));
+		});
 	}
 }

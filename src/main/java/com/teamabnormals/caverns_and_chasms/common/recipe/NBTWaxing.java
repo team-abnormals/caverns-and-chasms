@@ -66,7 +66,7 @@ public class NBTWaxing extends CustomRecipe {
 		if (Block.byItem(returnStack.getItem()) instanceof WeatheringToolboxBlock) {
 			waxedStack = new ItemStack(HoneycombItem.getWaxed(Block.byItem(returnStack.getItem()).defaultBlockState()).get().getBlock().asItem());
 		} else {
-			waxedStack = WeatheringCopperItem.getWaxed(returnStack).get();
+			waxedStack =  new ItemStack(WeatheringCopperItem.getWaxed(returnStack.getItem()).get());
 		}
 
 		waxedStack.applyComponents(returnStack.getComponents());

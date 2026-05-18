@@ -1,0 +1,103 @@
+{
+  "values": {
+    "caverns_and_chasms:copper_axe": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_axe"
+    },
+    "caverns_and_chasms:copper_boots": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_boots"
+    },
+    "caverns_and_chasms:copper_chestplate": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_chestplate"
+    },
+    "caverns_and_chasms:copper_helmet": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_helmet"
+    },
+    "caverns_and_chasms:copper_hoe": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_hoe"
+    },
+    "caverns_and_chasms:copper_horse_armor": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_horse_armor"
+    },
+    "caverns_and_chasms:copper_leggings": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_leggings"
+    },
+    "caverns_and_chasms:copper_pickaxe": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_pickaxe"
+    },
+    "caverns_and_chasms:copper_shovel": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_shovel"
+    },
+    "caverns_and_chasms:copper_sword": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_sword"
+    },
+    "caverns_and_chasms:exposed_copper_axe": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_axe"
+    },
+    "caverns_and_chasms:exposed_copper_boots": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_boots"
+    },
+    "caverns_and_chasms:exposed_copper_chestplate": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_chestplate"
+    },
+    "caverns_and_chasms:exposed_copper_helmet": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_helmet"
+    },
+    "caverns_and_chasms:exposed_copper_hoe": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_hoe"
+    },
+    "caverns_and_chasms:exposed_copper_horse_armor": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_horse_armor"
+    },
+    "caverns_and_chasms:exposed_copper_ingot": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_ingot"
+    },
+    "caverns_and_chasms:exposed_copper_leggings": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_leggings"
+    },
+    "caverns_and_chasms:exposed_copper_pickaxe": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_pickaxe"
+    },
+    "caverns_and_chasms:exposed_copper_shovel": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_shovel"
+    },
+    "caverns_and_chasms:exposed_copper_sword": {
+      "next_oxidation_stage": "caverns_and_chasms:weathered_copper_sword"
+    },
+    "caverns_and_chasms:weathered_copper_axe": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_axe"
+    },
+    "caverns_and_chasms:weathered_copper_boots": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_boots"
+    },
+    "caverns_and_chasms:weathered_copper_chestplate": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_chestplate"
+    },
+    "caverns_and_chasms:weathered_copper_helmet": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_helmet"
+    },
+    "caverns_and_chasms:weathered_copper_hoe": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_hoe"
+    },
+    "caverns_and_chasms:weathered_copper_horse_armor": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_horse_armor"
+    },
+    "caverns_and_chasms:weathered_copper_ingot": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_ingot"
+    },
+    "caverns_and_chasms:weathered_copper_leggings": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_leggings"
+    },
+    "caverns_and_chasms:weathered_copper_pickaxe": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_pickaxe"
+    },
+    "caverns_and_chasms:weathered_copper_shovel": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_shovel"
+    },
+    "caverns_and_chasms:weathered_copper_sword": {
+      "next_oxidation_stage": "caverns_and_chasms:oxidized_copper_sword"
+    },
+    "minecraft:copper_ingot": {
+      "next_oxidation_stage": "caverns_and_chasms:exposed_copper_ingot"
+    }
+  }
+}
