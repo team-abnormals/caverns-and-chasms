@@ -1,52 +1,50 @@
 {
   "molding": "json",
-  "remolder": [
-    {
-      "type": "add",
-      "target": "pools[]",
-      "value": {
-        "bonus_rolls": 0.0,
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "conditions": [
-              {
-                "condition": "minecraft:inverted",
-                "term": {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
+  "remolder": {
+    "type": "add",
+    "target": "pools[]",
+    "value": {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
                         }
-                      ]
-                    }
+                      }
+                    ]
                   }
                 }
-              },
-              {
-                "chance": 0.01,
-                "condition": "minecraft:random_chance"
               }
-            ],
-            "functions": [
-              {
-                "add": false,
-                "count": 1.0,
-                "function": "minecraft:set_count"
-              }
-            ],
-            "name": "caverns_and_chasms:turquoise"
-          }
-        ],
-        "name": "caverns_and_chasms:turquoise",
-        "rolls": 1.0
-      }
+            },
+            {
+              "chance": 0.01,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "caverns_and_chasms:turquoise"
+        }
+      ],
+      "name": "caverns_and_chasms:turquoise",
+      "rolls": 1.0
     }
-  ],
+  },
   "selector": "minecraft:loot_table/blocks/deepslate_copper_ore"
 }

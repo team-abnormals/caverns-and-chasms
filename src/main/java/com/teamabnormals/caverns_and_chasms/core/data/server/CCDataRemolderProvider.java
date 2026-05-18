@@ -125,26 +125,27 @@ public class CCDataRemolderProvider extends RemolderProvider {
 		Remolder replaceCopperParent = AdvancementRemolders.replaceParent(CavernsAndChasms.location("adventure/smelt_copper"));
 		this.advancementRemolder("adventure/spyglass_at_parrot").remolder(replaceCopperParent);
 		this.advancementRemolder("adventure/lightning_rod_with_villager_no_fire").remolder(replaceCopperParent);
+		this.advancementRemolder("nether/use_lodestone").remolder(AdvancementRemolders.replaceParent(ResourceLocation.withDefaultNamespace("adventure/root")));
 
-		this.advancementRemolder("husbandry/obtain_netherite_hoe").remolder(sequence(
-						AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build()),
+		this.advancementRemolder("husbandry/obtain_netherite_hoe").remolder(
+				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.netherite_hoe.description")).build(),
 				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId).addCriterion("necromium_hoe", InventoryChangeTrigger.TriggerInstance.hasItems(CCItems.NECROMIUM_HOE.get())).addIndexedRequirements(0, false, "necromium_hoe").build()));
 
-		this.advancementRemolder("husbandry/wax_on").remolder(sequence(
+		this.advancementRemolder("husbandry/wax_on").remolder(
 				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_on.description")).build(),
 				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId)
 						.addCriterion("wax_on_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXABLE_COPPER_BLOCKS)), ItemPredicate.Builder.item().of(CCItemTags.WAX)))
 						.addCriterion("wax_on_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(CCItemTags.WAX), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))))
 						.addCriterion("wax_on_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(CCItemTags.WAX), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get())))))
-						.addIndexedRequirements(0, false, "wax_on_blocks", "wax_on_golem", "wax_on_oxidized_golem").build())));
+						.addIndexedRequirements(0, false, "wax_on_blocks", "wax_on_golem", "wax_on_oxidized_golem").build()));
 
-		this.advancementRemolder("husbandry/wax_off").remolder(sequence(
+		this.advancementRemolder("husbandry/wax_off").remolder(
 				AdvancementRemolders.remoldDisplayInfo().description(Component.translatable("advancements." + this.modId + ".husbandry.wax_off.description")).build(),
 				AdvancementRemolders.criteria(CriteriaModifier.builder(this.modId)
 						.addCriterion("wax_off_blocks", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(CCBlockTags.WAXED_COPPER_BLOCKS)), ItemPredicate.Builder.item().of(ItemTags.AXES)))
 						.addCriterion("wax_off_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.COPPER_GOLEM.get())))))
 						.addCriterion("wax_off_oxidized_golem", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(ItemTags.AXES), Optional.of(EntityPredicate.wrap(Builder.entity().of(CCEntityTypes.OXIDIZED_COPPER_GOLEM.get())))))
-						.addIndexedRequirements(0, false, "wax_off_blocks", "wax_off_golem", "wax_off_oxidized_golem").build())));
+						.addIndexedRequirements(0, false, "wax_off_blocks", "wax_off_golem", "wax_off_oxidized_golem").build()));
 
 	}
 
@@ -232,14 +233,14 @@ public class CCDataRemolderProvider extends RemolderProvider {
 
 	public void registerLootRemolders(Provider provider) {
 		LootItemCondition.Builder hasSilkTouch = hasSilkTouch(provider);
-		this.lootRemolder(BuiltInLootTables.SIMPLE_DUNGEON).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.SIMPLE_DUNGEON).remolder(
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 15)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 10)),
 				addEntry(0, entry(BEJEWELED_APPLE.get(), 10)),
 				addEntry(1, entry(SILVER_INGOT.get(), 5, 1, 4)),
-				addEntry(1, entry(ZIRCONIA.get(), 10, 1, 2))));
+				addEntry(1, entry(ZIRCONIA.get(), 10, 1, 2)));
 
-		this.lootRemolder(BuiltInLootTables.ABANDONED_MINESHAFT).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.ABANDONED_MINESHAFT).remolder(
 				addEntry(0, entry(Items.BUNDLE, 5)),
 				addEntry(0, entry(DEPTH_GAUGE.get(), 5)),
 				addEntry(0, entry(TOOLBELT.get(), 5)),
@@ -247,169 +248,169 @@ public class CCDataRemolderProvider extends RemolderProvider {
 				addEntry(1, entry(SPINEL.get(), 5, 6, 11)),
 				addEntry(1, entry(TIN_INGOT.get(), 2, 1, 3)),
 				addEntry(2, entry(CCBlocks.SPARKLER.getFirst().get(), 15, 4, 12)),
-				addEntry(2, entry(CCBlocks.SPIKED_RAIL.get(), 5, 1, 4))));
+				addEntry(2, entry(CCBlocks.SPIKED_RAIL.get(), 5, 1, 4)));
 
-		this.lootRemolder(BuiltInLootTables.STRONGHOLD_CORRIDOR).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.STRONGHOLD_CORRIDOR).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 5, 1, 3)),
 				addEntry(0, entry(TIN_INGOT.get(), 8, 1, 3)),
 				addEntry(0, entry(ZIRCONIA.get(), 5, 1, 2)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)),
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)),
-				addEntry(0, entry(BEJEWELED_APPLE.get(), 10, 1, 3))));
+				addEntry(0, entry(BEJEWELED_APPLE.get(), 10, 1, 3)));
 
-		this.lootRemolder(BuiltInLootTables.STRONGHOLD_CROSSING).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.STRONGHOLD_CROSSING).remolder(
 				addEntry(0, LootItem.lootTableItem(COWL.get()).setWeight(2).apply(EnchantRandomlyFunction.randomApplicableEnchantment(provider)).build()),
 				addEntry(0, entry(SILVER_INGOT.get(), 5, 1, 3)),
-				addEntry(0, entry(BEJEWELED_APPLE.get(), 10, 1, 3))));
+				addEntry(0, entry(BEJEWELED_APPLE.get(), 10, 1, 3)));
 
-		this.lootRemolder(BuiltInLootTables.STRONGHOLD_LIBRARY).remolder(sequence(
-				addEntry(0, entry(ZIRCONIA.get(), 1, 1, 3))));
+		this.lootRemolder(BuiltInLootTables.STRONGHOLD_LIBRARY).remolder(
+				addEntry(0, entry(ZIRCONIA.get(), 1, 1, 3)));
 
-		this.lootRemolder(BuiltInLootTables.SHIPWRECK_MAP).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.SHIPWRECK_MAP).remolder(
 				addEntry(1, entry(BAROMETER.get(), 1)),
-				addEntry(1, entry(DEPTH_GAUGE.get(), 1))));
+				addEntry(1, entry(DEPTH_GAUGE.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.SHIPWRECK_TREASURE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.SHIPWRECK_TREASURE).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 10, 1, 5)),
 				addEntry(1, entry(SILVER_NUGGET.get(), 10, 1, 10)),
-				addEntry(1, entry(SPINEL.get(), 20, 1, 8))));
+				addEntry(1, entry(SPINEL.get(), 20, 1, 8)));
 
-		this.lootRemolder(BuiltInLootTables.BURIED_TREASURE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.BURIED_TREASURE).remolder(
 				addEntry(1, entry(SILVER_INGOT.get(), 10, 1, 4)),
 				addEntry(2, entry(ZIRCONIA.get(), 5, 1, 2)),
-				addEntry(2, entry(TURQUOISE.get(), 1))));
+				addEntry(2, entry(TURQUOISE.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.DESERT_PYRAMID).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.DESERT_PYRAMID).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 15, 1, 5)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 10)),
-				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 15))));
+				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 15)));
 
-		this.lootRemolder(BuiltInLootTables.JUNGLE_TEMPLE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.JUNGLE_TEMPLE).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 15, 2, 7)),
 				addEntry(0, entry(SPINEL.get(), 15, 2, 5)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)),
-				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1))));
+				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.JUNGLE_TEMPLE_DISPENSER).remolder(sequence(
-				addEntry(0, entry(RICOCHET_ARROW.get(), 10, 1, 4))));
+		this.lootRemolder(BuiltInLootTables.JUNGLE_TEMPLE_DISPENSER).remolder(
+				addEntry(0, entry(RICOCHET_ARROW.get(), 10, 1, 4)));
 
-		this.lootRemolder(BuiltInLootTables.WOODLAND_MANSION).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.WOODLAND_MANSION).remolder(
 				addPool(pool("turquoise").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(TURQUOISE.get())).build()),
 				addEntry(0, entry(COWL.get(), 10)),
 				addEntry(1, entry(SILVER_INGOT.get(), 5, 1, 4)),
 				addEntry(1, entry(TIN_INGOT.get(), 8, 1, 4)),
-				addEntry(1, entry(ZIRCONIA.get(), 5, 1, 2))));
+				addEntry(1, entry(ZIRCONIA.get(), 5, 1, 2)));
 
-		this.lootRemolder(BuiltInLootTables.VILLAGE_FISHER).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.VILLAGE_FISHER).remolder(
 				addPool(pool("barometer").setRolls(UniformGenerator.between(0.0F, 1.0F)).add(LootItem.lootTableItem(BAROMETER.get())).build()),
-				addEntry(0, entry(CAVEFISH.get(), 1, 1, 3))));
+				addEntry(0, entry(CAVEFISH.get(), 1, 1, 3)));
 
-		this.lootRemolder(BuiltInLootTables.VILLAGE_WEAPONSMITH).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.VILLAGE_WEAPONSMITH).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 5, 1, 3)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)),
-				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1))));
+				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.VILLAGE_TOOLSMITH).remolder(sequence(
-				addEntry(0, entry(SILVER_INGOT.get(), 1, 1, 3))));
+		this.lootRemolder(BuiltInLootTables.VILLAGE_TOOLSMITH).remolder(
+				addEntry(0, entry(SILVER_INGOT.get(), 1, 1, 3)));
 
-		this.lootRemolder(BuiltInLootTables.VILLAGE_TEMPLE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.VILLAGE_TEMPLE).remolder(
 				addEntry(0, entry(SPINEL.get(), 1, 1, 4)),
 				addEntry(0, entry(SILVER_INGOT.get(), 1, 1, 4)),
-				addEntry(0, entry(ZIRCONIA.get(), 1))));
+				addEntry(0, entry(ZIRCONIA.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.VILLAGE_FLETCHER).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.VILLAGE_FLETCHER).remolder(
 				addEntry(0, entry(CCBlocks.HOOP.get(), 1)),
-				addEntry(0, entry(BLUNT_ARROW.get(), 1, 1, 8))));
+				addEntry(0, entry(BLUNT_ARROW.get(), 1, 1, 8)));
 
-		this.lootRemolder(BuiltInLootTables.VILLAGE_SNOWY_HOUSE).remolder(sequence(
-				addEntry(0, entry(SILVER_NUGGET.get(), 1, 1, 4))));
+		this.lootRemolder(BuiltInLootTables.VILLAGE_SNOWY_HOUSE).remolder(
+				addEntry(0, entry(SILVER_NUGGET.get(), 1, 1, 4)));
 
-		this.lootRemolder(BuiltInLootTables.FISHING_FISH).remolder(sequence(
-				addEntry(0, LootItem.lootTableItem(CAVEFISH.get()).setWeight(70).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setY(Doubles.atMost(30.0D)))).build())));
+		this.lootRemolder(BuiltInLootTables.FISHING_FISH).remolder(
+				addEntry(0, LootItem.lootTableItem(CAVEFISH.get()).setWeight(70).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setY(Doubles.atMost(30.0D)))).build()));
 
-		this.lootRemolder(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE).remolder(sequence(
-				addEntry(0, entry(TOOLBELT.get(), 1))));
+		this.lootRemolder(BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE).remolder(
+				addEntry(0, entry(TOOLBELT.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.IGLOO_CHEST).remolder(sequence(
-				addEntry(0, entry(TOOLBELT.get(), 2))));
+		this.lootRemolder(BuiltInLootTables.IGLOO_CHEST).remolder(
+				addEntry(0, entry(TOOLBELT.get(), 2)));
 
-		this.lootRemolder(BuiltInLootTables.PILLAGER_OUTPOST).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.PILLAGER_OUTPOST).remolder(
 				addEntry(1, entry(COWL.get(), 1)),
 				addEntry(3, entry(RICOCHET_ARROW.get(), 2, 1, 4)),
-				addEntry(3, entry(LARGE_ARROW.get(), 4, 1, 2))));
+				addEntry(3, entry(LARGE_ARROW.get(), 4, 1, 2)));
 
-		this.lootRemolder(BuiltInLootTables.ANCIENT_CITY).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.ANCIENT_CITY).remolder(
 				addEntry(0, entry(TUNING_FORK.get(), 2)),
 				addEntry(0, entry(CCBlocks.SPARKLER.getFirst().get(), 5, 1, 15)),
 				addEntry(0, entry(BEJEWELED_APPLE.get(), 3, 1, 3)),
 				addEntry(0, entry(ZIRCONIA.get(), 3, 1, 2)),
-				addEntry(0, LootItem.lootTableItem(COWL.get()).setWeight(2).apply(EnchantWithLevelsFunction.enchantWithLevels(provider, UniformGenerator.between(20.0F, 39.0F))).build())));
+				addEntry(0, LootItem.lootTableItem(COWL.get()).setWeight(2).apply(EnchantWithLevelsFunction.enchantWithLevels(provider, UniformGenerator.between(20.0F, 39.0F))).build()));
 
-		this.lootRemolder(BuiltInLootTables.RUINED_PORTAL).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.RUINED_PORTAL).remolder(
 				addPool(pool("lodestone").add(EmptyLootItem.emptyItem()).add(LootItem.lootTableItem(Blocks.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).build()),
 				addEntry(0, entry(CCBlocks.GOLDEN_BARS.get(), 5, 8, 16)),
 				addEntry(0, entry(CCBlocks.LAVA_LAMP.get(), 5)),
-				addEntry(0, entry(GOLDEN_BUCKET.get(), 1))));
+				addEntry(0, entry(GOLDEN_BUCKET.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.NETHER_BRIDGE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.NETHER_BRIDGE).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 5, 1, 5)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 6)),
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 5)),
 				addEntry(0, entry(TURQUOISE.get(), 1)),
-				addEntry(1, entry(EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 1))));
+				addEntry(1, entry(EXILE_ARMOR_TRIM_SMITHING_TEMPLATE.get(), 1)));
 
-		this.lootRemolder(BuiltInLootTables.BASTION_BRIDGE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.BASTION_BRIDGE).remolder(
 				addPool(pool("golden_bucket").add(LootItem.lootTableItem(GOLDEN_BUCKET.get())).build()),
 				addEntry(1, LootItem.lootTableItem(TOOLBELT.get()).apply(EnchantRandomlyFunction.randomApplicableEnchantment(provider)).build()),
 				addEntry(1, entry(SILVER_INGOT.get(), 1, 4, 9)), addEntry(1, entry(LARGE_ARROW.get(), 1, 4, 12)),
-				addEntry(2, entry(SILVER_NUGGET.get(), 1, 2, 6))));
+				addEntry(2, entry(SILVER_NUGGET.get(), 1, 2, 6)));
 
-		this.lootRemolder(BuiltInLootTables.BASTION_HOGLIN_STABLE).remolder(sequence(
-				addEntry(0, entry(TURQUOISE.get(), 6))));
+		this.lootRemolder(BuiltInLootTables.BASTION_HOGLIN_STABLE).remolder(
+				addEntry(0, entry(TURQUOISE.get(), 6)));
 
-		this.lootRemolder(BuiltInLootTables.BASTION_TREASURE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.BASTION_TREASURE).remolder(
 				addEntry(0, entry(TURQUOISE.get(), 6)),
 				addEntry(1, entry(SILVER_INGOT.get(), 1, 3, 9)),
 				addEntry(1, entry(CCBlocks.SILVER_BLOCK.get(), 1, 2, 5)),
-				addEntry(1, entry(LARGE_ARROW.get(), 1, 6, 10))));
+				addEntry(1, entry(LARGE_ARROW.get(), 1, 6, 10)));
 
-		this.lootRemolder(BuiltInLootTables.BASTION_OTHER).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.BASTION_OTHER).remolder(
 				addEntry(0, entry(LARGE_ARROW.get(), 1, 4, 8)),
 				addEntry(0, entry(TURQUOISE.get(), 3)),
 				addEntry(1, entry(SILVER_INGOT.get(), 2, 1, 6)),
 				addEntry(1, entry(CCBlocks.SILVER_BLOCK.get(), 2)),
-				addEntry(2, entry(SILVER_NUGGET.get(), 1, 2, 8))));
+				addEntry(2, entry(SILVER_NUGGET.get(), 1, 2, 8)));
 
-		this.lootRemolder(BuiltInLootTables.END_CITY_TREASURE).remolder(sequence(
+		this.lootRemolder(BuiltInLootTables.END_CITY_TREASURE).remolder(
 				addEntry(0, entry(BEJEWELED_APPLE.get(), 5, 3, 9)),
 				addEntry(0, entry(SILVER_INGOT.get(), 15, 2, 7)),
 				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)),
 				addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)),
-				addEntry(0, entry(TURQUOISE.get(), 1))));
+				addEntry(0, entry(TURQUOISE.get(), 1)));
 
-		this.lootRemolder(ResourceLocation.fromNamespaceAndPath("atmospheric", "chests/kousa_sanctum")).remolder(sequence(
+		this.lootRemolder(ResourceLocation.fromNamespaceAndPath("atmospheric", "chests/kousa_sanctum")).remolder(
 				addEntry(0, entry(SILVER_INGOT.get(), 15, 2, 7)),
-				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)), addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1))));
+				addEntry(0, entry(SILVER_HORSE_ARMOR.get(), 1)), addEntry(0, entry(COPPER_HORSE_ARMOR.get(), 1)));
 
-		this.lootRemolder(ResourceLocation.withDefaultNamespace("entities/elder_guardian")).remolder(sequence(addPool(
+		this.lootRemolder(ResourceLocation.withDefaultNamespace("entities/elder_guardian")).remolder(addPool(
 				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get()).setWeight(1)
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-								.when(LootItemRandomChanceCondition.randomChance(0.1F))).build())));
+								.when(LootItemRandomChanceCondition.randomChance(0.1F))).build()));
 
-		this.lootRemolder(ResourceLocation.withDefaultNamespace("blocks/copper_ore")).remolder(sequence(addPool(
+		this.lootRemolder(ResourceLocation.withDefaultNamespace("blocks/copper_ore")).remolder(addPool(
 				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 								.when(hasSilkTouch.invert())
-								.when(LootItemRandomChanceCondition.randomChance(0.005F))).build())));
+								.when(LootItemRandomChanceCondition.randomChance(0.005F))).build()));
 
-		this.lootRemolder(ResourceLocation.withDefaultNamespace("blocks/deepslate_copper_ore")).remolder(sequence(addPool(
+		this.lootRemolder(ResourceLocation.withDefaultNamespace("blocks/deepslate_copper_ore")).remolder(addPool(
 				pool("turquoise").setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(TURQUOISE.get())
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
 								.when(hasSilkTouch.invert())
-								.when(LootItemRandomChanceCondition.randomChance(0.01F))).build())));
+								.when(LootItemRandomChanceCondition.randomChance(0.01F))).build()));
 	}
 
 	protected LootItemCondition.Builder hasSilkTouch(Provider provider) {

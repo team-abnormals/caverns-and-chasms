@@ -1,15 +1,13 @@
 {
   "molding": "json",
-  "remolder": [
-    {
-      "type": "add",
-      "target": "pools[0].entries[]",
-      "value": {
-        "type": "minecraft:item",
-        "name": "caverns_and_chasms:turquoise",
-        "weight": 6
-      }
+  "remolder": {
+    "type": "add",
+    "target": "pools[0].entries[]",
+    "value": {
+      "type": "minecraft:item",
+      "name": "caverns_and_chasms:turquoise",
+      "weight": 6
     }
-  ],
+  },
   "selector": "minecraft:loot_table/chests/bastion_hoglin_stable"
 }

@@ -1,14 +1,12 @@
 {
   "molding": "json",
-  "remolder": [
-    {
-      "type": "add",
-      "target": "pools[0].entries[]",
-      "value": {
-        "type": "minecraft:item",
-        "name": "caverns_and_chasms:toolbelt"
-      }
+  "remolder": {
+    "type": "add",
+    "target": "pools[0].entries[]",
+    "value": {
+      "type": "minecraft:item",
+      "name": "caverns_and_chasms:toolbelt"
     }
-  ],
+  },
   "selector": "minecraft:loot_table/archaeology/trail_ruins_rare"
 }

@@ -1,0 +1,9 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "replace",
+    "target": "parent",
+    "value": "minecraft:adventure/root"
+  },
+  "selector": "minecraft:advancement/nether/use_lodestone"
+}
