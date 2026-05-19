@@ -56,6 +56,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
@@ -655,8 +656,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 		if (this.isTame()) {
 			if (this.isHealingItem(stack) && this.getHealth() < this.getMaxHealth()) {
+				FoodProperties food = stack.getFoodProperties(this);
 				this.usePlayerItem(player, hand, stack);
-				this.heal((float) stack.getFoodProperties(this).nutrition());
+				this.heal((float) food.nutrition());
 				this.gameEvent(GameEvent.EAT, this);
 				this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
 
