@@ -19,7 +19,7 @@ public interface WeatheringCopperItem {
 
 	static Optional<Item> getWaxed(Item item) {
 		WaxableItem waxable = item.builtInRegistryHolder().getData(CCDataMaps.WAXABLES);
-		return Optional.ofNullable(waxable.waxed());
+		return Optional.ofNullable(waxable != null ? waxable.waxed() : null);
 	}
 
 	static Optional<Item> getUnwaxed(Item item) {
@@ -66,7 +66,7 @@ public interface WeatheringCopperItem {
 
 	static Optional<Item> getNext(Item item) {
 		OxidizableItem oxidizable = item.builtInRegistryHolder().getData(CCDataMaps.OXIDIZABLES);
-		return Optional.ofNullable(oxidizable.nextOxidationStage());
+		return Optional.ofNullable(oxidizable != null ? oxidizable.nextOxidationStage() : null);
 	}
 
 	static Optional<Item> getPrevious(Item item) {
