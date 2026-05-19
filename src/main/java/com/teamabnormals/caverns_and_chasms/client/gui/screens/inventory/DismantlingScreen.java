@@ -107,7 +107,7 @@ public class DismantlingScreen extends CCItemCombinerScreen<DismantlingMenu> {
 	@Override
 	protected void renderErrorIcon(GuiGraphics guiGraphics, int x, int y) {
 		if (this.hasRecipeError()) {
-			guiGraphics.blitSprite(ERROR_SPRITE, x + 65, y + 46, 28, 21);
+			guiGraphics.blitSprite(ERROR_SPRITE, x + 47, y + 46, 28, 21);
 		}
 	}
 
