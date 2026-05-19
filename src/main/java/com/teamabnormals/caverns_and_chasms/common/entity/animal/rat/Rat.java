@@ -64,7 +64,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -81,10 +80,7 @@ import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
 
 import javax.annotation.Nullable;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVariant>, NeutralMob {
@@ -656,11 +652,20 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 		if (this.isTame()) {
 			if (this.isHealingItem(stack) && this.getHealth() < this.getMaxHealth()) {
-				FoodProperties food = stack.getFoodProperties(this);
-				this.usePlayerItem(player, hand, stack);
-				this.heal((float) food.nutrition());
-				this.gameEvent(GameEvent.EAT, this);
-				this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
+				FoodProperties foodProperties = stack.getFoodProperties(this);
+				this.heal((float) foodProperties.nutrition());
+				ItemStack itemStack = this.eat(this.level(), stack, foodProperties);
+				Optional<ItemStack> optional = foodProperties.usingConvertsTo();
+				if (optional.isPresent() && !this.hasInfiniteMaterials()) {
+					if (itemStack.isEmpty()) {
+						player.setItemInHand(hand, optional.get().copy());
+					} else if (!this.level().isClientSide()) {
+						ItemStack container = optional.get().copy();
+						if (!player.getInventory().add(container)) {
+							player.drop(container, false);
+						}
+					}
+				}
 
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			} else if (item instanceof DyeItem) {
@@ -968,12 +973,12 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 	@Override
 	public boolean canHoldItem(ItemStack stack) {
 		ItemStack currentStack = this.getMainHandItem();
-		return stack.getFoodProperties(this) != null && (currentStack.isEmpty() || currentStack.getFoodProperties(this) == null);
+		return this.isHealingItem(stack) && (currentStack.isEmpty() || !this.isHealingItem(currentStack));
 	}
 
-	private void spitOutItem(ItemStack stackIn) {
-		if (!stackIn.isEmpty() && !this.level().isClientSide) {
-			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, stackIn);
+	public void spitOutItem(ItemStack stack) {
+		if (!stack.isEmpty() && !this.level().isClientSide) {
+			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, stack);
 			itementity.setPickUpDelay(40);
 			itementity.setThrower(this);
 			this.playSound(CCSoundEvents.RAT_SPIT.get(), 1.0F, 1.0F);

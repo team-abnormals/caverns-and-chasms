@@ -1,12 +1,13 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class RatEatGoal extends Goal {
 	private final Rat rat;
@@ -38,11 +39,11 @@ public class RatEatGoal extends Goal {
 		} else if (this.stack != this.rat.getMainHandItem()) {
 			return false;
 		} else if (this.eatTime <= 0) {
-			this.rat.heal((float) this.stack.getFoodProperties(this.rat).nutrition());
-			ItemStack itemStack = this.stack.finishUsingItem(this.rat.level(), this.rat);
-			this.rat.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, this.rat.getRandom().nextFloat() * 0.1F + 0.9F);
-			if (!itemStack.isEmpty()) {
-				this.rat.setItemSlot(EquipmentSlot.MAINHAND, itemStack);
+			FoodProperties foodProperties = this.stack.getFoodProperties(this.rat);
+			if (foodProperties != null) {
+				this.rat.heal((float) foodProperties.nutrition());
+				this.rat.eat(this.rat.level(), this.stack, foodProperties);
+				foodProperties.usingConvertsTo().ifPresent(itemStack -> this.rat.spitOutItem(itemStack.copy()));
 			}
 			return false;
 		}
