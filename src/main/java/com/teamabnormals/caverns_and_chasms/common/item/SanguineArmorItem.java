@@ -43,7 +43,7 @@ public class SanguineArmorItem extends ArmorItem {
 		ItemAttributeModifiers modifiers = super.getDefaultAttributeModifiers(stack);
 		EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
 		ResourceLocation name = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-		modifiers = modifiers.withModifierAdded(CCAttributes.LIFESTEAL, new AttributeModifier(name, 0.05D, Operation.ADD_MULTIPLIED_BASE), slot);
+		modifiers = modifiers.withModifierAdded(CCAttributes.LIFESTEAL, new AttributeModifier(name, 0.05D, Operation.ADD_VALUE), slot);
 		return modifiers;
 	}
 

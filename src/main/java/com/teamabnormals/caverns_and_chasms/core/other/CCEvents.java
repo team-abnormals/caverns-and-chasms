@@ -532,8 +532,8 @@ public class CCEvents {
 				}
 			}
 
-			if (target.getAttribute(CCAttributes.LIFESTEAL) != null) {
-				float lifeStealAmount = (float) target.getAttributeValue(CCAttributes.LIFESTEAL);
+			if (attacker.getAttribute(CCAttributes.LIFESTEAL) != null) {
+				float lifeStealAmount = (float) attacker.getAttributeValue(CCAttributes.LIFESTEAL);
 				if (lifeStealAmount > 0.0F) {
 					attacker.heal(event.getOriginalDamage() * lifeStealAmount);
 					SanguineArmorItem.causeHealEffects(attacker);
