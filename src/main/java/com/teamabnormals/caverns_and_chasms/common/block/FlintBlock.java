@@ -75,7 +75,8 @@ public class FlintBlock extends BlueprintFallingBlock {
 	}
 
 	public static void spark(Level level, BlockPos pos, boolean grazing) {
-		for (int k = 0; k < level.random.nextIntBetweenInclusive(1, 5); ++k) {
+		int sparks = level.random.nextIntBetweenInclusive(1, 5);
+		for (int k = 0; k < sparks; ++k) {
 			int i = level.random.nextIntBetweenInclusive(-1, 1);
 			int j = level.random.nextIntBetweenInclusive(-1, 1);
 			if (i != 0 || j != 0) {
@@ -106,7 +107,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 						double d3 = direction.x + level.random.nextGaussian() * 0.02D;
 						double d4 = direction.y * 0.3D + level.random.nextGaussian() * 0.02D;
 						double d5 = direction.z + level.random.nextGaussian() * 0.02D;
-						sparkParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
+						flintParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
 					}
 
 					NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.FLINT.get(), flintParticles);
