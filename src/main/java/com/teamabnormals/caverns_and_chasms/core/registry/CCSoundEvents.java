@@ -170,6 +170,7 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> FLINT_BLOCK_STRIKE = SOUNDS.createSoundEvent("block.flint_block.strike");
 	public static final DeferredHolder<SoundEvent, SoundEvent> FLINT_BLOCK_LAND = SOUNDS.createSoundEvent("block.flint_block.land");
 	public static final DeferredHolder<SoundEvent, SoundEvent> FLINT_BLOCK_RATTLE = SOUNDS.createSoundEvent("block.flint_block.rattle");
+	public static final DeferredHolder<SoundEvent, SoundEvent> FLINT_BLOCK_BRUSH = SOUNDS.createSoundEvent("block.flint_block.brush");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> SOUL_SILVER_ORE_BREAK = SOUNDS.createSoundEvent("block.soul_silver_ore.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SOUL_SILVER_ORE_FALL = SOUNDS.createSoundEvent("block.soul_silver_ore.fall");

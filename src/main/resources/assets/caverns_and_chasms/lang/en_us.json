@@ -1102,6 +1102,7 @@
   "subtitles.caverns_and_chasms.block.flint_block.land": "Flint Block landed",
   "subtitles.caverns_and_chasms.block.flint_block.rattle": "Flint rattles",
   "subtitles.caverns_and_chasms.block.flint_block.strike": "Flint Block sparks",
+  "subtitles.caverns_and_chasms.block.flint_block.brush": "Brushing Flint Block",
   "subtitles.caverns_and_chasms.block.halt_rail.contract": "Halt Rail moves",
   "subtitles.caverns_and_chasms.block.halt_rail.extend": "Halt Rail moves",
   "subtitles.caverns_and_chasms.block.halt_rail.halt": "Minecart halts",

@@ -83,6 +83,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -907,6 +908,45 @@ public class CCEvents {
 			if (!level.isClientSide && entity instanceof Mob mob && mob.getTarget() instanceof Rat rat && rat.isWounded() && mob.getLastHurtByMob() != null && mob.getLastHurtByMob() != rat) {
 				mob.setTarget(null);
 				mob.targetSelector.getAvailableGoals().stream().filter(WrappedGoal::isRunning).filter(wrappedGoal -> wrappedGoal.getGoal() instanceof HurtByTargetGoal).findFirst().ifPresent(Goal::stop);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onBrushTick(LivingEntityUseItemEvent.Tick event) {
+		ItemStack stack = event.getItem();
+
+		if (!(stack.getItem() instanceof BrushItem)) return;
+		if (!(event.getEntity() instanceof Player player)) return;
+
+		int useDuration = stack.getItem().getUseDuration(stack, player);
+		int i = useDuration - event.getDuration() + 1;
+		boolean flag = i % 10 == 5;
+		if (flag) {
+			HitResult hit = ProjectileUtil.getHitResultOnViewVector(
+				player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
+			);
+			if (hit instanceof BlockHitResult blockhitresult && hit.getType() == HitResult.Type.BLOCK) {
+				Level level = player.level();
+				BlockPos pos = blockhitresult.getBlockPos();
+				BlockState state = level.getBlockState(pos);
+				if (state.getBlock() instanceof FlintBlock) {
+					level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_BRUSH.get(),  SoundSource.BLOCKS, 1.0F, 1.0F);
+					if (level instanceof ServerLevel) {
+						int strikeIndex = i / 10;
+						int fakeStrikes = level.random.nextIntBetweenInclusive(3, 5);
+
+						if (strikeIndex < fakeStrikes) {
+							int j = level.random.nextIntBetweenInclusive(-1, 1);
+							int k = level.random.nextIntBetweenInclusive(-1, 1);
+							if (j != 0 || k != 0) {
+								FlintBlock.sparkParticles(level, pos, pos.offset(j, 0, k), true);
+							}
+						} else {
+							FlintBlock.spark(level, pos, true);
+						}
+					}
+				}
 			}
 		}
 	}

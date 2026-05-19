@@ -83,35 +83,7 @@ public class FlintBlock extends BlueprintFallingBlock {
 				BlockPos randomPos = pos.offset(i, 0, j);
 				BlockState firestate = BaseFireBlock.getState(level, randomPos);
 
-				if (level instanceof ServerLevel serverLevel) {
-					Vec3 direction = new Vec3(randomPos.getX() - pos.getX(), randomPos.getY(), randomPos.getZ() - pos.getZ()).normalize();
-
-					List<ParticleInstance> sparkParticles = new ArrayList<>();
-					for (int l = 0; l < 10; ++l) {
-						double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
-						double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
-						double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
-						double d3 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
-						double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
-						double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
-						sparkParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
-					}
-
-					NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), sparkParticles);
-
-					List<ParticleInstance> flintParticles = new ArrayList<>();
-					for (int m = 0; m < (!grazing ? 25 : 10); ++m) {
-						double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
-						double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
-						double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
-						double d3 = direction.x + level.random.nextGaussian() * 0.02D;
-						double d4 = direction.y * 0.3D + level.random.nextGaussian() * 0.02D;
-						double d5 = direction.z + level.random.nextGaussian() * 0.02D;
-						flintParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
-					}
-
-					NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.FLINT.get(), flintParticles);
-				}
+				sparkParticles(level, pos, randomPos, grazing);
 				if (!grazing) {
 					level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_STRIKE.get(), SoundSource.BLOCKS, 1F, 1F);
 					if (level.getBlockState(pos).is(CCBlocks.FLINT_BLOCK.get())) {
@@ -140,6 +112,34 @@ public class FlintBlock extends BlueprintFallingBlock {
 			}
 		}
 		level.scheduleTick(pos, CCBlocks.FLINT_BLOCK.get(), 10);
+	}
+
+	public static void sparkParticles(Level level, BlockPos pos, BlockPos randomPos, boolean grazing) {
+		if (level instanceof ServerLevel serverLevel) {
+			Vec3 direction = new Vec3(randomPos.getX() - pos.getX(), randomPos.getY(), randomPos.getZ() - pos.getZ()).normalize();
+			List<ParticleInstance> sparkParticles = new ArrayList<>();
+			for (int l = 0; l < 10; ++l) {
+				double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
+				double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
+				double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
+				double d3 = direction.x * 0.4D + level.random.nextGaussian() * 0.05D;
+				double d4 = direction.y * 0.4D + level.random.nextGaussian() * 0.05D;
+				double d5 = direction.z * 0.4D + level.random.nextGaussian() * 0.05D;
+				sparkParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
+			}
+			NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.TIN_SPARK.get(), sparkParticles);
+			List<ParticleInstance> flintParticles = new ArrayList<>();
+			for (int m = 0; m < (!grazing ? 25 : 10); ++m) {
+				double d0 = pos.getX() + level.random.nextDouble() * 0.8D;
+				double d1 = pos.getY() + level.random.nextDouble() * 0.2D;
+				double d2 = pos.getZ() + level.random.nextDouble() * 0.8D;
+				double d3 = direction.x + level.random.nextGaussian() * 0.02D;
+				double d4 = direction.y * 0.3D + level.random.nextGaussian() * 0.02D;
+				double d5 = direction.z + level.random.nextGaussian() * 0.02D;
+				flintParticles.add(new ParticleInstance(d0, d1, d2, d3, d4, d5));
+			}
+			NetworkUtil.spawnParticle(serverLevel, CCParticleTypes.FLINT.get(), flintParticles);
+		}
 	}
 
 	public static BlockState litState(BlockState state) {

@@ -2271,6 +2271,15 @@
     ],
     "subtitle": "subtitles.caverns_and_chasms.block.flint_block.rattle"
   },
+  "block.flint_block.brush": {
+    "sounds": [
+      "caverns_and_chasms:block/flint_block/brush1",
+      "caverns_and_chasms:block/flint_block/brush2",
+      "caverns_and_chasms:block/flint_block/brush3",
+      "caverns_and_chasms:block/flint_block/brush4"
+    ],
+    "subtitle": "subtitles.caverns_and_chasms.block.flint_block.brush"
+  },
   "block.tin.break": {
     "sounds": [
       "caverns_and_chasms:block/tin/break1",
