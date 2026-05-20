@@ -38,7 +38,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 
 	protected CCItemCombinerMenuSlotDefinition createSlotDefinitions() {
 		return CCItemCombinerMenuSlotDefinition.create()
-				.withSlot(0, 8, 48, (stack) -> this.areResultsEmpty() && !this.getResultContainer(stack).isEmpty())
+				.withSlot(0, 8, 48, (stack) -> (this.areResultsEmpty() || this.areResultsFull()) && !this.getResultContainer(stack).isEmpty())
 				.withSlot(1, 26, 48, (stack) -> stack.is(CCItemTags.DISMANTLING_FUELS))
 				.withResultSlot(0, 80, 48)
 				.withResultSlot(1, 98, 48)
