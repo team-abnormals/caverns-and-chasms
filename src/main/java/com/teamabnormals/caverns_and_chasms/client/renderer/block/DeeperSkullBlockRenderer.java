@@ -9,7 +9,6 @@ import com.teamabnormals.caverns_and_chasms.common.entity.monster.creeper.Deeper
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.CCModelLayers;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks.CCSkullTypes;
-import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -32,8 +31,8 @@ import javax.annotation.Nullable;
 public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
 	private static final ResourceLocation DEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/deeper/deeper.png");
 	private static final ResourceLocation EVENDEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/evendeeper/evendeeper.png");
-	private final SkullModelBase deeperModel;
-	private final SkullModelBase evendeeperModel;
+	private final DeeperHeadModel deeperModel;
+	private final DeeperHeadModel evendeeperModel;
 
 	public DeeperSkullBlockRenderer(Context context) {
 		super(context);
@@ -63,7 +62,8 @@ public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
 
 		poseStack.scale(-1.0F, -1.0F, 1.0F);
 		VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(skullblocktype == CCSkullTypes.EVENDEEPER ? EVENDEEPER_TEXTURE : DEEPER_TEXTURE));
-		SkullModelBase model = skullblocktype == CCSkullTypes.EVENDEEPER ? this.evendeeperModel : this.deeperModel;
+		DeeperHeadModel model = skullblocktype == CCSkullTypes.EVENDEEPER ? this.evendeeperModel : this.deeperModel;
+		model.setHatVisibility(hat != DeeperHat.NONE);
 		model.setupAnim(anim, rot, 0.0F);
 		model.renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
 		if (hat != DeeperHat.NONE) {

@@ -9,9 +9,10 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class EvendeeperHeadModel extends SkullModel {
-	public EvendeeperHeadModel(ModelPart part) {
-		super(part);
+public class EvendeeperHeadModel extends DeeperHeadModel {
+
+	public EvendeeperHeadModel(ModelPart root) {
+		super(root);
 	}
 
 	public static LayerDefinition createHeadLayer() {
