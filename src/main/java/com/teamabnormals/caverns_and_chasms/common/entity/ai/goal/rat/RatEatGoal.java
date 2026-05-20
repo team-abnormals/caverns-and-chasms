@@ -43,6 +43,8 @@ public class RatEatGoal extends Goal {
 				ItemStack outputStack = this.stack.finishUsingItem(this.rat.level(), this.rat);
 				if (!outputStack.isEmpty()) {
 					this.rat.spitOutItem(outputStack);
+				} else {
+					foodProperties.usingConvertsTo().ifPresent(itemStack -> this.rat.spitOutItem(itemStack.copy()));
 				}
 			}
 			return false;
