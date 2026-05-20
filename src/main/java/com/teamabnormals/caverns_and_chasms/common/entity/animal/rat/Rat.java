@@ -609,16 +609,18 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			if (this.tickCount % 5 == 0 && this.isEating()) {
 				ItemStack stack = this.getMainHandItem();
 				if (this.level().isClientSide) {
-					for (int i = 0; i < 2; ++i) {
-						Vec3 vec3 = new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-						vec3 = vec3.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
-						vec3 = vec3.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
-						double d0 = (double) (-this.random.nextFloat()) * 0.3D - 0.15D;
-						Vec3 vec31 = new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.15D, d0, 0.3D);
-						vec31 = vec31.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
-						vec31 = vec31.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
-						vec31 = vec31.add(this.getX(), this.getEyeY(), this.getZ());
-						this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z);
+					if (stack.getUseAnimation() == UseAnim.EAT) {
+						for (int i = 0; i < 2; ++i) {
+							Vec3 vec3 = new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+							vec3 = vec3.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
+							vec3 = vec3.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
+							double d0 = (double) (-this.random.nextFloat()) * 0.3D - 0.15D;
+							Vec3 vec31 = new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.15D, d0, 0.3D);
+							vec31 = vec31.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
+							vec31 = vec31.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
+							vec31 = vec31.add(this.getX(), this.getEyeY(), this.getZ());
+							this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z);
+						}
 					}
 				} else {
 					this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
