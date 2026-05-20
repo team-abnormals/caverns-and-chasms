@@ -152,7 +152,7 @@ public class MinecartTMT extends AbstractMinecart {
 	}
 
 	public void primeFuse() {
-		this.fuse = 80;
+		this.fuse = 30;
 		if (!this.level().isClientSide) {
 			this.level().broadcastEntityEvent(this, (byte) 10);
 			if (!this.isSilent()) {
