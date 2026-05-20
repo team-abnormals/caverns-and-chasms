@@ -9,7 +9,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -118,7 +117,7 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		if ((state.getValue(WARM) || state.getValue(LIT)) && !entity.isSteppingCarefully()) {
+		if ((state.getValue(WARM) || state.getValue(LIT)) && entity instanceof LivingEntity && !entity.isSteppingCarefully()) {
 			entity.hurt(level.damageSources().hotFloor(), 0.125F * state.getValue(COAL));
 		}
 
