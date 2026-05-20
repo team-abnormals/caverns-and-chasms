@@ -4,16 +4,21 @@ import com.teamabnormals.caverns_and_chasms.common.block.entity.CCSkullBlockEnti
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 public class CCSkullBlock extends SkullBlock {
+	protected static final VoxelShape PEEPER_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 10.0, 13.0);
 
 	public CCSkullBlock(Type type, Properties props) {
 		super(type, props);
@@ -24,9 +29,15 @@ public class CCSkullBlock extends SkullBlock {
 		return new CCSkullBlockEntity(pos, state);
 	}
 
+
+	@Override
+	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return state.is(CCBlocks.PEEPER_HEAD) ? PEEPER_SHAPE : super.getShape(state, level, pos, context);
+	}
+
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return !level.isClientSide || !state.is(CCBlocks.PEEPER_HEAD.get()) && !state.is(CCBlocks.PEEPER_WALL_HEAD.get()) && !state.is(CCBlocks.MIME_HEAD.get()) && !state.is(CCBlocks.MIME_WALL_HEAD.get()) ? null : createTickerHelper(type, CCBlockEntityTypes.SKULL.get(), CCSkullBlockEntity::animation);
+		return !level.isClientSide || !state.is(CCBlocks.PEEPER_HEAD.get()) && !state.is(CCBlocks.MIME_HEAD.get()) ? null : createTickerHelper(type, CCBlockEntityTypes.SKULL.get(), CCSkullBlockEntity::animation);
 	}
 }

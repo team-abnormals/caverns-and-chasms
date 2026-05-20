@@ -67,7 +67,8 @@
     "client.HorseModelMixin",
     "client.HumanoidArmorLayerMixin",
     "client.ItemInHandRendererMixin",
-    "client.LevelRendererMixin"
+    "client.LevelRendererMixin",
+    "client.SkullBlockRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

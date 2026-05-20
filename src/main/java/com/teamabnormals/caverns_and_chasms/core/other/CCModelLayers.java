@@ -2,7 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core.other;
 
 import com.teamabnormals.caverns_and_chasms.client.model.*;
 import com.teamabnormals.caverns_and_chasms.client.renderer.block.AtoningTableRenderer;
-import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperSkullBlockRenderer;
+import com.teamabnormals.caverns_and_chasms.client.renderer.block.DeeperHeadRenderer;
 import com.teamabnormals.caverns_and_chasms.client.renderer.entity.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
@@ -100,7 +100,8 @@ public class CCModelLayers {
 
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperSkullBlockRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperHeadRenderer::new);
+		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperHeadRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.MOVING_DOOR.get(), RollerDoorRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.MOVING_DOOR_HEADER.get(), RollerDoorRenderer::new);

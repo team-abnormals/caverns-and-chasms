@@ -28,13 +28,13 @@ import net.neoforged.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class DeeperSkullBlockRenderer extends SkullBlockRenderer {
+public class DeeperHeadRenderer extends SkullBlockRenderer {
 	private static final ResourceLocation DEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/deeper/deeper.png");
 	private static final ResourceLocation EVENDEEPER_TEXTURE = CavernsAndChasms.location("textures/entity/evendeeper/evendeeper.png");
 	private final DeeperHeadModel deeperModel;
 	private final DeeperHeadModel evendeeperModel;
 
-	public DeeperSkullBlockRenderer(Context context) {
+	public DeeperHeadRenderer(Context context) {
 		super(context);
 		this.deeperModel = new DeeperHeadModel(context.bakeLayer(CCModelLayers.DEEPER_HEAD));
 		this.evendeeperModel = new EvendeeperHeadModel(context.bakeLayer(CCModelLayers.EVENDEEPER_HEAD));
