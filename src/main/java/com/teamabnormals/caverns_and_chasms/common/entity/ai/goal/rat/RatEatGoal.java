@@ -1,13 +1,11 @@
 package com.teamabnormals.caverns_and_chasms.common.entity.ai.goal.rat;
 
 import com.teamabnormals.caverns_and_chasms.common.entity.animal.rat.Rat;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.EnumSet;
-import java.util.Optional;
 
 public class RatEatGoal extends Goal {
 	private final Rat rat;
@@ -42,8 +40,10 @@ public class RatEatGoal extends Goal {
 			FoodProperties foodProperties = this.stack.getFoodProperties(this.rat);
 			if (foodProperties != null) {
 				this.rat.heal((float) foodProperties.nutrition());
-				this.rat.eat(this.rat.level(), this.stack, foodProperties);
-				foodProperties.usingConvertsTo().ifPresent(itemStack -> this.rat.spitOutItem(itemStack.copy()));
+				ItemStack outputStack = this.stack.finishUsingItem(this.rat.level(), this.rat);
+				if (!outputStack.isEmpty()) {
+					this.rat.spitOutItem(outputStack);
+				}
 			}
 			return false;
 		}
