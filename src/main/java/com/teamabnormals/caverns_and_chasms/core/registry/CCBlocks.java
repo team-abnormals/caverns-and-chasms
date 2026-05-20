@@ -180,9 +180,9 @@ public class CCBlocks {
 	public static final DeferredBlock<Block> EVENDEEPER_HEAD = BLOCKS.createBlockNoItem("evendeeper_head", () -> new DeeperSkullBlock(CCSkullTypes.EVENDEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
 	public static final DeferredBlock<Block> EVENDEEPER_WALL_HEAD = BLOCKS.createBlockNoItem("evendeeper_wall_head", () -> new DeeperWallSkullBlock(CCSkullTypes.EVENDEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(EVENDEEPER_HEAD.get())));
 	public static final DeferredBlock<Block> PEEPER_HEAD = BLOCKS.createBlockNoItem("peeper_head", () -> new CCSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
-	public static final DeferredBlock<Block> PEEPER_WALL_HEAD = BLOCKS.createBlockNoItem("peeper_wall_head", () -> new WallSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(PEEPER_HEAD.get())));
+	public static final DeferredBlock<Block> PEEPER_WALL_HEAD = BLOCKS.createBlockNoItem("peeper_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.PEEPER, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(PEEPER_HEAD.get())));
 	public static final DeferredBlock<Block> MIME_HEAD = BLOCKS.createBlockNoItem("mime_head", () -> new CCSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY)));
-	public static final DeferredBlock<Block> MIME_WALL_HEAD = BLOCKS.createBlockNoItem("mime_wall_head", () -> new WallSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(MIME_HEAD.get())));
+	public static final DeferredBlock<Block> MIME_WALL_HEAD = BLOCKS.createBlockNoItem("mime_wall_head", () -> new CCWallSkullBlock(CCSkullTypes.MIME, BlockBehaviour.Properties.of().strength(1.0F).pushReaction(PushReaction.DESTROY).dropsLike(MIME_HEAD.get())));
 
 	public static final DeferredBlock<Block> TMT = BLOCKS.createBlock("tmt", () -> new TmtBlock(CCProperties.TMT));
 
