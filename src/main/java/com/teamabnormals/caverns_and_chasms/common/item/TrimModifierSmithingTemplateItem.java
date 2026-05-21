@@ -33,6 +33,7 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 	public static final ResourceLocation EMPTY_SLOT_ZIRCONIA = CavernsAndChasms.location("item/empty_slot_zirconia");
 
 	private static final ResourceLocation EMPTY_SLOT_GLOW_INK_SAC = CavernsAndChasms.location("item/empty_slot_glow_ink_sac");
+	private static final ResourceLocation EMPTY_SLOT_PRISMARINE_SHARD = CavernsAndChasms.location("item/empty_slot_prismarine_shard");
 
 	public TrimModifierSmithingTemplateItem(Component p_266834_, Component p_267043_, Component p_267048_, Component p_267278_, Component p_267090_, List<ResourceLocation> p_266755_, List<ResourceLocation> p_267060_) {
 		super(p_266834_, p_267043_, p_267048_, p_267278_, p_267090_, p_266755_, p_267060_);
@@ -47,7 +48,7 @@ public class TrimModifierSmithingTemplateItem extends SmithingTemplateItem {
 	}
 
 	private static List<ResourceLocation> createTrimModifierMaterialList() {
-		return List.of(EMPTY_SLOT_SPINEL, EMPTY_SLOT_GLOW_INK_SAC);
+		return List.of(EMPTY_SLOT_SPINEL, EMPTY_SLOT_GLOW_INK_SAC, EMPTY_SLOT_PRISMARINE_SHARD);
 	}
 
 	public static float getPulseAlpha(float min, float max) {
