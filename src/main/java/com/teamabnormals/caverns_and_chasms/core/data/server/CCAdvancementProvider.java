@@ -62,6 +62,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/kill_with_rat");
 
 		createAdvancement("kill_guardian_with_rat", "husbandry", killWithRat, CCItems.BONE_FLUTE.get(), AdvancementType.CHALLENGE, true, true, true)
+				.rewards(AdvancementRewards.Builder.experience(150))
 				.addCriterion("kill_guardian_with_rat", RatKilledEntityTrigger.TriggerInstance.ratKilledEntity(EntityPredicate.Builder.entity().of(EntityType.GUARDIAN)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":husbandry/kill_guardian_with_rat");
 
@@ -138,6 +139,7 @@ public class CCAdvancementProvider implements AdvancementGenerator {
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/find_monolith");
 
 		createAdvancement("open_large_storage_duct", "adventure", monolith, CCBlocks.STORAGE_DUCT.get(), AdvancementType.CHALLENGE, true, true, false)
+				.rewards(AdvancementRewards.Builder.experience(50))
 				.addCriterion("open_large_storage_duct", OpenStorageDuctTrigger.TriggerInstance.openStorageDuct(Ints.atLeast(100)))
 				.save(consumer, CavernsAndChasms.MOD_ID + ":adventure/open_large_storage_duct");
 
