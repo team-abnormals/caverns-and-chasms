@@ -14,7 +14,7 @@
 				"east": {"uv": [7, 4, 9, 16], "texture": "#sparkler"},
 				"south": {"uv": [7, 4, 9, 16], "texture": "#sparkler"},
 				"west": {"uv": [7, 4, 9, 16], "texture": "#sparkler"},
-				"up": {"uv": [7, 4, 9, 6], "texture": "#sparkler"},
+				"up": {"uv": [7, 4, 9, 6], "texture": "#top"},
 				"down": {"uv": [7, 13, 9, 15], "texture": "#sparkler"}
 			}
 		}

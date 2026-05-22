@@ -1,6 +1,7 @@
 {
   "parent": "caverns_and_chasms:block/template_sparkler",
   "textures": {
-    "sparkler": "caverns_and_chasms:block/cyan_sparkler"
+    "sparkler": "caverns_and_chasms:block/cyan_sparkler",
+    "top": "caverns_and_chasms:block/cyan_sparkler_top"
   }
 }

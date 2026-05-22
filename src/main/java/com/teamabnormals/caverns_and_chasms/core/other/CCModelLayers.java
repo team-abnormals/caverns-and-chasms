@@ -101,7 +101,6 @@ public class CCModelLayers {
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.CUPRIC_CAMPFIRE.get(), CampfireRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.SKULL.get(), SkullBlockRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperHeadRenderer::new);
-		event.registerBlockEntityRenderer(CCBlockEntityTypes.DEEPER_HEAD.get(), DeeperHeadRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.TOOLBOX.get(), ToolboxRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.MOVING_DOOR.get(), RollerDoorRenderer::new);
 		event.registerBlockEntityRenderer(CCBlockEntityTypes.MOVING_DOOR_HEADER.get(), RollerDoorRenderer::new);

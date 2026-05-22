@@ -28,5 +28,8 @@
       "open_large_storage_duct"
     ]
   ],
+  "rewards": {
+    "experience": 50
+  },
   "sends_telemetry_event": true
 }

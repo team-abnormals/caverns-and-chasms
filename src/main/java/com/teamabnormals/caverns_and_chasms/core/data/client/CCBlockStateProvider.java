@@ -390,14 +390,22 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		DeferredBlock<SparklerBlock> sparkler = pair.getFirst();
 		DeferredBlock<WallSparklerBlock> wallSparkler = pair.getSecond();
 
-		ModelFile standing = this.models().withExistingParent(name(sparkler.get()), CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()));
-		ModelFile standingLit = this.models().withExistingParent(name(sparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
+		ModelFile standing = this.models().withExistingParent(name(sparkler.get()), CavernsAndChasms.location("block/template_sparkler"))
+		.texture("sparkler", blockTexture(sparkler.get()))
+		.texture("top", blockTexture(sparkler.get()).withSuffix("_top"));
+		ModelFile standingLit = this.models().withExistingParent(name(sparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler"))
+		.texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"))
+		.texture("top", blockTexture(sparkler.get()).withSuffix("_lit_top"));
 
 		this.getVariantBuilder(sparkler.get()).partialState().with(SparklerBlock.LIT, false).modelForState().modelFile(standing).addModel().partialState().with(SparklerBlock.LIT, true).modelForState().modelFile(standingLit).addModel();
 		this.generatedItem(sparkler.get(), "block");
 
-		ModelFile wall = this.models().withExistingParent(name(wallSparkler.get()), CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()));
-		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
+		ModelFile wall = this.models().withExistingParent(name(wallSparkler.get()), CavernsAndChasms.location("block/template_sparkler_wall"))
+		.texture("sparkler", blockTexture(sparkler.get()))
+		.texture("top", blockTexture(sparkler.get()).withSuffix("_top"));
+		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall"))
+		.texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"))
+		.texture("top", blockTexture(sparkler.get()).withSuffix("_lit_top"));
 
 		this.horizontalBlock(wallSparkler.get(), state -> state.getValue(WallSparklerBlock.LIT) ? wallLit : wall, 90);
 	}
