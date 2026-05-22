@@ -9,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -107,6 +108,8 @@ public class CoalBlock extends Block implements SimpleWaterloggedBlock {
 				} else if (!player.getInventory().add(torchStack)) {
 					player.drop(torchStack, false);
 				}
+
+				player.awardStat(Stats.ITEM_USED.get(Items.STICK));
 			}
 
 			return ItemInteractionResult.sidedSuccess(level.isClientSide);
