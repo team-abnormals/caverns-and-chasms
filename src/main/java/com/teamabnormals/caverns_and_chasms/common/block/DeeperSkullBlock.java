@@ -49,6 +49,11 @@ public class DeeperSkullBlock extends SkullBlock {
 		return tryToAddHat(stack, level, pos, player, hand);
 	}
 
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+		return addHatToDrops(super.getDrops(state, builder), state, builder);
+	}
+
 	public static ItemInteractionResult tryToAddHat(ItemStack itemstack, Level level, BlockPos pos, Player player, InteractionHand hand) {
 		if (player.getAbilities().mayBuild && level.getBlockEntity(pos) instanceof DeeperSkullBlockEntity blockentity) {
 			if (itemstack.canPerformAction(ItemAbilities.SHEARS_CARVE)) {
@@ -81,9 +86,7 @@ public class DeeperSkullBlock extends SkullBlock {
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
-	@Override
-	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-		List<ItemStack> drops = super.getDrops(state, builder);
+	public static List<ItemStack> addHatToDrops(List<ItemStack> drops, BlockState state, LootParams.Builder builder) {
 		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 		if (blockEntity instanceof DeeperSkullBlockEntity blockentity) {
 			Item item = blockentity.getHat().getItem();

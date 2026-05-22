@@ -13,7 +13,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
+
+import java.util.List;
 
 public class DeeperWallSkullBlock extends WallSkullBlock {
 
@@ -34,5 +37,10 @@ public class DeeperWallSkullBlock extends WallSkullBlock {
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		return DeeperSkullBlock.tryToAddHat(stack, level, pos, player, hand);
+	}
+
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+		return DeeperSkullBlock.addHatToDrops(super.getDrops(state, builder), state, builder);
 	}
 }
