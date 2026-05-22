@@ -38,5 +38,6 @@ public class CCEntityTypeTagsProvider extends EntityTypeTagsProvider {
 		this.tag(SILVER_HURTS_EXTRA_TYPES).add(EntityType.WITHER);
 		this.tag(RATS_CANNOT_ATTACH_EXTRA_TYPES).add(EntityType.BAT, EntityType.PARROT, EntityType.VEX);
 		this.tag(MUDDY_PROJECTILES).addOptional(CCConstants.MUD_BALL);
+		this.tag(UNAFFECTED_BY_VAMPIRISM).add(EntityType.ARMOR_STAND);
 	}
 }
