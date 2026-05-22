@@ -98,7 +98,7 @@ public class Deeper extends CCCreeper implements Shearable, IShearable {
 		ItemStack itemstack = player.getItemInHand(hand);
 		DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
 
-		if (hat != DeeperHat.NONE && hat != this.getHat()) {
+		if (hat.canApplyTo(this.getHat())) {
 			this.level().playSound(null, this, CCSoundEvents.CAVE_GROWTHS_PLACE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 			if (!this.level().isClientSide)
 				this.setHat(hat);

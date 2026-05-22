@@ -52,6 +52,10 @@ public enum DeeperHat implements StringRepresentable {
 		return this.block == null ? null : this.block.asItem();
 	}
 
+	public boolean canApplyTo(DeeperHat hat) {
+		return this != DeeperHat.NONE && this != hat && (hat.getBlock() == null || hat.getBlock().defaultBlockState().canBeReplaced());
+	}
+
 	public ResourceLocation getDeeperTexture() {
 		return this.deeperTexture.get();
 	}

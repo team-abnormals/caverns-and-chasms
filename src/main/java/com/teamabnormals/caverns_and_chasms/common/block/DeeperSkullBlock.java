@@ -66,7 +66,7 @@ public class DeeperSkullBlock extends SkullBlock {
 				}
 			} else {
 				DeeperHat hat = DeeperHat.byItem(itemstack.getItem());
-				if (hat != DeeperHat.NONE && hat != blockentity.getHat()) {
+				if (hat.canApplyTo(blockentity.getHat())) {
 					if (!level.isClientSide) {
 						level.playSound(null, pos, CCSoundEvents.CAVE_GROWTHS_PLACE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 						blockentity.setHat(hat);
