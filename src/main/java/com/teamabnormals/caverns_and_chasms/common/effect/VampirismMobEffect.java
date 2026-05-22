@@ -19,7 +19,7 @@ public class VampirismMobEffect extends MobEffect {
 		Level level = entity.level();
 		if (!level.isClientSide()) {
 			for (LivingEntity living : level.getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(0.3D))) {
-				if (living.isAlive() && living != entity && level.getGameTime() % 5 == 0) {
+				if (living.isAlive() && !entity.getType().is(CCEntityTypeTags.UNAFFECTED_BY_VAMPIRISM) && living != entity && level.getGameTime() % 5 == 0) {
 					float damage = (amplifier + 1);
 					living.hurt(CCDamageTypes.draining(level, entity), damage);
 					entity.heal(damage * 0.5F);
