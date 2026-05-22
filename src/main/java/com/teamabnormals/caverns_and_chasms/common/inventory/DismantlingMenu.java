@@ -107,7 +107,7 @@ public class DismantlingMenu extends CCItemCombinerMenu {
 				item.remove(CCDataComponents.PULSE_TRIM);
 				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
 				container.setItem(1, item);
-				container.setItem(2, new ItemStack(Items.PRISMARINE));
+				container.setItem(2, new ItemStack(Items.PRISMARINE_SHARD));
 			} else if (item.has(CCDataComponents.FADED_TRIM)) {
 				item.remove(CCDataComponents.FADED_TRIM);
 				container.setItem(0, new ItemStack(CCItems.TRIM_MODIFIER_SMITHING_TEMPLATE.get()));
