@@ -52,6 +52,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
@@ -885,7 +886,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	// TODO: Look at the canAttack method
 	public static boolean canRatsAttack(LivingEntity target, LivingEntity owner) {
-		if (target instanceof Creeper || target instanceof Ghast) {
+		if (target instanceof Creeper || target instanceof Ghast || target instanceof ArmorStand) {
 			return false;
 		} else if (target instanceof Wolf wolf) {
 			return !wolf.isTame() || wolf.getOwner() != owner;
