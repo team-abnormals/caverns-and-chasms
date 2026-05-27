@@ -25,7 +25,7 @@ public class RatFindItemsGoal extends Goal {
 			return false;
 		} else {
 			ItemStack currentItem = this.rat.getMainHandItem();
-			if (currentItem.isEmpty() && currentItem.getFoodProperties(this.rat) != null) {
+			if (currentItem.isEmpty() && this.rat.isHealingItem(currentItem)) {
 				return false;
 			} else if (this.rat.getTarget() == null && this.rat.getLastHurtByMob() == null) {
 				if (this.rat.getRandom().nextInt(10) != 0) {

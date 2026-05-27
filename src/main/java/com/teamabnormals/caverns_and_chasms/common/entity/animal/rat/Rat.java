@@ -649,24 +649,44 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
-		ItemStack stack = player.getItemInHand(hand);
-		Item item = stack.getItem();
+		ItemStack itemStack = player.getItemInHand(hand);
+		Item item = itemStack.getItem();
 
 		if (this.isTame()) {
-			if (this.isHealingItem(stack) && this.getHealth() < this.getMaxHealth()) {
-				FoodProperties foodProperties = stack.getFoodProperties(this);
+			if (this.isHealingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
+				FoodProperties foodProperties = itemStack.getFoodProperties(this);
 				this.heal((float) foodProperties.nutrition());
-				ItemStack itemStack = this.eat(this.level(), stack, foodProperties);
-				Optional<ItemStack> optional = foodProperties.usingConvertsTo();
-				if (optional.isPresent() && !this.hasInfiniteMaterials()) {
+
+				/*
+				Using a clone of the input stack with item count 1 causes the finishUsingItem method of items like honey
+				bottles to return their output item even if the original input stack's item count is larger than 1.
+				*/
+				ItemStack singularItem = itemStack.copyWithCount(1);
+				ItemStack outputStack = singularItem.finishUsingItem(this.level(), this);
+				if (outputStack.isEmpty()) {
+					Optional<ItemStack> optional = foodProperties.usingConvertsTo();
+					if (optional.isPresent()) {
+						outputStack = optional.get();
+					}
+				}
+
+				if (singularItem.isEmpty()) {
+					itemStack.shrink(1);
+				}
+
+				if (outputStack != singularItem && !outputStack.isEmpty() && !player.hasInfiniteMaterials()) {
 					if (itemStack.isEmpty()) {
-						player.setItemInHand(hand, optional.get().copy());
-					} else if (!this.level().isClientSide()) {
-						ItemStack container = optional.get().copy();
+						player.setItemInHand(hand, outputStack.copy());
+					} else if (!this.level().isClientSide) {
+						ItemStack container = outputStack.copy();
 						if (!player.getInventory().add(container)) {
 							player.drop(container, false);
 						}
 					}
+				}
+
+				if (this.getHealth() == this.getMaxHealth()) {
+					this.playSound(CCSoundEvents.RAT_HAPPY.get(), 0.5F, this.getRandom().nextFloat() * 0.1F + 0.9F);
 				}
 
 				return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -674,14 +694,14 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				DyeColor dyecolor = ((DyeItem) item).getDyeColor();
 				if (dyecolor != this.getCollarColor()) {
 					this.setCollarColor(dyecolor);
-					this.usePlayerItem(player, hand, stack);
+					this.usePlayerItem(player, hand, itemStack);
 
 					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
-			} else if (this.isDirty() && stack.is(Tags.Items.BUCKETS_WATER)) {
+			} else if (this.isDirty() && itemStack.is(Tags.Items.BUCKETS_WATER)) {
 				this.level().playSound(null, this, SoundEvents.GENERIC_SPLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
-				player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, stack.getCraftingRemainingItem()));
-				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+				player.setItemInHand(hand, ItemUtils.createFilledResult(itemStack, player, itemStack.getCraftingRemainingItem()));
+				player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
 				this.setDirty(false);
 				if (!this.level().isClientSide) {
 					ServerLevel serverlevel = (ServerLevel) this.level();
@@ -695,7 +715,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 			} else {
 				InteractionResult interactionresult = super.mobInteract(player, hand);
 				if (interactionresult.consumesAction()) {
-					this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
+					this.playSound(this.getEatingSound(itemStack), 1.0F, 1.0F);
 				} else if (this.isOwnedBy(player)) {
 					this.jumping = false;
 					this.navigation.stop();
@@ -708,9 +728,9 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 				return interactionresult;
 			}
 		} else if (!this.isAngry()) {
-			if (!this.isRunningAway() && this.isFood(stack)) {
-				this.usePlayerItem(player, hand, stack);
-				this.playSound(this.getEatingSound(stack), 1.0F, 1.0F);
+			if (!this.isRunningAway() && this.isFood(itemStack)) {
+				this.usePlayerItem(player, hand, itemStack);
+				this.playSound(this.getEatingSound(itemStack), 1.0F, 1.0F);
 
 				if (!this.level().isClientSide) {
 					if (this.random.nextInt(3) == 0 && !EventHooks.onAnimalTame(this, player)) {
