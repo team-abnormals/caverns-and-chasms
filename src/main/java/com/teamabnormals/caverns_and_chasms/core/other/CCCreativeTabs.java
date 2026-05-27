@@ -30,7 +30,7 @@ public class CCCreativeTabs {
 					.title(Component.translatable("itemGroup.caverns_and_chasms.caverns_and_chasms"))
 					.icon(() -> new ItemStack(CCItems.DEEPER_HEAD.get()))
 					.displayItems(((parameters, output) -> {
-						if (CCConfig.CLIENT.copperCreativeTab.get()) {
+						if (CCConfig.CLIENT.creativeTab.get()) {
 							CCItems.ITEMS.getDeferredRegister().getEntries().forEach(entry -> output.accept(entry.get()));
 						}
 					})).build());

@@ -2,10 +2,7 @@ package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.StorageDuctBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.network.GrazerJumpPayload;
-import com.teamabnormals.caverns_and_chasms.common.network.OpenStorageDuctPayload;
-import com.teamabnormals.caverns_and_chasms.common.network.SpinelBoomPayload;
-import com.teamabnormals.caverns_and_chasms.common.network.UpdateAttachedRatsPayload;
+import com.teamabnormals.caverns_and_chasms.common.network.*;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteAttackPayload;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteMovePayload;
 import com.teamabnormals.caverns_and_chasms.common.network.bone_flute.BoneFluteRecallPayload;

@@ -5,7 +5,9 @@ import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.*;
 import com.teamabnormals.caverns_and_chasms.common.block.RefractorBlock.RefractorState;
-import com.teamabnormals.caverns_and_chasms.common.block.holdable.*;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractDimmerBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.DimmerBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.holdable.WallDimmerBlock;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -18,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.RailShape;
@@ -390,22 +391,14 @@ public class CCBlockStateProvider extends BlueprintBlockStateProvider {
 		DeferredBlock<SparklerBlock> sparkler = pair.getFirst();
 		DeferredBlock<WallSparklerBlock> wallSparkler = pair.getSecond();
 
-		ModelFile standing = this.models().withExistingParent(name(sparkler.get()), CavernsAndChasms.location("block/template_sparkler"))
-		.texture("sparkler", blockTexture(sparkler.get()))
-		.texture("top", blockTexture(sparkler.get()).withSuffix("_top"));
-		ModelFile standingLit = this.models().withExistingParent(name(sparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler"))
-		.texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"))
-		.texture("top", blockTexture(sparkler.get()).withSuffix("_lit_top"));
+		ModelFile standing = this.models().withExistingParent(name(sparkler.get()), CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()));
+		ModelFile standingLit = this.models().withExistingParent(name(sparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
 
 		this.getVariantBuilder(sparkler.get()).partialState().with(SparklerBlock.LIT, false).modelForState().modelFile(standing).addModel().partialState().with(SparklerBlock.LIT, true).modelForState().modelFile(standingLit).addModel();
 		this.generatedItem(sparkler.get(), "block");
 
-		ModelFile wall = this.models().withExistingParent(name(wallSparkler.get()), CavernsAndChasms.location("block/template_sparkler_wall"))
-		.texture("sparkler", blockTexture(sparkler.get()))
-		.texture("top", blockTexture(sparkler.get()).withSuffix("_top"));
-		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall"))
-		.texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"))
-		.texture("top", blockTexture(sparkler.get()).withSuffix("_lit_top"));
+		ModelFile wall = this.models().withExistingParent(name(wallSparkler.get()), CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()));
+		ModelFile wallLit = this.models().withExistingParent(name(wallSparkler.get()) + "_lit", CavernsAndChasms.location("block/template_sparkler_wall")).texture("sparkler", blockTexture(sparkler.get()).withSuffix("_lit"));
 
 		this.horizontalBlock(wallSparkler.get(), state -> state.getValue(WallSparklerBlock.LIT) ? wallLit : wall, 90);
 	}

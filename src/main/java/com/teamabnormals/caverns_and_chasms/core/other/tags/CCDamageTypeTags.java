@@ -6,6 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 
 public class CCDamageTypeTags {
+	public static final TagKey<DamageType> SILVER_RESISTANT_TO = damageTypeTag("silver_resistant_to");
 	public static final TagKey<DamageType> BYPASSES_TETHER_POTIONS = damageTypeTag("bypasses_tether_potions");
 	public static final TagKey<DamageType> DRAINS_ENEMIES = damageTypeTag("drains_enemies");
 

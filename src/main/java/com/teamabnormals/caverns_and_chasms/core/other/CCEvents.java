@@ -31,6 +31,8 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -108,13 +110,13 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.*;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent.Pre;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Added;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Expired;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Remove;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.StartTracking;
@@ -485,17 +487,34 @@ public class CCEvents {
 	}
 
 	@SubscribeEvent
-	public static void onLivingHurt(Pre event) {
+	public static void onLivingHurt(LivingDamageEvent.Pre event) {
 		LivingEntity target = event.getEntity();
+		Level level = target.level();
 		DamageSource source = event.getSource();
 
-		if (source.is(Tags.DamageTypes.IS_MAGIC) && target.getAttribute(CCAttributes.MAGIC_PROTECTION) != null) {
+		if (source.is(CCDamageTypeTags.SILVER_RESISTANT_TO) && target.getAttribute(CCAttributes.MAGIC_PROTECTION) != null) {
 			double magicProtection = target.getAttributeValue(CCAttributes.MAGIC_PROTECTION);
 			if (magicProtection > 0.0D) {
 				event.setNewDamage((float) (event.getOriginalDamage() - event.getOriginalDamage() * magicProtection));
 				SilverItem.causeMagicProtectionEffects(target);
 			}
 		}
+
+		if (source.getDirectEntity() instanceof BluntArrow) {
+			event.setNewDamage(0.0F);
+		}
+
+		// TODO: Maybe use a tag?
+		if (target instanceof Rat rat && source.getEntity() instanceof LivingEntity && !rat.isWounded() && rat.getHealth() - event.getOriginalDamage() <= 0.0F) {
+			event.setNewDamage(rat.getHealth() - 1.0F);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLivingDamagePost(LivingDamageEvent.Post event) {
+		LivingEntity target = event.getEntity();
+		Level level = target.level();
+		DamageSource source = event.getSource();
 
 		if (source.getEntity() instanceof LivingEntity attacker) {
 			ItemStack mainHandItem = attacker.getMainHandItem();
@@ -513,7 +532,7 @@ public class CCEvents {
 				}
 			}
 
-			if (attacker.getAttribute(CCAttributes.MAGIC_DAMAGE) != null) {
+			if (!source.is(Tags.DamageTypes.IS_MAGIC) && attacker.getAttribute(CCAttributes.MAGIC_DAMAGE) != null) {
 				float magicDamageAmount = (float) attacker.getAttributeValue(CCAttributes.MAGIC_DAMAGE);
 				if (magicDamageAmount > 0.0F) {
 					if (target.getType().is(CCEntityTypeTags.SILVER_HURTS_EXTRA_TYPES)) {
@@ -521,7 +540,7 @@ public class CCEvents {
 					}
 
 					target.invulnerableTime = 0;
-					target.hurt(target.damageSources().magic(), magicDamageAmount);
+					target.hurt(target.damageSources().indirectMagic(attacker, event.getSource().getDirectEntity()), magicDamageAmount);
 					SilverItem.causeMagicDamageEffects(attacker, target);
 				}
 			}
@@ -550,43 +569,27 @@ public class CCEvents {
 			}
 		}
 
-		if (source.getDirectEntity() instanceof BluntArrow) {
-			event.setNewDamage(0.0F);
-		}
-	}
-
-	@SubscribeEvent
-	public static void onLivingDamage(Pre event) {
-		LivingEntity entity = event.getEntity();
-		DamageSource source = event.getSource();
-		Level level = entity.level();
-		ItemStack headstack = entity.getItemBySlot(EquipmentSlot.HEAD);
-
+		ItemStack headstack = target.getItemBySlot(EquipmentSlot.HEAD);
 		if (headstack.getItem() instanceof TetherPotionItem && !source.is(DamageTypeTags.BYPASSES_ARMOR) && !source.is(CCDamageTypeTags.BYPASSES_TETHER_POTIONS)) {
-			Player player = entity instanceof Player ? (Player) entity : null;
-			entity.onEquippedItemBroken(headstack.getItem(), EquipmentSlot.HEAD);
-			entity.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+			Player player = target instanceof Player ? (Player) target : null;
+			target.onEquippedItemBroken(headstack.getItem(), EquipmentSlot.HEAD);
+			target.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
 			PotionContents contents = headstack.get(DataComponents.POTION_CONTENTS);
 
 			if (headstack.is(CCItems.IMPACT_POTION) || headstack.is(CCItems.TETHER_POTION)) {
 				for (MobEffectInstance instance : contents.getAllEffects()) {
 					if (instance.getEffect().value().isInstantenous()) {
-						instance.getEffect().value().applyInstantenousEffect(player, player, entity, instance.getAmplifier(), 1.0D);
+						instance.getEffect().value().applyInstantenousEffect(player, player, target, instance.getAmplifier(), 1.0D);
 					} else if (!headstack.is(CCItems.TETHER_POTION)) {
-						entity.addEffect(new MobEffectInstance(instance));
+						target.addEffect(new MobEffectInstance(instance));
 					}
 				}
 			} else if (headstack.is(CCItems.TRAIL_POTION)) {
-				TrailPotionItem.makeAreaOfEffectCloud(contents, entity, level, true);
+				TrailPotionItem.makeAreaOfEffectCloud(contents, target, level, true);
 			}
 
 			int i = headstack.get(DataComponents.POTION_CONTENTS).potion().get().value().hasInstantEffects() ? 2007 : 2002;
-			level.levelEvent(i, BlockPos.containing(entity.getEyePosition(1.0F)), contents.getColor());
-		}
-
-		// TODO: Maybe use a tag?
-		if (entity instanceof Rat rat && source.getEntity() instanceof LivingEntity && !rat.isWounded() && rat.getHealth() - event.getOriginalDamage() <= 0.0F) {
-			event.setNewDamage(rat.getHealth() - 1.0F);
+			level.levelEvent(i, BlockPos.containing(target.getEyePosition(1.0F)), contents.getColor());
 		}
 	}
 
