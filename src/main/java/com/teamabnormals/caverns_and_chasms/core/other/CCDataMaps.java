@@ -8,14 +8,17 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TinDeflection.
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken.TrialTokenMerger;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,6 +36,7 @@ public class CCDataMaps {
 
 	public static final DataMapType<Block, TinDeflection> TIN_DEFLECTIONS = AdvancedDataMapType.builder(CavernsAndChasms.location("tin_deflections"), Registries.BLOCK, TinDeflection.CODEC).synced(TinDeflection.CODEC, false).merger(new DeflectionMerger()).build();
 	public static final DataMapType<Item, TrialToken> TRIAL_TOKENS = AdvancedDataMapType.builder(CavernsAndChasms.location("trial_tokens"), Registries.ITEM, TrialToken.CODEC).synced(TrialToken.CODEC, false).merger(new TrialTokenMerger()).build();
+	public static final DataMapType<Item, PlaceableItem> PLACEABLE_ITEMS = DataMapType.builder(CavernsAndChasms.location("placeable_items"), Registries.ITEM, PlaceableItem.CODEC).synced(PlaceableItem.CODEC, false).build();
 
 	@SubscribeEvent
 	public static void registerDataMaps(RegisterDataMapTypesEvent event) {
@@ -40,6 +44,17 @@ public class CCDataMaps {
 		event.register(TRIAL_TOKENS);
 		event.register(OXIDIZABLES);
 		event.register(WAXABLES);
+		event.register(PLACEABLE_ITEMS);
+	}
+
+	public record PlaceableItem(Holder<Item> block) {
+		public static final Codec<PlaceableItem> CODEC = RecordCodecBuilder.create(in -> in.group(
+				RegistryFixedCodec.create(Registries.ITEM).fieldOf("placed_item").forGetter(PlaceableItem::block)
+		).apply(in, PlaceableItem::new));
+
+		public PlaceableItem(Holder<Block> block, HolderLookup.Provider provider) {
+			this(provider.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, block.unwrapKey().get().location().withSuffix("_placed"))));
+		}
 	}
 
 	public record TinDeflection(double horizontalFactor, double verticalFactor, boolean hasBonusDeflect, Holder<SoundEvent> deflectSound) {

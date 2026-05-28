@@ -3,11 +3,9 @@ package com.teamabnormals.caverns_and_chasms.core.data.server;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
+import com.teamabnormals.caverns_and_chasms.core.other.CCConstants;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.OxidizableItem;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TinDeflection;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
-import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.WaxableItem;
+import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.*;
 import com.teamabnormals.caverns_and_chasms.core.other.CCGameEvents;
 import com.teamabnormals.caverns_and_chasms.core.other.CCLootTables;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
@@ -107,6 +105,27 @@ public class CCDataMapProvider extends DataMapProvider {
 						Map.of(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, CCLootTables.TRIAL_CHAMBERS_TOKEN_OMINOUS)
 				), false);
 
+		this.builder(CCDataMaps.PLACEABLE_ITEMS)
+				.add(Items.COAL.builtInRegistryHolder(), new PlaceableItem(COAL, provider), false)
+				.add(Items.CHARCOAL.builtInRegistryHolder(), new PlaceableItem(CHARCOAL, provider), false)
+				.add(Items.BRICK.builtInRegistryHolder(), new PlaceableItem(BRICK, provider), false)
+				.add(Items.NETHER_BRICK.builtInRegistryHolder(), new PlaceableItem(NETHER_BRICK, provider), false)
+				.add(Items.COPPER_INGOT.builtInRegistryHolder(), new PlaceableItem(COPPER_INGOT, provider), false)
+				.add(Items.IRON_INGOT.builtInRegistryHolder(), new PlaceableItem(IRON_INGOT, provider), false)
+				.add(Items.GOLD_INGOT.builtInRegistryHolder(), new PlaceableItem(GOLD_INGOT, provider), false)
+				.add(Items.NETHERITE_INGOT.builtInRegistryHolder(), new PlaceableItem(NETHERITE_INGOT, provider), false)
+				.add(CCItems.EXPOSED_COPPER_INGOT, new PlaceableItem(CCBlocks.EXPOSED_COPPER_INGOT, provider), false)
+				.add(CCItems.WEATHERED_COPPER_INGOT, new PlaceableItem(CCBlocks.WEATHERED_COPPER_INGOT, provider), false)
+				.add(CCItems.OXIDIZED_COPPER_INGOT, new PlaceableItem(CCBlocks.OXIDIZED_COPPER_INGOT, provider), false)
+				.add(CCItems.WAXED_COPPER_INGOT, new PlaceableItem(CCBlocks.WAXED_COPPER_INGOT, provider), false)
+				.add(CCItems.WAXED_EXPOSED_COPPER_INGOT, new PlaceableItem(CCBlocks.WAXED_EXPOSED_COPPER_INGOT, provider), false)
+				.add(CCItems.WAXED_WEATHERED_COPPER_INGOT, new PlaceableItem(CCBlocks.WAXED_WEATHERED_COPPER_INGOT, provider), false)
+				.add(CCItems.WAXED_OXIDIZED_COPPER_INGOT, new PlaceableItem(CCBlocks.WAXED_OXIDIZED_COPPER_INGOT, provider), false)
+				.add(CCItems.SILVER_INGOT, new PlaceableItem(CCBlocks.SILVER_INGOT, provider), false)
+				.add(CCItems.TIN_INGOT, new PlaceableItem(CCBlocks.TIN_INGOT, provider), false)
+				.add(CCItems.NECROMIUM_INGOT, new PlaceableItem(CCBlocks.NECROMIUM_INGOT, provider), false)
+				.add(CCConstants.EUMUS_BRICK, new PlaceableItem(EUMUS_BRICK, provider), false, CCRecipeProvider.ENDERGETIC_LOADED);
+
 		this.builder(NeoForgeDataMaps.VIBRATION_FREQUENCIES)
 				.add(CCGameEvents.TIN_DEFLECT, new VibrationFrequency(2), false)
 				.add(CCGameEvents.TUNING_FORK_VIBRATE, new VibrationFrequency(10), false);
@@ -133,7 +152,6 @@ public class CCDataMapProvider extends DataMapProvider {
 		OXIDIZABLE_ITEMS.get().forEach((item, next) -> oxidizableItemBuilder.add(item.builtInRegistryHolder(), new OxidizableItem(next), false));
 		WAXABLE_BLOCKS.get().forEach((unwaxed, waxed) -> waxableBlockBuilder.add(unwaxed.builtInRegistryHolder(), new Waxable(waxed), false));
 		WAXABLE_ITEMS.get().forEach((unwaxed, waxed) -> waxableItemBuilder.add(unwaxed.builtInRegistryHolder(), new WaxableItem(waxed), false));
-
 	}
 
 	public static final Supplier<BiMap<Block, Block>> OXIDIZABLE_BLOCKS = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()

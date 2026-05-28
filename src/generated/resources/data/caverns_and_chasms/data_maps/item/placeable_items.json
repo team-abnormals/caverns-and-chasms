@@ -1,0 +1,67 @@
+{
+  "values": {
+    "caverns_and_chasms:exposed_copper_ingot": {
+      "placed_item": "caverns_and_chasms:exposed_copper_ingot_placed"
+    },
+    "caverns_and_chasms:necromium_ingot": {
+      "placed_item": "caverns_and_chasms:necromium_ingot_placed"
+    },
+    "caverns_and_chasms:oxidized_copper_ingot": {
+      "placed_item": "caverns_and_chasms:oxidized_copper_ingot_placed"
+    },
+    "caverns_and_chasms:silver_ingot": {
+      "placed_item": "caverns_and_chasms:silver_ingot_placed"
+    },
+    "caverns_and_chasms:tin_ingot": {
+      "placed_item": "caverns_and_chasms:tin_ingot_placed"
+    },
+    "caverns_and_chasms:waxed_copper_ingot": {
+      "placed_item": "caverns_and_chasms:waxed_copper_ingot_placed"
+    },
+    "caverns_and_chasms:waxed_exposed_copper_ingot": {
+      "placed_item": "caverns_and_chasms:waxed_exposed_copper_ingot_placed"
+    },
+    "caverns_and_chasms:waxed_oxidized_copper_ingot": {
+      "placed_item": "caverns_and_chasms:waxed_oxidized_copper_ingot_placed"
+    },
+    "caverns_and_chasms:waxed_weathered_copper_ingot": {
+      "placed_item": "caverns_and_chasms:waxed_weathered_copper_ingot_placed"
+    },
+    "caverns_and_chasms:weathered_copper_ingot": {
+      "placed_item": "caverns_and_chasms:weathered_copper_ingot_placed"
+    },
+    "endergetic:eumus_brick": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "endergetic"
+        }
+      ],
+      "placed_item": "caverns_and_chasms:eumus_brick_placed"
+    },
+    "minecraft:brick": {
+      "placed_item": "caverns_and_chasms:brick_placed"
+    },
+    "minecraft:charcoal": {
+      "placed_item": "caverns_and_chasms:charcoal_placed"
+    },
+    "minecraft:coal": {
+      "placed_item": "caverns_and_chasms:coal_placed"
+    },
+    "minecraft:copper_ingot": {
+      "placed_item": "caverns_and_chasms:copper_ingot_placed"
+    },
+    "minecraft:gold_ingot": {
+      "placed_item": "caverns_and_chasms:gold_ingot_placed"
+    },
+    "minecraft:iron_ingot": {
+      "placed_item": "caverns_and_chasms:iron_ingot_placed"
+    },
+    "minecraft:nether_brick": {
+      "placed_item": "caverns_and_chasms:nether_brick_placed"
+    },
+    "minecraft:netherite_ingot": {
+      "placed_item": "caverns_and_chasms:netherite_ingot_placed"
+    }
+  }
+}

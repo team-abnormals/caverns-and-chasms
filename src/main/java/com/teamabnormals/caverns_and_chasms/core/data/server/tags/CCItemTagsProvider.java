@@ -83,12 +83,6 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.tag(CCItemTags.UNREPAIRABLE_BY_ZIRCONIA);
 		this.tag(CCItemTags.CHANGES_HOOP_SIZE).add(TUNING_FORK.get());
 		this.tag(CCItemTags.ROLLER_DOOR_LIFT_ITEMS).add(TUNING_FORK.get());
-		this.tag(CCItemTags.PLACEABLE_ITEMS).add(
-				Items.COAL, Items.CHARCOAL, Items.BRICK, Items.NETHER_BRICK,
-				Items.COPPER_INGOT, EXPOSED_COPPER_INGOT.get(), WEATHERED_COPPER_INGOT.get(), OXIDIZED_COPPER_INGOT.get(),
-				WAXED_COPPER_INGOT.get(), WAXED_EXPOSED_COPPER_INGOT.get(), WAXED_WEATHERED_COPPER_INGOT.get(), WAXED_OXIDIZED_COPPER_INGOT.get(),
-				Items.IRON_INGOT, Items.GOLD_INGOT, Items.NETHERITE_INGOT, SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get()
-		).addOptional(ResourceLocation.fromNamespaceAndPath("endergetic", "eumus_brick"));
 
 		this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
 		this.copy(CCBlockTags.ORES_AMETHYST, CCItemTags.ORES_AMETHYST);

@@ -21,7 +21,6 @@ public class CCItemTags {
 	public static final TagKey<Item> DISMANTLING_TABLE_CANNOT_DISMANTLE = itemTag("dismantling_table_cannot_dismantle");
 	public static final TagKey<Item> ATONING_FUELS = itemTag("atoning_fuels");
 	public static final TagKey<Item> UNREPAIRABLE_BY_ZIRCONIA = itemTag("unrepairable_by_zirconia");
-	public static final TagKey<Item> PLACEABLE_ITEMS = itemTag("placeable_items");
 	public static final TagKey<Item> CHANGES_HOOP_SIZE = itemTag("changes_hoop_size");
 	public static final TagKey<Item> ROLLER_DOOR_LIFT_ITEMS = itemTag("roller_door_lift_items");
 	public static final TagKey<Item> TRIM_MODIFIERS = itemTag("trim_modifiers");
