@@ -52,12 +52,11 @@ public class AtoningTableEnchantmentNames {
 
 	public int[] getRandomNameAsLetterIds(RandomSource random) {
 		String name = Util.getRandom(this.words, random);
-		int[] array = new int[name.length()];
+		int[] array = new int[name.length() + 1];
 		for (int i = 0; i < name.length(); ++i) {
-
-
 			array[i] = ArrayUtils.indexOf(LETTERS, name.charAt(i));
 		}
+		array[array.length - 1] = ArrayUtils.indexOf(LETTERS, '⋅');
 		return array;
 	}
 
