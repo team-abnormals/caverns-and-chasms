@@ -61,7 +61,7 @@ public class CCPlugin implements IModPlugin {
 	}
 
 	private static Stream<RepairData> getRepairData(IRecipeRegistration registration) {
-		Stream<RepairData> armorData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof ArmorItem item && item.getMaterial().getKey().location().getNamespace().equals(CavernsAndChasms.MOD_ID)).map(stack -> (ArmorItem) stack.getItem()).map(armor -> new RepairData(armor.getMaterial().value().repairIngredient().get(), new ItemStack(armor)));
+		Stream<RepairData> armorData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof ArmorItem item && item.getMaterial().getKey() != null && item.getMaterial().getKey().location().getNamespace().equals(CavernsAndChasms.MOD_ID)).map(stack -> (ArmorItem) stack.getItem()).map(armor -> new RepairData(armor.getMaterial().value().repairIngredient().get(), new ItemStack(armor)));
 		Stream<RepairData> toolData = registration.getIngredientManager().getAllItemStacks().stream().filter(stack -> stack.getItem() instanceof TieredItem item && item.getTier() instanceof BlueprintItemTier).map(stack -> (TieredItem) stack.getItem()).map(tool -> new RepairData(tool.getTier().getRepairIngredient(), new ItemStack(tool)));
 
 		Stream<RepairData> allRepairs = Stream.concat(armorData, toolData);
