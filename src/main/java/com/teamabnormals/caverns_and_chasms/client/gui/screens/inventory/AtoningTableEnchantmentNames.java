@@ -14,20 +14,22 @@ public class AtoningTableEnchantmentNames {
 	private static final ResourceLocation KOUKERI_FONT = CavernsAndChasms.location("koukeri");
 	private static final Style ROOT_STYLE = Style.EMPTY.withFont(KOUKERI_FONT);
 	public static final char[] LETTERS = new char[]{
-			'i', 'u', 'ï', 'ŭ', '⋅',
-			'e', 'ə', 'o', 'ó', 'ë', 'ö', 'ŏ',
-			'a', 'ʌ', 'á', 'ä', 'ă',
-			'm', 'n', 'ŋ',
-			'p', 'b', 't', 'd', 'k', 'g', 'ʔ',
-			'ʦ', 'ʣ', 'ʧ', 'ʤ',
-			'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'x', 'ɣ', 'h',
-			'l', 'r', 'j', 'W', 'w'
+			'i',      'u', 'í', 'ú', 'ï',      'ŭ',
+			'e', 'ə', 'o', 'é', 'ó', 'ë', 'ö', 'ŏ',
+			'a', 'ʌ',           'á', 'ä',      'ă',
+			'm', 'n',      'ŋ',
+			'p', 't', 'ʦ', 'ʧ', 'k', 'ʔ', '⋅',
+			'b', 'd', 'ʣ', 'ʤ', 'g',
+			'f', 'θ', 's', 'ʃ', 'x', 'h',
+			'v', 'ð', 'z', 'ʒ', 'ɣ',
+			'W', 'l',      'r', 'j',
+			'w'
 	};
 
 	private static final AtoningTableEnchantmentNames INSTANCE = new AtoningTableEnchantmentNames();
 
 	private final RandomSource random = RandomSource.create();
-	private final String[] words = new String[]{"fäv", "mäm", "mimik", "ətŏn", "maʤik", "djurəbilətï", "fərbidən", "ov", "ðə", "dárknəs", "lät", "jŭs", "ënʃənt", "spinəl", "spirit", "ikspirïəns", "tŏm", "goləm", "θót", "hŏkəs⋅pŏkəs", "aləkəzam", "mabï", "instrʌkʃəns", "ʤem⋅stŏn", "kŏl", "sʌʧ", "ʧʌŋgəs", "pʌzliŋ", "ïθər", "ïon", "sʌbstəns", "əbskjurd", "dimenʃən", "bïiŋ", "läf", "deθ", "kʌnʤər", "ʧárm", "bəʤŭkï", "digətï", "dog", "kərs", "zərkŏnïə", "sərkəs", "păər", "árkën", "lätniŋ", "Wizdəm", "Wizərd", "spel⋅buk", "slab⋅fiʃ", "sïkrit", "Wïkən", "streŋθən", "grëzər", "levitët", "θnïd", "astrəl", "homʌŋkjuləs", "jŭnikorn", "órəkəl", "pŏtənt", "bland", "epik", "sʌn", "mŭn", "ʃïld", "viʒən", "gwonəm", "morʃŭ", "hárkinïən", "oŋkləd", "gandálf", "frŏdŏ", "bilbŏ", "sárumán", "săron", "ʃámən", "fərst", "sekənd", "θərd", "ógment", "abnorməl", "orb", "gʌnʤ", "and", "bikəz", "ðat", "hav", "Wiðin", "bï", "əplä", "tŭ", "or", "kwesʧən", "ansər", "ridəl", "mastər", "stroŋ⋅hŏld", "Wərdz", "transend", "laŋgwiʤ", "băndərï", "paθ", "mirər", "tranzmjŭt", "stŏn", "ólwëz", "nevər", "neðər", "end", "ŏvər⋅Wərld", "ʌndər⋅Wərld", "Wərld", "disk", "riŋ", "skwer", "sfiər", "planit", "səlestïəl", "hevənz", "ätəm", "ármər", "sord", "forʤ", "imposibəl", "prətekʃən", "tŭl", "buk", "spel", "këv", "dragən", "vestiʤ", "dʌnʤən", "pərʧans", "infinit", "täm", "spës", "fäər", "Wótər", "ərθ", "eər", "dimäz", "destinï", "forʧŭn", "gŏld", "silvər", "pŏst", "mortəm", "piʦə", "skelətən", "mistikəl", "noliʤ", "drŭid", "ʤávə", "pëʤ", "fänd", "árkëik", "sŏl", "əfekt", "hárt", "ilŭʒən", "vël", "nëʧər", "män", "kraft", "Wiʃï⋅Woʃï", "ad", "rimŭv", "split", "pondər", "bikóz", "talisman", "imbjŭ", "wävərn", "säklops", "monəliθ", "task", "eksalibər", "mjolnir", "rŭnik", "iliʤər", "ʌndərstand", "nʌʔʌ", "damiʤ", "brëk", "ŏkï⋅dŏkï", "kasəl", "hjŭmanitï", "träaŋgəl", "ʧaptər", "hwispər", "hwimzikəl", "aʣ", "tərkwöz", "ïʤis", "hŏmər", "márʤ", "bárt", "lïsə", "magï", "padiŋtən", "lŭnər", "sŏlər", "hʌndrid", "nekrənomikon", "grimwá", "eləment", "säəns", "biʤŭəld"};
+	private final String[] words = new String[]{"fäv", "mäm", "mimik", "ətŏn", "maʤik", "djúrəbilətï", "fərbidən", "ov", "ðə", "dárknəs", "lät", "jŭs", "ënʃənt", "spinəl", "spirit", "ikspírïəns", "tŏm", "goləm", "θót", "hŏkəs⋅pŏkəs", "aləkəzam", "mabï", "instrʌkʃəns", "ʤem⋅stŏn", "kŏl", "sʌʧ", "ʧʌŋgəs", "pʌzliŋ", "ïθər", "ïon", "sʌbstəns", "əbskjúrd", "dimenʃən", "bïiŋ", "läf", "deθ", "kʌnʤər", "ʧárm", "bəʤŭkï", "digətï", "dog", "kərs", "zərkŏnïə", "sərkəs", "păər", "árkën", "lätniŋ", "Wizdəm", "Wizərd", "spel⋅buk", "slab⋅fiʃ", "sïkrit", "Wïkən", "streŋθən", "grëzər", "levitët", "θnïd", "astrəl", "homʌŋkjələs", "jŭnikórn", "orəkəl", "pŏtənt", "bland", "epik", "sʌn", "mŭn", "ʃïld", "viʒən", "gwonəm", "mórʃŭ", "hárkinïən", "oŋkləd", "gandálf", "frŏdŏ", "bilbŏ", "sárumán", "săron", "ʃámən", "fərst", "sekənd", "θərd", "ógment", "abnórməl", "órb", "gʌnʤ", "and", "bikəz", "ðat", "hav", "Wiðin", "bï", "əplä", "tŭ", "ór", "kwesʧən", "ansər", "ridəl", "mastər", "stroŋ⋅hŏld", "Wərdz", "transend", "laŋgwiʤ", "băndərï", "paθ", "mirər", "tranzmjŭt", "stŏn", "ólwëz", "nevər", "neðər", "end", "ŏvər⋅Wərld", "ʌndər⋅Wərld", "Wərld", "disk", "riŋ", "skwér", "sfír", "planit", "səlestïəl", "hevənz", "ätəm", "ármər", "sórd", "fórʤ", "imposibəl", "prətekʃən", "tŭl", "buk", "spel", "këv", "dragən", "vestiʤ", "dʌnʤən", "pərʧans", "infinit", "täm", "spës", "fäər", "Wótər", "ərθ", "ér", "dimäz", "destinï", "fórʧŭn", "gŏld", "silvər", "pŏst", "mórtəm", "piʦə", "skelətən", "mistikəl", "noliʤ", "drŭid", "ʤávə", "pëʤ", "fänd", "árkëik", "sŏl", "əfekt", "hárt", "ilŭʒən", "vël", "nëʧər", "män", "kraft", "Wiʃï⋅Woʃï", "ad", "rimŭv", "split", "pondər", "bikóz", "talisman", "imbjŭ", "wävərn", "säklops", "monəliθ", "task", "ekskalibər", "mjolnír", "rŭnik", "iliʤər", "ʌndərstand", "nʌʔʌ", "damiʤ", "brëk", "ŏkï⋅dŏkï", "kasəl", "hjŭmanitï", "träaŋgəl", "ʧaptər", "hwispər", "hwimzikəl", "aʣ", "tərkwöz", "ïʤis", "hŏmər", "márʤ", "bárt", "lïsə", "magï", "padiŋtən", "lŭnər", "sŏlər", "hʌndrid", "nekrənomikon", "grimwá", "eləment", "säəns", "biʤŭəld"};
 
 	public static AtoningTableEnchantmentNames getInstance() {
 		return INSTANCE;
@@ -52,6 +54,8 @@ public class AtoningTableEnchantmentNames {
 		String name = Util.getRandom(this.words, random);
 		int[] array = new int[name.length()];
 		for (int i = 0; i < name.length(); ++i) {
+
+
 			array[i] = ArrayUtils.indexOf(LETTERS, name.charAt(i));
 		}
 		return array;
