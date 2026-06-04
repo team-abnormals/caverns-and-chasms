@@ -40,6 +40,7 @@ public class CCItemTags {
 	public static final TagKey<Item> COPPER_AXES = itemTag("copper_axes");
 	public static final TagKey<Item> COPPER_HOES = itemTag("copper_hoes");
 	public static final TagKey<Item> COPPER_CHAINS = itemTag("copper_chains");
+	public static final TagKey<Item> COPPER_HORSE_ARMOR = itemTag("copper_horse_armor");
 
 	public static final TagKey<Item> COWL_ENCHANTABLE = itemTag("enchantable/cowl");
 	public static final TagKey<Item> TOOLBELT_ENCHANTABLE = itemTag("enchantable/toolbelt");
