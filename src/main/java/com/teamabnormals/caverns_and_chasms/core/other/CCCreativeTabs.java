@@ -30,7 +30,7 @@ public class CCCreativeTabs {
 					.title(Component.translatable("itemGroup.caverns_and_chasms.caverns_and_chasms"))
 					.icon(() -> new ItemStack(CCItems.DEEPER_HEAD.get()))
 					.displayItems(((parameters, output) -> {
-						if (CCConfig.CLIENT.creativeTab.get()) {
+						if (CCConfig.COMMON.creativeTab.get()) {
 							CCItems.ITEMS.getDeferredRegister().getEntries().forEach(entry -> output.accept(entry.get()));
 						}
 					})).build());
@@ -40,7 +40,7 @@ public class CCCreativeTabs {
 					.title(Component.translatable("itemGroup.caverns_and_chasms.copper"))
 					.icon(() -> new ItemStack(CCItems.WAXED_COPPER_INGOT.get()))
 					.displayItems(((parameters, output) -> {
-						if (CCConfig.CLIENT.copperCreativeTab.get()) {
+						if (CCConfig.COMMON.copperCreativeTab.get()) {
 							addToTab(output,
 									() -> Items.COPPER_INGOT, CCItems.EXPOSED_COPPER_INGOT, CCItems.WEATHERED_COPPER_INGOT, CCItems.OXIDIZED_COPPER_INGOT, CCItems.WAXED_COPPER_INGOT, CCItems.WAXED_EXPOSED_COPPER_INGOT, CCItems.WAXED_WEATHERED_COPPER_INGOT, CCItems.WAXED_OXIDIZED_COPPER_INGOT, () -> Items.BARRIER,
 									COPPER_SWORD, EXPOSED_COPPER_SWORD, WEATHERED_COPPER_SWORD, OXIDIZED_COPPER_SWORD, WAXED_COPPER_SWORD, WAXED_EXPOSED_COPPER_SWORD, WAXED_WEATHERED_COPPER_SWORD, WAXED_OXIDIZED_COPPER_SWORD, () -> Items.BARRIER,
