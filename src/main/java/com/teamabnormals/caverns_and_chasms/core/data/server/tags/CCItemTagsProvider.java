@@ -37,6 +37,7 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.DIRT, ItemTags.DIRT);
+		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
 		this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(SILVER_INGOT.get(), TIN_INGOT.get(), NECROMIUM_INGOT.get(), TURQUOISE.get(), ZIRCONIA.get());
 		this.tag(Tags.Items.MUSIC_DISCS).add(MUSIC_DISC_ANALOGUE.get(), MUSIC_DISC_EPILOGUE.get(), MUSIC_DISC_COPY.get());
