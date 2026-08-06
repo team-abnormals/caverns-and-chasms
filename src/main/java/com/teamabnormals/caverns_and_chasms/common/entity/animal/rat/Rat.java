@@ -603,8 +603,10 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 					this.commandedTargetOwnerTimestamp = owner.tickCount;
 				}
 
-				List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
-				this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
+				if (this.tickCount % 20 == 0) {
+					List<Rat> rats = this.level().getEntitiesOfClass(Rat.class, this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D), this::isAdultOfSamePack);
+					this.pack = rats.stream().sorted(Comparator.comparing(this::distanceToSqr)).limit(4).collect(Collectors.toList());
+				}
 			}
 
 			if (this.tickCount % 5 == 0 && this.isEating()) {
