@@ -34,6 +34,8 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import java.util.Locale;
+
 public class RatModel extends AgeableListModel<Rat> {
 	private static final RandomSource RANDOM = RandomSource.create();
 
@@ -307,7 +309,7 @@ public class RatModel extends AgeableListModel<Rat> {
 
 						for (int j = 0; j < modifiers.size(); ++j) {
 							CompoundTag modifier = modifiers.getCompound(j);
-							AttributeModifier.Operation operation = AttributeModifier.Operation.valueOf(modifier.getString("operation"));
+							AttributeModifier.Operation operation = AttributeModifier.Operation.valueOf(modifier.getString("operation").toUpperCase(Locale.ENGLISH));
 							switch (operation) {
 								case ADD_VALUE -> addition += modifier.getDouble("amount");
 								case ADD_MULTIPLIED_BASE -> multiplybase += modifier.getDouble("amount");
