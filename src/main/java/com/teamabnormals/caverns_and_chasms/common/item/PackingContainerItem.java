@@ -76,7 +76,7 @@ public class PackingContainerItem extends Item {
 						ItemStack insertStack = slot.safeInsert(removeStack);
 						mutable.tryInsert(insertStack);
 					}
-				} else if (itemstack.canFitInsideContainerItems() && mutable.canAddStack(stack)) {
+				} else if (itemstack.canFitInsideContainerItems() && mutable.canAddStack(itemstack)) {
 					int i = mutable.tryTransfer(slot, player);
 					if (i > 0) {
 						this.playInsertSound(player);
