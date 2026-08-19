@@ -37,7 +37,14 @@ license = "https://github.com/team-abnormals/caverns_and_chasms/blob/main/LICENS
 
 [[dependencies.caverns_and_chasms]]
     modId = "blueprint"
-type = "required"
+    type = "required"
     versionRange = "[${blueprint},)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.caverns_and_chasms]]
+    # Ensure Architect's Palette loads before so we can fix its recipes.
+    modId = "architects_palette"
+    type = "optional"
     ordering = "AFTER"
     side = "BOTH"

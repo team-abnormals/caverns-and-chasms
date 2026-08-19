@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "architects_palette"
+    }
+  ],
+  "type": "architects_palette:warping",
+  "dimension": "minecraft:the_nether",
+  "ingredient": {
+    "item": "caverns_and_chasms:rotten_flesh_block"
+  },
+  "result": {
+    "count": 1,
+    "id": "architects_palette:entrails"
+  }
+}
