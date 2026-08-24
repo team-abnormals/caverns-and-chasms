@@ -30,6 +30,8 @@ public class CCConfig {
 		public final BooleanValue goldenArmorIncreasesSpeed;
 
 		public final BooleanValue placeableItems;
+		public final BooleanValue creativeTab;
+		public final BooleanValue copperCreativeTab;
 
 		public final BooleanValue betterRailPlacement;
 		public final IntValue betterRailPlacementRange;
@@ -74,6 +76,8 @@ public class CCConfig {
 			builder.pop();
 
 			builder.push("items");
+			creativeTab = builder.comment("If there is a creative mode tab for Caverns & Chasms").define("(WIP) Creative mode tab", false);
+			copperCreativeTab = builder.comment("If there is a creative mode tab full of all variants of weathering copper items").define("(WIP) Copper creative mode tab", false);
 			placeableItems = builder.comment("If items like Ingots, Bricks, Coal, and Charcoal can be placed", "Individual items can be disabled through the #caverns_and_chasms:placeable_items item tag").define("Placeable items", true);
 			builder.push("zirconia");
 			zirconiaUniversalRepairing = builder.comment("If Zirconia can be used as a universal repair material").define("Zirconia universal repairing", true);
@@ -114,13 +118,8 @@ public class CCConfig {
 		public final BooleanValue clocksDisplayDay;
 		public final BooleanValue clocksUse24hrTime;
 
-		public final BooleanValue creativeTab;
-		public final BooleanValue copperCreativeTab;
-
 		public Client(ModConfigSpec.Builder builder) {
 			builder.push("items");
-			creativeTab = builder.comment("If there is a creative mode tab for Caverns & Chasms").define("(WIP) Creative mode tab", false);
-			copperCreativeTab = builder.comment("If there is a creative mode tab full of all variants of weathering copper items").define("(WIP) Copper creative mode tab", false);
 			builder.push("compass");
 			compassesDisplayPosition = builder.comment("Compasses display X and Z coordinates in the item description").define("Compasses display position", true);
 			builder.pop();
