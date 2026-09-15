@@ -928,7 +928,7 @@ public class Rat extends ShoulderRidingEntity implements VariantHolder<RatVarian
 
 			rat = iterator.next();
 
-			if (this != rat && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.hasBraveryToFight())
+			if (this != rat && target != null && rat.getTarget() == null && (this.getOwner() == rat.getOwner() && !rat.isAlliedTo(target)) && rat.hasBraveryToFight())
 				rat.setTarget(target);
 		}
 	}
