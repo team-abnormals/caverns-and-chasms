@@ -5,6 +5,7 @@ import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import com.teamabnormals.boatload.core.data.server.BoatloadRecipeProvider;
 import com.teamabnormals.caverns_and_chasms.common.block.FloodlightBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.IngotBlock;
+import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MimingRecipe;
 import com.teamabnormals.caverns_and_chasms.common.recipe.MusicDiscCopying;
 import com.teamabnormals.caverns_and_chasms.common.recipe.NBTWaxing;
@@ -745,6 +746,10 @@ public class CCRecipeProvider extends BlueprintRecipeProvider {
 	}
 
 	private void addWaxRecipe(RecipeOutput consumer, Block base, Block waxed) {
+		if (base instanceof ToolboxBlock) {
+			return;
+		}
+
 		boolean vanilla = !BuiltInRegistries.BLOCK.getKey(waxed).getNamespace().equals(this.getModID());
 		RecipeCategory category = (waxed instanceof BaseRailBlock || waxed instanceof IronBarsBlock || waxed instanceof FloodlightBlock || waxed instanceof LightningRodBlock) ? DECORATIONS :
 				(waxed instanceof ButtonBlock || waxed instanceof PressurePlateBlock) ? REDSTONE :
