@@ -40,7 +40,7 @@ public class CCTiers {
 		public static final DeferredHolder<ArmorMaterial, ArmorMaterial> TOOLBELT = register("toolbelt", defense(1, 2, 3, 1, 3), 15, CCSoundEvents.ARMOR_EQUIP_TOOLBELT, 0.0F, 0.0F, () -> Ingredient.of(Items.LEATHER), true);
 
 		public static DeferredHolder<ArmorMaterial, ArmorMaterial> registerCopper(String name, TagKey<Item> repairTag) {
-			return register(name, defense(1, 4, 5, 2, 15), 8, CCSoundEvents.ARMOR_EQUIP_COPPER, 0.0F, 0.05F, () -> Ingredient.of(repairTag));
+			return register(name, defense(1 + 2, 3 + 2, 4 + 2, 2 + 2, 15), 8, CCSoundEvents.ARMOR_EQUIP_COPPER, 0.0F, 0.05F, () -> Ingredient.of(repairTag));
 		}
 
 		public static EnumMap<Type, Integer> defense(int boots, int leggings, int chestplate, int helmet, int body) {
