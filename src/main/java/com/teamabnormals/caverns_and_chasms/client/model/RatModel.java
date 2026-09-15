@@ -48,7 +48,7 @@ public class RatModel extends AgeableListModel<Rat> {
 	public final ModelPart rightFrontLeg;
 	public final ModelPart rightHindLeg;
 
-	public RatPose pose;
+	public RatPose pose = RatPose.STANDING;
 	private float tailWagAmount;
 	private boolean eating;
 	private boolean wounded;
