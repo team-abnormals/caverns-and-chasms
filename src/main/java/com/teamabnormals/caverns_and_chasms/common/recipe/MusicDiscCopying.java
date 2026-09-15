@@ -26,7 +26,7 @@ public class MusicDiscCopying extends CustomRecipe {
 		for (int k = 0; k < input.size(); ++k) {
 			ItemStack stack = input.getItem(k);
 			if (!stack.isEmpty()) {
-				if (stack.has(DataComponents.JUKEBOX_PLAYABLE)) {
+				if (stack.has(DataComponents.JUKEBOX_PLAYABLE) && !stack.is(CCItems.MUSIC_DISC_COPY)) {
 					++i;
 				} else {
 					if (!stack.is(CCItems.ZIRCONIA.get())) {
