@@ -188,7 +188,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 		for (Item item : smithingTemplates) {
 			ResourceLocation trimName = BuiltInRegistries.ITEM.getKey(item).withSuffix("_smithing_trim");
 			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName, RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
-			smithingModifiers.add("armor_trimmed_" + trimName);
+			smithingModifiers.add("armor_trimmed_" + trimName.getPath());
 		}
 
 		return this.advancementRemolder("adventure/trim_with_any_armor_pattern").remolder(AdvancementRemolders.criteria(trimWithAnyPattern.addIndexedRequirements(0, false, smithingModifiers.toArray(new String[0])).build()));
