@@ -42,7 +42,7 @@ public abstract class ItemMixin {
 
 	@Inject(method = "use", at = @At("HEAD"), cancellable = true)
 	private void use(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-		if (EnchantmentHelper.has(player.getItemBySlot(EquipmentSlot.LEGS), CCEnchantmentEffects.CAN_PLACE_MIDAIR.get())) {
+		if (EnchantmentHelper.has(player.getItemBySlot(EquipmentSlot.LEGS), CCEnchantmentEffects.CAN_PLACE_MIDAIR.get()) && (Item) (Object) this instanceof BlockItem) {
 			double reach = player.blockInteractionRange() - 2.0D;
 			Vec3 eyeLoc = player.getEyePosition();
 			Vec3 scaled = eyeLoc.add(player.calculateViewVector(player.getXRot(), player.getYRot()).scale(player.isSecondaryUseActive() ? reach / 2.0D : reach));
