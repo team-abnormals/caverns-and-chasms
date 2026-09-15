@@ -1,6 +1,6 @@
 {
   "remove": [
-    "minecraft:deep_dark"
+    "#c:no_default_monsters"
   ],
   "values": [
     "#minecraft:is_overworld"

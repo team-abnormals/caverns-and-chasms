@@ -48,7 +48,7 @@ public class CCBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.tag(HAS_PEEPER).addTag(BiomeTags.IS_OVERWORLD).remove(Tags.Biomes.NO_DEFAULT_MONSTERS);
 		this.tag(HAS_MIME).addTag(BiomeTags.IS_OVERWORLD).remove(Tags.Biomes.NO_DEFAULT_MONSTERS);
-		this.tag(HAS_GRAZER).addTag(BiomeTags.IS_OVERWORLD).remove(Biomes.DEEP_DARK);
+		this.tag(HAS_GRAZER).addTag(BiomeTags.IS_OVERWORLD).remove(Tags.Biomes.NO_DEFAULT_MONSTERS);
 		this.tag(HAS_RAT).addTag(BiomeTags.IS_OVERWORLD).remove(Biomes.DEEP_DARK);
 		this.tag(HAS_CAVEFISH).addTag(BiomeTags.IS_OVERWORLD).remove(Biomes.DEEP_DARK);
 		this.tag(HAS_GLARE).add(Biomes.LUSH_CAVES);
