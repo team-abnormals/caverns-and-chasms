@@ -131,7 +131,7 @@ public class CCDataMapProvider extends DataMapProvider {
 				.add(CCGameEvents.TUNING_FORK_VIBRATE, new VibrationFrequency(10), false);
 
 		this.builder(NeoForgeDataMaps.FURNACE_FUELS)
-				.add(CHARCOAL_BLOCK.getId(), new FurnaceFuel(12800), false);
+				.add(CHARCOAL_BLOCK.getId(), new FurnaceFuel(14400), false);
 
 		this.builder(NeoForgeDataMaps.COMPOSTABLES)
 				.add(FALSE_HOPE.getId(), new Compostable(0.65F), false)
