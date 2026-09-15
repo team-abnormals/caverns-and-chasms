@@ -7,6 +7,7 @@ import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCBlockTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlocks;
+import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
@@ -154,6 +155,10 @@ public class CCItemTagsProvider extends BlueprintItemTagsProvider {
 		this.copy(CCBlockTags.COPPER_CHAINS, CCItemTags.COPPER_CHAINS);
 		this.copy(CCBlockTags.COPPER_RAILS, CCItemTags.COPPER_RAILS);
 		this.copy(Tags.Blocks.CHAINS, Tags.Items.CHAINS);
+		this.tag(Tags.Items.DRINKS_MILK).add(GOLDEN_MILK_BUCKET.get());
+		this.tag(Tags.Items.FOODS_RAW_FISH).add(CAVEFISH.get());
+		this.tag(Tags.Items.FOODS).add(BEJEWELED_APPLE.get());
+		this.tag(Tags.Items.ANIMAL_FOODS).addTag(CCItemTags.GLARE_FOOD).addTag(CCItemTags.RAT_FOOD);
 
 		this.tag(CCItemTags.USES_SANGUINE_ARMOR_MODEL).add(SANGUINE_HELMET.get(), SANGUINE_CHESTPLATE.get());
 		this.tag(CCItemTags.USES_COPPER_ARMOR_MODEL).addTag(CCItemTags.COPPER_HELMETS);
