@@ -31,8 +31,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.tags.CCDamageTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -91,6 +89,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -116,7 +115,6 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Added;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Expired;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Remove;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
-import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.StartTracking;
@@ -166,7 +164,7 @@ public class CCEvents {
 	@SubscribeEvent
 	public static void onLivingSpawn(FinalizeSpawnEvent event) {
 		LivingEntity entity = event.getEntity();
-		LevelAccessor level = event.getLevel();
+		ServerLevelAccessor level = event.getLevel();
 		boolean validSpawn = event.getSpawnType() == MobSpawnType.NATURAL || event.getSpawnType() == MobSpawnType.CHUNK_GENERATION;
 		if (!event.isCanceled()) {
 			if (validSpawn && entity.getType() == EntityType.CREEPER) {
@@ -927,14 +925,14 @@ public class CCEvents {
 		boolean flag = i % 10 == 5;
 		if (flag) {
 			HitResult hit = ProjectileUtil.getHitResultOnViewVector(
-				player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
+					player, entity -> !entity.isSpectator() && entity.isPickable(), player.blockInteractionRange()
 			);
 			if (hit instanceof BlockHitResult blockhitresult && hit.getType() == HitResult.Type.BLOCK) {
 				Level level = player.level();
 				BlockPos pos = blockhitresult.getBlockPos();
 				BlockState state = level.getBlockState(pos);
 				if (state.getBlock() instanceof FlintBlock) {
-					level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_BRUSH.get(),  SoundSource.BLOCKS, 1.0F, 1.0F);
+					level.playSound(null, pos, CCSoundEvents.FLINT_BLOCK_BRUSH.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 					if (level instanceof ServerLevel) {
 						int strikeIndex = i / 10;
 						int fakeStrikes = level.random.nextIntBetweenInclusive(3, 5);
@@ -1016,9 +1014,11 @@ public class CCEvents {
 		level.playSound(null, x, y, z, CCSoundEvents.REWIND.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 	}
 
-	private static void replaceCreeperSpawn(Creeper creeper, EntityType entityType, LevelAccessor level, FinalizeSpawnEvent event) {
-		if (level.getBlockState(creeper.blockPosition().below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
+	private static void replaceCreeperSpawn(Creeper creeper, EntityType entityType, ServerLevelAccessor level, FinalizeSpawnEvent event) {
+		BlockPos pos = creeper.blockPosition();
+		if (level.getBlockState(pos.below()).is(CCBlockTags.DEEPER_SPAWNABLE_ON)) {
 			Entity entity = entityType.create((Level) level);
+			EventHooks.finalizeMobSpawn((Mob) entity, level, level.getCurrentDifficultyAt(pos), event.getSpawnType(), null);
 			if (entity != null) {
 				entity.copyPosition(creeper);
 				level.addFreshEntity(entity);

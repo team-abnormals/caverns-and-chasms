@@ -74,7 +74,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.add;
-import static com.teamabnormals.blueprint.common.remolder.RemolderTypes.sequence;
 import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.target;
 import static com.teamabnormals.blueprint.common.remolder.data.DynamicReference.value;
 import static com.teamabnormals.blueprint.common.remolder.util.LootRemolders.addEntry;

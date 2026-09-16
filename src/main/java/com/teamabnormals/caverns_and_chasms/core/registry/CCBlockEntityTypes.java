@@ -2,8 +2,6 @@ package com.teamabnormals.caverns_and_chasms.core.registry;
 
 import com.teamabnormals.blueprint.core.util.registry.BlockEntitySubRegistryHelper;
 import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.HoldButtonBlockEntity;
-import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.HoldPlateBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.*;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.*;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;

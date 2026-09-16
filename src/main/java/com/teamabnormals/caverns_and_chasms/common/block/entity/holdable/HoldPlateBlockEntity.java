@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 

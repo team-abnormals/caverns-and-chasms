@@ -14,15 +14,15 @@ public class AtoningTableEnchantmentNames {
 	private static final ResourceLocation KOUKERI_FONT = CavernsAndChasms.location("koukeri");
 	private static final Style ROOT_STYLE = Style.EMPTY.withFont(KOUKERI_FONT);
 	public static final char[] LETTERS = new char[]{
-			'i',      'u', 'í', 'ú', 'ï',      'ŭ',
+			'i', 'u', 'í', 'ú', 'ï', 'ŭ',
 			'e', 'ə', 'o', 'é', 'ó', 'ë', 'ö', 'ŏ',
-			'a', 'ʌ',           'á', 'ä',      'ă',
-			'm', 'n',      'ŋ',
+			'a', 'ʌ', 'á', 'ä', 'ă',
+			'm', 'n', 'ŋ',
 			'p', 't', 'ʦ', 'ʧ', 'k', 'ʔ', '⋅',
 			'b', 'd', 'ʣ', 'ʤ', 'g',
 			'f', 'θ', 's', 'ʃ', 'x', 'h',
 			'v', 'ð', 'z', 'ʒ', 'ɣ',
-			'W', 'l',      'r', 'j',
+			'W', 'l', 'r', 'j',
 			'w'
 	};
 

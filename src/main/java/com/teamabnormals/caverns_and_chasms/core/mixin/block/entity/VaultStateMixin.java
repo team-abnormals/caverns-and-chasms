@@ -6,7 +6,6 @@ import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.TrialToken;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.vault.VaultConfig;
 import net.minecraft.world.level.block.entity.vault.VaultSharedData;
 import org.spongepowered.asm.mixin.Mixin;

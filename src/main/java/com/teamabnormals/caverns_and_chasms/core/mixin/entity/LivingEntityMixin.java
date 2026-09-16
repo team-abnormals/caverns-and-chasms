@@ -12,13 +12,11 @@ import com.teamabnormals.caverns_and_chasms.core.interfaces.RatHolder;
 import com.teamabnormals.caverns_and_chasms.core.other.CCCriteriaTriggers;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCEntityTypeTags;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCItems;
-import com.teamabnormals.caverns_and_chasms.core.registry.CCMobEffects;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCParticleTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -53,7 +51,9 @@ public abstract class LivingEntityMixin extends Entity implements RatHolder {
 	@Nullable
 	public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
 
-	@Shadow @Final private static EntityDataAccessor<List<ParticleOptions>> DATA_EFFECT_PARTICLES;
+	@Shadow
+	@Final
+	private static EntityDataAccessor<List<ParticleOptions>> DATA_EFFECT_PARTICLES;
 	@Unique
 	private List<Rat> attachedRats = Lists.newArrayList();
 

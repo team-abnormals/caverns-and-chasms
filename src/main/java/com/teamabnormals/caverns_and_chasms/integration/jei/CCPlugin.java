@@ -18,7 +18,6 @@ import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 

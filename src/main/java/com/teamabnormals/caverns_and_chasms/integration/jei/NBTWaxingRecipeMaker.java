@@ -5,7 +5,6 @@ import com.teamabnormals.caverns_and_chasms.common.block.ToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.block.weathering.WeatheringToolboxBlock;
 import com.teamabnormals.caverns_and_chasms.common.item.copper.WeatheringCopperItem;
 import com.teamabnormals.caverns_and_chasms.core.CavernsAndChasms;
-import com.teamabnormals.caverns_and_chasms.core.data.server.CCDataMapProvider;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps;
 import com.teamabnormals.caverns_and_chasms.core.other.CCDataMaps.WaxableItem;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;

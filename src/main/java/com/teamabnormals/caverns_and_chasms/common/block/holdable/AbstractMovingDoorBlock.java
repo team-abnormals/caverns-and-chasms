@@ -5,8 +5,6 @@ import com.teamabnormals.caverns_and_chasms.client.resources.sounds.MovingDoorMo
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorBlockEntity;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.MovingDoorHeaderBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.other.tags.CCItemTags;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;

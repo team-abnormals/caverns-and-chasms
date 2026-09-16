@@ -65,19 +65,19 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SPARKLER_SPARKLE = SOUNDS.createSoundEvent("block.sparkler.sparkle");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SPARKLER_FIZZLE = SOUNDS.createSoundEvent("block.sparkler.fizzle");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SPARKLER_EXPLODE = SOUNDS.createSoundEvent("block.sparkler.explode");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_BREAK = SOUNDS.createSoundEvent("block.schist.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_FALL = SOUNDS.createSoundEvent("block.schist.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_HIT = SOUNDS.createSoundEvent("block.schist.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_PLACE = SOUNDS.createSoundEvent("block.schist.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_STEP = SOUNDS.createSoundEvent("block.schist.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SCHIST_BREAK = SOUNDS.createSoundEvent("block.polished_schist.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SCHIST_FALL = SOUNDS.createSoundEvent("block.polished_schist.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SCHIST_HIT = SOUNDS.createSoundEvent("block.polished_schist.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SCHIST_PLACE = SOUNDS.createSoundEvent("block.polished_schist.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SCHIST_STEP = SOUNDS.createSoundEvent("block.polished_schist.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_BRICKS_BREAK = SOUNDS.createSoundEvent("block.schist_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_BRICKS_FALL = SOUNDS.createSoundEvent("block.schist_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SCHIST_BRICKS_HIT = SOUNDS.createSoundEvent("block.schist_bricks.hit");
@@ -89,13 +89,13 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_HIT = SOUNDS.createSoundEvent("block.rhyolite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.rhyolite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_STEP = SOUNDS.createSoundEvent("block.rhyolite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_BREAK = SOUNDS.createSoundEvent("block.polished_rhyolite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_FALL = SOUNDS.createSoundEvent("block.polished_rhyolite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_HIT = SOUNDS.createSoundEvent("block.polished_rhyolite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.polished_rhyolite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_RHYOLITE_STEP = SOUNDS.createSoundEvent("block.polished_rhyolite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.rhyolite_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.rhyolite_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> RHYOLITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.rhyolite_bricks.hit");
@@ -107,13 +107,13 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_HIT = SOUNDS.createSoundEvent("block.magmatic_rhyolite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.magmatic_rhyolite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_STEP = SOUNDS.createSoundEvent("block.magmatic_rhyolite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_BREAK = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_FALL = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_HIT = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_PLACE = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_MAGMATIC_RHYOLITE_STEP = SOUNDS.createSoundEvent("block.polished_magmatic_rhyolite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MAGMATIC_RHYOLITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.magmatic_rhyolite_bricks.hit");
@@ -126,14 +126,14 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_PLACE = SOUNDS.createSoundEvent("block.cassiterite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_STEP = SOUNDS.createSoundEvent("block.cassiterite.step");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_DEFLECT = SOUNDS.createSoundEvent("block.cassiterite.deflect");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CASSITERITE_BREAK = SOUNDS.createSoundEvent("block.polished_cassiterite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CASSITERITE_FALL = SOUNDS.createSoundEvent("block.polished_cassiterite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CASSITERITE_HIT = SOUNDS.createSoundEvent("block.polished_cassiterite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CASSITERITE_PLACE = SOUNDS.createSoundEvent("block.polished_cassiterite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CASSITERITE_STEP = SOUNDS.createSoundEvent("block.polished_cassiterite.step");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CASSITERITE_DEFLECT = SOUNDS.createSoundEvent("block.polished_cassiterite.deflect");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.cassiterite_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.cassiterite_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CASSITERITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.cassiterite_bricks.hit");
@@ -147,14 +147,14 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_PLACE = SOUNDS.createSoundEvent("block.cylindrite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_STEP = SOUNDS.createSoundEvent("block.cylindrite.step");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_DEFLECT = SOUNDS.createSoundEvent("block.cylindrite.deflect");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_BREAK = SOUNDS.createSoundEvent("block.polished_cylindrite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_FALL = SOUNDS.createSoundEvent("block.polished_cylindrite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_HIT = SOUNDS.createSoundEvent("block.polished_cylindrite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_PLACE = SOUNDS.createSoundEvent("block.polished_cylindrite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_STEP = SOUNDS.createSoundEvent("block.polished_cylindrite.step");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CYLINDRITE_DEFLECT = SOUNDS.createSoundEvent("block.polished_cylindrite.deflect");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.cylindrite_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.cylindrite_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CYLINDRITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.cylindrite_bricks.hit");
@@ -189,13 +189,13 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_HIT = SOUNDS.createSoundEvent("block.sugilite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_PLACE = SOUNDS.createSoundEvent("block.sugilite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_STEP = SOUNDS.createSoundEvent("block.sugilite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_BREAK = SOUNDS.createSoundEvent("block.polished_sugilite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_FALL = SOUNDS.createSoundEvent("block.polished_sugilite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_HIT = SOUNDS.createSoundEvent("block.polished_sugilite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_PLACE = SOUNDS.createSoundEvent("block.polished_sugilite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_SUGILITE_STEP = SOUNDS.createSoundEvent("block.polished_sugilite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.sugilite_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.sugilite_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SUGILITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.sugilite_bricks.hit");
@@ -232,19 +232,19 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> NECROMIUM_HIT = SOUNDS.createSoundEvent("block.necromium.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> NECROMIUM_PLACE = SOUNDS.createSoundEvent("block.necromium.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> NECROMIUM_STEP = SOUNDS.createSoundEvent("block.necromium.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> CALCITE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.calcite_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CALCITE_BRICKS_FALL = SOUNDS.createSoundEvent("block.calcite_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CALCITE_BRICKS_HIT = SOUNDS.createSoundEvent("block.calcite_bricks.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CALCITE_BRICKS_PLACE = SOUNDS.createSoundEvent("block.calcite_bricks.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> CALCITE_BRICKS_STEP = SOUNDS.createSoundEvent("block.calcite_bricks.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_BREAK = SOUNDS.createSoundEvent("block.polished_calcite.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_FALL = SOUNDS.createSoundEvent("block.polished_calcite.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_HIT = SOUNDS.createSoundEvent("block.polished_calcite.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_PLACE = SOUNDS.createSoundEvent("block.polished_calcite.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> POLISHED_CALCITE_STEP = SOUNDS.createSoundEvent("block.polished_calcite.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_BREAK = SOUNDS.createSoundEvent("block.dripstone_bricks.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_FALL = SOUNDS.createSoundEvent("block.dripstone_bricks.fall");
 	public static final DeferredHolder<SoundEvent, SoundEvent> DRIPSTONE_BRICKS_HIT = SOUNDS.createSoundEvent("block.dripstone_bricks.hit");
@@ -330,7 +330,7 @@ public class CCSoundEvents {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_HIT = SOUNDS.createSoundEvent("block.silver.hit");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_PLACE = SOUNDS.createSoundEvent("block.silver.place");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SILVER_STEP = SOUNDS.createSoundEvent("block.silver.step");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> GOLDEN_CHAIN_BREAK = SOUNDS.createSoundEvent("block.golden_chain.break");
 	public static final DeferredHolder<SoundEvent, SoundEvent> GOLDEN_CHAIN_STEP = SOUNDS.createSoundEvent("block.golden_chain.step");
 	public static final DeferredHolder<SoundEvent, SoundEvent> GOLDEN_CHAIN_PLACE = SOUNDS.createSoundEvent("block.golden_chain.place");
@@ -481,7 +481,7 @@ public class CCSoundEvents {
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_BUTTON_CLICK_OFF = SOUNDS.createSoundEvent("block.lift_button.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_BUTTON_CLICK_ON = SOUNDS.createSoundEvent("block.lift_button.click_on");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.lift_pressure_plate.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> LIFT_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.lift_pressure_plate.click_on");
 
@@ -499,7 +499,7 @@ public class CCSoundEvents {
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_OFF = SOUNDS.createSoundEvent("block.medium_weighted_pressure_plate.click_off");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MEDIUM_WEIGHTED_PRESSURE_PLATE_CLICK_ON = SOUNDS.createSoundEvent("block.medium_weighted_pressure_plate.click_on");
-	
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> VAULT_INSERT_TOKEN = SOUNDS.createSoundEvent("block.vault.insert_token");
 	public static final DeferredHolder<SoundEvent, SoundEvent> OPEN_TOKEN = SOUNDS.createSoundEvent("block.vault.open_token");
 

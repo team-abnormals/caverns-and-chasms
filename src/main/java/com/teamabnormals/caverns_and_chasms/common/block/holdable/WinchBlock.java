@@ -3,7 +3,6 @@ package com.teamabnormals.caverns_and_chasms.common.block.holdable;
 import com.mojang.serialization.MapCodec;
 import com.teamabnormals.caverns_and_chasms.common.block.entity.holdable.WinchBlockEntity;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;

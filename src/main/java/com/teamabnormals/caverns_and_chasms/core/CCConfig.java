@@ -1,7 +1,6 @@
 package com.teamabnormals.caverns_and_chasms.core;
 
 import com.teamabnormals.blueprint.core.annotations.ConfigKey;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
