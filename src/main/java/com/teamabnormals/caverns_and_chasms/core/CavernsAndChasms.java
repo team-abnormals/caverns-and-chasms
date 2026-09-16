@@ -90,7 +90,6 @@ public class CavernsAndChasms {
 		CCEnchantmentEffects.COMPONENTS.register(bus);
 		CCCriteriaTriggers.TRIGGERS.register(bus);
 		CCCriteriaTriggers.ENTITY_SUB_PREDICATE_TYPES.register(bus);
-		CCCreativeTabs.CREATIVE_TABS.register(bus);
 		CCConditionSerializers.CONDITION_SERIALIZERS.register(bus);
 
 		NeoForgeMod.enableMergedAttributeTooltips();
