@@ -890,7 +890,9 @@ public class CCEvents {
 							headstack.set(CCDataComponents.TETHER_COOLDOWN, cooldown - 1);
 						} else {
 							effect.applyInstantenousEffect(entity, entity, entity, instance.getAmplifier(), 1.0D);
-							TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), contents.getColor());
+							if (level.isClientSide()) {
+								TetherPotionItem.instantEffectParticlesAndSound(level, BlockPos.containing(entity.getEyePosition(1.0F)), contents.getColor());
+							}
 							headstack.set(CCDataComponents.TETHER_COOLDOWN, 600);
 						}
 					}
