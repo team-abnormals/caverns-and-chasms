@@ -39,7 +39,7 @@ public class GoldenBucketItem extends BucketItem {
 		map.put(state -> state.getFluidState().is(Fluids.WATER), CCItems.GOLDEN_WATER_BUCKET);
 		map.put(state -> state.getFluidState().is(Fluids.LAVA), CCItems.GOLDEN_LAVA_BUCKET);
 		map.put(state -> state.is(Blocks.POWDER_SNOW), CCItems.GOLDEN_POWDER_SNOW_BUCKET);
-		map.put(state -> NeoForgeMod.MILK.get() != null && state.getFluidState().is(NeoForgeMod.MILK.get()), CCItems.GOLDEN_MILK_BUCKET);
+		map.put(state -> NeoForgeMod.MILK.isBound() && state.getFluidState().is(NeoForgeMod.MILK.get()), CCItems.GOLDEN_MILK_BUCKET);
 	});
 
 	public GoldenBucketItem(Fluid content, Item.Properties builder) {
@@ -77,7 +77,7 @@ public class GoldenBucketItem extends BucketItem {
 			BlockPos offsetPos = pos.relative(dir);
 			if (level.mayInteract(player, pos) && player.mayUseItemAt(offsetPos, dir, stack)) {
 				BlockState state = level.getBlockState(pos);
-				if (empty || (canBeFilled(stack) && state.getFluidState().is(this.content))) {
+				if (empty || (canBeFilled(stack) && !player.isSecondaryUseActive() && state.getFluidState().is(this.content))) {
 					if (state.getBlock() instanceof BucketPickup pickup) {
 						ItemStack pickupStack = pickup.pickupBlock(player, level, pos, state);
 						if (!pickupStack.isEmpty()) {
