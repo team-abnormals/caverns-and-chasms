@@ -715,15 +715,6 @@ public class CCEvents {
 				}
 			}
 		}
-
-		if (projectile.getType().is(CCEntityTypeTags.MUDDY_PROJECTILES)) {
-			if (event.getRayTraceResult().getType() == HitResult.Type.ENTITY) {
-				EntityHitResult entity = (EntityHitResult) event.getRayTraceResult();
-				if (entity.getEntity() instanceof Rat rat) {
-					rat.setDirty(true);
-				}
-			}
-		}
 	}
 
 	@SubscribeEvent
