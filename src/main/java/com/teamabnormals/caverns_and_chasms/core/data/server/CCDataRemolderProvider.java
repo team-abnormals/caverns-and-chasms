@@ -186,7 +186,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 		ArrayList<String> smithingModifiers = Lists.newArrayList();
 		for (Item item : smithingTemplates) {
 			ResourceLocation trimName = BuiltInRegistries.ITEM.getKey(item).withSuffix("_smithing_trim");
-			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName, RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
+			trimWithAnyPattern.addCriterion("armor_trimmed_" + trimName.getPath(), RecipeCraftedTrigger.TriggerInstance.craftedItem(trimName));
 			smithingModifiers.add("armor_trimmed_" + trimName.getPath());
 		}
 
@@ -334,7 +334,7 @@ public class CCDataRemolderProvider extends RemolderProvider {
 				addEntry(0, entry(TOOLBELT.get(), 2)));
 
 		this.lootRemolder(BuiltInLootTables.PILLAGER_OUTPOST).remolder(
-				addEntry(1, entry(COWL.get(), 1)),
+				addEntry(0, entry(COWL.get(), 1)),
 				addEntry(3, entry(RICOCHET_ARROW.get(), 2, 1, 4)),
 				addEntry(3, entry(LARGE_ARROW.get(), 4, 1, 2)));
 
