@@ -4,61 +4,46 @@ import com.teamabnormals.caverns_and_chasms.common.block.holdable.AbstractDimmer
 import com.teamabnormals.caverns_and_chasms.core.registry.CCBlockEntityTypes;
 import com.teamabnormals.caverns_and_chasms.core.registry.CCSoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup.Provider;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DimmerBlockEntity extends AbstractHoldableBlockEntity {
-	private boolean unpowerTick;
+	private static final int BUZZ_INTERVAL = 2;
+	private static final double BUZZ_RANGE = 16.0D;
 
 	public DimmerBlockEntity(BlockPos pos, BlockState state) {
 		super(CCBlockEntityTypes.DIMMER.get(), pos, state);
 	}
 
 	@Override
-	public void loadAdditional(CompoundTag tag, Provider registries) {
-		super.loadAdditional(tag, registries);
-		this.unpowerTick = tag.getBoolean("UnpowerTick");
-	}
-
-	@Override
-	protected void saveAdditional(CompoundTag tag, Provider registries) {
-		super.saveAdditional(tag, registries);
-		tag.putBoolean("UnpowerTick", this.unpowerTick);
-	}
-
-	@Override
 	public void setHeld() {
 		this.holdTime = 5;
+		Level level = this.level;
+		if (level != null && !level.isClientSide) {
+			Block block = this.getBlockState().getBlock();
+			if (!level.getBlockTicks().hasScheduledTick(this.worldPosition, block)) {
+				level.scheduleTick(this.worldPosition, block, 1);
+			}
+		}
 	}
 
-	public static void tick(Level level, BlockPos pos, BlockState state, DimmerBlockEntity blockEntity) {
-		if (!level.isClientSide()) {
-			int i = blockEntity.holdTime > 0 ? 15 : level.getBestNeighborSignal(pos);
-			int j = state.getValue(AbstractDimmerBlock.POWER);
-			if (i < j) {
-				if (!blockEntity.unpowerTick) {
-					blockEntity.unpowerTick = true;
-				} else {
-					level.setBlock(pos, state.setValue(AbstractDimmerBlock.POWER, j - 1), 3);
-					level.playSound(null, pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.75F + (j - 1) / 15F * 0.5F, 0.8F);
-					blockEntity.unpowerTick = false;
-				}
-			} else {
-				if (i > j) {
-					level.setBlock(pos, state.setValue(AbstractDimmerBlock.POWER, j + 1), 3);
-					level.playSound(null, pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.75F + (j + 1) / 15F * 0.5F, 0.8F);
-				}
-				blockEntity.unpowerTick = false;
-			}
+	public boolean isHeld() {
+		return this.holdTime > 0;
+	}
 
-			if (blockEntity.holdTime > 0) {
-				--blockEntity.holdTime;
+	public void ageHoldTime() {
+		if (this.holdTime > 0) {
+			--this.holdTime;
+		}
+	}
+
+	public static void clientTick(Level level, BlockPos pos, BlockState state, DimmerBlockEntity blockEntity) {
+		if (state.getValue(AbstractDimmerBlock.POWER) > 0 && level.getGameTime() % BUZZ_INTERVAL == Math.floorMod(pos.hashCode(), BUZZ_INTERVAL)) {
+			if (level.getNearestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BUZZ_RANGE, entity -> true) != null) {
+				level.playLocalSound(pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.2F, 0.2F, false);
 			}
-		} else if (state.getValue(AbstractDimmerBlock.POWER) > 0 && level.getGameTime() % 2 == 0) {
-			level.playLocalSound(pos, CCSoundEvents.DIMMER_BUZZ.get(), SoundSource.BLOCKS, 0.2F, 0.2F, false);
 		}
 	}
 }
