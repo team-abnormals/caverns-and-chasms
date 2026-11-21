@@ -14,7 +14,7 @@ public class AegisModel extends Model {
 	private final ModelPart handle;
 
 	public AegisModel(ModelPart root) {
-		super(RenderType::entityCutout);
+		super(RenderType::entityCutoutNoCull);
 		this.root = root;
 		this.plate = root.getChild("plate");
 		this.handle = root.getChild("handle");
