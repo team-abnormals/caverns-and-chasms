@@ -71,6 +71,7 @@ public class CCBlockTagsProvider extends BlockTagsProvider {
 		this.tag(BlockTags.SMALL_FLOWERS).add(FALSE_HOPE.get(), MOSCHATEL.get());
 		this.tag(BlockTags.CLIMBABLE).add(AZALEA_LADDER.get());
 		this.tag(BlockTags.BEEHIVES).add(AZALEA_BEEHIVE.get());
+		this.tag(BlockTags.ENDERMAN_HOLDABLE).add(TMT.get());
 		this.tag(BlockTags.IMPERMEABLE).add(FLOAT_GLASS.get(), FROSTED_GLASS.get(), ORNATE_GLASS.get());
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				DEEPSLATE_STAIRS.get(), DEEPSLATE_SLAB.get(),
