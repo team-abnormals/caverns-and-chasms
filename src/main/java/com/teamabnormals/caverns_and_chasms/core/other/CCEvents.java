@@ -706,7 +706,13 @@ public class CCEvents {
 				EntityHitResult entityHitResult = (EntityHitResult) hitResult;
 				if (entityHitResult.getEntity() instanceof LivingEntity living && living.isBlocking() && isProjectileBlocked(living, projectile)) {
 					if (living.getUseItem().is(CCItems.AEGIS.get())) {
-						projectile.deflect(CCProjectileUtil.AEGIS_DEFLECT, living, living, living instanceof Player);
+						if (projectile instanceof AbstractArrow abstractArrow) {
+							AbstractArrow.Pickup pickup = abstractArrow.pickup;
+							projectile.deflect(CCProjectileUtil.AEGIS_DEFLECT, living, living, living instanceof Player);
+							abstractArrow.pickup = pickup;
+						} else {
+							projectile.deflect(CCProjectileUtil.AEGIS_DEFLECT, living, living, living instanceof Player);
+						}
 						event.setCanceled(true);
 					} else if (ricochetArrow || bonus) {
 						projectile.deflect(CCProjectileUtil.SHIELD_TIN_DEFLECT, living, projectile.getOwner(), living instanceof Player);
